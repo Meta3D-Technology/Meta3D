@@ -1,6 +1,7 @@
-import type { List, Map } from 'immutable';
+import type { List, Seq } from 'immutable';
 import { state as meta3dState } from "meta3d-type"
 import { gameObject } from "meta3d-gameobject-protocol"
+import { events } from '../state/StateType';
 
 type component = number
 
@@ -20,6 +21,7 @@ type eventName = string
 
 export type eventData<inputData> = {
     name: eventName,
+    isOnlyRead?: boolean,
     // parent?: eventName,
     inputData: inputData
 }
@@ -42,11 +44,16 @@ export type service = {
     removeOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => meta3dState,
     generateOutsideImmutableDataId: (meta3dState: meta3dState) => outsideImmutableDataId,
     getOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => outsideImmutableData,
-    getAllOutsideImmutableData: (meta3dState: meta3dState) => IterableIterator<[outsideImmutableDataId, outsideImmutableData]>,
-    getAllOutsideImmutableDataFromGlobalThis: () => IterableIterator<[outsideImmutableDataId, outsideImmutableData]>,
+    getAllOutsideImmutableData: (meta3dState: meta3dState) => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
+    getAllOutsideImmutableDataFromGlobalThis: () => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
     getAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState) => List<eventData<inputData>>,
     getAllEventsFromGlobalThis: <inputData extends Array<singleInputData>>() => List<eventData<inputData>>,
     replaceAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, allEvents: List<eventData<inputData>>) => meta3dState,
+    getNeedReplaceAllEvents: (meta3dState: meta3dState) => events,
+    setNeedReplaceAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, allEvents: List<eventData<inputData>>) => meta3dState,
+    getNeedBackwardEvents: (meta3dState: meta3dState) => events,
+    setNeedBackwardEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, events: List<eventData<inputData>>) => meta3dState,
+    cleanAllNeedEvents: (meta3dState: meta3dState) => meta3dState,
     forwardView: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, events: List<eventData<inputData>>) => Promise<meta3dState>,
     backwardView: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, events: List<eventData<inputData>>) => Promise<meta3dState>,
 }

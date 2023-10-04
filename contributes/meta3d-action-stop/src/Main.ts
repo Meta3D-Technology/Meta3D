@@ -31,11 +31,11 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, meta3dSta
     return _func(List(), allEvents.count() - 1).reverse()
 }
 
-let _backwardEventsBeforeRun = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, lastEventsToRun: events) => {
-    let allEvents = eventSourcingService.getAllEvents(meta3dState)
+// let _backwardEventsBeforeRun = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, lastEventsToRun: events) => {
+//     let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-    return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - lastEventsToRun.count()))
-}
+//     return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - lastEventsToRun.count()))
+// }
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -45,14 +45,18 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    debugger
+                    // debugger
                     let lastEventsToRun = _getLastEventsToRun(eventSourcingService, meta3dState)
 
-                    return eventSourcingService.backwardView(
-                        meta3dState,
-                        lastEventsToRun
-                    ).then(meta3dState => {
-                        return _backwardEventsBeforeRun(meta3dState, eventSourcingService, lastEventsToRun)
+                    // return eventSourcingService.backwardView(
+                    //     meta3dState,
+                    //     lastEventsToRun
+                    // ).then(meta3dState => {
+                    //     return _backwardEventsBeforeRun(meta3dState, eventSourcingService, lastEventsToRun)
+                    // })
+
+                    return new Promise((resolve, reject) => {
+                        resolve(eventSourcingService.setNeedBackwardEvents(meta3dState, lastEventsToRun))
                     })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)

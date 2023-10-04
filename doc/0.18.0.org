@@ -93,5 +93,17 @@ TODO support drag loaded file to scene view
 TODO if exist the same name file, rename loaded one
 
 
-* TODO change import/export to 导入/导出包(remain export scene)
+# * TODO change import/export to 导入/导出包(remain export scene)
+* TODO change import/export to import/export Event
+
+** TODO extract ArrayBuffer from allEvents
+1.move them to another ArrayBuffer(outsideBufer)(with id)
+2.merge allEvents, outsideBufer
+
+TODO new extension(use rescript)(add bdd test)
+
+
+
+
+** TODO import/export Event support reset
 

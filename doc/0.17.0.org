@@ -226,12 +226,21 @@ dispose a cube
   three: fix scenegraph scene view dispose event(use eventsourcing.on event)
     remove "scenegraph gameview->on dispose event"
 export/import scene(use rescript)(add bdd test)
-  TODO reset/not reset
+  # TODO reset/not reset
+  not reset
+TODO need publish:
+export
+import
 
 TODO run test: debug
 
 publish
 
+
+
+
+
+TODO fix: should always loop scene view and game view together
 
 
 TODO refactor: empty inputData should be null?

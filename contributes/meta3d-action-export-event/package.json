@@ -1,12 +1,12 @@
 {
-    "name": "meta3d-action-import-scene",
-    "version": "0.16.0",
+    "name": "meta3d-action-export-scene",
+    "version": "0.16.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "displayName": "meta3d-action-import-scene",
+    "displayName": "meta3d-action-export-scene",
     "repoLink": "",
-    "description": "meta3d-action-import-scene",
+    "description": "meta3d-action-export-scene",
     "protocol": {
-        "name": "meta3d-action-import-scene-protocol"
+        "name": "meta3d-action-export-event-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -17,9 +17,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-import-scene-protocol": "^0.16.0",
-        "meta3d-editor-run-engine-gameview-protocol": "^0.16.0",
-        "meta3d-import-scene-protocol": "^0.16.0",
+        "meta3d-action-export-event-protocol": "^0.16.0",
+        "meta3d-event-sourcing-protocol": "^0.16.0",
         "meta3d-type": "^0.16.0",
         "meta3d-ui-protocol": "^0.16.0"
     },

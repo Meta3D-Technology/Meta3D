@@ -38,7 +38,7 @@ let _isCurrentAllEventsNotContainPrevious = (currentAllEvents: events, previousA
 	return result && currentAllEvents.count() < previousAllEvents.count()
 }
 
-let _getAddedEvents = (eventSourcingService: eventSourcingService, meta3dState, previousAllEvents:events) => {
+let _getAddedEvents = (eventSourcingService: eventSourcingService, meta3dState, previousAllEvents: events) => {
 	let currentAllEvents = eventSourcingService.getAllEvents(meta3dState)
 
 	if (_isCurrentAllEventsNotContainPrevious(currentAllEvents, previousAllEvents)) {
@@ -75,11 +75,42 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-			let addedEvents = _getAddedEvents(
-				eventSourcingService,
-				meta3dState, state.currentAllEvents)
+			let promise = null
+			if (eventSourcingService.getNeedBackwardEvents(meta3dState).count() > 0) {
+				let events = eventSourcingService.getNeedBackwardEvents(meta3dState)
 
-			return eventSourcingService.forwardView(meta3dState, addedEvents).then(meta3dState => {
+				promise = eventSourcingService.backwardView(
+					meta3dState,
+					events
+				).then(meta3dState => {
+					let allEvents = eventSourcingService.getAllEvents(meta3dState)
+
+					return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - events.count()))
+				}).then(meta3dState => {
+					return eventSourcingService.cleanAllNeedEvents(meta3dState)
+				})
+			}
+			else if (eventSourcingService.getNeedReplaceAllEvents(meta3dState).count() > 0) {
+				let events = eventSourcingService.getNeedReplaceAllEvents(meta3dState)
+
+				promise = eventSourcingService.forwardView(
+					meta3dState,
+					events
+				).then(meta3dState => {
+					return eventSourcingService.replaceAllEvents(meta3dState, events)
+				}).then(meta3dState => {
+					return eventSourcingService.cleanAllNeedEvents(meta3dState)
+				})
+			}
+			else {
+				let addedEvents = _getAddedEvents(
+					eventSourcingService,
+					meta3dState, state.currentAllEvents)
+
+				promise = eventSourcingService.forwardView(meta3dState, addedEvents)
+			}
+
+			return promise.then(meta3dState => {
 				return api.setExtensionState<state>(meta3dState, "meta3d-editor-run-engine-sceneview-protocol", {
 					...api.getExtensionState<state>(meta3dState, "meta3d-editor-run-engine-sceneview-protocol"),
 					currentAllEvents: eventSourcingService.getAllEvents(meta3dState)

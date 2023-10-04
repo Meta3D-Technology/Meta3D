@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-run-engine-sceneview",
-    "version": "0.16.2",
+    "version": "0.16.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-run-engine-sceneview-protocol"

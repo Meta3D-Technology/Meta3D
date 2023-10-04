@@ -1,6 +1,6 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { service as exportSceneService } from "meta3d-export-scene-protocol/src/service/ServiceType"
+import { service as exportEventService } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import * as JSZip from "jszip"
 import { saveAs } from "file-saver";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -38,7 +38,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             let enginePackageBinary = getExn(api.getPackage(meta3dState, "meta3d-engine-whole-gameview-protocol"))
 
-            let exportSceneService = api.getExtensionService<exportSceneService>(meta3dState, "meta3d-export-scene-protocol")
+            let exportEventService = api.getExtensionService<exportEventService>(meta3dState, "meta3d-export-scene-protocol")
 
 
             let zip = new JSZip.default() as JSZip
@@ -47,7 +47,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             _loadAndWriteIndexJsData(zip)
 
             return (new Promise((resolve, reject) => {
-                return exportSceneService.export([(glb) => {
+                return exportEventService.export([(glb) => {
                     resolve(glb)
                 }, (err) => {
                     throw err

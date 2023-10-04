@@ -5,5 +5,7 @@ export type events = List<eventData<Array<singleInputData>>>
 
 export type state = {
     events: events,
+    needReplaceAllEvents: events,
+    needBackwardEvents: events,
     outsideImmutableData: Map<outsideImmutableDataId, outsideImmutableData>,
 }
