@@ -154,7 +154,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     meta3dState = eventService.triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
                         eventService.createCustomEvent(
                             subEvent.disposeGameObjectEventNameForGameView,
-                            disposedGameObjectForSceneView as any
+                            disposedGameObjectForGameView as any
                         )
                     )
 
