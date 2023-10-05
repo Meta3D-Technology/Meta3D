@@ -1,6 +1,5 @@
 import { state as meta3dState, getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { service as importEventService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-import-event-protocol"
 import { eventName, inputData } from "meta3d-action-import-event-protocol/src/EventType"
@@ -9,6 +8,7 @@ import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/
 import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { List } from "immutable"
+import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
     let allEvents = eventSourcingService.getAllEvents(meta3dState)
@@ -24,11 +24,8 @@ let _checkOutsideImmutableDataIsEmpty = (eventSourcingService: eventSourcingServ
     }
 }
 
-let _parseEventData = (eventData: ArrayBuffer): events => {
-    let decoder = new TextDecoder()
-    let result: events = List(JSON.parse(decoder.decode(eventData)))
-
-    return result
+let _parseEventData = (eventDataService: eventDataService, eventData: ArrayBuffer): events => {
+    return List(eventDataService.parseEventData(eventData))
 }
 
 let _removeAllReadEvents = (events: events) => {
@@ -48,66 +45,28 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, eventData) => {
                     return new Promise((resolve, reject) => {
-                        let input = document.createElement('input')
-                        input.setAttribute('type', "file")
-                        input.style.visibility = 'hidden'
+                        // TODO contract check
+                        _checkOnlyHasImportEvent(eventSourcingService, meta3dState)
+                        _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
 
-                        input.onchange = (event) => {
-                            let file = (event.target as any).files[0]
+                        debugger
 
-                            let reader = new FileReader()
-
-                            reader.onload = () => {
-                                // if (!file.name.includes(".glb")) {
-                                //     reject(new Error("场景文件后缀名应该是.glb"))
-                                // }
+                        let events = _parseEventData(
+                            api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol"),
+                            eventData
+                        )
 
 
-                                // let importEventService = api.getExtensionService<importEventService>(meta3dState, "meta3d-import-scene-protocol")
+                        events = _removeAllReadEvents(events)
 
-                                // importEventService.import(meta3dState, reader.result as ArrayBuffer).then(meta3dState => api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState).then(meta3dState => {
-                                //     resolve(meta3dState)
-                                // })
-                                // )
+                        meta3dState = eventSourcingService.setNeedReplaceAllEvents(meta3dState, events)
 
+                        // TODO handle outside immutable data
 
-                                if (!file.name.includes(".arraybuffer")) {
-                                    reject(new Error("文件后缀名应该是.arraybuffer"))
-                                }
+                        resolve(meta3dState)
 
-                                // TODO contract check
-                                _checkOnlyHasImportEvent(eventSourcingService, meta3dState)
-                                _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
-
-                                debugger
-
-                                let events = _parseEventData(reader.result as ArrayBuffer)
-
-
-                                events = _removeAllReadEvents(events)
-
-                                meta3dState = eventSourcingService.setNeedReplaceAllEvents(meta3dState, events)
-
-                                resolve(meta3dState)
-                            }
-
-                            reader.onprogress = (event) => {
-                                // TODO show progress message
-                                console.log(`loading ${event.loaded / event.total} %`)
-                            }
-
-                            reader.onerror = (event) => {
-                                reject(new Error(`读取${file.name}错误`))
-                            }
-
-                            reader.readAsArrayBuffer(file)
-                        }
-
-                        document.body.appendChild(input)
-                        input.click()
-                        document.body.removeChild(input)
                     })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
@@ -120,11 +79,43 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-                resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
-                    name: eventName,
-                    isOnlyRead: true,
-                    inputData: []
-                }))
+                let input = document.createElement('input')
+                input.setAttribute('type', "file")
+                input.style.visibility = 'hidden'
+
+                input.onchange = (event) => {
+                    let file = (event.target as any).files[0]
+
+                    let reader = new FileReader()
+
+                    reader.onload = () => {
+                        if (!file.name.includes(".arraybuffer")) {
+                            reject(new Error("文件后缀名应该是.arraybuffer"))
+                        }
+
+                        resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
+                            name: eventName,
+                            inputData: [reader.result as ArrayBuffer]
+                        }))
+                    }
+
+                    reader.onprogress = (event) => {
+                        // TODO show progress message
+                        console.log(`loading ${event.loaded / event.total} %`)
+                    }
+
+                    reader.onerror = (event) => {
+                        reject(new Error(`读取${file.name}错误`))
+                    }
+
+                    reader.readAsArrayBuffer(file)
+                }
+
+                document.body.appendChild(input)
+                input.click()
+                document.body.removeChild(input)
+
+
             })
 
         },

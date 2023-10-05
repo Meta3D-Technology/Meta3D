@@ -8,21 +8,7 @@ import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-export-event-protocol"
 import { eventName, inputData } from "meta3d-action-export-event-protocol/src/EventType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
-
-let _download = (body: ArrayBuffer, filename: string, extension: string) => {
-    const blob = new Blob([body], { type: "arraybuffer" });
-    const fileName = filename + "." + extension;
-
-    const link = document.createElement('a');
-
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', fileName);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -42,12 +28,11 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     // }], meta3dState)
 
 
-                    let allEvents = eventSourcingService.getAllEvents(meta3dState)
+                    let allEvents = eventSourcingService.getAllEvents(meta3dState).toArray()
 
-                    let encoder = new TextEncoder()
-                    let allEventsBuffer = encoder.encode(JSON.stringify(allEvents.toArray())).buffer
+                    debugger
 
-                    _download(allEventsBuffer, "event", "arraybuffer")
+                    api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol").exportEventData(allEvents)
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
@@ -63,7 +48,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
-                    isOnlyRead:true,
+                    isOnlyRead: true,
                     inputData: []
                 }))
             })

@@ -29,6 +29,7 @@
     "meta3d-bs-most",
     "meta3d-bs-most-protocol",
     "frontend-utils",
+    "meta3d-file-utils",
     "assemble-space"
   ],
   "refmt": 3,

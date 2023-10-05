@@ -107,3 +107,4 @@ TODO new extension(use rescript)(add bdd test)
 
 ** TODO import/export Event support reset
 
+** TODO import event: handle outside immutable data

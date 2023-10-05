@@ -9,6 +9,8 @@ import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
+import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
+import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 
 let _invokeActionInit = (meta3dState: meta3dState, actionContributes: Array<actionContribute<any, any>>) => {
 	let _func = (meta3dState: meta3dState, index: number): Promise<meta3dState> => {
@@ -70,4 +72,11 @@ export let update = (meta3dState: meta3dState, api: api, { clearColor, time, ski
 		.then(meta3dState => {
 			return runEngineService.loopEngine(meta3dState)
 		})
+}
+
+// export let exportEventDataForDebug = (meta3dState: meta3dState, api: api) => {
+export let exportEventDataForDebug = (eventSourcingService:eventSourcingService, eventDataService:eventDataService) => {
+	eventDataService.exportEventData(
+		eventSourcingService. getAllEventsFromGlobalThis().toArray()
+	)
 }

@@ -1,3 +1,5 @@
 export const eventName = "ImportEventEvent"
 
-export type inputData = []
+type eventData = ArrayBuffer
+
+export type inputData = [eventData]

@@ -44,7 +44,9 @@ export type service = {
     removeOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => meta3dState,
     generateOutsideImmutableDataId: (meta3dState: meta3dState) => outsideImmutableDataId,
     getOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => outsideImmutableData,
+    // TODO remove?
     getAllOutsideImmutableData: (meta3dState: meta3dState) => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
+    // TODO remove?
     getAllOutsideImmutableDataFromGlobalThis: () => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
     getAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState) => List<eventData<inputData>>,
     getAllEventsFromGlobalThis: <inputData extends Array<singleInputData>>() => List<eventData<inputData>>,

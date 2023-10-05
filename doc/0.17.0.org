@@ -232,12 +232,32 @@ TODO need publish:
 export
 import
 
+
+//TODO fix: no export
+
+//TODO fix: run,stop: should stop
+
+
+
 TODO run test: debug
+  //TODO fix import/export event
+  TODO run test: debug with import not empty
+
+TODO run test: debug for app
+  TODO fix: not show
+
+
+TODO need publish:
+# meta3d-editor-webgl1-three-run-engine-sceneview
+
+
 
 publish
 
 
 
+
+TODO refactor: remove debugger
 
 
 TODO fix: should always loop scene view and game view together
@@ -268,7 +288,7 @@ TODO refactor: empty inputData should be null?
 
 * TODO fix: import: should import element contribute
 
-* TODO feat: overwrite app
+# * TODO feat: overwrite app
 
 
 

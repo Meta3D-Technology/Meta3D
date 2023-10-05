@@ -7,6 +7,8 @@ import { state as runEngineState } from "meta3d-editor-run-engine-sceneview-prot
 import { List } from "immutable"
 import { state as eventSourcingState, events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+import { eventName } from "meta3d-action-import-event-protocol/src/EventType"
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 let _execLoopFuncs = (meta3dState: meta3dState, loopFuncs: Array<func>): Promise<meta3dState> => {
 	if (loopFuncs.length == 0) {
@@ -48,6 +50,21 @@ let _getAddedEvents = (eventSourcingService: eventSourcingService, meta3dState, 
 	return currentAllEvents.slice(previousAllEvents.count())
 }
 
+let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
+	let allEvents = eventSourcingService.getAllEvents(meta3dState)
+
+	if (!(allEvents.count() == 1 && getExn(allEvents.last()).name == eventName)) {
+		throw new Error("all events should only has import event")
+	}
+}
+
+let _checkOutsideImmutableDataIsEmpty = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
+	if (eventSourcingService.getAllOutsideImmutableData(meta3dState).count() != 0) {
+		throw new Error("outside immutable data should be empty")
+	}
+}
+
+
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
@@ -79,26 +96,32 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			if (eventSourcingService.getNeedBackwardEvents(meta3dState).count() > 0) {
 				let events = eventSourcingService.getNeedBackwardEvents(meta3dState)
 
+				debugger
+
+				let allEvents = eventSourcingService.getAllEvents(meta3dState)
+
 				promise = eventSourcingService.backwardView(
 					meta3dState,
 					events
 				).then(meta3dState => {
-					let allEvents = eventSourcingService.getAllEvents(meta3dState)
-
-					return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - events.count()))
+					return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(0, allEvents.count() - events.count()))
 				}).then(meta3dState => {
 					return eventSourcingService.cleanAllNeedEvents(meta3dState)
 				})
 			}
 			else if (eventSourcingService.getNeedReplaceAllEvents(meta3dState).count() > 0) {
+				// TODO contract check
+				_checkOnlyHasImportEvent(eventSourcingService, meta3dState)
+				_checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
+
 				let events = eventSourcingService.getNeedReplaceAllEvents(meta3dState)
+
+				meta3dState = eventSourcingService.replaceAllEvents(meta3dState, events)
 
 				promise = eventSourcingService.forwardView(
 					meta3dState,
 					events
 				).then(meta3dState => {
-					return eventSourcingService.replaceAllEvents(meta3dState, events)
-				}).then(meta3dState => {
 					return eventSourcingService.cleanAllNeedEvents(meta3dState)
 				})
 			}

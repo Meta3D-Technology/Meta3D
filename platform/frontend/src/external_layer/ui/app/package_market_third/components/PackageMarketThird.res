@@ -126,92 +126,89 @@ let make = (
                       items->Meta3dCommonlib.ArraySt.map(item => item.version),
                     )}
                     {
-                      
-                    //   FrontendUtils.MarketUtils.isSelect(
-                    //   ({id}: UserCenterStore.packageData) => id,
-                    //   item.id,
-                    //   selectedPackages,
-                    // )
+                      //   FrontendUtils.MarketUtils.isSelect(
+                      //   ({id}: UserCenterStore.packageData) => id,
+                      //   item.id,
+                      //   selectedPackages,
+                      // )
 
                       FrontendUtils.MarketUtils.isSelect(
-                        (
-                          {version, name}: UserCenterStore.packageData,
-                        ) => {j`${version}_${name}`},
+                        ({version, name}: UserCenterStore.packageData) => {j`${version}_${name}`},
                         {
                           j`${item.version}_${item.name}`
                         },
                         selectedPackages,
                       )
+                        ? <Button
+                            onClick={_ => {
+                              dispatch(
+                                AppStore.UserCenterAction(
+                                  UserCenterStore.NotSelectPackage(item.name, item.version),
+                                ),
+                              )
+                            }}>
+                            {React.string(`取消选择`)}
+                          </Button>
+                        : <Button
+                            onClick={_ => {
+                              setIsBackendBegin(_ => true)
 
+                              service.backend.findPublishPackage(.
+                                progress => setBackendProgress(_ => progress),
+                                FrontendUtils.MarketUtils.getLimitCount(),
+                                0,
+                                // item.entryExtensionProtocolName,
+                                // item.entryExtensionProtocolVersion,
+                                // item.entryExtensionProtocolIconBase64,
+                                item.account,
+                                // item.entryExtensionName,
+                                item.name,
+                                item.version,
+                              )
+                              ->Meta3dBsMost.Most.observe(file => {
+                                Meta3dCommonlib.NullableSt.isNullable(file)
+                                  ? {
+                                      setIsBackendBegin(_ => false)
 
+                                      FrontendUtils.ErrorUtils.error(
+                                        {j`找不到package file`},
+                                        None,
+                                      )->Obj.magic
+                                    }
+                                  : {
+                                      setIsBackendBegin(_ => false)
 
-                      ? <Button
-                          onClick={_ => {
-                            dispatch(
-                              AppStore.UserCenterAction(UserCenterStore.NotSelectPackage(item.name, item.version)),
-                            )
-                          }}>
-                          {React.string(`取消选择`)}
-                        </Button>
-                      : <Button
-                          onClick={_ => {
-                            setIsBackendBegin(_ => true)
+                                      dispatch(
+                                        AppStore.UserCenterAction(
+                                          UserCenterStore.SelectPackage({
+                                            id: item.id,
+                                            protocol: {
+                                              name: item.entryExtensionProtocolName,
+                                              version: item.entryExtensionProtocolVersionRange,
+                                              iconBase64: item.entryExtensionProtocolIconBase64,
+                                            },
+                                            entryExtensionName: item.entryExtensionName,
+                                            version: item.version,
+                                            name: item.name,
+                                            binaryFile: file->Meta3dCommonlib.NullableSt.getExn,
+                                          }),
+                                        ),
+                                      )
+                                    }
+                              }, _)
+                              ->Js.Promise.catch(e => {
+                                setIsBackendBegin(_ => false)
 
-                            service.backend.findPublishPackage(.
-                              progress => setBackendProgress(_ => progress),
-                              FrontendUtils.MarketUtils.getLimitCount(),
-                              0,
-                              // item.entryExtensionProtocolName,
-                              // item.entryExtensionProtocolVersion,
-                              // item.entryExtensionProtocolIconBase64,
-                              item.account,
-                              // item.entryExtensionName,
-                              item.name,
-                              item.version,
-                            )
-                            ->Meta3dBsMost.Most.observe(file => {
-                              Meta3dCommonlib.NullableSt.isNullable(file)
-                                ? {
-                                    setIsBackendBegin(_ => false)
-
-                                    FrontendUtils.ErrorUtils.error(
-                                      {j`找不到package file`},
-                                      None,
-                                    )->Obj.magic
-                                  }
-                                : {
-                                    setIsBackendBegin(_ => false)
-
-                                    dispatch(
-                                      AppStore.UserCenterAction(
-                                        UserCenterStore.SelectPackage({
-                                          id: item.id,
-                                          protocol: {
-                                            name: item.entryExtensionProtocolName,
-                                            version: item.entryExtensionProtocolVersionRange,
-                                            iconBase64: item.entryExtensionProtocolIconBase64,
-                                          },
-                                          entryExtensionName: item.entryExtensionName,
-                                          version: item.version,
-                                          name: item.name,
-                                          binaryFile: file->Meta3dCommonlib.NullableSt.getExn,
-                                        }),
-                                      ),
-                                    )
-                                  }
-                            }, _)
-                            ->Js.Promise.catch(e => {
-                              setIsBackendBegin(_ => false)
-
-                              FrontendUtils.ErrorUtils.errorWithExn(
-                                e->FrontendUtils.Error.promiseErrorToExn,
-                                None,
-                              )->Obj.magic
-                            }, _)
-                            ->ignore
-                          }}>
-                          {React.string(`选择`)}
-                        </Button>}
+                                FrontendUtils.ErrorUtils.errorWithExn(
+                                  e->FrontendUtils.Error.promiseErrorToExn,
+                                  None,
+                                )->Obj.magic
+                              }, _)
+                              ->ignore
+                            }}>
+                            {React.string(`选择`)}
+                          </Button>
+                    }
                     <Button
                       onClick={_ => {
                         setIsBackendBegin(_ => true)
@@ -237,7 +234,7 @@ let make = (
                             : {
                                 setIsBackendBegin(_ => false)
 
-                                DownloadUtils.createAndDownloadBlobFile(
+                                Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
                                   file->Meta3dCommonlib.NullableSt.getExn,
                                   _buildPackageFileName(item.name, item.version),
                                   "package",

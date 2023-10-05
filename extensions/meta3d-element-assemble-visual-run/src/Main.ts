@@ -15,7 +15,9 @@ import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { prepareActions, update } from "meta3d-run-utils/src/RunUtils"
+import { exportEventDataForDebug, prepareActions, update } from "meta3d-run-utils/src/RunUtils"
+import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
+import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 
 let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	let { registerElement } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
@@ -56,6 +58,12 @@ let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	return prepareActions(meta3dState, api)
 }
 
+let _handleError = (api: api, meta3dState: meta3dState) => {
+	exportEventDataForDebug(
+		api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol"),
+		api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol"))
+}
+
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
@@ -86,10 +94,17 @@ export let getExtensionService: getExtensionServiceMeta3D<
 						)
 					})
 				})
+			}).catch(e => {
+				_handleError(api, meta3dState)
+				throw e
 			})
+
 		},
 		update: (meta3dState: meta3dState, updateData) => {
-			return update(meta3dState, api, updateData)
+			return update(meta3dState, api, updateData).catch(e => {
+				_handleError(api, meta3dState)
+				throw e
+			})
 		}
 	}
 }

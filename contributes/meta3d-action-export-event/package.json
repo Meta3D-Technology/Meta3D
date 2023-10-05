@@ -1,10 +1,10 @@
 {
-    "name": "meta3d-action-export-scene",
-    "version": "0.16.2",
+    "name": "meta3d-action-export-event",
+    "version": "0.16.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "displayName": "meta3d-action-export-scene",
+    "displayName": "meta3d-action-export-event",
     "repoLink": "",
-    "description": "meta3d-action-export-scene",
+    "description": "meta3d-action-export-event",
     "protocol": {
         "name": "meta3d-action-export-event-protocol"
     },
@@ -19,6 +19,7 @@
     "dependencies": {
         "meta3d-action-export-event-protocol": "^0.16.0",
         "meta3d-event-sourcing-protocol": "^0.16.0",
+        "meta3d-event-data-protocol": "^0.16.1",
         "meta3d-type": "^0.16.0",
         "meta3d-ui-protocol": "^0.16.0"
     },

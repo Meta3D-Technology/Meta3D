@@ -1,6 +1,6 @@
 {
     "name": "meta3d-use-editor",
-    "version": "0.16.0",
+    "version": "0.16.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-use-editor-protocol"
@@ -16,6 +16,8 @@
         "meta3d-editor-run-engine-sceneview-protocol": "^0.16.0",
         "meta3d-event-protocol": "^0.16.0",
         "meta3d-imgui-renderer-protocol": "^0.16.0",
+        "meta3d-event-sourcing-protocol": "^0.16.0",
+        "meta3d-event-data-protocol": "^0.16.1",
         "meta3d-type": "^0.16.0",
         "meta3d-ui-protocol": "^0.16.0",
         "meta3d-use-editor-protocol": "^0.16.0"
