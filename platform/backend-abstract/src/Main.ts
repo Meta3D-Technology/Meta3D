@@ -6,6 +6,7 @@ import * as GetElementDataService from "./application_layer/assemble_space/eleme
 import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
 import * as PublishPackageService from "./application_layer/publish/PublishPackageService"
 import * as PackageMarketService from "./application_layer/market/PackageMarketService"
+import * as DependencyService from "./application_layer/assemble_space/DependencyService"
 
 export let init = (init: (string) => Stream<unknown>, env) => init(env)
 
@@ -55,4 +56,4 @@ export let getAllPublishPackageInfos = PackageMarketService.getAllPublishPackage
 
 export let findPublishPackage = PackageMarketService.findPublishPackage
 
-export let findNewestPublishPackage = PackageMarketService.findNewestPublishPackage
+export let findNewestPublishPackage = DependencyService.findNewestPublishPackage

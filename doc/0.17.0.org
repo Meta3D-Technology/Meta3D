@@ -269,7 +269,14 @@ TODO feat: add upgrade in dependency graph for package, app assemble
   TODO update iconBase64
 
   TODO pass run test
-    TODO finish extension, contribute
+    TODO finish contribute
+
+    TODO finish ap assemble
+
+    # TODO change databse?
+
+    TODO run test multiple packages, extensions, contributes -> publish app
+     
   TODO add bdd test
 
 

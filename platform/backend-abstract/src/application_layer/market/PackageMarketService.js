@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = void 0;
+exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = void 0;
 const most_1 = require("most");
 const ArrayUtils_1 = require("../../utils/ArrayUtils");
-const semver_1 = require("semver");
 let getAllPublishPackageEntryExtensionProtocols = (
 // [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
 getDataFunc, limitCount, skipCount) => {
@@ -88,28 +87,3 @@ let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc], limitCoun
     });
 };
 exports.findPublishPackage = findPublishPackage;
-let findNewestPublishPackage = ([findNewestData, downloadFileFunc], 
-// account: string,
-entryExtensionProtocolName, packageName) => {
-    return findNewestData(
-    // [
-    //     (stream) => stream.where({
-    //         account: account,
-    //         entryExtensionProtocolName: entryExtensionProtocolName,
-    //         packageName: packageName
-    //     }),
-    //     (stream) => stream.orderBy("entryExtensionProtocolVersion", "desc").orderBy("packageVersion", "desc")
-    // ],
-    "publishedpackages", {
-        // account: account,
-        entryExtensionProtocolName: entryExtensionProtocolName,
-        packageName: packageName
-    }, 
-    // ["entryExtensionProtocolVersion", "packgeVersion"]
-    "entryExtensionProtocolVersion", ["packageVersion", semver_1.gt]).flatMap((data) => {
-        return downloadFileFunc(data.fileID).map(file => {
-            return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64];
-        });
-    });
-};
-exports.findNewestPublishPackage = findNewestPublishPackage;

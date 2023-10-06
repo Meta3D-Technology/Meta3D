@@ -604,6 +604,7 @@ module Method = {
     setOperateInfo,
     dispatchForAppStore,
     selectedPackages,
+    selectedExtensions,
   ) => {
     setOperateInfo(_ => "自动升级版本中...")
 
@@ -618,20 +619,23 @@ module Method = {
         package.name,
       )
       ->Meta3dBsMost.Most.flatMap(
-        ((file, entryExtensionProtocolVersion, packageVersion, entryExtensionProtocolIconBase64)) => {
+        ((
+          file,
+          entryExtensionProtocolVersion,
+          packageVersion,
+          entryExtensionProtocolIconBase64,
+        )) => {
           {
             ...package,
             version: packageVersion,
             protocol: {
               ...package.protocol,
-              iconBase64:entryExtensionProtocolIconBase64,
+              iconBase64: entryExtensionProtocolIconBase64,
               version: entryExtensionProtocolVersion,
             },
             binaryFile: file,
           }->Meta3dBsMost.Most.just
         },
-        // TODO update iconBase64
-
         _,
       )
       ->MostUtils.toPromise
@@ -640,14 +644,58 @@ module Method = {
       }, _)
     })
     ->Js.Promise.then_(selectedPackages => {
-      setOperateInfo(_ => "")
+      selectedExtensions
+      ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
+        result,
+        extension: FrontendUtils.ApAssembleStoreType.extension,
+      ) => {
+        service.backend.findNewestPublishExtension(.
+          progress => (),
+          extension.data.extensionPackageData.name,
+          extension.data.extensionPackageData.protocol.name,
+        )
+        ->Meta3dBsMost.Most.flatMap(
+          ((
+            (description, displayName, repoLink, implementVersion, file, account),
+            (protocolVersion, protocolIconBase64),
+            protocolConfig,
+          )) => {
+            (
+              (
+                {
+                  id: extension.id,
+                  protocolName: extension.data.extensionPackageData.protocol.name,
+                  protocolVersion,
+                  protocolIconBase64,
+                  version: implementVersion,
+                  account,
+                  data: service.meta3d.loadExtension(. file),
+                }: FrontendUtils.AssembleSpaceCommonType.extension
+              ),
+              protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
+            )->Meta3dBsMost.Most.just
+          },
+          _,
+        )
+        ->MostUtils.toPromise
+        ->Js.Promise.then_(
+          extensionData => {
+            result->Meta3dCommonlib.ListSt.push(extensionData)->Js.Promise.resolve
+          },
+          _,
+        )
+      })
+      ->Js.Promise.then_(selectedExtensions => {
+        setOperateInfo(_ => "")
 
-      service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
-        dispatchForAppStore,
-        selectedPackages,
-      )
+        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
+          dispatchForAppStore,
+          selectedPackages,
+          selectedExtensions,
+        )
 
-      ()->Js.Promise.resolve
+        ()->Js.Promise.resolve
+      }, _)
     }, _)
   }
 }
@@ -710,6 +758,7 @@ let make = (
                   setOperateInfo,
                   dispatchForAppStore,
                   selectedPackages,
+                  selectedExtensions,
                 )->ignore
               }, 5->Some)
             }}>

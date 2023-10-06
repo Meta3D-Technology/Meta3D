@@ -23,7 +23,7 @@ export type repoLink = string
 export type description = string
 
 
-type protocol = {
+export type protocol = {
   name: protocolName,
   version: protocolVersion,
   account: account,
@@ -35,7 +35,7 @@ type protocol = {
 
 export type protocols = Array<protocol>
 
-type protocolConfig = {
+export type protocolConfig = {
   name: protocolName,
   version: protocolVersion,
   account: account,

@@ -180,11 +180,13 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (.
         dispatch,
         selectedPackages,
+        selectedExtensions,
       ) => {
         dispatch(
           FrontendUtils.AppStoreType.UserCenterAction(
             FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
               selectedPackages,
+              selectedExtensions,
             ),
           ),
         )

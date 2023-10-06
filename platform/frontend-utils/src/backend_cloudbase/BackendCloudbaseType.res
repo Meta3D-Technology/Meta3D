@@ -73,6 +73,14 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocols>
@@ -80,6 +88,14 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -113,6 +129,14 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
@@ -120,6 +144,14 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -331,5 +363,15 @@ type findNewestPublishPackage = (
   Js.Typed_array.ArrayBuffer.t,
   entryExtensionProtocolVersion,
   implementVersion,
-  entryExtensionProtocolIconBase64
+  entryExtensionProtocolIconBase64,
+)>
+
+type findNewestPublishExtension = (
+  . onDownloadProgressFunc,
+  implementName,
+  protocolName,
+) => Meta3dBsMostProtocol.StreamType.stream<(
+  (description, implementDisplayName, repoLink, implementVersion, Js.Typed_array.ArrayBuffer.t, account),
+  (protocolVersion, protocolIconBase64),
+  Js.Nullable.t<CommonType.protocolConfig>,
 )>

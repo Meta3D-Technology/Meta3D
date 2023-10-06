@@ -28,8 +28,12 @@ import {
     // getDataFromPackageMarketEntryExtensionProtocolCollection,
     getData,
     batchFindMarketProtocolCollection,
-    findNewestData
 } from "./application_layer/BackendService";
+import {
+    findNewestPublishPackage as findNewestPublishPackageFind,
+    findNewestPublishExtension as findNewestPublishExtensionFind
+} from "./application_layer/FindNewestService";
+
 
 // export let error = ErrorService.error
 
@@ -273,8 +277,14 @@ export let findPublishPackage = (onDownloadProgressFunc, limitCount, skipCount, 
 )
 
 export let findNewestPublishPackage = (onDownloadProgressFunc, entryExtensionProtocolName, packageName) => Abstract.findNewestPublishPackage([
-    findNewestData,
+    findNewestPublishPackageFind,
     curry2(downloadFile)(onDownloadProgressFunc)
 ],
     entryExtensionProtocolName, packageName
 )
+
+export let findNewestPublishExtension = (onDownloadProgressFunc, extensionName, extensionProtocolName) => {
+    return findNewestPublishExtensionFind(
+        curry2(downloadFile)(onDownloadProgressFunc), extensionName, extensionProtocolName
+    )
+}

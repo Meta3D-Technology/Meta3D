@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestData = exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -133,33 +133,6 @@ let getData = (collectionName, limitCount, skipCount) => {
         .then(res => res.data);
 };
 exports.getData = getData;
-let findNewestData = (
-// [
-// 	whereFunc,
-// 	orderByFunc,
-// ]: [any, any],
-collectionName, whereData, 
-// [firstOrderByFieldName, secondOrderByFieldName]: [string, string]
-firstOrderByFieldName, [secondOrderByFieldName, gtFunc]) => {
-    return (0, most_1.fromPromise)((0, exports.getDatabase)().collection(collectionName)
-        .where(whereData)
-        .orderBy(firstOrderByFieldName, "desc")
-        // .orderBy(secondOrderByFieldName, "desc")
-        .get()
-        .then(res => {
-        let firstOrderByFieldValue = res.data[0][firstOrderByFieldName];
-        debugger;
-        return res.data.filter(data => {
-            return data[firstOrderByFieldName] == firstOrderByFieldValue;
-        }).sort((a, b) => {
-            if (gtFunc(a[secondOrderByFieldName], b[secondOrderByFieldName])) {
-                return -1;
-            }
-            return 1;
-        })[0];
-    }));
-};
-exports.findNewestData = findNewestData;
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getMarketProtocolCollection("publishedpackages")
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getData("publishedpackages")
 // export let getDataFromPackageMarketEntryExtensionProtocolCollection = getDataFromMarketProtocolCollection

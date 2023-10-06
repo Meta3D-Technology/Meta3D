@@ -79,6 +79,9 @@ external getElementAssembleData: getElementAssembleData = "getElementAssembleDat
 external findNewestPublishPackage: findNewestPublishPackage = "findNewestPublishPackage"
 
 @module("backend-4everland")
+external findNewestPublishExtension: findNewestPublishExtension = "findNewestPublishExtension"
+
+@module("backend-4everland")
 external publishPackage: publishPackage = "publishPackage"
 
 @module("backend-4everland")
@@ -136,5 +139,6 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     publishElementAssembleData,
     getElementAssembleData,
     findNewestPublishPackage,
+    findNewestPublishExtension,
   }
 }

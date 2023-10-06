@@ -8,6 +8,7 @@ const GetElementDataService = require("./application_layer/assemble_space/elemen
 const PublishElementContributeService = require("./application_layer/assemble_space/element_assemble/PublishElementContributeService");
 const PublishPackageService = require("./application_layer/publish/PublishPackageService");
 const PackageMarketService = require("./application_layer/market/PackageMarketService");
+const DependencyService = require("./application_layer/assemble_space/DependencyService");
 let init = (init, env) => init(env);
 exports.init = init;
 let handleLoginForWeb3 = (handleLoginForWeb3, account) => handleLoginForWeb3(account);
@@ -36,4 +37,4 @@ exports.publishPackage = PublishPackageService.publish;
 exports.getAllPublishPackageEntryExtensionProtocols = PackageMarketService.getAllPublishPackageEntryExtensionProtocols;
 exports.getAllPublishPackageInfos = PackageMarketService.getAllPublishPackageInfos;
 exports.findPublishPackage = PackageMarketService.findPublishPackage;
-exports.findNewestPublishPackage = PackageMarketService.findNewestPublishPackage;
+exports.findNewestPublishPackage = DependencyService.findNewestPublishPackage;
