@@ -253,6 +253,9 @@ TODO need publish:
 
 
 publish
+  engine not use event sourcing
+
+  TODO feat: add upgrade in dependency graph
 
 
 
