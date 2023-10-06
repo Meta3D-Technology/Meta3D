@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.handleLoginForWeb3 = exports.init = void 0;
+exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.handleLoginForWeb3 = exports.init = void 0;
 const MarketService = require("./application_layer/market/MarketService");
 const LoginService = require("./application_layer/user/LoginService");
 const PublishAppService = require("./application_layer/publish/PublishAppService");
@@ -36,3 +36,4 @@ exports.publishPackage = PublishPackageService.publish;
 exports.getAllPublishPackageEntryExtensionProtocols = PackageMarketService.getAllPublishPackageEntryExtensionProtocols;
 exports.getAllPublishPackageInfos = PackageMarketService.getAllPublishPackageInfos;
 exports.findPublishPackage = PackageMarketService.findPublishPackage;
+exports.findNewestPublishPackage = PackageMarketService.findNewestPublishPackage;

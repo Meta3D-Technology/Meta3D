@@ -1,3 +1,4 @@
+open FrontendUtils.Antd
 open FrontendUtils.AntdCharts
 open FrontendUtils.AssembleSpaceType
 
@@ -597,6 +598,58 @@ module Method = {
       markIsPassDependencyGraphCheck(_hasEmptyNode(nodesData))
     }
   }
+
+  let autoUpgradeVersion = (
+    service: service,
+    setOperateInfo,
+    dispatchForAppStore,
+    selectedPackages,
+  ) => {
+    setOperateInfo(_ => "自动升级版本中...")
+
+    selectedPackages
+    ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
+      result,
+      package: FrontendUtils.AssembleSpaceCommonType.packageData,
+    ) => {
+      service.backend.findNewestPublishPackage(.
+        progress => (),
+        package.protocol.name,
+        package.name,
+      )
+      ->Meta3dBsMost.Most.flatMap(
+        ((file, entryExtensionProtocolVersion, packageVersion, entryExtensionProtocolIconBase64)) => {
+          {
+            ...package,
+            version: packageVersion,
+            protocol: {
+              ...package.protocol,
+              iconBase64:entryExtensionProtocolIconBase64,
+              version: entryExtensionProtocolVersion,
+            },
+            binaryFile: file,
+          }->Meta3dBsMost.Most.just
+        },
+        // TODO update iconBase64
+
+        _,
+      )
+      ->MostUtils.toPromise
+      ->Js.Promise.then_(package => {
+        result->Meta3dCommonlib.ListSt.push(package)->Js.Promise.resolve
+      }, _)
+    })
+    ->Js.Promise.then_(selectedPackages => {
+      setOperateInfo(_ => "")
+
+      service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
+        dispatchForAppStore,
+        selectedPackages,
+      )
+
+      ()->Js.Promise.resolve
+    }, _)
+  }
 }
 
 @react.component
@@ -608,7 +661,10 @@ let make = (
   ~selectedExtensions,
   ~selectedContributes,
 ) => {
+  let dispatchForAppStore = service.app.useDispatch()
+
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+  let (operateInfo, setOperateInfo) = service.react.useState(_ => "")
 
   let (allPackagesNotStoredInApp, allPackagesStoredInApp) = AppUtils.splitPackages(
     selectedPackages,
@@ -641,69 +697,85 @@ let make = (
     None
   }, [selectedPackages, selectedExtensions->Obj.magic, selectedContributes->Obj.magic])
 
-  {
-    data == Meta3dCommonlib.ImmutableHashMap.createEmpty()
-      ? {React.string(`请指定启动扩展`)}
-      : <FlowAnalysisGraph
-          data={data->Obj.magic}
-          nodeCfg={
-            autoWidth: true,
-            items: {
-              layout: #follow,
-            },
-            title: {
-              containerStyle: node => {
-                let node = node->Obj.magic
+  data == Meta3dCommonlib.ImmutableHashMap.createEmpty()
+    ? {React.string(`请指定启动扩展`)}
+    : {
+        <>
+          <p> {React.string(operateInfo)} </p>
+          <Button
+            onClick={_ => {
+              FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                Method.autoUpgradeVersion(
+                  service,
+                  setOperateInfo,
+                  dispatchForAppStore,
+                  selectedPackages,
+                )->ignore
+              }, 5->Some)
+            }}>
+            {React.string(`自动升级版本`)}
+          </Button>
+          <FlowAnalysisGraph
+            data={data->Obj.magic}
+            nodeCfg={
+              autoWidth: true,
+              items: {
+                layout: #follow,
+              },
+              title: {
+                containerStyle: node => {
+                  let node = node->Obj.magic
 
-                node["isEmpty"]
+                  node["isEmpty"]
+                    ? {
+                        fill: switch node["emptyNodeType"] {
+                        | ParentIsPackageStoredInApp => "#ED9121"
+                        | ParentIsOther => "red"
+                        },
+                      }
+                    : {
+                        fill: switch node["nodeType"] {
+                        | Extension => "#1E90FF"
+                        | Contribute => "#008000"
+                        | PackageExtension => "#87CEFA"
+                        | PackageContribute => "#00FF00"
+                        | PackageStoredInApp => "#FFD700"
+                        },
+                      }
+                },
+              },
+            }
+            edgeCfg={
+              // type_: #polyline,
+              endArrow: true,
+              style: (edge, event) => {
+                let {_cfg} =
+                  event.cfg.nodes
+                  ->Meta3dCommonlib.ArraySt.find(({_cfg}) => {
+                    (_cfg.model->Obj.magic)["id"] == edge.target
+                  })
+                  ->Meta3dCommonlib.OptionSt.getExn
+
+                (_cfg.model->Obj.magic)["isEmpty"]
                   ? {
-                      fill: switch node["emptyNodeType"] {
-                      | ParentIsPackageStoredInApp => "#ED9121"
-                      | ParentIsOther => "red"
-                      },
+                      stroke: "#FF00FF",
                     }
                   : {
-                      fill: switch node["nodeType"] {
-                      | Extension => "#1E90FF"
-                      | Contribute => "#008000"
-                      | PackageExtension => "#87CEFA"
-                      | PackageContribute => "#00FF00"
-                      | PackageStoredInApp => "#FFD700"
-                      },
+                      stroke: "#696969",
                     }
               },
-            },
-          }
-          edgeCfg={
-            // type_: #polyline,
-            endArrow: true,
-            style: (edge, event) => {
-              let {_cfg} =
-                event.cfg.nodes
-                ->Meta3dCommonlib.ArraySt.find(({_cfg}) => {
-                  (_cfg.model->Obj.magic)["id"] == edge.target
-                })
-                ->Meta3dCommonlib.OptionSt.getExn
-
-              (_cfg.model->Obj.magic)["isEmpty"]
-                ? {
-                    stroke: "#FF00FF",
-                  }
-                : {
-                    stroke: "#696969",
-                  }
-            },
-          }
-          markerCfg={cfg => {
-            {
-              show: (data->Obj.magic)["edges"]
-              ->Meta3dCommonlib.ArraySt.filter(item => {
-                item["source"] === cfg.id
-              })
-              ->Meta3dCommonlib.ArraySt.length,
             }
-          }}
-          behaviors=["drag-canvas", "zoom-canvas", "drag-node"]
-        />
-  }
+            markerCfg={cfg => {
+              {
+                show: (data->Obj.magic)["edges"]
+                ->Meta3dCommonlib.ArraySt.filter(item => {
+                  item["source"] === cfg.id
+                })
+                ->Meta3dCommonlib.ArraySt.length,
+              }
+            }}
+            behaviors=["drag-canvas", "zoom-canvas", "drag-node"]
+          />
+        </>
+      }
 }

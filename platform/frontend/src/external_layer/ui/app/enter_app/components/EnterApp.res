@@ -7,7 +7,7 @@ let _getEnv = (): FrontendUtils.EnvType.env => #production
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {account, appName} = AppStore.useSelector(({enterAppState}: AppStore.state) => enterAppState)
+  let {account, appName} = AppStore.useSelector(({enterAppState}: FrontendUtils.AppStoreType.state) => enterAppState)
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)

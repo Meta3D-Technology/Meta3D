@@ -1,49 +1,48 @@
-type id = string
+// // type id = string
 
-// type extension = {
-//   id: id,
-//   data: Meta3d.ExtensionFileType.extensionFileData,
+// type extension = FrontendUtils.AssembleSpaceCommonType.extension
+
+// type selectedExtensions = list<FrontendUtils.AssembleSpaceCommonType.extensionData>
+
+// type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
+
+// type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contributeData>
+
+// type packageData = FrontendUtils.AssembleSpaceCommonType.packageData
+
+// type selectedPackages = list<packageData>
+
+// // type selectedContributeProtocolConfigs = list<
+// //   option<FrontendUtils.CommonType.protocolConfig>,
+// // >
+
+// type account = string
+
+// type name = string
+
+// type action =
+//   | SelectExtension(extension, option<FrontendUtils.CommonType.protocolConfig>)
+//   | NotSelectExtension(name, FrontendUtils.AssembleSpaceCommonType.version)
+//   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
+//   | NotSelectContribute(name, FrontendUtils.AssembleSpaceCommonType.version)
+//   | SelectPackage(packageData)
+//   // | NotSelectPackage(id)
+//   | NotSelectPackage(name, FrontendUtils.AssembleSpaceCommonType.version)
+//   | SetAccount(account)
+//   | ImportPackage(id, selectedExtensions, selectedContributes)
+//   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
+//   | UpdateSelectedPackagesAndExtensionsAndContributes(selectedPackages)
+
+// type state = {
+//   account: option<string>,
+//   selectedExtensions: selectedExtensions,
+//   selectedContributes: selectedContributes,
+//   selectedPackages: selectedPackages,
+//   importedPackageIds: list<id>,
+//   importedAppIds: list<id>,
 // }
-type extension = FrontendUtils.AssembleSpaceCommonType.extension
 
-type selectedExtensions = list<FrontendUtils.AssembleSpaceCommonType.extensionData>
-
-type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
-
-type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contributeData>
-
-type packageData = FrontendUtils.AssembleSpaceCommonType.packageData
-
-type selectedPackages = list<packageData>
-
-// type selectedContributeProtocolConfigs = list<
-//   option<FrontendUtils.CommonType.protocolConfig>,
-// >
-
-type account = string
-
-type name = string
-
-type action =
-  | SelectExtension(extension, option<FrontendUtils.CommonType.protocolConfig>)
-  | NotSelectExtension(name, FrontendUtils.AssembleSpaceCommonType.version)
-  | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
-  | NotSelectContribute(name, FrontendUtils.AssembleSpaceCommonType.version)
-  | SelectPackage(packageData)
-  // | NotSelectPackage(id)
-  | NotSelectPackage(name, FrontendUtils.AssembleSpaceCommonType.version)
-  | SetAccount(account)
-  | ImportPackage(id, selectedExtensions, selectedContributes)
-  | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
-
-type state = {
-  account: option<string>,
-  selectedExtensions: selectedExtensions,
-  selectedContributes: selectedContributes,
-  selectedPackages: selectedPackages,
-  importedPackageIds: list<id>,
-  importedAppIds: list<id>,
-}
+open FrontendUtils.UserCenterStoreType
 
 let _removeOtherSelectedExtensionsOfSameProtocolName = (
   selectedExtensions: selectedExtensions,
@@ -92,10 +91,10 @@ let reducer = (state, action) => {
         selectedExtension,
         _,
       )) =>
-      !(
-        selectedExtension.data.extensionPackageData.name == name &&
-          selectedExtension.version == version
-      )
+        !(
+          selectedExtension.data.extensionPackageData.name == name &&
+            selectedExtension.version == version
+        )
       ),
     }
   | SelectContribute(data, protocolConfigOpt) => {
@@ -113,10 +112,10 @@ let reducer = (state, action) => {
         selectedContribute,
         _,
       )) =>
-      !(
-        selectedContribute.data.contributePackageData.name == name &&
-          selectedContribute.version == version
-      )
+        !(
+          selectedContribute.data.contributePackageData.name == name &&
+            selectedContribute.version == version
+        )
       ),
     }
   | SelectPackage(data) => {
@@ -134,9 +133,7 @@ let reducer = (state, action) => {
   | NotSelectPackage(name, version) => {
       ...state,
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
-      !(
-        selectedPackage.name == name && selectedPackage.version == version
-      )
+        !(selectedPackage.name == name && selectedPackage.version == version)
       ),
     }
   | ImportPackage(packageId, selectedExtensions, selectedContributes) => {
@@ -188,6 +185,10 @@ let reducer = (state, action) => {
       }),
     }
   | SetAccount(account) => {...state, account: Some(account)}
+  | UpdateSelectedPackagesAndExtensionsAndContributes(selectedPackages) => {
+      ...state,
+      selectedPackages,
+    }
   }
 }
 

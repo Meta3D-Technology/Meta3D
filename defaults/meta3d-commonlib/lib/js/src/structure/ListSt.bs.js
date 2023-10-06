@@ -5,6 +5,7 @@ var Js_array = require("rescript/lib/js/js_array.js");
 var Belt_List = require("rescript/lib/js/belt_List.js");
 var Result$Meta3dCommonlib = require("./Result.bs.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
+var PromiseSt$Meta3dCommonlib = require("./PromiseSt.bs.js");
 var MutableHashMap$Meta3dCommonlib = require("./hash_map/MutableHashMap.bs.js");
 
 function traverseResultM(list, f) {
@@ -47,6 +48,16 @@ function traverseReduceResultM(list, param, f) {
   var tail = list.tl;
   return Result$Meta3dCommonlib.bind(Curry._2(f, param, list.hd), (function (h) {
                 return traverseReduceResultM(tail, h, f);
+              }));
+}
+
+function traverseReducePromiseM(list, param, f) {
+  if (!list) {
+    return Promise.resolve(param);
+  }
+  var tail = list.tl;
+  return PromiseSt$Meta3dCommonlib.bind(Curry._2(f, param, list.hd), (function (h) {
+                return traverseReducePromiseM(tail, h, f);
               }));
 }
 
@@ -168,6 +179,7 @@ var splitAt = Belt_List.splitAt;
 exports.traverseResultM = traverseResultM;
 exports.traverseResultMi = traverseResultMi;
 exports.traverseReduceResultM = traverseReduceResultM;
+exports.traverseReducePromiseM = traverseReducePromiseM;
 exports._id = _id;
 exports.sequenceResultM = sequenceResultM;
 exports.ignoreTraverseResultValue = ignoreTraverseResultValue;

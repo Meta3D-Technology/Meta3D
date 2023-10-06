@@ -4,6 +4,7 @@ import { removeDuplicateItemsWithBuildKeyFunc } from "../../utils/ArrayUtils"
 // import { buildPartialKeyByEntryProcoltolData, buildPartialKeyByPackageData } from "../publish/PublishPackageService"
 import { protocols } from "./MarketType"
 import { packageImplementInfos } from "./PackageMarketType"
+import { gt } from "semver";
 
 export let getAllPublishPackageEntryExtensionProtocols = (
     // [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
@@ -139,5 +140,35 @@ export let findPublishPackage = ([getDataByKeyContainFunc, downloadFileFunc]: [a
         }
 
         return downloadFileFunc(data[0].fileID)
+    })
+}
+
+export let findNewestPublishPackage = ([findNewestData, downloadFileFunc]: [any, any],
+    // account: string,
+    entryExtensionProtocolName: string,
+    packageName: string,
+): Stream<ArrayBuffer> => {
+    return findNewestData(
+        // [
+        //     (stream) => stream.where({
+        //         account: account,
+        //         entryExtensionProtocolName: entryExtensionProtocolName,
+        //         packageName: packageName
+        //     }),
+        //     (stream) => stream.orderBy("entryExtensionProtocolVersion", "desc").orderBy("packageVersion", "desc")
+        // ],
+        "publishedpackages",
+        {
+            // account: account,
+            entryExtensionProtocolName: entryExtensionProtocolName,
+            packageName: packageName
+        },
+        // ["entryExtensionProtocolVersion", "packgeVersion"]
+        "entryExtensionProtocolVersion",
+        ["packageVersion", gt]
+    ).flatMap((data: any) => {
+        return downloadFileFunc(data.fileID).map(file => {
+            return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64]
+        })
     })
 }

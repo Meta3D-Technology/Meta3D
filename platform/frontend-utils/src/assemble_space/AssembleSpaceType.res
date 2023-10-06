@@ -2,6 +2,12 @@ open BackendCloudbaseType
 
 open Meta3d.AppAndPackageFileType
 
+type selectedPackagesFromMarket = list<AssembleSpaceCommonType.packageData>
+
+type selectedExtensionsFromMarket = list<AssembleSpaceCommonType.extensionData>
+
+type selectedContributesFromMarket = list<AssembleSpaceCommonType.contributeData>
+
 type dispatch = AssembleSpaceStoreType.action => unit
 
 type useDispatch = unit => dispatch
@@ -29,6 +35,7 @@ type backendService = {
   publishElementContribute: publishElementContribute,
   publishElementAssembleData: publishElementAssembleData,
   getElementAssembleData: getElementAssembleData,
+  findNewestPublishPackage: findNewestPublishPackage,
 }
 
 type callback1Func<'a> = unit => 'a
@@ -190,6 +197,17 @@ type uiService = {
   buildText: (. ~children: React.element) => React.element,
 }
 
+type dispatchForAppStore = AppStoreType.action => unit
+
+type appService = {
+  useDispatch: unit => dispatchForAppStore,
+  // TODO finish extension, contribute
+  dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (
+    . dispatchForAppStore,
+    selectedPackagesFromMarket,
+  ) => unit,
+}
+
 type service = {
   url: urlService,
   tab: tabService,
@@ -201,10 +219,5 @@ type service = {
   other: otherService,
   dom: domService,
   ui: uiService,
+  app: appService,
 }
-
-type selectedPackagesFromMarket = list<AssembleSpaceCommonType.packageData>
-
-type selectedExtensionsFromMarket = list<AssembleSpaceCommonType.extensionData>
-
-type selectedContributesFromMarket = list<AssembleSpaceCommonType.contributeData>

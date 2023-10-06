@@ -22,7 +22,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           }
         : {
             service.backend.registerUser(account)->Meta3dBsMost.Most.tap(_ => {
-              dispatch(AppStore.UserCenterAction(UserCenterStore.SetAccount(account)))
+              dispatch(
+                FrontendUtils.AppStoreType.UserCenterAction(
+                  FrontendUtils.UserCenterStoreType.SetAccount(account),
+                ),
+              )
 
               RescriptReactRouter.push("/")
             }, _)
@@ -42,7 +46,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     </Layout.Header>
     <Layout.Content>
       <Form
-      //   name="basic"
+        //   name="basic"
         labelCol={{
           "span": 8,
         }}

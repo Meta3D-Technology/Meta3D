@@ -1,15 +1,17 @@
-type action = ..
+open FrontendUtils.AppStoreType
 
-type action +=
-  | UserCenterAction(UserCenterStore.action)
-  | EnterAppAction(EnterAppStore.action)
-  | AssembleSpaceAction(FrontendUtils.AssembleSpaceStoreType.action)
+// type action = ..
 
-type state = {
-  userCenterState: UserCenterStore.state,
-  enterAppState: EnterAppStore.state,
-  assembleSpaceState: FrontendUtils.AssembleSpaceStoreType.state,
-}
+// type action +=
+//   | UserCenterAction(FrontendUtils.UserCenterStoreType.action)
+//   | EnterAppAction(EnterAppStore.action)
+//   | AssembleSpaceAction(FrontendUtils.AssembleSpaceStoreType.action)
+
+// type state = {
+//   userCenterState: FrontendUtils.UserCenterStoreType.state,
+//   enterAppState: EnterFrontendUtils.AppStoreType.state,
+//   assembleSpaceState: FrontendUtils.AssembleSpaceStoreType.state,
+// }
 
 let reducer = (state, action) => {
   switch action {

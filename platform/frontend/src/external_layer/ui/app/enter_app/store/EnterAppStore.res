@@ -1,13 +1,15 @@
-type account = string
+// type account = string
 
-type appName = string
+// type appName = string
 
-type action = EnterApp(account, appName)
+// type action = EnterApp(account, appName)
 
-type state = {
-  account: option<string>,
-  appName: option<string>,
-}
+// type state = {
+//   account: option<string>,
+//   appName: option<string>,
+// }
+
+open FrontendUtils.EnterAppStoreType
 
 let reducer = (state, action) => {
   switch action {

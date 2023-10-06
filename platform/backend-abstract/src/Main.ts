@@ -54,3 +54,5 @@ export let getAllPublishPackageEntryExtensionProtocols = PackageMarketService.ge
 export let getAllPublishPackageInfos = PackageMarketService.getAllPublishPackageInfos
 
 export let findPublishPackage = PackageMarketService.findPublishPackage
+
+export let findNewestPublishPackage = PackageMarketService.findNewestPublishPackage

@@ -5,6 +5,7 @@ import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_ar
 import * as Belt_List from "../../../../../../node_modules/rescript/lib/es6/belt_List.js";
 import * as Result$Meta3dCommonlib from "./Result.bs.js";
 import * as OptionSt$Meta3dCommonlib from "./OptionSt.bs.js";
+import * as PromiseSt$Meta3dCommonlib from "./PromiseSt.bs.js";
 import * as MutableHashMap$Meta3dCommonlib from "./hash_map/MutableHashMap.bs.js";
 
 function traverseResultM(list, f) {
@@ -47,6 +48,16 @@ function traverseReduceResultM(list, param, f) {
   var tail = list.tl;
   return Result$Meta3dCommonlib.bind(Curry._2(f, param, list.hd), (function (h) {
                 return traverseReduceResultM(tail, h, f);
+              }));
+}
+
+function traverseReducePromiseM(list, param, f) {
+  if (!list) {
+    return Promise.resolve(param);
+  }
+  var tail = list.tl;
+  return PromiseSt$Meta3dCommonlib.bind(Curry._2(f, param, list.hd), (function (h) {
+                return traverseReducePromiseM(tail, h, f);
               }));
 }
 
@@ -169,6 +180,7 @@ export {
   traverseResultM ,
   traverseResultMi ,
   traverseReduceResultM ,
+  traverseReducePromiseM ,
   _id ,
   sequenceResultM ,
   ignoreTraverseResultValue ,

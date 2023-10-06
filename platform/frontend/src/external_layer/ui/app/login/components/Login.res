@@ -33,7 +33,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             service.backend.handleLoginForWeb3(account)
           }, _)
           ->Meta3dBsMost.Most.tap(_ => {
-            dispatch(AppStore.UserCenterAction(UserCenterStore.SetAccount(accountRef.contents)))
+            dispatch(
+              FrontendUtils.AppStoreType.UserCenterAction(
+                FrontendUtils.UserCenterStoreType.SetAccount(accountRef.contents),
+              ),
+            )
 
             RescriptReactRouter.push("/")
           }, _)
@@ -68,7 +72,11 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             ()
           }
         : {
-            dispatch(AppStore.UserCenterAction(UserCenterStore.SetAccount(account)))
+            dispatch(
+              FrontendUtils.AppStoreType.UserCenterAction(
+                FrontendUtils.UserCenterStoreType.SetAccount(account),
+              ),
+            )
 
             RescriptReactRouter.push("/")
 
@@ -90,7 +98,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         <Typography.Paragraph>
           <Typography.Title> {React.string({j`使用用户名登录`})} </Typography.Title>
           <Form
-          // name="basic"
+            // name="basic"
             labelCol={{
               "span": 8,
             }}

@@ -255,7 +255,29 @@ TODO need publish:
 publish
   engine not use event sourcing
 
-  TODO feat: add upgrade in dependency graph
+  TODO run test
+
+
+TODO feat: add upgrade in dependency graph for package, app assemble
+  # from entry
+  protocol->same implement package name 
+  package,extension,contribute
+  package: keep id
+
+  TODO fix import
+
+  TODO update iconBase64
+
+  TODO pass run test
+    TODO finish extension, contribute
+  TODO add bdd test
+
+
+  TODO fix: create old version, new disappear?
+
+
+TODO feat: add select all in package,ap assemble
+
 
 
 

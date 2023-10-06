@@ -66,6 +66,21 @@ let rec traverseReduceResultM = (
   }
 }
 
+let rec traverseReducePromiseM = (
+  list: list<'a>,
+  param: 'b,
+  f: ('b, 'a) => Js.Promise.t<'b>,
+): Js.Promise.t<'b> => {
+  // define the monadic functions
+  let \">>=" = PromiseSt.bind
+
+  // loop through the list
+  switch list {
+  | list{} => Js.Promise.resolve(param)
+  | list{head, ...tail} => \">>="(f(param, head), h => traverseReducePromiseM(tail, h, f))
+  }
+}
+
 let _id = value => value
 
 let rec sequenceResultM = list => traverseResultM(list, _id)

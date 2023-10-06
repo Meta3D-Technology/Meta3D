@@ -8,9 +8,9 @@ let make = (
   ~allPublishContributeProtocolConfigs,
 ) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedContributes} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
-    userCenterState
-  )
+  let {selectedContributes} = AppStore.useSelector((
+    {userCenterState}: FrontendUtils.AppStoreType.state,
+  ) => userCenterState)
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (page, setPage) = React.useState(_ => 1)
@@ -164,8 +164,8 @@ let make = (
                         ? <Button
                             onClick={_ => {
                               dispatch(
-                                AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectContribute(
+                                FrontendUtils.AppStoreType.UserCenterAction(
+                                  FrontendUtils.UserCenterStoreType.NotSelectContribute(
                                     contributeProtocolItem.info.name,
                                     contributeProtocolItem.info.version,
                                   ),
@@ -200,8 +200,8 @@ let make = (
                                       setIsDownloadBegin(_ => false)
 
                                       dispatch(
-                                        AppStore.UserCenterAction(
-                                          UserCenterStore.SelectContribute(
+                                        FrontendUtils.AppStoreType.UserCenterAction(
+                                          FrontendUtils.UserCenterStoreType.SelectContribute(
                                             {
                                               id: contributeProtocolItem.info.id,
                                               data: Meta3d.Main.loadContribute(

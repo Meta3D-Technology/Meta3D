@@ -8,7 +8,7 @@ let make = (
   ~allPublishExtensionProtocolConfigs,
 ) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedExtensions} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
+  let {selectedExtensions} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) =>
     userCenterState
   )
 
@@ -160,8 +160,8 @@ let make = (
                         ? <Button
                             onClick={_ => {
                               dispatch(
-                                AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectExtension(extensionProtocolItem.info.name, extensionProtocolItem.info.version),
+                                FrontendUtils.AppStoreType.UserCenterAction(
+                                  FrontendUtils.UserCenterStoreType.NotSelectExtension(extensionProtocolItem.info.name, extensionProtocolItem.info.version),
                                 ),
                               )
                             }}>
@@ -193,8 +193,8 @@ let make = (
                                       setIsDownloadBegin(_ => false)
 
                                       dispatch(
-                                        AppStore.UserCenterAction(
-                                          UserCenterStore.SelectExtension(
+                                        FrontendUtils.AppStoreType.UserCenterAction(
+                                          FrontendUtils.UserCenterStoreType.SelectExtension(
                                             {
                                               id: extensionProtocolItem.info.id,
                                               data: Meta3d.Main.loadExtension(

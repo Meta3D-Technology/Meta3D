@@ -11,14 +11,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     let dispatch = AppStore.useDispatch()
 
     assembleSpaceAction => {
-      dispatch(AppStore.AssembleSpaceAction(assembleSpaceAction))
+      dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
     }
   })
 
-  // let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
-  let {importedAppIds} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
-    userCenterState
-  )
+  // let {account} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
+  let {importedAppIds} = AppStore.useSelector((
+    {userCenterState}: FrontendUtils.AppStoreType.state,
+  ) => userCenterState)
 
   let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
@@ -160,8 +160,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                 },
                                 (selectedExtensions, selectedContributes, selectedPackages) =>
                                   dispatch(
-                                    AppStore.UserCenterAction(
-                                      UserCenterStore.ImportApp(
+                                    FrontendUtils.AppStoreType.UserCenterAction(
+                                      FrontendUtils.UserCenterStoreType.ImportApp(
                                         _generateAppId(item.account, item.appName),
                                         selectedExtensions,
                                         selectedContributes,

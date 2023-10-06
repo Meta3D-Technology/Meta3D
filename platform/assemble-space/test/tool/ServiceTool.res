@@ -67,6 +67,9 @@ let build = (
   ~getElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
+  ~findNewestPublishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->Obj.magic,
   ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getExtensionService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -131,6 +134,9 @@ let build = (
   ~buildText=(. ~children) => {
     <span> {children} </span>
   },
+  ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=createEmptyStub(
+    refJsObjToSandbox(sandbox.contents),
+  )->Obj.magic,
   (),
 ) => {
   react: {
@@ -163,6 +169,7 @@ let build = (
     publishElementContribute,
     publishElementAssembleData,
     getElementAssembleData,
+    findNewestPublishPackage,
   },
   meta3d: {
     generateContribute,
@@ -219,6 +226,9 @@ let build = (
   ui: {
     buildTitle: buildTitle->Obj.magic,
     buildText: buildText->Obj.magic,
+  },
+  app: {
+    dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction->Obj.magic,
   },
 }
 

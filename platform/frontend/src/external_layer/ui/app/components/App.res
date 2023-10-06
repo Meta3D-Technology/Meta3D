@@ -6,7 +6,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
   let url = RescriptReactRouter.useUrl()
 
   let {account, selectedExtensions, selectedContributes, selectedPackages} = AppStore.useSelector((
-    {userCenterState}: AppStore.state,
+    {userCenterState}: FrontendUtils.AppStoreType.state,
   ) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
@@ -146,7 +146,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         React.useRef(value->Obj.magic)
       },
       useSelector: (. func) => {
-        AppStore.useSelector(({assembleSpaceState}: AppStore.state) => {
+        AppStore.useSelector(({assembleSpaceState}: FrontendUtils.AppStoreType.state) => {
           func(assembleSpaceState)
         })
       },
@@ -154,7 +154,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         let dispatch = AppStore.useDispatch()
 
         assembleSpaceAction => {
-          dispatch(AppStore.AssembleSpaceAction(assembleSpaceAction))
+          dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
         }
       },
       useEffect1: (. func, param) => React.useEffect1(func, param),
@@ -171,6 +171,23 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
 
           cleanUp
         }, [])
+      },
+    },
+    app: {
+      useDispatch: () => {
+        AppStore.useDispatch()
+      },
+      dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (.
+        dispatch,
+        selectedPackages,
+      ) => {
+        dispatch(
+          FrontendUtils.AppStoreType.UserCenterAction(
+            FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+              selectedPackages,
+            ),
+          ),
+        )
       },
     },
   }

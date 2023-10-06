@@ -8,7 +8,7 @@ type showType =
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedPackages} = AppStore.useSelector(({userCenterState}: AppStore.state) =>
+  let {selectedPackages} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) =>
     userCenterState
   )
 

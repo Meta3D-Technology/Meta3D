@@ -67,12 +67,26 @@ type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
 type batchFindPublishExtensionProtocols = (
   . // . array<(protocolName, protocolVersion)>,
-  array<protocolName>,
+  array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+    protocolName,
+  >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocols>
 
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
-  array<protocolName>,
+  array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+    protocolName,
+  >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocols>
 
 // type protocolConfig = {
@@ -93,12 +107,26 @@ type getAllPublishContributeProtocolConfigs = getAllPublishExtensionProtocolConf
 
 type batchFindPublishExtensionProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
-  array<protocolName>,
+  array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+    protocolName,
+  >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
 
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
-  array<protocolName>,
+  array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+    protocolName,
+  >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
 
 type implementInfo = {
@@ -294,3 +322,14 @@ type getAllPublishPackageInfos = (
 ) => Meta3dBsMostProtocol.StreamType.stream<packageImplementInfos>
 
 type findPublishPackage = findPublishExtension
+
+type findNewestPublishPackage = (
+  . onDownloadProgressFunc,
+  entryExtensionProtocolName,
+  implementName,
+) => Meta3dBsMostProtocol.StreamType.stream<(
+  Js.Typed_array.ArrayBuffer.t,
+  entryExtensionProtocolVersion,
+  implementVersion,
+  entryExtensionProtocolIconBase64
+)>

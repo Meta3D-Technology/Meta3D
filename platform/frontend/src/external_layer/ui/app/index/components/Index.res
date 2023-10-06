@@ -3,7 +3,7 @@ open FrontendUtils.Antd
 
 @react.component
 let make = () => {
-  let {account} = AppStore.useSelector(({userCenterState}: AppStore.state) => userCenterState)
+  let {account} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
 
   let _isNotLogin = account => {
     !(account->Meta3dCommonlib.OptionSt.isSome)

@@ -169,6 +169,41 @@ export let getData = (collectionName: string, limitCount: number, skipCount: num
 		.then(res => res.data)
 }
 
+export let findNewestData = (
+	// [
+	// 	whereFunc,
+	// 	orderByFunc,
+	// ]: [any, any],
+	collectionName: string,
+	whereData: any,
+	// [firstOrderByFieldName, secondOrderByFieldName]: [string, string]
+	firstOrderByFieldName: string,
+	[secondOrderByFieldName, gtFunc]: [string, any]
+) => {
+	return fromPromise(getDatabase().collection(collectionName)
+		.where(whereData)
+		.orderBy(firstOrderByFieldName, "desc")
+		// .orderBy(secondOrderByFieldName, "desc")
+		.get()
+		.then(res => {
+			let firstOrderByFieldValue = res.data[0][firstOrderByFieldName]
+
+			debugger
+
+			return res.data.filter(data => {
+				return data[firstOrderByFieldName] == firstOrderByFieldValue
+			}).sort((a, b) => {
+				if (gtFunc(a[secondOrderByFieldName], b[secondOrderByFieldName])) {
+					return -1
+				}
+
+				return 1
+			})[0]
+		})
+	)
+}
+
+
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getMarketProtocolCollection("publishedpackages")
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getData("publishedpackages")
 

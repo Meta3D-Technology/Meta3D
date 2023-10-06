@@ -12,7 +12,7 @@ let make = (
 ) => {
   let dispatch = AppStore.useDispatch()
   let {selectedPackages, importedPackageIds} = AppStore.useSelector((
-    {userCenterState}: AppStore.state,
+    {userCenterState}: FrontendUtils.AppStoreType.state,
   ) => userCenterState)
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
@@ -127,13 +127,13 @@ let make = (
                     )}
                     {
                       //   FrontendUtils.MarketUtils.isSelect(
-                      //   ({id}: UserCenterStore.packageData) => id,
+                      //   ({id}: FrontendUtils.UserCenterStoreType.packageData) => id,
                       //   item.id,
                       //   selectedPackages,
                       // )
 
                       FrontendUtils.MarketUtils.isSelect(
-                        ({version, name}: UserCenterStore.packageData) => {j`${version}_${name}`},
+                        ({version, name}: FrontendUtils.UserCenterStoreType.packageData) => {j`${version}_${name}`},
                         {
                           j`${item.version}_${item.name}`
                         },
@@ -142,8 +142,8 @@ let make = (
                         ? <Button
                             onClick={_ => {
                               dispatch(
-                                AppStore.UserCenterAction(
-                                  UserCenterStore.NotSelectPackage(item.name, item.version),
+                                FrontendUtils.AppStoreType.UserCenterAction(
+                                  FrontendUtils.UserCenterStoreType.NotSelectPackage(item.name, item.version),
                                 ),
                               )
                             }}>
@@ -179,8 +179,8 @@ let make = (
                                       setIsBackendBegin(_ => false)
 
                                       dispatch(
-                                        AppStore.UserCenterAction(
-                                          UserCenterStore.SelectPackage({
+                                        FrontendUtils.AppStoreType.UserCenterAction(
+                                          FrontendUtils.UserCenterStoreType.SelectPackage({
                                             id: item.id,
                                             protocol: {
                                               name: item.entryExtensionProtocolName,
@@ -294,8 +294,8 @@ let make = (
                                   },
                                   (selectedExtensions, selectedContributes) =>
                                     dispatch(
-                                      AppStore.UserCenterAction(
-                                        UserCenterStore.ImportPackage(
+                                      FrontendUtils.AppStoreType.UserCenterAction(
+                                        FrontendUtils.UserCenterStoreType.ImportPackage(
                                           item.id,
                                           selectedExtensions,
                                           selectedContributes,
