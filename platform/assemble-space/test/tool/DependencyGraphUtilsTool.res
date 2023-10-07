@@ -15,3 +15,5 @@ let useEffectOnce = (
     ((selectedPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
   )
 }
+
+let autoUpgradeVersion = DependencyGraphUtils.Method.autoUpgradeVersion

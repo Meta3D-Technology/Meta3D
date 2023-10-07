@@ -1793,4 +1793,244 @@ defineFeature(feature, test => {
       },
     )
   })
+
+  test(."auto upgrade selected packages, extensions, contributes", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let e1 = ref(Obj.magic(1))
+    let p1 = ref(Obj.magic(1))
+    let c1 = ref(Obj.magic(1))
+    let e1Name = "e1"
+    let e1LowVersion = "0.0.1"
+    let e1HighVersion = "0.1.1"
+    let e1ProtocolName = "e1-protocol"
+    let e1ProtocolConfig = Js.Nullable.null
+    let e1Description = "e1Description"
+    let e1DisplayName = "e1DisplayName"
+    let e1RepoLink = "e1RepoLink"
+    let e1File = ExtensionTool.buildExtensionData(
+      ~extensionPackageData=ExtensionTool.buildExtensionPackageData(~name=e1Name, ()),
+      (),
+    )
+    let e1Account = "e1Account"
+    let e1ProtocolLowVersion = "0.1.1"
+    let e1ProtocolHighVersion = "0.2.1"
+    let e1ProtocolVersionRange = "^0.1.1"
+    let e1ProtocolIconBase64 = "e1ProtocolIconBase64"
+    let e1ProtocolDisplayName = "e1ProtocolDisplayName"
+    let e1ProtocolRepoLink = "e1ProtocolRepoLink"
+    let e1ProtocolDescription = "e1ProtocolDescription"
+    let c1Name = "c1"
+    let c1LowVersion = "0.2.1"
+    let c1HighVersion = "0.3.1"
+    let c1ProtocolName = "c1-protocol"
+    let c1ProtocolConfig = Js.Nullable.null
+    let c1Description = "c1Description"
+    let c1DisplayName = "c1DisplayName"
+    let c1RepoLink = "c1RepoLink"
+    let c1File = ContributeTool.buildContributeData(
+      ~contributePackageData=ContributeTool.buildContributePackageData(~name=c1Name, ()),
+      (),
+    )
+    let c1Account = "c1Account"
+    let c1ProtocolLowVersion = "0.2.1"
+    let c1ProtocolHighVersion = "0.3.1"
+    let c1ProtocolVersionRange = "^0.2.1"
+    let c1ProtocolIconBase64 = "c1ProtocolIconBase64"
+    let c1ProtocolDisplayName = "c1ProtocolDisplayName"
+    let c1ProtocolRepoLink = "c1ProtocolRepoLink"
+    let c1ProtocolDescription = "c1ProtocolDescription"
+    let p1Name = "p1"
+    let p1Version = "0.0.1"
+    let p1ProtocolName = "p1-protocol"
+    let p1ProtocolVersion = "0.1.0"
+    let p1ProtocolIconbase64 = "ib"
+    let p1File = Js.Typed_array.ArrayBuffer.make(10)
+    let findNewestPublishPackageStub = ref(Obj.magic(1))
+    let findNewestPublishExtensionStub = ref(Obj.magic(1))
+    let findNewestPublishContributeStub = ref(Obj.magic(1))
+    let loadExtensionFake = (. file) => file
+    let loadContributeFake = (. file) => file
+    let dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "prepare backend",
+      () => {
+        dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        findNewestPublishPackageStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withThreeArgs(matchAny, p1ProtocolName, p1Name, _)
+          ->returns(
+            Meta3dBsMost.Most.just((p1File, p1ProtocolVersion, p1Version, p1ProtocolIconbase64)),
+            _,
+          )
+
+        findNewestPublishExtensionStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withThreeArgs(matchAny, e1Name, e1ProtocolName, _)
+          ->returns(
+            Meta3dBsMost.Most.just((
+              (e1Description, e1DisplayName, e1RepoLink, e1HighVersion, e1File, e1Account),
+              (
+                e1ProtocolHighVersion,
+                e1ProtocolIconBase64,
+                e1ProtocolDisplayName,
+                e1ProtocolRepoLink,
+                e1ProtocolDescription,
+              ),
+              e1ProtocolConfig,
+            )),
+            _,
+          )
+
+        findNewestPublishContributeStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withThreeArgs(matchAny, c1Name, c1ProtocolName, _)
+          ->returns(
+            Meta3dBsMost.Most.just((
+              (c1Description, c1DisplayName, c1RepoLink, c1HighVersion, c1File, c1Account),
+              (
+                c1ProtocolHighVersion,
+                c1ProtocolIconBase64,
+                c1ProtocolDisplayName,
+                c1ProtocolRepoLink,
+                c1ProtocolDescription,
+              ),
+              c1ProtocolConfig,
+            )),
+            _,
+          )
+      },
+    )
+
+    \"and"(
+      "select extension e1",
+      () => {
+        e1 :=
+          SelectedExtensionsTool.buildSelectedExtension(
+            ~id="e1",
+            ~name=e1Name,
+            ~version=e1LowVersion,
+            ~isStart=true,
+            ~protocolIconBase64=e1ProtocolIconBase64,
+            ~protocolConfigStr=None,
+            ~data=ExtensionTool.buildExtensionData(
+              ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
+                ~name=e1Name,
+                // ~version=e1Version,
+                // ~displayName=e1DisplayName,
+                // ~repoLink=e1RepoLink,
+                // ~description=e1Description,
+                ~protocol={
+                  name: e1ProtocolName,
+                  version: e1ProtocolVersionRange,
+                },
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select contribute c1",
+      () => {
+        c1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~id="c1",
+            ~name=c1Name,
+            ~version=c1LowVersion,
+            ~protocolIconBase64=c1ProtocolIconBase64,
+            ~protocolConfigStr=None,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=c1Name,
+                ~protocol={
+                  name: c1ProtocolName,
+                  version: c1ProtocolVersionRange,
+                },
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select package p1",
+      () => {
+        p1 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~name=p1Name,
+            ~protocolIconBase64=p1ProtocolIconbase64,
+            ~protocolName=p1ProtocolName,
+            ~protocolVersion=p1ProtocolVersion,
+            ~binaryFile=p1File,
+            (),
+          )
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "auto upgrade",
+      () => {
+        DependencyGraphUtilsTool.autoUpgradeVersion(
+          ServiceTool.build(
+            ~sandbox,
+            ~loadExtension=loadExtensionFake->Obj.magic,
+            ~loadContribute=loadContributeFake->Obj.magic,
+            ~findNewestPublishPackage=findNewestPublishPackageStub.contents->Obj.magic,
+            ~findNewestPublishExtension=findNewestPublishExtensionStub.contents->Obj.magic,
+            ~findNewestPublishContribute=findNewestPublishContributeStub.contents->Obj.magic,
+            ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents->Obj.magic,
+            (),
+          ),
+          createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+          createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+          createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+          createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+          list{p1.contents},
+          list{e1.contents},
+          list{c1.contents},
+        )
+      },
+    )
+
+    then(
+      "should update the newest ones to app store, ap assemble store, package assemble store",
+      () => {
+        (
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          ->Obj.magic
+          ->SinonTool.getArg(~callIndex=0, ~argIndex=3, ~stub=_, ())
+          ->Js.Json.stringify,
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          ->Obj.magic
+          ->SinonTool.getArg(~callIndex=0, ~argIndex=4, ~stub=_, ())
+          ->Js.Json.stringify,
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          ->Obj.magic
+          ->SinonTool.getArg(~callIndex=0, ~argIndex=4, ~stub=_, ())
+          ->Js.Json.stringify,
+        )->expect ==
+          (
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{}},\"tl\":0},{\"hd\":[{\"id\":\"e1\",\"protocolName\":\"e1-protocol\",\"protocolVersion\":\"0.2.1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},\"version\":\"0.1.1\",\"account\":\"e1Account\"},null],\"tl\":0},{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{}},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{}},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
+          )
+      },
+    )
+  })
 })

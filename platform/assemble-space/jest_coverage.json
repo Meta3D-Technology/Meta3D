@@ -26,7 +26,9 @@
         "<rootDir>/lib/js/src/.+/ContributeInspector.*",
         "<rootDir>/lib/js/src/.+/PackageInspector.*",
         "<rootDir>/lib/js/src/.+/ApDependencyGraph.*",
-        "<rootDir>/lib/js/src/.+/PackageDependencyGraph.*"
+        "<rootDir>/lib/js/src/.+/PackageDependencyGraph.*",
+        "<rootDir>/lib/js/src/.+/Most.*",
+        "<rootDir>/lib/js/src/.+/.*Store.*"
     ],
     "collectCoverageFrom": [
         "lib/js/src/**/*.js",

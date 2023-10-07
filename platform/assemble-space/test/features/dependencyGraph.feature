@@ -105,3 +105,14 @@ Feature: DependencyGraph
             And select contribute c1 for action protocol1 and c2 for action protocol2 that they are dependent on protocol1
             When build graph data
             Then should build data: c1 -> e2; c2 -> e2
+
+
+    Rule: auto upgrade
+
+        Scenario: auto upgrade selected packages, extensions, contributes
+            Given prepare backend
+            And select extension e1
+            And select contribute c1
+            And select package p1
+            When auto upgrade
+            Then should update the newest ones to app store, ap assemble store, package assemble store
