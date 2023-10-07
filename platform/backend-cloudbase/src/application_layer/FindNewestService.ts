@@ -132,7 +132,13 @@ let _findNewestPublishExtensionOrContribute = (
 
                         return [
                             extensionOrContribute,
-                            [protocolVersion, protocolIconBase64],
+                            [
+                                protocolVersion,
+                                protocolIconBase64,
+                                protocol.displayName,
+                                protocol.repoLink,
+                                protocol.description
+                            ],
                             protocolConfig
                         ]
                     })

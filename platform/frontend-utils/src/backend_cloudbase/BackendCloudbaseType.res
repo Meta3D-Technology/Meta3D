@@ -4,15 +4,6 @@ type versionRange = string
 
 type version = string
 
-type protocolName = string
-
-type protocolDisplayName = string
-
-// type protocolVersion = versionRange
-type protocolVersion = version
-
-type protocolIconBase64 = string
-
 type implementName = string
 
 type implementDisplayName = string
@@ -28,6 +19,18 @@ type limitCount = int
 type skipCount = int
 
 type count = int
+
+type protocolName = string
+
+type protocolDisplayName = string
+
+type protocolVersion = version
+
+type protocolIconBase64 = string
+
+type protocolRepoLink = repoLink
+
+type protocolDescription = description
 
 // TODO refactor: move type out
 type protocol = {
@@ -85,6 +88,12 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocols>
@@ -92,6 +101,12 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -149,6 +164,12 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
@@ -156,6 +177,12 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -395,7 +422,7 @@ type findNewestPublishExtension = (
     Js.Typed_array.ArrayBuffer.t,
     account,
   ),
-  (protocolVersion, protocolIconBase64),
+  (protocolVersion, protocolIconBase64, protocolDisplayName, protocolRepoLink, protocolDescription),
   Js.Nullable.t<CommonType.protocolConfig>,
 )>
 

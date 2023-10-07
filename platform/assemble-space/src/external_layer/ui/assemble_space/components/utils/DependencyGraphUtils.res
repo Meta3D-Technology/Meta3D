@@ -612,17 +612,18 @@ module Method = {
     data.extensionPackageData.protocol.name
   }
 
-  let _convertSelectedDataFromForAppStoreToForApASsembleStore = (
+  let _convertSelectedDataFromForAppStoreToForApAssembleStore = (
     selectedPackagesForAppStore,
-    selectedExtensionsForAppStore,
+    selectedExtensionsForAppStoreEdit,
     selectedContributesForAppStore,
     startExtensionProtocolName,
   ) => {
     (
       selectedPackagesForAppStore,
-      selectedExtensionsForAppStore->Meta3dCommonlib.ListSt.map((
+      selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((
         (extension, protocolConfig): FrontendUtils.AssembleSpaceCommonType.extensionData,
-      ): FrontendUtils.ApAssembleStoreType.extension => {
+        _,
+      )): FrontendUtils.ApAssembleStoreType.extension => {
         {
           id: extension.id,
           protocolIconBase64: extension.protocolIconBase64,
@@ -650,11 +651,44 @@ module Method = {
     )
   }
 
+  let _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore = (
+    selectedPackagesForApAssembleStore,
+    selectedExtensionsForAppStoreEdit,
+    selectedContributesForApAssembleStore,
+    startExtensionProtocolName,
+  ) => {
+    (
+      selectedPackagesForApAssembleStore,
+      selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((
+        (extension, protocolConfig): FrontendUtils.AssembleSpaceCommonType.extensionData,
+        (protocolDisplayName, protocolRepoLink, protocolDescription),
+      )): FrontendUtils.PackageAssembleStoreType.extension => {
+        {
+          id: extension.id,
+          protocolName: extension.data.extensionPackageData.protocol.name,
+          protocolVersion: extension.protocolVersion,
+          protocolIconBase64: extension.protocolIconBase64,
+          protocolConfigStr: protocolConfig->Meta3dCommonlib.OptionSt.map(({configStr}) =>
+            configStr
+          ),
+          protocolDisplayName,
+          protocolRepoLink,
+          protocolDescription,
+          isEntry: extension.protocolName == startExtensionProtocolName ? true : false,
+          version: extension.version,
+          data: extension.data,
+        }
+      }),
+      selectedContributesForApAssembleStore,
+    )
+  }
+
   let autoUpgradeVersion = (
     service: service,
     setOperateInfo,
     dispatchForAppStore,
     dispatchForApAssembleStore,
+    dispatchForPackageAssembleStore,
     selectedPackages,
     selectedExtensions,
     selectedContributes,
@@ -712,22 +746,31 @@ module Method = {
         ->Meta3dBsMost.Most.flatMap(
           ((
             (description, displayName, repoLink, implementVersion, file, account),
-            (protocolVersion, protocolIconBase64),
+            (
+              protocolVersion,
+              protocolIconBase64,
+              protocolDisplayName,
+              protocolRepoLink,
+              protocolDescription,
+            ),
             protocolConfig,
           )) => {
             (
               (
-                {
-                  id: extension.id,
-                  protocolName: extension.data.extensionPackageData.protocol.name,
-                  protocolVersion,
-                  protocolIconBase64,
-                  version: implementVersion,
-                  account,
-                  data: service.meta3d.loadExtension(. file),
-                }: FrontendUtils.AssembleSpaceCommonType.extension
+                (
+                  {
+                    id: extension.id,
+                    protocolName: extension.data.extensionPackageData.protocol.name,
+                    protocolVersion,
+                    protocolIconBase64,
+                    version: implementVersion,
+                    account,
+                    data: service.meta3d.loadExtension(. file),
+                  }: FrontendUtils.AssembleSpaceCommonType.extension
+                ),
+                protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
               ),
-              protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
+              (protocolDisplayName, protocolRepoLink, protocolDescription),
             )->Meta3dBsMost.Most.just
           },
           _,
@@ -758,7 +801,7 @@ module Method = {
         ->Meta3dBsMost.Most.flatMap(
           ((
             (description, displayName, repoLink, implementVersion, file, account),
-            (protocolVersion, protocolIconBase64),
+            (protocolVersion, protocolIconBase64, _, _, _),
             protocolConfig,
           )) => {
             (
@@ -793,23 +836,42 @@ module Method = {
     ->Js.Promise.then_(
       ((
         selectedPackagesForAppStore,
-        selectedExtensionsForAppStore,
+        selectedExtensionsForAppStoreEdit,
         selectedContributesForAppStore,
       )) => {
         setOperateInfo(_ => "")
 
+        let (
+          selectedPackagesForApAssembleStore,
+          selectedExtensionsForApAssembleStore,
+          selectedContributesForApAssembleStore,
+        ) = _convertSelectedDataFromForAppStoreToForApAssembleStore(
+          selectedPackagesForAppStore,
+          selectedExtensionsForAppStoreEdit,
+          selectedContributesForAppStore,
+          startExtensionProtocolName,
+        )
+
         service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
           dispatchForAppStore,
           dispatchForApAssembleStore,
+          dispatchForPackageAssembleStore,
           (
             selectedPackagesForAppStore,
-            selectedExtensionsForAppStore,
+            selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((extensionData, _)) =>
+              extensionData
+            ),
             selectedContributesForAppStore,
           ),
-          _convertSelectedDataFromForAppStoreToForApASsembleStore(
-            selectedPackagesForAppStore,
-            selectedExtensionsForAppStore,
-            selectedContributesForAppStore,
+          (
+            selectedPackagesForApAssembleStore,
+            selectedExtensionsForApAssembleStore,
+            selectedContributesForApAssembleStore,
+          ),
+          _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore(
+            selectedPackagesForApAssembleStore,
+            selectedExtensionsForAppStoreEdit,
+            selectedContributesForApAssembleStore,
             startExtensionProtocolName,
           ),
         )
@@ -832,6 +894,9 @@ let make = (
 ) => {
   let dispatchForAppStore = service.app.useDispatch()
   let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(
+    service.react.useDispatch,
+  )
+  let dispatchForPackageAssembleStore = FrontendUtils.ReduxUtils.PackageAssemble.useDispatch(
     service.react.useDispatch,
   )
 
@@ -882,6 +947,7 @@ let make = (
                   setOperateInfo,
                   dispatchForAppStore,
                   dispatchForApAssembleStore,
+                  dispatchForPackageAssembleStore,
                   selectedPackages,
                   selectedExtensions,
                   selectedContributes,

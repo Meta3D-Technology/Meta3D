@@ -31,7 +31,6 @@ let buildSelectedExtension = (
     protocolDisplayName,
     protocolRepoLink,
     protocolDescription,
-    // newName,
     isEntry,
     data,
   }

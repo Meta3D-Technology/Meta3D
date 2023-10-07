@@ -291,7 +291,6 @@ TODO feat: add upgrade in dependency graph for package, app assemble
 
 
 
-TODO fix: should refresh dependency after upgrade for package assemble
 
 
 TODO feat: finish publish

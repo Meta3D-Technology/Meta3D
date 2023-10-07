@@ -97,7 +97,13 @@ let _findNewestPublishExtensionOrContribute = (downloadFileFunc, [protocolCollec
                 }
                 return [
                     extensionOrContribute,
-                    [protocolVersion, protocolIconBase64],
+                    [
+                        protocolVersion,
+                        protocolIconBase64,
+                        protocol.displayName,
+                        protocol.repoLink,
+                        protocol.description
+                    ],
                     protocolConfig
                 ];
             }));

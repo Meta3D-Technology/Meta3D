@@ -6,6 +6,7 @@ module Method = {
   let selectExtension = (
     dispatch,
     protocolIconBase64,
+    // TODO remove
     protocolDisplayName,
     protocolRepoLink,
     protocolDescription,

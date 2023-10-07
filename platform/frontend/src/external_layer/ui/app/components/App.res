@@ -180,15 +180,21 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (.
         dispatchForAppStore,
         dispatchForApAssembleStore,
+        dispatchForPackageAssembleStore,
         (
           selectedPackagesForAppStore,
           selectedExtensionsForAppStore,
           selectedContributesForAppStore,
         ),
         (
-          selectedPackagesForAssembleSpaceStore,
-          selectedExtensionsForAssembleSpaceStore,
-          selectedContributesForAssembleSpaceStore,
+          selectedPackagesForApAssembleStore,
+          selectedExtensionsForApAssembleStore,
+          selectedContributesForApAssembleStore,
+        ),
+        (
+          selectedPackagesForPackageAssembleStore,
+          selectedExtensionsForPackageAssembleStore,
+          selectedContributesForPackageAssembleStore,
         ),
       ) => {
         dispatchForAppStore(
@@ -202,9 +208,16 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         )
         dispatchForApAssembleStore(
           FrontendUtils.ApAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
-            selectedPackagesForAssembleSpaceStore,
-            selectedExtensionsForAssembleSpaceStore,
-            selectedContributesForAssembleSpaceStore,
+            selectedPackagesForApAssembleStore,
+            selectedExtensionsForApAssembleStore,
+            selectedContributesForApAssembleStore,
+          ),
+        )
+        dispatchForPackageAssembleStore(
+          FrontendUtils.PackageAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+            selectedPackagesForPackageAssembleStore,
+            selectedExtensionsForPackageAssembleStore,
+            selectedContributesForPackageAssembleStore,
           ),
         )
       },

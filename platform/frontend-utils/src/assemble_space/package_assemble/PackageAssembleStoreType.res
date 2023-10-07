@@ -23,7 +23,6 @@ type extension = {
   protocolDisplayName: protocolDisplayName,
   protocolRepoLink: protocolRepoLink,
   protocolDescription: protocolDescription,
-  // newName: option<newName>,
   isEntry: bool,
   version: version,
   data: Meta3d.ExtensionFileType.extensionFileData,
@@ -69,7 +68,12 @@ type action =
       AssembleSpaceCommonType.contribute,
     )
   | SetInspectorCurrentContributeId(id)
-// | SetContributeNewName(id, newName)
+  // | SetContributeNewName(id, newName)
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    )
 
 type state = {
   selectedPackages: selectedPackages,

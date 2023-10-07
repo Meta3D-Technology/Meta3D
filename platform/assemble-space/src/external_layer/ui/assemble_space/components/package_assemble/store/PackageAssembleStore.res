@@ -83,7 +83,6 @@ let reducer = (state, action) => {
         protocolRepoLink,
         protocolDescription,
         protocolConfigStr,
-        // newName: None,
         isEntry: false,
         version: extension.version,
         data: extension.data,
@@ -141,6 +140,16 @@ let reducer = (state, action) => {
       inspectorCurrentExtensionId: None,
       inspectorCurrentContributeId: id->Some,
       // isShowApInspector: false,
+    }
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    ) => {
+      ...state,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
     }
   // | SetContributeNewName(id, newName) => {
   //     ...state,

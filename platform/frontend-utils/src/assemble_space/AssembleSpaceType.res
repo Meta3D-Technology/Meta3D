@@ -203,16 +203,24 @@ type dispatchForAppStore = AppStoreType.action => unit
 
 type dispatchForApAssembleStore = ApAssembleStoreType.action => unit
 
+type dispatchForPackageAssembleStore = PackageAssembleStoreType.action => unit
+
 type appService = {
   useDispatch: unit => dispatchForAppStore,
   dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (
     . dispatchForAppStore,
     dispatchForApAssembleStore,
+    dispatchForPackageAssembleStore,
     (selectedPackagesFromMarket, selectedExtensionsFromMarket, selectedContributesFromMarket),
     (
       ApAssembleStoreType.selectedPackages,
       ApAssembleStoreType.selectedExtensions,
       ApAssembleStoreType.selectedContributes,
+    ),
+    (
+      PackageAssembleStoreType.selectedPackages,
+      PackageAssembleStoreType.selectedExtensions,
+      PackageAssembleStoreType.selectedContributes,
     ),
   ) => unit,
 }
