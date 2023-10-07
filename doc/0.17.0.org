@@ -276,6 +276,9 @@ TODO feat: add upgrade in dependency graph for package, app assemble
     # TODO change databse?
 
     TODO run test multiple packages, extensions, contributes -> publish app
+
+
+  TODO fix: should refresh dependency after upgrade
      
   TODO add bdd test
 

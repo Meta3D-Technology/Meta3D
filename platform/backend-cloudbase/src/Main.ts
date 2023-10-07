@@ -31,7 +31,8 @@ import {
 } from "./application_layer/BackendService";
 import {
     findNewestPublishPackage as findNewestPublishPackageFind,
-    findNewestPublishExtension as findNewestPublishExtensionFind
+    findNewestPublishExtension as findNewestPublishExtensionFind,
+    findNewestPublishContribute as findNewestPublishContributeFind
 } from "./application_layer/FindNewestService";
 
 
@@ -286,5 +287,11 @@ export let findNewestPublishPackage = (onDownloadProgressFunc, entryExtensionPro
 export let findNewestPublishExtension = (onDownloadProgressFunc, extensionName, extensionProtocolName) => {
     return findNewestPublishExtensionFind(
         curry2(downloadFile)(onDownloadProgressFunc), extensionName, extensionProtocolName
+    )
+}
+
+export let findNewestPublishContribute = (onDownloadProgressFunc, contributeName, contributeProtocolName) => {
+    return findNewestPublishContributeFind(
+        curry2(downloadFile)(onDownloadProgressFunc), contributeName, contributeProtocolName
     )
 }

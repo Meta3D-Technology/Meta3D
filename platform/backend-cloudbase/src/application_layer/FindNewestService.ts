@@ -33,14 +33,48 @@ export let findNewestPublishPackage = (
     )
 }
 
-export let findNewestPublishExtension = (
+let _findNewestImplements = (res, isJudgeProtocolVersion, implementName, protocolName, protocolVersion) => {
+    return res.data.reduce((result, { fileData, key }) => {
+        return result.concat(fileData.map(data => {
+            return { ...data, account: key }
+        }))
+    }, [])
+        .filter((data) => {
+            if (isJudgeProtocolVersion) {
+                return data.name == implementName &&
+                    data.protocolName == protocolName
+                    && satisfies(
+                        protocolVersion,
+                        data.protocolVersion
+                    )
+            }
+
+            return data.name == implementName &&
+                data.protocolName == protocolName
+
+        })
+        .sort((a, b) => {
+            if (gt(a.version, b.version)) {
+                return -1
+            }
+
+            return 1
+        })
+}
+
+let _findNewestPublishExtensionOrContribute = (
     downloadFileFunc,
-    extensionName, extensionProtocolName
+    [
+        protocolCollectionName,
+        protocolConfigCollectionName,
+        implementCollectionName,
+    ],
+    implementName, protocolName
 ) => {
     return fromPromise(
-        getDatabase().collection("publishedextensionprotocols")
+        getDatabase().collection(protocolCollectionName)
             .where({
-                name: extensionProtocolName
+                name: protocolName
             })
             .orderBy("version", "desc")
             .get()
@@ -48,14 +82,14 @@ export let findNewestPublishExtension = (
                 return res.data[0]
             })
     ).flatMap((protocol: protocol) => {
-        let extensionProtocolVersion = protocol.version
-        let extensionProtocolIconBase64 = protocol.iconBase64
+        let protocolVersion = protocol.version
+        let protocolIconBase64 = protocol.iconBase64
 
         return fromPromise(
-            getDatabase().collection("publishedextensionprotocolconfigs")
+            getDatabase().collection(protocolConfigCollectionName)
                 .where({
-                    name: extensionProtocolName,
-                    version: extensionProtocolVersion
+                    name: protocolName,
+                    version: protocolVersion
                 })
                 .get()
                 .then(res => {
@@ -69,12 +103,12 @@ export let findNewestPublishExtension = (
                 })
         ).flatMap((protocolConfig: nullable<protocolConfig>) => {
             return fromPromise(
-                getDatabase().collection("publishedextensions")
+                getDatabase().collection(implementCollectionName)
                     // .where({
                     //     fileData: getDatabase().command.in([
                     //         getDatabase().command.eq({
-                    //             name: extensionName,
-                    //             protocolName: extensionProtocolName
+                    //             name: implementName,
+                    //             protocolName: protocolName
                     //         })
                     //     ])
                     // })
@@ -85,31 +119,20 @@ export let findNewestPublishExtension = (
                     .limit(1000)
                     .get()
                     .then(res => {
-                        debugger
+                        let extensionOrContribute = null
 
-                        let extension = res.data.reduce((result, { fileData, key }) => {
-                            return result.concat(fileData.map(data => {
-                                return { ...data, account: key }
-                            }))
-                        }, [])
-                            .filter(({ name, protocolName, protocolVersion }) => {
-                                return name == extensionName &&
-                                    protocolName == extensionProtocolName && satisfies(
-                                        extensionProtocolVersion,
-                                        protocolVersion
-                                    )
-                            })
-                            .sort((a, b) => {
-                                if (gt(a.version, b.version)) {
-                                    return -1
-                                }
+                        let result = _findNewestImplements(res, true, implementName, protocolName, protocolVersion)
 
-                                return 1
-                            })[0]
+                        if (result.length == 0) {
+                            extensionOrContribute = _findNewestImplements(res, false, implementName, protocolName, protocolVersion)[0]
+                        }
+                        else {
+                            extensionOrContribute = result[0]
+                        }
 
                         return [
-                            extension,
-                            [extensionProtocolVersion, extensionProtocolIconBase64],
+                            extensionOrContribute,
+                            [protocolVersion, protocolIconBase64],
                             protocolConfig
                         ]
                     })
@@ -140,5 +163,18 @@ export let findNewestPublishExtension = (
                 ]
             })
         })
+}
 
+export let findNewestPublishExtension = (
+    downloadFileFunc,
+    implementName, protocolName
+) => {
+    return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedextensionprotocols", "publishedextensionprotocolconfigs", "publishedextensions"], implementName, protocolName)
+}
+
+export let findNewestPublishContribute = (
+    downloadFileFunc,
+    implementName, protocolName
+) => {
+    return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedcontributeprotocols", "publishedcontributeprotocolconfigs", "publishedcontributes"], implementName, protocolName)
 }

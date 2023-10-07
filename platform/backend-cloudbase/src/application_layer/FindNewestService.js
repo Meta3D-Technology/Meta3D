@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishExtension = exports.findNewestPublishPackage = void 0;
+exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = void 0;
 const most_1 = require("most");
 const BackendService_1 = require("./BackendService");
 const semver_1 = require("semver");
@@ -24,22 +24,44 @@ let findNewestPublishPackage = (collectionName, whereData, firstOrderByFieldName
     }));
 };
 exports.findNewestPublishPackage = findNewestPublishPackage;
-let findNewestPublishExtension = (downloadFileFunc, extensionName, extensionProtocolName) => {
-    return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection("publishedextensionprotocols")
+let _findNewestImplements = (res, isJudgeProtocolVersion, implementName, protocolName, protocolVersion) => {
+    return res.data.reduce((result, { fileData, key }) => {
+        return result.concat(fileData.map(data => {
+            return Object.assign(Object.assign({}, data), { account: key });
+        }));
+    }, [])
+        .filter((data) => {
+        if (isJudgeProtocolVersion) {
+            return data.name == implementName &&
+                data.protocolName == protocolName
+                && (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
+        }
+        return data.name == implementName &&
+            data.protocolName == protocolName;
+    })
+        .sort((a, b) => {
+        if ((0, semver_1.gt)(a.version, b.version)) {
+            return -1;
+        }
+        return 1;
+    });
+};
+let _findNewestPublishExtensionOrContribute = (downloadFileFunc, [protocolCollectionName, protocolConfigCollectionName, implementCollectionName,], implementName, protocolName) => {
+    return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection(protocolCollectionName)
         .where({
-        name: extensionProtocolName
+        name: protocolName
     })
         .orderBy("version", "desc")
         .get()
         .then(res => {
         return res.data[0];
     })).flatMap((protocol) => {
-        let extensionProtocolVersion = protocol.version;
-        let extensionProtocolIconBase64 = protocol.iconBase64;
-        return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection("publishedextensionprotocolconfigs")
+        let protocolVersion = protocol.version;
+        let protocolIconBase64 = protocol.iconBase64;
+        return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection(protocolConfigCollectionName)
             .where({
-            name: extensionProtocolName,
-            version: extensionProtocolVersion
+            name: protocolName,
+            version: protocolVersion
         })
             .get()
             .then(res => {
@@ -49,12 +71,12 @@ let findNewestPublishExtension = (downloadFileFunc, extensionName, extensionProt
             }
             return null;
         })).flatMap((protocolConfig) => {
-            return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection("publishedextensions")
+            return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection(implementCollectionName)
                 // .where({
                 //     fileData: getDatabase().command.in([
                 //         getDatabase().command.eq({
-                //             name: extensionName,
-                //             protocolName: extensionProtocolName
+                //             name: implementName,
+                //             protocolName: protocolName
                 //         })
                 //     ])
                 // })
@@ -65,25 +87,17 @@ let findNewestPublishExtension = (downloadFileFunc, extensionName, extensionProt
                 .limit(1000)
                 .get()
                 .then(res => {
-                debugger;
-                let extension = res.data.reduce((result, { fileData, key }) => {
-                    return result.concat(fileData.map(data => {
-                        return Object.assign(Object.assign({}, data), { account: key });
-                    }));
-                }, [])
-                    .filter(({ name, protocolName, protocolVersion }) => {
-                    return name == extensionName &&
-                        protocolName == extensionProtocolName && (0, semver_1.satisfies)(extensionProtocolVersion, protocolVersion);
-                })
-                    .sort((a, b) => {
-                    if ((0, semver_1.gt)(a.version, b.version)) {
-                        return -1;
-                    }
-                    return 1;
-                })[0];
+                let extensionOrContribute = null;
+                let result = _findNewestImplements(res, true, implementName, protocolName, protocolVersion);
+                if (result.length == 0) {
+                    extensionOrContribute = _findNewestImplements(res, false, implementName, protocolName, protocolVersion)[0];
+                }
+                else {
+                    extensionOrContribute = result[0];
+                }
                 return [
-                    extension,
-                    [extensionProtocolVersion, extensionProtocolIconBase64],
+                    extensionOrContribute,
+                    [protocolVersion, protocolIconBase64],
                     protocolConfig
                 ];
             }));
@@ -107,4 +121,11 @@ let findNewestPublishExtension = (downloadFileFunc, extensionName, extensionProt
         });
     });
 };
+let findNewestPublishExtension = (downloadFileFunc, implementName, protocolName) => {
+    return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedextensionprotocols", "publishedextensionprotocolconfigs", "publishedextensions"], implementName, protocolName);
+};
 exports.findNewestPublishExtension = findNewestPublishExtension;
+let findNewestPublishContribute = (downloadFileFunc, implementName, protocolName) => {
+    return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedcontributeprotocols", "publishedcontributeprotocolconfigs", "publishedcontributes"], implementName, protocolName);
+};
+exports.findNewestPublishContribute = findNewestPublishContribute;

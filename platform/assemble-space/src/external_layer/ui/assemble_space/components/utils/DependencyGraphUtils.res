@@ -605,6 +605,7 @@ module Method = {
     dispatchForAppStore,
     selectedPackages,
     selectedExtensions,
+    selectedContributes,
   ) => {
     setOperateInfo(_ => "自动升级版本中...")
 
@@ -686,16 +687,66 @@ module Method = {
         )
       })
       ->Js.Promise.then_(selectedExtensions => {
-        setOperateInfo(_ => "")
-
-        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
-          dispatchForAppStore,
-          selectedPackages,
-          selectedExtensions,
-        )
-
-        ()->Js.Promise.resolve
+        (selectedPackages, selectedExtensions)->Js.Promise.resolve
       }, _)
+    }, _)
+    ->Js.Promise.then_(((selectedPackages, selectedExtensions)) => {
+      selectedContributes
+      ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
+        result,
+        contribute: FrontendUtils.ApAssembleStoreType.contribute,
+      ) => {
+        service.backend.findNewestPublishContribute(.
+          progress => (),
+          contribute.data.contributePackageData.name,
+          contribute.data.contributePackageData.protocol.name,
+        )
+        ->Meta3dBsMost.Most.flatMap(
+          ((
+            (description, displayName, repoLink, implementVersion, file, account),
+            (protocolVersion, protocolIconBase64),
+            protocolConfig,
+          )) => {
+            (
+              (
+                {
+                  id: contribute.id,
+                  protocolName: contribute.data.contributePackageData.protocol.name,
+                  protocolVersion,
+                  protocolIconBase64,
+                  version: implementVersion,
+                  account,
+                  data: service.meta3d.loadContribute(. file),
+                }: FrontendUtils.AssembleSpaceCommonType.contribute
+              ),
+              protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
+            )->Meta3dBsMost.Most.just
+          },
+          _,
+        )
+        ->MostUtils.toPromise
+        ->Js.Promise.then_(
+          contributeData => {
+            result->Meta3dCommonlib.ListSt.push(contributeData)->Js.Promise.resolve
+          },
+          _,
+        )
+      })
+      ->Js.Promise.then_(selectedContributes => {
+        (selectedPackages, selectedExtensions, selectedContributes)->Js.Promise.resolve
+      }, _)
+    }, _)
+    ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
+      setOperateInfo(_ => "")
+
+      service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
+        dispatchForAppStore,
+        selectedPackages,
+        selectedExtensions,
+        selectedContributes,
+      )
+
+      ()->Js.Promise.resolve
     }, _)
   }
 }
@@ -759,6 +810,7 @@ let make = (
                   dispatchForAppStore,
                   selectedPackages,
                   selectedExtensions,
+                  selectedContributes,
                 )->ignore
               }, 5->Some)
             }}>

@@ -37,6 +37,7 @@ type backendService = {
   getElementAssembleData: getElementAssembleData,
   findNewestPublishPackage: findNewestPublishPackage,
   findNewestPublishExtension: findNewestPublishExtension,
+  findNewestPublishContribute: findNewestPublishContribute,
 }
 
 type callback1Func<'a> = unit => 'a
@@ -202,11 +203,11 @@ type dispatchForAppStore = AppStoreType.action => unit
 
 type appService = {
   useDispatch: unit => dispatchForAppStore,
-  // TODO finish  contribute
   dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (
     . dispatchForAppStore,
     selectedPackagesFromMarket,
     selectedExtensionsFromMarket,
+    selectedContributesFromMarket,
   ) => unit,
 }
 

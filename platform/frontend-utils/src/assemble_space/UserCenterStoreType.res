@@ -27,7 +27,11 @@ type action =
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes)
   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
-  | UpdateSelectedPackagesAndExtensionsAndContributes(selectedPackages, selectedExtensions)
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    )
 
 type state = {
   account: option<string>,

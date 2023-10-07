@@ -185,10 +185,15 @@ let reducer = (state, action) => {
       }),
     }
   | SetAccount(account) => {...state, account: Some(account)}
-  | UpdateSelectedPackagesAndExtensionsAndContributes(selectedPackages, selectedExtensions) => {
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    ) => {
       ...state,
       selectedPackages,
       selectedExtensions,
+      selectedContributes,
     }
   }
 }
