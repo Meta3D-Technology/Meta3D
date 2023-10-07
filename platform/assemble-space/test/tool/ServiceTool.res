@@ -73,6 +73,9 @@ let build = (
   ~findNewestPublishExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMost.Most.empty(), _)
   ->Obj.magic,
+  ~findNewestPublishContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->Obj.magic,
   ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getExtensionService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -174,6 +177,7 @@ let build = (
     getElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishExtension,
+    findNewestPublishContribute,
   },
   meta3d: {
     generateContribute,

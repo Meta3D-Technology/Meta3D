@@ -271,11 +271,12 @@ TODO feat: add upgrade in dependency graph for package, app assemble
   TODO pass run test
     TODO finish contribute
 
-    TODO finish ap assemble
+    # TODO finish ap assemble
 
     # TODO change databse?
 
     TODO run test multiple packages, extensions, contributes -> publish app
+      # TODO fix: stored in app package should upgrade
 
 
   TODO fix: should refresh dependency after upgrade
@@ -283,12 +284,17 @@ TODO feat: add upgrade in dependency graph for package, app assemble
   TODO add bdd test
 
 
-  TODO fix: create old version, new disappear?
+  # TODO fix: create old version, new disappear?
 
 
-TODO feat: add select all in package,ap assemble
+# TODO feat: add select all in package,ap assemble
 
 
+
+TODO fix: should refresh dependency after upgrade for package assemble
+
+
+TODO feat: finish publish
 
 
 
@@ -307,7 +313,7 @@ TODO refactor: empty inputData should be null?
 
 
 
-* TODO future: platform use event sourcing
+# * TODO future: platform use event sourcing
 
 * TODO refactor: remove api
 
@@ -326,6 +332,7 @@ TODO refactor: empty inputData should be null?
 # * TODO feat: overwrite app
 
 
+* TODO publish
 
 
 * TODO write blog: 《Web3D编辑器实现事件溯源》

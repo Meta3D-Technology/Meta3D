@@ -84,6 +84,11 @@ type action =
   | StorePackageInApp(id)
   | UnStorePackageInApp(id)
   | BatchStorePackagesInApp(list<id>)
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    )
 
 type state = {
   selectedPackages: selectedPackages,

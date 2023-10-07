@@ -599,15 +599,69 @@ module Method = {
     }
   }
 
+  let _findStartExtensionProtocolName = (
+    selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
+  ) => {
+    let {data}: FrontendUtils.ApAssembleStoreType.extension =
+      selectedExtensions
+      ->Meta3dCommonlib.ListSt.find(({isStart}) => {
+        isStart
+      })
+      ->Meta3dCommonlib.OptionSt.getExn
+
+    data.extensionPackageData.protocol.name
+  }
+
+  let _convertSelectedDataFromForAppStoreToForApASsembleStore = (
+    selectedPackagesForAppStore,
+    selectedExtensionsForAppStore,
+    selectedContributesForAppStore,
+    startExtensionProtocolName,
+  ) => {
+    (
+      selectedPackagesForAppStore,
+      selectedExtensionsForAppStore->Meta3dCommonlib.ListSt.map((
+        (extension, protocolConfig): FrontendUtils.AssembleSpaceCommonType.extensionData,
+      ): FrontendUtils.ApAssembleStoreType.extension => {
+        {
+          id: extension.id,
+          protocolIconBase64: extension.protocolIconBase64,
+          protocolConfigStr: protocolConfig->Meta3dCommonlib.OptionSt.map(({configStr}) =>
+            configStr
+          ),
+          isStart: extension.protocolName == startExtensionProtocolName ? true : false,
+          version: extension.version,
+          data: extension.data,
+        }
+      }),
+      selectedContributesForAppStore->Meta3dCommonlib.ListSt.map((
+        (contribute, protocolConfig): FrontendUtils.AssembleSpaceCommonType.contributeData,
+      ): FrontendUtils.ApAssembleStoreType.contribute => {
+        {
+          id: contribute.id,
+          protocolIconBase64: contribute.protocolIconBase64,
+          protocolConfigStr: protocolConfig->Meta3dCommonlib.OptionSt.map(({configStr}) =>
+            configStr
+          ),
+          version: contribute.version,
+          data: contribute.data,
+        }
+      }),
+    )
+  }
+
   let autoUpgradeVersion = (
     service: service,
     setOperateInfo,
     dispatchForAppStore,
+    dispatchForApAssembleStore,
     selectedPackages,
     selectedExtensions,
     selectedContributes,
   ) => {
     setOperateInfo(_ => "自动升级版本中...")
+
+    let startExtensionProtocolName = _findStartExtensionProtocolName(selectedExtensions)
 
     selectedPackages
     ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
@@ -736,18 +790,34 @@ module Method = {
         (selectedPackages, selectedExtensions, selectedContributes)->Js.Promise.resolve
       }, _)
     }, _)
-    ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
-      setOperateInfo(_ => "")
+    ->Js.Promise.then_(
+      ((
+        selectedPackagesForAppStore,
+        selectedExtensionsForAppStore,
+        selectedContributesForAppStore,
+      )) => {
+        setOperateInfo(_ => "")
 
-      service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
-        dispatchForAppStore,
-        selectedPackages,
-        selectedExtensions,
-        selectedContributes,
-      )
+        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
+          dispatchForAppStore,
+          dispatchForApAssembleStore,
+          (
+            selectedPackagesForAppStore,
+            selectedExtensionsForAppStore,
+            selectedContributesForAppStore,
+          ),
+          _convertSelectedDataFromForAppStoreToForApASsembleStore(
+            selectedPackagesForAppStore,
+            selectedExtensionsForAppStore,
+            selectedContributesForAppStore,
+            startExtensionProtocolName,
+          ),
+        )
 
-      ()->Js.Promise.resolve
-    }, _)
+        ()->Js.Promise.resolve
+      },
+      _,
+    )
   }
 }
 
@@ -761,6 +831,9 @@ let make = (
   ~selectedContributes,
 ) => {
   let dispatchForAppStore = service.app.useDispatch()
+  let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(
+    service.react.useDispatch,
+  )
 
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
   let (operateInfo, setOperateInfo) = service.react.useState(_ => "")
@@ -808,6 +881,7 @@ let make = (
                   service,
                   setOperateInfo,
                   dispatchForAppStore,
+                  dispatchForApAssembleStore,
                   selectedPackages,
                   selectedExtensions,
                   selectedContributes,

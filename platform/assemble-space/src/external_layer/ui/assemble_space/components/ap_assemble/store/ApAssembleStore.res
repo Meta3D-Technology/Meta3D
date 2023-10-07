@@ -219,6 +219,16 @@ let reducer = (state, action) => {
       ...state,
       storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
     }
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    ) => {
+      ...state,
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+    }
   }
 }
 

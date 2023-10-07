@@ -201,13 +201,19 @@ type uiService = {
 
 type dispatchForAppStore = AppStoreType.action => unit
 
+type dispatchForApAssembleStore = ApAssembleStoreType.action => unit
+
 type appService = {
   useDispatch: unit => dispatchForAppStore,
   dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (
     . dispatchForAppStore,
-    selectedPackagesFromMarket,
-    selectedExtensionsFromMarket,
-    selectedContributesFromMarket,
+    dispatchForApAssembleStore,
+    (selectedPackagesFromMarket, selectedExtensionsFromMarket, selectedContributesFromMarket),
+    (
+      ApAssembleStoreType.selectedPackages,
+      ApAssembleStoreType.selectedExtensions,
+      ApAssembleStoreType.selectedContributes,
+    ),
   ) => unit,
 }
 
