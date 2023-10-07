@@ -1,13 +1,13 @@
 {
     "name": "meta3d-editor-webgl1-three-run-engine-sceneview-utils",
-    "version": "0.16.0",
+    "version": "0.17.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-editor-run-engine-sceneview-protocol": "^0.16.0",
-        "meta3d-engine-whole-sceneview-protocol": "^0.16.0",
-        "meta3d-type": "^0.16.0"
+        "meta3d-editor-run-engine-sceneview-protocol": "^0.17.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.17.0",
+        "meta3d-type": "^0.17.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

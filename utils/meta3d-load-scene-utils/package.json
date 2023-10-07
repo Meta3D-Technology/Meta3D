@@ -1,15 +1,15 @@
 {
     "name": "meta3d-load-scene-utils",
-    "version": "0.16.0",
+    "version": "0.17.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-engine-whole-gameview-protocol": "^0.16.0",
-        "meta3d-engine-whole-sceneview-protocol": "^0.16.0",
-        "meta3d-event-protocol": "^0.16.0",
-        "meta3d-three-api-protocol": "^0.16.0",
-        "meta3d-type": "^0.16.0"
+        "meta3d-engine-whole-gameview-protocol": "^0.17.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.17.0",
+        "meta3d-event-protocol": "^0.17.0",
+        "meta3d-three-api-protocol": "^0.17.0",
+        "meta3d-type": "^0.17.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

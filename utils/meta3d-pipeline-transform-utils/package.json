@@ -1,16 +1,16 @@
 {
     "name": "meta3d-pipeline-transform-sceneview-utils",
-    "version": "0.16.0",
+    "version": "0.17.0",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.16.0",
-        "meta3d-engine-core-sceneview-protocol": "^0.16.0",
-        "meta3d-pipeline-transform-sceneview-protocol": "^0.16.0",
-        "meta3d-type": "^0.16.0"
+        "meta3d-bs-most-protocol": "^0.17.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.17.0",
+        "meta3d-pipeline-transform-sceneview-protocol": "^0.17.0",
+        "meta3d-type": "^0.17.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

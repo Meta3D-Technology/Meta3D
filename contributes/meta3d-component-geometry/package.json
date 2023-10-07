@@ -1,6 +1,6 @@
 {
   "name": "meta3d-component-geometry",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "protocol": {
     "name": "meta3d-component-geometry-protocol"
@@ -18,9 +18,9 @@
   },
   "keywords": [],
   "dependencies": {
-    "meta3d-component-geometry-protocol": "^0.16.0",
-    "meta3d-component-geometry-protocol-common": "^0.16.0",
-    "meta3d-type": "^0.16.0",
+    "meta3d-component-geometry-protocol": "^0.17.0",
+    "meta3d-component-geometry-protocol-common": "^0.17.0",
+    "meta3d-type": "^0.17.0",
     "rescript": "^10.0.1"
   },
   "devDependencies": {
@@ -34,7 +34,7 @@
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
     "jest": "^25.2.3",
-    "meta3d-tool-publish": "^0.16.0",
+    "meta3d-tool-publish": "^0.17.0",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }
