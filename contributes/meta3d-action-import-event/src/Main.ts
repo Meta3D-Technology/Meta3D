@@ -51,8 +51,6 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                         _checkOnlyHasImportEvent(eventSourcingService, meta3dState)
                         _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
 
-                        debugger
-
                         let events = _parseEventData(
                             api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol"),
                             eventData

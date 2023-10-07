@@ -30,8 +30,6 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                     let allEvents = eventSourcingService.getAllEvents(meta3dState).toArray()
 
-                    debugger
-
                     api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol").exportEventData(allEvents)
 
                     return Promise.resolve(meta3dState)

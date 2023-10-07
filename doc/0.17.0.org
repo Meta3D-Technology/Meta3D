@@ -300,10 +300,10 @@ TODO feat: finish publish
 TODO refactor: remove debugger
 
 
-TODO fix: should always loop scene view and game view together
+# TODO fix: should always loop scene view and game view together
 
 
-TODO refactor: empty inputData should be null?
+# TODO refactor: empty inputData should be null?
 
 
 # ** TODO perf: can skip events in frames that all are pipeline job event(no other event(e.g. action event)) when update view(e.g. import event data)
@@ -314,7 +314,7 @@ TODO refactor: empty inputData should be null?
 
 # * TODO future: platform use event sourcing
 
-* TODO refactor: remove api
+# * TODO refactor: remove api
 
 
 
@@ -326,7 +326,7 @@ TODO refactor: empty inputData should be null?
 
 
 
-* TODO fix: import: should import element contribute
+# * TODO fix: import: should import element contribute
 
 # * TODO feat: overwrite app
 

@@ -96,8 +96,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			if (eventSourcingService.getNeedBackwardEvents(meta3dState).count() > 0) {
 				let events = eventSourcingService.getNeedBackwardEvents(meta3dState)
 
-				debugger
-
 				let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
 				promise = eventSourcingService.backwardView(

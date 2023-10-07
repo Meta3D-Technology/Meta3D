@@ -18,8 +18,6 @@ export let findNewestPublishPackage = (
         .then(res => {
             let firstOrderByFieldValue = res.data[0][firstOrderByFieldName]
 
-            debugger
-
             return res.data.filter(data => {
                 return data[firstOrderByFieldName] == firstOrderByFieldValue
             }).sort((a, b) => {
