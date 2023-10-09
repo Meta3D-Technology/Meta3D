@@ -1,6 +1,11 @@
 'use strict';
 
+var OptionSt$Meta3dCommonlib = require("../OptionSt.bs.js");
 var SparseMap$Meta3dCommonlib = require("./SparseMap.bs.js");
+
+function getExn(map, key) {
+  return OptionSt$Meta3dCommonlib.getExn(SparseMap$Meta3dCommonlib.get(map, key));
+}
 
 function set(map, key, value) {
   var newMap = SparseMap$Meta3dCommonlib.copy(map);
@@ -44,6 +49,7 @@ exports.createEmpty = createEmpty;
 exports.copy = copy;
 exports.unsafeGet = unsafeGet;
 exports.get = get;
+exports.getExn = getExn;
 exports.getNullable = getNullable;
 exports.has = has;
 exports.set = set;

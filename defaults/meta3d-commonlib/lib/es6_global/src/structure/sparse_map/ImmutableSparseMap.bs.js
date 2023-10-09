@@ -1,6 +1,11 @@
 
 
+import * as OptionSt$Meta3dCommonlib from "../OptionSt.bs.js";
 import * as SparseMap$Meta3dCommonlib from "./SparseMap.bs.js";
+
+function getExn(map, key) {
+  return OptionSt$Meta3dCommonlib.getExn(SparseMap$Meta3dCommonlib.get(map, key));
+}
 
 function set(map, key, value) {
   var newMap = SparseMap$Meta3dCommonlib.copy(map);
@@ -45,6 +50,7 @@ export {
   copy ,
   unsafeGet ,
   get ,
+  getExn ,
   getNullable ,
   has ,
   set ,

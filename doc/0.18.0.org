@@ -8,7 +8,8 @@ PBRMaterial+direction light+diffuse, metalroughness,... map
 ** TODO change basic material to pbr material
 
 
-TODO add BasicSourceTexture in contributes/
+# TODO add BasicSourceTexture in contributes/
+TODO add BasicSourceTexture in extensions/
   no bdd test
 
         image: TexImageSource | OffscreenCanvas,
@@ -26,6 +27,9 @@ TODO add BasicSourceTexture in contributes/
 
   dispose:judge material
 
+
+
+# TODO update engine core for texture contribute
 
 
 

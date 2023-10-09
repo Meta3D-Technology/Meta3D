@@ -6,6 +6,10 @@ let unsafeGet = SparseMap.unsafeGet
 
 let get = SparseMap.get
 
+let getExn = (map, key) => {
+  get(map, key) -> OptionSt.getExn
+}
+
 let getNullable = SparseMap.getNullable
 
 let has = SparseMap.has
