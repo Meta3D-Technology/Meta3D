@@ -18,6 +18,7 @@
         "meta3d-pipeline-camera-sceneview-protocol": "^0.17.0",
         "meta3d-pipeline-root-sceneview-protocol": "^0.17.0",
         "meta3d-pipeline-transform-sceneview-protocol": "^0.17.0",
+        "meta3d-texture-basicsource-protocol": "^0.17.0",
         "meta3d-type": "^0.17.0"
     },
     "devDependencies": {

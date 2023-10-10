@@ -1,6 +1,7 @@
 'use strict';
 
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
+var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
 var Index$Meta3dComponentPbrmaterialProtocol = require("meta3d-component-pbrmaterial-protocol/lib/js/src/Index.bs.js");
@@ -33,13 +34,13 @@ function getData(param, param$1, param$2) {
   } else if (param$2 === Index$Meta3dComponentPbrmaterialProtocol.dataName.ior) {
     return OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getIOR(param$1, iors);
   } else if (param$2 === Index$Meta3dComponentPbrmaterialProtocol.dataName.diffuseMap) {
-    return MutableSparseMap$Meta3dCommonlib.getExn(diffuseMap, param$1);
+    return OptionSt$Meta3dCommonlib.toNullable(MutableSparseMap$Meta3dCommonlib.get(diffuseMap, param$1));
   } else if (param$2 === Index$Meta3dComponentPbrmaterialProtocol.dataName.roughnessMap) {
-    return MutableSparseMap$Meta3dCommonlib.getExn(roughnessMap, param$1);
+    return OptionSt$Meta3dCommonlib.toNullable(MutableSparseMap$Meta3dCommonlib.get(roughnessMap, param$1));
   } else if (param$2 === Index$Meta3dComponentPbrmaterialProtocol.dataName.metalnessMap) {
-    return MutableSparseMap$Meta3dCommonlib.getExn(metalnessMap, param$1);
+    return OptionSt$Meta3dCommonlib.toNullable(MutableSparseMap$Meta3dCommonlib.get(metalnessMap, param$1));
   } else if (param$2 === Index$Meta3dComponentPbrmaterialProtocol.dataName.normalMap) {
-    return MutableSparseMap$Meta3dCommonlib.getExn(normalMap, param$1);
+    return OptionSt$Meta3dCommonlib.toNullable(MutableSparseMap$Meta3dCommonlib.get(normalMap, param$1));
   } else {
     return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + param$2 + "", "", "", ""));
   }

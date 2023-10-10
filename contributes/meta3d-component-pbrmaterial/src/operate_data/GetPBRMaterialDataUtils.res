@@ -56,13 +56,13 @@ let getData = (.
     ->Obj.magic
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseMap =>
-    diffuseMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+    diffuseMap->Meta3dCommonlib.MutableSparseMap.get(material)->Obj.magic->Meta3dCommonlib.OptionSt.toNullable
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.roughnessMap =>
-    roughnessMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+    roughnessMap->Meta3dCommonlib.MutableSparseMap.get(material)->Obj.magic->Meta3dCommonlib.OptionSt.toNullable
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.metalnessMap =>
-    metalnessMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+    metalnessMap->Meta3dCommonlib.MutableSparseMap.get(material)->Obj.magic->Meta3dCommonlib.OptionSt.toNullable
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.normalMap =>
-    normalMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+    normalMap->Meta3dCommonlib.MutableSparseMap.get(material)->Obj.magic->Meta3dCommonlib.OptionSt.toNullable
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Log.buildFatalMessage(

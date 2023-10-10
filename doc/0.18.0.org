@@ -43,7 +43,15 @@ TODO update PBRMaterial to clone for maps
 
 
 TODO update meta3d-engine-scene-utils
-PBRMaterial: set data, dispose, clone
+PBRMaterial: set data, dispose, ////clone
+
+
+let textureService =				 api.getExtensionService<textureService>(meta3dState, "meta3d-texture-basicsource")
+
+let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource")
+
+textureService.addMaterial(textureState, )
+
 
 
 TODO add Texture

@@ -28,7 +28,7 @@ import {
 	setParent, getLocalToWorldMatrix
 } from "./TransformAPI";
 import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
-import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects } from "./PBRMaterialAPI";
+import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap } from "./PBRMaterialAPI";
 import { createGeometry, getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects } from "./GeometryAPI";
 import {
 	createBasicCameraView, active, getViewWorldToCameraMatrix, getActiveCameraView,
@@ -53,6 +53,10 @@ import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
 // import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
 // import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
+import { service as textureService } from "meta3d-texture-basicsource-protocol/src/service/ServiceType"
+import { texture, state as textureState } from "meta3d-texture-basicsource-protocol/src/state/StateType"
+import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 
 let _engineCoreProtocolName: string
 
@@ -104,6 +108,42 @@ let _encapsulateSceneAPIReturnStateAndData = <Data>(meta3dState: meta3dState, fu
 		)
 
 	return [meta3dState, data[1]]
+}
+
+let _addMaterial = (meta3dState: meta3dState, api: api, texture: texture, pbrMaterial: pbrMaterial) => {
+	let textureService = api.getExtensionService<textureService>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+	let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+	return api.setExtensionState(meta3dState, "meta3d-texture-basicsource-protocol",
+		textureService.addMaterial(textureState, texture, pbrMaterial)
+	)
+}
+
+let _disposeTexture = (meta3dState: meta3dState, api: api, getMapFunc: any, pbrMaterial: pbrMaterial) => {
+	let texture = _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getMapFunc(engineCoreState, engineCoreService, pbrMaterial), api)
+
+	if (!isNullable(texture)) {
+		let textureService = api.getExtensionService<textureService>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+		let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+		meta3dState = api.setExtensionState(meta3dState, "meta3d-texture-basicsource-protocol",
+			textureService.disposeTexture(textureState, texture, pbrMaterial)
+		)
+	}
+
+	return meta3dState
+}
+
+
+let _disposeAllMaps = (meta3dState: meta3dState, api: api, pbrMaterial: pbrMaterial) => {
+	meta3dState = _disposeTexture(meta3dState, api, getDiffuseMap, pbrMaterial)
+	meta3dState = _disposeTexture(meta3dState, api, getRoughnessMap, pbrMaterial)
+	meta3dState = _disposeTexture(meta3dState, api, getMetalnessMap, pbrMaterial)
+	meta3dState = _disposeTexture(meta3dState, api, getNormalMap, pbrMaterial)
+
+	return meta3dState
 }
 
 
@@ -337,6 +377,8 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasArcballCameraController(engineCoreState, engineCoreService, gameObject), api)
 			},
 			cloneGameObject: (meta3dState, count, cloneConfig, sourceGameObject) => {
+				// TODO add texture to cloned pbr material
+
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, (engineCoreState, engineCoreService) => cloneGameObject(engineCoreState, engineCoreService, count, cloneConfig, sourceGameObject), api)
 			},
 			getNeedDisposedGameObjects: (meta3dState) => {
@@ -349,7 +391,24 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectTransformComponent(engineCoreState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectPBRMaterialComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectPBRMaterialComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectPBRMaterialComponent(engineCoreState, engineCoreService, gameObject, component), api)
+
+
+				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, _engineCoreProtocolName)
+
+				let engineCoreService = api.getExtensionService<engineCoreService>(
+					meta3dState,
+					_engineCoreProtocolName
+				)
+
+				if (isActuallyDisposePBRMateiral(
+					engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName).state as any as pbrMaterialState,
+					component, [gameObject]
+				)) {
+					meta3dState = _disposeAllMaps(meta3dState, api, component)
+				}
+
+				return meta3dState
 			},
 			disposeGameObjectGeometryComponent: (meta3dState, gameObject, component) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectGeometryComponent(engineCoreState, engineCoreService, gameObject, component), api)
@@ -451,6 +510,74 @@ export let getExtensionServiceUtils = (
 			},
 			setDiffuseColor: (meta3dState, pbrMaterial, diffuseColor) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDiffuseColor(engineCoreState, engineCoreService, pbrMaterial, diffuseColor), api)
+			},
+			getSpecular: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getSpecular(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setSpecular: (meta3dState, pbrMaterial, specular) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setSpecular(engineCoreState, engineCoreService, pbrMaterial, specular), api)
+			},
+			getSpecularColor: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getSpecularColor(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setSpecularColor: (meta3dState, pbrMaterial, specularColor) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setSpecularColor(engineCoreState, engineCoreService, pbrMaterial, specularColor), api)
+			},
+			getRoughness: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getRoughness(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setRoughness: (meta3dState, pbrMaterial, roughness) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setRoughness(engineCoreState, engineCoreService, pbrMaterial, roughness), api)
+			},
+			getMetalness: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getMetalness(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setMetalness: (meta3dState, pbrMaterial, metalness) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setMetalness(engineCoreState, engineCoreService, pbrMaterial, metalness), api)
+			},
+			getTransmission: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTransmission(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setTransmission: (meta3dState, pbrMaterial, transmission) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTransmission(engineCoreState, engineCoreService, pbrMaterial, transmission), api)
+			},
+			getIOR: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIOR(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setIOR: (meta3dState, pbrMaterial, ior) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIOR(engineCoreState, engineCoreService, pbrMaterial, ior), api)
+			},
+			getDiffuseMap: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDiffuseMap(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setDiffuseMap: (meta3dState, pbrMaterial, texture) => {
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDiffuseMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+
+				return _addMaterial(meta3dState, api, texture, pbrMaterial)
+			},
+			getRoughnessMap: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getRoughnessMap(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setRoughnessMap: (meta3dState, pbrMaterial, texture) => {
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setRoughnessMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+
+				return _addMaterial(meta3dState, api, texture, pbrMaterial)
+			},
+			getMetalnessMap: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getMetalnessMap(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setMetalnessMap: (meta3dState, pbrMaterial, texture) => {
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setMetalnessMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+
+				return _addMaterial(meta3dState, api, texture, pbrMaterial)
+			},
+			getNormalMap: (meta3dState, pbrMaterial) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNormalMap(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+			setNormalMap: (meta3dState, pbrMaterial, texture) => {
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNormalMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+
+				return _addMaterial(meta3dState, api, texture, pbrMaterial)
 			},
 			getAllPBRMaterials: (meta3dState) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllPBRMaterials(engineCoreState, engineCoreService), api)

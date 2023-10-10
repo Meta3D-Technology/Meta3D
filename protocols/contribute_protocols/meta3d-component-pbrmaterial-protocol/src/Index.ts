@@ -31,4 +31,6 @@ export type needDisposedComponents = Record<pbrMaterial, gameObject[]>
 
 export type diffuseColor = [number, number, number]
 
+export type specularColor = diffuseColor
+
 export type specular = number

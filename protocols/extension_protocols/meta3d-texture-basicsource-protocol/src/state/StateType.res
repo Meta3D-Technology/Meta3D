@@ -62,6 +62,7 @@ type textureDataType =
   | @as(1018) UnsignedShort5551Type
   | @as(1020) UnsignedInt248Type
 
+@genType
 type state = {
   maxUID: int,
   wrapSs: Meta3dCommonlibType.ImmutableSparseMapType.t<

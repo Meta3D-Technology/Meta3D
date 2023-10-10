@@ -1,5 +1,6 @@
 open StateType
 
+@genType
 type service = {
   createTexture: state => (state, texture),
   disposeTexture: (state, texture, material) => state,
