@@ -27,11 +27,30 @@ function deferDisposeComponent(state) {
 function _disposeData(state) {
   var diffuseColors = state.diffuseColors;
   var speculars = state.speculars;
+  var specularColors = state.specularColors;
+  var roughnesses = state.roughnesses;
+  var metalnesses = state.metalnesses;
+  var transmissions = state.transmissions;
+  var iors = state.iors;
+  var defaultIOR = state.defaultIOR;
+  var defaultTransmission = state.defaultTransmission;
+  var defaultMetalness = state.defaultMetalness;
+  var defaultRoughness = state.defaultRoughness;
+  var defaultSpecularColor = state.defaultSpecularColor;
   var defaultSpecular = state.defaultSpecular;
   var defaultDiffuseColor = state.defaultDiffuseColor;
   return function (material) {
     state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(diffuseColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(material), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor);
     state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(speculars, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(material), defaultSpecular);
+    state.specularColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(specularColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularColorIndex(material), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularColorsSize(undefined), defaultSpecularColor);
+    state.roughnesses = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(roughnesses, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getRoughnessIndex(material), defaultRoughness);
+    state.metalnesses = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(metalnesses, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getMetalnessIndex(material), defaultMetalness);
+    state.transmissions = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(transmissions, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getTransmissionIndex(material), defaultTransmission);
+    state.iors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(iors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getIORIndex(material), defaultIOR);
+    MutableSparseMap$Meta3dCommonlib.remove(state.diffuseMap, material);
+    MutableSparseMap$Meta3dCommonlib.remove(state.roughnessMap, material);
+    MutableSparseMap$Meta3dCommonlib.remove(state.metalnessMap, material);
+    MutableSparseMap$Meta3dCommonlib.remove(state.normalMap, material);
     return state;
   };
 }

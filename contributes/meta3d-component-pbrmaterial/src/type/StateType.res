@@ -1,16 +1,6 @@
 type pbrMaterial = Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial
 
-type diffuseMap
-
-type normalMap
-
-type channelRoughnessMetallicMap
-
-type emissionMap
-
-type transmissionMap
-
-type specularMap
+type texture = Meta3dTextureBasicsourceProtocol.StateType.texture
 
 type state = {
   config: Meta3dComponentPbrmaterialProtocol.Index.config,
@@ -35,15 +25,17 @@ type state = {
     Meta3dGameobjectProtocol.Index.gameObject,
     pbrMaterial,
   >,
-  diffuseMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, diffuseMap>,
-  channelRoughnessMetallicMapMap: Meta3dCommonlibType.MutableSparseMapType.t<
-    pbrMaterial,
-    channelRoughnessMetallicMap,
-  >,
-  emissionMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, emissionMap>,
-  normalMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, normalMap>,
-  transmissionMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, transmissionMap>,
-  specularMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, specularMap>,
+  diffuseMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, texture>,
+  // channelRoughnessMetallicMapMap: Meta3dCommonlibType.MutableSparseMapType.t<
+  //   pbrMaterial,
+  //   channelRoughnessMetallicMap,
+  // >,
+  roughnessMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, texture>,
+  metalnessMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, texture>,
+  // emissionMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, emissionMap>,
+  normalMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, texture>,
+  // transmissionMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, transmissionMap>,
+  // specularMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, specularMap>,
   mutable needDisposedPBRMaterials: Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
   mutable disposedPBRMaterials: array<pbrMaterial>,
 }

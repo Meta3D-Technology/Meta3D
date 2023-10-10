@@ -1,6 +1,22 @@
 open StateType
 
-let getData = (. {diffuseColors, speculars}, material, dataName: int): 'a => {
+let getData = (.
+  {
+    diffuseColors,
+    speculars,
+    specularColors,
+    roughnesses,
+    metalnesses,
+    transmissions,
+    iors,
+    diffuseMap,
+    roughnessMap,
+    metalnessMap,
+    normalMap,
+  },
+  material,
+  dataName: int,
+): 'a => {
   switch dataName {
   | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseColor =>
     Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getDiffuseColor(
@@ -13,8 +29,40 @@ let getData = (. {diffuseColors, speculars}, material, dataName: int): 'a => {
     Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getSpecular(material, speculars)
     ->Obj.magic
     ->Js.Nullable.return
-
-  //   TODO finish more
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.specularColor =>
+    Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getSpecularColor(
+      material,
+      specularColors,
+    )
+    ->Obj.magic
+    ->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.roughness =>
+    Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getRoughness(material, roughnesses)
+    ->Obj.magic
+    ->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.metalness =>
+    Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getMetalness(material, metalnesses)
+    ->Obj.magic
+    ->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.transmission =>
+    Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getTransmission(
+      material,
+      transmissions,
+    )
+    ->Obj.magic
+    ->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.ior =>
+    Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getIOR(material, iors)
+    ->Obj.magic
+    ->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.diffuseMap =>
+    diffuseMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.roughnessMap =>
+    roughnessMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.metalnessMap =>
+    metalnessMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
+  | dataName if dataName == Meta3dComponentPbrmaterialProtocol.Index.dataName.normalMap =>
+    normalMap->Meta3dCommonlib.MutableSparseMap.getExn(material)->Obj.magic->Js.Nullable.return
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Log.buildFatalMessage(

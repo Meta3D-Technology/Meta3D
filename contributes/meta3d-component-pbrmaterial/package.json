@@ -20,6 +20,7 @@
   "dependencies": {
     "meta3d-component-pbrmaterial-protocol": "^0.17.0",
     "meta3d-component-pbrmaterial-protocol-common": "^0.17.0",
+    "meta3d-texture-basicsource-protocol": "^0.17.0",
     "meta3d-type": "^0.17.0",
     "rescript": "^10.0.1"
   },

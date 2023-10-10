@@ -83,14 +83,10 @@ let createStateWithSharedArrayBufferData = (
       pbrMaterialCount,
     ),
     gameObjectsMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    diffuseMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    channelRoughnessMetallicMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
-      pbrMaterialCount,
-    ),
-    emissionMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    normalMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    transmissionMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
-    specularMapMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
+    diffuseMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
+    normalMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
+    roughnessMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
+    metalnessMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(pbrMaterialCount),
     needDisposedPBRMaterials: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(
       pbrMaterialCount,
     ),

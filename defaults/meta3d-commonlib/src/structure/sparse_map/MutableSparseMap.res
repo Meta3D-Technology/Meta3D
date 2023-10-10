@@ -6,6 +6,10 @@ let unsafeGet = SparseMap.unsafeGet
 
 let get = SparseMap.get
 
+let getExn = (map, key) => {
+  get(map, key)->OptionSt.getExn
+}
+
 let fastGet = (map, key: int) => {
   let value = unsafeGet(map, key)
 

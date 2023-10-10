@@ -2,34 +2,39 @@ let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.
   currentState.diffuseColors === targetState.diffuseColors &&
   currentState.speculars === targetState.speculars &&
   currentState.specularColors === targetState.specularColors &&
-  currentState.roughnesses === targetState.roughnesses
-  &&currentState.metalnesses === targetState.metalnesses &&
+  currentState.roughnesses === targetState.roughnesses &&
+  currentState.metalnesses === targetState.metalnesses &&
   currentState.transmissions === targetState.transmissions &&
-  currentState.iors === targetState.iors 
+  currentState.iors === targetState.iors
     ? (currentState, targetState)
     : {
         let (
-    diffuseColors,
-    speculars,
-    specularColors,
-    roughnesses,
-    metalnesses,
-    transmissions,
-    iors
-) =
+          diffuseColors,
+          speculars,
+          specularColors,
+          roughnesses,
+          metalnesses,
+          transmissions,
+          iors,
+        ) =
           (
-currentState.diffuseColors, currentState.speculars, currentState.specularColors, currentState.roughnesses, currentState.metalnesses, currentState.transmissions, currentState.iors
+            currentState.diffuseColors,
+            currentState.speculars,
+            currentState.specularColors,
+            currentState.roughnesses,
+            currentState.metalnesses,
+            currentState.transmissions,
+            currentState.iors,
           )->CreateStateUtils.setAllTypeArrDataToDefault(
             currentState.maxIndex,
             (
-
-    currentState.defaultDiffuseColor,
-    currentState.defaultSpecular,
-    currentState.defaultSpecularColor,
-    currentState.defaultRoughness,
-    currentState.defaultMetalness,
-    currentState.defaultTransmission,
-    currentState.defaultIOR,
+              currentState.defaultDiffuseColor,
+              currentState.defaultSpecular,
+              currentState.defaultSpecularColor,
+              currentState.defaultRoughness,
+              currentState.defaultMetalness,
+              currentState.defaultTransmission,
+              currentState.defaultIOR,
             ),
           )
         Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
@@ -71,7 +76,6 @@ currentState.diffuseColors, currentState.speculars, currentState.specularColors,
         (currentState, targetState)
       }
 
-
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
     StateType.state,
@@ -81,7 +85,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentPbrmaterialProtocol.Index.cloneConfig,
     Meta3dComponentPbrmaterialProtocol.Index.pbrMaterial,
   >,
-> = _ => {
+> = api => {
   componentName: Meta3dComponentPbrmaterialProtocol.Index.componentName,
   createStateFunc: (. {isDebug, pbrMaterialCount}) =>
     CreateStateUtils.createState(isDebug, pbrMaterialCount),
@@ -128,38 +132,35 @@ let getContribute: Meta3dType.Index.getContribute<
     {
       ...targetState,
       buffer: currentState.buffer,
-    diffuseColors: currentState.diffuseColors,
-    speculars: currentState.speculars,
-    specularColors: currentState.specularColors,
-    roughnesses: currentState.roughnesses,
-    metalnesses: currentState.metalnesses,
-    transmissions: currentState.transmissions,
-    iors: currentState.iors,
+      diffuseColors: currentState.diffuseColors,
+      speculars: currentState.speculars,
+      specularColors: currentState.specularColors,
+      roughnesses: currentState.roughnesses,
+      metalnesses: currentState.metalnesses,
+      transmissions: currentState.transmissions,
+      iors: currentState.iors,
     }
-
   },
   deepCopy: (. state) => {
     open Meta3dComponentWorkerUtils.BufferPBRMaterialUtils
 
     let {
-    maxIndex,
-    diffuseColors,
-    speculars,
-    specularColors,
-    roughnesses,
-    metalnesses,
-    transmissions,
-    iors,
-    gameObjectPBRMaterialMap,
-    gameObjectsMap,
-    diffuseMapMap,
-    channelRoughnessMetallicMapMap,
-    emissionMapMap,
-    normalMapMap,
-    transmissionMapMap,
-    specularMapMap,
-    needDisposedPBRMaterials,
-    disposedPBRMaterials,
+      maxIndex,
+      diffuseColors,
+      speculars,
+      specularColors,
+      roughnesses,
+      metalnesses,
+      transmissions,
+      iors,
+      gameObjectPBRMaterialMap,
+      gameObjectsMap,
+      diffuseMap,
+      roughnessMap,
+      metalnessMap,
+      normalMap,
+      needDisposedPBRMaterials,
+      disposedPBRMaterials,
     } = state
 
     {
@@ -185,17 +186,13 @@ let getContribute: Meta3dType.Index.getContribute<
       iors: iors->Meta3dCommonlib.CopyTypeArrayService.copyFloat32ArrayWithEndIndex(
         maxIndex * getIORsSize(),
       ),
-      diffuseMapMap: diffuseMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      channelRoughnessMetallicMapMap: channelRoughnessMetallicMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      emissionMapMap: emissionMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      normalMapMap: normalMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      transmissionMapMap: transmissionMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      specularMapMap: specularMapMap->Meta3dCommonlib.MutableSparseMap.copy,
-      gameObjectsMap:           gameObjectsMap -> Meta3dCommonlib.CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
+      diffuseMap: diffuseMap->Meta3dCommonlib.MutableSparseMap.copy,
+      roughnessMap: roughnessMap->Meta3dCommonlib.MutableSparseMap.copy,
+      metalnessMap: metalnessMap->Meta3dCommonlib.MutableSparseMap.copy,
+      gameObjectsMap: gameObjectsMap->Meta3dCommonlib.CopyTypeArrayService.deepCopyMutableSparseMapOfArray,
       gameObjectPBRMaterialMap: gameObjectPBRMaterialMap->Meta3dCommonlib.MutableSparseMap.copy,
       needDisposedPBRMaterials: needDisposedPBRMaterials->Meta3dCommonlib.ArraySt.copy,
       disposedPBRMaterials: disposedPBRMaterials->Meta3dCommonlib.ArraySt.copy,
     }
-
-  }
+  },
 }

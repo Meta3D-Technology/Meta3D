@@ -36,8 +36,15 @@ TODO add BasicSourceTexture in extensions/
 TODO update PBRMaterial to add get/set basic textures
   bdd test
 
+TODO update PBRMaterial to dispose map
+
 TODO update PBRMaterial to clone for maps
   bdd test
+
+
+TODO update meta3d-engine-scene-utils
+PBRMaterial: set data, dispose, clone
+
 
 TODO add Texture
 

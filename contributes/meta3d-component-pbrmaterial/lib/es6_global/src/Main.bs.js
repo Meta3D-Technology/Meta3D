@@ -101,7 +101,7 @@ function _restoreTypeArrays(currentState, targetState) {
   }
 }
 
-function getContribute(param) {
+function getContribute(api) {
   return {
           componentName: Index$Meta3dComponentPbrmaterialProtocol.componentName,
           createStateFunc: (function (param) {
@@ -169,12 +169,9 @@ function getContribute(param) {
               var newrecord = Caml_obj.obj_dup(state);
               newrecord.disposedPBRMaterials = ArraySt$Meta3dCommonlib.copy(disposedPBRMaterials);
               newrecord.needDisposedPBRMaterials = ArraySt$Meta3dCommonlib.copy(needDisposedPBRMaterials);
-              newrecord.specularMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.specularMapMap);
-              newrecord.transmissionMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.transmissionMapMap);
-              newrecord.normalMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.normalMapMap);
-              newrecord.emissionMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.emissionMapMap);
-              newrecord.channelRoughnessMetallicMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.channelRoughnessMetallicMapMap);
-              newrecord.diffuseMapMap = MutableSparseMap$Meta3dCommonlib.copy(state.diffuseMapMap);
+              newrecord.metalnessMap = MutableSparseMap$Meta3dCommonlib.copy(state.metalnessMap);
+              newrecord.roughnessMap = MutableSparseMap$Meta3dCommonlib.copy(state.roughnessMap);
+              newrecord.diffuseMap = MutableSparseMap$Meta3dCommonlib.copy(state.diffuseMap);
               newrecord.gameObjectPBRMaterialMap = MutableSparseMap$Meta3dCommonlib.copy(gameObjectPBRMaterialMap);
               newrecord.gameObjectsMap = CopyTypeArrayService$Meta3dCommonlib.deepCopyMutableSparseMapOfArray(gameObjectsMap);
               newrecord.iors = CopyTypeArrayService$Meta3dCommonlib.copyFloat32ArrayWithEndIndex(iors, Math.imul(maxIndex, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getIORsSize(undefined)));

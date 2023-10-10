@@ -25,6 +25,7 @@
   "bs-dependencies": [
     "meta3d-gameobject-protocol",
     "meta3d-component-pbrmaterial-protocol-common",
+    "meta3d-texture-basicsource-protocol",
     "meta3d-commonlib-type"
   ],
   "package-specs": [

@@ -82,12 +82,10 @@ function createStateWithSharedArrayBufferData(param, param$1, param$2) {
           defaultIOR: param$1[6],
           gameObjectsMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           gameObjectPBRMaterialMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          diffuseMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          channelRoughnessMetallicMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          emissionMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          normalMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          transmissionMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          specularMapMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
+          diffuseMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
+          roughnessMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
+          metalnessMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
+          normalMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           needDisposedPBRMaterials: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           disposedPBRMaterials: []
         };
