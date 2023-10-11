@@ -7,7 +7,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight
 } from "./ecs/GameObject"
 import { createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale } from "./ecs/Transform";
 import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
@@ -72,6 +72,16 @@ import {
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
 	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
 } from "./ecs/ArcballCameraController"
+import {
+	createDirectionLight,
+	getColor,
+	getDirection,
+	getGameObjects as getDirectionLightGameObjects,
+	getIntensity,
+	setColor,
+	setDirection,
+	setIntensity
+} from "./ecs/DirectionLight";
 
 export type ecsConfig = {
 	float9Array1: Float32Array,
@@ -85,6 +95,7 @@ export type ecsConfig = {
 export type scene = {
 	gameObject: {
 		addBasicCameraView: addBasicCameraView,
+		addDirectionLight: addDirectionLight,
 		addGeometry: addGeometry,
 		addPBRMaterial: addPBRMaterial,
 		addPerspectiveCameraProjection: addPerspectiveCameraProjection,
@@ -96,6 +107,7 @@ export type scene = {
 		disposeGameObjectArcballCameraControllerComponent: disposeGameObjectArcballCameraControllerComponent,
 
 		disposeGameObjectBasicCameraViewComponent: disposeGameObjectBasicCameraViewComponent,
+		disposeGameObjectDirectionLightComponent: disposeGameObjectDirectionLightComponent,
 		disposeGameObjectGeometryComponent: disposeGameObjectGeometryComponent,
 		disposeGameObjectPBRMaterialComponent: disposeGameObjectPBRMaterialComponent,
 		disposeGameObjectPerspectiveCameraProjectionComponent: disposeGameObjectPerspectiveCameraProjectionComponent,
@@ -106,6 +118,7 @@ export type scene = {
 		getArcballCameraController: getArcballCameraController,
 
 		getBasicCameraView: getBasicCameraView,
+		getDirectionLight: getDirectionLight,
 		getGeometry: getGeometry,
 		getNeedDisposedGameObjects: getNeedDisposedGameObjects,
 		getPBRMaterial: getPBRMaterial,
@@ -114,6 +127,7 @@ export type scene = {
 
 		hasArcballCameraController: hasArcballCameraController,
 		hasBasicCameraView: hasBasicCameraView,
+		hasDirectionLight: hasDirectionLight,
 		hasGeometry: hasGeometry,
 		hasPBRMaterial: hasPBRMaterial,
 		hasPerspectiveCameraProjection: hasPerspectiveCameraProjection,
@@ -133,6 +147,16 @@ export type scene = {
 		setLocalScale: setLocalScale,
 		getLocalToWorldMatrix: getLocalToWorldMatrix,
 		lookAt: lookAt,
+	},
+	directionLight: {
+		createDirectionLight: createDirectionLight,
+		getGameObjects: getDirectionLightGameObjects,
+		getColor: getColor,
+		setColor: setColor,
+		getIntensity: getIntensity,
+		setIntensity: setIntensity,
+		getDirection: getDirection,
+		setDirection: setDirection,
 	},
 	perspectiveCameraProjection: {
 		createPerspectiveCameraProjection: createPerspectiveCameraProjection,

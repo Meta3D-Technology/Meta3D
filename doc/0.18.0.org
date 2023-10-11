@@ -70,9 +70,13 @@ dispose map
 TODO clear:
 clear map
 
-** TODO add direction light
+** DONE add direction light
 
 TODO support direction light
+
+  convert
+  import
+  dispose
 
 
 # ** TODO update load scene extension
@@ -80,15 +84,16 @@ TODO support direction light
 # TODO handle pbr material, direction light
 
 
+
+# ** TODO refactor: refactor scenegraph converter utils
+
+
+
 ** TODO run test: load and render a glb with maps:Lantern.glb
 
 TODO engine demo->default scene: load a glb with maps
 
 TODO build engine demo app
-
-
-** TODO refactor: refactor scenegraph converter utils
-
 
 
 

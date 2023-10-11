@@ -7,18 +7,6 @@ import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUt
 import { subEvent } from "meta3d-action-add-cube-protocol/src/EventType"
 
 
-let _getAllEventNames = () => {
-    return {
-        disposeGameObjectEventName: "disposeGameObjectEventNameForGameView",
-        disposeGeometryEventName: "disposeGeometryEventNameForGameView",
-        disposePBRMaterialEventName: "disposePBRMaterialEventNameForGameView",
-        disposeArcballCameraControllerEventName: "disposeArcballCameraControllerEventNameForGameView",
-        disposeBasicCameraViewEventName: "disposeBasicCameraViewEventNameForGameView",
-        disposeTransformEventName: "disposeTransformEventNameForGameView",
-        disposePerspectiveCameraProjectionEventName: "disposePerspectiveCameraProjectionEventNameForGameView",
-    }
-}
-
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return getExtensionServiceUtils(
         // (meta3dState, isDebug) => {
@@ -54,7 +42,8 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolNam
             globalKeyNameForMeshInstanceMap: "meshInstanceMap_for_scene_graph_converter_gameview",
             globalKeyNameForStandardMaterialInstanceMap: "standardMaterialInstanceMap_for_scene_graph_converter_gameview",
             globalKeyNameForTextureInstanceMap: "textureInstanceMap_for_scene_graph_converter_gameview",
-            globalKeyNameForGeometryInstanceMap: "geometryInstanceMap_for_scene_graph_converter_gameview"
+            globalKeyNameForGeometryInstanceMap: "geometryInstanceMap_for_scene_graph_converter_gameview",
+            globalKeyNameForDirectionLightInstanceMap: "directionLightInstanceMap_for_scene_graph_converter_gameview"
         }
     )
 }

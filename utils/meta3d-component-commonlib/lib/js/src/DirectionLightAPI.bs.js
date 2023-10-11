@@ -5,6 +5,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var Vector3$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/math/Vector3.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Quaternion$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/math/Quaternion.bs.js");
+var TransformAPI$Meta3dComponentCommonlib = require("./TransformAPI.bs.js");
 var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
 
 function getDirection(usedDirectionLightContribute, param, usedTransformContribute, light) {
@@ -21,5 +22,19 @@ function getDirection(usedDirectionLightContribute, param, usedTransformContribu
                   })));
 }
 
+function setDirection(usedDirectionLightContribute, engineCoreService, usedTransformContribute, light, direction) {
+  var getComponent = engineCoreService.getComponent;
+  return OptionSt$Meta3dCommonlib.bind(ArraySt$Meta3dCommonlib.getFirst(Curry._2(engineCoreService.getComponentGameObjects, usedDirectionLightContribute, light)), (function (gameObject) {
+                return OptionSt$Meta3dCommonlib.map(OptionSt$Meta3dCommonlib.fromNullable(Curry._2(getComponent, usedTransformContribute, gameObject)), (function (transform) {
+                              return TransformAPI$Meta3dComponentCommonlib.lookAt(usedTransformContribute, engineCoreService, transform, direction, [
+                                          0,
+                                          1,
+                                          0
+                                        ], undefined);
+                            }));
+              }));
+}
+
 exports.getDirection = getDirection;
+exports.setDirection = setDirection;
 /* No side effect */

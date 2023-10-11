@@ -8,8 +8,9 @@ import { arcballCameraController, componentName as arcballCameraControllerCompon
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 
-export let createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject]  => {
+export let createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject] => {
     let contribute = createGameObject(engineCoreState)
     engineCoreState = contribute[0]
     let gameObject = contribute[1]
@@ -20,161 +21,185 @@ export let createGameObject = (engineCoreState: engineCoreState, { createGameObj
     ]
 }
 
-export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects }: engineCoreService): Array<gameObject>  => {
+export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects }: engineCoreService): Array<gameObject> => {
     return getAllGameObjects(engineCoreState)
 }
 
-export let getTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let getTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
 
     return getExn(getComponent<transform>(contribute, gameObject))
 }
 
-export let addTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, transform: transform) =>  {
+export let addTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, transform: transform) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
 
     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, transform), transformComponentName)
 }
 
-export let hasTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let hasTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let getDirectionLight = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+
+    return getExn(getComponent<directionLight>(contribute, gameObject))
+}
+
+export let addDirectionLight = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, directionLight: directionLight) => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+
+    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, directionLight), directionLightComponentName)
+}
+
+export let hasDirectionLight = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+
+    return hasComponent(contribute, gameObject)
+}
+
+export let getGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
     return getExn(getComponent<geometry>(contribute, gameObject))
 }
 
-export let addGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, geometry: geometry) =>  {
+export let addGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, geometry: geometry) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, geometry), geometryComponentName)
 }
 
-export let hasGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let hasGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let getPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
     return getExn(getComponent<pbrMaterial>(contribute, gameObject))
 }
 
-export let addPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, pbrMaterial: pbrMaterial) =>  {
+export let addPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, pbrMaterial: pbrMaterial) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, pbrMaterial), pbrMaterialComponentName)
 }
 
-export let hasPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let hasPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let getBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
     return getExn(getComponent<basicCameraView>(contribute, gameObject))
 }
 
-export let addBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, basicCameraView: basicCameraView) =>  {
+export let addBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, basicCameraView: basicCameraView) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, basicCameraView), basicCameraViewComponentName)
 }
 
-export let hasBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let hasBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let getPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
 
     return getExn(getComponent<perspectiveCameraProjection>(contribute, gameObject))
 }
 
-export let addPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, perspectiveCameraProjection: perspectiveCameraProjection) =>  {
+export let addPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, perspectiveCameraProjection: perspectiveCameraProjection) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
 
     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, perspectiveCameraProjection), perspectiveCameraProjectionComponentName)
 }
 
-export let hasPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let hasPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let getArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
     return getExn(getComponent<arcballCameraController>(contribute, gameObject))
 }
 
-export let addArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) =>  {
+export let addArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
     return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, arcballCameraController), arcballCameraControllerComponentName)
 }
 
-export let hasArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) =>  {
+export let hasArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let cloneGameObject = (engineCoreState: engineCoreState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) =>  {
+export let cloneGameObject = (engineCoreState: engineCoreState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) => {
     return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject)
 }
 
-export let getNeedDisposedGameObjects = (engineCoreState: engineCoreState, { getNeedDisposedGameObjects }: engineCoreService) =>  {
+export let getNeedDisposedGameObjects = (engineCoreState: engineCoreState, { getNeedDisposedGameObjects }: engineCoreService) => {
     return getNeedDisposedGameObjects(engineCoreState)
 }
 
-export let disposeGameObjects = (engineCoreState: engineCoreState, { deferDisposeGameObject }: engineCoreService, gameObjects: gameObject[]) =>  {
+export let disposeGameObjects = (engineCoreState: engineCoreState, { deferDisposeGameObject }: engineCoreService, gameObjects: gameObject[]) => {
     return gameObjects.reduce(deferDisposeGameObject, engineCoreState)
 }
 
-export let disposeGameObjectTransformComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: transform) =>  {
+export let disposeGameObjectTransformComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: transform) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<transform>(contribute, [component, gameObject]), transformComponentName)
 }
 
-export let disposeGameObjectPBRMaterialComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: pbrMaterial) =>  {
+export let disposeGameObjectPBRMaterialComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: pbrMaterial) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<pbrMaterial>(contribute, [component, gameObject]), pbrMaterialComponentName)
 }
 
-export let disposeGameObjectGeometryComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: geometry) =>  {
+export let disposeGameObjectDirectionLightComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: directionLight) => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+
+    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<directionLight>(contribute, [component, gameObject]), directionLightComponentName)
+}
+
+export let disposeGameObjectGeometryComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: geometry) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<geometry>(contribute, [component, gameObject]), geometryComponentName)
 }
 
-export let disposeGameObjectBasicCameraViewComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: basicCameraView) =>  {
+export let disposeGameObjectBasicCameraViewComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: basicCameraView) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<basicCameraView>(contribute, [component, gameObject]), basicCameraViewComponentName)
 }
 
-export let disposeGameObjectPerspectiveCameraProjectionComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: perspectiveCameraProjection) =>  {
+export let disposeGameObjectPerspectiveCameraProjectionComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: perspectiveCameraProjection) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<perspectiveCameraProjection>(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName)
 }
 
-export let disposeGameObjectArcballCameraControllerComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) =>  {
+export let disposeGameObjectArcballCameraControllerComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)

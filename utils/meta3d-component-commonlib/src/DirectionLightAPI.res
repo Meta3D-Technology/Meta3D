@@ -26,3 +26,30 @@ let getDirection = (
     )
   )
   ->Meta3dCommonlib.OptionSt.toNullable
+
+let setDirection = (
+  usedDirectionLightContribute,
+  {getComponentGameObjects, getComponent, getComponentData} as engineCoreService,
+  usedTransformContribute,
+  light: Meta3dComponentDirectionlightProtocol.Index.directionLight,
+  direction: (float, float, float),
+) =>
+  getComponentGameObjects(
+    usedDirectionLightContribute,
+    light->VOTypeConvert.directionLightToComponent,
+  )
+  ->Meta3dCommonlib.ArraySt.getFirst
+  ->Meta3dCommonlib.OptionSt.bind(gameObject =>
+    getComponent(usedTransformContribute, gameObject)
+    ->Meta3dCommonlib.OptionSt.fromNullable
+    ->Meta3dCommonlib.OptionSt.map(transform =>
+      TransformAPI.lookAt(
+        ~data=usedTransformContribute,
+        ~engineCoreService,
+        ~transform=transform->Obj.magic,
+        ~target=direction,
+        ~up=(0., 1., 0.),
+        (),
+      )
+    )
+  )

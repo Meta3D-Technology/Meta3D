@@ -5,6 +5,7 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-com
 import * as Vector3$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Vector3.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Quaternion$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/math/Quaternion.bs.js";
+import * as TransformAPI$Meta3dComponentCommonlib from "./TransformAPI.bs.js";
 import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 
 function getDirection(usedDirectionLightContribute, param, usedTransformContribute, light) {
@@ -21,7 +22,21 @@ function getDirection(usedDirectionLightContribute, param, usedTransformContribu
                   })));
 }
 
+function setDirection(usedDirectionLightContribute, engineCoreService, usedTransformContribute, light, direction) {
+  var getComponent = engineCoreService.getComponent;
+  return OptionSt$Meta3dCommonlib.bind(ArraySt$Meta3dCommonlib.getFirst(Curry._2(engineCoreService.getComponentGameObjects, usedDirectionLightContribute, light)), (function (gameObject) {
+                return OptionSt$Meta3dCommonlib.map(OptionSt$Meta3dCommonlib.fromNullable(Curry._2(getComponent, usedTransformContribute, gameObject)), (function (transform) {
+                              return TransformAPI$Meta3dComponentCommonlib.lookAt(usedTransformContribute, engineCoreService, transform, direction, [
+                                          0,
+                                          1,
+                                          0
+                                        ], undefined);
+                            }));
+              }));
+}
+
 export {
   getDirection ,
+  setDirection ,
 }
 /* No side effect */

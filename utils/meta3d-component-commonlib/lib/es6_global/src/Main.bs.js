@@ -25,6 +25,8 @@ var getActiveCameraView = BasicCameraViewAPI$Meta3dComponentCommonlib.getActiveC
 
 var getDirection = DirectionLightAPI$Meta3dComponentCommonlib.getDirection;
 
+var setDirection = DirectionLightAPI$Meta3dComponentCommonlib.setDirection;
+
 var isActuallyDisposePBRMateiral = PBRMaterialAPI$Meta3dComponentCommonlib.isActuallyDispose;
 
 var isActuallyDisposeGeometry = GeometryAPI$Meta3dComponentCommonlib.isActuallyDispose;
@@ -39,6 +41,7 @@ export {
   getViewWorldToCameraMatrix ,
   getActiveCameraView ,
   getDirection ,
+  setDirection ,
   isActuallyDisposePBRMateiral ,
   isActuallyDisposeGeometry ,
 }

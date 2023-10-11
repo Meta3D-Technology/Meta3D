@@ -10,12 +10,15 @@ let _globalKeyNameForMeshInstanceMap: string
 let _globalKeyNameForStandardMaterialInstanceMap: string
 let _globalKeyNameForTextureInstanceMap: string
 let _globalKeyNameForGeometryInstanceMap: string
+let _globalKeyNameForDirectionLightInstanceMap: string
 
 export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForStandardMaterialInstanceMap,
     globalKeyNameForTextureInstanceMap,
 
 
-    globalKeyNameForGeometryInstanceMap) => {
+    globalKeyNameForGeometryInstanceMap,
+    globalKeyNameForDirectionLightInstanceMap
+) => {
     _engineSceneProtocolName = engineSceneProtocolName
     _globalKeyNameForMeta3dState = globalKeyNameForMeta3dState
     _globalKeyNameForAPI = globalKeyNameForAPI
@@ -25,6 +28,8 @@ export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState,
     _globalKeyNameForTextureInstanceMap = globalKeyNameForTextureInstanceMap
 
     _globalKeyNameForGeometryInstanceMap = globalKeyNameForGeometryInstanceMap
+
+    _globalKeyNameForDirectionLightInstanceMap = globalKeyNameForDirectionLightInstanceMap
 }
 
 export let getMeta3dState = (): meta3dState => {
@@ -59,6 +64,11 @@ export let createEmptyTextureInstanceMap = (): void => {
 export let createEmptyGeometryInstanceMap = (): void => {
     (globalThis as any)[_globalKeyNameForGeometryInstanceMap] = []
 }
+
+export let createEmptyDirectionLightInstanceMap = (): void => {
+    (globalThis as any)[_globalKeyNameForDirectionLightInstanceMap] = []
+}
+
 
 // export let getEngineCoreService = (meta3dState: meta3dState): engineCoreService => {
 //     return _getAPI().getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-sceneview-protocol")

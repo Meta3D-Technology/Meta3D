@@ -17,7 +17,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight
 } from "./GameObjectAPI"
 import {
 	createTransform,
@@ -57,6 +57,7 @@ import { service as textureService } from "meta3d-texture-basicsource-protocol/s
 import { texture, state as textureState, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
+import { createDirectionLight, getColor, getDirection, setDirection, getGameObjects as getDirectionLightGameObjects, getIntensity, setColor, setIntensity } from "./DirectionLightAPI"
 
 let _engineCoreProtocolName: string
 
@@ -382,6 +383,15 @@ export let getExtensionServiceUtils = (
 			hasTransform: (meta3dState, gameObject) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasTransform(engineCoreState, engineCoreService, gameObject), api)
 			},
+			getDirectionLight: (meta3dState, gameObject) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirectionLight(engineCoreState, engineCoreService, gameObject), api)
+			},
+			addDirectionLight: (meta3dState, gameObject, directionLight) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addDirectionLight(engineCoreState, engineCoreService, gameObject, directionLight), api)
+			},
+			hasDirectionLight: (meta3dState, gameObject) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasDirectionLight(engineCoreState, engineCoreService, gameObject), api)
+			},
 			getGeometry: (meta3dState, gameObject) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGeometry(engineCoreState, engineCoreService, gameObject), api)
 			},
@@ -461,6 +471,9 @@ export let getExtensionServiceUtils = (
 
 				return meta3dState
 			},
+			disposeGameObjectDirectionLightComponent: (meta3dState, gameObject, component) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectGeometryComponent(engineCoreState, engineCoreService, gameObject, component), api)
+			},
 			disposeGameObjectGeometryComponent: (meta3dState, gameObject, component) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectGeometryComponent(engineCoreState, engineCoreService, gameObject, component), api)
 			},
@@ -513,6 +526,32 @@ export let getExtensionServiceUtils = (
 			},
 			lookAt: (meta3dState, transform, target) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => lookAt(engineCoreState, engineCoreService, transform, target), api)
+			},
+		},
+		directionLight: {
+			createDirectionLight: (meta3dState) => {
+				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createDirectionLight, api)
+			},
+			getGameObjects: (meta3dState, directionLight) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirectionLightGameObjects(engineCoreState, engineCoreService, directionLight), api)
+			},
+			getColor: (meta3dState, directionLight) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getColor(engineCoreState, engineCoreService, directionLight), api)
+			},
+			setColor: (meta3dState, directionLight, color) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setColor(engineCoreState, engineCoreService, directionLight, color), api)
+			},
+			getIntensity: (meta3dState, directionLight) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIntensity(engineCoreState, engineCoreService, directionLight), api)
+			},
+			setIntensity: (meta3dState, directionLight, intensity) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIntensity(engineCoreState, engineCoreService, directionLight, intensity), api)
+			},
+			getDirection: (meta3dState, directionLight) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirection(engineCoreState, engineCoreService, directionLight), api)
+			},
+			setDirection: (meta3dState, directionLight, direction) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDirection(engineCoreState, engineCoreService, directionLight, direction), api)
 			},
 		},
 		basicCameraView: {

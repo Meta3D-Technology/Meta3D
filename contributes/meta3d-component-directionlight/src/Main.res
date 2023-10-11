@@ -1,6 +1,6 @@
 let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.state) =>
-  currentState.colors === targetState.colors &&
-  currentState.intensities === targetState.intensities     ? (currentState, targetState)
+  currentState.colors === targetState.colors && currentState.intensities === targetState.intensities
+    ? (currentState, targetState)
     : {
         let (colors, intensities) =
           (
@@ -8,8 +8,7 @@ let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.
             currentState.intensities,
           )->CreateStateUtils.setAllTypeArrDataToDefault(
             currentState.maxIndex,
-            
- CreateStateUtils.   getDefaultData(),
+            CreateStateUtils.getDefaultData(),
           )
         Meta3dCommonlib.TypeArrayUtils.fillFloat32ArrayWithFloat32Array(
           (currentState.colors, 0),
@@ -25,7 +24,6 @@ let _restoreTypeArrays = (currentState: StateType.state, targetState: StateType.
         (currentState, targetState)
       }
 
-
 let getContribute: Meta3dType.Index.getContribute<
   Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
     StateType.state,
@@ -35,7 +33,7 @@ let getContribute: Meta3dType.Index.getContribute<
     Meta3dComponentDirectionlightProtocol.Index.cloneConfig,
     Meta3dComponentDirectionlightProtocol.Index.directionLight,
   >,
-> = (_) => {
+> = _ => {
   componentName: Meta3dComponentDirectionlightProtocol.Index.componentName,
   createStateFunc: (. {isDebug, directionLightCount}) =>
     CreateStateUtils.createState(isDebug, directionLightCount),
@@ -85,19 +83,18 @@ let getContribute: Meta3dType.Index.getContribute<
       colors: currentState.colors,
       intensities: currentState.intensities,
     }
-
   },
   deepCopy: (. state) => {
     open Meta3dComponentWorkerUtils.BufferDirectionLightUtils
 
     let {
-    maxIndex,
-    colors,
-    intensities,
-    gameObjectDirectionLightMap,
-    gameObjectMap,
-    needDisposedDirectionLights,
-    disposedDirectionLights,
+      maxIndex,
+      colors,
+      intensities,
+      gameObjectDirectionLightMap,
+      gameObjectMap,
+      needDisposedDirectionLights,
+      disposedDirectionLights,
     } = state
 
     {
@@ -113,7 +110,5 @@ let getContribute: Meta3dType.Index.getContribute<
       needDisposedDirectionLights: needDisposedDirectionLights->Meta3dCommonlib.ArraySt.copy,
       disposedDirectionLights: disposedDirectionLights->Meta3dCommonlib.ArraySt.copy,
     }
-
-
-  }
+  },
 }

@@ -16,6 +16,8 @@ let getActiveCameraView = BasicCameraViewAPI.getActiveCameraView
 
 let getDirection = DirectionLightAPI.getDirection
 
+let setDirection = DirectionLightAPI.setDirection
+
 let isActuallyDisposePBRMateiral = PBRMaterialAPI.isActuallyDispose
 
 let isActuallyDisposeGeometry = GeometryAPI.isActuallyDispose

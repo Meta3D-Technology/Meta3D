@@ -1,5 +1,6 @@
 import { state as meta3dState } from "meta3d-type"
 import { gameObject, cloneConfig } from "meta3d-gameobject-protocol"
+import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
 import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol"
@@ -20,6 +21,12 @@ export type getTransform = (meta3dState: meta3dState, gameObject: gameObject) =>
 export type addTransform = (meta3dState: meta3dState, gameObject: gameObject, transform: transform) => meta3dState
 
 export type hasTransform = (meta3dState: meta3dState, gameObject: gameObject) => boolean
+
+export type getDirectionLight = (meta3dState: meta3dState, gameObject: gameObject) => directionLight
+
+export type addDirectionLight = (meta3dState: meta3dState, gameObject: gameObject, directionLight: directionLight) => meta3dState
+
+export type hasDirectionLight = (meta3dState: meta3dState, gameObject: gameObject) => boolean
 
 export type getGeometry = (meta3dState: meta3dState, gameObject: gameObject) => geometry
 
@@ -65,6 +72,8 @@ export type getNeedDisposedGameObjects = (meta3dState: meta3dState) => gameObjec
 export type disposeGameObjects = (meta3dState: meta3dState, gameObjects: gameObject[]) => meta3dState
 
 export type disposeGameObjectTransformComponent = (meta3dState: meta3dState, gameObject: gameObject, component: transform) => meta3dState
+
+export type disposeGameObjectDirectionLightComponent = (meta3dState: meta3dState, gameObject: gameObject, component: directionLight) => meta3dState
 
 export type disposeGameObjectPBRMaterialComponent = (meta3dState: meta3dState, gameObject: gameObject, component: pbrMaterial) => meta3dState
 
