@@ -67,7 +67,17 @@ import type {
 
 	TriangleFanDrawMode,
 	TriangleStripDrawMode,
-	TrianglesDrawMode
+	TrianglesDrawMode,
+
+	UVMapping,
+	CubeReflectionMapping,
+	CubeRefractionMapping,
+	EquirectangularReflectionMapping,
+	EquirectangularRefractionMapping,
+	CubeUVReflectionMapping,
+
+	TangentSpaceNormalMap,
+	ObjectSpaceNormalMap,
 } from "three";
 
 export type service = {
@@ -141,4 +151,14 @@ export type service = {
 	TriangleFanDrawMode: typeof TriangleFanDrawMode,
 	TriangleStripDrawMode: typeof TriangleStripDrawMode,
 	TrianglesDrawMode: typeof TrianglesDrawMode
+
+	UVMapping: typeof UVMapping,
+	CubeReflectionMapping: typeof CubeReflectionMapping,
+	CubeRefractionMapping: typeof CubeRefractionMapping,
+	EquirectangularReflectionMapping: typeof EquirectangularReflectionMapping,
+	EquirectangularRefractionMapping: typeof EquirectangularRefractionMapping,
+	CubeUVReflectionMapping: typeof CubeUVReflectionMapping,
+
+	TangentSpaceNormalMap: typeof TangentSpaceNormalMap,
+	ObjectSpaceNormalMap: typeof ObjectSpaceNormalMap,
 }

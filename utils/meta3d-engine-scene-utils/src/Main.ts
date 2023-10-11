@@ -54,7 +54,7 @@ import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
 // import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 import { service as textureService } from "meta3d-texture-basicsource-protocol/src/service/ServiceType"
-import { texture, state as textureState } from "meta3d-texture-basicsource-protocol/src/state/StateType"
+import { texture, state as textureState, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 
@@ -108,6 +108,57 @@ let _encapsulateSceneAPIReturnStateAndData = <Data>(meta3dState: meta3dState, fu
 		)
 
 	return [meta3dState, data[1]]
+}
+
+
+let _encapsulateSceneAPIReturnStateAndDataForBasicSourceTexture = <Data>(meta3dState: meta3dState, func: (textureState: textureState, textureService: textureService) => [textureState, Data], api: api): [meta3dState, Data] => {
+	let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+	let textureService = api.getExtensionService<textureService>(
+		meta3dState,
+		"meta3d-texture-basicsource-protocol"
+	)
+
+	let data = func(textureState, textureService)
+
+	meta3dState =
+		api.setExtensionState(
+			meta3dState,
+			"meta3d-texture-basicsource-protocol",
+			data[0]
+		)
+
+	return [meta3dState, data[1]]
+}
+
+
+let _encapsulateSceneAPIReturnStateForBasicSourceTexture = (meta3dState: meta3dState, func: (textureState: textureState, textureService: textureService) => textureState, api: api): meta3dState => {
+	let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+	let textureService = api.getExtensionService<textureService>(
+		meta3dState,
+		"meta3d-texture-basicsource-protocol"
+	)
+
+	meta3dState =
+		api.setExtensionState(
+			meta3dState,
+			"meta3d-texture-basicsource-protocol",
+			func(textureState, textureService)
+		)
+
+	return meta3dState
+}
+
+let _encapsulateSceneAPIReturnDataForBasicSourceTexture = <Data>(meta3dState: meta3dState, func: (textureState: textureState, textureService: textureService) => Data, api: api): Data => {
+	let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
+
+	let textureService = api.getExtensionService<textureService>(
+		meta3dState,
+		"meta3d-texture-basicsource-protocol"
+	)
+
+	return func(textureState, textureService)
 }
 
 let _addMaterial = (meta3dState: meta3dState, api: api, texture: texture, pbrMaterial: pbrMaterial) => {
@@ -584,6 +635,77 @@ export let getExtensionServiceUtils = (
 			},
 			getGameObjects: (meta3dState, pbrMaterial) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPBRMaterialGameObjects(engineCoreState, engineCoreService, pbrMaterial), api)
+			},
+		},
+		basicSourceTexture: {
+			createTexture: (meta3dState) => {
+				return _encapsulateSceneAPIReturnStateAndDataForBasicSourceTexture(meta3dState, (textureState, textureService) => {
+					return textureService.createTexture(textureState)
+				}, api)
+			},
+			disposeTexture: (meta3dState, texture, material) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => {
+					return textureService.disposeTexture(textureState, texture, material)
+				}, api)
+			},
+			addMaterial: (meta3dState, texture, material) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => {
+					return textureService.addMaterial(textureState, texture, material)
+				}, api)
+			},
+			getWrapS: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getWrapS(textureState, texture), api)
+			},
+			setWrapS: (meta3dState, texture, wrapS) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setWrapS(textureState, texture, wrapS), api)
+			},
+			getWrapT: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getWrapT(textureState, texture), api)
+			},
+			setWrapT: (meta3dState, texture, wrapT) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setWrapT(textureState, texture, wrapT), api)
+			},
+			getMagFilter: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getMagFilter(textureState, texture), api)
+			},
+			setMagFilter: (meta3dState, texture, filter) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setMagFilter(textureState, texture, filter), api)
+			},
+			getMinFilter: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getMinFilter(textureState, texture), api)
+			},
+			setMinFilter: (meta3dState, texture, filter) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setMinFilter(textureState, texture, filter), api)
+			},
+			getFormat: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getFormat(textureState, texture), api)
+			},
+			setFormat: (meta3dState, texture, format) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setFormat(textureState, texture, format), api)
+			},
+			getType: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getType(textureState, texture), api)
+			},
+			setType: (meta3dState, texture, type) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setType(textureState, texture, type), api)
+			},
+			getIsNeedUpdate: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getIsNeedUpdate(textureState, texture), api)
+			},
+			setIsNeedUpdate: (meta3dState, texture, isNeedUpdate) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setIsNeedUpdate(textureState, texture, isNeedUpdate), api)
+			},
+			getFlipY: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getFlipY(textureState, texture), api)
+			},
+			setFlipY: (meta3dState, texture, flipY) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setFlipY(textureState, texture, flipY), api)
+			},
+			getImage: (meta3dState, texture) => {
+				return _encapsulateSceneAPIReturnDataForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.getImage(textureState, texture), api)
+			},
+			setImage: (meta3dState, texture, image) => {
+				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => textureService.setImage(textureState, texture, image), api)
 			},
 		},
 		perspectiveCameraProjection: {

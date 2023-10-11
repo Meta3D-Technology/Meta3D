@@ -52,7 +52,8 @@ export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolNam
             globalKeyNameForMeta3dState: "meta3dState_for_scene_graph_converter_gameview",
             globalKeyNameForAPI: "api_for_scene_graph_converter_gameview",
             globalKeyNameForMeshInstanceMap: "meshInstanceMap_for_scene_graph_converter_gameview",
-            globalKeyNameForBasicMaterialInstanceMap: "basicMaterialInstanceMap_for_scene_graph_converter_gameview",
+            globalKeyNameForStandardMaterialInstanceMap: "standardMaterialInstanceMap_for_scene_graph_converter_gameview",
+            globalKeyNameForTextureInstanceMap: "textureInstanceMap_for_scene_graph_converter_gameview",
             globalKeyNameForGeometryInstanceMap: "geometryInstanceMap_for_scene_graph_converter_gameview"
         }
     )

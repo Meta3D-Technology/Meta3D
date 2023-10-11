@@ -5,7 +5,7 @@ PBRMaterial+direction light+diffuse, metalroughness,... map
 
 能够渲染较复杂的GLTF场景
 
-** TODO change basic material to pbr material
+** DONE change basic material to standard material
 
 
 # TODO add BasicSourceTexture in contributes/
@@ -57,10 +57,11 @@ textureService.addMaterial(textureState, )
 TODO add Texture
 
 
-TODO add MeshPBRMaterial
-  TODO add MeshPBRMaterial
-  TODO support diffuse, metalroughness, normal, transmission map
-  TODO support metalroughness, transmission, ...
+# TODO add MeshPBRMaterial
+TODO add MeshStandardMaterial
+  TODO add MeshStandardMaterial
+  TODO support diffuse, metalroughness, normal
+  TODO support metalroughness, ...
 
 TODO dispose:
 dispose map
@@ -86,6 +87,7 @@ TODO engine demo->default scene: load a glb with maps
 TODO build engine demo app
 
 
+** TODO refactor: refactor scenegraph converter utils
 
 
 

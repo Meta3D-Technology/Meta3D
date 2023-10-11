@@ -7,15 +7,23 @@ let _engineSceneProtocolName: string
 let _globalKeyNameForMeta3dState: string
 let _globalKeyNameForAPI: string
 let _globalKeyNameForMeshInstanceMap: string
-let _globalKeyNameForBasicMaterialInstanceMap: string
+let _globalKeyNameForStandardMaterialInstanceMap: string
+let _globalKeyNameForTextureInstanceMap: string
 let _globalKeyNameForGeometryInstanceMap: string
 
-export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForBasicMaterialInstanceMap, globalKeyNameForGeometryInstanceMap) => {
+export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForStandardMaterialInstanceMap,
+    globalKeyNameForTextureInstanceMap,
+
+
+    globalKeyNameForGeometryInstanceMap) => {
     _engineSceneProtocolName = engineSceneProtocolName
     _globalKeyNameForMeta3dState = globalKeyNameForMeta3dState
     _globalKeyNameForAPI = globalKeyNameForAPI
     _globalKeyNameForMeshInstanceMap = globalKeyNameForMeshInstanceMap
-    _globalKeyNameForBasicMaterialInstanceMap = globalKeyNameForBasicMaterialInstanceMap
+    _globalKeyNameForStandardMaterialInstanceMap = globalKeyNameForStandardMaterialInstanceMap
+
+    _globalKeyNameForTextureInstanceMap = globalKeyNameForTextureInstanceMap
+
     _globalKeyNameForGeometryInstanceMap = globalKeyNameForGeometryInstanceMap
 }
 
@@ -39,9 +47,14 @@ export let createEmptyMeshInstanceMap = (): void => {
     (globalThis as any)[_globalKeyNameForMeshInstanceMap] = []
 }
 
-export let createEmptyBasicMaterialInstanceMap = (): void => {
-    (globalThis as any)[_globalKeyNameForBasicMaterialInstanceMap] = []
+export let createEmptyStandardMaterialInstanceMap = (): void => {
+    (globalThis as any)[_globalKeyNameForStandardMaterialInstanceMap] = []
 }
+
+export let createEmptyTextureInstanceMap = (): void => {
+    (globalThis as any)[_globalKeyNameForTextureInstanceMap] = []
+}
+
 
 export let createEmptyGeometryInstanceMap = (): void => {
     (globalThis as any)[_globalKeyNameForGeometryInstanceMap] = []

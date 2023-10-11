@@ -6,7 +6,8 @@ import { service } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { state } from "meta3d-three-api-protocol/src/state/StateType"
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
 import {
-    BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Texture, Vector3, Quaternion, WebGLRenderer,
+    BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Texture, Vector3,
+    Quaternion, WebGLRenderer,
     ClampToEdgeWrapping,
     DoubleSide,
     InterpolateDiscrete,
@@ -70,9 +71,21 @@ import {
     Vector2,
     VectorKeyframeTrack,
 
+
     TriangleFanDrawMode,
     TriangleStripDrawMode,
-    TrianglesDrawMode
+    TrianglesDrawMode,
+
+    UVMapping,
+    CubeReflectionMapping,
+    CubeRefractionMapping,
+    EquirectangularReflectionMapping,
+    EquirectangularRefractionMapping,
+    CubeUVReflectionMapping,
+
+    TangentSpaceNormalMap,
+    ObjectSpaceNormalMap,
+
 } from "three";
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
@@ -155,7 +168,17 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
 
         TriangleFanDrawMode: TriangleFanDrawMode,
         TriangleStripDrawMode: TriangleStripDrawMode,
-        TrianglesDrawMode: TrianglesDrawMode
+        TrianglesDrawMode: TrianglesDrawMode,
+
+        UVMapping: UVMapping,
+        CubeReflectionMapping: CubeReflectionMapping,
+        CubeRefractionMapping: CubeRefractionMapping,
+        EquirectangularReflectionMapping: EquirectangularReflectionMapping,
+        EquirectangularRefractionMapping: EquirectangularRefractionMapping,
+        CubeUVReflectionMapping: CubeUVReflectionMapping,
+
+        TangentSpaceNormalMap: TangentSpaceNormalMap,
+        ObjectSpaceNormalMap: ObjectSpaceNormalMap,
     }
 }
 
