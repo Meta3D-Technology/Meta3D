@@ -108,6 +108,30 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
     return meta3dState
 }
 
+let _createDirectionLightGameObject = (meta3dState: meta3dState, { scene }: engineWholeService) => {
+    let data = scene.gameObject.createGameObject(meta3dState)
+    meta3dState = data[0]
+    let gameObject = data[1]
+
+
+    data = scene.transform.createTransform(meta3dState)
+    meta3dState = data[0]
+    let transform = data[1]
+
+    meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
+
+
+    data = scene.directionLight.createDirectionLight(meta3dState)
+    meta3dState = data[0]
+    let directionLight = data[1]
+    meta3dState = scene.directionLight.setColor(meta3dState, directionLight, [1.0, 1.0, 1.0])
+    meta3dState = scene.directionLight.setIntensity(meta3dState, directionLight, 1)
+    meta3dState = scene.gameObject.addDirectionLight(meta3dState, gameObject, directionLight)
+
+
+    return meta3dState
+}
+
 let _createArcballCameraGameObject = (meta3dState: meta3dState, { scene }: engineWholeService,
     // eventService: eventService,
     // eventExtensionProtocolName: string,
@@ -188,6 +212,8 @@ export let addDefaultGameObjects = <engineWholeService_ extends engineWholeServi
 
 
     meta3dState = _createCubeGameObject(meta3dState, engineWholeService)
+
+    meta3dState = _createDirectionLightGameObject(meta3dState, engineWholeService)
 
     return [meta3dState, cameraController, cameraGameObject]
 }

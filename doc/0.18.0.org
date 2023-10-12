@@ -91,10 +91,32 @@ TODO support direction light
 
 ** TODO run test: load and render a glb with maps:Lantern.glb
 
-TODO engine demo->default scene: load a glb with maps
+# TODO engine demo->default scene: load a glb with maps
 
-TODO build engine demo app
+# TODO build engine demo app
 
+# TODO change default scene to loadScene(glb)
+
+
+TODO default scene add direction light
+
+TODO pass run test: default scene(light)
+
+
+
+TODO add load glb button(directly add to scene)
+  TODO extract load glb extension from load scene
+  TODO add import glb extension
+
+
+TODO pass run test: Flower
+
+
+TODO pass run test: Nefertiti
+
+
+
+# TODO rename loadScene to importGLB
 
 
 * TODO Asset
