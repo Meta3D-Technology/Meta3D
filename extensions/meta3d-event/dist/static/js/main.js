@@ -137,7 +137,7 @@ eval("\n\nvar HashMap$Meta3dCommonlib = __webpack_require__(/*! ./HashMap.bs.js 
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
-eval("\n\nvar NullUtils$Meta3dCommonlib = __webpack_require__(/*! ../utils/NullUtils.bs.js */ \"../../defaults/meta3d-commonlib/lib/js/src/structure/utils/NullUtils.bs.js\");\nvar SparseMap$Meta3dCommonlib = __webpack_require__(/*! ./SparseMap.bs.js */ \"../../defaults/meta3d-commonlib/lib/js/src/structure/sparse_map/SparseMap.bs.js\");\n\nfunction fastGet(map, key) {\n  var value = SparseMap$Meta3dCommonlib.unsafeGet(map, key);\n  return [\n          NullUtils$Meta3dCommonlib.isInMap(value),\n          value\n        ];\n}\n\nfunction set(map, key, value) {\n  map[key] = value;\n  return map;\n}\n\nfunction remove(map, key) {\n  map[key] = undefined;\n  return map;\n}\n\nfunction deleteVal(map, key) {\n  map[key] = undefined;\n  return map;\n}\n\nvar createEmpty = SparseMap$Meta3dCommonlib.createEmpty;\n\nvar copy = SparseMap$Meta3dCommonlib.copy;\n\nvar unsafeGet = SparseMap$Meta3dCommonlib.unsafeGet;\n\nvar get = SparseMap$Meta3dCommonlib.get;\n\nvar getNullable = SparseMap$Meta3dCommonlib.getNullable;\n\nvar has = SparseMap$Meta3dCommonlib.has;\n\nvar map = SparseMap$Meta3dCommonlib.map;\n\nvar reducei = SparseMap$Meta3dCommonlib.reducei;\n\nvar getValues = SparseMap$Meta3dCommonlib.getValues;\n\nvar getKeys = SparseMap$Meta3dCommonlib.getKeys;\n\nexports.createEmpty = createEmpty;\nexports.copy = copy;\nexports.unsafeGet = unsafeGet;\nexports.get = get;\nexports.fastGet = fastGet;\nexports.getNullable = getNullable;\nexports.has = has;\nexports.set = set;\nexports.remove = remove;\nexports.map = map;\nexports.reducei = reducei;\nexports.getValues = getValues;\nexports.getKeys = getKeys;\nexports.deleteVal = deleteVal;\n/* No side effect */\n\n\n//# sourceURL=webpack://Extension/../../defaults/meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js?");
+eval("\n\nvar OptionSt$Meta3dCommonlib = __webpack_require__(/*! ../OptionSt.bs.js */ \"../../defaults/meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js\");\nvar NullUtils$Meta3dCommonlib = __webpack_require__(/*! ../utils/NullUtils.bs.js */ \"../../defaults/meta3d-commonlib/lib/js/src/structure/utils/NullUtils.bs.js\");\nvar SparseMap$Meta3dCommonlib = __webpack_require__(/*! ./SparseMap.bs.js */ \"../../defaults/meta3d-commonlib/lib/js/src/structure/sparse_map/SparseMap.bs.js\");\n\nfunction getExn(map, key) {\n  return OptionSt$Meta3dCommonlib.getExn(SparseMap$Meta3dCommonlib.get(map, key));\n}\n\nfunction fastGet(map, key) {\n  var value = SparseMap$Meta3dCommonlib.unsafeGet(map, key);\n  return [\n          NullUtils$Meta3dCommonlib.isInMap(value),\n          value\n        ];\n}\n\nfunction set(map, key, value) {\n  map[key] = value;\n  return map;\n}\n\nfunction remove(map, key) {\n  map[key] = undefined;\n  return map;\n}\n\nfunction deleteVal(map, key) {\n  map[key] = undefined;\n  return map;\n}\n\nvar createEmpty = SparseMap$Meta3dCommonlib.createEmpty;\n\nvar copy = SparseMap$Meta3dCommonlib.copy;\n\nvar unsafeGet = SparseMap$Meta3dCommonlib.unsafeGet;\n\nvar get = SparseMap$Meta3dCommonlib.get;\n\nvar getNullable = SparseMap$Meta3dCommonlib.getNullable;\n\nvar has = SparseMap$Meta3dCommonlib.has;\n\nvar map = SparseMap$Meta3dCommonlib.map;\n\nvar reducei = SparseMap$Meta3dCommonlib.reducei;\n\nvar getValues = SparseMap$Meta3dCommonlib.getValues;\n\nvar getKeys = SparseMap$Meta3dCommonlib.getKeys;\n\nexports.createEmpty = createEmpty;\nexports.copy = copy;\nexports.unsafeGet = unsafeGet;\nexports.get = get;\nexports.getExn = getExn;\nexports.fastGet = fastGet;\nexports.getNullable = getNullable;\nexports.has = has;\nexports.set = set;\nexports.remove = remove;\nexports.map = map;\nexports.reducei = reducei;\nexports.getValues = getValues;\nexports.getKeys = getKeys;\nexports.deleteVal = deleteVal;\n/* No side effect */\n\n\n//# sourceURL=webpack://Extension/../../defaults/meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js?");
 
 /***/ }),
 
@@ -1230,6 +1230,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "../../node_modules/define-data-property/index.js":
+/*!********************************************************!*\
+  !*** ../../node_modules/define-data-property/index.js ***!
+  \********************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("\n\nvar hasPropertyDescriptors = __webpack_require__(/*! has-property-descriptors */ \"../../node_modules/has-property-descriptors/index.js\")();\n\nvar GetIntrinsic = __webpack_require__(/*! get-intrinsic */ \"../../node_modules/get-intrinsic/index.js\");\n\nvar $defineProperty = hasPropertyDescriptors && GetIntrinsic('%Object.defineProperty%', true);\n\nvar $SyntaxError = GetIntrinsic('%SyntaxError%');\nvar $TypeError = GetIntrinsic('%TypeError%');\n\nvar gopd = __webpack_require__(/*! gopd */ \"../../node_modules/gopd/index.js\");\n\n/** @type {(obj: Record<PropertyKey, unknown>, property: PropertyKey, value: unknown, nonEnumerable?: boolean | null, nonWritable?: boolean | null, nonConfigurable?: boolean | null, loose?: boolean) => void} */\nmodule.exports = function defineDataProperty(\n\tobj,\n\tproperty,\n\tvalue\n) {\n\tif (!obj || (typeof obj !== 'object' && typeof obj !== 'function')) {\n\t\tthrow new $TypeError('`obj` must be an object or a function`');\n\t}\n\tif (typeof property !== 'string' && typeof property !== 'symbol') {\n\t\tthrow new $TypeError('`property` must be a string or a symbol`');\n\t}\n\tif (arguments.length > 3 && typeof arguments[3] !== 'boolean' && arguments[3] !== null) {\n\t\tthrow new $TypeError('`nonEnumerable`, if provided, must be a boolean or null');\n\t}\n\tif (arguments.length > 4 && typeof arguments[4] !== 'boolean' && arguments[4] !== null) {\n\t\tthrow new $TypeError('`nonWritable`, if provided, must be a boolean or null');\n\t}\n\tif (arguments.length > 5 && typeof arguments[5] !== 'boolean' && arguments[5] !== null) {\n\t\tthrow new $TypeError('`nonConfigurable`, if provided, must be a boolean or null');\n\t}\n\tif (arguments.length > 6 && typeof arguments[6] !== 'boolean') {\n\t\tthrow new $TypeError('`loose`, if provided, must be a boolean');\n\t}\n\n\tvar nonEnumerable = arguments.length > 3 ? arguments[3] : null;\n\tvar nonWritable = arguments.length > 4 ? arguments[4] : null;\n\tvar nonConfigurable = arguments.length > 5 ? arguments[5] : null;\n\tvar loose = arguments.length > 6 ? arguments[6] : false;\n\n\t/* @type {false | TypedPropertyDescriptor<unknown>} */\n\tvar desc = !!gopd && gopd(obj, property);\n\n\tif ($defineProperty) {\n\t\t$defineProperty(obj, property, {\n\t\t\tconfigurable: nonConfigurable === null && desc ? desc.configurable : !nonConfigurable,\n\t\t\tenumerable: nonEnumerable === null && desc ? desc.enumerable : !nonEnumerable,\n\t\t\tvalue: value,\n\t\t\twritable: nonWritable === null && desc ? desc.writable : !nonWritable\n\t\t});\n\t} else if (loose || (!nonEnumerable && !nonWritable && !nonConfigurable)) {\n\t\t// must fall back to [[Set]], and was not explicitly asked to make non-enumerable, non-writable, or non-configurable\n\t\tobj[property] = value; // eslint-disable-line no-param-reassign\n\t} else {\n\t\tthrow new $SyntaxError('This environment does not support defining a property as non-configurable, non-writable, or non-enumerable.');\n\t}\n};\n\n\n//# sourceURL=webpack://Extension/../../node_modules/define-data-property/index.js?");
+
+/***/ }),
+
 /***/ "../../node_modules/define-properties/index.js":
 /*!*****************************************************!*\
   !*** ../../node_modules/define-properties/index.js ***!
@@ -1237,7 +1248,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
-eval("\n\nvar keys = __webpack_require__(/*! object-keys */ \"../../node_modules/object-keys/index.js\");\nvar hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';\n\nvar toStr = Object.prototype.toString;\nvar concat = Array.prototype.concat;\nvar origDefineProperty = Object.defineProperty;\n\nvar isFunction = function (fn) {\n\treturn typeof fn === 'function' && toStr.call(fn) === '[object Function]';\n};\n\nvar hasPropertyDescriptors = __webpack_require__(/*! has-property-descriptors */ \"../../node_modules/has-property-descriptors/index.js\")();\n\nvar supportsDescriptors = origDefineProperty && hasPropertyDescriptors;\n\nvar defineProperty = function (object, name, value, predicate) {\n\tif (name in object) {\n\t\tif (predicate === true) {\n\t\t\tif (object[name] === value) {\n\t\t\t\treturn;\n\t\t\t}\n\t\t} else if (!isFunction(predicate) || !predicate()) {\n\t\t\treturn;\n\t\t}\n\t}\n\tif (supportsDescriptors) {\n\t\torigDefineProperty(object, name, {\n\t\t\tconfigurable: true,\n\t\t\tenumerable: false,\n\t\t\tvalue: value,\n\t\t\twritable: true\n\t\t});\n\t} else {\n\t\tobject[name] = value; // eslint-disable-line no-param-reassign\n\t}\n};\n\nvar defineProperties = function (object, map) {\n\tvar predicates = arguments.length > 2 ? arguments[2] : {};\n\tvar props = keys(map);\n\tif (hasSymbols) {\n\t\tprops = concat.call(props, Object.getOwnPropertySymbols(map));\n\t}\n\tfor (var i = 0; i < props.length; i += 1) {\n\t\tdefineProperty(object, props[i], map[props[i]], predicates[props[i]]);\n\t}\n};\n\ndefineProperties.supportsDescriptors = !!supportsDescriptors;\n\nmodule.exports = defineProperties;\n\n\n//# sourceURL=webpack://Extension/../../node_modules/define-properties/index.js?");
+eval("\n\nvar keys = __webpack_require__(/*! object-keys */ \"../../node_modules/object-keys/index.js\");\nvar hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';\n\nvar toStr = Object.prototype.toString;\nvar concat = Array.prototype.concat;\nvar defineDataProperty = __webpack_require__(/*! define-data-property */ \"../../node_modules/define-data-property/index.js\");\n\nvar isFunction = function (fn) {\n\treturn typeof fn === 'function' && toStr.call(fn) === '[object Function]';\n};\n\nvar supportsDescriptors = __webpack_require__(/*! has-property-descriptors */ \"../../node_modules/has-property-descriptors/index.js\")();\n\nvar defineProperty = function (object, name, value, predicate) {\n\tif (name in object) {\n\t\tif (predicate === true) {\n\t\t\tif (object[name] === value) {\n\t\t\t\treturn;\n\t\t\t}\n\t\t} else if (!isFunction(predicate) || !predicate()) {\n\t\t\treturn;\n\t\t}\n\t}\n\n\tif (supportsDescriptors) {\n\t\tdefineDataProperty(object, name, value, true);\n\t} else {\n\t\tdefineDataProperty(object, name, value);\n\t}\n};\n\nvar defineProperties = function (object, map) {\n\tvar predicates = arguments.length > 2 ? arguments[2] : {};\n\tvar props = keys(map);\n\tif (hasSymbols) {\n\t\tprops = concat.call(props, Object.getOwnPropertySymbols(map));\n\t}\n\tfor (var i = 0; i < props.length; i += 1) {\n\t\tdefineProperty(object, props[i], map[props[i]], predicates[props[i]]);\n\t}\n};\n\ndefineProperties.supportsDescriptors = !!supportsDescriptors;\n\nmodule.exports = defineProperties;\n\n\n//# sourceURL=webpack://Extension/../../node_modules/define-properties/index.js?");
 
 /***/ }),
 
@@ -1318,6 +1329,17 @@ eval("\n\nvar define = __webpack_require__(/*! define-properties */ \"../../node
 
 /***/ }),
 
+/***/ "../../node_modules/gopd/index.js":
+/*!****************************************!*\
+  !*** ../../node_modules/gopd/index.js ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("\n\nvar GetIntrinsic = __webpack_require__(/*! get-intrinsic */ \"../../node_modules/get-intrinsic/index.js\");\n\nvar $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);\n\nif ($gOPD) {\n\ttry {\n\t\t$gOPD([], 'length');\n\t} catch (e) {\n\t\t// IE 8 has a broken gOPD\n\t\t$gOPD = null;\n\t}\n}\n\nmodule.exports = $gOPD;\n\n\n//# sourceURL=webpack://Extension/../../node_modules/gopd/index.js?");
+
+/***/ }),
+
 /***/ "../../node_modules/has-property-descriptors/index.js":
 /*!************************************************************!*\
   !*** ../../node_modules/has-property-descriptors/index.js ***!
@@ -1366,10 +1388,10 @@ eval("\n\n/* eslint complexity: [2, 18], max-statements: [2, 33] */\nmodule.expo
 /*!*******************************************!*\
   !*** ../../node_modules/has/src/index.js ***!
   \*******************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ ((module) => {
 
 "use strict";
-eval("\n\nvar bind = __webpack_require__(/*! function-bind */ \"../../node_modules/function-bind/index.js\");\n\nmodule.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);\n\n\n//# sourceURL=webpack://Extension/../../node_modules/has/src/index.js?");
+eval("\n\nvar hasOwnProperty = {}.hasOwnProperty;\nvar call = Function.prototype.call;\n\nmodule.exports = call.bind ? call.bind(hasOwnProperty) : function (O, P) {\n  return call.call(hasOwnProperty, O, P);\n};\n\n\n//# sourceURL=webpack://Extension/../../node_modules/has/src/index.js?");
 
 /***/ }),
 

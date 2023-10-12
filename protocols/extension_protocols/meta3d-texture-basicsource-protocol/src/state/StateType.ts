@@ -1,5 +1,6 @@
 
-import type { ImmutableSparseMapType_t as Meta3dCommonlibType_ImmutableSparseMapType_t } from 'meta3d-commonlib-type/lib/es6_global/src/structure/sparse_map/ImmutableSparseMapType.bs';
+// import type { ImmutableSparseMapType_t as Meta3dCommonlibType_ImmutableSparseMapType_t } from 'meta3d-commonlib-type/lib/es6_global/src/structure/sparse_map/ImmutableSparseMapType.bs';
+import type { t as Meta3dCommonlibType_ImmutableSparseMapType_t } from 'meta3d-commonlib-type/src/structure/sparse_map/ImmutableSparseMapType';
 
 export type htmlImageElement = TexImageSource
 

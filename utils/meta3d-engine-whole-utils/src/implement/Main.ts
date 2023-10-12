@@ -39,6 +39,24 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).gameObject.hasTransform(meta3dState, gameObject)
 			},
+			getDirectionLight: (meta3dState, gameObject) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.getDirectionLight(meta3dState, gameObject)
+			},
+			addDirectionLight: (meta3dState, gameObject, directionLight) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.addDirectionLight(meta3dState, gameObject, directionLight)
+			},
+			hasDirectionLight: (meta3dState, gameObject) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.hasDirectionLight(meta3dState, gameObject)
+			},
 			getGeometry: (meta3dState, gameObject) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
@@ -158,6 +176,12 @@ let _getSceneService = (
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).gameObject.disposeGameObjectPBRMaterialComponent(meta3dState, gameObject, component)
+			},
+			disposeGameObjectDirectionLightComponent: (meta3dState, gameObject, component) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.disposeGameObjectDirectionLightComponent(meta3dState, gameObject, component)
 			},
 			disposeGameObjectGeometryComponent: (meta3dState, gameObject, component) => {
 				return api.getExtensionService<engineSceneService>(
@@ -354,6 +378,126 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).pbrMaterial.setDiffuseColor(meta3dState, pbrMaterial, diffuseColor)
 			},
+			getSpecular: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getSpecular(meta3dState, pbrMaterial)
+			},
+			setSpecular: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setSpecular(meta3dState, pbrMaterial, value)
+			},
+			getSpecularColor: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getSpecularColor(meta3dState, pbrMaterial)
+			},
+			setSpecularColor: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setSpecularColor(meta3dState, pbrMaterial, value)
+			},
+			getMetalness: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getMetalness(meta3dState, pbrMaterial)
+			},
+			setMetalness: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setMetalness(meta3dState, pbrMaterial, value)
+			},
+			getRoughness: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getRoughness(meta3dState, pbrMaterial)
+			},
+			setRoughness: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setRoughness(meta3dState, pbrMaterial, value)
+			},
+			getTransmission: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getTransmission(meta3dState, pbrMaterial)
+			},
+			setTransmission: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setTransmission(meta3dState, pbrMaterial, value)
+			},
+			getIOR: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getIOR(meta3dState, pbrMaterial)
+			},
+			setIOR: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setIOR(meta3dState, pbrMaterial, value)
+			},
+			getDiffuseMap: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getDiffuseMap(meta3dState, pbrMaterial)
+			},
+			setDiffuseMap: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setDiffuseMap(meta3dState, pbrMaterial, value)
+			},
+			getMetalnessMap: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getMetalnessMap(meta3dState, pbrMaterial)
+			},
+			setMetalnessMap: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setMetalnessMap(meta3dState, pbrMaterial, value)
+			},
+			getNormalMap: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getNormalMap(meta3dState, pbrMaterial)
+			},
+			setNormalMap: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setNormalMap(meta3dState, pbrMaterial, value)
+			},
+			getRoughnessMap: (meta3dState, pbrMaterial) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.getRoughnessMap(meta3dState, pbrMaterial)
+			},
+			setRoughnessMap: (meta3dState, pbrMaterial, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).pbrMaterial.setMetalnessMap(meta3dState, pbrMaterial, value)
+			},
 			getAllPBRMaterials: (meta3dState) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,
@@ -365,6 +509,187 @@ let _getSceneService = (
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).pbrMaterial.getGameObjects(meta3dState, pbrMaterial)
+			},
+		},
+		basicSourceTexture: {
+			createTexture: (meta3dState) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.createTexture(meta3dState)
+
+			},
+			disposeTexture: (meta3dState, texture, material) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.disposeTexture(meta3dState, texture, material)
+			},
+			addMaterial: (meta3dState, texture, material) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.addMaterial(meta3dState, texture, material)
+			},
+			getWrapS: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getWrapS(meta3dState, texture)
+			},
+			setWrapS: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setWrapS(meta3dState, texture, value)
+			},
+			getWrapT: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getWrapT(meta3dState, texture)
+			},
+			setWrapT: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setWrapT(meta3dState, texture, value)
+			},
+			getFlipY: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getFlipY(meta3dState, texture)
+			},
+			setFlipY: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setFlipY(meta3dState, texture, value)
+			},
+			getFormat: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getFormat(meta3dState, texture)
+			},
+			setFormat: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setFormat(meta3dState, texture, value)
+			},
+			getImage: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getImage(meta3dState, texture)
+			},
+			setImage: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setImage(meta3dState, texture, value)
+			},
+			getIsNeedUpdate: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getIsNeedUpdate(meta3dState, texture)
+			},
+			setIsNeedUpdate: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setIsNeedUpdate(meta3dState, texture, value)
+			},
+			getMagFilter: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getMagFilter(meta3dState, texture)
+			},
+			setMagFilter: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setMagFilter(meta3dState, texture, value)
+			},
+			getMinFilter: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getMinFilter(meta3dState, texture)
+			},
+			setMinFilter: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setMinFilter(meta3dState, texture, value)
+			},
+			getType: (meta3dState, texture) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.getType(meta3dState, texture)
+			},
+			setType: (meta3dState, texture, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).basicSourceTexture.setType(meta3dState, texture, value)
+			},
+
+		},
+		directionLight: {
+			createDirectionLight: (meta3dState) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.createDirectionLight(meta3dState)
+
+			},
+			getGameObjects: (meta3dState, directionLight) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.getGameObjects(meta3dState, directionLight)
+			},
+			getColor: (meta3dState, directionLight) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.getColor(meta3dState, directionLight)
+			},
+			setColor: (meta3dState, directionLight, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.setColor(meta3dState, directionLight, value)
+			},
+			getDirection: (meta3dState, directionLight) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.getDirection(meta3dState, directionLight)
+			},
+			setDirection: (meta3dState, directionLight, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.setDirection(meta3dState, directionLight, value)
+			},
+			getIntensity: (meta3dState, directionLight) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.getIntensity(meta3dState, directionLight)
+			},
+			setIntensity: (meta3dState, directionLight, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).directionLight.setIntensity(meta3dState, directionLight, value)
 			},
 		},
 		perspectiveCameraProjection: {
