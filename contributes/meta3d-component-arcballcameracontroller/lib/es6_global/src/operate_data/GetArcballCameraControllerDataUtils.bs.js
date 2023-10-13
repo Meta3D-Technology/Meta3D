@@ -31,7 +31,7 @@ function getData(state, cameraController, dataName) {
   } else if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.dirty) {
     return OptionSt$Meta3dCommonlib.toNullable(DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.isDirty(state, cameraController));
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + dataName + "", "", "", ""));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + dataName + "", "", "", "")));
   }
 }
 

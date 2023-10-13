@@ -14,7 +14,7 @@
     "dependencies": {
         "meta3d-action-import-event-protocol": "^0.17.0",
         "meta3d-editor-run-engine-sceneview-protocol": "^0.17.0",
-        "meta3d-editor-webgl1-three-run-engine-sceneview-utils": "^0.17.0",
+        "meta3d-editor-webgl1-three-run-engine-utils": "^0.17.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.17.0",
         "meta3d-event-sourcing-protocol": "^0.17.0",
         "meta3d-type": "^0.17.0"

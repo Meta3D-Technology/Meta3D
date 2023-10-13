@@ -80,9 +80,11 @@ let _generateEventDataBuffer = (
 }
 
 let export = (allEvents: array<Meta3dEventDataProtocol.ServiceType.eventData>) => {
-  Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
-    _generateEventDataBuffer(Js.Math.random, allEvents),
-    "eventData",
-    "arraybuffer",
-  )
+  allEvents->Meta3dCommonlib.ArraySt.length == 0
+    ? ()
+    : Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
+        _generateEventDataBuffer(Js.Math.random, allEvents),
+        "eventData",
+        "arraybuffer",
+      )
 }

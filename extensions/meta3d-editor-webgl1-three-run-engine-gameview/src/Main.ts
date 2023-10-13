@@ -1,7 +1,7 @@
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, api } from "meta3d-type"
 import { state } from "meta3d-editor-run-engine-gameview-protocol/src/state/StateType"
 import { service } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { addToLoopFuncs, removeFromLoopFuncs, prepareAndInitEngine, loopEngine } from "meta3d-editor-webgl1-three-run-engine-sceneview-utils/src/Main"
+import { addToLoopFuncs, removeFromLoopFuncs, prepareAndInitEngine, loopEngine } from "meta3d-editor-webgl1-three-run-engine-utils/src/Main"
 import { actionName, state as runState } from "meta3d-action-run-protocol"
 import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
 import { service as engineWholeService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"

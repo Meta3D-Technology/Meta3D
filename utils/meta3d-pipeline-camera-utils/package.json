@@ -1,5 +1,5 @@
 {
-    "name": "meta3d-pipeline-camera-sceneview-utils",
+    "name": "meta3d-pipeline-camera-utils",
     "version": "0.17.0",
     "license": "MIT",
     "scripts": {

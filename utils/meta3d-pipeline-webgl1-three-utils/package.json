@@ -1,5 +1,5 @@
 {
-    "name": "meta3d-pipeline-webgl1-three-sceneview-utils",
+    "name": "meta3d-pipeline-webgl1-three-utils",
     "version": "0.17.0",
     "license": "MIT",
     "scripts": {

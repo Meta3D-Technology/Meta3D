@@ -64,6 +64,7 @@ let getData = (.
     DirtyTransformUtils.isDirty(state, transform)->Obj.magic
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
+      Meta3dCommonlib.Exception.buildErr(
       Meta3dCommonlib.Log.buildFatalMessage(
         ~title="getData",
         ~description=j`unknown dataName:${dataName->Obj.magic}`,
@@ -71,6 +72,7 @@ let getData = (.
         ~solution=j``,
         ~params=j``,
       ),
+      )
     )
   }
 }

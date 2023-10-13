@@ -1,7 +1,7 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-transform-sceneview-protocol/src/StateType"
-import { updateTransform } from "meta3d-pipeline-transform-sceneview-utils/src/UpdateTransformJobUtils"
+import { updateTransform } from "meta3d-pipeline-transform-utils/src/UpdateTransformJobUtils"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 

@@ -47,6 +47,9 @@ module Method = {
 
       ()->Js.Promise.resolve
     }, _)
+    ->Js.Promise.catch(e => {
+      service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+    }, _)
     ->ignore
   }
 

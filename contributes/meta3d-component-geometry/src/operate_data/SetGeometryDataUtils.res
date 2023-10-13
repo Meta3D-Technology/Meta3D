@@ -24,6 +24,7 @@ let setData = (.
     state
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
+      Meta3dCommonlib.Exception.buildErr(
       Meta3dCommonlib.Log.buildFatalMessage(
         ~title="setData",
         ~description=j`unknown dataName:${dataName->Obj.magic}`,
@@ -31,6 +32,7 @@ let setData = (.
         ~solution=j``,
         ~params=j``,
       ),
+      )
     )
   }
 }

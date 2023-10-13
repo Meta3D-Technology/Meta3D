@@ -1,6 +1,6 @@
 {
   "name": "meta3d-texture-basicsource",
-  "version": "0.17.0",
+  "version": "0.17.2",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "protocol": {
     "name": "meta3d-texture-basicsource-protocol"
@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "meta3d-texture-basicsource-protocol": "^0.17.0",
+    "meta3d-texture-basicsource-protocol": "^0.17.2",
     "meta3d-type": "^0.17.0",
     "rescript": "^10.0.1"
   },

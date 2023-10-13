@@ -1,7 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
 import { state } from "meta3d-engine-basic-gameview-protocol/src/state/StateType"
 import { service } from "meta3d-engine-basic-gameview-protocol/src/service/ServiceType"
-import { getExtensionServiceUtils } from "meta3d-engine-basic-sceneview-utils/src/Main"
+import { getExtensionServiceUtils } from "meta3d-engine-basic-utils/src/Main"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service

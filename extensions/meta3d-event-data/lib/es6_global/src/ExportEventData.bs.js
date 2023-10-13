@@ -66,9 +66,13 @@ function _generateEventDataBuffer(random, allEvents) {
 }
 
 function $$export(allEvents) {
-  DownloadUtils$Meta3dFileUtils.createAndDownloadBlobFile(_generateEventDataBuffer((function (prim) {
-              return Math.random();
-            }), allEvents), "eventData", "arraybuffer");
+  if (ArraySt$Meta3dCommonlib.length(allEvents) === 0) {
+    return ;
+  } else {
+    return DownloadUtils$Meta3dFileUtils.createAndDownloadBlobFile(_generateEventDataBuffer((function (prim) {
+                      return Math.random();
+                    }), allEvents), "eventData", "arraybuffer");
+  }
 }
 
 export {
