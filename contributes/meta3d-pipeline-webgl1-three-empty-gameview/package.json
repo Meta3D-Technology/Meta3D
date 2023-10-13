@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-pipeline-webgl1-three-sceneview",
-    "version": "0.17.1",
+    "name": "meta3d-pipeline-webgl1-three-empty-gameview",
+    "version": "0.17.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
-        "name": "meta3d-pipeline-webgl1-three-sceneview-protocol"
+        "name": "meta3d-pipeline-webgl1-three-gameview-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -14,8 +14,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.17.0",
-        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.17.0",
+        "meta3d-pipeline-webgl1-three-gameview-protocol": "^0.17.0",
+        "meta3d-scenegraph-converter-three-gameview-protocol": "^0.17.0",
         "meta3d-three-api-protocol": "^0.17.0",
         "meta3d-type": "^0.17.0"
     },

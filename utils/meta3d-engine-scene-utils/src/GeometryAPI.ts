@@ -1,6 +1,6 @@
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
-import { geometry, componentName, dataName, vertices, indices } from "meta3d-component-geometry-protocol"
+import { geometry, componentName, dataName, vertices, indices, normals } from "meta3d-component-geometry-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
@@ -23,7 +23,7 @@ export function createGeometry(engineCoreState: engineCoreState, { unsafeGetUsed
 	]
 }
 
-export let getVertices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<vertices>  => {
+export let getVertices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<vertices> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentData<geometry, vertices>(contribute, geometry, dataName.vertices)
@@ -42,7 +42,27 @@ export function setVertices(engineCoreState: engineCoreState, { unsafeGetUsedCom
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getIndices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<indices>  => {
+export let getNormals = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<normals> => {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentData<geometry, normals>(contribute, geometry, dataName.normals)
+}
+
+export function setNormals(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
+	setComponentData,
+
+	setUsedComponentContribute,
+}: engineCoreService, geometry: geometry, normals: Float32Array) {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+	contribute = setComponentData(contribute, geometry, dataName.normals, normals)
+
+	return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+
+export let getIndices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<indices> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentData<geometry, indices>(contribute, geometry, dataName.indices)
@@ -61,7 +81,7 @@ export function setIndices(engineCoreState: engineCoreState, { unsafeGetUsedComp
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, geometry: geometry): Array<gameObject>  => {
+export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, geometry: geometry): Array<gameObject> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 	return getComponentGameObjects<geometry>(contribute, geometry)

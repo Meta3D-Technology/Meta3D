@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-scene-gameview",
-    "version": "0.17.1",
+    "version": "0.17.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-scene-gameview-protocol"
@@ -20,7 +20,7 @@
         "meta3d-component-perspectivecameraprojection-protocol": "^0.17.0",
         "meta3d-component-transform-protocol": "^0.17.0",
         "meta3d-engine-core-gameview-protocol": "^0.17.0",
-        "meta3d-engine-scene-gameview-protocol": "^0.17.0",
+        "meta3d-engine-scene-gameview-protocol": "^0.17.1",
         "meta3d-engine-scene-utils": "^0.17.0",
         "meta3d-gameobject-protocol": "^0.17.0",
         "meta3d-pipeline-camera-gameview-protocol": "^0.17.0",

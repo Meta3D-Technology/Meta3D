@@ -541,9 +541,9 @@ class Light extends Object3D {
     }
 }
 
-class DirectionLight extends Object3D {
+class DirectionLight extends Light {
     constructor(light: directionLight) {
-        super(_getEmptyGameObject())
+        super()
 
         this._light = light
     }
@@ -562,20 +562,24 @@ class DirectionLight extends Object3D {
         return false
     }
 
-    public get position(): Vector3Type {
-        return new Vector3(0, 0, 0)
+    public get matrixWorld(): Matrix4Type {
+        let mat: Matrix4Type = new Matrix4()
+
+        return mat.setPosition(0, 0, 0)
     }
 
     public get target(): Object3DType {
-        return _getExnDirectionLightValue("getDirection", this._light, (direction) => {
+        return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
+            let mat: Matrix4Type = new Matrix4()
+
             return {
-                position: direction
+                matrixWorld: mat.setPosition(direction[0], direction[1], direction[2])
             } as any as Object3DType
         })
     }
 
     public get color(): ColorType {
-        return _getExnDirectionLightValue("getColor", this._light)
+        return _getExnDirectionLightValue("getColor", this._light, (v) => new Color(...v))
     }
 
     public get intensity(): number {
@@ -749,6 +753,9 @@ class BufferGeometry extends EventDispatcher {
         this._positionAttribute = new BufferAttribute(getExn(
             engineSceneService.geometry.getVertices(meta3dState, this._geometry)
         ), 3)
+        this._normalAttribute = new BufferAttribute(getExn(
+            engineSceneService.geometry.getNormals(meta3dState, this._geometry)
+        ), 3)
         this._indexAttribute = new BufferAttribute(getExn(
             engineSceneService.geometry.getIndices(meta3dState, this._geometry)
         ), 1)
@@ -758,6 +765,7 @@ class BufferGeometry extends EventDispatcher {
 
     private _geometry: geometry
     private _positionAttribute: BufferAttributeType
+    private _normalAttribute: BufferAttributeType
     private _indexAttribute: BufferAttributeType
 
     public uuid: string
@@ -781,7 +789,8 @@ class BufferGeometry extends EventDispatcher {
 
     public get attributes(): Record<string, any> {
         return {
-            "position": this._positionAttribute
+            "position": this._positionAttribute,
+            "normal": this._normalAttribute,
         }
     }
 
@@ -960,6 +969,8 @@ class Material extends EventDispatcher {
 
     public uuid: string
 
+    public version:number = 0
+
 
     public get id(): number {
         return generateId()
@@ -973,9 +984,9 @@ class Material extends EventDispatcher {
         return false
     }
 
-    public get version(): number {
-        return 0
-    }
+    // public get version(): number {
+    //     return 0
+    // }
 
     public get wireframe(): boolean {
         return false

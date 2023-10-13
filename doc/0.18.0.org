@@ -104,21 +104,28 @@ TODO default scene add direction light
 
 TODO pass run test: default scene(light)
 
-  TODO why api not the same file?
+  //TODO why api not the same file?
 
+  # TODO move dataName from protocol to implement?
 
   //TODO update all component protocol(except pbrmaterial pro):
   tsc
 
   TODO fix: no light
+    # TODO why scenegraph utils not update?
+
+TODO scene view 800*800
 
 
 //TODO rename sceneview-utils
 
 TODO need publish:
-# event-data
-# event-sourci  
 # scenegraph s, g
+# meta3d-pipeline-editor-webgl1-game-view1
+# meta3d-pipeline-editor-webgl1-scene-view1
+
+
+
 
 
 
@@ -136,6 +143,13 @@ TODO pass run test: Nefertiti
 
 
 # TODO rename loadScene to importGLB
+
+
+
+TODO pass gameview run test:
+  TODO need select:
+  meta3d-pipeline-webgl1-three-gameview
+
 
 
 * TODO Asset
@@ -171,3 +185,8 @@ TODO if exist the same name file, rename loaded one
 ** TODO import/export Event support reset
 
 ** TODO import event: handle outside immutable data
+
+
+
+
+# * TODO fix: auto upgrade: should keep canvas size

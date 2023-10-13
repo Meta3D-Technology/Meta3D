@@ -1,13 +1,13 @@
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
-import { gameObject } from "meta3d-gameobject-protocol/src/Index";
-// import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
+// import { basicCameraView } from "meta3d-component-basiccameraview-protocol"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { arcballCameraController, distance, target } from "meta3d-component-arcballcameracontroller-protocol/src/Index";
-import { localPosition } from "meta3d-component-transform-protocol";
-import { nullable } from "meta3d-commonlib-ts/src/nullable";
-import { bind } from "meta3d-commonlib-ts/src/NullableUtils";
+import { arcballCameraController, distance, target } from "meta3d-component-arcballcameracontroller-protocol/src/Index"
+import { localPosition } from "meta3d-component-transform-protocol"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { bind } from "meta3d-commonlib-ts/src/NullableUtils"
 
 type canvasSize = [number, number]
 
@@ -68,24 +68,41 @@ let _createCubeGameObject = (meta3dState: meta3dState, { scene }: engineWholeSer
     let geometry = data[1]
 
 
-    let vertices = new Float32Array([
-        1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0,
-        1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0,
-        1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0,
-        -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0,
-        -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0,
-        -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0
+    // Create a cube
+    //    v6----- v5
+    //   /|      /|
+    //  v1------v0|
+    //  | |     | |
+    //  | |v7---|-|v4
+    //  |/      |/
+    //  v2------v3
+    let vertices = new Float32Array([   // Coordinates
+        1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, // v0-v1-v2-v3 front
+        1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, // v0-v3-v4-v5 right
+        1.0, 1.0, 1.0, 1.0, 1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, // v0-v5-v6-v1 up
+        -1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, // v1-v6-v7-v2 left
+        -1.0, -1.0, -1.0, 1.0, -1.0, -1.0, 1.0, -1.0, 1.0, -1.0, -1.0, 1.0, // v7-v4-v3-v2 down
+        1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, 1.0, -1.0, 1.0, 1.0, -1.0  // v4-v7-v6-v5 back
+    ])
+    let normals = new Float32Array([    // Normal
+        0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0,  // v0-v1-v2-v3 front
+        1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0,  // v0-v3-v4-v5 right
+        0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,  // v0-v5-v6-v1 up
+        -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0,  // v1-v6-v7-v2 left
+        0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0,  // v7-v4-v3-v2 down
+        0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0, 0.0, 0.0, -1.0   // v4-v7-v6-v5 back
+    ])
+    let indices = new Uint32Array([
+        0, 1, 2, 0, 2, 3,    // front
+        4, 5, 6, 4, 6, 7,    // right
+        8, 9, 10, 8, 10, 11,    // up
+        12, 13, 14, 12, 14, 15,    // left
+        16, 17, 18, 16, 18, 19,    // down
+        20, 21, 22, 20, 22, 23     // back
     ])
 
-    let indices = new Uint32Array([
-        0, 1, 2, 0, 2, 3,
-        4, 5, 6, 4, 6, 7,
-        8, 9, 10, 8, 10, 11,
-        12, 13, 14, 12, 14, 15,
-        16, 17, 18, 16, 18, 19,
-        20, 21, 22, 20, 22, 23
-    ])
     meta3dState = scene.geometry.setVertices(meta3dState, geometry, vertices)
+    meta3dState = scene.geometry.setNormals(meta3dState, geometry, normals)
     meta3dState = scene.geometry.setIndices(meta3dState, geometry, indices)
     meta3dState = scene.gameObject.addGeometry(meta3dState, gameObject, geometry)
 
@@ -117,6 +134,13 @@ let _createDirectionLightGameObject = (meta3dState: meta3dState, { scene }: engi
     data = scene.transform.createTransform(meta3dState)
     meta3dState = data[0]
     let transform = data[1]
+
+    // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 0, -1])
+    // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 0, 1])
+    // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 1])
+    meta3dState = scene.transform.lookAt(meta3dState, transform, [1, 0.1, 1])
+
+
 
     meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
 

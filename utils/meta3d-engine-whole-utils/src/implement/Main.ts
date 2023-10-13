@@ -339,6 +339,18 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).geometry.setVertices(meta3dState, geometry, vertices)
 			},
+			getNormals: (meta3dState, geometry) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.getNormals(meta3dState, geometry)
+			},
+			setNormals: (meta3dState, geometry, normals) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.setNormals(meta3dState, geometry, normals)
+			},
 			getIndices: (meta3dState, geometry) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,

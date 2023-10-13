@@ -9,6 +9,10 @@ export type getVertices = (meta3dState: meta3dState, geometry: geometry) => null
 
 export type setVertices = (meta3dState: meta3dState, geometry: geometry, vertices: Float32Array) => meta3dState
 
+export type getNormals = (meta3dState: meta3dState, geometry: geometry) => nullable<Float32Array>
+
+export type setNormals = (meta3dState: meta3dState, geometry: geometry, normals: Float32Array) => meta3dState
+
 export type getIndices = (meta3dState: meta3dState, geometry: geometry) => nullable<Uint32Array>
 
 export type setIndices = (meta3dState: meta3dState, geometry: geometry, indices: Uint32Array) => meta3dState

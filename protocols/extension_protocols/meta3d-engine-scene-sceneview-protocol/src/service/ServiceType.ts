@@ -61,6 +61,8 @@ import {
 import {
 	createGeometry, getIndices, getVertices, setIndices, setVertices,
 	getGameObjects as getGeometryGameObjects,
+	getNormals,
+	setNormals,
 } from "./ecs/Geometry";
 import {
 	createBasicCameraView,
@@ -224,6 +226,8 @@ export type scene = {
 		createGeometry: createGeometry,
 		getVertices: getVertices,
 		setVertices: setVertices,
+		getNormals: getNormals,
+		setNormals: setNormals,
 		getIndices: getIndices,
 		setIndices: setIndices,
 		getGameObjects: getGeometryGameObjects

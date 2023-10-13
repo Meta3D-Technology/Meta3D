@@ -29,7 +29,7 @@ import {
 } from "./TransformAPI";
 import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
 import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap } from "./PBRMaterialAPI";
-import { createGeometry, getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects } from "./GeometryAPI";
+import { createGeometry, getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects, getNormals, setNormals } from "./GeometryAPI";
 import {
 	createBasicCameraView, active, getViewWorldToCameraMatrix, getActiveCameraView,
 	getGameObjects as getBasicCameraViewGameObjects
@@ -580,6 +580,12 @@ export let getExtensionServiceUtils = (
 			},
 			setVertices: (meta3dState, geometry, vertices) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setVertices(engineCoreState, engineCoreService, geometry, vertices), api)
+			},
+			getNormals: (meta3dState, geometry) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNormals(engineCoreState, engineCoreService, geometry), api)
+			},
+			setNormals: (meta3dState, geometry, normals) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNormals(engineCoreState, engineCoreService, geometry, normals), api)
 			},
 			getIndices: (meta3dState, geometry) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIndices(engineCoreState, engineCoreService, geometry), api)
