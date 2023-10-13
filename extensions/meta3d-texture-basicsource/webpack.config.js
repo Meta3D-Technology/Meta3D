@@ -5,13 +5,13 @@ module.exports = {
 	entry: "./lib/js/src/Main.bs.js",
 	mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
 	output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'static/js/[name].js',
-        library: {
-            name: 'Contribute',
-            type: 'window',
-        },
-    },
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'static/js/[name].js',
+		library: {
+			name: 'Extension',
+			type: 'window',
+		},
+	},
 
 	// Enable sourcemaps for debugging webpack's output.
 	// devtool: "source-map",

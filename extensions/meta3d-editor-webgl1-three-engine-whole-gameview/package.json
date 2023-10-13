@@ -16,7 +16,7 @@
         "meta3d-component-geometry-protocol": "^0.17.0",
         "meta3d-component-pbrmaterial-protocol": "^0.17.0",
         "meta3d-editor-engine-render-gameview-protocol": "^0.17.0",
-        "meta3d-editor-webgl1-three-engine-whole-sceneview-utils": "^0.17.0",
+        "meta3d-editor-webgl1-three-engine-whole-utils": "^0.17.0",
         "meta3d-engine-basic-gameview-protocol": "^0.17.0",
         "meta3d-engine-core-gameview-protocol": "^0.17.0",
         "meta3d-engine-scene-gameview-protocol": "^0.17.0",

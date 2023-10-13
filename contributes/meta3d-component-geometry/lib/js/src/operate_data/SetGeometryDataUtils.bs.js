@@ -26,7 +26,7 @@ function setData(state, geometry, dataName, dataValue) {
     IndicesUtils$Meta3dComponentGeometry.setIndices(state, geometry, dataValue);
     return state;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName + "", "", "", ""));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName + "", "", "", "")));
   }
 }
 

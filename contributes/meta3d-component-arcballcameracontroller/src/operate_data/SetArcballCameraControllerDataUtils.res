@@ -109,12 +109,14 @@ let setData = (.
     DirtyArcballCameraControllerUtils.mark(state, cameraController, dataValue->Obj.magic)
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="setData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+      Meta3dCommonlib.Exception.buildErr(
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="setData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
     )
   }

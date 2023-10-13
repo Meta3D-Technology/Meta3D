@@ -6,12 +6,14 @@ let getData = (. state, cameraView, dataName: int): Js.Nullable.t<'a> => {
     OperateBasicCameraViewUtils.getIsActive(state, cameraView)->Obj.magic->Js.Nullable.return
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="getData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+      Meta3dCommonlib.Exception.buildErr(
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="getData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
     )
   }

@@ -11,7 +11,8 @@ import {
     type Layers as LayersType,
     // Matrix3 as Matrix3Type,
     type Matrix4 as Matrix4Type,
-    type Sphere as SphereType, Object3D as Object3DType,
+    type Sphere as SphereType,
+    type Object3D as Object3DType,
     type Camera as CameraType,
     type PerspectiveCamera as PerspectiveCameraType,
     type Mesh as MeshType,
@@ -70,14 +71,10 @@ let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any,
     UVMapping: any,
     NearestFilter: any,
     NearestMipmapNearestFilter,
-    NearestMipMapNearestFilter,
     NearestMipmapLinearFilter,
-    NearestMipMapLinearFilter,
     LinearFilter,
     LinearMipmapNearestFilter,
-    LinearMipMapNearestFilter,
     LinearMipmapLinearFilter,
-    LinearMipMapLinearFilter,
     Vector2,
     TangentSpaceNormalMap,
     ObjectSpaceNormalMap
@@ -358,6 +355,9 @@ class Object3D {
         return {}
     }
 
+    public get children(): Array<Object3D> {
+        return []
+    }
 
     public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, material: MeshStandardMaterial, group: any) {
     }
@@ -579,7 +579,7 @@ class DirectionLight extends Object3D {
     }
 
     public get intensity(): number {
-        return _getExnDirectionLightValue("getIntensiy", this._light)
+        return _getExnDirectionLightValue("getIntensity", this._light)
     }
 
     public dispose() {
@@ -841,16 +841,16 @@ let _convertFilterToThree = (filter_: filter) => {
         case filter.Nearest:
             return NearestFilter
         case filter.Nearest_mipmap_linear:
-            return NearestMipMapLinearFilter
+            return NearestMipmapLinearFilter
         case filter.Nearest_mipmap_nearest:
-            return NearestMipMapNearestFilter
+            return NearestMipmapNearestFilter
         case filter.Linear:
             return LinearFilter
         case filter.Linear_mipmap_linear:
-            return LinearMipMapLinearFilter
+            return LinearMipmapLinearFilter
         case filter.Linear_mipmap_nearest:
         default:
-            return LinearMipMapNearestFilter
+            return LinearMipmapNearestFilter
     }
 }
 
@@ -1335,15 +1335,15 @@ let _convertFilterToScene = (filter_: TextureFilter) => {
     switch (filter_) {
         case NearestFilter:
             return filter.Nearest
-        case NearestMipMapLinearFilter:
+        case NearestMipmapLinearFilter:
             return filter.Nearest_mipmap_linear
-        case NearestMipMapNearestFilter:
+        case NearestMipmapNearestFilter:
             return filter.Nearest_mipmap_nearest
         case LinearFilter:
             return filter.Linear
-        case LinearMipMapLinearFilter:
+        case LinearMipmapLinearFilter:
             return filter.Linear_mipmap_linear
-        case LinearMipMapNearestFilter:
+        case LinearMipmapNearestFilter:
         default:
             return filter.Linear_mipmap_nearest
     }
@@ -1715,7 +1715,7 @@ export let getExtensionServiceUtils = (
             UVMapping = threeAPIService.UVMapping
             NearestFilter = threeAPIService.NearestFilter
             NearestMipmapNearestFilter = threeAPIService.NearestMipmapNearestFilter
-            NearestMipMapNearestFilter = threeAPIService.NearestMipmapNearestFilter
+            NearestMipmapNearestFilter = threeAPIService.NearestMipmapNearestFilter
             NearestMipmapLinearFilter = threeAPIService.NearestMipmapLinearFilter
             LinearFilter = threeAPIService.LinearFilter
             LinearMipmapNearestFilter = threeAPIService.LinearMipmapNearestFilter

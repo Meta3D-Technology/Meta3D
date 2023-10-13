@@ -98,9 +98,28 @@ TODO support direction light
 # TODO change default scene to loadScene(glb)
 
 
+
+
 TODO default scene add direction light
 
 TODO pass run test: default scene(light)
+
+  TODO why api not the same file?
+
+
+  //TODO update all component protocol(except pbrmaterial pro):
+  tsc
+
+  TODO fix: no light
+
+
+//TODO rename sceneview-utils
+
+TODO need publish:
+# event-data
+# event-sourci  
+# scenegraph s, g
+
 
 
 

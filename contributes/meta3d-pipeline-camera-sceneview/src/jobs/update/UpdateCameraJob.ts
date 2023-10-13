@@ -1,7 +1,7 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
-import { updateCamera } from "meta3d-pipeline-camera-sceneview-utils/src/UpdateCameraJobUtils"
+import { updateCamera } from "meta3d-pipeline-camera-utils/src/UpdateCameraJobUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { pipelineName as viewRectPipelineName } from "meta3d-pipeline-viewrect-sceneview-protocol/src/StateType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"

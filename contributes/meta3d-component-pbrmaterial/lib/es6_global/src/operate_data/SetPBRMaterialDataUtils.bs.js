@@ -41,7 +41,7 @@ function setData(state, param, param$1, param$2) {
   } else if (param$1 === Index$Meta3dComponentPbrmaterialProtocol.dataName.normalMap) {
     MutableSparseMap$Meta3dCommonlib.set(normalMap, param, param$2);
   } else {
-    Exception$Meta3dCommonlib.throwErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + param$1 + "", "", "", ""));
+    Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + param$1 + "", "", "", "")));
   }
   return state;
 }

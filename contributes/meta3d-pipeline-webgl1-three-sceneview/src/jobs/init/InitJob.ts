@@ -1,7 +1,7 @@
 import { execFunc as execFuncType } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { getState, setState } from "../Utils"
 import { states } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType"
-import { init } from "meta3d-pipeline-webgl1-three-sceneview-utils/src/InitJobUtils"
+import { init } from "meta3d-pipeline-webgl1-three-utils/src/InitJobUtils"
 import { state as meta3dState } from "meta3d-type"
 import type { WebGLRenderer } from "three"
 import { service as converterService } from "meta3d-scenegraph-converter-three-sceneview-protocol/src/service/ServiceType"

@@ -114,7 +114,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return state.outsideImmutableData.entrySeq()
 		},
 		getAllOutsideImmutableDataFromGlobalThis: () => {
-			return globalThis[_getOutsideImmutableDataKey()].entrySeq()
+
+			let result = globalThis[_getOutsideImmutableDataKey()]
+
+			if (result === undefined) {
+				return Map()
+			}
+
+			return result.entrySeq()
 		},
 		getAllEvents: (meta3dState) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
@@ -122,7 +129,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return state.events as any
 		},
 		getAllEventsFromGlobalThis: () => {
-			return globalThis[_getEventsKey()]
+			let result = globalThis[_getEventsKey()]
+
+			if (result === undefined) {
+				return List()
+			}
+
+			return result
 		},
 		replaceAllEvents: (meta3dState, allEvents) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")

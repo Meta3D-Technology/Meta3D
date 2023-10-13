@@ -65,6 +65,7 @@ let getData = (.
     normalMap->Meta3dCommonlib.MutableSparseMap.get(material)->Obj.magic->Meta3dCommonlib.OptionSt.toNullable
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
+      Meta3dCommonlib.Exception.buildErr(
       Meta3dCommonlib.Log.buildFatalMessage(
         ~title="getData",
         ~description=j`unknown dataName:${dataName->Obj.magic}`,
@@ -72,6 +73,7 @@ let getData = (.
         ~solution=j``,
         ~params=j``,
       ),
+      )
     )
   }
 }
