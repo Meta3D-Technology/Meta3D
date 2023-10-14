@@ -29,7 +29,7 @@ import {
 } from "./TransformAPI";
 import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI";
 import { createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap } from "./PBRMaterialAPI";
-import { createGeometry, getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects, getNormals, setNormals } from "./GeometryAPI";
+import { createGeometry, getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects, getNormals, setNormals, getTexCoords, setTexCoords, getTangents, setTangents } from "./GeometryAPI";
 import {
 	createBasicCameraView, active, getViewWorldToCameraMatrix, getActiveCameraView,
 	getGameObjects as getBasicCameraViewGameObjects
@@ -586,6 +586,18 @@ export let getExtensionServiceUtils = (
 			},
 			setNormals: (meta3dState, geometry, normals) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNormals(engineCoreState, engineCoreService, geometry, normals), api)
+			},
+			getTexCoords: (meta3dState, geometry) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTexCoords(engineCoreState, engineCoreService, geometry), api)
+			},
+			setTexCoords: (meta3dState, geometry, texCoords) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTexCoords(engineCoreState, engineCoreService, geometry, texCoords), api)
+			},
+			getTangents: (meta3dState, geometry) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTangents(engineCoreState, engineCoreService, geometry), api)
+			},
+			setTangents: (meta3dState, geometry, tangents) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTangents(engineCoreState, engineCoreService, geometry, tangents), api)
 			},
 			getIndices: (meta3dState, geometry) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIndices(engineCoreState, engineCoreService, geometry), api)

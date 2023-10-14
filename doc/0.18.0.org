@@ -119,26 +119,40 @@ TODO scene view 800*800
 
 //TODO rename sceneview-utils
 
-TODO need publish:
-# scenegraph s, g
-# meta3d-pipeline-editor-webgl1-game-view1
-# meta3d-pipeline-editor-webgl1-scene-view1
-
-
-
-
-
 
 
 TODO add load glb button(directly add to scene)
   TODO extract load glb extension from load scene
-  TODO add import glb extension
+  # TODO add import glb extension
 
 
 TODO pass run test: Flower
 
 
 TODO pass run test: Nefertiti
+# TODO fix: indices convert err
+# TODO fix: get/set tangents
+
+TODO fix: no map
+
+
+
+
+TODO need publish:
+# scenegraph s, g
+# whole s, g
+# scene s,g
+# # run engine s,g
+# meta3d-pipeline-editor-webgl1-scene-view1, game view1
+
+
+
+//TODO restore arcball, cube for default scene
+
+
+TODO feat: arcball: add mouse wheel
+
+
 
 
 
@@ -150,6 +164,10 @@ TODO pass gameview run test:
   TODO need select:
   meta3d-pipeline-webgl1-three-gameview
 
+
+
+
+TODO pass run test: publish with glb
 
 
 * TODO Asset
@@ -172,6 +190,21 @@ TODO support drag loaded file to scene view
 
 
 TODO if exist the same name file, rename loaded one
+
+
+
+
+
+
+* TODO load glb action: event sourcing
+TODO handle outside
+TODO handle backward func
+
+
+TODO pass run test:redo/undo when run
+
+TODO pass run test:import/export event
+
 
 
 # * TODO change import/export to 导入/导出包(remain export scene)

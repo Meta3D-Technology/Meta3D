@@ -10,7 +10,7 @@ import { service as engineWholeGameViewService } from "meta3d-engine-whole-gamev
 import { dispose } from "meta3d-pipeline-utils/src/DisposeJobUtils"
 import { activeCameraForSceneView, addGameObjectsForSceneView } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { loadScene, activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
+import { loadGlb, activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
 import type { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
 import { state as engineCoreSceneViewState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { service as engineCoreSceneViewService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
@@ -39,7 +39,7 @@ let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
         import: (meta3dState, sceneGLB) => {
-            return loadScene(meta3dState, api, sceneGLB)
+            return loadGlb(meta3dState, api, sceneGLB)
                 .then((gltf: GLTF) => {
                     meta3dState = _disposeScene(api, meta3dState)
 

@@ -63,6 +63,10 @@ import {
 	getGameObjects as getGeometryGameObjects,
 	getNormals,
 	setNormals,
+	getTexCoords,
+	setTexCoords,
+	getTangents,
+	setTangents,
 } from "./ecs/Geometry";
 import {
 	createBasicCameraView,
@@ -228,6 +232,10 @@ export type scene = {
 		setVertices: setVertices,
 		getNormals: getNormals,
 		setNormals: setNormals,
+		getTexCoords: getTexCoords,
+		setTexCoords: setTexCoords,
+		getTangents: getTangents,
+		setTangents: setTangents,
 		getIndices: getIndices,
 		setIndices: setIndices,
 		getGameObjects: getGeometryGameObjects

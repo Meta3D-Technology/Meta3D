@@ -54,10 +54,10 @@ export let prepareAndInitEngine = <engineWholeService_ extends engineWholeServic
 		{
 			float9Array1: new Float32Array(),
 			float32Array1: new Float32Array(),
-			transformCount: 1000,
-			geometryCount: 1000,
-			geometryPointCount: 10000,
-			pbrMaterialCount: 1000
+			transformCount: 100000,
+			geometryCount: 100000,
+			geometryPointCount: 1000000,
+			pbrMaterialCount: 100000
 		},
 		gl,
 		canvas

@@ -9,6 +9,7 @@ import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { List } from "immutable"
 import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
+import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
     let allEvents = eventSourcingService.getAllEvents(meta3dState)
@@ -77,45 +78,22 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-                let input = document.createElement('input')
-                input.setAttribute('type', "file")
-                input.style.visibility = 'hidden'
-
-                input.onchange = (event) => {
-                    let file = (event.target as any).files[0]
-
-                    let reader = new FileReader()
-
-                    reader.onload = () => {
-                        if (!file.name.includes(".arraybuffer")) {
-                            reject(new Error("文件后缀名应该是.arraybuffer"))
-                        }
-
-                        resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
-                            name: eventName,
-                            inputData: [reader.result as ArrayBuffer]
-                        }))
+                importFile((file:any, result:any) => {
+                    if (!file.name.includes(".arraybuffer")) {
+                        reject(new Error("文件后缀名应该是.arraybuffer"))
                     }
 
-                    reader.onprogress = (event) => {
-                        // TODO show progress message
-                        console.log(`loading ${event.loaded / event.total} %`)
-                    }
-
-                    reader.onerror = (event) => {
-                        reject(new Error(`读取${file.name}错误`))
-                    }
-
-                    reader.readAsArrayBuffer(file)
-                }
-
-                document.body.appendChild(input)
-                input.click()
-                document.body.removeChild(input)
-
-
+                    resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
+                        name: eventName,
+                        inputData: [result as ArrayBuffer]
+                    }))
+                }, (event:Event, file:any) => {
+                    reject(new Error(`读取${file.name}错误`))
+                }, (loaded:number, total:number) => {
+                    // TODO show progress message
+                    console.log(`loading ${loaded / total} %`)
+                })
             })
-
         },
         createState: () => null
     }

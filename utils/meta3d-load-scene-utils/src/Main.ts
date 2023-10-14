@@ -4,8 +4,9 @@ import { GLTFLoader } from "./three/GLTFLoader"
 import { DefaultLoadingManager } from "./three/LoadingManager"
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
+import type { GLTF } from "./three/GLTFLoader"
 
-export let loadScene = (meta3dState: meta3dState, api: api, sceneGLB: ArrayBuffer) => {
+export let loadGlb = (meta3dState: meta3dState, api: api, glb: ArrayBuffer): Promise<GLTF> => {
     let threeAPIService = api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol")
 
     return new Promise((resolve, reject) => {
@@ -81,7 +82,7 @@ export let loadScene = (meta3dState: meta3dState, api: api, sceneGLB: ArrayBuffe
                 TrianglesDrawMode: threeAPIService.TrianglesDrawMode,
             }
         ).parse(
-            sceneGLB,
+            glb,
             null,
             (gltf) => {
                 resolve(gltf)

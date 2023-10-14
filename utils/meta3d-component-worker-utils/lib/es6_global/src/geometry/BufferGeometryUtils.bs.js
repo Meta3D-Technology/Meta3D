@@ -6,12 +6,20 @@ function getVertexSize(param) {
   return 3;
 }
 
+function getTangentSize(param) {
+  return 4;
+}
+
 function getTexCoordsSize(param) {
   return 2;
 }
 
 function getVertexLength(geometryPointCount) {
   return Math.imul(geometryPointCount, 3);
+}
+
+function getTangentLength(geometryPointCount) {
+  return (geometryPointCount << 2);
 }
 
 function getTexCoordsLength(geometryPointCount) {
@@ -43,7 +51,7 @@ function getIndicesLength(geometryPointCount) {
 }
 
 function getIndicesOffset(geometryPointCount) {
-  return getTangentsOffset(geometryPointCount) + Math.imul(Math.imul(geometryPointCount, 3), Uint32Array.BYTES_PER_ELEMENT) | 0;
+  return getTangentsOffset(geometryPointCount) + Math.imul((geometryPointCount << 2), Float32Array.BYTES_PER_ELEMENT) | 0;
 }
 
 function getInfoSize(param) {
@@ -94,6 +102,10 @@ function getVertexIndex(index) {
   return Math.imul(index, 3);
 }
 
+function getTangentIndex(index) {
+  return (index << 2);
+}
+
 function getTexCoordIndex(index) {
   return (index << 1);
 }
@@ -107,7 +119,7 @@ function getInfoIndex(index) {
 }
 
 function getTotalByteLength(geometryPointCount, geometryCount) {
-  return (Math.imul(geometryPointCount, Math.imul(Math.imul(Float32Array.BYTES_PER_ELEMENT, 3), 3) + (Float32Array.BYTES_PER_ELEMENT << 1) | 0) + Math.imul(getIndicesLength(geometryPointCount), Uint32Array.BYTES_PER_ELEMENT) | 0) + Math.imul(Math.imul(geometryCount, Uint32Array.BYTES_PER_ELEMENT), 10) | 0;
+  return (Math.imul(geometryPointCount, ((Math.imul(Float32Array.BYTES_PER_ELEMENT, 3) << 1) + (Float32Array.BYTES_PER_ELEMENT << 2) | 0) + (Float32Array.BYTES_PER_ELEMENT << 1) | 0) + Math.imul(getIndicesLength(geometryPointCount), Uint32Array.BYTES_PER_ELEMENT) | 0) + Math.imul(Math.imul(geometryCount, Uint32Array.BYTES_PER_ELEMENT), 10) | 0;
 }
 
 function createBuffer(geometryPointCount, geometryCount) {
@@ -116,8 +128,10 @@ function createBuffer(geometryPointCount, geometryCount) {
 
 export {
   getVertexSize ,
+  getTangentSize ,
   getTexCoordsSize ,
   getVertexLength ,
+  getTangentLength ,
   getTexCoordsLength ,
   getVerticesOffset ,
   getTexCoordsOffset ,
@@ -138,6 +152,7 @@ export {
   getIndicesInfosLength ,
   getIndicesInfosOffset ,
   getVertexIndex ,
+  getTangentIndex ,
   getTexCoordIndex ,
   getIndexIndex ,
   getInfoIndex ,

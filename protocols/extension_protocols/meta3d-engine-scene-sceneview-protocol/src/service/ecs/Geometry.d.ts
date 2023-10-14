@@ -13,8 +13,16 @@ export type getNormals = (meta3dState: meta3dState, geometry: geometry) => nulla
 
 export type setNormals = (meta3dState: meta3dState, geometry: geometry, normals: Float32Array) => meta3dState
 
+export type getTexCoords = (meta3dState: meta3dState, geometry: geometry) => nullable<Float32Array>
+
+export type setTexCoords = (meta3dState: meta3dState, geometry: geometry, texCoords: Float32Array) => meta3dState
+
+export type getTangents = (meta3dState: meta3dState, geometry: geometry) => nullable<Float32Array>
+
+export type setTangents = (meta3dState: meta3dState, geometry: geometry, tangents: Float32Array) => meta3dState
+
 export type getIndices = (meta3dState: meta3dState, geometry: geometry) => nullable<Uint32Array>
 
 export type setIndices = (meta3dState: meta3dState, geometry: geometry, indices: Uint32Array) => meta3dState
 
-export type getGameObjects = (meta3dState: meta3dState, geometry:geometry) => Array<gameObject>
+export type getGameObjects = (meta3dState: meta3dState, geometry: geometry) => Array<gameObject>

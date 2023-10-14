@@ -8,8 +8,7 @@ import {
     type CubeTexture,
     type Texture as TextureType,
     type Color as ColorType,
-    type Layers as LayersType,
-    // Matrix3 as Matrix3Type,
+    type Layers as LayersType, Matrix3 as Matrix3Type,
     type Matrix4 as Matrix4Type,
     type Sphere as SphereType,
     type Object3D as Object3DType,
@@ -30,7 +29,7 @@ import {
     type NormalMapTypes,
     type WebGL1PixelFormat,
     type TextureFilter,
-    type DirectionalLight as DirectionalLightType
+    type DirectionalLight as DirectionalLightType,
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -738,6 +737,31 @@ class Mesh extends Object3D {
     }
 }
 
+let _convertTangentFromItemSize4To3 = (tangents: Float32Array) => {
+    let result = []
+
+    for (let i = 0; i < tangents.length; i += 4) {
+        result.push(tangents[i])
+        result.push(tangents[i + 1])
+        result.push(tangents[i + 2])
+    }
+
+    return new Float32Array(result)
+}
+
+let _convertTangentFromItemSize3To4 = (tangents: Float32Array) => {
+    let result = []
+
+    for (let i = 0; i < tangents.length; i += 3) {
+        result.push(tangents[i])
+        result.push(tangents[i + 1])
+        result.push(tangents[i + 2])
+        result.push(1)
+    }
+
+    return new Float32Array(result)
+}
+
 class BufferGeometry extends EventDispatcher {
     constructor(geometry: geometry) {
         super()
@@ -753,9 +777,18 @@ class BufferGeometry extends EventDispatcher {
         this._positionAttribute = new BufferAttribute(getExn(
             engineSceneService.geometry.getVertices(meta3dState, this._geometry)
         ), 3)
-        this._normalAttribute = new BufferAttribute(getExn(
+        this._normalAttribute = bind(
+            (value) => new BufferAttribute(value, 3),
             engineSceneService.geometry.getNormals(meta3dState, this._geometry)
-        ), 3)
+        )
+        this._uvAttribute = bind(
+            (value) => new BufferAttribute(value, 2),
+            engineSceneService.geometry.getTexCoords(meta3dState, this._geometry)
+        )
+        this._tangentAttribute = bind(
+            (value) => new BufferAttribute(value, 4),
+            _convertTangentFromItemSize3To4(engineSceneService.geometry.getTangents(meta3dState, this._geometry))
+        )
         this._indexAttribute = new BufferAttribute(getExn(
             engineSceneService.geometry.getIndices(meta3dState, this._geometry)
         ), 1)
@@ -765,7 +798,9 @@ class BufferGeometry extends EventDispatcher {
 
     private _geometry: geometry
     private _positionAttribute: BufferAttributeType
-    private _normalAttribute: BufferAttributeType
+    private _normalAttribute: nullable<BufferAttributeType>
+    private _uvAttribute: nullable<BufferAttributeType>
+    private _tangentAttribute: nullable<BufferAttributeType>
     private _indexAttribute: BufferAttributeType
 
     public uuid: string
@@ -791,6 +826,8 @@ class BufferGeometry extends EventDispatcher {
         return {
             "position": this._positionAttribute,
             "normal": this._normalAttribute,
+            "uv": this._uvAttribute,
+            "tangent": this._tangentAttribute,
         }
     }
 
@@ -868,18 +905,39 @@ class Texture extends EventDispatcher {
     constructor(texture: texture) {
         super()
 
+        let self = this
+
         this.texture = texture
 
+        _getExnTextureValue("getImage", this.texture, (image) => { self.source = new Source(image) })
+
         this.uuid = generateUUID()
+
+        this.needsUpdate = true
     }
 
     protected texture: texture
 
     public uuid: string
+    public source: SourceType
 
-    public get source(): SourceType {
-        return _getExnTextureValue("getImage", this.texture, (image) => new Source(image))
+    public version: number = 0
+
+
+    public set needsUpdate(value) {
+
+        if (value === true) {
+
+            this.version++;
+            this.source.needsUpdate = true;
+
+        }
+
     }
+
+    // public get source(): SourceType {
+    //     return _getExnTextureValue("getImage", this.texture, (image) => new Source(image))
+    // }
 
     public get name(): string {
         return ""
@@ -946,8 +1004,26 @@ class Texture extends EventDispatcher {
         return _getExnTextureValue("getFlipY", this.texture)
     }
 
-    public get version(): number {
-        return 0
+    public get matrixAutoUpdate(): boolean {
+        return false
+    }
+
+    public get matrix(): Matrix3Type {
+        return new Matrix3()
+    }
+
+    public get unpackAlignment(): number {
+        return 4
+    }
+
+
+    public get isRenderTargetTexture(): boolean {
+        return false
+    }
+
+
+    public get needsPMREMUpdate(): boolean {
+        return false
     }
 
 
@@ -969,7 +1045,7 @@ class Material extends EventDispatcher {
 
     public uuid: string
 
-    public version:number = 0
+    public version: number = 0
 
 
     public get id(): number {
@@ -1304,7 +1380,8 @@ class MeshStandardMaterial extends Material {
 
 let _convertToUint32ArrayIndices = (indices: TypedArray) => {
     if (!(indices instanceof Uint32Array)) {
-        return new Uint32Array(indices.buffer)
+        // return new Uint32Array(indices.buffer)
+        return new Uint32Array(Array.from(indices))
     }
 
     return indices
@@ -1460,8 +1537,20 @@ let _import = (sceneService: scene,
                 let geometry = data[1]
 
 
-                meta3dState = geometryService.setVertices(meta3dState, geometry, bufferGeometry.getAttribute("position").array as any as Float32Array
-                )
+                meta3dState = geometryService.setVertices(meta3dState, geometry, bufferGeometry.getAttribute("position").array as any as Float32Array)
+                if (bufferGeometry.getAttribute("normal") !== undefined) {
+                    meta3dState = geometryService.setNormals(meta3dState, geometry, bufferGeometry.getAttribute("normal").array as any as Float32Array)
+                }
+                if (bufferGeometry.getAttribute("uv") !== undefined) {
+                    meta3dState = geometryService.setTexCoords(meta3dState, geometry, bufferGeometry.getAttribute("uv").array as any as Float32Array)
+                }
+                if (bufferGeometry.getAttribute("tangent") !== undefined) {
+                    if (bufferGeometry.getAttribute("tangent").itemSize != 4) {
+                        throw new Error("error")
+                    }
+
+                    meta3dState = geometryService.setTangents(meta3dState, geometry, _convertTangentFromItemSize4To3(bufferGeometry.getAttribute("tangent").array as any as Float32Array))
+                }
                 meta3dState = geometryService.setIndices(meta3dState,
                     geometry,
                     _convertToUint32ArrayIndices(

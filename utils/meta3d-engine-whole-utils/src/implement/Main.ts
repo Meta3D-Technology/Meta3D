@@ -351,6 +351,30 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).geometry.setNormals(meta3dState, geometry, normals)
 			},
+			getTexCoords: (meta3dState, geometry) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.getTexCoords(meta3dState, geometry)
+			},
+			setTexCoords: (meta3dState, geometry, texCoords) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.setTexCoords(meta3dState, geometry, texCoords)
+			},
+			getTangents: (meta3dState, geometry) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.getTangents(meta3dState, geometry)
+			},
+			setTangents: (meta3dState, geometry, tangents) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).geometry.setTangents(meta3dState, geometry, tangents)
+			},
 			getIndices: (meta3dState, geometry) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,

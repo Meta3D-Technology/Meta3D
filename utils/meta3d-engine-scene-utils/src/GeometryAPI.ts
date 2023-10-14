@@ -1,6 +1,6 @@
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
-import { geometry, componentName, dataName, vertices, indices, normals } from "meta3d-component-geometry-protocol"
+import { geometry, componentName, dataName, vertices, indices, normals, texCoords, tangents } from "meta3d-component-geometry-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
@@ -61,6 +61,44 @@ export function setNormals(engineCoreState: engineCoreState, { unsafeGetUsedComp
 	return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
+
+export let getTexCoords = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<texCoords> => {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentData<geometry, texCoords>(contribute, geometry, dataName.texCoords)
+}
+
+export function setTexCoords(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
+	setComponentData,
+
+	setUsedComponentContribute,
+}: engineCoreService, geometry: geometry, texCoords: Float32Array) {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+	contribute = setComponentData(contribute, geometry, dataName.texCoords, texCoords)
+
+	return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export let getTangents = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<texCoords> => {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+	return getComponentData<geometry, tangents>(contribute, geometry, dataName.tangents)
+}
+
+export function setTangents(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
+	setComponentData,
+
+	setUsedComponentContribute,
+}: engineCoreService, geometry: geometry, tangents: Float32Array) {
+	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+	contribute = setComponentData(contribute, geometry, dataName.tangents, tangents)
+
+	return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
 
 export let getIndices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<indices> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
