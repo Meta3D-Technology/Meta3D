@@ -37,7 +37,7 @@ import {
 import {
 	createArcballCameraController,
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
-	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects, getWheelSpeed, setWheelSpeed
 } from "./ArcballCameraControllerAPI"
 import { componentContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/ComponentContributeType"
 import { gameObjectContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/GameObjectContributeType"
@@ -812,6 +812,12 @@ export let getExtensionServiceUtils = (
 			},
 			setDistance: (meta3dState, arcballCameraController, value) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDistance(engineCoreState, engineCoreService, arcballCameraController, value), api)
+			},
+			getWheelSpeed: (meta3dState, arcballCameraController) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getWheelSpeed(engineCoreState, engineCoreService, arcballCameraController), api)
+			},
+			setWheelSpeed: (meta3dState, arcballCameraController, value) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setWheelSpeed(engineCoreState, engineCoreService, arcballCameraController, value), api)
 			},
 			getTarget: (meta3dState, arcballCameraController) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTarget(engineCoreState, engineCoreService, arcballCameraController), api)

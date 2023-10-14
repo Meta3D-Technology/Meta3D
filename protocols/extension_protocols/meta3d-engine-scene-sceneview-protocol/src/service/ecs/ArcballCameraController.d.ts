@@ -1,6 +1,6 @@
 // import } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
-import { componentName, arcballCameraController, dataName, distance, phi, theta, target, dirty } from "meta3d-component-arcballcameracontroller-protocol"
+import { componentName, arcballCameraController, dataName, distance, phi, theta, target, dirty, wheelSpeed } from "meta3d-component-arcballcameracontroller-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
@@ -11,6 +11,10 @@ export type getGameObjects = (meta3dState: meta3dState, arcballCameraController:
 export type getDistance = (meta3dState: meta3dState, arcballCameraController: arcballCameraController) => nullable<distance>
 
 export type setDistance = (meta3dState: meta3dState, arcballCameraController: arcballCameraController, distance: distance) => meta3dState
+
+export type getWheelSpeed = (meta3dState: meta3dState, arcballCameraController: arcballCameraController) => nullable<wheelSpeed>
+
+export type setWheelSpeed = (meta3dState: meta3dState, arcballCameraController: arcballCameraController, wheelSpeed: wheelSpeed) => meta3dState
 
 export type getPhi = (meta3dState: meta3dState, arcballCameraController: arcballCameraController) => nullable<phi>
 

@@ -14,6 +14,7 @@ export enum pipeline {
 }
 
 export enum job {
+    InitArcballCameraController = "game_view1_gl_webgl1_init_arcballcameracontroller_meta3d",
     CreateDefaultScene = "game_view1_gl_webgl1_create_default_game_meta3d",
     PrepareFBO = "game_view1_gl_webgl1_prepare_fbo_meta3d",
     UpdateArcballCameraController = "game_view1_gl_webgl1_update_arcballcameracontroller_meta3d",
@@ -29,6 +30,10 @@ export const allPipelineData: allPipelineDataType = [
                 name: "first_webgl1_game_view1_meta3d",
                 link: "concat",
                 elements: [
+                    {
+                        "name": job.InitArcballCameraController,
+                        "type_": "job"
+                    },
                     {
                         "name": job.CreateDefaultScene,
                         "type_": "job"

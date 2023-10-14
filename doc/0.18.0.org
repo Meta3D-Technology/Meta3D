@@ -144,6 +144,7 @@ TODO need publish:
 # scene s,g
 # # run engine s,g
 # meta3d-pipeline-editor-webgl1-scene-view1, game view1
+# meta3d-pipeline-editor-event-s,g
 
 
 
@@ -151,6 +152,7 @@ TODO need publish:
 
 
 TODO feat: arcball: add mouse wheel
+# TODO feat: arcball: update drag global
 
 
 

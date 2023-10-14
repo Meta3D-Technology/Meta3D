@@ -1,6 +1,6 @@
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
-import { componentName, arcballCameraController, dataName, distance, phi, theta, target, dirty } from "meta3d-component-arcballcameracontroller-protocol"
+import { componentName, arcballCameraController, dataName, distance, phi, theta, target, dirty, wheelSpeed } from "meta3d-component-arcballcameracontroller-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
@@ -23,19 +23,19 @@ export function createArcballCameraController(engineCoreState: engineCoreState, 
     ]
 }
 
-export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, arcballCameraController: arcballCameraController): Array<gameObject>  => {
+export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, arcballCameraController: arcballCameraController): Array<gameObject> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentGameObjects<arcballCameraController>(contribute, arcballCameraController)
 }
 
-export let getDistance = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<distance>  => {
+export let getDistance = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<distance> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<arcballCameraController, distance>(contribute, arcballCameraController, dataName.distance)
 }
 
-export let setDistance = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, distance: distance): engineCoreState  => {
+export let setDistance = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, distance: distance): engineCoreState => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 
@@ -44,13 +44,28 @@ export let setDistance = (engineCoreState: engineCoreState, { unsafeGetUsedCompo
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getPhi = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<phi>  => {
+export let getWheelSpeed = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<wheelSpeed> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<arcballCameraController, wheelSpeed>(contribute, arcballCameraController, dataName.wheelSpeed)
+}
+
+export let setWheelSpeed = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, wheelSpeed: wheelSpeed): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute, arcballCameraController, dataName.wheelSpeed, wheelSpeed)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export let getPhi = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<phi> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<arcballCameraController, phi>(contribute, arcballCameraController, dataName.phi)
 }
 
-export let setPhi = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, phi: phi): engineCoreState  => {
+export let setPhi = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, phi: phi): engineCoreState => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 
@@ -60,13 +75,13 @@ export let setPhi = (engineCoreState: engineCoreState, { unsafeGetUsedComponentC
 }
 
 
-export let getTheta = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<theta>  => {
+export let getTheta = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<theta> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<arcballCameraController, theta>(contribute, arcballCameraController, dataName.theta)
 }
 
-export let setTheta = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, theta: theta): engineCoreState  => {
+export let setTheta = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, theta: theta): engineCoreState => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 
@@ -76,13 +91,13 @@ export let setTheta = (engineCoreState: engineCoreState, { unsafeGetUsedComponen
 }
 
 
-export let getTarget = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<target>  => {
+export let getTarget = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<target> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<arcballCameraController, target>(contribute, arcballCameraController, dataName.target)
 }
 
-export let setTarget = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, target: target): engineCoreState  => {
+export let setTarget = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, target: target): engineCoreState => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
 

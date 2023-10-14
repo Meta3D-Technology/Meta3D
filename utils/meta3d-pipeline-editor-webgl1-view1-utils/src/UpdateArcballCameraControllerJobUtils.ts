@@ -37,7 +37,7 @@ export let update = <engineWholeService_ extends engineWholeService | engineWhol
         uiService
     ],
     [
-        [reset, getDragOverLocation, getYaw, getPitch],
+        [reset, getDragOverLocation, getYaw, getPitch, getWheel],
         getViewRect
     ]: any,
     [
@@ -45,7 +45,7 @@ export let update = <engineWholeService_ extends engineWholeService | engineWhol
         lastPitch
     ]: [nullable<number>, nullable<number>]
 ): [meta3dState, nullable<number>, nullable<number>] => {
-    let { getTheta, setTheta, getPhi, setPhi } = engineWholeService.scene.arcballCameraController
+    let { getTheta, setTheta, getPhi, setPhi, getDistance, setDistance, getWheelSpeed } = engineWholeService.scene.arcballCameraController
 
     let isDebug = true
     let arcballCameraController = getActiveArcballCameraController(meta3dState, engineWholeService, isDebug)
@@ -59,6 +59,11 @@ export let update = <engineWholeService_ extends engineWholeService | engineWhol
         arcballCameraController = getExn(arcballCameraController)
     }
 
+
+    let wheel = getWheel()
+
+    meta3dState = setDistance(meta3dState, arcballCameraController,
+        getExn(getDistance(meta3dState, arcballCameraController)) - getExn(getWheelSpeed(meta3dState, arcballCameraController)) * wheel)
 
     let dragOverLocation = getDragOverLocation()
 

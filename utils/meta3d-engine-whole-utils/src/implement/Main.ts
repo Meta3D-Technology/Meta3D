@@ -810,6 +810,18 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).arcballCameraController.setDistance(meta3dState, arcballCameraController, value)
 			},
+			getWheelSpeed: (meta3dState, arcballCameraController) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).arcballCameraController.getWheelSpeed(meta3dState, arcballCameraController)
+			},
+			setWheelSpeed: (meta3dState, arcballCameraController, value) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).arcballCameraController.setWheelSpeed(meta3dState, arcballCameraController, value)
+			},
 			getTarget: (meta3dState, arcballCameraController) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,

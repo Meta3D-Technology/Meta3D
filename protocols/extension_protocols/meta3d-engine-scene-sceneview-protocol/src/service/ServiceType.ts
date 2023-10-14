@@ -76,7 +76,7 @@ import {
 import {
 	createArcballCameraController,
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
-	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects
+	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects, getWheelSpeed, setWheelSpeed
 } from "./ecs/ArcballCameraController"
 import {
 	createDirectionLight,
@@ -253,6 +253,8 @@ export type scene = {
 		// clearDirtyList: clearDirtyList,
 		getDistance: getDistance,
 		setDistance: setDistance,
+		getWheelSpeed: getWheelSpeed,
+		setWheelSpeed: setWheelSpeed,
 		getPhi: getPhi,
 		setPhi: setPhi,
 		getTheta: getTheta,

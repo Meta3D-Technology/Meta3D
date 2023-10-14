@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-editor-webgl1-game-view1",
-    "version": "0.17.4",
+    "version": "0.17.6",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-editor-webgl1-game-view1-protocol"
@@ -17,7 +17,7 @@
         "meta3d-bs-most-protocol": "^0.17.0",
         "meta3d-engine-core-gameview-protocol": "^0.17.0",
         "meta3d-engine-whole-gameview-protocol": "^0.17.0",
-        "meta3d-pipeline-editor-webgl1-game-view1-protocol": "^0.17.0",
+        "meta3d-pipeline-editor-webgl1-game-view1-protocol": "^0.17.1",
         "meta3d-pipeline-editor-webgl1-view1-utils": "^0.17.0",
         "meta3d-type": "^0.17.0",
         "meta3d-ui-control-game-view-protocol": "^0.17.0",
