@@ -138,14 +138,6 @@ TODO fix: no map
 
 
 
-TODO need publish:
-# scenegraph s, g
-# whole s, g
-# scene s,g
-# # run engine s,g
-# meta3d-pipeline-editor-webgl1-scene-view1, game view1
-# meta3d-pipeline-editor-event-s,g
-
 
 
 //TODO restore arcball, cube for default scene
@@ -166,10 +158,29 @@ TODO pass gameview run test:
   TODO need select:
   meta3d-pipeline-webgl1-three-gameview
 
+  TODO load glb should refresh gameview
+  TODO wheel for gameview
+    TOOD fix event
+      init event once(in sceneview)
+      bindEventForSceneView
+      yaw, ... only once
+      decide target in prepare bind when point move event
+        judge target when update
+      fix unbind
 
 
 
-TODO pass run test: publish with glb
+TODO need publish:
+# # scenegraph s, g
+# # whole s, g
+# # scene s,g
+# # # run engine s,g
+# meta3d-pipeline-editor-webgl1-scene-view1, game view1
+# # meta3d-pipeline-editor-event-s,g
+# load glb
+# whole s,g
+# event(remove s,g)
+
 
 
 * TODO Asset
@@ -181,6 +192,8 @@ not use asset tree, use list/array instead which only has one level
 
 
 * TODO 导入Asset
+
+TODO add asset ui control
 
 TODO load as a whole file, not extract textures, materials
 
@@ -212,7 +225,7 @@ TODO pass run test:import/export event
 # * TODO change import/export to 导入/导出包(remain export scene)
 * TODO change import/export to import/export Event
 
-** TODO extract glb from allEvents
+# ** TODO extract glb from allEvents
 
 
 
@@ -222,6 +235,23 @@ TODO pass run test:import/export event
 ** TODO import event: handle outside immutable data
 
 
+** TODO export event: generate scene glb, asset arraybuffer
+
+** TODO import event: load scene glb, asset arraybuffer
+
+
+
+* TODO pass run test: publish with glb
+
 
 
 # * TODO fix: auto upgrade: should keep canvas size
+
+
+* TODO publish
+
+** TODO prepare for video
+
+load more glb
+
+prepare video

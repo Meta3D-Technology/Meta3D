@@ -17,8 +17,8 @@ import { state as sceneView1State, states as sceneView1States } from "meta3d-pip
 import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
 import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { state as eventState, states as eventStates } from "meta3d-pipeline-editor-event-sceneview-protocol/src/StateType"
-import { config as eventConfig } from "meta3d-pipeline-editor-event-sceneview-protocol/src/ConfigType"
+import { state as eventState, states as eventStates } from "meta3d-pipeline-editor-event-protocol/src/StateType"
+import { config as eventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 import { pipeline as pipelineRenderPipeline, job as pipelineRenderJob } from "meta3d-pipeline-webgl1-render-protocol/src/StateType"
@@ -131,7 +131,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			meta3dState = _registerEditorPipelines(
 				meta3dState, api,
-				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-sceneview-protocol"],
+				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-protocol"],
 				canvas
 			)
 

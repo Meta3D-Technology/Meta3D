@@ -8,8 +8,6 @@ import { config as gameView1Config } from "meta3d-pipeline-editor-webgl1-game-vi
 import { state as gameView1State, states as gameView1States } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType";
 import { config as gameView2Config } from "meta3d-pipeline-editor-webgl1-game-view2-protocol/src/ConfigType";
 import { state as gameView2State, states as gameView2States } from "meta3d-pipeline-editor-webgl1-game-view2-protocol/src/StateType";
-import { state as editorEventState } from "meta3d-pipeline-editor-event-gameview-protocol/src/StateType"
-import { config as editorEventConfig } from "meta3d-pipeline-editor-event-gameview-protocol/src/ConfigType"
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-gameview-protocol/src/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-gameview-protocol/src/StateType"
 import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType"
@@ -23,7 +21,7 @@ import { state as converterState } from "meta3d-scenegraph-converter-three-gamev
 
 let _registerEditorPipelines = (
 	meta3dState: meta3dState, api: api,
-	[meta3dPipelineEditorWebgl1GameView1ContributeName, meta3dPipelineEditorWebgl1GameView2ContributeName, meta3dPipelineEditorEventContributeName]: [string, string, string],
+	[meta3dPipelineEditorWebgl1GameView1ContributeName, meta3dPipelineEditorWebgl1GameView2ContributeName]: [string, string],
 	canvas: HTMLCanvasElement
 ) => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-gameview-protocol")
@@ -68,18 +66,6 @@ let _registerEditorPipelines = (
 		]
 	)
 
-	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<editorEventConfig, editorEventState>>(meta3dState, meta3dPipelineEditorEventContributeName),
-		null,
-		[
-			{
-				pipelineName: pipelineGameView1Pipeline.Init,
-				insertElementName: pipelineGameView1Job.CreateDefaultScene,
-				insertAction: "before"
-			},
-		]
-	)
-
-
 
 	return api.setExtensionState(meta3dState, "meta3d-engine-core-gameview-protocol", engineCoreState)
 }
@@ -110,7 +96,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			meta3dState = _registerEditorPipelines(
 				meta3dState, api,
-				["meta3d-pipeline-editor-webgl1-game-view1-protocol", "meta3d-pipeline-editor-webgl1-game-view2-protocol", "meta3d-pipeline-editor-event-gameview-protocol"],
+				["meta3d-pipeline-editor-webgl1-game-view1-protocol", "meta3d-pipeline-editor-webgl1-game-view2-protocol"],
 				canvas
 			)
 

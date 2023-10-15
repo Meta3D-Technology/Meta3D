@@ -1,128 +1,150 @@
 import { customEvent, pointData, pointEvent } from "meta3d-event-protocol/src/service/EventType.gen"
-import { handleFunc } from "meta3d-event-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
+import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 
-export let getDragOverLocationForSceneView = () => {
-    return (globalThis as any)["dragOverLocation_sceneview"]
+export enum target {
+    SceneView,
+    GameView,
+    Other
 }
 
-let _setDragOverLocationForSceneView = (dragOverLocation: nullable<[number, number, number]>) => {
-    (globalThis as any)["dragOverLocation_sceneview"] = dragOverLocation
+export let getTarget = ():target => {
+    return (globalThis as any)["meta3d_arcball_event_target"]
 }
 
-export let getDragOverLocationForGameView = () => {
-    return (globalThis as any)["dragOverLocation_gameview"]
+let _setTarget = (target: target) => {
+    (globalThis as any)["meta3d_arcball_event_target"] = target
 }
 
-let _setDragOverLocationForGameView = (dragOverLocation: nullable<[number, number, number]>) => {
-    (globalThis as any)["dragOverLocation_gameview"] = dragOverLocation
+export let getIsEventStopForSceneView = () => {
+    return (globalThis as any)["isEventStop_sceneview"]
 }
 
-export let getYawForSceneView = () => {
-    return (globalThis as any)["yaw_sceneview"]
+export let setIsEventStopForSceneView = (isEventStop:boolean) => {
+    (globalThis as any)["isEventStop_sceneview"] = isEventStop
 }
 
-let _setYawForSceneView = (yaw: nullable<number>) => {
-    (globalThis as any)["yaw_sceneview"] = yaw
+export let getIsEventStopForGameView = () => {
+    return (globalThis as any)["isEventStop_gameview"]
 }
 
-export let getYawForGameView = () => {
-    return (globalThis as any)["yaw_gameview"]
+export let setIsEventStopForGameView = (isEventStop:boolean) => {
+    (globalThis as any)["isEventStop_gameview"] = isEventStop
 }
 
-let _setYawForGameView = (yaw: nullable<number>) => {
-    (globalThis as any)["yaw_gameview"] = yaw
+export let getDragOverLocation = () => {
+    return (globalThis as any)["dragOverLocation"]
 }
 
-export let getPitchForSceneView = () => {
-    return (globalThis as any)["pitch_sceneview"]
+let _setDragOverLocation = (dragOverLocation: nullable<[number, number]>) => {
+    (globalThis as any)["dragOverLocation"] = dragOverLocation
 }
 
-let _setPitchForSceneView = (pitch: nullable<number>) => {
-    (globalThis as any)["pitch_sceneview"] = pitch
+export let getYaw = () => {
+    return (globalThis as any)["yaw"]
 }
 
-export let getPitchForGameView = () => {
-    return (globalThis as any)["pitch_gameview"]
+let _setYaw = (yaw: nullable<number>) => {
+    (globalThis as any)["yaw"] = yaw
 }
 
-let _setPitchForGameView = (pitch: nullable<number>) => {
-    (globalThis as any)["pitch_gameview"] = pitch
+export let getPitch = () => {
+    return (globalThis as any)["pitch"]
+}
+
+let _setPitch = (pitch: nullable<number>) => {
+    (globalThis as any)["pitch"] = pitch
 }
 
 
-export let getWheelForSceneView = () => {
-    return (globalThis as any)["wheel_sceneview"]
+export let getWheel = () => {
+    return (globalThis as any)["wheel"]
 }
 
-let _setWheelForSceneView = (wheel: number) => {
-    (globalThis as any)["wheel_sceneview"] = wheel
+let _setWheel = (wheel: number) => {
+    (globalThis as any)["wheel"] = wheel
 }
 
-export let getWheelForGameView = () => {
-    return (globalThis as any)["wheel_gameview"]
-}
+// let _getPointDragOverHandleFunc = () => {
+//     return (globalThis as any)["pointDragOverHandle"]
+// }
 
-let _setWheelForGameView = (wheel: number) => {
-    (globalThis as any)["wheel_gameview"] = wheel
-}
+// let _setPointDragOverHandle = (handleFunc: nullable<handleFunc>) => {
+//     (globalThis as any)["pointDragOverHandle"] = handleFunc
+// }
 
-let _getPointDragOverHandleFuncForSceneView = () => {
-    return (globalThis as any)["pointDragOverHandle_sceneview"]
-}
+// let _getPointDragScaleHandleFunc = () => {
+//     return (globalThis as any)["pointDragScaleHandle"]
+// }
 
-let _setPointDragOverHandleForSceneView = (handleFunc: nullable<handleFunc>) => {
-    (globalThis as any)["pointDragOverHandle_sceneview"] = handleFunc
-}
+// let _setPointDragScaleHandle = (handleFunc: nullable<handleFunc>) => {
+//     (globalThis as any)["pointDragScaleHandle"] = handleFunc
+// }
 
-let _getPointDragScaleHandleFuncForSceneView = () => {
-    return (globalThis as any)["pointDragScaleHandle_sceneview"]
-}
+// let _getPointDragOverHandleFuncForGameView = () => {
+//     return (globalThis as any)["pointDragOverHandle_gameview"]
+// }
 
-let _setPointDragScaleHandleForSceneView = (handleFunc: nullable<handleFunc>) => {
-    (globalThis as any)["pointDragScaleHandle_sceneview"] = handleFunc
-}
+// let _setPointDragOverHandleForGameView = (handleFunc: nullable<handleFunc>) => {
+//     (globalThis as any)["pointDragOverHandle_gameview"] = handleFunc
+// }
 
-let _getPointDragOverHandleFuncForGameView = () => {
-    return (globalThis as any)["pointDragOverHandle_gameview"]
-}
+// let _getPointDragScaleHandleFuncForGameView = () => {
+//     return (globalThis as any)["pointDragScaleHandle_gameview"]
+// }
 
-let _setPointDragOverHandleForGameView = (handleFunc: nullable<handleFunc>) => {
-    (globalThis as any)["pointDragOverHandle_gameview"] = handleFunc
-}
-
-let _getPointDragScaleHandleFuncForGameView = () => {
-    return (globalThis as any)["pointDragScaleHandle_gameview"]
-}
-
-let _setPointDragScaleHandleForGameView = (handleFunc: nullable<handleFunc>) => {
-    (globalThis as any)["pointDragScaleHandle_gameview"] = handleFunc
-}
+// let _setPointDragScaleHandleForGameView = (handleFunc: nullable<handleFunc>) => {
+//     (globalThis as any)["pointDragScaleHandle_gameview"] = handleFunc
+// }
 
 export let reset = () => {
-    _setDragOverLocationForSceneView(null)
-    _setDragOverLocationForGameView(null)
-    _setYawForSceneView(null)
-    _setYawForGameView(null)
-    _setPitchForSceneView(null)
-    _setPitchForGameView(null)
-    _setWheelForSceneView(0)
-    _setWheelForGameView(0)
+    _setDragOverLocation(null)
+    // _setDragOverLocationForGameView(null)
+    _setYaw(null)
+    // _setYawForGameView(null)
+    _setPitch(null)
+    // _setPitchForGameView(null)
+    _setWheel(0)
+    // _setWheelForGameView(0)
 
-    _setPointDragOverHandleForSceneView(null)
-    _setPointDragOverHandleForGameView(null)
-    _setPointDragScaleHandleForSceneView(null)
-    _setPointDragScaleHandleForGameView(null)
+    _setTarget(target.Other)
+
+    setIsEventStopForSceneView(false)
+    setIsEventStopForGameView(true)
+
+    // _setPointDragOverHandle(null)
+    // _setPointDragOverHandleForGameView(null)
+    // _setPointDragScaleHandle(null)
+    // _setPointDragScaleHandleForGameView(null)
 }
 
 export let init = reset
 
-let _prepareBindEvent = ([setDragOverLocationFunc, setYawFunc, setPitchFunc, setWheelFunc]: any) => {
+let _isInView = ([x, y]: pointData<number>, viewRect: rect) => {
+    return x >= viewRect.x && x <= (viewRect.x + viewRect.width)
+        && y >= viewRect.y && y <= (viewRect.y + viewRect.height)
+}
+
+let _prepareBindEvent = (sceneViewRect: rect, gameViewRect: rect) => {
     let moveWheel1 = true
     let moveWheel2 = false
     let wheelClock: any = null
+
+    let _pointMoveHandleFunc = (event: customEvent) => {
+        let { location } = getExn(event.userData) as any as pointEvent
+
+        if (_isInView(location, sceneViewRect)) {
+            _setTarget(target.SceneView)
+        }
+        else if (_isInView(location, gameViewRect)) {
+            _setTarget(target.GameView)
+        }
+        else {
+            _setTarget(target.Other)
+        }
+    }
 
     let _pointDragOverHandleFunc = (event: customEvent) => {
         let { location, movementDelta } = getExn(event.userData) as any as pointEvent
@@ -134,9 +156,9 @@ let _prepareBindEvent = ([setDragOverLocationFunc, setYawFunc, setPitchFunc, set
             return
         }
 
-        setDragOverLocationFunc(location)
-        setYawFunc(x_dis / 500)
-        setPitchFunc(y_dis / 500)
+        _setDragOverLocation(location)
+        _setYaw(x_dis / 500)
+        _setPitch(y_dis / 500)
     }
 
     let _stopWheel = () => {
@@ -144,7 +166,7 @@ let _prepareBindEvent = ([setDragOverLocationFunc, setYawFunc, setPitchFunc, set
             moveWheel2 = false;
             moveWheel1 = true;
 
-            setWheelFunc(0)
+            _setWheel(0)
         }
     }
 
@@ -155,7 +177,7 @@ let _prepareBindEvent = ([setDragOverLocationFunc, setYawFunc, setPitchFunc, set
 
             let { wheel } = getExn(event.userData) as any as pointEvent
 
-            setWheelFunc(wheel)
+            _setWheel(getExn(wheel))
 
             wheelClock = setTimeout(_stopWheel, 100);
         }
@@ -165,51 +187,13 @@ let _prepareBindEvent = ([setDragOverLocationFunc, setYawFunc, setPitchFunc, set
         }
     }
 
-    return [_pointDragOverHandleFunc, _pointDragScaleHandleFunc]
+    return [_pointMoveHandleFunc, _pointDragOverHandleFunc, _pointDragScaleHandleFunc]
 }
 
-export let bindEventForSceneView = ({ onCustomGlobalEvent, getPointDragOverEventName, getPointScaleEventName }: eventService, eventExtensionProtocolName: string) => {
-    let [_pointDragOverHandleFunc, _pointDragScaleHandleFunc] = _prepareBindEvent([
-        _setDragOverLocationForSceneView,
-        _setYawForSceneView,
-        _setPitchForSceneView,
-        _setWheelForSceneView
-    ])
+export let bindEvent = ({ onCustomGlobalEvent, getPointMoveEventName, getPointDragOverEventName, getPointScaleEventName }: eventService, eventExtensionProtocolName: string, sceneViewRect: rect, gameViewRect: rect) => {
+    let [_pointMoveHandleFunc, _pointDragOverHandleFunc, _pointDragScaleHandleFunc] = _prepareBindEvent(sceneViewRect, gameViewRect)
 
-    _setPointDragOverHandleForSceneView(_pointDragOverHandleFunc)
-    _setPointDragScaleHandleForSceneView(_pointDragScaleHandleFunc)
-
-    onCustomGlobalEvent(eventExtensionProtocolName, [getPointDragOverEventName(), 0, _getPointDragOverHandleFuncForSceneView()])
-    onCustomGlobalEvent(eventExtensionProtocolName, [getPointScaleEventName(), 0, _getPointDragScaleHandleFuncForSceneView()])
-}
-
-export let bindEventForGameView = ({ onCustomGlobalEvent, getPointDragOverEventName, getPointScaleEventName }: eventService, eventExtensionProtocolName: string) => {
-    let [_pointDragOverHandleFunc, _pointDragScaleHandleFunc] = _prepareBindEvent([
-        _setDragOverLocationForGameView,
-        _setYawForGameView,
-        _setPitchForGameView,
-        _setWheelForGameView
-    ])
-
-    _setPointDragOverHandleForGameView(_pointDragOverHandleFunc)
-    _setPointDragScaleHandleForGameView(_pointDragScaleHandleFunc)
-
-    onCustomGlobalEvent(eventExtensionProtocolName, [getPointDragOverEventName(), 0, _getPointDragOverHandleFuncForGameView()])
-    onCustomGlobalEvent(eventExtensionProtocolName, [getPointScaleEventName(), 0, _getPointDragScaleHandleFuncForGameView()])
-
-}
-
-export let unbindEventForGameView = ({ offCustomGlobalEventByHandleFunc, getPointDragOverEventName, getPointScaleEventName }: eventService, eventExtensionProtocolName: string) => {
-    offCustomGlobalEventByHandleFunc(
-        eventExtensionProtocolName,
-        [
-            getPointDragOverEventName(), _getPointDragOverHandleFuncForGameView()
-        ]
-    )
-    offCustomGlobalEventByHandleFunc(
-        eventExtensionProtocolName,
-        [
-            getPointScaleEventName(), _getPointDragScaleHandleFuncForGameView()
-        ]
-    )
+    onCustomGlobalEvent(eventExtensionProtocolName, [getPointMoveEventName(), 0, _pointMoveHandleFunc])
+    onCustomGlobalEvent(eventExtensionProtocolName, [getPointDragOverEventName(), 0, _pointDragOverHandleFunc])
+    onCustomGlobalEvent(eventExtensionProtocolName, [getPointScaleEventName(), 0, _pointDragScaleHandleFunc])
 }

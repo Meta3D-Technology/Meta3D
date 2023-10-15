@@ -8,8 +8,8 @@ import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-
 import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
 import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
-import { state as editorEventState } from "meta3d-pipeline-editor-event-sceneview-protocol/src/StateType"
-import { config as editorEventConfig } from "meta3d-pipeline-editor-event-sceneview-protocol/src/ConfigType"
+import { state as editorEventState } from "meta3d-pipeline-editor-event-protocol/src/StateType"
+import { config as editorEventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType"
@@ -78,6 +78,11 @@ let _registerEditorPipelines = (
 				insertElementName: pipelineSceneView1Job.CreateDefaultScene,
 				insertAction: "before"
 			},
+			{
+				pipelineName: pipelineRootPipeline.Update,
+				insertElementName: pipelineRootJob.Update,
+				insertAction: "after"
+			},
 		]
 	)
 
@@ -112,7 +117,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			meta3dState = _registerEditorPipelines(
 				meta3dState, api,
-				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-sceneview-protocol"],
+				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-protocol"],
 				canvas
 			)
 

@@ -5,8 +5,8 @@ import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-run-protocol"
 import { service as runEngineService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
-import { bindEventForGameView, unbindEventForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
-import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
+import { setIsEventStopForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
+// import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 // import { service as historyService } from "meta3d-redo-undo-history-protocol/src/service/ServiceType"
 import { eventName, inputData } from "meta3d-action-run-protocol/src/EventType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
@@ -89,13 +89,13 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     meta3dState = _markIsRun(meta3dState, api, true)
                     meta3dState = _startLoop(meta3dState, api)
 
-                    bindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
+                    setIsEventStopForGameView(false)
 
                     return new Promise((resolve) => {
                         resolve(meta3dState)
                     })
                 }, (meta3dState) => {
-                    unbindEventForGameView(api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"), "meta3d-event-protocol")
+                    setIsEventStopForGameView(true)
 
                     meta3dState = _markIsRun(meta3dState, api, false)
 

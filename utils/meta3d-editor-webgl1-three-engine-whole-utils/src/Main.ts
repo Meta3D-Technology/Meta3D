@@ -307,12 +307,6 @@ export let prepare = <engineBasicService_ extends engineBasicService, engineScen
 	meta3dState = engineRenderService.prepare(meta3dState, isDebug, gl, canvas)
 
 
-	// meta3dState = _registerEditorPipelines(
-	// 	meta3dState, api,
-	// 	["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-sceneview-protocol"],
-	// 	canvas
-	// )
-
 
 
 
