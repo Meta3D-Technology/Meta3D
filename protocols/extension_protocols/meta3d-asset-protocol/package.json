@@ -1,10 +1,8 @@
 {
-    "name": "meta3d-action-load-glb-protocol",
-    "version": "0.17.1",
-    "description": "",
+    "name": "meta3d-asset-protocol",
+    "version": "0.17.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
-    "main": "src/StateType.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

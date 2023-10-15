@@ -183,43 +183,43 @@ TODO need publish:
 
 
 
-* TODO Asset
+* TODO asset
+
 GLB
-# GLTF zip?
-
-not use asset tree, use list/array instead which only has one level
 
 
-
-* TODO 导入Asset
-
-TODO add asset ui control
-
-TODO load as a whole file, not extract textures, materials
-
-TODO support drag loaded file to scene view
-
-  # TODO use clone
+TODO add "add last loaded glb to scene" button
 
 
+TODO add asset extension
+
+# TODO load glb action should operate:
+  # store loaded glbs ref(file is stored in outside data)
+
+  # not use asset tree, use list/array instead which only has one level
+
+  # TODO if exist the same name file, rename loaded one
+
+TODO pass run test
+
+TODO pass run test:debug
 
 
-TODO if exist the same name file, rename loaded one
+* TODO event sourcing: remove outside immutable data?
 
 
+* TODO pass run test
 
+** TODO run action: not copy, restore, end loop when backward instead
 
-
-
-* TODO load glb action: event sourcing
-TODO handle outside
+** TODO load glb action: event sourcing
+# TODO handle outside
 TODO handle backward func
 
 
 TODO pass run test:redo/undo when run
 
-TODO pass run test:import/export event
-
+# TODO pass run test:import/export event
 
 
 # * TODO change import/export to 导入/导出包(remain export scene)
@@ -229,15 +229,16 @@ TODO pass run test:import/export event
 
 
 
-
-** TODO import/export Event support reset
-
 ** TODO import event: handle outside immutable data
 
 
 ** TODO export event: generate scene glb, asset arraybuffer
 
 ** TODO import event: load scene glb, asset arraybuffer
+
+** TODO import/export Event support reset
+
+TODO use import-scene?
 
 
 
@@ -250,8 +251,8 @@ TODO pass run test:import/export event
 
 * TODO publish
 
-** TODO prepare for video
+# ** TODO prepare for video
 
-load more glb
+# load more glb
 
-prepare video
+# prepare video

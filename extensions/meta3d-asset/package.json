@@ -1,26 +1,19 @@
 {
-    "name": "meta3d-action-load-glb",
-    "version": "0.17.2",
+    "name": "meta3d-asset",
+    "version": "0.17.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "repoLink": "",
     "protocol": {
-        "name": "meta3d-action-load-glb-protocol"
+        "name": "meta3d-asset-protocol"
     },
-    "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
-    "keywords": [],
     "dependencies": {
-        "meta3d-action-load-glb-protocol": "^0.17.1",
         "meta3d-asset-protocol": "^0.17.0",
-        "meta3d-event-data-protocol": "^0.17.0",
-        "meta3d-event-sourcing-protocol": "^0.17.0",
-        "meta3d-type": "^0.17.0",
-        "meta3d-ui-protocol": "^0.17.0"
+        "meta3d-type": "^0.17.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

@@ -1,5 +1,9 @@
+import { outsideImmutableDataId } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+
 export const eventName = "LoadGLBEvent"
 
-type eventData = ArrayBuffer
+type glb = ArrayBuffer
 
-export type inputData = [eventData]
+type glbId = outsideImmutableDataId
+
+export type inputData = [glb, glbId]

@@ -20,13 +20,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         console.log("update arcballCameraController job");
 
-        // debugger
-        console.warn(
-            getIsEventStopForGameView(),
-            getTarget()
-        );
-        
-
         let data = update<engineWholeService>(meta3dState, api, engineWholeService,
             target.GameView,
             getIsEventStopForGameView(),
