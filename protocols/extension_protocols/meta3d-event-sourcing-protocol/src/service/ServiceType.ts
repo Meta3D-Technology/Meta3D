@@ -1,4 +1,5 @@
-import type { List, Seq } from 'immutable';
+// import type { List, Seq } from 'immutable';
+import type { List } from 'immutable';
 import { state as meta3dState } from "meta3d-type"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { events } from '../state/StateType';
@@ -40,14 +41,14 @@ export type service = {
         backwardHandleFunc: handleFunc<inputData>
     ) => meta3dState,
     addEvent: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, eventData: eventData<inputData>) => meta3dState,
-    addOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId, outsideImmutableData: outsideImmutableData) => meta3dState,
-    removeOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => meta3dState,
+    // addOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId, outsideImmutableData: outsideImmutableData) => meta3dState,
+    // removeOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => meta3dState,
     generateOutsideImmutableDataId: (meta3dState: meta3dState) => outsideImmutableDataId,
-    getOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => outsideImmutableData,
-    // TODO remove?
-    getAllOutsideImmutableData: (meta3dState: meta3dState) => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
-    // TODO remove?
-    getAllOutsideImmutableDataFromGlobalThis: () => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
+    // getOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => outsideImmutableData,
+    // // TODO remove?
+    // getAllOutsideImmutableData: (meta3dState: meta3dState) => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
+    // // TODO remove?
+    // getAllOutsideImmutableDataFromGlobalThis: () => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
     getAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState) => List<eventData<inputData>>,
     getAllEventsFromGlobalThis: <inputData extends Array<singleInputData>>() => List<eventData<inputData>>,
     replaceAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, allEvents: List<eventData<inputData>>) => meta3dState,
