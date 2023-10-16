@@ -13,7 +13,7 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 import { state as converterState } from "meta3d-scenegraph-converter-three-sceneview-protocol/src/state/StateType"
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
 import { state as geometryState, componentName as geometryComponentName } from "meta3d-component-geometry-protocol/src/Index"
-import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
+// import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 // import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
 // import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
 // import { pipeline as pipelineThreePipeline, job as pipelineThreeJob } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType"

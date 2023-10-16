@@ -247,7 +247,7 @@ TODO publish
 # TODO pass run test:import/export event
 
 
-* TODO remove isActuallyDisposeXxx
+* DONE remove isActuallyDisposeXxx
 
 
 * TODO event sourcing: remove outside immutable data?

@@ -18,6 +18,6 @@ let getDirection = DirectionLightAPI.getDirection
 
 let setDirection = DirectionLightAPI.setDirection
 
-let isActuallyDisposePBRMateiral = PBRMaterialAPI.isActuallyDispose
+// let isActuallyDisposePBRMateiral = PBRMaterialAPI.isActuallyDispose
 
-let isActuallyDisposeGeometry = GeometryAPI.isActuallyDispose
+// let isActuallyDisposeGeometry = GeometryAPI.isActuallyDispose

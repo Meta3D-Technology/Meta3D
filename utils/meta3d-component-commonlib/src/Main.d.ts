@@ -29,6 +29,6 @@ export function getDirection(directionLightContribute: usedComponentContribute, 
 
 export function setDirection(directionLightContribute: usedComponentContribute, engineCoreService: service, transformContribute: usedComponentContribute, light: directionLight, direction: [number, number, number]): usedComponentContribute
 
-export function isActuallyDisposePBRMateiral(pbrMaterialState: pbrMaterialState, material: pbrMaterial, gameObjects: Array<gameObject>): boolean
+// export function isActuallyDisposePBRMateiral(pbrMaterialState: pbrMaterialState, material: pbrMaterial, gameObjects: Array<gameObject>): boolean
 
-export function isActuallyDisposeGeometry(geometryState: geometryState, geometry: geometry, gameObjects: Array<gameObject>): boolean
+// export function isActuallyDisposeGeometry(geometryState: geometryState, geometry: geometry, gameObjects: Array<gameObject>): boolean
