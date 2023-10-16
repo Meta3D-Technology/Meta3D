@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-scene-sceneview",
-    "version": "0.17.5",
+    "version": "0.17.6",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-scene-sceneview-protocol"

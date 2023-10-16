@@ -46,11 +46,12 @@ defineFeature(feature, test => {
 
     then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
       expect(() => {
-        state :=
-          contribute.contents.disposeComponentsFunc(.
-            state.contents,
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
             [perspectiveCameraProjection.contents],
-          )
+        )
+        state := state_
+
       })->toThrowMessage(arg0->Obj.magic)
     })
   })

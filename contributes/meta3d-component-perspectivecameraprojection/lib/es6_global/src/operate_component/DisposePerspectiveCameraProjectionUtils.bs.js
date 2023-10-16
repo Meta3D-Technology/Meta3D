@@ -73,7 +73,10 @@ function disposeComponents(state, cameraProjections) {
     needDisposedPerspectiveCameraProjections: state_needDisposedPerspectiveCameraProjections,
     disposedPerspectiveCameraProjections: state_disposedPerspectiveCameraProjections
   };
-  return ArraySt$Meta3dCommonlib.reduceOneParam(cameraProjections, _disposeData, state$1);
+  return [
+          ArraySt$Meta3dCommonlib.reduceOneParam(cameraProjections, _disposeData, state$1),
+          cameraProjections
+        ];
 }
 
 export {

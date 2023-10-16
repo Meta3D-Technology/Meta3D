@@ -1,9 +1,11 @@
 open StateType
 
+type actuallyDisposedTexture = Js.Nullable.t<texture>
+
 @genType
 type service = {
   createTexture: state => (state, texture),
-  disposeTexture: (state, texture, material) => state,
+  disposeTexture: (state, texture, material) => (state, actuallyDisposedTexture),
   addMaterial: (state, texture, material) => state,
   getWrapS: (state, texture) => wrap,
   setWrapS: (state, texture, wrap) => state,
@@ -21,6 +23,6 @@ type service = {
   setIsNeedUpdate: (state, texture, bool) => state,
   getFlipY: (state, texture) => bool,
   setFlipY: (state, texture, bool) => state,
-  getImage: (state, texture) =>  Dom.htmlImageElement,
+  getImage: (state, texture) => Dom.htmlImageElement,
   setImage: (state, texture, Dom.htmlImageElement) => state,
 }

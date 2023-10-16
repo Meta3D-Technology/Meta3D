@@ -107,8 +107,11 @@ let disposeComponents = ({disposedTransforms} as state, transforms) => {
   state.needDisposedTransforms =
     needDisposedComponents->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(transforms)
 
-  transforms->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. state, transform) => state->_disposeData(isDebug, transform),
-    state,
+  (
+    transforms->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. state, transform) => state->_disposeData(isDebug, transform),
+      state,
+    ),
+    transforms,
   )
 }

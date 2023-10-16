@@ -25,7 +25,7 @@ let createAndSetState = (
     cloneGameObjectFunc,
     getAllGameObjectsFunc,
     restore,
-    deepCopy
+    deepCopy,
   } = unsafeGetGameObjectData(state)
 
   {
@@ -38,12 +38,11 @@ let createAndSetState = (
       deferDisposeGameObjectFunc,
       disposeGameObjectsFunc,
       cloneGameObjectFunc,
-    restore,
-    deepCopy
+      restore,
+      deepCopy,
     }->Some,
   }
 }
-
 
 let createGameObject = (state: Meta3dEngineCoreSceneviewProtocol.StateType.state): (
   Meta3dEngineCoreSceneviewProtocol.StateType.state,
@@ -55,11 +54,11 @@ let createGameObject = (state: Meta3dEngineCoreSceneviewProtocol.StateType.state
     usedGameObjectContribute.state,
   )
 
-  (StateUtils.setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState), gameObject)
+  (
+    StateUtils.setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState),
+    gameObject,
+  )
 }
-
-
-
 
 let _setGameObjectStateAndAllComponentStatesToState = (
   state,
@@ -113,20 +112,20 @@ let _setGameObjectStateAndAllComponentStatesToState = (
       usedPerspectiveCameraProjectionContribute,
     )
 
-StateUtils.setGameObjectStateAndAllUsedComponentContributesToState (
-  state,
-  (
-    usedGameObjectContribute,
-    usedTransformContribute,
-    usedPBRMaterialContribute,
-    usedGeometryContribute,
-    usedDirectionLightContribute,
-    usedArcballCameraControllerContribute,
-    usedBasicCameraViewContribute,
-    usedPerspectiveCameraProjectionContribute,
-  ),
-  gameObjectState,
-)
+  StateUtils.setGameObjectStateAndAllUsedComponentContributesToState(
+    state,
+    (
+      usedGameObjectContribute,
+      usedTransformContribute,
+      usedPBRMaterialContribute,
+      usedGeometryContribute,
+      usedDirectionLightContribute,
+      usedArcballCameraControllerContribute,
+      usedBasicCameraViewContribute,
+      usedPerspectiveCameraProjectionContribute,
+    ),
+    gameObjectState,
+  )
 }
 
 let getNeedDisposedGameObjects = (state: Meta3dEngineCoreSceneviewProtocol.StateType.state) => {
@@ -135,7 +134,10 @@ let getNeedDisposedGameObjects = (state: Meta3dEngineCoreSceneviewProtocol.State
   usedGameObjectContribute.getNeedDisposedGameObjectsFunc(. usedGameObjectContribute.state)
 }
 
-let deferDisposeGameObject = (state: Meta3dEngineCoreSceneviewProtocol.StateType.state, gameObject) => {
+let deferDisposeGameObject = (
+  state: Meta3dEngineCoreSceneviewProtocol.StateType.state,
+  gameObject,
+) => {
   let (
     usedGameObjectContribute,
     usedTransformContribute,
@@ -238,14 +240,26 @@ let disposeGameObjects = (state, gameObjects) => {
   ) = StateUtils.getAllUsedContributes(state)
 
   let (
-    gameObjectState,
-    transformState,
-    pbrMaterialState,
-    geometryState,
-    directionLightState,
-    arcballCameraControllerState,
-    basicCameraViewState,
-    perspectiveCameraProjectionState,
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
+    (
+      disposedGameObjects,
+      disposedTransforms,
+      disposedPBRMaterials,
+      disposedGeometrys,
+      disposedDirectionLights,
+      disposedArcballCameraControllers,
+      disposedBasicCameraViews,
+      disposedPerspectiveCameraProjections,
+    ),
   ) = usedGameObjectContribute.disposeGameObjectsFunc(.
     (
       usedGameObjectContribute.state,
@@ -290,26 +304,38 @@ let disposeGameObjects = (state, gameObjects) => {
     gameObjects,
   )
 
-  state->_setGameObjectStateAndAllComponentStatesToState(
-    (
-      usedGameObjectContribute,
-      usedTransformContribute,
-      usedPBRMaterialContribute,
-      usedGeometryContribute,
-      usedDirectionLightContribute,
-      usedArcballCameraControllerContribute,
-      usedBasicCameraViewContribute,
-      usedPerspectiveCameraProjectionContribute,
+  (
+    state->_setGameObjectStateAndAllComponentStatesToState(
+      (
+        usedGameObjectContribute,
+        usedTransformContribute,
+        usedPBRMaterialContribute,
+        usedGeometryContribute,
+        usedDirectionLightContribute,
+        usedArcballCameraControllerContribute,
+        usedBasicCameraViewContribute,
+        usedPerspectiveCameraProjectionContribute,
+      ),
+      (
+        gameObjectState,
+        transformState,
+        pbrMaterialState,
+        geometryState,
+        directionLightState,
+        arcballCameraControllerState,
+        basicCameraViewState,
+        perspectiveCameraProjectionState,
+      ),
     ),
     (
-      gameObjectState,
-      transformState,
-      pbrMaterialState,
-      geometryState,
-      directionLightState,
-      arcballCameraControllerState,
-      basicCameraViewState,
-      perspectiveCameraProjectionState,
+      disposedGameObjects,
+      disposedTransforms,
+      disposedPBRMaterials,
+      disposedGeometrys,
+      disposedDirectionLights,
+      disposedArcballCameraControllers,
+      disposedBasicCameraViews,
+      disposedPerspectiveCameraProjections,
     ),
   )
 }

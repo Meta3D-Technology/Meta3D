@@ -5,5 +5,6 @@ import { outsideImmutableDataId } from "meta3d-event-sourcing-protocol/src/servi
 
 export type service = {
     addGLBAsset: (meta3dState: meta3dState, gltf: GLTF, glbId: outsideImmutableDataId) => meta3dState,
+    removeGLBAsset: (meta3dState: meta3dState, glbId: outsideImmutableDataId) => meta3dState,
     getAllGLBAssets: (meta3dState: meta3dState) => List<[outsideImmutableDataId, GLTF]>
 }

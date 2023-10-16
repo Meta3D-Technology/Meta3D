@@ -19,9 +19,12 @@ import type {texture as StateType_texture} from '../.././src/state/StateType.gen
 import type {wrap as StateType_wrap} from '../.././src/state/StateType.gen';
 
 // tslint:disable-next-line:interface-over-type-literal
+export type actuallyDisposedTexture = (null | undefined | StateType_texture);
+
+// tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly createTexture: (_1:StateType_state) => [StateType_state, StateType_texture]; 
-  readonly disposeTexture: (_1:StateType_state, _2:StateType_texture, _3:StateType_material) => StateType_state; 
+  readonly disposeTexture: (_1:StateType_state, _2:StateType_texture, _3:StateType_material) => [StateType_state, actuallyDisposedTexture]; 
   readonly addMaterial: (_1:StateType_state, _2:StateType_texture, _3:StateType_material) => StateType_state; 
   readonly getWrapS: (_1:StateType_state, _2:StateType_texture) => StateType_wrap; 
   readonly setWrapS: (_1:StateType_state, _2:StateType_texture, _3:StateType_wrap) => StateType_state; 

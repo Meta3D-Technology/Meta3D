@@ -65,17 +65,26 @@ let _startLoop = (meta3dState: meta3dState, api: api): meta3dState => {
     // })
 }
 
-let _copyState = (meta3dState: meta3dState, api: api) => {
-    // return api.getExtensionService<historyService>(meta3dState, "meta3d-redo-undo-history-protocol").push(meta3dState)
+let _stopLoop = (meta3dState: meta3dState, api: api): meta3dState => {
+    let runEngineService = api.getExtensionService<runEngineService>(
+        meta3dState,
+        "meta3d-editor-run-engine-gameview-protocol"
+    )
 
-
-    return setElementStateField([
-        (elementState: any) => {
-            return { ...getState(elementState), meta3dStateBeforeRun: api.deepCopy(meta3dState) }
-        },
-        setState
-    ], meta3dState, api)
+    return runEngineService.removeFromLoopFuncs(meta3dState)
 }
+
+// let _copyState = (meta3dState: meta3dState, api: api) => {
+//     // return api.getExtensionService<historyService>(meta3dState, "meta3d-redo-undo-history-protocol").push(meta3dState)
+
+
+//     return setElementStateField([
+//         (elementState: any) => {
+//             return { ...getState(elementState), meta3dStateBeforeRun: api.deepCopy(meta3dState) }
+//         },
+//         setState
+//     ], meta3dState, api)
+// }
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -85,7 +94,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    meta3dState = _copyState(meta3dState, api)
+                    // meta3dState = _copyState(meta3dState, api)
                     meta3dState = _markIsRun(meta3dState, api, true)
                     meta3dState = _startLoop(meta3dState, api)
 
@@ -98,8 +107,9 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     setIsEventStopForGameView(true)
 
                     meta3dState = _markIsRun(meta3dState, api, false)
+                    meta3dState = _stopLoop(meta3dState, api)
 
-                    meta3dState = api.restore(meta3dState, getExn(getActionState<state>(meta3dState, api, actionName).meta3dStateBeforeRun))
+                    // meta3dState = api.restore(meta3dState, getExn(getActionState<state>(meta3dState, api, actionName).meta3dStateBeforeRun))
 
 
                     let runEngineService = api.getExtensionService<runEngineService>(

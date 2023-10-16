@@ -47,8 +47,11 @@ let disposeComponents = (
     ),
   }
 
-  cameraViews->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. state, cameraView) => state->_disposeData(cameraView),
-    state,
+  (
+    cameraViews->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. state, cameraView) => state->_disposeData(cameraView),
+      state,
+    ),
+    cameraViews,
   )
 }

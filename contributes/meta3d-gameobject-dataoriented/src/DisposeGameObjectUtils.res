@@ -169,27 +169,32 @@ let disposeGameObjects = (
       gameObjects,
     )
 
-  let transformState = disposeTransformsFunc(.
+  let disposedGameObjects = gameObjects
+
+  let (transformState, disposedTransforms) = disposeTransformsFunc(.
     transformState,
     _getNotSharedComponents(transformState, getTransformFunc, gameObjects),
   )
 
-  let pbrMaterialState = disposePBRMaterialsFunc(.
+  let (pbrMaterialState, disposedPBRMaterials) = disposePBRMaterialsFunc(.
     pbrMaterialState,
     _getSharableComponentDataMap(pbrMaterialState, getPBRMaterialFunc, gameObjects),
   )
 
-  let geometryState = disposeGeometrysFunc(.
+  let (geometryState, disposedGeometrys) = disposeGeometrysFunc(.
     geometryState,
     _getSharableComponentDataMap(geometryState, getGeometryFunc, gameObjects),
   )
 
-  let directionLightState = disposeDirectionLightFunc(.
+  let (directionLightState, disposedDirectionLights) = disposeDirectionLightFunc(.
     directionLightState,
     _getNotSharedComponents(directionLightState, getDirectionLightFunc, gameObjects),
   )
 
-  let arcballCameraControllerState = disposeArcballCameraControllerFunc(.
+  let (
+    arcballCameraControllerState,
+    disposedArcballCameraControllers,
+  ) = disposeArcballCameraControllerFunc(.
     arcballCameraControllerState,
     _getNotSharedComponents(
       arcballCameraControllerState,
@@ -198,12 +203,15 @@ let disposeGameObjects = (
     ),
   )
 
-  let basicCameraViewState = disposeBasicCameraViewFunc(.
+  let (basicCameraViewState, disposedBasicCameraViews) = disposeBasicCameraViewFunc(.
     basicCameraViewState,
     _getNotSharedComponents(basicCameraViewState, getBasicCameraViewFunc, gameObjects),
   )
 
-  let perspectiveCameraProjectionState = disposePerspectiveCameraProjectionFunc(.
+  let (
+    perspectiveCameraProjectionState,
+    disposedPerspectiveCameraProjections,
+  ) = disposePerspectiveCameraProjectionFunc(.
     perspectiveCameraProjectionState,
     _getNotSharedComponents(
       perspectiveCameraProjectionState,
@@ -213,13 +221,25 @@ let disposeGameObjects = (
   )
 
   (
-    gameObjectState,
-    transformState,
-    pbrMaterialState,
-    geometryState,
-    directionLightState,
-    arcballCameraControllerState,
-    basicCameraViewState,
-    perspectiveCameraProjectionState,
+    (
+      gameObjectState,
+      transformState,
+      pbrMaterialState,
+      geometryState,
+      directionLightState,
+      arcballCameraControllerState,
+      basicCameraViewState,
+      perspectiveCameraProjectionState,
+    ),
+    (
+      disposedGameObjects,
+      disposedTransforms,
+      disposedPBRMaterials,
+      disposedGeometrys,
+      disposedDirectionLights,
+      disposedArcballCameraControllers,
+      disposedBasicCameraViews,
+      disposedPerspectiveCameraProjections,
+    ),
   )
 }

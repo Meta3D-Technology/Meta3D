@@ -86,9 +86,12 @@ function disposeComponents(state) {
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "transform", transforms, needDisposedComponents);
     state.disposedTransforms = Js_array.concat(transforms, disposedTransforms);
     state.needDisposedTransforms = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, transforms);
-    return ArraySt$Meta3dCommonlib.reduceOneParam(transforms, (function (state, transform) {
-                  return _disposeData(state)(isDebug, transform);
-                }), state);
+    return [
+            ArraySt$Meta3dCommonlib.reduceOneParam(transforms, (function (state, transform) {
+                    return _disposeData(state)(isDebug, transform);
+                  }), state),
+            transforms
+          ];
   };
 }
 

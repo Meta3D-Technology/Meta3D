@@ -183,7 +183,7 @@ TODO need publish:
 
 
 
-* TODO asset
+* DONE asset
 
 GLB
 
@@ -205,10 +205,12 @@ TODO pass run test
 TODO pass run test:debug
 
 
-* TODO event sourcing: remove outside immutable data?
+* DONE pass run test
 
+** TODO component: fix dispose
 
-* TODO pass run test
+TODO pass gameobject bdd test
+TODO pass engine-core bdd test
 
 ** TODO run action: not copy, restore, end loop when backward instead
 
@@ -216,10 +218,40 @@ TODO pass run test:debug
 # TODO handle outside
 TODO handle backward func
 
+# TODO pass run test:add cube
 
-TODO pass run test:redo/undo when run
+TODO pass run test:load->add glb
+
+TODO pass run test:redo/undo when run+load->add glb
+  //TODO publish all
+  //fix: not dispose
+  TODO: not dispose when add cube after stop
+
+
+
+TODO fix: THREE.WebGLTextures: Unsupported texture color space: undefined
+
+
+
+TODO publish
+# meta3d-action-load-glb
+# scenegraph s,g
+# meta3d-action-add-cube
+# meta3d-action-add-glb-to-scene
+# dispose s,g
+# add
+
+
+# TODO restore gameview
 
 # TODO pass run test:import/export event
+
+
+* TODO remove isActuallyDisposeXxx
+
+
+* TODO event sourcing: remove outside immutable data?
+
 
 
 # * TODO change import/export to 导入/导出包(remain export scene)
@@ -229,12 +261,14 @@ TODO pass run test:redo/undo when run
 
 
 
-** TODO import event: handle outside immutable data
+# ** TODO import event: handle outside immutable data
 
 
 ** TODO export event: generate scene glb, asset arraybuffer
 
 ** TODO import event: load scene glb, asset arraybuffer
+
+** TODO pass run test: debug
 
 ** TODO import/export Event support reset
 
@@ -251,8 +285,8 @@ TODO use import-scene?
 
 * TODO publish
 
-# ** TODO prepare for video
+** TODO prepare for video
 
-# load more glb
+load more glb
 
-# prepare video
+prepare video

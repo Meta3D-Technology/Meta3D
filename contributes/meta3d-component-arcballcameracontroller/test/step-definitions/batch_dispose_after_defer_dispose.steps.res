@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentArcballcameracontrollerProtocol.Index.config,
-      
       Meta3dComponentArcballcameracontrollerProtocol.Index.needDisposedComponents,
       Meta3dComponentArcballcameracontrollerProtocol.Index.batchDisposeData,
       Meta3dComponentArcballcameracontrollerProtocol.Index.cloneConfig,
@@ -57,21 +56,27 @@ defineFeature(feature, test => {
         },
       )
 
-      \"and"(%re("/^defer dispose arcballCameraController(\d+)$/")->Obj.magic, () => {
-        state :=
-          contribute.contents.deferDisposeComponentFunc(.
-            state.contents,
-            arcballCameraController1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-          )
-      })
+      \"and"(
+        %re("/^defer dispose arcballCameraController(\d+)$/")->Obj.magic,
+        () => {
+          state :=
+            contribute.contents.deferDisposeComponentFunc(.
+              state.contents,
+              arcballCameraController1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+            )
+        },
+      )
 
-      \"when"("dispose the need disposed arcballCameraControllers", () => {
-        state :=
-          contribute.contents.disposeComponentsFunc(.
+      \"when"(
+        "dispose the need disposed arcballCameraControllers",
+        () => {
+          let (state_, _) = contribute.contents.disposeComponentsFunc(.
             state.contents,
             [arcballCameraController1.contents],
           )
-      })
+          state := state_
+        },
+      )
 
       then(
         "should remove arcballCameraController1 from distanceMap, minDistanceMap, phiMap, thetaMap, thetaMarginMap, targetMap, moveSpeedXMap, moveSpeedYMap, rotateSpeedMap, wheelSpeedMap, dirtyMap",
@@ -120,53 +125,74 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((given, \"and"))
 
-    given("create a gameObject", () => {
-      ()
-    })
+    given(
+      "create a gameObject",
+      () => {
+        ()
+      },
+    )
 
-    \"and"("create a arcballCameraController", () => {
-      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+    \"and"(
+      "create a arcballCameraController",
+      () => {
+        let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      arcballCameraController1 := m
-    })
+        state := s
+        arcballCameraController1 := m
+      },
+    )
 
-    \"and"("add the arcballCameraController to the gameObject", () => {
-      state :=
-        contribute.contents.addComponentFunc(.
-          state.contents,
-          gameObject1,
-          arcballCameraController1.contents,
-        )
-    })
+    \"and"(
+      "add the arcballCameraController to the gameObject",
+      () => {
+        state :=
+          contribute.contents.addComponentFunc(.
+            state.contents,
+            gameObject1,
+            arcballCameraController1.contents,
+          )
+      },
+    )
 
-    \"and"("defer dispose the arcballCameraController from the gameObject", () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          (arcballCameraController1.contents, gameObject1),
-        )
-    })
+    \"and"(
+      "defer dispose the arcballCameraController from the gameObject",
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            (arcballCameraController1.contents, gameObject1),
+          )
+      },
+    )
 
-    \"when"("dispose the need disposed arcballCameraControllers", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"when"(
+      "dispose the need disposed arcballCameraControllers",
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
-    })
+        state := state_
+      },
+    )
 
-    then("get the arcballCameraController's gameObjects should return []", () => {
-      contribute.contents.getGameObjectsFunc(.
-        state.contents,
-        arcballCameraController1.contents,
-      )->expect == []
-    })
+    then(
+      "get the arcballCameraController's gameObjects should return []",
+      () => {
+        contribute.contents.getGameObjectsFunc(.
+          state.contents,
+          arcballCameraController1.contents,
+        )->expect == []
+      },
+    )
 
-    \"and"("get the gameObject's arcballCameraController should return empty", () => {
-      contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
-        Js.Nullable.null
-    })
+    \"and"(
+      "get the gameObject's arcballCameraController should return empty",
+      () => {
+        contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
+          Js.Nullable.null
+      },
+    )
   })
 
   test(."if has disposed one, use disposed index as new index", ({
@@ -215,11 +241,11 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^dispose arcballCameraController(\d+), arcballCameraController(\d+)$/")->Obj.magic,
       () => {
-        state :=
-          contribute.contents.disposeComponentsFunc(.
-            state.contents,
-            [arcballCameraController1.contents, arcballCameraController2.contents],
-          )
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [arcballCameraController1.contents, arcballCameraController2.contents],
+        )
+        state := state_
       },
     )
 

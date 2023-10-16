@@ -9,6 +9,13 @@ import { service as converterGameViewService } from "meta3d-scenegraph-converter
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
+import { getState, setState } from "./Utils"
+import { List } from "immutable"
+import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
+import { disposeGameObjectAndChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
+import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
+import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -26,12 +33,66 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                     let [_, gltf] = getExn(lastLoadedGLBAsset)
 
-                    meta3dState = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
-                    meta3dState = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+                    let data = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
+                    meta3dState = data[0]
+                    let importedGameObjectForSceneView = data[1]
+
+                    data = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+                    meta3dState = data[0]
+                    let importedGameObjectForGameView = data[1]
+
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getState(elementState)
+
+                            return {
+                                ...state,
+                                importedGameObjectsForSceneView:
+                                    state.importedGameObjectsForSceneView.push(importedGameObjectForSceneView)
+                                ,
+                                importedGameObjectsForGameView:
+                                    state.importedGameObjectsForGameView.push(importedGameObjectForGameView)
+                            }
+                        },
+                        setState
+                    ], meta3dState, api)
 
                     return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
                 }, (meta3dState) => {
-                    // TODO implement
+                    let {
+                        importedGameObjectsForSceneView,
+                        importedGameObjectsForGameView
+                    } = getActionState<state>(meta3dState, api, actionName)
+
+                    if (isNullable(importedGameObjectsForSceneView.last())) {
+                        return Promise.resolve(meta3dState)
+                    }
+
+                    let disposedGameObjectForSceneView = getExn(importedGameObjectsForSceneView.last())
+                    let disposedGameObjectForGameView = getExn(importedGameObjectsForGameView.last())
+
+
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getState(elementState)
+
+                            return {
+                                ...state,
+                                importedGameObjectsForSceneView:
+                                    state.importedGameObjectsForSceneView.pop()
+                                ,
+                                importedGameObjectsForGameView:
+                                    state.importedGameObjectsForGameView.pop()
+                            }
+                        },
+                        setState
+                    ], meta3dState, api)
+
+                    let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
+                    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+
+                    meta3dState = disposeGameObjectAndChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObjectForSceneView)
+                    meta3dState = disposeGameObjectAndChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObjectForGameView)
 
                     return Promise.resolve(meta3dState)
                 }))
@@ -47,6 +108,11 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                 }))
             })
         },
-        createState: () => null
+        createState: () => {
+            return {
+                importedGameObjectsForSceneView: List(),
+                importedGameObjectsForGameView: List()
+            }
+        }
     }
 }

@@ -30,9 +30,10 @@ import {
     type WebGL1PixelFormat,
     type TextureFilter,
     type DirectionalLight as DirectionalLightType,
+    type ColorSpace
     // Quaternion,
 } from "three";
-import { getExn, getWithDefault, map, isNullable, bind } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
 import { createEmptyStandardMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, setVariables, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
@@ -53,11 +54,11 @@ import { service as engineWholeService } from "meta3d-engine-whole-sceneview-pro
 import { localRotation } from "meta3d-component-transform-protocol";
 import { scene } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType";
 import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
-import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
-import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
-import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
-import { state as geometryState, componentName as geometryComponentName } from "meta3d-component-geometry-protocol/src/Index"
-import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
+// import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
+// import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+// import { state as pbrMaterialState, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol/src/Index"
+// import { state as geometryState, componentName as geometryComponentName } from "meta3d-component-geometry-protocol/src/Index"
+// import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 import { filter, htmlImageElement, texture, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType";
 import { color, directionLight } from "meta3d-component-directionlight-protocol";
 // import { service as textureService } from "meta3d-texture-basicsource-protocol/src/service/ServiceType"
@@ -76,7 +77,8 @@ let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any,
     LinearMipmapLinearFilter,
     Vector2,
     TangentSpaceNormalMap,
-    ObjectSpaceNormalMap
+    ObjectSpaceNormalMap,
+    NoColorSpace
 
 
 
@@ -119,7 +121,7 @@ let _disposeMeshInstance = (gameObject: gameObject) => {
     _getMeshInstanceMap()[gameObject] = undefined
 }
 
-let _getMeshInstance = (gameObject: gameObject) => {
+let _getOrCreateMeshInstance = (gameObject: gameObject) => {
     if (_getMeshInstanceMap()[gameObject] === undefined) {
         _getMeshInstanceMap()[gameObject] = new Mesh(gameObject)
     }
@@ -134,13 +136,9 @@ let _getStandardMaterialInstanceMap = (): Array<MeshStandardMaterial> => {
 let _disposeStandardMaterialInstance = (material: pbrMaterial) => {
     _disposeStandardMaterial(_getStandardMaterialInstanceMap()[material])
     _getStandardMaterialInstanceMap()[material] = undefined
-
-
-    // TODO handle dispose maps
-    //      TODO need judge is actually dispose map
 }
 
-let _getStandardMaterialInstance = (material: pbrMaterial) => {
+let _getOrCreateStandardMaterialInstance = (material: pbrMaterial) => {
     if (_getStandardMaterialInstanceMap()[material] === undefined) {
         _getStandardMaterialInstanceMap()[material] = new MeshStandardMaterial(material)
     }
@@ -158,7 +156,7 @@ let _disposeTextureInstance = (texture: texture) => {
     _getTextureInstanceMap()[texture] = undefined
 }
 
-let _getTextureInstance = (texture: texture) => {
+let _getOrCreateTextureInstance = (texture: texture) => {
     if (_getTextureInstanceMap()[texture] === undefined) {
         _getTextureInstanceMap()[texture] = new Texture(texture)
     }
@@ -176,7 +174,7 @@ let _disposeGeometryInstance = (geometry: geometry) => {
     _getGeometryInstanceMap()[geometry] = undefined
 }
 
-let _getGeometryInstance = (geometry: geometry) => {
+let _getOrCreateGeometryInstance = (geometry: geometry) => {
     if (_getGeometryInstanceMap()[geometry] === undefined) {
         _getGeometryInstanceMap()[geometry] = new BufferGeometry(geometry)
     }
@@ -194,7 +192,7 @@ let _disposeDirectionLightInstance = (directionLight: directionLight) => {
     _getDirectionLightInstanceMap()[directionLight] = undefined
 }
 
-let _getDirectionLightInstance = (directionLight: directionLight) => {
+let _getOrCreateDirectionLightInstance = (directionLight: directionLight) => {
     if (_getDirectionLightInstanceMap()[directionLight] === undefined) {
         _getDirectionLightInstanceMap()[directionLight] = new DirectionLight(directionLight)
     }
@@ -313,6 +311,10 @@ class Object3D {
         return true
     }
 
+    public get renderOrder(): number {
+        return 0
+    }
+
     public get visible(): boolean {
         return true
     }
@@ -364,6 +366,20 @@ class Object3D {
     public onAfterRender(scene: Scene, camera: Camera, geometry: BufferGeometry, object: Object3D, group: any) {
     }
 }
+
+// class Group extends Object3D {
+//     constructor(gameObject: gameObject) {
+//         super(gameObject)
+//     }
+
+//     public get isGroup(): boolean {
+//         return true
+//     }
+
+//     public get type(): string {
+//         return "Group"
+//     }
+// }
 
 class Camera extends Object3D {
     constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection) {
@@ -629,21 +645,29 @@ class Scene extends Object3D {
             }) as Array<Object3D>
         ).concat(
             allGameObjects.filter(gameObject => {
-                return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject) && isNullable(engineSceneService.transform.getParent(meta3dState,
-                    engineSceneService.gameObject.getTransform(meta3dState, gameObject)
-                ))
+                return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject)
             }).map(gameObject => {
-                return _getMeshInstance(gameObject)
+                return _getOrCreateMeshInstance(gameObject)
             })
         ).concat(
             allGameObjects.filter(gameObject => {
                 return engineSceneService.gameObject.hasDirectionLight(meta3dState, gameObject)
             }).map(gameObject => {
-                return _getDirectionLightInstance(
+                return _getOrCreateDirectionLightInstance(
                     engineSceneService.gameObject.getDirectionLight(meta3dState, gameObject)
                 )
             })
         )
+        // TODO add Group?
+        // .concat(
+        //     allGameObjects.filter(gameObject => {
+        //         return !engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject) && !engineSceneService.gameObject.hasGeometry(meta3dState, gameObject) && !engineSceneService.gameObject.hasDirectionLight(meta3dState, gameObject) && isNullable(engineSceneService.transform.getParent(meta3dState,
+        //             engineSceneService.gameObject.getTransform(meta3dState, gameObject)
+        //         ))
+        //     }).map(gameObject => {
+        //         return new Group(gameObject)
+        //     })
+        // )
     }
 
     public get background(): nullable<ColorType | TextureType | CubeTexture> {
@@ -691,11 +715,11 @@ class Mesh extends Object3D {
     }
 
     public get parent(): nullable<Mesh> {
-        return this.getParent((gameObject: gameObject) => _getMeshInstance(gameObject))
+        return this.getParent((gameObject: gameObject) => _getOrCreateMeshInstance(gameObject))
     }
 
     public get children(): Array<Mesh> {
-        return this.getChildren((gameObject: gameObject) => _getMeshInstance(gameObject))
+        return this.getChildren((gameObject: gameObject) => _getOrCreateMeshInstance(gameObject))
     }
 
     public get matrix(): Matrix4Type {
@@ -724,7 +748,7 @@ class Mesh extends Object3D {
 
         let { gameObject } = getEngineSceneService(meta3dState)
 
-        return _getGeometryInstance(gameObject.getGeometry(meta3dState, this.gameObject))
+        return _getOrCreateGeometryInstance(gameObject.getGeometry(meta3dState, this.gameObject))
     }
 
     public get material(): MeshStandardMaterial {
@@ -732,7 +756,7 @@ class Mesh extends Object3D {
 
         let { gameObject } = getEngineSceneService(meta3dState)
 
-        return _getStandardMaterialInstance(gameObject.getPBRMaterial(meta3dState, this.gameObject))
+        return _getOrCreateStandardMaterialInstance(gameObject.getPBRMaterial(meta3dState, this.gameObject))
 
     }
 }
@@ -951,6 +975,9 @@ class Texture extends EventDispatcher {
         return []
     }
 
+    public get colorSpace(): ColorSpace {
+        return NoColorSpace
+    }
 
     public get channel(): number {
         return 0
@@ -1269,7 +1296,7 @@ class MeshStandardMaterial extends Material {
     }
 
     public get map(): nullable<Texture> {
-        return bind(_getTextureInstance, _getMaterialValue("getDiffuseMap", this.material))
+        return bind(_getOrCreateTextureInstance, _getMaterialValue("getDiffuseMap", this.material))
     }
 
     public get lightMap(): null {
@@ -1309,7 +1336,7 @@ class MeshStandardMaterial extends Material {
     }
 
     public get normalMap(): nullable<Texture> {
-        return bind(_getTextureInstance, _getMaterialValue("getNormalMap", this.material))
+        return bind(_getOrCreateTextureInstance, _getMaterialValue("getNormalMap", this.material))
     }
 
     public get normalMapType(): NormalMapTypes {
@@ -1333,11 +1360,11 @@ class MeshStandardMaterial extends Material {
     }
 
     public get roughnessMap(): nullable<Texture> {
-        return bind(_getTextureInstance, _getMaterialValue("getRoughnessMap", this.material))
+        return bind(_getOrCreateTextureInstance, _getMaterialValue("getRoughnessMap", this.material))
     }
 
     public get metalnessMap(): nullable<Texture> {
-        return bind(_getTextureInstance, _getMaterialValue("getMetalnessMap", this.material))
+        return bind(_getOrCreateTextureInstance, _getMaterialValue("getMetalnessMap", this.material))
     }
 
     public get alphaMap(): null {
@@ -1470,7 +1497,8 @@ let _createMap = (meta3dState: meta3dState,
 
 let _import = (sceneService: scene,
     meta3dState: meta3dState,
-    object3Ds: Array<Object3DType>) => {
+    [standardMaterialMap, bufferGeometryMap, textureMap],
+    object3D: Object3DType, parent: nullable<gameObject>): [meta3dState, gameObject] => {
     let gameObjectService = sceneService.gameObject
     let transformService = sceneService.transform
     let basicCameraViewService = sceneService.basicCameraView
@@ -1479,179 +1507,179 @@ let _import = (sceneService: scene,
     let pbrMaterialService = sceneService.pbrMaterial
     let directionLightService = sceneService.directionLight
 
-    let _standardMaterialMap = {}
-    let _bufferGeometryMap = {}
-    let _textureMap: Record<string, texture> = {}
-
-    return object3Ds.reduce((meta3dState, object3D) => {
-        let data = gameObjectService.createGameObject(meta3dState)
-        meta3dState = data[0]
-        let gameObject = data[1]
+    let data = gameObjectService.createGameObject(meta3dState)
+    meta3dState = data[0]
+    let gameObject = data[1]
 
 
-        data = transformService.createTransform(meta3dState)
-        meta3dState = data[0]
-        let transform = data[1]
+    data = transformService.createTransform(meta3dState)
+    meta3dState = data[0]
+    let transform = data[1]
 
-        meta3dState = transformService.setLocalPosition(meta3dState, transform, object3D.position.toArray())
-        meta3dState = transformService.setLocalRotation(meta3dState, transform, object3D.quaternion.toArray() as any as localRotation)
-        meta3dState = transformService.setLocalScale(meta3dState, transform, object3D.scale.toArray())
+    meta3dState = transformService.setLocalPosition(meta3dState, transform, object3D.position.toArray())
+    meta3dState = transformService.setLocalRotation(meta3dState, transform, object3D.quaternion.toArray() as any as localRotation)
+    meta3dState = transformService.setLocalScale(meta3dState, transform, object3D.scale.toArray())
 
-
-        meta3dState = gameObjectService.addTransform(meta3dState, gameObject, transform)
-
-
-        if ((object3D as any as CameraType).isCamera) {
-            data = basicCameraViewService.createBasicCameraView(meta3dState)
-            meta3dState = data[0]
-            let basicCameraView = data[1]
-
-            meta3dState = gameObjectService.addBasicCameraView(meta3dState, gameObject, basicCameraView)
-
-            if ((object3D as any as PerspectiveCameraType).isPerspectiveCamera) {
-                let { near, far, fov, aspect } = object3D as any as PerspectiveCameraType
-
-                data = perspectiveCameraProjectionService.createPerspectiveCameraProjection(meta3dState)
-                meta3dState = data[0]
-                let perspectiveCameraProjection = data[1]
-
-                meta3dState = perspectiveCameraProjectionService.setNear(meta3dState, perspectiveCameraProjection, near)
-                meta3dState = perspectiveCameraProjectionService.setFar(meta3dState, perspectiveCameraProjection, far)
-                meta3dState = perspectiveCameraProjectionService.setFovy(meta3dState, perspectiveCameraProjection, fov)
-                meta3dState = perspectiveCameraProjectionService.setAspect(meta3dState, perspectiveCameraProjection, aspect)
-
-
-                meta3dState = gameObjectService.addPerspectiveCameraProjection(meta3dState, gameObject, perspectiveCameraProjection)
-            }
-
-            // TODO handle ortho camera
-        }
-        else if ((object3D as any as MeshType).isMesh) {
-            let mesh = object3D as any as MeshType
-
-            let bufferGeometry = _getBufferGeometry(mesh)
-
-            if (_bufferGeometryMap[bufferGeometry.uuid] === undefined) {
-                let data = geometryService.createGeometry(meta3dState)
-                meta3dState = data[0]
-                let geometry = data[1]
-
-
-                meta3dState = geometryService.setVertices(meta3dState, geometry, bufferGeometry.getAttribute("position").array as any as Float32Array)
-                if (bufferGeometry.getAttribute("normal") !== undefined) {
-                    meta3dState = geometryService.setNormals(meta3dState, geometry, bufferGeometry.getAttribute("normal").array as any as Float32Array)
-                }
-                if (bufferGeometry.getAttribute("uv") !== undefined) {
-                    meta3dState = geometryService.setTexCoords(meta3dState, geometry, bufferGeometry.getAttribute("uv").array as any as Float32Array)
-                }
-                if (bufferGeometry.getAttribute("tangent") !== undefined) {
-                    if (bufferGeometry.getAttribute("tangent").itemSize != 4) {
-                        throw new Error("error")
-                    }
-
-                    meta3dState = geometryService.setTangents(meta3dState, geometry, _convertTangentFromItemSize4To3(bufferGeometry.getAttribute("tangent").array as any as Float32Array))
-                }
-                meta3dState = geometryService.setIndices(meta3dState,
-                    geometry,
-                    _convertToUint32ArrayIndices(
-                        bufferGeometry.getIndex().array
-                    )
-                )
-
-
-                meta3dState = gameObjectService.addGeometry(meta3dState, gameObject, geometry)
-
-                _bufferGeometryMap[bufferGeometry.uuid] = geometry
-            }
-            else {
-                meta3dState = gameObjectService.addGeometry(meta3dState, gameObject, _bufferGeometryMap[bufferGeometry.uuid])
-            }
-
-
-
-            let meshStandardMaterial = _getMeshStandardMaterial(mesh)
-
-
-            if (_standardMaterialMap[meshStandardMaterial.uuid] === undefined) {
-                let data = pbrMaterialService.createPBRMaterial(meta3dState)
-                meta3dState = data[0]
-                let pbrMaterial = data[1]
-
-
-                meta3dState = pbrMaterialService.setDiffuseColor(meta3dState, pbrMaterial, meshStandardMaterial.color.toArray() as any as diffuseColor
-                )
-                meta3dState = pbrMaterialService.setMetalness(meta3dState, pbrMaterial, meshStandardMaterial.metalness)
-                meta3dState = pbrMaterialService.setRoughness(meta3dState, pbrMaterial, meshStandardMaterial.roughness)
-
-
-
-                let mapData = _createMap(meta3dState, sceneService, _textureMap, meshStandardMaterial.map)
-                meta3dState = mapData[0]
-                let map = mapData[1]
-                _textureMap = mapData[2]
-                if (!isNullable(map)) {
-                    meta3dState = pbrMaterialService.setDiffuseMap(meta3dState, pbrMaterial, getExn(map))
-                }
-
-                mapData = _createMap(meta3dState, sceneService, _textureMap, meshStandardMaterial.roughnessMap)
-                meta3dState = mapData[0]
-                map = mapData[1]
-                _textureMap = mapData[2]
-                if (!isNullable(map)) {
-                    meta3dState = pbrMaterialService.setRoughnessMap(meta3dState, pbrMaterial, getExn(map))
-                }
-
-                mapData = _createMap(meta3dState, sceneService, _textureMap, meshStandardMaterial.metalnessMap)
-                meta3dState = mapData[0]
-                map = mapData[1]
-                _textureMap = mapData[2]
-                if (!isNullable(map)) {
-                    meta3dState = pbrMaterialService.setMetalnessMap(meta3dState, pbrMaterial, getExn(map))
-                }
-
-
-                mapData = _createMap(meta3dState, sceneService, _textureMap, meshStandardMaterial.normalMap)
-                meta3dState = mapData[0]
-                map = mapData[1]
-                _textureMap = mapData[2]
-                if (!isNullable(map)) {
-                    meta3dState = pbrMaterialService.setNormalMap(meta3dState, pbrMaterial, getExn(map))
-                }
-
-
-
-                meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, pbrMaterial)
-
-                _standardMaterialMap[meshStandardMaterial.uuid] = pbrMaterial
-            }
-            else {
-                meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, _standardMaterialMap[meshStandardMaterial.uuid])
-            }
-        }
-        else if ((object3D as any as DirectionalLightType).isDirectionalLight) {
-            let { color, intensity, position, target } = object3D as any as DirectionalLightType
-
-            data = directionLightService.createDirectionLight(meta3dState)
-            meta3dState = data[0]
-            let directionLight = data[1]
-
-            meta3dState = directionLightService.setColor(meta3dState, directionLight, color.toArray() as any as color)
-            meta3dState = directionLightService.setIntensity(meta3dState, directionLight, intensity)
-            meta3dState = directionLightService.setDirection(meta3dState, directionLight, target.position.sub(position).toArray())
-
-
-            meta3dState = gameObjectService.addDirectionLight(meta3dState, gameObject, directionLight)
-        }
-
-
-
-
-        meta3dState = _import(sceneService, meta3dState,
-            object3D.children
+    if (!isNullable(parent)) {
+        meta3dState = transformService.setParent(meta3dState, transform,
+            gameObjectService.getTransform(meta3dState, getExn(parent))
         )
+    }
 
-        return meta3dState
-    }, meta3dState)
+    meta3dState = gameObjectService.addTransform(meta3dState, gameObject, transform)
+
+
+    if ((object3D as any as CameraType).isCamera) {
+        data = basicCameraViewService.createBasicCameraView(meta3dState)
+        meta3dState = data[0]
+        let basicCameraView = data[1]
+
+        meta3dState = gameObjectService.addBasicCameraView(meta3dState, gameObject, basicCameraView)
+
+        if ((object3D as any as PerspectiveCameraType).isPerspectiveCamera) {
+            let { near, far, fov, aspect } = object3D as any as PerspectiveCameraType
+
+            data = perspectiveCameraProjectionService.createPerspectiveCameraProjection(meta3dState)
+            meta3dState = data[0]
+            let perspectiveCameraProjection = data[1]
+
+            meta3dState = perspectiveCameraProjectionService.setNear(meta3dState, perspectiveCameraProjection, near)
+            meta3dState = perspectiveCameraProjectionService.setFar(meta3dState, perspectiveCameraProjection, far)
+            meta3dState = perspectiveCameraProjectionService.setFovy(meta3dState, perspectiveCameraProjection, fov)
+            meta3dState = perspectiveCameraProjectionService.setAspect(meta3dState, perspectiveCameraProjection, aspect)
+
+
+            meta3dState = gameObjectService.addPerspectiveCameraProjection(meta3dState, gameObject, perspectiveCameraProjection)
+        }
+
+        // TODO handle ortho camera
+    }
+    else if ((object3D as any as MeshType).isMesh) {
+        let mesh = object3D as any as MeshType
+
+        let bufferGeometry = _getBufferGeometry(mesh)
+
+        if (bufferGeometryMap[bufferGeometry.uuid] === undefined) {
+            let data = geometryService.createGeometry(meta3dState)
+            meta3dState = data[0]
+            let geometry = data[1]
+
+
+            meta3dState = geometryService.setVertices(meta3dState, geometry, bufferGeometry.getAttribute("position").array as any as Float32Array)
+            if (bufferGeometry.getAttribute("normal") !== undefined) {
+                meta3dState = geometryService.setNormals(meta3dState, geometry, bufferGeometry.getAttribute("normal").array as any as Float32Array)
+            }
+            if (bufferGeometry.getAttribute("uv") !== undefined) {
+                meta3dState = geometryService.setTexCoords(meta3dState, geometry, bufferGeometry.getAttribute("uv").array as any as Float32Array)
+            }
+            if (bufferGeometry.getAttribute("tangent") !== undefined) {
+                if (bufferGeometry.getAttribute("tangent").itemSize != 4) {
+                    throw new Error("error")
+                }
+
+                meta3dState = geometryService.setTangents(meta3dState, geometry, _convertTangentFromItemSize4To3(bufferGeometry.getAttribute("tangent").array as any as Float32Array))
+            }
+            meta3dState = geometryService.setIndices(meta3dState,
+                geometry,
+                _convertToUint32ArrayIndices(
+                    bufferGeometry.getIndex().array
+                )
+            )
+
+
+            meta3dState = gameObjectService.addGeometry(meta3dState, gameObject, geometry)
+
+            bufferGeometryMap[bufferGeometry.uuid] = geometry
+        }
+        else {
+            meta3dState = gameObjectService.addGeometry(meta3dState, gameObject, bufferGeometryMap[bufferGeometry.uuid])
+        }
+
+
+
+        let meshStandardMaterial = _getMeshStandardMaterial(mesh)
+
+
+        if (standardMaterialMap[meshStandardMaterial.uuid] === undefined) {
+            let data = pbrMaterialService.createPBRMaterial(meta3dState)
+            meta3dState = data[0]
+            let pbrMaterial = data[1]
+
+
+            meta3dState = pbrMaterialService.setDiffuseColor(meta3dState, pbrMaterial, meshStandardMaterial.color.toArray() as any as diffuseColor
+            )
+            meta3dState = pbrMaterialService.setMetalness(meta3dState, pbrMaterial, meshStandardMaterial.metalness)
+            meta3dState = pbrMaterialService.setRoughness(meta3dState, pbrMaterial, meshStandardMaterial.roughness)
+
+
+
+            let mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.map)
+            meta3dState = mapData[0]
+            let map = mapData[1]
+            textureMap = mapData[2]
+            if (!isNullable(map)) {
+                meta3dState = pbrMaterialService.setDiffuseMap(meta3dState, pbrMaterial, getExn(map))
+            }
+
+            mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.roughnessMap)
+            meta3dState = mapData[0]
+            map = mapData[1]
+            textureMap = mapData[2]
+            if (!isNullable(map)) {
+                meta3dState = pbrMaterialService.setRoughnessMap(meta3dState, pbrMaterial, getExn(map))
+            }
+
+            mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.metalnessMap)
+            meta3dState = mapData[0]
+            map = mapData[1]
+            textureMap = mapData[2]
+            if (!isNullable(map)) {
+                meta3dState = pbrMaterialService.setMetalnessMap(meta3dState, pbrMaterial, getExn(map))
+            }
+
+
+            mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.normalMap)
+            meta3dState = mapData[0]
+            map = mapData[1]
+            textureMap = mapData[2]
+            if (!isNullable(map)) {
+                meta3dState = pbrMaterialService.setNormalMap(meta3dState, pbrMaterial, getExn(map))
+            }
+
+
+
+            meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, pbrMaterial)
+
+            standardMaterialMap[meshStandardMaterial.uuid] = pbrMaterial
+        }
+        else {
+            meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, standardMaterialMap[meshStandardMaterial.uuid])
+        }
+    }
+    else if ((object3D as any as DirectionalLightType).isDirectionalLight) {
+        let { color, intensity, position, target } = object3D as any as DirectionalLightType
+
+        data = directionLightService.createDirectionLight(meta3dState)
+        meta3dState = data[0]
+        let directionLight = data[1]
+
+        meta3dState = directionLightService.setColor(meta3dState, directionLight, color.toArray() as any as color)
+        meta3dState = directionLightService.setIntensity(meta3dState, directionLight, intensity)
+        meta3dState = directionLightService.setDirection(meta3dState, directionLight, target.position.sub(position).toArray())
+
+
+        meta3dState = gameObjectService.addDirectionLight(meta3dState, gameObject, directionLight)
+    }
+
+    let reduceData: [meta3dState, gameObject] = object3D.children.reduce(([meta3dState, parent]: [meta3dState, gameObject], child) => {
+        return _import(sceneService, meta3dState,
+            [standardMaterialMap, bufferGeometryMap, textureMap],
+            child, return_(parent)
+        )
+    }, [meta3dState, gameObject])
+    meta3dState = reduceData[0]
+
+    return [meta3dState, gameObject]
 }
 
 let _setVariables = (
@@ -1679,46 +1707,156 @@ let _setVariables = (
     _globalKeyNameForDirectionLightInstanceMap = globalKeyNameForDirectionLightInstanceMap
 }
 
-let _isActuallyDisposePBRMaterial = (api: api, meta3dState: meta3dState,
-    engineCoreProtocolName: string,
-    material: number, gameObjects: Array<number>): boolean => {
-    let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
-    let engineCoreService = api.getExtensionService<engineCoreService>(
-        meta3dState,
-        engineCoreProtocolName
-    )
+// let _isActuallyDisposePBRMaterial = (api: api, meta3dState: meta3dState,
+//     engineCoreProtocolName: string,
+//     material: number, gameObjects: Array<number>): boolean => {
+//     let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
+//     let engineCoreService = api.getExtensionService<engineCoreService>(
+//         meta3dState,
+//         engineCoreProtocolName
+//     )
 
-    let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+//     let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
 
-    return isActuallyDisposePBRMateiral(
-        contribute.state as any as pbrMaterialState,
-        material, gameObjects
-    )
-}
+//     return isActuallyDisposePBRMateiral(
+//         contribute.state as any as pbrMaterialState,
+//         material, gameObjects
+//     )
+// }
 
-let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
-    engineCoreProtocolName: string,
-    geometry: number, gameObjects: Array<number>): boolean => {
-    let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
-    let engineCoreService = api.getExtensionService<engineCoreService>(
-        meta3dState,
-        engineCoreProtocolName
-    )
+// let _isActuallyDisposeGeometry = (api: api, meta3dState: meta3dState,
+//     engineCoreProtocolName: string,
+//     geometry: number, gameObjects: Array<number>): boolean => {
+//     let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
+//     let engineCoreService = api.getExtensionService<engineCoreService>(
+//         meta3dState,
+//         engineCoreProtocolName
+//     )
 
-    let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+//     let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
 
-    return isActuallyDisposeGeometry(
-        contribute.state as any as geometryState,
-        geometry, gameObjects
-    )
+//     return isActuallyDisposeGeometry(
+//         contribute.state as any as geometryState,
+//         geometry, gameObjects
+//     )
+// }
+
+// let _disposeGameObject = (meta3dState: meta3dState, api: api, [engineCoreProtocolName, engineWholeProtocolName]: [string, string], gameObject: gameObject) => {
+//     let { scene } = api.getExtensionService<engineWholeService>(meta3dState, engineWholeProtocolName)
+//     let gameObjectService = scene.gameObject
+//     let pbrMaterialService = scene.pbrMaterial
+//     let geometryService = scene.geometry
+
+//     if (gameObjectService.hasDirectionLight(meta3dState, gameObject)) {
+//         _disposeDirectionLightInstance(
+//             gameObjectService.getDirectionLight(meta3dState, gameObject)
+//         )
+//     }
+//     else {
+//         _disposeMeshInstance(gameObject)
+
+//         if (
+//             gameObjectService.hasPBRMaterial(meta3dState, gameObject)
+//         ) {
+//             let material = gameObjectService.getPBRMaterial(meta3dState, gameObject)
+
+//             if (
+//                 _isActuallyDisposePBRMaterial(api, meta3dState,
+//                     engineCoreProtocolName,
+//                     material, pbrMaterialService.getGameObjects(meta3dState, material))
+//             ) {
+//                 _disposeStandardMaterialInstance(material)
+//             }
+//         }
+
+//         if (
+//             gameObjectService.hasGeometry(meta3dState, gameObject)
+//         ) {
+//             let geometry = gameObjectService.getGeometry(meta3dState, gameObject) as any
+
+//             if (
+//                 _isActuallyDisposeGeometry(api, meta3dState,
+//                     engineCoreProtocolName,
+//                     geometry, geometryService.getGameObjects(meta3dState, geometry))
+//             ) {
+//                 _disposeGeometryInstance(geometry)
+//             }
+//         }
+//     }
+
+//     meta3dState = gameObjectService.disposeGameObjects(meta3dState, [gameObject])
+
+//     return meta3dState
+// }
+
+let _bindDisposeEvent = (meta3dState: meta3dState, eventService: eventService,
+    {
+        DisposeGameObjectsEventName,
+        DisposeGeometrysEventName,
+        DisposePBRMaterialsEventName,
+        DisposeDirectionLightsEventName,
+        // DisposeTransformsEventName,
+        // DisposeBasicCameraViewsEventName,
+        // DisposePerspectiveCameraProjectionsEventName,
+        DisposeTextureEventName,
+    }
+): meta3dState => {
+    meta3dState = eventService.onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        DisposeGameObjectsEventName, 0, (meta3dState, { userData }) => {
+            (getExn(userData) as any as Array<gameObject>).forEach(gameObject => {
+                _disposeMeshInstance(gameObject)
+            })
+
+            return meta3dState
+        }
+    ])
+    meta3dState = eventService.onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        DisposeGeometrysEventName, 0, (meta3dState, { userData }) => {
+            (getExn(userData) as any as Array<geometry>).forEach(geometry => {
+                _disposeGeometryInstance(geometry)
+            })
+
+            return meta3dState
+        }
+    ])
+    meta3dState = eventService.onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        DisposePBRMaterialsEventName, 0, (meta3dState, { userData }) => {
+            (getExn(userData) as any as Array<pbrMaterial>).forEach(pbrMaterial => {
+                _disposeStandardMaterialInstance(pbrMaterial)
+            })
+
+            return meta3dState
+        }
+    ])
+    meta3dState = eventService.onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        DisposeTextureEventName, 0, (meta3dState, { userData }) => {
+            (getExn(userData) as any as Array<texture>).forEach(texture => {
+                _disposeTextureInstance(texture)
+            })
+
+            return meta3dState
+        }
+    ])
+    meta3dState = eventService.onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        DisposeDirectionLightsEventName, 0, (meta3dState, { userData }) => {
+            (getExn(userData) as any as Array<directionLight>).forEach(directionLight => {
+                _disposeDirectionLightInstance(directionLight)
+            })
+
+            return meta3dState
+        }
+    ])
+
+    return meta3dState
 }
 
 export let getExtensionServiceUtils = (
     // getCameraComponentsFunc: (meta3dState: meta3dState, isDebug: boolean) => [basicCameraView, perspectiveCameraProjection],
     api: api,
-    // allEventNames,
-    disposeGameObjectEventName,
-    [engineWholeProtocolName, engineCoreProtocolName]
+    allEventNames,
+    // disposeGameObjectEventName,
+    // [engineWholeProtocolName, engineCoreProtocolName]
+    engineWholeProtocolName
 ): service => {
     return {
         init: (meta3dState) => {
@@ -1729,65 +1867,7 @@ export let getExtensionServiceUtils = (
                 eventProtocolName
             )
 
-            // let {
-            //     disposeGameObjectEventName,
-            //     disposeGeometryEventName,
-            //     disposePBRMaterialEventName
-            // } = allEventNames
-
-            meta3dState = eventService.onCustomGlobalEvent2(meta3dState, eventProtocolName, [
-                disposeGameObjectEventName, 1, (meta3dState, { userData }) => {
-                    console.log("dispose gameObject")
-
-                    let { scene } = api.getExtensionService<engineWholeService>(meta3dState, engineWholeProtocolName)
-                    let gameObjectService = scene.gameObject
-                    let pbrMaterialService = scene.pbrMaterial
-                    let geometryService = scene.geometry
-
-                    let gameObject = userData as any as gameObject
-
-                    if (gameObjectService.hasDirectionLight(meta3dState, gameObject)) {
-                        _disposeDirectionLightInstance(
-                            gameObjectService.getDirectionLight(meta3dState, gameObject)
-                        )
-                    }
-                    else {
-                        _disposeMeshInstance(gameObject)
-
-                        if (
-                            gameObjectService.hasPBRMaterial(meta3dState, gameObject)
-                        ) {
-                            let material = gameObjectService.getPBRMaterial(meta3dState, gameObject)
-
-                            if (
-                                _isActuallyDisposePBRMaterial(api, meta3dState,
-                                    engineCoreProtocolName,
-                                    material, pbrMaterialService.getGameObjects(meta3dState, material))
-                            ) {
-                                _disposeStandardMaterialInstance(material)
-                            }
-                        }
-
-                        if (
-                            gameObjectService.hasGeometry(meta3dState, gameObject)
-                        ) {
-                            let geometry = gameObjectService.getGeometry(meta3dState, gameObject) as any
-
-                            if (
-                                _isActuallyDisposeGeometry(api, meta3dState,
-                                    engineCoreProtocolName,
-                                    geometry, geometryService.getGameObjects(meta3dState, geometry))
-                            ) {
-                                _disposeGeometryInstance(geometry)
-                            }
-                        }
-                    }
-
-
-
-                    return meta3dState
-                }
-            ])
+            meta3dState = _bindDisposeEvent(meta3dState, eventService, allEventNames)
 
             return meta3dState
         },
@@ -1823,6 +1903,7 @@ export let getExtensionServiceUtils = (
             Vector2 = threeAPIService.Vector2
             TangentSpaceNormalMap = threeAPIService.TangentSpaceNormalMap
             ObjectSpaceNormalMap = threeAPIService.ObjectSpaceNormalMap
+            NoColorSpace = threeAPIService.NoColorSpace
 
 
 
@@ -1848,7 +1929,13 @@ export let getExtensionServiceUtils = (
         import: (meta3dState, sceneGroup) => {
             let { scene } = api.getExtensionService<engineWholeService>(meta3dState, engineWholeProtocolName)
 
-            return _import(scene, meta3dState, sceneGroup.children)
+            let standardMaterialMap = {}
+            let bufferGeometryMap = {}
+            let textureMap: Record<string, texture> = {}
+
+            return _import(scene, meta3dState,
+                [standardMaterialMap, bufferGeometryMap, textureMap],
+                sceneGroup as Object3DType, null)
         }
     }
 }

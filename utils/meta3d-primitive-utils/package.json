@@ -1,0 +1,13 @@
+{
+    "name": "meta3d-primitive-utils",
+    "version": "0.17.0",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {
+        "meta3d-type": "^0.17.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

@@ -65,7 +65,7 @@ type service = {
   disposeComponents: (
     RegisterComponentType.usedComponentContribute,
     ComponentType.batchDisposeData,
-  ) => RegisterComponentType.usedComponentContribute,
+  ) => (RegisterComponentType.usedComponentContribute, array<ComponentType.component>),
   getAllComponents: RegisterComponentType.usedComponentContribute => array<ComponentType.component>,
   getComponentData: (
     RegisterComponentType.usedComponentContribute,
@@ -98,7 +98,19 @@ type service = {
   disposeGameObjects: (
     StateType.state,
     array<Meta3dGameobjectProtocol.Index.gameObject>,
-  ) => StateType.state,
+  ) => (
+    StateType.state,
+    (
+      array<Meta3dGameobjectProtocol.Index.gameObject>,
+      array<ComponentType.component>,
+      array<ComponentType.component>,
+      array<ComponentType.component>,
+      array<ComponentType.component>,
+      array<ComponentType.component>,
+      array<ComponentType.component>,
+      array<ComponentType.component>,
+    ),
+  ),
   cloneGameObject: (
     StateType.state,
     GameObjectContributeType.cloneCount,

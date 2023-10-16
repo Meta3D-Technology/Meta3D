@@ -146,7 +146,11 @@ function deferDisposeComponent(usedComponentContribute, deferDisposeData) {
 }
 
 function disposeComponents(usedComponentContribute, batchDisposeData) {
-  return setComponentStateToUsedComponentContribute(usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, batchDisposeData), usedComponentContribute);
+  var match = usedComponentContribute.disposeComponentsFunc(usedComponentContribute.state, batchDisposeData);
+  return [
+          setComponentStateToUsedComponentContribute(match[0], usedComponentContribute),
+          match[1]
+        ];
 }
 
 function getAllComponents(usedComponentContribute) {

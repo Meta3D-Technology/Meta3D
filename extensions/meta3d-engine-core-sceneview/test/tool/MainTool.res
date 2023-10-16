@@ -3,7 +3,9 @@ open Sinon
 let registerPipelineWithState = (
   ~contribute,
   ~state,
-  ~config: Js.Nullable.t<Meta3dEngineCoreSceneviewProtocol.RegisterPipelineType.config>=Js.Nullable.null,
+  ~config: Js.Nullable.t<
+    Meta3dEngineCoreSceneviewProtocol.RegisterPipelineType.config,
+  >=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreSceneviewProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
@@ -12,7 +14,9 @@ let registerPipelineWithState = (
 
 let registerPipeline = (
   ~contribute,
-  ~config: Js.Nullable.t<Meta3dEngineCoreSceneviewProtocol.RegisterPipelineType.config>=Js.Nullable.null,
+  ~config: Js.Nullable.t<
+    Meta3dEngineCoreSceneviewProtocol.RegisterPipelineType.config,
+  >=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreSceneviewProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
@@ -153,7 +157,12 @@ let getNeedDisposedComponents = DirectorForJs.getNeedDisposedComponents
 
 let deferDisposeComponent = DirectorForJs.deferDisposeComponent
 
-let disposeComponents = DirectorForJs.disposeComponents
+let disposeComponents = (usedComponentContribute, batchDisposeData) => {
+  DirectorForJs.disposeComponents(
+    usedComponentContribute,
+    batchDisposeData,
+  )->Meta3dCommonlib.Tuple2.getFirst
+}
 
 let getAllComponents = contribute => {
   contribute->DirectorForJs.getAllComponents
@@ -198,9 +207,9 @@ let getNeedDisposedGameObjects = () => {
 }
 
 let disposeGameObjects = gameObjects => {
-  StateContainer.unsafeGetState()
-  ->DirectorForJs.disposeGameObjects(gameObjects)
-  ->StateContainer.setState
+  let (state, _) = StateContainer.unsafeGetState()->DirectorForJs.disposeGameObjects(gameObjects)
+
+  state->StateContainer.setState
 }
 
 let cloneGameObject = (count, cloneConfig, gameObject) => {

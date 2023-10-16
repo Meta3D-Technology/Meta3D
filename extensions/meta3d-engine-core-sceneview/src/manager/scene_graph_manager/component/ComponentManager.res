@@ -221,12 +221,19 @@ let disposeComponents = (
   usedComponentContribute: Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
   // components: array<Meta3dEngineCoreSceneviewProtocol.ComponentType.component>,
   batchDisposeData,
-): Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute => {
-  usedComponentContribute.disposeComponentsFunc(.
+): (
+  Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute,
+  array<Meta3dEngineCoreSceneviewProtocol.ComponentType.component>,
+) => {
+  let (componentState, actuallyDisposedComponents) = usedComponentContribute.disposeComponentsFunc(.
     usedComponentContribute.state,
-    // components,
     batchDisposeData,
-  )->setComponentStateToUsedComponentContribute(usedComponentContribute)
+  )
+
+  (
+    componentState->setComponentStateToUsedComponentContribute(usedComponentContribute),
+    actuallyDisposedComponents,
+  )
 }
 
 let getAllComponents = (

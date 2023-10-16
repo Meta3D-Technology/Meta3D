@@ -132,37 +132,48 @@ type deferDisposeGameObjectFunc<'state> = (
 type disposeTransformsFunc = ComponentContributeType.disposeComponentsFunc<
   transformState,
   Meta3dComponentTransformProtocol.Index.batchDisposeData,
+  transform
 >
 
 type disposePBRMaterialsFunc = ComponentContributeType.disposeComponentsFunc<
   pbrMaterialState,
   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
+  pbrMaterial
 >
 
 type disposeGeometrysFunc = ComponentContributeType.disposeComponentsFunc<
   geometryState,
   Meta3dComponentGeometryProtocol.Index.batchDisposeData,
+  geometry
 >
 
 type disposeDirectionLightFunc = ComponentContributeType.disposeComponentsFunc<
   directionLightState,
   Meta3dComponentDirectionlightProtocol.Index.batchDisposeData,
+  directionLight
 >
 
 type disposeArcballCameraControllerFunc = ComponentContributeType.disposeComponentsFunc<
   arcballCameraControllerState,
   Meta3dComponentArcballcameracontrollerProtocol.Index.batchDisposeData,
+  arcballCameraController
 >
 
 type disposeBasicCameraViewFunc = ComponentContributeType.disposeComponentsFunc<
   basicCameraViewState,
   Meta3dComponentBasiccameraviewProtocol.Index.batchDisposeData,
+  basicCameraView
 >
 
 type disposePerspectiveCameraProjectionFunc = ComponentContributeType.disposeComponentsFunc<
   perspectiveCameraProjectionState,
   Meta3dComponentPerspectivecameraprojectionProtocol.Index.batchDisposeData,
+  perspectiveCameraProjection
 >
+
+type actuallyDisposedGameObjects = array<gameObject>
+
+type actuallyDisposedComponents<'component> = array<'component>
 
 type disposeGameObjectsFunc<'state> = (
   . (
@@ -186,14 +197,26 @@ type disposeGameObjectsFunc<'state> = (
   ),
   array<gameObject>,
 ) => (
-  'state,
-  transformState,
-  pbrMaterialState,
-  geometryState,
-  directionLightState,
-  arcballCameraControllerState,
-  basicCameraViewState,
-  perspectiveCameraProjectionState,
+  (
+    'state,
+    transformState,
+    pbrMaterialState,
+    geometryState,
+    directionLightState,
+    arcballCameraControllerState,
+    basicCameraViewState,
+    perspectiveCameraProjectionState,
+  ),
+  (
+    actuallyDisposedGameObjects,
+    actuallyDisposedComponents<transform>,
+    actuallyDisposedComponents<pbrMaterial>,
+    actuallyDisposedComponents<geometry>,
+    actuallyDisposedComponents<directionLight>,
+    actuallyDisposedComponents<arcballCameraController>,
+    actuallyDisposedComponents<basicCameraView>,
+    actuallyDisposedComponents<perspectiveCameraProjection>,
+  ),
 )
 
 type cloneCount = int
@@ -335,7 +358,6 @@ type restore<'state> = (. 'state, 'state) => 'state
 
 type deepCopy<'state> = (. 'state) => 'state
 
-
 // @genType
 type gameObjectContribute<'state> = {
   createStateFunc: createStateFunc<'state>,
@@ -346,7 +368,7 @@ type gameObjectContribute<'state> = {
   cloneGameObjectFunc: cloneGameObjectFunc<'state>,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state>,
   restore: restore<'state>,
-  deepCopy: deepCopy<'state>
+  deepCopy: deepCopy<'state>,
 }
 
 // type getGameObjectContribute<'state> = unit => gameObjectContribute<'state>

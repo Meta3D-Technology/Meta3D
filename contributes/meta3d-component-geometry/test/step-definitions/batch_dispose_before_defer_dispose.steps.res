@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentGeometryProtocol.Index.config,
-      
       Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
       Meta3dComponentGeometryProtocol.Index.batchDisposeData,
       Meta3dComponentGeometryProtocol.Index.cloneConfig,
@@ -36,37 +35,54 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((given, \"and"))
 
-    given("create a gameObject", () => {
-      ()
-    })
+    given(
+      "create a gameObject",
+      () => {
+        ()
+      },
+    )
 
-    \"and"("create a geometry", () => {
-      let (s, t) = contribute.contents.createComponentFunc(. state.contents)
+    \"and"(
+      "create a geometry",
+      () => {
+        let (s, t) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      geometry := t
-    })
+        state := s
+        geometry := t
+      },
+    )
 
-    \"and"("add the geometry to the gameObject", () => {
-      state :=
-        contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry1.contents)
-    })
-
-    \"when"("dispose the geometry from the gameObject", () => {
-      ()
-    })
-
-    then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
-      expect(() => {
+    \"and"(
+      "add the geometry to the gameObject",
+      () => {
         state :=
-          contribute.contents.disposeComponentsFunc(.
-            state.contents,
-            Meta3dCommonlib.MutableSparseMap.createEmpty()->Meta3dCommonlib.MutableSparseMap.set(
-              geometry1.contents,
-              [gameObject1],
-            ),
-          )
-      })->toThrowMessage(arg0->Obj.magic)
-    })
+          contribute.contents.addComponentFunc(. state.contents, gameObject1, geometry1.contents)
+      },
+    )
+
+    \"when"(
+      "dispose the geometry from the gameObject",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      %re("/^should contract error: \"(.*)\"$/")->Obj.magic,
+      arg0 => {
+        expect(
+          () => {
+            let (state_, _) = contribute.contents.disposeComponentsFunc(.
+              state.contents,
+              Meta3dCommonlib.MutableSparseMap.createEmpty()->Meta3dCommonlib.MutableSparseMap.set(
+                geometry1.contents,
+                [gameObject1],
+              ),
+            )
+            state := state_
+          },
+        )->toThrowMessage(arg0->Obj.magic)
+      },
+    )
   })
 })

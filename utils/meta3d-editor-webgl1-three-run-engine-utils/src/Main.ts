@@ -52,8 +52,8 @@ export let prepareAndInitEngine = <engineWholeService_ extends engineWholeServic
 
 	meta3dState = engineWholeService.prepare(meta3dState, isDebug,
 		{
-			float9Array1: new Float32Array(),
-			float32Array1: new Float32Array(),
+			float9Array1: new Float32Array(9),
+			float32Array1: new Float32Array(16),
 			transformCount: 100000,
 			geometryCount: 100000,
 			geometryPointCount: 1000000,

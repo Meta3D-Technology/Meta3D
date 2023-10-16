@@ -56,7 +56,7 @@ import { state as gameObjectState } from "meta3d-gameobject-protocol";
 import { service as textureService } from "meta3d-texture-basicsource-protocol/src/service/ServiceType"
 import { texture, state as textureState, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
-import { isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
+// import { isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 import { createDirectionLight, getColor, getDirection, setDirection, getGameObjects as getDirectionLightGameObjects, getIntensity, setColor, setIntensity } from "./DirectionLightAPI"
 
 let _engineCoreProtocolName: string
@@ -171,33 +171,6 @@ let _addMaterial = (meta3dState: meta3dState, api: api, texture: texture, pbrMat
 		textureService.addMaterial(textureState, texture, pbrMaterial)
 	)
 }
-
-let _disposeTexture = (meta3dState: meta3dState, api: api, getMapFunc: any, pbrMaterial: pbrMaterial) => {
-	let texture = _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getMapFunc(engineCoreState, engineCoreService, pbrMaterial), api)
-
-	if (!isNullable(texture)) {
-		let textureService = api.getExtensionService<textureService>(meta3dState, "meta3d-texture-basicsource-protocol")
-
-		let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
-
-		meta3dState = api.setExtensionState(meta3dState, "meta3d-texture-basicsource-protocol",
-			textureService.disposeTexture(textureState, texture, pbrMaterial)
-		)
-	}
-
-	return meta3dState
-}
-
-
-let _disposeAllMaps = (meta3dState: meta3dState, api: api, pbrMaterial: pbrMaterial) => {
-	meta3dState = _disposeTexture(meta3dState, api, getDiffuseMap, pbrMaterial)
-	meta3dState = _disposeTexture(meta3dState, api, getRoughnessMap, pbrMaterial)
-	meta3dState = _disposeTexture(meta3dState, api, getMetalnessMap, pbrMaterial)
-	meta3dState = _disposeTexture(meta3dState, api, getNormalMap, pbrMaterial)
-
-	return meta3dState
-}
-
 
 export let getExtensionServiceUtils = (
 	registerPipelineFunc: any,
@@ -452,24 +425,7 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectTransformComponent(engineCoreState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectPBRMaterialComponent: (meta3dState, gameObject, component) => {
-				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectPBRMaterialComponent(engineCoreState, engineCoreService, gameObject, component), api)
-
-
-				let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, _engineCoreProtocolName)
-
-				let engineCoreService = api.getExtensionService<engineCoreService>(
-					meta3dState,
-					_engineCoreProtocolName
-				)
-
-				if (isActuallyDisposePBRMateiral(
-					engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName).state as any as pbrMaterialState,
-					component, [gameObject]
-				)) {
-					meta3dState = _disposeAllMaps(meta3dState, api, component)
-				}
-
-				return meta3dState
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectPBRMaterialComponent(engineCoreState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectDirectionLightComponent: (meta3dState, gameObject, component) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectGeometryComponent(engineCoreState, engineCoreService, gameObject, component), api)
@@ -702,7 +658,10 @@ export let getExtensionServiceUtils = (
 			},
 			disposeTexture: (meta3dState, texture, material) => {
 				return _encapsulateSceneAPIReturnStateForBasicSourceTexture(meta3dState, (textureState, textureService) => {
-					return textureService.disposeTexture(textureState, texture, material)
+					let data = textureService.disposeTexture(textureState, texture, material)
+					textureState = data[0]
+
+					return textureState
 				}, api)
 			},
 			addMaterial: (meta3dState, texture, material) => {

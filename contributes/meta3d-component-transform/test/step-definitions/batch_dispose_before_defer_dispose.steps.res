@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
-      
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.cloneConfig,
@@ -33,21 +32,36 @@ defineFeature(feature, test => {
   test(."if dispose before defer dispose, contract error", ({given, \"when", \"and", then}) => {
     _getContributeAndCreateAState((given, \"and"))
 
-    given("create a transform", () => {
-      let (s, t) = contribute.contents.createComponentFunc(. state.contents)
+    given(
+      "create a transform",
+      () => {
+        let (s, t) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      transform := t
-    })
+        state := s
+        transform := t
+      },
+    )
 
-    \"when"("dispose the transform", () => {
-      ()
-    })
+    \"when"(
+      "dispose the transform",
+      () => {
+        ()
+      },
+    )
 
-    then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
-      expect(() => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform.contents])
-      })->toThrowMessage(arg0->Obj.magic)
-    })
+    then(
+      %re("/^should contract error: \"(.*)\"$/")->Obj.magic,
+      arg0 => {
+        expect(
+          () => {
+            let (state_, _) = contribute.contents.disposeComponentsFunc(.
+              state.contents,
+              [transform.contents],
+            )
+            state := state_
+          },
+        )->toThrowMessage(arg0->Obj.magic)
+      },
+    )
   })
 })

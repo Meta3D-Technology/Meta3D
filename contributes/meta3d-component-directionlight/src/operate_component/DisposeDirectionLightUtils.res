@@ -17,8 +17,7 @@ let _getDefaultColor = () => [1., 1., 1.]
 
 let _getDefaultIntensity = () => 1.
 
-let _disposeSparseMapData = (map, light) =>
-  map->Meta3dCommonlib.MutableSparseMap.remove(light)
+let _disposeSparseMapData = (map, light) => map->Meta3dCommonlib.MutableSparseMap.remove(light)
 
 let _disposeData = (
   {
@@ -66,8 +65,11 @@ let disposeComponents = (
   state.needDisposedDirectionLights =
     needDisposedComponents->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(lights)
 
-  lights->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. state, light) => state->_disposeData(isDebug, light),
-    state,
+  (
+    lights->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. state, light) => state->_disposeData(isDebug, light),
+      state,
+    ),
+    lights,
   )
 }

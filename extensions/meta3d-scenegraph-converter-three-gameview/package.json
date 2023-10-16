@@ -1,6 +1,6 @@
 {
     "name": "meta3d-scenegraph-converter-three-gameview",
-    "version": "0.17.7",
+    "version": "0.17.11",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-scenegraph-converter-three-gameview",
     "protocol": {
@@ -19,6 +19,7 @@
         "meta3d-engine-whole-gameview-protocol": "^0.17.0",
         "meta3d-event-protocol": "^0.17.0",
         "meta3d-scenegraph-converter-three-gameview-protocol": "^0.17.0",
+        "meta3d-pipeline-dispose-gameview-protocol": "^0.17.0",
         "meta3d-three-api-protocol": "^0.17.0",
         "meta3d-type": "^0.17.0"
     },

@@ -194,25 +194,39 @@ function disposeGameObjects(state, gameObjects) {
           usedPerspectiveCameraProjectionContribute.disposeComponentsFunc
         ]
       ], gameObjects);
-  return _setGameObjectStateAndAllComponentStatesToState(state, [
-              usedGameObjectContribute,
-              usedTransformContribute,
-              usedPBRMaterialContribute,
-              usedGeometryContribute,
-              usedDirectionLightContribute,
-              usedArcballCameraControllerContribute,
-              usedBasicCameraViewContribute,
-              usedPerspectiveCameraProjectionContribute
-            ], [
-              match$1[0],
-              match$1[1],
-              match$1[2],
-              match$1[3],
-              match$1[4],
-              match$1[5],
-              match$1[6],
-              match$1[7]
-            ]);
+  var match$2 = match$1[1];
+  var match$3 = match$1[0];
+  return [
+          _setGameObjectStateAndAllComponentStatesToState(state, [
+                usedGameObjectContribute,
+                usedTransformContribute,
+                usedPBRMaterialContribute,
+                usedGeometryContribute,
+                usedDirectionLightContribute,
+                usedArcballCameraControllerContribute,
+                usedBasicCameraViewContribute,
+                usedPerspectiveCameraProjectionContribute
+              ], [
+                match$3[0],
+                match$3[1],
+                match$3[2],
+                match$3[3],
+                match$3[4],
+                match$3[5],
+                match$3[6],
+                match$3[7]
+              ]),
+          [
+            match$2[0],
+            match$2[1],
+            match$2[2],
+            match$2[3],
+            match$2[4],
+            match$2[5],
+            match$2[6],
+            match$2[7]
+          ]
+        ];
 }
 
 function cloneGameObject(state, count, cloneConfig, sourceGameObject) {

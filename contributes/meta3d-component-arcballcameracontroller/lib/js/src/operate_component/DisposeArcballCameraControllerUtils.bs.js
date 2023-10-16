@@ -94,7 +94,10 @@ function disposeComponents(state, cameraControllers) {
     needDisposedArcballCameraControllers: state_needDisposedArcballCameraControllers,
     disposedArcballCameraControllers: state_disposedArcballCameraControllers
   };
-  return ArraySt$Meta3dCommonlib.reduceOneParam(cameraControllers, _disposeData, state$1);
+  return [
+          ArraySt$Meta3dCommonlib.reduceOneParam(cameraControllers, _disposeData, state$1),
+          cameraControllers
+        ];
 }
 
 exports.deferDisposeComponent = deferDisposeComponent;

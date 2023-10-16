@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-dispose-sceneview",
-    "version": "0.17.0",
+    "version": "0.17.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-dispose-sceneview-protocol"
@@ -15,7 +15,16 @@
     "keywords": [],
     "dependencies": {
         "meta3d-bs-most-protocol": "^0.17.0",
+        "meta3d-component-arcballcameracontroller-protocol": "^0.17.0",
+        "meta3d-component-basiccameraview-protocol": "^0.17.0",
+        "meta3d-component-perspectivecameraprojection-protocol": "^0.17.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.17.0",
+        "meta3d-component-transform-protocol": "^0.17.0",
+        "meta3d-component-geometry-protocol": "^0.17.0",
+        "meta3d-component-directionlight-protocol": "^0.17.0",
         "meta3d-engine-core-sceneview-protocol": "^0.17.0",
+        "meta3d-event-protocol": "^0.17.0",
+        "meta3d-texture-basicsource-protocol": "^0.17.0",
         "meta3d-pipeline-dispose-sceneview-protocol": "^0.17.0",
         "meta3d-pipeline-utils": "^0.17.0",
         "meta3d-type": "^0.17.0"

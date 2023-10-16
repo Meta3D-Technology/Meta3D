@@ -20,12 +20,18 @@ let disposeTexture = ({materials} as state, texture, material) => {
   let materials = materials->GroupTextureUtils.removeMaterial(texture, material)
 
   GroupTextureUtils.isGroupTexture(materials, texture)
-    ? {
-        ...state,
-        materials,
-      }
-    : {
-        ...state,
-        materials,
-      }->_disposeData(texture)
+    ? (
+        {
+          ...state,
+          materials,
+        },
+        Js.Nullable.null,
+      )
+    : (
+        {
+          ...state,
+          materials,
+        }->_disposeData(texture),
+        texture->Meta3dCommonlib.NullableSt.return,
+      )
 }

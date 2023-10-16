@@ -143,22 +143,34 @@ function disposeGameObjects(param) {
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "gameObject", gameObjects, needDisposedGameObjectArray);
     gameObjectState.disposedGameObjectArray = ArraySt$Meta3dCommonlib.removeDuplicateItems(Js_array.concat(gameObjects, gameObjectState.disposedGameObjectArray));
     gameObjectState.needDisposedGameObjectArray = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedGameObjectArray, gameObjects);
-    var transformState$1 = match$6[1](transformState, _getNotSharedComponents(transformState, match$6[0], gameObjects));
-    var pbrMaterialState$1 = match$5[1](pbrMaterialState, _getSharableComponentDataMap(pbrMaterialState, match$5[0], gameObjects));
-    var geometryState$1 = match$4[1](geometryState, _getSharableComponentDataMap(geometryState, match$4[0], gameObjects));
-    var directionLightState$1 = match$3[1](directionLightState, _getNotSharedComponents(directionLightState, match$3[0], gameObjects));
-    var arcballCameraControllerState$1 = match$2[1](arcballCameraControllerState, _getNotSharedComponents(arcballCameraControllerState, match$2[0], gameObjects));
-    var basicCameraViewState$1 = match$1[1](basicCameraViewState, _getNotSharedComponents(basicCameraViewState, match$1[0], gameObjects));
-    var perspectiveCameraProjectionState$1 = match[1](perspectiveCameraProjectionState, _getNotSharedComponents(perspectiveCameraProjectionState, match[0], gameObjects));
+    var match$7 = match$6[1](transformState, _getNotSharedComponents(transformState, match$6[0], gameObjects));
+    var match$8 = match$5[1](pbrMaterialState, _getSharableComponentDataMap(pbrMaterialState, match$5[0], gameObjects));
+    var match$9 = match$4[1](geometryState, _getSharableComponentDataMap(geometryState, match$4[0], gameObjects));
+    var match$10 = match$3[1](directionLightState, _getNotSharedComponents(directionLightState, match$3[0], gameObjects));
+    var match$11 = match$2[1](arcballCameraControllerState, _getNotSharedComponents(arcballCameraControllerState, match$2[0], gameObjects));
+    var match$12 = match$1[1](basicCameraViewState, _getNotSharedComponents(basicCameraViewState, match$1[0], gameObjects));
+    var match$13 = match[1](perspectiveCameraProjectionState, _getNotSharedComponents(perspectiveCameraProjectionState, match[0], gameObjects));
     return [
-            gameObjectState,
-            transformState$1,
-            pbrMaterialState$1,
-            geometryState$1,
-            directionLightState$1,
-            arcballCameraControllerState$1,
-            basicCameraViewState$1,
-            perspectiveCameraProjectionState$1
+            [
+              gameObjectState,
+              match$7[0],
+              match$8[0],
+              match$9[0],
+              match$10[0],
+              match$11[0],
+              match$12[0],
+              match$13[0]
+            ],
+            [
+              gameObjects,
+              match$7[1],
+              match$8[1],
+              match$9[1],
+              match$10[1],
+              match$11[1],
+              match$12[1],
+              match$13[1]
+            ]
           ];
   };
 }

@@ -17,18 +17,22 @@ let deferDisposeComponent = (
 }
 
 let _disposeData = (
-  {diffuseColors, speculars,
-  specularColors,
-  roughnesses,metalnesses,transmissions,iors,
-  
-   defaultDiffuseColor, defaultSpecular,
-   
-  defaultSpecularColor,
-  defaultRoughness,
-  defaultMetalness,
-  defaultTransmission,
-  defaultIOR,
-   } as state,
+  {
+    diffuseColors,
+    speculars,
+    specularColors,
+    roughnesses,
+    metalnesses,
+    transmissions,
+    iors,
+    defaultDiffuseColor,
+    defaultSpecular,
+    defaultSpecularColor,
+    defaultRoughness,
+    defaultMetalness,
+    defaultTransmission,
+    defaultIOR,
+  } as state,
   material,
 ) => {
   state.diffuseColors = Meta3dCommonlib.DisposeTypeArrayUtils.deleteAndResetFloat32TypeArr(.
@@ -69,10 +73,10 @@ let _disposeData = (
     defaultIOR->Obj.magic,
   )
 
-  state.diffuseMap -> Meta3dCommonlib.MutableSparseMap.remove(material)-> ignore
-  state.roughnessMap -> Meta3dCommonlib.MutableSparseMap.remove(material)-> ignore
-  state.metalnessMap-> Meta3dCommonlib.MutableSparseMap.remove(material)-> ignore
-  state.normalMap -> Meta3dCommonlib.MutableSparseMap.remove(material)-> ignore
+  state.diffuseMap->Meta3dCommonlib.MutableSparseMap.remove(material)->ignore
+  state.roughnessMap->Meta3dCommonlib.MutableSparseMap.remove(material)->ignore
+  state.metalnessMap->Meta3dCommonlib.MutableSparseMap.remove(material)->ignore
+  state.normalMap->Meta3dCommonlib.MutableSparseMap.remove(material)->ignore
 
   state
 }
@@ -116,5 +120,5 @@ let disposeComponents = (state, materialDataMap) => {
     disposedComponents,
   )
 
-  state
+  (state, disposedComponents)
 }

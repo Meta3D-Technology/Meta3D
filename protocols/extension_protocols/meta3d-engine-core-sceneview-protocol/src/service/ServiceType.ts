@@ -21,7 +21,7 @@ import type { pipelineName as PipelineType_pipelineName } from '../../src/state/
 
 import type { state as StateType_state } from '../../src/state/StateType';
 
-import type { usedComponentContribute as RegisterComponentType_usedComponentContribute } from '../../src/state/RegisterComponentType';
+import type { usedComponentContribute as RegisterComponentType_usedComponentContribute, component } from '../../src/state/RegisterComponentType';
 import { pipelineContribute, pipelineName } from '../contribute/work/PipelineContributeType';
 import { cloneConfig } from 'meta3d-gameobject-protocol/src/Index';
 import { nullable } from 'meta3d-commonlib-ts/src/nullable';
@@ -52,7 +52,7 @@ export type service = {
     readonly getComponent: <component> (_1: RegisterComponentType_usedComponentContribute, _2: GameObjectContributeType_gameObject) => (null | undefined | component);
     readonly getNeedDisposedComponents: <needDisposedComponents> (_1: RegisterComponentType_usedComponentContribute) => needDisposedComponents;
     readonly deferDisposeComponent: <component> (_1: RegisterComponentType_usedComponentContribute, _2: [component, GameObjectContributeType_gameObject]) => RegisterComponentType_usedComponentContribute;
-    readonly disposeComponents: <batchDisposeData> (_1: RegisterComponentType_usedComponentContribute, _2: batchDisposeData) => RegisterComponentType_usedComponentContribute;
+    readonly disposeComponents: <batchDisposeData> (_1: RegisterComponentType_usedComponentContribute, _2: batchDisposeData) => [RegisterComponentType_usedComponentContribute, Array<component>];
     readonly getAllComponents: <component> (_1: RegisterComponentType_usedComponentContribute) => component[];
     readonly getComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName) => nullable<dataValue>;
     readonly getComponentGameObjects: <component> (_1: RegisterComponentType_usedComponentContribute, _2: component) => GameObjectContributeType_gameObject[];
@@ -62,7 +62,18 @@ export type service = {
     readonly createGameObject: (_1: StateType_state) => [StateType_state, gameObject];
     readonly getNeedDisposedGameObjects: (_1: StateType_state) => gameObject[];
     readonly deferDisposeGameObject: (_1: StateType_state, _2: gameObject) => StateType_state;
-    readonly disposeGameObjects: (_1: StateType_state, _2: gameObject[]) => StateType_state;
+    readonly disposeGameObjects: (_1: StateType_state, _2: gameObject[]) => [StateType_state,
+        [
+            Array<gameObject>,
+            Array<component>,
+            Array<component>,
+            Array<component>,
+            Array<component>,
+            Array<component>,
+            Array<component>,
+            Array<component>,
+        ],
+    ];
     readonly cloneGameObject: (_1: StateType_state, _2: number, _3: cloneConfig, _4: gameObject) => [StateType_state, clonedGameObjects];
     readonly getAllGameObjects: (_1: StateType_state) => gameObject[];
     readonly runPipeline: (_1: Meta3dType_Index_state, _2: extensionProtocolName, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<Meta3dType_Index_state>

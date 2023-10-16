@@ -6,7 +6,11 @@ import { eventName, inputData } from "meta3d-action-load-glb-protocol/src/EventT
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
 import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
+import { getState, setState } from "./Utils"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
+import { List } from "immutable"
+import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -18,12 +22,41 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, glb, glbId) => {
                     let { loadGlb } = api.getExtensionService<loadGLBService>(meta3dState, "meta3d-load-glb-protocol")
 
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getState(elementState)
+
+                            return {
+                                ...state,
+                                addedGLBIds: state.addedGLBIds.push(glbId)
+                            }
+                        },
+                        setState
+                    ], meta3dState, api)
+
                     return loadGlb(meta3dState, glb)
                         .then((gltf) => {
                             return api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol").addGLBAsset(meta3dState, gltf, glbId)
                         })
                 }, (meta3dState) => {
-                    // TODO implement
+                    let {
+                        addedGLBIds
+                    } = getActionState<state>(meta3dState, api, actionName)
+
+                    meta3dState = api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol").removeGLBAsset(meta3dState, getExn(addedGLBIds.last()))
+
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getState(elementState)
+
+                            return {
+                                ...state,
+                                addedGLBIds:
+                                    state.addedGLBIds.pop()
+                            }
+                        },
+                        setState
+                    ], meta3dState, api)
 
                     return Promise.resolve(meta3dState)
                 }))
@@ -52,6 +85,10 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                 })
             })
         },
-        createState: () => null
+        createState: () => {
+            return {
+                addedGLBIds: List(),
+            }
+        }
     }
 }

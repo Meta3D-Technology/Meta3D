@@ -66,7 +66,10 @@ function disposeComponents(state, geometryDataMap) {
   var state$1 = match[0];
   state$1.disposedGeometrys = Js_array.concat(disposedComponents, state$1.disposedGeometrys);
   state$1.needDisposedGeometrys = DisposeSharedComponentUtils$Meta3dCommonlib.removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
-  return state$1;
+  return [
+          state$1,
+          disposedComponents
+        ];
 }
 
 export {

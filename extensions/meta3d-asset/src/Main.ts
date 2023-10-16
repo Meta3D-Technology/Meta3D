@@ -13,6 +13,14 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                 allGLBAssets: state.allGLBAssets.push([glbId, gltf])
             })
         },
+        removeGLBAsset: (meta3dState, glbId) => {
+            let state = api.getExtensionState<state>(meta3dState, "meta3d-asset-protocol")
+
+            return api.setExtensionState(meta3dState, "meta3d-asset-protocol", {
+                ...state,
+                allGLBAssets: state.allGLBAssets.filter(([glbId_, _]) => glbId_ != glbId)
+            })
+        },
         getAllGLBAssets: (meta3dState) => {
             return api.getExtensionState<state>(meta3dState, "meta3d-asset-protocol").allGLBAssets
         }

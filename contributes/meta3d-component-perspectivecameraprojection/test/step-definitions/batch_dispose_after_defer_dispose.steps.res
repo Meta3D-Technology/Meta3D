@@ -104,11 +104,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed perspectiveCameraProjections", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           [perspectiveCameraProjection1.contents],
         )
+        state := state_
+
     })
 
     then(
@@ -169,11 +170,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed perspectiveCameraProjections", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
+        state := state_
+
     })
 
     then("get the perspectiveCameraProjection's gameObjects should return []", () => {
@@ -237,11 +239,12 @@ defineFeature(feature, test => {
         "/^dispose perspectiveCameraProjection(\d+), perspectiveCameraProjection(\d+)$/"
       )->Obj.magic,
       () => {
-        state :=
-          contribute.contents.disposeComponentsFunc(.
-            state.contents,
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
             [perspectiveCameraProjection1.contents, perspectiveCameraProjection2.contents],
-          )
+        )
+        state := state_
+
       },
     )
 

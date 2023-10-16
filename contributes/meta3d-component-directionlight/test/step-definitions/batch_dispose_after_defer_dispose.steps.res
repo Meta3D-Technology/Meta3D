@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentDirectionlightProtocol.Index.config,
-      
       Meta3dComponentDirectionlightProtocol.Index.needDisposedComponents,
       Meta3dComponentDirectionlightProtocol.Index.batchDisposeData,
       Meta3dComponentDirectionlightProtocol.Index.cloneConfig,
@@ -43,53 +42,74 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((given, \"and"))
 
-    given("create a gameObject", () => {
-      ()
-    })
+    given(
+      "create a gameObject",
+      () => {
+        ()
+      },
+    )
 
-    \"and"("create a directionLight", () => {
-      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+    \"and"(
+      "create a directionLight",
+      () => {
+        let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      directionLight1 := m
-    })
+        state := s
+        directionLight1 := m
+      },
+    )
 
-    \"and"("add the directionLight to the gameObject", () => {
-      state :=
-        contribute.contents.addComponentFunc(.
-          state.contents,
-          gameObject1,
-          directionLight1.contents,
-        )
-    })
+    \"and"(
+      "add the directionLight to the gameObject",
+      () => {
+        state :=
+          contribute.contents.addComponentFunc(.
+            state.contents,
+            gameObject1,
+            directionLight1.contents,
+          )
+      },
+    )
 
-    \"and"("defer dispose the directionLight from the gameObject", () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          (directionLight1.contents, gameObject1),
-        )
-    })
+    \"and"(
+      "defer dispose the directionLight from the gameObject",
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            (directionLight1.contents, gameObject1),
+          )
+      },
+    )
 
-    \"when"("dispose the need disposed directionLights", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"when"(
+      "dispose the need disposed directionLights",
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
-    })
+        state := state_
+      },
+    )
 
-    then("get the directionLight's gameObjects should return []", () => {
-      contribute.contents.getGameObjectsFunc(.
-        state.contents,
-        directionLight1.contents,
-      )->expect == []
-    })
+    then(
+      "get the directionLight's gameObjects should return []",
+      () => {
+        contribute.contents.getGameObjectsFunc(.
+          state.contents,
+          directionLight1.contents,
+        )->expect == []
+      },
+    )
 
-    \"and"("get the gameObject's directionLight should return empty", () => {
-      contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
-        Js.Nullable.null
-    })
+    \"and"(
+      "get the gameObject's directionLight should return empty",
+      () => {
+        contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
+          Js.Nullable.null
+      },
+    )
   })
 
   test(."reset removed one\'s value in colors", ({given, \"and", \"when", then}) => {
@@ -110,63 +130,81 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^set directionLight(\d+)'s color to c(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          directionLight1.contents,
-          Meta3dComponentDirectionlightProtocol.Index.dataName.color,
-          c1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set directionLight(\d+)'s color to c(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            directionLight1.contents,
+            Meta3dComponentDirectionlightProtocol.Index.dataName.color,
+            c1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set directionLight(\d+)'s color to c(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          directionLight2.contents,
-          Meta3dComponentDirectionlightProtocol.Index.dataName.color,
-          c2->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set directionLight(\d+)'s color to c(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            directionLight2.contents,
+            Meta3dComponentDirectionlightProtocol.Index.dataName.color,
+            c2->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^defer dispose directionLight(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          directionLight1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-        )
-    })
+    \"and"(
+      %re("/^defer dispose directionLight(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            directionLight1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+      },
+    )
 
-    \"when"("dispose the need disposed directionLights", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"when"(
+      "dispose the need disposed directionLights",
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
-    })
+        state := state_
+      },
+    )
 
-    then(%re("/^get directionLight(\d+)'s color should return default data$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        directionLight1.contents,
-        Meta3dComponentDirectionlightProtocol.Index.dataName.color,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->Obj.magic
-      ->expect == TypeArrayTool.getDefaultColor()
-    })
+    then(
+      %re("/^get directionLight(\d+)'s color should return default data$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          directionLight1.contents,
+          Meta3dComponentDirectionlightProtocol.Index.dataName.color,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->Obj.magic
+        ->expect == TypeArrayTool.getDefaultColor()
+      },
+    )
 
-    \"and"(%re("/^get directionLight(\d+)'s color should return c(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        directionLight2.contents,
-        Meta3dComponentDirectionlightProtocol.Index.dataName.color,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->Obj.magic
-      ->expect == c2
-    })
+    \"and"(
+      %re("/^get directionLight(\d+)'s color should return c(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          directionLight2.contents,
+          Meta3dComponentDirectionlightProtocol.Index.dataName.color,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->Obj.magic
+        ->expect == c2
+      },
+    )
   })
 
   test(."reset removed one\'s value in intensities", ({given, \"and", \"when", then}) => {
@@ -187,41 +225,53 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^set directionLight(\d+)'s intensity to i(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          directionLight1.contents,
-          Meta3dComponentDirectionlightProtocol.Index.dataName.intensity,
-          i1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set directionLight(\d+)'s intensity to i(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            directionLight1.contents,
+            Meta3dComponentDirectionlightProtocol.Index.dataName.intensity,
+            i1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set directionLight(\d+)'s intensity to i(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          directionLight2.contents,
-          Meta3dComponentDirectionlightProtocol.Index.dataName.intensity,
-          i2->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set directionLight(\d+)'s intensity to i(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            directionLight2.contents,
+            Meta3dComponentDirectionlightProtocol.Index.dataName.intensity,
+            i2->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^defer dispose directionLight(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          directionLight1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-        )
-    })
+    \"and"(
+      %re("/^defer dispose directionLight(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            directionLight1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+      },
+    )
 
-    \"when"("dispose the need disposed directionLights", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"when"(
+      "dispose the need disposed directionLights",
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
-    })
+        state := state_
+      },
+    )
 
     then(
       %re("/^get directionLight(\d+)'s intensity should return default data$/")->Obj.magic,
@@ -237,16 +287,19 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^get directionLight(\d+)'s intensity should return i(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        directionLight2.contents,
-        Meta3dComponentDirectionlightProtocol.Index.dataName.intensity,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->Obj.magic
-      ->expect == i2
-    })
+    \"and"(
+      %re("/^get directionLight(\d+)'s intensity should return i(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          directionLight2.contents,
+          Meta3dComponentDirectionlightProtocol.Index.dataName.intensity,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->Obj.magic
+        ->expect == i2
+      },
+    )
   })
 
   test(."if has disposed one, use disposed index as new index", ({
@@ -272,26 +325,32 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^defer dispose directionLight(\d+), directionLight(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          directionLight1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-        )
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          directionLight2.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-        )
-    })
+    \"and"(
+      %re("/^defer dispose directionLight(\d+), directionLight(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            directionLight1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            directionLight2.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+      },
+    )
 
-    \"and"(%re("/^dispose directionLight(\d+), directionLight(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"and"(
+      %re("/^dispose directionLight(\d+), directionLight(\d+)$/")->Obj.magic,
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           [directionLight1.contents, directionLight2.contents],
         )
-    })
+        state := state_
+      },
+    )
 
     \"when"(
       %re("/^create two directionLights as directionLight(\d+), directionLight(\d+)$/")->Obj.magic,
@@ -305,12 +364,18 @@ defineFeature(feature, test => {
       },
     )
 
-    then(%re("/^directionLight(\d+) should equal to directionLight(\d+)$/")->Obj.magic, () => {
-      directionLight3->expect == directionLight2
-    })
+    then(
+      %re("/^directionLight(\d+) should equal to directionLight(\d+)$/")->Obj.magic,
+      () => {
+        directionLight3->expect == directionLight2
+      },
+    )
 
-    \"and"(%re("/^directionLight(\d+) should equal to directionLight(\d+)$/")->Obj.magic, () => {
-      directionLight4->expect == directionLight1
-    })
+    \"and"(
+      %re("/^directionLight(\d+) should equal to directionLight(\d+)$/")->Obj.magic,
+      () => {
+        directionLight4->expect == directionLight1
+      },
+    )
   })
 })

@@ -53,7 +53,10 @@ function disposeComponents(state, cameraViews) {
     needDisposedBasicCameraViews: state_needDisposedBasicCameraViews,
     disposedBasicCameraViews: state_disposedBasicCameraViews
   };
-  return ArraySt$Meta3dCommonlib.reduceOneParam(cameraViews, _disposeData, state$1);
+  return [
+          ArraySt$Meta3dCommonlib.reduceOneParam(cameraViews, _disposeData, state$1),
+          cameraViews
+        ];
 }
 
 export {

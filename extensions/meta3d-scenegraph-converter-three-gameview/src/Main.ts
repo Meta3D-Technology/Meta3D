@@ -1,10 +1,10 @@
 import { service } from "meta3d-scenegraph-converter-three-gameview-protocol/src/service/ServiceType"
 import { state } from "meta3d-scenegraph-converter-three-gameview-protocol/src/state/StateType"
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D } from "meta3d-type"
-import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+// import { service as engineSceneService } from "meta3d-engine-scene-gameview-protocol/src/service/ServiceType"
+// import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { getExtensionServiceUtils, createExtensionStateUtils, getExtensionLifeUtils } from "meta3d-scenegraph-converter-three-utils/src/Main"
-import { subEvent } from "meta3d-action-add-cube-protocol/src/EventType"
+import { event } from "meta3d-pipeline-dispose-gameview-protocol/src/EventType"
 
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
@@ -23,9 +23,14 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
         //     return [cameraView, cameraProjection]
         // },
         api,
-        // _getAllEventNames(),
-        subEvent.disposeGameObjectEventNameForGameView,
-        ["meta3d-engine-whole-gameview-protocol", "meta3d-engine-core-gameview-protocol"]
+        {
+            DisposeGameObjectsEventName: event.DisposeGameObjectsEventNameForGameView,
+            DisposeGeometrysEventName: event.DisposeGeometrysEventNameForGameView,
+            DisposePBRMaterialsEventName: event.DisposePBRMaterialsEventNameForGameView,
+            DisposeDirectionLightsEventName: event.DisposeDirectionLightsEventNameForGameView,
+            DisposeTextureEventName: event.DisposeTextureEventNameForGameView,
+        },
+        "meta3d-engine-whole-gameview-protocol"
     )
 }
 

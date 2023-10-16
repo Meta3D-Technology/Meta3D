@@ -93,7 +93,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -156,7 +160,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -211,7 +219,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform2.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform2.contents],
+        )
+        state := state_
       },
     )
 
@@ -282,7 +294,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -386,7 +402,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform2.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform2.contents],
+        )
+        state := state_
       },
     )
 
@@ -451,7 +471,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -553,7 +577,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform3.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform3.contents],
+        )
+        state := state_
       },
     )
 
@@ -648,7 +676,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -712,7 +744,11 @@ defineFeature(feature, test => {
     \"when"(
       "dispose the transform",
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -780,7 +816,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -873,7 +913,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -962,7 +1006,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -1051,7 +1099,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -1124,11 +1176,11 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^dispose transform(\d+), transform(\d+)$/")->Obj.magic,
       () => {
-        state :=
-          contribute.contents.disposeComponentsFunc(.
-            state.contents,
-            [transform1.contents, transform2.contents],
-          )
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents, transform2.contents],
+        )
+        state := state_
       },
     )
 
@@ -1206,7 +1258,11 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -1326,7 +1382,11 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 
@@ -1412,7 +1472,11 @@ defineFeature(feature, test => {
     \"when"(
       %re("/^dispose transform(\d+)$/")->Obj.magic,
       () => {
-        state := contribute.contents.disposeComponentsFunc(. state.contents, [transform1.contents])
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
+          state.contents,
+          [transform1.contents],
+        )
+        state := state_
       },
     )
 

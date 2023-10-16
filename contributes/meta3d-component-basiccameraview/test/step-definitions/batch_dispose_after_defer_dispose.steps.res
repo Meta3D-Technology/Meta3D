@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentBasiccameraviewProtocol.Index.config,
-      
       Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,
       Meta3dComponentBasiccameraviewProtocol.Index.batchDisposeData,
       Meta3dComponentBasiccameraviewProtocol.Index.cloneConfig,
@@ -55,34 +54,47 @@ defineFeature(feature, test => {
     \"and"(
       "set basicCameraView1's isActive",
       () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          basicCameraView1.contents,
-          Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
-          true-> Obj.magic
-        )
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            basicCameraView1.contents,
+            Meta3dComponentBasiccameraviewProtocol.Index.dataName.isActive,
+            true->Obj.magic,
+          )
       },
     )
 
-    \"and"(%re("/^defer dispose basicCameraView(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
+    \"and"(
+      %re("/^defer dispose basicCameraView(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            basicCameraView1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+      },
+    )
+
+    \"when"(
+      "dispose the need disposed basicCameraViews",
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
-          basicCameraView1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          [basicCameraView1.contents],
         )
-    })
+        state := state_
+      },
+    )
 
-    \"when"("dispose the need disposed basicCameraViews", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(. state.contents, [basicCameraView1.contents])
-    })
+    then(
+      "should remove basicCameraView1 from isActiveMap",
+      () => {
+        let {isActiveMap} = state.contents
 
-    then("should remove basicCameraView1 from isActiveMap", () => {
-      let {isActiveMap} = state.contents
-
-      isActiveMap->Meta3dCommonlib.MutableSparseMap.has(basicCameraView1.contents)->expect == false
-    })
+        isActiveMap->Meta3dCommonlib.MutableSparseMap.has(basicCameraView1.contents)->expect ==
+          false
+      },
+    )
   })
 
   test(."remove from gameObjectMap, gameObjectBasicCameraViewMap", ({
@@ -97,53 +109,74 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((given, \"and"))
 
-    given("create a gameObject", () => {
-      ()
-    })
+    given(
+      "create a gameObject",
+      () => {
+        ()
+      },
+    )
 
-    \"and"("create a basicCameraView", () => {
-      let (s, m) = contribute.contents.createComponentFunc(. state.contents)
+    \"and"(
+      "create a basicCameraView",
+      () => {
+        let (s, m) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      basicCameraView1 := m
-    })
+        state := s
+        basicCameraView1 := m
+      },
+    )
 
-    \"and"("add the basicCameraView to the gameObject", () => {
-      state :=
-        contribute.contents.addComponentFunc(.
-          state.contents,
-          gameObject1,
-          basicCameraView1.contents,
-        )
-    })
+    \"and"(
+      "add the basicCameraView to the gameObject",
+      () => {
+        state :=
+          contribute.contents.addComponentFunc(.
+            state.contents,
+            gameObject1,
+            basicCameraView1.contents,
+          )
+      },
+    )
 
-    \"and"("defer dispose the basicCameraView from the gameObject", () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          (basicCameraView1.contents, gameObject1),
-        )
-    })
+    \"and"(
+      "defer dispose the basicCameraView from the gameObject",
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            (basicCameraView1.contents, gameObject1),
+          )
+      },
+    )
 
-    \"when"("dispose the need disposed basicCameraViews", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"when"(
+      "dispose the need disposed basicCameraViews",
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
-    })
+        state := state_
+      },
+    )
 
-    then("get the basicCameraView's gameObjects should return []", () => {
-      contribute.contents.getGameObjectsFunc(.
-        state.contents,
-        basicCameraView1.contents,
-      )->expect == []
-    })
+    then(
+      "get the basicCameraView's gameObjects should return []",
+      () => {
+        contribute.contents.getGameObjectsFunc(.
+          state.contents,
+          basicCameraView1.contents,
+        )->expect == []
+      },
+    )
 
-    \"and"("get the gameObject's basicCameraView should return empty", () => {
-      contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
-        Js.Nullable.null
-    })
+    \"and"(
+      "get the gameObject's basicCameraView should return empty",
+      () => {
+        contribute.contents.getComponentFunc(. state.contents, gameObject1)->expect ==
+          Js.Nullable.null
+      },
+    )
   })
 
   test(."if has disposed one, use disposed index as new index", ({
@@ -171,26 +204,32 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^defer dispose basicCameraView(\d+), basicCameraView(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          basicCameraView1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-        )
-      state :=
-        contribute.contents.deferDisposeComponentFunc(.
-          state.contents,
-          basicCameraView2.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
-        )
-    })
+    \"and"(
+      %re("/^defer dispose basicCameraView(\d+), basicCameraView(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            basicCameraView1.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+        state :=
+          contribute.contents.deferDisposeComponentFunc(.
+            state.contents,
+            basicCameraView2.contents->Meta3dCommonlib.DeferDisposeTool.buildDeferDisposeData,
+          )
+      },
+    )
 
-    \"and"(%re("/^dispose basicCameraView(\d+), basicCameraView(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+    \"and"(
+      %re("/^dispose basicCameraView(\d+), basicCameraView(\d+)$/")->Obj.magic,
+      () => {
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           [basicCameraView1.contents, basicCameraView2.contents],
         )
-    })
+        state := state_
+      },
+    )
 
     \"when"(
       %re(
@@ -206,12 +245,18 @@ defineFeature(feature, test => {
       },
     )
 
-    then(%re("/^basicCameraView(\d+) should equal to basicCameraView(\d+)$/")->Obj.magic, () => {
-      basicCameraView3->expect == basicCameraView2
-    })
+    then(
+      %re("/^basicCameraView(\d+) should equal to basicCameraView(\d+)$/")->Obj.magic,
+      () => {
+        basicCameraView3->expect == basicCameraView2
+      },
+    )
 
-    \"and"(%re("/^basicCameraView(\d+) should equal to basicCameraView(\d+)$/")->Obj.magic, () => {
-      basicCameraView4->expect == basicCameraView1
-    })
+    \"and"(
+      %re("/^basicCameraView(\d+) should equal to basicCameraView(\d+)$/")->Obj.magic,
+      () => {
+        basicCameraView4->expect == basicCameraView1
+      },
+    )
   })
 })

@@ -90,11 +90,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed pbrMaterials", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
+        state := state_
+
     })
 
     then(%re("/^get the pbrMaterial's diffuseColor should return d(\d+)$/")->Obj.magic, () => {
@@ -170,11 +171,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed pbrMaterials", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
+        state := state_
+
     })
 
     then("get the pbrMaterial's diffuseColor should return default data", () => {
@@ -222,11 +224,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed pbrMaterials", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
+        state := state_
+
     })
 
     then("get the pbrMaterial's gameObjects should return []", () => {
@@ -301,11 +304,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed pbrMaterials", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
+        state := state_
+
     })
 
     then(%re("/^get p(\d+)'s diffuseColor should return default data$/")->Obj.magic, () => {
@@ -387,11 +391,12 @@ defineFeature(feature, test => {
     })
 
     \"when"("dispose the need disposed pbrMaterials", () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
           contribute.contents.getNeedDisposedComponentsFunc(. state.contents),
         )
+        state := state_
+
     })
 
     then(%re("/^get p(\d+)'s specular should return default data$/")->Obj.magic, () => {
@@ -448,14 +453,14 @@ defineFeature(feature, test => {
     })
 
     \"and"(%re("/^dispose pbrMaterial(\d+), pbrMaterial(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.disposeComponentsFunc(.
+        let (state_, _) = contribute.contents.disposeComponentsFunc(.
           state.contents,
-          Meta3dCommonlib.BatchDisposeTool.buildSharedBatchDisposeData([
+Meta3dCommonlib.BatchDisposeTool.buildSharedBatchDisposeData([
             pbrMaterial1.contents,
             pbrMaterial2.contents,
-          ]),
+          ])
         )
+        state := state_
     })
 
     \"when"(

@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentBasiccameraviewProtocol.Index.config,
-      
       Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,
       Meta3dComponentBasiccameraviewProtocol.Index.batchDisposeData,
       Meta3dComponentBasiccameraviewProtocol.Index.cloneConfig,
@@ -33,25 +32,36 @@ defineFeature(feature, test => {
   test(."if dispose before defer dispose, contract error", ({given, \"when", \"and", then}) => {
     _getContributeAndCreateAState((given, \"and"))
 
-    given("create a basicCameraView", () => {
-      let (s, t) = contribute.contents.createComponentFunc(. state.contents)
+    given(
+      "create a basicCameraView",
+      () => {
+        let (s, t) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      basicCameraView := t
-    })
+        state := s
+        basicCameraView := t
+      },
+    )
 
-    \"when"("dispose the basicCameraView", () => {
-      ()
-    })
+    \"when"(
+      "dispose the basicCameraView",
+      () => {
+        ()
+      },
+    )
 
-    then(%re("/^should contract error: \"(.*)\"$/")->Obj.magic, arg0 => {
-      expect(() => {
-        state :=
-          contribute.contents.disposeComponentsFunc(.
-            state.contents,
-            [basicCameraView.contents],
-          )
-      })->toThrowMessage(arg0->Obj.magic)
-    })
+    then(
+      %re("/^should contract error: \"(.*)\"$/")->Obj.magic,
+      arg0 => {
+        expect(
+          () => {
+            let (state_, _) = contribute.contents.disposeComponentsFunc(.
+              state.contents,
+              [basicCameraView.contents],
+            )
+            state := state_
+          },
+        )->toThrowMessage(arg0->Obj.magic)
+      },
+    )
   })
 })

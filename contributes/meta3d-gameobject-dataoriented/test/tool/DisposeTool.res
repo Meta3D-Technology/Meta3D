@@ -72,27 +72,33 @@ let disposeGameObjects = (
   ~arcballCameraControllerState=Obj.magic(1),
   ~basicCameraViewState=Obj.magic(1),
   ~perspectiveCameraProjectionState=Obj.magic(1),
-  ~transformFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
+  ~transformFuncs=(
+    (. componentState, _) => Obj.magic(1),
+    (. componentState, _) => (componentState, []),
+  ),
   ~pbrMaterialFuncs=(
     (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
+    (. componentState, _) => (componentState, []),
   ),
-  ~geometryFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
+  ~geometryFuncs=(
+    (. componentState, _) => Obj.magic(1),
+    (. componentState, _) => (componentState, []),
+  ),
   ~directionLightFuncs=(
     (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
+    (. componentState, _) => (componentState, []),
   ),
   ~arcballCameraControllerFuncs=(
     (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
+    (. componentState, _) => (componentState, []),
   ),
   ~basicCameraViewFuncs=(
     (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
+    (. componentState, _) => (componentState, []),
   ),
   ~perspectiveCameraProjectionFuncs=(
     (. componentState, _) => Obj.magic(1),
-    (. componentState, _) => componentState,
+    (. componentState, _) => (componentState, []),
   ),
   (),
 ) => {

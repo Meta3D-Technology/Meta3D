@@ -81,7 +81,10 @@ function disposeComponents(state, materialDataMap) {
   var state$1 = match[0];
   state$1.disposedPBRMaterials = Js_array.concat(disposedComponents, state$1.disposedPBRMaterials);
   state$1.needDisposedPBRMaterials = DisposeSharedComponentUtils$Meta3dCommonlib.removeDisposedComponentsFromNeedDisposedComponents(needDisposedComponents, disposedComponents);
-  return state$1;
+  return [
+          state$1,
+          disposedComponents
+        ];
 }
 
 exports.deferDisposeComponent = deferDisposeComponent;

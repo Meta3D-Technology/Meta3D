@@ -6,7 +6,9 @@ let deferDisposeComponent = (
 ) => {
   {
     ...state,
-    gameObjectGeometryMap: gameObjectGeometryMap->Meta3dCommonlib.MutableSparseMap.remove(gameObject),
+    gameObjectGeometryMap: gameObjectGeometryMap->Meta3dCommonlib.MutableSparseMap.remove(
+      gameObject,
+    ),
     needDisposedGeometrys: needDisposedGeometrys->Meta3dCommonlib.ArrayMapUtils.addValue(
       geometry,
       gameObject,
@@ -43,9 +45,17 @@ let disposeComponents = (state, geometryDataMap) => {
   let (state, disposedComponents) =
     geometryDataMap->Meta3dCommonlib.MutableSparseMap.reducei(
       (. (state, disposedComponents), gameObjects, geometry) => {
-        state.gameObjectsMap = Meta3dCommonlib.ArrayMapUtils.batchRemoveValueArr(state.gameObjectsMap, geometry, gameObjects)
+        state.gameObjectsMap = Meta3dCommonlib.ArrayMapUtils.batchRemoveValueArr(
+          state.gameObjectsMap,
+          geometry,
+          gameObjects,
+        )
 
-        Meta3dCommonlib.DisposeSharedComponentUtils. isComponentHasGameObject(state.gameObjectsMap, geometry, gameObjects)
+        Meta3dCommonlib.DisposeSharedComponentUtils.isComponentHasGameObject(
+          state.gameObjectsMap,
+          geometry,
+          gameObjects,
+        )
           ? (state, disposedComponents)
           : (
               state->_disposeData(isDebug, geometry),
@@ -56,10 +66,10 @@ let disposeComponents = (state, geometryDataMap) => {
     )
 
   state.disposedGeometrys = state.disposedGeometrys->Js.Array.concat(disposedComponents, _)
-  state.needDisposedGeometrys =  Meta3dCommonlib.DisposeSharedComponentUtils.removeDisposedComponentsFromNeedDisposedComponents(
+  state.needDisposedGeometrys = Meta3dCommonlib.DisposeSharedComponentUtils.removeDisposedComponentsFromNeedDisposedComponents(
     needDisposedComponents,
     disposedComponents,
   )
 
-  state
+  (state, disposedComponents)
 }

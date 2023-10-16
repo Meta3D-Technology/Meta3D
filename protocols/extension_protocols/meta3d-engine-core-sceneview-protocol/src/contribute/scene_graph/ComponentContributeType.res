@@ -43,10 +43,10 @@ type dataName = int
 type getComponentDataFunc<'state, 'component> = (
   . 'state,
   'component,
-  dataName
+  dataName,
 ) => Js.Nullable.t<dataValue>
 
-type setComponentDataFunc<'state,  'component> = (
+type setComponentDataFunc<'state, 'component> = (
   . 'state,
   'component,
   dataName,
@@ -58,7 +58,12 @@ type deferDisposeComponentFunc<'state, 'component> = (
   ('component, Meta3dGameobjectProtocol.Index.gameObject),
 ) => 'state
 
-type disposeComponentsFunc<'state, 'batchDisposeData> = (. 'state, 'batchDisposeData) => 'state
+type actuallyDisposedComponents<'component> = array<'component>
+
+type disposeComponentsFunc<'state, 'batchDisposeData, 'component> = (
+  . 'state,
+  'batchDisposeData,
+) => ('state, actuallyDisposedComponents<'component>)
 
 type countRange = array<int>
 
@@ -92,14 +97,14 @@ type componentContribute<
   hasComponentFunc: hasComponentFunc<'state>,
   getComponentFunc: getComponentFunc<'state, 'component>,
   getNeedDisposedComponentsFunc: getNeedDisposedComponentsFunc<'state, 'needDisposedComponents>,
-  getComponentDataFunc: getComponentDataFunc<'state,  'component>,
-  setComponentDataFunc: setComponentDataFunc<'state,  'component>,
+  getComponentDataFunc: getComponentDataFunc<'state, 'component>,
+  setComponentDataFunc: setComponentDataFunc<'state, 'component>,
   deferDisposeComponentFunc: deferDisposeComponentFunc<'state, 'component>,
-  disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData>,
+  disposeComponentsFunc: disposeComponentsFunc<'state, 'batchDisposeData, 'component>,
   cloneComponentFunc: cloneComponentFunc<'state, 'cloneConfig, 'component>,
   getAllComponentsFunc: getAllComponentsFunc<'state, 'component>,
   restore: restore<'state>,
-  deepCopy: deepCopy<'state>
+  deepCopy: deepCopy<'state>,
 }
 
 // // @genType

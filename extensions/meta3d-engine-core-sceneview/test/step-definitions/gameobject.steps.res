@@ -59,7 +59,7 @@ defineFeature(feature, test => {
     ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
     ~disposeGameObjectsFunc=(. states, _, gameObjects) => states,
     ~cloneGameObjectFunc=(. states, _, _, _, _) => (states, []),
-    ~restore=(. currentState,targetState ) => targetState,
+    ~restore=(. currentState, targetState) => targetState,
     ~deepCopy=(. state) => state,
     (),
   ): Meta3dEngineCoreSceneviewProtocol.GameObjectType.gameObjectContribute => {
@@ -68,10 +68,13 @@ defineFeature(feature, test => {
     getAllGameObjectsFunc,
     getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc,
-    disposeGameObjectsFunc,
+    disposeGameObjectsFunc: (. states, funcs, gameObjects) => (
+      disposeGameObjectsFunc(. states, funcs, gameObjects),
+      Obj.magic(1),
+    ),
     cloneGameObjectFunc,
     restore,
-    deepCopy
+    deepCopy,
   }
 
   let _prepare = (given, \"when", \"and", c) => {
@@ -200,11 +203,14 @@ defineFeature(feature, test => {
         }->Obj.magic
       },
       ~disposeComponentsFunc=(. state, batchDisposeData) => {
-        {
-          "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
-            batchDisposeData->Obj.magic,
-          ),
-        }->Obj.magic
+        (
+          {
+            "disposedArray": JsObjTool.getObjValue(state, "disposedArray")->Js.Array.concat(
+              batchDisposeData->Obj.magic,
+            ),
+          }->Obj.magic,
+          Obj.magic(1),
+        )
       },
       ~cloneComponentFunc=(. state, countRange, cloneConfig, component) => {
         (
@@ -676,25 +682,28 @@ defineFeature(feature, test => {
           ),
           gameObjects,
         ) => {
-          let transformState = disposeTransformsFunc(. transformState, [t1.contents])
-          let pbrMaterialState = disposePBRMaterialsFunc(.
+          let (transformState, _) = disposeTransformsFunc(. transformState, [t1.contents])
+          let (pbrMaterialState, _) = disposePBRMaterialsFunc(.
             pbrMaterialState,
             _buildSharedComponentBatchDisposeData(p1.contents),
           )
-          let geometryState = disposeGeometrysFunc(.
+          let (geometryState, _) = disposeGeometrysFunc(.
             geometryState,
             _buildSharedComponentBatchDisposeData(geo1.contents),
           )
-          let directionLightState = disposeDirectionLightFunc(. directionLightState, [d1.contents])
-          let arcballCameraControllerState = disposeArcballCameraControllerFunc(.
+          let (directionLightState, _) = disposeDirectionLightFunc(.
+            directionLightState,
+            [d1.contents],
+          )
+          let (arcballCameraControllerState, _) = disposeArcballCameraControllerFunc(.
             arcballCameraControllerState,
             [a1.contents],
           )
-          let basicCameraViewState = disposeBasicCameraViewFunc(.
+          let (basicCameraViewState, _) = disposeBasicCameraViewFunc(.
             basicCameraViewState,
             [b1.contents],
           )
-          let perspectiveCameraProjectionState = disposePerspectiveCameraProjectionFunc(.
+          let (perspectiveCameraProjectionState, _) = disposePerspectiveCameraProjectionFunc(.
             perspectiveCameraProjectionState,
             [pcp1.contents],
           )

@@ -400,7 +400,6 @@ defineFeature(feature, test => {
       () => {
         (
           PipelineTool.getPipelineState(s2.contents, pipelineName)
-          ->Meta3dCommonlib.Log.printForDebug
           ->Obj.magic
         )["data1"]
         ->Meta3dCommonlib.ArraySt.push(1)
