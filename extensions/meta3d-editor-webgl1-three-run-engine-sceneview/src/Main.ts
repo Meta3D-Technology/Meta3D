@@ -54,15 +54,15 @@ let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta
 	let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
 	if (!(allEvents.count() == 1 && getExn(allEvents.last()).name == eventName)) {
-		throw new Error("all events should only has import event")
+		throw new Error("should only has import event")
 	}
 }
 
-let _checkOutsideImmutableDataIsEmpty = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
-	if (eventSourcingService.getAllOutsideImmutableData(meta3dState).count() != 0) {
-		throw new Error("outside immutable data should be empty")
-	}
-}
+// let _checkOutsideImmutableDataIsEmpty = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
+// 	if (eventSourcingService.getAllOutsideImmutableData(meta3dState).count() != 0) {
+// 		throw new Error("outside immutable data should be empty")
+// 	}
+// }
 
 
 export let getExtensionService: getExtensionServiceMeta3D<
@@ -88,6 +88,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			})
 		},
 		sync: (meta3dState) => {
+			debugger
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-editor-run-engine-sceneview-protocol")
 
 			let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
@@ -110,7 +111,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			else if (eventSourcingService.getNeedReplaceAllEvents(meta3dState).count() > 0) {
 				// TODO contract check
 				_checkOnlyHasImportEvent(eventSourcingService, meta3dState)
-				_checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
+				// _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
 
 				let events = eventSourcingService.getNeedReplaceAllEvents(meta3dState)
 

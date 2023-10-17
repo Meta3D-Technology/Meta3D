@@ -14,20 +14,10 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
     return {
         actionName: actionName,
         init: (meta3dState) => {
-            // let exportEventService = api.getExtensionService<exportEventService>(meta3dState, "meta3d-export-scene-protocol")
             let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    // exportEventService.export([(glb) => {
-                    //     _download(glb, "scene", "glb")
-
-                    //     resolve(meta3dState)
-                    // }, (err) => {
-                    //     throw err
-                    // }], meta3dState)
-
-
                     let allEvents = eventSourcingService.getAllEvents(meta3dState).toArray()
 
                     api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol").exportEventData(allEvents)
@@ -39,8 +29,6 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             })
         },
         handler: (meta3dState, uiData) => {
-            console.log("export scene")
-
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 

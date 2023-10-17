@@ -75,6 +75,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
 		},
+		createAllEvents: (allEventData) => {
+			return List(allEventData)
+		},
 		// addOutsideImmutableData: (meta3dState, outsideImmutableDataId, outsideImmutableData) => {
 		// 	let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
 
@@ -199,7 +202,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					return Promise.resolve(meta3dState)
 				}
 
-				// debugger
 				let { name, inputData } = getExn(events.get(index))
 
 				return eventService.triggerCustomGlobalEvent3(meta3dState,

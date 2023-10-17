@@ -12,7 +12,6 @@ import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 import { getState, setState } from "./Utils"
 import { List } from "immutable"
-import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { disposeGameObjectAndChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
@@ -25,13 +24,15 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    let lastLoadedGLBAsset = api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol").getAllGLBAssets(meta3dState).last()
+                    let allGLBAssets = api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol").getAllGLBAssets(meta3dState)
 
-                    if (isNullable(lastLoadedGLBAsset)) {
+                    if (allGLBAssets.length == 0) {
                         return Promise.resolve(meta3dState)
                     }
 
-                    let [_, gltf] = getExn(lastLoadedGLBAsset)
+                    let lastLoadedGLBAsset = allGLBAssets[allGLBAssets.length - 1]
+
+                    let [_, gltf] = lastLoadedGLBAsset
 
                     let data = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
                     meta3dState = data[0]

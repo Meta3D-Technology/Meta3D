@@ -264,16 +264,67 @@ TODO publish
 # ** TODO import event: handle outside immutable data
 
 
-** TODO export event: generate scene glb, asset arraybuffer
 
-** TODO import event: load scene glb, asset arraybuffer
 
-** TODO pass run test: debug
+** DONE pass run test: debug
+
+# TODO fix: no loop?
+
+
+
+
 
 ** TODO import/export Event support reset
 
 TODO use import-scene?
 
+
+TODO publish
+# import event action
+# meta3d-editor-webgl1-three-run-engine-sceneview
+# meta3d-asset, protocol
+# event source, protocol
+# import scene
+# import,export single event(add)
+# export single event
+# export scene
+# scenegraph, s,g
+# meta3d-pipeline-editor-webgl1-scene-view1, g
+# # scene, whole, smg
+# # # add glb
+# # # meta3d-action-export-single-event
+# # meta3d-action-import-single-event
+# meta3d-action-import-single-event
+
+
+
+
+scene glb+asset arraybuffer
+
+
+import scene glb
+import asset arraybuffer
+
+
+# TODO add export reset button
+TODO export 2 cube
+  TODO fix: why so many children?
+  TODO fix: why no after import?
+  TODO why direction change?
+  TODO no show
+  direction: null, null, null
+  no intensity
+
+  # TODO gameview: no arcball
+  TODO not refresh
+
+
+TODO export 1 cube + 1 glb
+
+
+*** TODO export event: generate scene glb, asset arraybuffer
+
+*** TODO import event: load scene glb, asset arraybuffer
 
 
 * TODO pass run test: publish with glb

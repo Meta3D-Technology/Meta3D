@@ -3,7 +3,6 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-import-event-protocol"
 import { eventName, inputData } from "meta3d-action-import-event-protocol/src/EventType"
-// import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -15,13 +14,7 @@ let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta
     let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
     if (!(allEvents.count() == 1 && getExn(allEvents.last()).name == eventName)) {
-        throw new Error("all events should only has import event")
-    }
-}
-
-let _checkOutsideImmutableDataIsEmpty = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
-    if (eventSourcingService.getAllOutsideImmutableData(meta3dState).count() != 0) {
-        throw new Error("outside immutable data should be empty")
+        throw new Error("should only has import event")
     }
 }
 
@@ -50,19 +43,15 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     return new Promise((resolve, reject) => {
                         // TODO contract check
                         _checkOnlyHasImportEvent(eventSourcingService, meta3dState)
-                        _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
 
                         let events = _parseEventData(
                             api.getExtensionService<eventDataService>(meta3dState, "meta3d-event-data-protocol"),
                             eventData
                         )
 
-
                         events = _removeAllReadEvents(events)
 
                         meta3dState = eventSourcingService.setNeedReplaceAllEvents(meta3dState, events)
-
-                        // TODO handle outside immutable data
 
                         resolve(meta3dState)
 
@@ -73,8 +62,6 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             })
         },
         handler: (meta3dState, uiData) => {
-            console.log("import scene")
-
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 

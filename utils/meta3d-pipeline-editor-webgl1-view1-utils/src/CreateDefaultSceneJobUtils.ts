@@ -139,7 +139,9 @@ let _createDirectionLightGameObject = (meta3dState: meta3dState, { scene }: engi
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 0, -1])
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 0, 1])
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 1])
-    meta3dState = scene.transform.lookAt(meta3dState, transform, [1, 0.1, 1])
+    // meta3dState = scene.transform.lookAt(meta3dState, transform, [1, 0.1, 1])
+    meta3dState = scene.transform.lookAt(meta3dState, transform, [-0.2, -0.1, -1])
+    // meta3dState = scene.transform.lookAt(meta3dState, transform, [0.2, 0.1, 1])
 
 
 

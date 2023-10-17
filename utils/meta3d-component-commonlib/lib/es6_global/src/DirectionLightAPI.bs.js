@@ -23,16 +23,23 @@ function getDirection(usedDirectionLightContribute, param, usedTransformContribu
 }
 
 function setDirection(usedDirectionLightContribute, engineCoreService, usedTransformContribute, light, direction) {
+  var z = direction[2];
+  var y = direction[1];
+  var x = direction[0];
   var getComponent = engineCoreService.getComponent;
-  return OptionSt$Meta3dCommonlib.bind(ArraySt$Meta3dCommonlib.getFirst(Curry._2(engineCoreService.getComponentGameObjects, usedDirectionLightContribute, light)), (function (gameObject) {
-                return OptionSt$Meta3dCommonlib.map(OptionSt$Meta3dCommonlib.fromNullable(Curry._2(getComponent, usedTransformContribute, gameObject)), (function (transform) {
-                              return TransformAPI$Meta3dComponentCommonlib.lookAt(usedTransformContribute, engineCoreService, transform, direction, [
-                                          0,
-                                          1,
-                                          0
-                                        ], undefined);
-                            }));
-              }));
+  return OptionSt$Meta3dCommonlib.getWithDefault(OptionSt$Meta3dCommonlib.bind(ArraySt$Meta3dCommonlib.getFirst(Curry._2(engineCoreService.getComponentGameObjects, usedDirectionLightContribute, light)), (function (gameObject) {
+                    return OptionSt$Meta3dCommonlib.map(OptionSt$Meta3dCommonlib.fromNullable(Curry._2(getComponent, usedTransformContribute, gameObject)), (function (transform) {
+                                  return TransformAPI$Meta3dComponentCommonlib.lookAt(usedTransformContribute, engineCoreService, transform, [
+                                              - x,
+                                              - y,
+                                              - z
+                                            ], [
+                                              0,
+                                              1,
+                                              0
+                                            ], undefined);
+                                }));
+                  })), usedTransformContribute);
 }
 
 export {

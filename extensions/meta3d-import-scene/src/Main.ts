@@ -16,6 +16,8 @@ import { state as engineCoreSceneViewState } from "meta3d-engine-core-sceneview-
 import { service as engineCoreSceneViewService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreGameViewState } from "meta3d-engine-core-gameview-protocol/src/state/StateType"
 import { service as engineCoreGameViewService } from "meta3d-engine-core-gameview-protocol/src/service/ServiceType"
+import { event as eventForSceneView } from "meta3d-pipeline-dispose-sceneview-protocol/src/EventType"
+import { event as eventForGameView } from "meta3d-pipeline-dispose-gameview-protocol/src/EventType"
 
 let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
     let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
@@ -30,8 +32,30 @@ let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
         engineWholeGameViewService.scene.gameObject.getAllGameObjects(meta3dState)
     )
 
-    meta3dState = dispose<engineCoreSceneViewState, engineCoreSceneViewService>(api, meta3dState, "meta3d-engine-core-sceneview-protocol")
-    meta3dState = dispose<engineCoreGameViewState, engineCoreGameViewService>(api, meta3dState, "meta3d-engine-core-gameview-protocol")
+    meta3dState = dispose<engineCoreSceneViewState, engineCoreSceneViewService>(api, meta3dState, "meta3d-engine-core-sceneview-protocol",
+        {
+            DisposeGameObjectsEventName: eventForSceneView.DisposeGameObjectsEventNameForSceneView,
+            DisposeGeometrysEventName: eventForSceneView.DisposeGeometrysEventNameForSceneView,
+            DisposePBRMaterialsEventName: eventForSceneView.DisposePBRMaterialsEventNameForSceneView,
+            DisposeDirectionLightsEventName: eventForSceneView.DisposeDirectionLightsEventNameForSceneView,
+            DisposeTransformsEventName: eventForSceneView.DisposeTransformsEventNameForSceneView,
+            DisposeBasicCameraViewsEventName: eventForSceneView.DisposeBasicCameraViewsEventNameForSceneView,
+            DisposePerspectiveCameraProjectionsEventName: eventForSceneView.DisposePerspectiveCameraProjectionsEventNameForSceneView,
+            DisposeTextureEventName: eventForSceneView.DisposeTextureEventNameForSceneView,
+        }
+    )
+    meta3dState = dispose<engineCoreGameViewState, engineCoreGameViewService>(api, meta3dState, "meta3d-engine-core-gameview-protocol",
+        {
+            DisposeGameObjectsEventName: eventForGameView.DisposeGameObjectsEventNameForGameView,
+            DisposeGeometrysEventName: eventForGameView.DisposeGeometrysEventNameForGameView,
+            DisposePBRMaterialsEventName: eventForGameView.DisposePBRMaterialsEventNameForGameView,
+            DisposeDirectionLightsEventName: eventForGameView.DisposeDirectionLightsEventNameForGameView,
+            DisposeTransformsEventName: eventForGameView.DisposeTransformsEventNameForGameView,
+            DisposeBasicCameraViewsEventName: eventForGameView.DisposeBasicCameraViewsEventNameForGameView,
+            DisposePerspectiveCameraProjectionsEventName: eventForGameView.DisposePerspectiveCameraProjectionsEventNameForGameView,
+            DisposeTextureEventName: eventForGameView.DisposeTextureEventNameForGameView,
+        }
+    )
 
     return meta3dState
 }
@@ -43,21 +67,24 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                 .then((gltf: GLTF) => {
                     meta3dState = _disposeScene(api, meta3dState)
 
-                    meta3dState = api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
-                    meta3dState = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+                    let data1 = api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
+                    meta3dState = data1[0]
+
+                    data1 = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+                    meta3dState = data1[0]
 
 
                     let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
                     let canvas = getExn(api.getExtensionState<engineWholeState>(meta3dState, "meta3d-engine-whole-sceneview-protocol").canvas)
 
-                    let data = addGameObjectsForSceneView(meta3dState,
+                    let data2 = addGameObjectsForSceneView(meta3dState,
                         engineWholeService,
                         // api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"),
                         // "meta3d-event-protocol",
                         [canvas.width, canvas.height],
                     )
-                    meta3dState = data[0]
-                    let arcballCameraControllerGameObject = data[2]
+                    meta3dState = data2[0]
+                    let arcballCameraControllerGameObject = data2[2]
 
                     meta3dState = activeCameraForSceneView(meta3dState, engineWholeService, arcballCameraControllerGameObject)
 

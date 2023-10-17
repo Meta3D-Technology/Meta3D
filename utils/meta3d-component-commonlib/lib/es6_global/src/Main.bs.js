@@ -2,7 +2,6 @@
 
 import * as GeometryAPI$Meta3dComponentCommonlib from "./GeometryAPI.bs.js";
 import * as TransformAPI$Meta3dComponentCommonlib from "./TransformAPI.bs.js";
-import * as PBRMaterialAPI$Meta3dComponentCommonlib from "./PBRMaterialAPI.bs.js";
 import * as DirectionLightAPI$Meta3dComponentCommonlib from "./DirectionLightAPI.bs.js";
 import * as BasicCameraViewAPI$Meta3dComponentCommonlib from "./BasicCameraViewAPI.bs.js";
 import * as PerspectiveCameraProjectionAPI$Meta3dComponentCommonlib from "./PerspectiveCameraProjectionAPI.bs.js";
@@ -27,10 +26,6 @@ var getDirection = DirectionLightAPI$Meta3dComponentCommonlib.getDirection;
 
 var setDirection = DirectionLightAPI$Meta3dComponentCommonlib.setDirection;
 
-var isActuallyDisposePBRMateiral = PBRMaterialAPI$Meta3dComponentCommonlib.isActuallyDispose;
-
-var isActuallyDisposeGeometry = GeometryAPI$Meta3dComponentCommonlib.isActuallyDispose;
-
 export {
   lookAt ,
   computeTangents ,
@@ -42,7 +37,5 @@ export {
   getActiveCameraView ,
   getDirection ,
   setDirection ,
-  isActuallyDisposePBRMateiral ,
-  isActuallyDisposeGeometry ,
 }
 /* No side effect */

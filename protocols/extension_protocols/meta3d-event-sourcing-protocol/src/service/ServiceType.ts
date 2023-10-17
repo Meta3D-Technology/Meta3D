@@ -41,6 +41,7 @@ export type service = {
         backwardHandleFunc: handleFunc<inputData>
     ) => meta3dState,
     addEvent: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, eventData: eventData<inputData>) => meta3dState,
+    createAllEvents: <inputData extends Array<singleInputData>> (allEventData: Array<eventData<inputData>>) => List<eventData<inputData>>,
     // addOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId, outsideImmutableData: outsideImmutableData) => meta3dState,
     // removeOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => meta3dState,
     generateOutsideImmutableDataId: (meta3dState: meta3dState) => outsideImmutableDataId,

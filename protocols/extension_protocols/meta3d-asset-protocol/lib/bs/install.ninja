@@ -1,0 +1,17 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o ServiceType-Meta3dAssetProtocol.cmi : cp ../bs/src/service/ServiceType-Meta3dAssetProtocol.cmi
+o ServiceType-Meta3dAssetProtocol.cmj : cp ../bs/src/service/ServiceType-Meta3dAssetProtocol.cmj
+o ServiceType-Meta3dAssetProtocol.cmt : cp ../bs/src/service/ServiceType-Meta3dAssetProtocol.cmt
+o ServiceType.res : cp ../../src/service/ServiceType.res
+o StateType-Meta3dAssetProtocol.cmi : cp ../bs/src/state/StateType-Meta3dAssetProtocol.cmi
+o StateType-Meta3dAssetProtocol.cmj : cp ../bs/src/state/StateType-Meta3dAssetProtocol.cmj
+o StateType-Meta3dAssetProtocol.cmt : cp ../bs/src/state/StateType-Meta3dAssetProtocol.cmt
+o StateType.res : cp ../../src/state/StateType.res
+o Meta3dAssetProtocol.cmi : cp ../bs/Meta3dAssetProtocol.cmi
+o Meta3dAssetProtocol.cmj : cp ../bs/Meta3dAssetProtocol.cmj
+o Meta3dAssetProtocol.cmt : cp ../bs/Meta3dAssetProtocol.cmt
+build install.stamp : touch ServiceType-Meta3dAssetProtocol.cmi ServiceType-Meta3dAssetProtocol.cmj StateType-Meta3dAssetProtocol.cmi StateType-Meta3dAssetProtocol.cmj Meta3dAssetProtocol.cmi Meta3dAssetProtocol.cmj

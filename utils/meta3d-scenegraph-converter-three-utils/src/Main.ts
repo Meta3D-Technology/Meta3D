@@ -30,7 +30,8 @@ import {
     type WebGL1PixelFormat,
     type TextureFilter,
     type DirectionalLight as DirectionalLightType,
-    type ColorSpace
+    type ColorSpace,
+    type Quaternion as QuaternionType
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -61,6 +62,7 @@ import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
 // import { isActuallyDisposeGeometry, isActuallyDisposePBRMateiral } from "meta3d-component-commonlib"
 import { filter, htmlImageElement, texture, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType";
 import { color, directionLight } from "meta3d-component-directionlight-protocol";
+import { transform } from "meta3d-component-transform-protocol-common";
 // import { service as textureService } from "meta3d-texture-basicsource-protocol/src/service/ServiceType"
 // import {getDirection} from "meta3d-component-commonlib"
 
@@ -88,6 +90,8 @@ let _globalKeyNameForStandardMaterialInstanceMap: string
 let _globalKeyNameForTextureInstanceMap: string
 let _globalKeyNameForGeometryInstanceMap: string
 let _globalKeyNameForDirectionLightInstanceMap: string
+
+let _getEmptyGameObject = () => -1
 
 let _disposeMesh = (mesh: Mesh) => {
 }
@@ -192,9 +196,9 @@ let _disposeDirectionLightInstance = (directionLight: directionLight) => {
     _getDirectionLightInstanceMap()[directionLight] = undefined
 }
 
-let _getOrCreateDirectionLightInstance = (directionLight: directionLight) => {
+let _getOrCreateDirectionLightInstance = (directionLight: directionLight, gameObject: gameObject) => {
     if (_getDirectionLightInstanceMap()[directionLight] === undefined) {
-        _getDirectionLightInstanceMap()[directionLight] = new DirectionLight(directionLight)
+        _getDirectionLightInstanceMap()[directionLight] = new DirectionLight(directionLight, gameObject)
     }
 
     return _getDirectionLightInstanceMap()[directionLight]
@@ -272,10 +276,6 @@ let _convertToMatrix4 = (mat: Float32Array): Matrix4Type => {
 //     return getExn(engineCoreService.getComponent<perspectiveCameraProjection>(engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName), gameObject))
 // }
 
-let _getEmptyGameObject = () => {
-    return -1
-}
-
 let _getMatrix = (gameObject: gameObject): Matrix4Type => {
     let meta3dState = getMeta3dState()
 
@@ -323,12 +323,12 @@ class Object3D {
         return new Layers()
     }
 
-    protected getParent(newInstanceFunc: any) {
+    protected getParent(): nullable<gameObject> {
         let meta3dState = getMeta3dState()
 
         let { gameObject, transform } = getEngineSceneService(meta3dState)
 
-        return newInstanceFunc(transform.getParent(meta3dState, gameObject.getTransform(meta3dState, this.gameObject)))
+        return bind((transform_) => getExn(transform.getGameObjects(meta3dState, transform_)[0]), transform.getParent(meta3dState, gameObject.getTransform(meta3dState, this.gameObject)))
     }
 
     protected getChildren(newInstanceFunc: any) {
@@ -352,12 +352,20 @@ class Object3D {
         return false
     }
 
+    public get matrix(): Matrix4Type {
+        return new Matrix4()
+    }
+
     public get userData(): { [key: string]: any } {
         return {}
     }
 
-    public get children(): Array<Object3D> {
-        return []
+    public get children(): Array<Object3D | Mesh | PerspectiveCamera | DirectionLight> {
+        let meta3dState = getMeta3dState()
+
+        let engineSceneService = getEngineSceneService(meta3dState)
+
+        return this.getChildren((gameObject: gameObject) => _createInstance(engineSceneService, meta3dState, gameObject))
     }
 
     public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, material: MeshStandardMaterial, group: any) {
@@ -382,8 +390,8 @@ class Object3D {
 // }
 
 class Camera extends Object3D {
-    constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection) {
-        super(_getEmptyGameObject())
+    constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection, gameObject: gameObject) {
+        super(gameObject)
 
         this.basicCameraViewComponent = basicCameraViewComponent
         this.perspectiveCameraProjectionComponent = perspectiveCameraProjectionComponent
@@ -463,9 +471,9 @@ class Camera extends Object3D {
         )
     }
 
-    public get children(): Array<Object3D> {
-        return []
-    }
+    // public get children(): Array<Object3D> {
+    //     return []
+    // }
 
     public get matrix(): Matrix4Type {
         let meta3dState = getMeta3dState()
@@ -479,8 +487,8 @@ class Camera extends Object3D {
 }
 
 class PerspectiveCamera extends Camera {
-    constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection) {
-        super(basicCameraViewComponent, perspectiveCameraProjectionComponent)
+    constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection, gameObject: gameObject) {
+        super(basicCameraViewComponent, perspectiveCameraProjectionComponent, gameObject)
     }
 
     public get far(): number {
@@ -547,18 +555,22 @@ let _getExnDirectionLightValue = (getFuncName, light, handleReturnFunc = (v) => 
 
 
 class Light extends Object3D {
-    constructor() {
-        super(_getEmptyGameObject())
+    constructor(gameObject: gameObject) {
+        super(gameObject)
     }
 
     public get isLight(): boolean {
         return true
     }
+
+    // public get children(): Array<Object3D> {
+    //     return []
+    // }
 }
 
 class DirectionLight extends Light {
-    constructor(light: directionLight) {
-        super()
+    constructor(light: directionLight, gameObject: gameObject) {
+        super(gameObject)
 
         this._light = light
     }
@@ -577,20 +589,104 @@ class DirectionLight extends Light {
         return false
     }
 
-    public get matrixWorld(): Matrix4Type {
-        let mat: Matrix4Type = new Matrix4()
+    // public get position(): Vector3Type {
+    //     let defaultPosition = new Vector3(0, 1, 0)
 
-        return mat.setPosition(0, 0, 0)
+    //     return defaultPosition
+    // }
+
+    // public get scale(): Vector3Type {
+    //     return new Vector3(1, 1, 1)
+    // }
+
+    // public get quaternion(): QuaternionType {
+    //     return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
+    //         let mat: Matrix4Type = new Matrix4()
+
+    //         return (new Quaternion()).setFromRotationMatrix(
+    //             mat.lookAt(this.position, new Vector3(-direction[0], -direction[1], -direction[2]), new Vector3(0, 1, 0))
+    //         )
+    //     })
+    // }
+
+    public get matrixWorld(): Matrix4Type {
+        // TODO check: no parent or parent's matrix is identity
+
+        // return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
+        //     let mat: Matrix4Type = new Matrix4()
+
+        //     let defaultScale = new Vector3(1, 1, 1)
+
+        //     // let target = (new Vector3(direction[0], direction[1], direction[2])).add(defaultPosition)
+        //     // target = new Vector3(-target.x, -target.y, -target.z)
+
+        //     return mat.compose(this.position, (new Quaternion()).setFromRotationMatrix(
+        //         mat.lookAt(this.position, new Vector3(-direction[0], -direction[1], -direction[2]), new Vector3(0, 1, 0))
+
+        //         // mat.lookAt(defaultPosition, target, new Vector3(0, 1, 0))
+        //     ), defaultScale)
+        //     // return mat.lookAt(defaultPosition, new Vector3(-direction[0], -direction[1], -direction[2]), new Vector3(0, 1, 0))
+        // })
+
+
+
+
+
+
+        // return (new Matrix4()).compose(this.position, this.quaternion, this.scale)
+
+
+
+
+        let self = this
+
+        return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
+            let pos = self.target.position
+
+            return (new Matrix4()).setPosition(direction[0] + pos[0], direction[1] + pos[1], direction[2] + pos[2])
+        })
+    }
+
+    public get matrix(): Matrix4Type {
+        // TODO check: no parent or parent's matrix is identity
+
+        // return this.matrixWorld
+
+
+
+
+        return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
+            return (new Matrix4()).setPosition(direction[0], direction[1], direction[2])
+        })
     }
 
     public get target(): Object3DType {
-        return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
-            let mat: Matrix4Type = new Matrix4()
+        // return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
+        //     let mat: Matrix4Type = new Matrix4()
 
-            return {
-                matrixWorld: mat.setPosition(direction[0], direction[1], direction[2])
-            } as any as Object3DType
-        })
+        //     return {
+        //         parent: this._light,
+        //         matrixWorld: mat.setPosition(direction[0], direction[1], direction[2]),
+        //         // position: [0, 0, -1]
+        //     } as any as Object3DType
+        // })
+
+        let position = [0, 0, -1]
+        let mat: Matrix4Type = new Matrix4()
+
+        return {
+            parent: this,
+            // matrixWorld: mat.setPosition(position[0], position[1], position[2]),
+            // matrixWorld: mat.setPosition(position[0], position[1], position[2]).multiply(this.matrixWorld),
+
+
+            // matrixWorld: this.matrixWorld.multiply(mat.setPosition(position[0], position[1], position[2])),
+
+
+
+            matrixWorld: mat.setPosition(position[0], position[1], position[2]),
+            position: position
+        } as any as Object3DType
     }
 
     public get color(): ColorType {
@@ -604,6 +700,29 @@ class DirectionLight extends Light {
     public dispose() {
         // this.shadow.dispose();
     }
+}
+
+let _createInstance = (engineSceneService, meta3dState, gameObject) => {
+    if (engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)) {
+        return new PerspectiveCamera(
+            engineSceneService.gameObject.getBasicCameraView(meta3dState, gameObject),
+            engineSceneService.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject),
+            gameObject
+        )
+    }
+
+    if (engineSceneService.gameObject.hasDirectionLight(meta3dState, gameObject)) {
+        return _getOrCreateDirectionLightInstance(
+            engineSceneService.gameObject.getDirectionLight(meta3dState, gameObject),
+            gameObject
+        )
+    }
+
+    if (engineSceneService.gameObject.hasGeometry(meta3dState, gameObject)) {
+        return _getOrCreateMeshInstance(gameObject)
+    }
+
+    return new Object3D(gameObject)
 }
 
 class Scene extends Object3D {
@@ -634,30 +753,34 @@ class Scene extends Object3D {
 
         let allGameObjects = engineSceneService.gameObject.getAllGameObjects(meta3dState)
 
-        return (
-            allGameObjects.filter(gameObject => {
-                return engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)
-            }).map(gameObject => {
-                return new PerspectiveCamera(
-                    engineSceneService.gameObject.getBasicCameraView(meta3dState, gameObject),
-                    engineSceneService.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject),
-                )
-            }) as Array<Object3D>
-        ).concat(
-            allGameObjects.filter(gameObject => {
-                return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject)
-            }).map(gameObject => {
-                return _getOrCreateMeshInstance(gameObject)
-            })
-        ).concat(
-            allGameObjects.filter(gameObject => {
-                return engineSceneService.gameObject.hasDirectionLight(meta3dState, gameObject)
-            }).map(gameObject => {
-                return _getOrCreateDirectionLightInstance(
-                    engineSceneService.gameObject.getDirectionLight(meta3dState, gameObject)
-                )
-            })
-        )
+        return allGameObjects.filter(gameObject => {
+            return isNullable(engineSceneService.transform.getParent(meta3dState, engineSceneService.gameObject.getTransform(meta3dState, gameObject)))
+        }).map(gameObject => _createInstance(engineSceneService, meta3dState, gameObject))
+
+        // return (
+        //     allGameObjects.filter(gameObject => {
+        //         return engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)
+        //     }).map(gameObject => {
+        //         return new PerspectiveCamera(
+        //             engineSceneService.gameObject.getBasicCameraView(meta3dState, gameObject),
+        //             engineSceneService.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject),
+        //         )
+        //     }) as Array<Object3D>
+        // ).concat(
+        //     allGameObjects.filter(gameObject => {
+        //         return engineSceneService.gameObject.hasGeometry(meta3dState, gameObject) && isNullable(engineSceneService.transform.getParent(meta3dState, engineSceneService.gameObject.getTransform(meta3dState, gameObject)))
+        //     }).map(gameObject => {
+        //         return _getOrCreateMeshInstance(gameObject)
+        //     })
+        // ).concat(
+        //     allGameObjects.filter(gameObject => {
+        //         return engineSceneService.gameObject.hasDirectionLight(meta3dState, gameObject)
+        //     }).map(gameObject => {
+        //         return _getOrCreateDirectionLightInstance(
+        //             engineSceneService.gameObject.getDirectionLight(meta3dState, gameObject)
+        //         )
+        //     })
+        // )
         // TODO add Group?
         // .concat(
         //     allGameObjects.filter(gameObject => {
@@ -676,10 +799,6 @@ class Scene extends Object3D {
 
     public get overrideMaterial(): nullable<Material> {
         return null
-    }
-
-    public get matrix(): Matrix4Type {
-        return new Matrix4()
     }
 
     public get matrixWorld(): Matrix4Type {
@@ -715,12 +834,16 @@ class Mesh extends Object3D {
     }
 
     public get parent(): nullable<Mesh> {
-        return this.getParent((gameObject: gameObject) => _getOrCreateMeshInstance(gameObject))
+        return _getOrCreateMeshInstance(getExn(this.getParent()))
     }
 
-    public get children(): Array<Mesh> {
-        return this.getChildren((gameObject: gameObject) => _getOrCreateMeshInstance(gameObject))
-    }
+    // public get children(): Array<Mesh> {
+    //     let meta3dState = getMeta3dState()
+
+    //     let engineSceneService = getEngineSceneService(meta3dState)
+
+    //     return this.getChildren((gameObject: gameObject) => _createInstance(engineSceneService, meta3dState, gameObject))
+    // }
 
     public get matrix(): Matrix4Type {
         return _getMatrix(
@@ -871,6 +994,12 @@ class BufferGeometry extends EventDispatcher {
 
     public getAttribute(name: string) {
         return this.attributes[name]
+    }
+
+    public setAttribute(name: string, attribute: BufferAttributeType) {
+        this.attributes[name] = attribute
+
+        return this
     }
 
     public getIndex() {
@@ -1657,27 +1786,45 @@ let _import = (sceneService: scene,
         }
     }
     else if ((object3D as any as DirectionalLightType).isDirectionalLight) {
-        let { color, intensity, position, target } = object3D as any as DirectionalLightType
+        // let { color, intensity, matrixWorld } = object3D as any as DirectionalLightType
+        // if (object3D.matrixWorldNeedsUpdate) {
+        //     object3D.updateMatrixWorld()
+        // }
+
+
+        let { color, intensity, matrix } = object3D as any as DirectionalLightType
 
         data = directionLightService.createDirectionLight(meta3dState)
         meta3dState = data[0]
         let directionLight = data[1]
 
+        meta3dState = gameObjectService.addDirectionLight(meta3dState, gameObject, directionLight)
+
         meta3dState = directionLightService.setColor(meta3dState, directionLight, color.toArray() as any as color)
         meta3dState = directionLightService.setIntensity(meta3dState, directionLight, intensity)
-        meta3dState = directionLightService.setDirection(meta3dState, directionLight, target.position.sub(position).toArray())
 
 
-        meta3dState = gameObjectService.addDirectionLight(meta3dState, gameObject, directionLight)
+        // let vec = (new Vector3(0, 0, 1)).applyQuaternion((new Quaternion()).setFromRotationMatrix(matrixWorld))
+        // let direction = 
+
+        // meta3dState = directionLightService.setDirection(meta3dState, directionLight, (new Vector3(0, 0, 1)).applyQuaternion((new Quaternion()).setFromRotationMatrix(matrixWorld)))
+
+
+
+
+        let direction = new Vector3()
+        let _ = matrix.decompose(direction, new Quaternion(), new Vector3())
+
+        meta3dState = directionLightService.setDirection(meta3dState, directionLight, direction.toArray())
     }
 
-    let reduceData: [meta3dState, gameObject] = object3D.children.reduce(([meta3dState, parent]: [meta3dState, gameObject], child) => {
-        return _import(sceneService, meta3dState,
+    meta3dState = object3D.children.reduce((meta3dState, child) => {
+        let data = _import(sceneService, meta3dState,
             [standardMaterialMap, bufferGeometryMap, textureMap],
-            child, return_(parent)
+            child, return_(gameObject)
         )
-    }, [meta3dState, gameObject])
-    meta3dState = reduceData[0]
+        return data[0]
+    }, meta3dState)
 
     return [meta3dState, gameObject]
 }
@@ -1910,17 +2057,18 @@ export let getExtensionServiceUtils = (
             let { gameObject, basicCameraView } = getEngineSceneService(meta3dState)
 
             let cameraView = getExn(basicCameraView.getActiveCameraView(meta3dState, isDebug))
+            let cameraGameObject = getExn(basicCameraView.getGameObjects(meta3dState, cameraView)[0])
+
             let cameraProjection = gameObject.getPerspectiveCameraProjection(
                 meta3dState,
-                getExn(
-                    basicCameraView.getGameObjects(meta3dState, cameraView)[0]
-                )
+                cameraGameObject
             )
 
             return {
                 perspectiveCamera: new PerspectiveCamera(
                     cameraView,
-                    cameraProjection
+                    cameraProjection,
+                    cameraGameObject
                 ) as any,
                 scene: new Scene() as any,
                 // event: allEventNames

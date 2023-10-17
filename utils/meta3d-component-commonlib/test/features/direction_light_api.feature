@@ -3,20 +3,36 @@ Feature: DirectionLight API
     I want to provide directionLight related api
     So that I can use it to operate directionLight
 
+    Background: prepare
+        Given prepare register
+        And register transform contribute
+        And register directionLight contribute
+        And create and set all component states
+        And create a gameObject
+        And create a transform
+        And add the transform to the gameObject
+        And create a directionLight
+        And add the directionLight to the gameObject
+
+
     Rule: getDirection
 
-        Background: prepare
-            Given prepare register
-            And register transform contribute
-            And register directionLight contribute
-            And create and set all component states
-            And create a gameObject
-            And create a transform
-            And add the transform to the gameObject
-            And set the transform's local euler angles to <X1>, <Y1>, <Z1>
-            And create a directionLight
-            And add the directionLight to the gameObject
+        # Background: prepare getDirection
+        #     Given prepare register
+        #     And register transform contribute
+        #     And register directionLight contribute
+        #     And create and set all component states
+        #     And create a gameObject
+        #     And create a transform
+        #     And add the transform to the gameObject
+        #     And set the transform's local euler angles to <X1>, <Y1>, <Z1>
+        #     And create a directionLight
+        #     And add the directionLight to the gameObject
+        #     When get the directionLight's direction as d1
+        Background: prepare getDirection
+            Given set the transform's local euler angles to <X1>, <Y1>, <Z1>
             When get the directionLight's direction as d1
+
 
         Scenario Outline: direction shouldn't affected by scale if scale is always postive
             When set the transform's local scale to <X2>, <Y2>, <Z2>
@@ -36,3 +52,10 @@ Feature: DirectionLight API
                 | X1   | Y1   | Z1   | X2    | Y2   | Z2   |
                 | 45.0 | 22.0 | 66.0 | -0.45 | 0.45 | 0.45 |
 
+
+    Rule: setDirection
+
+        Scenario: get direction after set direction should equal
+            Given set the directionLight's direction to d1
+            When get the directionLight's direction as d2
+            Then d2 should equal d1

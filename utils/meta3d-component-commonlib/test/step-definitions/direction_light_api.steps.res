@@ -18,7 +18,7 @@ defineFeature(feature, test => {
   let directionLight = ref(Obj.magic(1))
   let direction1 = ref(Obj.magic(1))
 
-  let _prepare = (given, \"when", \"and") => {
+  let _prepare = (given, \"and") => {
     open Meta3dEngineCoreSceneview
 
     let gameObject = 1
@@ -82,19 +82,6 @@ defineFeature(feature, test => {
         MainTool.addComponent(transformData.contents, gameObject->Obj.magic, transform.contents)
     })
 
-    \"and"(%re("/^set the transform's local euler angles to (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
-
-      transformData :=
-        MainTool.setComponentData(
-          transformData.contents,
-          transform.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles->Obj.magic,
-          arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
-        )
-    })
-
     \"and"("create a directionLight", () => {
       let (d, l) = MainTool.createComponent(directionLightData.contents)
 
@@ -108,6 +95,23 @@ defineFeature(feature, test => {
           directionLightData.contents,
           gameObject->Obj.magic,
           directionLight.contents,
+        )
+    })
+  }
+
+  let _prepareGetDirection = (given, \"when") => {
+    open Meta3dEngineCoreSceneview
+
+    given(%re("/^set the transform's local euler angles to (.*), (.*), (.*)$/")->Obj.magic, () => {
+      let arguments =
+        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+
+      transformData :=
+        MainTool.setComponentData(
+          transformData.contents,
+          transform.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles->Obj.magic,
+          arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
         )
     })
 
@@ -131,35 +135,46 @@ defineFeature(feature, test => {
     let light = ref(Obj.magic(-1))
     let direction2 = ref(Obj.magic(1))
 
-    _prepare(given, \"when", \"and")
+    _prepare(given, \"and")
 
-    \"when"(%re("/^set the transform's local scale to (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    _prepareGetDirection(given, \"when")
 
-      transformData :=
-        MainTool.setComponentData(
-          transformData.contents,
-          transform.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localScale->Obj.magic,
-          arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
-        )
-    })
+    \"when"(
+      %re("/^set the transform's local scale to (.*), (.*), (.*)$/")->Obj.magic,
+      () => {
+        let arguments =
+          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-    \"and"(%re("/^get the directionLight's direction as d(\d+)$/")->Obj.magic, arg0 => {
-      direction2 :=
-        Main.getDirection(
-          directionLightData.contents,
-          MainTool.getExtensionService(),
-          transformData.contents,
-          directionLight.contents->Obj.magic,
-        )->Meta3dCommonlib.NullableTool.getExn
-    })
+        transformData :=
+          MainTool.setComponentData(
+            transformData.contents,
+            transform.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale->Obj.magic,
+            arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
+          )
+      },
+    )
 
-    then(%re("/^d(\d+) should equal d(\d+)$/")->Obj.magic, () => {
-      direction1.contents->Meta3dCommonlib.Vector3Tool.truncate->expect ==
-        direction2.contents->Meta3dCommonlib.Vector3Tool.truncate
-    })
+    \"and"(
+      %re("/^get the directionLight's direction as d(\d+)$/")->Obj.magic,
+      arg0 => {
+        direction2 :=
+          Main.getDirection(
+            directionLightData.contents,
+            MainTool.getExtensionService(),
+            transformData.contents,
+            directionLight.contents->Obj.magic,
+          )->Meta3dCommonlib.NullableTool.getExn
+      },
+    )
+
+    then(
+      %re("/^d(\d+) should equal d(\d+)$/")->Obj.magic,
+      () => {
+        direction1.contents->Meta3dCommonlib.Vector3Tool.truncate->expect ==
+          direction2.contents->Meta3dCommonlib.Vector3Tool.truncate
+      },
+    )
   })
 
   test(."direction should be affected by scale if scale change to negative from positive", ({
@@ -171,36 +186,94 @@ defineFeature(feature, test => {
     let light = ref(Obj.magic(-1))
     let direction2 = ref(Obj.magic(1))
 
-    _prepare(given, \"when", \"and")
+    _prepare(given, \"and")
 
-    \"when"(%re("/^set the transform's local scale to (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    _prepareGetDirection(given, \"when")
 
-      transformData :=
-        MainTool.setComponentData(
-          transformData.contents,
-          transform.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localScale->Obj.magic,
-          arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
-        )
-    })
+    \"when"(
+      %re("/^set the transform's local scale to (.*), (.*), (.*)$/")->Obj.magic,
+      () => {
+        let arguments =
+          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-    \"and"(%re("/^get the directionLight's direction as d(\d+)$/")->Obj.magic, arg0 => {
-      direction2 :=
-        Main.getDirection(
-          directionLightData.contents,
-          MainTool.getExtensionService(),
-          transformData.contents,
-          directionLight.contents->Obj.magic,
-        )->Meta3dCommonlib.NullableTool.getExn
-    })
+        transformData :=
+          MainTool.setComponentData(
+            transformData.contents,
+            transform.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale->Obj.magic,
+            arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
+          )
+      },
+    )
 
-    then(%re("/^d(\d+) should not equal d(\d+)$/")->Obj.magic, () => {
-      direction1.contents
-      ->Meta3dCommonlib.Vector3Tool.truncate
-      ->expect
-      ->toNotEqual(direction2.contents->Meta3dCommonlib.Vector3Tool.truncate)
-    })
+    \"and"(
+      %re("/^get the directionLight's direction as d(\d+)$/")->Obj.magic,
+      arg0 => {
+        direction2 :=
+          Main.getDirection(
+            directionLightData.contents,
+            MainTool.getExtensionService(),
+            transformData.contents,
+            directionLight.contents->Obj.magic,
+          )->Meta3dCommonlib.NullableTool.getExn
+      },
+    )
+
+    then(
+      %re("/^d(\d+) should not equal d(\d+)$/")->Obj.magic,
+      () => {
+        direction1.contents
+        ->Meta3dCommonlib.Vector3Tool.truncate
+        ->expect
+        ->toNotEqual(direction2.contents->Meta3dCommonlib.Vector3Tool.truncate)
+      },
+    )
+  })
+
+  test(."get direction after set direction should equal", ({given, \"and", \"when", then}) => {
+    let light = ref(Obj.magic(-1))
+    let direction2 = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    \"and"(
+      "set the directionLight's direction to d1",
+      () => {
+        direction1 := (0.5, 0.5, 1.0)->Meta3dCommonlib.Vector3.normalize
+        // direction1 := (0., 0., -.1.0)->Meta3dCommonlib.Vector3.normalize
+
+        transformData :=
+          Main.setDirection(
+            directionLightData.contents,
+            MainTool.getExtensionService(),
+            transformData.contents,
+            directionLight.contents->Obj.magic,
+            direction1.contents,
+          )
+      },
+    )
+
+    \"and"(
+      "get the directionLight's direction as d2",
+      () => {
+        direction2 :=
+          Main.getDirection(
+            directionLightData.contents,
+            MainTool.getExtensionService(),
+            transformData.contents,
+            directionLight.contents->Obj.magic,
+          )->Meta3dCommonlib.NullableTool.getExn
+      },
+    )
+
+    then(
+      "d2 should equal d1",
+      () => {
+        direction2.contents
+        ->Meta3dCommonlib.Vector3Tool.truncate
+        ->expect
+        ->toEqualFunc(direction1.contents->Meta3dCommonlib.Vector3Tool.truncate)
+      },
+    )
   })
 })

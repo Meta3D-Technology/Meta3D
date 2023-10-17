@@ -33,7 +33,9 @@ let setDirection = (
   usedTransformContribute,
   light: Meta3dComponentDirectionlightProtocol.Index.directionLight,
   direction: (float, float, float),
-) =>
+) => {
+  let (x, y, z) = direction
+
   getComponentGameObjects(
     usedDirectionLightContribute,
     light->VOTypeConvert.directionLightToComponent,
@@ -47,9 +49,11 @@ let setDirection = (
         ~data=usedTransformContribute,
         ~engineCoreService,
         ~transform=transform->Obj.magic,
-        ~target=direction,
+        ~target=(-.x, -.y, -.z),
         ~up=(0., 1., 0.),
         (),
       )
     )
   )
+  ->Meta3dCommonlib.OptionSt.getWithDefault(usedTransformContribute)
+}
