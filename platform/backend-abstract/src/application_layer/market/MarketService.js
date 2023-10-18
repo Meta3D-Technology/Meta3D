@@ -83,3 +83,4 @@ let findPublishImplement = ([getMarketImplementFunc, downloadFileFunc], collecti
     });
 };
 exports.findPublishImplement = findPublishImplement;
+//# sourceMappingURL=MarketService.js.map

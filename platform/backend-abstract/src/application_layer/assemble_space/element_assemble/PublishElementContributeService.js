@@ -79,3 +79,4 @@ function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFun
     }));
 }
 exports.publishElementAssembleData = publishElementAssembleData;
+//# sourceMappingURL=PublishElementContributeService.js.map

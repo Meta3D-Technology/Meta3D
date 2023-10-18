@@ -1,8 +1,8 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
 import { just } from "most";
 import { createSandbox } from "sinon";
-import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool";
-import { buildPartialKeyByPackageData } from "../../src/application_layer/publish/PublishPackageService";
+// import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool";
+// import { buildPartialKeyByPackageData } from "../../src/application_layer/publish/PublishPackageService";
 // import { getFileID } from "meta3d-backend-cloudbase";
 import { findPublishPackage } from "../../src/application_layer/market/PackageMarketService";
 // import { buildKey } from "../tool/PublishPackageTool"

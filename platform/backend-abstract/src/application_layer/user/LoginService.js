@@ -11,3 +11,4 @@ let isLoginSuccess = (hasDataFunc, account) => {
     });
 };
 exports.isLoginSuccess = isLoginSuccess;
+//# sourceMappingURL=LoginService.js.map

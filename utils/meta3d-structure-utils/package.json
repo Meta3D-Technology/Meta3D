@@ -2,7 +2,7 @@
     "name": "meta3d-structure-utils",
     "version": "0.18.0",
     "scripts": {
-        "watch": "tsc --watch"
+        "watch": "tsc -w -noEmit"
     },
     "dependencies": {
         "meta3d-type": "^0.18.0"

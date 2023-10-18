@@ -69,3 +69,4 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/batch_find_pub
         });
     });
 });
+//# sourceMappingURL=batch_find_publish_contribute_protocol_configs.steps.js.map

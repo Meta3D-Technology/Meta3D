@@ -322,3 +322,4 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
     });
 });
+//# sourceMappingURL=publish_app.steps.js.map

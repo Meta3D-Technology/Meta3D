@@ -1,15 +1,27 @@
 {
     "compilerOptions": {
-		"target": "es6",
-		"module": "commonjs",
+        "target": "es6",
+        "module": "commonjs",
+        "sourceMap": true,
         "jsx": "react",
         "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
         // "noEmit": true,
+        "noEmit": false,
         "skipLibCheck": true,
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        // "noImplicitReturns": true,
+        "lib": [
+            "DOM",
+            "ESNext",
+        ],
         "types": [
-			"node",
+            "node",
             "jest"
-        ]
+        ],
+        "strict": false
     },
     "include": [
         "./src",

@@ -1,1 +1,1 @@
-{"version":3,"file":"PromiseTool.js","sourceRoot":"","sources":["PromiseTool.ts"],"names":[],"mappings":";;;AAAA,SAAgB,OAAO,CAAC,KAAK;IACzB,OAAO,IAAI,OAAO,CAAC,CAAC,OAAO,EAAE,MAAM,EAAE,EAAE;QACnC,OAAO,CAAC,KAAK,CAAC,CAAA;IAClB,CAAC,CAAC,CAAA;AACN,CAAC;AAJD,0BAIC"}
+{"version":3,"file":"PromiseTool.js","sourceRoot":"","sources":["PromiseTool.ts"],"names":[],"mappings":";;;AAAO,IAAI,OAAO,GAAG,CAAC,KAAK,EAAE,EAAE;IAC3B,OAAO,IAAI,OAAO,CAAC,CAAC,OAAO,EAAE,MAAM,EAAE,EAAE;QACnC,OAAO,CAAC,KAAK,CAAC,CAAA;IAClB,CAAC,CAAC,CAAA;AACN,CAAC,CAAA;AAJU,QAAA,OAAO,WAIjB"}

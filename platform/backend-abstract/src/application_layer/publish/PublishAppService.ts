@@ -1,7 +1,7 @@
 import { fromPromise, just, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { publishAppInfo } from "./PublishAppType"
-import { handleKeyToLowercase } from "../../../../../utils/meta3d-backend-cloudbase/src/Main"
+import { handleKeyToLowercase } from "meta3d-backend-cloudbase/src/Main"
 
 let _buildFileName = (appName: string, account: string) => account + "_" + appName
 

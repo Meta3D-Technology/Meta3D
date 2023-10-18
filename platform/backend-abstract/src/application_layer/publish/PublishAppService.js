@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findAllPublishApps = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
 const most_1 = require("most");
-const Main_1 = require("../../../../../utils/meta3d-backend-cloudbase/src/Main");
+const Main_1 = require("meta3d-backend-cloudbase/src/Main");
 let _buildFileName = (appName, account) => account + "_" + appName;
 let _buildKey = (appName, account) => (0, Main_1.handleKeyToLowercase)(_buildFileName(appName, account));
 exports._buildKey = _buildKey;
@@ -76,3 +76,4 @@ let findAllPublishApps = (getDataFunc, limitCount, skipCount) => {
     });
 };
 exports.findAllPublishApps = findAllPublishApps;
+//# sourceMappingURL=PublishAppService.js.map

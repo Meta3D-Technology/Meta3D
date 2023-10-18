@@ -56,3 +56,4 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
     });
 };
 exports.publish = publish;
+//# sourceMappingURL=PublishPackageService.js.map

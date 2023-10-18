@@ -5,3 +5,4 @@
 //     appBinaryFile: ArrayBuffer
 // }
 Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=PublishAppType.js.map

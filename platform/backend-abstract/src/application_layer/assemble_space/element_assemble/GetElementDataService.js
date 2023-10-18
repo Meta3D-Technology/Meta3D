@@ -60,3 +60,4 @@ let getElementAssembleData = ([getMarketImplementAccountDataFunc, getDataFromMar
     });
 };
 exports.getElementAssembleData = getElementAssembleData;
+//# sourceMappingURL=GetElementDataService.js.map
