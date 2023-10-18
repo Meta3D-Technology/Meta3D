@@ -10,7 +10,8 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
         loadScene: (meta3dState, sceneGLB) => {
             return loadGlb(meta3dState, api, sceneGLB)
                 .then((gltf) => {
-                    meta3dState = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+                    let data = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+                    meta3dState = data[0]
 
 
                     // TODO use plugin for GLTFExporter, GLTFLoader to support arcballCameraController

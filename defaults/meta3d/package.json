@@ -9,7 +9,7 @@
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
         "test:watch": "jest --watch --config jest.json",
-        "webpack": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+        "webpack": "yarn buildAll:ci && cross-env NODE_ENV=development webpack --config webpack.config.js",
         "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json"
     },
     "config": {

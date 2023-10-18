@@ -343,7 +343,19 @@ TODO perf: glb: not share texture
 *** TODO import event: load scene glb, asset arraybuffer
 
 
-* TODO pass run test: publish with glb
+* DONE pass run test: publish with glb
+
+TODO publish
+# load scene
+# scenegraph s,g
+# publish action
+
+
+
+
+TODO update engine package
+
+TODO pass run test
 
 
 

@@ -2015,6 +2015,37 @@ let _bindDisposeEvent = (meta3dState: meta3dState, eventService: eventService,
     return meta3dState
 }
 
+let _setThreeObjects = (api: api, meta3dState: meta3dState) => {
+    let threeAPIService = api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol")
+
+    BufferAttribute = threeAPIService.BufferAttribute
+    Color = threeAPIService.Color
+    FrontSide = threeAPIService.FrontSide
+    Layers = threeAPIService.Layers
+    Matrix3 = threeAPIService.Matrix3
+    Matrix4 = threeAPIService.Matrix4
+    NoBlending = threeAPIService.NoBlending
+    Sphere = threeAPIService.Sphere
+    Vector3 = threeAPIService.Vector3
+    Quaternion = threeAPIService.Quaternion
+    Source = threeAPIService.Source
+    ClampToEdgeWrapping = threeAPIService.ClampToEdgeWrapping
+    RepeatWrapping = threeAPIService.RepeatWrapping
+    MirroredRepeatWrapping = threeAPIService.MirroredRepeatWrapping
+    UVMapping = threeAPIService.UVMapping
+    NearestFilter = threeAPIService.NearestFilter
+    NearestMipmapNearestFilter = threeAPIService.NearestMipmapNearestFilter
+    NearestMipmapNearestFilter = threeAPIService.NearestMipmapNearestFilter
+    NearestMipmapLinearFilter = threeAPIService.NearestMipmapLinearFilter
+    LinearFilter = threeAPIService.LinearFilter
+    LinearMipmapNearestFilter = threeAPIService.LinearMipmapNearestFilter
+    LinearMipmapLinearFilter = threeAPIService.LinearMipmapLinearFilter
+    Vector2 = threeAPIService.Vector2
+    TangentSpaceNormalMap = threeAPIService.TangentSpaceNormalMap
+    ObjectSpaceNormalMap = threeAPIService.ObjectSpaceNormalMap
+    NoColorSpace = threeAPIService.NoColorSpace
+}
+
 export let getExtensionServiceUtils = (
     // getCameraComponentsFunc: (meta3dState: meta3dState, isDebug: boolean) => [basicCameraView, perspectiveCameraProjection],
     api: api,
@@ -2041,36 +2072,7 @@ export let getExtensionServiceUtils = (
 
             setMeta3dState(meta3dState)
 
-            let threeAPIService = api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol")
-
-            BufferAttribute = threeAPIService.BufferAttribute
-            Color = threeAPIService.Color
-            FrontSide = threeAPIService.FrontSide
-            Layers = threeAPIService.Layers
-            Matrix3 = threeAPIService.Matrix3
-            Matrix4 = threeAPIService.Matrix4
-            NoBlending = threeAPIService.NoBlending
-            Sphere = threeAPIService.Sphere
-            Vector3 = threeAPIService.Vector3
-            Quaternion = threeAPIService.Quaternion
-            Source = threeAPIService.Source
-            ClampToEdgeWrapping = threeAPIService.ClampToEdgeWrapping
-            RepeatWrapping = threeAPIService.RepeatWrapping
-            MirroredRepeatWrapping = threeAPIService.MirroredRepeatWrapping
-            UVMapping = threeAPIService.UVMapping
-            NearestFilter = threeAPIService.NearestFilter
-            NearestMipmapNearestFilter = threeAPIService.NearestMipmapNearestFilter
-            NearestMipmapNearestFilter = threeAPIService.NearestMipmapNearestFilter
-            NearestMipmapLinearFilter = threeAPIService.NearestMipmapLinearFilter
-            LinearFilter = threeAPIService.LinearFilter
-            LinearMipmapNearestFilter = threeAPIService.LinearMipmapNearestFilter
-            LinearMipmapLinearFilter = threeAPIService.LinearMipmapLinearFilter
-            Vector2 = threeAPIService.Vector2
-            TangentSpaceNormalMap = threeAPIService.TangentSpaceNormalMap
-            ObjectSpaceNormalMap = threeAPIService.ObjectSpaceNormalMap
-            NoColorSpace = threeAPIService.NoColorSpace
-
-
+            _setThreeObjects(api, meta3dState)
 
             let { gameObject, basicCameraView } = getEngineSceneService(meta3dState)
 
@@ -2098,6 +2100,8 @@ export let getExtensionServiceUtils = (
             let standardMaterialMap = {}
             let bufferGeometryMap = {}
             let textureMap: Record<string, texture> = {}
+
+            _setThreeObjects(api, meta3dState)
 
             return _import(scene, meta3dState,
                 [standardMaterialMap, bufferGeometryMap, textureMap],
