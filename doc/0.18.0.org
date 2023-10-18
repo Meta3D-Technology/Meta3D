@@ -384,7 +384,7 @@ TODO update
 * TODO publish
 
 
-** TODO pass ci
+** DONE pass ci
 
 ** TODO prepare for video
 prepare video

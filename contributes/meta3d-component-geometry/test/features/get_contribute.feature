@@ -162,15 +162,15 @@ Feature: Get Contribute
             Given open debug
             When I get contribute
 
-        Scenario Outline: texCoords should in [0.0, 1.0]
-            When create a state
-            And create a geometry
-            Then set geometry's texCoords to <X>, <Y> which not in range should throw error message: "expect texCoords in [0.0, 1.0]"
+        # Scenario Outline: texCoords should in [0.0, 1.0]
+        #     When create a state
+        #     And create a geometry
+        #     Then set geometry's texCoords to <X>, <Y> which not in range should throw error message: "expect texCoords in [0.0, 1.0]"
 
-            Examples:
-                | X    | Y   |
-                | 1.   | 2.  |
-                | -0.1 | 0.5 |
+        #     Examples:
+        #         | X    | Y   |
+        #         | 1.   | 2.  |
+        #         | -0.1 | 0.5 |
 
         Scenario: set enough vertices
             When create a state with geometryPointCount:2

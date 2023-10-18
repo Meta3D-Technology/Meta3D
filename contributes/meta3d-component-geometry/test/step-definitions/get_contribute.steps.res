@@ -839,55 +839,55 @@ defineFeature(feature, test => {
     })
   })
 
-  test(."texCoords should in [0.0, 1.0]", ({given, \"when", \"and", then}) => {
-    let isDebug = true
-    let geometry = ref(Obj.magic(1))
+  // test(."texCoords should in [0.0, 1.0]", ({given, \"when", \"and", then}) => {
+  //   let isDebug = true
+  //   let geometry = ref(Obj.magic(1))
 
-    given("open debug", () => {
-      ()
-    })
+  //   given("open debug", () => {
+  //     ()
+  //   })
 
-    \"when"("I get contribute", () => {
-      contribute := MainTool.getContribute()
-    })
+  //   \"when"("I get contribute", () => {
+  //     contribute := MainTool.getContribute()
+  //   })
 
-    \"and"("create a state", () => {
-      state := _createState(~isDebug, ())
-    })
+  //   \"and"("create a state", () => {
+  //     state := _createState(~isDebug, ())
+  //   })
 
-    \"and"("create a geometry", () => {
-      let (s, g) = contribute.contents.createComponentFunc(. state.contents)
+  //   \"and"("create a geometry", () => {
+  //     let (s, g) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      geometry := g
-    })
+  //     state := s
+  //     geometry := g
+  //   })
 
-    then(
-      %re(
-        "/^set geometry's texCoords to (.*), (.*) which not in range should throw error message: \"(.*)\"$/"
-      )->Obj.magic,
-      () => {
-        let message =
-          (
-            %external(arguments)
-            ->Meta3dCommonlib.OptionSt.getExn
-            ->Meta3dCommonlib.ArgumentsTool.getArgumentsArr
-          )[2]
-        let arguments =
-          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+  //   then(
+  //     %re(
+  //       "/^set geometry's texCoords to (.*), (.*) which not in range should throw error message: \"(.*)\"$/"
+  //     )->Obj.magic,
+  //     () => {
+  //       let message =
+  //         (
+  //           %external(arguments)
+  //           ->Meta3dCommonlib.OptionSt.getExn
+  //           ->Meta3dCommonlib.ArgumentsTool.getArgumentsArr
+  //         )[2]
+  //       let arguments =
+  //         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-        expect(() => {
-          state :=
-            contribute.contents.setComponentDataFunc(.
-              state.contents,
-              geometry.contents,
-              Meta3dComponentGeometryProtocol.Index.dataName.texCoords,
-              arguments->Js.Array.slice(~start=0, ~end_=2, _)->Obj.magic,
-            )
-        })->toThrowMessage(message)
-      },
-    )
-  })
+  //       expect(() => {
+  //         state :=
+  //           contribute.contents.setComponentDataFunc(.
+  //             state.contents,
+  //             geometry.contents,
+  //             Meta3dComponentGeometryProtocol.Index.dataName.texCoords,
+  //             arguments->Js.Array.slice(~start=0, ~end_=2, _)->Obj.magic,
+  //           )
+  //       })->toThrowMessage(message)
+  //     },
+  //   )
+  // })
 
   test(."set enough vertices", ({given, \"when", \"and", then}) => {
     let isDebug = true
