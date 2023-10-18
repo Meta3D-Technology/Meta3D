@@ -24,8 +24,7 @@ import {
     type MinificationTextureFilter,
     type MagnificationTextureFilter,
     // type AnyPixelFormat,
-    type TextureDataType,
-    type Vector2 as Vector2Type, Vector3 as Vector3Type,
+    type TextureDataType, Vector2 as Vector2Type, Vector3 as Vector3Type,
     type NormalMapTypes,
     type WebGL1PixelFormat,
     type TextureFilter,
@@ -641,7 +640,7 @@ class DirectionLight extends Light {
         let self = this
 
         return _getExnDirectionLightValue("getDirection", this._light, (direction: Array<number>) => {
-            let pos = self.target.position
+            let pos = self.target.position.toArray()
 
             return (new Matrix4()).setPosition(direction[0] + pos[0], direction[1] + pos[1], direction[2] + pos[2])
         })
@@ -685,7 +684,7 @@ class DirectionLight extends Light {
 
 
             matrixWorld: mat.setPosition(position[0], position[1], position[2]),
-            position: position
+            position: (new Vector3()).fromArray(position)
         } as any as Object3DType
     }
 
@@ -1182,6 +1181,25 @@ class Texture extends EventDispatcher {
         return false
     }
 
+    public get userData(): any {
+        return {}
+    }
+
+    public get offset(): Vector2Type {
+        return new Vector2(0, 0)
+    }
+
+    public get repeat(): Vector2Type {
+        return new Vector2(1, 1)
+    }
+
+    public get center(): Vector2Type {
+        return new Vector2(0, 0)
+    }
+
+    public get rotation(): number {
+        return 0
+    }
 
     public dispose() {
         this.dispatchEvent({ type: 'dispose' });

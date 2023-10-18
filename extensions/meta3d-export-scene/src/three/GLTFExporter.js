@@ -52,6 +52,8 @@ let BufferAttribute,
 	CompressedTexture,
 	Vector3
 
+const THREE_TO_WEBGL = {};
+
 
 
 /**
@@ -117,7 +119,26 @@ class GLTFExporter {
 		CompressedTexture = threeAPIObj.CompressedTexture
 		Vector3 = threeAPIObj.Vector3
 
+
+		THREE_TO_WEBGL[NearestFilter] = WEBGL_CONSTANTS.NEAREST;
+		THREE_TO_WEBGL[NearestMipmapNearestFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_NEAREST;
+		THREE_TO_WEBGL[NearestMipmapLinearFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_LINEAR;
+		THREE_TO_WEBGL[LinearFilter] = WEBGL_CONSTANTS.LINEAR;
+		THREE_TO_WEBGL[LinearMipmapNearestFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_NEAREST;
+		THREE_TO_WEBGL[LinearMipmapLinearFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_LINEAR;
+
+		THREE_TO_WEBGL[ClampToEdgeWrapping] = WEBGL_CONSTANTS.CLAMP_TO_EDGE;
+		THREE_TO_WEBGL[RepeatWrapping] = WEBGL_CONSTANTS.REPEAT;
+		THREE_TO_WEBGL[MirroredRepeatWrapping] = WEBGL_CONSTANTS.MIRRORED_REPEAT;
+
+
 		setThreeAPI(threeAPIObjForTextureUtils)
+
+
+
+
+
+
 
 
 		DEFAULT_SPECULAR_COLOR = new Color()
@@ -291,19 +312,6 @@ const WEBGL_CONSTANTS = {
 };
 
 const KHR_MESH_QUANTIZATION = 'KHR_mesh_quantization';
-
-const THREE_TO_WEBGL = {};
-
-THREE_TO_WEBGL[NearestFilter] = WEBGL_CONSTANTS.NEAREST;
-THREE_TO_WEBGL[NearestMipmapNearestFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_NEAREST;
-THREE_TO_WEBGL[NearestMipmapLinearFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_LINEAR;
-THREE_TO_WEBGL[LinearFilter] = WEBGL_CONSTANTS.LINEAR;
-THREE_TO_WEBGL[LinearMipmapNearestFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_NEAREST;
-THREE_TO_WEBGL[LinearMipmapLinearFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_LINEAR;
-
-THREE_TO_WEBGL[ClampToEdgeWrapping] = WEBGL_CONSTANTS.CLAMP_TO_EDGE;
-THREE_TO_WEBGL[RepeatWrapping] = WEBGL_CONSTANTS.REPEAT;
-THREE_TO_WEBGL[MirroredRepeatWrapping] = WEBGL_CONSTANTS.MIRRORED_REPEAT;
 
 const PATH_PROPERTIES = {
 	scale: 'scale',

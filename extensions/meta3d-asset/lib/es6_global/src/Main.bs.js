@@ -18,12 +18,12 @@ function _checkSizeEqual(glbIds, glbs) {
 
 function getExtensionService(api) {
   return {
-          addGLBAsset: (function (meta3dState, gltf, glbId) {
+          addGLBAsset: (function (meta3dState, glb, glbId) {
               var state = api.getExtensionState(meta3dState, "meta3d-asset-protocol");
               return api.setExtensionState(meta3dState, "meta3d-asset-protocol", {
                           allGLBAssets: ListSt$Meta3dCommonlib.push(state.allGLBAssets, [
                                 glbId,
-                                gltf
+                                glb
                               ])
                         });
             }),

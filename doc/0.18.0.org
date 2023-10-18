@@ -274,7 +274,7 @@ TODO publish
 
 
 
-** TODO import/export Event support reset
+** DONE import/export Event support reset
 
 TODO use import-scene?
 
@@ -283,18 +283,21 @@ TODO publish
 # import event action
 # meta3d-editor-webgl1-three-run-engine-sceneview
 # meta3d-asset, protocol
-# event source, protocol
-# import scene
-# import,export single event(add)
-# export single event
-# export scene
+# add glb action
+# load glb action
+# # event source, protocol
+# # import scene
+# # import,export single event(add)
+# # export single event
+# # export scene
 # scenegraph, s,g
-# meta3d-pipeline-editor-webgl1-scene-view1, g
-# # scene, whole, smg
-# # # add glb
-# # # meta3d-action-export-single-event
+# meta3d-export-scene
+# # meta3d-pipeline-editor-webgl1-scene-view1, g
+# # # scene, whole, smg
+# # # # add glb
+# # # # meta3d-action-export-single-event
+# # # meta3d-action-import-single-event
 # # meta3d-action-import-single-event
-# meta3d-action-import-single-event
 
 
 
@@ -320,6 +323,19 @@ TODO export 2 cube
 
 
 TODO export 1 cube + 1 glb
+
+  TODO export: warning
+  TODO export->import->add error
+
+TODO fix: add glb: create new ,not clone
+
+
+TODO perf: glb: not share geometry,material
+
+
+TODO perf: glb: not share texture
+
+
 
 
 *** TODO export event: generate scene glb, asset arraybuffer

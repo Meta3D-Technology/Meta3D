@@ -1,6 +1,6 @@
 {
     "name": "meta3d-asset",
-    "version": "0.17.2",
+    "version": "0.17.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-asset-protocol"

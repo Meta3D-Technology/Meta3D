@@ -21,7 +21,7 @@ let _checkSizeEqual = (glbIds, glbs) => {
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dAssetProtocol.ServiceType.service,
 > = api => {
-  addGLBAsset: (meta3dState, gltf, glbId) => {
+  addGLBAsset: (meta3dState, glb, glbId) => {
     let state: Meta3dAssetProtocol.StateType.state = api.getExtensionState(.
       meta3dState,
       "meta3d-asset-protocol",
@@ -32,7 +32,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       "meta3d-asset-protocol",
       {
         ...state,
-        allGLBAssets: state.allGLBAssets->Meta3dCommonlib.ListSt.push((glbId, gltf)),
+        allGLBAssets: state.allGLBAssets->Meta3dCommonlib.ListSt.push((glbId, glb)),
       },
     )
   },
