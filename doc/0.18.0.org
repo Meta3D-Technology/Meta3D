@@ -361,11 +361,30 @@ TODO pass run test
 
 # * TODO fix: auto upgrade: should keep canvas size
 
+* DONE load more glb
+  TODO pass publish
+
+
+
+
+TODO publish
+# scenegraph s,g
+# meta3d-component-geometry
+# publish
+# meta3d-editor-webgl1-three-run-engine-gameview, s,g
+
+
+TODO update 
+# engine package
+#   meta3d-component-geometry
+#   scenegraph g
+
+
 
 * TODO publish
 
+
+** TODO pass ci
+
 ** TODO prepare for video
-
-load more glb
-
 prepare video
