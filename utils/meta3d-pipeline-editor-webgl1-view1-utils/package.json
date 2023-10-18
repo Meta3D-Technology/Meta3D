@@ -1,15 +1,15 @@
 {
     "name": "meta3d-pipeline-editor-webgl1-view1-utils",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-engine-whole-gameview-protocol": "^0.17.0",
-        "meta3d-engine-whole-sceneview-protocol": "^0.17.0",
-        "meta3d-type": "^0.17.0"
+        "meta3d-engine-whole-gameview-protocol": "^0.18.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.18.0",
+        "meta3d-type": "^0.18.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

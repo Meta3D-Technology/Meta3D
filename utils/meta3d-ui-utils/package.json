@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-utils",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },

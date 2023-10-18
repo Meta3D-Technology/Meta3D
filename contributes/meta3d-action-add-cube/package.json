@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-add-cube",
-    "version": "0.17.2",
+    "version": "0.18.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "add-cube",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-action-add-cube",
@@ -17,20 +17,20 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-add-cube-protocol": "^0.17.0",
-        "meta3d-editor-run-engine-gameview-protocol": "^0.17.0",
-        "meta3d-engine-whole-gameview-protocol": "^0.17.0",
-        "meta3d-engine-whole-sceneview-protocol": "^0.17.0",
-        "meta3d-event-protocol": "^0.17.0",
-        "meta3d-event-sourcing-protocol": "^0.17.0",
-        "meta3d-type": "^0.17.0"
+        "meta3d-action-add-cube-protocol": "^0.18.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.18.0",
+        "meta3d-engine-whole-gameview-protocol": "^0.18.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.18.0",
+        "meta3d-event-protocol": "^0.18.0",
+        "meta3d-event-sourcing-protocol": "^0.18.0",
+        "meta3d-type": "^0.18.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.17.0",
+        "meta3d-tool-publish": "^0.18.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

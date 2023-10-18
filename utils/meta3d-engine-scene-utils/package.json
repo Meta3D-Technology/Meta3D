@@ -1,25 +1,25 @@
 {
     "name": "meta3d-engine-scene-utils",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-component-arcballcameracontroller-protocol": "^0.17.0",
-        "meta3d-component-basiccameraview-protocol": "^0.17.0",
-        "meta3d-component-directionlight-protocol": "^0.17.0",
-        "meta3d-component-geometry-protocol": "^0.17.0",
-        "meta3d-component-pbrmaterial-protocol": "^0.17.2",
-        "meta3d-component-perspectivecameraprojection-protocol": "^0.17.0",
-        "meta3d-component-transform-protocol": "^0.17.0",
-        "meta3d-engine-core-sceneview-protocol": "^0.17.0",
-        "meta3d-engine-scene-sceneview-protocol": "^0.17.0",
-        "meta3d-gameobject-protocol": "^0.17.0",
-        "meta3d-pipeline-camera-sceneview-protocol": "^0.17.0",
-        "meta3d-pipeline-root-sceneview-protocol": "^0.17.0",
-        "meta3d-pipeline-transform-sceneview-protocol": "^0.17.0",
-        "meta3d-texture-basicsource-protocol": "^0.17.0",
-        "meta3d-type": "^0.17.0"
+        "meta3d-component-arcballcameracontroller-protocol": "^0.18.0",
+        "meta3d-component-basiccameraview-protocol": "^0.18.0",
+        "meta3d-component-directionlight-protocol": "^0.18.0",
+        "meta3d-component-geometry-protocol": "^0.18.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.18.0",
+        "meta3d-component-perspectivecameraprojection-protocol": "^0.18.0",
+        "meta3d-component-transform-protocol": "^0.18.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.18.0",
+        "meta3d-engine-scene-sceneview-protocol": "^0.18.0",
+        "meta3d-gameobject-protocol": "^0.18.0",
+        "meta3d-pipeline-camera-sceneview-protocol": "^0.18.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.18.0",
+        "meta3d-pipeline-transform-sceneview-protocol": "^0.18.0",
+        "meta3d-texture-basicsource-protocol": "^0.18.0",
+        "meta3d-type": "^0.18.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

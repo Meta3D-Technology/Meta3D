@@ -1,11 +1,11 @@
 {
     "name": "meta3d-dispose-utils",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-type": "^0.17.0"
+        "meta3d-type": "^0.18.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

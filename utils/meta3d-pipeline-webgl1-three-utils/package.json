@@ -1,16 +1,16 @@
 {
     "name": "meta3d-pipeline-webgl1-three-utils",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.17.0",
-        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.17.0",
-        "meta3d-three-api-protocol": "^0.17.0",
-        "meta3d-type": "^0.17.0"
+        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.18.0",
+        "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.18.0",
+        "meta3d-three-api-protocol": "^0.18.0",
+        "meta3d-type": "^0.18.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
