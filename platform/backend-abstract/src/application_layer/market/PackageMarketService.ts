@@ -1,6 +1,6 @@
 import { fromPromise, just, skip, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { removeDuplicateItemsWithBuildKeyFunc } from "../../utils/ArrayUtils"
+import { removeDuplicateItemsWithBuildKeyFunc } from "meta3d-structure-utils/src/ArrayUtils"
 // import { buildPartialKeyByEntryProcoltolData, buildPartialKeyByPackageData } from "../publish/PublishPackageService"
 import { protocols } from "./MarketType"
 import { packageImplementInfos } from "./PackageMarketType"

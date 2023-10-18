@@ -386,5 +386,5 @@ TODO update
 
 ** DONE pass ci
 
-** TODO prepare for video
+** DONE prepare for video
 prepare video

@@ -1,3 +1,0 @@
-import { removeDuplicateItemsWithBuildKeyFunc as removeDuplicateItemsWithBuildKeyFuncUtils } from "meta3d-structure-utils/src/ArrayUtils"
-
-export let removeDuplicateItemsWithBuildKeyFunc = removeDuplicateItemsWithBuildKeyFuncUtils

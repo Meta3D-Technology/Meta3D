@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = void 0;
 const most_1 = require("most");
-const ArrayUtils_1 = require("../../utils/ArrayUtils");
+const ArrayUtils_1 = require("meta3d-structure-utils/src/ArrayUtils");
 let getAllPublishPackageEntryExtensionProtocols = (
 // [getPackageMarketEntryExtensionProtocolCollectionFunc, getDataFromPackageMarketEntryExtensionProtocolCollection]: [any, any]
 getDataFunc, limitCount, skipCount) => {
