@@ -1,0 +1,78 @@
+* TODO Asset
+
+now asset is only glb!
+
+not use asset tree, use list/array instead which only has one level
+
+TODO add asset ui control
+
+TODO load as a whole file, not extract textures, materials
+
+TODO show loaded glbs
+
+TODO support drag loaded file to scene view
+
+
+
+
+
+
+
+
+ 
+* TODO 实现Menu
+扩展包?
+如何提供contribute进行扩展？
+
+
+
+
+
+
+* TODO SceneTree
+set parent
+remove selected gameObject
+  TODO use remove instead of dispose(also for add cube* TODO>backward), then dispose them when export scene(when publish and export)
+only remove for three.js, keep dispose for ec?
+
+
+
+* TODO Inspector
+  ** TODO edit local position, euler, scale
+  ** TODO show components
+    *** TODO active basic camera view
+    TODO fix import scene* TODO>active
+
+  ** TODO add component
+    *** TODO now only add arcball, basiccameraview, perspective component, no other components
+    handle event
+       **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
+       **** TODO publish: bind event when active has arcball
+
+  ** TODO fix: game view handle no active camera
+
+
+* TODO scene view
+
+  ** TODO scene view show direction light, camera(show image)
+  ** TODO add grid
+
+
+
+* TODO Controller
+
+  ** TODO add run controller(ui control) to unify run, stop action
+
+* TODO Message
+e.g. show import progress bar
+
+
+* TODO Modal
+publish, export should show Modal
+
+
+/*
+
+* TODO Debug Output
+
+*/
