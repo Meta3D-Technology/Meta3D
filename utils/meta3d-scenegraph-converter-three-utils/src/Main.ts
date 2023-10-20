@@ -1574,11 +1574,13 @@ let _getBufferGeometry = (mesh: MeshType): BufferGeometryType => {
 let _getMeshStandardMaterial = (mesh: MeshType): MeshStandardMaterialType => {
     let material = mesh.material as MeshStandardMaterialType
 
-    if (material.type == "MeshStandardMaterial" || material.type == "MeshPhysicalMaterial") {
+    if (material.type == "MeshStandardMaterial") {
         return material
     }
 
-    throw new Error("error")
+    console.warn(`unsupport material type: ${material.type}`);
+
+    return material
 }
 
 let _convertWrapToScene = (wrap_: Wrapping) => {

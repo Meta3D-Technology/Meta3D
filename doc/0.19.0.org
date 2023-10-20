@@ -15,7 +15,23 @@ TODO support drag loaded file to scene view
 
 
 
+** TODO ui: Window
 
+TODO layout: second line
+    first line: 2 button with image: remove, load
+    second line: icons:image+name
+
+TODO drag icon to scene
+
+TODO scroll bar
+
+
+
+
+TODO use glb image instead of wdb image
+
+
+** TODO support remove glb
 
 
 
@@ -69,6 +85,10 @@ e.g. show import progress bar
 
 * TODO Modal
 publish, export should show Modal
+
+
+
+* TODO fix: solve click button blink problem
 
 
 /*
