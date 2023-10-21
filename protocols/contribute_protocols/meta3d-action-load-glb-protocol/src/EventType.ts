@@ -6,4 +6,6 @@ type glb = ArrayBuffer
 
 type glbId = outsideImmutableDataId
 
-export type inputData = [glb, glbId]
+type glbName = string
+
+export type inputData = [glb, glbId, glbName]

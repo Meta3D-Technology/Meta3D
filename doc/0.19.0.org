@@ -38,17 +38,73 @@ how to abstract?
 bind what?
 
 
+
+
+scene view protocol: define accept
+
+scene view:
+handle drop DND_SceneView with payload:{
+  fromUIControlProtocolName,
+  data:any
+}
+
+
+
+
+data source:
+# define type
+#   need check
+
+find meta3d-asset-protocol
+
+
+
 event:
-click header button
-drag
+click header button handle:
+# remove
+add
+
+drag:
+target
+find meta3d-ui-control-scene-view-protocol
+  insert imgui code(handle drag target)
+
+drop handle
+
 # click asset
 
 
-** TODO support remove glb
+
+TODO finish protocols
+
+
+
+TODO add new extensions, contributes
+
+TODO pass run test
+
+
+
+** TODO add remove glb
 
 
 
 ** TODO use glb image instead of wdb image
+
+
+
+
+** TODO refactor: move loadGlbImage, ... to state
+
+still store in element state
+
+
+TODO ui control: 
+add createState, init
+
+
+
+
  
 * TODO 实现Menu
 扩展包?

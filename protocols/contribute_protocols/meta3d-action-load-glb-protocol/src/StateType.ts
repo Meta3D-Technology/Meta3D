@@ -4,7 +4,7 @@ import { outsideImmutableDataId } from "meta3d-event-sourcing-protocol/src/servi
 export const actionName = "LoadGLB"
 
 export type state = {
-    addedGLBIds: List<outsideImmutableDataId>
+    addedGLBIds: List<outsideImmutableDataId>,
 }
 
 export type elementState = {

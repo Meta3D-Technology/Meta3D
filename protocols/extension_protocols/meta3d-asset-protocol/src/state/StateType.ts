@@ -3,6 +3,8 @@ import { outsideImmutableDataId } from "meta3d-event-sourcing-protocol/src/servi
 
 export type glb = ArrayBuffer
 
+export type glbName = string
+
 export type state = {
-    allGLBAssets: List<[outsideImmutableDataId, glb]>
+    allGLBAssets: List<[outsideImmutableDataId, glbName, glb]>
 }

@@ -1,6 +1,6 @@
 import type { state as StateType_state } from '../../src/state/StateType';
 import type { webgl1Context, texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
-import { strictNullable } from 'meta3d-commonlib-ts/src/nullable';
+import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
 
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -33,6 +33,10 @@ export type texture = webgl1Texture
 // export type context = webgl1Context
 export type context = any
 
+export type base64 = string
+
+export type imguiImplTexture = any
+
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly init: (_1: StateType_state, _2: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
@@ -48,5 +52,13 @@ export type service = {
   readonly getWindowBarHeight: () => number;
   readonly button: (_1: label, _2: size) => boolean;
   readonly setCursorPos: (_1: pos) => void
+  readonly loadBase64Image: (_1: base64) => imguiImplTexture,
+  readonly asset: (
+    textures: { "loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
+    glbs: Array<[string, string]>,
+    label: label,
+    rect: rect,
+  ) => boolean,
+  readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
   readonly getContext: () => context
 };

@@ -54,6 +54,15 @@ export let getExtensionService: getExtensionServiceMeta3D<
         setCursorPos: ([x, y]) => {
             _notImplement()
         },
+        loadBase64Image: (...params) => {
+            return _notImplement()
+        },
+        asset: (...params) => {
+            return _notImplement()
+        },
+        handleDragDropTarget: (...params) => {
+            return _notImplement()
+        },
         getContext: () => {
             return _context
         },

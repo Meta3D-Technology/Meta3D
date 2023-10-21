@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { state, textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect, texture as imguiTexture, context } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, base64 } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type uiExtensionProtocolName = extensionProtocolName
@@ -151,4 +151,13 @@ export type service = {
         meta3dState: meta3dState,
         pos: pos
     ) => meta3dState;
+    readonly loadBase64Image: (_1: base64) => imguiImplTexture,
+    readonly asset: (
+        meta3dState: meta3dState,
+        textures: { "loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
+        glbs: Array<[string, string]>,
+        label: label,
+        rect: rect,
+    ) => [meta3dState, boolean],
+    readonly handleDragDropTarget: <data> (type: string) => [meta3dState, nullable<data>],
 };

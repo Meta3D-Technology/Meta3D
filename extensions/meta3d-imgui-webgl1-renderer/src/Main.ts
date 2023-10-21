@@ -1,6 +1,8 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { rect, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
+import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
+import { dragDropType, dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
 
@@ -23,6 +25,11 @@ let _initEvent = (canvas: HTMLCanvasElement) => {
     // canvas.addEventListener('webglcontextrestored', canvas_on_contextrestored, false)
 }
 
+let _setNextWindowRect = (rect: rect) => {
+    ImGui.SetNextWindowPos(new ImGui.ImVec2(rect.x, rect.y))
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(rect.width, rect.height))
+}
+
 
 export let getExtensionService: getExtensionServiceMeta3D<
     service
@@ -42,7 +49,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 //     ImGui_Impl.setFontScale(1.5)
                 // }
 
-                const io: ImGui.IO = ImGui.GetIO()
+                let io: ImGui.IO = ImGui.GetIO()
                 let font = io.Fonts.AddFontDefault()
                 //font.FontName="Microsoft JhengHei"
                 //font.FontName="Arial"
@@ -51,7 +58,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 //font.FontSize=32
                 //font.Ascent=2.5
 
-                // const canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement
+                // let canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement
                 ImGui_Impl.Init(canvas)
 
                 _initCanvas(canvas)
@@ -72,14 +79,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             switch (state.style) {
                 case "dark":
-                    ImGui.StyleColorsDark();
-                    break;
+                    ImGui.StyleColorsDark()
+                    break
                 case "light":
-                    ImGui.StyleColorsLight();
-                    break;
+                    ImGui.StyleColorsLight()
+                    break
                 case "classic":
-                    ImGui.StyleColorsClassic();
-                    break;
+                    ImGui.StyleColorsClassic()
+                    break
                 default:
                     throw new Error("unknown style: " + state.style)
             }
@@ -119,12 +126,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endWindow: () => {
             ImGui.End()
         },
-        setNextWindowRect: (rect) => {
-            ImGui.SetNextWindowPos(new ImGui.ImVec2(rect.x, rect.y));
-            ImGui.SetNextWindowSize(new ImGui.ImVec2(rect.width, rect.height));
-        },
+        setNextWindowRect: _setNextWindowRect,
         addFBOTexture: (texture, { x, y, width, height }) => {
-            let pos = ImGui.GetCursorScreenPos();
+            let pos = ImGui.GetCursorScreenPos()
             let rectMin = ImGui.GetItemRectMin()
 
             console.log(x, y, width, height)
@@ -153,6 +157,85 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.SetCursorPos(
                 new ImGui.ImVec2(x, y)
             )
+        },
+        loadBase64Image: (imageBase64Src) => {
+            var tex = new ImGui_Impl.Texture();
+            var image = new Image();
+            image.crossOrigin = "anonymous";
+            image.src = imageBase64Src;
+            tex.Update(image);
+
+            return tex;
+        },
+        asset: ({ loadGlbTexture, glbTexture }, glbs, label, rect) => {
+            _setNextWindowRect(rect)
+
+            ImGui.Begin(label)
+
+
+
+            let isLoadGlb = ImGui.ImageButton(loadGlbTexture._texture, new ImGui.ImVec2(32, 32))
+
+
+
+
+            let style: ImGui.Style = ImGui.GetStyle()
+            let glbCount: number = glbs.length
+            let window_visible_x2: number = ImGui.GetWindowPos().x + ImGui.GetWindowContentRegionMax().x
+            let sizeX = 32
+            let sizeY = sizeX
+
+            glbs.forEach(([glbName, glbId], glbIndex) => {
+                ImGui.PushID(glbIndex)
+
+                ImGui.BeginGroup() // Lock X position
+                ImGui.ImageButton(glbTexture._texture, new ImGui.ImVec2(sizeX, sizeY))
+
+                if (ImGui.BeginDragDropSource(ImGui.DragDropFlags.None)) {
+                    // Set payload to carry the index of our item (could be anything)
+                    ImGui.SetDragDropPayload<dropGlbUIData>(dragDropType, {
+                        fromUIControlName: assetUIControlName,
+                        data: glbId
+                    })
+
+                    // Display preview (could be anything, e.g. when dragging an image we could decide to display
+                    // the filename and a small preview of the image, etc.)
+                    ImGui.Text(glbName)
+                    ImGui.EndDragDropSource()
+                }
+
+
+                ImGui.Text(glbName)
+
+
+                let last_button_x2: number = ImGui.GetItemRectMax().x
+                let next_button_x2: number = last_button_x2 + style.ItemSpacing.x + sizeX // Expected position if next button was on same line
+                ImGui.EndGroup() // Lock X position
+                if (glbIndex + 1 < glbCount && next_button_x2 < window_visible_x2)
+                    ImGui.SameLine()
+
+                ImGui.PopID()
+            })
+
+            ImGui.End()
+
+            return isLoadGlb
+        },
+        handleDragDropTarget: (type) => {
+            let data = null
+
+            if (ImGui.BeginDragDropTarget()) {
+                let payload = ImGui.AcceptDragDropPayload(type)
+
+                if (payload !== null) {
+                    // ImGui.ASSERT(payload.DataSize === sizeof(int));
+
+                    data = payload.Data
+                }
+                ImGui.EndDragDropTarget();
+            }
+
+            return data as any
         },
         getContext: () => {
             return ImGui_Impl.gl

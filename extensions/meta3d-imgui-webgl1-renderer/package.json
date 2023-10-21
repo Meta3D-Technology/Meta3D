@@ -1,6 +1,6 @@
 {
     "name": "meta3d-imgui-webgl1-renderer",
-    "version": "0.18.0",
+    "version": "0.18.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "imgui-webgl1-renderer",
     "protocol": {
@@ -14,6 +14,8 @@
     },
     "dependencies": {
         "meta3d-imgui-renderer-protocol": "^0.18.0",
+        "meta3d-ui-control-scene-view-protocol": "^0.18.0",
+        "meta3d-ui-control-asset-protocol": "^0.18.0",
         "meta3d-type": "^0.18.0"
     },
     "devDependencies": {

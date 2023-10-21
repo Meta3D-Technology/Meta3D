@@ -63,6 +63,7 @@ export let func = (meta3dState: meta3dState,
     return new Promise((resolve, reject) => {
         meta3dState = endWindow(meta3dState)
 
+
         resolve([meta3dState, null])
     })
 

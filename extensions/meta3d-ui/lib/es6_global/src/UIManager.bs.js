@@ -398,6 +398,30 @@ function setCursorPos(meta3dState, data, pos) {
               }), data);
 }
 
+function loadBase64Image(data, meta3dState, imageBase64Src) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return imguiRendererService.loadBase64Image(imageBase64Src);
+              }), data);
+}
+
+function asset(data, meta3dState, textures, glbs, label, rect) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.asset(textures, glbs, label, rect)
+                      ];
+              }), data);
+}
+
+function handleDragDropTarget(data, meta3dState, type_) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.handleDragDropTarget(type_)
+                      ];
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -519,6 +543,9 @@ export {
   getContext ,
   button ,
   setCursorPos ,
+  loadBase64Image ,
+  asset ,
+  handleDragDropTarget ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

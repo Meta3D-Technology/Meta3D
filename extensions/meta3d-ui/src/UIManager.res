@@ -636,6 +636,36 @@ let setCursorPos = (meta3dState, data, pos) => {
   )
 }
 
+let loadBase64Image = (data, meta3dState, imageBase64Src) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.loadBase64Image(. imageBase64Src)
+    },
+    data,
+  )
+}
+
+let asset = (data, meta3dState, textures, glbs, label, rect) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.asset(. textures, glbs, label, rect))
+    },
+    data,
+  )
+}
+
+let handleDragDropTarget = (data, meta3dState, type_) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.handleDragDropTarget(. type_))
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
@@ -801,7 +831,7 @@ let deepCopy = (api: Meta3dType.Index.api, meta3dState) => {
       ->Meta3dCommonlib.NullableSt.map((. deepCopy) => {
         elementState->Meta3dCommonlib.ImmutableHashMap.set(
           actionName,
-          deepCopy(elementState->Meta3dCommonlib.ImmutableHashMap.getExn(actionName))
+          deepCopy(elementState->Meta3dCommonlib.ImmutableHashMap.getExn(actionName)),
         )
       })
       ->Meta3dCommonlib.NullableSt.getWithDefault(elementState)

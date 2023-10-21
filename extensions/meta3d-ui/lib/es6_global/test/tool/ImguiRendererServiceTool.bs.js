@@ -1,8 +1,9 @@
 
 
 import * as Sinon from "../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
+import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadBase64ImageOpt, assetOpt, handleDragDropTargetOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -17,6 +18,9 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var getContext = getContextOpt !== undefined ? getContextOpt : Sinon.createEmptyStub(sandbox.contents);
   var button = buttonOpt !== undefined ? buttonOpt : Sinon.createEmptyStub(sandbox.contents);
   var setCursorPos = setCursorPosOpt !== undefined ? setCursorPosOpt : Sinon.createEmptyStub(sandbox.contents);
+  var loadBase64Image = loadBase64ImageOpt !== undefined ? loadBase64ImageOpt : Sinon.createEmptyStub(sandbox.contents);
+  var asset = assetOpt !== undefined ? assetOpt : Sinon.createEmptyStub(sandbox.contents);
+  var handleDragDropTarget = handleDragDropTargetOpt !== undefined ? Caml_option.valFromOption(handleDragDropTargetOpt) : Sinon.createEmptyStub(sandbox.contents);
   return {
           init: init,
           render: render,
@@ -31,6 +35,9 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           getWindowBarHeight: getWindowBarHeight,
           button: button,
           setCursorPos: setCursorPos,
+          loadBase64Image: loadBase64Image,
+          asset: asset,
+          handleDragDropTarget: handleDragDropTarget,
           getContext: getContext
         };
 }

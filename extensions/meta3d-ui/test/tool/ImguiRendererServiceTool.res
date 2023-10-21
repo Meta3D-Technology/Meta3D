@@ -16,6 +16,9 @@ let buildService = (
   ~getContext=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~button=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setCursorPos=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~loadBase64Image=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~asset=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~handleDragDropTarget=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -33,5 +36,8 @@ let buildService = (
     getContext,
     button,
     setCursorPos,
+    loadBase64Image,
+    asset,
+    handleDragDropTarget: handleDragDropTarget->Obj.magic,
   }
 }

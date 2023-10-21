@@ -5,6 +5,18 @@ import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionService(api) {
+  var partial_arg = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$1 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$2 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: UIManager$Meta3dUi.registerElement,
           registerSkin: UIManager$Meta3dUi.registerSkin,
@@ -76,6 +88,15 @@ function getExtensionService(api) {
                           api,
                           "meta3d-imgui-renderer-protocol"
                         ], pos);
+            }),
+          loadBase64Image: (function (param, param$1) {
+              return UIManager$Meta3dUi.loadBase64Image(partial_arg, param, param$1);
+            }),
+          asset: (function (param, param$1, param$2, param$3, param$4) {
+              return UIManager$Meta3dUi.asset(partial_arg$1, param, param$1, param$2, param$3, param$4);
+            }),
+          handleDragDropTarget: (function (param, param$1) {
+              return UIManager$Meta3dUi.handleDragDropTarget(partial_arg$2, param, param$1);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

@@ -103,6 +103,24 @@ type service = {
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.pos,
   ) => Meta3dType.Index.state,
+  loadBase64Image: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.base64,
+  ) => Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+  asset: (
+    Meta3dType.Index.state,
+    {
+      "loadGlbTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      "glbTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+    },
+    array<(string, string)>,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
+  ) => (Meta3dType.Index.state, bool),
+  handleDragDropTarget: 'data. (
+    Meta3dType.Index.state,
+    string,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<'data>),
   // prepare: (
   //   StateType.state,
   //   array<

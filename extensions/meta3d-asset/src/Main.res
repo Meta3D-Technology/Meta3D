@@ -1,7 +1,8 @@
 open Js.Typed_array
 
-let _checkSizeEqual = (glbIds, glbs) => {
-  glbIds->Meta3dCommonlib.ArraySt.length == glbs->Meta3dCommonlib.ArraySt.length
+let _checkSizeEqual = (glbIds, glbNames, glbs) => {
+  glbIds->Meta3dCommonlib.ArraySt.length == glbs->Meta3dCommonlib.ArraySt.length &&
+    glbIds->Meta3dCommonlib.ArraySt.length == glbNames->Meta3dCommonlib.ArraySt.length
     ? ()
     : Meta3dCommonlib.Exception.throwErr(
         Meta3dCommonlib.Exception.buildErr(
@@ -21,7 +22,7 @@ let _checkSizeEqual = (glbIds, glbs) => {
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dAssetProtocol.ServiceType.service,
 > = api => {
-  addGLBAsset: (meta3dState, glb, glbId) => {
+  addGLBAsset: (meta3dState, glb, glbId, glbName) => {
     let state: Meta3dAssetProtocol.StateType.state = api.getExtensionState(.
       meta3dState,
       "meta3d-asset-protocol",
@@ -32,7 +33,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       "meta3d-asset-protocol",
       {
         ...state,
-        allGLBAssets: state.allGLBAssets->Meta3dCommonlib.ListSt.push((glbId, glb)),
+        allGLBAssets: state.allGLBAssets->Meta3dCommonlib.ListSt.push((glbId, glbName, glb)),
       },
     )
   },
@@ -47,7 +48,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       "meta3d-asset-protocol",
       {
         ...state,
-        allGLBAssets: state.allGLBAssets->Meta3dCommonlib.ListSt.filter(((glbId_, _)) =>
+        allGLBAssets: state.allGLBAssets->Meta3dCommonlib.ListSt.filter(((glbId_, _, _)) =>
           glbId_ != glbId
         ),
       },
@@ -69,15 +70,20 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
     let encoder = Meta3d.TextEncoder.newTextEncoder()
 
-    let (glbIds, glbs) = allGLBAssets->Meta3dCommonlib.ListSt.reduce(([], []), (
-      (glbIds, glbs),
-      (glbId, glb),
+    let (glbIds, glbNames, glbs) = allGLBAssets->Meta3dCommonlib.ListSt.reduce(([], [], []), (
+      (glbIds, glbNames, glbs),
+      (glbId, glbName, glb),
     ) => {
-      (glbIds->Meta3dCommonlib.ArraySt.push(glbId), glbs->Meta3dCommonlib.ArraySt.push(glb))
+      (
+        glbIds->Meta3dCommonlib.ArraySt.push(glbId),
+        glbNames->Meta3dCommonlib.ArraySt.push(glbName),
+        glbs->Meta3dCommonlib.ArraySt.push(glb),
+      )
     })
 
     Meta3d.BinaryFileOperator.generate([
       Meta3d.TextEncoder.encodeUint8Array(glbIds->Obj.magic->Js.Json.stringify, encoder),
+      Meta3d.TextEncoder.encodeUint8Array(glbNames->Obj.magic->Js.Json.stringify, encoder),
       glbs
       ->Meta3dCommonlib.ArraySt.map(data => data->Obj.magic->Uint8Array.fromBuffer)
       ->Meta3d.BinaryFileOperator.generate
@@ -92,10 +98,13 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
     let decoder = Meta3d.TextDecoder.newTextDecoder("utf-8")
 
-    let [glbIdsUint8, glbsUint8] = Meta3d.BinaryFileOperator.load(assetFile)
+    let [glbIdsUint8, glbNamesUint8, glbsUint8] = Meta3d.BinaryFileOperator.load(assetFile)
 
     let glbIds =
       Meta3d.TextDecoder.decodeUint8Array(glbIdsUint8, decoder)->Js.Json.parseExn->Obj.magic
+
+    let glbNames =
+      Meta3d.TextDecoder.decodeUint8Array(glbNamesUint8, decoder)->Js.Json.parseExn->Obj.magic
 
     let glbs =
       glbsUint8
@@ -103,7 +112,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
       ->Meta3d.BinaryFileOperator.load
       ->Meta3dCommonlib.ArraySt.map(data => data->Uint8Array.buffer)
 
-    _checkSizeEqual(glbIds, glbs)
+    _checkSizeEqual(glbIds, glbNames, glbs)
 
     api.setExtensionState(.
       meta3dState,
@@ -114,6 +123,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
           (. allGLBAssets, glbId, index) => {
             allGLBAssets->Meta3dCommonlib.ListSt.push((
               glbId,
+              glbNames->Meta3dCommonlib.ArraySt.getExn(index),
               glbs->Meta3dCommonlib.ArraySt.getExn(index),
             ))
           },

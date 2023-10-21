@@ -1,6 +1,5 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-add-glb-to-scene-protocol"
 import { eventName, inputData } from "meta3d-action-add-glb-to-scene-protocol/src/EventType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
@@ -16,24 +15,33 @@ import { disposeGameObjectAndChildren } from "meta3d-dispose-utils/src/DisposeGa
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
+import { dropGlbUIData, uiControlName } from "meta3d-ui-control-scene-view-protocol"
 
-export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
             let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, { fromUIControlName, data }) => {
+                    debugger
+                    if (fromUIControlName !== uiControlName) {
+                        return Promise.resolve(meta3dState)
+                    }
+
+                    let glbId = data
+
+
                     let allGLBAssets = api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol").getAllGLBAssets(meta3dState)
 
                     if (allGLBAssets.length == 0) {
                         return Promise.resolve(meta3dState)
                     }
 
-                    let lastLoadedGLBAsset = allGLBAssets[allGLBAssets.length - 1]
-
-                    let [_, glb] = lastLoadedGLBAsset
+                    let [_glbId, _glbName, glb] = getExn(allGLBAssets.find((asset) => {
+                        return asset[0] == glbId
+                    }))
 
                     let { loadGlb } = api.getExtensionService<loadGLBService>(meta3dState, "meta3d-load-glb-protocol")
 
@@ -109,7 +117,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
-                    inputData: []
+                    inputData: [uiData]
                 }))
             })
         },

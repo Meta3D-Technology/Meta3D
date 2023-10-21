@@ -53,6 +53,9 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     setCursorPos: (meta3dState, pos) => {
       UIManager.setCursorPos(meta3dState, (api, "meta3d-imgui-renderer-protocol"), pos)
     },
+    loadBase64Image: UIManager.loadBase64Image((api, "meta3d-imgui-renderer-protocol")),
+    asset: UIManager.asset((api, "meta3d-imgui-renderer-protocol")),
+    handleDragDropTarget: UIManager.handleDragDropTarget((api, "meta3d-imgui-renderer-protocol")),
     // getIOData: UIManager.getIOData,
     // dispatch: UIManager.dispatch,
     updateElementState: UIManager.updateElementState,

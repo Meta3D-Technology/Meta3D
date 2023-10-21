@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dataName = exports.componentName = void 0;
+// import { nullable } from "meta3d-commonlib-ts/src/nullable"
 exports.componentName = "Transform";
 exports.dataName = {
     parent: 0,
