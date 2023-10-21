@@ -1,11 +1,12 @@
 import * as ImGui from "./imgui"
 import * as ImGui_Impl from "./imgui_impl_button"
+import { init } from "./init_button";
 import { loop } from "./loop_button";
 
 export { ImGui, ImGui_Impl }
 
 
-// export let ImGuiObject = (obj: any, id: number = 0): number  => {
+// export function ImGuiObject(obj: any, id: number = 0): number {
 //     if (obj == null) {
 //         ImGui.Text("(null)");
 //         return;
@@ -41,7 +42,7 @@ export { ImGui, ImGui_Impl }
 // }
 
 
-let _loop = (time: number) =>  {
+function _loop(time: number) {
     loop(time)
     window.requestAnimationFrame(_loop);
 }
@@ -76,7 +77,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     console.log(ImGui.GetStyle())
     console.log(JSON.stringify(ImGui.GetStyle()))
- 
+
 
     // if(ImGui.isMobile.any())    {
     //     ImGui_Impl.setCanvasScale(1);
@@ -98,5 +99,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     _initCanvas(canvas)
     _initEvent(canvas)
 
-    window.requestAnimationFrame(_loop);
+    init().then(_ => {
+        window.requestAnimationFrame(_loop);
+    })
 });

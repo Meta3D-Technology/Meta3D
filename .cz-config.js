@@ -15,16 +15,16 @@ module.exports = {
   ],
 
   scopes: [
-    { name: "defaults" },
+    { name: "editor" },
+    { name: "engine" },
     { name: "platform" },
-    { name: "protocols" },
-    { name: "extensions" },
-    { name: "contributes" },
     { name: "services" },
     { name: "templates" },
+    { name: "examples" },
     { name: "utils" },
     { name: "demos" },
-    { name: "backend" }
+    { name: "backend" },
+    { name: "defaults" }
   ],
 
   // it needs to match the value for field type. Eg.: "fix"

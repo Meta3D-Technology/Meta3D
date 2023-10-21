@@ -15,7 +15,7 @@ TODO support drag loaded file to scene view
 
 
 
-** TODO ui: Window
+** DONE ui demo
 
 TODO layout: second line
     first line: 2 button with image: remove, load
@@ -28,13 +28,27 @@ TODO scroll bar
 
 
 
-TODO use glb image instead of wdb image
+
+
+
+** TODO add ui control
+
+how to abstract?
+
+bind what?
+
+
+event:
+click header button
+drag
+# click asset
 
 
 ** TODO support remove glb
 
 
 
+** TODO use glb image instead of wdb image
  
 * TODO 实现Menu
 扩展包?

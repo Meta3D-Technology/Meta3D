@@ -9,10 +9,10 @@ export let canvas: HTMLCanvasElement | null = null;
 export let canvas_scale:number=ImGui.isMobile.any()?1:window.devicePixelRatio;
 export let font_scale:number=Math.max(window.devicePixelRatio, 1.5);
 
-export let setCanvasScale = (scale:number):void  => {
+export function setCanvasScale(scale:number):void {
     canvas_scale=scale;
 }
-export let setFontScale = (scale:number):void  => {
+export function setFontScale(scale:number):void {
     font_scale=scale;
 }
 
@@ -35,7 +35,7 @@ export let ctx: CanvasRenderingContext2D | null = null;
 
 let prev_time: number = 0;
 
-let document_on_copy = (event: ClipboardEvent): void  => {
+function document_on_copy(event: ClipboardEvent): void {
     if (event.clipboardData) {
         event.clipboardData.setData("text/plain", clipboard_text);
     }
@@ -43,7 +43,7 @@ let document_on_copy = (event: ClipboardEvent): void  => {
     event.preventDefault();
 }
 
-let document_on_cut = (event: ClipboardEvent): void  => {
+function document_on_cut(event: ClipboardEvent): void {
     if (event.clipboardData) {
         event.clipboardData.setData("text/plain", clipboard_text);
     }
@@ -51,7 +51,7 @@ let document_on_cut = (event: ClipboardEvent): void  => {
     event.preventDefault();
 }
 
-let document_on_paste = (event: ClipboardEvent): void  => {
+function document_on_paste(event: ClipboardEvent): void {
     if (event.clipboardData) {
         clipboard_text = event.clipboardData.getData("text/plain");
     }
@@ -68,18 +68,18 @@ function window_on_resize(): void {
     }
 }
 
-let window_on_gamepadconnected = (event: any /* GamepadEvent */): void  => {
+function window_on_gamepadconnected(event: any /* GamepadEvent */): void {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
     event.gamepad.index, event.gamepad.id,
     event.gamepad.buttons.length, event.gamepad.axes.length);
 }
 
-let window_on_gamepaddisconnected = (event: any /* GamepadEvent */): void  => {
+function window_on_gamepaddisconnected(event: any /* GamepadEvent */): void {
     console.log("Gamepad disconnected at index %d: %s.",
     event.gamepad.index, event.gamepad.id);
 }
 
-let canvas_on_blur = (event: FocusEvent): void  => {
+function canvas_on_blur(event: FocusEvent): void {
     const io = ImGui.GetIO();
     io.KeyCtrl = false;
     io.KeyShift = false;
@@ -98,7 +98,7 @@ const key_code_to_index: Record<string, number> = {
     "NumpadEnter": 176,
 };
 
-let canvas_on_keydown = (event: KeyboardEvent): void  => {
+function canvas_on_keydown(event: KeyboardEvent): void {
     // console.log(event.type, event.key, event.code, event.keyCode);
     const io = ImGui.GetIO();
     io.KeyCtrl = event.ctrlKey;
@@ -114,7 +114,7 @@ let canvas_on_keydown = (event: KeyboardEvent): void  => {
     }
 }
 
-let canvas_on_keyup = (event: KeyboardEvent): void   => {
+function canvas_on_keyup(event: KeyboardEvent): void  {
     // console.log(event.type, event.key, event.code, event.keyCode);
     const io = ImGui.GetIO();
     io.KeyCtrl = event.ctrlKey;
@@ -129,7 +129,7 @@ let canvas_on_keyup = (event: KeyboardEvent): void   => {
     }
 }
 
-let canvas_on_keypress = (event: KeyboardEvent): void   => {
+function canvas_on_keypress(event: KeyboardEvent): void  {
     //console.log(event);
     const io = ImGui.GetIO();
     io.AddInputCharacter(event.charCode);
@@ -138,7 +138,7 @@ let canvas_on_keypress = (event: KeyboardEvent): void   => {
     }
 }
 
-let canvas_on_pointermove = (event: PointerEvent): void   => {
+function canvas_on_pointermove(event: PointerEvent): void  {
     const io = ImGui.GetIO();
     io.MousePos.x = event.offsetX;
     io.MousePos.y = event.offsetY;
@@ -166,7 +166,7 @@ export function any_pointerdown():boolean
     return false;
 }
 
-let canvas_on_pointerdown = (event: PointerEvent): void   => {
+function canvas_on_pointerdown(event: PointerEvent): void  {
     if(event.target!=canvas)
         return;
     const io = ImGui.GetIO();
@@ -178,14 +178,14 @@ let canvas_on_pointerdown = (event: PointerEvent): void   => {
     // }
     //console.log("canvas_on_pointerdown", event);
 }
-let canvas_on_contextmenu = (event: Event): void   => {
+function canvas_on_contextmenu(event: Event): void  {
     const io = ImGui.GetIO();
     if (io.WantCaptureMouse) {
         event.preventDefault();
     }
 }
 
-let canvas_on_pointerup = (event: PointerEvent): void   => {
+function canvas_on_pointerup(event: PointerEvent): void  {
     const io = ImGui.GetIO();
     io.MouseDown[mouse_button_map[event.button]] = false;
     if (io.WantCaptureMouse) {
@@ -194,7 +194,7 @@ let canvas_on_pointerup = (event: PointerEvent): void   => {
     //console.log("canvas_on_pointerup", event);
 }
 
-let canvas_on_wheel = (event: WheelEvent): void   => {
+function canvas_on_wheel(event: WheelEvent): void  {
     const io = ImGui.GetIO();
     let scale: number = 1.0;
     switch (event.deltaMode) {
@@ -218,7 +218,7 @@ export class ITouch
 }
 export let multi_touch:{[key:number]:ITouch}={};
 
-let canvas_on_touchstart = (event: TouchEvent):void  => {
+function canvas_on_touchstart(event: TouchEvent):void {
     for(let i=0;i<event.changedTouches.length;i++)  {
         let touch=event.changedTouches[i];
         touch_id=touch.identifier;        
@@ -230,7 +230,7 @@ let canvas_on_touchstart = (event: TouchEvent):void  => {
     io.MousePos.y=mtouch.y;
     io.MouseDown[0]=true;
 }
-let canvas_on_touchmove = (event: TouchEvent):void  => {
+function canvas_on_touchmove(event: TouchEvent):void {
     for(let i=0;i<event.changedTouches.length;i++)  {
         let touch=event.changedTouches[i];
         multi_touch[touch.identifier]={x:touch.clientX, y:touch.clientY};
@@ -240,7 +240,7 @@ let canvas_on_touchmove = (event: TouchEvent):void  => {
     io.MousePos.x=mtouch.x;
     io.MousePos.y=mtouch.y;
 }
-let canvas_on_touchend = (event: TouchEvent):void  => {
+function canvas_on_touchend(event: TouchEvent):void {
     let io=ImGui.GetIO();
     for(let i=0;i<event.changedTouches.length;i++)  {
         let touch=event.changedTouches[i];
@@ -254,7 +254,7 @@ let canvas_on_touchend = (event: TouchEvent):void  => {
         multi_touch={}
     }
 }
-let canvas_on_touchcancel = (event: TouchEvent):void  => {
+function canvas_on_touchcancel(event: TouchEvent):void {
     canvas_on_touchend(event);
 }
 
@@ -301,19 +301,19 @@ export function remove_pointer_event():void {
 
 }
 
-let canvas_on_contextlost = (e:Event):void  => {
+function canvas_on_contextlost(e:Event):void {
     e.preventDefault();
     console.log("canvas_on_contextlost");
     is_contextlost=true;
 }
 
-let canvas_on_contextrestored = (e:Event):void  => {
+function canvas_on_contextrestored(e:Event):void {
     console.log("canvas_on_contextrestored");
     Init(canvas);
     is_contextlost=false;
 }
 
-export let Init = (value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRenderingContext | CanvasRenderingContext2D | null): void  => {
+export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRenderingContext | CanvasRenderingContext2D | null): void {
     const io = ImGui.GetIO();
 
     if (typeof(window) !== "undefined") {
@@ -456,13 +456,13 @@ export function Shutdown(): void {
     }
 }
 
-export let ClearBuffer = (color:ImGui.ImVec4, bufferBit:number = gl.COLOR_BUFFER_BIT) => 
+export function ClearBuffer(color:ImGui.ImVec4, bufferBit:number = gl.COLOR_BUFFER_BIT)
 {
     gl.clearColor(color.x, color.y, color.z, color.w);
     gl.clear(bufferBit);
 }
 
-export let NewFrame = (time: number): void  => {
+export function NewFrame(time: number): void {
     const io = ImGui.GetIO();
 
     if (io.WantSaveIniSettings) {
@@ -527,13 +527,13 @@ export let NewFrame = (time: number): void  => {
             const axes_count: number = gamepad.axes.length;
             
             var MAP_BUTTON=
-            let MAP_BUTTON = (NAV_NO: number, BUTTON_NO: number): void  => {
+            function MAP_BUTTON(NAV_NO: number, BUTTON_NO: number): void {
                 if (!gamepad) { return; }
                 if (buttons_count > BUTTON_NO && gamepad.buttons[BUTTON_NO].pressed)
                     io.NavInputs[NAV_NO] = 1.0;
             }
             var MAP_ANALOG=
-            let MAP_ANALOG = (NAV_NO: number, AXIS_NO: number, V0: number, V1: number): void  => {
+            function MAP_ANALOG(NAV_NO: number, AXIS_NO: number, V0: number, V1: number): void {
                 if (!gamepad) { return; }
                 let v: number = (axes_count > AXIS_NO) ? gamepad.axes[AXIS_NO] : V0;
                 v = (v - V0) / (V1 - V0);
@@ -625,7 +625,7 @@ export let NewFrame = (time: number): void  => {
     }
 }
 
-let toRgba = (col:number) => :string
+function toRgba(col:number):string
 {
     const r=(col>>>24);
     const g=(col>>16)&0xFF;
@@ -636,7 +636,7 @@ let toRgba = (col:number) => :string
 
 export let dom_font:Font=null;
 
-async let font_update = (io:ImGui.IO) =>  {
+async function font_update(io:ImGui.IO) {
     if(!dom_font)   {
         dom_font=new Font;
     }
@@ -655,7 +655,7 @@ let current_window_id:ImGui.ImGuiID=0;
 export let scroll_acc:ImGui.ImVec2=new ImGui.ImVec2(0,0);
 let mouse_first_down:boolean=false;
 
-let scroll_update = (io:ImGui.IO) =>  {
+function scroll_update(io:ImGui.IO) {
     const hoveredWin= ImGui.GetHoveredWindow();
     const hoveredId= ImGui.GetHoveredId();
     if(hoveredWin && hoveredId==0)  {
@@ -709,7 +709,7 @@ let dom_input:Input.Input;
 let current_input_id:ImGui.ImGuiID=0;
 let current_input_text:string;
 
-let input_text_update = (io:ImGui.IO):void  => {
+function input_text_update(io:ImGui.IO):void {
     const activeId=ImGui.GetActiveId();
     const inpId=ImGui.GetInputTextId();
     if(!activeId || activeId!=inpId)    {
@@ -758,7 +758,7 @@ let input_text_update = (io:ImGui.IO):void  => {
     }
 }
 
-export let RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawData = ()): void  => {
+export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawData()): void {
     const io = ImGui.GetIO();
 
     font_update(io);

@@ -1,6 +1,7 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require('path');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -8,7 +9,7 @@ const isProduction = process.env.NODE_ENV == 'production';
 const config = {
     // entry: './src/index.ts',
     entry: './src/index_button.ts',
-    
+
     output: {
         path: path.resolve(__dirname, 'www/js'),
     },
@@ -23,10 +24,19 @@ const config = {
                 loader: 'ts-loader',
                 exclude: ['/node_modules/'],
             },
+            // {
+            //     test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+            //     type: 'asset',
+            // },
             {
-                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
-                type: 'asset',
+                test: /\.(png|jpe?g|gif)$/i,
+                use: [
+                    {
+                        loader: 'url-loader'
+                    },
+                ],
             },
+
 
             // Add your rules for custom modules here
             // Learn more about loaders from https://webpack.js.org/loaders/
@@ -34,17 +44,31 @@ const config = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-    }
+    },
+    plugins: [
+        /**
+        * All files inside webpack's output.path directory will be removed once, but the
+        * directory itself will not be. If using webpack 4+'s default configuration,
+        * everything under <PROJECT_DIR>/dist/ will be removed.
+* Use cleanOnceBeforeBuildPatterns to override this behavior.
+        *
+        * During rebuilds, all webpack assets that are not used anymore
+        * will be removed automatically.
+        *
+        * See `Options and Defaults` for information
+        */
+        // new CleanWebpackPlugin(),
+    ],
 };
 
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
-        
+
+
     } else {
         config.mode = 'development';
-        config.devtool= 'inline-source-map';
+        config.devtool = 'inline-source-map';
     }
     return config;
 };

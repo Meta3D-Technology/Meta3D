@@ -4,7 +4,7 @@ import * as ImGui_Impl from "./imgui_impl"
 export {ImGui, ImGui_Impl}
 
 
-export let ImGuiObject = (obj:any, id:number=0) => :number
+export function ImGuiObject(obj:any, id:number=0):number
 {
     if(obj==null)   {
         ImGui.Text("(null)");
@@ -44,7 +44,7 @@ export let ImGuiObject = (obj:any, id:number=0) => :number
 
 let _main:Main;
 
-let _loop = (time:number) =>  {
+function _loop(time:number) {
     _main.loop(time);
     window.requestAnimationFrame(_loop);
 }
