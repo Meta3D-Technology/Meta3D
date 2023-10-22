@@ -187,22 +187,35 @@ let reducer = (state, action) => {
             },
           ]
         | _ =>
-          data.event
-          ->Meta3dCommonlib.ArraySt.filter(eventData => {
-            eventData.eventName === eventName && !(actionNameOpt->Meta3dCommonlib.OptionSt.isSome)
-              ? false
-              : true
-          })
-          ->Meta3dCommonlib.ArraySt.map(eventData => {
-            eventData.eventName === eventName
-              ? {
-                  {
-                    eventName,
-                    actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
-                  }
-                }
-              : eventData
-          })
+          switch actionNameOpt {
+          | None =>
+            data.event->Meta3dCommonlib.ArraySt.filter(eventData => {
+              eventData.eventName !== eventName
+            })
+          | Some(actionName) =>
+            data.event->Meta3dCommonlib.ArraySt.includesByFunc(eventData => {
+              eventData.eventName === eventName
+            })
+              ? data.event->Meta3dCommonlib.ArraySt.map(eventData => {
+                  eventData.eventName === eventName
+                    ? {
+                        {
+                          eventName,
+                          actionName,
+                        }
+                      }
+                    : eventData
+                })
+              : data.event->Js.Array.concat(
+                  [
+                    {
+                      eventName,
+                      actionName,
+                    },
+                  ],
+                  _,
+                )
+          }
         },
       },
       id,

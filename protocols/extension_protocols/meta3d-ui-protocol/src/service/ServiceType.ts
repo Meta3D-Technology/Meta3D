@@ -161,14 +161,14 @@ export type service = {
     readonly loadImage: (
         meta3dState: meta3dState,
         _1: imageSrc
-    ) => imguiImplTexture,
+    ) => Promise<imguiImplTexture>,
     readonly asset: (
         meta3dState: meta3dState,
-        textures: { "loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
+        textures: { "loadGlbTexture": imguiImplTexture, "removeAssetTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
         glbs: Array<[string, string]>,
         label: label,
         rect: rect,
-    ) => [meta3dState, boolean],
+    ) => [meta3dState, [boolean, boolean, nullable<string>]],
     readonly handleDragDropTarget: <data> (
         meta3dState: meta3dState,
         type: string

@@ -7,7 +7,13 @@ type rect = {
 
 type childrenFunc = (. Index.state) => Index.state
 
-type supportedEventName = [#button_click | #asset_load_glb | #sceneview_drop_glb]
+type supportedEventName = [
+  | #button_click
+  | #asset_remove
+  | #asset_load_glb
+  | #asset_select
+  | #sceneview_drop_glb
+]
 
 type actionName = Js.Nullable.t<string>
 

@@ -1,8 +1,10 @@
 {
-    "name": "meta3d-event-sourcing-protocol",
+    "name": "meta3d-action-remove-asset-protocol",
     "version": "0.18.1",
+    "description": "",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
+    "main": "src/StateType.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

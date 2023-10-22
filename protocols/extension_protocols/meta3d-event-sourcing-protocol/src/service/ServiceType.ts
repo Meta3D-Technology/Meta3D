@@ -3,6 +3,7 @@ import type { List } from 'immutable';
 import { state as meta3dState } from "meta3d-type"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { events } from '../state/StateType';
+import { nullable } from 'meta3d-commonlib-ts/src/nullable';
 
 type component = number
 
@@ -16,7 +17,7 @@ export type outsideImmutableData = ArrayBuffer
 
 export type outsideImmutableDataId = string
 
-export type singleInputData = outsideImmutableDataId | domainModelId | valueObject | outsideImmutableData
+export type singleInputData = nullable<outsideImmutableDataId | domainModelId | valueObject | outsideImmutableData>
 
 type eventName = string
 

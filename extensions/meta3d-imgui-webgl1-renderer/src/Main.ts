@@ -5,6 +5,8 @@ import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-pro
 import { dragDropType, dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
+import { return_ } from "meta3d-commonlib-ts/src/NullableUtils"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 // let _generateUniqueId = () => {
 //     return Math.floor(Math.random() * 1000000.0).toString()
@@ -181,14 +183,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }
             })
         },
-        asset: ({ loadGlbTexture, glbTexture }, glbs, label, rect) => {
+        asset: ({ loadGlbTexture, removeAssetTexture, glbTexture }, glbs, label, rect) => {
             _setNextWindowRect(rect)
 
             ImGui.Begin(label)
 
 
 
-            let isLoadGlb = ImGui.ImageButton(loadGlbTexture._texture, new ImGui.ImVec2(32, 32))
+            let isRemoveAsset = ImGui.ImageButton(removeAssetTexture._texture, new ImGui.ImVec2(20, 20))
+
+            ImGui.SameLine()
+
+            let isLoadGlb = ImGui.ImageButton(loadGlbTexture._texture, new ImGui.ImVec2(20, 20))
+
 
 
 
@@ -199,11 +206,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
             let sizeX = 32
             let sizeY = sizeX
 
-            glbs.forEach(([glbName, glbId], glbIndex) => {
+            let selectedGlbId = glbs.reduce<nullable<string>>((selectedGlbId, [glbName, glbId], glbIndex) => {
                 ImGui.PushID(glbIndex)
 
                 ImGui.BeginGroup() // Lock X position
-                ImGui.ImageButton(glbTexture._texture, new ImGui.ImVec2(sizeX, sizeY))
+                if (ImGui.ImageButton(glbTexture._texture, new ImGui.ImVec2(sizeX, sizeY))) {
+                    selectedGlbId = return_(glbId)
+                }
 
                 if (ImGui.BeginDragDropSource(ImGui.DragDropFlags.None)) {
                     // Set payload to carry the index of our item (could be anything)
@@ -219,7 +228,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }
 
 
-                ImGui.Text(glbName)
+                ImGui.Text(glbName.slice(0, 8))
 
 
                 let last_button_x2: number = ImGui.GetItemRectMax().x
@@ -229,11 +238,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
                     ImGui.SameLine()
 
                 ImGui.PopID()
-            })
+
+                return selectedGlbId
+            }, null)
 
             ImGui.End()
 
-            return isLoadGlb
+            return [isRemoveAsset, isLoadGlb, selectedGlbId]
         },
         handleDragDropTarget: (type) => {
             let data = null

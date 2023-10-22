@@ -26,7 +26,6 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, { fromUIControlName, data }) => {
-                    debugger
                     if (fromUIControlName !== assetUIControlName) {
                         return Promise.resolve(meta3dState)
                     }

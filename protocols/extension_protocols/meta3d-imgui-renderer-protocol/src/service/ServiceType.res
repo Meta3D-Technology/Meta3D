@@ -44,13 +44,17 @@ type service = {
   getWindowBarHeight: unit => float,
   button: (. label, size) => bool,
   setCursorPos: (. pos) => unit,
-  loadImage: (. imageSrc) => imguiImplTexture,
+  loadImage: (. imageSrc) => Js.Promise.t<imguiImplTexture>,
   asset: (
-    . {"loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture},
+    . {
+      "loadGlbTexture": imguiImplTexture,
+      "removeAssetTexture": imguiImplTexture,
+      "glbTexture": imguiImplTexture,
+    },
     array<(string, string)>,
     label,
     rect,
-  ) => bool,
+  ) => (bool, bool, Js.Nullable.t<string>),
   handleDragDropTarget: 'data. (. string) => Js.Nullable.t<'data>,
   getContext: unit => context,
 }

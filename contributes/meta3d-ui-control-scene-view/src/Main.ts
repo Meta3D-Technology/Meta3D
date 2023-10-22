@@ -51,6 +51,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
 
             let { handleDragDropTarget } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
 
+            /*! 
+            * refer to https://github.com/ocornut/imgui/issues/1771
+            */
+
             let d = handleDragDropTarget<dragDropData>(meta3dState, dragDropType)
             meta3dState = d[0]
             let data = d[1]

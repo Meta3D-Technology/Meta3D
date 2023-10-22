@@ -27,6 +27,11 @@ Feature: ElementAssembleStore
             When set action with id1, event data1
             Then should add event data1
 
+        Scenario: set action twice
+            Given set action with id1, event data1
+            When set action with id1, event data2
+            Then should add event data1 and data2
+
         Scenario: set action with empty action name
             Given set action with id1, event data1
             When set action with id1, event data1 with empty action name

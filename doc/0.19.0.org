@@ -86,33 +86,42 @@ TODO pass run test
   TODO load glb no reaction!
   TODO drag to scene view no reaction
 
-  TODO fix: drag to scene view shouldn't move arcball
+  # TODO fix: drag to scene view shouldn't move arcball
+
+
+** DONE slice text
+
+** DONE icon size decrease to 20*20
+
+
+** DONE use glb image instead of wdb image
+
+
+
+
+
+
+
+
+** DONE add remove glb
+
+TODO fix inspector
+
+TODO pass run test
+
+
+# TODO highlight clicked glb
 
 
 TODO need publish
-add glb
-# meta3d-ui-control-asset
-# meta3d-editor-webgl1-three-run-engine-sceneview
+# add glb
+# meta3d-ui-control-asset, p
+# # # meta3d-editor-webgl1-three-run-engine-sceneview
+# remove asset
+# select asset, p
 # imgui
-# ui
+# ui, p
 
-
-
-** TODO slice text
-
-** TODO icon size decrease to 20*20
-
-
-** TODO use glb image instead of wdb image
-
-
-
-
-
-
-
-
-** TODO add remove glb
 
 
 
@@ -125,6 +134,11 @@ still store in element state
 
 TODO ui control: 
 add createState, init
+
+
+
+** TODO run test: redo/undo when run
+
 
 
 
@@ -183,6 +197,17 @@ publish, export should show Modal
 
 
 * TODO fix: solve click button blink problem
+
+
+
+
+* TODO layout editor page
+
+
+
+* TODO fix: import app with package->select all in assemble space->go to Index->enter assemble space: package not stored in app!
+
+
 
 
 /*

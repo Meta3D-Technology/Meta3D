@@ -20,16 +20,28 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
-export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["asset_load_glb"]
+export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["asset_remove", "asset_load_glb", "asset_select"]
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([loadGlbActionName]) => {
-    if (!isNullable(loadGlbActionName)) {
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([removeAssetActionName, loadGlbActionName, selectAssetActionName]) => {
+    if (!isNullable(removeAssetActionName) && !isNullable(loadGlbActionName) && !isNullable(selectAssetActionName)) {
         return `
-                if (data[1]) {
-                    let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
+                let [isRemoveAsset, isLoadGlb, selectedGlbId] = data[1]
 
-                     return trigger(meta3dState, "meta3d-event-protocol", "${loadGlbActionName}", null)
+                let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
+
+                if (isRemoveAsset) {
+                     return trigger(meta3dState, "meta3d-event-protocol", "${removeAssetActionName}", null)
                 }
+
+                if (isLoadGlb) {
+                    return trigger(meta3dState, "meta3d-event-protocol", "${loadGlbActionName}", null)
+                }
+
+                if (selectedGlbId != null) {
+                    return trigger(meta3dState, "meta3d-event-protocol", "${selectAssetActionName}", selectedGlbId)
+                }
+
+                return Promise.resolve(meta3dState)
                 `
     }
 

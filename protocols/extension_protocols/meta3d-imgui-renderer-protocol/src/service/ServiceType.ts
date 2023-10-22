@@ -2,7 +2,6 @@ import type { state as StateType_state } from '../../src/state/StateType';
 import type { webgl1Context, texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
 import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
 
-
 // tslint:disable-next-line:interface-over-type-literal
 export type rect = {
   readonly x: number;
@@ -54,13 +53,17 @@ export type service = {
   readonly getWindowBarHeight: () => number;
   readonly button: (_1: label, _2: size) => boolean;
   readonly setCursorPos: (_1: pos) => void
-  readonly loadImage: (_1: imageSrc) => imguiImplTexture,
+  readonly loadImage: (_1: imageSrc) => Promise<imguiImplTexture>,
   readonly asset: (
-    textures: { "loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
+    textures: {
+      "loadGlbTexture": imguiImplTexture,
+      "removeAssetTexture": imguiImplTexture,
+      "glbTexture": imguiImplTexture
+    },
     glbs: Array<[string, string]>,
     label: label,
     rect: rect,
-  ) => boolean,
+  ) => [boolean, boolean, nullable<string>],
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
   readonly getContext: () => context
 };
