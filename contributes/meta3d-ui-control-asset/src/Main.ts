@@ -6,6 +6,9 @@ import loadGlbImageSrc from "url-loader!./image/add.png"
 import glbImageSrc from "url-loader!./image/glb.png"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 
+let _loadGlbTexture: any = null
+let _glbTexture: any = null
+
 export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
@@ -15,17 +18,26 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                 label
             }
         ) => {
-            let { asset, loadBase64Image } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
+            let { asset, loadImage } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
 
             let { getAllGLBAssets } = api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol")
 
-            let loadGlbTexture = loadBase64Image(loadGlbImageSrc)
-            let glbTexture = loadBase64Image(glbImageSrc)
+            if (_loadGlbTexture !== null) {
+                return new Promise((resolve, reject) => {
+                    resolve(asset(meta3dState, { loadGlbTexture: _loadGlbTexture, glbTexture: _glbTexture },
+                        getAllGLBAssets(meta3dState).map(([glbId, glbName, _]) => [glbName, glbId]),
+                        label, rect))
+                })
+            }
 
-            return new Promise((resolve, reject) => {
-                resolve(asset(meta3dState, { loadGlbTexture, glbTexture },
-                    getAllGLBAssets(meta3dState).map(([glbId, glbName, _]) => [glbName, glbId]),
-                    label, rect))
+            return loadImage(meta3dState, loadGlbImageSrc).then((loadGlbTexture: any) => {
+                return loadImage(meta3dState, glbImageSrc).then((glbTexture: any) => {
+
+                    _loadGlbTexture = loadGlbTexture
+                    _glbTexture = glbTexture
+
+                    return [meta3dState, false]
+                })
             })
         }
     }

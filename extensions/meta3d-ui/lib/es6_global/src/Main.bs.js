@@ -51,6 +51,18 @@ function getExtensionService(api) {
                           "meta3d-imgui-renderer-protocol"
                         ]);
             }),
+          beginChild: (function (meta3dState, label) {
+              return UIManager$Meta3dUi.beginChild(meta3dState, [
+                          api,
+                          "meta3d-imgui-renderer-protocol"
+                        ], label);
+            }),
+          endChild: (function (meta3dState) {
+              return UIManager$Meta3dUi.endChild(meta3dState, [
+                          api,
+                          "meta3d-imgui-renderer-protocol"
+                        ]);
+            }),
           setNextWindowRect: (function (meta3dState, rect) {
               return UIManager$Meta3dUi.setNextWindowRect(meta3dState, [
                           api,
@@ -89,8 +101,8 @@ function getExtensionService(api) {
                           "meta3d-imgui-renderer-protocol"
                         ], pos);
             }),
-          loadBase64Image: (function (param, param$1) {
-              return UIManager$Meta3dUi.loadBase64Image(partial_arg, param, param$1);
+          loadImage: (function (param, param$1) {
+              return UIManager$Meta3dUi.loadImage(partial_arg, param, param$1);
             }),
           asset: (function (param, param$1, param$2, param$3, param$4) {
               return UIManager$Meta3dUi.asset(partial_arg$1, param, param$1, param$2, param$3, param$4);

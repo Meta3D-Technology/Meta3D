@@ -90,7 +90,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 Curry._2(and, "prepare imgui renderer service", (function (param) {
                         beforeExecStub.contents = Sinon.returns(13, Sinon.createEmptyStub(sandbox.contents));
                         afterExecStub.contents = Sinon.createEmptyStub(sandbox.contents);
-                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, beforeExecStub.contents, afterExecStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, beforeExecStub.contents, afterExecStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
                       }));
                 Curry._2(and, "register element func1 with exec order=1", (function (param) {
                         state.contents = MainTool$Meta3dUi.createState(undefined);
@@ -187,7 +187,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 _prepare(param.given);
                 Curry._2(and, "prepare imgui renderer service", (function (param) {
                         renderStub.contents = Sinon.createEmptyStub(sandbox.contents);
-                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, renderStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, renderStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
                       }));
                 Curry._2(and, "prepare api", (function (param) {
                         var __x = Sinon.createEmptyStub(sandbox.contents);

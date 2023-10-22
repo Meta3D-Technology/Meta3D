@@ -20,7 +20,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
-export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["asset_add_glb"]
+export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["asset_load_glb"]
 
 export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([loadGlbActionName]) => {
     if (!isNullable(loadGlbActionName)) {

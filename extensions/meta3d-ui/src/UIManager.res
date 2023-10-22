@@ -559,6 +559,30 @@ let endWindow = (meta3dState, data) => {
   )
 }
 
+let beginChild = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.label) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.beginChild(. label)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let endChild = (meta3dState, data) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      imguiRendererService.endChild()
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
 let setNextWindowRect = (meta3dState, data, rect: Meta3dImguiRendererProtocol.ServiceType.rect) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
@@ -636,11 +660,11 @@ let setCursorPos = (meta3dState, data, pos) => {
   )
 }
 
-let loadBase64Image = (data, meta3dState, imageBase64Src) => {
+let loadImage = (data, meta3dState, imageBase64Src) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,
     (imguiRendererState, imguiRendererService) => {
-      imguiRendererService.loadBase64Image(. imageBase64Src)
+      imguiRendererService.loadImage(. imageBase64Src)
     },
     data,
   )

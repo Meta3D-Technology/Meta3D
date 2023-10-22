@@ -82,14 +82,38 @@ TODO finish protocols
 TODO add new extensions, contributes
 
 TODO pass run test
+  TODO fix: no image twice
+  TODO load glb no reaction!
+  TODO drag to scene view no reaction
+
+  TODO fix: drag to scene view shouldn't move arcball
+
+
+TODO need publish
+add glb
+# meta3d-ui-control-asset
+# meta3d-editor-webgl1-three-run-engine-sceneview
+# imgui
+# ui
+
+
+
+** TODO slice text
+
+** TODO icon size decrease to 20*20
+
+
+** TODO use glb image instead of wdb image
+
+
+
+
+
 
 
 
 ** TODO add remove glb
 
-
-
-** TODO use glb image instead of wdb image
 
 
 

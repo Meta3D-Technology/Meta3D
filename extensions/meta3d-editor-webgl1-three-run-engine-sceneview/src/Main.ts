@@ -88,7 +88,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			})
 		},
 		sync: (meta3dState) => {
-			debugger
+			// debugger
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-editor-run-engine-sceneview-protocol")
 
 			let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")

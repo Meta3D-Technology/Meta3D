@@ -126,6 +126,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endWindow: () => {
             ImGui.End()
         },
+        beginChild: (label) => {
+            ImGui.BeginChild(label)
+        },
+        endChild: () => {
+            ImGui.EndChild()
+        },
         setNextWindowRect: _setNextWindowRect,
         addFBOTexture: (texture, { x, y, width, height }) => {
             let pos = ImGui.GetCursorScreenPos()
@@ -158,14 +164,22 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 new ImGui.ImVec2(x, y)
             )
         },
-        loadBase64Image: (imageBase64Src) => {
+        loadImage: (src) => {
             var tex = new ImGui_Impl.Texture();
             var image = new Image();
             image.crossOrigin = "anonymous";
-            image.src = imageBase64Src;
-            tex.Update(image);
+            image.src = src;
 
-            return tex;
+            return new Promise((resolve, reject) => {
+                image.onload = () => {
+                    tex.Update(image);
+
+                    resolve(tex)
+                }
+                image.onerror = (e) => {
+                    reject(e)
+                }
+            })
         },
         asset: ({ loadGlbTexture, glbTexture }, glbs, label, rect) => {
             _setNextWindowRect(rect)

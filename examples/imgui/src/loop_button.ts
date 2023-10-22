@@ -139,6 +139,55 @@ export let loop = (time: number) => {
     ImGui.NewFrame();
 
 
+    ImGui.SetNextWindowPos(new ImGui.ImVec2(600, 600));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(200, 200));
+
+
+    ImGui.Begin("Target");
+
+    ImGui.BeginChild("Child");
+    // ImGui.Dummy(new ImGui.ImVec2(180,160))
+    // ImGui.InvisibleButton("z", new ImGui.ImVec2(180,160))
+
+
+
+
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+    ImGui.Button("Remove"); 
+
+
+
+    ImGui.EndChild()
+
+    if (ImGui.BeginDragDropTarget()) {
+        let payload
+        if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
+            // ImGui.ASSERT(payload.DataSize === sizeof(int));
+            const payload_n = payload.Data;
+            console.log("accept drag target, from source: ", payload_n)
+
+        }
+        ImGui.EndDragDropTarget();
+    }
+
+    ImGui.End()
+
+
+
+
+
+
     ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
     ImGui.SetNextWindowSize(new ImGui.ImVec2(600, 600));
 
@@ -164,16 +213,16 @@ export let loop = (time: number) => {
     ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(200, 200))
 
 
-    if (ImGui.BeginDragDropTarget()) {
-        let payload
-        if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
-            // ImGui.ASSERT(payload.DataSize === sizeof(int));
-            const payload_n = payload.Data;
-            console.log("accept drag target, from source: ", payload_n)
+    // if (ImGui.BeginDragDropTarget()) {
+    //     let payload
+    //     if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
+    //         // ImGui.ASSERT(payload.DataSize === sizeof(int));
+    //         const payload_n = payload.Data;
+    //         console.log("accept drag target, from source: ", payload_n)
 
-        }
-        ImGui.EndDragDropTarget();
-    }
+    //     }
+    //     ImGui.EndDragDropTarget();
+    // }
 
 
 

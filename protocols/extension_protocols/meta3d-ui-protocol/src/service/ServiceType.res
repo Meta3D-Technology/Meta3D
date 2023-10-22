@@ -81,6 +81,11 @@ type service = {
     Meta3dImguiRendererProtocol.ServiceType.label,
   ) => Meta3dType.Index.state,
   endWindow: Meta3dType.Index.state => Meta3dType.Index.state,
+  beginChild: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+  ) => Meta3dType.Index.state,
+  endChild: Meta3dType.Index.state => Meta3dType.Index.state,
   setNextWindowRect: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.rect,
@@ -103,9 +108,9 @@ type service = {
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.pos,
   ) => Meta3dType.Index.state,
-  loadBase64Image: (
+  loadImage: (
     Meta3dType.Index.state,
-    Meta3dImguiRendererProtocol.ServiceType.base64,
+    Meta3dImguiRendererProtocol.ServiceType.imageSrc,
   ) => Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
   asset: (
     Meta3dType.Index.state,

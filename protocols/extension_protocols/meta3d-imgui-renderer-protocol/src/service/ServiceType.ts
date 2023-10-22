@@ -33,7 +33,7 @@ export type texture = webgl1Texture
 // export type context = webgl1Context
 export type context = any
 
-export type base64 = string
+export type imageSrc = string
 
 export type imguiImplTexture = any
 
@@ -47,12 +47,14 @@ export type service = {
   readonly clear: (_1: clearColor) => void;
   readonly beginWindow: (_1: label) => void;
   readonly endWindow: () => void;
+  readonly beginChild: (_1: label) => void;
+  readonly endChild: () => void;
   readonly setNextWindowRect: (_1: rect) => void;
   readonly addFBOTexture: (_1: strictNullable<texture>, _2: rect) => void;
   readonly getWindowBarHeight: () => number;
   readonly button: (_1: label, _2: size) => boolean;
   readonly setCursorPos: (_1: pos) => void
-  readonly loadBase64Image: (_1: base64) => imguiImplTexture,
+  readonly loadImage: (_1: imageSrc) => imguiImplTexture,
   readonly asset: (
     textures: { "loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
     glbs: Array<[string, string]>,

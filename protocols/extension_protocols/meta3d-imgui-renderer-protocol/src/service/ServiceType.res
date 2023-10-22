@@ -23,7 +23,7 @@ type texture = Meta3dWebgl1Protocol.ServiceType.texture
 
 type context = Meta3dWebgl1Protocol.ServiceType.webgl1Context
 
-type base64 = string
+type imageSrc = string
 
 type imguiImplTexture
 
@@ -37,12 +37,14 @@ type service = {
   clear: (. clearColor) => unit,
   beginWindow: (. label) => unit,
   endWindow: unit => unit,
+  beginChild: (. label) => unit,
+  endChild: unit => unit,
   setNextWindowRect: (. rect) => unit,
   addFBOTexture: (. Js.Null.t<texture>, rect) => unit,
   getWindowBarHeight: unit => float,
   button: (. label, size) => bool,
   setCursorPos: (. pos) => unit,
-  loadBase64Image: (. base64) => imguiImplTexture,
+  loadImage: (. imageSrc) => imguiImplTexture,
   asset: (
     . {"loadGlbTexture": imguiImplTexture, "glbTexture": imguiImplTexture},
     array<(string, string)>,

@@ -15,7 +15,8 @@ import { disposeGameObjectAndChildren } from "meta3d-dispose-utils/src/DisposeGa
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
-import { dropGlbUIData, uiControlName } from "meta3d-ui-control-scene-view-protocol"
+import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
+import { dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, state>> = (api) => {
     return {
@@ -26,7 +27,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, { fromUIControlName, data }) => {
                     debugger
-                    if (fromUIControlName !== uiControlName) {
+                    if (fromUIControlName !== assetUIControlName) {
                         return Promise.resolve(meta3dState)
                     }
 

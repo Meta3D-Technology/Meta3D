@@ -337,6 +337,20 @@ function endWindow(meta3dState, data) {
               }), data);
 }
 
+function beginChild(meta3dState, data, label) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                imguiRendererService.beginChild(label);
+                return imguiRendererState;
+              }), data);
+}
+
+function endChild(meta3dState, data) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                Curry._1(imguiRendererService.endChild, undefined);
+                return imguiRendererState;
+              }), data);
+}
+
 function setNextWindowRect(meta3dState, data, rect) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.setNextWindowRect(rect);
@@ -398,9 +412,9 @@ function setCursorPos(meta3dState, data, pos) {
               }), data);
 }
 
-function loadBase64Image(data, meta3dState, imageBase64Src) {
+function loadImage(data, meta3dState, imageBase64Src) {
   return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return imguiRendererService.loadBase64Image(imageBase64Src);
+                return imguiRendererService.loadImage(imageBase64Src);
               }), data);
 }
 
@@ -535,6 +549,8 @@ export {
   setStyle ,
   beginWindow ,
   endWindow ,
+  beginChild ,
+  endChild ,
   setNextWindowRect ,
   getFBOTexture ,
   setFBOTexture ,
@@ -543,7 +559,7 @@ export {
   getContext ,
   button ,
   setCursorPos ,
-  loadBase64Image ,
+  loadImage ,
   asset ,
   handleDragDropTarget ,
   clear ,

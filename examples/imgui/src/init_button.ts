@@ -13,7 +13,7 @@ export let addTexture: ImGui_Impl.Texture;
 
 
 
-export let loadBase64Image = (textureCache, name, imageBase64Src) => {
+export let loadImage = (textureCache, name, imageBase64Src) => {
     var tex = new ImGui_Impl.Texture();
     var image = new Image();
     // image.crossOrigin = "anonymous";
@@ -30,7 +30,7 @@ export let init = () => {
     // return textureCache.Load("img", addImage).then(img => {
     //     addTexture = img;
     // });
-    addTexture = loadBase64Image(textureCache, "addImage", addImage)
+    addTexture = loadImage(textureCache, "addImage", addImage)
 
     return Promise.resolve()
 

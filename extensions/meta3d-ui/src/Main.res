@@ -33,6 +33,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     endWindow: meta3dState => {
       UIManager.endWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
     },
+    beginChild: (meta3dState, label) => {
+      UIManager.beginChild(meta3dState, (api, "meta3d-imgui-renderer-protocol"), label)
+    },
+    endChild: meta3dState => {
+      UIManager.endChild(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
+    },
     setNextWindowRect: (meta3dState, rect) => {
       UIManager.setNextWindowRect(meta3dState, (api, "meta3d-imgui-renderer-protocol"), rect)
     },
@@ -53,7 +59,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     setCursorPos: (meta3dState, pos) => {
       UIManager.setCursorPos(meta3dState, (api, "meta3d-imgui-renderer-protocol"), pos)
     },
-    loadBase64Image: UIManager.loadBase64Image((api, "meta3d-imgui-renderer-protocol")),
+    loadImage: UIManager.loadImage((api, "meta3d-imgui-renderer-protocol")),
     asset: UIManager.asset((api, "meta3d-imgui-renderer-protocol")),
     handleDragDropTarget: UIManager.handleDragDropTarget((api, "meta3d-imgui-renderer-protocol")),
     // getIOData: UIManager.getIOData,
