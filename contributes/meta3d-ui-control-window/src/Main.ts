@@ -25,6 +25,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
 
                 return [meta3dState, null]
             })
-        }
+        },
+        init: (meta3dState) => Promise.resolve(meta3dState)
     }
 }

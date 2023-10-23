@@ -38,7 +38,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
 
             uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
-            uiState = setUIControlState<any>(uiState, uiControlName, {
+            uiState = setUIControlState<uiControlState>(uiState, uiControlName, {
                 rect: fboRect
             })
 
@@ -46,6 +46,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
 
 
             return Promise.resolve([meta3dState, null])
-        }
+        },
+        init: (meta3dState) => Promise.resolve(meta3dState)
     }
 }

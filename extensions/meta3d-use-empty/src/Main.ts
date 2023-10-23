@@ -15,7 +15,7 @@ import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementCont
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { skin } from "meta3d-skin-protocol"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { prepareActions } from "meta3d-run-utils/src/RunUtils"
+import { prepareActions, prepareUIControls } from "meta3d-run-utils/src/RunUtils"
 // import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 // import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 // import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
@@ -31,21 +31,11 @@ let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 
 
 
-	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+	let { registerSkin } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
 		return registerSkin(uiState, contribute)
 	}, uiState)
-
-
-	uiState = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl).reduce<uiState>((uiState, contribute) => {
-		return registerUIControl(uiState, contribute)
-	}, uiState)
-
-
-
-
-
 
 
 
@@ -82,7 +72,9 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 
 		let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas)
+		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+			return prepareUIControls(meta3dState, api)
+		})
 	})
 }
 

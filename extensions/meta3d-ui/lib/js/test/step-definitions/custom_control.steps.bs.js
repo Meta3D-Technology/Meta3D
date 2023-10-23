@@ -16,7 +16,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 };
                 var uiControlName = "c1";
                 Curry._2(param.when, "register a custom control", (function (param) {
-                        state.contents = MainTool$Meta3dUi.registerUIControl(uiControlName, 5, undefined, undefined);
+                        state.contents = MainTool$Meta3dUi.registerUIControl(uiControlName, 5, undefined, undefined, undefined);
                       }));
                 Curry._2(param.then, "get custom control func should return it's func", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect(MainTool$Meta3dUi.getUIControlFuncExn(state.contents, uiControlName)), 5);

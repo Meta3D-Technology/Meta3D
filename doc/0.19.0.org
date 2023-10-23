@@ -127,13 +127,19 @@ TODO need publish
 
 
 
-** TODO refactor: move loadGlbImage, ... to state
+** DONE refactor: move loadGlbImage, ... to state
 
-still store in element state
+# still store in element state
 
 
 TODO ui control: 
-add createState, init
+# add createState, init
+add init
+
+
+
+TODO need publish
+# meta3d-ui-control-asset
 
 
 

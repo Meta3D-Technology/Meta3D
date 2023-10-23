@@ -1,15 +1,13 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { inputData, outputData, uiControlName } from "meta3d-ui-control-asset-protocol"
-import { service } from "meta3d-ui-protocol/src/service/ServiceType"
+import { inputData, outputData, uiControlName, state } from "meta3d-ui-control-asset-protocol"
+import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
+import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import loadGlbImageSrc from "url-loader!./image/load.png"
 import removeAssetImageSrc from "url-loader!./image/remove.png"
 import glbImageSrc from "url-loader!./image/glb.png"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
-
-let _loadGlbTexture: any = null
-let _removeAssetTexture: any = null
-let _glbTexture: any = null
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
     return {
@@ -20,27 +18,37 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                 label
             }
         ) => {
-            let { asset, loadImage } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
+            let { asset, getUIControlState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
             let { getAllGLBAssets } = api.getExtensionService<assetService>(meta3dState, "meta3d-asset-protocol")
 
-            if (_loadGlbTexture !== null) {
-                return new Promise((resolve, reject) => {
-                    resolve(asset(meta3dState, { loadGlbTexture: _loadGlbTexture, removeAssetTexture: _removeAssetTexture, glbTexture: _glbTexture },
-                        getAllGLBAssets(meta3dState).map(([glbId, glbName, _]) => [glbName, glbId]),
-                        label, rect))
-                })
-            }
+            let { loadGlbTexture,
+                removeAssetTexture,
+                glbTexture
+            } = getExn(getUIControlState<state>(api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol"), uiControlName))
+
+            return Promise.resolve(asset(meta3dState, {
+                loadGlbTexture,
+                removeAssetTexture,
+                glbTexture
+            }, getAllGLBAssets(meta3dState).map(([glbId, glbName, _]: any) => [glbName, glbId]),
+                label, rect))
+        },
+        init: (meta3dState) => {
+            let { setUIControlState, loadImage } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
             return loadImage(meta3dState, loadGlbImageSrc).then((loadGlbTexture: any) => {
                 return loadImage(meta3dState, removeAssetImageSrc).then((removeAssetTexture: any) => {
                     return loadImage(meta3dState, glbImageSrc).then((glbTexture: any) => {
+                        let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
 
-                        _loadGlbTexture = loadGlbTexture
-                        _removeAssetTexture = removeAssetTexture
-                        _glbTexture = glbTexture
+                        uiState = setUIControlState<state>(uiState, uiControlName, {
+                            loadGlbTexture,
+                            removeAssetTexture,
+                            glbTexture
+                        })
 
-                        return [meta3dState, [false, false, null]]
+                        return api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
                     })
                 })
             })

@@ -22,7 +22,7 @@ import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { exportEventDataForDebug, prepareActions, update } from "meta3d-run-utils/src/RunUtils"
+import { exportEventDataForDebug, prepareActions, prepareUIControls, update } from "meta3d-run-utils/src/RunUtils"
 import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 
@@ -42,17 +42,6 @@ let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	}, uiState)
 
 
-	uiState = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl).reduce<uiState>((uiState, contribute) => {
-		return registerUIControl(uiState, contribute)
-	}, uiState)
-
-
-
-
-
-
-
-
 	uiState = api.getAllContributesByType<elementContribute<any>>(meta3dState, contributeType.Element).reduce<uiState>((uiState, contribute) => {
 		return registerElement(uiState, contribute)
 	}, uiState)
@@ -60,8 +49,6 @@ let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 
 
 	meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
-
-
 
 
 
@@ -110,6 +97,8 @@ let _init = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: conf
 					isDebug
 				)
 			})
+		}).then(meta3dState => {
+			return prepareUIControls(meta3dState, api)
 		})
 	})
 }

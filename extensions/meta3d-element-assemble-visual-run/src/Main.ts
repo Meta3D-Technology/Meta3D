@@ -4,18 +4,12 @@ import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType
 import { service } from "meta3d-element-assemble-visual-run-protocol/src/service/ServiceType"
 import { state } from "meta3d-element-assemble-visual-run-protocol/src/state/StateType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { state as eventState } from "meta3d-event-protocol/src/state/StateType"
-import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { elementState } from "meta3d-element-assemble-element-protocol"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
-import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
-import { skin } from "meta3d-skin-protocol"
-import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { exportEventDataForDebug, prepareActions, update } from "meta3d-run-utils/src/RunUtils"
+import { exportEventDataForDebug, prepareActions, prepareUIControls, update } from "meta3d-run-utils/src/RunUtils"
 import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 
@@ -26,22 +20,11 @@ let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 
 
 
-	let { registerSkin, registerUIControl } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+	let { registerSkin } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
 	uiState = api.getAllContributesByType<skinContribute<any>>(meta3dState, contributeType.Skin).reduce<uiState>((uiState, contribute) => {
 		return registerSkin(uiState, contribute)
 	}, uiState)
-
-	uiState = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl).reduce<uiState>((uiState, contribute) => {
-		return registerUIControl(uiState, contribute)
-	}, uiState)
-
-
-
-
-
-
-
 
 
 	uiState = registerElement<elementState>(uiState,
@@ -51,8 +34,6 @@ let _prepareUI = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 
 
 	meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
-
-
 
 
 	return prepareActions(meta3dState, api)
@@ -93,6 +74,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 							isDebug
 						)
 					})
+				}).then(meta3dState => {
+					return prepareUIControls(meta3dState, api)
 				})
 			}).catch(e => {
 				_handleError(api, meta3dState)

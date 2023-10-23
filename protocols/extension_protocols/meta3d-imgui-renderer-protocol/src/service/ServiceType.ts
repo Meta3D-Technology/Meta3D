@@ -1,5 +1,5 @@
 import type { state as StateType_state } from '../../src/state/StateType';
-import type { webgl1Context, texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
+import type { texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
 import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
 
 // tslint:disable-next-line:interface-over-type-literal

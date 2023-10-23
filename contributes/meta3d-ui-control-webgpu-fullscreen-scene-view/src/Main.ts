@@ -5,7 +5,7 @@ import { uiControlName, inputData, outputData } from "meta3d-ui-control-scene-vi
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 // import { state } from "meta3d-ui-protocol/src/state/StateType"
 
-export let getContribute: getContributeMeta3D< uiControlContribute<inputData, outputData>> = (api) => {
+export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
         func: (meta3dState,
@@ -31,6 +31,7 @@ export let getContribute: getContributeMeta3D< uiControlContribute<inputData, ou
             return new Promise((resolve, reject) => {
                 resolve([meta3dState, null])
             })
-        }
+        },
+        init: (meta3dState) => Promise.resolve(meta3dState)
     }
 }

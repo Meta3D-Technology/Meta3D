@@ -284,11 +284,15 @@ function button(sandbox, label, size, getExtensionService, getAllContributesByTy
             ], label, size);
 }
 
-function registerUIControl(uiControlName, func, stateOpt, param) {
+function registerUIControl(uiControlName, func, initOpt, stateOpt, param) {
+  var init = initOpt !== undefined ? initOpt : (function (param) {
+        return Promise.resolve(1);
+      });
   var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
   return UIManager$Meta3dUi.registerUIControl(state, {
               uiControlName: uiControlName,
-              func: func
+              func: func,
+              init: init
             });
 }
 

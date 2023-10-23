@@ -19,6 +19,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
             return new Promise((resolve, reject) => {
                 resolve(button(meta3dState, label, [rect.width, rect.height]))
             })
-        }
+        },
+        init: (meta3dState) => Promise.resolve(meta3dState)
     }
 }

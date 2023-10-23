@@ -408,13 +408,14 @@ let button = (
   )
 }
 
-let registerUIControl = (~uiControlName, ~func, ~state=createState(), ()) => {
+let registerUIControl = (~uiControlName, ~func, ~init=(_) => Js.Promise.resolve(Obj.magic(1)), ~state=createState(), ()) => {
   UIManager.registerUIControl(
     state,
     (
       {
         uiControlName,
         func,
+        init
       }: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
         Meta3dUiProtocol.StateType.inputData,
         Meta3dUiProtocol.StateType.outputData,

@@ -8,14 +8,17 @@ export type uiControlFunc<inputData, outputData> = (_1: Meta3dType_Index_state, 
 
 // tslint:disable-next-line:interface-over-type-literal
 // export type uiControlContribute<uiControlState, inputData, outputData> = {
-//     readonly uiControlName: uiControlName;
-//     readonly createStateFunc: () => uiControlState;
-//     readonly func: uiControlFunc<inputData, outputData>
+//     uiControlName: uiControlName;
+//     createStateFunc: () => uiControlState;
+//     func: uiControlFunc<inputData, outputData>
 // };
 
+export type init = (meta3dState: Meta3dType_Index_state) => Promise<Meta3dType_Index_state>
+
 export type uiControlContribute<inputData, outputData> = {
-    readonly uiControlName: uiControlName;
-    readonly func: uiControlFunc<inputData, outputData>
+    uiControlName: uiControlName;
+    func: uiControlFunc<inputData, outputData>
+    init: init,
 };
 
 

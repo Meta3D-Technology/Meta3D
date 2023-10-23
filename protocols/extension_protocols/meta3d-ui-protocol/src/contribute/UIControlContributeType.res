@@ -11,9 +11,12 @@ type uiControlFunc<'inputData, 'outputData> = (
 //   func: uiControlFunc<'inputData, 'outputData>,
 // }
 
+type init = Meta3dType.Index.state => Js.Promise.t<Meta3dType.Index.state>
+
 type uiControlContribute<'inputData, 'outputData> = {
   uiControlName: uiControlName,
   func: uiControlFunc<'inputData, 'outputData>,
+  init: init,
 }
 
 // type skinName = string
