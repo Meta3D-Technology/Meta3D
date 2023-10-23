@@ -23,7 +23,8 @@ function create(state) {
             gameObjectMap: state$1.gameObjectMap,
             gameObjectPerspectiveCameraProjectionMap: state$1.gameObjectPerspectiveCameraProjectionMap,
             needDisposedPerspectiveCameraProjections: state$1.needDisposedPerspectiveCameraProjections,
-            disposedPerspectiveCameraProjections: match[0]
+            disposedPerspectiveCameraProjections: match[0],
+            names: state$1.names
           },
           index$1
         ];

@@ -11,4 +11,8 @@ type state = {
   >,
   needDisposedBasicCameraViews: Meta3dComponentBasiccameraviewProtocol.Index.needDisposedComponents,
   disposedBasicCameraViews: array<basicCameraView>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    basicCameraView,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

@@ -91,6 +91,7 @@ let createStateWithSharedArrayBufferData = (
       pbrMaterialCount,
     ),
     disposedPBRMaterials: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }
 

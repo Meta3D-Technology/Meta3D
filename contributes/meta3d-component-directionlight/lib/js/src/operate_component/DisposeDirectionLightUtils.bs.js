@@ -4,6 +4,7 @@ var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
 var DisposeTypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/DisposeTypeArrayUtils.bs.js");
 var ConfigUtils$Meta3dComponentDirectionlight = require("../config/ConfigUtils.bs.js");
@@ -23,7 +24,8 @@ function deferDisposeComponent(state) {
             gameObjectMap: state.gameObjectMap,
             gameObjectDirectionLightMap: MutableSparseMap$Meta3dCommonlib.remove(gameObjectDirectionLightMap, param[1]),
             needDisposedDirectionLights: ArraySt$Meta3dCommonlib.push(needDisposedDirectionLights, param[0]),
-            disposedDirectionLights: state.disposedDirectionLights
+            disposedDirectionLights: state.disposedDirectionLights,
+            names: state.names
           };
   };
 }
@@ -46,6 +48,7 @@ function _disposeData(state) {
   var colors = state.colors;
   var intensities = state.intensities;
   var gameObjectMap = state.gameObjectMap;
+  var names = state.names;
   return function (isDebug, light) {
     state.colors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(colors, BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getColorIndex(light), BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getColorsSize(undefined), [
           1,
@@ -54,7 +57,18 @@ function _disposeData(state) {
         ]);
     state.intensities = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(intensities, BufferDirectionLightUtils$Meta3dComponentWorkerUtils.getIntensityIndex(light), 1);
     state.gameObjectMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectMap, light);
-    return state;
+    return {
+            config: state.config,
+            maxIndex: state.maxIndex,
+            buffer: state.buffer,
+            colors: state.colors,
+            intensities: state.intensities,
+            gameObjectMap: state.gameObjectMap,
+            gameObjectDirectionLightMap: state.gameObjectDirectionLightMap,
+            needDisposedDirectionLights: state.needDisposedDirectionLights,
+            disposedDirectionLights: state.disposedDirectionLights,
+            names: ImmutableSparseMap$Meta3dCommonlib.remove(names, light)
+          };
   };
 }
 

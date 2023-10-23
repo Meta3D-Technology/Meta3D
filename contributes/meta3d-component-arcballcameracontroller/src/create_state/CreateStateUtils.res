@@ -19,7 +19,8 @@ let createState = (isDebug: bool) => {
     rotateSpeedMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     wheelSpeedMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectArcballCameraControllerMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
-needDisposedArcballCameraControllers:[],
-disposedArcballCameraControllers:[]
+    needDisposedArcballCameraControllers: [],
+    disposedArcballCameraControllers: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }

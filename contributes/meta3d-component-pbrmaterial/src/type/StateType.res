@@ -38,4 +38,8 @@ type state = {
   // specularMapMap: Meta3dCommonlibType.MutableSparseMapType.t<pbrMaterial, specularMap>,
   mutable needDisposedPBRMaterials: Meta3dComponentPbrmaterialProtocol.Index.needDisposedComponents,
   mutable disposedPBRMaterials: array<pbrMaterial>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    pbrMaterial,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

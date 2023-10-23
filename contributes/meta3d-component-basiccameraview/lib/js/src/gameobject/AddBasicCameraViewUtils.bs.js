@@ -10,7 +10,8 @@ function add(state, gameObject, cameraView) {
           gameObjectMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectMap, cameraView, gameObject),
           gameObjectBasicCameraViewMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectBasicCameraViewMap, gameObject, cameraView),
           needDisposedBasicCameraViews: state.needDisposedBasicCameraViews,
-          disposedBasicCameraViews: state.disposedBasicCameraViews
+          disposedBasicCameraViews: state.disposedBasicCameraViews,
+          names: state.names
         };
 }
 

@@ -8,6 +8,10 @@ export type createArcballCameraController = (meta3dState: meta3dState) => [meta3
 
 export type getGameObjects = (meta3dState: meta3dState, arcballCameraController: arcballCameraController) => Array<gameObject>
 
+export type getName = (meta3dState: meta3dState, arcballCameraController: arcballCameraController) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, arcballCameraController: arcballCameraController, name: string) => meta3dState
+
 export type getDistance = (meta3dState: meta3dState, arcballCameraController: arcballCameraController) => nullable<distance>
 
 export type setDistance = (meta3dState: meta3dState, arcballCameraController: arcballCameraController, distance: distance) => meta3dState

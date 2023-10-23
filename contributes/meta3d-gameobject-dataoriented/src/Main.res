@@ -5,6 +5,7 @@ let getContribute: Meta3dType.Index.getContribute<
     maxUID: 0,
     needDisposedGameObjectArray: [],
     disposedGameObjectArray: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     config,
   },
   createGameObjectFunc: (. state) => CreateGameObjectUtils.create(state),
@@ -39,6 +40,12 @@ let getContribute: Meta3dType.Index.getContribute<
       cloneConfig,
       sourceGameObject,
     )
+  },
+  getNameFunc: (. {names}, gameObject) =>
+    names->Meta3dCommonlib.ImmutableSparseMap.getNullable(gameObject),
+  setNameFunc: (. {names} as state, gameObject, name) => {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.set(gameObject, name),
   },
   getAllGameObjectsFunc: (. state) => GetAllGameObjectUtils.getAll(state),
   restore: (. currentState, targetState) => {

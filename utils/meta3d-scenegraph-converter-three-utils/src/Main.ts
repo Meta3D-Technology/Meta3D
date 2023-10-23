@@ -310,6 +310,14 @@ class Object3D {
         return true
     }
 
+    public get name(): string {
+        let meta3dState = getMeta3dState()
+
+        let { gameObject } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(gameObject.getGameObjectName(meta3dState, this.gameObject), "")
+    }
+
     public get renderOrder(): number {
         return 0
     }
@@ -404,6 +412,14 @@ class Camera extends Object3D {
         return true
     }
 
+    public get name(): string {
+        let meta3dState = getMeta3dState()
+
+        let { basicCameraView } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(basicCameraView.getName(meta3dState, this.basicCameraViewComponent), "")
+    }
+
     public get layers(): LayersType {
         return new Layers()
     }
@@ -488,6 +504,14 @@ class Camera extends Object3D {
 class PerspectiveCamera extends Camera {
     constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection, gameObject: gameObject) {
         super(basicCameraViewComponent, perspectiveCameraProjectionComponent, gameObject)
+    }
+
+    public get name(): string {
+        let meta3dState = getMeta3dState()
+
+        let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(perspectiveCameraProjection.getName(meta3dState, this.perspectiveCameraProjectionComponent), "")
     }
 
     public get far(): number {
@@ -582,6 +606,14 @@ class DirectionLight extends Light {
 
     public get type(): string {
         return "DirectionalLight"
+    }
+
+    public get name(): string {
+        let meta3dState = getMeta3dState()
+
+        let { directionLight } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(directionLight.getName(meta3dState, this._light), "")
     }
 
     public get castShadow(): boolean {
@@ -732,6 +764,10 @@ class Scene extends Object3D {
 
     public get isScene(): boolean {
         return true
+    }
+
+    public get name(): string {
+        return "Scene"
     }
 
     public get layers(): LayersType {
@@ -956,6 +992,14 @@ class BufferGeometry extends EventDispatcher {
         return generateId()
     }
 
+    public get name(): string {
+        let meta3dState = getMeta3dState()
+
+        let { geometry } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(geometry.getName(meta3dState, this._geometry), "")
+    }
+
     public get boundingSphere(): nullable<SphereType> {
         // TODO fix fake data
         return new Sphere(
@@ -1092,7 +1136,11 @@ class Texture extends EventDispatcher {
     // }
 
     public get name(): string {
-        return ""
+        let meta3dState = getMeta3dState()
+
+        let { basicSourceTexture } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(basicSourceTexture.getName(meta3dState, this.texture), "")
     }
 
     public get image(): TexImageSource {
@@ -1427,7 +1475,11 @@ class MeshStandardMaterial extends Material {
     }
 
     public get name(): string {
-        return "MeshStandardMaterial"
+        let meta3dState = getMeta3dState()
+
+        let { pbrMaterial } = getEngineSceneService(meta3dState)
+
+        return getWithDefault(pbrMaterial.getName(meta3dState, this.material), "")
     }
 
     public get type(): string {
@@ -1626,6 +1678,8 @@ let _createMap = (meta3dState: meta3dState,
             meta3dState = data[0]
             let map = data[1]
 
+            meta3dState = basicSourceTextureService.setName(meta3dState, map, texture.name)
+
             meta3dState = basicSourceTextureService.setImage(meta3dState, map, texture.image)
             meta3dState = basicSourceTextureService.setFlipY(meta3dState, map, texture.flipY)
             meta3dState = basicSourceTextureService.setFormat(meta3dState, map, texture.format as any as WebGL1PixelFormat)
@@ -1660,11 +1714,15 @@ let _import = (sceneService: scene,
     meta3dState = data[0]
     let gameObject = data[1]
 
+    meta3dState = gameObjectService.setGameObjectName(meta3dState, gameObject, Object3D.name)
+
+
 
     data = transformService.createTransform(meta3dState)
     meta3dState = data[0]
     let transform = data[1]
 
+    meta3dState = transformService.setName(meta3dState, transform, object3D.name)
     meta3dState = transformService.setLocalPosition(meta3dState, transform, object3D.position.toArray())
     meta3dState = transformService.setLocalRotation(meta3dState, transform, object3D.quaternion.toArray() as any as localRotation)
     meta3dState = transformService.setLocalScale(meta3dState, transform, object3D.scale.toArray())
@@ -1683,14 +1741,18 @@ let _import = (sceneService: scene,
         meta3dState = data[0]
         let basicCameraView = data[1]
 
+        meta3dState = basicCameraViewService.setName(meta3dState, basicCameraView, object3D.name)
+
         meta3dState = gameObjectService.addBasicCameraView(meta3dState, gameObject, basicCameraView)
 
         if ((object3D as any as PerspectiveCameraType).isPerspectiveCamera) {
-            let { near, far, fov, aspect } = object3D as any as PerspectiveCameraType
+            let { near, far, fov, aspect, name } = object3D as any as PerspectiveCameraType
 
             data = perspectiveCameraProjectionService.createPerspectiveCameraProjection(meta3dState)
             meta3dState = data[0]
             let perspectiveCameraProjection = data[1]
+
+            meta3dState = perspectiveCameraProjectionService.setName(meta3dState, perspectiveCameraProjection, name)
 
             meta3dState = perspectiveCameraProjectionService.setNear(meta3dState, perspectiveCameraProjection, near)
             meta3dState = perspectiveCameraProjectionService.setFar(meta3dState, perspectiveCameraProjection, far)
@@ -1713,6 +1775,7 @@ let _import = (sceneService: scene,
             meta3dState = data[0]
             let geometry = data[1]
 
+            meta3dState = geometryService.setName(meta3dState, geometry, bufferGeometry.name)
 
             meta3dState = geometryService.setVertices(meta3dState, geometry, bufferGeometry.getAttribute("position").array as any as Float32Array)
             if (bufferGeometry.getAttribute("normal") !== undefined) {
@@ -1754,6 +1817,7 @@ let _import = (sceneService: scene,
             meta3dState = data[0]
             let pbrMaterial = data[1]
 
+            meta3dState = pbrMaterialService.setName(meta3dState, pbrMaterial, meshStandardMaterial.name)
 
             meta3dState = pbrMaterialService.setDiffuseColor(meta3dState, pbrMaterial, meshStandardMaterial.color.toArray() as any as diffuseColor
             )
@@ -1812,13 +1876,16 @@ let _import = (sceneService: scene,
         // }
 
 
-        let { color, intensity, matrix } = object3D as any as DirectionalLightType
+        let { color, intensity, matrix, name } = object3D as any as DirectionalLightType
 
         data = directionLightService.createDirectionLight(meta3dState)
         meta3dState = data[0]
         let directionLight = data[1]
 
         meta3dState = gameObjectService.addDirectionLight(meta3dState, gameObject, directionLight)
+
+
+        meta3dState = directionLightService.setName(meta3dState, directionLight, name)
 
         meta3dState = directionLightService.setColor(meta3dState, directionLight, color.toArray() as any as color)
         meta3dState = directionLightService.setIntensity(meta3dState, directionLight, intensity)

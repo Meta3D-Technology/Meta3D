@@ -117,6 +117,10 @@ let cloneGameObject = GameObjectManager.cloneGameObject
 
 let getAllGameObjects = GameObjectManager.getAllGameObjects
 
+let getGameObjectName = GameObjectManager.getGameObjectName
+
+let setGameObjectName = GameObjectManager.setGameObjectName
+
 let getComponentState = (
   state,
   componentName: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.componentName,

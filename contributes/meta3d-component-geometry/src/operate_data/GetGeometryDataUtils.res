@@ -1,5 +1,7 @@
 open StateType
 
+let getName = (state, geometry) => state.names->Meta3dCommonlib.ImmutableSparseMap.getNullable(geometry)
+
 let getData = (.
   {
     vertices,
@@ -19,13 +21,10 @@ let getData = (.
   let isDebug = ConfigUtils.getIsDebug(state)
 
   switch dataName {
+  | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.name =>
+    getName(state, geometry)-> Obj.magic
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.vertices =>
-    Meta3dComponentWorkerUtils.VerticesUtils.getVertices(
-      vertices,
-      verticesInfos,
-      isDebug,
-      geometry,
-    )
+    Meta3dComponentWorkerUtils.VerticesUtils.getVertices(vertices, verticesInfos, isDebug, geometry)
     ->Obj.magic
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.normals =>
@@ -42,12 +41,7 @@ let getData = (.
     ->Obj.magic
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.tangents =>
-    Meta3dComponentWorkerUtils.TangentsUtils.getTangents(
-      tangents,
-      tangentsInfos,
-      isDebug,
-      geometry,
-    )
+    Meta3dComponentWorkerUtils.TangentsUtils.getTangents(tangents, tangentsInfos, isDebug, geometry)
     ->Obj.magic
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.indices =>
@@ -55,12 +49,7 @@ let getData = (.
     ->Obj.magic
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.vertices =>
-    Meta3dComponentWorkerUtils.VerticesUtils.getVertices(
-      vertices,
-      verticesInfos,
-      isDebug,
-      geometry,
-    )
+    Meta3dComponentWorkerUtils.VerticesUtils.getVertices(vertices, verticesInfos, isDebug, geometry)
     ->Obj.magic
     ->Js.Nullable.return
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.indicesCount =>
@@ -70,14 +59,14 @@ let getData = (.
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Exception.buildErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="getData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="getData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
-      )
     )
   }
 }

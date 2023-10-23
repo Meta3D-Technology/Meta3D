@@ -3,13 +3,15 @@ let componentName = "DirectionLight"
 type state
 
 type dataName = {
+  name:int,
   color: int,
   intensity: int,
 }
 
 let dataName = {
-  color: 0,
-  intensity: 1,
+  name:0,
+  color: 1,
+  intensity: 2,
 }
 
 

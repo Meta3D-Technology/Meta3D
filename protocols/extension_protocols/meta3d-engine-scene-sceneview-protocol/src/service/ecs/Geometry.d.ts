@@ -5,6 +5,10 @@ import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export type createGeometry = (meta3dState: meta3dState) => [meta3dState, geometry]
 
+export type getName = (meta3dState: meta3dState, geometry: geometry) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, geometry: geometry, name: string) => meta3dState
+
 export type getVertices = (meta3dState: meta3dState, geometry: geometry) => nullable<Float32Array>
 
 export type setVertices = (meta3dState: meta3dState, geometry: geometry, vertices: Float32Array) => meta3dState

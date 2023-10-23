@@ -8,6 +8,8 @@ var OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview = require("../uti
 function setData(state, cameraView, dataName, dataValue) {
   if (dataName === Index$Meta3dComponentBasiccameraviewProtocol.dataName.isActive) {
     return OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview.setIsActive(state, cameraView, dataValue);
+  } else if (dataName === Index$Meta3dComponentBasiccameraviewProtocol.dataName.name) {
+    return OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview.setName(state, cameraView, dataValue);
   } else {
     return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("setData", "unknown dataName:" + dataName + "", "", "", "")));
   }

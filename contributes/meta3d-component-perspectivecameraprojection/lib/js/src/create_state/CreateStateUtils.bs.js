@@ -17,7 +17,8 @@ function createState(isDebug) {
           gameObjectMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           gameObjectPerspectiveCameraProjectionMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           needDisposedPerspectiveCameraProjections: [],
-          disposedPerspectiveCameraProjections: []
+          disposedPerspectiveCameraProjections: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

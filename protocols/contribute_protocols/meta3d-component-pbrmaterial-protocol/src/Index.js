@@ -3,16 +3,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.dataName = exports.componentName = void 0;
 exports.componentName = "PBRMaterial";
 exports.dataName = {
-    diffuseColor: 0,
-    roughness: 1,
-    metalness: 2,
-    specular: 3,
-    specularColor: 4,
-    transmission: 5,
-    ior: 6,
-    diffuseMap: 7,
-    normalMap: 8,
-    roughnessMap: 9,
-    metalnessMap: 10,
+    name: 0,
+    diffuseColor: 1,
+    roughness: 2,
+    metalness: 3,
+    specular: 4,
+    specularColor: 5,
+    transmission: 6,
+    ior: 7,
+    diffuseMap: 8,
+    normalMap: 9,
+    roughnessMap: 10,
+    metalnessMap: 11,
 };
 //# sourceMappingURL=Index.js.map

@@ -23,6 +23,21 @@ export function createGeometry(engineCoreState: engineCoreState, { unsafeGetUsed
 	]
 }
 
+export let getName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<string> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<geometry, string>(contribute, geometry, dataName.name)
+}
+
+export let setName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, geometry: geometry, name: string): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute, geometry, dataName.name, name)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 export let getVertices = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, geometry: geometry): nullable<vertices> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 

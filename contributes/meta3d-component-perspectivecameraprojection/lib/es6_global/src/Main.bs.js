@@ -58,7 +58,8 @@ function getContribute(param) {
                       gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectMap),
                       gameObjectPerspectiveCameraProjectionMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectPerspectiveCameraProjectionMap),
                       needDisposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.needDisposedPerspectiveCameraProjections),
-                      disposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.disposedPerspectiveCameraProjections)
+                      disposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.copy(state.disposedPerspectiveCameraProjections),
+                      names: state.names
                     };
             })
         };

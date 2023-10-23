@@ -8,7 +8,9 @@ import * as DirtyPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecame
 import * as OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection from "../utils/OperatePerspectiveCameraProjectionUtils.bs.js";
 
 function getData(state, cameraProjection, dataName) {
-  if (dataName === Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.pMatrix) {
+  if (dataName === Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.name) {
+    return OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getName(state, cameraProjection);
+  } else if (dataName === Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.pMatrix) {
     return OptionSt$Meta3dCommonlib.toNullable(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getPMatrix(state, cameraProjection));
   } else if (dataName === Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.fovy) {
     return OptionSt$Meta3dCommonlib.toNullable(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getFovy(state, cameraProjection));

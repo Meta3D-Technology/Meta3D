@@ -7,12 +7,24 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName
 } from "./ecs/GameObject"
-import { createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale } from "./ecs/Transform";
-import { createPerspectiveCameraProjection, getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear } from "./ecs/PerspectiveCameraProjection";
 import {
-	createPBRMaterial, getAllPBRMaterials, getDiffuseColor, setDiffuseColor,
+	createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale,
+	getName as getTransformName,
+	setName as setTransformName,
+} from "./ecs/Transform";
+import {
+	createPerspectiveCameraProjection,
+	getName as getPerspectiveCameraProjectionName,
+	setName as setPerspectiveCameraProjectionName,
+	getAspect, getFar, getFovy, getNear, getPMatrix, setAspect, setFar, setFovy, setNear
+} from "./ecs/PerspectiveCameraProjection";
+import {
+	createPBRMaterial,
+	getName as getPBRMaterialName,
+	setName as setPBRMaterialName,
+	getAllPBRMaterials, getDiffuseColor, setDiffuseColor,
 	getSpecular,
 	setSpecular,
 	getSpecularColor,
@@ -39,6 +51,8 @@ import {
 	createTexture,
 	disposeTexture,
 	addMaterial,
+	getName as getTextureName,
+	setName as setTextureName,
 	getWrapS,
 	setWrapS,
 	getWrapT,
@@ -59,7 +73,10 @@ import {
 	setImage,
 } from "./ecs/BasicSourceTexture";
 import {
-	createGeometry, getIndices, getVertices, setIndices, setVertices,
+	createGeometry,
+	getName as getGeometryName,
+	setName as setGeometryName,
+	getIndices, getVertices, setIndices, setVertices,
 	getGameObjects as getGeometryGameObjects,
 	getNormals,
 	setNormals,
@@ -70,16 +87,21 @@ import {
 } from "./ecs/Geometry";
 import {
 	createBasicCameraView,
+	getName as getBasicCameraViewName,
+	setName as setBasicCameraViewName,
 	getGameObjects as getBasicCameraViewGameObjects,
 	active, getActiveCameraView, getViewWorldToCameraMatrix
 } from "./ecs/BasicCameraView";
 import {
 	createArcballCameraController,
+	getName as getArcballCameraControllerName, setName as setArcballCameraControllerName,
 	// getAllDirtyArcballCameraControllers, clearDirtyList,
 	getDistance, setDistance, getPhi, setPhi, getTheta, setTheta, getTarget, setTarget, getGameObjects as getArcballCameraControllerGameObjects, getWheelSpeed, setWheelSpeed
 } from "./ecs/ArcballCameraController"
 import {
 	createDirectionLight,
+	getName as getDirectionLightName,
+	setName as setDirectionLightName,
 	getColor,
 	getDirection,
 	getGameObjects as getDirectionLightGameObjects,
@@ -137,11 +159,16 @@ export type scene = {
 		hasGeometry: hasGeometry,
 		hasPBRMaterial: hasPBRMaterial,
 		hasPerspectiveCameraProjection: hasPerspectiveCameraProjection,
-		hasTransform: hasTransform
+		hasTransform: hasTransform,
+
+		getGameObjectName: getGameObjectName,
+		setGameObjectName: setGameObjectName,
 	},
 	transform: {
 		createTransform: createTransform,
 		getGameObjects: getTransformGameObjects,
+		getName: getTransformName,
+		setName: setTransformName,
 		getParent: getParent,
 		setParent: setParent,
 		getChildren: getChildren,
@@ -156,6 +183,8 @@ export type scene = {
 	},
 	directionLight: {
 		createDirectionLight: createDirectionLight,
+		getName: getDirectionLightName,
+		setName: setDirectionLightName,
 		getGameObjects: getDirectionLightGameObjects,
 		getColor: getColor,
 		setColor: setColor,
@@ -166,6 +195,8 @@ export type scene = {
 	},
 	perspectiveCameraProjection: {
 		createPerspectiveCameraProjection: createPerspectiveCameraProjection,
+		getName: getPerspectiveCameraProjectionName,
+		setName: setPerspectiveCameraProjectionName,
 		getPMatrix: getPMatrix,
 		getFovy: getFovy,
 		setFovy: setFovy,
@@ -178,6 +209,8 @@ export type scene = {
 	},
 	pbrMaterial: {
 		createPBRMaterial: createPBRMaterial,
+		getName: getPBRMaterialName,
+		setName: setPBRMaterialName,
 		getDiffuseColor: getDiffuseColor,
 		setDiffuseColor: setDiffuseColor,
 		getSpecular: getSpecular,
@@ -207,6 +240,8 @@ export type scene = {
 		createTexture: createTexture,
 		disposeTexture: disposeTexture,
 		addMaterial: addMaterial,
+		getName: getTextureName,
+		setName: setTextureName,
 		getWrapS: getWrapS,
 		setWrapS: setWrapS,
 		getWrapT: getWrapT,
@@ -228,6 +263,8 @@ export type scene = {
 	},
 	geometry: {
 		createGeometry: createGeometry,
+		getName: getGeometryName,
+		setName: setGeometryName,
 		getVertices: getVertices,
 		setVertices: setVertices,
 		getNormals: getNormals,
@@ -243,6 +280,8 @@ export type scene = {
 	basicCameraView: {
 		createBasicCameraView: createBasicCameraView,
 		getGameObjects: getBasicCameraViewGameObjects,
+		getName: getBasicCameraViewName,
+		setName: setBasicCameraViewName,
 		getViewWorldToCameraMatrix: getViewWorldToCameraMatrix,
 		getActiveCameraView: getActiveCameraView,
 		active: active
@@ -251,6 +290,8 @@ export type scene = {
 		createArcballCameraController: createArcballCameraController,
 		// getAllDirtyArcballCameraControllers: getAllDirtyArcballCameraControllers,
 		// clearDirtyList: clearDirtyList,
+		getName: getArcballCameraControllerName,
+		setName: setArcballCameraControllerName,
 		getDistance: getDistance,
 		setDistance: setDistance,
 		getWheelSpeed: getWheelSpeed,

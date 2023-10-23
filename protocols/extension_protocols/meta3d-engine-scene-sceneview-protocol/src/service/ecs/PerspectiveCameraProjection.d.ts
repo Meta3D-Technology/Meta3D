@@ -4,6 +4,10 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type createPerspectiveCameraProjection = (meta3dState: meta3dState) => [meta3dState, perspectiveCameraProjection]
 
+export type getName = (meta3dState: meta3dState, perspectiveCameraProjection: perspectiveCameraProjection) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, perspectiveCameraProjection: perspectiveCameraProjection, name: string) => meta3dState
+
 export type getPMatrix = (meta3dState: meta3dState, perspectiveCameraProjection: perspectiveCameraProjection) => nullable<pMatrix>
 
 export type getFovy = (meta3dState: meta3dState, perspectiveCameraProjection: perspectiveCameraProjection) => nullable<fovy>

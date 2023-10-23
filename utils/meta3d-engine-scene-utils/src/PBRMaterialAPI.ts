@@ -24,6 +24,21 @@ export function createPBRMaterial(engineCoreState: engineCoreState, { unsafeGetU
 	]
 }
 
+export let getName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, pbrMaterial: pbrMaterial): nullable<string> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<pbrMaterial, string>(contribute, pbrMaterial, dataName.name)
+}
+
+export let setName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, pbrMaterial: pbrMaterial, name: string): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute, pbrMaterial, dataName.name, name)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 export let getDiffuseColor = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, pbrMaterial: pbrMaterial): nullable<diffuseColor> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 

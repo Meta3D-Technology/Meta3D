@@ -1,5 +1,14 @@
 open StateType
 
+let setName = (state, geometry, name) => {
+  let {names} = state
+
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.set(geometry, name),
+  }
+}
+
 let setData = (.
   state,
   geometry,
@@ -7,6 +16,8 @@ let setData = (.
   dataValue: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {
+  | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.name =>
+    setName(state, geometry, dataValue->Obj.magic)
   | dataName if dataName == Meta3dComponentGeometryProtocol.Index.dataName.vertices =>
     VerticesUtils.setVertices(state, geometry, dataValue->Obj.magic)
     state
@@ -25,14 +36,14 @@ let setData = (.
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Exception.buildErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="setData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="setData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
-      )
     )
   }
 }

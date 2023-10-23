@@ -17,7 +17,7 @@ let deferDisposeComponent = (
 }
 
 let _disposeData = (
-  {verticesInfos, texCoordsInfos, normalsInfos, indicesInfos} as state,
+  {verticesInfos, texCoordsInfos, normalsInfos, indicesInfos, names} as state,
   isDebug,
   geometry,
 ) => {
@@ -28,7 +28,10 @@ let _disposeData = (
   ReallocatedPointsGeometryUtils.setInfo(normalsInfos, infoIndex, 0, 0, isDebug)
   ReallocatedPointsGeometryUtils.setInfo(indicesInfos, infoIndex, 0, 0, isDebug)
 
-  state
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.remove(geometry),
+  }
 }
 
 let disposeComponents = (state, geometryDataMap) => {

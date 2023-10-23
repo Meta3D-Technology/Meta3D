@@ -161,10 +161,49 @@ menu
 
 
 * TODO SceneTree
-set parent
-remove selected gameObject
-  TODO use remove instead of dispose(also for add cube* TODO>backward), then dispose them when export scene(when publish and export)
-only remove for three.js, keep dispose for ec?
+
+need publish:
+
+
+
+TODO add name for e,c
+TODO engine core
+TODO engine scene,wholel api
+TODO dispose handle names
+TODO update scenegraph
+  convert
+  import
+
+TODO publish
+
+
+
+
+
+TODO imgui demo for scene tree
+tree
+icon+name
+collapse
+drag
+
+
+
+** TODO add ui control
+
+TODO header:
+add cube
+
+# remove selected gameObject
+#   TODO use remove instead of dispose(also for add cube* TODO>backward), then dispose them when export scene(when publish and export)
+# only remove for three.js, keep dispose for ec?
+dispose
+
+
+
+TODO tree
+
+TODO set parent
+
 
 
 
@@ -210,6 +249,7 @@ show Modal
 * TODO fix: solve click button blink problem
 
 
+* TODO feat: remove title bar of scene view, ...
 
 
 * TODO layout editor page

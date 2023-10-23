@@ -2,11 +2,12 @@ open StateType
 
 type actuallyDisposedTexture = Js.Nullable.t<texture>
 
-@genType
 type service = {
   createTexture: state => (state, texture),
   disposeTexture: (state, texture, material) => (state, actuallyDisposedTexture),
   addMaterial: (state, texture, material) => state,
+  getName: (state, texture) => Js.Nullable.t<string>,
+  setName: (state, texture, string) => state,
   getWrapS: (state, texture) => wrap,
   setWrapS: (state, texture, wrap) => state,
   getWrapT: (state, texture) => wrap,

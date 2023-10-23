@@ -22,7 +22,8 @@ function createState(isDebug) {
           wheelSpeedMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           gameObjectArcballCameraControllerMap: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           needDisposedArcballCameraControllers: [],
-          disposedArcballCameraControllers: []
+          disposedArcballCameraControllers: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

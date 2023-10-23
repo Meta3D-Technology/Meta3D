@@ -4,6 +4,7 @@ import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_ar
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as DisposeComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeComponentUtils.bs.js";
 import * as ConfigUtils$Meta3dComponentBasiccameraview from "../config/ConfigUtils.bs.js";
 import * as GetNeedDisposedBasicCameraViewsUtils$Meta3dComponentBasiccameraview from "../gameobject/GetNeedDisposedBasicCameraViewsUtils.bs.js";
@@ -16,7 +17,8 @@ function deferDisposeComponent(state, param) {
           gameObjectMap: state.gameObjectMap,
           gameObjectBasicCameraViewMap: MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectBasicCameraViewMap, param[1]),
           needDisposedBasicCameraViews: ArraySt$Meta3dCommonlib.push(state.needDisposedBasicCameraViews, param[0]),
-          disposedBasicCameraViews: state.disposedBasicCameraViews
+          disposedBasicCameraViews: state.disposedBasicCameraViews,
+          names: state.names
         };
 }
 
@@ -30,7 +32,8 @@ function _disposeData(state, cameraView) {
           gameObjectMap: MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectMap, cameraView),
           gameObjectBasicCameraViewMap: state.gameObjectBasicCameraViewMap,
           needDisposedBasicCameraViews: state.needDisposedBasicCameraViews,
-          disposedBasicCameraViews: state.disposedBasicCameraViews
+          disposedBasicCameraViews: state.disposedBasicCameraViews,
+          names: ImmutableSparseMap$Meta3dCommonlib.remove(state.names, cameraView)
         };
 }
 
@@ -44,6 +47,7 @@ function disposeComponents(state, cameraViews) {
   var state_gameObjectBasicCameraViewMap = state.gameObjectBasicCameraViewMap;
   var state_needDisposedBasicCameraViews = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, cameraViews);
   var state_disposedBasicCameraViews = Js_array.concat(cameraViews, state.disposedBasicCameraViews);
+  var state_names = state.names;
   var state$1 = {
     config: state_config,
     maxIndex: state_maxIndex,
@@ -51,7 +55,8 @@ function disposeComponents(state, cameraViews) {
     gameObjectMap: state_gameObjectMap,
     gameObjectBasicCameraViewMap: state_gameObjectBasicCameraViewMap,
     needDisposedBasicCameraViews: state_needDisposedBasicCameraViews,
-    disposedBasicCameraViews: state_disposedBasicCameraViews
+    disposedBasicCameraViews: state_disposedBasicCameraViews,
+    names: state_names
   };
   return [
           ArraySt$Meta3dCommonlib.reduceOneParam(cameraViews, _disposeData, state$1),

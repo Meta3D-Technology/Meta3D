@@ -1,6 +1,7 @@
 'use strict';
 
 var Js_typed_array = require("rescript/lib/js/js_typed_array.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var CreateMapComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CreateMapComponentUtils.bs.js");
 var BufferGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/BufferGeometryUtils.bs.js");
 var CreateTypeArrayGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/CreateTypeArrayGeometryUtils.bs.js");
@@ -61,7 +62,8 @@ function createStateWithSharedArrayBufferData(param, param$1) {
           gameObjectsMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
           gameObjectGeometryMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
           needDisposedGeometrys: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
-          disposedGeometrys: []
+          disposedGeometrys: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

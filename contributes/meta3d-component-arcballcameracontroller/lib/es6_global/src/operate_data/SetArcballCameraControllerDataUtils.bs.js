@@ -14,6 +14,9 @@ function _constrainTheta(isDebug, theta, thetaMargin) {
 }
 
 function setData(state, cameraController, dataName, dataValue) {
+  if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.name) {
+    return DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.mark(OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.setName(state, cameraController, dataValue), cameraController, true);
+  }
   if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.distance) {
     return DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.mark(OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.setDistance(state, cameraController, NumberUtils$Meta3dCommonlib.bigThan(dataValue, OptionSt$Meta3dCommonlib.getExn(OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.getMinDistance(state, cameraController)))), cameraController, true);
   }

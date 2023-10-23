@@ -6,6 +6,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var ArrayMapUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/ArrayMapUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var ConfigUtils$Meta3dComponentGeometry = require("../config/ConfigUtils.bs.js");
 var DisposeSharedComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeSharedComponentUtils.bs.js");
 var BufferGeometryUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/BufferGeometryUtils.bs.js");
@@ -29,13 +30,16 @@ function _disposeData(state) {
   var texCoordsInfos = state.texCoordsInfos;
   var normalsInfos = state.normalsInfos;
   var indicesInfos = state.indicesInfos;
+  var names = state.names;
   return function (isDebug, geometry) {
     var infoIndex = BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoIndex(geometry);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(verticesInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(texCoordsInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(normalsInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(indicesInfos, infoIndex, 0, 0, isDebug);
-    return state;
+    var newrecord = Caml_obj.obj_dup(state);
+    newrecord.names = ImmutableSparseMap$Meta3dCommonlib.remove(names, geometry);
+    return newrecord;
   };
 }
 

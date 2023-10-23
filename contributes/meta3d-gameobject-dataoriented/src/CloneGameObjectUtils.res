@@ -180,6 +180,7 @@ let rec _clone = (
   ))
 }
 
+// TODO clone name
 let clone = (
   (
     gameObjectState,

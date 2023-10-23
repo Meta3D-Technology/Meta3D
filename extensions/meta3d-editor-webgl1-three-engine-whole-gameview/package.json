@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-engine-whole-gameview",
-    "version": "0.18.0",
+    "version": "0.18.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-whole-gameview-protocol"

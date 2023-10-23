@@ -4,6 +4,7 @@ var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
 var ConfigUtils$Meta3dComponentArcballcameracontroller = require("../config/ConfigUtils.bs.js");
 var GetNeedDisposedArcballCameraControllersUtils$Meta3dComponentArcballcameracontroller = require("../gameobject/GetNeedDisposedArcballCameraControllersUtils.bs.js");
@@ -26,7 +27,8 @@ function deferDisposeComponent(state, param) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectArcballCameraControllerMap, param[1]),
           needDisposedArcballCameraControllers: ArraySt$Meta3dCommonlib.push(state.needDisposedArcballCameraControllers, param[0]),
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -50,7 +52,8 @@ function _disposeData(state, cameraController) {
           wheelSpeedMap: MutableSparseMap$Meta3dCommonlib.remove(state.wheelSpeedMap, cameraController),
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: ImmutableSparseMap$Meta3dCommonlib.remove(state.names, cameraController)
         };
 }
 
@@ -75,6 +78,7 @@ function disposeComponents(state, cameraControllers) {
   var state_gameObjectArcballCameraControllerMap = state.gameObjectArcballCameraControllerMap;
   var state_needDisposedArcballCameraControllers = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, cameraControllers);
   var state_disposedArcballCameraControllers = Js_array.concat(cameraControllers, state.disposedArcballCameraControllers);
+  var state_names = state.names;
   var state$1 = {
     config: state_config,
     maxIndex: state_maxIndex,
@@ -92,7 +96,8 @@ function disposeComponents(state, cameraControllers) {
     wheelSpeedMap: state_wheelSpeedMap,
     gameObjectArcballCameraControllerMap: state_gameObjectArcballCameraControllerMap,
     needDisposedArcballCameraControllers: state_needDisposedArcballCameraControllers,
-    disposedArcballCameraControllers: state_disposedArcballCameraControllers
+    disposedArcballCameraControllers: state_disposedArcballCameraControllers,
+    names: state_names
   };
   return [
           ArraySt$Meta3dCommonlib.reduceOneParam(cameraControllers, _disposeData, state$1),

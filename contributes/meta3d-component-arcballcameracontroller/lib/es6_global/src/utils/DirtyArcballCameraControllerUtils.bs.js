@@ -24,7 +24,8 @@ function mark(state, cameraController, isDirty) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 

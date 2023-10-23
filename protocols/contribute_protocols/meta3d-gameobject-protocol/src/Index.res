@@ -7,3 +7,5 @@ type config = {isDebug: bool}
 type state
 
 type cloneConfig = {isShareMaterial: bool}
+
+type name = string

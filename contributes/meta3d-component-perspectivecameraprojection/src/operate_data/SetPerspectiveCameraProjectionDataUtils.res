@@ -8,6 +8,13 @@ let setData = (.
 ): StateType.state => {
   switch dataName {
   | dataName
+    if dataName == Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.name =>
+    OperatePerspectiveCameraProjectionUtils.setName(
+      state,
+      cameraProjection,
+      dataValue->Obj.magic,
+    )->DirtyPerspectiveCameraProjectionUtils.mark(cameraProjection, true)
+  | dataName
     if dataName == Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix =>
     OperatePerspectiveCameraProjectionUtils.setPMatrix(
       state,
@@ -47,14 +54,14 @@ let setData = (.
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Exception.buildErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="setData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="setData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
-      )
     )
   }
 }

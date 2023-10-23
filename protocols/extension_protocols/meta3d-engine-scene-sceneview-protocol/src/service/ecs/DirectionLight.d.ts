@@ -5,6 +5,10 @@ import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export type createDirectionLight = (meta3dState: meta3dState) => [meta3dState, directionLight]
 
+export type getName = (meta3dState: meta3dState, directionLight: directionLight) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, directionLight: directionLight, name: string) => meta3dState
+
 export type getColor = (meta3dState: meta3dState, directionLight: directionLight) => nullable<color>
 
 export type setColor = (meta3dState: meta3dState, directionLight: directionLight, color: color) => meta3dState

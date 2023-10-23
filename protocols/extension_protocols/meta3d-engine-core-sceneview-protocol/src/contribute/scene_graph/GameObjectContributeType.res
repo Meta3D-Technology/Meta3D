@@ -132,43 +132,43 @@ type deferDisposeGameObjectFunc<'state> = (
 type disposeTransformsFunc = ComponentContributeType.disposeComponentsFunc<
   transformState,
   Meta3dComponentTransformProtocol.Index.batchDisposeData,
-  transform
+  transform,
 >
 
 type disposePBRMaterialsFunc = ComponentContributeType.disposeComponentsFunc<
   pbrMaterialState,
   Meta3dComponentPbrmaterialProtocol.Index.batchDisposeData,
-  pbrMaterial
+  pbrMaterial,
 >
 
 type disposeGeometrysFunc = ComponentContributeType.disposeComponentsFunc<
   geometryState,
   Meta3dComponentGeometryProtocol.Index.batchDisposeData,
-  geometry
+  geometry,
 >
 
 type disposeDirectionLightFunc = ComponentContributeType.disposeComponentsFunc<
   directionLightState,
   Meta3dComponentDirectionlightProtocol.Index.batchDisposeData,
-  directionLight
+  directionLight,
 >
 
 type disposeArcballCameraControllerFunc = ComponentContributeType.disposeComponentsFunc<
   arcballCameraControllerState,
   Meta3dComponentArcballcameracontrollerProtocol.Index.batchDisposeData,
-  arcballCameraController
+  arcballCameraController,
 >
 
 type disposeBasicCameraViewFunc = ComponentContributeType.disposeComponentsFunc<
   basicCameraViewState,
   Meta3dComponentBasiccameraviewProtocol.Index.batchDisposeData,
-  basicCameraView
+  basicCameraView,
 >
 
 type disposePerspectiveCameraProjectionFunc = ComponentContributeType.disposeComponentsFunc<
   perspectiveCameraProjectionState,
   Meta3dComponentPerspectivecameraprojectionProtocol.Index.batchDisposeData,
-  perspectiveCameraProjection
+  perspectiveCameraProjection,
 >
 
 type actuallyDisposedGameObjects = array<gameObject>
@@ -352,6 +352,12 @@ type cloneGameObjectFunc<'state> = (
   clonedGameObjects,
 )
 
+type name = Meta3dGameobjectProtocol.Index.name
+
+type getNameFunc<'state> = (. 'state, gameObject) => Js.Nullable.t<name>
+
+type setNameFunc<'state> = (. 'state, gameObject, name) => 'state
+
 type getAllGameObjectsFunc<'state> = (. 'state) => array<gameObject>
 
 type restore<'state> = (. 'state, 'state) => 'state
@@ -365,6 +371,8 @@ type gameObjectContribute<'state> = {
   getNeedDisposedGameObjectsFunc: getNeedDisposedGameObjectsFunc<'state>,
   deferDisposeGameObjectFunc: deferDisposeGameObjectFunc<'state>,
   disposeGameObjectsFunc: disposeGameObjectsFunc<'state>,
+  getNameFunc: getNameFunc<'state>,
+  setNameFunc: setNameFunc<'state>,
   cloneGameObjectFunc: cloneGameObjectFunc<'state>,
   getAllGameObjectsFunc: getAllGameObjectsFunc<'state>,
   restore: restore<'state>,

@@ -2,7 +2,7 @@ import type { state as Meta3dType_Index_state, extensionProtocolName } from 'met
 
 import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType.gen';
 
-import { gameObject, config as gameObjectConfig } from "meta3d-gameobject-protocol"
+import { gameObject, config as gameObjectConfig, name } from "meta3d-gameobject-protocol"
 
 import type { componentName as ComponentContributeType_componentName } from '../../src/contribute/scene_graph/ComponentContributeType';
 
@@ -76,5 +76,7 @@ export type service = {
     ];
     readonly cloneGameObject: (_1: StateType_state, _2: number, _3: cloneConfig, _4: gameObject) => [StateType_state, clonedGameObjects];
     readonly getAllGameObjects: (_1: StateType_state) => gameObject[];
+    readonly getGameObjectName: (_1: StateType_state, gameObject: gameObject) => nullable<name>,
+    readonly setGameObjectName: (_1: StateType_state, gameObject: gameObject, name: name) => StateType_state,
     readonly runPipeline: (_1: Meta3dType_Index_state, _2: extensionProtocolName, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<Meta3dType_Index_state>
 };

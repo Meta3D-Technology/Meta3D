@@ -1,6 +1,6 @@
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
-import { gameObject, cloneConfig } from "meta3d-gameobject-protocol"
+import { gameObject, cloneConfig, name } from "meta3d-gameobject-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
 import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol"
@@ -9,6 +9,7 @@ import { basicCameraView, componentName as basicCameraViewComponentName } from "
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export let createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject] => {
     let contribute = createGameObject(engineCoreState)
@@ -23,6 +24,14 @@ export let createGameObject = (engineCoreState: engineCoreState, { createGameObj
 
 export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects }: engineCoreService): Array<gameObject> => {
     return getAllGameObjects(engineCoreState)
+}
+
+export let getGameObjectName = (engineCoreState: engineCoreState, { getGameObjectName }: engineCoreService, gameObject: gameObject): nullable<name> => {
+    return getGameObjectName(engineCoreState, gameObject)
+}
+
+export let setGameObjectName = (engineCoreState: engineCoreState, { setGameObjectName }: engineCoreService, gameObject: gameObject, name: name): engineCoreState => {
+    return setGameObjectName(engineCoreState, gameObject, name)
 }
 
 export let getTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {

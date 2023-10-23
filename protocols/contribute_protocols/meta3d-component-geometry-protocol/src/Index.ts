@@ -15,12 +15,13 @@ export type state = {
 }
 
 export const dataName = {
-    vertices: 0,
-    normals: 1,
-    texCoords: 2,
-    tangents: 3,
-    indices: 4,
-    indicesCount: 5,
+    name: 0,
+    vertices: 1,
+    normals: 2,
+    texCoords: 3,
+    tangents: 4,
+    indices: 5,
+    indicesCount: 6,
 }
 
 export type geometry = geometryType

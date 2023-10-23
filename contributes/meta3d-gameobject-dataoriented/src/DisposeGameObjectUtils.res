@@ -128,7 +128,7 @@ let _isNotNeedDispose = (component, needDisposedIndexArray) =>
 
 let disposeGameObjects = (
   (
-    {needDisposedGameObjectArray} as gameObjectState,
+    {needDisposedGameObjectArray, names} as gameObjectState,
     transformState: Meta3dEngineCoreSceneviewProtocol.ComponentType.transformState,
     pbrMaterialState: Meta3dEngineCoreSceneviewProtocol.ComponentType.pbrMaterialState,
     geometryState: Meta3dEngineCoreSceneviewProtocol.ComponentType.geometryState,
@@ -168,6 +168,14 @@ let disposeGameObjects = (
     needDisposedGameObjectArray->Meta3dCommonlib.DisposeComponentUtils.batchRemoveFromArray(
       gameObjects,
     )
+
+  let gameObjectState =
+    gameObjects->Meta3dCommonlib.ArraySt.reduceOneParam((. gameObjectState, gameObject) => {
+      {
+        ...gameObjectState,
+        names: names->Meta3dCommonlib.ImmutableSparseMap.remove(gameObject),
+      }
+    }, gameObjectState)
 
   let disposedGameObjects = gameObjects
 

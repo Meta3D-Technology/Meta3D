@@ -49,6 +49,7 @@ let _disposeData = (
     childrenMap,
     dirtyMap,
     gameObjectMap,
+    names
   } as state,
   isDebug,
   transform,
@@ -88,7 +89,11 @@ let _disposeData = (
   state.childrenMap = childrenMap->_disposeSparseMapData(transform)
   state.dirtyMap = dirtyMap->_disposeSparseMapData(transform)
   state.gameObjectMap = gameObjectMap->_disposeSparseMapData(transform)
-  state
+  
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.remove(transform),
+  }
 }
 
 let disposeComponents = ({disposedTransforms} as state, transforms) => {

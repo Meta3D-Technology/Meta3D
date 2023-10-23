@@ -1,6 +1,7 @@
 
 
 import * as Js_typed_array from "../../../../../../node_modules/rescript/lib/es6/js_typed_array.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
 import * as BufferGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/BufferGeometryUtils.bs.js";
 import * as CreateTypeArrayGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/CreateTypeArrayGeometryUtils.bs.js";
@@ -61,7 +62,8 @@ function createStateWithSharedArrayBufferData(param, param$1) {
           gameObjectsMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
           gameObjectGeometryMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
           needDisposedGeometrys: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(geometryCount),
-          disposedGeometrys: []
+          disposedGeometrys: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

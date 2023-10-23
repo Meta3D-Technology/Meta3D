@@ -6,6 +6,7 @@ var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Arr
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var ArrayMapUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/ArrayMapUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var DisposeTypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/DisposeTypeArrayUtils.bs.js");
 var ConfigUtils$Meta3dComponentPbrmaterial = require("../config/ConfigUtils.bs.js");
 var DisposeSharedComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeSharedComponentUtils.bs.js");
@@ -39,6 +40,7 @@ function _disposeData(state) {
   var defaultSpecularColor = state.defaultSpecularColor;
   var defaultSpecular = state.defaultSpecular;
   var defaultDiffuseColor = state.defaultDiffuseColor;
+  var names = state.names;
   return function (material) {
     state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(diffuseColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(material), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor);
     state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(speculars, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(material), defaultSpecular);
@@ -51,7 +53,9 @@ function _disposeData(state) {
     MutableSparseMap$Meta3dCommonlib.remove(state.roughnessMap, material);
     MutableSparseMap$Meta3dCommonlib.remove(state.metalnessMap, material);
     MutableSparseMap$Meta3dCommonlib.remove(state.normalMap, material);
-    return state;
+    var newrecord = Caml_obj.obj_dup(state);
+    newrecord.names = ImmutableSparseMap$Meta3dCommonlib.remove(names, material);
+    return newrecord;
   };
 }
 

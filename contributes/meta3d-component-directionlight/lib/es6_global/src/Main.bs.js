@@ -100,7 +100,8 @@ function getContribute(param) {
                       gameObjectMap: targetState$1.gameObjectMap,
                       gameObjectDirectionLightMap: targetState$1.gameObjectDirectionLightMap,
                       needDisposedDirectionLights: targetState$1.needDisposedDirectionLights,
-                      disposedDirectionLights: targetState$1.disposedDirectionLights
+                      disposedDirectionLights: targetState$1.disposedDirectionLights,
+                      names: targetState$1.names
                     };
             }),
           deepCopy: (function (state) {
@@ -119,7 +120,8 @@ function getContribute(param) {
                       gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(gameObjectMap),
                       gameObjectDirectionLightMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectDirectionLightMap),
                       needDisposedDirectionLights: ArraySt$Meta3dCommonlib.copy(needDisposedDirectionLights),
-                      disposedDirectionLights: ArraySt$Meta3dCommonlib.copy(disposedDirectionLights)
+                      disposedDirectionLights: ArraySt$Meta3dCommonlib.copy(disposedDirectionLights),
+                      names: state.names
                     };
             })
         };

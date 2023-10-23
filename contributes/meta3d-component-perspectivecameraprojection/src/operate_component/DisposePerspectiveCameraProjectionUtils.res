@@ -19,7 +19,7 @@ let _disposeSparseMapData = (map, cameraProjection) =>
   map->Meta3dCommonlib.MutableSparseMap.remove(cameraProjection)
 
 let _disposeData = (
-  {gameObjectMap, dirtyMap, pMatrixMap, nearMap, farMap, fovyMap, aspectMap} as state,
+  {gameObjectMap, dirtyMap, pMatrixMap, nearMap, farMap, fovyMap, aspectMap, names} as state,
   cameraProjection,
 ) => {
   {
@@ -31,6 +31,7 @@ let _disposeData = (
     aspectMap: aspectMap->_disposeSparseMapData(cameraProjection),
     pMatrixMap: pMatrixMap->_disposeSparseMapData(cameraProjection),
     gameObjectMap: gameObjectMap->_disposeSparseMapData(cameraProjection),
+    names: names -> Meta3dCommonlib.ImmutableSparseMap.remove(cameraProjection)
   }
 }
 

@@ -32,6 +32,7 @@ let _disposeData = (
     rotateSpeedMap,
     wheelSpeedMap,
     gameObjectMap,
+    names,
   } as state,
   cameraController,
 ) => {
@@ -49,6 +50,7 @@ let _disposeData = (
     rotateSpeedMap: rotateSpeedMap->_disposeSparseMapData(cameraController),
     wheelSpeedMap: wheelSpeedMap->_disposeSparseMapData(cameraController),
     gameObjectMap: gameObjectMap->_disposeSparseMapData(cameraController),
+    names: names->Meta3dCommonlib.ImmutableSparseMap.remove(cameraController),
   }
 }
 

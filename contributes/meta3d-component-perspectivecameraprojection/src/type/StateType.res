@@ -19,4 +19,8 @@ type state = {
   >,
   needDisposedPerspectiveCameraProjections: array<perspectiveCameraProjection>,
   disposedPerspectiveCameraProjections: array<perspectiveCameraProjection>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    perspectiveCameraProjection,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

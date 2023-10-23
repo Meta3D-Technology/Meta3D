@@ -65,46 +65,17 @@ type textureDataType =
 @genType
 type state = {
   maxUID: int,
-  wrapSs: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    wrap,
-  >,
-  wrapTs: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    wrap,
-  >,
-  magFilters: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    filter,
-  >,
-  minFilters: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    filter,
-  >,
-  formats: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    format,
-  >,
-  types: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    textureDataType,
-  >,
-  isNeedUpdates: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    bool,
-  >,
-  flipYs: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    bool,
-  >,
-  images: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    Dom.htmlImageElement,
-  >,
-  materials: Meta3dCommonlibType.ImmutableSparseMapType.t<
-    texture,
-    array<material>,
-  >,
+  wrapSs: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, wrap>,
+  wrapTs: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, wrap>,
+  magFilters: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, filter>,
+  minFilters: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, filter>,
+  formats: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, format>,
+  types: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, textureDataType>,
+  isNeedUpdates: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, bool>,
+  flipYs: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, bool>,
+  images: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, Dom.htmlImageElement>,
+  materials: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, array<material>>,
   // mutable needDisposedTextureArray: array<texture>,
   // mutable disposedTextureArray: array<texture>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<texture, string>,
 }

@@ -6,6 +6,10 @@ import { texture } from "meta3d-texture-basicsource-protocol/src/state/StateType
 
 export type createPBRMaterial = (meta3dState: meta3dState) => [meta3dState, pbrMaterial]
 
+export type getName = (meta3dState: meta3dState, pbrMaterial: pbrMaterial) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, pbrMaterial: pbrMaterial, name: string) => meta3dState
+
 export type getDiffuseColor = (meta3dState: meta3dState, pbrMaterial: pbrMaterial) => nullable<diffuseColor>
 
 export type setDiffuseColor = (meta3dState: meta3dState, pbrMaterial: pbrMaterial, diffuseColor: diffuseColor) => meta3dState

@@ -18,11 +18,12 @@ let deferDisposeComponent = (
 let _disposeSparseMapData = (map, cameraView) =>
   map->Meta3dCommonlib.MutableSparseMap.remove(cameraView)
 
-let _disposeData = ({isActiveMap, gameObjectMap} as state, cameraView) => {
+let _disposeData = ({isActiveMap, gameObjectMap, names} as state, cameraView) => {
   {
     ...state,
     isActiveMap: isActiveMap->_disposeSparseMapData(cameraView),
     gameObjectMap: gameObjectMap->_disposeSparseMapData(cameraView),
+    names: names->Meta3dCommonlib.ImmutableSparseMap.remove(cameraView),
   }
 }
 

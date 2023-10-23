@@ -5,7 +5,8 @@ export type state = any
 export type config = { readonly isDebug: boolean };
 
 export const dataName = {
-    isActive: 0,
+    name: 0,
+    isActive: 1,
 }
 
 export type basicCameraView = number

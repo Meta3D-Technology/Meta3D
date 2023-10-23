@@ -25,6 +25,7 @@ let _disposeData = (
     intensities,
     //  renderLightArr,
     gameObjectMap,
+    names,
   } as state,
   isDebug,
   light,
@@ -43,7 +44,10 @@ let _disposeData = (
 
   state.gameObjectMap = gameObjectMap->_disposeSparseMapData(light)
 
-  state
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.remove(light),
+  }
 }
 
 let disposeComponents = (

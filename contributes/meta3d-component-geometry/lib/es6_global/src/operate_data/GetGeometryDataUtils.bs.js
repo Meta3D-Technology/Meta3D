@@ -2,6 +2,7 @@
 
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as ConfigUtils$Meta3dComponentGeometry from "../config/ConfigUtils.bs.js";
 import * as Index$Meta3dComponentGeometryProtocol from "../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
 import * as IndicesUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/IndicesUtils.bs.js";
@@ -9,6 +10,10 @@ import * as NormalsUtils$Meta3dComponentWorkerUtils from "../../../../../../node
 import * as TangentsUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/TangentsUtils.bs.js";
 import * as VerticesUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/VerticesUtils.bs.js";
 import * as TexCoordsUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/TexCoordsUtils.bs.js";
+
+function getName(state, geometry) {
+  return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, geometry);
+}
 
 function getData(state, param, param$1) {
   var vertices = state.vertices;
@@ -22,7 +27,9 @@ function getData(state, param, param$1) {
   var tangentsInfos = state.tangentsInfos;
   var indicesInfos = state.indicesInfos;
   var isDebug = ConfigUtils$Meta3dComponentGeometry.getIsDebug(state);
-  if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.vertices) {
+  if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.name) {
+    return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, param);
+  } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.vertices) {
     return VerticesUtils$Meta3dComponentWorkerUtils.getVertices(vertices, verticesInfos, isDebug, param);
   } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.normals) {
     return NormalsUtils$Meta3dComponentWorkerUtils.getNormals(normals, normalsInfos, isDebug, param);
@@ -42,6 +49,7 @@ function getData(state, param, param$1) {
 }
 
 export {
+  getName ,
   getData ,
 }
 /* No side effect */

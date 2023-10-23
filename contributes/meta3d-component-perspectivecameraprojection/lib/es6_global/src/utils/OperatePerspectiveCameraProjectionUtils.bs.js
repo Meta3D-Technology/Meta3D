@@ -2,6 +2,28 @@
 
 import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 
+function getName(state, cameraProjection) {
+  return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, cameraProjection);
+}
+
+function setName(state, cameraProjection, name) {
+  return {
+          config: state.config,
+          maxIndex: state.maxIndex,
+          dirtyMap: state.dirtyMap,
+          pMatrixMap: state.pMatrixMap,
+          nearMap: state.nearMap,
+          farMap: state.farMap,
+          fovyMap: state.fovyMap,
+          aspectMap: state.aspectMap,
+          gameObjectMap: state.gameObjectMap,
+          gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
+          needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: ImmutableSparseMap$Meta3dCommonlib.set(state.names, cameraProjection, name)
+        };
+}
+
 function getPMatrix(state, cameraProjection) {
   return ImmutableSparseMap$Meta3dCommonlib.get(state.pMatrixMap, cameraProjection);
 }
@@ -19,7 +41,8 @@ function setPMatrix(state, cameraProjection, pMatrix) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 
@@ -40,7 +63,8 @@ function setFovy(state, cameraProjection, fovy) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 
@@ -61,7 +85,8 @@ function setAspect(state, cameraProjection, aspect) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 
@@ -82,7 +107,8 @@ function setFar(state, cameraProjection, far) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 
@@ -103,11 +129,14 @@ function setNear(state, cameraProjection, near) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 
 export {
+  getName ,
+  setName ,
   getPMatrix ,
   setPMatrix ,
   getFovy ,

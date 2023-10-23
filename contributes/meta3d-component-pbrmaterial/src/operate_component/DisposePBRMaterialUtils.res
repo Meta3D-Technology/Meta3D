@@ -32,6 +32,7 @@ let _disposeData = (
     defaultMetalness,
     defaultTransmission,
     defaultIOR,
+    names
   } as state,
   material,
 ) => {
@@ -78,7 +79,11 @@ let _disposeData = (
   state.metalnessMap->Meta3dCommonlib.MutableSparseMap.remove(material)->ignore
   state.normalMap->Meta3dCommonlib.MutableSparseMap.remove(material)->ignore
 
-  state
+  
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.remove(material),
+  }
 }
 
 let disposeComponents = (state, materialDataMap) => {

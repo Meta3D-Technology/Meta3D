@@ -1,1 +1,1 @@
-{"version":3,"file":"Index.js","sourceRoot":"","sources":["Index.ts"],"names":[],"mappings":";;;AAAa,QAAA,aAAa,GAAG,gBAAgB,CAAA;AAShC,QAAA,QAAQ,GAAG;IACpB,KAAK,EAAE,CAAC;IACR,SAAS,EAAE,CAAC;CACf,CAAA"}
+{"version":3,"file":"Index.js","sourceRoot":"","sources":["Index.ts"],"names":[],"mappings":";;;AAAa,QAAA,aAAa,GAAG,gBAAgB,CAAA;AAShC,QAAA,QAAQ,GAAG;IACtB,IAAI,EAAC,CAAC;IACN,KAAK,EAAE,CAAC;IACR,SAAS,EAAE,CAAC;CACb,CAAA"}

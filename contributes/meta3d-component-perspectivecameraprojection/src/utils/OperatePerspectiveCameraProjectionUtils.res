@@ -1,5 +1,17 @@
 open StateType
 
+let getName = (state, cameraProjection) =>
+  state.names->Meta3dCommonlib.ImmutableSparseMap.getNullable(cameraProjection)
+
+let setName = (state, cameraProjection, name) => {
+  let {names} = state
+
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.set(cameraProjection, name),
+  }
+}
+
 let getPMatrix = (state, cameraProjection) =>
   state.pMatrixMap->Meta3dCommonlib.ImmutableSparseMap.get(cameraProjection)
 

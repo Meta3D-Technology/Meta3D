@@ -53,7 +53,8 @@ function getContribute(param) {
                       gameObjectMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectMap),
                       gameObjectBasicCameraViewMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectBasicCameraViewMap),
                       needDisposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.needDisposedBasicCameraViews),
-                      disposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.disposedBasicCameraViews)
+                      disposedBasicCameraViews: ArraySt$Meta3dCommonlib.copy(state.disposedBasicCameraViews),
+                      names: state.names
                     };
             })
         };

@@ -3,6 +3,9 @@ open StateType
 let getData = (. state, cameraProjection, dataName: int): Js.Nullable.t<'a> => {
   switch dataName {
   | dataName
+    if dataName == Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.name =>
+    OperatePerspectiveCameraProjectionUtils.getName(state, cameraProjection)->Obj.magic
+  | dataName
     if dataName == Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix =>
     OperatePerspectiveCameraProjectionUtils.getPMatrix(state, cameraProjection)
     ->Meta3dCommonlib.OptionSt.toNullable
@@ -34,14 +37,14 @@ let getData = (. state, cameraProjection, dataName: int): Js.Nullable.t<'a> => {
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Exception.buildErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="getData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="getData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
-      )
     )
   }
 }

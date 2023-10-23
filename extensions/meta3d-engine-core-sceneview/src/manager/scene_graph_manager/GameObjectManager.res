@@ -24,6 +24,8 @@ let createAndSetState = (
     disposeGameObjectsFunc,
     cloneGameObjectFunc,
     getAllGameObjectsFunc,
+    getNameFunc,
+    setNameFunc,
     restore,
     deepCopy,
   } = unsafeGetGameObjectData(state)
@@ -34,6 +36,8 @@ let createAndSetState = (
       state: createStateFunc(. config),
       createGameObjectFunc,
       getAllGameObjectsFunc,
+      getNameFunc,
+      setNameFunc,
       getNeedDisposedGameObjectsFunc,
       deferDisposeGameObjectFunc,
       disposeGameObjectsFunc,
@@ -453,4 +457,26 @@ let getAllGameObjects = (state: Meta3dEngineCoreSceneviewProtocol.StateType.stat
   let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
 
   usedGameObjectContribute.getAllGameObjectsFunc(. usedGameObjectContribute.state)
+}
+
+let getGameObjectName = (state: Meta3dEngineCoreSceneviewProtocol.StateType.state, gameObject) => {
+  let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
+
+  usedGameObjectContribute.getNameFunc(. usedGameObjectContribute.state, gameObject)
+}
+
+let setGameObjectName = (
+  state: Meta3dEngineCoreSceneviewProtocol.StateType.state,
+  gameObject,
+  name,
+) => {
+  let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
+
+  let gameObjectState = usedGameObjectContribute.setNameFunc(.
+    usedGameObjectContribute.state,
+    gameObject,
+    name,
+  )
+
+  StateUtils.setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState)
 }

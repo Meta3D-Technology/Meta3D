@@ -1,6 +1,7 @@
 'use strict';
 
 var ListSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ListSt.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var CreateMapComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CreateMapComponentUtils.bs.js");
 var BufferPBRMaterialUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/pbrmaterial/BufferPBRMaterialUtils.bs.js");
 var CreateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/pbrmaterial/CreateTypeArrayPBRMaterialUtils.bs.js");
@@ -87,7 +88,8 @@ function createStateWithSharedArrayBufferData(param, param$1, param$2) {
           metalnessMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           normalMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
           needDisposedPBRMaterials: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(pbrMaterialCount),
-          disposedPBRMaterials: []
+          disposedPBRMaterials: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

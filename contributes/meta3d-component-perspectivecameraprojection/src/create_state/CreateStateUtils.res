@@ -16,5 +16,6 @@ let createState = (isDebug: bool) => {
     gameObjectPerspectiveCameraProjectionMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     needDisposedPerspectiveCameraProjections: [],
     disposedPerspectiveCameraProjections: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }

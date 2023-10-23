@@ -3,12 +3,17 @@
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as Index$Meta3dComponentTransformProtocol from "../../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 import * as DirtyTransformUtils$Meta3dComponentTransform from "./DirtyTransformUtils.bs.js";
 import * as UpdateTransformUtils$Meta3dComponentTransform from "./UpdateTransformUtils.bs.js";
 import * as HierachyTransformUtils$Meta3dComponentTransform from "./HierachyTransformUtils.bs.js";
 import * as ModelMatrixTransformUtils$Meta3dComponentTransform from "./ModelMatrixTransformUtils.bs.js";
 import * as ModelMatrixTransformUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/ModelMatrixTransformUtils.bs.js";
+
+function getName(state, transform) {
+  return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, transform);
+}
 
 function getData(state, param, param$1) {
   var localToWorldMatrices = state.localToWorldMatrices;
@@ -17,7 +22,9 @@ function getData(state, param, param$1) {
   var localScales = state.localScales;
   var parentMap = state.parentMap;
   var childrenMap = state.childrenMap;
-  if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.parent) {
+  if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.name) {
+    return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, param);
+  } else if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.parent) {
     return HierachyTransformUtils$Meta3dComponentTransform.getNullableParent(parentMap, param);
   } else if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.children) {
     return HierachyTransformUtils$Meta3dComponentTransform.getNullableChildren(childrenMap, param);
@@ -49,6 +56,7 @@ function getData(state, param, param$1) {
 }
 
 export {
+  getName ,
   getData ,
 }
 /* No side effect */

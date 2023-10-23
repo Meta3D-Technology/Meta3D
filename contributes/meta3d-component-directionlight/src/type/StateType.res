@@ -13,4 +13,8 @@ type state = {
   >,
   mutable needDisposedDirectionLights: Meta3dComponentDirectionlightProtocol.Index.needDisposedComponents,
   mutable disposedDirectionLights: array<directionLight>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    directionLight,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

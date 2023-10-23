@@ -2,6 +2,7 @@
 
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var ConfigUtils$Meta3dComponentGeometry = require("../config/ConfigUtils.bs.js");
 var Index$Meta3dComponentGeometryProtocol = require("meta3d-component-geometry-protocol/lib/js/src/Index.bs.js");
 var IndicesUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/IndicesUtils.bs.js");
@@ -9,6 +10,10 @@ var NormalsUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-u
 var TangentsUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/TangentsUtils.bs.js");
 var VerticesUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/VerticesUtils.bs.js");
 var TexCoordsUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/geometry/TexCoordsUtils.bs.js");
+
+function getName(state, geometry) {
+  return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, geometry);
+}
 
 function getData(state, param, param$1) {
   var vertices = state.vertices;
@@ -22,7 +27,9 @@ function getData(state, param, param$1) {
   var tangentsInfos = state.tangentsInfos;
   var indicesInfos = state.indicesInfos;
   var isDebug = ConfigUtils$Meta3dComponentGeometry.getIsDebug(state);
-  if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.vertices) {
+  if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.name) {
+    return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, param);
+  } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.vertices) {
     return VerticesUtils$Meta3dComponentWorkerUtils.getVertices(vertices, verticesInfos, isDebug, param);
   } else if (param$1 === Index$Meta3dComponentGeometryProtocol.dataName.normals) {
     return NormalsUtils$Meta3dComponentWorkerUtils.getNormals(normals, normalsInfos, isDebug, param);
@@ -41,5 +48,6 @@ function getData(state, param, param$1) {
   }
 }
 
+exports.getName = getName;
 exports.getData = getData;
 /* No side effect */

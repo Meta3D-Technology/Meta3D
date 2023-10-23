@@ -30,5 +30,6 @@ export type state = {
   readonly isNeedUpdates: Meta3dCommonlibType_ImmutableSparseMapType_t<texture,boolean>; 
   readonly flipYs: Meta3dCommonlibType_ImmutableSparseMapType_t<texture,boolean>; 
   readonly images: Meta3dCommonlibType_ImmutableSparseMapType_t<texture,Dom_htmlImageElement>; 
-  readonly materials: Meta3dCommonlibType_ImmutableSparseMapType_t<texture,material[]>
+  readonly materials: Meta3dCommonlibType_ImmutableSparseMapType_t<texture,material[]>; 
+  readonly names: Meta3dCommonlibType_ImmutableSparseMapType_t<texture,string>
 };

@@ -35,7 +35,8 @@ function create(state) {
             wheelSpeedMap: state$1.wheelSpeedMap,
             gameObjectArcballCameraControllerMap: state$1.gameObjectArcballCameraControllerMap,
             needDisposedArcballCameraControllers: state$1.needDisposedArcballCameraControllers,
-            disposedArcballCameraControllers: match[0]
+            disposedArcballCameraControllers: match[0],
+            names: state$1.names
           },
           index$1
         ];

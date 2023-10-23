@@ -8,6 +8,7 @@ var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var ArrayMapUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/ArrayMapUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
 var ConfigUtils$Meta3dGameobjectDataoriented = require("./config/ConfigUtils.bs.js");
 var GetNeedDisposedGameObjectsUtils$Meta3dGameobjectDataoriented = require("./GetNeedDisposedGameObjectsUtils.bs.js");
@@ -83,7 +84,8 @@ function deferDisposeGameObject(param) {
       config: gameObjectState.config,
       maxUID: gameObjectState.maxUID,
       needDisposedGameObjectArray: ArraySt$Meta3dCommonlib.push(needDisposedGameObjectArray, gameObject),
-      disposedGameObjectArray: gameObjectState.disposedGameObjectArray
+      disposedGameObjectArray: gameObjectState.disposedGameObjectArray,
+      names: gameObjectState.names
     };
     return [
             gameObjectState$1,
@@ -130,6 +132,7 @@ function disposeGameObjects(param) {
   var geometryState = param[3];
   var pbrMaterialState = param[2];
   var transformState = param[1];
+  var names = gameObjectState.names;
   return function (param, gameObjects) {
     var match = param[6];
     var match$1 = param[5];
@@ -143,6 +146,15 @@ function disposeGameObjects(param) {
     DisposeUtils$Meta3dCommonlib.checkShouldNeedDisposed(isDebug, "gameObject", gameObjects, needDisposedGameObjectArray);
     gameObjectState.disposedGameObjectArray = ArraySt$Meta3dCommonlib.removeDuplicateItems(Js_array.concat(gameObjects, gameObjectState.disposedGameObjectArray));
     gameObjectState.needDisposedGameObjectArray = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedGameObjectArray, gameObjects);
+    var gameObjectState$1 = ArraySt$Meta3dCommonlib.reduceOneParam(gameObjects, (function (gameObjectState, gameObject) {
+            return {
+                    config: gameObjectState.config,
+                    maxUID: gameObjectState.maxUID,
+                    needDisposedGameObjectArray: gameObjectState.needDisposedGameObjectArray,
+                    disposedGameObjectArray: gameObjectState.disposedGameObjectArray,
+                    names: ImmutableSparseMap$Meta3dCommonlib.remove(names, gameObject)
+                  };
+          }), gameObjectState);
     var match$7 = match$6[1](transformState, _getNotSharedComponents(transformState, match$6[0], gameObjects));
     var match$8 = match$5[1](pbrMaterialState, _getSharableComponentDataMap(pbrMaterialState, match$5[0], gameObjects));
     var match$9 = match$4[1](geometryState, _getSharableComponentDataMap(geometryState, match$4[0], gameObjects));
@@ -152,7 +164,7 @@ function disposeGameObjects(param) {
     var match$13 = match[1](perspectiveCameraProjectionState, _getNotSharedComponents(perspectiveCameraProjectionState, match[0], gameObjects));
     return [
             [
-              gameObjectState,
+              gameObjectState$1,
               match$7[0],
               match$8[0],
               match$9[0],

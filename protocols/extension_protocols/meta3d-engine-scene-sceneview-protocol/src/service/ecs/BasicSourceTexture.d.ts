@@ -1,9 +1,15 @@
 import { state as meta3dState } from "meta3d-type"
 import { filter, format, htmlImageElement, material, texture, textureDataType, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
 
 export type createTexture = (meta3dState: meta3dState) => [meta3dState, texture];
 export type disposeTexture = (meta3dState: meta3dState, _2: texture, _3: material) => meta3dState;
 export type addMaterial = (meta3dState: meta3dState, _2: texture, _3: material) => meta3dState;
+
+export type getName = (meta3dState: meta3dState, texture: texture) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, texture: texture, name: string) => meta3dState
+
 export type getWrapS = (meta3dState: meta3dState, _2: texture) => wrap;
 export type setWrapS = (meta3dState: meta3dState, _2: texture, _3: wrap) => meta3dState;
 export type getWrapT = (meta3dState: meta3dState, _2: texture) => wrap;

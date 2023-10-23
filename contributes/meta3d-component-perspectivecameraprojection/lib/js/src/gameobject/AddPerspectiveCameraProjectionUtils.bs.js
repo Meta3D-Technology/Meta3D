@@ -15,7 +15,8 @@ function add(state, gameObject, cameraProjection) {
           gameObjectMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectMap, cameraProjection, gameObject),
           gameObjectPerspectiveCameraProjectionMap: ImmutableSparseMap$Meta3dCommonlib.set(state.gameObjectPerspectiveCameraProjectionMap, gameObject, cameraProjection),
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 

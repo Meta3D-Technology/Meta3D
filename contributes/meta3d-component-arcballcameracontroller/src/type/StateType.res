@@ -24,4 +24,8 @@ type state = {
   >,
   needDisposedArcballCameraControllers: Meta3dComponentArcballcameracontrollerProtocol.Index.needDisposedComponents,
   disposedArcballCameraControllers: array<arcballCameraController>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    arcballCameraController,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

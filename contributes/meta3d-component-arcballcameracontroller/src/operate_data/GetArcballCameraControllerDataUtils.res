@@ -3,6 +3,10 @@ open StateType
 let getData = (. state, cameraController, dataName: int): Js.Nullable.t<'a> => {
   switch dataName {
   | dataName
+    if dataName == Meta3dComponentArcballcameracontrollerProtocol.Index.dataName.name =>
+    OperateArcballCameraControllerUtils.getName(state, cameraController)
+    ->Obj.magic
+  | dataName
     if dataName == Meta3dComponentArcballcameracontrollerProtocol.Index.dataName.distance =>
     OperateArcballCameraControllerUtils.getDistance(state, cameraController)
     ->Meta3dCommonlib.OptionSt.toNullable

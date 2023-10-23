@@ -1,6 +1,7 @@
 
 
 import * as ListSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
 import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
 import * as CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js";
@@ -46,7 +47,8 @@ function createStateWithSharedArrayBufferData(param, param$1) {
           gameObjectMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount),
           gameObjectDirectionLightMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount),
           needDisposedDirectionLights: [],
-          disposedDirectionLights: []
+          disposedDirectionLights: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

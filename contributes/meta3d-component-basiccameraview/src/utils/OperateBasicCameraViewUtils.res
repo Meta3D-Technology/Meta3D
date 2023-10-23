@@ -1,5 +1,16 @@
 open StateType
 
+let getName = (state, cameraView) => state.names->Meta3dCommonlib.ImmutableSparseMap.getNullable(cameraView)
+
+let setName = (state, cameraView, name) => {
+  let {names} = state
+
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.set(cameraView, name),
+  }
+}
+
 let _setAllNotActive = state => {
   let {isActiveMap} = state
 

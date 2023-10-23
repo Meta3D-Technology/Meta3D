@@ -23,6 +23,21 @@ export function createArcballCameraController(engineCoreState: engineCoreState, 
     ]
 }
 
+export let getName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, arcballCameraController: arcballCameraController): nullable<string> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<arcballCameraController, string>(contribute, arcballCameraController, dataName.name)
+}
+
+export let setName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, arcballCameraController: arcballCameraController, name: string): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute, arcballCameraController, dataName.name, name)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, arcballCameraController: arcballCameraController): Array<gameObject> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 

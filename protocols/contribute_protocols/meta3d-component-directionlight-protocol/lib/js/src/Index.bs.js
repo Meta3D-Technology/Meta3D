@@ -4,8 +4,9 @@
 var componentName = "DirectionLight";
 
 var dataName = {
-  color: 0,
-  intensity: 1
+  name: 0,
+  color: 1,
+  intensity: 2
 };
 
 exports.componentName = componentName;

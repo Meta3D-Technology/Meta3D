@@ -6,6 +6,7 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as ArrayMapUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/ArrayMapUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as DisposeTypeArrayUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/DisposeTypeArrayUtils.bs.js";
 import * as ConfigUtils$Meta3dComponentPbrmaterial from "../config/ConfigUtils.bs.js";
 import * as DisposeSharedComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeSharedComponentUtils.bs.js";
@@ -39,6 +40,7 @@ function _disposeData(state) {
   var defaultSpecularColor = state.defaultSpecularColor;
   var defaultSpecular = state.defaultSpecular;
   var defaultDiffuseColor = state.defaultDiffuseColor;
+  var names = state.names;
   return function (material) {
     state.diffuseColors = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(diffuseColors, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(material), BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorsSize(undefined), defaultDiffuseColor);
     state.speculars = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32(speculars, BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularIndex(material), defaultSpecular);
@@ -51,7 +53,9 @@ function _disposeData(state) {
     MutableSparseMap$Meta3dCommonlib.remove(state.roughnessMap, material);
     MutableSparseMap$Meta3dCommonlib.remove(state.metalnessMap, material);
     MutableSparseMap$Meta3dCommonlib.remove(state.normalMap, material);
-    return state;
+    var newrecord = Caml_obj.obj_dup(state);
+    newrecord.names = ImmutableSparseMap$Meta3dCommonlib.remove(names, material);
+    return newrecord;
   };
 }
 

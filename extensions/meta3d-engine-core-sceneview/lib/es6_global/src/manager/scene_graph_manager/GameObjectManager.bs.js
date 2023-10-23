@@ -35,6 +35,8 @@ function createAndSetState(state, config) {
             disposeGameObjectsFunc: match.disposeGameObjectsFunc,
             cloneGameObjectFunc: match.cloneGameObjectFunc,
             getAllGameObjectsFunc: match.getAllGameObjectsFunc,
+            getNameFunc: match.getNameFunc,
+            setNameFunc: match.setNameFunc,
             restore: match.restore,
             deepCopy: match.deepCopy
           }
@@ -319,6 +321,17 @@ function getAllGameObjects(state) {
   return usedGameObjectContribute.getAllGameObjectsFunc(usedGameObjectContribute.state);
 }
 
+function getGameObjectName(state, gameObject) {
+  var usedGameObjectContribute = StateUtils$Meta3dEngineCoreSceneview.unsafeGetUsedGameObjectContribute(state);
+  return usedGameObjectContribute.getNameFunc(usedGameObjectContribute.state, gameObject);
+}
+
+function setGameObjectName(state, gameObject, name) {
+  var usedGameObjectContribute = StateUtils$Meta3dEngineCoreSceneview.unsafeGetUsedGameObjectContribute(state);
+  var gameObjectState = usedGameObjectContribute.setNameFunc(usedGameObjectContribute.state, gameObject, name);
+  return StateUtils$Meta3dEngineCoreSceneview.setGameObjectStateToState(state, usedGameObjectContribute, gameObjectState);
+}
+
 export {
   unsafeGetGameObjectData ,
   setGameObjectContribute ,
@@ -330,5 +343,7 @@ export {
   disposeGameObjects ,
   cloneGameObject ,
   getAllGameObjects ,
+  getGameObjectName ,
+  setGameObjectName ,
 }
 /* No side effect */

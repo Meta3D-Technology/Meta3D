@@ -3,6 +3,7 @@ let componentName = "ArcballCameraController"
 type state
 
 type dataName = {
+  name: int,
   distance: int,
   minDistance: int,
   wheelSpeed: int,
@@ -17,29 +18,28 @@ type dataName = {
 }
 
 let dataName = {
-  distance: 0,
-  minDistance: 1,
-  wheelSpeed: 2,
-  phi: 3,
-  theta: 4,
-  thetaMargin: 5,
-  target: 6,
-  rotateSpeed: 7,
-  moveSpeedX: 8,
-  moveSpeedY: 9,
-  dirty: 10,
+  name:0,
+  distance: 1,
+  minDistance: 2,
+  wheelSpeed: 3,
+  phi: 4,
+  theta: 5,
+  thetaMargin: 6,
+  target: 7,
+  rotateSpeed: 8,
+  moveSpeedX: 9,
+  moveSpeedY: 10,
+  dirty: 11,
 }
 
 type dataNameType = int
 
 type arcballCameraController = int
 
-type config = {
-  isDebug: bool,
-}
+type config = {isDebug: bool}
 
 type needDisposedComponents = array<arcballCameraController>
 
 type batchDisposeData = array<arcballCameraController>
 
-type cloneConfig = ()
+type cloneConfig = unit

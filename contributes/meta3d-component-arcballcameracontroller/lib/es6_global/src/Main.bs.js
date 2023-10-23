@@ -63,7 +63,8 @@ function getContribute(param) {
                       wheelSpeedMap: MutableSparseMap$Meta3dCommonlib.copy(state.wheelSpeedMap),
                       gameObjectArcballCameraControllerMap: MutableSparseMap$Meta3dCommonlib.copy(state.gameObjectArcballCameraControllerMap),
                       needDisposedArcballCameraControllers: ArraySt$Meta3dCommonlib.copy(state.needDisposedArcballCameraControllers),
-                      disposedArcballCameraControllers: ArraySt$Meta3dCommonlib.copy(state.disposedArcballCameraControllers)
+                      disposedArcballCameraControllers: ArraySt$Meta3dCommonlib.copy(state.disposedArcballCameraControllers),
+                      names: state.names
                     };
             })
         };

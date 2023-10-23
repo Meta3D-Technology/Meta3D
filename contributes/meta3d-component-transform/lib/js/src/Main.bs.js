@@ -134,7 +134,8 @@ function getContribute(param) {
                       gameObjectTransformMap: targetState$1.gameObjectTransformMap,
                       dirtyMap: targetState$1.dirtyMap,
                       needDisposedTransforms: targetState$1.needDisposedTransforms,
-                      disposedTransforms: targetState$1.disposedTransforms
+                      disposedTransforms: targetState$1.disposedTransforms,
+                      names: targetState$1.names
                     };
             }),
           deepCopy: (function (state) {
@@ -168,7 +169,8 @@ function getContribute(param) {
                       gameObjectTransformMap: MutableSparseMap$Meta3dCommonlib.copy(gameObjectTransformMap),
                       dirtyMap: MutableSparseMap$Meta3dCommonlib.copy(dirtyMap),
                       needDisposedTransforms: ArraySt$Meta3dCommonlib.copy(needDisposedTransforms),
-                      disposedTransforms: ArraySt$Meta3dCommonlib.copy(disposedTransforms)
+                      disposedTransforms: ArraySt$Meta3dCommonlib.copy(disposedTransforms),
+                      names: state.names
                     };
             })
         };

@@ -55,6 +55,8 @@ defineFeature(feature, test => {
     ~createStateFunc=(. config) => Obj.magic(1),
     ~createGameObjectFunc=(. state) => (state, Obj.magic(1)),
     ~getAllGameObjectsFunc=(. state) => [],
+    ~getNameFunc=(. state, gameObject) => Js.Nullable.null,
+    ~setNameFunc=(. state, gameObject, name) => state,
     ~getNeedDisposedGameObjectsFunc=(. state) => [],
     ~deferDisposeGameObjectFunc=(. state, _, gameObject) => state,
     ~disposeGameObjectsFunc=(. states, _, gameObjects) => states,
@@ -66,6 +68,8 @@ defineFeature(feature, test => {
     createStateFunc,
     createGameObjectFunc,
     getAllGameObjectsFunc,
+    getNameFunc,
+    setNameFunc,
     getNeedDisposedGameObjectsFunc,
     deferDisposeGameObjectFunc,
     disposeGameObjectsFunc: (. states, funcs, gameObjects) => (

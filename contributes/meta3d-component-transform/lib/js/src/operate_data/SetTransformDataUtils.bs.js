@@ -3,12 +3,40 @@
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
 var UpdateTransformUtils$Meta3dComponentTransform = require("./UpdateTransformUtils.bs.js");
 var HierachyTransformUtils$Meta3dComponentTransform = require("./HierachyTransformUtils.bs.js");
 var ModelMatrixTransformUtils$Meta3dComponentTransform = require("./ModelMatrixTransformUtils.bs.js");
 
+function setName(state, transform, name) {
+  return {
+          config: state.config,
+          maxIndex: state.maxIndex,
+          buffer: state.buffer,
+          localToWorldMatrices: state.localToWorldMatrices,
+          localPositions: state.localPositions,
+          localRotations: state.localRotations,
+          localScales: state.localScales,
+          defaultLocalToWorldMatrix: state.defaultLocalToWorldMatrix,
+          defaultLocalPosition: state.defaultLocalPosition,
+          defaultLocalRotation: state.defaultLocalRotation,
+          defaultLocalScale: state.defaultLocalScale,
+          parentMap: state.parentMap,
+          childrenMap: state.childrenMap,
+          gameObjectMap: state.gameObjectMap,
+          gameObjectTransformMap: state.gameObjectTransformMap,
+          dirtyMap: state.dirtyMap,
+          needDisposedTransforms: state.needDisposedTransforms,
+          disposedTransforms: state.disposedTransforms,
+          names: ImmutableSparseMap$Meta3dCommonlib.set(state.names, transform, name)
+        };
+}
+
 function setData(state, transform, dataName, dataValue) {
+  if (dataName === Index$Meta3dComponentTransformProtocol.dataName.name) {
+    return setName(state, transform, dataValue);
+  }
   if (dataName !== Index$Meta3dComponentTransformProtocol.dataName.parent) {
     if (dataName === Index$Meta3dComponentTransformProtocol.dataName.localPosition) {
       return ModelMatrixTransformUtils$Meta3dComponentTransform.setLocalPosition(state, transform, dataValue);
@@ -40,5 +68,6 @@ function setData(state, transform, dataName, dataValue) {
   }
 }
 
+exports.setName = setName;
 exports.setData = setData;
 /* No side effect */

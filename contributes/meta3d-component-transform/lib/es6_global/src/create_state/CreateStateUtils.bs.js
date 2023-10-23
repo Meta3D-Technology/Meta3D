@@ -1,6 +1,7 @@
 
 
 import * as ListSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
 import * as BufferTransformUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/transform/BufferTransformUtils.bs.js";
 import * as OperateTypeArrayTransformUtils$Meta3dComponentTransform from "../utils/OperateTypeArrayTransformUtils.bs.js";
@@ -67,7 +68,8 @@ function createStateWithSharedArrayBufferData(param, param$1, param$2) {
           gameObjectTransformMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(transformCount),
           dirtyMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(transformCount),
           needDisposedTransforms: [],
-          disposedTransforms: []
+          disposedTransforms: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

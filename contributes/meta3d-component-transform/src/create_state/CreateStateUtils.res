@@ -64,6 +64,7 @@ let createStateWithSharedArrayBufferData = (
     dirtyMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(transformCount),
     needDisposedTransforms: [],
     disposedTransforms: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }
 

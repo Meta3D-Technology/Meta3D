@@ -19,7 +19,8 @@ function mark(state, cameraProjection, isDirty) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 

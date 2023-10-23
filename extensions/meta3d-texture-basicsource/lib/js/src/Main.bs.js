@@ -21,7 +21,27 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: GroupTextureUtils$Meta3dTextureBasicsource.addMaterial(state.materials, texture, material)
+                      materials: GroupTextureUtils$Meta3dTextureBasicsource.addMaterial(state.materials, texture, material),
+                      names: state.names
+                    };
+            }),
+          getName: (function (state, texture) {
+              return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, texture);
+            }),
+          setName: (function (state, texture, name) {
+              return {
+                      maxUID: state.maxUID,
+                      wrapSs: state.wrapSs,
+                      wrapTs: state.wrapTs,
+                      magFilters: state.magFilters,
+                      minFilters: state.minFilters,
+                      formats: state.formats,
+                      types: state.types,
+                      isNeedUpdates: state.isNeedUpdates,
+                      flipYs: state.flipYs,
+                      images: state.images,
+                      materials: state.materials,
+                      names: ImmutableSparseMap$Meta3dCommonlib.set(state.names, texture, name)
                     };
             }),
           getWrapS: (function (state, texture) {
@@ -39,7 +59,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getWrapT: (function (state, texture) {
@@ -57,7 +78,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getMagFilter: (function (state, texture) {
@@ -75,7 +97,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getMinFilter: (function (state, texture) {
@@ -93,7 +116,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getFormat: (function (state, texture) {
@@ -111,7 +135,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getType: (function (state, texture) {
@@ -129,7 +154,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getIsNeedUpdate: (function (state, texture) {
@@ -147,7 +173,8 @@ function getExtensionService(api) {
                       isNeedUpdates: ImmutableSparseMap$Meta3dCommonlib.set(state.isNeedUpdates, texture, isNeedUpdate),
                       flipYs: state.flipYs,
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getFlipY: (function (state, texture) {
@@ -165,7 +192,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: ImmutableSparseMap$Meta3dCommonlib.set(state.flipYs, texture, flipY),
                       images: state.images,
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             }),
           getImage: (function (state, texture) {
@@ -183,7 +211,8 @@ function getExtensionService(api) {
                       isNeedUpdates: state.isNeedUpdates,
                       flipYs: state.flipYs,
                       images: ImmutableSparseMap$Meta3dCommonlib.set(state.images, texture, image),
-                      materials: state.materials
+                      materials: state.materials,
+                      names: state.names
                     };
             })
         };
@@ -201,7 +230,8 @@ function createExtensionState(param) {
           isNeedUpdates: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           flipYs: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           images: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-          materials: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
+          materials: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

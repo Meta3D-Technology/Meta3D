@@ -1,5 +1,17 @@
 open StateType
 
+let getName = (state, cameraController) =>
+  state.names->Meta3dCommonlib.ImmutableSparseMap.getNullable(cameraController)
+
+let setName = (state, cameraController, name) => {
+  let {names} = state
+
+  {
+    ...state,
+    names: names->Meta3dCommonlib.ImmutableSparseMap.set(cameraController, name),
+  }
+}
+
 let getDistance = (state, cameraController) =>
   state.distanceMap->Meta3dCommonlib.ImmutableSparseMap.get(cameraController)
 
@@ -8,10 +20,7 @@ let setDistance = (state, cameraController, distance) => {
 
   {
     ...state,
-    distanceMap: distanceMap->Meta3dCommonlib.ImmutableSparseMap.set(
-      cameraController,
-      distance,
-    ),
+    distanceMap: distanceMap->Meta3dCommonlib.ImmutableSparseMap.set(cameraController, distance),
   }
 }
 

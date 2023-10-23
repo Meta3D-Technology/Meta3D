@@ -7,4 +7,5 @@ type state = {
   mutable maxUID: gameObject,
   mutable needDisposedGameObjectArray: array<gameObject>,
   mutable disposedGameObjectArray: array<gameObject>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<gameObject, Meta3dGameobjectProtocol.Index.name>,
 }

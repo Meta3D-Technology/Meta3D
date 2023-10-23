@@ -118,6 +118,15 @@ type service = {
     Meta3dGameobjectProtocol.Index.gameObject,
   ) => (StateType.state, GameObjectContributeType.clonedGameObjects),
   getAllGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
+  getGameObjectName: (
+    StateType.state,
+    Meta3dGameobjectProtocol.Index.gameObject,
+  ) => Js.Nullable.t<Meta3dGameobjectProtocol.Index.name>,
+  setGameObjectName: (
+    StateType.state,
+    Meta3dGameobjectProtocol.Index.gameObject,
+    Meta3dGameobjectProtocol.Index.name,
+  ) => StateType.state,
   runPipeline: (
     Meta3dType.Index.state,
     Meta3dType.Index.extensionProtocolName,

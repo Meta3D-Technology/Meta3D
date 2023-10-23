@@ -10,6 +10,12 @@ let setData = (.
   dataValue: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.dataValue,
 ): StateType.state => {
   switch dataName {
+  | dataName if dataName == Meta3dComponentArcballcameracontrollerProtocol.Index.dataName.name =>
+    OperateArcballCameraControllerUtils.setName(
+      state,
+      cameraController,
+      dataValue->Obj.magic,
+    )->DirtyArcballCameraControllerUtils.mark(cameraController, true)
   | dataName
     if dataName == Meta3dComponentArcballcameracontrollerProtocol.Index.dataName.distance =>
     OperateArcballCameraControllerUtils.setDistance(

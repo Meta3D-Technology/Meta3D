@@ -13,7 +13,8 @@ function create(state) {
             gameObjectMap: state.gameObjectMap,
             gameObjectBasicCameraViewMap: state.gameObjectBasicCameraViewMap,
             needDisposedBasicCameraViews: state.needDisposedBasicCameraViews,
-            disposedBasicCameraViews: match[0]
+            disposedBasicCameraViews: match[0],
+            names: state.names
           },
           match[1]
         ];

@@ -1,7 +1,11 @@
 open StateType
 
+let getName = (state, light) => state.names->Meta3dCommonlib.ImmutableSparseMap.getNullable(light)
+
 let getData = (. {colors, intensities} as state, light, dataName: int): Js.Nullable.t<'a> => {
   switch dataName {
+  | dataName if dataName == Meta3dComponentDirectionlightProtocol.Index.dataName.name =>
+    getName(state, light)->Obj.magic
   | dataName if dataName == Meta3dComponentDirectionlightProtocol.Index.dataName.color =>
     Meta3dComponentWorkerUtils.OperateTypeArrayDirectionLightUtils.getColor(light, colors)
     ->Obj.magic

@@ -2,6 +2,33 @@
 
 var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 
+function getName(state, cameraController) {
+  return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, cameraController);
+}
+
+function setName(state, cameraController, name) {
+  return {
+          config: state.config,
+          maxIndex: state.maxIndex,
+          gameObjectMap: state.gameObjectMap,
+          dirtyMap: state.dirtyMap,
+          distanceMap: state.distanceMap,
+          minDistanceMap: state.minDistanceMap,
+          phiMap: state.phiMap,
+          thetaMap: state.thetaMap,
+          thetaMarginMap: state.thetaMarginMap,
+          targetMap: state.targetMap,
+          moveSpeedXMap: state.moveSpeedXMap,
+          moveSpeedYMap: state.moveSpeedYMap,
+          rotateSpeedMap: state.rotateSpeedMap,
+          wheelSpeedMap: state.wheelSpeedMap,
+          gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
+          needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: ImmutableSparseMap$Meta3dCommonlib.set(state.names, cameraController, name)
+        };
+}
+
 function getDistance(state, cameraController) {
   return ImmutableSparseMap$Meta3dCommonlib.get(state.distanceMap, cameraController);
 }
@@ -24,7 +51,8 @@ function setDistance(state, cameraController, distance) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -50,7 +78,8 @@ function setMinDistance(state, cameraController, minDistance) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -76,7 +105,8 @@ function setWheelSpeed(state, cameraController, wheelSpeed) {
           wheelSpeedMap: ImmutableSparseMap$Meta3dCommonlib.set(state.wheelSpeedMap, cameraController, wheelSpeed),
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -102,7 +132,8 @@ function setPhi(state, cameraController, phi) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -128,7 +159,8 @@ function setTheta(state, cameraController, theta) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -154,7 +186,8 @@ function setThetaMargin(state, cameraController, thetaMargin) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -180,7 +213,8 @@ function setTarget(state, cameraController, target) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -206,7 +240,8 @@ function setMoveSpeedX(state, cameraController, moveSppedX) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -232,7 +267,8 @@ function setMoveSpeedY(state, cameraController, moveSppedY) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
@@ -258,10 +294,13 @@ function setRotateSpeed(state, cameraController, rotateSpeed) {
           wheelSpeedMap: state.wheelSpeedMap,
           gameObjectArcballCameraControllerMap: state.gameObjectArcballCameraControllerMap,
           needDisposedArcballCameraControllers: state.needDisposedArcballCameraControllers,
-          disposedArcballCameraControllers: state.disposedArcballCameraControllers
+          disposedArcballCameraControllers: state.disposedArcballCameraControllers,
+          names: state.names
         };
 }
 
+exports.getName = getName;
+exports.setName = setName;
 exports.getDistance = getDistance;
 exports.setDistance = setDistance;
 exports.getMinDistance = getMinDistance;

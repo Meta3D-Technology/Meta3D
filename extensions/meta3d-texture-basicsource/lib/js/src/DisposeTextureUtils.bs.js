@@ -16,7 +16,8 @@ function _disposeData(state, texture) {
           isNeedUpdates: ImmutableSparseMap$Meta3dCommonlib.remove(state.isNeedUpdates, texture),
           flipYs: ImmutableSparseMap$Meta3dCommonlib.remove(state.flipYs, texture),
           images: ImmutableSparseMap$Meta3dCommonlib.remove(state.images, texture),
-          materials: state.materials
+          materials: state.materials,
+          names: state.names
         };
 }
 
@@ -35,7 +36,8 @@ function disposeTexture(state, texture, material) {
               isNeedUpdates: state.isNeedUpdates,
               flipYs: state.flipYs,
               images: state.images,
-              materials: materials
+              materials: materials,
+              names: state.names
             },
             null
           ];
@@ -52,7 +54,8 @@ function disposeTexture(state, texture, material) {
                   isNeedUpdates: state.isNeedUpdates,
                   flipYs: state.flipYs,
                   images: state.images,
-                  materials: materials
+                  materials: materials,
+                  names: state.names
                 }, texture),
             NullableSt$Meta3dCommonlib.$$return(texture)
           ];

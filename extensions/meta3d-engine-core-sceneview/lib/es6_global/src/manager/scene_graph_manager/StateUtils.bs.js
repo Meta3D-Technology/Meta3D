@@ -36,6 +36,8 @@ function setGameObjectStateToState(state, usedGameObjectContribute, gameObjectSt
     disposeGameObjectsFunc: usedGameObjectContribute.disposeGameObjectsFunc,
     cloneGameObjectFunc: usedGameObjectContribute.cloneGameObjectFunc,
     getAllGameObjectsFunc: usedGameObjectContribute.getAllGameObjectsFunc,
+    getNameFunc: usedGameObjectContribute.getNameFunc,
+    setNameFunc: usedGameObjectContribute.setNameFunc,
     restore: usedGameObjectContribute.restore,
     deepCopy: usedGameObjectContribute.deepCopy
   };

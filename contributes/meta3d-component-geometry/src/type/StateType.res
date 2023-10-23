@@ -26,4 +26,8 @@ type state = {
   >,
   mutable needDisposedGeometrys: Meta3dComponentGeometryProtocol.Index.needDisposedComponents,
   mutable disposedGeometrys: array<geometry>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    geometry,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

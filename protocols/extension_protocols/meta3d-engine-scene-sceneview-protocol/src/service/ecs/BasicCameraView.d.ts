@@ -12,3 +12,7 @@ export type active = (meta3dState: meta3dState, basicCameraView: basicCameraView
 export type getViewWorldToCameraMatrix = (meta3dState: meta3dState, basicCameraView: basicCameraView) => nullable<Float32Array>
 
 export type getActiveCameraView = (meta3dState: meta3dState, isDebug: boolean) => nullable<basicCameraView>
+
+export type getName = (meta3dState: meta3dState, basicCameraView: basicCameraView) => nullable<string>
+
+export type setName = (meta3dState: meta3dState, basicCameraView: basicCameraView, name: string) => meta3dState

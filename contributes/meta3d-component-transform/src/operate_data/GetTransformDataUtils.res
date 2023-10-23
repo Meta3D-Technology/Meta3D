@@ -1,5 +1,8 @@
 open StateType
 
+let getName = (state, transform) =>
+  state.names->Meta3dCommonlib.ImmutableSparseMap.getNullable(transform)
+
 let getData = (.
   {
     parentMap,
@@ -13,6 +16,8 @@ let getData = (.
   dataName: Meta3dEngineCoreSceneviewProtocol.ComponentContributeType.dataName,
 ): Js.Nullable.t<'a> => {
   switch dataName {
+  | dataName if dataName == Meta3dComponentTransformProtocol.Index.dataName.name =>
+    getName(state, transform)->Obj.magic
   | dataName if dataName == Meta3dComponentTransformProtocol.Index.dataName.parent =>
     HierachyTransformUtils.getNullableParent(parentMap, transform)->Obj.magic
   | dataName if dataName == Meta3dComponentTransformProtocol.Index.dataName.children =>
@@ -65,14 +70,14 @@ let getData = (.
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Exception.buildErr(
-      Meta3dCommonlib.Log.buildFatalMessage(
-        ~title="getData",
-        ~description=j`unknown dataName:${dataName->Obj.magic}`,
-        ~reason="",
-        ~solution=j``,
-        ~params=j``,
+        Meta3dCommonlib.Log.buildFatalMessage(
+          ~title="getData",
+          ~description=j`unknown dataName:${dataName->Obj.magic}`,
+          ~reason="",
+          ~solution=j``,
+          ~params=j``,
+        ),
       ),
-      )
     )
   }
 }

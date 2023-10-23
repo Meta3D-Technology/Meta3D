@@ -44,6 +44,7 @@ let createStateWithSharedArrayBufferData = (
     gameObjectDirectionLightMap: Meta3dCommonlib.CreateMapComponentUtils.createEmptyMap(lightCount),
     needDisposedDirectionLights: [],
     disposedDirectionLights: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }
 
@@ -51,14 +52,11 @@ let getDefaultData = () => {
   let defaultColor = (1., 1., 1.)
   let defaultIntensity = 1.0
 
-(defaultColor, defaultIntensity)
+  (defaultColor, defaultIntensity)
 }
 
 let createState = (isDebug, lightCount) => {
-  let (buffer, (colors, intensities)) = _initBufferData(
-    lightCount,
-    getDefaultData(),
-  )
+  let (buffer, (colors, intensities)) = _initBufferData(lightCount, getDefaultData())
 
   createStateWithSharedArrayBufferData(
     (isDebug, lightCount),

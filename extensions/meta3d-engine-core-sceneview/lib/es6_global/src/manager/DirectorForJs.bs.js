@@ -130,6 +130,10 @@ var cloneGameObject = GameObjectManager$Meta3dEngineCoreSceneview.cloneGameObjec
 
 var getAllGameObjects = GameObjectManager$Meta3dEngineCoreSceneview.getAllGameObjects;
 
+var getGameObjectName = GameObjectManager$Meta3dEngineCoreSceneview.getGameObjectName;
+
+var setGameObjectName = GameObjectManager$Meta3dEngineCoreSceneview.setGameObjectName;
+
 export {
   _convertJobOrders ,
   registerPipeline ,
@@ -164,6 +168,8 @@ export {
   disposeGameObjects ,
   cloneGameObject ,
   getAllGameObjects ,
+  getGameObjectName ,
+  setGameObjectName ,
   getComponentState ,
   restore ,
   deepCopy ,

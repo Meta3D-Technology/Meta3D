@@ -24,19 +24,34 @@ export function createTransform(engineCoreState: engineCoreState, { unsafeGetUse
     ]
 }
 
-export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, transform: transform): Array<gameObject>  => {
+export let getName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<string> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<transform, string>(contribute, transform, dataName.name)
+}
+
+export let setName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, transform: transform, name: string): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute, transform, dataName.name, name)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
+export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, transform: transform): Array<gameObject> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentGameObjects<transform>(contribute, transform)
 }
 
-export let getParent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<parent>  => {
+export let getParent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<parent> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<transform, transform>(contribute, transform, dataName.parent)
 }
 
-export let setParent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, parent: parent) =>  {
+export let setParent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, parent: parent) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, transform, dataName.parent, parent)
@@ -44,19 +59,19 @@ export let setParent = (engineCoreState: engineCoreState, { unsafeGetUsedCompone
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getChildren = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<children>  => {
+export let getChildren = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<children> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<transform, children>(contribute, transform, dataName.children)
 }
 
-export let getLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localPosition>  => {
+export let getLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localPosition> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<transform, localPosition>(contribute, transform, dataName.localPosition)
 }
 
-export let setLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localPosition: localPosition) =>  {
+export let setLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localPosition: localPosition) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, transform, dataName.localPosition, localPosition)
@@ -64,13 +79,13 @@ export let setLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsed
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getLocalRotation = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localRotation>  => {
+export let getLocalRotation = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localRotation> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<transform, localRotation>(contribute, transform, dataName.localRotation)
 }
 
-export let setLocalRotation = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localRotation: localRotation) =>  {
+export let setLocalRotation = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localRotation: localRotation) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, transform, dataName.localRotation, localRotation)
@@ -78,13 +93,13 @@ export let setLocalRotation = (engineCoreState: engineCoreState, { unsafeGetUsed
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getLocalScale = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localScale>  => {
+export let getLocalScale = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localScale> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<transform, localScale>(contribute, transform, dataName.localScale)
 }
 
-export let setLocalScale = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localScale: localScale) =>  {
+export let setLocalScale = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localScale: localScale) => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = setComponentData(contribute, transform, dataName.localScale, localScale)
@@ -93,13 +108,13 @@ export let setLocalScale = (engineCoreState: engineCoreState, { unsafeGetUsedCom
 }
 
 
-export let getLocalToWorldMatrix = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localToWorldMatrix>  => {
+export let getLocalToWorldMatrix = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<localToWorldMatrix> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     return getComponentData<transform, localToWorldMatrix>(contribute, transform, dataName.localToWorldMatrix)
 }
 
-export let lookAt = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, transform: transform, target: [number, number, number]) =>  {
+export let lookAt = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, transform: transform, target: [number, number, number]) => {
     let contribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
     contribute = lookAtTransform(contribute, engineCoreService, transform, target)

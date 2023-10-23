@@ -15,6 +15,7 @@ function create(state) {
   var state_flipYs = state.flipYs;
   var state_images = state.images;
   var state_materials = ImmutableSparseMap$Meta3dCommonlib.set(state.materials, uid, []);
+  var state_names = state.names;
   var state$1 = {
     maxUID: state_maxUID,
     wrapSs: state_wrapSs,
@@ -26,7 +27,8 @@ function create(state) {
     isNeedUpdates: state_isNeedUpdates,
     flipYs: state_flipYs,
     images: state_images,
-    materials: state_materials
+    materials: state_materials,
+    names: state_names
   };
   return [
           state$1,

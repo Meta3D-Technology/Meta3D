@@ -4,6 +4,7 @@ var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var ConfigUtils$Meta3dComponentTransform = require("../config/ConfigUtils.bs.js");
 var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
 var DisposeTypeArrayUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/DisposeTypeArrayUtils.bs.js");
@@ -33,7 +34,8 @@ function deferDisposeComponent(state) {
             gameObjectTransformMap: MutableSparseMap$Meta3dCommonlib.remove(gameObjectTransformMap, param[1]),
             dirtyMap: state.dirtyMap,
             needDisposedTransforms: ArraySt$Meta3dCommonlib.push(needDisposedTransforms, param[0]),
-            disposedTransforms: state.disposedTransforms
+            disposedTransforms: state.disposedTransforms,
+            names: state.names
           };
   };
 }
@@ -64,6 +66,7 @@ function _disposeData(state) {
   var childrenMap = state.childrenMap;
   var gameObjectMap = state.gameObjectMap;
   var dirtyMap = state.dirtyMap;
+  var names = state.names;
   return function (isDebug, transform) {
     var state$1 = _disposeFromParentAndChildMap(state, isDebug, transform);
     state$1.localToWorldMatrices = DisposeTypeArrayUtils$Meta3dCommonlib.deleteAndResetFloat32TypeArr(localToWorldMatrices, BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatrixIndex(transform), BufferTransformUtils$Meta3dComponentWorkerUtils.getLocalToWorldMatricesSize(undefined), defaultLocalToWorldMatrix);
@@ -74,7 +77,27 @@ function _disposeData(state) {
     state$1.childrenMap = MutableSparseMap$Meta3dCommonlib.remove(childrenMap, transform);
     state$1.dirtyMap = MutableSparseMap$Meta3dCommonlib.remove(dirtyMap, transform);
     state$1.gameObjectMap = MutableSparseMap$Meta3dCommonlib.remove(gameObjectMap, transform);
-    return state$1;
+    return {
+            config: state$1.config,
+            maxIndex: state$1.maxIndex,
+            buffer: state$1.buffer,
+            localToWorldMatrices: state$1.localToWorldMatrices,
+            localPositions: state$1.localPositions,
+            localRotations: state$1.localRotations,
+            localScales: state$1.localScales,
+            defaultLocalToWorldMatrix: state$1.defaultLocalToWorldMatrix,
+            defaultLocalPosition: state$1.defaultLocalPosition,
+            defaultLocalRotation: state$1.defaultLocalRotation,
+            defaultLocalScale: state$1.defaultLocalScale,
+            parentMap: state$1.parentMap,
+            childrenMap: state$1.childrenMap,
+            gameObjectMap: state$1.gameObjectMap,
+            gameObjectTransformMap: state$1.gameObjectTransformMap,
+            dirtyMap: state$1.dirtyMap,
+            needDisposedTransforms: state$1.needDisposedTransforms,
+            disposedTransforms: state$1.disposedTransforms,
+            names: ImmutableSparseMap$Meta3dCommonlib.remove(names, transform)
+          };
   };
 }
 

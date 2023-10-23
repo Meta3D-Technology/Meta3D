@@ -6,6 +6,7 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-
 import * as DisposeUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeUtils.bs.js";
 import * as ArrayMapUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/ArrayMapUtils.bs.js";
 import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as ConfigUtils$Meta3dComponentGeometry from "../config/ConfigUtils.bs.js";
 import * as DisposeSharedComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/DisposeSharedComponentUtils.bs.js";
 import * as BufferGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/BufferGeometryUtils.bs.js";
@@ -29,13 +30,16 @@ function _disposeData(state) {
   var texCoordsInfos = state.texCoordsInfos;
   var normalsInfos = state.normalsInfos;
   var indicesInfos = state.indicesInfos;
+  var names = state.names;
   return function (isDebug, geometry) {
     var infoIndex = BufferGeometryUtils$Meta3dComponentWorkerUtils.getInfoIndex(geometry);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(verticesInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(texCoordsInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(normalsInfos, infoIndex, 0, 0, isDebug);
     ReallocatedPointsGeometryUtils$Meta3dComponentGeometry.setInfo(indicesInfos, infoIndex, 0, 0, isDebug);
-    return state;
+    var newrecord = Caml_obj.obj_dup(state);
+    newrecord.names = ImmutableSparseMap$Meta3dCommonlib.remove(names, geometry);
+    return newrecord;
   };
 }
 

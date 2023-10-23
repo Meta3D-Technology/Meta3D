@@ -6,7 +6,9 @@ import * as Index$Meta3dComponentBasiccameraviewProtocol from "../../../../../..
 import * as OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview from "../utils/OperateBasicCameraViewUtils.bs.js";
 
 function getData(state, cameraView, dataName) {
-  if (dataName === Index$Meta3dComponentBasiccameraviewProtocol.dataName.isActive) {
+  if (dataName === Index$Meta3dComponentBasiccameraviewProtocol.dataName.name) {
+    return OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview.getName(state, cameraView);
+  } else if (dataName === Index$Meta3dComponentBasiccameraviewProtocol.dataName.isActive) {
     return OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview.getIsActive(state, cameraView);
   } else {
     return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildFatalMessage("getData", "unknown dataName:" + dataName + "", "", "", "")));

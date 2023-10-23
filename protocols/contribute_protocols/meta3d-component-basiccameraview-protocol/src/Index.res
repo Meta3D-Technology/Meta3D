@@ -2,20 +2,19 @@ let componentName = "BasicCameraView"
 
 type state
 
-type dataName = {isActive: int}
+type dataName = {name: int, isActive: int}
 
 let dataName = {
-  isActive: 0,
+  name: 0,
+  isActive: 1,
 }
 
 type basicCameraView = int
 
-type config = {
-  isDebug: bool,
-}
+type config = {isDebug: bool}
 
 type needDisposedComponents = array<basicCameraView>
 
 type batchDisposeData = array<basicCameraView>
 
-type cloneConfig = ()
+type cloneConfig = unit

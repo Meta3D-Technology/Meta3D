@@ -25,6 +25,21 @@ export function createDirectionLight(engineCoreState: engineCoreState, { unsafeG
     ]
 }
 
+export let getName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService,directionLight:directionLight): nullable<string> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<directionLight, string>(contribute,directionLight, dataName.name)
+}
+
+export let setName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService,directionLight:directionLight, name: string): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute,directionLight, dataName.name, name)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 export let getColor = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, directionLight: directionLight): nullable<color> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 

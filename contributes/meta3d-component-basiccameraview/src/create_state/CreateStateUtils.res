@@ -11,5 +11,6 @@ let createState = (isDebug: bool) => {
     gameObjectBasicCameraViewMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     needDisposedBasicCameraViews: [],
     disposedBasicCameraViews: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }

@@ -22,6 +22,21 @@ export function createPerspectiveCameraProjection(engineCoreState: engineCoreSta
     ]
 }
 
+export let getName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService,perspectiveCameraProjection:perspectiveCameraProjection): nullable<string> => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getComponentData<perspectiveCameraProjection, string>(contribute,perspectiveCameraProjection, dataName.name)
+}
+
+export let setName = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService,perspectiveCameraProjection:perspectiveCameraProjection, name: string): engineCoreState => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+
+    contribute = setComponentData(contribute,perspectiveCameraProjection, dataName.name, name)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 export let getFovy = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, perspectiveCameraProjection: perspectiveCameraProjection): nullable<fovy>  => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 

@@ -30,4 +30,8 @@ type state = {
   mutable dirtyMap: Meta3dCommonlibType.MutableSparseMapType.t<transform, bool>,
   mutable needDisposedTransforms: Meta3dComponentTransformProtocol.Index.needDisposedComponents,
   mutable disposedTransforms: array<transform>,
+  names: Meta3dCommonlibType.ImmutableSparseMapType.t<
+    transform,
+    Meta3dCommonlibType.ComponentType.name,
+  >,
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 var ListSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ListSt.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var CreateMapComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CreateMapComponentUtils.bs.js");
 var BufferDirectionLightUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/directionlight/BufferDirectionLightUtils.bs.js");
 var CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js");
@@ -46,7 +47,8 @@ function createStateWithSharedArrayBufferData(param, param$1) {
           gameObjectMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount),
           gameObjectDirectionLightMap: CreateMapComponentUtils$Meta3dCommonlib.createEmptyMap(lightCount),
           needDisposedDirectionLights: [],
-          disposedDirectionLights: []
+          disposedDirectionLights: [],
+          names: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };
 }
 

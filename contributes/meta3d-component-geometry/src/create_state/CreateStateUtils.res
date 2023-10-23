@@ -97,6 +97,7 @@ let createStateWithSharedArrayBufferData = (
       geometryCount,
     ),
     disposedGeometrys: [],
+    names: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   }
 }
 

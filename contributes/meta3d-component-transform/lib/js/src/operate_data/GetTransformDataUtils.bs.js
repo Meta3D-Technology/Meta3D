@@ -3,12 +3,17 @@
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var Tuple2$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/tuple/Tuple2.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
 var DirtyTransformUtils$Meta3dComponentTransform = require("./DirtyTransformUtils.bs.js");
 var UpdateTransformUtils$Meta3dComponentTransform = require("./UpdateTransformUtils.bs.js");
 var HierachyTransformUtils$Meta3dComponentTransform = require("./HierachyTransformUtils.bs.js");
 var ModelMatrixTransformUtils$Meta3dComponentTransform = require("./ModelMatrixTransformUtils.bs.js");
 var ModelMatrixTransformUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/transform/ModelMatrixTransformUtils.bs.js");
+
+function getName(state, transform) {
+  return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, transform);
+}
 
 function getData(state, param, param$1) {
   var localToWorldMatrices = state.localToWorldMatrices;
@@ -17,7 +22,9 @@ function getData(state, param, param$1) {
   var localScales = state.localScales;
   var parentMap = state.parentMap;
   var childrenMap = state.childrenMap;
-  if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.parent) {
+  if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.name) {
+    return ImmutableSparseMap$Meta3dCommonlib.getNullable(state.names, param);
+  } else if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.parent) {
     return HierachyTransformUtils$Meta3dComponentTransform.getNullableParent(parentMap, param);
   } else if (param$1 === Index$Meta3dComponentTransformProtocol.dataName.children) {
     return HierachyTransformUtils$Meta3dComponentTransform.getNullableChildren(childrenMap, param);
@@ -48,5 +55,6 @@ function getData(state, param, param$1) {
   }
 }
 
+exports.getName = getName;
 exports.getData = getData;
 /* No side effect */

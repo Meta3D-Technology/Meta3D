@@ -4,6 +4,7 @@ var Js_array = require("rescript/lib/js/js_array.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
 var DisposeUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
+var ImmutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/ImmutableSparseMap.bs.js");
 var DisposeComponentUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/DisposeComponentUtils.bs.js");
 var ConfigUtils$Meta3dComponentPerspectivecameraprojection = require("../config/ConfigUtils.bs.js");
 var GetNeedDisposedPerspectiveCameraProjectionsUtils$Meta3dComponentPerspectivecameraprojection = require("../gameobject/GetNeedDisposedPerspectiveCameraProjectionsUtils.bs.js");
@@ -21,7 +22,8 @@ function deferDisposeComponent(state, param) {
           gameObjectMap: state.gameObjectMap,
           gameObjectPerspectiveCameraProjectionMap: MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectPerspectiveCameraProjectionMap, param[1]),
           needDisposedPerspectiveCameraProjections: ArraySt$Meta3dCommonlib.push(state.needDisposedPerspectiveCameraProjections, param[0]),
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: state.names
         };
 }
 
@@ -40,7 +42,8 @@ function _disposeData(state, cameraProjection) {
           gameObjectMap: MutableSparseMap$Meta3dCommonlib.remove(state.gameObjectMap, cameraProjection),
           gameObjectPerspectiveCameraProjectionMap: state.gameObjectPerspectiveCameraProjectionMap,
           needDisposedPerspectiveCameraProjections: state.needDisposedPerspectiveCameraProjections,
-          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections
+          disposedPerspectiveCameraProjections: state.disposedPerspectiveCameraProjections,
+          names: ImmutableSparseMap$Meta3dCommonlib.remove(state.names, cameraProjection)
         };
 }
 
@@ -59,6 +62,7 @@ function disposeComponents(state, cameraProjections) {
   var state_gameObjectPerspectiveCameraProjectionMap = state.gameObjectPerspectiveCameraProjectionMap;
   var state_needDisposedPerspectiveCameraProjections = DisposeComponentUtils$Meta3dCommonlib.batchRemoveFromArray(needDisposedComponents, cameraProjections);
   var state_disposedPerspectiveCameraProjections = Js_array.concat(cameraProjections, state.disposedPerspectiveCameraProjections);
+  var state_names = state.names;
   var state$1 = {
     config: state_config,
     maxIndex: state_maxIndex,
@@ -71,7 +75,8 @@ function disposeComponents(state, cameraProjections) {
     gameObjectMap: state_gameObjectMap,
     gameObjectPerspectiveCameraProjectionMap: state_gameObjectPerspectiveCameraProjectionMap,
     needDisposedPerspectiveCameraProjections: state_needDisposedPerspectiveCameraProjections,
-    disposedPerspectiveCameraProjections: state_disposedPerspectiveCameraProjections
+    disposedPerspectiveCameraProjections: state_disposedPerspectiveCameraProjections,
+    names: state_names
   };
   return [
           ArraySt$Meta3dCommonlib.reduceOneParam(cameraProjections, _disposeData, state$1),

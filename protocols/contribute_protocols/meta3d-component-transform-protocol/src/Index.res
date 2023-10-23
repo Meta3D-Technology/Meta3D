@@ -10,6 +10,7 @@ type config = {
 }
 
 type dataName = {
+  name: int,
   parent: int,
   children: int,
   localPosition: int,
@@ -27,20 +28,21 @@ type dataName = {
 }
 
 let dataName = {
-  parent: 0,
-  children: 1,
-  localPosition: 2,
-  localRotation: 3,
-  localScale: 4,
-  position: 5,
-  rotation: 6,
-  scale: 7,
-  localEulerAngles: 8,
-  eulerAngles: 9,
-  normalMatrix: 10,
-  localToWorldMatrix: 11,
-  dirty: 12,
-  update: 13,
+  name: 0,
+  parent: 1,
+  children: 2,
+  localPosition: 3,
+  localRotation: 4,
+  localScale: 5,
+  position: 6,
+  rotation: 7,
+  scale: 8,
+  localEulerAngles: 9,
+  eulerAngles: 10,
+  normalMatrix: 11,
+  localToWorldMatrix: 12,
+  dirty: 13,
+  update: 14,
 }
 
 type transform = Meta3dComponentTransformProtocolCommon.Index.transform
@@ -51,4 +53,4 @@ type needDisposedComponents = array<transform>
 
 type batchDisposeData = array<transform>
 
-type cloneConfig = ()
+type cloneConfig = unit

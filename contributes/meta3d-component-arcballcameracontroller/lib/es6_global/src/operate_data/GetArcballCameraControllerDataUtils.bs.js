@@ -8,7 +8,9 @@ import * as DirtyArcballCameraControllerUtils$Meta3dComponentArcballcameracontro
 import * as OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller from "../utils/OperateArcballCameraControllerUtils.bs.js";
 
 function getData(state, cameraController, dataName) {
-  if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.distance) {
+  if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.name) {
+    return OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.getName(state, cameraController);
+  } else if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.distance) {
     return OptionSt$Meta3dCommonlib.toNullable(OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.getDistance(state, cameraController));
   } else if (dataName === Index$Meta3dComponentArcballcameracontrollerProtocol.dataName.minDistance) {
     return OptionSt$Meta3dCommonlib.toNullable(OperateArcballCameraControllerUtils$Meta3dComponentArcballcameracontroller.getMinDistance(state, cameraController));

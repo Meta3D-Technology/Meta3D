@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
-import { gameObject, cloneConfig } from "meta3d-gameobject-protocol"
+import { gameObject, cloneConfig, name } from "meta3d-gameobject-protocol"
 import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
@@ -10,6 +10,7 @@ import { perspectiveCameraProjection, componentName as perspectiveCameraProjecti
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { clonedGameObjects } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/GameObjectContributeType"
 import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 
 export type createGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
@@ -84,3 +85,7 @@ export type disposeGameObjectBasicCameraViewComponent = (meta3dState: meta3dStat
 export type disposeGameObjectPerspectiveCameraProjectionComponent = (meta3dState: meta3dState, gameObject: gameObject, component: perspectiveCameraProjection) => meta3dState
 
 export type disposeGameObjectArcballCameraControllerComponent = (meta3dState: meta3dState, gameObject: gameObject, component: arcballCameraController) => meta3dState
+
+export type getGameObjectName = (meta3dState: meta3dState, gameObject: gameObject) => nullable<name>
+
+export type setGameObjectName = (meta3dState: meta3dState, gameObject: gameObject, name: name) => meta3dState
