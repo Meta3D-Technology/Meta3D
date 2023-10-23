@@ -134,172 +134,220 @@ import { addTexture } from "./init_button";
 // }
 
 
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time);
+//     ImGui.NewFrame();
+
+
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(600, 600));
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(200, 200));
+
+
+//     ImGui.Begin("Target");
+
+//     ImGui.BeginChild("Child");
+//     // ImGui.Dummy(new ImGui.ImVec2(180,160))
+//     // ImGui.InvisibleButton("z", new ImGui.ImVec2(180,160))
+
+
+
+
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+//     ImGui.Button("Remove"); 
+
+
+
+//     ImGui.EndChild()
+
+//     if (ImGui.BeginDragDropTarget()) {
+//         let payload
+//         if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
+//             // ImGui.ASSERT(payload.DataSize === sizeof(int));
+//             const payload_n = payload.Data;
+//             console.log("accept drag target, from source: ", payload_n)
+
+//         }
+//         ImGui.EndDragDropTarget();
+//     }
+
+//     ImGui.End()
+
+
+
+
+
+
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(600, 600));
+
+//     ImGui.Begin("Asset");
+
+
+//     // ImGui.AlignTextToFramePadding();
+//     // ImGui.Text("Normal buttons"); ImGui.SameLine();
+
+//     ImGui.Button("Remove"); ImGui.SameLine();
+
+
+
+//     // ImGui.Button("Add")
+//     // ImGui.Button("Corniflower");
+//     ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))
+
+
+
+
+
+//     ImGui.Text("Drag Target");
+//     ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(200, 200))
+
+
+//     // if (ImGui.BeginDragDropTarget()) {
+//     //     let payload
+//     //     if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
+//     //         // ImGui.ASSERT(payload.DataSize === sizeof(int));
+//     //         const payload_n = payload.Data;
+//     //         console.log("accept drag target, from source: ", payload_n)
+
+//     //     }
+//     //     ImGui.EndDragDropTarget();
+//     // }
+
+
+
+//     // ImGui.BeginGroup(); // Lock X position
+//     // {
+//     // ImGui.BeginGroup(); // Lock X position
+//     // ImGui.Button("Add"); ImGui.SameLine();
+//     // ImGui.Button("Add2"); ImGui.SameLine();
+//     // ImGui.EndGroup(); // Lock X position
+//     // }
+
+//     // ImGui.EndGroup()
+
+
+
+
+//     const button_sz: ImGui.Vec2 = new ImGui.Vec2(40, 40);
+
+//     ImGui.Text("Manual wrapping:");
+//     const style: ImGui.Style = ImGui.GetStyle();
+//     // let buttons_count: number = 200;
+//     let buttons_count: number = 1;
+//     const window_visible_x2: number = ImGui.GetWindowPos().x + ImGui.GetWindowContentRegionMax().x;
+//     for (let n = 0; n < buttons_count; n++) {
+//         ImGui.PushID(n);
+
+//         ImGui.BeginGroup(); // Lock X position
+//         ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))
+
+//         if (ImGui.BeginDragDropSource(ImGui.DragDropFlags.None)) {
+//             // Set payload to carry the index of our item (could be anything)
+//             // ImGui.SetDragDropPayload("DND_DEMO_CELL", "Remove Button");
+//             ImGui.SetDragDropPayload("DND_DEMO_CELL", "Group");
+
+//             // Display preview (could be anything, e.g. when dragging an image we could decide to display
+//             // the filename and a small preview of the image, etc.)
+//             ImGui.Text(`Drag Source: Group`);
+//             ImGui.EndDragDropSource();
+//         }
+
+
+//         ImGui.Text("Box");
+
+
+//         // ImGui.Button("Box", button_sz);
+//         const last_button_x2: number = ImGui.GetItemRectMax().x;
+//         const next_button_x2: number = last_button_x2 + style.ItemSpacing.x + button_sz.x; // Expected position if next button was on same line
+//         ImGui.EndGroup(); // Lock X position
+//         if (n + 1 < buttons_count && next_button_x2 < window_visible_x2)
+//             ImGui.SameLine();
+
+//         ImGui.PopID();
+
+
+
+
+//     }
+
+
+//     // if (ImGui.BeginDragDropSource(ImGui.DragDropFlags.None)) {
+//     //     // Set payload to carry the index of our item (could be anything)
+//     //     // ImGui.SetDragDropPayload("DND_DEMO_CELL", "Remove Button");
+//     //     ImGui.SetDragDropPayload("DND_DEMO_CELL", "Group");
+
+//     //     // Display preview (could be anything, e.g. when dragging an image we could decide to display
+//     //     // the filename and a small preview of the image, etc.)
+//     //     ImGui.Text(`Drag Source: Group`);
+//     //     ImGui.EndDragDropSource();
+//     // }
+
+
+
+
+
+
+
+//     ImGui.End();
+
+
+
+
+//     ImGui.EndFrame();
+//     ImGui.Render();
+
+
+//     // ImGui.StyleColorsDark();
+//     ImGui.StyleColorsClassic();
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1));
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1));
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+// }
+
+
+
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
 
 
     ImGui.SetNextWindowPos(new ImGui.ImVec2(600, 600));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(200, 200));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(300, ImGui.GetFontSize()));
 
 
-    ImGui.Begin("Target");
+    ImGui.Begin("Menu Window", null, ImGui.WindowFlags.NoTitleBar| ImGui.WindowFlags.MenuBar | ImGui.WindowFlags.NoBackground |ImGui.WindowFlags.NoCollapse);
 
-    ImGui.BeginChild("Child");
-    // ImGui.Dummy(new ImGui.ImVec2(180,160))
-    // ImGui.InvisibleButton("z", new ImGui.ImVec2(180,160))
+    let isClick = false
 
-
-
-
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-    ImGui.Button("Remove"); 
-
-
-
-    ImGui.EndChild()
-
-    if (ImGui.BeginDragDropTarget()) {
-        let payload
-        if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
-            // ImGui.ASSERT(payload.DataSize === sizeof(int));
-            const payload_n = payload.Data;
-            console.log("accept drag target, from source: ", payload_n)
-
+    if (ImGui.BeginMenuBar()) {
+        if (ImGui.BeginMenu("Examples")) {
+            isClick = ImGui.MenuItem("Main menu bar")
+            ImGui.EndMenu();
         }
-        ImGui.EndDragDropTarget();
+        if (ImGui.BeginMenu("222")) {
+            ImGui.MenuItem("222-1")
+            ImGui.EndMenu();
+        }
+
+        ImGui.EndMenuBar();
     }
+
+    console.log(isClick)
 
     ImGui.End()
 
-
-
-
-
-
-    ImGui.SetNextWindowPos(new ImGui.ImVec2(0, 0));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(600, 600));
-
-    ImGui.Begin("Asset");
-
-
-    // ImGui.AlignTextToFramePadding();
-    // ImGui.Text("Normal buttons"); ImGui.SameLine();
-
-    ImGui.Button("Remove"); ImGui.SameLine();
-
-
-
-    // ImGui.Button("Add")
-    // ImGui.Button("Corniflower");
-    ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))
-
-
-
-
-
-    ImGui.Text("Drag Target");
-    ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(200, 200))
-
-
-    // if (ImGui.BeginDragDropTarget()) {
-    //     let payload
-    //     if (payload = ImGui.AcceptDragDropPayload("DND_DEMO_CELL")) {
-    //         // ImGui.ASSERT(payload.DataSize === sizeof(int));
-    //         const payload_n = payload.Data;
-    //         console.log("accept drag target, from source: ", payload_n)
-
-    //     }
-    //     ImGui.EndDragDropTarget();
-    // }
-
-
-
-    // ImGui.BeginGroup(); // Lock X position
-    // {
-    // ImGui.BeginGroup(); // Lock X position
-    // ImGui.Button("Add"); ImGui.SameLine();
-    // ImGui.Button("Add2"); ImGui.SameLine();
-    // ImGui.EndGroup(); // Lock X position
-    // }
-
-    // ImGui.EndGroup()
-
-
-
-
-    const button_sz: ImGui.Vec2 = new ImGui.Vec2(40, 40);
-
-    ImGui.Text("Manual wrapping:");
-    const style: ImGui.Style = ImGui.GetStyle();
-    // let buttons_count: number = 200;
-    let buttons_count: number = 1;
-    const window_visible_x2: number = ImGui.GetWindowPos().x + ImGui.GetWindowContentRegionMax().x;
-    for (let n = 0; n < buttons_count; n++) {
-        ImGui.PushID(n);
-
-        ImGui.BeginGroup(); // Lock X position
-        ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))
-
-        if (ImGui.BeginDragDropSource(ImGui.DragDropFlags.None)) {
-            // Set payload to carry the index of our item (could be anything)
-            // ImGui.SetDragDropPayload("DND_DEMO_CELL", "Remove Button");
-            ImGui.SetDragDropPayload("DND_DEMO_CELL", "Group");
-
-            // Display preview (could be anything, e.g. when dragging an image we could decide to display
-            // the filename and a small preview of the image, etc.)
-            ImGui.Text(`Drag Source: Group`);
-            ImGui.EndDragDropSource();
-        }
-
-
-        ImGui.Text("Box");
-
-
-        // ImGui.Button("Box", button_sz);
-        const last_button_x2: number = ImGui.GetItemRectMax().x;
-        const next_button_x2: number = last_button_x2 + style.ItemSpacing.x + button_sz.x; // Expected position if next button was on same line
-        ImGui.EndGroup(); // Lock X position
-        if (n + 1 < buttons_count && next_button_x2 < window_visible_x2)
-            ImGui.SameLine();
-
-        ImGui.PopID();
-
-
-
-
-    }
-
-
-    // if (ImGui.BeginDragDropSource(ImGui.DragDropFlags.None)) {
-    //     // Set payload to carry the index of our item (could be anything)
-    //     // ImGui.SetDragDropPayload("DND_DEMO_CELL", "Remove Button");
-    //     ImGui.SetDragDropPayload("DND_DEMO_CELL", "Group");
-
-    //     // Display preview (could be anything, e.g. when dragging an image we could decide to display
-    //     // the filename and a small preview of the image, etc.)
-    //     ImGui.Text(`Drag Source: Group`);
-    //     ImGui.EndDragDropSource();
-    // }
-
-
-
-
-
-
-
-    ImGui.End();
 
 
 

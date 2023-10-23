@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { state, textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type uiExtensionProtocolName = extensionProtocolName
@@ -169,6 +169,12 @@ export type service = {
         label: label,
         rect: rect,
     ) => [meta3dState, [boolean, boolean, nullable<string>]],
+    readonly menu: (
+        meta3dState: meta3dState,
+        allLabels: menuAllLabels,
+        windowName: string,
+        rect: rect,
+    ) => [meta3dState, nullable<menuLabel>],
     readonly handleDragDropTarget: <data> (
         meta3dState: meta3dState,
         type: string

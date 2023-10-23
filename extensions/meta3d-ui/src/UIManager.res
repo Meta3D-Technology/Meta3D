@@ -690,6 +690,16 @@ let handleDragDropTarget = (data, meta3dState, type_) => {
   )
 }
 
+let menu = (data, meta3dState, allLabels, windowName, rect) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.menu(. allLabels, windowName, rect))
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,

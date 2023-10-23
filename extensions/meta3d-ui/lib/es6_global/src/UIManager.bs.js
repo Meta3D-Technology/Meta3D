@@ -436,6 +436,15 @@ function handleDragDropTarget(data, meta3dState, type_) {
               }), data);
 }
 
+function menu(data, meta3dState, allLabels, windowName, rect) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.menu(allLabels, windowName, rect)
+                      ];
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -562,6 +571,7 @@ export {
   loadImage ,
   asset ,
   handleDragDropTarget ,
+  menu ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

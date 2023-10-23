@@ -127,6 +127,12 @@ type service = {
     Meta3dType.Index.state,
     string,
   ) => (Meta3dType.Index.state, Js.Nullable.t<'data>),
+  menu: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.menuAllLabels,
+    string,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<Meta3dImguiRendererProtocol.ServiceType.menuLabel>),
   // prepare: (
   //   StateType.state,
   //   array<

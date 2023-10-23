@@ -1,4 +1,4 @@
-* TODO Asset
+* DONE Asset
 
 now asset is only glb!
 
@@ -143,19 +143,20 @@ TODO need publish
 
 
 
-** TODO run test: redo/undo when run
+** DONE run test: redo/undo when run
 
 
 
 
 
  
-* TODO 实现Menu
-扩展包?
-如何提供contribute进行扩展？
+* DONE 实现Menu
+# 如何提供contribute进行扩展？
 
 
 
+TODO need publish
+menu
 
 
 
@@ -201,6 +202,10 @@ e.g. show import progress bar
 publish, export should show Modal
 
 
+Menu add "关于Meta3D":
+show Modal
+
+
 
 * TODO fix: solve click button blink problem
 
@@ -212,6 +217,11 @@ publish, export should show Modal
 
 
 * TODO fix: import app with package->select all in assemble space->go to Index->enter assemble space: package not stored in app!
+
+
+
+
+* TODO fix: import event: if not import, should return to page instead of empty
 
 
 

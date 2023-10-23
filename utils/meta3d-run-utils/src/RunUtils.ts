@@ -12,20 +12,7 @@ import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-
 import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
-
-let _invokeActionInit = (meta3dState: meta3dState, actionContributes: Array<actionContribute<any, any>>) => {
-	let _func = (meta3dState: meta3dState, index: number): Promise<meta3dState> => {
-		if (index >= actionContributes.length) {
-			return Promise.resolve(meta3dState)
-		}
-
-		return actionContributes[index].init(meta3dState).then(meta3dState => {
-			return _func(meta3dState, index + 1)
-		})
-	}
-
-	return _func(meta3dState, 0)
-}
+import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 
 export let prepareActions = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
 	let { registerAction } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
@@ -41,21 +28,7 @@ export let prepareActions = (meta3dState: meta3dState, api: api): Promise<meta3d
 
 	meta3dState = api.setExtensionState(meta3dState, "meta3d-event-protocol", eventState)
 
-	return _invokeActionInit(meta3dState, actionContributes)
-}
-
-let _invokeUIControlInit = (meta3dState: meta3dState, uiControlContributes: Array<uiControlContribute<any, any>>) => {
-	let _func = (meta3dState: meta3dState, index: number): Promise<meta3dState> => {
-		if (index >= uiControlContributes.length) {
-			return Promise.resolve(meta3dState)
-		}
-
-		return uiControlContributes[index].init(meta3dState).then(meta3dState => {
-			return _func(meta3dState, index + 1)
-		})
-	}
-
-	return _func(meta3dState, 0)
+	return reducePromise<meta3dState, actionContribute<any, any>>(actionContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
 }
 
 export let prepareUIControls = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
@@ -72,7 +45,7 @@ export let prepareUIControls = (meta3dState: meta3dState, api: api): Promise<met
 
 	meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
 
-	return _invokeUIControlInit(meta3dState, uiControlContributes)
+	return reducePromise<meta3dState, uiControlContribute<any, any>>(uiControlContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
 }
 
 export let update = (meta3dState: meta3dState, api: api, { clearColor, time, skinName }: updateData) => {

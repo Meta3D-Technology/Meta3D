@@ -17,6 +17,10 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$3 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: UIManager$Meta3dUi.registerElement,
           registerSkin: UIManager$Meta3dUi.registerSkin,
@@ -109,6 +113,9 @@ function getExtensionService(api) {
             }),
           handleDragDropTarget: (function (param, param$1) {
               return UIManager$Meta3dUi.handleDragDropTarget(partial_arg$2, param, param$1);
+            }),
+          menu: (function (param, param$1, param$2, param$3) {
+              return UIManager$Meta3dUi.menu(partial_arg$3, param, param$1, param$2, param$3);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

@@ -27,6 +27,12 @@ type imageSrc = string
 
 type imguiImplTexture
 
+type menuLabel = string
+
+type menuAllLabels = array<(menuLabel, array<menuLabel>)>
+
+type selectItemMap = Meta3dCommonlibType.ImmutableHashMapType.t<menuLabel, bool>
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
@@ -56,5 +62,6 @@ type service = {
     rect,
   ) => (bool, bool, Js.Nullable.t<string>),
   handleDragDropTarget: 'data. (. string) => Js.Nullable.t<'data>,
+  menu: (. menuAllLabels, string, rect) => Js.Nullable.t<menuLabel>,
   getContext: unit => context,
 }

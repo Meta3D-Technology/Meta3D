@@ -1,7 +1,7 @@
 export let removeDuplicateItemsWithBuildKeyFunc = (arr: any, buildKeyFunc: any) => {
     var resultArr = [];
     // var map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-    var map:any = {}
+    var map: any = {}
     for (var i = 0, i_finish = arr.length; i < i_finish; ++i) {
         var item = arr[i];
         var key = buildKeyFunc(item);
@@ -26,3 +26,18 @@ export let removeDuplicateItems = (arr: any) => {
 export let intersect = (arr1: any, arr2: any) => arr1.filter((value: any) => arr2.includes(value))
 
 export let hasIntersect = (arr1: any, arr2: any) => intersect(arr1, arr2).length > 0
+
+
+export let reducePromise = <initialValue, value>(arr: Array<value>, func: (initialValue: initialValue, value: value,) => Promise<initialValue>, initialValue: initialValue): Promise<initialValue> => {
+    let _func = (initialValue: initialValue, index: number): Promise<initialValue> => {
+        if (index >= arr.length) {
+            return Promise.resolve(initialValue)
+        }
+
+        return func(initialValue, arr[index]).then(initialValue => {
+            return _func(initialValue, index + 1)
+        })
+    }
+
+    return _func(initialValue, 0)
+}

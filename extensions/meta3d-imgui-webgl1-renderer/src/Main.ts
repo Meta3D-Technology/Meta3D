@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { rect, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { menuLabel, rect, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
 import { dragDropType, dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
@@ -261,6 +261,37 @@ export let getExtensionService: getExtensionServiceMeta3D<
             }
 
             return data as any
+        },
+        menu: (allLabels, windowName, rect) => {
+            _setNextWindowRect(rect)
+
+            ImGui.Begin(windowName, null, ImGui.WindowFlags.NoTitleBar | ImGui.WindowFlags.MenuBar | ImGui.WindowFlags.NoBackground | ImGui.WindowFlags.NoCollapse)
+
+            let selectItemLabel = null
+
+            if (ImGui.BeginMenuBar()) {
+                selectItemLabel = allLabels.reduce<menuLabel>((selectItemLabel, [firstLabel, secondLabels]) => {
+                    if (ImGui.BeginMenu(firstLabel)) {
+                        selectItemLabel = secondLabels.reduce((selectItemLabel, secondLabel) => {
+                            if (ImGui.MenuItem(secondLabel)) {
+                                selectItemLabel = secondLabel
+                            }
+
+                            return selectItemLabel
+                        }, selectItemLabel)
+
+                        ImGui.EndMenu();
+                    }
+
+                    return selectItemLabel
+                }, selectItemLabel)
+
+                ImGui.EndMenuBar();
+            }
+
+            ImGui.End()
+
+            return selectItemLabel
         },
         getContext: () => {
             return ImGui_Impl.gl

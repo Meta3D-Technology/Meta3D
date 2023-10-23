@@ -36,6 +36,10 @@ export type imageSrc = string
 
 export type imguiImplTexture = any
 
+export type menuLabel = string
+
+export type menuAllLabels = Array<[menuLabel, Array<menuLabel>]>
+
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly init: (_1: StateType_state, _2: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
@@ -65,5 +69,6 @@ export type service = {
     rect: rect,
   ) => [boolean, boolean, nullable<string>],
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
+  readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>,
   readonly getContext: () => context
 };

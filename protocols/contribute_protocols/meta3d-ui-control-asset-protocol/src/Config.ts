@@ -32,16 +32,12 @@ export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3
                 if (isRemoveAsset) {
                      return trigger(meta3dState, "meta3d-event-protocol", "${removeAssetActionName}", null)
                 }
-
                 if (isLoadGlb) {
                     return trigger(meta3dState, "meta3d-event-protocol", "${loadGlbActionName}", null)
                 }
-
                 if (selectedGlbId != null) {
                     return trigger(meta3dState, "meta3d-event-protocol", "${selectAssetActionName}", selectedGlbId)
                 }
-
-                return Promise.resolve(meta3dState)
                 `
     }
 
