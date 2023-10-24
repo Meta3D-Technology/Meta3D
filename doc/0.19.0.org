@@ -162,7 +162,6 @@ menu
 
 * TODO SceneTree
 
-need publish:
 
 
 
@@ -182,13 +181,33 @@ TODO publish
 
 TODO imgui demo for scene tree
 tree
+keep Scene open
 icon+name
 collapse
+select
 drag
 
 
 
 ** TODO add ui control
+
+
+need publish:
+
+TODO tree
+  node type:
+  GameObject
+  Mesh
+    if has geometry+material, then is mesh
+  Light
+  Camera
+
+
+TODO set parent
+  drag data:
+  source, target: level+index
+
+
 
 TODO header:
 add cube
@@ -199,10 +218,6 @@ add cube
 dispose
 
 
-
-TODO tree
-
-TODO set parent
 
 
 

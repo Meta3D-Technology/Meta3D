@@ -318,33 +318,125 @@ import { addTexture } from "./init_button";
 
 
 
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time);
+//     ImGui.NewFrame();
+
+
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(600, 600));
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(300, ImGui.GetFontSize()));
+
+
+//     ImGui.Begin("Menu Window", null, ImGui.WindowFlags.NoTitleBar| ImGui.WindowFlags.MenuBar | ImGui.WindowFlags.NoBackground |ImGui.WindowFlags.NoCollapse);
+
+//     let isClick = false
+
+//     if (ImGui.BeginMenuBar()) {
+//         if (ImGui.BeginMenu("Examples")) {
+//             isClick = ImGui.MenuItem("Main menu bar")
+//             ImGui.EndMenu();
+//         }
+//         if (ImGui.BeginMenu("222")) {
+//             ImGui.MenuItem("222-1")
+//             ImGui.EndMenu();
+//         }
+
+//         ImGui.EndMenuBar();
+//     }
+
+//     console.log(isClick)
+
+//     ImGui.End()
+
+
+
+
+
+//     ImGui.EndFrame();
+//     ImGui.Render();
+
+
+//     // ImGui.StyleColorsDark();
+//     ImGui.StyleColorsClassic();
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1));
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1));
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+// }
+
+
+
+
+
+
+let selectedNodeIndex = -1
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
 
 
-    ImGui.SetNextWindowPos(new ImGui.ImVec2(600, 600));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(300, ImGui.GetFontSize()));
+    ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 300));
 
 
-    ImGui.Begin("Menu Window", null, ImGui.WindowFlags.NoTitleBar| ImGui.WindowFlags.MenuBar | ImGui.WindowFlags.NoBackground |ImGui.WindowFlags.NoCollapse);
+    ImGui.Begin("Menu Window");
 
-    let isClick = false
 
-    if (ImGui.BeginMenuBar()) {
-        if (ImGui.BeginMenu("Examples")) {
-            isClick = ImGui.MenuItem("Main menu bar")
-            ImGui.EndMenu();
+
+    ImGui.SetNextItemOpen(true, ImGui.Cond.Always);
+    if (ImGui.TreeNode("Scene")) {
+        for (let i = 0; i <= 30; i++) {
+            let flags = ImGui.TreeNodeFlags.OpenOnArrow
+
+            if (selectedNodeIndex == i) {
+                flags = flags | ImGui.TreeNodeFlags.Selected
+            }
+
+            // console.log(selectedNodeIndex)
+
+            let node_open = ImGui.TreeNodeEx(/*(void*)(intptr_t)*/i, flags, `Selectable NodSelectable NodSelectable NodSelectable NodSelectable NodSelectable NodeeeeeeSelectable Node i`.slice(0, 20))
+            if (ImGui.IsItemClicked() && !ImGui.IsItemToggledOpen()) {
+                selectedNodeIndex = i
+            }
+
+            if (ImGui.BeginDragDropSource()) {
+                ImGui.SetDragDropPayload("_TREENODE", i);
+                ImGui.Text("This is a drag and drop source");
+                ImGui.EndDragDropSource();
+            }
+
+            if (ImGui.BeginDragDropTarget()) {
+                let payload
+                if (payload = ImGui.AcceptDragDropPayload("_TREENODE")) {
+                    // ImGui.ASSERT(payload.DataSize === sizeof(int));
+                    const payload_n = payload.Data;
+                    console.log("accept drag target, from source: ", payload_n, i)
+
+                }
+                ImGui.EndDragDropTarget();
+            }
+
+
+            ImGui.SameLine()
+            ImGui.Image(addTexture._texture, new ImGui.ImVec2(20, 20))
+
+
+
+            if (node_open) {
+                ImGui.Text("blah blah");
+
+
+                ImGui.TreePop();
+            }
         }
-        if (ImGui.BeginMenu("222")) {
-            ImGui.MenuItem("222-1")
-            ImGui.EndMenu();
-        }
 
-        ImGui.EndMenuBar();
+        ImGui.TreePop();
     }
 
-    console.log(isClick)
+
+
+
+
 
     ImGui.End()
 
