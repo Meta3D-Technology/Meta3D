@@ -10,7 +10,7 @@ export type rect = {
 
 export type childrenFunc = (state: state) => state
 
-export type supportedEventName = "button_click" | "asset_remove" | "asset_load_glb" | "asset_select" | "sceneview_drop_glb"
+export type supportedEventName = "button_click"
 
 export type actionName = nullable<string>
 

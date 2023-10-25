@@ -5,7 +5,6 @@ import {
     hasChildren as hasChildrenMeta3D,
     getUIControlSupportedEventNames as getUIControlSupportedEventNamesMeta3D, generateHandleUIControlEventStr as generateHandleUIControlEventStrMeta3D
 } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
-import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let generateUIControlCommonDataStr: generateUIControlCommonDataStrMeta3D = (rect) => {
     return "\n  {\n    rect: " + rect + "}\n  "
@@ -36,18 +35,8 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
-export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["sceneview_drop_glb"]
+export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => []
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([dropGlbActionName]) => {
-    if (!isNullable(dropGlbActionName)) {
-        return `
-                if (data[1] !== null) {
-                    let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
-
-                     return trigger(meta3dState, "meta3d-event-protocol", "${dropGlbActionName}", data[1])
-                }
-                `
-    }
-
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([]) => {
     return ""
 }

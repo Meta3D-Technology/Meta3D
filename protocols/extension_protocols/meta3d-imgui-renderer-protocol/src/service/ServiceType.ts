@@ -66,6 +66,19 @@ export type sceneTreeFunc = (sceneTreeData: sceneTreeData,
     "cloneTexture": imguiImplTexture
   }, windowName: string, rect: rect) => sceneTreeReturnData
 
+export type assetFunc = (
+  textures: {
+    "loadGlbTexture": imguiImplTexture,
+    "removeAssetTexture": imguiImplTexture,
+    "glbTexture": imguiImplTexture,
+    // "cameraIconTexture": imguiImplTexture,
+    // "meshIconTexture": imguiImplTexture,
+    // "lightIconTexture": imguiImplTexture,
+  },
+  glbs: Array<[string, string]>,
+  label: label,
+  rect: rect,
+) => [boolean, boolean, nullable<string>]
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
@@ -85,19 +98,7 @@ export type service = {
   readonly button: (_1: label, _2: size) => boolean;
   readonly setCursorPos: (_1: pos) => void
   readonly loadImage: (_1: imageSrc) => Promise<imguiImplTexture>,
-  readonly asset: (
-    textures: {
-      "loadGlbTexture": imguiImplTexture,
-      "removeAssetTexture": imguiImplTexture,
-      "glbTexture": imguiImplTexture,
-      // "cameraIconTexture": imguiImplTexture,
-      // "meshIconTexture": imguiImplTexture,
-      // "lightIconTexture": imguiImplTexture,
-    },
-    glbs: Array<[string, string]>,
-    label: label,
-    rect: rect,
-  ) => [boolean, boolean, nullable<string>],
+  readonly asset: assetFunc,
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
   readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>,
   readonly sceneTree: sceneTreeFunc,

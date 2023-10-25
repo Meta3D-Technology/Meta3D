@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-asset",
-    "version": "0.18.10",
+    "version": "0.18.11",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
@@ -16,7 +16,11 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.18.0",
+        "meta3d-event": "^0.18.0",
         "meta3d-ui-control-asset-protocol": "^0.18.0",
+        "meta3d-action-remove-asset-protocol": "^0.18.0",
+        "meta3d-action-load-glb-protocol": "^0.18.0",
+        "meta3d-action-select-asset-protocol": "^0.18.0",
         "meta3d-asset-protocol": "^0.18.0",
         "url-loader": "^4.1.1",
         "meta3d-ui-protocol": "^0.18.0"

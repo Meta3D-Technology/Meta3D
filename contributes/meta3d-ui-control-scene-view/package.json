@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-scene-view",
-    "version": "0.18.4",
+    "version": "0.18.5",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "scene view",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-ui-control-scene-view",
@@ -18,6 +18,8 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.18.0",
+        "meta3d-event": "^0.18.0",
+        "meta3d-action-drop-glb-to-sceneview-protocol": "^0.18.0",
         "meta3d-ui-control-scene-view-protocol": "^0.18.0",
         "meta3d-ui-protocol": "^0.18.0"
     },

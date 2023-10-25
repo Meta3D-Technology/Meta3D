@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-scenetree",
-    "version": "0.18.1",
+    "version": "0.18.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
@@ -16,6 +16,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.18.0",
+        "meta3d-event": "^0.18.0",
         "meta3d-ui-control-scenetree-protocol": "^0.18.0",
         "meta3d-imgui-renderer-protocol": "^0.18.0",
         "meta3d-action-select-scenetree-node-protocol": "^0.18.0",

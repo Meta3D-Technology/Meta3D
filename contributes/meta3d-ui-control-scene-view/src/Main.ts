@@ -5,6 +5,9 @@ import { changeToStrictlyNull, getFBORect } from "meta3d-ui-control-view-utils/s
 import { service } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
+import { actionName as dropGlbActionName } from "meta3d-action-drop-glb-to-sceneview-protocol"
+import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
     return {
@@ -15,18 +18,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                 label,
             }
         ) => {
-            // return func(
-            //     meta3dState, api, {
-            //     rect,
-            //     label,
-            // },
-            //     [uiControlName, textureID]
-            // ).then(([meta3dState, _]) => {
-            //     let { handleDragDropTarget } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
-
-            //     return handleDragDropTarget<dragDropData>(meta3dState, dragDropType)
-            // })
-
             let { beginWindow, endWindow, beginChild, endChild, setNextWindowRect, getFBOTexture, addFBOTexture,
                 getWindowBarHeight,
                 setUIControlState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
@@ -73,7 +64,13 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
             meta3dState = api.setExtensionState<uiState>(meta3dState, "meta3d-ui-protocol", uiState)
 
 
-            return Promise.resolve([meta3dState, data])
+            let { trigger } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
+
+            if (!isNullable(data)) {
+                return trigger(meta3dState, "meta3d-event-protocol", dropGlbActionName, getExn(data)).then(meta3dState => [meta3dState, null])
+            }
+
+            return Promise.resolve([meta3dState, null])
         },
         init: (meta3dState) => Promise.resolve(meta3dState)
     }

@@ -301,10 +301,12 @@ HorizontalScrollbar
 e.g. actions, uicontrols
 
 
-* TODO feat: Asset glb: add selected flag
+# * TODO feat: Asset glb: add selected flag
 
 
-* TODO refactor: Asset, SceneView: remove Events
+* DONE refactor: Asset, SceneView: remove Events
+
+
 
 
 
