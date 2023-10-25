@@ -286,12 +286,14 @@ TODO fix test glb:
 add glb->redo
 
 
-** TODO fix: stop error not in event
+** DONE fix: stop error not in event
 
 
-** TODO SceneTree, Asset header not scroll
+** DONE SceneTree, Asset header not scroll
 
-** TODO SceneTree add horizontal scroll
+** DONE SceneTree add horizontal scroll
+
+HorizontalScrollbar
 
 
 ** TODO refactor: unify xxxForSceneView,xxxForGameView

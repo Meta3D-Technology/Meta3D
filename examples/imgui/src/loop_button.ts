@@ -416,7 +416,6 @@ export let loop = (time: number) => {
                 ImGui.EndDragDropTarget();
             }
 
-
             ImGui.SameLine()
             ImGui.Image(addTexture._texture, new ImGui.ImVec2(20, 20))
 

@@ -1,7 +1,7 @@
 import { sceneTreeFunc, sceneTreeData, sceneTreeDragData, sceneTreeIndexData } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { setNextWindowRect } from "./Utils"
-import * as ImGui from "./lib/imgui"
+import imgui, * as ImGui from "./lib/imgui"
 import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 import { dragDropType } from "meta3d-ui-control-scenetree-protocol"
 import { isArraysEqual, push } from "meta3d-structure-utils/src/ArrayUtils"
@@ -86,9 +86,14 @@ let _renderSceneTree = ([selectedData, dragData]: [nullable<sceneTreeIndexData>,
 }
 
 export let sceneTree: sceneTreeFunc = (sceneTreeData, lastSceneTreeSelectedData, { addCubeTexture, disposeTexture, cloneTexture }, windowName, rect) => {
-    setNextWindowRect(rect)
+    let headerHeight = 40
 
-    ImGui.Begin(windowName, null, ImGui.WindowFlags.NoTitleBar)
+    setNextWindowRect({
+        ...rect,
+        height: headerHeight
+    })
+
+    ImGui.Begin(`${windowName}_header`, null, ImGui.WindowFlags.NoTitleBar | ImGui.WindowFlags.NoScrollbar)
 
 
     let sizeX = 20
@@ -100,6 +105,16 @@ export let sceneTree: sceneTreeFunc = (sceneTreeData, lastSceneTreeSelectedData,
     ImGui.SameLine()
     let isCloneGameObject = ImGui.ImageButton(cloneTexture._texture, new ImGui.ImVec2(sizeX, sizeY))
 
+    ImGui.End()
+
+
+    setNextWindowRect({
+        ...rect,
+        y: rect.y + headerHeight,
+        height: rect.height - headerHeight
+    })
+
+    ImGui.Begin(`${windowName}_tree`, null, ImGui.WindowFlags.NoTitleBar | ImGui.WindowFlags.HorizontalScrollbar)
 
     ImGui.SetNextItemOpen(true, ImGui.Cond.Always)
 
@@ -110,6 +125,8 @@ export let sceneTree: sceneTreeFunc = (sceneTreeData, lastSceneTreeSelectedData,
 
         ImGui.TreePop();
     }
+
+
 
     ImGui.End()
 

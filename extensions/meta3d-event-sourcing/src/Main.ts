@@ -182,12 +182,21 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
 		},
-		cleanAllNeedEvents: (meta3dState) => {
+		cleanAllNeedReplaceEvents: (meta3dState) => {
 			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
 
 			state = {
 				...state,
 				needReplaceAllEvents: List(),
+			}
+
+			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
+		},
+		cleanAllNeedBackwardEvents: (meta3dState) => {
+			let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
+
+			state = {
+				...state,
 				needBackwardEvents: List()
 			}
 

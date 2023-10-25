@@ -98,7 +98,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			let promise = null
 			if (eventSourcingService.getNeedBackwardEvents(meta3dState).count() > 0) {
+				// debugger
 				let events = eventSourcingService.getNeedBackwardEvents(meta3dState)
+
+				meta3dState = eventSourcingService.cleanAllNeedBackwardEvents(meta3dState)
 
 				let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
@@ -107,25 +110,30 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					events
 				).then(meta3dState => {
 					return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(0, allEvents.count() - events.count()))
-				}).then(meta3dState => {
-					return eventSourcingService.cleanAllNeedEvents(meta3dState)
 				})
+				// .then(meta3dState => {
+				// 	return eventSourcingService.cleanAllNeedEvents(meta3dState)
+				// })
 			}
 			else if (eventSourcingService.getNeedReplaceAllEvents(meta3dState).count() > 0) {
+				// debugger
 				// TODO contract check
 				_checkOnlyHasImportEvent(eventSourcingService, meta3dState)
 				// _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
 
 				let events = eventSourcingService.getNeedReplaceAllEvents(meta3dState)
 
+				meta3dState = eventSourcingService.cleanAllNeedReplaceEvents(meta3dState)
+
 				meta3dState = eventSourcingService.replaceAllEvents(meta3dState, events)
 
 				promise = eventSourcingService.forwardView(
 					meta3dState,
 					events
-				).then(meta3dState => {
-					return eventSourcingService.cleanAllNeedEvents(meta3dState)
-				})
+				)
+				// .then(meta3dState => {
+				// 	return eventSourcingService.cleanAllNeedEvents(meta3dState)
+				// })
 			}
 			else {
 				let addedEvents = _getAddedEvents(

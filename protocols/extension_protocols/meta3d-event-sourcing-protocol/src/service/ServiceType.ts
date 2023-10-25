@@ -58,7 +58,8 @@ export type service = {
     setNeedReplaceAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, allEvents: List<eventData<inputData>>) => meta3dState,
     getNeedBackwardEvents: (meta3dState: meta3dState) => events,
     setNeedBackwardEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, events: List<eventData<inputData>>) => meta3dState,
-    cleanAllNeedEvents: (meta3dState: meta3dState) => meta3dState,
+    cleanAllNeedReplaceEvents: (meta3dState: meta3dState) => meta3dState,
+    cleanAllNeedBackwardEvents: (meta3dState: meta3dState) => meta3dState,
     forwardView: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, events: List<eventData<inputData>>) => Promise<meta3dState>,
     backwardView: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, events: List<eventData<inputData>>) => Promise<meta3dState>,
 }

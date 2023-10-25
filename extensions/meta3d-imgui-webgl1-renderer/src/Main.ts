@@ -181,9 +181,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
             })
         },
         asset: ({ loadGlbTexture, removeAssetTexture, glbTexture }, glbs, label, rect) => {
-            setNextWindowRect(rect)
+            let headerHeight = 60
 
-            ImGui.Begin(label)
+            setNextWindowRect({
+                ...rect,
+                height: headerHeight
+            })
+
+            ImGui.Begin(label, null, ImGui.WindowFlags.NoScrollbar)
 
 
 
@@ -194,6 +199,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
             let isLoadGlb = ImGui.ImageButton(loadGlbTexture._texture, new ImGui.ImVec2(20, 20))
 
 
+            ImGui.End()
+
+
+
+
+
+            setNextWindowRect({
+                ...rect,
+                y: rect.y+ headerHeight,
+                height: rect.height - headerHeight
+            })
+
+            ImGui.Begin(`${label}_body`, null, ImGui.WindowFlags.NoTitleBar)
 
 
 
