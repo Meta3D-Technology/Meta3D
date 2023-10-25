@@ -17,6 +17,13 @@ import { service as engineWholeGameViewService } from "meta3d-engine-whole-gamev
 import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
 import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
 import { dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
+import { gameObject } from "meta3d-gameobject-protocol"
+
+let _checkImportedGameObjectShouldEqualForBothView = (importedGameObjectForSceneView: gameObject, importedGameObjectForGameView: gameObject) => {
+    if (importedGameObjectForSceneView != importedGameObjectForGameView) {
+        throw new Error("imported gameObject should equal for both view")
+    }
+}
 
 export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, state>> = (api) => {
     return {
@@ -55,17 +62,18 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
                             meta3dState = data[0]
                             let importedGameObjectForGameView = data[1]
 
+                            _checkImportedGameObjectShouldEqualForBothView(importedGameObjectForSceneView, importedGameObjectForGameView)
+
+                            let importedGameObject = importedGameObjectForSceneView
+
                             meta3dState = setElementStateField([
                                 (elementState: any) => {
                                     let state = getState(elementState)
 
                                     return {
                                         ...state,
-                                        importedGameObjectsForSceneView:
-                                            state.importedGameObjectsForSceneView.push(importedGameObjectForSceneView)
-                                        ,
-                                        importedGameObjectsForGameView:
-                                            state.importedGameObjectsForGameView.push(importedGameObjectForGameView)
+                                        importedGameObjects:
+                                            state.importedGameObjects.push(importedGameObject)
                                     }
                                 },
                                 setState
@@ -75,17 +83,14 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
                         })
                 }, (meta3dState) => {
                     let {
-                        importedGameObjectsForSceneView,
-                        importedGameObjectsForGameView
+                        importedGameObjects,
                     } = getActionState<state>(meta3dState, api, actionName)
 
-                    if (isNullable(importedGameObjectsForSceneView.last())) {
+                    if (isNullable(importedGameObjects.last())) {
                         return Promise.resolve(meta3dState)
                     }
 
-                    let disposedGameObjectForSceneView = getExn(importedGameObjectsForSceneView.last())
-                    let disposedGameObjectForGameView = getExn(importedGameObjectsForGameView.last())
-
+                    let disposedGameObject = getExn(importedGameObjects.last())
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {
@@ -93,9 +98,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
 
                             return {
                                 ...state,
-                                importedGameObjectsForSceneView: state.importedGameObjectsForSceneView.pop()
-                                ,
-                                importedGameObjectsForGameView: state.importedGameObjectsForGameView.pop()
+                                importedGameObjects: state.importedGameObjects.pop()
                             }
                         },
                         setState
@@ -104,8 +107,8 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
                     let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
                     let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
 
-                    meta3dState = disposeGameObjectAndAllChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObjectForSceneView)
-                    meta3dState = disposeGameObjectAndAllChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObjectForGameView)
+                    meta3dState = disposeGameObjectAndAllChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObject)
+                    meta3dState = disposeGameObjectAndAllChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObject)
 
                     return Promise.resolve(meta3dState)
                 }))
@@ -123,8 +126,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
         },
         createState: () => {
             return {
-                importedGameObjectsForSceneView: List(),
-                importedGameObjectsForGameView: List()
+                importedGameObjects: List(),
             }
         }
     }

@@ -4,8 +4,7 @@ import type { List } from "immutable"
 export const actionName = "AddCube"
 
 export type state = {
-    addedGameObjectsForSceneView: List<gameObject>,
-    addedGameObjectsForGameView: List<gameObject>,
+    addedGameObjects: List<gameObject>,
 }
 
 export type elementState = {

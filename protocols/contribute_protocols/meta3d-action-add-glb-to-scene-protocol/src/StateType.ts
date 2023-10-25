@@ -4,8 +4,7 @@ import type { List } from "immutable"
 export const actionName = "AddGLBToScene"
 
 export type state = {
-    importedGameObjectsForSceneView: List<gameObject>,
-    importedGameObjectsForGameView: List<gameObject>,
+    importedGameObjects: List<gameObject>,
 }
 
 export type elementState = {

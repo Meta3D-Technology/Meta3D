@@ -296,7 +296,7 @@ add glb->redo
 HorizontalScrollbar
 
 
-** TODO refactor: unify xxxForSceneView,xxxForGameView
+** DONE refactor: unify xxxForSceneView,xxxForGameView
 
 e.g. actions, uicontrols
 

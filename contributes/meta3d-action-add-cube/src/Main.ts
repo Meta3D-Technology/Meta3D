@@ -18,6 +18,12 @@ import { gameObject } from "meta3d-gameobject-protocol"
 import { disposeGameObjectAndAllChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
 import { createCubeGameObject } from "meta3d-primitive-utils/src/CubeUtils"
 
+let _checkAddedGameObjectShouldEqualForBothView = (addedGameObjectForSceneView: gameObject, addedGameObjectForGameView: gameObject) => {
+    if (addedGameObjectForSceneView != addedGameObjectForGameView) {
+        throw new Error("added gameObject should equal for both view")
+    }
+}
+
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
         actionName: actionName,
@@ -40,17 +46,19 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     meta3dState = data[0] as meta3dState
                     let addedGameObjectForGameView = data[1] as gameObject
 
+                    _checkAddedGameObjectShouldEqualForBothView(addedGameObjectForSceneView, addedGameObjectForGameView)
+
+                    let addedGameObject = addedGameObjectForSceneView
+
                     meta3dState = setElementStateField([
                         (elementState: any) => {
                             let state = getState(elementState)
 
                             return {
                                 ...state,
-                                addedGameObjectsForSceneView:
-                                    state.addedGameObjectsForSceneView.push(addedGameObjectForSceneView)
+                                addedGameObjects:
+                                    state.addedGameObjects.push(addedGameObject)
                                 ,
-                                addedGameObjectsForGameView:
-                                    state.addedGameObjectsForGameView.push(addedGameObjectForGameView)
                             }
                         },
                         setState
@@ -59,13 +67,10 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
                 }, (meta3dState) => {
                     let {
-                        addedGameObjectsForSceneView,
-                        addedGameObjectsForGameView
+                        addedGameObjects,
                     } = getActionState<state>(meta3dState, api, actionName)
 
-                    let disposedGameObjectForSceneView = getExn(addedGameObjectsForSceneView.last())
-                    let disposedGameObjectForGameView = getExn(addedGameObjectsForGameView.last())
-
+                    let disposedGameObject = getExn(addedGameObjects.last())
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {
@@ -73,11 +78,8 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                             return {
                                 ...state,
-                                addedGameObjectsForSceneView:
-                                    state.addedGameObjectsForSceneView.pop()
-                                ,
-                                addedGameObjectsForGameView:
-                                    state.addedGameObjectsForGameView.pop()
+                                addedGameObjects:
+                                    state.addedGameObjects.pop()
                             }
                         },
                         setState
@@ -86,8 +88,8 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
                     let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
 
-                    meta3dState = disposeGameObjectAndAllChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObjectForSceneView)
-                    meta3dState = disposeGameObjectAndAllChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObjectForGameView)
+                    meta3dState = disposeGameObjectAndAllChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObject)
+                    meta3dState = disposeGameObjectAndAllChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObject)
 
                     return Promise.resolve(meta3dState)
                 }))
@@ -107,8 +109,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
         },
         createState: () => {
             return {
-                addedGameObjectsForSceneView: List(),
-                addedGameObjectsForGameView: List()
+                addedGameObjects: List(),
             }
         }
     }
