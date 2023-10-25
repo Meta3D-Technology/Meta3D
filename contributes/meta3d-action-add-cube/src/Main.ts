@@ -15,7 +15,7 @@ import { getState, setState } from "./Utils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { List } from "immutable"
 import { gameObject } from "meta3d-gameobject-protocol"
-import { disposeGameObjectAndChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
+import { disposeGameObjectAndAllChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
 import { createCubeGameObject } from "meta3d-primitive-utils/src/CubeUtils"
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
@@ -86,8 +86,8 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
                     let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
 
-                    meta3dState = disposeGameObjectAndChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObjectForSceneView)
-                    meta3dState = disposeGameObjectAndChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObjectForGameView)
+                    meta3dState = disposeGameObjectAndAllChildren<engineWholeService>(meta3dState, engineWholeService, disposedGameObjectForSceneView)
+                    meta3dState = disposeGameObjectAndAllChildren<engineWholeGameViewService>(meta3dState, engineWholeGameViewService, disposedGameObjectForGameView)
 
                     return Promise.resolve(meta3dState)
                 }))

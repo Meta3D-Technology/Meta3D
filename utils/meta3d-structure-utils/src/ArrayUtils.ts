@@ -59,3 +59,9 @@ export let push = <T>(arr: Array<T>, value: T) => {
 
     return arr
 }
+
+export let flatten = <T>(arr: Array<Array<T>>): Array<T> => {
+    return arr.reduce((result, valueArr) => {
+        return result.concat(valueArr)
+    }, [])
+}

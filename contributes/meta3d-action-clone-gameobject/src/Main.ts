@@ -11,7 +11,7 @@ import { getState, setState } from "./Utils"
 import { List } from "immutable"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
-import { isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
+import { flatten, isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 let _checkClonedGameObjectShouldEqualForBothView = (clonedGameObjectsForSceneView: Array<gameObject>, clonedGameObjectsForGameView: Array<gameObject>) => {
@@ -33,14 +33,16 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     let data = engineWholeSceneViewService.scene.gameObject.cloneGameObject(meta3dState, 1, { isShareMaterial: true, }, selectedGameObject)
                     meta3dState = data[0]
-                    let clonedGameObjectsForSceneView = data[1][0]
+                    let clonedGameObjectsForSceneView = flatten(data[1])
 
                     data = engineWholeGameViewService.scene.gameObject.cloneGameObject(meta3dState, 1, { isShareMaterial: true, }, selectedGameObject)
                     meta3dState = data[0]
-                    let clonedGameObjectsForGameView = data[1][0]
+                    let clonedGameObjectsForGameView = flatten(data[1])
+
 
 
                     _checkClonedGameObjectShouldEqualForBothView(clonedGameObjectsForSceneView, clonedGameObjectsForGameView)
+
 
                     let clonedGameObjects = clonedGameObjectsForSceneView
 

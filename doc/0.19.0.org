@@ -269,7 +269,25 @@ TODO need publish:
 
 
 
-** TODO pass run test:redo/undo when run
+** DONE pass run test:redo/undo when run
+
+TODO need publish
+# clone
+# add cube
+# add glb
+
+
+
+
+TODO fix:
+clone with parent->redo
+
+TODO fix test glb:
+add glb->redo
+
+
+** TODO fix: stop error not in event
+
 
 ** TODO SceneTree, Asset header not scroll
 
