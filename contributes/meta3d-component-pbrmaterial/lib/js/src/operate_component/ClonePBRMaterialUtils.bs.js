@@ -5,6 +5,8 @@ var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Op
 var CloneUtils$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/scene_graph/component/CloneUtils.bs.js");
 var MutableSparseMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/sparse_map/MutableSparseMap.bs.js");
 var CreatePBRMaterialUtils$Meta3dComponentPbrmaterial = require("./CreatePBRMaterialUtils.bs.js");
+var GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial = require("../operate_data/GetPBRMaterialDataUtils.bs.js");
+var SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial = require("../operate_data/SetPBRMaterialDataUtils.bs.js");
 var OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial = require("../utils/OperateTypeArrayPBRMaterialUtils.bs.js");
 var OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils = require("meta3d-component-worker-utils/lib/js/src/pbrmaterial/OperateTypeArrayPBRMaterialUtils.bs.js");
 
@@ -21,27 +23,29 @@ function _setData(state) {
   var roughnessMap = state.roughnessMap;
   var diffuseMap = state.diffuseMap;
   return function (clonedMaterial, param) {
-    var specular = param[1];
-    OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setDiffuseColor(clonedMaterial, param[0], diffuseColors);
+    var specular = param[2];
+    OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setDiffuseColor(clonedMaterial, param[1], diffuseColors);
     OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setSpecular(clonedMaterial, specular, speculars);
     OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setSpecularColor(clonedMaterial, specular, specularColors);
     OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setRoughness(clonedMaterial, specular, roughnesses);
     OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setMetalness(clonedMaterial, specular, metalnesses);
     OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setTransmission(clonedMaterial, specular, transmissions);
     OperateTypeArrayPBRMaterialUtils$Meta3dComponentPbrmaterial.setIOR(clonedMaterial, specular, iors);
-    OptionSt$Meta3dCommonlib.map(param[7], (function (diffuseTexture) {
+    OptionSt$Meta3dCommonlib.map(param[8], (function (diffuseTexture) {
             return MutableSparseMap$Meta3dCommonlib.set(diffuseMap, clonedMaterial, diffuseTexture);
           }));
-    OptionSt$Meta3dCommonlib.map(param[8], (function (roughnessTexture) {
+    OptionSt$Meta3dCommonlib.map(param[9], (function (roughnessTexture) {
             return MutableSparseMap$Meta3dCommonlib.set(roughnessMap, clonedMaterial, roughnessTexture);
           }));
-    OptionSt$Meta3dCommonlib.map(param[9], (function (metalnessTexture) {
+    OptionSt$Meta3dCommonlib.map(param[10], (function (metalnessTexture) {
             return MutableSparseMap$Meta3dCommonlib.set(metalnessMap, clonedMaterial, metalnessTexture);
           }));
-    OptionSt$Meta3dCommonlib.map(param[10], (function (normalTexture) {
+    OptionSt$Meta3dCommonlib.map(param[11], (function (normalTexture) {
             return MutableSparseMap$Meta3dCommonlib.set(normalMap, clonedMaterial, normalTexture);
           }));
-    return state;
+    return OptionSt$Meta3dCommonlib.getWithDefault(OptionSt$Meta3dCommonlib.map(param[0], (function (name) {
+                      return SetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.setName(state, clonedMaterial, name);
+                    })), state);
   };
 }
 
@@ -59,6 +63,7 @@ function _getData(state) {
   var diffuseMap = state.diffuseMap;
   return function (sourceMaterial) {
     return [
+            OptionSt$Meta3dCommonlib.fromNullable(GetPBRMaterialDataUtils$Meta3dComponentPbrmaterial.getName(state, sourceMaterial)),
             OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColor(sourceMaterial, diffuseColors),
             OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecular(sourceMaterial, speculars),
             OperateTypeArrayPBRMaterialUtils$Meta3dComponentWorkerUtils.getSpecularColor(sourceMaterial, specularColors),

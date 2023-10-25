@@ -133,6 +133,21 @@ type service = {
     string,
     Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => (Meta3dType.Index.state, Js.Nullable.t<Meta3dImguiRendererProtocol.ServiceType.menuLabel>),
+  sceneTree: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.sceneTreeData,
+    Js.Nullable.t<Meta3dImguiRendererProtocol.ServiceType.sceneTreeIndexData>,
+    {
+      "addCubeTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      "disposeTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      "cloneTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      // "cameraIconTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      // "meshIconTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      // "lightIconTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+    },
+    string,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
+  ) => (Meta3dType.Index.state, Meta3dImguiRendererProtocol.ServiceType.sceneTreeReturnData),
   // prepare: (
   //   StateType.state,
   //   array<

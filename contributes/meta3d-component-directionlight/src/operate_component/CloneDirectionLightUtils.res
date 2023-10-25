@@ -1,6 +1,6 @@
 open StateType
 
-let _setData = ({colors, intensities} as state, clonedDirectionLight, (color, intensity)) => {
+let _setData = ({colors, intensities} as state, clonedDirectionLight, (name, color, intensity)) => {
   OperateTypeArrayDirectionLightUtils.setColor(clonedDirectionLight, color->Obj.magic, colors)
   OperateTypeArrayDirectionLightUtils.setIntensity(
     clonedDirectionLight,
@@ -8,11 +8,16 @@ let _setData = ({colors, intensities} as state, clonedDirectionLight, (color, in
     intensities,
   )
 
-  state
+  name
+  ->Meta3dCommonlib.OptionSt.map(name => {
+    SetDirectionLightDataUtils.setName(state, clonedDirectionLight, name)
+  })
+  ->Meta3dCommonlib.OptionSt.getWithDefault(state)
 }
 
 let _getData = ({colors, intensities} as state, sourceDirectionLight) => {
   (
+    GetDirectionLightDataUtils.getName(state, sourceDirectionLight)->Meta3dCommonlib.OptionSt.fromNullable,
     Meta3dComponentWorkerUtils.OperateTypeArrayDirectionLightUtils.getColor(
       sourceDirectionLight,
       colors,

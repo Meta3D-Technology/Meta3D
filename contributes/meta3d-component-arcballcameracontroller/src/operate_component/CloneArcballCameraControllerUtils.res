@@ -4,6 +4,7 @@ let _setData = (
   state,
   clonedArcballCameraController,
   (
+    name,
     distance,
     minDistance,
     phi,
@@ -16,7 +17,11 @@ let _setData = (
     wheelSpeed,
   ),
 ) => {
-  state
+  name
+  ->Meta3dCommonlib.OptionSt.map(name => {
+    OperateArcballCameraControllerUtils.setName(state, clonedArcballCameraController, name)
+  })
+  ->Meta3dCommonlib.OptionSt.getWithDefault(state)
   ->OperateArcballCameraControllerUtils.setDistance(clonedArcballCameraController, distance)
   ->OperateArcballCameraControllerUtils.setMinDistance(clonedArcballCameraController, minDistance)
   ->OperateArcballCameraControllerUtils.setPhi(clonedArcballCameraController, phi)
@@ -31,6 +36,7 @@ let _setData = (
 
 let _getData = (state, sourceArcballCameraController) => {
   (
+    OperateArcballCameraControllerUtils.getName(state, sourceArcballCameraController)->Meta3dCommonlib.OptionSt.fromNullable,
     OperateArcballCameraControllerUtils.getDistance(
       state,
       sourceArcballCameraController,

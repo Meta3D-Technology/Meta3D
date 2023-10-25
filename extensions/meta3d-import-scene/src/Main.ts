@@ -8,7 +8,7 @@ import { state as engineWholeState } from "meta3d-engine-whole-sceneview-protoco
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { dispose } from "meta3d-pipeline-utils/src/DisposeJobUtils"
-import { activeCameraForSceneView, addGameObjectsForSceneView } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"
+import { activeCameraForSceneView, addGameObjectsForSceneView, createUnUseGameObjectsForGameViewForUnifyGameObject } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { loadGlb, activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
 import type { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
@@ -85,6 +85,16 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     )
                     meta3dState = data2[0]
                     let arcballCameraControllerGameObject = data2[2]
+
+
+                    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+
+                    meta3dState = createUnUseGameObjectsForGameViewForUnifyGameObject(meta3dState,
+                        engineWholeGameViewService
+                    )
+
+
+
 
                     meta3dState = activeCameraForSceneView(meta3dState, engineWholeService, arcballCameraControllerGameObject)
 

@@ -1,9 +1,19 @@
 open StateType
 
-let _createClonedGameObjects = (gameObjectState, countRange) => {
+let _createClonedGameObjects = (gameObjectState, countRange, sourceGameObject) => {
+  let nameOpt = gameObjectState.names->Meta3dCommonlib.ImmutableSparseMap.get(sourceGameObject)
+
   countRange->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. (gameObjectState, clonedGameObjects), _) => {
       let (gameObjectState, gameObject) = CreateGameObjectUtils.create(gameObjectState)
+
+      let gameObjectState = switch nameOpt {
+      | Some(name) => {
+          ...gameObjectState,
+          names: gameObjectState.names->Meta3dCommonlib.ImmutableSparseMap.set(gameObject, name),
+        }
+      | None => gameObjectState
+      }
 
       (gameObjectState, clonedGameObjects->Meta3dCommonlib.ArraySt.push(gameObject))
     },
@@ -71,7 +81,11 @@ let rec _clone = (
   (sourceTransform, clonedParentTransforms),
   (sourceGameObject, totalClonedGameObjects),
 ) => {
-  let (gameObjectState, clonedGameObjects) = _createClonedGameObjects(gameObjectState, countRange)
+  let (gameObjectState, clonedGameObjects) = _createClonedGameObjects(
+    gameObjectState,
+    countRange,
+    sourceGameObject,
+  )
 
   let totalClonedGameObjects =
     totalClonedGameObjects->Meta3dCommonlib.ListSt.push(clonedGameObjects)
@@ -180,7 +194,6 @@ let rec _clone = (
   ))
 }
 
-// TODO clone name
 let clone = (
   (
     gameObjectState,

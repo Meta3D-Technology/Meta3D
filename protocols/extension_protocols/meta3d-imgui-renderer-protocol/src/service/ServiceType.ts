@@ -40,6 +40,33 @@ export type menuLabel = string
 
 export type menuAllLabels = Array<[menuLabel, Array<menuLabel>]>
 
+type sceneTreeNodeLabel = string
+
+export type sceneTreeData = Array<[sceneTreeNodeLabel, imguiImplTexture, sceneTreeData]>
+
+// export type level = number
+
+type index = number
+
+// export type sceneTreeIndexData = [level, index]
+export type sceneTreeIndexData = Array<index>
+
+export type sceneTreeDragData = {
+  source: sceneTreeIndexData,
+  target: sceneTreeIndexData
+}
+
+export type sceneTreeReturnData = [boolean, boolean, boolean, nullable<sceneTreeIndexData>, nullable<sceneTreeDragData>]
+
+export type sceneTreeFunc = (sceneTreeData: sceneTreeData,
+  lastSceneTreeSelectedData: nullable<sceneTreeIndexData>,
+  textures: {
+    "addCubeTexture": imguiImplTexture,
+    "disposeTexture": imguiImplTexture,
+    "cloneTexture": imguiImplTexture
+  }, windowName: string, rect: rect) => sceneTreeReturnData
+
+
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly init: (_1: StateType_state, _2: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
@@ -62,7 +89,10 @@ export type service = {
     textures: {
       "loadGlbTexture": imguiImplTexture,
       "removeAssetTexture": imguiImplTexture,
-      "glbTexture": imguiImplTexture
+      "glbTexture": imguiImplTexture,
+      // "cameraIconTexture": imguiImplTexture,
+      // "meshIconTexture": imguiImplTexture,
+      // "lightIconTexture": imguiImplTexture,
     },
     glbs: Array<[string, string]>,
     label: label,
@@ -70,5 +100,6 @@ export type service = {
   ) => [boolean, boolean, nullable<string>],
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
   readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>,
+  readonly sceneTree: sceneTreeFunc,
   readonly getContext: () => context
 };

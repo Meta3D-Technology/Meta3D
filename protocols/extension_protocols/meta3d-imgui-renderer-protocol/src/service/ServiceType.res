@@ -33,6 +33,48 @@ type menuAllLabels = array<(menuLabel, array<menuLabel>)>
 
 type selectItemMap = Meta3dCommonlibType.ImmutableHashMapType.t<menuLabel, bool>
 
+type sceneTreeNodeLabel = string
+
+/*!  TODO like this
+// type rec sceneTreeData = array<(sceneTreeNodeLabel, imguiImplTexture, sceneTreeData)>
+
+type sceneTreeData =
+  | ScriptEventFunctionNode(nodeId, scriptEventFunctionNodeData)
+  | ScriptAttributeNode(nodeId, scriptAttributeNodeData)
+  | TextureNode(nodeId, textureNodeData)
+  | CubemapNode(nodeId, cubemapNodeData)
+  | MaterialNode(nodeId, materialNodeData)
+  | WDBNode(nodeId, wdbNodeData)
+  | AssetBundleNode(nodeId, assetBundleNodeData)
+  | IMGUIExecFuncDataNode(nodeId, imguiExecFuncDataNodeData)
+  | IMGUISkinNode(nodeId, imguiSkinNodeData)
+  | IMGUICustomControlNode(nodeId, imguiCustomControlNodeData)
+  | FntNode(nodeId, fntNodeData)
+  | FolderNode(
+      nodeId,
+      folderNodeData,
+      UIStateAssetType.uiState(array(sceneTreeData)),
+    );
+ */
+type sceneTreeData 
+
+type index = int
+
+type sceneTreeIndexData = array<index>
+
+type sceneTreeDragData = {
+  source: sceneTreeIndexData,
+  target: sceneTreeIndexData,
+}
+
+type sceneTreeReturnData = (
+  bool,
+  bool,
+  bool,
+  Js.Nullable.t<sceneTreeIndexData>,
+  Js.Nullable.t<sceneTreeDragData>,
+)
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
@@ -63,5 +105,19 @@ type service = {
   ) => (bool, bool, Js.Nullable.t<string>),
   handleDragDropTarget: 'data. (. string) => Js.Nullable.t<'data>,
   menu: (. menuAllLabels, string, rect) => Js.Nullable.t<menuLabel>,
+  sceneTree: (
+    . sceneTreeData,
+    Js.Nullable.t<sceneTreeIndexData>,
+    {
+      "addCubeTexture": imguiImplTexture,
+      "disposeTexture": imguiImplTexture,
+      "cloneTexture": imguiImplTexture,
+      // "cameraIconTexture": imguiImplTexture,
+      // "meshIconTexture": imguiImplTexture,
+      // "lightIconTexture": imguiImplTexture,
+    },
+    string,
+    rect,
+  ) => sceneTreeReturnData,
   getContext: unit => context,
 }

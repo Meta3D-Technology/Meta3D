@@ -3,7 +3,7 @@ import { getState, setState } from "../Utils";
 import { states } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType";
 import { service as engineWholeService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
-import { activeCameraForGameView, addDefaultGameObjects } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"
+import { activeCameraForGameView, addDefaultGameObjects, createUnUseGameObjectsForGameViewForUnifyGameObject } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"
 
 type canvasSize = [number, number]
 
@@ -16,6 +16,8 @@ let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engi
     let data = addDefaultGameObjects<engineWholeService>(meta3dState, engineWholeService, canvasSize)
     meta3dState = data[0]
     let arcballCameraController = data[1]
+
+    meta3dState = createUnUseGameObjectsForGameViewForUnifyGameObject(meta3dState, engineWholeService)
 
     meta3dState = activeCameraForGameView(meta3dState, engineWholeService, arcballCameraController)
 

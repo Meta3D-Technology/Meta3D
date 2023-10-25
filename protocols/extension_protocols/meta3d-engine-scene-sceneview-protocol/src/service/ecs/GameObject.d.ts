@@ -2,7 +2,7 @@ import { state as meta3dState } from "meta3d-type"
 import { gameObject, cloneConfig, name } from "meta3d-gameobject-protocol"
 import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
-import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
+import { localPosition, localScale, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
 import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol"
 // import { arcballCameraController, componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
@@ -14,6 +14,8 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 
 export type createGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
+
+export type createUnUseGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
 
 export type getAllGameObjects = (meta3dState: meta3dState) => Array<gameObject>
 
@@ -89,3 +91,16 @@ export type disposeGameObjectArcballCameraControllerComponent = (meta3dState: me
 export type getGameObjectName = (meta3dState: meta3dState, gameObject: gameObject) => nullable<name>
 
 export type setGameObjectName = (meta3dState: meta3dState, gameObject: gameObject, name: name) => meta3dState
+
+export type getGameObjectAndAllChildren = (meta3dState: meta3dState, gameObject: gameObject) => Array<gameObject>
+
+export type removeGameObjects = (meta3dState: meta3dState, gameObjects: Array<gameObject>) => meta3dState
+
+export type removeGameObjectData = {
+    gameObject: gameObject,
+    name: nullable<name>,
+    localScale: localScale,
+    localPosition: localPosition
+}
+
+export type restoreRemovedGameObjects = (meta3dState: meta3dState, data: Array<removeGameObjectData>) => meta3dState

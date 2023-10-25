@@ -700,6 +700,33 @@ let menu = (data, meta3dState, allLabels, windowName, rect) => {
   )
 }
 
+let sceneTree = (
+  data,
+  meta3dState,
+  sceneTreeData,
+  lastSceneTreeSelectedData,
+  textures,
+  windowName,
+  rect,
+) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      (
+        imguiRendererState,
+        imguiRendererService.sceneTree(.
+          sceneTreeData,
+          lastSceneTreeSelectedData,
+          textures,
+          windowName,
+          rect,
+        ),
+      )
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,

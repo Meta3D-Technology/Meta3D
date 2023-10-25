@@ -8,4 +8,6 @@ export type name = string
 
 export type config = { isDebug: boolean }
 
-export type cloneConfig = { isShareMaterial: boolean }
+export type cloneConfig = {
+    isShareMaterial: boolean,
+}

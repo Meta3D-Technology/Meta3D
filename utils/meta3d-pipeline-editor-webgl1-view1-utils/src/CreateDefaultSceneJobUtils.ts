@@ -269,6 +269,14 @@ export let addGameObjectsForSceneView = (meta3dState: meta3dState, engineWholeSe
     return [meta3dState, cameraController, cameraGameObject]
 }
 
+export let createUnUseGameObjectsForGameViewForUnifyGameObject = (meta3dState: meta3dState, engineWholeGameViewService: engineWholeGameViewService,
+): meta3dState => {
+    let data = engineWholeGameViewService.scene.gameObject.createUnUseGameObject(meta3dState)
+    meta3dState = data[0]
+
+    return meta3dState
+}
+
 export let getActiveArcballCameraController = (meta3dState: meta3dState,
     { scene }: engineWholeService | engineWholeGameViewService,
     isDebug: boolean

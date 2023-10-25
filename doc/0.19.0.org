@@ -208,17 +208,58 @@ TODO set parent
   source, target: level+index
 
 
+TODO select action
+
+
+
+
 
 TODO header:
 add cube
 
-# remove selected gameObject
-#   TODO use remove instead of dispose(also for add cube* TODO>backward), then dispose them when export scene(when publish and export)
-# only remove for three.js, keep dispose for ec?
-dispose
+# TODO fix select node, set parent for s,g view!
+# TODO unify clone for s,g view!
+
+
+TODO unify gameObject for sceneview, gameview
+
+
+clone
+//handle name
+//handle texture
+# handle three
+# clone config add isShareGeometry
+# share texture?
 
 
 
+
+dispose:
+  TODO add action, p
+  remove selected gameObject
+    TODO use remove instead of dispose(also for add cube* TODO>backward), then dispose them when export scene(when publish and export)
+
+    TODO fix gameObjectAPI:add xxx, fix getAllGameObjects
+  # only remove for three.js, keep dispose for ec?
+
+
+
+TODO pass run test
+  publish
+
+** TODO refactor: unify xxxForSceneView,xxxForGameView
+
+e.g. actions, uicontrols
+
+
+
+** TODO pass run test:redo/undo when run
+
+
+* TODO feat: Asset glb: add selected flag
+
+
+* TODO refactor: Asset, SceneView: remove Events
 
 
 
@@ -259,6 +300,10 @@ publish, export should show Modal
 Menu add "关于Meta3D":
 show Modal
 
+
+* TODO refactor: remove meta3d-imgui-renderer-protocol dependent except in meta3d-ui
+
+e.g. some actions, uicontrols dependent on it, should remove the dependent!
 
 
 * TODO fix: solve click button blink problem

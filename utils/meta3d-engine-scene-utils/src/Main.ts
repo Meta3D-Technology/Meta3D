@@ -17,7 +17,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, createUnUseGameObject, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
 } from "./GameObjectAPI"
 import {
 	createTransform,
@@ -84,6 +84,7 @@ import {
 	setName as setDirectionLightName,
 	getColor, getDirection, setDirection, getGameObjects as getDirectionLightGameObjects, getIntensity, setColor, setIntensity
 } from "./DirectionLightAPI"
+import { gameObject } from "meta3d-engine-core-sceneview-protocol/src/state/GameObjectType"
 
 let _engineCoreProtocolName: string
 
@@ -370,6 +371,9 @@ export let getExtensionServiceUtils = (
 			createGameObject: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createGameObject, api)
 			},
+			createUnUseGameObject: (meta3dState) => {
+				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createUnUseGameObject, api)
+			},
 			getAllGameObjects: (meta3dState) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllGameObjects(engineCoreState, engineCoreService), api)
 			},
@@ -473,6 +477,15 @@ export let getExtensionServiceUtils = (
 			},
 			disposeGameObjectArcballCameraControllerComponent: (meta3dState, gameObject, component) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectArcballCameraControllerComponent(engineCoreState, engineCoreService, gameObject, component), api)
+			},
+			getGameObjectAndAllChildren: (meta3dState, gameObject) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGameObjectAndAllChildren(engineCoreState, engineCoreService, gameObject), api)
+			},
+			removeGameObjects: (meta3dState, gameObjects) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => removeGameObjects(engineCoreState, engineCoreService, gameObjects), api)
+			},
+			restoreRemovedGameObjects: (meta3dState, data) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => restoreRemovedGameObjects(engineCoreState, engineCoreService, data), api)
 			},
 		},
 		transform: {

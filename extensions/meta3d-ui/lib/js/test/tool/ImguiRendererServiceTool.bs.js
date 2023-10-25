@@ -3,7 +3,7 @@
 var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, sceneTreeOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -24,6 +24,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var asset = assetOpt !== undefined ? assetOpt : Sinon.createEmptyStub(sandbox.contents);
   var handleDragDropTarget = handleDragDropTargetOpt !== undefined ? Caml_option.valFromOption(handleDragDropTargetOpt) : Sinon.createEmptyStub(sandbox.contents);
   var menu = menuOpt !== undefined ? menuOpt : Sinon.createEmptyStub(sandbox.contents);
+  var sceneTree = sceneTreeOpt !== undefined ? sceneTreeOpt : Sinon.createEmptyStub(sandbox.contents);
   return {
           init: init,
           render: render,
@@ -44,6 +45,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           asset: asset,
           handleDragDropTarget: handleDragDropTarget,
           menu: menu,
+          sceneTree: sceneTree,
           getContext: getContext
         };
 }

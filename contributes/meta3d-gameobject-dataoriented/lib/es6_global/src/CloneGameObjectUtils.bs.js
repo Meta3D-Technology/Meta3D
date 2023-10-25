@@ -4,16 +4,27 @@ import * as Caml_array from "../../../../../node_modules/rescript/lib/es6/caml_a
 import * as ListSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
 import * as Index$Meta3dComponentTransformProtocol from "../../../../../node_modules/meta3d-component-transform-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateGameObjectUtils$Meta3dGameobjectDataoriented from "./CreateGameObjectUtils.bs.js";
 import * as CloneGameObjectComponentUtils$Meta3dGameobjectDataoriented from "./CloneGameObjectComponentUtils.bs.js";
 
-function _createClonedGameObjects(gameObjectState, countRange) {
+function _createClonedGameObjects(gameObjectState, countRange, sourceGameObject) {
+  var nameOpt = ImmutableSparseMap$Meta3dCommonlib.get(gameObjectState.names, sourceGameObject);
   return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
                 var match = CreateGameObjectUtils$Meta3dGameobjectDataoriented.create(param[0]);
+                var gameObject = match[1];
+                var gameObjectState = match[0];
+                var gameObjectState$1 = nameOpt !== undefined ? ({
+                      config: gameObjectState.config,
+                      maxUID: gameObjectState.maxUID,
+                      needDisposedGameObjectArray: gameObjectState.needDisposedGameObjectArray,
+                      disposedGameObjectArray: gameObjectState.disposedGameObjectArray,
+                      names: ImmutableSparseMap$Meta3dCommonlib.set(gameObjectState.names, gameObject, nameOpt)
+                    }) : gameObjectState;
                 return [
-                        match[0],
-                        ArraySt$Meta3dCommonlib.push(param[1], match[1])
+                        gameObjectState$1,
+                        ArraySt$Meta3dCommonlib.push(param[1], gameObject)
                       ];
               }), [
               gameObjectState,
@@ -28,6 +39,7 @@ function _setParent(transformState, setTransformDataFunc, clonedParentTransforms
 }
 
 function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2) {
+  var sourceGameObject = param$2[0];
   var sourceTransform = param$1[0];
   var match = funcs[6];
   var match$1 = funcs[5];
@@ -37,7 +49,7 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
   var match$5 = funcs[1];
   var match$6 = funcs[0];
   var getTransformGameObjectsFunc = match$6[3];
-  var match$7 = _createClonedGameObjects(param[0], countRange);
+  var match$7 = _createClonedGameObjects(param[0], countRange, sourceGameObject);
   var clonedGameObjects = match$7[1];
   var gameObjectState = match$7[0];
   var totalClonedGameObjects = ListSt$Meta3dCommonlib.push(param$2[1], clonedGameObjects);
@@ -85,7 +97,7 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
           match[2]
         ]
       ], isDebug, countRange, cloneConfig, sourceTransform, [
-        param$2[0],
+        sourceGameObject,
         clonedGameObjects
       ]);
   var clonedTransforms = match$8[1];

@@ -7,9 +7,11 @@ import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-c
 import { arcballCameraController, componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { getChildren, setLocalPosition, setLocalScale } from "./TransformAPI"
+import { removeGameObjectData } from "meta3d-engine-scene-sceneview-protocol/src/service/ecs/GameObject"
 
 export let createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject] => {
     let contribute = createGameObject(engineCoreState)
@@ -22,8 +24,19 @@ export let createGameObject = (engineCoreState: engineCoreState, { createGameObj
     ]
 }
 
-export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects }: engineCoreService): Array<gameObject> => {
-    return getAllGameObjects(engineCoreState)
+let _buildUnUsedName = () => "meta3d_gameobject_unused"
+
+export let createUnUseGameObject = (engineCoreState: engineCoreState, { createGameObject, setGameObjectName }: engineCoreService): [engineCoreState, gameObject] => {
+    let contribute = createGameObject(engineCoreState)
+    engineCoreState = contribute[0]
+    let gameObject = contribute[1]
+
+    engineCoreState = setGameObjectName(engineCoreState, gameObject, _buildUnUsedName())
+
+    return [
+        engineCoreState,
+        gameObject
+    ]
 }
 
 export let getGameObjectName = (engineCoreState: engineCoreState, { getGameObjectName }: engineCoreService, gameObject: gameObject): nullable<name> => {
@@ -212,4 +225,63 @@ export let disposeGameObjectArcballCameraControllerComponent = (engineCoreState:
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
 
     return setUsedComponentContribute(engineCoreState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)
+}
+
+export let getGameObjectAndAllChildren = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject): Array<gameObject> => {
+    let _func = (result: Array<gameObject>, gameObject: gameObject, engineCoreState: engineCoreState): Array<gameObject> => {
+        result.push(gameObject)
+
+        let children = getChildren(engineCoreState, engineCoreService, getTransform(engineCoreState, engineCoreService, gameObject))
+
+        if (!isNullable(children)) {
+            children = getExn(children)
+            if (children.length > 0) {
+                return children.reduce((result: Array<gameObject>, child: gameObject) => {
+                    return _func(result, child, engineCoreState)
+                }, result)
+            }
+        }
+
+        return result
+    }
+
+    return _func([], gameObject, engineCoreState)
+}
+
+let _buildRemovedName = () => "meta3d_gameObject_removed"
+
+export let removeGameObjects = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObjects: Array<gameObject>): engineCoreState => {
+    return gameObjects.reduce((engineCoreState, gameObject) => {
+        engineCoreState = setGameObjectName(engineCoreState, engineCoreService, gameObject, _buildRemovedName())
+
+        let transform = getTransform(engineCoreState, engineCoreService, gameObject)
+
+        engineCoreState = setLocalScale(engineCoreState, engineCoreService, transform, [0, 0, 0])
+        engineCoreState = setLocalPosition(engineCoreState, engineCoreService, transform, [10000, 10000, 10000])
+
+        return engineCoreState
+    }, engineCoreState)
+}
+
+export let restoreRemovedGameObjects = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, data: Array<removeGameObjectData>): engineCoreState => {
+    return data.reduce((engineCoreState, { gameObject, name, localScale, localPosition }) => {
+        engineCoreState = getWithDefault(map((name) => {
+            return setGameObjectName(engineCoreState, engineCoreService, gameObject, name)
+        }, name), engineCoreState)
+
+        let transform = getTransform(engineCoreState, engineCoreService, gameObject)
+
+        engineCoreState = setLocalScale(engineCoreState, engineCoreService, transform, localScale)
+        engineCoreState = setLocalPosition(engineCoreState, engineCoreService, transform, localPosition)
+
+        return engineCoreState
+    }, engineCoreState)
+}
+
+export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects, getGameObjectName }: engineCoreService): Array<gameObject> => {
+    return getAllGameObjects(engineCoreState).filter(gameObject => {
+        return getWithDefault(map((name) => {
+            return name != _buildUnUsedName() && name != _buildRemovedName()
+        }, getGameObjectName(engineCoreState, gameObject)), true)
+    })
 }

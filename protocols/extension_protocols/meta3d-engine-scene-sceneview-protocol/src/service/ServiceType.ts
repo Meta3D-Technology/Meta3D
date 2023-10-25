@@ -7,7 +7,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, createUnUseGameObject, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
 } from "./ecs/GameObject"
 import {
 	createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale,
@@ -131,6 +131,7 @@ export type scene = {
 		addArcballCameraController: addArcballCameraController,
 		cloneGameObject: cloneGameObject,
 		createGameObject: createGameObject,
+		createUnUseGameObject: createUnUseGameObject,
 
 		disposeGameObjectArcballCameraControllerComponent: disposeGameObjectArcballCameraControllerComponent,
 
@@ -163,6 +164,10 @@ export type scene = {
 
 		getGameObjectName: getGameObjectName,
 		setGameObjectName: setGameObjectName,
+
+		getGameObjectAndAllChildren: getGameObjectAndAllChildren,
+		removeGameObjects: removeGameObjects,
+		restoreRemovedGameObjects: restoreRemovedGameObjects
 	},
 	transform: {
 		createTransform: createTransform,

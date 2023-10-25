@@ -14,22 +14,22 @@ export type setName = (meta3dState: meta3dState, transform: transform, name: str
 
 export type getParent = (meta3dState: meta3dState, transform: transform) => nullable<parent>
 
-export type setParent = (meta3dState: meta3dState, transform: transform, parent: parent) => meta3dState
+export type setParent = (meta3dState: meta3dState, transform: transform, parent: nullable<parent>) => meta3dState
 
 export type getChildren = (meta3dState: meta3dState, transform: transform) => nullable<children>
 
-export type getLocalPosition = (meta3dState: meta3dState, transform: transform) => nullable<localPosition>
+export type getLocalPosition = (meta3dState: meta3dState, transform: transform) => localPosition
 
 export type setLocalPosition = (meta3dState: meta3dState, transform: transform, localPosition: localPosition) => meta3dState
 
-export type getLocalRotation = (meta3dState: meta3dState, transform: transform) => nullable<localRotation>
+export type getLocalRotation = (meta3dState: meta3dState, transform: transform) => localRotation
 
 export type setLocalRotation = (meta3dState: meta3dState, transform: transform, localRotation: localRotation) => meta3dState
 
-export type getLocalScale = (meta3dState: meta3dState, transform: transform) => nullable<localScale>
+export type getLocalScale = (meta3dState: meta3dState, transform: transform) => localScale
 
 export type setLocalScale = (meta3dState: meta3dState, transform: transform, localScale: localScale) => meta3dState
 
-export type getLocalToWorldMatrix = (meta3dState: meta3dState, transform: transform) => nullable<localToWorldMatrix>
+export type getLocalToWorldMatrix = (meta3dState: meta3dState, transform: transform) => localToWorldMatrix
 
 export type lookAt = (meta3dState: meta3dState, transform: transform, target: [number, number, number]) => meta3dState

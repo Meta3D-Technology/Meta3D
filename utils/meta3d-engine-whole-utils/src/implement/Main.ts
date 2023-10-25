@@ -3,6 +3,60 @@ import { service as engineCoreService } from "meta3d-engine-core-sceneview-proto
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { scene, service as engineSceneService } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType"
 import { init, render, update } from "./DirectorAPI"
+import { clonedGameObjects } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/GameObjectContributeType"
+import { bind, getWithDefault } from "meta3d-commonlib-ts/src/NullableUtils"
+import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common"
+// import { gameObject } from "meta3d-engine-core-sceneview-protocol/src/state/GameObjectType"
+
+let _addMaterial = (meta3dState: meta3dState,
+	{ basicSourceTexture }: engineSceneService,
+	getMapFunc: any,
+	material: pbrMaterial
+) => {
+	return getWithDefault(bind((map) => {
+		return basicSourceTexture.addMaterial(meta3dState, map, material)
+	}, getMapFunc(meta3dState, material)), meta3dState)
+}
+
+let _addMaterialForTextureWhenClone = (meta3dState: meta3dState, engineSceneService: engineSceneService,
+	clonedGameObjects: clonedGameObjects) => {
+	if (clonedGameObjects.length > 1) {
+		throw new Error("error")
+	}
+
+	let { gameObject, pbrMaterial, basicSourceTexture } = engineSceneService
+
+	return clonedGameObjects[0].reduce((meta3dState, clonedGameObject) => {
+		if (gameObject.hasPBRMaterial(meta3dState, clonedGameObject)) {
+			let material = gameObject.getPBRMaterial(meta3dState, clonedGameObject)
+
+			meta3dState = _addMaterial(meta3dState,
+				engineSceneService,
+				pbrMaterial.getDiffuseMap,
+				material
+			)
+			meta3dState = _addMaterial(meta3dState,
+				engineSceneService,
+				pbrMaterial.getMetalnessMap,
+				material
+			)
+			meta3dState = _addMaterial(meta3dState,
+				engineSceneService,
+				pbrMaterial.getRoughnessMap,
+				material
+			)
+			meta3dState = _addMaterial(meta3dState,
+				engineSceneService,
+				pbrMaterial.getNormalMap,
+				material
+			)
+
+			return meta3dState
+		}
+
+		return meta3dState
+	}, meta3dState)
+}
 
 let _getSceneService = (
 	api: api, meta3dEngineSceneExtensionProtocolName: string
@@ -14,6 +68,12 @@ let _getSceneService = (
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).gameObject.createGameObject(meta3dState)
+			},
+			createUnUseGameObject: (meta3dState) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.createUnUseGameObject(meta3dState)
 			},
 			getAllGameObjects: (meta3dState) => {
 				return api.getExtensionService<engineSceneService>(
@@ -160,10 +220,26 @@ let _getSceneService = (
 				).gameObject.hasArcballCameraController(meta3dState, gameObject)
 			},
 			cloneGameObject: (meta3dState, count, cloneConfig, sourceGameObject) => {
-				return api.getExtensionService<engineSceneService>(
+				// return api.getExtensionService<engineSceneService>(
+				// 	meta3dState,
+				// 	meta3dEngineSceneExtensionProtocolName
+				// ).gameObject.cloneGameObject(meta3dState, count, cloneConfig, sourceGameObject)
+				let engineSceneService = api.getExtensionService<engineSceneService>(
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
-				).gameObject.cloneGameObject(meta3dState, count, cloneConfig, sourceGameObject)
+				)
+
+				let data = engineSceneService.gameObject.cloneGameObject(meta3dState, count, cloneConfig, sourceGameObject)
+				meta3dState = data[0]
+				let clonedGameObjects = data[1]
+
+				if (!cloneConfig.isShareMaterial) {
+					meta3dState = _addMaterialForTextureWhenClone(meta3dState,
+						engineSceneService,
+						clonedGameObjects)
+				}
+
+				return [meta3dState, clonedGameObjects]
 			},
 			getNeedDisposedGameObjects: (meta3dState) => {
 				return api.getExtensionService<engineSceneService>(
@@ -218,6 +294,24 @@ let _getSceneService = (
 					meta3dState,
 					meta3dEngineSceneExtensionProtocolName
 				).gameObject.disposeGameObjectArcballCameraControllerComponent(meta3dState, gameObject, component)
+			},
+			getGameObjectAndAllChildren: (meta3dState, gameObject) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.getGameObjectAndAllChildren(meta3dState, gameObject)
+			},
+			removeGameObjects: (meta3dState, gameObjects) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.removeGameObjects(meta3dState, gameObjects)
+			},
+			restoreRemovedGameObjects: (meta3dState, data) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).gameObject.restoreRemovedGameObjects(meta3dState, data)
 			},
 		},
 		transform: {

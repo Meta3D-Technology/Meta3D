@@ -7,6 +7,7 @@ var CreatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraproje
 var OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection = require("../utils/OperatePerspectiveCameraProjectionUtils.bs.js");
 
 function clone(state, countRange, sourcePerspectiveCameraProjection) {
+  var nameOpt = OptionSt$Meta3dCommonlib.fromNullable(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getName(state, sourcePerspectiveCameraProjection));
   var near = OptionSt$Meta3dCommonlib.getExn(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getNear(state, sourcePerspectiveCameraProjection));
   var far = OptionSt$Meta3dCommonlib.getExn(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getFar(state, sourcePerspectiveCameraProjection));
   var fovy = OptionSt$Meta3dCommonlib.getExn(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.getFovy(state, sourcePerspectiveCameraProjection));
@@ -14,9 +15,11 @@ function clone(state, countRange, sourcePerspectiveCameraProjection) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(countRange, (function (param, param$1) {
                 var match = CreatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.create(param[0]);
                 var clonedPerspectiveCameraProjection = match[1];
-                var state = OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setFovy(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setFar(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setNear(DirtyPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.mark(match[0], clonedPerspectiveCameraProjection, true), clonedPerspectiveCameraProjection, near), clonedPerspectiveCameraProjection, far), clonedPerspectiveCameraProjection, fovy);
+                var state = match[0];
+                var state$1 = nameOpt !== undefined ? OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setName(state, clonedPerspectiveCameraProjection, nameOpt) : state;
+                var state$2 = OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setFovy(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setFar(OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setNear(DirtyPerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.mark(state$1, clonedPerspectiveCameraProjection, true), clonedPerspectiveCameraProjection, near), clonedPerspectiveCameraProjection, far), clonedPerspectiveCameraProjection, fovy);
                 return [
-                        aspectOpt !== undefined ? OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setAspect(state, clonedPerspectiveCameraProjection, aspectOpt) : state,
+                        aspectOpt !== undefined ? OperatePerspectiveCameraProjectionUtils$Meta3dComponentPerspectivecameraprojection.setAspect(state$2, clonedPerspectiveCameraProjection, aspectOpt) : state$2,
                         ArraySt$Meta3dCommonlib.push(param[1], clonedPerspectiveCameraProjection)
                       ];
               }), [

@@ -16,6 +16,7 @@ let _setData = (
   } as state,
   clonedMaterial,
   (
+    name,
     diffuseColor,
     specular,
     specularColor,
@@ -69,7 +70,12 @@ let _setData = (
   )
   ->ignore
 
-  state
+
+  name
+  ->Meta3dCommonlib.OptionSt.map(name => {
+    SetPBRMaterialDataUtils.setName(state, clonedMaterial, name)
+  })
+  ->Meta3dCommonlib.OptionSt.getWithDefault(state)
 }
 
 let _getData = (
@@ -89,6 +95,7 @@ let _getData = (
   sourceMaterial,
 ) => {
   (
+    GetPBRMaterialDataUtils.getName(state, sourceMaterial)->Meta3dCommonlib.OptionSt.fromNullable,
     Meta3dComponentWorkerUtils.OperateTypeArrayPBRMaterialUtils.getDiffuseColor(
       sourceMaterial,
       diffuseColors,

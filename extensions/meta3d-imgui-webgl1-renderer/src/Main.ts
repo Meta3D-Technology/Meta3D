@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { menuLabel, rect, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { menuLabel, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
 import { dragDropType, dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
@@ -7,6 +7,8 @@ import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
 import { return_ } from "meta3d-commonlib-ts/src/NullableUtils"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { setNextWindowRect } from "./Utils"
+import { sceneTree } from "./SceneTree"
 
 // let _generateUniqueId = () => {
 //     return Math.floor(Math.random() * 1000000.0).toString()
@@ -25,11 +27,6 @@ let _initEvent = (canvas: HTMLCanvasElement) => {
 
     // canvas.addEventListener('webglcontextlost', canvas_on_contextlost, false)
     // canvas.addEventListener('webglcontextrestored', canvas_on_contextrestored, false)
-}
-
-let _setNextWindowRect = (rect: rect) => {
-    ImGui.SetNextWindowPos(new ImGui.ImVec2(rect.x, rect.y))
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(rect.width, rect.height))
 }
 
 
@@ -134,7 +131,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endChild: () => {
             ImGui.EndChild()
         },
-        setNextWindowRect: _setNextWindowRect,
+        setNextWindowRect: setNextWindowRect,
         addFBOTexture: (texture, { x, y, width, height }) => {
             let pos = ImGui.GetCursorScreenPos()
             let rectMin = ImGui.GetItemRectMin()
@@ -184,7 +181,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
             })
         },
         asset: ({ loadGlbTexture, removeAssetTexture, glbTexture }, glbs, label, rect) => {
-            _setNextWindowRect(rect)
+            setNextWindowRect(rect)
 
             ImGui.Begin(label)
 
@@ -263,7 +260,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return data as any
         },
         menu: (allLabels, windowName, rect) => {
-            _setNextWindowRect(rect)
+            setNextWindowRect(rect)
 
             ImGui.Begin(windowName, null, ImGui.WindowFlags.NoTitleBar | ImGui.WindowFlags.MenuBar | ImGui.WindowFlags.NoBackground | ImGui.WindowFlags.NoCollapse)
 
@@ -293,6 +290,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return selectItemLabel
         },
+        sceneTree: sceneTree,
         getContext: () => {
             return ImGui_Impl.gl
         },

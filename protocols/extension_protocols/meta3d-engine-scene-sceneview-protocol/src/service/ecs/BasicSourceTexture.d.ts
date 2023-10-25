@@ -3,8 +3,8 @@ import { filter, format, htmlImageElement, material, texture, textureDataType, w
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 
 export type createTexture = (meta3dState: meta3dState) => [meta3dState, texture];
-export type disposeTexture = (meta3dState: meta3dState, _2: texture, _3: material) => meta3dState;
-export type addMaterial = (meta3dState: meta3dState, _2: texture, _3: material) => meta3dState;
+export type disposeTexture = (meta3dState: meta3dState, texture: texture, material: material) => meta3dState;
+export type addMaterial = (meta3dState: meta3dState, texture: texture, material: material) => meta3dState;
 
 export type getName = (meta3dState: meta3dState, texture: texture) => nullable<string>
 

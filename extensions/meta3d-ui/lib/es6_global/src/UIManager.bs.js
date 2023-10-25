@@ -445,6 +445,15 @@ function menu(data, meta3dState, allLabels, windowName, rect) {
               }), data);
 }
 
+function sceneTree(data, meta3dState, sceneTreeData, lastSceneTreeSelectedData, textures, windowName, rect) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.sceneTree(sceneTreeData, lastSceneTreeSelectedData, textures, windowName, rect)
+                      ];
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -572,6 +581,7 @@ export {
   asset ,
   handleDragDropTarget ,
   menu ,
+  sceneTree ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

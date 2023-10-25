@@ -1,6 +1,11 @@
 open StateType
 
 let clone = (state, countRange, sourcePerspectiveCameraProjection) => {
+  let nameOpt =
+    OperatePerspectiveCameraProjectionUtils.getName(
+      state,
+      sourcePerspectiveCameraProjection,
+    )->Meta3dCommonlib.OptionSt.fromNullable
   let near =
     OperatePerspectiveCameraProjectionUtils.getNear(
       state,
@@ -27,6 +32,16 @@ let clone = (state, countRange, sourcePerspectiveCameraProjection) => {
         state,
         clonedPerspectiveCameraProjection,
       ) = CreatePerspectiveCameraProjectionUtils.create(state)
+
+      let state = switch nameOpt {
+      | Some(name) =>
+        OperatePerspectiveCameraProjectionUtils.setName(
+          state,
+          clonedPerspectiveCameraProjection,
+          name,
+        )
+      | None => state
+      }
 
       let state =
         state
