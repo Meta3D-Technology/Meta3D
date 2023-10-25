@@ -10,6 +10,8 @@ import { skin } from "meta3d-skin-protocol"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { isNullable, getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { prepareUIControls } from "meta3d-run-utils/src/RunUtils"
+import { service as runEngineService } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 // type data = { isDebug: boolean, canvas: HTMLCanvasElement }
 
@@ -37,10 +39,38 @@ export let getExtensionService: getExtensionServiceMeta3D<
 > = (api) => {
 	return {
 		init: (meta3dState: meta3dState, { isDebug, canvas }) => {
-			return _prepareUI(meta3dState, api).then(meta3dState => {
-				let { init } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+			// return _prepareUI(meta3dState, api).then(meta3dState => {
+			// 	let { init } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
-				return init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], false, isDebug, canvas).then(meta3dState => {
+			// 	return init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], false, isDebug, canvas).then(meta3dState => {
+			// 		return prepareUIControls(meta3dState, api)
+			// 	})
+			// })
+			return _prepareUI(meta3dState, api).then(meta3dState => {
+				let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+
+				return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+					let runEngineService = api.getExtensionService<runEngineService>(
+						meta3dState,
+						"meta3d-editor-run-engine-sceneview-protocol"
+					)
+					let runEngineGameViewService = api.getExtensionService<runEngineGameViewService>(
+						meta3dState,
+						"meta3d-editor-run-engine-gameview-protocol"
+					)
+
+					return runEngineService.prepareForVisual(meta3dState,
+						uiService.getContext(meta3dState),
+						canvas,
+						isDebug
+					).then(meta3dState => {
+						return runEngineGameViewService.prepareForVisual(meta3dState,
+							uiService.getContext(meta3dState),
+							canvas,
+							isDebug
+						)
+					})
+				}).then(meta3dState => {
 					return prepareUIControls(meta3dState, api)
 				})
 			})

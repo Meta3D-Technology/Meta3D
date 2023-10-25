@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-dispose-gameobject",
-    "version": "0.18.0",
+    "version": "0.18.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "repoLink": "",
     "protocol": {
@@ -17,8 +17,10 @@
     "dependencies": {
         "meta3d-action-dispose-gameobject-protocol": "^0.18.0",
         "meta3d-action-select-scenetree-node": "^0.18.0",
+        "meta3d-ui-control-scenetree-protocol": "^0.18.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.18.0",
         "meta3d-engine-whole-gameview-protocol": "^0.18.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.18.0",
         "meta3d-event-protocol": "^0.18.0",
         "meta3d-event-sourcing-protocol": "^0.18.0",
         "meta3d-type": "^0.18.0",

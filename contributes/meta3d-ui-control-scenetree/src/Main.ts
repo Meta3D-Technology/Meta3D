@@ -44,7 +44,10 @@ let _buildHierachyGameObjects = (result: hierachyGameObjects,
             result.push([parentGameObject, []])
         }
         else {
-            result.push([parentGameObject, _buildHierachyGameObjects([], engineWholeGameViewService, meta3dState, getExn(children))])
+            result.push([parentGameObject, _buildHierachyGameObjects([], engineWholeGameViewService, meta3dState, getExn(children).map(child => {
+                return transform.getGameObjects(meta3dState, child)[0]
+            })
+            )])
         }
 
         return result
@@ -139,7 +142,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
 
             uiState = setUIControlState(uiState, uiControlName, {
                 ...state,
-                lastSceneTreeSelectedData: sceneTreeSelectedData
+                lastSceneTreeSelectedData: isNullable(sceneTreeSelectedData) ? lastSceneTreeSelectedData : sceneTreeSelectedData
             })
 
             meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)

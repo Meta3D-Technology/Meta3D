@@ -12,7 +12,6 @@ export const dataName = {
   near: 4,
   far: 5,
   dirty: 6,
-
 }
 
 export type perspectiveCameraProjection = number

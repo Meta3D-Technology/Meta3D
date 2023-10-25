@@ -53,3 +53,9 @@ export let isArraysEqual = (a: Array<any>, b: Array<any>) => {
     }
     return true
 }
+
+export let push = <T>(arr: Array<T>, value: T) => {
+    arr.push(value)
+
+    return arr
+}

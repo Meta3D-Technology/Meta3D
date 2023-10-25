@@ -66,7 +66,7 @@ import { state as transformState, config as transformConfig, transform, componen
 import { state as arcballCameraControllerState, componentName as arcballCameraControllerComponentName, config as arcballCameraControllerConfig, arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol"
 import { state as perspecticeCameraProjectionState, componentName as perspecticeCameraProjectionComponentName, config as perspecticeCameraProjectionConfig, perspectiveCameraProjection } from "meta3d-component-perspectivecameraprojection-protocol"
 import { state as basicCameraViewState, componentName as basicCameraViewComponentName, config as basicCameraViewConfig, basicCameraView } from "meta3d-component-basiccameraview-protocol"
-import { state as pbrMaterialState, componentName as pbrMaterialComponentName, config as pbrMaterialConfig, pbrMaterial } from "meta3d-component-pbrMaterial-protocol"
+import { state as pbrMaterialState, componentName as pbrMaterialComponentName, config as pbrMaterialConfig, pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
 import { state as geometryState, componentName as geometryComponentName, config as geometryConfig, geometry } from "meta3d-component-geometry-protocol"
 import { state as directionlightState, config as directionLightConfig, directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol";
 import { state as gameObjectState } from "meta3d-gameobject-protocol";
@@ -258,7 +258,7 @@ export let getExtensionServiceUtils = (
 				registerComponent(engineCoreState, api.getContribute<componentContribute<geometryState, geometryConfig, geometry>>(meta3dState, "meta3d-component-geometry-protocol"))
 
 			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<pbrMaterialState, pbrMaterialConfig, pbrMaterial>>(meta3dState, "meta3d-component-pbrMaterial-protocol"))
+				registerComponent(engineCoreState, api.getContribute<componentContribute<pbrMaterialState, pbrMaterialConfig, pbrMaterial>>(meta3dState, "meta3d-component-pbrmaterial-protocol"))
 
 			engineCoreState =
 				registerComponent(engineCoreState, api.getContribute<componentContribute<basicCameraViewState, basicCameraViewConfig, basicCameraView>>(meta3dState, "meta3d-component-basiccameraview-protocol"))

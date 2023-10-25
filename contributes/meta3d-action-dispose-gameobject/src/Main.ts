@@ -12,6 +12,10 @@ import { List } from "immutable"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
+import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
+import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
+import { uiControlName as sceneTreeUIControlName, state as sceneTreeState } from "meta3d-ui-control-scenetree-protocol"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 let _checkRemovdGameObjectShouldEqualForBothView = (removedGameObjectsForSceneView: Array<gameObject>, removedGameObjectsForGameView: Array<gameObject>) => {
     if (!isArraysEqual(removedGameObjectsForSceneView, removedGameObjectsForGameView)) {
@@ -70,7 +74,19 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     ], meta3dState, api)
 
 
-                    return Promise.resolve(meta3dState)
+                    let { getUIControlState, setUIControlState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+
+                    let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
+                    let sceneTreeState = getExn(getUIControlState<sceneTreeState>(api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol"), sceneTreeUIControlName))
+
+                    uiState = setUIControlState(uiState, sceneTreeUIControlName, {
+                        ...sceneTreeState,
+                        lastSceneTreeSelectedData: null
+                    })
+
+                    meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
+
+                    return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
                 }, (meta3dState) => {
                     let {
                         allDisposedGameObjectData,

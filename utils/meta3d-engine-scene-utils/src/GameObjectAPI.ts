@@ -10,8 +10,9 @@ import { perspectiveCameraProjection, componentName as perspectiveCameraProjecti
 import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { getChildren, setLocalPosition, setLocalScale } from "./TransformAPI"
+import { getChildren, setLocalPosition, setLocalScale, getGameObjects } from "./TransformAPI"
 import { removeGameObjectData } from "meta3d-engine-scene-sceneview-protocol/src/service/ecs/GameObject"
+import { buildRemovedName, buildUnUsedName, isValidGameObjectName } from "./Utils"
 
 export let createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject] => {
     let contribute = createGameObject(engineCoreState)
@@ -24,14 +25,12 @@ export let createGameObject = (engineCoreState: engineCoreState, { createGameObj
     ]
 }
 
-let _buildUnUsedName = () => "meta3d_gameobject_unused"
-
 export let createUnUseGameObject = (engineCoreState: engineCoreState, { createGameObject, setGameObjectName }: engineCoreService): [engineCoreState, gameObject] => {
     let contribute = createGameObject(engineCoreState)
     engineCoreState = contribute[0]
     let gameObject = contribute[1]
 
-    engineCoreState = setGameObjectName(engineCoreState, gameObject, _buildUnUsedName())
+    engineCoreState = setGameObjectName(engineCoreState, gameObject, buildUnUsedName())
 
     return [
         engineCoreState,
@@ -236,8 +235,8 @@ export let getGameObjectAndAllChildren = (engineCoreState: engineCoreState, engi
         if (!isNullable(children)) {
             children = getExn(children)
             if (children.length > 0) {
-                return children.reduce((result: Array<gameObject>, child: gameObject) => {
-                    return _func(result, child, engineCoreState)
+                return children.reduce((result: Array<gameObject>, child: transform) => {
+                    return _func(result, getGameObjects(engineCoreState, engineCoreService, child)[0], engineCoreState)
                 }, result)
             }
         }
@@ -248,11 +247,10 @@ export let getGameObjectAndAllChildren = (engineCoreState: engineCoreState, engi
     return _func([], gameObject, engineCoreState)
 }
 
-let _buildRemovedName = () => "meta3d_gameObject_removed"
 
 export let removeGameObjects = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObjects: Array<gameObject>): engineCoreState => {
     return gameObjects.reduce((engineCoreState, gameObject) => {
-        engineCoreState = setGameObjectName(engineCoreState, engineCoreService, gameObject, _buildRemovedName())
+        engineCoreState = setGameObjectName(engineCoreState, engineCoreService, gameObject, buildRemovedName())
 
         let transform = getTransform(engineCoreState, engineCoreService, gameObject)
 
@@ -280,8 +278,6 @@ export let restoreRemovedGameObjects = (engineCoreState: engineCoreState, engine
 
 export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects, getGameObjectName }: engineCoreService): Array<gameObject> => {
     return getAllGameObjects(engineCoreState).filter(gameObject => {
-        return getWithDefault(map((name) => {
-            return name != _buildUnUsedName() && name != _buildRemovedName()
-        }, getGameObjectName(engineCoreState, gameObject)), true)
+        return getWithDefault(map(isValidGameObjectName, getGameObjectName(engineCoreState, gameObject)), true)
     })
 }

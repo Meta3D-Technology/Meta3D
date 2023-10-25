@@ -40,6 +40,28 @@ import { service as engineWholeService } from "meta3d-engine-whole-sceneview-pro
 // 	}
 // }
 
+export let prepareForVisual = <engineWholeService_ extends engineWholeService>(meta3dState: meta3dState,
+	api: api, gl: WebGLRenderingContext, canvas: HTMLCanvasElement, isDebug: boolean,
+	engineWholeProtocolName: string
+) => {
+	let engineWholeService = api.getExtensionService<engineWholeService_>(
+		meta3dState,
+		engineWholeProtocolName
+	)
+
+	return Promise.resolve(engineWholeService.prepare(meta3dState, isDebug,
+		{
+			float9Array1: new Float32Array(9),
+			float32Array1: new Float32Array(16),
+			transformCount: 10,
+			geometryCount: 10,
+			geometryPointCount: 100,
+			pbrMaterialCount: 10
+		},
+		gl,
+		canvas
+	))
+}
 
 export let prepareAndInitEngine = <engineWholeService_ extends engineWholeService>(meta3dState: meta3dState,
 	api: api, gl: WebGLRenderingContext, canvas: HTMLCanvasElement, isDebug: boolean,

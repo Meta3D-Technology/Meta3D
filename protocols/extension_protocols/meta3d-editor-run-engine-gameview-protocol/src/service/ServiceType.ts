@@ -4,6 +4,12 @@ import { state as meta3dState } from "meta3d-type"
 import { context } from "meta3d-imgui-renderer-protocol/src/service/ServiceType";
 
 export type service = {
+	prepareForVisual: (
+		meta3dState: meta3dState,
+		gl: context,
+		canvas: HTMLCanvasElement,
+		isDebug: boolean
+	) => Promise<meta3dState>,
 	prepareAndInitEngine: (
 		meta3dState: meta3dState,
 		gl: context,

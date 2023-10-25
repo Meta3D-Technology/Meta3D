@@ -189,7 +189,7 @@ drag
 
 
 
-** TODO add ui control
+** DONE add ui control
 
 
 need publish:
@@ -247,13 +247,38 @@ dispose:
 TODO pass run test
   publish
 
-** TODO refactor: unify xxxForSceneView,xxxForGameView
+  not selected
+  set parent error
 
-e.g. actions, uicontrols
+  dispose parent error
+
+  # should add to child of selected
+  # add glb error
+  dispose child still remain
+
+  dispose, clone should refresh gameview
+
+  default scene's gameObjects add name
+
+TODO need publish:
+# imgui
+# scenetree uicontrol
+# dispose
+# clone
+
 
 
 
 ** TODO pass run test:redo/undo when run
+
+** TODO SceneTree, Asset header not scroll
+
+** TODO SceneTree add horizontal scroll
+
+
+** TODO refactor: unify xxxForSceneView,xxxForGameView
+
+e.g. actions, uicontrols
 
 
 * TODO feat: Asset glb: add selected flag
@@ -275,7 +300,7 @@ e.g. actions, uicontrols
        **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
        **** TODO publish: bind event when active has arcball
 
-  ** TODO fix: game view handle no active camera
+  ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
 
 
 * TODO scene view

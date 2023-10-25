@@ -4,7 +4,8 @@ import { transform, componentName, dataName, localPosition, localRotation, local
 import { lookAt as lookAtTransform } from "meta3d-component-commonlib"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, getWithDefault, map } from "meta3d-commonlib-ts/src/NullableUtils"
+import { buildRemovedName, buildUnUsedName, isValidGameObjectName } from "./Utils"
 
 export function createTransform(engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute,
     createComponent,
@@ -60,10 +61,18 @@ export let setParent = (engineCoreState: engineCoreState, { unsafeGetUsedCompone
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
 
-export let getChildren = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): nullable<children> => {
+export let getChildren = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, transform: transform): nullable<children> => {
+    let { unsafeGetUsedComponentContribute, getComponentData, getGameObjectName } = engineCoreService
+
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
-    return getComponentData<transform, children>(contribute, transform, dataName.children)
+    return map((children) => {
+        return children.filter(child => {
+            let gameObject = getGameObjects(engineCoreState, engineCoreService, child)[0]
+
+            return getWithDefault(map(isValidGameObjectName, getGameObjectName(engineCoreState, gameObject)), true)
+        })
+    }, getComponentData<transform, children>(contribute, transform, dataName.children))
 }
 
 export let getLocalPosition = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): localPosition => {

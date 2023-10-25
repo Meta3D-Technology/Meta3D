@@ -12,6 +12,7 @@ import { List } from "immutable"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 let _checkClonedGameObjectShouldEqualForBothView = (clonedGameObjectsForSceneView: Array<gameObject>, clonedGameObjectsForGameView: Array<gameObject>) => {
     if (!isArraysEqual(clonedGameObjectsForSceneView, clonedGameObjectsForGameView)) {
@@ -55,8 +56,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         setState
                     ], meta3dState, api)
 
-
-                    return Promise.resolve(meta3dState)
+                    return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
                 }, (meta3dState) => {
                     let {
                         allClonedGameObjects,

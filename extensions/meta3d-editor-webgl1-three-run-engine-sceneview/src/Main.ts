@@ -1,7 +1,7 @@
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, api } from "meta3d-type"
 import { state, func } from "meta3d-editor-run-engine-sceneview-protocol/src/state/StateType"
 import { service } from "meta3d-editor-run-engine-sceneview-protocol/src/service/ServiceType"
-import { addToLoopFuncs, removeFromLoopFuncs, prepareAndInitEngine, loopEngine } from "meta3d-editor-webgl1-three-run-engine-utils/src/Main"
+import { addToLoopFuncs, removeFromLoopFuncs, prepareAndInitEngine, loopEngine, prepareForVisual } from "meta3d-editor-webgl1-three-run-engine-utils/src/Main"
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { state as runEngineState } from "meta3d-editor-run-engine-sceneview-protocol/src/state/StateType"
 import { List } from "immutable"
@@ -69,6 +69,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
 	return {
+		prepareForVisual: (meta3dState, gl, canvas, isDebug) => {
+			return prepareForVisual<engineWholeService>(meta3dState, api, gl, canvas, isDebug, "meta3d-engine-whole-sceneview-protocol")
+		},
 		prepareAndInitEngine: (meta3dState, gl, canvas, isDebug) => {
 			return prepareAndInitEngine<engineWholeService>(meta3dState, api, gl, canvas, isDebug, "meta3d-engine-whole-sceneview-protocol").then(meta3dState => {
 				return addToLoopFuncs<runEngineState>(meta3dState, api, {

@@ -7,6 +7,7 @@ export let createCubeGameObject = <engineWholeService_ extends engineWholeServic
     meta3dState = data[0]
     let gameObject = data[1]
 
+    meta3dState = scene.gameObject.setGameObjectName(meta3dState, gameObject, "Cube")
 
     data = scene.transform.createTransform(meta3dState)
     meta3dState = data[0]
