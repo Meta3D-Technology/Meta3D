@@ -54,6 +54,6 @@ export type getNormalMap = (meta3dState: meta3dState, pbrMaterial: pbrMaterial) 
 
 export type setNormalMap = (meta3dState: meta3dState, pbrMaterial: pbrMaterial, texture: texture) => meta3dState
 
-export type getAllPBRMaterials = (meta3dState: meta3dState) => pbrMaterial[]
+// export type getAllPBRMaterials = (meta3dState: meta3dState) => pbrMaterial[]
 
 export type getGameObjects = (meta3dState: meta3dState, pbrMaterial: pbrMaterial) => Array<gameObject>

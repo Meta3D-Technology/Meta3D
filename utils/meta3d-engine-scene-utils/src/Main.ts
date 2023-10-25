@@ -39,7 +39,7 @@ import {
 	createPBRMaterial,
 	getName as getPBRMaterialName,
 	setName as setPBRMaterialName,
-	getAllPBRMaterials, getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap
+	 getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap
 } from "./PBRMaterialAPI";
 import {
 	createGeometry,
@@ -718,9 +718,9 @@ export let getExtensionServiceUtils = (
 
 				return _addMaterial(meta3dState, api, texture, pbrMaterial)
 			},
-			getAllPBRMaterials: (meta3dState) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllPBRMaterials(engineCoreState, engineCoreService), api)
-			},
+			// getAllPBRMaterials: (meta3dState) => {
+			// 	return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllPBRMaterials(engineCoreState, engineCoreService), api)
+			// },
 			getGameObjects: (meta3dState, pbrMaterial) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPBRMaterialGameObjects(engineCoreState, engineCoreService, pbrMaterial), api)
 			},

@@ -207,11 +207,11 @@ export let setNormalMap = (engineCoreState: engineCoreState, { unsafeGetUsedComp
 }
 
 
-export let getAllPBRMaterials = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) => {
-	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+// export let getAllPBRMaterials = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) => {
+// 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
-	return getAllComponents<pbrMaterial>(contribute)
-}
+// 	return getAllComponents<pbrMaterial>(contribute)
+// }
 
 export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, pbrMaterial: pbrMaterial): Array<gameObject> => {
 	let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)

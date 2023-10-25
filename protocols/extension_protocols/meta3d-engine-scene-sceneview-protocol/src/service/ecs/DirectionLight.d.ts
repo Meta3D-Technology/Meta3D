@@ -21,6 +21,6 @@ export type getDirection = (meta3dState: meta3dState, directionLight: directionL
 
 export type setDirection = (meta3dState: meta3dState, directionLight: directionLight, direction: [number, number, number]) => meta3dState
 
-export type getAllDirectionLights = (meta3dState: meta3dState) => directionLight[]
+// export type getAllDirectionLights = (meta3dState: meta3dState) => directionLight[]
 
 export type getGameObjects = (meta3dState: meta3dState, directionLight: directionLight) => Array<gameObject>

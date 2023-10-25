@@ -688,12 +688,12 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).pbrMaterial.setMetalnessMap(meta3dState, pbrMaterial, value)
 			},
-			getAllPBRMaterials: (meta3dState) => {
-				return api.getExtensionService<engineSceneService>(
-					meta3dState,
-					meta3dEngineSceneExtensionProtocolName
-				).pbrMaterial.getAllPBRMaterials(meta3dState)
-			},
+			// getAllPBRMaterials: (meta3dState) => {
+			// 	return api.getExtensionService<engineSceneService>(
+			// 		meta3dState,
+			// 		meta3dEngineSceneExtensionProtocolName
+			// 	).pbrMaterial.getAllPBRMaterials(meta3dState)
+			// },
 			getGameObjects: (meta3dState, pbrMaterial) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,

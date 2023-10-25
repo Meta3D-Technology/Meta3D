@@ -24,7 +24,7 @@ import {
 	createPBRMaterial,
 	getName as getPBRMaterialName,
 	setName as setPBRMaterialName,
-	getAllPBRMaterials, getDiffuseColor, setDiffuseColor,
+	 getDiffuseColor, setDiffuseColor,
 	getSpecular,
 	setSpecular,
 	getSpecularColor,
@@ -238,7 +238,7 @@ export type scene = {
 		setMetalnessMap: setMetalnessMap,
 		getNormalMap: getNormalMap,
 		setNormalMap: setNormalMap,
-		getAllPBRMaterials: getAllPBRMaterials,
+		// getAllPBRMaterials: getAllPBRMaterials,
 		getGameObjects: getPBRMaterialGameObjects
 	},
 	basicSourceTexture: {

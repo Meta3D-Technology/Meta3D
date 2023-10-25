@@ -92,11 +92,11 @@ export let setDirection = (engineCoreState: engineCoreState, engineCoreService: 
     return setUsedComponentContribute(engineCoreState, transformContribute, transformComponentName)
 }
 
-export let getAllDirectionLights = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+// export let getAllDirectionLights = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getAllComponents }: engineCoreService) => {
+//     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
 
-    return getAllComponents<directionLight>(contribute)
-}
+//     return getAllComponents<directionLight>(contribute)
+// }
 
 export let getGameObjects = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentGameObjects }: engineCoreService, directionLight: directionLight): Array<gameObject> => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
