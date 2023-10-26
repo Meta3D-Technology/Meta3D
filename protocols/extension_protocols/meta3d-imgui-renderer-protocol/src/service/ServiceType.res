@@ -35,7 +35,7 @@ type selectItemMap = Meta3dCommonlibType.ImmutableHashMapType.t<menuLabel, bool>
 
 type sceneTreeNodeLabel = string
 
-/*!  TODO like this
+/* !  TODO like this
 // type rec sceneTreeData = array<(sceneTreeNodeLabel, imguiImplTexture, sceneTreeData)>
 
 type sceneTreeData =
@@ -56,7 +56,7 @@ type sceneTreeData =
       UIStateAssetType.uiState(array(sceneTreeData)),
     );
  */
-type sceneTreeData 
+type sceneTreeData
 
 type index = int
 
@@ -73,6 +73,13 @@ type sceneTreeReturnData = (
   bool,
   Js.Nullable.t<sceneTreeIndexData>,
   Js.Nullable.t<sceneTreeDragData>,
+)
+
+type inspectorReturnData = (
+  Js.Nullable.t<string>,
+  Js.Nullable.t<(float, float, float)>,
+  Js.Nullable.t<(float, float, float)>,
+  Js.Nullable.t<(float, float, float)>,
 )
 
 // @genType
@@ -119,5 +126,13 @@ type service = {
     string,
     rect,
   ) => sceneTreeReturnData,
+  inspector: (
+    . string,
+    (float, float, float),
+    (float, float, float),
+    (float, float, float),
+    string,
+    rect,
+  ) => inspectorReturnData,
   getContext: unit => context,
 }

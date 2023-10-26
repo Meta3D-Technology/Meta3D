@@ -54,7 +54,7 @@ export type localScale = [number, number, number];
 
 // export type scale = [number, number, number];
 
-// export type localEulerAngles = [number, number, number];
+export type localEulerAngles = [number, number, number];
 
 // export type eulerAngles = [number, number, number];
 

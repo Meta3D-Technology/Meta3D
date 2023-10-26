@@ -27,7 +27,7 @@ import {
 	getChildren, getLocalPosition, getParent, lookAt, setLocalPosition,
 	getLocalRotation, setLocalRotation,
 	getLocalScale, setLocalScale,
-	setParent, getLocalToWorldMatrix
+	setParent, getLocalToWorldMatrix, getLocalEulerAngles, setLocalEulerAngles
 } from "./TransformAPI";
 import {
 	createPerspectiveCameraProjection,
@@ -521,6 +521,12 @@ export let getExtensionServiceUtils = (
 			},
 			setLocalRotation: (meta3dState, transform, localRotation) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalRotation(engineCoreState, engineCoreService, transform, localRotation), api)
+			},
+			getLocalEulerAngles: (meta3dState, transform) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalEulerAngles(engineCoreState, engineCoreService, transform), api)
+			},
+			setLocalEulerAngles: (meta3dState, transform, localEulerAngles) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalEulerAngles(engineCoreState, engineCoreService, transform, localEulerAngles), api)
 			},
 			getLocalScale: (meta3dState, transform) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalScale(engineCoreState, engineCoreService, transform), api)

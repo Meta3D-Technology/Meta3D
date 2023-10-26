@@ -313,14 +313,27 @@ e.g. actions, uicontrols
 * TODO Inspector
   ** TODO edit gameObject name
   ** TODO edit local position, euler, scale
-  ** TODO show components
+  # ** TODO show components
 
 
 
 * TODO scene view
 
-  ** TODO scene view show direction light, camera(show image)
+  # ** TODO scene view show direction light, camera(show image)
   ** TODO add grid
+
+
+  ** TODO add ambient
+
+  TODO add Scene API to get/set ambient
+
+  TODO scene graph:
+    convert
+    import
+
+  TODO export scene
+
+
 
 
 * TODO game view
@@ -338,18 +351,8 @@ remove arcball
   ** TODO add run controller(ui control) to unify run, stop action
 
 
+set event
 
-
-* TODO Message
-e.g. show import progress bar
-
-
-* TODO Modal
-publish, export should show Modal
-
-
-Menu add "关于Meta3D":
-show Modal
 
 
 * TODO refactor: remove meta3d-imgui-renderer-protocol dependent except in meta3d-ui

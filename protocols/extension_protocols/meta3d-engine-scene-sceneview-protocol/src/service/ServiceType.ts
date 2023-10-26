@@ -13,6 +13,8 @@ import {
 	createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale,
 	getName as getTransformName,
 	setName as setTransformName,
+	getLocalEulerAngles,
+	setLocalEulerAngles,
 } from "./ecs/Transform";
 import {
 	createPerspectiveCameraProjection,
@@ -179,6 +181,8 @@ export type scene = {
 		getChildren: getChildren,
 		getLocalPosition: getLocalPosition,
 		setLocalPosition: setLocalPosition,
+		getLocalEulerAngles: getLocalEulerAngles,
+		setLocalEulerAngles: setLocalEulerAngles,
 		getLocalRotation: getLocalRotation,
 		setLocalRotation: setLocalRotation,
 		getLocalScale: getLocalScale,

@@ -387,6 +387,18 @@ let _getSceneService = (
 					meta3dEngineSceneExtensionProtocolName
 				).transform.setLocalRotation(meta3dState, transform, localRotation)
 			},
+			getLocalEulerAngles: (meta3dState, transform) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.getLocalEulerAngles(meta3dState, transform)
+			},
+			setLocalEulerAngles: (meta3dState, transform, localEulerAngles) => {
+				return api.getExtensionService<engineSceneService>(
+					meta3dState,
+					meta3dEngineSceneExtensionProtocolName
+				).transform.setLocalEulerAngles(meta3dState, transform, localEulerAngles)
+			},
 			getLocalScale: (meta3dState, transform) => {
 				return api.getExtensionService<engineSceneService>(
 					meta3dState,

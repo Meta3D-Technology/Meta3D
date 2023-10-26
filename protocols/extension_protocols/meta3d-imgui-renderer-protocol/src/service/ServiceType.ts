@@ -1,6 +1,8 @@
 import type { state as StateType_state } from '../../src/state/StateType';
 import type { texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
 import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
+import { name } from 'meta3d-gameobject-protocol';
+import { localPosition, localEulerAngles, localScale } from 'meta3d-component-transform-protocol';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type rect = {
@@ -80,6 +82,47 @@ export type assetFunc = (
   rect: rect,
 ) => [boolean, boolean, nullable<string>]
 
+
+export type getValueFunc<T> = () => T
+
+export type setValueFunc<T> = (value: T) => void
+
+export type inspectorFunc = (
+  // [
+  //   getGameObjectNameFunc, setGameObjectNameFunc,
+  //   getLocalPositionXFunc, setLocalPositionXFunc,
+  //   getLocalPositionYFunc, setLocalPositionYFunc,
+  //   getLocalPositionZFunc, setLocalPositionZFunc,
+  //   getLocalEulerXFunc, setLocalEulerXFunc,
+  //   getLocalEulerYFunc, setLocalEulerYFunc,
+  //   getLocalEulerZFunc, setLocalEulerZFunc,
+  //   getLocalScaleXFunc, setLocalScaleXFunc,
+  //   getLocalScaleYFunc, setLocalScaleYFunc,
+  //   getLocalScaleZFunc, setLocalScaleZFunc,
+  // ]: [getValueFunc<name>, setValueFunc<name>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //     getValueFunc<number>, setValueFunc<number>,
+  //   ],
+
+  gameObjectName: name,
+  localPosition: localPosition,
+  localEulerAngles: localEulerAngles,
+  localScale: localScale,
+  windowName: string,
+  rect: rect,
+) => [nullable<name>, nullable<localPosition>, nullable<localEulerAngles>, nullable<localScale>]
+
+export type ref<T> = {
+  content: T
+}
+
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly init: (_1: StateType_state, _2: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
@@ -102,5 +145,6 @@ export type service = {
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
   readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>,
   readonly sceneTree: sceneTreeFunc,
+  readonly inspector: inspectorFunc,
   readonly getContext: () => context
 };

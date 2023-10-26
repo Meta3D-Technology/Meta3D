@@ -6,6 +6,7 @@ import * as ImGui_Impl from "./lib/imgui_impl"
 import { setNextWindowRect } from "./Utils"
 import { sceneTree } from "./SceneTree"
 import { asset } from "./Asset"
+import { inspector } from "./Inspector"
 
 // let _generateUniqueId = () => {
 //     return Math.floor(Math.random() * 1000000.0).toString()
@@ -226,6 +227,24 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return selectItemLabel
         },
         sceneTree: sceneTree,
+        // inputNumber: ([getValueFunc, setValueFunc], type, label, width, id, step, stepFast, format, flags) => {
+        //     ImGui.PushItemWidth(width);
+
+        //     let imguiFunc: any = null
+        //     switch (type) {
+        //         case "float":
+        //             imguiFunc = ImGui.InputFloat
+        //             break
+        //         case "int":
+        //             imguiFunc = ImGui.InputInt
+        //             break
+        //         default:
+        //             throw new Error(`unknown type: ${type}`)
+        //     }
+
+        //     imguiFunc(`${label}##${id}`, (_ = getValueFunc()) => setValueFunc(_), step, stepFast, format, flags);
+        // },
+        inspector: inspector,
         getContext: () => {
             return ImGui_Impl.gl
         },

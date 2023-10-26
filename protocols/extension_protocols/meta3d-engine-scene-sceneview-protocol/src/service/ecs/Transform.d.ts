@@ -1,5 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
-import { transform, componentName, dataName, localPosition, localRotation, localScale, parent, children } from "meta3d-component-transform-protocol"
+import { transform, componentName, dataName, localPosition, localRotation, localScale, parent, children, localEulerAngles } from "meta3d-component-transform-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 import { localToWorldMatrix } from "meta3d-component-transform-protocol-common/src/Index"
@@ -25,6 +25,10 @@ export type setLocalPosition = (meta3dState: meta3dState, transform: transform, 
 export type getLocalRotation = (meta3dState: meta3dState, transform: transform) => localRotation
 
 export type setLocalRotation = (meta3dState: meta3dState, transform: transform, localRotation: localRotation) => meta3dState
+
+export type getLocalEulerAngles = (meta3dState: meta3dState, transform: transform) => localEulerAngles
+
+export type setLocalEulerAngles = (meta3dState: meta3dState, transform: transform, localEulerAngles: localEulerAngles) => meta3dState
 
 export type getLocalScale = (meta3dState: meta3dState, transform: transform) => localScale
 

@@ -1,6 +1,6 @@
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
-import { transform, componentName, dataName, localPosition, localRotation, localScale, parent, children, localToWorldMatrix } from "meta3d-component-transform-protocol"
+import { transform, componentName, dataName, localPosition, localRotation, localScale, parent, children, localToWorldMatrix, localEulerAngles } from "meta3d-component-transform-protocol"
 import { lookAt as lookAtTransform } from "meta3d-component-commonlib"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
@@ -102,6 +102,21 @@ export let setLocalRotation = (engineCoreState: engineCoreState, { unsafeGetUsed
 
     return setUsedComponentContribute(engineCoreState, contribute, componentName)
 }
+
+export let getLocalEulerAngles = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): localEulerAngles => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    return getExn(getComponentData<transform, localEulerAngles>(contribute, transform, dataName.localEulerAngles))
+}
+
+export let setLocalEulerAngles = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setComponentData, setUsedComponentContribute }: engineCoreService, transform: transform, localEulerAngles: localEulerAngles) => {
+    let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)
+
+    contribute = setComponentData(contribute, transform, dataName.localEulerAngles, localEulerAngles)
+
+    return setUsedComponentContribute(engineCoreState, contribute, componentName)
+}
+
 
 export let getLocalScale = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, transform: transform): localScale => {
     let contribute = unsafeGetUsedComponentContribute(engineCoreState, componentName)

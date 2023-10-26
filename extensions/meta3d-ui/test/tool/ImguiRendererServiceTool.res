@@ -23,6 +23,7 @@ let buildService = (
   ~handleDragDropTarget=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~menu=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~sceneTree=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~inspector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -47,5 +48,6 @@ let buildService = (
     handleDragDropTarget: handleDragDropTarget->Obj.magic,
     menu,
     sceneTree,
+    inspector,
   }
 }

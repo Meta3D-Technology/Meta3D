@@ -25,6 +25,10 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$5 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: UIManager$Meta3dUi.registerElement,
           registerSkin: UIManager$Meta3dUi.registerSkin,
@@ -123,6 +127,9 @@ function getExtensionService(api) {
             }),
           sceneTree: (function (param, param$1, param$2, param$3, param$4, param$5) {
               return UIManager$Meta3dUi.sceneTree(partial_arg$4, param, param$1, param$2, param$3, param$4, param$5);
+            }),
+          inspector: (function (param, param$1, param$2, param$3, param$4, param$5, param$6) {
+              return UIManager$Meta3dUi.inspector(partial_arg$5, param, param$1, param$2, param$3, param$4, param$5, param$6);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

@@ -148,6 +148,15 @@ type service = {
     string,
     Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => (Meta3dType.Index.state, Meta3dImguiRendererProtocol.ServiceType.sceneTreeReturnData),
+  inspector: (
+    Meta3dType.Index.state,
+    string,
+    (float, float, float),
+    (float, float, float),
+    (float, float, float),
+    string,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
+  ) => (Meta3dType.Index.state, Meta3dImguiRendererProtocol.ServiceType.inspectorReturnData),
   // prepare: (
   //   StateType.state,
   //   array<

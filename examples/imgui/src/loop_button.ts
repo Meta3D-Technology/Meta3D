@@ -476,15 +476,27 @@ export let loop = (time: number) => {
 
     ImGui.SetNextItemOpen(true, ImGui.Cond.Always);
     if (ImGui.CollapsingHeader("Transform")) {
+        ImGui.PushItemWidth(400/4);
         ImGui.PushID(1);
-        ImGui.PushItemWidth(100);
-        ImGui.InputFloat("", (_ = value2) => value2 = _, 0.01, 1.0, "%.5f");
-        ImGui.SameLine()
+        if(ImGui.InputFloat("", (_ = value2) => value2 = _, 0.01, 1.0, "%.5f")){
+console.log(value2)
+        }
+        // console.log(result)
+
+
         ImGui.PopID()
+        ImGui.SameLine()
+
         ImGui.PushID(2);
         ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
-        ImGui.PopItemWidth();
         ImGui.PopID()
+
+        ImGui.SameLine()
+
+        ImGui.PushID(3);
+        ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
+        ImGui.PopID()
+        ImGui.PopItemWidth();
 
         ImGui.SameLine()
 

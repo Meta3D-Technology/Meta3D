@@ -454,6 +454,15 @@ function sceneTree(data, meta3dState, sceneTreeData, lastSceneTreeSelectedData, 
               }), data);
 }
 
+function inspector(data, meta3dState, gameObjectName, localPosition, localEulerAngles, localScale, windowName, rect) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.inspector(gameObjectName, localPosition, localEulerAngles, localScale, windowName, rect)
+                      ];
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -582,6 +591,7 @@ export {
   handleDragDropTarget ,
   menu ,
   sceneTree ,
+  inspector ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

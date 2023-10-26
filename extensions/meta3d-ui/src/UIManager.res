@@ -727,6 +727,35 @@ let sceneTree = (
   )
 }
 
+let inspector = (
+  data,
+  meta3dState,
+  gameObjectName,
+  localPosition,
+  localEulerAngles,
+  localScale,
+  windowName,
+  rect,
+) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      (
+        imguiRendererState,
+        imguiRendererService.inspector(.
+          gameObjectName,
+          localPosition,
+          localEulerAngles,
+          localScale,
+          windowName,
+          rect,
+        ),
+      )
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,

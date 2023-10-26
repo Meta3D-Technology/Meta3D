@@ -64,6 +64,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     handleDragDropTarget: UIManager.handleDragDropTarget((api, "meta3d-imgui-renderer-protocol")),
     menu: UIManager.menu((api, "meta3d-imgui-renderer-protocol")),
     sceneTree: UIManager.sceneTree((api, "meta3d-imgui-renderer-protocol")),
+    inspector: UIManager.inspector((api, "meta3d-imgui-renderer-protocol")),
     // getIOData: UIManager.getIOData,
     // dispatch: UIManager.dispatch,
     updateElementState: UIManager.updateElementState,
