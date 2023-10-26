@@ -311,18 +311,10 @@ e.g. actions, uicontrols
 
 
 * TODO Inspector
+  ** TODO edit gameObject name
   ** TODO edit local position, euler, scale
   ** TODO show components
-    *** TODO active basic camera view
-    TODO fix import scene* TODO>active
 
-  ** TODO add component
-    *** TODO now only add arcball, basiccameraview, perspective component, no other components
-    handle event
-       **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
-       **** TODO publish: bind event when active has arcball
-
-  ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
 
 
 * TODO scene view
@@ -331,10 +323,22 @@ e.g. actions, uicontrols
   ** TODO add grid
 
 
+* TODO game view
+
+remove arcball
+
+
+
+
+
+
 
 * TODO Controller
 
   ** TODO add run controller(ui control) to unify run, stop action
+
+
+
 
 * TODO Message
 e.g. show import progress bar
@@ -357,6 +361,11 @@ e.g. some actions, uicontrols dependent on it, should remove the dependent!
 
 
 * TODO feat: remove title bar of scene view, ...
+
+
+
+* TODO change to % size?
+
 
 
 * TODO layout editor page

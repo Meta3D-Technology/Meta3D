@@ -369,69 +369,127 @@ import { addTexture } from "./init_button";
 
 
 
-let selectedNodeIndex = -1
+// let selectedNodeIndex = -1
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time);
+//     ImGui.NewFrame();
+
+
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100));
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 300));
+
+
+//     ImGui.Begin("Menu Window");
+
+
+
+//     ImGui.SetNextItemOpen(true, ImGui.Cond.Always);
+//     if (ImGui.TreeNode("Scene")) {
+//         for (let i = 0; i <= 30; i++) {
+//             let flags = ImGui.TreeNodeFlags.OpenOnArrow
+
+//             if (selectedNodeIndex == i) {
+//                 flags = flags | ImGui.TreeNodeFlags.Selected
+//             }
+
+//             // console.log(selectedNodeIndex)
+
+// let node_open = ImGui.TreeNodeEx(/*(void*)(intptr_t)*/i, flags, `Selectable NodSelectable NodSelectable NodSelectable NodSelectable NodSelectable NodeeeeeeSelectable Node i`.slice(0, 20))
+//             if (ImGui.IsItemClicked() && !ImGui.IsItemToggledOpen()) {
+//                 selectedNodeIndex = i
+//             }
+
+//             if (ImGui.BeginDragDropSource()) {
+//                 ImGui.SetDragDropPayload("_TREENODE", i);
+//                 ImGui.Text("This is a drag and drop source");
+//                 ImGui.EndDragDropSource();
+//             }
+
+//             if (ImGui.BeginDragDropTarget()) {
+//                 let payload
+//                 if (payload = ImGui.AcceptDragDropPayload("_TREENODE")) {
+//                     // ImGui.ASSERT(payload.DataSize === sizeof(int));
+//                     const payload_n = payload.Data;
+//                     console.log("accept drag target, from source: ", payload_n, i)
+
+//                 }
+//                 ImGui.EndDragDropTarget();
+//             }
+
+//             ImGui.SameLine()
+//             ImGui.Image(addTexture._texture, new ImGui.ImVec2(20, 20))
+
+
+
+//             if (node_open) {
+//                 ImGui.Text("blah blah");
+
+
+//                 ImGui.TreePop();
+//             }
+//         }
+
+//         ImGui.TreePop();
+//     }
+
+
+
+
+
+
+//     ImGui.End()
+
+
+
+
+
+//     ImGui.EndFrame();
+//     ImGui.Render();
+
+
+//     // ImGui.StyleColorsDark();
+//     ImGui.StyleColorsClassic();
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1));
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1));
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+// }
+
+
+
+
+let name: string = "Hello"
+let value: number = 1;
+let value2: number = 1;
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
 
 
     ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 300));
+    ImGui.SetNextWindowSize(new ImGui.ImVec2(400, 600));
 
 
-    ImGui.Begin("Menu Window");
+    ImGui.Begin("Inspector", null, ImGui.WindowFlags.NoTitleBar);
 
-
+    ImGui.InputText("Name", (_ = name) => name = _, 30);
 
     ImGui.SetNextItemOpen(true, ImGui.Cond.Always);
-    if (ImGui.TreeNode("Scene")) {
-        for (let i = 0; i <= 30; i++) {
-            let flags = ImGui.TreeNodeFlags.OpenOnArrow
+    if (ImGui.CollapsingHeader("Transform")) {
+        ImGui.PushID(1);
+        ImGui.PushItemWidth(100);
+        ImGui.InputFloat("", (_ = value2) => value2 = _, 0.01, 1.0, "%.5f");
+        ImGui.SameLine()
+        ImGui.PopID()
+        ImGui.PushID(2);
+        ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
+        ImGui.PopItemWidth();
+        ImGui.PopID()
 
-            if (selectedNodeIndex == i) {
-                flags = flags | ImGui.TreeNodeFlags.Selected
-            }
+        ImGui.SameLine()
 
-            // console.log(selectedNodeIndex)
-
-            let node_open = ImGui.TreeNodeEx(/*(void*)(intptr_t)*/i, flags, `Selectable NodSelectable NodSelectable NodSelectable NodSelectable NodSelectable NodeeeeeeSelectable Node i`.slice(0, 20))
-            if (ImGui.IsItemClicked() && !ImGui.IsItemToggledOpen()) {
-                selectedNodeIndex = i
-            }
-
-            if (ImGui.BeginDragDropSource()) {
-                ImGui.SetDragDropPayload("_TREENODE", i);
-                ImGui.Text("This is a drag and drop source");
-                ImGui.EndDragDropSource();
-            }
-
-            if (ImGui.BeginDragDropTarget()) {
-                let payload
-                if (payload = ImGui.AcceptDragDropPayload("_TREENODE")) {
-                    // ImGui.ASSERT(payload.DataSize === sizeof(int));
-                    const payload_n = payload.Data;
-                    console.log("accept drag target, from source: ", payload_n, i)
-
-                }
-                ImGui.EndDragDropTarget();
-            }
-
-            ImGui.SameLine()
-            ImGui.Image(addTexture._texture, new ImGui.ImVec2(20, 20))
-
-
-
-            if (node_open) {
-                ImGui.Text("blah blah");
-
-
-                ImGui.TreePop();
-            }
-        }
-
-        ImGui.TreePop();
+        ImGui.Text("Position");
     }
-
 
 
 
