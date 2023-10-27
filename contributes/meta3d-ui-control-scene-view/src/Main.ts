@@ -31,7 +31,14 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
 
             meta3dState = beginChild(meta3dState, "Child_SceneView")
 
-            let fboRect = getFBORect(rect, getWindowBarHeight(meta3dState))
+            // let fboRect = getFBORect(rect, getWindowBarHeight(meta3dState))
+            let fboRect = getFBORect(rect, 0)
+            // fboRect = {
+            //     x: fboRect.x - 5,
+            //     y: fboRect.y - 5,
+            //     width: fboRect.width + 10,
+            //     height: fboRect.height + 10,
+            // }
 
 
             meta3dState = addFBOTexture(meta3dState, changeToStrictlyNull(getFBOTexture, uiState, textureID), fboRect)

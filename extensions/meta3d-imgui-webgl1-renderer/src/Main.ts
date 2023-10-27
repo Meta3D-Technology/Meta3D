@@ -110,7 +110,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
         },
         beginWindow: (label) => {
             // ImGui.Begin(label + "##" + _generateUniqueId())
-            ImGui.Begin(label)
+            // ImGui.Begin(label)
+            ImGui.Begin(label, null, ImGui.WindowFlags.NoTitleBar)
 
             // console.log(
             //     ImGui.IsWindowFocused(),

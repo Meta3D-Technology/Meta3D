@@ -56,7 +56,7 @@ export let inspector: inspectorFunc = (
     ImGui.Begin(windowName, null, ImGui.WindowFlags.NoTitleBar)
 
     ImGui.PushItemWidth(rect.width * 2 / 3)
-    if (ImGui.InputText("Name", buildBind(gameObjectNameRef), 35)) {
+    if (ImGui.InputText("名字", buildBind(gameObjectNameRef), 35)) {
         newGameObjectName = gameObjectNameRef.content
     }
 
@@ -65,21 +65,21 @@ export let inspector: inspectorFunc = (
         ImGui.PushItemWidth(rect.width / 4)
 
         ImGui.PushID("position_x")
-        if (ImGui.InputFloat("", buildBind(localPositionXRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localPositionXRef), 0.01, 1.0, "%.3f")) {
             newLocalPositionX = localPositionXRef.content
         }
         ImGui.PopID()
         ImGui.SameLine()
 
         ImGui.PushID("position_y")
-        if (ImGui.InputFloat("", buildBind(localPositionYRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localPositionYRef), 0.01, 1.0, "%.3f")) {
             newLocalPositionY = localPositionYRef.content
         }
         ImGui.PopID()
         ImGui.SameLine()
 
         ImGui.PushID("position_z")
-        if (ImGui.InputFloat("", buildBind(localPositionZRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localPositionZRef), 0.01, 1.0, "%.3f")) {
             newLocalPositionZ = localPositionZRef.content
         }
         ImGui.PopID()
@@ -87,27 +87,27 @@ export let inspector: inspectorFunc = (
 
         ImGui.SameLine()
 
-        ImGui.Text("Position")
+        ImGui.Text("位移")
 
 
 
 
         ImGui.PushID("eulerAngle_x")
-        if (ImGui.InputFloat("", buildBind(localEulerAngleXRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localEulerAngleXRef), 0.01, 1.0, "%.3f")) {
             newLocalEulerAngleX = localEulerAngleXRef.content
         }
         ImGui.PopID()
         ImGui.SameLine()
 
         ImGui.PushID("eulerAngle_y")
-        if (ImGui.InputFloat("", buildBind(localEulerAngleYRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localEulerAngleYRef), 0.01, 1.0, "%.3f")) {
             newLocalEulerAngleY = localEulerAngleYRef.content
         }
         ImGui.PopID()
         ImGui.SameLine()
 
         ImGui.PushID("eulerAngle_z")
-        if (ImGui.InputFloat("", buildBind(localEulerAngleZRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localEulerAngleZRef), 0.01, 1.0, "%.3f")) {
             newLocalEulerAngleZ = localEulerAngleZRef.content
         }
         ImGui.PopID()
@@ -115,28 +115,28 @@ export let inspector: inspectorFunc = (
 
         ImGui.SameLine()
 
-        ImGui.Text("EulerAngle")
+        ImGui.Text("欧拉角")
 
 
 
 
 
         ImGui.PushID("scale_x")
-        if (ImGui.InputFloat("", buildBind(localScaleXRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localScaleXRef), 0.01, 1.0, "%.3f")) {
             newLocalScaleX = localScaleXRef.content
         }
         ImGui.PopID()
         ImGui.SameLine()
 
         ImGui.PushID("scale_y")
-        if (ImGui.InputFloat("", buildBind(localScaleYRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localScaleYRef), 0.01, 1.0, "%.3f")) {
             newLocalScaleY = localScaleYRef.content
         }
         ImGui.PopID()
         ImGui.SameLine()
 
         ImGui.PushID("scale_z")
-        if (ImGui.InputFloat("", buildBind(localScaleZRef), 0.01, 1.0, "%.5f")) {
+        if (ImGui.InputFloat("", buildBind(localScaleZRef), 0.01, 1.0, "%.3f")) {
             newLocalScaleZ = localScaleZRef.content
         }
         ImGui.PopID()
@@ -144,7 +144,7 @@ export let inspector: inspectorFunc = (
 
         ImGui.SameLine()
 
-        ImGui.Text("Scale")
+        ImGui.Text("缩放")
 
 
         ImGui.PopItemWidth()

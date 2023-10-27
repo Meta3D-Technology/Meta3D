@@ -365,23 +365,23 @@ set event
 
 
 
-* TODO refactor: remove meta3d-imgui-renderer-protocol dependent except in meta3d-ui
+# * TODO refactor: remove meta3d-imgui-renderer-protocol dependent except in meta3d-ui
 
-e.g. some actions, uicontrols dependent on it, should remove the dependent!
-
-
-* TODO fix: solve click button blink problem
+# e.g. some actions, uicontrols dependent on it, should remove the dependent!
 
 
-* TODO feat: remove title bar of scene view, ...
+# * TODO fix: solve click button blink problem
 
 
-
-* TODO change to % size?
+# * TODO feat: remove title bar of scene view, ...
 
 
 
-* TODO layout editor page
+# * TODO change to % size?
+
+
+
+* DONE layout editor page
 
 
 
@@ -390,7 +390,7 @@ e.g. some actions, uicontrols dependent on it, should remove the dependent!
 
 
 
-* TODO fix: import event: if not import, should return to page instead of empty
+* TODO fix: import event, load glb: if not import, should return to page instead of empty
 
 
 
@@ -404,3 +404,10 @@ TODO update meta3d-imgui-webgl1-three-renderer
 * TODO Debug Output
 
 */
+
+
+
+
+* TODO publish
+
+TODO ci
