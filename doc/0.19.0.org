@@ -389,7 +389,7 @@ set event
 
 
 
-* TODO fix: import event, load glb: if not import, should return to page instead of empty
+* DONE fix: import event, load glb: if not import, should return to page instead of empty
 
 
 

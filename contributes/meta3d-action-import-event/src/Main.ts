@@ -65,7 +65,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")
 
-                importFile((file:any, result:any) => {
+                importFile((file: any, result: any) => {
                     if (!file.name.includes(".arraybuffer")) {
                         reject(new Error("文件后缀名应该是.arraybuffer"))
                     }
@@ -74,11 +74,13 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                         name: eventName,
                         inputData: [result as ArrayBuffer]
                     }))
-                }, (event:Event, file:any) => {
+                }, (event: Event, file: any) => {
                     reject(new Error(`读取${file.name}错误`))
-                }, (loaded:number, total:number) => {
+                }, (loaded: number, total: number) => {
                     // TODO show progress message
                     console.log(`loading ${loaded / total} %`)
+                }, () => {
+                    resolve(meta3dState)
                 })
             })
         },

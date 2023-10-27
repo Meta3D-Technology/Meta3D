@@ -1,9 +1,13 @@
-export let importFile = (onloadFunc:any, onerrorFunc:any, onprogressFunc:any) => {
+export let importFile = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any, oncancelFunc: any) => {
     let input = document.createElement('input')
     input.setAttribute('type', "file")
     input.style.visibility = 'hidden'
 
     input.onchange = (event) => {
+        if ((event.target as any).files.length == 0) {
+            oncancelFunc()
+        }
+
         let file = (event.target as any).files[0]
 
         let reader = new FileReader()
@@ -21,6 +25,10 @@ export let importFile = (onloadFunc:any, onerrorFunc:any, onprogressFunc:any) =>
         }
 
         reader.readAsArrayBuffer(file)
+    }
+
+    input.oncancel = (event) => {
+        oncancelFunc()
     }
 
     document.body.appendChild(input)

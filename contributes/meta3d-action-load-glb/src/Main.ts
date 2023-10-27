@@ -80,6 +80,8 @@ export let getContribute: getContributeMeta3D<actionContribute<loadGlbUIData, st
                 }, (loaded: number, total: number) => {
                     // TODO show progress message
                     console.log(`loading ${loaded / total} %`)
+                }, () => {
+                    resolve(meta3dState)
                 })
             })
         },
