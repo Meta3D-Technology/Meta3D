@@ -62,11 +62,17 @@ function _removeFromParent(state, currentParent, child) {
   return state;
 }
 
+function markHierachyDirty(state, transform) {
+  DirtyTransformUtils$Meta3dComponentTransform.mark(state, transform, true);
+  var childrenMap = state.childrenMap;
+  return ArraySt$Meta3dCommonlib.reduceOneParam(MutableSparseMap$Meta3dCommonlib.unsafeGet(childrenMap, transform), markHierachyDirty, state);
+}
+
 function removeParent(state, transform) {
   var parentMap = state.parentMap;
   var currentParent = MutableSparseMap$Meta3dCommonlib.get(parentMap, transform);
   if (currentParent !== undefined) {
-    return _removeFromParent(state, currentParent, transform);
+    return markHierachyDirty(_removeFromParent(state, currentParent, transform), transform);
   } else {
     return state;
   }
@@ -86,12 +92,6 @@ function _setNewParent(state, parent, child) {
   }
 }
 
-function markHierachyDirty(state, transform) {
-  DirtyTransformUtils$Meta3dComponentTransform.mark(state, transform, true);
-  var childrenMap = state.childrenMap;
-  return ArraySt$Meta3dCommonlib.reduceOneParam(MutableSparseMap$Meta3dCommonlib.unsafeGet(childrenMap, transform), markHierachyDirty, state);
-}
-
 function setParent(state, parent, child) {
   return markHierachyDirty(_setNewParent(state, parent, child), child);
 }
@@ -106,8 +106,8 @@ exports.removeParentMap = removeParentMap;
 exports._removeChild = _removeChild;
 exports.removeFromChildMap = removeFromChildMap;
 exports._removeFromParent = _removeFromParent;
+exports.markHierachyDirty = markHierachyDirty;
 exports.removeParent = removeParent;
 exports._setNewParent = _setNewParent;
-exports.markHierachyDirty = markHierachyDirty;
 exports.setParent = setParent;
 /* No side effect */

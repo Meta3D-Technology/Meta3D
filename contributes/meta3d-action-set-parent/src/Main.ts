@@ -5,7 +5,7 @@ import { eventName, inputData } from "meta3d-action-set-parent-protocol/src/Even
 import { service as engineWholeSceneViewService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
-import { bind, getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { bind, getExn, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 import { getState, setState } from "./Utils"
 import { List } from "immutable"
@@ -23,7 +23,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
 
                     let sourceTranform = engineWholeSceneViewService.scene.gameObject.getTransform(meta3dState, source)
-                    let targetTranform = engineWholeSceneViewService.scene.gameObject.getTransform(meta3dState, target)
+                    let targetTranform = map(target => {
+                        return engineWholeSceneViewService.scene.gameObject.getTransform(meta3dState, target)
+                    }, target)
 
                     let oldParent = bind((parent) => {
                         return engineWholeSceneViewService.scene.transform.getGameObjects(meta3dState, parent)[0]
@@ -33,7 +35,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
 
                     sourceTranform = engineWholeGameViewService.scene.gameObject.getTransform(meta3dState, source)
-                    targetTranform = engineWholeGameViewService.scene.gameObject.getTransform(meta3dState, target)
+                    targetTranform = map(target => {
+                        return engineWholeGameViewService.scene.gameObject.getTransform(meta3dState, target)
+                    }, target)
 
                     meta3dState = engineWholeGameViewService.scene.transform.setParent(meta3dState, sourceTranform, targetTranform)
 

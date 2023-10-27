@@ -6,7 +6,7 @@ export const actionName = "SetParent"
 
 export type uiData = {
     source: gameObject,
-    target: gameObject
+    target: nullable<gameObject>
 }
 
 export type state = {

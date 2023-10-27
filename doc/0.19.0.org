@@ -384,13 +384,24 @@ set event
 * DONE layout editor page
 
 
-
-* TODO fix: import app with package->select all in assemble space->go to Index->enter assemble space: package not stored in app!
+* DONE feat: set parent can set to Scene
 
 
 
 
 * TODO fix: import event, load glb: if not import, should return to page instead of empty
+
+
+
+
+* TODO fix: import app with package->select all in assemble space->go to Index->enter assemble space: package not stored in app!
+
+
+
+* TODO menu: add help->about Meta3D
+
+jump to website
+
 
 
 

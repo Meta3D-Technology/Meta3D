@@ -72,12 +72,24 @@ let _removeFromParent = (state, currentParent, child) => {
   state
 }
 
+let rec markHierachyDirty = (state, transform) => {
+  DirtyTransformUtils.mark(state, transform, true)->ignore
+
+  let {childrenMap} = state
+
+  unsafeGetChildren(childrenMap, transform)->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. state, child) => markHierachyDirty(state, child),
+    state,
+  )
+}
+
 let removeParent = (state, transform) => {
   let {parentMap, childrenMap} = state
 
   switch getParent(parentMap, transform) {
   | None => state
-  | Some(currentParent) => _removeFromParent(state, currentParent, transform)
+  | Some(currentParent) =>
+    _removeFromParent(state, currentParent, transform)->markHierachyDirty(transform)
   }
 }
 // getNullableParent(parentMap, transform)->Js.Nullable.isNullable
@@ -114,17 +126,6 @@ let _setNewParent = (state, parent, child) => {
         }
       : state
   }
-}
-
-let rec markHierachyDirty = (state, transform) => {
-  DirtyTransformUtils.mark(state, transform, true)->ignore
-
-  let {childrenMap} = state
-
-  unsafeGetChildren(childrenMap, transform)->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (. state, child) => markHierachyDirty(state, child),
-    state,
-  )
 }
 
 let setParent = (state, parent, child) =>

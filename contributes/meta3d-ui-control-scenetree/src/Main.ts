@@ -169,7 +169,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                 return trigger(meta3dState, "meta3d-event-protocol", setParentActionName,
                     {
                         source: _findSelectedGameObject(hierachyGameObjects, source),
-                        target: _findSelectedGameObject(hierachyGameObjects, target)
+                        target: target.length == 0 ? null : _findSelectedGameObject(hierachyGameObjects, target)
                     }
                 ).then(meta3dState => [meta3dState, null])
             }

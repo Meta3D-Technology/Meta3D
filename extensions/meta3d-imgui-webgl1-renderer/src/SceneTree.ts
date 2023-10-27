@@ -119,9 +119,24 @@ export let sceneTree: sceneTreeFunc = (sceneTreeData, lastSceneTreeSelectedData,
     ImGui.SetNextItemOpen(true, ImGui.Cond.Always)
 
     let data: [nullable<sceneTreeIndexData>, nullable<sceneTreeDragData>] = null
+    let dragData: nullable<sceneTreeDragData> = null
 
     if (ImGui.TreeNode("Scene")) {
-        data = _renderSceneTree([null, null], lastSceneTreeSelectedData, null, [], sceneTreeData)
+        if (ImGui.BeginDragDropTarget()) {
+            let payload = ImGui.AcceptDragDropPayload<sceneTreeIndexData>(dragDropType)
+
+            if (payload !== null) {
+                dragData = {
+                    source: payload.Data,
+                    target: []
+                }
+            }
+            ImGui.EndDragDropTarget()
+        }
+
+
+
+        data = _renderSceneTree([null, dragData], lastSceneTreeSelectedData, null, [], sceneTreeData)
 
         ImGui.TreePop();
     }
