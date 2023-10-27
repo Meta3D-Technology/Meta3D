@@ -326,21 +326,22 @@ TODO fix:
 
 * TODO scene view
 
-  # ** TODO scene view show direction light, camera(show image)
-  ** TODO add grid
+# ** TODO add grid
 
 
-  ** TODO add ambient
-
-  TODO add Scene API to get/set ambient
-
-  TODO scene graph:
-    convert
-    import
-
-  TODO export scene
+** TODO use clearColor
 
 
+TODO change to gray
+
+
+
+# TODO publish should use clearColor
+
+
+
+TODO publish:
+meta3d-pipeline-webgl1-three-gameview, sceneview
 
 
 * TODO game view

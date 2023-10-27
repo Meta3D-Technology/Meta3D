@@ -16,6 +16,7 @@ export let init = <converterService_ extends converterService>(meta3dState: meta
     // renderer.setPixelRatio(window.devicePixelRatio);
     // renderer.setSize(canvas.width, canvas.height);
     // document.body.appendChild(renderer.domElement);
+    renderer.setClearColor(new threeAPIService.Color(0x9C9C9C))
     renderer.setClearAlpha(1.0)
 
     return [meta3dState, renderer]
