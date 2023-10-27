@@ -405,13 +405,13 @@ jump to website
 
 
 
-* TODO pass publish
+* DONE pass publish
 
 TODO update meta3d-imgui-webgl1-three-renderer
 
 
 TODO publish:
-scenegraph s,g
+# scenegraph s,g
 
 
 

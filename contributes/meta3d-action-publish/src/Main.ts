@@ -80,6 +80,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
+                    isOnlyRead: true,
                     inputData: []
                 }))
             })
