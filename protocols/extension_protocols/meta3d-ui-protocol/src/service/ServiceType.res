@@ -179,6 +179,6 @@ type service = {
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
     clearColor,
   ) => Meta3dType.Index.state,
-  getCurrentElementState: StateType.state => StateType.elementState,
+  getCurrentElementState: StateType.state => Js.Nullable.t<StateType.elementState>,
   setCurrentElementState: (StateType.state, StateType.elementState) => StateType.state,
 }

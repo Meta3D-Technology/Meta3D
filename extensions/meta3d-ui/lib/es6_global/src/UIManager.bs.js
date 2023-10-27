@@ -477,7 +477,7 @@ function _getCurrentElementStateOption(state) {
 }
 
 function getCurrentElementState(state) {
-  return _getElementStateExn(state, OptionSt$Meta3dCommonlib.getExn(state.currentElementName));
+  return getElementState(state, OptionSt$Meta3dCommonlib.getExn(state.currentElementName));
 }
 
 function setCurrentElementState(state, currentElementState) {
@@ -516,14 +516,14 @@ function restore(api, currentMeta3dState, targetMeta3dState) {
   var eventService = api.getExtensionService(targetMeta3dState, eventExtensionProtocolName);
   var eventState = api.getExtensionState(targetMeta3dState, eventExtensionProtocolName);
   var currentUIState = api.getExtensionState(currentMeta3dState, uiExtensionProtocolName);
-  var currentElementState = _getElementStateExn(currentUIState, OptionSt$Meta3dCommonlib.getExn(currentUIState.currentElementName));
+  var currentElementState = NullableSt$Meta3dCommonlib.getExn(getElementState(currentUIState, OptionSt$Meta3dCommonlib.getExn(currentUIState.currentElementName)));
   var targetUIState = api.getExtensionState(targetMeta3dState, uiExtensionProtocolName);
   var targetElementState = ArraySt$Meta3dCommonlib.reduceOneParam(Curry._1(eventService.getAllActionContributes, eventState), (function (targetElementState, param) {
           var actionName = param[0];
           return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].restore, (function (restore) {
                             return ImmutableHashMap$Meta3dCommonlib.set(targetElementState, actionName, Curry._2(restore, ImmutableHashMap$Meta3dCommonlib.getExn(currentElementState, actionName), ImmutableHashMap$Meta3dCommonlib.getExn(targetElementState, actionName)));
                           })), targetElementState);
-        }), _getElementStateExn(targetUIState, OptionSt$Meta3dCommonlib.getExn(targetUIState.currentElementName)));
+        }), NullableSt$Meta3dCommonlib.getExn(getElementState(targetUIState, OptionSt$Meta3dCommonlib.getExn(targetUIState.currentElementName))));
   var targetUIState$1 = setCurrentElementState(targetUIState, targetElementState);
   return api.setExtensionState(targetMeta3dState, uiExtensionProtocolName, targetUIState$1);
 }
@@ -539,7 +539,7 @@ function deepCopy(api, meta3dState) {
           return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(param[1].deepCopy, (function (deepCopy) {
                             return ImmutableHashMap$Meta3dCommonlib.set(elementState, actionName, Curry._1(deepCopy, ImmutableHashMap$Meta3dCommonlib.getExn(elementState, actionName)));
                           })), elementState);
-        }), _getElementStateExn(uiState, OptionSt$Meta3dCommonlib.getExn(uiState.currentElementName)));
+        }), NullableSt$Meta3dCommonlib.getExn(getElementState(uiState, OptionSt$Meta3dCommonlib.getExn(uiState.currentElementName))));
   var uiState$1 = setCurrentElementState(uiState, elementState);
   return api.setExtensionState(meta3dState, uiExtensionProtocolName, uiState$1);
 }

@@ -55,7 +55,7 @@ export let inspector: inspectorFunc = (
 
     ImGui.Begin(windowName, null, ImGui.WindowFlags.NoTitleBar)
 
-    ImGui.PushItemWidth(rect.width)
+    ImGui.PushItemWidth(rect.width * 2 / 3)
     if (ImGui.InputText("Name", buildBind(gameObjectNameRef), 35)) {
         newGameObjectName = gameObjectNameRef.content
     }

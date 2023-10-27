@@ -82,7 +82,7 @@ export type service = {
     ) => Promise<meta3dState>;
     readonly getCurrentElementState: (
         state: state
-    ) => elementState;
+    ) => nullable<elementState>;
     readonly show: (
         state: state,
         elementName: elementName

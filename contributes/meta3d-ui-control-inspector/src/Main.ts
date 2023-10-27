@@ -5,7 +5,7 @@ import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControl
 import { getExn, getWithDefault, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
-import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
+import { getActionStateInUIControl } from "meta3d-ui-utils/src/ElementStateUtils"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { actionName as setGameObjectNameActionName } from "meta3d-action-set-gameobjectname-protocol"
 import { actionName as setLocalPositionActionName } from "meta3d-action-set-localposition-protocol"
@@ -21,9 +21,15 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                 label
             }
         ) => {
+            let selectSceneTreeNodeState = getActionStateInUIControl<selectSceneTreeNodeState>(meta3dState, api, selectSceneTreeNodeActionName)
+
+            if (isNullable(selectSceneTreeNodeState)) {
+                return Promise.resolve([meta3dState, null])
+            }
+
             let {
                 selectedGameObject
-            } = getActionState<selectSceneTreeNodeState>(meta3dState, api, selectSceneTreeNodeActionName)
+            } = getExn(selectSceneTreeNodeState)
 
             if (isNullable(selectedGameObject)) {
                 return Promise.resolve([meta3dState, null])

@@ -7,7 +7,7 @@ import { service as engineWholeGameViewService } from "meta3d-engine-whole-gamev
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
-import { getState, setState } from "./Utils"
+import { getSelectSceneTreeNodeState, getState, setSelectSceneTreeNodeState, setState } from "./Utils"
 import { List } from "immutable"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
@@ -67,17 +67,33 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                             return {
                                 ...state,
+                                allSelectedGameObjects: state.allSelectedGameObjects.push(selectedGameObject),
                                 allDisposedGameObjectData: state.allDisposedGameObjectData.push(List(disposedGameObjectData)),
                             }
                         },
                         setState
                     ], meta3dState, api)
 
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getSelectSceneTreeNodeState(elementState)
+
+                            return {
+                                ...state,
+                                selectedGameObject: null
+                            }
+                        },
+                        setSelectSceneTreeNodeState
+                    ], meta3dState, api)
+
+
 
                     let { getUIControlState, setUIControlState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
 
                     let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
                     let sceneTreeState = getExn(getUIControlState<sceneTreeState>(api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol"), sceneTreeUIControlName))
+
+                    let lastSceneTreeSelectedData = sceneTreeState.lastSceneTreeSelectedData
 
                     uiState = setUIControlState(uiState, sceneTreeUIControlName, {
                         ...sceneTreeState,
@@ -86,9 +102,27 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
 
+
+
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getState(elementState)
+
+                            return {
+                                ...state,
+                                allLastSceneTreeSelectedData: state.allLastSceneTreeSelectedData.push(lastSceneTreeSelectedData),
+                            }
+                        },
+                        setState
+                    ], meta3dState, api)
+
+
+
                     return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
                 }, (meta3dState) => {
                     let {
+                        allSelectedGameObjects,
+                        allLastSceneTreeSelectedData,
                         allDisposedGameObjectData,
                     } = getActionState<state>(meta3dState, api, actionName)
 
@@ -104,6 +138,38 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = engineWholeSceneViewService.scene.gameObject.restoreRemovedGameObjects(meta3dState, disposedGameObjectData)
                     meta3dState = engineWholeGameViewService.scene.gameObject.restoreRemovedGameObjects(meta3dState, disposedGameObjectData)
 
+                    let selectedGameObject = getExn(allSelectedGameObjects.last())
+
+                    meta3dState = setElementStateField([
+                        (elementState: any) => {
+                            let state = getSelectSceneTreeNodeState(elementState)
+
+                            return {
+                                ...state,
+                                selectedGameObject
+                            }
+                        },
+                        setSelectSceneTreeNodeState
+                    ], meta3dState, api)
+
+
+
+                    let { getUIControlState, setUIControlState } = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
+
+                    let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
+                    let sceneTreeState = getExn(getUIControlState<sceneTreeState>(api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol"), sceneTreeUIControlName))
+
+                    let lastSceneTreeSelectedData = getExn(allLastSceneTreeSelectedData.last())
+
+                    uiState = setUIControlState(uiState, sceneTreeUIControlName, {
+                        ...sceneTreeState,
+                        lastSceneTreeSelectedData
+                    })
+
+                    meta3dState = api.setExtensionState(meta3dState, "meta3d-ui-protocol", uiState)
+
+
+
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {
@@ -111,6 +177,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                             return {
                                 ...state,
+                                allSelectedGameObjects: state.allSelectedGameObjects.pop(),
+                                allLastSceneTreeSelectedData: state.allLastSceneTreeSelectedData.pop(),
                                 allDisposedGameObjectData: state.allDisposedGameObjectData.pop(),
                             }
                         },
@@ -146,6 +214,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: () => {
             return {
+                allSelectedGameObjects: List(),
+                allLastSceneTreeSelectedData: List(),
                 allDisposedGameObjectData: List(),
             }
         }

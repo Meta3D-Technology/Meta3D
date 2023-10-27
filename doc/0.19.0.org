@@ -310,12 +310,19 @@ e.g. actions, uicontrols
 
 
 
-* TODO Inspector
+* DONE Inspector
   ** TODO edit gameObject name
   ** TODO edit local position, euler, scale
   # ** TODO show components
 
 
+TODO need publish
+
+
+TODO fix:
+  fix visual->getActionState in ui control
+  # getLocalEulerAngles
+  dispose->not disappear!
 
 * TODO scene view
 

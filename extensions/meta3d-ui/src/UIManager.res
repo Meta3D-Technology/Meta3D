@@ -773,7 +773,7 @@ let _getCurrentElementStateOption = (state: Meta3dUiProtocol.StateType.state) =>
     state.elementStateMap->Meta3dCommonlib.ImmutableHashMap.get(currentElementName)
   })
 
-let getCurrentElementState = state => _getElementStateExn(state, _getCurrentElementName(state))
+let getCurrentElementState = state => getElementState(state, _getCurrentElementName(state))
 
 let setCurrentElementState = (state, currentElementState) => {
   state->_setElementState(_getCurrentElementName(state), currentElementState)
@@ -862,7 +862,8 @@ let restore = (api: Meta3dType.Index.api, currentMeta3dState, targetMeta3dState)
     currentMeta3dState,
     uiExtensionProtocolName,
   )
-  let currentElementState = getCurrentElementState(currentUIState)->Obj.magic
+  let currentElementState =
+    getCurrentElementState(currentUIState)->Meta3dCommonlib.NullableSt.getExn->Obj.magic
 
   let targetUIState: Meta3dUiProtocol.StateType.state = api.getExtensionState(.
     targetMeta3dState,
@@ -886,7 +887,7 @@ let restore = (api: Meta3dType.Index.api, currentMeta3dState, targetMeta3dState)
         })
         ->Meta3dCommonlib.NullableSt.getWithDefault(targetElementState)
       },
-      getCurrentElementState(targetUIState)->Obj.magic,
+      getCurrentElementState(targetUIState)->Meta3dCommonlib.NullableSt.getExn->Obj.magic,
     )
 
   let targetUIState = setCurrentElementState(targetUIState, targetElementState->Obj.magic)
@@ -925,7 +926,7 @@ let deepCopy = (api: Meta3dType.Index.api, meta3dState) => {
         )
       })
       ->Meta3dCommonlib.NullableSt.getWithDefault(elementState)
-    }, getCurrentElementState(uiState)->Obj.magic)
+    }, getCurrentElementState(uiState)->Meta3dCommonlib.NullableSt.getExn->Obj.magic)
 
   let uiState = setCurrentElementState(uiState, elementState->Obj.magic)
 
