@@ -359,8 +359,36 @@ class Object3D {
         return false
     }
 
+    // public get matrix(): Matrix4Type {
+    //     return new Matrix4()
+    // }
     public get matrix(): Matrix4Type {
-        return new Matrix4()
+        if (this.gameObject == _getEmptyGameObject()) {
+            return new Matrix4()
+        }
+
+        return _getMatrix(
+            this.gameObject
+        )
+    }
+
+    public get matrixWorld(): Matrix4Type {
+        if (this.gameObject == _getEmptyGameObject()) {
+            return new Matrix4()
+        }
+
+        let meta3dState = getMeta3dState()
+
+        let { gameObject, transform } = getEngineSceneService(meta3dState)
+
+        return _convertToMatrix4(
+            getExn(
+                transform.getLocalToWorldMatrix(
+                    meta3dState,
+                    gameObject.getTransform(meta3dState, this.gameObject)
+                )
+            )
+        )
     }
 
     public get userData(): { [key: string]: any } {
@@ -880,26 +908,11 @@ class Mesh extends Object3D {
     //     return this.getChildren((gameObject: gameObject) => _createInstance(engineSceneService, meta3dState, gameObject))
     // }
 
-    public get matrix(): Matrix4Type {
-        return _getMatrix(
-            this.gameObject
-        )
-    }
-
-    public get matrixWorld(): Matrix4Type {
-        let meta3dState = getMeta3dState()
-
-        let { gameObject, transform } = getEngineSceneService(meta3dState)
-
-        return _convertToMatrix4(
-            getExn(
-                transform.getLocalToWorldMatrix(
-                    meta3dState,
-                    gameObject.getTransform(meta3dState, this.gameObject)
-                )
-            )
-        )
-    }
+    // public get matrix(): Matrix4Type {
+    //     return _getMatrix(
+    //         this.gameObject
+    //     )
+    // }
 
     public get geometry(): BufferGeometry {
         let meta3dState = getMeta3dState()

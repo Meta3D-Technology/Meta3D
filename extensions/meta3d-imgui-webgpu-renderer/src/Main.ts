@@ -39,6 +39,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endWindow: () => {
             _notImplement()
         },
+        beginChild: (...params) => {
+            return _notImplement()
+        },
+        endChild: (...params) => {
+            return _notImplement()
+        },
         setNextWindowRect: (rect) => {
             _notImplement()
         },
@@ -61,6 +67,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return _notImplement()
         },
         handleDragDropTarget: (...params) => {
+            return _notImplement()
+        },
+        menu: (...params) => {
+            return _notImplement()
+        },
+        sceneTree: (...params) => {
+            return _notImplement()
+        },
+        inspector: (...params) => {
+            return _notImplement()
+        },
+        runStopButton: (...params) => {
             return _notImplement()
         },
         getContext: () => {

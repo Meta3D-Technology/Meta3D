@@ -410,6 +410,20 @@ jump to website
 TODO update meta3d-imgui-webgl1-three-renderer
 
 
+TODO publish:
+scenegraph s,g
+
+
+
+TODO fix:
+  no clone
+    export scene error: cloned position
+      fix instanceof Scene
+
+
+
+TODO make publish action only read
+
 
 
 * TODO publish
