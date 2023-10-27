@@ -7,13 +7,13 @@ open FrontendUtils.Antd
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
-  let dispatchApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(() => {
-    let dispatch = AppStore.useDispatch()
+  // let dispatchApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(() => {
+  //   let dispatch = AppStore.useDispatch()
 
-    assembleSpaceAction => {
-      dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
-    }
-  })
+  //   assembleSpaceAction => {
+  //     dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
+  //   }
+  // })
 
   // let {account} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
   let {importedAppIds} = AppStore.useSelector((
@@ -170,13 +170,20 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                     ),
                                   ),
                                 packageIds =>
-                                  dispatchApAssembleStore(
-                                    FrontendUtils.ApAssembleStoreType.BatchStorePackagesInApp(
-                                      packageIds,
+                                  dispatch(
+                                    FrontendUtils.AppStoreType.UserCenterAction(
+                                      FrontendUtils.UserCenterStoreType.BatchStorePackagesInApp(
+                                        packageIds,
+                                      ),
                                     ),
                                   ),
                               ),
                             ),
+                            // dispatchApAssembleStore(
+                            //   FrontendUtils.ApAssembleStoreType.BatchStorePackagesInApp(
+                            //     packageIds,
+                            //   ),
+                            // ),
                             _,
                           )
                         }}>

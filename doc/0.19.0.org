@@ -394,7 +394,7 @@ set event
 
 
 
-* TODO fix: import app with package->select all in assemble space->go to Index->enter assemble space: package not stored in app!
+* DONE fix: import app with package->select all in assemble space->go to Index->enter assemble space: package not stored in app!
 
 
 

@@ -23,9 +23,14 @@ module Method = {
   }
 
   let useEffectOnce = dispatch => {
-    ((), Some(() =>{
-      reset(dispatch)
-    }))
+    (
+      (),
+      Some(
+        () => {
+          reset(dispatch)
+        },
+      ),
+    )
   }
 }
 
@@ -33,9 +38,10 @@ module Method = {
 let make = (
   ~service: service,
   ~account,
+  ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
-  ~selectedPackagesFromMarket: selectedPackagesFromMarket,
+  ~storedPackageIdsInApp,
 ) => {
   let dispatch = service.react.useDispatch()
 
@@ -84,8 +90,9 @@ let make = (
           selectedExtensionsFromMarket
           selectedContributesFromMarket
           selectedPackagesFromMarket
+          storedPackageIdsInApp
         />
-      | Element => <ElementAssemble service account />
+      | Element => <ElementAssemble service account storedPackageIdsInApp />
       | Package =>
         <PackageAssemble
           service

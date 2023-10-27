@@ -1,5 +1,11 @@
-let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <ElementVisual service account />
+let buildUI = (
+  ~sandbox,
+  ~account=None,
+  ~service=ServiceTool.build(~sandbox, ()),
+  ~storedPackageIdsInApp=list{},
+  (),
+) => {
+  <ElementVisual service account storedPackageIdsInApp />
 }
 
 let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension

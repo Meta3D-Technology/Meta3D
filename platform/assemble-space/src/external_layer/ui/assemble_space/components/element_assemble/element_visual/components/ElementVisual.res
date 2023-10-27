@@ -404,7 +404,7 @@ module Method = {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
-      storedPackageIdsInApp,
+      // storedPackageIdsInApp,
     } = apAssembleState
     let {
       canvasData,
@@ -424,7 +424,7 @@ module Method = {
         selectedContributes,
         apInspectorData,
         isPassDependencyGraphCheck,
-        storedPackageIdsInApp,
+        // storedPackageIdsInApp,
       ),
       (
         canvasData,
@@ -440,7 +440,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>) => {
+let make = (~service: service, ~account: option<string>, ~storedPackageIdsInApp) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -450,7 +450,7 @@ let make = (~service: service, ~account: option<string>) => {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
-      storedPackageIdsInApp,
+      // storedPackageIdsInApp,
     ),
     (
       canvasData,

@@ -75,7 +75,7 @@ module Method = {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      storedPackageIdsInApp,
+      // storedPackageIdsInApp,
     } = apAssembleState
     let {canvasData, runVisualExtension, elementContribute} = elementAssembleState
 
@@ -85,7 +85,7 @@ module Method = {
         selectedPackages,
         selectedExtensions,
         selectedContributes,
-        storedPackageIdsInApp,
+        // storedPackageIdsInApp,
       ),
       (canvasData, runVisualExtension, elementContribute),
     )
@@ -93,7 +93,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~storedPackageIdsInApp) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -102,7 +102,7 @@ let make = (~service: service) => {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      storedPackageIdsInApp,
+      // storedPackageIdsInApp,
     ),
     (canvasData, runVisualExtension, elementContribute),
   ) = service.react.useSelector(. Method.useSelector)

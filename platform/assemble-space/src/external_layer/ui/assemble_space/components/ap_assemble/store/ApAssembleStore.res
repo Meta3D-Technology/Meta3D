@@ -15,7 +15,6 @@ let _createState = () => {
       skinName: None,
     },
     isPassDependencyGraphCheck: false,
-    storedPackageIdsInApp: list{},
   }
 }
 
@@ -206,18 +205,6 @@ let reducer = (state, action) => {
   | MarkIsPassDependencyGraphCheck(isPass) => {
       ...state,
       isPassDependencyGraphCheck: isPass,
-    }
-  | StorePackageInApp(id) => {
-      ...state,
-      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.push(id),
-    }
-  | UnStorePackageInApp(id) => {
-      ...state,
-      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.remove(id),
-    }
-  | BatchStorePackagesInApp(ids) => {
-      ...state,
-      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
     }
   | UpdateSelectedPackagesAndExtensionsAndContributes(
       selectedPackages,

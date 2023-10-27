@@ -15,6 +15,7 @@ let make = (
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
+  ~storedPackageIdsInApp,
 ) => {
   let dispatch = service.react.useDispatch()
 
@@ -27,7 +28,7 @@ let make = (
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>
-        <Publish service account />
+        <Publish service account storedPackageIdsInApp />
         <ApController service />
       </Space>
     </Layout.Content>
@@ -55,12 +56,12 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        <ApDependencyGraph service />
+        <ApDependencyGraph service storedPackageIdsInApp />
       </Layout.Content>
       <Layout.Sider theme=#light>
         <ExtensionInspector service />
         <ContributeInspector service />
-        <PackageInspector service />
+        <PackageInspector service storedPackageIdsInApp />
         <ApInspector service />
       </Layout.Sider>
     </Layout>

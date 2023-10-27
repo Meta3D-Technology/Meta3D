@@ -143,6 +143,8 @@ let build = (
   ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
+  ~dispatchStorePackageInApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~dispatchUnStorePackageInApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   (),
 ) => {
   react: {
@@ -238,6 +240,8 @@ let build = (
   app: {
     useDispatch: () => Obj.magic(1),
     dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction->Obj.magic,
+    dispatchStorePackageInApp: dispatchStorePackageInApp->Obj.magic,
+    dispatchUnStorePackageInApp: dispatchUnStorePackageInApp->Obj.magic,
   },
 }
 

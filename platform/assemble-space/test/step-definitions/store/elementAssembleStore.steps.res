@@ -199,7 +199,7 @@ defineFeature(feature, test => {
 
   test(."set action twice", ({given, \"when", \"and", then}) => {
     let eventName1 = #button_click
-    let eventName2 = #asset_load_glb
+    let eventName2 = #run
     let actionName1 = "a1"
     let actionName2 = "a2"
 
@@ -215,7 +215,7 @@ defineFeature(feature, test => {
             store.contents,
             FrontendUtils.ElementAssembleStoreType.SetAction(
               id1.contents,
-              (eventName1, actionName1->Some),
+              (eventName1->Obj.magic, actionName1->Some),
             ),
           )
       },
@@ -226,10 +226,10 @@ defineFeature(feature, test => {
       () => {
         store :=
           ElementAssembleStore.reducer(
-            store.contents->Meta3dCommonlib.Log.printForDebug,
+            store.contents,
             FrontendUtils.ElementAssembleStoreType.SetAction(
               id1.contents,
-              (eventName2, actionName2->Some),
+              (eventName2->Obj.magic, actionName2->Some),
             ),
           )
       },

@@ -1,7 +1,13 @@
 open Sinon
 
-let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <Publish service account />
+let buildUI = (
+  ~sandbox,
+  ~account=None,
+  ~service=ServiceTool.build(~sandbox, ()),
+  ~storedPackageIdsInApp=list{},
+  (),
+) => {
+  <Publish service account storedPackageIdsInApp />
 }
 
 let publish = (

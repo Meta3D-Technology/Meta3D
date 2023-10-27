@@ -44,3 +44,5 @@ type packageData = {
   name: string,
   binaryFile: Js.Typed_array.ArrayBuffer.t,
 }
+
+type storedPackageIdsInApp = list<id>

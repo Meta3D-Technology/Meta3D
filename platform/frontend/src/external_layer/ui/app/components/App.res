@@ -5,9 +5,13 @@ open FrontendUtils.Antd
 let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {account, selectedExtensions, selectedContributes, selectedPackages} = AppStore.useSelector((
-    {userCenterState}: FrontendUtils.AppStoreType.state,
-  ) => userCenterState)
+  let {
+    account,
+    selectedExtensions,
+    selectedContributes,
+    selectedPackages,
+    storedPackageIdsInApp,
+  } = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
     ui: {
@@ -221,6 +225,20 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           ),
         )
       },
+      dispatchStorePackageInApp: (. dispatchForAppStore, id) => {
+        dispatchForAppStore(
+          FrontendUtils.AppStoreType.UserCenterAction(
+            FrontendUtils.UserCenterStoreType.StorePackageInApp(id),
+          ),
+        )
+      },
+      dispatchUnStorePackageInApp: (. dispatchForAppStore, id) => {
+        dispatchForAppStore(
+          FrontendUtils.AppStoreType.UserCenterAction(
+            FrontendUtils.UserCenterStoreType.UnStorePackageInApp(id),
+          ),
+        )
+      },
     },
   }
 
@@ -243,6 +261,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
             selectedExtensionsFromMarket=selectedExtensions
             selectedContributesFromMarket=selectedContributes
             selectedPackagesFromMarket=selectedPackages
+            storedPackageIdsInApp
           />
         </Layout.Content>
       </Layout>

@@ -11,22 +11,22 @@ module Method = {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      storedPackageIdsInApp,
+      // storedPackageIdsInApp,
     }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp)
+    (selectedPackages, selectedExtensions, selectedContributes)
   }
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~storedPackageIdsInApp) => {
   let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   let (
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-    storedPackageIdsInApp,
+    // storedPackageIdsInApp,
   ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
   <DependencyGraphUtils
     service

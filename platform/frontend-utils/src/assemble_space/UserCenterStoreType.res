@@ -1,4 +1,4 @@
-type id = string
+type id = AssembleSpaceCommonType.id
 
 type extension = AssembleSpaceCommonType.extension
 
@@ -32,6 +32,9 @@ type action =
       selectedExtensions,
       selectedContributes,
     )
+  | StorePackageInApp(id)
+  | UnStorePackageInApp(id)
+  | BatchStorePackagesInApp(list<id>)
 
 type state = {
   account: option<string>,
@@ -40,4 +43,5 @@ type state = {
   selectedPackages: selectedPackages,
   importedPackageIds: list<id>,
   importedAppIds: list<id>,
+  storedPackageIdsInApp: AssembleSpaceCommonType.storedPackageIdsInApp,
 }
