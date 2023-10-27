@@ -1,22 +1,27 @@
 {
-    "name": "meta3d-imgui-webgl1-renderer",
-    "version": "0.18.18",
+    "name": "meta3d-ui-control-runstopbutton",
+    "version": "0.18.12",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "displayName": "imgui-webgl1-renderer",
+    "description": "",
     "protocol": {
-        "name": "meta3d-imgui-renderer-protocol"
+        "name": "meta3d-ui-control-runstopbutton-protocol"
     },
+    "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
+    "keywords": [],
     "dependencies": {
-        "meta3d-imgui-renderer-protocol": "^0.18.0",
-        "meta3d-ui-control-scene-view-protocol": "^0.18.0",
-        "meta3d-ui-control-asset-protocol": "^0.18.0",
-        "meta3d-type": "^0.18.0"
+        "meta3d-type": "^0.18.0",
+        "meta3d-event": "^0.18.0",
+        "meta3d-ui-control-runstopbutton-protocol": "^0.18.0",
+        "meta3d-action-run-protocol": "^0.18.0",
+        "meta3d-action-stop-protocol": "^0.18.0",
+        "url-loader": "^4.1.1",
+        "meta3d-ui-protocol": "^0.18.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

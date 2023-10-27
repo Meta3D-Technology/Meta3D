@@ -134,5 +134,10 @@ type service = {
     string,
     rect,
   ) => inspectorReturnData,
+  runStopButton: (
+    . bool,
+    {"runTexture": imguiImplTexture, "stopTexture": imguiImplTexture},
+    size,
+  ) => (bool, bool),
   getContext: unit => context,
 }

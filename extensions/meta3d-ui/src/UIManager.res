@@ -756,6 +756,16 @@ let inspector = (
   )
 }
 
+let runStopButton = (data, meta3dState, isRun, textures, size) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.runStopButton(. isRun, textures, size))
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,

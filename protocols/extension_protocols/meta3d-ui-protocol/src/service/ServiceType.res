@@ -157,6 +157,15 @@ type service = {
     string,
     Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => (Meta3dType.Index.state, Meta3dImguiRendererProtocol.ServiceType.inspectorReturnData),
+  runStopButton: (
+    Meta3dType.Index.state,
+    bool,
+    {
+      "runTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      "stopTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+    },
+    Meta3dImguiRendererProtocol.ServiceType.size,
+  ) => (Meta3dType.Index.state, (bool, bool)),
   // prepare: (
   //   StateType.state,
   //   array<

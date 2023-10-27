@@ -163,20 +163,20 @@ export type service = {
     readonly loadImage: (
         meta3dState: meta3dState,
         _1: imageSrc
-    ) => Promise<imguiImplTexture>,
+    ) => Promise<imguiImplTexture>;
     readonly asset: (
         meta3dState: meta3dState,
         textures: { "loadGlbTexture": imguiImplTexture, "removeAssetTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
         glbs: Array<[string, string]>,
         label: label,
         rect: rect,
-    ) => [meta3dState, [boolean, boolean, nullable<string>]],
+    ) => [meta3dState, [boolean, boolean, nullable<string>]];
     readonly menu: (
         meta3dState: meta3dState,
         allLabels: menuAllLabels,
         windowName: string,
         rect: rect,
-    ) => [meta3dState, nullable<menuLabel>],
+    ) => [meta3dState, nullable<menuLabel>];
     readonly sceneTree: (
         meta3dState: meta3dState,
         sceneTreeData: sceneTreeData,
@@ -188,7 +188,7 @@ export type service = {
             // "cameraIconTexture": imguiImplTexture,
             // "meshIconTexture": imguiImplTexture,
             // "lightIconTexture": imguiImplTexture,
-        }, windowName: string, rect: rect) => [meta3dState, sceneTreeReturnData],
+        }, windowName: string, rect: rect) => [meta3dState, sceneTreeReturnData];
     readonly inspector: (
         meta3dState: meta3dState,
         // [
@@ -219,7 +219,16 @@ export type service = {
         localScale: localScale,
         windowName: string,
         rect: rect,
-    ) => [meta3dState, [nullable<name>, nullable<localPosition>, nullable<localEulerAngles>, nullable<localScale>]],
+    ) => [meta3dState, [nullable<name>, nullable<localPosition>, nullable<localEulerAngles>, nullable<localScale>]];
+    readonly runStopButton: (
+        meta3dState: meta3dState,
+        isRunState: boolean,
+        textures: {
+            "runTexture": imguiImplTexture,
+            "stopTexture": imguiImplTexture,
+        },
+        size: size
+    ) => [meta3dState, [boolean, boolean]];
     readonly handleDragDropTarget: <data> (
         meta3dState: meta3dState,
         type: string

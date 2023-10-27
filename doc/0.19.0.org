@@ -356,7 +356,7 @@ remove arcball
 
 
 
-* TODO Controller
+* DONE Controller
 
   ** TODO add run controller(ui control) to unify run, stop action
 
@@ -393,6 +393,10 @@ e.g. some actions, uicontrols dependent on it, should remove the dependent!
 * TODO fix: import event: if not import, should return to page instead of empty
 
 
+
+* TODO pass publish
+
+TODO update meta3d-imgui-webgl1-three-renderer
 
 
 /*

@@ -9,6 +9,8 @@ type childrenFunc = (. Index.state) => Index.state
 
 type supportedEventName = [
   | #button_click
+  | #run
+  | #stop
 ]
 
 type actionName = Js.Nullable.t<string>

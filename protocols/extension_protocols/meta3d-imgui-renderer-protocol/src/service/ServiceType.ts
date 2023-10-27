@@ -140,11 +140,19 @@ export type service = {
   readonly getWindowBarHeight: () => number;
   readonly button: (_1: label, _2: size) => boolean;
   readonly setCursorPos: (_1: pos) => void
-  readonly loadImage: (_1: imageSrc) => Promise<imguiImplTexture>,
-  readonly asset: assetFunc,
-  readonly handleDragDropTarget: <data> (type: string) => nullable<data>,
-  readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>,
-  readonly sceneTree: sceneTreeFunc,
-  readonly inspector: inspectorFunc,
+  readonly loadImage: (_1: imageSrc) => Promise<imguiImplTexture>;
+  readonly asset: assetFunc;
+  readonly handleDragDropTarget: <data> (type: string) => nullable<data>;
+  readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>;
+  readonly sceneTree: sceneTreeFunc;
+  readonly inspector: inspectorFunc;
+  readonly runStopButton: (
+    isRunState: boolean,
+    textures: {
+      "runTexture": imguiImplTexture,
+      "stopTexture": imguiImplTexture,
+    },
+    size: size
+  ) => [boolean, boolean];
   readonly getContext: () => context
 };

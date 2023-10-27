@@ -245,6 +245,22 @@ export let getExtensionService: getExtensionServiceMeta3D<
         //     imguiFunc(`${label}##${id}`, (_ = getValueFunc()) => setValueFunc(_), step, stepFast, format, flags);
         // },
         inspector: inspector,
+        runStopButton: (isRunState, { runTexture, stopTexture }, [width, height]) => {
+            let isRun = false
+            let isStop = false
+
+            if (isRunState) {
+                if (ImGui.ImageButton(stopTexture._texture, new ImGui.ImVec2(width, height))) {
+                    isStop = true
+                }
+            }
+            else if (ImGui.ImageButton(runTexture._texture, new ImGui.ImVec2(width, height))) {
+                isRun = true
+            }
+
+
+            return [isRun, isStop]
+        },
         getContext: () => {
             return ImGui_Impl.gl
         },
