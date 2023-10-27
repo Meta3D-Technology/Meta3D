@@ -398,7 +398,7 @@ set event
 
 
 
-* TODO menu: add help->about Meta3D
+* DONE menu: add help->about Meta3D
 
 jump to website
 
@@ -410,15 +410,12 @@ jump to website
 TODO update meta3d-imgui-webgl1-three-renderer
 
 
-/*
-
-* TODO Debug Output
-
-*/
-
-
 
 
 * TODO publish
 
 TODO ci
+
+
+TODO video
+

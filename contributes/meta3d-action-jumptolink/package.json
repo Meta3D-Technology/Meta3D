@@ -1,10 +1,9 @@
 {
-    "name": "meta3d-ui-control-menu",
-    "version": "0.18.1",
+    "name": "meta3d-action-jumptolink",
+    "version": "0.18.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "description": "",
     "protocol": {
-        "name": "meta3d-ui-control-menu-protocol"
+        "name": "meta3d-action-jumptolink-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -15,14 +14,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-type": "^0.18.0",
-        "meta3d-ui-control-menu-protocol": "^0.18.0",
-        "meta3d-imgui-renderer-protocol": "^0.18.0",
-        "meta3d-action-export-event-protocol": "^0.18.0",
-        "meta3d-action-export-single-event-protocol": "^0.18.0",
-        "meta3d-action-import-event-protocol": "^0.18.0",
-        "meta3d-action-publish-protocol": "^0.18.0",
         "meta3d-action-jumptolink-protocol": "^0.18.0",
+        "meta3d-event-sourcing-protocol": "^0.18.0",
+        "meta3d-type": "^0.18.0",
         "meta3d-ui-protocol": "^0.18.0"
     },
     "devDependencies": {

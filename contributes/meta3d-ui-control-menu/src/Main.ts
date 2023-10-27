@@ -9,6 +9,7 @@ import { actionName as exportEventActionName } from "meta3d-action-export-event-
 import { actionName as exportSingleEventActionName } from "meta3d-action-export-single-event-protocol"
 import { actionName as importEventActionName } from "meta3d-action-import-event-protocol"
 import { actionName as publishActionName } from "meta3d-action-publish-protocol"
+import { actionName as jumpToLinkActionName } from "meta3d-action-jumptolink-protocol"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
@@ -35,6 +36,12 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                     "发布",
                     {
                         "本地包": publishActionName
+                    }
+                ],
+                [
+                    "帮助",
+                    {
+                        "关于Meta3D": jumpToLinkActionName
                     }
                 ],
             ]
