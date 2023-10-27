@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-engine-webgl1-three-render-sceneview",
-    "version": "0.18.0",
+    "version": "0.19.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-editor-engine-webgl1-three-render-sceneview",
     "repoLink": "",
@@ -15,22 +15,22 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-engine-render-sceneview-protocol": "^0.18.0",
-        "meta3d-engine-core-sceneview-protocol": "^0.18.0",
-        "meta3d-pipeline-camera-sceneview-protocol": "^0.18.0",
-        "meta3d-pipeline-dispose-sceneview-protocol": "^0.18.0",
-        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.18.0",
-        "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol": "^0.18.0",
-        "meta3d-pipeline-root-sceneview-protocol": "^0.18.0",
-        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.18.0",
-        "meta3d-type": "^0.18.0"
+        "meta3d-editor-engine-render-sceneview-protocol": "^0.19.0",
+        "meta3d-engine-core-sceneview-protocol": "^0.19.0",
+        "meta3d-pipeline-camera-sceneview-protocol": "^0.19.0",
+        "meta3d-pipeline-dispose-sceneview-protocol": "^0.19.0",
+        "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.19.0",
+        "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol": "^0.19.0",
+        "meta3d-pipeline-root-sceneview-protocol": "^0.19.0",
+        "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.19.0",
+        "meta3d-type": "^0.19.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.18.0",
+        "meta3d-tool-publish": "^0.19.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

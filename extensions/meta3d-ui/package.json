@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui",
-    "version": "0.18.12",
+    "version": "0.19.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "ui",
     "protocol": {
@@ -17,10 +17,10 @@
         "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-event-protocol": "^0.18.0",
-        "meta3d-imgui-renderer-protocol": "^0.18.0",
-        "meta3d-type": "^0.18.0",
-        "meta3d-ui-protocol": "^0.18.0",
+        "meta3d-event-protocol": "^0.19.0",
+        "meta3d-imgui-renderer-protocol": "^0.19.0",
+        "meta3d-type": "^0.19.0",
+        "meta3d-ui-protocol": "^0.19.0",
         "rescript": "^10.0.1"
     },
     "devDependencies": {
@@ -31,7 +31,7 @@
         "cz-customizable": "^6.3.0",
         "gentype": "^3.48.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.18.0",
+        "meta3d-tool-publish": "^0.19.0",
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1"
     }

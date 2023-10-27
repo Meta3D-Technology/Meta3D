@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-select-scenetree-node",
-    "version": "0.18.0",
+    "version": "0.19.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "repoLink": "",
     "protocol": {
@@ -15,19 +15,19 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-select-scenetree-node-protocol": "^0.18.0",
-        "meta3d-event-protocol": "^0.18.0",
-        "meta3d-event-sourcing-protocol": "^0.18.0",
-        "meta3d-type": "^0.18.0",
         "immutable": "^4.0.0-rc.12",
-        "meta3d-ui-protocol": "^0.18.0"
+        "meta3d-action-select-scenetree-node-protocol": "^0.19.0",
+        "meta3d-event-protocol": "^0.19.0",
+        "meta3d-event-sourcing-protocol": "^0.19.0",
+        "meta3d-type": "^0.19.0",
+        "meta3d-ui-protocol": "^0.19.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.18.0",
+        "meta3d-tool-publish": "^0.19.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

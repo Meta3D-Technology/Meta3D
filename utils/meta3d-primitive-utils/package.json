@@ -1,11 +1,11 @@
 {
     "name": "meta3d-primitive-utils",
-    "version": "0.18.0",
+    "version": "0.19.0",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-type": "^0.18.0"
+        "meta3d-type": "^0.19.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

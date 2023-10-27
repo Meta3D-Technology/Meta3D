@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-menu",
-    "version": "0.18.1",
+    "version": "0.19.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
@@ -15,22 +15,22 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-type": "^0.18.0",
-        "meta3d-ui-control-menu-protocol": "^0.18.0",
-        "meta3d-imgui-renderer-protocol": "^0.18.0",
-        "meta3d-action-export-event-protocol": "^0.18.0",
-        "meta3d-action-export-single-event-protocol": "^0.18.0",
-        "meta3d-action-import-event-protocol": "^0.18.0",
-        "meta3d-action-publish-protocol": "^0.18.0",
-        "meta3d-action-jumptolink-protocol": "^0.18.0",
-        "meta3d-ui-protocol": "^0.18.0"
+        "meta3d-action-export-event-protocol": "^0.19.0",
+        "meta3d-action-export-single-event-protocol": "^0.19.0",
+        "meta3d-action-import-event-protocol": "^0.19.0",
+        "meta3d-action-jumptolink-protocol": "^0.19.0",
+        "meta3d-action-publish-protocol": "^0.19.0",
+        "meta3d-imgui-renderer-protocol": "^0.19.0",
+        "meta3d-type": "^0.19.0",
+        "meta3d-ui-control-menu-protocol": "^0.19.0",
+        "meta3d-ui-protocol": "^0.19.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.18.0",
+        "meta3d-tool-publish": "^0.19.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

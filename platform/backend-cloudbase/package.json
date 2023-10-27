@@ -1,14 +1,14 @@
 {
     "name": "backend-cloudbase",
     "main": "src/Main.js",
-    "version": "0.18.0",
+    "version": "0.19.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "tsc --watch"
     },
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",
-        "meta3d-fp": "^0.18.0",
+        "meta3d-fp": "^0.19.0",
         "most": "^1.9.0",
         "semver": "7.3.7"
     },
