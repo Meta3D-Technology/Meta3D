@@ -83,7 +83,7 @@ export let loadGlb = (meta3dState: meta3dState, api: api, glb: ArrayBuffer): Pro
             }
         ).parse(
             glb,
-            null,
+            "",
             (gltf) => {
                 resolve(gltf)
             },
