@@ -1727,7 +1727,7 @@ let _import = (sceneService: scene,
     meta3dState = data[0]
     let gameObject = data[1]
 
-    meta3dState = gameObjectService.setGameObjectName(meta3dState, gameObject, Object3D.name)
+    meta3dState = gameObjectService.setGameObjectName(meta3dState, gameObject, object3D.name)
 
 
 

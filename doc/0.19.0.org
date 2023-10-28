@@ -426,7 +426,7 @@ TODO make publish action only read
 
 
 
-* TODO publish
+* DONE publish
 
 TODO ci
 
@@ -437,3 +437,6 @@ TODO video
 TODO publish
 
 TODO update production
+
+
+* DONE fix: name miss
