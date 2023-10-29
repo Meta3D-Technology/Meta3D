@@ -1,0 +1,110 @@
+* TODO optimize three engine
+
+** TODO add cube shouldn't create program, vbo!
+
+** TODO add cube should share geometry, material
+export single event with cube shouldn't increase file size when cube increase!
+
+
+# ** TODO scenegraph converter->restore: defer dispose if too many
+
+
+
+
+* TODO fix: import app should import canvas size
+
+
+
+* TODO feat: ap assemble: add select all button
+
+
+* TODO feat: ap assemble: Debug should show name
+
+* TODO feat: Market: update paging for "xx/page"
+
+
+
+
+
+
+
+
+* TODO edit backend
+
+
+** TODO publishedpackages remove entryExtensionProtocolDisplayName,
+entryExtensionProtocolRepoLink,
+entryExtensionProtocolDescription,
+
+
+
+** TODO publishedextensions,publishedcontributes remove fileData，use flatten data instead
+
+*** TODO update auto upgrade in dependency graph
+
+
+
+* TODO refactor
+
+** TODO refactor scenegraph utils
+
+** TODO add contract check
+get isTest from globalThis
+
+
+
+* TODO optimze ui
+
+** TODO Editor
+
+- loading, Publish->loading add Meta3D Logo
+ 
+** TODO Platform
+
+- hidden auto upgrade button when auto upgrade...
+
+- import app should show info under app
+
+*** TODO element assemble space
+- if change ui control's name, Selected UI Controls should update its name
+
+- UI Controls should show three one row like Extensions
+
+- Selected UI Controls add remove one
+
+- View add scroll bar(vertical, horri)
+
+- fix: scroll when on the rendered ui control in canvas in visual not work
+
+*** TODO 优化platform ui
+
+
+** TODO 优化 editor ui
+
+
+
+
+
+* TODO 在扩展市场、贡献市场、包市场 中选择扩展、贡献、包前、 以及 装配前，先检查是否登录，如果没登录则跳转到登录页面
+
+
+
+
+
+
+
+
+
+* TODO 更新extension, contribute, package, 提供典型的编辑器、引擎组件
+
+** TODO fix aspect for scene view, game view and published canvas
+
+** TODO editor: remove canvas border
+
+** TODO support more glbs
+e.g. support DracoLoader
+
+
+** TODO build one big scene with glbs as showcase
+
+3D场景漫游
