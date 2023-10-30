@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-export-single-event",
-    "version": "0.19.0",
+    "version": "0.19.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-action-export-single-event-protocol"
@@ -15,11 +15,11 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-export-single-event-protocol": "^0.19.0",
-        "meta3d-asset-protocol": "^0.19.0",
+        "meta3d-asset-protocol": "^0.19.1",
         "meta3d-event-data-protocol": "^0.19.0",
         "meta3d-event-sourcing-protocol": "^0.19.0",
         "meta3d-export-scene-protocol": "^0.19.0",
-        "meta3d-type": "^0.19.0",
+        "meta3d-type": "^0.19.1",
         "meta3d-ui-protocol": "^0.19.0"
     },
     "devDependencies": {
@@ -27,7 +27,7 @@
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.19.0",
+        "meta3d-tool-publish": "^0.19.1",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

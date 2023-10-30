@@ -1,6 +1,6 @@
 {
     "name": "meta3d-load-scene-utils",
-    "version": "0.19.0",
+    "version": "0.19.1",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
@@ -9,7 +9,7 @@
         "meta3d-engine-whole-sceneview-protocol": "^0.19.0",
         "meta3d-event-protocol": "^0.19.0",
         "meta3d-three-api-protocol": "^0.19.0",
-        "meta3d-type": "^0.19.0"
+        "meta3d-type": "^0.19.1"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
