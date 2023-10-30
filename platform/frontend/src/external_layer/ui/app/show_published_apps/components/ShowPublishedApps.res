@@ -6,6 +6,12 @@ open FrontendUtils.Antd
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
+  let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(
+    ReactUtils.useDispatchForAssembleSpaceStore,
+  )
+  let dispatchForElementAssembleStore = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(
+    ReactUtils.useDispatchForAssembleSpaceStore,
+  )
 
   // let dispatchApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(() => {
   //   let dispatch = AppStore.useDispatch()
@@ -146,9 +152,31 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                   Meta3dBsMost.Most.empty()->Obj.magic
                                 }
                               : {
-                                  Meta3d.Main.getAllPackageAndExtensionAndContributeFileDataOfApp(
+                                  let (
+                                    data1,
+                                    data2,
+                                    configData,
+                                  ) = Meta3d.Main.getAllPackageAndExtensionAndContributeFileDataOfApp(
                                     file->Meta3dCommonlib.NullableSt.getExn,
-                                  )->Meta3dBsMost.Most.just
+                                  )
+
+                                  let (canvasData, otherConfigData) = configData
+
+                                  let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorDataFromFile =
+                                    otherConfigData->Obj.magic
+
+                                  dispatchForApAssembleStore(
+                                    FrontendUtils.ApAssembleStoreType.SetApInspectorData(
+                                      apInspectorData,
+                                    ),
+                                  )
+                                  dispatchForElementAssembleStore(
+                                    FrontendUtils.ElementAssembleStoreType.SetCanvasData(
+                                      canvasData,
+                                    ),
+                                  )
+
+                                  (data1, data2)->Meta3dBsMost.Most.just
                                 }
                           }, _)
                           ->ImportUtils.importApp(

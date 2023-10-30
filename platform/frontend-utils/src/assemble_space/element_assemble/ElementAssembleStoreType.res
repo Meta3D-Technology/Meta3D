@@ -113,12 +113,7 @@ type elementStateFieldData = {
 
 type elementContribute = ApAssembleStoreType.contribute
 
-type canvasData = {
-  // id: string,
-  width: int,
-  height: int,
-  // zIndex: int,
-}
+type canvasData = Meta3dType.Index.canvasData
 
 type action =
   | Reset

@@ -129,6 +129,11 @@ function _loadAllPackageUint8StoredInApp(state, allPackageUint8StoredInApp) {
               }), state);
 }
 
+function _decodeConfigData(configData) {
+  var decoder = new TextDecoder("utf-8");
+  return JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(configData, decoder)));
+}
+
 function load(appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
   if (match.length !== 4) {
@@ -136,7 +141,7 @@ function load(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            185,
+            194,
             6
           ],
           Error: new Error()
@@ -146,7 +151,6 @@ function load(appBinaryFile) {
   var allContributeUint8 = match[1];
   var allPackageUint8StoredInApp = match[2];
   var configData = match[3];
-  var decoder = new TextDecoder("utf-8");
   var match$1 = ManagerUtils$Meta3d.load([
         allExtensionUint8,
         allContributeUint8
@@ -155,7 +159,7 @@ function load(appBinaryFile) {
   return [
           state,
           match$1[1],
-          JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(configData, decoder)))
+          _decodeConfigData(configData)
         ];
 }
 
@@ -181,7 +185,7 @@ function getAllPackageAndExtensionAndContributeFileDataOfApp(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            246,
+            247,
             6
           ],
           Error: new Error()
@@ -190,12 +194,14 @@ function getAllPackageAndExtensionAndContributeFileDataOfApp(appBinaryFile) {
   var allExtensionUint8 = match[0];
   var allContributeUint8 = match[1];
   var allPackageUint8StoredInApp = match[2];
+  var configData = match[3];
   return [
           _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
           ManagerUtils$Meta3d.parse2([
                 allExtensionUint8,
                 allContributeUint8
-              ])
+              ]),
+          _decodeConfigData(configData)
         ];
 }
 
@@ -209,6 +215,7 @@ exports.getContributeFuncData = getContributeFuncData;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports._parseAllPackageUint8StoredInApp = _parseAllPackageUint8StoredInApp;
 exports._loadAllPackageUint8StoredInApp = _loadAllPackageUint8StoredInApp;
+exports._decodeConfigData = _decodeConfigData;
 exports.load = load;
 exports._getStartExtensionProtocolName = _getStartExtensionProtocolName;
 exports.start = start;

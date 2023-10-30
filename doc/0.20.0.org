@@ -1,24 +1,30 @@
-* TODO optimize three engine
+//* TODO optimize three engine
 
-** TODO add cube shouldn't create program, vbo!
+//** TODO add cube shouldn't create program, vbo!
 
-** TODO add cube should share geometry, material
-export single event with cube shouldn't increase file size when cube increase!
+# ** TODO add cube should share geometry, material
+# export single event with cube shouldn't increase file size when cube increase!
 
+//** TODO cloned glb ->export: shouldn't increase file size
 
 # ** TODO scenegraph converter->restore: defer dispose if too many
 
 
 
 
-* TODO fix: import app should import canvas size
+* DONE fix: import app should import config data 
+e.g. canvas size
 
+* TODO refactor: move storedInXxx down to ap assemble store
 
+* TODO refactor: remo service.app.dispatchXxx
 
-* TODO feat: ap assemble: add select all button
 
 
 * TODO feat: ap assemble: Debug should show name
+
+
+* TODO feat: ap assemble: add select all button
 
 * TODO feat: Market: update paging for "xx/page"
 
@@ -51,6 +57,7 @@ entryExtensionProtocolDescription,
 ** TODO add contract check
 get isTest from globalThis
 
+** TODO remove log(e.g. log in Job)
 
 
 * TODO optimze ui
@@ -108,3 +115,6 @@ e.g. support DracoLoader
 ** TODO build one big scene with glbs as showcase
 
 3D场景漫游
+
+** TODO pass run test:publish
+TODO update engine package

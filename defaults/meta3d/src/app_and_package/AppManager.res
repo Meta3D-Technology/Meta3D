@@ -177,6 +177,15 @@ let _loadAllPackageUint8StoredInApp = (
   )
 }
 
+let _decodeConfigData = configData => {
+  let decoder = TextDecoder.newTextDecoder("utf-8")
+
+  TextDecoder.decodeUint8Array(configData, decoder)
+  ->FileUtils.removeAlignedEmptyChars
+  ->Js.Json.parseExn
+  ->Obj.magic
+}
+
 let load = (appBinaryFile: ArrayBuffer.t): (
   Meta3dType.Index.state,
   array<extensionFileData>,
@@ -189,20 +198,11 @@ let load = (appBinaryFile: ArrayBuffer.t): (
     configData,
   ] = BinaryFileOperator.load(appBinaryFile)
 
-  let decoder = TextDecoder.newTextDecoder("utf-8")
-
   let (state, allExtensionDataArr) = ManagerUtils.load([allExtensionUint8, allContributeUint8])
 
   let state = state->_loadAllPackageUint8StoredInApp(allPackageUint8StoredInApp)
 
-  (
-    state,
-    allExtensionDataArr,
-    TextDecoder.decodeUint8Array(configData, decoder)
-    ->FileUtils.removeAlignedEmptyChars
-    ->Js.Json.parseExn
-    ->Obj.magic,
-  )
+  (state, allExtensionDataArr, _decodeConfigData(configData))
 }
 
 let _getStartExtensionProtocolName = (
@@ -242,6 +242,7 @@ let getAllPackageAndExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayB
     array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
     array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
   ),
+  Meta3dType.Index.startConfigData,
 ) => {
   let [
     allExtensionUint8,
@@ -253,5 +254,6 @@ let getAllPackageAndExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayB
   (
     _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
     [allExtensionUint8, allContributeUint8]->ManagerUtils.parse2,
+    _decodeConfigData(configData),
   )
 }

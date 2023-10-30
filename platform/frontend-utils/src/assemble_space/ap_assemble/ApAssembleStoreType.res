@@ -52,6 +52,12 @@ type apInspectorData = {
   skinName: option<skinName>,
 }
 
+type apInspectorDataFromFile = {
+  isDebug: isDebug,
+  clearColor: clearColor,
+  skinName: Js.Nullable.t<skinName>,
+}
+
 type action =
   | Reset
   | ResetWhenSwitch
@@ -77,6 +83,7 @@ type action =
   | SetIsDebug(isDebug)
   | SetClearColor(clearColor)
   | SetSkinName(option<skinName>)
+  | SetApInspectorData(apInspectorDataFromFile)
   | UpdateSelectedExtension(id, Js.Typed_array.Uint8Array.t)
   | UpdateSelectedContribute(id, Js.Typed_array.Uint8Array.t)
   | UpdateSelectedPackage(id, Js.Typed_array.ArrayBuffer.t)

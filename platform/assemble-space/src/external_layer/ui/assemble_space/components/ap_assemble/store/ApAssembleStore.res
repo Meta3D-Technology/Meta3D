@@ -163,6 +163,12 @@ let reducer = (state, action) => {
       ...apInspectorData,
       skinName,
     })
+  | SetApInspectorData(apInspectorDataFromFile) =>
+    _setApIControlInspectorData(state, apInspectorDaapInspectorDataFromFileta => {
+      isDebug: apInspectorDataFromFile.isDebug,
+      clearColor:apInspectorDataFromFile.clearColor,
+      skinName: apInspectorDataFromFile.skinName->Meta3dCommonlib.OptionSt.fromNullable,
+    })
   | UpdateSelectedExtension(id, extensionFuncData) => {
       ...state,
       selectedExtensions: state.selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {

@@ -154,13 +154,14 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           func(assembleSpaceState)
         })
       },
-      useDispatch: () => {
-        let dispatch = AppStore.useDispatch()
+      // useDispatch: () => {
+      //   let dispatch = AppStore.useDispatch()
 
-        assembleSpaceAction => {
-          dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
-        }
-      },
+      //   assembleSpaceAction => {
+      //     dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
+      //   }
+      // },
+      useDispatch: ReactUtils.useDispatchForAssembleSpaceStore,
       useEffect1: (. func, param) => React.useEffect1(func, param),
       useEffectOnce: func => {
         React.useEffect1(() => {
