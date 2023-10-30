@@ -177,6 +177,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             current={page}
             defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
             total={FrontendUtils.MarketUtils.getAllProtocolsCount(allPublishExtensionProtocols)}
+            showSizeChanger=false
             onChange=_onChange
           />
         | Third => React.null

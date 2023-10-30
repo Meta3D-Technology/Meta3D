@@ -181,6 +181,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             total={FrontendUtils.MarketUtils.getAllProtocolsCount(
               allPublishPackageEntryExtensionProtocols,
             )}
+            showSizeChanger=false
             onChange=_onChange
           />
         | Third => React.null

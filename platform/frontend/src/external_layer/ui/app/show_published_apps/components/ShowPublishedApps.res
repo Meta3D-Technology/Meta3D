@@ -226,6 +226,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           defaultCurrent={1}
           defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
           total={allPublishApps->Meta3dCommonlib.ArraySt.length}
+          showSizeChanger=false
           onChange
         />
       | false => React.null

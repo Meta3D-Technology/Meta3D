@@ -9,5 +9,6 @@ external make: (
   ~defaultPageSize: pageSize=?,
   ~pageSize: pageSize=?,
   ~total: int=?,
+  ~showSizeChanger: bool=?,
   ~onChange: (page, pageSize) => unit=?,
 ) => React.element = "Pagination"

@@ -133,7 +133,9 @@ let make = (
                       // )
 
                       FrontendUtils.MarketUtils.isSelect(
-                        ({version, name}: FrontendUtils.UserCenterStoreType.packageData) => {j`${version}_${name}`},
+                        ({version, name}: FrontendUtils.UserCenterStoreType.packageData) => {
+                          j`${version}_${name}`
+                        },
                         {
                           j`${item.version}_${item.name}`
                         },
@@ -143,7 +145,10 @@ let make = (
                             onClick={_ => {
                               dispatch(
                                 FrontendUtils.AppStoreType.UserCenterAction(
-                                  FrontendUtils.UserCenterStoreType.NotSelectPackage(item.name, item.version),
+                                  FrontendUtils.UserCenterStoreType.NotSelectPackage(
+                                    item.name,
+                                    item.version,
+                                  ),
                                 ),
                               )
                             }}>
@@ -322,6 +327,7 @@ let make = (
           current={page}
           defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
           total={_getAllPublishPackagesCount(allPublishPackages)}
+          showSizeChanger=false
           onChange=_onChange
         />
       | false => React.null

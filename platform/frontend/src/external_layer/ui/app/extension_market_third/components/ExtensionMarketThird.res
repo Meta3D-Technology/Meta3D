@@ -255,6 +255,7 @@ let make = (
           current={page}
           defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
           total={_getAllPublishExtensionsCount(allPublishExtensions)}
+          showSizeChanger=false
           onChange=_onChange
         />
       | false => React.null

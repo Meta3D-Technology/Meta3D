@@ -256,6 +256,7 @@ let make = (
           current={page}
           defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
           total={_getAllPublishContributesCount(allPublishContributes)}
+          showSizeChanger=false
           onChange=_onChange
         />
       | false => React.null

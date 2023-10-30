@@ -8,9 +8,9 @@ type showType =
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedContributes} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) =>
-    userCenterState
-  )
+  let {selectedContributes} = AppStore.useSelector((
+    {userCenterState}: FrontendUtils.AppStoreType.state,
+  ) => userCenterState)
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (showType, setShowType) = React.useState(_ => Second)
@@ -177,6 +177,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             current={page}
             defaultPageSize={FrontendUtils.MarketUtils.getPageSize()}
             total={FrontendUtils.MarketUtils.getAllProtocolsCount(allPublishContributeProtocols)}
+            showSizeChanger=false
             onChange=_onChange
           />
         | Third => React.null
