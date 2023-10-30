@@ -202,6 +202,50 @@ let make = (~service: service) => {
     // </Collapse>
 
     <Space direction=#vertical size=#middle>
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`基本信息`)}, ())}
+      {service.ui.buildText(.
+        ~_type=#default,
+        ~children={
+          React.string({
+            j`协议名：${inspectorCurrentPackage.protocol.name}`
+          })
+        },
+        (),
+      )}
+      {service.ui.buildText(.
+        ~_type=#default,
+        ~children={
+          React.string({
+            j`协议版本：${inspectorCurrentPackage.protocol.version}`
+          })
+        },
+        (),
+      )}
+      {service.ui.buildText(.
+        ~_type=#default,
+        ~children={
+          React.string({
+            j`包名：${inspectorCurrentPackage.name}`
+          })
+        },
+        (),
+      )}
+      {service.ui.buildText(.
+        ~_type=#default,
+        ~children={
+          React.string({
+            j`包版本：${inspectorCurrentPackage.version}`
+          })
+        },
+        (),
+      )}
+      {service.ui.buildText(.
+        ~_type=#default,
+        ~children={
+          React.string({j`入口扩展名：${inspectorCurrentPackage.entryExtensionName}`})
+        },
+        (),
+      )}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`配置`)}, ())}
       {Method.isPackageStoredInApp(inspectorCurrentPackage.id, storedPackageIdsInApp)
         ? <Button

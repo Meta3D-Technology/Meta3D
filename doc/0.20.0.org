@@ -21,7 +21,7 @@ e.g. canvas size
 
 
 
-* TODO feat: ap assemble: Debug should show name
+* DONE feat: ap assemble: Debug should show name
 
 
 * TODO feat: ap assemble: add select all button

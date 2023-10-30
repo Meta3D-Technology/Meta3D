@@ -17,8 +17,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       buildTitle: (. ~level, ~children, ()) => {
         <Typography.Title level> {children} </Typography.Title>
       },
-      buildText: (. ~children) => {
-        <Typography.Text> {children} </Typography.Text>
+      buildText: (. ~children, ~_type, ()) => {
+        <Typography.Text _type> {children} </Typography.Text>
       },
     },
     dom: {

@@ -43,3 +43,61 @@ let getProtocolConfigStr = protocolConfig => {
     {configStr}: FrontendUtils.CommonType.protocolConfig,
   ) => configStr)
 }
+
+let buildBasicInfoUI = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  protocolName,
+  protocolVersion,
+  implementName,
+  implementVersion,
+  displayName,
+) => {
+  <>
+    {service.ui.buildTitle(. ~level=2, ~children={React.string(`基本信息`)}, ())}
+    {service.ui.buildText(.
+      ~_type=#default,
+      ~children={
+        React.string({
+          j`协议名：${protocolName}`
+        })
+      },
+      (),
+    )}
+    {service.ui.buildText(.
+      ~_type=#default,
+      ~children={
+        React.string({
+          j`协议版本：${protocolVersion}`
+        })
+      },
+      (),
+    )}
+    {service.ui.buildText(.
+      ~_type=#default,
+      ~children={
+        React.string({
+          j`实现名：${implementName}`
+        })
+      },
+      (),
+    )}
+    {service.ui.buildText(.
+      ~_type=#default,
+      ~children={
+        React.string({
+          j`实现版本：${implementVersion}`
+        })
+      },
+      (),
+    )}
+    {service.ui.buildText(.
+      ~_type=#default,
+      ~children={
+        React.string({
+          j`显示名：${displayName}`
+        })
+      },
+      (),
+    )}
+  </>
+}

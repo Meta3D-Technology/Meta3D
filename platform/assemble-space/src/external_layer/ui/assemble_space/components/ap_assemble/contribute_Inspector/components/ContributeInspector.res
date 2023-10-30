@@ -64,10 +64,10 @@ let make = (~service: service) => {
   )
   let (contributeStr, setContributeStr) = service.react.useState(_ => "")
 
-  let (inspectorCurrentContributeId, selectedContributes) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (
+    inspectorCurrentContributeId,
+    selectedContributes,
+  ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
@@ -91,6 +91,14 @@ let make = (~service: service) => {
     // </Collapse>
 
     <Space direction=#vertical size=#middle>
+      {ExtensionsContributesUtils.buildBasicInfoUI(
+        service,
+        inspectorCurrentContribute.data.contributePackageData.protocol.name,
+        inspectorCurrentContribute.data.contributePackageData.protocol.version,
+        inspectorCurrentContribute.data.contributePackageData.name,
+        inspectorCurrentContribute.data.contributePackageData.version,
+        inspectorCurrentContribute.data.contributePackageData.displayName,
+      )}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
       {<>
         <Input.TextArea

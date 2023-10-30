@@ -196,7 +196,7 @@ type domService = {querySelector: string => option<Dom.htmlElement>}
 
 type uiService = {
   buildTitle: (. ~level: int, ~children: React.element, unit) => React.element,
-  buildText: (. ~children: React.element) => React.element,
+  buildText: (. ~children: React.element, ~_type: Antd__Typography.textType, unit) => React.element,
 }
 
 type dispatchForAppStore = AppStoreType.action => unit

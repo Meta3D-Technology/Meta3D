@@ -84,10 +84,10 @@ let make = (~service: service) => {
   let (inspectorCurrentExtension, setInspectorCurrentExtension) = service.react.useState(_ => None)
   let (extensionStr, setExtensionStr) = service.react.useState(_ => "")
 
-  let (inspectorCurrentExtensionId, selectedExtensions) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (
+    inspectorCurrentExtensionId,
+    selectedExtensions,
+  ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
@@ -110,6 +110,14 @@ let make = (~service: service) => {
     // </Collapse>
 
     <Space direction=#vertical size=#middle>
+      {ExtensionsContributesUtils.buildBasicInfoUI(
+        service,
+        inspectorCurrentExtension.data.extensionPackageData.protocol.name,
+        inspectorCurrentExtension.data.extensionPackageData.protocol.version,
+        inspectorCurrentExtension.data.extensionPackageData.name,
+        inspectorCurrentExtension.data.extensionPackageData.version,
+        inspectorCurrentExtension.data.extensionPackageData.displayName,
+      )}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`入口扩展`)}, ())}
       {inspectorCurrentExtension.isStart
         ? <Button

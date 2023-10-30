@@ -1,4 +1,4 @@
-type textType = [#secondary | #success | #warning | #danger]
+type textType = [#default| #secondary | #success | #warning | #danger]
 
 type target = [#_blank]
 
