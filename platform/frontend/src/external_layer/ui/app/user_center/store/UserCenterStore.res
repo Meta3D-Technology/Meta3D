@@ -195,18 +195,6 @@ let reducer = (state, action) => {
       selectedExtensions,
       selectedContributes,
     }
-  | StorePackageInApp(id) => {
-      ...state,
-      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.push(id),
-    }
-  | UnStorePackageInApp(id) => {
-      ...state,
-      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.remove(id),
-    }
-  | BatchStorePackagesInApp(ids) => {
-      ...state,
-      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
-    }
   }
 }
 
@@ -217,5 +205,4 @@ let initialState = {
   selectedPackages: list{},
   importedPackageIds: list{},
   importedAppIds: list{},
-  storedPackageIdsInApp: list{},
 }

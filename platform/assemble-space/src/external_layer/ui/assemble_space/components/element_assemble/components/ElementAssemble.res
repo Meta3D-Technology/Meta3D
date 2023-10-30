@@ -9,7 +9,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account, ~storedPackageIdsInApp) => {
+let make = (~service: service, ~account, ) => {
   let dispatch = service.react.useDispatch()
 
   service.react.useEffectOnce(() => {
@@ -23,7 +23,7 @@ let make = (~service: service, ~account, ~storedPackageIdsInApp) => {
       <Space direction=#horizontal size=#small>
         <PublishElement service account />
         // <ElementController service />
-        <RunElementVisualController service storedPackageIdsInApp />
+        <RunElementVisualController service />
         <CanvasController service />
       </Space>
     </Layout.Content>
@@ -39,7 +39,7 @@ let make = (~service: service, ~account, ~storedPackageIdsInApp) => {
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        <ElementVisual service account storedPackageIdsInApp />
+        <ElementVisual service account />
       </Layout.Content>
       <Layout.Sider theme=#light>
         // <ElementInspector service />

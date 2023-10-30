@@ -8,19 +8,25 @@ module Method = {
   }
 
   let storePackageInApp = (
-    service: service,
-    dispatchForAppStore,
+    // service: service,
+    dispatchForApAssembleStore,
     inspectorCurrentPackage: FrontendUtils.ApAssembleStoreType.package,
   ) => {
-    service.app.dispatchStorePackageInApp(. dispatchForAppStore, inspectorCurrentPackage.id)
+    // service.app.dispatchStorePackageInApp(. dispatchForAppStore, inspectorCurrentPackage.id)
+    dispatchForApAssembleStore(
+      FrontendUtils.ApAssembleStoreType.StorePackageInApp(inspectorCurrentPackage.id),
+    )
   }
 
   let unstorePackageInApp = (
-    service: service,
-    dispatchForAppStore,
+    // service: service,
+    dispatchForApAssembleStore,
     inspectorCurrentPackage: FrontendUtils.ApAssembleStoreType.package,
   ) => {
-    service.app.dispatchUnStorePackageInApp(. dispatchForAppStore, inspectorCurrentPackage.id)
+    // service.app.dispatchUnStorePackageInApp(. dispatchForAppStore, inspectorCurrentPackage.id)
+    dispatchForApAssembleStore(
+      FrontendUtils.ApAssembleStoreType.UnStorePackageInApp(inspectorCurrentPackage.id),
+    )
   }
 
   let getInspectorCurrentPackage = ((
@@ -149,17 +155,20 @@ module Method = {
     {
       inspectorCurrentPackageId,
       selectedPackages,
-      // storedPackageIdsInApp,
+      storedPackageIdsInApp,
     }: FrontendUtils.ApAssembleStoreType.state,
   ) => {
-    // (inspectorCurrentPackageId, selectedPackages, storedPackageIdsInApp)
-    (inspectorCurrentPackageId, selectedPackages)
+    (inspectorCurrentPackageId, selectedPackages, storedPackageIdsInApp)
+    // (inspectorCurrentPackageId, selectedPackages)
   }
 }
 
 @react.component
-let make = (~service: service, ~storedPackageIdsInApp) => {
-  let dispatchForAppStore = service.app.useDispatch()
+let make = (~service: service) => {
+  // let dispatchForAppStore = service.app.useDispatch()
+  let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(
+    service.react.useDispatch,
+  )
 
   let (inspectorCurrentPackage, setInspectorCurrentPackage) = service.react.useState(_ => None)
   let (extensions, setExtensions) = service.react.useState(_ => [])
@@ -169,7 +178,7 @@ let make = (~service: service, ~storedPackageIdsInApp) => {
   let (
     inspectorCurrentPackageId,
     selectedPackages,
-    // storedPackageIdsInApp,
+    storedPackageIdsInApp,
   ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
@@ -197,13 +206,13 @@ let make = (~service: service, ~storedPackageIdsInApp) => {
       {Method.isPackageStoredInApp(inspectorCurrentPackage.id, storedPackageIdsInApp)
         ? <Button
             onClick={_ => {
-              Method.unstorePackageInApp(service, dispatchForAppStore, inspectorCurrentPackage)
+              Method.unstorePackageInApp(dispatchForApAssembleStore, inspectorCurrentPackage)
             }}>
             {React.string(`不保存在App中`)}
           </Button>
         : <Button
             onClick={_ => {
-              Method.storePackageInApp(service, dispatchForAppStore, inspectorCurrentPackage)
+              Method.storePackageInApp(dispatchForApAssembleStore, inspectorCurrentPackage)
             }}>
             {React.string(`保存在App中`)}
           </Button>}

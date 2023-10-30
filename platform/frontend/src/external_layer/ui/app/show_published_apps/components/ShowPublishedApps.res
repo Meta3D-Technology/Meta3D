@@ -198,11 +198,9 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                     ),
                                   ),
                                 packageIds =>
-                                  dispatch(
-                                    FrontendUtils.AppStoreType.UserCenterAction(
-                                      FrontendUtils.UserCenterStoreType.BatchStorePackagesInApp(
-                                        packageIds,
-                                      ),
+                                  dispatchForApAssembleStore(
+                                    FrontendUtils.ApAssembleStoreType.BatchStorePackagesInApp(
+                                      packageIds,
                                     ),
                                   ),
                               ),

@@ -41,7 +41,6 @@ let make = (
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
-  ~storedPackageIdsInApp,
 ) => {
   let dispatch = service.react.useDispatch()
 
@@ -90,9 +89,8 @@ let make = (
           selectedExtensionsFromMarket
           selectedContributesFromMarket
           selectedPackagesFromMarket
-          storedPackageIdsInApp
         />
-      | Element => <ElementAssemble service account storedPackageIdsInApp />
+      | Element => <ElementAssemble service account />
       | Package =>
         <PackageAssemble
           service

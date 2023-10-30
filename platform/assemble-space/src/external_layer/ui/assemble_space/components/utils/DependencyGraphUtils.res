@@ -878,6 +878,43 @@ module Method = {
 
         ()->Js.Promise.resolve
       },
+      // dispatchForAppStore(
+      //   FrontendUtils.AppStoreType.UserCenterAction(
+      //     FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+      //       selectedPackagesForAppStore,
+      //       selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((extensionData, _)) =>
+      //         extensionData
+      //       ),
+      //       selectedContributesForAppStore,
+      //     ),
+      //   ),
+      // )
+      // dispatchForApAssembleStore(
+      //   FrontendUtils.ApAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+      //     selectedPackagesForApAssembleStore,
+      //     selectedExtensionsForApAssembleStore,
+      //     selectedContributesForApAssembleStore,
+      //   ),
+      // )
+
+      // let (
+      //   selectedPackagesForPackageAssembleStore,
+      //   selectedExtensionsForPackageAssembleStore,
+      //   selectedContributesForPackageAssembleStore,
+      // ) = _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore(
+      //   selectedPackagesForApAssembleStore,
+      //   selectedExtensionsForAppStoreEdit,
+      //   selectedContributesForApAssembleStore,
+      //   startExtensionProtocolName,
+      // )
+      // dispatchForPackageAssembleStore(
+      //   FrontendUtils.PackageAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+      //     selectedPackagesForPackageAssembleStore,
+      //     selectedExtensionsForPackageAssembleStore,
+      //     selectedContributesForPackageAssembleStore,
+      //   ),
+      // )
+
       _,
     )
   }

@@ -223,8 +223,8 @@ type appService = {
       PackageAssembleStoreType.selectedContributes,
     ),
   ) => unit,
-  dispatchStorePackageInApp: (. dispatchForAppStore, AssembleSpaceCommonType.id) => unit,
-  dispatchUnStorePackageInApp: (. dispatchForAppStore, AssembleSpaceCommonType.id) => unit,
+  // dispatchStorePackageInApp: (. dispatchForAppStore, AssembleSpaceCommonType.id) => unit,
+  // dispatchUnStorePackageInApp: (. dispatchForAppStore, AssembleSpaceCommonType.id) => unit,
 }
 
 type service = {

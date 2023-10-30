@@ -162,7 +162,7 @@ module Method = {
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
-      // storedPackageIdsInApp,
+      storedPackageIdsInApp,
     } = apAssembleState
     let {canvasData} = elementAssembleState
 
@@ -173,7 +173,7 @@ module Method = {
         selectedContributes,
         apInspectorData,
         isPassDependencyGraphCheck,
-        // storedPackageIdsInApp,
+        storedPackageIdsInApp,
       ),
       canvasData,
     )
@@ -181,7 +181,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>, ~storedPackageIdsInApp) => {
+let make = (~service: service, ~account: option<string>) => {
   let (
     (
       selectedPackages,
@@ -189,7 +189,7 @@ let make = (~service: service, ~account: option<string>, ~storedPackageIdsInApp)
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
-      // storedPackageIdsInApp,
+      storedPackageIdsInApp,
     ),
     canvasData,
   ) = service.react.useSelector(. Method.useSelector)

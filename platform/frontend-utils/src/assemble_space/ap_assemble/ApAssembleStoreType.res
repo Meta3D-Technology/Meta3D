@@ -93,6 +93,9 @@ type action =
       selectedExtensions,
       selectedContributes,
     )
+  | StorePackageInApp(id)
+  | UnStorePackageInApp(id)
+  | BatchStorePackagesInApp(list<id>)
 
 type state = {
   selectedPackages: selectedPackages,
@@ -104,4 +107,5 @@ type state = {
   isShowApInspector: bool,
   apInspectorData: apInspectorData,
   isPassDependencyGraphCheck: bool,
+  storedPackageIdsInApp: AssembleSpaceCommonType.storedPackageIdsInApp,
 }

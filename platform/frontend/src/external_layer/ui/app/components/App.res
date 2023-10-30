@@ -10,7 +10,6 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     selectedExtensions,
     selectedContributes,
     selectedPackages,
-    storedPackageIdsInApp,
   } = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
@@ -226,20 +225,20 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           ),
         )
       },
-      dispatchStorePackageInApp: (. dispatchForAppStore, id) => {
-        dispatchForAppStore(
-          FrontendUtils.AppStoreType.UserCenterAction(
-            FrontendUtils.UserCenterStoreType.StorePackageInApp(id),
-          ),
-        )
-      },
-      dispatchUnStorePackageInApp: (. dispatchForAppStore, id) => {
-        dispatchForAppStore(
-          FrontendUtils.AppStoreType.UserCenterAction(
-            FrontendUtils.UserCenterStoreType.UnStorePackageInApp(id),
-          ),
-        )
-      },
+      // dispatchStorePackageInApp: (. dispatchForAppStore, id) => {
+      //   dispatchForAppStore(
+      //     FrontendUtils.AppStoreType.UserCenterAction(
+      //       FrontendUtils.UserCenterStoreType.StorePackageInApp(id),
+      //     ),
+      //   )
+      // },
+      // dispatchUnStorePackageInApp: (. dispatchForAppStore, id) => {
+      //   dispatchForAppStore(
+      //     FrontendUtils.AppStoreType.UserCenterAction(
+      //       FrontendUtils.UserCenterStoreType.UnStorePackageInApp(id),
+      //     ),
+      //   )
+      // },
     },
   }
 
@@ -262,7 +261,6 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
             selectedExtensionsFromMarket=selectedExtensions
             selectedContributesFromMarket=selectedContributes
             selectedPackagesFromMarket=selectedPackages
-            storedPackageIdsInApp
           />
         </Layout.Content>
       </Layout>

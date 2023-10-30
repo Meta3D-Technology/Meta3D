@@ -15,6 +15,7 @@ let _createState = () => {
       skinName: None,
     },
     isPassDependencyGraphCheck: false,
+    storedPackageIdsInApp: list{},
   }
 }
 
@@ -166,7 +167,7 @@ let reducer = (state, action) => {
   | SetApInspectorData(apInspectorDataFromFile) =>
     _setApIControlInspectorData(state, apInspectorDaapInspectorDataFromFileta => {
       isDebug: apInspectorDataFromFile.isDebug,
-      clearColor:apInspectorDataFromFile.clearColor,
+      clearColor: apInspectorDataFromFile.clearColor,
       skinName: apInspectorDataFromFile.skinName->Meta3dCommonlib.OptionSt.fromNullable,
     })
   | UpdateSelectedExtension(id, extensionFuncData) => {
@@ -221,6 +222,18 @@ let reducer = (state, action) => {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
+    }
+  | StorePackageInApp(id) => {
+      ...state,
+      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.push(id),
+    }
+  | UnStorePackageInApp(id) => {
+      ...state,
+      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.remove(id),
+    }
+  | BatchStorePackagesInApp(ids) => {
+      ...state,
+      storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
     }
   }
 }

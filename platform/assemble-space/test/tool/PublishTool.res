@@ -4,10 +4,9 @@ let buildUI = (
   ~sandbox,
   ~account=None,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~storedPackageIdsInApp=list{},
   (),
 ) => {
-  <Publish service account storedPackageIdsInApp />
+  <Publish service account  />
 }
 
 let publish = (

@@ -15,9 +15,9 @@
 * DONE fix: import app should import config data 
 e.g. canvas size
 
-* TODO refactor: move storedInXxx down to ap assemble store
+* DONE refactor: move storedInXxx down to ap assemble store
 
-* TODO refactor: remo service.app.dispatchXxx
+* DONE refactor: remo service.app.dispatchXxx
 
 
 

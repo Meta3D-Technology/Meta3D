@@ -1,10 +1,9 @@
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~storedPackageIdsInApp=list{},
   (),
 ) => {
-  <RunElementVisualController service storedPackageIdsInApp />
+  <RunElementVisualController service  />
 }
 
 let getAndSetNewestVisualExtension = RunElementVisualController.Method.getAndSetNewestVisualExtension
