@@ -3,10 +3,6 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let showApInspector = dispatch => {
-    dispatch(FrontendUtils.ApAssembleStoreType.ShowApInspector)
-  }
-
   let selectAll = (
     dispatch,
     selectedPackagesFromMarket: selectedPackagesFromMarket,
@@ -18,8 +14,11 @@ module Method = {
       protocolConfigOpt,
     )) => {
       dispatch(
-        FrontendUtils.ApAssembleStoreType.SelectExtension(
+        FrontendUtils.PackageAssembleStoreType.SelectExtension(
           extension.protocolIconBase64,
+          extension.protocolDisplayName,
+          extension.protocolRepoLink,
+          extension.protocolDescription,
           protocolConfigOpt->ExtensionsContributesUtils.getProtocolConfigStr,
           extension,
         ),
@@ -30,7 +29,7 @@ module Method = {
       protocolConfigOpt,
     )) => {
       dispatch(
-        FrontendUtils.ApAssembleStoreType.SelectContribute(
+        FrontendUtils.PackageAssembleStoreType.SelectContribute(
           contribute.protocolIconBase64,
           protocolConfigOpt->ExtensionsContributesUtils.getProtocolConfigStr,
           contribute,
@@ -38,7 +37,7 @@ module Method = {
       )
     })
     selectedPackagesFromMarket->Meta3dCommonlib.ListSt.forEach(package => {
-      dispatch(FrontendUtils.ApAssembleStoreType.SelectPackage(package))
+      dispatch(FrontendUtils.PackageAssembleStoreType.SelectPackage(package))
     })
   }
 }
@@ -50,15 +49,9 @@ let make = (
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
 ) => {
-  let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatch = FrontendUtils.ReduxUtils.PackageAssemble.useDispatch(service.react.useDispatch)
 
   <>
-    <Button
-      onClick={_ => {
-        Method.showApInspector(dispatch)
-      }}>
-      {React.string(`显示Ap Inspector`)}
-    </Button>
     <Button
       onClick={_ => {
         Method.selectAll(

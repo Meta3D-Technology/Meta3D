@@ -31,7 +31,7 @@ TODO pass run test
 
 TODO pass bdd test
 
-* TODO feat: ap assemble: add select all button
+* DONE feat: ap assemble: add select all button
 
 * TODO feat: Market: update paging for "xx/page"
 

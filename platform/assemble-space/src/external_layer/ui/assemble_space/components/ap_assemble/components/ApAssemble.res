@@ -28,7 +28,12 @@ let make = (
     <Layout.Content>
       <Space direction=#horizontal size=#small>
         <Publish service account />
-        <ApController service />
+        <ApController
+          service
+          selectedExtensionsFromMarket
+          selectedContributesFromMarket
+          selectedPackagesFromMarket
+        />
       </Space>
     </Layout.Content>
     <Layout>
