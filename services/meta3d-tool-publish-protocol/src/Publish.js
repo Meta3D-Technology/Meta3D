@@ -20,7 +20,7 @@ let _isPNG = (iconPath) => {
 let _isEmpty = (value) => {
     return value === undefined || value === null;
 };
-let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, fileType) => {
+let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, fileType) => {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
     }).flatMap(([backendInstance, packageJson]) => {
@@ -32,15 +32,12 @@ let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, ha
             if (!_isPNG(iconPath)) {
                 _throwError("icon's format should be png");
             }
-            return (0, most_1.fromPromise)(
-            // TODO support > 1000
-            getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), (0, PublishUtils_1.getLimitCount)(), 0).then(res => {
+            return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), (0, PublishUtils_1.getLimitCount)(), 0, {
+                name: packageJson.name,
+                version: packageJson.version
+            }).then(res => {
                 let resData = getDataFromMarketProtocolCollectionFunc(res);
-                return isContainFunc(({ name, version }) => {
-                    return name === packageJson.name && version === packageJson.version;
-                }, resData).then(isContain => [isContain, resData]);
-            }).then(([isContain, resData]) => {
-                if (isContain) {
+                if (resData.length > 0) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
                 return addDataToMarketProtocolCollectionFunc(backendInstance, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, _getPublishedCollectionName(fileType), _getPublishedCollectionName(fileType), resData, {
@@ -74,7 +71,7 @@ let _getPublishedConfigCollectionName = (fileType) => {
             return "publishedcontributeprotocolconfigs";
     }
 };
-let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) => {
+let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) => {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
     }).flatMap(([backendInstance, packageJson]) => {
@@ -84,15 +81,12 @@ let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFu
                 _throwError("找不到publishser，请在平台上注册该用户");
             }
             let collectioName = _getPublishedConfigCollectionName(fileType);
-            return (0, most_1.fromPromise)(
-            // TODO support > 1000
-            getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, collectioName, (0, PublishUtils_1.getLimitCount)(), 0).then(res => {
+            return (0, most_1.fromPromise)(getMarketProtocolCollectionFunc(backendInstance, parseMarketCollectionDataBodyFunc, collectioName, (0, PublishUtils_1.getLimitCount)(), 0, {
+                name: packageJson.name,
+                version: packageJson.version
+            }).then(res => {
                 let resData = getDataFromMarketProtocolCollectionFunc(res);
-                return isContainFunc(({ name, version }) => {
-                    return name === packageJson.name && version === packageJson.version;
-                }, resData).then(isContain => [isContain, resData]);
-            }).then(([isContain, resData]) => {
-                if (isContain) {
+                if (resData.length > 0) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
                 return addDataToMarketProtocolCollectionFunc(backendInstance, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, collectioName, collectioName, resData, {

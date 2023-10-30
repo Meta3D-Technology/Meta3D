@@ -6,36 +6,27 @@ export let getAllPublishNewestData = (
         getMarketImplementCollectionFunc,
         mapMarketImplementCollectionFunc,
         getAccountFromMarketImplementCollectionDataFunc,
-        getFileDataFromMarketImplementCollectionDataFunc,
         downloadFileFunc
-    ]: [any, any, any, any, any],
+    ]: [any, any, any, any],
     collectionName: string,
     limitCount: number, skipCount: number,
     protocolName: string) => {
-    return fromPromise(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res: any) => {
+    return fromPromise(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount, {
+        protocolName: protocolName
+    })).flatMap((res: any) => {
         return fromPromise(mergeArray(
             mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
                 let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
-                let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
 
-                let result = fileData.filter(data => {
-                    return data.protocolName === protocolName
+                let {
+                    fileID, version, protocolVersion
+                } = marketImplementCollectionData
 
-                })
-
-                if (result.length === 0) {
-                    return empty()
-                }
-
-                return from(result.map(({ fileID, version, protocolVersion }) => {
-                    return [fileID, version, protocolVersion]
-                })).flatMap(([fileID, version, protocolVersion]) => {
-                    return downloadFileFunc(fileID).map(arrayBuffer => {
-                        return {
-                            id: fileID, file: arrayBuffer, version, account,
-                            protocolVersion: minVersion(protocolVersion),
-                        }
-                    })
+                return downloadFileFunc(fileID).map(arrayBuffer => {
+                    return {
+                        id: fileID, file: arrayBuffer, version, account,
+                        protocolVersion: minVersion(protocolVersion),
+                    }
                 })
 
             })
@@ -71,7 +62,7 @@ export let getAllPublishNewestData = (
 }
 
 export let getElementAssembleData = (
-    [getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc]: [any, any],
+    getMarketImplementAccountDataFunc: any,
     account: string,
     elementName: string,
     elementVersion: string,
@@ -79,19 +70,16 @@ export let getElementAssembleData = (
     return fromPromise(
         getMarketImplementAccountDataFunc(
             "publishedelementassembledata",
-            account
+            account,
+            elementName,
+            elementVersion
         )
-    ).flatMap(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-        let fileData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
+    )
+        .flatMap((marketImplementAccountData: any) => {
+            if (marketImplementAccountData.length === 0) {
+                return empty()
+            }
 
-        let result = fileData.filter(data => {
-            return data.elementName === elementName && data.elementVersion === elementVersion
+            return just(marketImplementAccountData[0])
         })
-
-        if (result.length === 0) {
-            return empty()
-        }
-
-        return just(result[0])
-    })
 }

@@ -3,13 +3,13 @@ import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { publishConfig } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addMarketProtocolDataToDataFromMarketProtocolCollectionData, getDataFromMarketProtocolCollection, isContain, parseMarketCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
+import { addMarketProtocolDataToDataFromMarketProtocolCollectionData, getDataFromMarketProtocolCollection,  parseMarketCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_contribute_protocol_config.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc
 
     let _createFuncs = (sandbox, errorFuncStub = console.error) =>  {
         readFileSyncFunc = sandbox.stub()
@@ -19,7 +19,6 @@ defineFeature(feature, test => {
         initFunc = sandbox.stub()
         hasAccountFunc = sandbox.stub()
         getMarketProtocolCollectionFunc = sandbox.stub()
-        isContainFunc = isContain
         addDataToMarketProtocolCollectionFunc = sandbox.stub()
         addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc = addMarketProtocolDataToDataFromMarketProtocolCollectionData
         getDataFromMarketProtocolCollectionFunc = getDataFromMarketProtocolCollection
@@ -34,7 +33,7 @@ defineFeature(feature, test => {
 
     let _publishContributeProtocolConfig = (packageFilePath = "", distFilePath = "main.js") =>  {
         return publishConfig(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc,  addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
             "contribute"
         )

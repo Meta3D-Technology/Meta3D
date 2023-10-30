@@ -5,23 +5,20 @@ const sinon_1 = require("sinon");
 const most_1 = require("most");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
 const PublishElementContributeService_1 = require("../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService");
-const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
+// import { addMarketImplementData, getFileID } from "meta3d-backend-cloudbase";
+const BackendService_1 = require("backend-cloudbase/src/application_layer/BackendService");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_contribute.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc;
+    let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc;
     let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         logFunc = sandbox.stub();
         errorFunc = errorFuncStub;
         uploadFileFunc = sandbox.stub();
         getMarketImplementAccountDataFunc = sandbox.stub();
-        updateMarketImplementDataFunc = sandbox.stub();
-        getDataFromMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromMarketImplementAccountData;
-        isContainFunc = meta3d_backend_cloudbase_1.isContain;
-        buildMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.buildMarketImplementAccountData;
-        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
-        getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
-        parseMarketCollectionDataBodyFunc = meta3d_backend_cloudbase_1.parseMarketCollectionDataBodyForNodejs;
+        addMarketImplementDataFunc = sandbox.stub();
+        addMarketImplementDataFunc = sandbox.stub();
+        getFileIDFunc = BackendService_1.getFileID;
     };
     function _publish(account = "u1", packageData = [
         "",
@@ -35,7 +32,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         return (0, PublishElementContributeService_1.publishElementContribute)([logFunc, (message) => {
                 errorFunc(message);
                 throw new Error(message);
-            }, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], account, packageData, contributeBinaryFile);
+            }, uploadFileFunc,
+            getMarketImplementAccountDataFunc,
+            addMarketImplementDataFunc, getFileIDFunc], account, packageData, contributeBinaryFile);
     }
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -53,14 +52,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         let description = "dp1";
         let binaryFile = new ArrayBuffer(10);
         let fileID1 = "id1";
-        let marketImplementCollectionData = [];
+        // let marketImplementCollectionData = []
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
             uploadFileFunc.returns((0, most_1.just)({ fileID: fileID1 }));
-            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, marketImplementCollectionData]));
+            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
+            addMarketImplementDataFunc.returns((0, PromiseTool_1.resolve)({}));
         });
         when('publish', () => {
             return _publish(account, [
@@ -81,22 +79,18 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             ]);
         });
         and('should add to collection', () => {
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 "publishedcontributes",
-                "meta3d",
                 {
                     "key": "meta3d",
-                    "fileData": [{
-                            "protocolName": protocolName, "protocolVersion": protocolVersion,
-                            "name": name,
-                            "version": version,
-                            "displayName": displayName,
-                            "repoLink": repoLink,
-                            "description": description,
-                            "fileID": fileID1
-                        }]
+                    "protocolName": protocolName, "protocolVersion": protocolVersion,
+                    "name": name,
+                    "version": version,
+                    "displayName": displayName,
+                    "repoLink": repoLink,
+                    "description": description,
+                    "fileID": fileID1
                 },
-                marketImplementCollectionData
             ]);
         });
     });
@@ -111,19 +105,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         given('prepare funcs', () => {
             _createFuncs(sandbox, sandbox.stub());
             uploadFileFunc.returns((0, most_1.empty)());
-            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, []]));
+            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([]));
             getMarketImplementAccountDataFunc.onCall(1).returns((0, PromiseTool_1.resolve)([
                 {
-                    fileData: [
-                        {
-                            name: name,
-                            version: version
-                        }
-                    ]
-                },
-                []
+                    name: name,
+                    version: version
+                }
             ]));
         });
         and('publish', () => {

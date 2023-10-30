@@ -3,7 +3,7 @@ import { createSandbox, match } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getAllPublishNewestData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService"
 import { just } from "most";
-import { mapMarketImplementCollection, getAccountFromMarketImplementCollectionData, getFileDataFromMarketImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
+import { getAccountFromMarketImplementCollectionData, mapMarketImplementCollection } from "backend-cloudbase/src/application_layer/BackendService";
 
 const feature = loadFeature("./test/features/get_all_publish_newest_extensions.feature")
 
@@ -12,25 +12,21 @@ defineFeature(feature, test => {
     let getMarketImplementCollectionFunc,
         mapMarketImplementCollectionFunc,
         getAccountFromMarketImplementCollectionDataFunc,
-        getFileDataFromMarketImplementCollectionDataFunc,
         downloadFileFunc
 
-    let _createFuncs = (sandbox) =>  {
+    let _createFuncs = (sandbox) => {
         getMarketImplementCollectionFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
         mapMarketImplementCollectionFunc = mapMarketImplementCollection
         getAccountFromMarketImplementCollectionDataFunc = getAccountFromMarketImplementCollectionData
-        getFileDataFromMarketImplementCollectionDataFunc = getFileDataFromMarketImplementCollectionData
-
     }
 
-    let _getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) =>  {
+    let _getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => {
         return getAllPublishNewestData(
             [
                 getMarketImplementCollectionFunc,
                 mapMarketImplementCollectionFunc,
                 getAccountFromMarketImplementCollectionDataFunc,
-                getFileDataFromMarketImplementCollectionDataFunc,
                 downloadFileFunc
             ],
             "publishedextensions",
@@ -39,7 +35,7 @@ defineFeature(feature, test => {
         )
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -159,45 +155,40 @@ defineFeature(feature, test => {
                     data: [
                         {
                             key: account1,
-                            fileData: [
-                                {
-                                    protocolName: protocol1Name,
-                                    protocolVersion: lowVersion,
-                                    fileID: fileID1,
-                                    version: fileVersion1
-                                },
-                                {
-                                    protocolName: protocol2Name,
-                                    protocolVersion: lowVersion,
-                                    fileID: fileID2,
-                                    version: fileVersion2
-                                },
-                                {
-                                    protocolName: protocol1Name,
-                                    protocolVersion: highVersion,
-                                    fileID: fileID3,
-                                    version: fileVersion3
-                                },
-                            ]
+                            protocolName: protocol1Name,
+                            protocolVersion: lowVersion,
+                            fileID: fileID1,
+                            version: fileVersion1
                         },
+                        // {
+                        //     key: account1,
+                        //     protocolName: protocol2Name,
+                        //     protocolVersion: lowVersion,
+                        //     fileID: fileID2,
+                        //     version: fileVersion2
+                        // },
+                        {
+                            key: account1,
+                            protocolName: protocol1Name,
+                            protocolVersion: highVersion,
+                            fileID: fileID3,
+                            version: fileVersion3
+                        },
+
                         {
                             key: account2,
-                            fileData: [
-                                {
-                                    protocolName: protocol1Name,
-                                    protocolVersion: highVersion,
-                                    fileID: fileID4,
-                                    version: fileVersion4
-                                },
-                                {
-                                    protocolName: protocol2Name,
-                                    protocolVersion: highVersion,
-                                    fileID: fileID5,
-                                    version: fileVersion5
-                                },
-                            ]
-                        }
-
+                            protocolName: protocol1Name,
+                            protocolVersion: highVersion,
+                            fileID: fileID4,
+                            version: fileVersion4
+                        },
+                        // {
+                        //     key: account2,
+                        //     protocolName: protocol2Name,
+                        //     protocolVersion: highVersion,
+                        //     fileID: fileID5,
+                        //     version: fileVersion5
+                        // },
                     ]
                 })
             )

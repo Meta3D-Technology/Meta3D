@@ -23,28 +23,31 @@ let findNewestPublishPackage = (collectionName, whereData, firstOrderByFieldName
     }));
 };
 exports.findNewestPublishPackage = findNewestPublishPackage;
-let _findNewestImplements = (res, isJudgeProtocolVersion, implementName, protocolName, protocolVersion) => {
-    return res.data.reduce((result, { fileData, key }) => {
-        return result.concat(fileData.map(data => {
-            return Object.assign(Object.assign({}, data), { account: key });
-        }));
-    }, [])
-        .filter((data) => {
-        if (isJudgeProtocolVersion) {
-            return data.name == implementName &&
-                data.protocolName == protocolName
-                && (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
-        }
-        return data.name == implementName &&
-            data.protocolName == protocolName;
-    })
-        .sort((a, b) => {
-        if ((0, semver_1.gt)(a.version, b.version)) {
-            return -1;
-        }
-        return 1;
-    });
-};
+// let _findNewestImplements = (res, isJudgeProtocolVersion, implementName, protocolName, protocolVersion) => {
+//     return res.data.reduce((result, { fileData, key }) => {
+//         return result.concat(fileData.map(data => {
+//             return { ...data, account: key }
+//         }))
+//     }, [])
+//         .filter((data) => {
+//             if (isJudgeProtocolVersion) {
+//                 return data.name == implementName &&
+//                     data.protocolName == protocolName
+//                     && satisfies(
+//                         protocolVersion,
+//                         data.protocolVersion
+//                     )
+//             }
+//             return data.name == implementName &&
+//                 data.protocolName == protocolName
+//         })
+//         .sort((a, b) => {
+//             if (gt(a.version, b.version)) {
+//                 return -1
+//             }
+//             return 1
+//         })
+// }
 let _findNewestPublishExtensionOrContribute = (downloadFileFunc, [protocolCollectionName, protocolConfigCollectionName, implementCollectionName,], implementName, protocolName) => {
     return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection(protocolCollectionName)
         .where({
@@ -79,21 +82,29 @@ let _findNewestPublishExtensionOrContribute = (downloadFileFunc, [protocolCollec
                 //         })
                 //     ])
                 // })
+                // .where({
+                //     fileData: getDatabase().command.neq([])
+                // })
                 .where({
-                fileData: (0, BackendService_1.getDatabase)().command.neq([])
+                name: implementName,
+                protocolName: protocolName
             })
+                .orderBy("version", "desc")
                 .skip(0)
                 .limit(1000)
                 .get()
                 .then(res => {
-                let extensionOrContribute = null;
-                let result = _findNewestImplements(res, true, implementName, protocolName, protocolVersion);
-                if (result.length == 0) {
-                    extensionOrContribute = _findNewestImplements(res, false, implementName, protocolName, protocolVersion)[0];
-                }
-                else {
-                    extensionOrContribute = result[0];
-                }
+                // let extensionOrContribute = null
+                // let result = _findNewestImplements(res, true, implementName, protocolName, protocolVersion)
+                // if (result.length == 0) {
+                //     extensionOrContribute = _findNewestImplements(res, false, implementName, protocolName, protocolVersion)[0]
+                // }
+                // else {
+                //     extensionOrContribute = result[0]
+                // }
+                let extensionOrContribute = res.data.filter((data) => {
+                    return (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
+                })[0];
                 return [
                     extensionOrContribute,
                     [

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.publish = void 0;
 const most_1 = require("most");
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
+const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 let _throwError = (msg) => {
     throw new Error(msg);
 };
@@ -60,7 +61,7 @@ let _getPublishedCollectionName = (fileType) => {
             return "publishedcontributes";
     }
 };
-let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) => {
+let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, fileType) => {
     return readJsonFunc(packageFilePath)
         .flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson]);
@@ -72,37 +73,25 @@ let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc
             }
             _defineWindow();
             let filePath = _getFileDirname(fileType) + "/" + packageJson.name + "_" + packageJson.version + ".arrayBuffer";
-            // TODO perf: only invoke getMarketImplementAccountDataFunc once
-            return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, _]) => {
-                let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-                return isContainFunc(({ protocolName, protocolVersion, name, version }) => {
-                    return protocolName === packageJson.protocol.name
-                        && name === packageJson.name
-                        && version === packageJson.version;
-                }, resData);
-            }).then((isContain) => {
-                if (isContain) {
+            return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account, packageJson.name, packageJson.version, packageJson.protocol.name).then((marketImplementAccountData) => {
+                if (marketImplementAccountData.length > 0) {
                     _throwError("version: " + packageJson.version + " already exist, please update version");
                 }
             })).flatMap(_ => uploadFileFunc(backendInstance, filePath, generateFunc(_convertToExtensionOrContributePackageData(packageJson, account), readFileSyncFunc(distFilePath, "utf-8"))).flatMap((uploadData) => {
                 let fileID = getFileIDFunc(uploadData, filePath);
-                return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(backendInstance, parseMarketCollectionDataBodyFunc, _getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-                    let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-                    let packageData = _convertToExtensionOrContributePackageData(packageJson, account);
-                    let data = {
-                        protocolName: packageData.protocol.name,
-                        protocolVersion: packageData.protocol.version,
-                        name: packageJson.name,
-                        version: packageJson.version,
-                        displayName: packageData.displayName,
-                        repoLink: packageData.repoLink,
-                        description: packageData.description,
-                        fileID
-                    };
-                    return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
-                        return updateMarketImplementDataFunc(backendInstance, _getPublishedCollectionName(fileType), account, buildMarketImplementAccountDataFunc(resData, account), marketImplementAllCollectionData);
-                    });
-                }));
+                let packageData = _convertToExtensionOrContributePackageData(packageJson, account);
+                let data = {
+                    protocolName: packageData.protocol.name,
+                    protocolVersion: packageData.protocol.version,
+                    name: packageJson.name,
+                    version: packageJson.version,
+                    displayName: packageData.displayName,
+                    repoLink: packageData.repoLink,
+                    description: packageData.description,
+                    fileID,
+                    key: (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(account)
+                };
+                return (0, most_1.fromPromise)(addMarketImplementDataFunc(backendInstance, _getPublishedCollectionName(fileType), data));
             }));
         });
     }).drain()

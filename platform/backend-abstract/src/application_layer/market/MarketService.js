@@ -48,25 +48,19 @@ let batchFindPublishProtocolConfigData = ([batchFindMarketProtocolCollection, ge
     ], collectionName, protocolNames);
 };
 exports.batchFindPublishProtocolConfigData = batchFindPublishProtocolConfigData;
-let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc,], collectionName, limitCount, skipCount, protocolName, protocolVersion) => {
-    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res) => {
-        // console.log(JSON.stringify( res.data))
-        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
+let getAllPublishImplementInfo = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, filterMarketImplementCollection, getAccountFromMarketImplementCollectionDataFunc,], collectionName, limitCount, skipCount, protocolName, protocolVersion) => {
+    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount, {
+        protocolName: protocolName
+    })).flatMap((res) => {
+        return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(filterMarketImplementCollection(res, (marketImplementCollectionData => {
+            return (0, semver_1.satisfies)(protocolVersion, marketImplementCollectionData.protocolVersion);
+        })), (marketImplementCollectionData) => {
             let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
-            let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
-            let result = fileData.filter(data => {
-                return data.protocolName === protocolName &&
-                    (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
+            let { fileID, name, version, displayName, repoLink, description } = marketImplementCollectionData;
+            return (0, most_1.just)({
+                id: fileID, name, version, account,
+                displayName, repoLink, description
             });
-            if (result.length === 0) {
-                return (0, most_1.empty)();
-            }
-            return (0, most_1.from)(result.map(({ fileID, name, version, displayName, repoLink, description }) => {
-                return {
-                    id: fileID, name, version, account,
-                    displayName, repoLink, description
-                };
-            }));
         })).reduce((result, data) => {
             result.push(data);
             return result;

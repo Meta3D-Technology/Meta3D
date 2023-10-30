@@ -5,6 +5,7 @@ const Abstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
 const FindNewestService_1 = require("./application_layer/FindNewestService");
+const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 // export let error = ErrorService.error
 let init = (env) => Abstract.init(BackendService_1.init, env);
 exports.init = init;
@@ -38,15 +39,15 @@ let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log;
 let getAllPublishExtensionInfos = (limitCount, skipCount, protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
     BackendService_1.getMarketImplementCollection,
     BackendService_1.mapMarketImplementCollection,
+    meta3d_backend_cloudbase_1.filterMarketImplementCollection,
     BackendService_1.getAccountFromMarketImplementCollectionData,
-    BackendService_1.getFileDataFromMarketImplementCollectionData,
 ], "publishedextensions", limitCount, skipCount, protocolName, protocolVersion);
 exports.getAllPublishExtensionInfos = getAllPublishExtensionInfos;
 let getAllPublishContributeInfos = (limitCount, skipCount, protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
     BackendService_1.getMarketImplementCollection,
     BackendService_1.mapMarketImplementCollection,
+    meta3d_backend_cloudbase_1.filterMarketImplementCollection,
     BackendService_1.getAccountFromMarketImplementCollectionData,
-    BackendService_1.getFileDataFromMarketImplementCollectionData,
 ], "publishedcontributes", limitCount, skipCount, protocolName, protocolVersion);
 exports.getAllPublishContributeInfos = getAllPublishContributeInfos;
 let findPublishExtension = (onDownloadProgressFunc, limitCount, skipCount, account, name, version) => Abstract.findPublishImplement([
@@ -84,25 +85,30 @@ let _throwError = (msg) => {
 };
 let publishElementContribute = (onUploadProgressFunc, account, packageData, contributeBinaryFile) => Abstract.publishElementContribute([
     onUploadProgressFunc,
-    _throwError, BackendService_1.uploadFile, BackendService_1.getMarketImplementAccountData, BackendService_1.updateMarketImplementData,
-    BackendService_1.getDataFromMarketImplementAccountData, BackendService_1.isContain, BackendService_1.buildMarketImplementAccountData, BackendService_1.addMarketImplementDataToDataFromMarketImplementCollectionData,
+    _throwError, BackendService_1.uploadFile, BackendService_1.getMarketImplementAccountData,
+    BackendService_1.addMarketImplementData,
+    // updateMarketImplementData,
+    // getDataFromMarketImplementAccountData,
+    // buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
     BackendService_1.getFileID
 ], account, packageData, contributeBinaryFile);
 exports.publishElementContribute = publishElementContribute;
 let publishElementAssembleData = (account, elementName, elementVersion, inspectorData) => Abstract.publishElementAssembleData([
     _throwError,
-    BackendService_1.getMarketImplementAccountData, BackendService_1.updateMarketImplementData, BackendService_1.getDataFromMarketImplementAccountData, BackendService_1.isContain, BackendService_1.buildMarketImplementAccountData, BackendService_1.addMarketImplementDataToDataFromMarketImplementCollectionData,
+    BackendService_1.getMarketImplementAccountData,
+    BackendService_1.addMarketImplementData,
+    // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
+    // addMarketImplementDataToDataFromMarketImplementCollectionData,
 ], account, elementName, elementVersion, inspectorData);
 exports.publishElementAssembleData = publishElementAssembleData;
 let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
     BackendService_1.getMarketImplementCollection,
     BackendService_1.mapMarketImplementCollection,
     BackendService_1.getAccountFromMarketImplementCollectionData,
-    BackendService_1.getFileDataFromMarketImplementCollectionData,
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", limitCount, skipCount, protocolName);
 exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
-let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData([BackendService_1.getMarketImplementAccountData, BackendService_1.getDataFromMarketImplementAccountData], account, elementName, elementVersion);
+let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData(BackendService_1.getMarketImplementAccountData, account, elementName, elementVersion);
 exports.getElementAssembleData = getElementAssembleData;
 let publishPackage = (onUploadProgressFunc, packageBinaryFile, entryExtensionData, packageData, account) => Abstract.publishPackage([
     onUploadProgressFunc,

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLimitCount = exports.isPublisherRegistered = exports.buildReadJsonFunc = void 0;
 const most_1 = require("most");
 const read_package_json_1 = __importDefault(require("read-package-json"));
-function buildReadJsonFunc(packageFilePath) {
+let buildReadJsonFunc = (packageFilePath) => {
     return (packageFilePath) => {
         return (0, most_1.fromPromise)(new Promise((resolve, reject) => {
             (0, read_package_json_1.default)(packageFilePath, null, false, (err, packageJson) => {
@@ -18,11 +18,11 @@ function buildReadJsonFunc(packageFilePath) {
             });
         }));
     };
-}
+};
 exports.buildReadJsonFunc = buildReadJsonFunc;
-function isPublisherRegistered(hasAccountFunc, backendInstance, publisher) {
+let isPublisherRegistered = (hasAccountFunc, backendInstance, publisher) => {
     return hasAccountFunc(backendInstance, "user", publisher);
-}
+};
 exports.isPublisherRegistered = isPublisherRegistered;
 function getLimitCount() {
     return 1000;

@@ -2,31 +2,29 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getAllPublishImplementInfo } from "../../src/application_layer/market/MarketService"
-import { just } from "most";
-import { mapMarketImplementCollection, getAccountFromMarketImplementCollectionData, getFileDataFromMarketImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
+import { mapMarketImplementCollection, filterMarketImplementCollection, getAccountFromMarketImplementCollectionData } from "backend-cloudbase/src/application_layer/BackendService";
 
 const feature = loadFeature("./test/features/get_all_publish_extension_infos.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
     let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc,
-        getAccountFromMarketImplementCollectionDataFunc,
-        getFileDataFromMarketImplementCollectionDataFunc
+        filterMarketImplementCollectionFunc,
+        getAccountFromMarketImplementCollectionDataFunc
 
-    let _createFuncs = (sandbox) =>  {
-        // getMarketImplementCollectionFunc = sandbox.stub()
+    let _createFuncs = (sandbox) => {
         mapMarketImplementCollectionFunc = mapMarketImplementCollection
+        filterMarketImplementCollectionFunc = filterMarketImplementCollection
         getAccountFromMarketImplementCollectionDataFunc = getAccountFromMarketImplementCollectionData
-        getFileDataFromMarketImplementCollectionDataFunc = getFileDataFromMarketImplementCollectionData
     }
 
-    let _getAllPublishExtensions = (limitCount, skipCount, protocolName, protocolVersion) =>  {
+    let _getAllPublishExtensions = (limitCount, skipCount, protocolName, protocolVersion) => {
         return getAllPublishImplementInfo(
             [
                 getMarketImplementCollectionFunc,
                 mapMarketImplementCollectionFunc,
+                filterMarketImplementCollectionFunc,
                 getAccountFromMarketImplementCollectionDataFunc,
-                getFileDataFromMarketImplementCollectionDataFunc,
             ],
             "publishedextensions",
             limitCount, skipCount,
@@ -34,7 +32,7 @@ defineFeature(feature, test => {
         )
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -73,56 +71,56 @@ defineFeature(feature, test => {
             _createFuncs(sandbox)
 
 
-            getMarketImplementCollectionFunc = (_, limitCount, skipCount) => {
+            getMarketImplementCollectionFunc = (_, limitCount, skipCount, {
+                protocolName
+            }) => {
                 return resolve({
                     data: [
                         {
                             key: account,
-                            fileData: [
-                                {
-                                    fileID: fileId1,
-                                    protocolName: "test1-protocol",
-                                    protocolVersion: "^0.2.0",
-                                    name: fileName1,
-                                    version: fileVersion1,
-                                    displayName: displayName1,
-                                    repoLink: repoLink1,
-                                    description: description1
-                                },
-                                {
-                                    fileID: fileId2,
-                                    protocolName: "test1-protocol",
-                                    protocolVersion: "^0.1.0",
-                                    name: fileName1,
-                                    version: fileVersion2,
-                                    displayName: displayName2,
-                                    repoLink: repoLink2,
-                                    description: description2
-                                },
-                                {
-                                    fileID: fileId3,
-                                    protocolName: "test2-protocol",
-                                    protocolVersion: "^0.1.0",
-                                    name: fileName1,
-                                    version: fileVersion3,
-                                    displayName: displayName3,
-                                    repoLink: repoLink3,
-                                    description: description3
-                                },
-                                {
-                                    fileID: fileId4,
-                                    protocolName: "test1-protocol",
-                                    protocolVersion: "^0.1.0",
-                                    name: fileName1,
-                                    version: fileVersion4,
-                                    displayName: displayName4,
-                                    repoLink: repoLink4,
-                                    description: description4
-                                },
-                            ]
-                                .slice(skipCount, limitCount )
-                        }
-                    ]
+                            fileID: fileId1,
+                            protocolName: "test1-protocol",
+                            protocolVersion: "^0.2.0",
+                            name: fileName1,
+                            version: fileVersion1,
+                            displayName: displayName1,
+                            repoLink: repoLink1,
+                            description: description1
+                        },
+                        {
+                            key: account,
+                            fileID: fileId2,
+                            protocolName: "test1-protocol",
+                            protocolVersion: "^0.1.0",
+                            name: fileName1,
+                            version: fileVersion2,
+                            displayName: displayName2,
+                            repoLink: repoLink2,
+                            description: description2
+                        },
+                        {
+                            key: account,
+                            fileID: fileId3,
+                            protocolName: "test2-protocol",
+                            protocolVersion: "^0.1.0",
+                            name: fileName1,
+                            version: fileVersion3,
+                            displayName: displayName3,
+                            repoLink: repoLink3,
+                            description: description3
+                        },
+                        {
+                            key: account,
+                            fileID: fileId4,
+                            protocolName: "test1-protocol",
+                            protocolVersion: "^0.1.0",
+                            name: fileName1,
+                            version: fileVersion4,
+                            displayName: displayName4,
+                            repoLink: repoLink4,
+                            description: description4
+                        },
+                    ].filter(data => data.protocolName == protocolName).slice(skipCount, limitCount )
                 })
             }
 
@@ -177,7 +175,7 @@ defineFeature(feature, test => {
 
         when('get all publish extension infos', () => {
             return _getAllPublishExtensions(
-                3, 1,
+                2, 0,
                 "test1-protocol", "0.1.0"
             ).observe(result => {
                 allPublishExtensions = result

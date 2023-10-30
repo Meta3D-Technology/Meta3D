@@ -3,23 +3,19 @@ import { createSandbox } from "sinon";
 import { just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
-import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, isContain } from "meta3d-backend-cloudbase";
+// import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, isContain } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/publish_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc
+    let logFunc, errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc
 
-    let _createFuncs = (sandbox) =>  {
+    let _createFuncs = (sandbox) => {
         logFunc = sandbox.stub()
         errorFunc = sandbox.stub()
         getMarketImplementAccountDataFunc = sandbox.stub()
-        updateMarketImplementDataFunc = sandbox.stub()
-        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
-        isContainFunc = isContain
-        buildMarketImplementAccountDataFunc = buildMarketImplementAccountData
-        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = addMarketImplementDataToDataFromMarketImplementCollectionData
+        addMarketImplementDataFunc = sandbox.stub()
     }
 
     function _publish(
@@ -29,13 +25,13 @@ defineFeature(feature, test => {
         inspectorData: any = {}
     ) {
         return publishElementAssembleData(
-            [errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc,],
+            [errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc],
             account,
             elementName, elementVersion, inspectorData
         )
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -57,9 +53,7 @@ defineFeature(feature, test => {
             _createFuncs(sandbox)
 
             getMarketImplementAccountDataFunc.returns(
-                resolve([{
-                    fileData: []
-                }, marketImplementCollectionData])
+                resolve([])
             )
         });
 
@@ -73,17 +67,13 @@ defineFeature(feature, test => {
         });
 
         and('should add to collection', () => {
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 "publishedelementassembledata",
-                "meta3d",
                 {
-                    "key": "meta3d",
-                    "fileData": [{
-                        "elementName": elementName, "elementVersion": elementVersion,
-                        "inspectorData": inspectorData
-                    }]
+                    "elementName": elementName, "elementVersion": elementVersion,
+                    "inspectorData": inspectorData,
+                    "key": "meta3d"
                 },
-                marketImplementCollectionData
             ])
         });
     });
@@ -105,20 +95,13 @@ defineFeature(feature, test => {
 
             getMarketImplementAccountDataFunc.onCall(0).returns(
                 resolve([
-                    {
-                        fileData: []
-                    }
                 ])
             )
             getMarketImplementAccountDataFunc.onCall(1).returns(
                 resolve([
                     {
-                        fileData: [
-                            {
-                                elementName: elementName,
-                                elementVersion: elementVersion
-                            }
-                        ]
+                        elementName: elementName,
+                        elementVersion: elementVersion
                     }
                 ])
             )

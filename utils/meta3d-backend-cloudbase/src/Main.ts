@@ -50,11 +50,11 @@ export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCol
     })
 }
 
-export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData: dataFromMarketImplementCollectionData, data: marketImplementData): Promise<any> => {
-    return new Promise((resolve, reject) => {
-        resolve(allCollectionData.concat([data]))
-    })
-}
+// export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData: dataFromMarketImplementCollectionData, data: marketImplementData): Promise<any> => {
+//     return new Promise((resolve, reject) => {
+//         resolve(allCollectionData.concat([data]))
+//     })
+// }
 
 export let checkUserName = (app: any, account: account) => {
     return _notHasData(app, "user", { key: account })
@@ -141,26 +141,26 @@ export let getDataFromMarketProtocolCollection = (allCollectionData: allCollecti
 }
 
 
-export let getDataFromMarketImplementAccountData = (data: marketImplementAccountData): dataFromMarketImplementCollectionData => {
-    return data.fileData
-}
+// export let getDataFromMarketImplementAccountData = (data: marketImplementAccountData): dataFromMarketImplementCollectionData => {
+//     return data.fileData
+// }
 
-export let buildMarketImplementAccountData = (data: dataFromMarketImplementCollectionData, account: account): marketImplementAccountData => {
-    return {
-        key: handleKeyToLowercase(account),
-        fileData: data
-    }
-}
+// export let buildMarketImplementAccountData = (data: dataFromMarketImplementCollectionData, account: account): marketImplementAccountData => {
+//     return {
+//         key: handleKeyToLowercase(account),
+//         fileData: data
+//     }
+// }
 
-export let isContain = (find: (dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => boolean, dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => {
-    return new Promise((resolve, reject) => {
-        resolve(
-            dataFromMarketCollectionData.findIndex((data) => {
-                return find(data)
-            }) !== -1
-        )
-    })
-}
+// export let isContain = (find: (dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => boolean, dataFromMarketCollectionData: dataFromMarketProtocolCollectionData | dataFromMarketImplementCollectionData) => {
+//     return new Promise((resolve, reject) => {
+//         resolve(
+//             dataFromMarketCollectionData.findIndex((data) => {
+//                 return find(data)
+//             }) !== -1
+//         )
+//     })
+// }
 
 export let notHasData = (app: any, collectionName: string, data: object) => {
     return fromPromise(_getDatabase(app).collection(collectionName)
@@ -184,8 +184,9 @@ export let uploadFile = (app: any, filePath: string, fileContent: ArrayBuffer) =
     }))
 }
 
-export let getMarketProtocolCollection = (app: any, parseMarketCollectionDataBody, collectionName: string, limitCount: number, skipCount: number): Promise<allCollectionData> => {
+export let getMarketProtocolCollection = (app: any, parseMarketCollectionDataBody, collectionName: string, limitCount: number, skipCount: number, whereData = {}): Promise<allCollectionData> => {
     return _getDatabase(app).collection(collectionName)
+        .where(whereData)
         // .skip(skipCount + 1)
         // .limit(limitCount + 1)
         .skip(skipCount)
@@ -213,13 +214,32 @@ export let getMarketProtocolCollectionCount = (app: any, collectionName: string)
         .then(res => res.total)
 }
 
-export let getMarketImplementAccountData = (app: any, parseMarketCollectionDataBody, collectionName: string, account: account): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
+export let getMarketImplementAccountData = (app: any, _parseMarketCollectionDataBody, collectionName: string, account: account, name, version, protocolName = null): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
+    let whereData = null
+
+    if (protocolName !== null) {
+        whereData = {
+            key: handleKeyToLowercase(account),
+            name: name,
+            version: version,
+            protocolName: protocolName
+        }
+    }
+    else {
+        whereData = {
+            key: handleKeyToLowercase(account),
+            name: name,
+            version: version,
+        }
+    }
+
     return _getDatabase(app).collection(collectionName)
-        .where({ key: handleKeyToLowercase(account) })
+        .where(whereData)
         .skip(0)
         .limit(1000)
         .get()
-        .then(res => [res.data[0], []])
+        // .then(res => [res.data[0], []])
+        .then(res => res.data)
 }
 
 // export let updateCollection = (app: any, collectionName: string, updateData: any) => {
@@ -233,6 +253,11 @@ export let updateMarketImplementData = (app: any, collectionName: string, accoun
         .update(updateData)
 }
 
+export let addMarketImplementData = (app: any, collectionName: string, data: any) => {
+    return _getDatabase(app).collection(collectionName)
+        .add(data)
+}
+
 // export let getMarketImplementCollectionFunc = (app: any, collectionName: string): Promise<allCollectionData> => {
 //     return _getDatabase(app).collection(collectionName).get()
 // }
@@ -242,18 +267,26 @@ export let mapMarketImplementCollection = (allCollectionData: allCollectionData,
     return allCollectionData.data.map(func)
 }
 
+export let filterMarketImplementCollection = (allCollectionData: allCollectionData, func) => {
+    return {
+        ...allCollectionData,
+        data: allCollectionData.data.filter(func)
+
+    }
+}
+
 export let getAccountFromMarketImplementCollectionData = (data: collectionData) => {
     return data.key
 }
 
-export let getFileDataFromMarketImplementCollectionData = (data: collectionData) => {
-    return data.fileData
-}
+// export let getFileDataFromMarketImplementCollectionData = (data: collectionData) => {
+//     return data.fileData
+// }
 
 export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string) => {
     return fromPromise(app.getTempFileURL({
         fileList: [fileID]
-    })).flatMap(({ fileList }) => {
+    })).flatMap(({ fileList }: any) => {
         return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
     })
 }

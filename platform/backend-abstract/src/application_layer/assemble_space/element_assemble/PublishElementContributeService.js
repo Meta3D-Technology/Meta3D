@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publishElementAssembleData = exports.publishElementContribute = void 0;
+const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const most_1 = require("most");
 let _getFileDirname = (fileType) => {
     switch (fileType) {
@@ -18,64 +19,45 @@ let _getPublishedCollectionName = (fileType) => {
             return "publishedcontributes";
     }
 };
-function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc], account, [name, version, protocolName, protocolVersion, displayName, repoLink, description], binaryFile, fileType) {
+function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementData, getFileIDFunc], account, [name, version, protocolName, protocolVersion, displayName, repoLink, description], binaryFile, fileType) {
     let filePath = _getFileDirname(fileType) + "/" + name + "_" + version + ".arrayBuffer";
     let fileName = name;
-    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(_getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, _]) => {
-        let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-        return isContainFunc((data) => {
-            return data.name === name
-                && data.version === version;
-        }, resData);
-    }).then((isContain) => {
-        if (isContain) {
+    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(_getPublishedCollectionName(fileType), account, name, version).then((marketImplementAccountData) => {
+        if (marketImplementAccountData.length > 0) {
             errorFunc("version: " + version + " already exist, please update version");
         }
     })).flatMap(_ => uploadFileFunc(logFunc, filePath, binaryFile, fileName).flatMap((uploadData) => {
         let fileID = getFileIDFunc(uploadData, filePath);
-        return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc(_getPublishedCollectionName(fileType), account).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-            let data = {
-                protocolName: protocolName,
-                protocolVersion: protocolVersion,
-                name: name,
-                version: version,
-                displayName,
-                repoLink,
-                description,
-                fileID
-            };
-            return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
-                return updateMarketImplementDataFunc(_getPublishedCollectionName(fileType), account, buildMarketImplementAccountDataFunc(resData, account), marketImplementAllCollectionData);
-            });
-        }));
+        let data = {
+            protocolName: protocolName,
+            protocolVersion: protocolVersion,
+            name: name,
+            version: version,
+            displayName,
+            repoLink,
+            description,
+            fileID,
+            key: (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(account)
+        };
+        return (0, most_1.fromPromise)(addMarketImplementData(_getPublishedCollectionName(fileType), data));
     }));
 }
 function publishElementContribute(funcArr, account, packageData, contributeBinaryFile) {
     return _publish(funcArr, account, packageData, contributeBinaryFile, "contribute");
 }
 exports.publishElementContribute = publishElementContribute;
-function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc], account, elementName, elementVersion, inspectorData) {
-    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-        let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-        return isContainFunc((fileData) => {
-            return fileData.elementName === elementName
-                && fileData.elementVersion === elementVersion;
-        }, resData).then((isContain) => {
-            if (isContain) {
-                errorFunc("version: " + elementVersion + " already exist, please update version");
-            }
-        }).then(_ => {
-            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-            let data = {
-                elementName,
-                elementVersion,
-                inspectorData
-            };
-            return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
-                return updateMarketImplementDataFunc("publishedelementassembledata", account, buildMarketImplementAccountDataFunc(resData, account), marketImplementAllCollectionData);
-            });
-        });
+function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementData], account, elementName, elementVersion, inspectorData) {
+    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account, elementName, elementVersion).then((marketImplementAccountData) => {
+        if (marketImplementAccountData.length > 0) {
+            errorFunc("version: " + elementVersion + " already exist, please update version");
+        }
+        let data = {
+            elementName,
+            elementVersion,
+            inspectorData,
+            key: (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(account)
+        };
+        return (0, most_1.fromPromise)(addMarketImplementData("publishedelementassembledata", data));
     }));
 }
 exports.publishElementAssembleData = publishElementAssembleData;

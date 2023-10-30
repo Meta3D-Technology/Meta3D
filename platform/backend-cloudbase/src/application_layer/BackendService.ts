@@ -34,7 +34,7 @@ export let batchFindMarketProtocolCollection = (collectionName, protocolNames) =
 
 export let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMarketProtocolCollectionCount(getBackend(), collectionName)
 
-export let getMarketImplementCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName, limitCount, skipCount)
+export let getMarketImplementCollection = (collectionName, limitCount, skipCount, whereData={}) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName, limitCount, skipCount, whereData)
 
 export let getMarketImplement = (
 	collectionName: string,
@@ -46,7 +46,11 @@ export let getMarketImplement = (
 ) => {
 	return getDatabase()
 		.collection(collectionName)
-		.where({ key: BackendService.handleKeyToLowercase(account) })
+		.where({
+			key: BackendService.handleKeyToLowercase(account),
+			name: name,
+			version: version
+		})
 		.skip(skipCount)
 		.limit(limitCount)
 		.get()
@@ -55,15 +59,7 @@ export let getMarketImplement = (
 				return null
 			}
 
-			let { fileData } = res.data[0]
-
-			let result = fileData.find((data) => data.name === name && data.version === version)
-
-			if (result === undefined) {
-				return null
-			}
-
-			return result
+			return res.data[0]
 		})
 }
 
@@ -72,9 +68,11 @@ export let getDataFromMarketProtocolCollection = BackendService.getDataFromMarke
 
 export let mapMarketImplementCollection = BackendService.mapMarketImplementCollection
 
+export let filterMarketImplementCollection = BackendService.filterMarketImplementCollection
+
 export let getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData
 
-export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
+// export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
 
 export let downloadFile = (onDownloadProgressFunc, fileID) => {
 	// TODO support onDownloadProgressFunc
@@ -130,18 +128,23 @@ export let hasData = (collectionName: string, key: string) => BackendService.has
 
 export let getFileID = BackendService.getFileID
 
-export let getMarketImplementAccountData = (collectionName, account) => BackendService.getMarketImplementAccountData(getBackend(), null, collectionName, account)
+export let getMarketImplementAccountData = (collectionName, account, name, version) => BackendService.getMarketImplementAccountData(getBackend(), null, collectionName, account, name, version)
 
-export let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) =>
-	BackendService.updateMarketImplementData(getBackend(), collectionName, account, updateData, oldMarketImplementCollectionData)
 
-export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
+export let addMarketImplementData = (collectionName: string, data: any) => {
+	return BackendService.addMarketImplementData(getBackend(), collectionName, data)
+}
 
-export let isContain = BackendService.isContain
+// export let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) =>
+// 	BackendService.updateMarketImplementData(getBackend(), collectionName, account, updateData, oldMarketImplementCollectionData)
 
-export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
+// export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
 
-export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
+// export let isContain = BackendService.isContain
+
+// export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
+
+// export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 
 export let getDataByKeyContain = (collectionName: string,
 	limitCount: number, skipCount: number,

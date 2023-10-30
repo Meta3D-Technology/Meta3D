@@ -9,7 +9,7 @@ const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseServi
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extension.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc;
     let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
@@ -20,11 +20,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         hasAccountFunc = sandbox.stub();
         uploadFileFunc = sandbox.stub();
         getMarketImplementAccountDataFunc = sandbox.stub();
-        updateMarketImplementDataFunc = sandbox.stub();
-        getDataFromMarketImplementAccountDataFunc = CloudbaseService_1.getDataFromMarketImplementAccountData;
-        isContainFunc = CloudbaseService_1.isContain;
-        buildMarketImplementAccountDataFunc = CloudbaseService_1.buildMarketImplementAccountData;
-        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = CloudbaseService_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
+        addMarketImplementDataFunc = sandbox.stub();
         getFileIDFunc = CloudbaseService_1.getFileID;
         parseMarketCollectionDataBodyFunc = CloudbaseService_1.parseMarketCollectionDataBodyForNodejs;
     };
@@ -47,7 +43,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         };
     }
     let _publishExtension = (packageFilePath = "", distFilePath = "") => {
-        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, "extension");
+        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc], packageFilePath, distFilePath, "extension");
     };
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -78,9 +74,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             _createFuncs(sandbox, sandbox.stub());
             readJsonFunc.returns((0, most_1.just)(_buildPackageJson()));
             initFunc.returns((0, most_1.just)({}));
-            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, []]));
+            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
             hasAccountFunc.returns((0, most_1.just)(true));
             uploadFileFunc.returns((0, most_1.empty)());
         });
@@ -103,7 +97,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         let distFileContent = "dist";
         let generatedResult = new ArrayBuffer(0);
         let fileID1 = "id1";
-        let marketImplementCollectionData = [];
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
@@ -124,9 +117,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             readFileSyncFunc.returns(distFileContent);
             generateFunc.returns(generatedResult);
             uploadFileFunc.returns((0, most_1.just)({ fileID: fileID1 }));
-            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, marketImplementCollectionData]));
+            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         when('publish extension', () => {
             return _publishExtension();
@@ -160,23 +151,19 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             ]);
         });
         and('should add to collection', () => {
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 app,
                 "publishedextensions",
-                "meta3d",
                 {
                     "key": "meta3d",
-                    "fileData": [{
-                            "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                            "name": "test1",
-                            "version": "0.0.2",
-                            "displayName": "d1",
-                            "repoLink": "l1",
-                            "description": "dp1",
-                            "fileID": fileID1
-                        }]
+                    "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "displayName": "d1",
+                    "repoLink": "l1",
+                    "description": "dp1",
+                    "fileID": fileID1
                 },
-                marketImplementCollectionData
             ]);
         });
     });
@@ -185,7 +172,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         let distFileContent = "dist";
         let generatedResult = new ArrayBuffer(0);
         let fileID1 = "id1";
-        let marketImplementCollectionData = [];
         _prepare(given);
         given('prepare funcs that package json not has displayName, repoLink, description', () => {
             _createFuncs(sandbox);
@@ -203,9 +189,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             readFileSyncFunc.returns(distFileContent);
             generateFunc.returns(generatedResult);
             uploadFileFunc.returns((0, most_1.just)({ fileID: fileID1 }));
-            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, marketImplementCollectionData]));
+            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         when('publish extension', () => {
             return _publishExtension();
@@ -224,23 +208,19 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
                 },
                 distFileContent
             ]);
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 app,
                 "publishedextensions",
-                "meta3d",
                 {
                     "key": "meta3d",
-                    "fileData": [{
-                            "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                            "name": "test1",
-                            "version": "0.0.2",
-                            "displayName": "test1",
-                            "repoLink": "",
-                            "description": "",
-                            "fileID": fileID1
-                        }]
+                    "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "displayName": "test1",
+                    "repoLink": "",
+                    "description": "",
+                    "fileID": fileID1
                 },
-                marketImplementCollectionData
             ]);
         });
     });
@@ -321,7 +301,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
     //         ])
     //     });
     //     and('should update fileID in collection', () => {
-    //         expect(updateMarketImplementDataFunc.getCall(1)).toCalledWith([
+    //         expect(addMarketImplementDataFunc.getCall(1)).toCalledWith([
     //             app,
     //             "publishedextensions",
     //             { "account": "meta3d" },
@@ -354,18 +334,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             readFileSyncFunc.returns(distFileContent);
             generateFunc.returns(generatedResult);
             uploadFileFunc.returns((0, most_1.empty)());
-            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, []]));
+            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([]));
             getMarketImplementAccountDataFunc.onCall(1).returns((0, PromiseTool_1.resolve)([{
-                    fileData: [
-                        {
-                            protocolName: "test1-protocol",
-                            name: "test1",
-                            version: "0.0.2"
-                        }
-                    ]
-                }, []]));
+                    protocolName: "test1-protocol",
+                    name: "test1",
+                    version: "0.0.2"
+                }]));
         });
         and('publish extension', () => {
             return _publishExtension();

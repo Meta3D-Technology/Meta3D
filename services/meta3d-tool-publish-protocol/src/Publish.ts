@@ -1,11 +1,11 @@
 import { fromPromise } from "most";
 import { getLimitCount, isPublisherRegistered } from "meta3d-tool-utils/src/publish/PublishUtils"
 
-let _throwError = (msg: string): never  => {
+let _throwError = (msg: string): never => {
     throw new Error(msg)
 }
 
-let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
+let _getPublishedCollectionName = (fileType: "extension" | "contribute") => {
     switch (fileType) {
         case "extension":
             return "publishedextensionprotocols"
@@ -14,17 +14,17 @@ let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
     }
 }
 
-let _isPNG = (iconPath: string) =>  {
+let _isPNG = (iconPath: string) => {
     return iconPath.match(/\.png$/) !== null
 }
 
 
-let _isEmpty = (value: any) =>  {
+let _isEmpty = (value: any) => {
     return value === undefined || value === null
 }
 
 
-export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") =>  {
+export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, iconPath: string, fileType: "extension" | "contribute") => {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -40,24 +40,20 @@ export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initF
             }
 
             return fromPromise(
-                // TODO support > 1000
                 getMarketProtocolCollectionFunc(
                     backendInstance,
                     parseMarketCollectionDataBodyFunc,
                     _getPublishedCollectionName(fileType),
                     getLimitCount(),
-                    0
+                    0,
+                    {
+                        name: packageJson.name,
+                        version: packageJson.version
+                    }
                 ).then(res => {
                     let resData = getDataFromMarketProtocolCollectionFunc(res)
 
-                    return isContainFunc(
-                        ({ name, version }) => {
-                            return name === packageJson.name && version === packageJson.version
-                        },
-                        resData
-                    ).then(isContain => [isContain, resData])
-                }).then(([isContain, resData]) => {
-                    if (isContain) {
+                    if (resData.length > 0) {
                         _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 
@@ -92,7 +88,7 @@ export let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initF
         })
 }
 
-let _getPublishedConfigCollectionName = (fileType: "extension" | "contribute") =>  {
+let _getPublishedConfigCollectionName = (fileType: "extension" | "contribute") => {
     switch (fileType) {
         case "extension":
             return "publishedextensionprotocolconfigs"
@@ -101,7 +97,7 @@ let _getPublishedConfigCollectionName = (fileType: "extension" | "contribute") =
     }
 }
 
-export let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") =>  {
+export let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any], packageFilePath: string, distFilePath: string, fileType: "extension" | "contribute") => {
     return readJsonFunc(packageFilePath).flatMap(packageJson => {
         return initFunc().map(backendInstance => [backendInstance, packageJson])
     }).flatMap(([backendInstance, packageJson]) => {
@@ -115,23 +111,20 @@ export let publishConfig = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc,
             let collectioName = _getPublishedConfigCollectionName(fileType)
 
             return fromPromise(
-                // TODO support > 1000
                 getMarketProtocolCollectionFunc(
                     backendInstance,
                     parseMarketCollectionDataBodyFunc,
                     collectioName,
                     getLimitCount(),
-                    0
+                    0,
+                    {
+                        name: packageJson.name,
+                        version: packageJson.version
+                    }
                 ).then(res => {
                     let resData = getDataFromMarketProtocolCollectionFunc(res)
 
-                    return isContainFunc(
-                        ({ name, version }) => {
-                            return name === packageJson.name && version === packageJson.version
-                        },
-                        resData).then(isContain => [isContain, resData])
-                }).then(([isContain, resData]) => {
-                    if (isContain) {
+                    if (resData.length > 0) {
                         _throwError("version: " + packageJson.version + " already exist, please update version")
                     }
 

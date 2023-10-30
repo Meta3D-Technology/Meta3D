@@ -11,7 +11,7 @@ import {
     registerUser as registerUserCloud,
     mapMarketImplementCollection,
     getAccountFromMarketImplementCollectionData,
-    getFileDataFromMarketImplementCollectionData,
+    // getFileDataFromMarketImplementCollectionData,
     downloadFile,
     addData,
     hasData,
@@ -20,10 +20,13 @@ import {
     updateData,
     getDataByKey,
     getMarketImplementAccountData,
-    updateMarketImplementData,
-    getDataFromMarketImplementAccountData,
-    isContain,
-    buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData, getDataByKeyContain, getMarketImplement,
+    addMarketImplementData,
+    // getDataFromMarketImplementAccountData,
+    // isContain,
+    // buildMarketImplementAccountData,
+
+    // addMarketImplementDataToDataFromMarketImplementCollectionData,
+    getDataByKeyContain, getMarketImplement,
     // getPackageMarketEntryExtensionProtocolCollection,
     // getDataFromPackageMarketEntryExtensionProtocolCollection,
     getData,
@@ -34,6 +37,7 @@ import {
     findNewestPublishExtension as findNewestPublishExtensionFind,
     findNewestPublishContribute as findNewestPublishContributeFind
 } from "./application_layer/FindNewestService";
+import { filterMarketImplementCollection } from "meta3d-backend-cloudbase";
 
 
 // export let error = ErrorService.error
@@ -75,8 +79,8 @@ export let getAllPublishExtensionInfos = (
     protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
         getMarketImplementCollection,
         mapMarketImplementCollection,
+        filterMarketImplementCollection,
         getAccountFromMarketImplementCollectionData,
-        getFileDataFromMarketImplementCollectionData,
     ], "publishedextensions",
         limitCount, skipCount,
         protocolName, protocolVersion)
@@ -86,8 +90,8 @@ export let getAllPublishContributeInfos = (
     protocolName, protocolVersion) => Abstract.getAllPublishImplementInfo([
         getMarketImplementCollection,
         mapMarketImplementCollection,
+        filterMarketImplementCollection,
         getAccountFromMarketImplementCollectionData,
-        getFileDataFromMarketImplementCollectionData,
     ], "publishedcontributes",
         limitCount, skipCount,
         protocolName, protocolVersion)
@@ -173,8 +177,11 @@ export let publishElementContribute = (
     contributeBinaryFile,
 ) => Abstract.publishElementContribute([
     onUploadProgressFunc,
-    _throwError, uploadFile, getMarketImplementAccountData, updateMarketImplementData,
-    getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
+    _throwError, uploadFile, getMarketImplementAccountData,
+    addMarketImplementData,
+    // updateMarketImplementData,
+    // getDataFromMarketImplementAccountData,
+    // buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
     getFileID
 ],
     account,
@@ -189,7 +196,10 @@ export let publishElementAssembleData = (
     inspectorData
 ) => Abstract.publishElementAssembleData([
     _throwError,
-    getMarketImplementAccountData, updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
+    getMarketImplementAccountData,
+    addMarketImplementData,
+    // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
+    // addMarketImplementDataToDataFromMarketImplementCollectionData,
 ],
     account,
     elementName,
@@ -201,7 +211,6 @@ export let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName)
     getMarketImplementCollection,
     mapMarketImplementCollection,
     getAccountFromMarketImplementCollectionData,
-    getFileDataFromMarketImplementCollectionData,
     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ],
     "publishedextensions",
@@ -215,7 +224,7 @@ export let getElementAssembleData = (
     elementName,
     elementVersion,
 ) => Abstract.getElementAssembleData(
-    [getMarketImplementAccountData, getDataFromMarketImplementAccountData],
+    getMarketImplementAccountData,
     account,
     elementName,
     elementVersion,

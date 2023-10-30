@@ -2,27 +2,25 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { getElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/GetElementDataService";
-import { getDataFromMarketImplementAccountData } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/get_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc
+    let getMarketImplementAccountDataFunc
 
-    let _createFuncs = (sandbox) =>  {
+    let _createFuncs = (sandbox) => {
         getMarketImplementAccountDataFunc = sandbox.stub()
-        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
     }
 
-    let _getElementAssembleData = (account, elementName, elementVersion) =>  {
+    let _getElementAssembleData = (account, elementName, elementVersion) => {
         return getElementAssembleData(
-            [getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc],
+            getMarketImplementAccountDataFunc,
             account, elementName, elementVersion
         )
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -53,13 +51,7 @@ defineFeature(feature, test => {
 
             getMarketImplementAccountDataFunc.returns(
                 resolve([
-                    {
-                        fileData: [
-                            fileData1,
-                            fileData2
-                        ]
-                    },
-                    []
+                    fileData2
                 ])
             )
         });

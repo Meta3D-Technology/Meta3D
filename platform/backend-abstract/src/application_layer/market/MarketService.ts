@@ -88,41 +88,35 @@ export let getAllPublishImplementInfo = (
     [
         getMarketImplementCollectionFunc,
         mapMarketImplementCollectionFunc,
+        filterMarketImplementCollection,
         getAccountFromMarketImplementCollectionDataFunc,
-        getFileDataFromMarketImplementCollectionDataFunc,
     ]: [any, any, any, any],
     collectionName: string,
     limitCount: number,
     skipCount: number,
     protocolName: string, protocolVersion: string): Stream<implementInfos> => {
-    return fromPromise(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res: any) => {
-        // console.log(JSON.stringify( res.data))
+    return fromPromise(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount, {
+        protocolName: protocolName
+    })).flatMap((res: any) => {
         return fromPromise(mergeArray(
-            mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
-                let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
-                let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
+            mapMarketImplementCollectionFunc(
+                filterMarketImplementCollection(res, (marketImplementCollectionData => {
+                    return satisfies(
+                        protocolVersion,
+                        marketImplementCollectionData.protocolVersion
+                    )
+                })), (marketImplementCollectionData) => {
+                    let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData)
 
-                let result = fileData.filter(data => {
-                    return data.protocolName === protocolName &&
-                        satisfies(
-                            protocolVersion,
-                            data.protocolVersion
-                        )
-                })
+                    let { fileID, name, version,
+                        displayName, repoLink, description
+                    } = marketImplementCollectionData
 
-                if (result.length === 0) {
-                    return empty()
-                }
-
-                return from(result.map(({ fileID, name, version,
-                    displayName, repoLink, description
-                }) => {
-                    return {
+                    return just({
                         id: fileID, name, version, account,
                         displayName, repoLink, description
-                    }
-                }))
-            })
+                    })
+                })
         ).reduce(
             (result, data) => {
                 result.push(data)

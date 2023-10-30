@@ -3,27 +3,23 @@ import { createSandbox } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
 import { publishElementContribute } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
-import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, getFileID, isContain, parseMarketCollectionDataBodyForNodejs } from "meta3d-backend-cloudbase";
+// import { addMarketImplementData, getFileID } from "meta3d-backend-cloudbase";
+import { getFileID } from "backend-cloudbase/src/application_layer/BackendService";
 
 const feature = loadFeature("./test/features/publish_element_contribute.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
+    let logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc
 
-    let _createFuncs = (sandbox, errorFuncStub = console.error) =>  {
+    let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         logFunc = sandbox.stub()
         errorFunc = errorFuncStub
         uploadFileFunc = sandbox.stub()
         getMarketImplementAccountDataFunc = sandbox.stub()
-        updateMarketImplementDataFunc = sandbox.stub()
-        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
-        isContainFunc = isContain
-        buildMarketImplementAccountDataFunc = buildMarketImplementAccountData
-        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = addMarketImplementDataToDataFromMarketImplementCollectionData
+        addMarketImplementDataFunc = sandbox.stub()
+        addMarketImplementDataFunc = sandbox.stub()
         getFileIDFunc = getFileID
-        parseMarketCollectionDataBodyFunc = parseMarketCollectionDataBodyForNodejs
-
     }
 
     function _publish(
@@ -43,14 +39,16 @@ defineFeature(feature, test => {
             [logFunc, (message) => {
                 errorFunc(message)
                 throw new Error(message)
-            }, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc],
+            }, uploadFileFunc,
+                getMarketImplementAccountDataFunc,
+                addMarketImplementDataFunc, getFileIDFunc],
             account,
             packageData,
             contributeBinaryFile
         )
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -68,7 +66,7 @@ defineFeature(feature, test => {
         let description = "dp1"
         let binaryFile = new ArrayBuffer(10)
         let fileID1 = "id1"
-        let marketImplementCollectionData = []
+        // let marketImplementCollectionData = []
 
         _prepare(given)
 
@@ -79,9 +77,10 @@ defineFeature(feature, test => {
                 just({ fileID: fileID1 })
             )
             getMarketImplementAccountDataFunc.returns(
-                resolve([{
-                    fileData: []
-                }, marketImplementCollectionData])
+                resolve([])
+            )
+            addMarketImplementDataFunc.returns(
+                resolve({})
             )
         });
 
@@ -110,23 +109,19 @@ defineFeature(feature, test => {
         });
 
         and('should add to collection', () => {
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 "publishedcontributes",
-                "meta3d",
                 {
                     "key": "meta3d",
-                    "fileData": [{
-                        "protocolName": protocolName, "protocolVersion": protocolVersion,
-                        "name": name,
-                        "version": version,
+                    "protocolName": protocolName, "protocolVersion": protocolVersion,
+                    "name": name,
+                    "version": version,
 
-                        "displayName": displayName,
-                        "repoLink": repoLink,
-                        "description": description,
-                        "fileID": fileID1
-                    }]
+                    "displayName": displayName,
+                    "repoLink": repoLink,
+                    "description": description,
+                    "fileID": fileID1
                 },
-                marketImplementCollectionData
             ])
         });
     });
@@ -148,21 +143,14 @@ defineFeature(feature, test => {
                 empty()
             )
             getMarketImplementAccountDataFunc.onCall(0).returns(
-                resolve([{
-                    fileData: []
-                }, []])
+                resolve([])
             )
             getMarketImplementAccountDataFunc.onCall(1).returns(
                 resolve([
                     {
-                        fileData: [
-                            {
-                                name: name,
-                                version: version
-                            }
-                        ]
-                    },
-                    []
+                        name: name,
+                        version: version
+                    }
                 ])
             )
         });

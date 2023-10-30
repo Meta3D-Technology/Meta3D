@@ -6,7 +6,7 @@ import { buildReadJsonFunc } from "meta3d-tool-utils/src/publish/PublishUtils"
 import { env } from "meta3d-tool-utils/src/publish/PublishType"
 import { publish, publishConfig } from "./Publish";
 
-let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any, any, any] => {
+let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any, any]  => {
 	switch (env) {
 		case "local":
 			return [
@@ -17,7 +17,6 @@ let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any,
 				CloudbaseService.initLocal,
 				CloudbaseService.hasAccount,
 				CloudbaseService.getMarketProtocolCollection,
-				CloudbaseService.isContain,
 				CloudbaseService.addDataToMarketProtocolCollection,
 				CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
 				CloudbaseService.getDataFromMarketProtocolCollection,
@@ -40,19 +39,19 @@ let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any,
 			// ]
 
 			return [
-				fs.readFileSync,
-				console.log,
-				console.error,
-				buildReadJsonFunc(packageFilePath),
-				CloudbaseService.initProduction,
-				CloudbaseService.hasAccount,
-				CloudbaseService.getMarketProtocolCollection,
-				CloudbaseService.isContain,
-				CloudbaseService.addDataToMarketProtocolCollection,
-				CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
-				CloudbaseService.getDataFromMarketProtocolCollection,
-				CloudbaseService.parseMarketCollectionDataBodyForNodejs
-			]
+				// fs.readFileSync,
+				// console.log,
+				// console.error,
+				// buildReadJsonFunc(packageFilePath),
+				// CloudbaseService.initProduction,
+				// CloudbaseService.hasAccount,
+				// CloudbaseService.getMarketProtocolCollection,
+				// CloudbaseService.isContain,
+				// CloudbaseService.addDataToMarketProtocolCollection,
+				// CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+				// CloudbaseService.getDataFromMarketProtocolCollection,
+				// CloudbaseService.parseMarketCollectionDataBodyForNodejs
+			] as any
 		default:
 			throw new Error("unknown env")
 	}
@@ -70,11 +69,11 @@ export function publishContributeProtocol(
 	return publish(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "contribute")
 }
 
-export let publishContributeProtocolConfig = (env: env, packageFilePath: string, distFilePath: string) =>  {
+export let publishContributeProtocolConfig = (env: env, packageFilePath: string, distFilePath: string) => {
 	return publishConfig(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "contribute")
 }
 
-export let publishExtensionProtocolConfig = (env: env, packageFilePath: string, distFilePath: string) =>  {
+export let publishExtensionProtocolConfig = (env: env, packageFilePath: string, distFilePath: string) => {
 	return publishConfig(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "extension")
 }
 

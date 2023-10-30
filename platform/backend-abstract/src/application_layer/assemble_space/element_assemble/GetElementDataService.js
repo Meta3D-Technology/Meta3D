@@ -3,26 +3,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
 const most_1 = require("most");
 const semver_1 = require("semver");
-let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc], collectionName, limitCount, skipCount, protocolName) => {
-    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount)).flatMap((res) => {
+let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, downloadFileFunc], collectionName, limitCount, skipCount, protocolName) => {
+    return (0, most_1.fromPromise)(getMarketImplementCollectionFunc(collectionName, limitCount, skipCount, {
+        protocolName: protocolName
+    })).flatMap((res) => {
         return (0, most_1.fromPromise)((0, most_1.mergeArray)(mapMarketImplementCollectionFunc(res, (marketImplementCollectionData) => {
             let account = getAccountFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
-            let fileData = getFileDataFromMarketImplementCollectionDataFunc(marketImplementCollectionData);
-            let result = fileData.filter(data => {
-                return data.protocolName === protocolName;
-            });
-            if (result.length === 0) {
-                return (0, most_1.empty)();
-            }
-            return (0, most_1.from)(result.map(({ fileID, version, protocolVersion }) => {
-                return [fileID, version, protocolVersion];
-            })).flatMap(([fileID, version, protocolVersion]) => {
-                return downloadFileFunc(fileID).map(arrayBuffer => {
-                    return {
-                        id: fileID, file: arrayBuffer, version, account,
-                        protocolVersion: (0, semver_1.minVersion)(protocolVersion),
-                    };
-                });
+            let { fileID, version, protocolVersion } = marketImplementCollectionData;
+            return downloadFileFunc(fileID).map(arrayBuffer => {
+                return {
+                    id: fileID, file: arrayBuffer, version, account,
+                    protocolVersion: (0, semver_1.minVersion)(protocolVersion),
+                };
             });
         })).reduce((result, data) => {
             result.push(data);
@@ -47,16 +39,13 @@ let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImple
     });
 };
 exports.getAllPublishNewestData = getAllPublishNewestData;
-let getElementAssembleData = ([getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc], account, elementName, elementVersion) => {
-    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account)).flatMap(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-        let fileData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData);
-        let result = fileData.filter(data => {
-            return data.elementName === elementName && data.elementVersion === elementVersion;
-        });
-        if (result.length === 0) {
+let getElementAssembleData = (getMarketImplementAccountDataFunc, account, elementName, elementVersion) => {
+    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account, elementName, elementVersion))
+        .flatMap((marketImplementAccountData) => {
+        if (marketImplementAccountData.length === 0) {
             return (0, most_1.empty)();
         }
-        return (0, most_1.just)(result[0]);
+        return (0, most_1.just)(marketImplementAccountData[0]);
     });
 };
 exports.getElementAssembleData = getElementAssembleData;

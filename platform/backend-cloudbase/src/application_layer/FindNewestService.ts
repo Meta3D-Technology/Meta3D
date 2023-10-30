@@ -31,34 +31,34 @@ export let findNewestPublishPackage = (
     )
 }
 
-let _findNewestImplements = (res, isJudgeProtocolVersion, implementName, protocolName, protocolVersion) => {
-    return res.data.reduce((result, { fileData, key }) => {
-        return result.concat(fileData.map(data => {
-            return { ...data, account: key }
-        }))
-    }, [])
-        .filter((data) => {
-            if (isJudgeProtocolVersion) {
-                return data.name == implementName &&
-                    data.protocolName == protocolName
-                    && satisfies(
-                        protocolVersion,
-                        data.protocolVersion
-                    )
-            }
+// let _findNewestImplements = (res, isJudgeProtocolVersion, implementName, protocolName, protocolVersion) => {
+//     return res.data.reduce((result, { fileData, key }) => {
+//         return result.concat(fileData.map(data => {
+//             return { ...data, account: key }
+//         }))
+//     }, [])
+//         .filter((data) => {
+//             if (isJudgeProtocolVersion) {
+//                 return data.name == implementName &&
+//                     data.protocolName == protocolName
+//                     && satisfies(
+//                         protocolVersion,
+//                         data.protocolVersion
+//                     )
+//             }
 
-            return data.name == implementName &&
-                data.protocolName == protocolName
+//             return data.name == implementName &&
+//                 data.protocolName == protocolName
 
-        })
-        .sort((a, b) => {
-            if (gt(a.version, b.version)) {
-                return -1
-            }
+//         })
+//         .sort((a, b) => {
+//             if (gt(a.version, b.version)) {
+//                 return -1
+//             }
 
-            return 1
-        })
-}
+//             return 1
+//         })
+// }
 
 let _findNewestPublishExtensionOrContribute = (
     downloadFileFunc,
@@ -110,23 +110,35 @@ let _findNewestPublishExtensionOrContribute = (
                     //         })
                     //     ])
                     // })
+                    // .where({
+                    //     fileData: getDatabase().command.neq([])
+                    // })
                     .where({
-                        fileData: getDatabase().command.neq([])
+                        name: implementName,
+                        protocolName: protocolName
                     })
+                    .orderBy("version", "desc")
                     .skip(0)
                     .limit(1000)
                     .get()
                     .then(res => {
-                        let extensionOrContribute = null
+                        // let extensionOrContribute = null
 
-                        let result = _findNewestImplements(res, true, implementName, protocolName, protocolVersion)
+                        // let result = _findNewestImplements(res, true, implementName, protocolName, protocolVersion)
 
-                        if (result.length == 0) {
-                            extensionOrContribute = _findNewestImplements(res, false, implementName, protocolName, protocolVersion)[0]
-                        }
-                        else {
-                            extensionOrContribute = result[0]
-                        }
+                        // if (result.length == 0) {
+                        //     extensionOrContribute = _findNewestImplements(res, false, implementName, protocolName, protocolVersion)[0]
+                        // }
+                        // else {
+                        //     extensionOrContribute = result[0]
+                        // }
+
+                        let extensionOrContribute = res.data.filter((data) => {
+                            return satisfies(
+                                protocolVersion,
+                                data.protocolVersion
+                            )
+                        })[0]
 
                         return [
                             extensionOrContribute,

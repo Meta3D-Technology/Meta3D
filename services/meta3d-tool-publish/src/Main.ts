@@ -37,7 +37,7 @@ import { publish } from "./Publish";
 // 	}
 // }
 
-export let publishExtension = (env: env, packageFilePath: string, distFilePath: string) =>  {
+export let publishExtension = (env: env, packageFilePath: string, distFilePath: string) => {
 	let funcArr = null
 
 	switch (env) {
@@ -52,51 +52,33 @@ export let publishExtension = (env: env, packageFilePath: string, distFilePath: 
 				CloudbaseService.hasAccount,
 				CloudbaseService.uploadFile,
 				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.updateMarketImplementData,
-				CloudbaseService.getDataFromMarketImplementAccountData,
-				CloudbaseService.isContain,
-				CloudbaseService.buildMarketImplementAccountData,
-				CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+				CloudbaseService.addMarketImplementData,
+				// CloudbaseService.getDataFromMarketImplementAccountData,
+				// CloudbaseService.isContain,
+				// CloudbaseService.buildMarketImplementAccountData,
+				// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
 				CloudbaseService.getFileID,
 				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
 		case "production":
-			// funcArr = [
-			// 	fs.readFileSync,
-			// 	console.log,
-			// 	console.error,
-			// 	buildReadJsonFunc(packageFilePath),
-			// 	generateExtension,
-			// 	_4everlandService.init,
-			// 	_4everlandService.hasAccount,
-			// 	_4everlandService.uploadFile,
-			// 	_4everlandService.getMarketImplementAccountData,
-			// 	_4everlandService.updateMarketImplementData,
-			// 	_4everlandService.getDataFromMarketImplementAccountData,
-			// 	_4everlandService.isContain,
-			// 	_4everlandService.buildMarketImplementAccountData,
-			// 	_4everlandService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-			// 	_4everlandService.getFileID,
-			// 	_4everlandService.parseMarketCollectionDataBodyForNodejs,
-			// ]
 			funcArr = [
-				fs.readFileSync,
-				console.log,
-				console.error,
-				buildReadJsonFunc(packageFilePath),
-				generateExtension,
-				CloudbaseService.initProduction,
-				CloudbaseService.hasAccount,
-				CloudbaseService.uploadFile,
-				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.updateMarketImplementData,
-				CloudbaseService.getDataFromMarketImplementAccountData,
-				CloudbaseService.isContain,
-				CloudbaseService.buildMarketImplementAccountData,
-				CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-				CloudbaseService.getFileID,
-				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+				// fs.readFileSync,
+				// console.log,
+				// console.error,
+				// buildReadJsonFunc(packageFilePath),
+				// generateExtension,
+				// CloudbaseService.initProduction,
+				// CloudbaseService.hasAccount,
+				// CloudbaseService.uploadFile,
+				// CloudbaseService.getMarketImplementAccountData,
+				// CloudbaseService.updateMarketImplementData,
+				// CloudbaseService.getDataFromMarketImplementAccountData,
+				// CloudbaseService.isContain,
+				// CloudbaseService.buildMarketImplementAccountData,
+				// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+				// CloudbaseService.getFileID,
+				// CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
 		default:
@@ -106,7 +88,7 @@ export let publishExtension = (env: env, packageFilePath: string, distFilePath: 
 	return publish(funcArr, packageFilePath, distFilePath, "extension")
 }
 
-export let publishContribute = (env: env, packageFilePath: string, distFilePath: string) =>  {
+export let publishContribute = (env: env, packageFilePath: string, distFilePath: string) => {
 	let funcArr = null
 
 	switch (env) {
@@ -121,51 +103,29 @@ export let publishContribute = (env: env, packageFilePath: string, distFilePath:
 				CloudbaseService.hasAccount,
 				CloudbaseService.uploadFile,
 				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.updateMarketImplementData,
-				CloudbaseService.getDataFromMarketImplementAccountData,
-				CloudbaseService.isContain,
-				CloudbaseService.buildMarketImplementAccountData,
-				CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+				CloudbaseService.addMarketImplementData,
 				CloudbaseService.getFileID,
 				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
 		case "production":
-			// funcArr = [
-			// 	fs.readFileSync,
-			// 	console.log,
-			// 	console.error,
-			// 	buildReadJsonFunc(packageFilePath),
-			// 	generateContribute,
-			// 	_4everlandService.init,
-			// 	_4everlandService.hasAccount,
-			// 	_4everlandService.uploadFile,
-			// 	_4everlandService.getMarketImplementAccountData,
-			// 	_4everlandService.updateMarketImplementData,
-			// 	_4everlandService.getDataFromMarketImplementAccountData,
-			// 	_4everlandService.isContain,
-			// 	_4everlandService.buildMarketImplementAccountData,
-			// 	_4everlandService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-			// 	_4everlandService.getFileID,
-			// 	_4everlandService.parseMarketCollectionDataBodyForNodejs
-			// ]
 			funcArr = [
-				fs.readFileSync,
-				console.log,
-				console.error,
-				buildReadJsonFunc(packageFilePath),
-				generateContribute,
-				CloudbaseService.initProduction,
-				CloudbaseService.hasAccount,
-				CloudbaseService.uploadFile,
-				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.updateMarketImplementData,
-				CloudbaseService.getDataFromMarketImplementAccountData,
-				CloudbaseService.isContain,
-				CloudbaseService.buildMarketImplementAccountData,
-				CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-				CloudbaseService.getFileID,
-				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+				// fs.readFileSync,
+				// console.log,
+				// console.error,
+				// buildReadJsonFunc(packageFilePath),
+				// generateContribute,
+				// CloudbaseService.initProduction,
+				// CloudbaseService.hasAccount,
+				// CloudbaseService.uploadFile,
+				// CloudbaseService.getMarketImplementAccountData,
+				// CloudbaseService.updateMarketImplementData,
+				// CloudbaseService.getDataFromMarketImplementAccountData,
+				// CloudbaseService.isContain,
+				// CloudbaseService.buildMarketImplementAccountData,
+				// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+				// CloudbaseService.getFileID,
+				// CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
 		default:

@@ -9,20 +9,18 @@ const BackendService_1 = require("backend-cloudbase/src/application_layer/Backen
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publish_newest_extensions.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, getFileDataFromMarketImplementCollectionDataFunc, downloadFileFunc;
+    let getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, downloadFileFunc;
     let _createFuncs = (sandbox) => {
         getMarketImplementCollectionFunc = sandbox.stub();
         downloadFileFunc = sandbox.stub();
         mapMarketImplementCollectionFunc = BackendService_1.mapMarketImplementCollection;
         getAccountFromMarketImplementCollectionDataFunc = BackendService_1.getAccountFromMarketImplementCollectionData;
-        getFileDataFromMarketImplementCollectionDataFunc = BackendService_1.getFileDataFromMarketImplementCollectionData;
     };
     let _getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => {
         return (0, GetElementDataService_1.getAllPublishNewestData)([
             getMarketImplementCollectionFunc,
             mapMarketImplementCollectionFunc,
             getAccountFromMarketImplementCollectionDataFunc,
-            getFileDataFromMarketImplementCollectionDataFunc,
             downloadFileFunc
         ], "publishedextensions", limitCount, skipCount, protocolName);
     };
@@ -133,44 +131,39 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_all_publis
                 data: [
                     {
                         key: account1,
-                        fileData: [
-                            {
-                                protocolName: protocol1Name,
-                                protocolVersion: lowVersion,
-                                fileID: fileID1,
-                                version: fileVersion1
-                            },
-                            {
-                                protocolName: protocol2Name,
-                                protocolVersion: lowVersion,
-                                fileID: fileID2,
-                                version: fileVersion2
-                            },
-                            {
-                                protocolName: protocol1Name,
-                                protocolVersion: highVersion,
-                                fileID: fileID3,
-                                version: fileVersion3
-                            },
-                        ]
+                        protocolName: protocol1Name,
+                        protocolVersion: lowVersion,
+                        fileID: fileID1,
+                        version: fileVersion1
+                    },
+                    // {
+                    //     key: account1,
+                    //     protocolName: protocol2Name,
+                    //     protocolVersion: lowVersion,
+                    //     fileID: fileID2,
+                    //     version: fileVersion2
+                    // },
+                    {
+                        key: account1,
+                        protocolName: protocol1Name,
+                        protocolVersion: highVersion,
+                        fileID: fileID3,
+                        version: fileVersion3
                     },
                     {
                         key: account2,
-                        fileData: [
-                            {
-                                protocolName: protocol1Name,
-                                protocolVersion: highVersion,
-                                fileID: fileID4,
-                                version: fileVersion4
-                            },
-                            {
-                                protocolName: protocol2Name,
-                                protocolVersion: highVersion,
-                                fileID: fileID5,
-                                version: fileVersion5
-                            },
-                        ]
-                    }
+                        protocolName: protocol1Name,
+                        protocolVersion: highVersion,
+                        fileID: fileID4,
+                        version: fileVersion4
+                    },
+                    // {
+                    //     key: account2,
+                    //     protocolName: protocol2Name,
+                    //     protocolVersion: highVersion,
+                    //     fileID: fileID5,
+                    //     version: fileVersion5
+                    // },
                 ]
             }));
             downloadFileFunc.returns((0, most_1.just)(file));

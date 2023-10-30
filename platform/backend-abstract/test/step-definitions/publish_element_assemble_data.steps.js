@@ -4,23 +4,19 @@ const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
 const PublishElementContributeService_1 = require("../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService");
-const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
+// import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, isContain } from "meta3d-backend-cloudbase";
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let logFunc, errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc;
+    let logFunc, errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc;
     let _createFuncs = (sandbox) => {
         logFunc = sandbox.stub();
         errorFunc = sandbox.stub();
         getMarketImplementAccountDataFunc = sandbox.stub();
-        updateMarketImplementDataFunc = sandbox.stub();
-        getDataFromMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromMarketImplementAccountData;
-        isContainFunc = meta3d_backend_cloudbase_1.isContain;
-        buildMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.buildMarketImplementAccountData;
-        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = meta3d_backend_cloudbase_1.addMarketImplementDataToDataFromMarketImplementCollectionData;
+        addMarketImplementDataFunc = sandbox.stub();
     };
     function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc,], account, elementName, elementVersion, inspectorData);
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc], account, elementName, elementVersion, inspectorData);
     }
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -39,25 +35,19 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([{
-                    fileData: []
-                }, marketImplementCollectionData]));
+            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         when('publish', () => {
             return _publish(account, elementName, elementVersion, inspectorData).drain();
         });
         and('should add to collection', () => {
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 "publishedelementassembledata",
-                "meta3d",
                 {
-                    "key": "meta3d",
-                    "fileData": [{
-                            "elementName": elementName, "elementVersion": elementVersion,
-                            "inspectorData": inspectorData
-                        }]
+                    "elementName": elementName, "elementVersion": elementVersion,
+                    "inspectorData": inspectorData,
+                    "key": "meta3d"
                 },
-                marketImplementCollectionData
             ]);
         });
     });
@@ -73,19 +63,11 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([
-                {
-                    fileData: []
-                }
-            ]));
+            getMarketImplementAccountDataFunc.onCall(0).returns((0, PromiseTool_1.resolve)([]));
             getMarketImplementAccountDataFunc.onCall(1).returns((0, PromiseTool_1.resolve)([
                 {
-                    fileData: [
-                        {
-                            elementName: elementName,
-                            elementVersion: elementVersion
-                        }
-                    ]
+                    elementName: elementName,
+                    elementVersion: elementVersion
                 }
             ]));
         });

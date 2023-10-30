@@ -1,6 +1,7 @@
+import { handleKeyToLowercase } from "meta3d-backend-cloudbase";
 import { fromPromise } from "most";
 
-let _getFileDirname = (fileType: "extension" | "contribute") =>  {
+let _getFileDirname = (fileType: "extension" | "contribute") => {
     switch (fileType) {
         case "extension":
             return "extensions"
@@ -9,7 +10,7 @@ let _getFileDirname = (fileType: "extension" | "contribute") =>  {
     }
 }
 
-let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
+let _getPublishedCollectionName = (fileType: "extension" | "contribute") => {
     switch (fileType) {
         case "extension":
             return "publishedextensions"
@@ -19,7 +20,7 @@ let _getPublishedCollectionName = (fileType: "extension" | "contribute") =>  {
 }
 
 function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccountDataFunc,
-    updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any, any, any, any],
+    addMarketImplementData, getFileIDFunc]: [any, any, any, any, any, any],
     account: string,
     [
         name,
@@ -48,18 +49,11 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccount
     return fromPromise(
         getMarketImplementAccountDataFunc(
             _getPublishedCollectionName(fileType),
-            account
-        ).then(([marketImplementAccountData, _]) => {
-            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
-
-            return isContainFunc(
-                (data) => {
-                    return data.name === name
-                        && data.version === version
-                },
-                resData)
-        }).then((isContain) => {
-            if (isContain) {
+            account,
+            name,
+            version
+        ).then((marketImplementAccountData) => {
+            if (marketImplementAccountData.length > 0) {
                 errorFunc("version: " + version + " already exist, please update version")
             }
         })
@@ -71,33 +65,23 @@ function _publish([logFunc, errorFunc, uploadFileFunc, getMarketImplementAccount
     ).flatMap((uploadData) => {
         let fileID = getFileIDFunc(uploadData, filePath)
 
+        let data = {
+            protocolName: protocolName,
+            protocolVersion: protocolVersion,
+            name: name,
+            version: version,
+            displayName,
+            repoLink,
+            description,
+            fileID,
+            key: handleKeyToLowercase(account)
+        }
+
         return fromPromise(
-            getMarketImplementAccountDataFunc(
-                _getPublishedCollectionName(fileType),
-                account
-            ).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-                let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
-
-                let data = {
-                    protocolName: protocolName,
-                    protocolVersion: protocolVersion,
-                    name: name,
-                    version: version,
-                    displayName,
-                    repoLink,
-                    description,
-                    fileID
-                }
-
-                return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
-                    return updateMarketImplementDataFunc(
-                        _getPublishedCollectionName(fileType),
-                        account,
-                        buildMarketImplementAccountDataFunc(resData, account),
-                        marketImplementAllCollectionData
-                    )
-                })
-            }))
+            addMarketImplementData(_getPublishedCollectionName(fileType),
+                data
+            )
+        )
     })
     )
 }
@@ -116,7 +100,8 @@ export function publishElementContribute(
     )
 }
 
-export function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc]: [any, any, any, any, any, any, any],
+export function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc,
+    addMarketImplementData]: [any, any, any],
     account: string,
     elementName: string,
     elementVersion: string,
@@ -125,38 +110,26 @@ export function publishElementAssembleData([errorFunc, getMarketImplementAccount
     return fromPromise(
         getMarketImplementAccountDataFunc(
             "publishedelementassembledata",
-            account
-        ).then(([marketImplementAccountData, marketImplementAllCollectionData]) => {
-            let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
+            account,
+            elementName,
+            elementVersion
+        ).then((marketImplementAccountData) => {
+            if (marketImplementAccountData.length > 0) {
+                errorFunc("version: " + elementVersion + " already exist, please update version")
+            }
 
-            return isContainFunc(
-                (fileData) => {
-                    return fileData.elementName === elementName
-                        && fileData.elementVersion === elementVersion
+            let data = {
+                elementName,
+                elementVersion,
+                inspectorData,
+                key: handleKeyToLowercase(account)
+            }
 
-                },
-                resData).then((isContain) => {
-                    if (isContain) {
-                        errorFunc("version: " + elementVersion + " already exist, please update version")
-                    }
-                }).then(_ => {
-                    let resData = getDataFromMarketImplementAccountDataFunc(marketImplementAccountData)
-
-                    let data = {
-                        elementName,
-                        elementVersion,
-                        inspectorData
-                    }
-
-                    return addMarketImplementDataToDataFromMarketImplementCollectionDataFunc(resData, data).then(resData => {
-                        return updateMarketImplementDataFunc(
-                            "publishedelementassembledata",
-                            account,
-                            buildMarketImplementAccountDataFunc(resData, account),
-                            marketImplementAllCollectionData
-                        )
-                    })
-                })
+            return fromPromise(
+                addMarketImplementData("publishedelementassembledata",
+                    data
+                )
+            )
         })
     )
 }

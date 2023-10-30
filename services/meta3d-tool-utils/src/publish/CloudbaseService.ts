@@ -44,7 +44,7 @@ export let hasAccount = BackendService.hasAccount
 
 export let getMarketProtocolCollection = BackendService.getMarketProtocolCollection
 
-export let isContain = BackendService.isContain
+// export let isContain = BackendService.isContain
 
 // export let getMarketImplementAccountData = (app: any, collectionName: string, data: any) => {
 // 	return _getDatabase(app).collection(collectionName)
@@ -65,15 +65,15 @@ export let getMarketImplementAccountData = BackendService.getMarketImplementAcco
 
 export let getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection
 
-export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
+// export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
 
-export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
+// export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
 
-export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
+// export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 
 export let getFileID = BackendService.getFileID
 
-export let updateMarketImplementData = BackendService.updateMarketImplementData
+export let addMarketImplementData = BackendService.addMarketImplementData
 
 export let uploadFile = BackendService.uploadFile
 

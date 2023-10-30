@@ -44,16 +44,28 @@ TODO pass bdd test
 
 * TODO edit backend
 
+** TODO publishedextensions,publishedcontributes,publishedelementassembledata remove fileData，use flatten data instead
 
-** TODO publishedpackages remove entryExtensionProtocolDisplayName,
+TODO update auto upgrade in dependency graph
+
+
+
+TODO pass bdd test
+
+
+TODO update Publish
+
+
+TODO pass bdd test
+
+
+
+TODO pass run test
+
+
+//** TODO publishedpackages remove entryExtensionProtocolDisplayName,
 entryExtensionProtocolRepoLink,
 entryExtensionProtocolDescription,
-
-
-
-** TODO publishedextensions,publishedcontributes remove fileData，use flatten data instead
-
-*** TODO update auto upgrade in dependency graph
 
 
 

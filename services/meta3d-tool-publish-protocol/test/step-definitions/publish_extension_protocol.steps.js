@@ -9,7 +9,7 @@ const CloudbaseService_1 = require("meta3d-tool-utils/src/publish/CloudbaseServi
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extension_protocol.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc;
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc;
     let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         readFileSyncFunc = sandbox.stub();
         logFunc = sandbox.stub();
@@ -18,7 +18,6 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         initFunc = sandbox.stub();
         hasAccountFunc = sandbox.stub();
         getMarketProtocolCollectionFunc = sandbox.stub();
-        isContainFunc = CloudbaseService_1.isContain;
         addDataToMarketProtocolCollectionFunc = sandbox.stub();
         addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc = CloudbaseService_1.addMarketProtocolDataToDataFromMarketProtocolCollectionData;
         getDataFromMarketProtocolCollectionFunc = CloudbaseService_1.getDataFromMarketProtocolCollection;
@@ -31,7 +30,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
         };
     }
     let _publishExtensionProtocol = (packageFilePath = "", iconPath = "a.png") => {
-        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, isContainFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, "extension");
+        return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, "extension");
     };
     let _prepare = (given) => {
         given('prepare sandbox', () => {

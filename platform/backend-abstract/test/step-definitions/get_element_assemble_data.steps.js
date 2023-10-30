@@ -4,17 +4,15 @@ const jest_cucumber_1 = require("jest-cucumber");
 const sinon_1 = require("sinon");
 const PromiseTool_1 = require("meta3d-tool-utils/src/publish/PromiseTool");
 const GetElementDataService_1 = require("../../src/application_layer/assemble_space/element_assemble/GetElementDataService");
-const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc;
+    let getMarketImplementAccountDataFunc;
     let _createFuncs = (sandbox) => {
         getMarketImplementAccountDataFunc = sandbox.stub();
-        getDataFromMarketImplementAccountDataFunc = meta3d_backend_cloudbase_1.getDataFromMarketImplementAccountData;
     };
     let _getElementAssembleData = (account, elementName, elementVersion) => {
-        return (0, GetElementDataService_1.getElementAssembleData)([getMarketImplementAccountDataFunc, getDataFromMarketImplementAccountDataFunc], account, elementName, elementVersion);
+        return (0, GetElementDataService_1.getElementAssembleData)(getMarketImplementAccountDataFunc, account, elementName, elementVersion);
     };
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -42,13 +40,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_as
         given('prepare funcs', () => {
             _createFuncs(sandbox);
             getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([
-                {
-                    fileData: [
-                        fileData1,
-                        fileData2
-                    ]
-                },
-                []
+                fileData2
             ]));
         });
         and('user u1 publish element assemble data e1', () => {

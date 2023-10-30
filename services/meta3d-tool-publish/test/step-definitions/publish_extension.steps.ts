@@ -3,13 +3,13 @@ import { publish } from "../../src/Publish"
 import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, getFileID, isContain, parseMarketCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
+import { getFileID, parseMarketCollectionDataBodyForNodejs } from "meta3d-tool-utils/src/publish/CloudbaseService";
 
 const feature = loadFeature("./test/features/publish_extension.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
+    let readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
 
     let _createFuncs = (sandbox, errorFuncStub = console.error) => {
         readFileSyncFunc = sandbox.stub()
@@ -21,11 +21,7 @@ defineFeature(feature, test => {
         hasAccountFunc = sandbox.stub()
         uploadFileFunc = sandbox.stub()
         getMarketImplementAccountDataFunc = sandbox.stub()
-        updateMarketImplementDataFunc = sandbox.stub()
-        getDataFromMarketImplementAccountDataFunc = getDataFromMarketImplementAccountData
-        isContainFunc = isContain
-        buildMarketImplementAccountDataFunc = buildMarketImplementAccountData
-        addMarketImplementDataToDataFromMarketImplementCollectionDataFunc = addMarketImplementDataToDataFromMarketImplementCollectionData
+        addMarketImplementDataFunc = sandbox.stub()
         getFileIDFunc = getFileID
         parseMarketCollectionDataBodyFunc = parseMarketCollectionDataBodyForNodejs
     }
@@ -58,7 +54,7 @@ defineFeature(feature, test => {
 
     let _publishExtension = (packageFilePath = "", distFilePath = "") => {
         return publish(
-            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, updateMarketImplementDataFunc, getDataFromMarketImplementAccountDataFunc, isContainFunc, buildMarketImplementAccountDataFunc, addMarketImplementDataToDataFromMarketImplementCollectionDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc],
+            [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, distFilePath,
             "extension"
         )
@@ -119,9 +115,7 @@ defineFeature(feature, test => {
                 just({})
             )
             getMarketImplementAccountDataFunc.returns(
-                resolve([{
-                    fileData: []
-                }, []])
+                resolve([])
             )
             hasAccountFunc.returns(
                 just(true)
@@ -157,7 +151,6 @@ defineFeature(feature, test => {
         let distFileContent = "dist"
         let generatedResult = new ArrayBuffer(0)
         let fileID1 = "id1"
-        let marketImplementCollectionData = []
 
         _prepare(given)
 
@@ -198,9 +191,7 @@ defineFeature(feature, test => {
                 just({ fileID: fileID1 })
             )
             getMarketImplementAccountDataFunc.returns(
-                resolve([{
-                    fileData: []
-                }, marketImplementCollectionData])
+                resolve([])
             )
         });
 
@@ -238,23 +229,19 @@ defineFeature(feature, test => {
         });
 
         and('should add to collection', () => {
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 app,
                 "publishedextensions",
-                "meta3d",
                 {
                     "key": "meta3d",
-                    "fileData": [{
-                        "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                        "name": "test1",
-                        "version": "0.0.2",
-                        "displayName": "d1",
-                        "repoLink": "l1",
-                        "description": "dp1",
-                        "fileID": fileID1
-                    }]
+                    "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "displayName": "d1",
+                    "repoLink": "l1",
+                    "description": "dp1",
+                    "fileID": fileID1
                 },
-                marketImplementCollectionData
             ])
         });
     });
@@ -264,7 +251,6 @@ defineFeature(feature, test => {
         let distFileContent = "dist"
         let generatedResult = new ArrayBuffer(0)
         let fileID1 = "id1"
-        let marketImplementCollectionData = []
 
         _prepare(given)
 
@@ -296,9 +282,7 @@ defineFeature(feature, test => {
                 just({ fileID: fileID1 })
             )
             getMarketImplementAccountDataFunc.returns(
-                resolve([{
-                    fileData: []
-                }, marketImplementCollectionData])
+                resolve([])
             )
         });
 
@@ -320,23 +304,19 @@ defineFeature(feature, test => {
                 },
                 distFileContent
             ])
-            expect(updateMarketImplementDataFunc).toCalledWith([
+            expect(addMarketImplementDataFunc).toCalledWith([
                 app,
                 "publishedextensions",
-                "meta3d",
                 {
                     "key": "meta3d",
-                    "fileData": [{
-                        "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
-                        "name": "test1",
-                        "version": "0.0.2",
-                        "displayName": "test1",
-                        "repoLink": "",
-                        "description": "",
-                        "fileID": fileID1
-                    }]
+                    "protocolName": "test1-protocol", "protocolVersion": "^0.0.1",
+                    "name": "test1",
+                    "version": "0.0.2",
+                    "displayName": "test1",
+                    "repoLink": "",
+                    "description": "",
+                    "fileID": fileID1
                 },
-                marketImplementCollectionData
             ])
         });
     });
@@ -425,7 +405,7 @@ defineFeature(feature, test => {
     //     });
 
     //     and('should update fileID in collection', () => {
-    //         expect(updateMarketImplementDataFunc.getCall(1)).toCalledWith([
+    //         expect(addMarketImplementDataFunc.getCall(1)).toCalledWith([
     //             app,
     //             "publishedextensions",
     //             { "account": "meta3d" },
@@ -475,20 +455,14 @@ defineFeature(feature, test => {
                 empty()
             )
             getMarketImplementAccountDataFunc.onCall(0).returns(
-                resolve([{
-                    fileData: []
-                }, []])
+                resolve([])
             )
             getMarketImplementAccountDataFunc.onCall(1).returns(
                 resolve([{
-                    fileData: [
-                        {
-                            protocolName: "test1-protocol",
-                            name: "test1",
-                            version: "0.0.2"
-                        }
-                    ]
-                }, []])
+                    protocolName: "test1-protocol",
+                    name: "test1",
+                    version: "0.0.2"
+                }])
             )
         });
 

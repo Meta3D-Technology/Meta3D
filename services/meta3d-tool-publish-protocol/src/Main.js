@@ -43,7 +43,6 @@ let _getFuncArr = (env, packageFilePath) => {
                 CloudbaseService.initLocal,
                 CloudbaseService.hasAccount,
                 CloudbaseService.getMarketProtocolCollection,
-                CloudbaseService.isContain,
                 CloudbaseService.addDataToMarketProtocolCollection,
                 CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
                 CloudbaseService.getDataFromMarketProtocolCollection,
@@ -65,18 +64,18 @@ let _getFuncArr = (env, packageFilePath) => {
             // 	_4everlandService.parseMarketCollectionDataBodyForNodejs
             // ]
             return [
-                fs_1.default.readFileSync,
-                console.log,
-                console.error,
-                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                CloudbaseService.initProduction,
-                CloudbaseService.hasAccount,
-                CloudbaseService.getMarketProtocolCollection,
-                CloudbaseService.isContain,
-                CloudbaseService.addDataToMarketProtocolCollection,
-                CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
-                CloudbaseService.getDataFromMarketProtocolCollection,
-                CloudbaseService.parseMarketCollectionDataBodyForNodejs
+            // fs.readFileSync,
+            // console.log,
+            // console.error,
+            // buildReadJsonFunc(packageFilePath),
+            // CloudbaseService.initProduction,
+            // CloudbaseService.hasAccount,
+            // CloudbaseService.getMarketProtocolCollection,
+            // CloudbaseService.isContain,
+            // CloudbaseService.addDataToMarketProtocolCollection,
+            // CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+            // CloudbaseService.getDataFromMarketProtocolCollection,
+            // CloudbaseService.parseMarketCollectionDataBodyForNodejs
             ];
         default:
             throw new Error("unknown env");

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getDataByKeyContain = exports.addMarketImplementDataToDataFromMarketImplementCollectionData = exports.buildMarketImplementAccountData = exports.isContain = exports.getDataFromMarketImplementAccountData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getFileDataFromMarketImplementCollectionData = exports.getAccountFromMarketImplementCollectionData = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -33,12 +33,16 @@ let batchFindMarketProtocolCollection = (collectionName, protocolNames) => Backe
 exports.batchFindMarketProtocolCollection = batchFindMarketProtocolCollection;
 let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMarketProtocolCollectionCount((0, Repo_1.getBackend)(), collectionName);
 exports.getMarketProtocolCollectionCount = getMarketProtocolCollectionCount;
-let getMarketImplementCollection = (collectionName, limitCount, skipCount) => BackendService.getMarketImplementCollection((0, Repo_1.getBackend)(), null, collectionName, limitCount, skipCount);
+let getMarketImplementCollection = (collectionName, limitCount, skipCount, whereData = {}) => BackendService.getMarketImplementCollection((0, Repo_1.getBackend)(), null, collectionName, limitCount, skipCount, whereData);
 exports.getMarketImplementCollection = getMarketImplementCollection;
 let getMarketImplement = (collectionName, limitCount, skipCount, account, name, version) => {
     return (0, exports.getDatabase)()
         .collection(collectionName)
-        .where({ key: BackendService.handleKeyToLowercase(account) })
+        .where({
+        key: BackendService.handleKeyToLowercase(account),
+        name: name,
+        version: version
+    })
         .skip(skipCount)
         .limit(limitCount)
         .get()
@@ -46,19 +50,15 @@ let getMarketImplement = (collectionName, limitCount, skipCount, account, name, 
         if (res.data.length === 0) {
             return null;
         }
-        let { fileData } = res.data[0];
-        let result = fileData.find((data) => data.name === name && data.version === version);
-        if (result === undefined) {
-            return null;
-        }
-        return result;
+        return res.data[0];
     });
 };
 exports.getMarketImplement = getMarketImplement;
 exports.getDataFromMarketProtocolCollection = BackendService.getDataFromMarketProtocolCollection;
 exports.mapMarketImplementCollection = BackendService.mapMarketImplementCollection;
+exports.filterMarketImplementCollection = BackendService.filterMarketImplementCollection;
 exports.getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData;
-exports.getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData;
+// export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
 let downloadFile = (onDownloadProgressFunc, fileID) => {
     // TODO support onDownloadProgressFunc
     onDownloadProgressFunc(0);
@@ -102,14 +102,18 @@ exports.getDataByKey = getDataByKey;
 let hasData = (collectionName, key) => BackendService.hasData((0, Repo_1.getBackend)(), collectionName, key);
 exports.hasData = hasData;
 exports.getFileID = BackendService.getFileID;
-let getMarketImplementAccountData = (collectionName, account) => BackendService.getMarketImplementAccountData((0, Repo_1.getBackend)(), null, collectionName, account);
+let getMarketImplementAccountData = (collectionName, account, name, version) => BackendService.getMarketImplementAccountData((0, Repo_1.getBackend)(), null, collectionName, account, name, version);
 exports.getMarketImplementAccountData = getMarketImplementAccountData;
-let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) => BackendService.updateMarketImplementData((0, Repo_1.getBackend)(), collectionName, account, updateData, oldMarketImplementCollectionData);
-exports.updateMarketImplementData = updateMarketImplementData;
-exports.getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData;
-exports.isContain = BackendService.isContain;
-exports.buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData;
-exports.addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData;
+let addMarketImplementData = (collectionName, data) => {
+    return BackendService.addMarketImplementData((0, Repo_1.getBackend)(), collectionName, data);
+};
+exports.addMarketImplementData = addMarketImplementData;
+// export let updateMarketImplementData = (collectionName, account, updateData, oldMarketImplementCollectionData) =>
+// 	BackendService.updateMarketImplementData(getBackend(), collectionName, account, updateData, oldMarketImplementCollectionData)
+// export let getDataFromMarketImplementAccountData = BackendService.getDataFromMarketImplementAccountData
+// export let isContain = BackendService.isContain
+// export let buildMarketImplementAccountData = BackendService.buildMarketImplementAccountData
+// export let addMarketImplementDataToDataFromMarketImplementCollectionData = BackendService.addMarketImplementDataToDataFromMarketImplementCollectionData
 let getDataByKeyContain = (collectionName, limitCount, skipCount, values) => {
     return (0, most_1.fromPromise)((0, exports.getDatabase)().collection(collectionName)
         .skip(skipCount)
