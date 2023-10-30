@@ -6,6 +6,11 @@ module Method = {
   let showApInspector = dispatch => {
     dispatch(FrontendUtils.ApAssembleStoreType.ShowApInspector)
   }
+
+  // TODO
+  // let selectAll = dispatch => {
+
+  // }
 }
 
 @react.component
@@ -19,5 +24,11 @@ let make = (~service: service) => {
       }}>
       {React.string(`显示Ap Inspector`)}
     </Button>
+    // <Button
+    //   onClick={_ => {
+    //     Method.selectAll(dispatch)
+    //   }}>
+    //   {React.string({j`选择所有`})}
+    // </Button>
   </>
 }

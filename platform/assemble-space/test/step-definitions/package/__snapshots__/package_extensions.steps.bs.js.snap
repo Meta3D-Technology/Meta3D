@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PackageExtensions if loaded, show extensions list 1`] = `
+exports[`PackageExtensions show extensions list 1`] = `
 <div
   className="ant-list ant-list-split ant-list-grid"
 >
@@ -63,10 +63,4 @@ exports[`PackageExtensions if loaded, show extensions list 1`] = `
     </div>
   </div>
 </div>
-`;
-
-exports[`PackageExtensions if not loaded, show loading 1`] = `
-<p>
-  loading...
-</p>
 `;

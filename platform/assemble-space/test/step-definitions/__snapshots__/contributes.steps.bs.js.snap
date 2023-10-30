@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Contributes if loaded, show contributes list 1`] = `
+exports[`Contributes show contributes list 1`] = `
 <div
   className="ant-list ant-list-split ant-list-grid"
 >
@@ -63,10 +63,4 @@ exports[`Contributes if loaded, show contributes list 1`] = `
     </div>
   </div>
 </div>
-`;
-
-exports[`Contributes if not loaded, show loading 1`] = `
-<p>
-  loading...
-</p>
 `;

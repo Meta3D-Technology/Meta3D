@@ -9,21 +9,21 @@ let buildUI = (
   <Extensions service selectedExtensionsFromMarket />
 }
 
-let useEffectOnceAsync = (
-  ~sandbox,
-  // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~setIsLoaded=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~setExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~service=ServiceTool.build(~sandbox, ()),
-  ~selectedExtensionsFromMarket=list{},
-  (),
-) => {
-  ExtensionsUtils.Method.useEffectOnceAsync(
-    (setIsLoaded, setExtensions),
-    service,
-    selectedExtensionsFromMarket,
-  )
-}
+// let useEffectOnceAsync = (
+//   ~sandbox,
+//   // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+//   ~setIsLoaded=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+//   ~setExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+//   ~service=ServiceTool.build(~sandbox, ()),
+//   ~selectedExtensionsFromMarket=list{},
+//   (),
+// ) => {
+//   ExtensionsUtils.Method.useEffectOnceAsync(
+//     (setIsLoaded, setExtensions),
+//     service,
+//     selectedExtensionsFromMarket,
+//   )
+// }
 
 let selectExtension = (
   // ~sandbox,
@@ -33,7 +33,7 @@ let selectExtension = (
   ~dispatch,
   ~iconBase64="i1",
   ~protocolDisplayName="d1",
-  ~protocolRepoLink="",
+  ~protocolRepoLink="l1",
   ~protocolDescription="dp1",
   (),
 ) => {
@@ -48,4 +48,4 @@ let selectExtension = (
   )
 }
 
-let getProtocolConfigStr = ExtensionsUtils.Method._getProtocolConfigStr
+let getProtocolConfigStr = ExtensionsContributesUtils.getProtocolConfigStr

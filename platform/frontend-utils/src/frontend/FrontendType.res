@@ -41,6 +41,8 @@ type publishExtension = {
   protocolVersion: version,
   protocolIconBase64: string,
   protocolDisplayName: string,
+  protocolRepoLink: string,
+  protocolDescription: string,
   info: implementInfo,
 }
 

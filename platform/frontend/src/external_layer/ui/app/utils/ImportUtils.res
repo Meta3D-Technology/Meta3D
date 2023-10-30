@@ -102,6 +102,9 @@ let _import = (
               protocolName: extensionProtocol.name,
               protocolVersion: extensionProtocol.version,
               protocolIconBase64: extensionProtocol.iconBase64,
+              protocolDisplayName: extensionProtocol.displayName,
+              protocolRepoLink: extensionProtocol.repoLink,
+              protocolDescription: extensionProtocol.description,
               data: (
                 {
                   extensionPackageData: {

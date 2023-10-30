@@ -8,9 +8,9 @@ let make = (
   ~allPublishExtensionProtocolConfigs,
 ) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedExtensions} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) =>
-    userCenterState
-  )
+  let {selectedExtensions} = AppStore.useSelector((
+    {userCenterState}: FrontendUtils.AppStoreType.state,
+  ) => userCenterState)
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (page, setPage) = React.useState(_ => 1)
@@ -63,6 +63,8 @@ let make = (
               protocolVersion: extensionProtocolItem.version,
               protocolIconBase64: extensionProtocolItem.iconBase64,
               protocolDisplayName: extensionProtocolItem.displayName,
+              protocolRepoLink: extensionProtocolItem.repoLink,
+              protocolDescription: extensionProtocolItem.description,
               info,
             },
           ),
@@ -161,7 +163,10 @@ let make = (
                             onClick={_ => {
                               dispatch(
                                 FrontendUtils.AppStoreType.UserCenterAction(
-                                  FrontendUtils.UserCenterStoreType.NotSelectExtension(extensionProtocolItem.info.name, extensionProtocolItem.info.version),
+                                  FrontendUtils.UserCenterStoreType.NotSelectExtension(
+                                    extensionProtocolItem.info.name,
+                                    extensionProtocolItem.info.version,
+                                  ),
                                 ),
                               )
                             }}>
@@ -203,6 +208,9 @@ let make = (
                                               protocolName: extensionProtocolItem.protocolName,
                                               protocolVersion: extensionProtocolItem.protocolVersion,
                                               protocolIconBase64: extensionProtocolItem.protocolIconBase64,
+                                              protocolDisplayName: extensionProtocolItem.protocolDisplayName,
+                                              protocolRepoLink: extensionProtocolItem.protocolRepoLink,
+                                              protocolDescription: extensionProtocolItem.protocolDescription,
                                               version: extensionProtocolItem.info.version,
                                               account: extensionProtocolItem.info.account,
                                             },

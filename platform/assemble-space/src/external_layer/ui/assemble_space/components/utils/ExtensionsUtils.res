@@ -3,52 +3,10 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getProtocolConfigStr = protocolConfig => {
-    protocolConfig->Meta3dCommonlib.OptionSt.map((
-      {configStr}: FrontendUtils.CommonType.protocolConfig,
-    ) => configStr)
-  }
-
-  // TODO perf: defer load when panel change
-  let _getExtensions = ({getAllPublishExtensionProtocols}, selectedExtensionsFromMarket) => {
-    // TODO support >1000
-    getAllPublishExtensionProtocols(.
-      FrontendUtils.MarketUtils.getLimitCount(),
-      0,
-    )->Meta3dBsMost.Most.map(protocols => {
-      ExtensionsContributesUtils.getItems(
-        (
-          ({data}: FrontendUtils.AssembleSpaceCommonType.extension) =>
-            data.extensionPackageData.protocol,
-          ((displayName, _, _, _, _, _, _)) => displayName,
-          ({data}: FrontendUtils.AssembleSpaceCommonType.extension) =>
-            data.extensionPackageData.displayName,
-          (extension, protocol, protocolConfig) =>
-            (
-              extension.data.extensionPackageData.displayName,
-              protocol.iconBase64,
-              protocol.displayName,
-              protocol.repoLink,
-              protocol.description,
-              protocolConfig->ExtensionsContributesUtils.getProtocolConfigStr,
-              extension,
-            )->Obj.magic,
-        ),
-        protocols,
-        selectedExtensionsFromMarket,
-      )->Obj.magic
-    }, _)
-  }
-
-  let getDifferenceSet = (extensions, selectedExtensionNames) => {
-    extensions->Meta3dCommonlib.ArraySt.filter(((
-      displayName,
-      _,
-      _,
-      _,
-      _,
-      _,
+  let getDifferenceSet = (selectedExtensionsFromMarket, selectedExtensionNames) => {
+    selectedExtensionsFromMarket->Meta3dCommonlib.ArraySt.filter(((
       extension: FrontendUtils.AssembleSpaceCommonType.extension,
+      _,
     )) => {
       !(
         selectedExtensionNames->Meta3dCommonlib.ListSt.includes(
@@ -56,24 +14,6 @@ module Method = {
         )
       )
     })
-  }
-
-  let useEffectOnceAsync = (
-    (setIsLoaded, setExtensions),
-    service,
-    selectedExtensionsFromMarket,
-  ) => {
-    (
-      _getExtensions(
-        service.backend,
-        selectedExtensionsFromMarket,
-      )->Meta3dBsMost.Most.observe(extensions => {
-        setIsLoaded(_ => true)
-
-        setExtensions(_ => extensions)
-      }, _),
-      None,
-    )
   }
 }
 
@@ -87,58 +27,41 @@ let make = (
 ) => {
   let dispatch = useDispatch(service.react.useDispatch)
 
-  let (isLoaded, setIsLoaded) = service.react.useState(_ => false)
-  let (extensions, setExtensions) = service.react.useState(_ => [])
-
-  // let showedExtensions = service.react.useSelector(. Method.useSelector)
-
-  service.react.useEffectOnceAsync(() =>
-    Method.useEffectOnceAsync((setIsLoaded, setExtensions), service, selectedExtensionsFromMarket)
-  )
-
-  !isLoaded
-    ? <p> {React.string(`loading...`)} </p>
-    : <List
-        grid={{gutter: 16, column: 3}}
-        dataSource={extensions->Method.getDifferenceSet(selectedExtensionNames)}
-        renderItem={((
-          displayName,
-          protocolIconBase64,
-          protocolDisplayName,
-          protocolRepoLink,
-          protocolDescription,
-          configStr,
-          extension,
-        )) => {
-          <List.Item>
-            <Card
-              key={displayName}
-              onClick={_ => {
-                selectExtension(
-                  dispatch,
-                  protocolIconBase64,
-                  protocolDisplayName,
-                  protocolRepoLink,
-                  protocolDescription,
-                  configStr,
-                  extension,
-                )
-              }}
-              bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-              cover={<Image preview=false src={protocolIconBase64} width=50 height=50 />}>
-              <Card.Meta
-                title={<span
-                  style={ReactDOM.Style.make(
-                    ~whiteSpace="normal",
-                    ~wordWrap="break-word",
-                    ~wordBreak="break-all",
-                    (),
-                  )}>
-                  {React.string(displayName)}
-                </span>}
-              />
-            </Card>
-          </List.Item>
-        }}
-      />
+  <List
+    grid={{gutter: 16, column: 3}}
+    dataSource={selectedExtensionsFromMarket
+    ->Meta3dCommonlib.ListSt.toArray
+    ->Method.getDifferenceSet(selectedExtensionNames)}
+    renderItem={((extension, protocolConfigOpt)) => {
+      <List.Item>
+        <Card
+          key={extension.data.extensionPackageData.displayName}
+          onClick={_ => {
+            selectExtension(
+              dispatch,
+              extension.protocolIconBase64,
+              extension.protocolDisplayName,
+              extension.protocolRepoLink,
+              extension.protocolDescription,
+              protocolConfigOpt->ExtensionsContributesUtils.getProtocolConfigStr,
+              extension,
+            )
+          }}
+          bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
+          cover={<Image preview=false src={extension.protocolIconBase64} width=50 height=50 />}>
+          <Card.Meta
+            title={<span
+              style={ReactDOM.Style.make(
+                ~whiteSpace="normal",
+                ~wordWrap="break-word",
+                ~wordBreak="break-all",
+                (),
+              )}>
+              {React.string(extension.data.extensionPackageData.displayName)}
+            </span>}
+          />
+        </Card>
+      </List.Item>
+    }}
+  />
 }

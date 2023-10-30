@@ -63,6 +63,8 @@ let make = (
               protocolVersion: contributeProtocolItem.version,
               protocolIconBase64: contributeProtocolItem.iconBase64,
               protocolDisplayName: contributeProtocolItem.displayName,
+              protocolRepoLink: contributeProtocolItem.repoLink,
+              protocolDescription: contributeProtocolItem.description,
               info,
             },
           ),

@@ -20,31 +20,31 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."if not loaded, show loading", ({given, \"when", \"and", then}) => {
+  //   test(."if not loaded, show loading", ({given, \"when", \"and", then}) => {
+  //     _prepare(given)
+
+  //     \"when"(
+  //       "not loaded and render",
+  //       () => {
+  //         ()
+  //       },
+  //     )
+
+  //     then(
+  //       "should show loading",
+  //       () => {
+  //         PackageContributesTool.buildUI(~sandbox, ~service=ServiceTool.build(~sandbox, ()), ())
+  //         ->ReactTestRenderer.create
+  //         ->ReactTestTool.createSnapshotAndMatch
+  //       },
+  //     )
+  //   })
+
+  test(."show contributes list", ({given, \"when", \"and", then}) => {
     _prepare(given)
 
     \"when"(
-      "not loaded and render",
-      () => {
-        ()
-      },
-    )
-
-    then(
-      "should show loading",
-      () => {
-        PackageContributesTool.buildUI(~sandbox, ~service=ServiceTool.build(~sandbox, ()), ())
-        ->ReactTestRenderer.create
-        ->ReactTestTool.createSnapshotAndMatch
-      },
-    )
-  })
-
-  test(."if loaded, show contributes list", ({given, \"when", \"and", then}) => {
-    _prepare(given)
-
-    \"when"(
-      "loaded and render",
+      "render",
       () => {
         ()
       },
@@ -53,244 +53,17 @@ defineFeature(feature, test => {
     then(
       "should show contributes list",
       () => {
-        let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-        useStateStub
-        ->onCall(0, _)
-        ->returns((true, _ => true), _)
-        ->onCall(1, _)
-        ->returns(([], _ => []), _)
-        ->ignore
+        // let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        // useStateStub
+        // ->onCall(0, _)
+        // ->returns((true, _ => true), _)
+        // ->onCall(1, _)
+        // ->returns(([], _ => []), _)
+        // ->ignore
 
-        PackageContributesTool.buildUI(
-          ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ~useState=useStateStub->Obj.magic, ()),
-          (),
-        )
+        PackageContributesTool.buildUI(~sandbox, ~service=ServiceTool.build(~sandbox, ()), ())
         ->ReactTestRenderer.create
         ->ReactTestTool.createSnapshotAndMatch
-      },
-    )
-  })
-
-  let _setContributes = contributes => {
-    let setContributesStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-    PackageContributesTool.useEffectOnceAsync(
-      ~sandbox,
-      ~setContributes=setContributesStub,
-      ~service=ServiceTool.build(
-        ~sandbox,
-        ~getAllPublishContributeProtocols=createEmptyStub(
-          refJsObjToSandbox(sandbox.contents),
-        )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
-        (),
-      ),
-      ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
-      (),
-    )
-    ->ServiceTool.getUseEffectOncePromise
-    ->then_(() => {
-      (ReactHookTool.getValue(~setLocalValueStub=setContributesStub, ())->expect == contributes)
-        ->resolve
-    }, _)
-  }
-
-  test(."set contributes when select one contribute", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
-      ~name="a",
-      ~version="1.0.1",
-      (),
-    )
-    let a1DisplayName = "a1"
-    // let protocolConfig:FrontendUtils.CommonType.protocolConfig = { "a_config" }
-    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
-
-    _prepare(given)
-
-    given(
-      "publish contribute protocol a",
-      () => {
-        allPublishContributeProtocols := [a]
-      },
-    )
-
-    \"and"(
-      "select contribute a1 for a",
-      () => {
-        selectedContributesFromMarket :=
-          list{
-            ContributeTool.buildSelectedContribute(
-              ~displayName=a1DisplayName,
-              ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
-              ~protocolConfig=protocolConfig->Some,
-              (),
-            ),
-          }
-      },
-    )
-
-    \"when"(
-      "render after useEffectOnceAsync",
-      () => {
-        ()
-      },
-    )
-
-    CucumberAsync.execStep(
-      then,
-      "should mark loaded",
-      () => {
-        let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-        PackageContributesTool.useEffectOnceAsync(
-          ~sandbox,
-          ~setIsLoaded=setIsLoadedStub,
-          ~service=ServiceTool.build(
-            ~sandbox,
-            ~getAllPublishContributeProtocols=createEmptyStub(
-              refJsObjToSandbox(sandbox.contents),
-            )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
-            (),
-          ),
-          ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
-          (),
-        )
-        ->ServiceTool.getUseEffectOncePromise
-        ->then_(
-          () => {
-            (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
-              ->resolve
-          },
-          _,
-        )
-      },
-    )
-
-    CucumberAsync.execStep(
-      \"and",
-      "should set a's icon, config str and a1's displayName as contributes",
-      () => {
-        _setContributes([
-          (
-            a1DisplayName,
-            a.iconBase64,
-            protocolConfig.configStr,
-            selectedContributesFromMarket.contents
-            ->ListTool.getHeadExn
-            ->ContributeTool.getContribute,
-          ),
-        ])
-      },
-    )
-  })
-
-  test(."set contributes when select two contributes of the same protocol", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
-      ~name="a",
-      ~version="1.0.1",
-      (),
-    )
-    let a1DisplayName = "a1"
-    let a2DisplayName = "a2"
-    let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
-
-    _prepare(given)
-
-    given(
-      "publish contribute protocol a",
-      () => {
-        allPublishContributeProtocols := [a]
-      },
-    )
-
-    \"and"(
-      "select contribute a1, a2 for a",
-      () => {
-        selectedContributesFromMarket :=
-          list{
-            ContributeTool.buildSelectedContribute(
-              ~displayName=a1DisplayName,
-              ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
-              ~protocolConfig=protocolConfig->Some,
-              (),
-            ),
-            ContributeTool.buildSelectedContribute(
-              ~displayName=a2DisplayName,
-              ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
-              ~protocolConfig=protocolConfig->Some,
-              (),
-            ),
-          }
-      },
-    )
-
-    \"when"(
-      "render after useEffectOnceAsync",
-      () => {
-        ()
-      },
-    )
-
-    CucumberAsync.execStep(
-      then,
-      "should mark loaded",
-      () => {
-        let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-        PackageContributesTool.useEffectOnceAsync(
-          ~sandbox,
-          ~setIsLoaded=setIsLoadedStub,
-          ~service=ServiceTool.build(
-            ~sandbox,
-            ~getAllPublishContributeProtocols=createEmptyStub(
-              refJsObjToSandbox(sandbox.contents),
-            )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
-            (),
-          ),
-          ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
-          (),
-        )
-        ->ServiceTool.getUseEffectOncePromise
-        ->then_(
-          () => {
-            (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
-              ->resolve
-          },
-          _,
-        )
-      },
-    )
-
-    CucumberAsync.execStep(
-      \"and",
-      "contributes should contain a1 and a2",
-      () => {
-        _setContributes([
-          (
-            a1DisplayName,
-            a.iconBase64,
-            protocolConfig.configStr,
-            selectedContributesFromMarket.contents
-            ->ListTool.getHeadExn
-            ->ContributeTool.getContribute,
-          ),
-          (
-            a2DisplayName,
-            a.iconBase64,
-            protocolConfig.configStr,
-            selectedContributesFromMarket.contents
-            ->ListTool.getNthExn(1)
-            ->ContributeTool.getContribute,
-          ),
-        ])
       },
     )
   })
@@ -305,14 +78,14 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    given(
-      "publish contribute protocol a",
-      () => {
-        allPublishContributeProtocols := [a]
-      },
-    )
+    // given(
+    //   "publish contribute protocol a",
+    //   () => {
+    //     allPublishContributeProtocols := [a]
+    //   },
+    // )
 
-    \"and"(
+    given(
       "select contribute a1 for a",
       () => {
         selectedContributesFromMarket :=
@@ -370,136 +143,359 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."has zero implement of contribute protocol", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
-      ~name="a",
-      ~version="0.0.1",
-      (),
-    )
+  //   let _setContributes = contributes => {
+  //     let setContributesStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-    _prepare(given)
-
-    given(
-      "publish contribute protocol a",
-      () => {
-        allPublishContributeProtocols := [a]
-      },
-    )
-
-    \"and"(
-      "select contribute b1 for protocol b",
-      () => {
-        selectedContributesFromMarket :=
-          list{
-            ContributeTool.buildSelectedContribute(
-              ~protocolName="b",
-              ~protocolVersionRange="0.0.1",
-              (),
-            ),
-          }
-      },
-    )
-
-    \"when"(
-      "render after useEffectOnceAsync",
-      () => {
-        ()
-      },
-    )
-
-    CucumberAsync.execStep(
-      then,
-      "should set empty",
-      () => {
-        _setContributes([])
-      },
-    )
-  })
-
-  // test(."has multiple implements of contribute protocol", ({given, \"when", \"and", then}) => {
-  //   let a: FrontendUtils.BackendCloudbaseType.protocol = {
-  //     name: "a",
-  //     version: "0.0.1",
-  //     iconBase64: "i1",
-  //     account: "meta3d",
+  //     PackageContributesTool.useEffectOnceAsync(
+  //       ~sandbox,
+  //       ~setContributes=setContributesStub,
+  //       ~service=ServiceTool.build(
+  //         ~sandbox,
+  //         ~getAllPublishContributeProtocols=createEmptyStub(
+  //           refJsObjToSandbox(sandbox.contents),
+  //         )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
+  //         (),
+  //       ),
+  //       ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
+  //       (),
+  //     )
+  //     ->ServiceTool.getUseEffectOncePromise
+  //     ->then_(() => {
+  //       (ReactHookTool.getValue(~setLocalValueStub=setContributesStub, ())->expect == contributes)
+  //         ->resolve
+  //     }, _)
   //   }
 
-  //   _prepare(given)
+  //   test(."set contributes when select one contribute", ({given, \"when", \"and", then}) => {
+  //     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+  //       ~name="a",
+  //       ~version="1.0.1",
+  //       (),
+  //     )
+  //     let a1DisplayName = "a1"
+  //     // let protocolConfig:FrontendUtils.CommonType.protocolConfig = { "a_config" }
+  //     let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
 
-  //   given("publish contribute protocol a", () => {
-  //     allPublishContributeProtocols := [a]
-  //   })
+  //     _prepare(given)
 
-  //   \"and"("select contribute a1 and a2 for a", () => {
-  //     selectedContributesFromMarket :=
-  //       list{
-  //         ContributeTool.buildSelectedContribute(
-  //           ~id="a1",
-  //           ~protocolName=a.name,
-  //           ~protocolVersionRange=a.version,
+  //     given(
+  //       "publish contribute protocol a",
+  //       () => {
+  //         allPublishContributeProtocols := [a]
+  //       },
+  //     )
+
+  //     \"and"(
+  //       "select contribute a1 for a",
+  //       () => {
+  //         selectedContributesFromMarket :=
+  //           list{
+  //             ContributeTool.buildSelectedContribute(
+  //               ~displayName=a1DisplayName,
+  //               ~protocolName=a.name,
+  //               ~protocolVersionRange=">= 1.0.0",
+  //               ~protocolConfig=protocolConfig->Some,
+  //               (),
+  //             ),
+  //           }
+  //       },
+  //     )
+
+  //     \"when"(
+  //       "render after useEffectOnceAsync",
+  //       () => {
+  //         ()
+  //       },
+  //     )
+
+  //     CucumberAsync.execStep(
+  //       then,
+  //       "should mark loaded",
+  //       () => {
+  //         let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+  //         PackageContributesTool.useEffectOnceAsync(
+  //           ~sandbox,
+  //           ~setIsLoaded=setIsLoadedStub,
+  //           ~service=ServiceTool.build(
+  //             ~sandbox,
+  //             ~getAllPublishContributeProtocols=createEmptyStub(
+  //               refJsObjToSandbox(sandbox.contents),
+  //             )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
+  //             (),
+  //           ),
+  //           ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
   //           (),
-  //         ),
-  //         ContributeTool.buildSelectedContribute(
-  //           ~id="a2",
-  //           ~protocolName=a.name,
-  //           ~protocolVersionRange=a.version,
+  //         )
+  //         ->ServiceTool.getUseEffectOncePromise
+  //         ->then_(
+  //           () => {
+  //             (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
+  //               ->resolve
+  //           },
+  //           _,
+  //         )
+  //       },
+  //     )
+
+  //     CucumberAsync.execStep(
+  //       \"and",
+  //       "should set a's icon, config str and a1's displayName as contributes",
+  //       () => {
+  //         _setContributes([
+  //           (
+  //             a1DisplayName,
+  //             a.iconBase64,
+  //             protocolConfig.configStr,
+  //             selectedContributesFromMarket.contents
+  //             ->ListTool.getHeadExn
+  //             ->ContributeTool.getContribute,
+  //           ),
+  //         ])
+  //       },
+  //     )
+  //   })
+
+  //   test(."set contributes when select two contributes of the same protocol", ({
+  //     given,
+  //     \"when",
+  //     \"and",
+  //     then,
+  //   }) => {
+  //     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+  //       ~name="a",
+  //       ~version="1.0.1",
+  //       (),
+  //     )
+  //     let a1DisplayName = "a1"
+  //     let a2DisplayName = "a2"
+  //     let protocolConfig = ProtocolConfigTool.buildProtocolConfig(~configStr="a_config", ())
+
+  //     _prepare(given)
+
+  //     given(
+  //       "publish contribute protocol a",
+  //       () => {
+  //         allPublishContributeProtocols := [a]
+  //       },
+  //     )
+
+  //     \"and"(
+  //       "select contribute a1, a2 for a",
+  //       () => {
+  //         selectedContributesFromMarket :=
+  //           list{
+  //             ContributeTool.buildSelectedContribute(
+  //               ~displayName=a1DisplayName,
+  //               ~protocolName=a.name,
+  //               ~protocolVersionRange=">= 1.0.0",
+  //               ~protocolConfig=protocolConfig->Some,
+  //               (),
+  //             ),
+  //             ContributeTool.buildSelectedContribute(
+  //               ~displayName=a2DisplayName,
+  //               ~protocolName=a.name,
+  //               ~protocolVersionRange=">= 1.0.0",
+  //               ~protocolConfig=protocolConfig->Some,
+  //               (),
+  //             ),
+  //           }
+  //       },
+  //     )
+
+  //     \"when"(
+  //       "render after useEffectOnceAsync",
+  //       () => {
+  //         ()
+  //       },
+  //     )
+
+  //     CucumberAsync.execStep(
+  //       then,
+  //       "should mark loaded",
+  //       () => {
+  //         let setIsLoadedStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+  //         PackageContributesTool.useEffectOnceAsync(
+  //           ~sandbox,
+  //           ~setIsLoaded=setIsLoadedStub,
+  //           ~service=ServiceTool.build(
+  //             ~sandbox,
+  //             ~getAllPublishContributeProtocols=createEmptyStub(
+  //               refJsObjToSandbox(sandbox.contents),
+  //             )->returns(Meta3dBsMost.Most.just(allPublishContributeProtocols.contents), _),
+  //             (),
+  //           ),
+  //           ~selectedContributesFromMarket=selectedContributesFromMarket.contents,
   //           (),
-  //         ),
-  //       }
+  //         )
+  //         ->ServiceTool.getUseEffectOncePromise
+  //         ->then_(
+  //           () => {
+  //             (ReactHookTool.getValue(~setLocalValueStub=setIsLoadedStub, ())->expect == true)
+  //               ->resolve
+  //           },
+  //           _,
+  //         )
+  //       },
+  //     )
+
+  //     CucumberAsync.execStep(
+  //       \"and",
+  //       "contributes should contain a1 and a2",
+  //       () => {
+  //         _setContributes([
+  //           (
+  //             a1DisplayName,
+  //             a.iconBase64,
+  //             protocolConfig.configStr,
+  //             selectedContributesFromMarket.contents
+  //             ->ListTool.getHeadExn
+  //             ->ContributeTool.getContribute,
+  //           ),
+  //           (
+  //             a2DisplayName,
+  //             a.iconBase64,
+  //             protocolConfig.configStr,
+  //             selectedContributesFromMarket.contents
+  //             ->ListTool.getNthExn(1)
+  //             ->ContributeTool.getContribute,
+  //           ),
+  //         ])
+  //       },
+  //     )
   //   })
 
-  //   \"when"("render after useEffectOnceAsync", () => {
-  //     ()
+  //   test(."has zero implement of contribute protocol", ({given, \"when", \"and", then}) => {
+  //     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+  //       ~name="a",
+  //       ~version="0.0.1",
+  //       (),
+  //     )
+
+  //     _prepare(given)
+
+  //     given(
+  //       "publish contribute protocol a",
+  //       () => {
+  //         allPublishContributeProtocols := [a]
+  //       },
+  //     )
+
+  //     \"and"(
+  //       "select contribute b1 for protocol b",
+  //       () => {
+  //         selectedContributesFromMarket :=
+  //           list{
+  //             ContributeTool.buildSelectedContribute(
+  //               ~protocolName="b",
+  //               ~protocolVersionRange="0.0.1",
+  //               (),
+  //             ),
+  //           }
+  //       },
+  //     )
+
+  //     \"when"(
+  //       "render after useEffectOnceAsync",
+  //       () => {
+  //         ()
+  //       },
+  //     )
+
+  //     CucumberAsync.execStep(
+  //       then,
+  //       "should set empty",
+  //       () => {
+  //         _setContributes([])
+  //       },
+  //     )
   //   })
 
-  //   CucumberAsync.execStep(then, "should set empty", () => {
-  //     _setContributes([])
+  //   // test(."has multiple implements of contribute protocol", ({given, \"when", \"and", then}) => {
+  //   //   let a: FrontendUtils.BackendCloudbaseType.protocol = {
+  //   //     name: "a",
+  //   //     version: "0.0.1",
+  //   //     iconBase64: "i1",
+  //   //     account: "meta3d",
+  //   //   }
+
+  //   //   _prepare(given)
+
+  //   //   given("publish contribute protocol a", () => {
+  //   //     allPublishContributeProtocols := [a]
+  //   //   })
+
+  //   //   \"and"("select contribute a1 and a2 for a", () => {
+  //   //     selectedContributesFromMarket :=
+  //   //       list{
+  //   //         ContributeTool.buildSelectedContribute(
+  //   //           ~id="a1",
+  //   //           ~protocolName=a.name,
+  //   //           ~protocolVersionRange=a.version,
+  //   //           (),
+  //   //         ),
+  //   //         ContributeTool.buildSelectedContribute(
+  //   //           ~id="a2",
+  //   //           ~protocolName=a.name,
+  //   //           ~protocolVersionRange=a.version,
+  //   //           (),
+  //   //         ),
+  //   //       }
+  //   //   })
+
+  //   //   \"when"("render after useEffectOnceAsync", () => {
+  //   //     ()
+  //   //   })
+
+  //   //   CucumberAsync.execStep(then, "should set empty", () => {
+  //   //     _setContributes([])
+  //   //   })
+  //   // })
+
+  //   test(."contribute's version not match", ({given, \"when", \"and", then}) => {
+  //     let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
+  //       ~name="a",
+  //       ~version="0.1.1",
+  //       (),
+  //     )
+
+  //     _prepare(given)
+
+  //     given(
+  //       "publish contribute protocol a",
+  //       () => {
+  //         allPublishContributeProtocols := [a]
+  //       },
+  //     )
+
+  //     \"and"(
+  //       "select contribute a1 for a with old version",
+  //       () => {
+  //         selectedContributesFromMarket :=
+  //           list{
+  //             ContributeTool.buildSelectedContribute(
+  //               ~protocolName=a.name,
+  //               ~protocolVersionRange=">= 1.0.0",
+  //               (),
+  //             ),
+  //           }
+  //       },
+  //     )
+
+  //     \"when"(
+  //       "render after useEffectOnceAsync",
+  //       () => {
+  //         ()
+  //       },
+  //     )
+
+  //     CucumberAsync.execStep(
+  //       then,
+  //       "should set empty",
+  //       () => {
+  //         _setContributes([])
+  //       },
+  //     )
   //   })
-  // })
-
-  test(."contribute's version not match", ({given, \"when", \"and", then}) => {
-    let a: FrontendUtils.BackendCloudbaseType.protocol = BackendCloubaseTool.buildProtocol(
-      ~name="a",
-      ~version="0.1.1",
-      (),
-    )
-
-    _prepare(given)
-
-    given(
-      "publish contribute protocol a",
-      () => {
-        allPublishContributeProtocols := [a]
-      },
-    )
-
-    \"and"(
-      "select contribute a1 for a with old version",
-      () => {
-        selectedContributesFromMarket :=
-          list{
-            ContributeTool.buildSelectedContribute(
-              ~protocolName=a.name,
-              ~protocolVersionRange=">= 1.0.0",
-              (),
-            ),
-          }
-      },
-    )
-
-    \"when"(
-      "render after useEffectOnceAsync",
-      () => {
-        ()
-      },
-    )
-
-    CucumberAsync.execStep(
-      then,
-      "should set empty",
-      () => {
-        _setContributes([])
-      },
-    )
-  })
 })

@@ -3,16 +3,7 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let selectExtension = (
-    dispatch,
-    protocolIconBase64,
-    // TODO remove
-    protocolDisplayName,
-    protocolRepoLink,
-    protocolDescription,
-    protocolConfigStr,
-    extension,
-  ) => {
+  let selectExtension = (dispatch, protocolIconBase64, _, _, _, protocolConfigStr, extension) => {
     dispatch(
       FrontendUtils.ApAssembleStoreType.SelectExtension(
         protocolIconBase64,

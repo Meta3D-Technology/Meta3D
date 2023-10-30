@@ -9,21 +9,21 @@ let buildUI = (
   <PackageExtensions service selectedExtensionsFromMarket />
 }
 
-let useEffectOnceAsync = (
-  ~sandbox,
-  // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~setIsLoaded=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~setExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
-  ~service=ServiceTool.build(~sandbox, ()),
-  ~selectedExtensionsFromMarket=list{},
-  (),
-) => {
-  ExtensionsUtils.Method.useEffectOnceAsync(
-    (setIsLoaded, setExtensions),
-    service,
-    selectedExtensionsFromMarket,
-  )
-}
+// let useEffectOnceAsync = (
+//   ~sandbox,
+//   // ~dispatch=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+//   ~setIsLoaded=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+//   ~setExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+//   ~service=ServiceTool.build(~sandbox, ()),
+//   ~selectedExtensionsFromMarket=list{},
+//   (),
+// ) => {
+//   ExtensionsUtils.Method.useEffectOnceAsync(
+//     (setIsLoaded, setExtensions),
+//     service,
+//     selectedExtensionsFromMarket,
+//   )
+// }
 
 let selectExtension = (
   // ~sandbox,
@@ -48,4 +48,4 @@ let selectExtension = (
   )
 }
 
-let getProtocolConfigStr = ExtensionsUtils.Method._getProtocolConfigStr
+let getProtocolConfigStr = ExtensionsContributesUtils.getProtocolConfigStr

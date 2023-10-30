@@ -12,7 +12,7 @@ let getItems = (
   ->Meta3dCommonlib.ArraySt.sort((a, b) => {
     Meta3d.Semver.gt(a.version, b.version) ? 1 : -1
   })
-  ->Meta3dCommonlib.Log.printForDebug
+  // ->Meta3dCommonlib.Log.printForDebug
   ->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. result, protocol: FrontendUtils.BackendCloudbaseType.protocol) => {
       let {name, iconBase64, version} = protocol
@@ -23,7 +23,7 @@ let getItems = (
 
         protocol.name === name && Meta3d.Semver.satisfies(version, protocol.version)
       })
-      ->Meta3dCommonlib.Log.printForDebug
+      // ->Meta3dCommonlib.Log.printForDebug
       ->Meta3dCommonlib.ListSt.reduce(result, (result, (item, protocolConfig)) => {
         result->Meta3dCommonlib.ArraySt.includesByFunc(
           data => {
