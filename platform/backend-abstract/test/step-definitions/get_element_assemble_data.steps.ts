@@ -7,15 +7,15 @@ const feature = loadFeature("./test/features/get_element_assemble_data.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let getMarketImplementAccountDataFunc
+    let getMarketImplementAccountDataWithWhereDataFunc
 
     let _createFuncs = (sandbox) => {
-        getMarketImplementAccountDataFunc = sandbox.stub()
+        getMarketImplementAccountDataWithWhereDataFunc = sandbox.stub()
     }
 
     let _getElementAssembleData = (account, elementName, elementVersion) => {
         return getElementAssembleData(
-            getMarketImplementAccountDataFunc,
+            getMarketImplementAccountDataWithWhereDataFunc,
             account, elementName, elementVersion
         )
     }
@@ -49,7 +49,7 @@ defineFeature(feature, test => {
         given('prepare funcs', () => {
             _createFuncs(sandbox)
 
-            getMarketImplementAccountDataFunc.returns(
+            getMarketImplementAccountDataWithWhereDataFunc.returns(
                 resolve([
                     fileData2
                 ])
@@ -71,9 +71,9 @@ defineFeature(feature, test => {
         });
 
         then('should return e2', () => {
-            expect(getMarketImplementAccountDataFunc).toCalledWith([
+            expect(getMarketImplementAccountDataWithWhereDataFunc).toCalledWith([
                 "publishedelementassembledata",
-                account
+                { "key": account, "elementName": elementName2, "elementVersion": elementVersion2 }
             ])
             expect(data).toEqual(fileData2)
         });

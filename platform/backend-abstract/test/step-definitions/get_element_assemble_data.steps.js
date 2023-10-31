@@ -7,12 +7,12 @@ const GetElementDataService_1 = require("../../src/application_layer/assemble_sp
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_assemble_data.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let getMarketImplementAccountDataFunc;
+    let getMarketImplementAccountDataWithWhereDataFunc;
     let _createFuncs = (sandbox) => {
-        getMarketImplementAccountDataFunc = sandbox.stub();
+        getMarketImplementAccountDataWithWhereDataFunc = sandbox.stub();
     };
     let _getElementAssembleData = (account, elementName, elementVersion) => {
-        return (0, GetElementDataService_1.getElementAssembleData)(getMarketImplementAccountDataFunc, account, elementName, elementVersion);
+        return (0, GetElementDataService_1.getElementAssembleData)(getMarketImplementAccountDataWithWhereDataFunc, account, elementName, elementVersion);
     };
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -39,7 +39,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_as
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncs(sandbox);
-            getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([
+            getMarketImplementAccountDataWithWhereDataFunc.returns((0, PromiseTool_1.resolve)([
                 fileData2
             ]));
         });
@@ -53,9 +53,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/get_element_as
             });
         });
         then('should return e2', () => {
-            expect(getMarketImplementAccountDataFunc).toCalledWith([
+            expect(getMarketImplementAccountDataWithWhereDataFunc).toCalledWith([
                 "publishedelementassembledata",
-                account
+                { "key": account, "elementName": elementName2, "elementVersion": elementVersion2 }
             ]);
             expect(data).toEqual(fileData2);
         });

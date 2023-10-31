@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getDataByKeyContain = exports.addMarketImplementData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
+exports.getData = exports.getDataByKeyContain = exports.addMarketImplementData = exports.getMarketImplementAccountDataWithWhereData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.getDataByKey = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -104,6 +104,8 @@ exports.hasData = hasData;
 exports.getFileID = BackendService.getFileID;
 let getMarketImplementAccountData = (collectionName, account, name, version) => BackendService.getMarketImplementAccountData((0, Repo_1.getBackend)(), null, collectionName, account, name, version);
 exports.getMarketImplementAccountData = getMarketImplementAccountData;
+let getMarketImplementAccountDataWithWhereData = (collectionName, whereData) => BackendService.getMarketImplementAccountDataWithWhereData((0, Repo_1.getBackend)(), null, collectionName, whereData);
+exports.getMarketImplementAccountDataWithWhereData = getMarketImplementAccountDataWithWhereData;
 let addMarketImplementData = (collectionName, data) => {
     return BackendService.addMarketImplementData((0, Repo_1.getBackend)(), collectionName, data);
 };

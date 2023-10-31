@@ -528,7 +528,7 @@ module Method = {
     })
   }
 
-  let _hasEmptyNode = (nodesData: array<nodeInData>) => {
+  let _notHasEmptyNode = (nodesData: array<nodeInData>) => {
     !(nodesData->Meta3dCommonlib.ArraySt.includesByFunc(({isEmpty}) => isEmpty))
   }
 
@@ -595,7 +595,7 @@ module Method = {
         }->Obj.magic
       )
 
-      markIsPassDependencyGraphCheck(_hasEmptyNode(nodesData))
+      markIsPassDependencyGraphCheck(_notHasEmptyNode(nodesData))
     }
   }
 

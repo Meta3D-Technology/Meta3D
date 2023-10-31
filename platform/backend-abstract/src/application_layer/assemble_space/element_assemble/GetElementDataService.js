@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
+const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const most_1 = require("most");
 const semver_1 = require("semver");
 let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImplementCollectionFunc, getAccountFromMarketImplementCollectionDataFunc, downloadFileFunc], collectionName, limitCount, skipCount, protocolName) => {
@@ -39,11 +40,15 @@ let getAllPublishNewestData = ([getMarketImplementCollectionFunc, mapMarketImple
     });
 };
 exports.getAllPublishNewestData = getAllPublishNewestData;
-let getElementAssembleData = (getMarketImplementAccountDataFunc, account, elementName, elementVersion) => {
-    return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account, elementName, elementVersion))
+let getElementAssembleData = (getMarketImplementAccountDataWithWhereDataFunc, account, elementName, elementVersion) => {
+    return (0, most_1.fromPromise)(getMarketImplementAccountDataWithWhereDataFunc("publishedelementassembledata", {
+        key: (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(account),
+        elementName,
+        elementVersion
+    }))
         .flatMap((marketImplementAccountData) => {
         if (marketImplementAccountData.length === 0) {
-            return (0, most_1.empty)();
+            return (0, most_1.just)(null);
         }
         return (0, most_1.just)(marketImplementAccountData[0]);
     });

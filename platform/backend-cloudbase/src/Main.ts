@@ -31,6 +31,7 @@ import {
     // getDataFromPackageMarketEntryExtensionProtocolCollection,
     getData,
     batchFindMarketProtocolCollection,
+    getMarketImplementAccountDataWithWhereData
 } from "./application_layer/BackendService";
 import {
     findNewestPublishPackage as findNewestPublishPackageFind,
@@ -224,7 +225,7 @@ export let getElementAssembleData = (
     elementName,
     elementVersion,
 ) => Abstract.getElementAssembleData(
-    getMarketImplementAccountData,
+    getMarketImplementAccountDataWithWhereData,
     account,
     elementName,
     elementVersion,

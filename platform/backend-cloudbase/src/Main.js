@@ -108,7 +108,7 @@ let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abs
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 ], "publishedextensions", limitCount, skipCount, protocolName);
 exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
-let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData(BackendService_1.getMarketImplementAccountData, account, elementName, elementVersion);
+let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData(BackendService_1.getMarketImplementAccountDataWithWhereData, account, elementName, elementVersion);
 exports.getElementAssembleData = getElementAssembleData;
 let publishPackage = (onUploadProgressFunc, packageBinaryFile, entryExtensionData, packageData, account) => Abstract.publishPackage([
     onUploadProgressFunc,

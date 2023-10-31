@@ -178,8 +178,9 @@ module Method = {
     service,
     selectedUIControls,
     selectedUIControlInspectorData,
-    // elementStateFields,
   ) =>
+    // elementStateFields,
+
     ElementContributeUtils.buildElementContributeFileStr(
       service,
       _getElementContributeName(),
@@ -268,7 +269,11 @@ module Method = {
         version,
       )
       ->Meta3dBsMost.Most.tap(elementAssembleData => {
-        setElementAssembleData(_ => Loaded(elementAssembleData))
+        Meta3dCommonlib.NullableSt.isNullable(elementAssembleData)
+          ? setElementAssembleData(_ => No)
+          : setElementAssembleData(_ => Loaded(
+              elementAssembleData->Meta3dCommonlib.NullableSt.getExn,
+            ))
       }, _)
       ->Meta3dBsMost.Most.drain
       ->Js.Promise.catch(e => {
@@ -374,7 +379,7 @@ module Method = {
     switch elementAssembleData {
     | Loaded(elementAssembleData) =>
       let {elementName, elementVersion, inspectorData} = elementAssembleData
-      let { uiControls} = inspectorData
+      let {uiControls} = inspectorData
 
       let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
 
@@ -497,28 +502,31 @@ let make = (~service: service, ~account: option<string>) => {
     None
   }, [elementAssembleData])
 
-  service.react.useEffect1(. () => {
-    selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
-      ? FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-          Method.generateElementContributeData(
-            service,
-            account->Meta3dCommonlib.OptionSt.getExn,
-            Method.buildElementContributeFileStr(
+  service.react.useEffect1(.
+    () => {
+      selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
+        ? FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+            Method.generateElementContributeData(
               service,
-              selectedUIControls,
-              selectedUIControlInspectorData,
-              // elementStateFields,
-            ),
-          )->Method.updateElementContribute(dispatch, _)
-        }, 5->Some)
-      : ()
+              account->Meta3dCommonlib.OptionSt.getExn,
+              Method.buildElementContributeFileStr(
+                service,
+                selectedUIControls,
+                selectedUIControlInspectorData,
+                // elementStateFields,
+              ),
+            )->Method.updateElementContribute(dispatch, _)
+          }, 5->Some)
+        : ()
 
-    None
-  }, [
-    selectedUIControls,
-    selectedUIControlInspectorData->Obj.magic,
-    // elementInspectorData->Obj.magic,
-  ])
+      None
+    },
+    [
+      selectedUIControls,
+      selectedUIControlInspectorData->Obj.magic,
+      // elementInspectorData->Obj.magic,
+    ],
+  )
 
   service.react.useEffect1(. () => {
     Method.setElementContributeToSpaceState(elementContribute)

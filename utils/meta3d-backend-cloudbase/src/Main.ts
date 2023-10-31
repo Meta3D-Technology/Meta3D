@@ -214,6 +214,15 @@ export let getMarketProtocolCollectionCount = (app: any, collectionName: string)
         .then(res => res.total)
 }
 
+export let getMarketImplementAccountDataWithWhereData = (app: any, _parseMarketCollectionDataBody, collectionName: string, whereData): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
+    return _getDatabase(app).collection(collectionName)
+        .where(whereData)
+        .skip(0)
+        .limit(1000)
+        .get()
+        .then(res => res.data)
+}
+
 export let getMarketImplementAccountData = (app: any, _parseMarketCollectionDataBody, collectionName: string, account: account, name, version, protocolName = null): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
     let whereData = null
 
@@ -233,13 +242,7 @@ export let getMarketImplementAccountData = (app: any, _parseMarketCollectionData
         }
     }
 
-    return _getDatabase(app).collection(collectionName)
-        .where(whereData)
-        .skip(0)
-        .limit(1000)
-        .get()
-        // .then(res => [res.data[0], []])
-        .then(res => res.data)
+    return getMarketImplementAccountDataWithWhereData(app, _parseMarketCollectionDataBody, collectionName, whereData)
 }
 
 // export let updateCollection = (app: any, collectionName: string, updateData: any) => {

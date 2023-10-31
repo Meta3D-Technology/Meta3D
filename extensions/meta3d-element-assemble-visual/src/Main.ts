@@ -82,7 +82,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			if (!isNullable(skinName)) {
-				let skin = getSkin<skin>(uiState, skinName)
+				let skin = getSkin<skin>(uiState, getExn(skinName))
 				if (!isNullable(skin)) {
 					meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
 				}

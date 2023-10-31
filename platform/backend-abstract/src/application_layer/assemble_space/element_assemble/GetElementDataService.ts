@@ -1,3 +1,4 @@
+import { handleKeyToLowercase } from "meta3d-backend-cloudbase";
 import { empty, from, fromPromise, just, mergeArray } from "most"
 import { gt, neq, minVersion } from "semver";
 
@@ -62,22 +63,24 @@ export let getAllPublishNewestData = (
 }
 
 export let getElementAssembleData = (
-    getMarketImplementAccountDataFunc: any,
+    getMarketImplementAccountDataWithWhereDataFunc: any,
     account: string,
     elementName: string,
     elementVersion: string,
 ) => {
     return fromPromise(
-        getMarketImplementAccountDataFunc(
+        getMarketImplementAccountDataWithWhereDataFunc(
             "publishedelementassembledata",
-            account,
-            elementName,
-            elementVersion
+            {
+                key: handleKeyToLowercase(account),
+                elementName,
+                elementVersion
+            }
         )
     )
         .flatMap((marketImplementAccountData: any) => {
             if (marketImplementAccountData.length === 0) {
-                return empty()
+                return just(null)
             }
 
             return just(marketImplementAccountData[0])

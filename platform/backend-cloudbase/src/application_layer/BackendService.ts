@@ -34,7 +34,7 @@ export let batchFindMarketProtocolCollection = (collectionName, protocolNames) =
 
 export let getMarketProtocolCollectionCount = (collectionName) => BackendService.getMarketProtocolCollectionCount(getBackend(), collectionName)
 
-export let getMarketImplementCollection = (collectionName, limitCount, skipCount, whereData={}) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName, limitCount, skipCount, whereData)
+export let getMarketImplementCollection = (collectionName, limitCount, skipCount, whereData = {}) => BackendService.getMarketImplementCollection(getBackend(), null, collectionName, limitCount, skipCount, whereData)
 
 export let getMarketImplement = (
 	collectionName: string,
@@ -130,6 +130,7 @@ export let getFileID = BackendService.getFileID
 
 export let getMarketImplementAccountData = (collectionName, account, name, version) => BackendService.getMarketImplementAccountData(getBackend(), null, collectionName, account, name, version)
 
+export let getMarketImplementAccountDataWithWhereData = (collectionName, whereData) => BackendService.getMarketImplementAccountDataWithWhereData(getBackend(), null, collectionName, whereData)
 
 export let addMarketImplementData = (collectionName: string, data: any) => {
 	return BackendService.addMarketImplementData(getBackend(), collectionName, data)

@@ -42,9 +42,9 @@ TODO pass bdd test
 
 
 
-* TODO edit backend
+* DONE edit backend
 
-** TODO publishedextensions,publishedcontributes,publishedelementassembledata remove fileData，use flatten data instead
+** DONE publishedextensions,publishedcontributes,publishedelementassembledata remove fileData，use flatten data instead
 
 TODO update auto upgrade in dependency graph
 
@@ -61,11 +61,26 @@ TODO pass bdd test
 
 
 TODO pass run test
+publish all
+import->upgrade->run element
+
+    //TODO fix: why not show add-cube red?
+    # TODO can't find published element
+
 
 
 //** TODO publishedpackages remove entryExtensionProtocolDisplayName,
 entryExtensionProtocolRepoLink,
 entryExtensionProtocolDescription,
+
+
+
+
+
+# * TODO fix select all: duplicate select
+
+* TODO fix stored in package
+
 
 
 
@@ -75,6 +90,8 @@ entryExtensionProtocolDescription,
 
 ** TODO add contract check
 get isTest from globalThis
+
+platfrom: get from ap inspector->isDebug
 
 ** TODO remove log(e.g. log in Job)
 
@@ -90,6 +107,14 @@ get isTest from globalThis
 - hidden auto upgrade button when auto upgrade...
 
 - import app should show info under app
+
+
+
+*** TODO ap assemble space
+
+- fix: if start fail, should keep "choose" button
+
+
 
 *** TODO element assemble space
 - if change ui control's name, Selected UI Controls should update its name
