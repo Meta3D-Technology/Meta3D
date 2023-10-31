@@ -151,6 +151,15 @@ let reducer = (state, action) => {
         ),
       }
     }
+  | UnSelectUIControlAndChildren(id) => {
+      ...state,
+      selectedUIControls: state.selectedUIControls->Meta3dCommonlib.ListSt.filter(data =>
+        data.id != id
+      ),
+      selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.filter(
+        data => data.id != id,
+      ),
+    }
   | SetSpecificData(id, specific) =>
     _setUIControlInspectorData(
       state,

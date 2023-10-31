@@ -109,20 +109,21 @@ entryExtensionProtocolDescription,
 
 
 
-*** TODO ap assemble space
+# *** TODO ap assemble space
 
-- fix: if start fail, should keep "choose" button
+# - fix: if start fail, should keep "choose" button
 
 
 
 *** TODO element assemble space
+- Selected UI Controls add remove one
+
 - if change ui control's name, Selected UI Controls should update its name
 
 - UI Controls should show three one row like Extensions
 
-- Selected UI Controls add remove one
-
 - View add scroll bar(vertical, horri)
+- UI Controls, Selected UI Controls add scroll bar(vertical)
 
 - fix: scroll when on the rendered ui control in canvas in visual not work
 

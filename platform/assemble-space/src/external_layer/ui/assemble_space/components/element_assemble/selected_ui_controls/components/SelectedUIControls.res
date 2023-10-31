@@ -64,8 +64,29 @@ module Method = {
     _selectUIControl(service, dispatch, info.node.key)
   }
 
-  let useSelector = ({selectedUIControls}: FrontendUtils.ElementAssembleStoreType.state) => {
-    selectedUIControls
+  let unselectUIControl = (dispatch, isDebug, selectedKeys) => {
+    Meta3dCommonlib.Contract.requireCheck(() => {
+      open Meta3dCommonlib.Contract
+      open Operators
+      test(Meta3dCommonlib.Log.buildAssertMessage(~expect=j`only has one`, ~actual=j`not`), () => {
+        selectedKeys->Meta3dCommonlib.ArraySt.length == 1
+      })
+    }, isDebug)
+
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.UnSelectUIControlAndChildren(
+        selectedKeys->Meta3dCommonlib.ArraySt.getExn(0),
+      ),
+    )
+  }
+
+  let useSelector = (
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
+    let {apInspectorData} = apAssembleState
+    let {selectedUIControls} = elementAssembleState
+
+    (apInspectorData.isDebug, selectedUIControls)
   }
 }
 
@@ -77,21 +98,28 @@ let make = (~service: service) => {
   let (selectedKeys, setSelectedKeys) = service.react.useState(_ => [])
   let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
 
-  let selectedUIControls = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (isDebug, selectedUIControls) = service.react.useSelector(. Method.useSelector)
 
-  <Tree
-    showIcon=true
-    treeData={selectedUIControls->Method.convertToTreeData->Method.addRootTreeNode}
-    expandedKeys
-    onExpand={expandedKeysValue =>
-      Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
-    selectedKeys
-    onSelect={(selectedKeysValue, info) =>
-      Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)}
-  />
+  <Space direction=#vertical size=#middle>
+    <Space direction=#horizontal wrap=true>
+      <Button
+        icon={<Icon.DeleteOutlined />}
+        onClick={_ => {
+          Method.unselectUIControl(dispatch, isDebug, selectedKeys)
+        }}
+      />
+    </Space>
+    <Tree
+      showIcon=true
+      treeData={selectedUIControls->Method.convertToTreeData->Method.addRootTreeNode}
+      expandedKeys
+      onExpand={expandedKeysValue =>
+        Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
+      selectedKeys
+      onSelect={(selectedKeysValue, info) =>
+        Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)}
+    />
+  </Space>
 
   // <List
   //   grid={{gutter: 16, column: 1}}

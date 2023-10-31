@@ -41,9 +41,8 @@ type eventData = {
 
 type event = array<eventData>
 
-type rectField =
-  | IntForRectField(int)
-  // | ElementStateFieldForRectField(string)
+type rectField = IntForRectField(int)
+// | ElementStateFieldForRectField(string)
 
 type rect = {
   x: rectField,
@@ -52,13 +51,12 @@ type rect = {
   height: rectField,
 }
 
-type isDraw =
-  | BoolForIsDraw(bool)
-  // | ElementStateFieldForIsDraw(string)
+type isDraw = BoolForIsDraw(bool)
+// | ElementStateFieldForIsDraw(string)
 
 type specificDataValue =
-  | SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
-  // | ElementStateFieldForSpecificDataValue(string)
+  SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
+// | ElementStateFieldForSpecificDataValue(string)
 
 type specificData = {
   name: string,
@@ -126,6 +124,7 @@ type action =
       parentId,
       specific,
     )
+  | UnSelectUIControlAndChildren(id)
   | SelectRootUIControl
   | SelectSelectedUIControl(
       (
