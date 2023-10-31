@@ -86,7 +86,7 @@ entryExtensionProtocolDescription,
 
 * TODO refactor
 
-** TODO refactor scenegraph utils
+** DONE refactor scenegraph utils
 
 ** TODO add contract check
 get isTest from globalThis
