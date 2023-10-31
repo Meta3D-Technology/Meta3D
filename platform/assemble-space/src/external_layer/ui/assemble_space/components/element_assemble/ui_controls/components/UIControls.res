@@ -94,7 +94,7 @@ let make = (~service: service) => {
 
   // TODO duplicate with ap view
   <List
-  // grid={{gutter: 16, column: 3}}
+  grid={{gutter: 16, column: 2}}
     dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
     renderItem={({id, protocolIconBase64, protocolConfigStr, data}) => {
       // let name = data.contributePackageData.name

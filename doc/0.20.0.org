@@ -118,7 +118,7 @@ entryExtensionProtocolDescription,
 *** TODO element assemble space
 - Selected UI Controls add remove one
 
-- if change ui control's name, Selected UI Controls should update its name
+# - if change ui control's name, Selected UI Controls should update its name
 
 - UI Controls should show three one row like Extensions
 

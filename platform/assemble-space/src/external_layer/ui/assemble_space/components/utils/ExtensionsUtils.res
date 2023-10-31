@@ -28,7 +28,7 @@ let make = (
   let dispatch = useDispatch(service.react.useDispatch)
 
   <List
-    grid={{gutter: 16, column: 3}}
+    grid={{gutter: 16, column: 2}}
     dataSource={selectedExtensionsFromMarket
     ->Meta3dCommonlib.ListSt.toArray
     ->Method.getDifferenceSet(selectedExtensionNames)}
