@@ -148,9 +148,11 @@ entryExtensionProtocolDescription,
 
 * TODO 更新extension, contribute, package, 提供典型的编辑器、引擎组件
 
-** TODO fix aspect for scene view, game view and published canvas
+# ** TODO editor: remove canvas border
 
-** TODO editor: remove canvas border
+** DONE fix aspect for scene view, game view and published canvas
+
+TODO test publish
 
 ** TODO support more glbs
 

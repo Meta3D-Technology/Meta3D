@@ -133,9 +133,9 @@ let make = (~service: FrontendUtils.AssembleSpaceType.service) => {
   <canvas
     id="ui-visual-run-canvas"
     style={ReactDOM.Style.make(
-      ~borderStyle="solid",
-      ~borderColor="red",
-      ~borderWidth="2px",
+      // ~borderStyle="solid",
+      // ~borderColor="red",
+      // ~borderWidth="2px",
       ~width={j`${canvasData.width->Js.Int.toString}px`},
       ~height={j`${canvasData.height->Js.Int.toString}px`},
       (),

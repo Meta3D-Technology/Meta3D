@@ -2,6 +2,7 @@ import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/co
 import { execFunc as execInitArcballCameraControllerJob } from "./jobs/init/InitArcballCameraControllerJob";
 import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
+import { execFunc as execUpdateCameraAspectJob } from "./jobs/update/UpdateCameraAspectJob"
 import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
 import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
 import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
@@ -17,17 +18,19 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case job.InitArcballCameraController:
-			return execInitArcballCameraControllerJob;
+			return execInitArcballCameraControllerJob
 		case job.CreateDefaultScene:
-			return execCreateDefaultSceneJob;
-		case job.PrepareFBO:
-			return execPrepareFBO;
+			return execCreateDefaultSceneJob
+		case job.UpdateCameraAspectJob:
+			return execUpdateCameraAspectJob
 		case job.UpdateArcballCameraController:
-			return execUpdateArcballCameraControllerJob;
+			return execUpdateArcballCameraControllerJob
+		case job.PrepareFBO:
+			return execPrepareFBO
 		case job.PrepareStatus:
-			return execPrepareStatus;
+			return execPrepareStatus
 		case job.UseFBO:
-			return execUseFBO;
+			return execUseFBO
 		default:
 			return null
 	}

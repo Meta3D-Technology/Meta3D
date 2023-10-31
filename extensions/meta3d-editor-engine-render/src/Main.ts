@@ -4,8 +4,6 @@ import { service } from "meta3d-editor-engine-render-sceneview-protocol/src/serv
 import { service as engineCoreService } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
-import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-sceneview-protocol/src/StateType";
-import { config as viewRectConfig } from "meta3d-pipeline-viewrect-sceneview-protocol/src/ConfigType";
 import { state as getGLState, states as getGLStates } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/StateType";
 import { config as getGLConfig } from "meta3d-pipeline-editor-webgl1-getgl-protocol/src/ConfigType";
 import { state as detectGLState, states as detectGLStates } from "meta3d-pipeline-webgl1-detectgl-protocol/src/StateType";
@@ -40,24 +38,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
 			let { registerPipeline } = engineCoreService
-
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-sceneview-protocol"),
-				{
-					canvas: canvas
-				},
-				[
-					{
-						pipelineName: pipelineRootPipeline.Init,
-						insertElementName: pipelineRootJob.Init,
-						insertAction: "after"
-					},
-					{
-						pipelineName: pipelineCameraPipeline.Update,
-						insertElementName: pipelineCameraJob.UpdateCamera,
-						insertAction: "before"
-					}
-				]
-			)
 
 			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<getGLConfig, getGLState>>(meta3dState, "meta3d-pipeline-editor-webgl1-getgl-protocol"),
 				null,

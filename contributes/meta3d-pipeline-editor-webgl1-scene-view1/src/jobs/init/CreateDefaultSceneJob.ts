@@ -6,19 +6,19 @@ import { state as meta3dState } from "meta3d-type"
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { activeCameraForSceneView, addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-editor-webgl1-view1-utils/src/CreateDefaultSceneJobUtils"
 
-type canvasSize = [number, number]
+// type canvasSize = [number, number]
 
 let _addDefaultGameObjects = (meta3dState: meta3dState, engineWholeService: engineWholeService,
     // eventService: eventService,
     // eventExtensionProtocolName: string,
-    canvasSize: canvasSize
+    // canvasSize: canvasSize
 ): meta3dState => {
-    let data = addDefaultGameObjects<engineWholeService>(meta3dState, engineWholeService, canvasSize)
+    let data = addDefaultGameObjects<engineWholeService>(meta3dState, engineWholeService)
     meta3dState = data[0]
 
     data = addGameObjectsForSceneView(meta3dState, engineWholeService,
         // eventService, eventExtensionProtocolName,
-        canvasSize)
+    )
     meta3dState = data[0]
     let cameraController = data[1]
     let cameraGameObject = data[2]
@@ -45,7 +45,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         meta3dState = _addDefaultGameObjects(meta3dState, engineWholeService,
             // eventService,
             // "meta3d-event-protocol",
-            [canvas.width, canvas.height]
+            // [canvas.width, canvas.height]
         )
 
         return meta3dState

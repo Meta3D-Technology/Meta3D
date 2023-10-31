@@ -1,12 +1,13 @@
-import { pipelineContribute } from "meta3d-engine-core-gameview-protocol/src/contribute/work/PipelineContributeType";
-import { execFunc as execInitArcballCameraControllerJob } from "./jobs/init/InitArcballCameraControllerJob";
-import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
-import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
-import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
-import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
-import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
-import { config } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/ConfigType";
-import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType";
+import { pipelineContribute } from "meta3d-engine-core-gameview-protocol/src/contribute/work/PipelineContributeType"
+import { execFunc as execInitArcballCameraControllerJob } from "./jobs/init/InitArcballCameraControllerJob"
+import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob"
+import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob"
+import { execFunc as execUpdateCameraAspectJob } from "./jobs/update/UpdateCameraAspectJob"
+import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob"
+import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob"
+import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob"
+import { config } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/ConfigType"
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType"
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 import { service as webgl1Service } from "meta3d-webgl1-protocol/src/service/ServiceType"
@@ -16,17 +17,19 @@ import { service as engineWholeService } from "meta3d-engine-whole-gameview-prot
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case job.InitArcballCameraController:
-			return execInitArcballCameraControllerJob;
+			return execInitArcballCameraControllerJob
 		case job.CreateDefaultScene:
-			return execCreateDefaultSceneJob;
+			return execCreateDefaultSceneJob
+		case job.UpdateCameraAspectJob:
+			return execUpdateCameraAspectJob
 		case job.UpdateArcballCameraController:
-			return execUpdateArcballCameraControllerJob;
+			return execUpdateArcballCameraControllerJob
 		case job.PrepareFBO:
-			return execPrepareFBO;
+			return execPrepareFBO
 		case job.PrepareStatus:
-			return execPrepareStatus;
+			return execPrepareStatus
 		case job.UseFBO:
-			return execUseFBO;
+			return execUseFBO
 		default:
 			return null
 	}

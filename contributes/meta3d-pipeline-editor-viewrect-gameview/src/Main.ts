@@ -1,8 +1,8 @@
-import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-engine-core-gameview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execGetViewRectForInitJob } from "./jobs/init/GetViewRectJob"
 import { execFunc as execGetViewRectForUpdateJob } from "./jobs/update/GetViewRectJob"
-import { config } from "meta3d-pipeline-viewrect-sceneview-protocol/src/ConfigType";
-import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-viewrect-sceneview-protocol/src/StateType";
+import { config } from "meta3d-pipeline-viewrect-gameview-protocol/src/ConfigType";
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-viewrect-gameview-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
 

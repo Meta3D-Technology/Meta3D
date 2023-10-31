@@ -18,6 +18,7 @@ export enum job {
     CreateDefaultScene = "game_view1_gl_webgl1_create_default_game_meta3d",
     PrepareFBO = "game_view1_gl_webgl1_prepare_fbo_meta3d",
     UpdateArcballCameraController = "game_view1_gl_webgl1_update_arcballcameracontroller_meta3d",
+    UpdateCameraAspectJob = "game_view1_gl_webgl1_update_camera_aspect_meta3d",
     PrepareStatus = "game_view1_gl_webgl1_prepare_status_meta3d",
     UseFBO = "game_view1_gl_webgl1_use_fbo_meta3d"
 }
@@ -52,6 +53,10 @@ export const allPipelineData: allPipelineDataType = [
                 elements: [
                     {
                         "name": job.PrepareFBO,
+                        "type_": "job"
+                    },
+                    {
+                        "name": job.UpdateCameraAspectJob,
                         "type_": "job"
                     },
                     {

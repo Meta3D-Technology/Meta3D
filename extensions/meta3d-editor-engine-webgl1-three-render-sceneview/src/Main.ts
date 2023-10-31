@@ -8,8 +8,6 @@ import { config as view1Config } from "meta3d-pipeline-editor-webgl1-view1-three
 import { state as view1State } from "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol/src/StateType";
 import { state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType";
 import { config as threeConfig } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/ConfigType";
-import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-sceneview-protocol/src/StateType";
-import { config as viewRectConfig } from "meta3d-pipeline-viewrect-sceneview-protocol/src/ConfigType";
 import { state as disposeState, states as disposeStates } from "meta3d-pipeline-dispose-sceneview-protocol/src/StateType";
 import { config as disposeConfig } from "meta3d-pipeline-dispose-sceneview-protocol/src/ConfigType";
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
@@ -52,24 +50,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 						pipelineName: pipelineRootPipeline.Render,
 						insertElementName: pipelineRootJob.Render,
 						insertAction: "after"
-					}
-				]
-			)
-
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<viewRectConfig, viewRectState>>(meta3dState, "meta3d-pipeline-viewrect-sceneview-protocol"),
-				{
-					canvas
-				},
-				[
-					{
-						pipelineName: pipelineRootPipeline.Init,
-						insertElementName: pipelineRootJob.Init,
-						insertAction: "after"
-					},
-					{
-						pipelineName: pipelineCameraPipeline.Update,
-						insertElementName: pipelineCameraJob.UpdateCamera,
-						insertAction: "before"
 					}
 				]
 			)
