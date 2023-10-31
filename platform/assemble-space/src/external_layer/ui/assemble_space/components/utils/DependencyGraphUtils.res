@@ -921,6 +921,8 @@ module Method = {
       _,
     )
   }
+
+  let buildOperateInfoDefault = () => ""
 }
 
 @react.component
@@ -941,7 +943,7 @@ let make = (
   )
 
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
-  let (operateInfo, setOperateInfo) = service.react.useState(_ => "")
+  let (operateInfo, setOperateInfo) = service.react.useState(_ => Method.buildOperateInfoDefault())
 
   let (allPackagesNotStoredInApp, allPackagesStoredInApp) = AppUtils.splitPackages(
     selectedPackages,
@@ -979,23 +981,29 @@ let make = (
     : {
         <>
           <p> {React.string(operateInfo)} </p>
-          <Button
-            onClick={_ => {
-              FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-                Method.autoUpgradeVersion(
-                  service,
-                  setOperateInfo,
-                  dispatchForAppStore,
-                  dispatchForApAssembleStore,
-                  dispatchForPackageAssembleStore,
-                  selectedPackages,
-                  selectedExtensions,
-                  selectedContributes,
-                )->ignore
-              }, 5->Some)
-            }}>
-            {React.string(`自动升级版本`)}
-          </Button>
+          {operateInfo == Method.buildOperateInfoDefault()
+            ? {
+                <Button
+                  onClick={_ => {
+                    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                      Method.autoUpgradeVersion(
+                        service,
+                        setOperateInfo,
+                        dispatchForAppStore,
+                        dispatchForApAssembleStore,
+                        dispatchForPackageAssembleStore,
+                        selectedPackages,
+                        selectedExtensions,
+                        selectedContributes,
+                      )->ignore
+                    }, 5->Some)
+                  }}>
+                  {React.string(`自动升级版本`)}
+                </Button>
+              }
+            : {
+                React.null
+              }}
           <FlowAnalysisGraph
             data={data->Obj.magic}
             nodeCfg={

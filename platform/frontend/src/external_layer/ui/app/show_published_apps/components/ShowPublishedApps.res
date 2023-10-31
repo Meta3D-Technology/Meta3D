@@ -3,6 +3,12 @@ open FrontendUtils.Antd
 
 // TODO check login
 
+module Method = {
+  let buildKey = (account, appName) => {
+    j`${account}_${appName}`
+  }
+}
+
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
@@ -32,6 +38,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let (page, setPage) = React.useState(_ => 1)
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => true)
+  let (currentImportingKey, setCurrentImportingKey) = React.useState(_ => None)
 
   let _buildURL = (account: string, appName: string) =>
     j`EnterApp?account=${account}&appName=${appName}`
@@ -94,9 +101,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       {!isLoaded
         ? <p> {React.string(`loading...`)} </p>
         : <>
-            {!isDownloadFinish
-              ? <p> {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})} </p>
-              : React.null}
             <List
               itemLayout=#horizontal
               dataSource={FrontendUtils.MarketUtils.getCurrentPage(
@@ -107,7 +111,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               renderItem={(item: FrontendUtils.BackendCloudbaseType.publishAppInfo) =>
                 <List.Item>
                   <List.Item.Meta
-                    key={j`${item.account}_${item.appName}`}
+                    key={Method.buildKey(item.account, item.appName)}
                     title={<Typography.Title level=3>
                       {React.string(item.appName)}
                     </Typography.Title>}
@@ -128,9 +132,23 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     importedAppIds,
                   )
                     ? <Button disabled=true> {React.string(`已导入`)} </Button>
+                    : !isDownloadFinish &&
+                    currentImportingKey
+                    ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
+                      currentImportingKey == Method.buildKey(item.account, item.appName)
+                    )
+                    ->Meta3dCommonlib.OptionSt.getWithDefault(false)
+                    ? <p>
+                      {React.string({
+                        j`${downloadProgress->Js.Int.toString}% downloading...`
+                      })}
+                    </p>
                     : <Button
                         onClick={_ => {
                           setIsDownloadFinish(_ => false)
+                          setCurrentImportingKey(_ =>
+                            Method.buildKey(item.account, item.appName)->Some
+                          )
 
                           service.backend.findPublishApp(.
                             progress => setDownloadProgress(_ => progress),
@@ -141,6 +159,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                             Meta3dCommonlib.NullableSt.isNullable(file)
                               ? {
                                   setIsDownloadFinish(_ => true)
+                                  setCurrentImportingKey(_ => None)
 
                                   FrontendUtils.ErrorUtils.error(
                                     {
@@ -185,6 +204,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                               (
                                 () => {
                                   setIsDownloadFinish(_ => true)
+                                  setCurrentImportingKey(_ => None)
                                 },
                                 (selectedExtensions, selectedContributes, selectedPackages) =>
                                   dispatch(

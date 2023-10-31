@@ -98,13 +98,12 @@ entryExtensionProtocolDescription,
 
 * TODO optimze ui
 
-** TODO Editor
-
-- loading, Publish->loading add Meta3D Logo
  
 ** TODO Platform
 
 - hidden auto upgrade button when auto upgrade...
+
+# - debug should show info and hide button when debuging
 
 - import app should show info under app
 
