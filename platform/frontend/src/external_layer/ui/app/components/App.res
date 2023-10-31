@@ -1,16 +1,22 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
+module Method = {
+  let judgeToJumpToLogin = (buildUI, account, service) => {
+    switch account {
+    | Some(_) => buildUI()
+    | None => <Login service />
+    }
+  }
+}
+
 @react.component
 let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {
-    account,
-    selectedExtensions,
-    selectedContributes,
-    selectedPackages,
-  } = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
+  let {account, selectedExtensions, selectedContributes, selectedPackages} = AppStore.useSelector((
+    {userCenterState}: FrontendUtils.AppStoreType.state,
+  ) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
     ui: {
@@ -246,24 +252,30 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     switch url.path {
     | list{"Login"} => <Login service />
     | list{"Register"} => <Register service />
-    | list{"ExtensionMarket"} => <ExtensionMarket service />
-    | list{"ContributeMarket"} => <ContributeMarket service />
-    | list{"PackageMarket"} => <PackageMarket service />
-    | list{"AssembleSpace"} =>
-      <Layout>
-        <Layout.Header>
-          <Nav currentKey="6" />
-        </Layout.Header>
-        <Layout.Content>
-          <AssembleSpace.AssembleSpace
-            service={_buildAssembleSpaceService()}
-            account
-            selectedExtensionsFromMarket=selectedExtensions
-            selectedContributesFromMarket=selectedContributes
-            selectedPackagesFromMarket=selectedPackages
-          />
-        </Layout.Content>
-      </Layout>
+    | list{"ExtensionMarket"} =>
+      Method.judgeToJumpToLogin(() => <ExtensionMarket service />, account, service)
+    | list{"ContributeMarket"} =>
+      Method.judgeToJumpToLogin(() => <ContributeMarket service />, account, service)
+
+    | list{"PackageMarket"} =>
+      Method.judgeToJumpToLogin(() => <PackageMarket service />, account, service)
+
+    | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() =>
+        <Layout>
+          <Layout.Header>
+            <Nav currentKey="6" />
+          </Layout.Header>
+          <Layout.Content>
+            <AssembleSpace.AssembleSpace
+              service={_buildAssembleSpaceService()}
+              account
+              selectedExtensionsFromMarket=selectedExtensions
+              selectedContributesFromMarket=selectedContributes
+              selectedPackagesFromMarket=selectedPackages
+            />
+          </Layout.Content>
+        </Layout>
+      , account, service)
     | list{"ShowPublishedApps"} => <ShowPublishedApps service />
     | list{"EnterApp"} => <EnterApp service />
     | list{"RunElementVisual"} =>
