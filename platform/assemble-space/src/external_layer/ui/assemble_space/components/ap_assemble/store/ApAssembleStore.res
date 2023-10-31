@@ -34,6 +34,14 @@ let _resetInspector = state => {
   isShowApInspector: false,
 }
 
+let _reset = state => {
+  {
+    ..._createState(),
+    apInspectorData: state.apInspectorData,
+    storedPackageIdsInApp: state.storedPackageIdsInApp,
+  }
+}
+
 let _unstartAllSelectedExtensions = selectedExtensions => {
   selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
     {
@@ -45,7 +53,7 @@ let _unstartAllSelectedExtensions = selectedExtensions => {
 
 let reducer = (state, action) => {
   switch action {
-  | Reset => _createState()
+  | Reset => state->_reset
   | ResetWhenSwitch => state->_resetInspector
   | SelectPackage(package) => {
       ...state,

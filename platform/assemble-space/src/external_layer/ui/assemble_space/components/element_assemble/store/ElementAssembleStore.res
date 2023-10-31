@@ -88,9 +88,16 @@ let _resetInspector = state => {
   inspectorCurrentUIControlId: None,
 }
 
+let _reset = state => {
+  {
+    ..._createState(),
+    canvasData: state.canvasData,
+  }
+}
+
 let reducer = (state, action) => {
   switch action {
-  | Reset => _createState()
+  | Reset => state->_reset
   | ResetWhenSwitch => state->_resetInspector
   | SelectUIControl(
       protocolIconBase64,

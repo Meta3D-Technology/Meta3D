@@ -79,7 +79,7 @@ entryExtensionProtocolDescription,
 
 # * TODO fix select all: duplicate select
 
-* TODO fix stored in package
+* DONE fix stored in package
 
 
 
