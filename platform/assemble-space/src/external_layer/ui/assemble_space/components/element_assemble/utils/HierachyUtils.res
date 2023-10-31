@@ -66,3 +66,11 @@ let rec addChildUIControlData = (
     })
   }
 }
+
+let rec removeUIControlData = ((getId, getChildren, setChildren), allSelectedUIControlData, id) => {
+  allSelectedUIControlData
+  ->Meta3dCommonlib.ListSt.filter(data => getId(data) != id)
+  ->Meta3dCommonlib.ListSt.map(data =>
+    setChildren(data, removeUIControlData((getId, getChildren, setChildren), getChildren(data), id))
+  )
+}

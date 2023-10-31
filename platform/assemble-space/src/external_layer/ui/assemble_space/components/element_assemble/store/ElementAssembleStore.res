@@ -153,11 +153,29 @@ let reducer = (state, action) => {
     }
   | UnSelectUIControlAndChildren(id) => {
       ...state,
-      selectedUIControls: state.selectedUIControls->Meta3dCommonlib.ListSt.filter(data =>
-        data.id != id
+      selectedUIControls: HierachyUtils.removeUIControlData(
+        (
+          (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
+          (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
+          (data: FrontendUtils.ElementAssembleStoreType.uiControl, children) => {
+            ...data,
+            children,
+          },
+        ),
+        state.selectedUIControls,
+        id,
       ),
-      selectedUIControlInspectorData: state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.filter(
-        data => data.id != id,
+      selectedUIControlInspectorData: HierachyUtils.removeUIControlData(
+        (
+          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.id,
+          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
+          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData, children) => {
+            ...data,
+            children,
+          },
+        ),
+        state.selectedUIControlInspectorData,
+        id,
       ),
     }
   | SetSpecificData(id, specific) =>

@@ -144,6 +144,9 @@ entryExtensionProtocolDescription,
 
 
 
+* DONE fix: remove children fail
+
+
 
 
 * TODO 更新extension, contribute, package, 提供典型的编辑器、引擎组件
