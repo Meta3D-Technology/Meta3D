@@ -10,7 +10,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("InitArcballCameraController job");
+        //console.log("InitArcballCameraController job");
 
         init()
 

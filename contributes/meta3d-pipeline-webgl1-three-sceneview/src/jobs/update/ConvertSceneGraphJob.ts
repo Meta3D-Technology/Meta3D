@@ -7,7 +7,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	let { mostService, converterService } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("convertSceneGraph job")
+		//console.log("convertSceneGraph job")
 
 		return api.setExtensionState(meta3dState,
 			"meta3d-scenegraph-converter-three-sceneview-protocol",

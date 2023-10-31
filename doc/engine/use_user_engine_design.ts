@@ -18,7 +18,7 @@ function _frame() {
 }
 
 init().then(() => {
-    console.log("finish init")
+    //console.log("finish init")
 
     _frame();
 })

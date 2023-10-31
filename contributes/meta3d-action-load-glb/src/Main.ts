@@ -61,7 +61,7 @@ export let getContribute: getContributeMeta3D<actionContribute<loadGlbUIData, st
             })
         },
         handler: (meta3dState, uiData) => {
-            console.log("load glb")
+            //console.log("load glb")
 
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")

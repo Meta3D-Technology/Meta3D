@@ -18,7 +18,7 @@ let _createGetWorkerDataStream = ({ fromEvent, tap, filter }: service, operateTy
 
 
 	return tap(() => {
-		console.log("get worker data! operateType: ", operateType)
+		//console.log("get worker data! operateType: ", operateType)
 	},
 		filter((event) => {
 			return event.data.operateType === operateType;

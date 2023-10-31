@@ -10,7 +10,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	let { mostService, engineCoreService } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("update transform job")
+		//console.log("update transform job")
 
 		return api.setExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName, updateTransform<engineCoreState, engineCoreService>(api.getExtensionState(meta3dState, meta3dEngineCoreExtensionProtocolName), engineCoreService))
 	})

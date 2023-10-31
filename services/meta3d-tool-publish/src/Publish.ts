@@ -15,7 +15,7 @@ let _searchProtocolVersion = (name: string, dependencies: any) => {
     let value = dependencies[name]
 
     if (_isEmpty(value)) {
-        console.log(dependencies);
+        //console.log(dependencies);
         _throwError("empty name: " + name)
     }
 

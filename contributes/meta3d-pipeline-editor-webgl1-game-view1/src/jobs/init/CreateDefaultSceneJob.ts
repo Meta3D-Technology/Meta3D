@@ -34,7 +34,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("update job");
+        //console.log("update job");
 
 
         meta3dState = _addDefaultGameObjects(meta3dState, engineWholeService,

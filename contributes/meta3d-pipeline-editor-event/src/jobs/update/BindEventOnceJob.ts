@@ -13,7 +13,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     let { mostService, eventService, isBinded } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("bind event once job")
+        //console.log("bind event once job")
 
         if (isBinded) {
             return meta3dState

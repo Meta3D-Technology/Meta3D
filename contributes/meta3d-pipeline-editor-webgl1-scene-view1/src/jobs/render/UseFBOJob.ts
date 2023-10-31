@@ -15,7 +15,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
 
     return mostService.callFunc(() => {
-        console.log("use fbo job");
+        //console.log("use fbo job");
 
         return useFBO(meta3dState, api, [uiService, webgl1Service, getViewRect], fbo)
     })

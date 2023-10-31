@@ -64,7 +64,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             })
         },
         handler: (meta3dState, uiData) => {
-            console.log("stop")
+            //console.log("stop")
 
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.getExtensionService<eventSourcingService>(meta3dState, "meta3d-event-sourcing-protocol")

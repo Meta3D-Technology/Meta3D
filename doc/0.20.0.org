@@ -84,7 +84,7 @@ entryExtensionProtocolDescription,
 
 
 
-* TODO refactor
+* DONE refactor
 
 ** DONE refactor scenegraph utils
 
@@ -93,7 +93,7 @@ entryExtensionProtocolDescription,
 
 # platfrom: get from ap inspector->isDebug
 
-** TODO remove log(e.g. log in Job)
+** DONE remove log(e.g. log in Job)
 
 
 * TODO optimze ui

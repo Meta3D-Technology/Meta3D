@@ -132,11 +132,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
         },
         setNextWindowRect: setNextWindowRect,
         addFBOTexture: (texture, { x, y, width, height }) => {
-            let pos = ImGui.GetCursorScreenPos()
-            let rectMin = ImGui.GetItemRectMin()
+            // let pos = ImGui.GetCursorScreenPos()
+            // let rectMin = ImGui.GetItemRectMin()
 
-            console.log(x, y, width, height)
-            console.log(pos, rectMin)
+            // console.log(x, y, width, height)
+            // console.log(pos, rectMin)
 
             ImGui.GetWindowDrawList().AddImage(
                 texture,

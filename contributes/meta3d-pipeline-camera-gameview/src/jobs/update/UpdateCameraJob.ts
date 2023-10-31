@@ -12,7 +12,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	let { mostService, engineCoreService, isDebug } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("update camera job")
+		//console.log("update camera job")
 
 		let { width, height } = getExn(states[viewRectPipelineName].viewRect)
 

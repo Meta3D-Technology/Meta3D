@@ -34,7 +34,7 @@ export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCol
 
 export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allCollectionData: dataFromMarketImplementCollectionData, data: marketImplementData): Promise<any> => {
     return new Promise((resolve, reject) => {
-        console.log("addMarketImplementDataToDataFromMarketImplementCollectionData:", allCollectionData, data)
+        //console.log("addMarketImplementDataToDataFromMarketImplementCollectionData:", allCollectionData, data)
 
         allCollectionData = allCollectionData.slice()
 
@@ -46,7 +46,7 @@ export let addMarketImplementDataToDataFromMarketImplementCollectionData = (allC
 
 export let addDataToMarketProtocolCollection = (s3: S3, addMarketProtocolDataToDataFromMarketProtocolCollectionData: (allCollectionData: allCollectionData, data: any) => Promise<any>, collectionName: string, key: string, allCollectionData: allCollectionData, data: any) => {
     return addMarketProtocolDataToDataFromMarketProtocolCollectionData(allCollectionData, data).then(body => {
-        console.log("add data", key, body)
+        //console.log("add data", key, body)
 
         return s3.putObject({
             Bucket: collectionName,
@@ -88,7 +88,7 @@ let _hasData = (s3: S3, collectionName: string, key: string) => {
             Key: key,
         }).then(
             () => {
-                console.log("find")
+                //console.log("find")
                 return true
             },
             err => {
@@ -119,7 +119,7 @@ export let getDataFromMarketProtocolCollection = (allCollectionData: allCollecti
 }
 
 export let getDataFromMarketImplementAccountData = (data: marketImplementAccountData): dataFromMarketImplementCollectionData => {
-    console.log("getDataFromMarketImplementAccountData->data: ", data)
+    //console.log("getDataFromMarketImplementAccountData->data: ", data)
 
     return data.fileData
 }
@@ -144,7 +144,7 @@ export let isContain = (find: (dataFromMarketCollectionData: dataFromMarketProto
 let _buildEmptyArrBody = () => []
 
 export let getMarketProtocolCollection = (s3: S3, parseMarketCollectionDataBody, collectionName: string): Promise<allCollectionData> => {
-    console.log("get collection: ", collectionName)
+    //console.log("get collection: ", collectionName)
 
     return s3.getObject({
         Bucket: collectionName,
@@ -153,14 +153,14 @@ export let getMarketProtocolCollection = (s3: S3, parseMarketCollectionDataBody,
         .then(data => parseMarketCollectionDataBody("json", data))
         .catch(err => {
             if (err.name === 'NoSuchKey') {
-                console.log("add")
+                //console.log("add")
 
                 return addDataToMarketProtocolCollection(s3,
                     _buildFirstAddDataToBodyFunc(),
                     collectionName, collectionName,
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
-                        console.log("after add")
+                        //console.log("after add")
                         return getMarketProtocolCollection(s3, parseMarketCollectionDataBody, collectionName)
                     })
             }
@@ -176,7 +176,7 @@ export let getMarketImplementAccountData = (s3: S3, parseMarketCollectionDataBod
     })
         .then(data => parseMarketCollectionDataBody("json", data))
         .then((body: marketImplementCollectionData): [marketImplementAccountData, marketImplementCollectionData] => {
-            console.log("getMarketImplementAccountData->body:", body)
+            //console.log("getMarketImplementAccountData->body:", body)
 
             account = handleKeyToLowercase(account)
 
@@ -191,20 +191,20 @@ export let getMarketImplementAccountData = (s3: S3, parseMarketCollectionDataBod
                 }
             }
 
-            console.log("getMarketImplementAccountData->return:", [result, JSON.stringify(body)])
+            //console.log("getMarketImplementAccountData->return:", [result, JSON.stringify(body)])
 
             return [result, body]
         })
         .catch(err => {
             if (err.name === 'NoSuchKey') {
-                console.log("add")
+                //console.log("add")
 
                 return _addDataToMarketImplementCollection(s3,
                     _buildFirstAddDataToBodyFunc(),
                     collectionName, collectionName,
                     _buildEmptyCollectionData(),
                     _buildEmptyArrBody()).then(_ => {
-                        console.log("after add")
+                        //console.log("after add")
                         return getMarketImplementAccountData(s3, parseMarketCollectionDataBody, collectionName, account)
                     })
             }
@@ -225,7 +225,7 @@ export let getFileID = (_, filePath: string) => {
 }
 
 export let uploadFile = (s3: S3, filePath: string, fileContent: ArrayBuffer) => {
-    console.log("uploadFile:", filePath, fileContent)
+    //console.log("uploadFile:", filePath, fileContent)
 
     return fromPromise(s3.putObject({
         Bucket: getFileBucketName(),
@@ -253,7 +253,7 @@ export let updateMarketImplementData = (s3: S3, collectionName: string, account:
         newMarketImplementCollectionData[index] = updateData
     }
 
-    console.log("updateMarketImplementData->putObject Body:", newMarketImplementCollectionData,
+    //console.log("updateMarketImplementData->putObject Body:", newMarketImplementCollectionData,
         newMarketImplementCollectionData[0].fileData,
         JSON.stringify(newMarketImplementCollectionData)
     )

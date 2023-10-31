@@ -12,7 +12,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("prepare status job");
+        //console.log("prepare status job");
 
         return prepareStatus(meta3dState, [uiService, webgl1Service])
     })

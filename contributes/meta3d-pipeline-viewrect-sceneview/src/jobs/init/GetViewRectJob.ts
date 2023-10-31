@@ -7,7 +7,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     let { mostService, canvas } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("get view rect job");
+        //console.log("get view rect job");
 
 		return setStatesFunc<states>(
 			meta3dState,

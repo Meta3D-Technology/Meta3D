@@ -150,11 +150,11 @@ export let createExtensionState: createExtensionStateMeta3D<
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionName) => {
 	return {
 		onRegister: (meta3dState, service) => {
-			// console.log("meta3d-use-editor onRegister")
+			// //console.log("meta3d-use-editor onRegister")
 			return meta3dState
 		},
 		onStart: (meta3dState, service, configData) => {
-			// console.log("meta3d-use-editor onStart")
+			// //console.log("meta3d-use-editor onStart")
 
 			service.run(meta3dState, configData)
 		}

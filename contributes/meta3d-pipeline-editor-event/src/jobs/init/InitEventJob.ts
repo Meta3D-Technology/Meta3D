@@ -7,7 +7,7 @@ export let execFunc: execFuncType = (meta3dState, { getStatesFunc, api }) => {
 	let { mostService, eventService } = getState(states)
 
 	return mostService.callFunc(() => {
-		console.log("init event job")
+		//console.log("init event job")
 
 		meta3dState = eventService.setBody(meta3dState, "meta3d-event-protocol", document.body as HTMLBodyElement)
 		meta3dState = eventService.setBrowser(meta3dState, "meta3d-event-protocol", eventService.getBrowserChromeType());

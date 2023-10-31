@@ -11,7 +11,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc }) => {
     let { mostService } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("dispose job")
+        //console.log("dispose job")
 
         return dispose<engineCoreState, engineCoreService>(api, meta3dState, "meta3d-engine-core-sceneview-protocol",
             {

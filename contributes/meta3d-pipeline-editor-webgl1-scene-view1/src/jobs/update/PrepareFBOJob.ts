@@ -17,7 +17,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     } = getState(states)
 
     return mostService.callFunc(() => {
-        console.log("prepare fbo job");
+        //console.log("prepare fbo job");
 
         if (!isStrictNullable(fbo)) {
             return meta3dState
