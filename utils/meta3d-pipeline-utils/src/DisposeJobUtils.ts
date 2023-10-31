@@ -16,6 +16,7 @@ import { service as textureService } from "meta3d-texture-basicsource-protocol/s
 import { texture, state as textureState, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { requireCheck, test } from "meta3d-ts-contract-utils"
 
 let _disposeComponents = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>({ getNeedDisposedComponents, disposeComponents, unsafeGetUsedComponentContribute, setUsedComponentContribute }: engineCoreService_, engineCoreState: engineCoreState_) => {
     let transformContribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
@@ -139,17 +140,19 @@ let _checkNotIntersect = (
         disposedPerspectiveCameraProjectionsFromGameObject,
         disposedArcballCameraControllersFromGameObject
     ]: any
-
 ) => {
-    if (hasIntersect(disposedTransforms, disposedTransformsFromGameObject) ||
-        hasIntersect(disposedGeometrys, disposedGeometrysFromGameObject) ||
-        hasIntersect(disposedPBRMaterials, disposedPBRMaterialsFromGameObject) ||
-        hasIntersect(disposedDirectionLights, disposedDirectionLightsFromGameObject) ||
-        hasIntersect(disposedBasicCameraViews, disposedBasicCameraViewsFromGameObject) ||
-        hasIntersect(disposedPerspectiveCameraProjections, disposedPerspectiveCameraProjectionsFromGameObject) ||
-        hasIntersect(disposedArcballCameraControllers, disposedArcballCameraControllersFromGameObject)) {
-        throw new Error('intersect')
-    }
+    requireCheck(() => {
+        test("should not intersect", () => {
+            return !(hasIntersect(disposedTransforms, disposedTransformsFromGameObject) ||
+                hasIntersect(disposedGeometrys, disposedGeometrysFromGameObject) ||
+                hasIntersect(disposedPBRMaterials, disposedPBRMaterialsFromGameObject) ||
+                hasIntersect(disposedDirectionLights, disposedDirectionLightsFromGameObject) ||
+                hasIntersect(disposedBasicCameraViews, disposedBasicCameraViewsFromGameObject) ||
+                hasIntersect(disposedPerspectiveCameraProjections, disposedPerspectiveCameraProjectionsFromGameObject) ||
+                hasIntersect(disposedArcballCameraControllers, disposedArcballCameraControllersFromGameObject)
+            )
+        })
+    }, true)
 }
 
 let _disposeTexture = (meta3dState: meta3dState, api: api, meta3dEngineCoreExtensionProtocolName: string, getMapFunc: any, pbrMaterial: pbrMaterial): [meta3dState, nullable<texture>] => {

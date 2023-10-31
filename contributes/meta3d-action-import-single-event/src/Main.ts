@@ -8,13 +8,16 @@ import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+import { requireCheck, test } from "meta3d-ts-contract-utils"
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
-    let allEvents = eventSourcingService.getAllEvents(meta3dState)
+    requireCheck(() => {
+        test("should only has import event", () => {
+            let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-    if (!(allEvents.count() == 1 && getExn(allEvents.last()).name == eventName)) {
-        throw new Error("should only has import event")
-    }
+            return allEvents.count() == 1 && getExn(allEvents.last()).name == eventName
+        })
+    }, true)
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
@@ -25,7 +28,6 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, sceneGLB, assetFile) => {
-                    // TODO contract check
                     _checkOnlyHasImportEvent(eventSourcingService, meta3dState)
 
                     let importSceneService = api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol")

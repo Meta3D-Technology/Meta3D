@@ -88,10 +88,10 @@ entryExtensionProtocolDescription,
 
 ** DONE refactor scenegraph utils
 
-** TODO add contract check
-get isTest from globalThis
+** DONE add contract check
+# get isTest from globalThis
 
-platfrom: get from ap inspector->isDebug
+# platfrom: get from ap inspector->isDebug
 
 ** TODO remove log(e.g. log in Job)
 
@@ -153,7 +153,16 @@ platfrom: get from ap inspector->isDebug
 ** TODO editor: remove canvas border
 
 ** TODO support more glbs
-e.g. support DracoLoader
+
+*** TODO support more for standard material
+
+e.g. transmission,transmission map, ...
+
+*** TODO support DracoLoader
+
+
+*** TODO pass run test: load all gltf/ models
+
 
 
 ** TODO build one big scene with glbs as showcase

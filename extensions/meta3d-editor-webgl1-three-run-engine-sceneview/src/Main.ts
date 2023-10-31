@@ -9,6 +9,7 @@ import { state as eventSourcingState, events } from "meta3d-event-sourcing-proto
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { eventName } from "meta3d-action-import-event-protocol/src/EventType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { requireCheck, test } from "meta3d-ts-contract-utils"
 
 let _execLoopFuncs = (meta3dState: meta3dState, loopFuncs: Array<func>): Promise<meta3dState> => {
 	if (loopFuncs.length == 0) {
@@ -51,11 +52,13 @@ let _getAddedEvents = (eventSourcingService: eventSourcingService, meta3dState, 
 }
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
-	let allEvents = eventSourcingService.getAllEvents(meta3dState)
+    requireCheck(() => {
+        test("should only has import event", () => {
+            let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-	if (!(allEvents.count() == 1 && getExn(allEvents.last()).name == eventName)) {
-		throw new Error("should only has import event")
-	}
+            return allEvents.count() == 1 && getExn(allEvents.last()).name == eventName
+        })
+    }, true)
 }
 
 // let _checkOutsideImmutableDataIsEmpty = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
@@ -116,8 +119,6 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				// })
 			}
 			else if (eventSourcingService.getNeedReplaceAllEvents(meta3dState).count() > 0) {
-				// debugger
-				// TODO contract check
 				_checkOnlyHasImportEvent(eventSourcingService, meta3dState)
 				// _checkOutsideImmutableDataIsEmpty(eventSourcingService, meta3dState)
 

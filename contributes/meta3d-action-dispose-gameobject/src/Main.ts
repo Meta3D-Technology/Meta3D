@@ -16,11 +16,52 @@ import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { uiControlName as sceneTreeUIControlName, state as sceneTreeState } from "meta3d-ui-control-scenetree-protocol"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+import { ensureCheck, test } from "meta3d-ts-contract-utils"
+import { removeGameObjectData } from "meta3d-engine-scene-sceneview-protocol/src/service/ecs/GameObject"
 
-let _checkRemovdGameObjectShouldEqualForBothView = (removedGameObjectsForSceneView: Array<gameObject>, removedGameObjectsForGameView: Array<gameObject>) => {
-    if (!isArraysEqual(removedGameObjectsForSceneView, removedGameObjectsForGameView)) {
-        throw new Error("removed gameObject should equal for both view")
-    }
+let _dispose = (meta3dState: meta3dState, api: api, selectedGameObject: gameObject) => {
+    let engineWholeSceneViewService = api.getExtensionService<engineWholeSceneViewService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
+    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+
+
+    let removedGameObjectsForSceneView = engineWholeSceneViewService.scene.gameObject.getGameObjectAndAllChildren(meta3dState, selectedGameObject)
+
+    let disposedGameObjectDataForSceneView = removedGameObjectsForSceneView.map(gameObject => {
+        let transform = engineWholeSceneViewService.scene.gameObject.getTransform(meta3dState, gameObject)
+
+        return {
+            gameObject,
+            name: engineWholeSceneViewService.scene.gameObject.getGameObjectName(meta3dState, gameObject),
+            localScale: engineWholeSceneViewService.scene.transform.getLocalScale(meta3dState, transform),
+            localPosition: engineWholeSceneViewService.scene.transform.getLocalPosition(meta3dState, transform),
+        }
+    })
+
+    meta3dState = engineWholeSceneViewService.scene.gameObject.removeGameObjects(meta3dState, removedGameObjectsForSceneView)
+
+
+
+    let removedGameObjectsForGameView = engineWholeGameViewService.scene.gameObject.getGameObjectAndAllChildren(meta3dState, selectedGameObject)
+
+    meta3dState = engineWholeGameViewService.scene.gameObject.removeGameObjects(meta3dState, removedGameObjectsForGameView)
+
+
+    return ensureCheck([
+        disposedGameObjectDataForSceneView,
+        removedGameObjectsForSceneView,
+        removedGameObjectsForGameView
+    ], ([
+        disposedGameObjectDataForSceneView,
+        removedGameObjectsForSceneView,
+        removedGameObjectsForGameView
+    ]) => {
+        test("removed gameObject should equal for both view", () => {
+            return isArraysEqual(
+                removedGameObjectsForSceneView,
+                removedGameObjectsForGameView
+            )
+        })
+    }, true)
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -31,35 +72,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, selectedGameObject) => {
-                    let engineWholeSceneViewService = api.getExtensionService<engineWholeSceneViewService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
-                    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+                    let [
+                        disposedGameObjectDataForSceneView,
+                        removedGameObjectsForSceneView, removedGameObjectsForGameView
+                    ] =
+                        _dispose(meta3dState, api, selectedGameObject)
 
-
-                    let removedGameObjectsForSceneView = engineWholeSceneViewService.scene.gameObject.getGameObjectAndAllChildren(meta3dState, selectedGameObject)
-
-                    let disposedGameObjectDataForSceneView = removedGameObjectsForSceneView.map(gameObject => {
-                        let transform = engineWholeSceneViewService.scene.gameObject.getTransform(meta3dState, gameObject)
-
-                        return {
-                            gameObject,
-                            name: engineWholeSceneViewService.scene.gameObject.getGameObjectName(meta3dState, gameObject),
-                            localScale: engineWholeSceneViewService.scene.transform.getLocalScale(meta3dState, transform),
-                            localPosition: engineWholeSceneViewService.scene.transform.getLocalPosition(meta3dState, transform),
-                        }
-                    })
-
-                    meta3dState = engineWholeSceneViewService.scene.gameObject.removeGameObjects(meta3dState, removedGameObjectsForSceneView)
-
-
-
-                    let removedGameObjectsForGameView = engineWholeGameViewService.scene.gameObject.getGameObjectAndAllChildren(meta3dState, selectedGameObject)
-
-                    meta3dState = engineWholeGameViewService.scene.gameObject.removeGameObjects(meta3dState, removedGameObjectsForGameView)
-
-
-                    _checkRemovdGameObjectShouldEqualForBothView(removedGameObjectsForSceneView, removedGameObjectsForGameView)
-
-                    let disposedGameObjectData = disposedGameObjectDataForSceneView
+                    let disposedGameObjectData = disposedGameObjectDataForSceneView as any as Array<removeGameObjectData>
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {

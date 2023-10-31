@@ -9,13 +9,17 @@ import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { List } from "immutable"
 import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
 import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
+import { requireCheck, test } from "meta3d-ts-contract-utils"
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
-    let allEvents = eventSourcingService.getAllEvents(meta3dState)
+    debugger
+    requireCheck(() => {
+        test("should only has import event", () => {
+            let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-    if (!(allEvents.count() == 1 && getExn(allEvents.last()).name == eventName)) {
-        throw new Error("should only has import event")
-    }
+            return allEvents.count() == 1 && getExn(allEvents.last()).name == eventName
+        })
+    }, true)
 }
 
 let _parseEventData = (eventDataService: eventDataService, eventData: ArrayBuffer): events => {
@@ -41,7 +45,6 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, eventData) => {
                     return new Promise((resolve, reject) => {
-                        // TODO contract check
                         _checkOnlyHasImportEvent(eventSourcingService, meta3dState)
 
                         let events = _parseEventData(

@@ -13,11 +13,31 @@ import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNo
 import { gameObject } from "meta3d-gameobject-protocol"
 import { flatten, isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
 import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
+import { ensureCheck, test } from "meta3d-ts-contract-utils"
 
-let _checkClonedGameObjectShouldEqualForBothView = (clonedGameObjectsForSceneView: Array<gameObject>, clonedGameObjectsForGameView: Array<gameObject>) => {
-    if (!isArraysEqual(clonedGameObjectsForSceneView, clonedGameObjectsForGameView)) {
-        throw new Error("cloned gameObject should equal for both view")
-    }
+let _clone = (meta3dState: meta3dState, api: api, selectedGameObject: gameObject) => {
+    let engineWholeSceneViewService = api.getExtensionService<engineWholeSceneViewService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
+    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+
+    let data = engineWholeSceneViewService.scene.gameObject.cloneGameObject(meta3dState, 1, { isShareMaterial: true, }, selectedGameObject)
+    meta3dState = data[0]
+    let clonedGameObjectsForSceneView = flatten(data[1])
+
+    data = engineWholeGameViewService.scene.gameObject.cloneGameObject(meta3dState, 1, { isShareMaterial: true, }, selectedGameObject)
+    meta3dState = data[0]
+    let clonedGameObjectsForGameView = flatten(data[1])
+
+    return ensureCheck([
+        clonedGameObjectsForSceneView,
+        clonedGameObjectsForGameView
+    ], ([
+        clonedGameObjectsForSceneView,
+        clonedGameObjectsForGameView
+    ]) => {
+        test("cloned gameObject should equal for both view", () => {
+            return isArraysEqual(clonedGameObjectsForSceneView, clonedGameObjectsForGameView)
+        })
+    }, true)
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -28,20 +48,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, selectedGameObject) => {
-                    let engineWholeSceneViewService = api.getExtensionService<engineWholeSceneViewService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
-                    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
-
-                    let data = engineWholeSceneViewService.scene.gameObject.cloneGameObject(meta3dState, 1, { isShareMaterial: true, }, selectedGameObject)
-                    meta3dState = data[0]
-                    let clonedGameObjectsForSceneView = flatten(data[1])
-
-                    data = engineWholeGameViewService.scene.gameObject.cloneGameObject(meta3dState, 1, { isShareMaterial: true, }, selectedGameObject)
-                    meta3dState = data[0]
-                    let clonedGameObjectsForGameView = flatten(data[1])
-
-
-
-                    _checkClonedGameObjectShouldEqualForBothView(clonedGameObjectsForSceneView, clonedGameObjectsForGameView)
+                    let [clonedGameObjectsForSceneView, clonedGameObjectsForGameView] = _clone(meta3dState, api, selectedGameObject)
 
 
                     let clonedGameObjects = clonedGameObjectsForSceneView

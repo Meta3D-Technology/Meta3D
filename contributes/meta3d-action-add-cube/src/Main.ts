@@ -1,4 +1,4 @@
-import { getContribute as getContributeMeta3D } from "meta3d-type"
+import { api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
@@ -17,11 +17,33 @@ import { List } from "immutable"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { disposeGameObjectAndAllChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
 import { createCubeGameObject } from "meta3d-primitive-utils/src/CubeUtils"
+import { assertEqual, ensureCheck, test } from "meta3d-ts-contract-utils"
 
-let _checkAddedGameObjectShouldEqualForBothView = (addedGameObjectForSceneView: gameObject, addedGameObjectForGameView: gameObject) => {
-    if (addedGameObjectForSceneView != addedGameObjectForGameView) {
-        throw new Error("added gameObject should equal for both view")
-    }
+let _createCube = (meta3dState: meta3dState, api: api) => {
+    let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
+    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
+
+    let diffuseColor: [number, number, number] = [Math.random(), Math.random(), Math.random()]
+    let localPosition: [number, number, number] = [Math.random() * 10 - 5, Math.random() * 10 - 5, 0]
+
+    let data = createCubeGameObject(meta3dState, engineWholeService, [localPosition, diffuseColor])
+    meta3dState = data[0] as meta3dState
+    let addedGameObjectForSceneView = data[1] as gameObject
+
+    data = createCubeGameObject(meta3dState, engineWholeGameViewService, [localPosition, diffuseColor])
+    meta3dState = data[0] as meta3dState
+    let addedGameObjectForGameView = data[1] as gameObject
+
+    return ensureCheck([
+        addedGameObjectForSceneView, addedGameObjectForGameView
+    ], ([
+        addedGameObjectForSceneView, addedGameObjectForGameView
+    ]) => {
+        test("added gameObject should equal for both view", () => {
+            return assertEqual(addedGameObjectForSceneView, addedGameObjectForGameView
+            )
+        })
+    }, true)
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
@@ -32,21 +54,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    let engineWholeService = api.getExtensionService<engineWholeService>(meta3dState, "meta3d-engine-whole-sceneview-protocol")
-                    let engineWholeGameViewService = api.getExtensionService<engineWholeGameViewService>(meta3dState, "meta3d-engine-whole-gameview-protocol")
-
-                    let diffuseColor: [number, number, number] = [Math.random(), Math.random(), Math.random()]
-                    let localPosition: [number, number, number] = [Math.random() * 10 - 5, Math.random() * 10 - 5, 0]
-
-                    let data = createCubeGameObject(meta3dState, engineWholeService, [localPosition, diffuseColor])
-                    meta3dState = data[0] as meta3dState
-                    let addedGameObjectForSceneView = data[1] as gameObject
-
-                    data = createCubeGameObject(meta3dState, engineWholeGameViewService, [localPosition, diffuseColor])
-                    meta3dState = data[0] as meta3dState
-                    let addedGameObjectForGameView = data[1] as gameObject
-
-                    _checkAddedGameObjectShouldEqualForBothView(addedGameObjectForSceneView, addedGameObjectForGameView)
+                    let [addedGameObjectForSceneView, addedGameObjectForGameView] = _createCube(meta3dState, api)
 
                     let addedGameObject = addedGameObjectForSceneView
 

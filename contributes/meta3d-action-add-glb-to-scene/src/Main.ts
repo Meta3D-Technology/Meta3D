@@ -17,12 +17,32 @@ import { service as engineWholeGameViewService } from "meta3d-engine-whole-gamev
 import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
 import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
 import { dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
-import { gameObject } from "meta3d-gameobject-protocol"
+import { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
+import { assertEqual, ensureCheck, test } from "meta3d-ts-contract-utils"
 
-let _checkImportedGameObjectShouldEqualForBothView = (importedGameObjectForSceneView: gameObject, importedGameObjectForGameView: gameObject) => {
-    if (importedGameObjectForSceneView != importedGameObjectForGameView) {
-        throw new Error("imported gameObject should equal for both view")
-    }
+let _import = (meta3dState: meta3dState, api: api, gltf: GLTF) => {
+    let data = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
+    meta3dState = data[0]
+    let importedGameObjectForSceneView = data[1]
+
+    data = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
+    meta3dState = data[0]
+    let importedGameObjectForGameView = data[1]
+
+    return ensureCheck([
+        importedGameObjectForSceneView,
+        importedGameObjectForGameView
+    ], ([
+        importedGameObjectForSceneView,
+        importedGameObjectForGameView
+    ]) => {
+        test("imported gameObject should equal for both view", () => {
+            return assertEqual(
+                importedGameObjectForSceneView,
+                importedGameObjectForGameView
+            )
+        })
+    }, true)
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, state>> = (api) => {
@@ -54,15 +74,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
 
                     return loadGlb(meta3dState, glb)
                         .then((gltf) => {
-                            let data = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
-                            meta3dState = data[0]
-                            let importedGameObjectForSceneView = data[1]
-
-                            data = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
-                            meta3dState = data[0]
-                            let importedGameObjectForGameView = data[1]
-
-                            _checkImportedGameObjectShouldEqualForBothView(importedGameObjectForSceneView, importedGameObjectForGameView)
+                            let [importedGameObjectForSceneView, importedGameObjectForGameView] = _import(meta3dState, api, gltf)
 
                             let importedGameObject = importedGameObjectForSceneView
 
