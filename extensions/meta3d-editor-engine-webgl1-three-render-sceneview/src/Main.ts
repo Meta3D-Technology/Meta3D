@@ -5,14 +5,16 @@ import { service as engineCoreService } from "meta3d-engine-core-sceneview-proto
 import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/src/state/StateType"
 import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { config as view1Config } from "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol/src/ConfigType";
-import { state as view1State } from "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol/src/StateType";
-import { state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType";
+import { state as view1State,
+pipeline as pipelineView1Pipeline, job as pipelineView1Job 
+} from "meta3d-pipeline-editor-webgl1-view1-three-sceneview-protocol/src/StateType";
+import {job as pipelineThreeJob, state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType";
 import { config as threeConfig } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/ConfigType";
 import { state as disposeState, states as disposeStates } from "meta3d-pipeline-dispose-sceneview-protocol/src/StateType";
 import { config as disposeConfig } from "meta3d-pipeline-dispose-sceneview-protocol/src/ConfigType";
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-sceneview-protocol/src/StateType"
-import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
-import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
+// import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-sceneview-protocol/src/StateType"
+// import { pipeline as pipelineSceneView1Pipeline, job as pipelineSceneView1Job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -70,9 +72,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: pipelineSceneView1Pipeline.Render,
-						insertElementName: pipelineSceneView1Job.UseFBO,
-						insertAction: "before"
+						pipelineName: pipelineView1Pipeline.Render,
+						insertElementName: pipelineThreeJob.Render,
+						insertAction: "after"
 					}
 				]
 			)

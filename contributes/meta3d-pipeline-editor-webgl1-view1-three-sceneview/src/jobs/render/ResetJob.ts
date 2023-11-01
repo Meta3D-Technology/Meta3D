@@ -10,7 +10,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 
 
     return mostService.callFunc(() => {
-        //console.log("reset job");
+        console.log("reset job");
 
         let renderer = getRenderer(states)
         renderer.resetState()

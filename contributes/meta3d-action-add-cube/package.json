@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-add-cube",
-    "version": "0.19.3",
+    "version": "0.19.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "add-cube",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-action-add-cube",
@@ -18,7 +18,6 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-add-cube-protocol": "^0.19.1",
-        "meta3d-editor-run-engine-gameview-protocol": "^0.19.0",
         "meta3d-engine-whole-gameview-protocol": "^0.19.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.19.0",
         "meta3d-event-protocol": "^0.19.0",

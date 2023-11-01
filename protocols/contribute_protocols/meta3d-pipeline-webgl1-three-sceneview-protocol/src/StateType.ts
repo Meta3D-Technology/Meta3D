@@ -16,7 +16,6 @@ export enum pipeline {
 
 export enum job {
     ConvertSceneGraph = "convert_scenegraph_three_meta3d",
-    SetSizeAndViewport = "set_size_and_viewport_three_meta3d",
     Init = "init_three_meta3d",
     Render = "render_three_meta3d",
 }
@@ -47,10 +46,6 @@ export const allPipelineData: allPipelineDataType = [
                 elements: [
                     {
                         "name": job.ConvertSceneGraph,
-                        "type_": "job"
-                    },
-                    {
-                        "name": job.SetSizeAndViewport,
                         "type_": "job"
                     },
                 ]

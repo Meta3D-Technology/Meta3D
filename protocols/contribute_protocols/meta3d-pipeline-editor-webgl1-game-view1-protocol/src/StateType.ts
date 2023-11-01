@@ -9,18 +9,14 @@ export const pipelineName = "Editor_WebGL1_GameView1"
 
 export enum pipeline {
     Init = "init",
-    Update = "update",
-    Render = "render",
+    Update = "update"
 }
 
 export enum job {
     InitArcballCameraController = "game_view1_gl_webgl1_init_arcballcameracontroller_meta3d",
     CreateDefaultScene = "game_view1_gl_webgl1_create_default_game_meta3d",
-    PrepareFBO = "game_view1_gl_webgl1_prepare_fbo_meta3d",
     UpdateArcballCameraController = "game_view1_gl_webgl1_update_arcballcameracontroller_meta3d",
     UpdateCameraAspectJob = "game_view1_gl_webgl1_update_camera_aspect_meta3d",
-    PrepareStatus = "game_view1_gl_webgl1_prepare_status_meta3d",
-    UseFBO = "game_view1_gl_webgl1_use_fbo_meta3d"
 }
 
 export const allPipelineData: allPipelineDataType = [
@@ -52,10 +48,6 @@ export const allPipelineData: allPipelineDataType = [
                 link: "concat",
                 elements: [
                     {
-                        "name": job.PrepareFBO,
-                        "type_": "job"
-                    },
-                    {
                         "name": job.UpdateCameraAspectJob,
                         "type_": "job"
                     },
@@ -68,26 +60,6 @@ export const allPipelineData: allPipelineDataType = [
         ],
         first_group: "first_webgl1_game_view1_meta3d"
     },
-    {
-        name: pipeline.Render,
-        groups: [
-            {
-                name: "first_webgl1_game_view1_meta3d",
-                link: "concat",
-                elements: [
-                    {
-                        "name": job.UseFBO,
-                        "type_": "job"
-                    },
-                    {
-                        "name": job.PrepareStatus,
-                        "type_": "job"
-                    },
-                ]
-            }
-        ],
-        first_group: "first_webgl1_game_view1_meta3d"
-    }
 ]
 
 export type state = {
@@ -99,7 +71,7 @@ export type state = {
     canvas: HTMLCanvasElement,
     lastYaw: nullable<number>,
     lastPitch: nullable<number>,
-    fbo: strictNullable<fbo>,
+    // fbo: strictNullable<fbo>,
 }
 
 export type states = {

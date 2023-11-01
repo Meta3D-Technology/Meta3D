@@ -15,7 +15,6 @@ import { isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
 import { uiControlName as sceneTreeUIControlName, state as sceneTreeState } from "meta3d-ui-control-scenetree-protocol"
-import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { ensureCheck, test } from "meta3d-ts-contract-utils"
 import { removeGameObjectData } from "meta3d-engine-scene-sceneview-protocol/src/service/ecs/GameObject"
 
@@ -137,7 +136,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
 
 
-                    return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
+                    return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
                     let {
                         allSelectedGameObjects,

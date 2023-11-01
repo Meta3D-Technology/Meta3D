@@ -41,7 +41,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
             // }
 
 
-            meta3dState = addFBOTexture(meta3dState, changeToStrictlyNull(getFBOTexture, uiState, textureID), fboRect)
+            // meta3dState = addFBOTexture(meta3dState, changeToStrictlyNull(getFBOTexture, uiState, textureID), fboRect)
 
 
             meta3dState = endChild(meta3dState)

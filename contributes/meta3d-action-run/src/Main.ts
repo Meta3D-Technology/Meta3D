@@ -111,13 +111,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                     // meta3dState = api.restore(meta3dState, getExn(getActionState<state>(meta3dState, api, actionName).meta3dStateBeforeRun))
 
-
-                    let runEngineService = api.getExtensionService<runEngineService>(
-                        meta3dState,
-                        "meta3d-editor-run-engine-gameview-protocol"
-                    )
-
-                    return runEngineService.loopEngineWhenStop(meta3dState)
+                    return Promise.resolve(meta3dState)
                 }))
             })
         },

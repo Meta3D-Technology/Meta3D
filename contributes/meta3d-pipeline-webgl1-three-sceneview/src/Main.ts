@@ -1,7 +1,6 @@
 import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execInit } from "./jobs/init/InitJob";
 import { execFunc as execConvertSceneGraph } from "./jobs/update/ConvertSceneGraphJob";
-import { execFunc as execSetSizeAndViewportJob } from "./jobs/update/SetSizeAndViewportJob";
 import { execFunc as execRender } from "./jobs/render/RenderJob";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType";
 import { config } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/ConfigType";
@@ -15,8 +14,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
 		case job.ConvertSceneGraph:
 			return execConvertSceneGraph;
-		case job.SetSizeAndViewport:
-			return execSetSizeAndViewportJob;
 		case job.Init:
 			return execInit;
 		case job.Render:

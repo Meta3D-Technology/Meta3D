@@ -12,7 +12,6 @@ import { List } from "immutable"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { flatten, isArraysEqual } from "meta3d-structure-utils/src/ArrayUtils"
-import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { ensureCheck, test } from "meta3d-ts-contract-utils"
 
 let _clone = (meta3dState: meta3dState, api: api, selectedGameObject: gameObject) => {
@@ -65,7 +64,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         setState
                     ], meta3dState, api)
 
-                    return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
+                    return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
                     let {
                         allClonedGameObjects,

@@ -7,7 +7,6 @@ import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
-import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { requireCheck, test } from "meta3d-ts-contract-utils"
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
@@ -37,7 +36,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                         meta3dState = assetService.importAsset(meta3dState, assetFile)
 
-                        return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
+                        return meta3dState
                     })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
