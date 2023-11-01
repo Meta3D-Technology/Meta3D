@@ -4,11 +4,21 @@ import { satisfies, gt } from "semver";
 import { protocol, protocolConfig } from "backend-abstract/src/application_layer/market/MarketType";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 
+let _descSort = (data: Array<any>, gtFunc: any, orderByFieldName: string) => {
+    return data.sort((a, b) => {
+        if (gtFunc(a[orderByFieldName], b[orderByFieldName])) {
+            return -1
+        }
+
+        return 1
+    })
+}
+
 export let findNewestPublishPackage = (
     collectionName: string,
     whereData: any,
-    firstOrderByFieldName: string,
-    [secondOrderByFieldName, gtFunc]: [string, any]
+    [firstOrderByFieldName, firstGtFunc]: [string, any],
+    [secondOrderByFieldName, secondGtFunc]: [string, any]
 ) => {
     return fromPromise(getDatabase().collection(collectionName)
         .where(whereData)
@@ -16,17 +26,11 @@ export let findNewestPublishPackage = (
         // .orderBy(secondOrderByFieldName, "desc")
         .get()
         .then(res => {
-            let firstOrderByFieldValue = res.data[0][firstOrderByFieldName]
+            let firstOrderByFieldValue = _descSort(res.data, firstGtFunc, firstOrderByFieldName)[0][firstOrderByFieldName]
 
-            return res.data.filter(data => {
+            return _descSort(res.data.filter(data => {
                 return data[firstOrderByFieldName] == firstOrderByFieldValue
-            }).sort((a, b) => {
-                if (gtFunc(a[secondOrderByFieldName], b[secondOrderByFieldName])) {
-                    return -1
-                }
-
-                return 1
-            })[0]
+            }), secondGtFunc, secondOrderByFieldName)[0]
         })
     )
 }
@@ -77,7 +81,13 @@ let _findNewestPublishExtensionOrContribute = (
             .orderBy("version", "desc")
             .get()
             .then(res => {
-                return res.data[0]
+                /*! need sort again
+
+                because ".orderBy("version", "desc")" will ouput wrong result in this case:
+                    "version": 0.19.3, 0.19.21(should be 0.19.21, 0.19.3) 
+                * 
+                */
+                return _descSort(res.data, gt, "version")[0]
             })
     ).flatMap((protocol: protocol) => {
         let protocolVersion = protocol.version
@@ -133,7 +143,9 @@ let _findNewestPublishExtensionOrContribute = (
                         //     extensionOrContribute = result[0]
                         // }
 
-                        let extensionOrContribute = res.data.filter((data) => {
+                        let data = _descSort(res.data, gt, "version")
+
+                        let extensionOrContribute = data.filter((data) => {
                             return satisfies(
                                 protocolVersion,
                                 data.protocolVersion

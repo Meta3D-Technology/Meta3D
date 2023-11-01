@@ -6,7 +6,7 @@ let findNewestPublishPackage = ([findNewestPublishPackage, downloadFileFunc], en
     return findNewestPublishPackage("publishedpackages", {
         entryExtensionProtocolName: entryExtensionProtocolName,
         packageName: packageName
-    }, "entryExtensionProtocolVersion", ["packageVersion", semver_1.gt]).flatMap((data) => {
+    }, ["entryExtensionProtocolVersion", semver_1.gt], ["packageVersion", semver_1.gt]).flatMap((data) => {
         return downloadFileFunc(data.fileID).map(file => {
             return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64];
         });
