@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-import-single-event",
-    "version": "0.19.2",
+    "version": "0.19.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-action-import-single-event-protocol"
@@ -15,6 +15,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-import-single-event-protocol": "^0.19.0",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.19.0",
         "meta3d-event-data-protocol": "^0.19.0",
         "meta3d-event-sourcing-protocol": "^0.19.0",
         "meta3d-type": "^0.19.1",

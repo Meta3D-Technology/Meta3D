@@ -2,8 +2,8 @@ import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D,
 import { state } from "meta3d-editor-run-engine-gameview-protocol/src/state/StateType"
 import { service } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { addToLoopFuncs, removeFromLoopFuncs, prepareAndInitEngine, loopEngine, prepareForVisual } from "meta3d-editor-webgl1-three-run-engine-utils/src/Main"
-// import { actionName, state as runState } from "meta3d-action-run-protocol"
-// import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
+import { actionName, state as runState } from "meta3d-action-run-protocol"
+import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
 import { service as engineWholeService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
 import { state as runEngineState } from "meta3d-editor-run-engine-gameview-protocol/src/state/StateType"
 
@@ -27,17 +27,17 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				})
 			})
 		},
-		// loopEngineWhenStop: (meta3dState) => {
-		// 	if (
-		// 		!(getActionState<runState>(meta3dState, api, actionName).isRun)
-		// 	) {
-		// 		return loopEngine<engineWholeService>(meta3dState, api, "meta3d-engine-whole-gameview-protocol")
-		// 	}
+		loopEngineWhenStop: (meta3dState) => {
+			if (
+				!(getActionState<runState>(meta3dState, api, actionName).isRun)
+			) {
+				return loopEngine<engineWholeService>(meta3dState, api, "meta3d-engine-whole-gameview-protocol")
+			}
 
-		// 	return new Promise((resolve) => {
-		// 		resolve(meta3dState)
-		// 	})
-		// },
+			return new Promise((resolve) => {
+				resolve(meta3dState)
+			})
+		},
 		addToLoopFuncs: (meta3dState) => {
 			return addToLoopFuncs<runEngineState>(meta3dState, api, {
 				id: _getRunId(),

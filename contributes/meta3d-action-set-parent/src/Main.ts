@@ -9,6 +9,7 @@ import { bind, getExn, isNullable, map } from "meta3d-commonlib-ts/src/NullableU
 import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 import { getState, setState } from "./Utils"
 import { List } from "immutable"
+import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -59,7 +60,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     ], meta3dState, api)
 
 
-                    return Promise.resolve(meta3dState)
+                    return api.getExtensionService<runEngineGameViewService>(meta3dState, "meta3d-editor-run-engine-gameview-protocol").loopEngineWhenStop(meta3dState)
                 }, (meta3dState) => {
                     let {
                         allHierachyData

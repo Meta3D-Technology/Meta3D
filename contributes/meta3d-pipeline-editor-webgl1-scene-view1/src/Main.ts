@@ -1,8 +1,11 @@
 import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType";
 import { execFunc as execInitArcballCameraControllerJob } from "./jobs/init/InitArcballCameraControllerJob";
 import { execFunc as execCreateDefaultSceneJob } from "./jobs/init/CreateDefaultSceneJob";
+import { execFunc as execPrepareFBO } from "./jobs/update/PrepareFBOJob";
 import { execFunc as execUpdateCameraAspectJob } from "./jobs/update/UpdateCameraAspectJob"
 import { execFunc as execUpdateArcballCameraControllerJob } from "./jobs/update/UpdateArcballCameraControllerJob";
+import { execFunc as execPrepareStatus } from "./jobs/render/PrepareStatusJob";
+import { execFunc as execUseFBO } from "./jobs/render/UseFBOJob";
 import { config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
@@ -22,6 +25,12 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execUpdateCameraAspectJob
 		case job.UpdateArcballCameraController:
 			return execUpdateArcballCameraControllerJob
+		case job.PrepareFBO:
+			return execPrepareFBO
+		case job.PrepareStatus:
+			return execPrepareStatus
+		case job.UseFBO:
+			return execUseFBO
 		default:
 			return null
 	}
@@ -45,7 +54,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				// arcballCameraController: null,
 				lastYaw: null,
 				lastPitch: null,
-				// fbo: null
+				fbo: null
 			}
 		},
 		initFunc: _init,

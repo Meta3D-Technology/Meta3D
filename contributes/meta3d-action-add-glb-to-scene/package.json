@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-add-glb-to-scene",
-    "version": "0.19.2",
+    "version": "0.19.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "repoLink": "",
     "protocol": {
@@ -17,6 +17,7 @@
     "dependencies": {
         "meta3d-action-drop-glb-to-sceneview-protocol": "^0.19.0",
         "meta3d-asset-protocol": "^0.19.1",
+        "meta3d-editor-run-engine-gameview-protocol": "^0.19.0",
         "meta3d-engine-whole-gameview-protocol": "^0.19.0",
         "meta3d-engine-whole-sceneview-protocol": "^0.19.0",
         "meta3d-event-data-protocol": "^0.19.0",

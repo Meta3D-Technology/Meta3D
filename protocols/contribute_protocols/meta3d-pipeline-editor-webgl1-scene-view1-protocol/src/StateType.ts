@@ -13,14 +13,17 @@ export const pipelineName = "Editor_WebGL1_SceneView1"
 export enum pipeline {
     Init = "init",
     Update = "update",
-    // Render = "render",
+    Render = "render",
 }
 
 export enum job {
     InitArcballCameraController = "scene_view1_gl_webgl1_init_arcballcameracontroller_meta3d",
     CreateDefaultScene = "scene_view1_gl_webgl1_create_default_scene_meta3d",
+    PrepareFBO = "scene_view1_gl_webgl1_prepare_fbo_meta3d",
     UpdateCameraAspectJob = "scene_view1_gl_webgl1_update_camera_aspect_meta3d",
-    UpdateArcballCameraController = "scene_view1_gl_webgl1_update_arcballcameracontroller_meta3d"
+    UpdateArcballCameraController = "scene_view1_gl_webgl1_update_arcballcameracontroller_meta3d",
+    PrepareStatus = "scene_view1_gl_webgl1_prepare_status_meta3d",
+    UseFBO = "scene_view1_gl_webgl1_use_fbo_meta3d"
 }
 
 export const allPipelineData: allPipelineDataType = [
@@ -52,11 +55,35 @@ export const allPipelineData: allPipelineDataType = [
                 link: "concat",
                 elements: [
                     {
+                        "name": job.PrepareFBO,
+                        "type_": "job"
+                    },
+                    {
                         "name": job.UpdateCameraAspectJob,
                         "type_": "job"
                     },
                     {
                         "name": job.UpdateArcballCameraController,
+                        "type_": "job"
+                    },
+                ]
+            }
+        ],
+        first_group: "first_webgl1_scene_view1_meta3d"
+    },
+    {
+        name: pipeline.Render,
+        groups: [
+            {
+                name: "first_webgl1_scene_view1_meta3d",
+                link: "concat",
+                elements: [
+                    {
+                        "name": job.UseFBO,
+                        "type_": "job"
+                    },
+                    {
+                        "name": job.PrepareStatus,
                         "type_": "job"
                     },
                 ]
@@ -78,7 +105,7 @@ export type state = {
     // arcballCameraController: nullable<arcballCameraController>,
     lastYaw: nullable<number>,
     lastPitch: nullable<number>,
-    // fbo: strictNullable<fbo>,
+    fbo: strictNullable<fbo>,
 }
 
 export type states = {

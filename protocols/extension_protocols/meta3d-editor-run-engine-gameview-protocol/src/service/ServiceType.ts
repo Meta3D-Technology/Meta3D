@@ -16,7 +16,7 @@ export type service = {
 		canvas: HTMLCanvasElement,
 		isDebug: boolean
 	) => Promise<meta3dState>,
-	// loopEngineWhenStop: (meta3dState: meta3dState) => Promise<meta3dState>,
+	loopEngineWhenStop: (meta3dState: meta3dState) => Promise<meta3dState>,
 	addToLoopFuncs: (meta3dState: meta3dState) => meta3dState,
 	removeFromLoopFuncs: (meta3dState: meta3dState) => meta3dState
 }

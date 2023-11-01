@@ -179,14 +179,6 @@ TODO add PhysicalMaterial?
             setViewport
         not all transmission
         gameview no dragon?
-            not use fbo
-                empty scene view, game view ui control
-                set viewport in RenderJob
-                remove gameview->loopEngine
-                    remove contribute: //view1, s,g view2
-
-                load glb:image not find error
-                hide select effect
 
         # fix fbo: no restore?
 
@@ -211,14 +203,6 @@ e.g. Dragon, ...
 
 *** TODO run test: publish
 
-
-
-
-* TODO perf: editor: solve memory leak
-
-
-
-* TODO fix: if import event->exec all events->error, shouldn't download event
 
 
 

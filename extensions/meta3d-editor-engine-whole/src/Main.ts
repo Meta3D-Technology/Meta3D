@@ -14,6 +14,8 @@ import { state as engineCoreState } from "meta3d-engine-core-sceneview-protocol/
 import { pipelineContribute } from "meta3d-engine-core-sceneview-protocol/src/contribute/work/PipelineContributeType"
 import { config as sceneView1Config } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/ConfigType";
 import { state as sceneView1State, states as sceneView1States } from "meta3d-pipeline-editor-webgl1-scene-view1-protocol/src/StateType";
+import { config as sceneView2Config } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/ConfigType";
+import { state as sceneView2State, states as sceneView2States } from "meta3d-pipeline-editor-webgl1-scene-view2-protocol/src/StateType";
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { state as eventState, states as eventStates } from "meta3d-pipeline-editor-event-protocol/src/StateType"
 import { config as eventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
@@ -26,7 +28,7 @@ import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 let _registerEditorPipelines = (
 	meta3dState: meta3dState, api: api,
-	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorEventContributeName]: [string, string],
+	[meta3dPipelineEditorWebgl1SceneView1ContributeName, meta3dPipelineEditorWebgl1SceneView2ContributeName, meta3dPipelineEditorEventContributeName]: [string, string, string],
 	canvas: HTMLCanvasElement
 ) => {
 	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-sceneview-protocol")
@@ -60,6 +62,17 @@ let _registerEditorPipelines = (
 			},
 		]
 	)
+	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<sceneView2Config, sceneView2State>>(meta3dState, meta3dPipelineEditorWebgl1SceneView2ContributeName),
+		null,
+		[
+			{
+				pipelineName: pipelineRenderPipeline.Render,
+				insertElementName: pipelineRenderJob.Render,
+				insertAction: "after"
+			},
+		]
+	)
+
 	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<eventConfig, eventState>>(meta3dState, meta3dPipelineEditorEventContributeName),
 		null,
 		[
@@ -118,7 +131,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			meta3dState = _registerEditorPipelines(
 				meta3dState, api,
-				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-event-protocol"],
+				["meta3d-pipeline-editor-webgl1-scene-view1-protocol", "meta3d-pipeline-editor-webgl1-scene-view2-protocol", "meta3d-pipeline-editor-event-protocol"],
 				canvas
 			)
 

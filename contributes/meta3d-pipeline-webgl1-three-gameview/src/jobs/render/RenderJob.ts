@@ -3,10 +3,6 @@ import { getState, setState } from "../Utils"
 import { states } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType"
 import { state as converterState } from "meta3d-scenegraph-converter-three-gameview-protocol/src/state/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
-import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import { getViewRect } from "meta3d-view-utils/src/GameViewRect";
-import { setSizeAndViewport } from "meta3d-pipeline-webgl1-three-utils/src/RenderJobUtils"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
@@ -25,14 +21,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         // )
 
         renderer = getExn(renderer)
-
-        let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
-        let uiState = api.getExtensionState<uiState>(meta3dState, "meta3d-ui-protocol")
-
-        setSizeAndViewport(renderer, getExn(getViewRect(
-            uiService,
-            uiState
-        )), canvas)
 
         renderer.render(scene, perspectiveCamera);
 

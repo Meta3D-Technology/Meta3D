@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-engine-whole-sceneview",
-    "version": "0.19.4",
+    "version": "0.19.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-whole-sceneview-protocol"
@@ -25,6 +25,7 @@
         "meta3d-pipeline-camera-sceneview-protocol": "^0.19.0",
         "meta3d-pipeline-editor-event-protocol": "^0.19.0",
         "meta3d-pipeline-editor-webgl1-scene-view1-protocol": "^0.19.0",
+        "meta3d-pipeline-editor-webgl1-scene-view2-protocol": "^0.19.0",
         "meta3d-pipeline-root-sceneview-protocol": "^0.19.0",
         "meta3d-pipeline-webgl1-three-sceneview-protocol": "^0.19.0",
         "meta3d-scenegraph-converter-three-sceneview-protocol": "^0.19.0",
