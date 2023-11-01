@@ -17,7 +17,9 @@ import {
     type Mesh as MeshType,
     type TypedArray,
     type BufferGeometry as BufferGeometryType,
+    type Material as MaterialType,
     type MeshStandardMaterial as MeshStandardMaterialType,
+    type MeshPhysicalMaterial as MeshPhysicalMaterialType,
     type Source as SourceType,
     type Wrapping,
     type AnyMapping,
@@ -34,7 +36,7 @@ import {
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
-import { createEmptyStandardMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
+import { createEmptyPhysicalMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
 // import { componentName as transformComponentName } from "meta3d-component-transform-protocol"
@@ -49,7 +51,7 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 import { localRotation } from "meta3d-component-transform-protocol";
 import { scene } from "meta3d-engine-scene-sceneview-protocol/src/service/ServiceType";
-import { diffuseColor } from "meta3d-component-pbrmaterial-protocol";
+import { diffuseColor, specularColor } from "meta3d-component-pbrmaterial-protocol";
 import { filter, htmlImageElement, texture, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType";
 import { color, directionLight } from "meta3d-component-directionlight-protocol";
 import {
@@ -74,11 +76,11 @@ import {
     BufferGeometry,
     DirectionLight,
     Mesh,
-    MeshStandardMaterial,
+    MeshPhysicalMaterial,
     PerspectiveCamera,
     Scene,
     Texture,
-    getDirectionLightInstanceMap, getGeometryInstanceMap, getMeshInstanceMap, getStandardMaterialInstanceMap, getTextureInstanceMap
+    getDirectionLightInstanceMap, getGeometryInstanceMap, getMeshInstanceMap, getPhysicalMaterialInstanceMap, getTextureInstanceMap
 } from "./Classes";
 import { setVariables } from "./SetVariables";
 
@@ -116,16 +118,18 @@ let _getBufferGeometry = (mesh: MeshType): BufferGeometryType => {
     return geometry
 }
 
-let _getMeshStandardMaterial = (mesh: MeshType): MeshStandardMaterialType => {
-    let material = mesh.material as MeshStandardMaterialType
+let _getMeshMaterial = (mesh: MeshType): MeshPhysicalMaterialType | MeshStandardMaterialType => {
+    let material = mesh.material as MaterialType
 
-    if (material.type == "MeshStandardMaterial") {
-        return material
+    if (material.type == "MeshPhysicalMaterial") {
+        return material as MeshPhysicalMaterialType
     }
 
-    console.warn(`unsupport material type: ${material.type}`);
+    if (material.type == "MeshStandardMaterial") {
+        return material as MeshStandardMaterialType
+    }
 
-    return material
+    throw new Error(`unsupport material type: ${material.type}`)
 }
 
 let _convertWrapToScene = (wrap_: Wrapping) => {
@@ -314,24 +318,22 @@ let _import = (sceneService: scene,
 
 
 
-        let meshStandardMaterial = _getMeshStandardMaterial(mesh)
+        let meshMaterial = _getMeshMaterial(mesh)
 
 
-        if (standardMaterialMap[meshStandardMaterial.uuid] === undefined) {
+        if (standardMaterialMap[meshMaterial.uuid] === undefined) {
             let data = pbrMaterialService.createPBRMaterial(meta3dState)
             meta3dState = data[0]
             let pbrMaterial = data[1]
 
-            meta3dState = pbrMaterialService.setName(meta3dState, pbrMaterial, meshStandardMaterial.name)
+            meta3dState = pbrMaterialService.setName(meta3dState, pbrMaterial, meshMaterial.name)
 
-            meta3dState = pbrMaterialService.setDiffuseColor(meta3dState, pbrMaterial, meshStandardMaterial.color.toArray() as any as diffuseColor
+            meta3dState = pbrMaterialService.setDiffuseColor(meta3dState, pbrMaterial, meshMaterial.color.toArray() as any as diffuseColor
             )
-            meta3dState = pbrMaterialService.setMetalness(meta3dState, pbrMaterial, meshStandardMaterial.metalness)
-            meta3dState = pbrMaterialService.setRoughness(meta3dState, pbrMaterial, meshStandardMaterial.roughness)
+            meta3dState = pbrMaterialService.setMetalness(meta3dState, pbrMaterial, meshMaterial.metalness)
+            meta3dState = pbrMaterialService.setRoughness(meta3dState, pbrMaterial, meshMaterial.roughness)
 
-
-
-            let mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.map)
+            let mapData = _createMap(meta3dState, sceneService, textureMap, meshMaterial.map)
             meta3dState = mapData[0]
             let map = mapData[1]
             textureMap = mapData[2]
@@ -339,7 +341,7 @@ let _import = (sceneService: scene,
                 meta3dState = pbrMaterialService.setDiffuseMap(meta3dState, pbrMaterial, getExn(map))
             }
 
-            mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.roughnessMap)
+            mapData = _createMap(meta3dState, sceneService, textureMap, meshMaterial.roughnessMap)
             meta3dState = mapData[0]
             map = mapData[1]
             textureMap = mapData[2]
@@ -347,7 +349,7 @@ let _import = (sceneService: scene,
                 meta3dState = pbrMaterialService.setRoughnessMap(meta3dState, pbrMaterial, getExn(map))
             }
 
-            mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.metalnessMap)
+            mapData = _createMap(meta3dState, sceneService, textureMap, meshMaterial.metalnessMap)
             meta3dState = mapData[0]
             map = mapData[1]
             textureMap = mapData[2]
@@ -356,7 +358,7 @@ let _import = (sceneService: scene,
             }
 
 
-            mapData = _createMap(meta3dState, sceneService, textureMap, meshStandardMaterial.normalMap)
+            mapData = _createMap(meta3dState, sceneService, textureMap, meshMaterial.normalMap)
             meta3dState = mapData[0]
             map = mapData[1]
             textureMap = mapData[2]
@@ -365,13 +367,26 @@ let _import = (sceneService: scene,
             }
 
 
+            if (meshMaterial.type == "MeshPhysicalMaterial") {
+                let meshPhysicalMaterial: MeshPhysicalMaterialType = meshMaterial as MeshPhysicalMaterialType
+
+                meta3dState = pbrMaterialService.setSpecularColor(meta3dState, pbrMaterial, meshPhysicalMaterial.specularColor.toArray() as any as specularColor
+                )
+                meta3dState = pbrMaterialService.setSpecular(meta3dState, pbrMaterial, meshPhysicalMaterial.specularIntensity)
+                meta3dState = pbrMaterialService.setIOR(meta3dState, pbrMaterial, meshPhysicalMaterial.ior)
+                meta3dState = pbrMaterialService.setTransmission(meta3dState, pbrMaterial, meshPhysicalMaterial.transmission)
+            }
+
+
+
+
 
             meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, pbrMaterial)
 
-            standardMaterialMap[meshStandardMaterial.uuid] = pbrMaterial
+            standardMaterialMap[meshMaterial.uuid] = pbrMaterial
         }
         else {
-            meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, standardMaterialMap[meshStandardMaterial.uuid])
+            meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, standardMaterialMap[meshMaterial.uuid])
         }
     }
     else if ((object3D as any as DirectionalLightType).isDirectionalLight) {
@@ -424,7 +439,7 @@ let _import = (sceneService: scene,
 let _disposeMesh = (mesh: Mesh) => {
 }
 
-let _disposeStandardMaterial = (material: MeshStandardMaterial) => {
+let _disposePhysicalMaterial = (material: MeshPhysicalMaterial) => {
     material.dispose()
 }
 
@@ -445,9 +460,9 @@ let _disposeMeshInstance = (gameObject: gameObject) => {
     getMeshInstanceMap()[gameObject] = undefined
 }
 
-let _disposeStandardMaterialInstance = (material: pbrMaterial) => {
-    _disposeStandardMaterial(getStandardMaterialInstanceMap()[material])
-    getStandardMaterialInstanceMap()[material] = undefined
+let _disposePhysicalMaterialInstance = (material: pbrMaterial) => {
+    _disposePhysicalMaterial(getPhysicalMaterialInstanceMap()[material])
+    getPhysicalMaterialInstanceMap()[material] = undefined
 }
 
 let _disposeTextureInstance = (texture: texture) => {
@@ -501,7 +516,7 @@ let _bindDisposeEvent = (meta3dState: meta3dState, eventService: eventService,
     meta3dState = eventService.onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
         DisposePBRMaterialsEventName, 0, (meta3dState, { userData }) => {
             (getExn(userData) as any as Array<pbrMaterial>).forEach(pbrMaterial => {
-                _disposeStandardMaterialInstance(pbrMaterial)
+                _disposePhysicalMaterialInstance(pbrMaterial)
             })
 
             return meta3dState
@@ -606,7 +621,7 @@ export let createExtensionStateUtils = (
 
 export let getExtensionLifeUtils = (api: api,
     {
-        engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForStandardMaterialInstanceMap,
+        engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForPhysicalMaterialInstanceMap,
         globalKeyNameForTextureInstanceMap,
         globalKeyNameForGeometryInstanceMap,
 
@@ -616,7 +631,7 @@ export let getExtensionLifeUtils = (api: api,
     return {
         onRegister: (meta3dState, service) => {
             setVariables(
-                engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForStandardMaterialInstanceMap,
+                engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForPhysicalMaterialInstanceMap,
 
                 globalKeyNameForTextureInstanceMap,
 
@@ -628,7 +643,7 @@ export let getExtensionLifeUtils = (api: api,
             setAPI(api)
 
             createEmptyMeshInstanceMap()
-            createEmptyStandardMaterialInstanceMap()
+            createEmptyPhysicalMaterialInstanceMap()
             createEmptyTextureInstanceMap()
             createEmptyGeometryInstanceMap()
             createEmptyDirectionLightInstanceMap()

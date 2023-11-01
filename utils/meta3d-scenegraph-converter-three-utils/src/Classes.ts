@@ -31,7 +31,7 @@ import {
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
-import { createEmptyStandardMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, setVariables, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
+import { createEmptyPhysicalMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, setVariables, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
 import { gameObject } from "meta3d-gameobject-protocol"
@@ -39,7 +39,7 @@ import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable";
 import { geometry } from "meta3d-component-geometry-protocol-common/src/Index";
 import { pbrMaterial } from "meta3d-component-pbrmaterial-protocol-common/src/Index";
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
-import { generateUUID } from "./three/MathUtils";
+import { clamp, generateUUID } from "./three/MathUtils";
 import { generateId } from "./utils/IdUtils";
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { EventDispatcher } from "./three/EventDispatcher";
@@ -64,7 +64,7 @@ import {
 } from "./SetThreeObjects";
 import {
     globalKeyNameForMeshInstanceMap,
-    globalKeyNameForStandardMaterialInstanceMap,
+    globalKeyNameForPhysicalMaterialInstanceMap,
     globalKeyNameForTextureInstanceMap,
     globalKeyNameForGeometryInstanceMap,
     globalKeyNameForDirectionLightInstanceMap
@@ -154,17 +154,18 @@ let _getOrCreateMeshInstance = (gameObject: gameObject) => {
     return getMeshInstanceMap()[gameObject]
 }
 
-export let getStandardMaterialInstanceMap = (): Array<MeshStandardMaterial> => {
-    return (globalThis as any)[globalKeyNameForStandardMaterialInstanceMap]
+export let getPhysicalMaterialInstanceMap = (): Array<MeshPhysicalMaterial> => {
+    return (globalThis as any)[globalKeyNameForPhysicalMaterialInstanceMap]
 }
 
-let _getOrCreateStandardMaterialInstance = (material: pbrMaterial) => {
-    if (getStandardMaterialInstanceMap()[material] === undefined) {
-        getStandardMaterialInstanceMap()[material] = new MeshStandardMaterial(material)
+let _getOrCreatePhysicalMaterialInstance = (material: pbrMaterial) => {
+    if (getPhysicalMaterialInstanceMap()[material] === undefined) {
+        getPhysicalMaterialInstanceMap()[material] = new MeshPhysicalMaterial(material)
     }
 
-    return getStandardMaterialInstanceMap()[material]
+    return getPhysicalMaterialInstanceMap()[material]
 }
+
 
 
 export let getTextureInstanceMap = (): Array<Texture> => {
@@ -309,7 +310,7 @@ export class Object3D {
         return this.getChildren((gameObject: gameObject) => _createInstance(engineSceneService, meta3dState, gameObject))
     }
 
-    public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, material: MeshStandardMaterial, group: any) {
+    public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, material: MeshPhysicalMaterial, group: any) {
     }
 
     public onAfterRender(scene: Scene, camera: Camera, geometry: BufferGeometry, object: Object3D, group: any) {
@@ -814,13 +815,12 @@ export class Mesh extends Object3D {
         return _getOrCreateGeometryInstance(gameObject.getGeometry(meta3dState, this.gameObject))
     }
 
-    public get material(): MeshStandardMaterial {
+    public get material(): MeshPhysicalMaterial {
         let meta3dState = getMeta3dState()
 
         let { gameObject } = getEngineSceneService(meta3dState)
 
-        return _getOrCreateStandardMaterialInstance(gameObject.getPBRMaterial(meta3dState, this.gameObject))
-
+        return _getOrCreatePhysicalMaterialInstance(gameObject.getPBRMaterial(meta3dState, this.gameObject))
     }
 }
 
@@ -1279,56 +1279,6 @@ export class Material extends EventDispatcher {
     }
 }
 
-export // class MeshStandardMaterial extends Material {
-//     constructor(material: pbrMaterial) {
-//         super(material)
-//     }
-
-
-//     public get isMeshStandardMaterial(): boolean {
-//         return true
-//     }
-
-//     public get color(): ColorType {
-//         let meta3dState = getMeta3dState()
-
-//         let { pbrMaterial } = getEngineSceneService(meta3dState)
-
-//         let [r, g, b] = getExn(
-//             pbrMaterial.getDiffuseColor(meta3dState,
-//                 this.material
-//             )
-//         )
-
-//         return new Color(r, g, b)
-//     }
-
-//     public get name(): string {
-//         return "MeshStandardMaterial"
-//     }
-
-//     public get type(): string {
-//         return "MeshStandardMaterial"
-//     }
-
-//     public get reflectivity(): number {
-//         return 1
-//     }
-
-//     public get refractionRatio(): number {
-//         return 0.98
-//     }
-
-//     public get fog(): boolean {
-//         return false
-//     }
-
-
-//     public setMaterial(material: pbrMaterial) {
-//         this.material = material
-//     }
-// }
-
 let _getExnMaterialValue = (getFuncName, material, handleReturnFunc = (v) => v) => {
     let meta3dState = getMeta3dState()
 
@@ -1361,6 +1311,10 @@ export class MeshStandardMaterial extends Material {
 
     public get isMeshStandardMaterial(): boolean {
         return true
+    }
+
+    public get defines(): any {
+        return { 'STANDARD': '' };
     }
 
     public get color(): ColorType {
@@ -1495,4 +1449,145 @@ export class MeshStandardMaterial extends Material {
     // public setMaterial(material: pbrMaterial) {
     //     this.material = material
     // }
+}
+
+export class MeshPhysicalMaterial extends MeshStandardMaterial {
+    constructor(material: pbrMaterial) {
+        super(material)
+    }
+
+    public get isMeshPhysicalMaterial(): boolean {
+        return true
+    }
+
+    public get type(): string {
+        return "MeshPhysicalMaterial"
+    }
+
+    public get defines(): any {
+        return {
+            'STANDARD': '',
+            'PHYSICAL': ''
+        }
+    }
+
+    public get anisotropyRotation(): number {
+        return 0
+    }
+
+    public get anisotropyMap(): nullable<Texture> {
+        return null
+    }
+
+    public get clearcoatMap(): nullable<Texture> {
+        return null
+    }
+
+    public get clearcoatRoughness(): number {
+        return 0
+    }
+
+    public get clearcoatRoughnessMap(): nullable<Texture> {
+        return null
+    }
+
+    public get clearcoatNormalScale(): Vector2Type {
+        return new Vector2(1, 1)
+    }
+
+    public get clearcoatNormalMap(): nullable<Texture> {
+        return null
+    }
+
+    public get ior(): number {
+        return _getExnMaterialValue("getIOR", this.material)
+    }
+
+    public get reflectivity(): number {
+        return (clamp(2.5 * (this.ior - 1) / (this.ior + 1), 0, 1))
+    }
+
+    public get iridescenceMap(): nullable<Texture> {
+        return null
+    }
+
+    public get iridescenceIOR(): number {
+        return 1.3
+    }
+
+    public get iridescenceThicknessRange(): [number, number] {
+        return [100, 400]
+    }
+
+    public get iridescenceThicknessMap(): nullable<Texture> {
+        return null
+    }
+
+    public get sheenColor(): ColorType {
+        return new Color(0x000000);
+    }
+
+    public get sheenColorMap(): nullable<Texture> {
+        return null
+    }
+
+    public get sheenRoughness(): number {
+        return 1.0
+    }
+
+    public get sheenRoughnessMap(): nullable<Texture> {
+        return null
+    }
+
+    public get transmission(): number {
+        return _getExnMaterialValue("getTransmission", this.material)
+    }
+
+    public get transmissionMap(): nullable<Texture> {
+        return null
+    }
+
+    public get thickness(): number {
+        return 0
+    }
+
+    public get thicknessMap(): nullable<Texture> {
+        return null
+    }
+
+    public get attenuationDistance(): number {
+        return Infinity
+    }
+
+    public get attenuationColor(): ColorType {
+        return new Color(1, 1, 1)
+    }
+
+    public get specularIntensity(): number {
+        return _getExnMaterialValue("getSpecular", this.material)
+    }
+
+    public get specularIntensityMap(): nullable<Texture> {
+        return null
+    }
+
+    public get specularColor(): ColorType {
+        return _getExnMaterialValue("getSpecularColor", this.material, (v) => new Color(...v))
+    }
+
+    public get anisotropy(): number {
+        return 0
+    }
+
+    public get clearcoat(): number {
+        return 0
+    }
+
+    public get iridescence(): number {
+        return 0
+    }
+
+    public get sheen(): number {
+        return 0
+    }
 }

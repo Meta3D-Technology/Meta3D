@@ -161,13 +161,142 @@ TODO test publish
 
 *** TODO support more for standard material
 
-e.g. transmission,transmission map, ...
+TODO need publish:
+# scenegraph s,g
+
+
+
+
+e.g. transmission,//transmission map, ...
+
+# TODO for standard material, transmission is alpha, transmission map is alpha map
+
+
+TODO add PhysicalMaterial?
+
+    TODO fix:
+        viewrect error?
+            setViewport
+        not all transmission
+        gameview no dragon?
+
+        # fix fbo: no restore?
+
+
+
+TODO set background(color) instead of setClearColor
+
+TODO add ambient light
+
+TODO setPixelRatio
+
+
+TODO compare three effect:
+e.g. Dragon, ...
+
 
 *** TODO support DracoLoader
 
 
 *** TODO pass run test: load all gltf/ models
 
+
+*** TODO run test: publish
+
+
+
+
+
+* TODO UI Control可配置化、抽象化
+
+** TODO Inspector
+split to Inspector(as container) + multiple Component Inspectors(as member)
+
+
+
+Inspector: can edit component;set component's data;
+TODO 加入更多的Component Inspector
+
+
+*** TODO active basic camera view
+TODO fix import scene* TODO>active
+
+*** TODO add component
+**** TODO now only add arcball, basiccameraview, perspective component, no other components
+handle event
+   **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
+   **** TODO publish: bind event when active has arcball
+
+
+
+** TODO Menu
+Menu->Specific: set Array<Array<name:string, actionName:string>>
+
+** TODO SceneTree
+separate header, body:
+    header = multiple Image Buttons
+
+** TODO Asset
+separate header, body:
+    header = multiple Image Buttons
+
+** TODO Controller
+abstract to Switch Button with configable two textures
+
+
+# ** TODO Message
+
+
+# ** TODO Model
+
+* TODO 完善ui control
+
+
+
+** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+
+** TODO add Modal
+publish, export should show Modal
+
+
+Menu add "关于Meta3D":
+show Modal
+
+
+
+
+
+# * TODO Scene View: show direction light, camera(show image)
+
+
+
+** TODO Window: set flags
+e.g. ImGui.WindowFlags.NoTitleBar
+
+
+
+
+
+
+** TODO add Debug
+
+
+
+
+** TODO Message
+e.g. show import progress bar
+
+
+
+
+
+* TODO 构建三个示例场景
+
+1.Engine + Example use Engine package
+2.Editor
+3.Scene use Editor to build and publish
 
 
 ** TODO build one big scene with glbs as showcase

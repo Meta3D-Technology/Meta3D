@@ -7,12 +7,12 @@ let _engineSceneProtocolName: string
 let _globalKeyNameForMeta3dState: string
 let _globalKeyNameForAPI: string
 let _globalKeyNameForMeshInstanceMap: string
-let _globalKeyNameForStandardMaterialInstanceMap: string
+let _globalKeyNameForPhysicalMaterialInstanceMap: string
 let _globalKeyNameForTextureInstanceMap: string
 let _globalKeyNameForGeometryInstanceMap: string
 let _globalKeyNameForDirectionLightInstanceMap: string
 
-export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForStandardMaterialInstanceMap,
+export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState, globalKeyNameForAPI, globalKeyNameForMeshInstanceMap, globalKeyNameForPhysicalMaterialInstanceMap,
     globalKeyNameForTextureInstanceMap,
 
 
@@ -23,7 +23,7 @@ export let setVariables = (engineSceneProtocolName, globalKeyNameForMeta3dState,
     _globalKeyNameForMeta3dState = globalKeyNameForMeta3dState
     _globalKeyNameForAPI = globalKeyNameForAPI
     _globalKeyNameForMeshInstanceMap = globalKeyNameForMeshInstanceMap
-    _globalKeyNameForStandardMaterialInstanceMap = globalKeyNameForStandardMaterialInstanceMap
+    _globalKeyNameForPhysicalMaterialInstanceMap = globalKeyNameForPhysicalMaterialInstanceMap
 
     _globalKeyNameForTextureInstanceMap = globalKeyNameForTextureInstanceMap
 
@@ -52,8 +52,8 @@ export let createEmptyMeshInstanceMap = (): void => {
     (globalThis as any)[_globalKeyNameForMeshInstanceMap] = []
 }
 
-export let createEmptyStandardMaterialInstanceMap = (): void => {
-    (globalThis as any)[_globalKeyNameForStandardMaterialInstanceMap] = []
+export let createEmptyPhysicalMaterialInstanceMap = (): void => {
+    (globalThis as any)[_globalKeyNameForPhysicalMaterialInstanceMap] = []
 }
 
 export let createEmptyTextureInstanceMap = (): void => {

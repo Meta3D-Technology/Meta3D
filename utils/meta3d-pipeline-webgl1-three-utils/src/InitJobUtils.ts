@@ -9,7 +9,10 @@ export let init = <converterService_ extends converterService>(meta3dState: meta
 
     let renderer = new threeAPIService.WebGLRenderer({
         antialias: true,
-        canvas: canvas,
+        /*! clone canvas to avoid change canvas by three.js
+        e.g. change canvas.width when invoke WebGLRenderer->setSize
+        */
+        canvas: canvas.cloneNode(),
         context: uiService.getContext(meta3dState)
     })
 

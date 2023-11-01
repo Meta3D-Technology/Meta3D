@@ -1,4 +1,4 @@
-import { state, states, pipelineName } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType"
+import { state, states, pipelineName } from "meta3d-pipeline-webgl1-three-sceneview-protocol/src/StateType"
 
 export let getState = (states: states): state  => {
     return states[pipelineName]

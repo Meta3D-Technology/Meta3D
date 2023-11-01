@@ -17,6 +17,7 @@ export let useFBO = (meta3dState: meta3dState, api: api, [uiService, webgl1Servi
         webgl1Service.getScissorTest(gl),
         gl
     )
+
     webgl1Service.viewport(0, 0, width, height, gl)
     webgl1Service.scissor(0, 0, width, height, gl)
 
