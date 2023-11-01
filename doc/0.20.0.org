@@ -179,6 +179,8 @@ TODO add PhysicalMaterial?
             setViewport
         not all transmission
         gameview no dragon?
+            TODO revert, use EffectComposer to get FBO texture
+                remove SetSizeAndViewportJob
 
         # fix fbo: no restore?
 
