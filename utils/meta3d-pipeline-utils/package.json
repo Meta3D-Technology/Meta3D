@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-utils",
-    "version": "0.19.1",
+    "version": "0.19.21",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },

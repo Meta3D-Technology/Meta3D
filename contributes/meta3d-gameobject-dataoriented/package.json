@@ -1,6 +1,6 @@
 {
   "name": "meta3d-gameobject-dataoriented",
-  "version": "0.19.1",
+  "version": "0.19.21",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "protocol": {
     "name": "meta3d-gameobject-protocol"
@@ -36,7 +36,7 @@
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
     "jest": "^25.2.3",
-    "meta3d-tool-publish": "^0.19.1",
+    "meta3d-tool-publish": "^0.19.21",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-scene-utils",
-    "version": "0.19.1",
+    "version": "0.19.21",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
@@ -15,7 +15,7 @@
         "meta3d-engine-core-sceneview-protocol": "^0.19.0",
         "meta3d-engine-scene-sceneview-protocol": "^0.19.0",
         "meta3d-gameobject-protocol": "^0.19.0",
-        "meta3d-pipeline-camera-sceneview-protocol": "^0.19.0",
+        "meta3d-pipeline-camera-sceneview-protocol": "^0.19.21",
         "meta3d-pipeline-root-sceneview-protocol": "^0.19.0",
         "meta3d-pipeline-transform-sceneview-protocol": "^0.19.0",
         "meta3d-texture-basicsource-protocol": "^0.19.0",

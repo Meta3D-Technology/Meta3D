@@ -1,13 +1,12 @@
 {
     "name": "meta3d-ts-contract-utils",
-    "version": "0.19.0",
+    "version": "0.19.21",
     "license": "MIT",
     "main": "src/Contract.ts",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
-    "dependencies": {},
     "devDependencies": {
         "typescript": "^4.2.3"
     }

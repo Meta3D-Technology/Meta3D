@@ -1,6 +1,6 @@
 {
     "name": "frontend-utils",
-    "version": "0.19.1",
+    "version": "0.19.21",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
