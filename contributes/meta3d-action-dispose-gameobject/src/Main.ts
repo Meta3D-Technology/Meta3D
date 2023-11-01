@@ -47,14 +47,16 @@ let _dispose = (meta3dState: meta3dState, api: api, selectedGameObject: gameObje
 
 
     return ensureCheck([
+        meta3dState,
         disposedGameObjectDataForSceneView,
         removedGameObjectsForSceneView,
         removedGameObjectsForGameView
     ], ([
+        meta3dState,
         disposedGameObjectDataForSceneView,
         removedGameObjectsForSceneView,
         removedGameObjectsForGameView
-    ]) => {
+    ]: any) => {
         test("removed gameObject should equal for both view", () => {
             return isArraysEqual(
                 removedGameObjectsForSceneView,
@@ -72,13 +74,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, selectedGameObject) => {
-                    let [
-                        disposedGameObjectDataForSceneView,
-                        removedGameObjectsForSceneView, removedGameObjectsForGameView
-                    ] =
-                        _dispose(meta3dState, api, selectedGameObject)
-
-                    let disposedGameObjectData = disposedGameObjectDataForSceneView as any as Array<removeGameObjectData>
+                    let data = _dispose(meta3dState, api, selectedGameObject)
+                    meta3dState = data[0] as meta3dState
+                    let disposedGameObjectData = [1] as any as Array<removeGameObjectData>
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {

@@ -19,6 +19,7 @@ import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-pro
 import { dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
 import { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
 import { assertEqual, ensureCheck, test } from "meta3d-ts-contract-utils"
+import { gameObject } from "meta3d-gameobject-protocol"
 
 let _import = (meta3dState: meta3dState, api: api, gltf: GLTF) => {
     let data = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
@@ -30,12 +31,14 @@ let _import = (meta3dState: meta3dState, api: api, gltf: GLTF) => {
     let importedGameObjectForGameView = data[1]
 
     return ensureCheck([
+        meta3dState,
         importedGameObjectForSceneView,
         importedGameObjectForGameView
     ], ([
+        meta3dState,
         importedGameObjectForSceneView,
         importedGameObjectForGameView
-    ]) => {
+    ]: [meta3dState, gameObject, gameObject]) => {
         test("imported gameObject should equal for both view", () => {
             return assertEqual(
                 importedGameObjectForSceneView,
@@ -74,9 +77,9 @@ export let getContribute: getContributeMeta3D<actionContribute<dropGlbUIData, st
 
                     return loadGlb(meta3dState, glb)
                         .then((gltf) => {
-                            let [importedGameObjectForSceneView, importedGameObjectForGameView] = _import(meta3dState, api, gltf)
-
-                            let importedGameObject = importedGameObjectForSceneView
+                            let data = _import(meta3dState, api, gltf)
+                            meta3dState = data[0]
+                            let importedGameObject = data[1]
 
                             meta3dState = setElementStateField([
                                 (elementState: any) => {

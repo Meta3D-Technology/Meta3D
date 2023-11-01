@@ -35,10 +35,12 @@ let _createCube = (meta3dState: meta3dState, api: api) => {
     let addedGameObjectForGameView = data[1] as gameObject
 
     return ensureCheck([
+        meta3dState,
         addedGameObjectForSceneView, addedGameObjectForGameView
     ], ([
+        meta3dState,
         addedGameObjectForSceneView, addedGameObjectForGameView
-    ]) => {
+    ]: [meta3dState, gameObject, gameObject]) => {
         test("added gameObject should equal for both view", () => {
             return assertEqual(addedGameObjectForSceneView, addedGameObjectForGameView
             )
@@ -54,9 +56,9 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    let [addedGameObjectForSceneView, addedGameObjectForGameView] = _createCube(meta3dState, api)
-
-                    let addedGameObject = addedGameObjectForSceneView
+                    let data = _createCube(meta3dState, api)
+                    meta3dState = data[0]
+                    let addedGameObject = data[1]
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {

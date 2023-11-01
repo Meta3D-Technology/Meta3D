@@ -28,12 +28,14 @@ let _clone = (meta3dState: meta3dState, api: api, selectedGameObject: gameObject
     let clonedGameObjectsForGameView = flatten(data[1])
 
     return ensureCheck([
+        meta3dState,
         clonedGameObjectsForSceneView,
         clonedGameObjectsForGameView
     ], ([
+        meta3dState,
         clonedGameObjectsForSceneView,
         clonedGameObjectsForGameView
-    ]) => {
+    ]: [meta3dState, Array<gameObject>, Array<gameObject>]) => {
         test("cloned gameObject should equal for both view", () => {
             return isArraysEqual(clonedGameObjectsForSceneView, clonedGameObjectsForGameView)
         })
@@ -48,10 +50,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, selectedGameObject) => {
-                    let [clonedGameObjectsForSceneView, clonedGameObjectsForGameView] = _clone(meta3dState, api, selectedGameObject)
-
-
-                    let clonedGameObjects = clonedGameObjectsForSceneView
+                    let data = _clone(meta3dState, api, selectedGameObject)
+                    meta3dState = data[0]
+                    let clonedGameObjects = data[1]
 
                     meta3dState = setElementStateField([
                         (elementState: any) => {
