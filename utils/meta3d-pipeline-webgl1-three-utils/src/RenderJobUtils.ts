@@ -47,7 +47,6 @@ export let render = (
         uiState
     )), canvas)
 
-
     // renderer.autoClear = false;
 
     renderPass.scene = scene

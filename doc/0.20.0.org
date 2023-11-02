@@ -203,9 +203,9 @@ fix: auto upgrade bug
 
 
 
-TODO set background(color) instead of setClearColor
+# TODO set background(color) instead of setClearColor
 
-TODO add ambient light
+# TODO add ambient light
 
 TODO setPixelRatio
 

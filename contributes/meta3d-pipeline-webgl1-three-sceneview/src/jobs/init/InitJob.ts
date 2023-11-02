@@ -26,5 +26,4 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
             })
         )
     })
-
 }
