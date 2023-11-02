@@ -5,6 +5,7 @@ import { service as converterService } from "meta3d-scenegraph-converter-three-s
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import type { WebGLRenderer } from "three"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+// import { EffectComposer } from "./EffectComposer"
 
 export const pipelineName = "WebGL1_Three_SceneView"
 
@@ -16,7 +17,6 @@ export enum pipeline {
 
 export enum job {
     ConvertSceneGraph = "convert_scenegraph_three_meta3d",
-    SetSizeAndViewport = "set_size_and_viewport_three_meta3d",
     Init = "init_three_meta3d",
     Render = "render_three_meta3d",
 }
@@ -49,10 +49,6 @@ export const allPipelineData: allPipelineDataType = [
                         "name": job.ConvertSceneGraph,
                         "type_": "job"
                     },
-                    {
-                        "name": job.SetSizeAndViewport,
-                        "type_": "job"
-                    },
                 ]
             },
         ],
@@ -76,6 +72,10 @@ export const allPipelineData: allPipelineDataType = [
     },
 ]
 
+type composer  = any
+
+type renderPass  = any
+
 export type state = {
     mostService: mostService,
     uiService: uiService,
@@ -83,6 +83,8 @@ export type state = {
     threeAPIService: threeAPIService,
 
     renderer: nullable<WebGLRenderer>,
+    composer: nullable<composer>
+    renderPass: nullable<renderPass>
     canvas: HTMLCanvasElement
 }
 

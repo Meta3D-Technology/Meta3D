@@ -62,7 +62,7 @@
 // 	VectorKeyframeTrack,
 // 	SRGBColorSpace
 // } from 'three';
-import { setThreeAPI, toTrianglesDrawMode } from './BufferGeometryUtils.js';
+import { setThreeAPI as setThreeAPIForBufferGeometryUtils, toTrianglesDrawMode } from './BufferGeometryUtils.js';
 import { Loader } from "./Loader"
 import { Interpolant } from "./Interpolant"
 
@@ -130,9 +130,7 @@ let AnimationClip,
 	SRGBColorSpace
 
 
-class GLTFLoader extends Loader {
-
-	constructor(manager, threeAPIObj, threeAPIObjForBufferGeometryUtils) {
+export let setThreeAPI = (threeAPIObj) => {
 		AnimationClip = threeAPIObj.AnimationClip
 		Bone = threeAPIObj.Bone
 		Box3 = threeAPIObj.Box3
@@ -196,9 +194,13 @@ class GLTFLoader extends Loader {
 		VectorKeyframeTrack = threeAPIObj.VectorKeyframeTrack
 		SRGBColorSpace = threeAPIObj.SRGBColorSpac
 
-		setThreeAPI(threeAPIObjForBufferGeometryUtils)
+		setThreeAPIForBufferGeometryUtils(threeAPIObj)
+}
 
 
+class GLTFLoader extends Loader {
+
+	constructor(manager) {
 		_q = new Quaternion()
 		_identityMatrix = new Matrix4()
 

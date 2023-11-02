@@ -163,6 +163,9 @@ TODO test publish
 
 TODO need publish:
 # scenegraph s,g
+# three api
+# webgl1-three s,g
+# meta3d-pipeline-editor-webgl1-scene/game-view1
 
 
 
@@ -180,7 +183,21 @@ TODO add PhysicalMaterial?
         not all transmission
         gameview no dragon?
             TODO revert, use EffectComposer to get FBO texture
+                TODO need auto update 
+                remove fbo job
                 remove SetSizeAndViewportJob
+                SetSizeAndViewport before render
+                create and add pass when init, add texture after render
+                    no light
+                        intensity set to 5
+                    viewrect error
+                    set clearColor, Alpha to renderPass
+
+                    //game view need loop
+
+fix: load glb error
+
+fix: auto upgrade bug
 
         # fix fbo: no restore?
 
@@ -203,8 +220,16 @@ e.g. Dragon, ...
 *** TODO pass run test: load all gltf/ models
 
 
+TODO compare three effect
+
+
+
 *** TODO run test: publish
 
+
+
+
+* TODO solve memory leak
 
 
 

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-engine-whole-gameview",
-    "version": "0.19.21",
+    "version": "0.19.22",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-whole-gameview-protocol"
@@ -23,7 +23,6 @@
         "meta3d-engine-whole-gameview-protocol": "^0.19.0",
         "meta3d-pipeline-camera-gameview-protocol": "^0.19.0",
         "meta3d-pipeline-editor-webgl1-game-view1-protocol": "^0.19.21",
-        "meta3d-pipeline-editor-webgl1-game-view2-protocol": "^0.19.0",
         "meta3d-pipeline-root-gameview-protocol": "^0.19.0",
         "meta3d-pipeline-webgl1-three-gameview-protocol": "^0.19.21",
         "meta3d-scenegraph-converter-three-gameview-protocol": "^0.19.0",

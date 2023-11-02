@@ -1,5 +1,11 @@
 import type { Object3D, AnimationClip, Texture, Material, Mesh } from 'three';
 
+/*! add by meta3d
+* 
+*/
+export function setThreeAPI(threeAPIObj: any): void
+
+
 export interface GLTFExporterOptions {
     /**
      * Export position, rotation and scale instead of matrix per node. Default is false
@@ -48,11 +54,7 @@ export interface GLTFExporterOptions {
 }
 
 export class GLTFExporter {
-    /*! edit by Meta3D
-    * 
-    */
-    // constructor();
-    constructor(threeAPIObj: any, threeAPIObjForTextureUtils: any);
+    constructor();
 
     register(callback: (writer: GLTFWriter) => GLTFExporterPlugin): this;
     unregister(callback: (writer: GLTFWriter) => GLTFExporterPlugin): this;

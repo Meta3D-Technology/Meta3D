@@ -6,7 +6,10 @@ import { state as engineCoreState } from "meta3d-engine-core-gameview-protocol/s
 import { pipelineContribute } from "meta3d-engine-core-gameview-protocol/src/contribute/work/PipelineContributeType"
 import { config as view1Config } from "meta3d-pipeline-editor-webgl1-view1-three-gameview-protocol/src/ConfigType";
 import { state as view1State } from "meta3d-pipeline-editor-webgl1-view1-three-gameview-protocol/src/StateType";
-import { state as threeState, states as threeStates } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType";
+import {
+	state as threeState, states as threeStates,
+	pipeline as pipelineThree, job as pipelineThreeJob
+} from "meta3d-pipeline-webgl1-three-gameview-protocol/src/StateType";
 import { config as threeConfig } from "meta3d-pipeline-webgl1-three-gameview-protocol/src/ConfigType";
 import { state as viewRectState, states as viewRectStates } from "meta3d-pipeline-viewrect-gameview-protocol/src/StateType";
 import { config as viewRectConfig } from "meta3d-pipeline-viewrect-gameview-protocol/src/ConfigType";
@@ -14,7 +17,6 @@ import { state as disposeState, states as disposeStates } from "meta3d-pipeline-
 import { config as disposeConfig } from "meta3d-pipeline-dispose-gameview-protocol/src/ConfigType";
 import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-gameview-protocol/src/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-gameview-protocol/src/StateType"
-import { pipeline as pipelineGameView1Pipeline, job as pipelineGameView1Job } from "meta3d-pipeline-editor-webgl1-game-view1-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -90,9 +92,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				null,
 				[
 					{
-						pipelineName: pipelineGameView1Pipeline.Render,
-						insertElementName: pipelineGameView1Job.UseFBO,
-						insertAction: "before"
+						pipelineName: pipelineThree.Render,
+						insertElementName: pipelineThreeJob.Render,
+						insertAction: "after"
 					}
 				]
 			)

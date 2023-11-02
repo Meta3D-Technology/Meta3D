@@ -146,7 +146,8 @@ let _createDirectionLightGameObject = (meta3dState: meta3dState, { scene }: engi
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 0, 1])
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [0, 1, 1])
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [1, 0.1, 1])
-    meta3dState = scene.transform.lookAt(meta3dState, transform, [-0.2, -0.1, -1])
+    // meta3dState = scene.transform.lookAt(meta3dState, transform, [-0.2, -0.1, -1])
+    meta3dState = scene.transform.lookAt(meta3dState, transform, [-0.2, -0.1, -0.2])
     // meta3dState = scene.transform.lookAt(meta3dState, transform, [0.2, 0.1, 1])
 
 
@@ -158,7 +159,7 @@ let _createDirectionLightGameObject = (meta3dState: meta3dState, { scene }: engi
     meta3dState = data[0]
     let directionLight = data[1]
     meta3dState = scene.directionLight.setColor(meta3dState, directionLight, [1.0, 1.0, 1.0])
-    meta3dState = scene.directionLight.setIntensity(meta3dState, directionLight, 1)
+    meta3dState = scene.directionLight.setIntensity(meta3dState, directionLight, 5)
     meta3dState = scene.gameObject.addDirectionLight(meta3dState, gameObject, directionLight)
 
 

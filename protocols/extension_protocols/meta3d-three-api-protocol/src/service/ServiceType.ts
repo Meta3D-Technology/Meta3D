@@ -21,6 +21,8 @@ import type {
 	Source,
 	SRGBColorSpace,
 	CompressedTexture,
+	DepthTexture,
+
 
 	PlaneGeometry,
 	ShaderMaterial,
@@ -78,6 +80,12 @@ import type {
 
 	TangentSpaceNormalMap,
 	ObjectSpaceNormalMap,
+	WebGLRenderTarget,
+
+	HalfFloatType,
+	Float32BufferAttribute,
+	UniformsUtils,
+	Clock
 } from "three";
 
 export type service = {
@@ -85,6 +93,7 @@ export type service = {
 	Color: typeof Color, CubeTexture: typeof CubeTexture, FrontSide: typeof FrontSide, Layers: typeof Layers, Matrix3: typeof Matrix3, Matrix4: typeof Matrix4, NoBlending: typeof NoBlending, Sphere: typeof Sphere, Texture: typeof Texture, Vector3: typeof Vector3,
 	Quaternion: typeof Quaternion,
 	WebGLRenderer: typeof WebGLRenderer,
+	WebGLRenderTarget: typeof WebGLRenderTarget,
 	ClampToEdgeWrapping: typeof ClampToEdgeWrapping,
 	DoubleSide: typeof DoubleSide,
 	InterpolateDiscrete: typeof InterpolateDiscrete,
@@ -105,6 +114,7 @@ export type service = {
 	Source: typeof Source,
 	SRGBColorSpace: typeof SRGBColorSpace,
 	CompressedTexture: typeof CompressedTexture,
+	DepthTexture: typeof DepthTexture,
 
 	PlaneGeometry: typeof PlaneGeometry,
 	ShaderMaterial: typeof ShaderMaterial,
@@ -161,4 +171,9 @@ export type service = {
 
 	TangentSpaceNormalMap: typeof TangentSpaceNormalMap,
 	ObjectSpaceNormalMap: typeof ObjectSpaceNormalMap,
+
+	HalfFloatType: typeof HalfFloatType
+	Float32BufferAttribute: typeof Float32BufferAttribute,
+	UniformsUtils: typeof UniformsUtils,
+	Clock:typeof Clock,
 }

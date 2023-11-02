@@ -22,6 +22,16 @@ import {
 // import { DRACOLoader } from './DRACOLoader.js';
 // import { KTX2Loader } from './KTX2Loader.js';
 
+
+
+/*! add by meta3d
+* 
+*/
+export function setThreeAPI(threeAPIObj: any): void
+
+
+
+
 export interface GLTF {
     animations: AnimationClip[];
     scene: Group;
@@ -39,19 +49,9 @@ export interface GLTF {
     userData: any;
 }
 
-export class GLTFLoader extends Loader {
-    // constructor(manager?: LoadingManager);
-    constructor(manager: LoadingManager, threeAPIObj: any, threeAPIObjForTextureUtils: any);
-
+export class GLTFLoader extends Loader<GLTF> {
+    constructor(manager?: LoadingManager);
     // dracoLoader: DRACOLoader | null;
-
-    load(
-        url: string,
-        onLoad: (gltf: GLTF) => void,
-        onProgress?: (event: ProgressEvent) => void,
-        onError?: (event: ErrorEvent) => void,
-    ): void;
-    loadAsync(url: string, onProgress?: (event: ProgressEvent) => void): Promise<GLTF>;
 
     // setDRACOLoader(dracoLoader: DRACOLoader): GLTFLoader;
 
@@ -150,8 +150,8 @@ export interface GLTFLoaderPlugin {
     loadTexture?: ((textureIndex: number) => Promise<Texture> | null) | undefined;
     getMaterialType?: ((materialIndex: number) => typeof Material | null) | undefined;
     extendMaterialParams?:
-    | ((materialIndex: number, materialParams: { [key: string]: any }) => Promise<any> | null)
-    | undefined;
+        | ((materialIndex: number, materialParams: { [key: string]: any }) => Promise<any> | null)
+        | undefined;
     createNodeMesh?: ((nodeIndex: number) => Promise<Group | Mesh | SkinnedMesh> | null) | undefined;
     createNodeAttachment?: ((nodeIndex: number) => Promise<Object3D> | null) | undefined;
 }

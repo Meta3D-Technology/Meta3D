@@ -25,7 +25,7 @@
 // 	CompressedTexture,
 // 	Vector3
 // } from 'three';
-import { decompress, setThreeAPI } from './TextureUtils.js';
+import { decompress, setThreeAPI as setThreeAPIForTextureUtils } from './TextureUtils.js';
 
 let BufferAttribute,
 	ClampToEdgeWrapping,
@@ -91,56 +91,52 @@ const KHR_mesh_quantization_ExtraAttrTypes = {
 };
 
 
+export let setThreeAPI = (threeAPIObj) => {
+	BufferAttribute = threeAPIObj.BufferAttribute
+	ClampToEdgeWrapping = threeAPIObj.ClampToEdgeWrapping
+	Color = threeAPIObj.Color
+	DoubleSide = threeAPIObj.DoubleSide
+	InterpolateDiscrete = threeAPIObj.InterpolateDiscrete
+	InterpolateLinear = threeAPIObj.InterpolateLinear
+	NoColorSpace = threeAPIObj.NoColorSpace
+	LinearFilter = threeAPIObj.LinearFilter
+	LinearMipmapLinearFilter = threeAPIObj.LinearMipmapLinearFilter
+	LinearMipmapNearestFilter = threeAPIObj.LinearMipmapNearestFilter
+	MathUtils = threeAPIObj.MathUtils
+	Matrix4 = threeAPIObj.Matrix4
+	MirroredRepeatWrapping = threeAPIObj.MirroredRepeatWrapping
+	NearestFilter = threeAPIObj.NearestFilter
+	NearestMipmapLinearFilter = threeAPIObj.NearestMipmapLinearFilter
+	NearestMipmapNearestFilter = threeAPIObj.NearestMipmapNearestFilter
+	PropertyBinding = threeAPIObj.PropertyBinding
+	RGBAFormat = threeAPIObj.RGBAFormat
+	RepeatWrapping = threeAPIObj.RepeatWrapping
+	Scene = threeAPIObj.Scene
+	Source = threeAPIObj.Source
+	SRGBColorSpace = threeAPIObj.SRGBColorSpace
+	CompressedTexture = threeAPIObj.CompressedTexture
+	Vector3 = threeAPIObj.Vector3
+
+
+	THREE_TO_WEBGL[NearestFilter] = WEBGL_CONSTANTS.NEAREST;
+	THREE_TO_WEBGL[NearestMipmapNearestFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_NEAREST;
+	THREE_TO_WEBGL[NearestMipmapLinearFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_LINEAR;
+	THREE_TO_WEBGL[LinearFilter] = WEBGL_CONSTANTS.LINEAR;
+	THREE_TO_WEBGL[LinearMipmapNearestFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_NEAREST;
+	THREE_TO_WEBGL[LinearMipmapLinearFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_LINEAR;
+
+	THREE_TO_WEBGL[ClampToEdgeWrapping] = WEBGL_CONSTANTS.CLAMP_TO_EDGE;
+	THREE_TO_WEBGL[RepeatWrapping] = WEBGL_CONSTANTS.REPEAT;
+	THREE_TO_WEBGL[MirroredRepeatWrapping] = WEBGL_CONSTANTS.MIRRORED_REPEAT;
+
+	setThreeAPIForTextureUtils(threeAPIObj)
+}
+
+
+
+
 class GLTFExporter {
-
-	constructor(threeAPIObj, threeAPIObjForTextureUtils) {
-		BufferAttribute = threeAPIObj.BufferAttribute
-		ClampToEdgeWrapping = threeAPIObj.ClampToEdgeWrapping
-		Color = threeAPIObj.Color
-		DoubleSide = threeAPIObj.DoubleSide
-		InterpolateDiscrete = threeAPIObj.InterpolateDiscrete
-		InterpolateLinear = threeAPIObj.InterpolateLinear
-		NoColorSpace = threeAPIObj.NoColorSpace
-		LinearFilter = threeAPIObj.LinearFilter
-		LinearMipmapLinearFilter = threeAPIObj.LinearMipmapLinearFilter
-		LinearMipmapNearestFilter = threeAPIObj.LinearMipmapNearestFilter
-		MathUtils = threeAPIObj.MathUtils
-		Matrix4 = threeAPIObj.Matrix4
-		MirroredRepeatWrapping = threeAPIObj.MirroredRepeatWrapping
-		NearestFilter = threeAPIObj.NearestFilter
-		NearestMipmapLinearFilter = threeAPIObj.NearestMipmapLinearFilter
-		NearestMipmapNearestFilter = threeAPIObj.NearestMipmapNearestFilter
-		PropertyBinding = threeAPIObj.PropertyBinding
-		RGBAFormat = threeAPIObj.RGBAFormat
-		RepeatWrapping = threeAPIObj.RepeatWrapping
-		Scene = threeAPIObj.Scene
-		Source = threeAPIObj.Source
-		SRGBColorSpace = threeAPIObj.SRGBColorSpace
-		CompressedTexture = threeAPIObj.CompressedTexture
-		Vector3 = threeAPIObj.Vector3
-
-
-		THREE_TO_WEBGL[NearestFilter] = WEBGL_CONSTANTS.NEAREST;
-		THREE_TO_WEBGL[NearestMipmapNearestFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_NEAREST;
-		THREE_TO_WEBGL[NearestMipmapLinearFilter] = WEBGL_CONSTANTS.NEAREST_MIPMAP_LINEAR;
-		THREE_TO_WEBGL[LinearFilter] = WEBGL_CONSTANTS.LINEAR;
-		THREE_TO_WEBGL[LinearMipmapNearestFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_NEAREST;
-		THREE_TO_WEBGL[LinearMipmapLinearFilter] = WEBGL_CONSTANTS.LINEAR_MIPMAP_LINEAR;
-
-		THREE_TO_WEBGL[ClampToEdgeWrapping] = WEBGL_CONSTANTS.CLAMP_TO_EDGE;
-		THREE_TO_WEBGL[RepeatWrapping] = WEBGL_CONSTANTS.REPEAT;
-		THREE_TO_WEBGL[MirroredRepeatWrapping] = WEBGL_CONSTANTS.MIRRORED_REPEAT;
-
-
-		setThreeAPI(threeAPIObjForTextureUtils)
-
-
-
-
-
-
-
-
+	constructor() {
 		DEFAULT_SPECULAR_COLOR = new Color()
 
 

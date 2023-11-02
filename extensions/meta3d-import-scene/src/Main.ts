@@ -81,7 +81,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                         engineWholeService,
                         // api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol"),
                         // "meta3d-event-protocol",
-                        [canvas.width, canvas.height],
+                        // [canvas.width, canvas.height],
                     )
                     meta3dState = data2[0]
                     let arcballCameraControllerGameObject = data2[2]

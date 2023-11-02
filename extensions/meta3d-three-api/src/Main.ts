@@ -8,6 +8,7 @@ import { getExtensionService as getExtensionServiceMeta3D, createExtensionState 
 import {
     BufferAttribute, Color, CubeTexture, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Texture, Vector3,
     Quaternion, WebGLRenderer,
+    WebGLRenderTarget,
     ClampToEdgeWrapping,
     DoubleSide,
     InterpolateDiscrete,
@@ -28,6 +29,7 @@ import {
     Source,
     SRGBColorSpace,
     CompressedTexture,
+    DepthTexture,
 
     PlaneGeometry,
     ShaderMaterial,
@@ -86,11 +88,16 @@ import {
     TangentSpaceNormalMap,
     ObjectSpaceNormalMap,
 
+    HalfFloatType,
+    Float32BufferAttribute,
+    UniformsUtils,
+    Clock,
 } from "three";
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
     return {
         WebGLRenderer: WebGLRenderer,
+        WebGLRenderTarget: WebGLRenderTarget,
         BufferAttribute: BufferAttribute,
         Color: Color,
         CubeTexture: CubeTexture,
@@ -123,6 +130,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
         Source: Source,
         SRGBColorSpace: SRGBColorSpace,
         CompressedTexture: CompressedTexture,
+        DepthTexture: DepthTexture,
         PlaneGeometry: PlaneGeometry,
         ShaderMaterial: ShaderMaterial,
         Uniform: Uniform,
@@ -179,6 +187,11 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
 
         TangentSpaceNormalMap: TangentSpaceNormalMap,
         ObjectSpaceNormalMap: ObjectSpaceNormalMap,
+
+        HalfFloatType: HalfFloatType,
+        Float32BufferAttribute: Float32BufferAttribute,
+        UniformsUtils: UniformsUtils,
+        Clock: Clock
     }
 }
 

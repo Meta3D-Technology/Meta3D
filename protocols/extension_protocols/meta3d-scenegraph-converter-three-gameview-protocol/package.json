@@ -12,7 +12,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "@types/three": "0.154.0"
+        "@types/three": "0.158.1"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
