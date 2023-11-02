@@ -3,12 +3,15 @@ import { state } from "meta3d-load-scene-protocol/src/state/StateType"
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, api } from "meta3d-type"
 import { service as converterGameViewService } from "meta3d-scenegraph-converter-three-gameview-protocol/src/service/ServiceType"
 import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"
-import { loadGlb, activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
+import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
+import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
         loadScene: (meta3dState, sceneGLB) => {
-            return loadGlb(meta3dState, api, sceneGLB)
+            let { loadGlb } = api.getExtensionService<loadGLBService>(meta3dState, "meta3d-load-glb-protocol")
+
+            return loadGlb(meta3dState, sceneGLB)
                 .then((gltf) => {
                     let data = api.getExtensionService<converterGameViewService>(meta3dState, "meta3d-scenegraph-converter-three-gameview-protocol").import(meta3dState, gltf.scene)
                     meta3dState = data[0]

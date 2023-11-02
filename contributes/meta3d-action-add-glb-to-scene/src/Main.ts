@@ -17,11 +17,11 @@ import { service as engineWholeGameViewService } from "meta3d-engine-whole-gamev
 import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
 import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-protocol"
 import { dropGlbUIData } from "meta3d-ui-control-scene-view-protocol"
-import { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
+// import { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
 import { assertEqual, ensureCheck, test } from "meta3d-ts-contract-utils"
 import { gameObject } from "meta3d-gameobject-protocol"
 
-let _import = (meta3dState: meta3dState, api: api, gltf: GLTF) => {
+let _import = (meta3dState: meta3dState, api: api, gltf: any) => {
     let data = api.getExtensionService<converterSceneViewService>(meta3dState, "meta3d-scenegraph-converter-three-sceneview-protocol").import(meta3dState, gltf.scene)
     meta3dState = data[0]
     let importedGameObjectForSceneView = data[1]

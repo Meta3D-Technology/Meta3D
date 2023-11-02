@@ -214,7 +214,11 @@ TODO compare three effect:
 e.g. Dragon, ...
 
 
-*** TODO support DracoLoader
+*** DONE support DracoLoader, KTX2loader
+
+TODO need publish:
+# meta3d-load-glb
+
 
 
 *** TODO pass run test: load all gltf/ models
@@ -226,10 +230,20 @@ TODO compare three effect
 
 *** TODO run test: publish
 
+TODO support DracoLoader, KTX2loader
 
 
 
-* TODO solve memory leak
+
+
+
+* TODO perf: solve memory leak
+
+
+
+* TODO perf: optimize editor runtime
+
+
 
 
 

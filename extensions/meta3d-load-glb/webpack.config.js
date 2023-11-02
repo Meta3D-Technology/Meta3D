@@ -10,7 +10,7 @@ module.exports = {
 		library: {
 			name: 'Extension',
 			type: 'window',
-		},
+		}
 	},
 
 	// Enable sourcemaps for debugging webpack's output.

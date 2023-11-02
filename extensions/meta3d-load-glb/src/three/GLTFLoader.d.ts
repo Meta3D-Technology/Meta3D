@@ -19,8 +19,8 @@ import {
     Skeleton,
 } from 'three';
 
-// import { DRACOLoader } from './DRACOLoader.js';
-// import { KTX2Loader } from './KTX2Loader.js';
+import { DRACOLoader } from './DRACOLoader.js';
+import { KTX2Loader } from './KTX2Loader.js';
 
 
 
@@ -51,14 +51,14 @@ export interface GLTF {
 
 export class GLTFLoader extends Loader<GLTF> {
     constructor(manager?: LoadingManager);
-    // dracoLoader: DRACOLoader | null;
+    dracoLoader: DRACOLoader | null;
 
-    // setDRACOLoader(dracoLoader: DRACOLoader): GLTFLoader;
+    setDRACOLoader(dracoLoader: DRACOLoader): GLTFLoader;
 
     register(callback: (parser: GLTFParser) => GLTFLoaderPlugin): GLTFLoader;
     unregister(callback: (parser: GLTFParser) => GLTFLoaderPlugin): GLTFLoader;
 
-    // setKTX2Loader(ktx2Loader: KTX2Loader): GLTFLoader;
+    setKTX2Loader(ktx2Loader: KTX2Loader): GLTFLoader;
     setMeshoptDecoder(meshoptDecoder: /* MeshoptDecoder */ any): GLTFLoader;
 
     parse(
@@ -86,7 +86,7 @@ export class GLTFParser {
     options: {
         path: string;
         manager: LoadingManager;
-        // ktx2Loader: KTX2Loader;
+        ktx2Loader: KTX2Loader;
         meshoptDecoder: /* MeshoptDecoder */ any;
         crossOrigin: string;
         requestHeader: { [header: string]: string };

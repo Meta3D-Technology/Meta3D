@@ -85,7 +85,28 @@ import type {
 	HalfFloatType,
 	Float32BufferAttribute,
 	UniformsUtils,
-	Clock
+	Clock,
+
+	LinearSRGBColorSpace,
+	CompressedArrayTexture,
+	Data3DTexture,
+	DataTexture,
+	DisplayP3ColorSpace,
+	FloatType,
+	LinearDisplayP3ColorSpace,
+	RedFormat,
+	RGB_ETC1_Format,
+	RGB_ETC2_Format,
+	RGB_PVRTC_4BPPV1_Format,
+	RGB_S3TC_DXT1_Format,
+	RGBA_ASTC_4x4_Format,
+	RGBA_ASTC_6x6_Format,
+	RGBA_BPTC_Format,
+	RGBA_ETC2_EAC_Format,
+	RGBA_PVRTC_4BPPV1_Format,
+	RGBA_S3TC_DXT5_Format,
+	RGFormat,
+	UnsignedByteType
 } from "three";
 
 export type service = {
@@ -175,5 +196,26 @@ export type service = {
 	HalfFloatType: typeof HalfFloatType
 	Float32BufferAttribute: typeof Float32BufferAttribute,
 	UniformsUtils: typeof UniformsUtils,
-	Clock:typeof Clock,
+	Clock: typeof Clock,
+
+	LinearSRGBColorSpace: typeof LinearSRGBColorSpace,
+	CompressedArrayTexture: typeof CompressedArrayTexture,
+	Data3DTexture: typeof Data3DTexture,
+	DataTexture: typeof DataTexture,
+	DisplayP3ColorSpace: typeof DisplayP3ColorSpace,
+	FloatType: typeof FloatType,
+	LinearDisplayP3ColorSpace: typeof LinearDisplayP3ColorSpace,
+	RedFormat: typeof RedFormat,
+	RGB_ETC1_Format: typeof RGB_ETC1_Format,
+	RGB_ETC2_Format: typeof RGB_ETC2_Format,
+	RGB_PVRTC_4BPPV1_Format: typeof RGB_PVRTC_4BPPV1_Format,
+	RGB_S3TC_DXT1_Format: typeof RGB_S3TC_DXT1_Format,
+	RGBA_ASTC_4x4_Format: typeof RGBA_ASTC_4x4_Format,
+	RGBA_ASTC_6x6_Format: typeof RGBA_ASTC_6x6_Format,
+	RGBA_BPTC_Format: typeof RGBA_BPTC_Format,
+	RGBA_ETC2_EAC_Format: typeof RGBA_ETC2_EAC_Format,
+	RGBA_PVRTC_4BPPV1_Format: typeof RGBA_PVRTC_4BPPV1_Format,
+	RGBA_S3TC_DXT5_Format: typeof RGBA_S3TC_DXT5_Format,
+	RGFormat: typeof RGFormat,
+	UnsignedByteType: typeof UnsignedByteType
 }

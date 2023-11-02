@@ -20,8 +20,6 @@ export let getContribute: getContributeMeta3D<actionContribute<loadGlbUIData, st
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, glb, glbId, glbName) => {
-                    // let { loadGlb } = api.getExtensionService<loadGLBService>(meta3dState, "meta3d-load-glb-protocol")
-
                     meta3dState = setElementStateField([
                         (elementState: any) => {
                             let state = getState(elementState)

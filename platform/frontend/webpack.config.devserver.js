@@ -2,6 +2,8 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const WriteFilePlugin = require('write-file-webpack-plugin')
 
 module.exports = {
     entry: "./lib/es6_global/src/Main.bs.js",
@@ -16,7 +18,10 @@ module.exports = {
         compress: true,
         historyApiFallback: true,
         port: 8090,
-        open: true
+        open: true,
+        devMiddleware: {
+            writeToDisk: true,
+        },
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -105,6 +110,19 @@ module.exports = {
             template: './index.html',
             filename: 'index.html'
         }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'static/three/draco',
+                    to: 'static/three/draco'
+                },
+                {
+                    from: 'static/three/basis',
+                    to: 'static/three/basis'
+                }
+            ],
+        }),
+        // new WriteFilePlugin(),
     ],
     // // When importing a module whose path matches one of the following, just
     // // assume a corresponding global variable exists and use that instead.

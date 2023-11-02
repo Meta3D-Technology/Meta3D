@@ -92,6 +92,27 @@ import {
     Float32BufferAttribute,
     UniformsUtils,
     Clock,
+
+    LinearSRGBColorSpace,
+    CompressedArrayTexture,
+    Data3DTexture,
+    DataTexture,
+    DisplayP3ColorSpace,
+    FloatType,
+    LinearDisplayP3ColorSpace,
+    RedFormat,
+    RGB_ETC1_Format,
+    RGB_ETC2_Format,
+    RGB_PVRTC_4BPPV1_Format,
+    RGB_S3TC_DXT1_Format,
+    RGBA_ASTC_4x4_Format,
+    RGBA_ASTC_6x6_Format,
+    RGBA_BPTC_Format,
+    RGBA_ETC2_EAC_Format,
+    RGBA_PVRTC_4BPPV1_Format,
+    RGBA_S3TC_DXT5_Format,
+    RGFormat,
+    UnsignedByteType
 } from "three";
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
@@ -191,7 +212,28 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
         HalfFloatType: HalfFloatType,
         Float32BufferAttribute: Float32BufferAttribute,
         UniformsUtils: UniformsUtils,
-        Clock: Clock
+        Clock: Clock,
+
+        LinearSRGBColorSpace: LinearSRGBColorSpace,
+        CompressedArrayTexture,
+        Data3DTexture,
+        DataTexture,
+        DisplayP3ColorSpace,
+        FloatType,
+        LinearDisplayP3ColorSpace,
+        RedFormat,
+        RGB_ETC1_Format,
+        RGB_ETC2_Format,
+        RGB_PVRTC_4BPPV1_Format,
+        RGB_S3TC_DXT1_Format,
+        RGBA_ASTC_4x4_Format,
+        RGBA_ASTC_6x6_Format,
+        RGBA_BPTC_Format,
+        RGBA_ETC2_EAC_Format,
+        RGBA_PVRTC_4BPPV1_Format,
+        RGBA_S3TC_DXT5_Format,
+        RGFormat,
+        UnsignedByteType
     }
 }
 

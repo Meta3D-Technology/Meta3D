@@ -1,6 +1,6 @@
 {
     "name": "meta3d-load-glb",
-    "version": "0.19.21",
+    "version": "0.19.24",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-load-glb",
     "protocol": {
@@ -15,6 +15,9 @@
     "dependencies": {
         "meta3d-load-glb-protocol": "^0.19.0",
         "meta3d-three-api-protocol": "^0.19.0",
+        "meta3d-engine-whole-gameview-protocol": "^0.19.0",
+        "meta3d-engine-whole-sceneview-protocol": "^0.19.0",
+        "meta3d-event-protocol": "^0.19.0",
         "meta3d-type": "^0.19.1"
     },
     "devDependencies": {

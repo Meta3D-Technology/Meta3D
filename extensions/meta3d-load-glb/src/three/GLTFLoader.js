@@ -66,6 +66,9 @@ import { setThreeAPI as setThreeAPIForBufferGeometryUtils, toTrianglesDrawMode }
 import { Loader } from "./Loader"
 import { Interpolant } from "./Interpolant"
 
+import { setThreeAPI as setThreeAPIForDRACOLoader } from './DRACOLoader.js';
+import { setThreeAPI as setThreeAPIForKTX2Loader } from './KTX2Loader.js';
+
 let AnimationClip,
 	Bone,
 	Box3,
@@ -131,72 +134,73 @@ let AnimationClip,
 
 
 export let setThreeAPI = (threeAPIObj) => {
-		AnimationClip = threeAPIObj.AnimationClip
-		Bone = threeAPIObj.Bone
-		Box3 = threeAPIObj.Box3
-		BufferAttribute = threeAPIObj.BufferAttribute
-		BufferGeometry = threeAPIObj.BufferGeometry
-		ClampToEdgeWrapping = threeAPIObj.ClampToEdgeWrapping
-		Color = threeAPIObj.Color
-		DirectionalLight = threeAPIObj.DirectionalLight
-		DoubleSide = threeAPIObj.DoubleSide
-		FileLoader = threeAPIObj.FileLoader
-		FrontSide = threeAPIObj.FrontSide
-		Group = threeAPIObj.Group
-		ImageBitmapLoader = threeAPIObj.ImageBitmapLoader
-		InstancedMesh = threeAPIObj.InstancedMesh
-		InterleavedBuffer = threeAPIObj.InterleavedBuffer
-		InterleavedBufferAttribute = threeAPIObj.InterleavedBufferAttribute
-		// Interpolant = threeAPIObj.Interpolant
-		InterpolateDiscrete = threeAPIObj.InterpolateDiscrete
-		InterpolateLinear = threeAPIObj.InterpolateLinear
-		Line = threeAPIObj.Line
-		LineBasicMaterial = threeAPIObj.LineBasicMaterial
-		LineLoop = threeAPIObj.LineLoop
-		LineSegments = threeAPIObj.LineSegments
-		LinearFilter = threeAPIObj.LinearFilter
-		LinearMipmapLinearFilter = threeAPIObj.LinearMipmapLinearFilter
-		LinearMipmapNearestFilter = threeAPIObj.LinearMipmapNearestFilter
-		// Loader = threeAPIObj.Loader
-		LoaderUtils = threeAPIObj.LoaderUtils
-		Material = threeAPIObj.Material
-		MathUtils = threeAPIObj.MathUtils
-		Matrix4 = threeAPIObj.Matrix4
-		Mesh = threeAPIObj.Mesh
-		MeshBasicMaterial = threeAPIObj.MeshBasicMaterial
-		MeshPhysicalMaterial = threeAPIObj.MeshPhysicalMaterial
-		MeshStandardMaterial = threeAPIObj.MeshStandardMaterial
-		MirroredRepeatWrapping = threeAPIObj.MirroredRepeatWrapping
-		NearestFilter = threeAPIObj.NearestFilter
-		NearestMipmapLinearFilter = threeAPIObj.NearestMipmapLinearFilter
-		NearestMipmapNearestFilter = threeAPIObj.NearestMipmapNearestFilter
-		NumberKeyframeTrack = threeAPIObj.NumberKeyframeTrack
-		Object3D = threeAPIObj.Object3D
-		OrthographicCamera = threeAPIObj.OrthographicCamera
-		PerspectiveCamera = threeAPIObj.PerspectiveCamera
-		PointLight = threeAPIObj.PointLight
-		Points = threeAPIObj.Points
-		PointsMaterial = threeAPIObj.PointsMaterial
-		PropertyBinding = threeAPIObj.PropertyBinding
-		Quaternion = threeAPIObj.Quaternion
-		QuaternionKeyframeTrack = threeAPIObj.QuaternionKeyframeTrack
-		RepeatWrapping = threeAPIObj.RepeatWrapping
-		Skeleton = threeAPIObj.Skeleton
-		SkinnedMesh = threeAPIObj.SkinnedMesh
-		Sphere = threeAPIObj.Sphere
-		SpotLight = threeAPIObj.SpotLight
-		Texture = threeAPIObj.Texture
-		TextureLoader = threeAPIObj.TextureLoader
-		TriangleFanDrawMode = threeAPIObj.TriangleFanDrawMode
-		TriangleStripDrawMode = threeAPIObj.TriangleStripDrawMode
-		Vector2 = threeAPIObj.Vector2
-		Vector3 = threeAPIObj.Vector3
-		VectorKeyframeTrack = threeAPIObj.VectorKeyframeTrack
-		SRGBColorSpace = threeAPIObj.SRGBColorSpac
+	AnimationClip = threeAPIObj.AnimationClip
+	Bone = threeAPIObj.Bone
+	Box3 = threeAPIObj.Box3
+	BufferAttribute = threeAPIObj.BufferAttribute
+	BufferGeometry = threeAPIObj.BufferGeometry
+	ClampToEdgeWrapping = threeAPIObj.ClampToEdgeWrapping
+	Color = threeAPIObj.Color
+	DirectionalLight = threeAPIObj.DirectionalLight
+	DoubleSide = threeAPIObj.DoubleSide
+	FileLoader = threeAPIObj.FileLoader
+	FrontSide = threeAPIObj.FrontSide
+	Group = threeAPIObj.Group
+	ImageBitmapLoader = threeAPIObj.ImageBitmapLoader
+	InstancedMesh = threeAPIObj.InstancedMesh
+	InterleavedBuffer = threeAPIObj.InterleavedBuffer
+	InterleavedBufferAttribute = threeAPIObj.InterleavedBufferAttribute
+	// Interpolant = threeAPIObj.Interpolant
+	InterpolateDiscrete = threeAPIObj.InterpolateDiscrete
+	InterpolateLinear = threeAPIObj.InterpolateLinear
+	Line = threeAPIObj.Line
+	LineBasicMaterial = threeAPIObj.LineBasicMaterial
+	LineLoop = threeAPIObj.LineLoop
+	LineSegments = threeAPIObj.LineSegments
+	LinearFilter = threeAPIObj.LinearFilter
+	LinearMipmapLinearFilter = threeAPIObj.LinearMipmapLinearFilter
+	LinearMipmapNearestFilter = threeAPIObj.LinearMipmapNearestFilter
+	// Loader = threeAPIObj.Loader
+	LoaderUtils = threeAPIObj.LoaderUtils
+	Material = threeAPIObj.Material
+	MathUtils = threeAPIObj.MathUtils
+	Matrix4 = threeAPIObj.Matrix4
+	Mesh = threeAPIObj.Mesh
+	MeshBasicMaterial = threeAPIObj.MeshBasicMaterial
+	MeshPhysicalMaterial = threeAPIObj.MeshPhysicalMaterial
+	MeshStandardMaterial = threeAPIObj.MeshStandardMaterial
+	MirroredRepeatWrapping = threeAPIObj.MirroredRepeatWrapping
+	NearestFilter = threeAPIObj.NearestFilter
+	NearestMipmapLinearFilter = threeAPIObj.NearestMipmapLinearFilter
+	NearestMipmapNearestFilter = threeAPIObj.NearestMipmapNearestFilter
+	NumberKeyframeTrack = threeAPIObj.NumberKeyframeTrack
+	Object3D = threeAPIObj.Object3D
+	OrthographicCamera = threeAPIObj.OrthographicCamera
+	PerspectiveCamera = threeAPIObj.PerspectiveCamera
+	PointLight = threeAPIObj.PointLight
+	Points = threeAPIObj.Points
+	PointsMaterial = threeAPIObj.PointsMaterial
+	PropertyBinding = threeAPIObj.PropertyBinding
+	Quaternion = threeAPIObj.Quaternion
+	QuaternionKeyframeTrack = threeAPIObj.QuaternionKeyframeTrack
+	RepeatWrapping = threeAPIObj.RepeatWrapping
+	Skeleton = threeAPIObj.Skeleton
+	SkinnedMesh = threeAPIObj.SkinnedMesh
+	Sphere = threeAPIObj.Sphere
+	SpotLight = threeAPIObj.SpotLight
+	Texture = threeAPIObj.Texture
+	TextureLoader = threeAPIObj.TextureLoader
+	TriangleFanDrawMode = threeAPIObj.TriangleFanDrawMode
+	TriangleStripDrawMode = threeAPIObj.TriangleStripDrawMode
+	Vector2 = threeAPIObj.Vector2
+	Vector3 = threeAPIObj.Vector3
+	VectorKeyframeTrack = threeAPIObj.VectorKeyframeTrack
+	SRGBColorSpace = threeAPIObj.SRGBColorSpac
 
-		setThreeAPIForBufferGeometryUtils(threeAPIObj)
+	setThreeAPIForBufferGeometryUtils(threeAPIObj)
+	setThreeAPIForDRACOLoader(threeAPIObj)
+	setThreeAPIForKTX2Loader(threeAPIObj)
 }
-
 
 class GLTFLoader extends Loader {
 

@@ -5,7 +5,9 @@
     "scripts": {
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
         "watch_pro": "gulp changeToProductionEnv &&  rescript clean && rescript build -w",
+        "buildAll:dev": "gulp changeToLocalEnv && rescript clean && rescript build && gulp restoreEnv",
         "buildAll:pro": "gulp changeToProductionEnv && rescript clean && rescript build && gulp restoreEnv",
+        "webpack_dev": "yarn buildAll:dev && cross-env NODE_ENV=development webpack --config webpack.config.js",
         "webpack_pro": "yarn buildAll:pro && cross-env NODE_ENV=production webpack --config webpack.config.js",
         "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"
     },
@@ -26,6 +28,8 @@
         "mini-css-extract-plugin": "^0.9.0",
         "react-test-renderer": "^16.8.3",
         "style-loader": "^1.2.1",
+        "copy-webpack-plugin":"^11.0.0",
+        "write-file-webpack-plugin":"^4.5.1",
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.4.0"

@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 module.exports = {
@@ -97,6 +98,18 @@ module.exports = {
             filename: 'index.html',
             inject: true,
             favicon: path.resolve('favicon.ico'),//favicon路径
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'static/three/draco',
+                    to: 'static/three/draco'
+                },
+                {
+                    from: 'static/three/basis',
+                    to: 'static/three/basis'
+                }
+            ],
         }),
     ],
     // // When importing a module whose path matches one of the following, just
