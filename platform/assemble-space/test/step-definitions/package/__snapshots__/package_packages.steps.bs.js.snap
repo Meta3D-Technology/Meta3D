@@ -22,8 +22,8 @@ exports[`PackagePackages show packages list exclude selected packages 1`] = `
         <div
           style={
             Object {
-              "maxWidth": "33.333333333333336%",
-              "width": "33.333333333333336%",
+              "maxWidth": "50%",
+              "width": "50%",
             }
           }
         >

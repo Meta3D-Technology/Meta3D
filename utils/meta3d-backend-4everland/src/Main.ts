@@ -253,7 +253,7 @@ export let updateMarketImplementData = (s3: S3, collectionName: string, account:
         newMarketImplementCollectionData[index] = updateData
     }
 
-    //console.log("updateMarketImplementData->putObject Body:", newMarketImplementCollectionData,
+    console.log("updateMarketImplementData->putObject Body:", newMarketImplementCollectionData,
         newMarketImplementCollectionData[0].fileData,
         JSON.stringify(newMarketImplementCollectionData)
     )

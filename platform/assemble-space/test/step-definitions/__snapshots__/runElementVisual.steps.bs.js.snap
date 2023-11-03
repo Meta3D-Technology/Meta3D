@@ -6,9 +6,6 @@ exports[`RunElementVisual show the canvas 1`] = `
   id="ui-visual-run-canvas"
   style={
     Object {
-      "borderColor": "red",
-      "borderStyle": "solid",
-      "borderWidth": "2px",
       "height": "2px",
       "width": "1px",
     }

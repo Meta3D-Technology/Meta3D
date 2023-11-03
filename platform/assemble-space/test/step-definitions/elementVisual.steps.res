@@ -466,7 +466,7 @@ defineFeature(feature, test => {
 
               loopFirstFrameID
             },
-            ~requestAnimationOtherFrame=_ => {
+            ~requestAnimationOtherFrame=(. _) => {
               loopOtherFrameID
             },
             ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))

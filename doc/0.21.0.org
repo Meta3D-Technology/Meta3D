@@ -148,6 +148,12 @@ package's protocol is package role(whole for editor/whole for publish)
 
 
 ** TODO Inspector
+TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
+
+
+
+
+
 split to Inspector(as container) + multiple Component Inspectors(as member)
 
 

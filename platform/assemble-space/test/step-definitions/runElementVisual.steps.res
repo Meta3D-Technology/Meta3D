@@ -240,7 +240,7 @@ defineFeature(feature, test => {
 
               loopFirstFrameID
             },
-            ~requestAnimationOtherFrame=_ => {
+            ~requestAnimationOtherFrame=(. _) => {
               loopOtherFrameID
             },
             ~querySelector=querySelectorStub.contents->Obj.magic,
