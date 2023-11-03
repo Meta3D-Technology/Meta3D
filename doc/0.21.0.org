@@ -1,0 +1,219 @@
+* TODO refactor: 低代码抽象
+
+
+** architecture
+
+
+first level abstract:
+uiControlInput+action+ui control(they are contribute???)
+
++two package(
+engine for publish package
+engine for editor package
+)
+
+
+second level abstract:
+each of the two package = multiple packages
+
+
+third level abstract:
+each package = extensions + contributes(no package)
+
+
+note: upper level not know down level!
+
+
+
+
+
+
+ap assemble/engine package assemble(package level has dependency)/single package assemble(current dependency except pacakge dependent)/element assemble
+
+
+** ui control
+
+data:
+    input:
+    - input data(from engine, action)
+    handle by uiControlInput
+    - config data
+    set in element assemble
+    output:
+    - data pass to action
+    e.g. selected Menu Item text, is button clicked, ...
+    TODO not trigger in protocol!
+
+
+
+split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
+
+abstract SceneTree's Tree to Tree ui control
+
+
+
+** action
+
+protocol is ui control's output data type protocol
+
+name defined in implement
+
+action: (meta3dState, api, inputDataFromUIControl) => Promise<meta3dState>
+    forward
+    backward
+
+api = {
+    getEnginePackage(whole for editor) (meta3dState) => package service,
+
+    get/setActionState(for all actions' states),
+
+    operate events(e.g. setNeedReplaceAllEvents),
+
+    trigger(
+        can trigger other actions
+        
+        e.g. trigger publish action when select publish menu item!
+        ),
+}
+
+
+
+action come from:
+1.market(publish to)
+2.input by textarea
+# stored in event data
+stored in editor file
+
+
+** uiControlInput
+
+protocol is ui control's input data type protocol
+
+name defined in implement
+
+uiControlInput: (meta3dState, api) => Promise<ui control's input data>
+
+api = {
+    getEnginePackage(whole for editor) (meta3dState) => package service,
+
+    get/setActionState(for all actions' states),
+}
+
+
+
+uiControlInput come from:
+1.market(publish to)
+2.input by textarea
+# stored in event data
+stored in editor file
+
+** two packages
+
+package role:
+whole for editor
+whole for publish
+
+
+each of the two package = multiple packages(other role, e.g. render, scene, post pass, asset converter)
+
+
+
+the two package has dependency, check in engine package assemble
+
+
+
+package's protocol is package role(whole for editor/whole for publish)
+
+
+
+
+** TODO ?
+
+
+
+
+
+
+
+
+
+** TODO fix: import app/package should keep sub packages
+
+
+
+
+
+
+* TODO UI Control可配置化、抽象化
+
+
+** TODO Inspector
+split to Inspector(as container) + multiple Component Inspectors(as member)
+
+
+
+Inspector: can edit component;set component's data;
+TODO 加入更多的Component Inspector
+
+
+*** TODO active basic camera view
+TODO fix import scene* TODO>active
+
+*** TODO add component
+**** TODO now only add arcball, basiccameraview, perspective component, no other components
+handle event
+   **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
+   **** TODO publish: bind event when active has arcball
+
+
+
+** TODO Menu
+Menu->Specific: set Array<Array<name:string, actionName:string>>
+
+** TODO SceneTree
+separate header, body:
+    header = multiple Image Buttons
+
+** TODO Asset
+separate header, body:
+    header = multiple Image Buttons
+
+** TODO Controller
+abstract to Switch Button with configable two textures
+
+
+# ** TODO Message
+
+
+# ** TODO Model
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* TODO 构建三个示例场景
+
+1.Engine + Example use Engine package
+2.Editor
+3.Scene use Editor to build and publish
+
+
+** TODO build one big scene with glbs as showcase
+
+3D场景漫游
+
+** TODO pass run test:publish
+TODO update engine package
