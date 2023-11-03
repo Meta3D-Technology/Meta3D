@@ -15,13 +15,13 @@ let concatArray = streamArr =>
     )
   }
 
-let callFunc = func => {
+let callFunc = (. func) => {
   Most.just(func)->Most.map(func => func(), _)
 }
 
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dBsMostProtocol.ServiceType.service,
-> = (api) => {
+> = api => {
   tap: Most.tap,
   filter: Most.filter,
   take: Most.take,

@@ -57,8 +57,8 @@ function _buildJobStream(param, param$1, is_set_state, execFunc) {
   var __x$1 = Curry._2(param.flatMap, (function (func) {
           return Curry._2(func, Curry._1(unsafeGetMeta3dState, undefined), {
                       api: api,
-                      getStatesFunc: (function (param) {
-                          return _getStates(api, meta3dEngineCoreExtensionProtocolName, param);
+                      getStatesFunc: (function (meta3dState) {
+                          return _getStates(api, meta3dEngineCoreExtensionProtocolName, meta3dState);
                         }),
                       setStatesFunc: (function (param, param$1) {
                           return _setStates(api, meta3dEngineCoreExtensionProtocolName, param, param$1);

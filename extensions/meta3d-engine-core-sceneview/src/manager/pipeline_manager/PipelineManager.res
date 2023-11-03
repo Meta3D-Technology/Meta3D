@@ -95,7 +95,7 @@ module ParsePipelineData = {
         (
           {
             api: api,
-            getStatesFunc: _getStates(api, meta3dEngineCoreExtensionProtocolName),
+            getStatesFunc: (. meta3dState ) => _getStates(api, meta3dEngineCoreExtensionProtocolName, meta3dState),
             setStatesFunc: _setStates(api, meta3dEngineCoreExtensionProtocolName),
             meta3dEngineCoreExtensionProtocolName: meta3dEngineCoreExtensionProtocolName,
           }: Meta3dEngineCoreSceneviewProtocol.StateType.operateStatesFuncs

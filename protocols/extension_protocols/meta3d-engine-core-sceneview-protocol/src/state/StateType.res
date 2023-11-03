@@ -48,7 +48,7 @@ and registeredPipelineContribute = (
 )
 and operateStatesFuncs = {
   api: Meta3dType.Index.api,
-  getStatesFunc: Meta3dType.Index.state => RegisterPipelineType.states,
+  getStatesFunc: (. Meta3dType.Index.state) => RegisterPipelineType.states,
   setStatesFunc: (Meta3dType.Index.state, RegisterPipelineType.states) => Meta3dType.Index.state,
   meta3dEngineCoreExtensionProtocolName: Meta3dType.Index.extensionProtocolName,
 }

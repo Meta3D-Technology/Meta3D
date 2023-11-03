@@ -179,7 +179,7 @@ function _invokeIMGUIRenderFunc(meta3dState, invokeFunc, param) {
   var api = param[0];
   var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
   var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
-  var imguiRendererState$1 = Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
+  var imguiRendererState$1 = invokeFunc(imguiRendererState, imguiRendererService);
   return api.setExtensionState(meta3dState, imguiRendererExtensionProtocolName, imguiRendererState$1);
 }
 
@@ -188,7 +188,7 @@ function _invokeIMGUIRenderFuncWithParam(meta3dState, invokeFunc, param) {
   var api = param[0];
   var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
   var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
-  var match = Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
+  var match = invokeFunc(imguiRendererState, imguiRendererService);
   var meta3dState$1 = api.setExtensionState(meta3dState, imguiRendererExtensionProtocolName, match[0]);
   return [
           meta3dState$1,
@@ -201,7 +201,7 @@ function _invokeIMGUIRenderFuncReturnData(meta3dState, invokeFunc, param) {
   var api = param[0];
   var imguiRendererState = api.getExtensionState(meta3dState, imguiRendererExtensionProtocolName);
   var imguiRendererService = api.getExtensionService(meta3dState, imguiRendererExtensionProtocolName);
-  return Curry._2(invokeFunc, imguiRendererState, imguiRendererService);
+  return invokeFunc(imguiRendererState, imguiRendererService);
 }
 
 function render(api, meta3dState, param, time) {

@@ -95,7 +95,7 @@ module Method = {
     )
     ->Js.Promise.then_(meta3dState => {
       loopFrameID.current =
-        service.other.requestAnimationOtherFrame(time => {
+        service.other.requestAnimationOtherFrame(. time => {
           _loop(service, loopFrameID, apInspectorData, time, meta3dState)
         })->Some
 

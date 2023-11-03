@@ -255,12 +255,17 @@ TODO need publish
 
 
 
-* TODO perf: optimize editor runtime
+* DONE perf: optimize editor runtime
 
 
 
 TODO need p:
-scenegraph s,g
+# scenegraph s,g
+
+
+
+
+
 
 
 
@@ -307,44 +312,7 @@ abstract to Switch Button with configable two textures
 
 # ** TODO Model
 
-* TODO 完善ui control
 
-
-
-** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
-
-
-
-** TODO add Modal
-publish, export should show Modal
-
-
-Menu add "关于Meta3D":
-show Modal
-
-
-
-
-
-# * TODO Scene View: show direction light, camera(show image)
-
-
-
-** TODO Window: set flags
-e.g. ImGui.WindowFlags.NoTitleBar
-
-
-
-
-
-
-** TODO add Debug
-
-
-
-
-** TODO Message
-e.g. show import progress bar
 
 
 

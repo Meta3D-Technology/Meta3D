@@ -14,6 +14,6 @@ type service = {
   flatMap: 'a 'b. ('a => stream<'b>, stream<'a>) => stream<'b>,
   mergeArray: 'a. array<stream<'a>> => stream<'a>,
   concatArray: 'a. array<stream<'a>> => stream<'a>,
-  callFunc: 'a. (unit => 'a) => stream<'a>,
+  callFunc: 'a. (. unit => 'a) => stream<'a>,
   drain: 'a. stream<'a> => Js.Promise.t<unit>,
 }
