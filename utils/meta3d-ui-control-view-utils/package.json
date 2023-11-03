@@ -1,14 +1,14 @@
 {
     "name": "meta3d-ui-control-view-utils",
-    "version": "0.19.21",
+    "version": "0.20.0",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-type": "^0.19.1",
-        "meta3d-ui-protocol": "^0.19.21"
+        "meta3d-type": "^0.20.0",
+        "meta3d-ui-protocol": "^0.20.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
