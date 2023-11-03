@@ -8,6 +8,28 @@ import { DRACOLoader } from "./three/DRACOLoader"
 import { KTX2Loader } from "./three/KTX2Loader"
 import { MeshoptDecoder } from "./three/meshopt_decoder.module"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { state as meta3dState } from "meta3d-type"
+import type { WebGLRenderer } from "three"
+
+let _createRendererOnlyOnce = (meta3dState: meta3dState, api: api, threeAPIService: threeAPIService) => {
+    let state = api.getExtensionState<state>(meta3dState, "meta3d-load-glb-protocol")
+
+    let renderer = state.renderer
+
+    if (isNullable(renderer)) {
+        renderer = new threeAPIService.WebGLRenderer()
+
+        meta3dState = api.setExtensionState(meta3dState, "meta3d-load-glb-protocol", {
+            ...state,
+            renderer
+        })
+    }
+    else {
+        renderer = getExn(renderer)
+    }
+
+    return [meta3dState, renderer]
+}
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
@@ -16,25 +38,13 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
 
             setThreeAPI(threeAPIService)
 
-            let state = api.getExtensionState<state>(meta3dState, "meta3d-load-glb-protocol")
-
-            let renderer = state.renderer
-
-            if (isNullable(renderer)) {
-                renderer = new threeAPIService.WebGLRenderer()
-
-                meta3dState = api.setExtensionState(meta3dState, "meta3d-load-glb-protocol", {
-                    ...state,
-                    renderer
-                })
-            }
-            else {
-                renderer = getExn(renderer)
-            }
-
             return new Promise((resolve, reject) => {
                 let dracoLoader = new DRACOLoader()
                 dracoLoader.setDecoderPath("static/three/draco/gltf/")
+
+                let data = _createRendererOnlyOnce(meta3dState, api, threeAPIService)
+                meta3dState = data[0] as meta3dState
+                let renderer = data[1] as WebGLRenderer
 
                 let ktx2Loader = new KTX2Loader()
                     .setTranscoderPath("static/three/basis/")

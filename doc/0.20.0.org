@@ -221,20 +221,34 @@ TODO need publish:
 
 
 
-*** TODO pass run test: load all gltf/ models
+# *** TODO pass run test: load all gltf/ models
 
 
-TODO compare three effect
+# TODO compare three effect
 
 
 
-*** TODO run test: publish
+*** DONE run test: publish
 
 TODO support DracoLoader, KTX2loader
 
 
+TODO update engine package
+new meta3d-pipeline-webgl1-three-engine for engine
 
 
+# TODO why scene so big?
+
+TODO why scene lighter?
+tomemap,gamma?
+    why flicker?
+
+
+
+
+TODO need publish
+# publish action
+# three-xxx
 
 
 * TODO perf: solve memory leak

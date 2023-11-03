@@ -1565,7 +1565,7 @@ defineFeature(feature, test => {
     then(
       "should return parsed p1, parsed e1, parsed c1",
       () => {
-        let ([parsedP1], ([parsedE1], [parsedC1])) = result.contents
+        let ([parsedP1], ([parsedE1], [parsedC1]), _) = result.contents
 
         let ((p1Protocol, _, _, _), _) = parsedP1
         let (e1PackageData, _) = parsedE1

@@ -7,6 +7,9 @@ import { saveAs } from "file-saver";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import indexHtml from "../publish/index.html"
 import meta3dJs from "../publish/meta3d.js"
+import basis_transcoderJs from "../publish/three/basis/basis_transcoder.js"
+import draco_decoderJs from "../publish/three/draco/gltf/draco_decoder.js"
+import draco_encoderJs from "../publish/three/draco/gltf/draco_encoder.js"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-publish-protocol"
 import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
@@ -21,6 +24,11 @@ let _loadAndWriteIndexHtmlData = (zip: JSZip) => {
 let _loadAndWriteIndexJsData = (zip: JSZip) => {
     zip.file("meta3d.js", meta3dJs)
 }
+
+let _loadAndWriteThreeJsData = (zip: JSZip, folderPath: string, name: string, jsFile: any) => {
+    zip.file(`static/three/${folderPath}${name}.js`, jsFile)
+}
+
 
 export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
     return {
@@ -47,6 +55,10 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                     _loadAndWriteIndexHtmlData(zip)
                     _loadAndWriteIndexJsData(zip)
+
+                    _loadAndWriteThreeJsData(zip, "basis/", "basis_transcoder", basis_transcoderJs)
+                    _loadAndWriteThreeJsData(zip, "draco/gltf/", "draco_decoder", draco_decoderJs)
+                    _loadAndWriteThreeJsData(zip, "draco/gltf/", "draco_encoder", draco_encoderJs)
 
                     return (new Promise((resolve, reject) => {
                         return exportSceneService.export([(glb) => {

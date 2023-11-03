@@ -5,13 +5,13 @@ module.exports = {
 	entry: "./src/Main.ts",
 	mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
 	output: {
-		path: path.resolve(__dirname, 'dist'),
-		filename: 'static/js/[name].js',
-		library: {
-			name: 'Contribute',
-			type: 'window',
-		},
-	},
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'static/js/[name].js',
+        library: {
+            name: 'Contribute',
+            type: 'window',
+        },
+    },
 
 	// Enable sourcemaps for debugging webpack's output.
 	// devtool: "source-map",
@@ -35,51 +35,6 @@ module.exports = {
 				test: /\.js$/,
 				loader: "source-map-loader"
 			},
-			{
-				test: /index.html|meta3d.js|basis_transcoder.js|draco_decoder.js|draco_encoder.js/,
-				type: 'asset/inline',
-				generator: {
-					dataUrl: content => {
-						return content.toString()
-					}
-				}
-			},
-			// {
-			// 	test: /meta3d.js/,
-			// 	type: 'asset/inline',
-			// 	generator: {
-			// 		dataUrl: content => {
-			// 			return content.toString()
-			// 		}
-			// 	}
-			// },
-			// {
-			// 	test: /basis_transcoder.js/,
-			// 	type: 'asset/inline',
-			// 	generator: {
-			// 		dataUrl: content => {
-			// 			return content.toString()
-			// 		}
-			// 	}
-			// },
-			// {
-			// 	test: /draco_decoder.js/,
-			// 	type: 'asset/inline',
-			// 	generator: {
-			// 		dataUrl: content => {
-			// 			return content.toString()
-			// 		}
-			// 	}
-			// },
-			// {
-			// 	test: /draco_encoder.js/,
-			// 	type: 'asset/inline',
-			// 	generator: {
-			// 		dataUrl: content => {
-			// 			return content.toString()
-			// 		}
-			// 	}
-			// },
 		]
 	},
 	plugins: [

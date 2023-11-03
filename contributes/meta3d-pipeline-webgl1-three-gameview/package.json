@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-webgl1-three-gameview",
-    "version": "0.19.27",
+    "version": "0.19.29",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-webgl1-three-gameview-protocol"
