@@ -869,6 +869,7 @@ export class BufferGeometry extends EventDispatcher {
         ), 1)
 
         this.uuid = generateUUID()
+        this.id = generateId()
     }
 
     private _geometry: geometry
@@ -879,11 +880,8 @@ export class BufferGeometry extends EventDispatcher {
     private _indexAttribute: BufferAttributeType
 
     public uuid: string
+    public id: number
 
-
-    public get id(): number {
-        return generateId()
-    }
 
     public get name(): string {
         let meta3dState = getMeta3dState()
@@ -1154,18 +1152,15 @@ export class Material extends EventDispatcher {
         this.material = material
 
         this.uuid = generateUUID()
+        this.id = generateId()
     }
 
     protected material: pbrMaterial
 
     public uuid: string
+    public id: number 
 
     public version: number = 0
-
-
-    public get id(): number {
-        return generateId()
-    }
 
     public get visible(): boolean {
         return true

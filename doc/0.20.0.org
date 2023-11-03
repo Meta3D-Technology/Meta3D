@@ -251,13 +251,16 @@ TODO need publish
 # three-xxx
 
 
-* TODO perf: solve memory leak
+* DONE perf: solve memory leak
 
 
 
 * TODO perf: optimize editor runtime
 
 
+
+TODO need p:
+scenegraph s,g
 
 
 
