@@ -127,20 +127,88 @@ package's protocol is package role(whole for editor/whole for publish)
 
 
 
-** TODO ?
+** TODO demo1: ui control: Scene Tree(header+Tree)
+
+
+
+
+*** TODO package assemble
+
+
+
+
+*** TODO ui control
+
+UI Control Inspector:
+Rect, Config(old: Specific), Input, Event
+
+TODO remove IsDraw
+
+TODO Event is read from ui control output data:
+    TODO remove Config.ts->getUIControlSupportedEventNames, generateHandleUIControlEventStr
+
+
+*** TODO action
+
+
+
+*** TODO ui control input
 
 
 
 
 
+*** TODO run test
 
 
 
 
-** TODO fix: import app/package should keep sub packages
+# *** TODO feat: support published element contribute as a new UI Control(higher level)
+# dependency:
+# used ui control protocols
+# used ui control input protocols
+# used action protocols
+
+# use case:
+# 1.user publish element contribute as TransformInspector(=some InputFloat3 + ...) in element assemble
+# 2.user select TransformInspector from Market, use it as a new ui control
+
+
+# TODO add UIControl assemble
+
+
+# TODO Scene Tree is published element contribute which = header window + Tree
+
+*** TODO support import multiple element contributes
+TODO check their used ui controls should be selected
+TODO their element contribute protocol can be different
+TODO just merge their Selected UI Controls
+
+
+TODO Scene Tree = header window + Tree
 
 
 
+
+
+*** TODO fix: import app/package should keep sub packages
+
+
+
+
+
+** TODO demo2: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)
+
+
+
+
+
+** TODO demo3: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)+Scene View+Game View
+
+
+
+
+** TODO finish other
 
 
 
@@ -151,6 +219,8 @@ package's protocol is package role(whole for editor/whole for publish)
 TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
 
 
+TODO can make inspector show in element visual:
+    by set uiControlInput to return true
 
 
 
