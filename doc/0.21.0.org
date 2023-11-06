@@ -52,6 +52,13 @@ abstract SceneTree's Tree to Tree ui control
 
 
 
+
+api = {
+    engineWholePackage service(actually engine-whole-protocol),
+}
+
+
+
 ** action
 
 protocol is ui control's output data type protocol
@@ -63,7 +70,9 @@ action: (meta3dState, api, inputDataFromUIControl) => Promise<meta3dState>
     backward
 
 api = {
-    getEnginePackage(whole for editor) (meta3dState) => package service,
+    # getEnginePackage(whole for editor) (meta3dState) => package service,
+    # getEngineWholePackage (meta3dState) => package service(actually engine-whole-protocol),
+    engineWholePackage service(actually engine-whole-protocol),
 
     get/setActionState(for all actions' states),
 
@@ -94,7 +103,7 @@ name defined in implement
 uiControlInput: (meta3dState, api) => Promise<ui control's input data>
 
 api = {
-    getEnginePackage(whole for editor) (meta3dState) => package service,
+    engineWholePackage service(actually engine-whole-protocol),
 
     get/setActionState(for all actions' states),
 }
@@ -111,10 +120,10 @@ stored in editor file
 
 package role:
 whole for editor
-whole for publish
+whole for web
 
 
-each of the two package = multiple packages(other role, e.g. render, scene, post pass, asset converter)
+each of the two package = multiple packages(other role, e.g. render, scene, post pass, asset)
 
 
 
@@ -134,6 +143,101 @@ package's protocol is package role(whole for editor/whole for publish)
 
 *** TODO package assemble
 
+TODO unify scene,game view
+    # TODO api add createGameObjectForScene/GameView, getAllGameObjectsForScene/GameView
+    TODO both view share the same state(same Scene Package), but different active camera, so game view only need re-render with different active camera by another Render Package
+
+
+TODO unify whole for editor, engine protocol
+
+package protocols:
+meta3d-engine-whole-protocol
+meta3d-engine-scene/scene view render/game view render/web render/asset/ui/event/basic-protocol
+
+# two kind render package implement:
+# SceneViewThreeRender
+# GameViewThreeRender
+
+one editor engine whole package implement = Scene + SceneViewThreeRender(new api: createSpecificDefaultGameObjects) + GameViewThreeRender + Asset
+
+SceneViewThreeRender->render:
+set arcball to active->render->restore active cameraView
+
+GameViewThreeRender->render:
+render directly with active cameraView
+
+engine whole editor implement:
+create default scene(one active cameraView) and invoke SceneViewThreeRender's createSpecificDefaultGameObjects
+new api: addToInitFuncs, addToUpdateFuncs, addToRenderFuncs(for run action; flags: isOnlyOnce)
+    //so only packages dependent on whole! whole not know packages!
+    in life handle->init: invoke scene, scene view render, ui, event, basic to register funcs
+new api: getPackageService(protocol)=>nullable<package service>
+
+
+TODO remove run extension
+# triggerViewDirty
+# triggerRun
+# registerEventHandler?
+if(stop){
+    getPackageService(protocol)->nullable<package service>->renderOnce
+}
+
+
+TODO extension,contribute not know action state
+
+
+
+
+
+one publish engine whole package implement = Scene  + WebThreeRender + Asset
+
+
+
+
+TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs(contributes)
+
+
+
+
+**** TODO run test: Scene View
+
+
+
+
+**** TODO run test: SceneTree+Scene View+ *Game View
+
+
+
+
+# **** TODO ap assemble:
+# remove extension, contribute, only remain package
+
+
+
+**** TODO fix: import app/package should keep package structure(sub, subsub, ... packages)
+
+
+
+**** TODO fix: auto upgrade: upgrade saved/not saved in app packages(not upgrade their extensions/contributes)
+
+
+
+
+**** TODO two kind asset package implement:
+BasicAsset
+DracoKTX2Asset
+
+
+
+
+**** TODO refactor file structure???
+add packages/:
+xxx_packages/
+    extensions/
+    contributes/
+    protocols/
+        extensions/
+        contributes
 
 
 
@@ -148,13 +252,22 @@ TODO Event is read from ui control output data:
     TODO remove Config.ts->getUIControlSupportedEventNames, generateHandleUIControlEventStr
 
 
+
+
+TODO only get engine whole service
+
+
+
+
 *** TODO action
 
 
+TODO only get engine whole service
 
 *** TODO ui control input
 
 
+TODO only get engine whole service
 
 
 
@@ -189,9 +302,6 @@ TODO Scene Tree = header window + Tree
 
 
 
-
-
-*** TODO fix: import app/package should keep sub packages
 
 
 
