@@ -54,7 +54,7 @@ abstract SceneTree's Tree to Tree ui control
 
 
 api = {
-    engineWholePackage service(actually engine-whole-protocol),
+    editorWholePackage service(actually engine-whole-protocol),
 }
 
 
@@ -72,7 +72,7 @@ action: (meta3dState, api, inputDataFromUIControl) => Promise<meta3dState>
 api = {
     # getEnginePackage(whole for editor) (meta3dState) => package service,
     # getEngineWholePackage (meta3dState) => package service(actually engine-whole-protocol),
-    engineWholePackage service(actually engine-whole-protocol),
+    editorWholePackage service,
 
     get/setActionState(for all actions' states),
 
@@ -103,7 +103,7 @@ name defined in implement
 uiControlInput: (meta3dState, api) => Promise<ui control's input data>
 
 api = {
-    engineWholePackage service(actually engine-whole-protocol),
+    editorWholePackage service,
 
     get/setActionState(for all actions' states),
 }
@@ -152,13 +152,24 @@ TODO unify whole for editor, engine protocol
 
 package protocols:
 meta3d-engine-whole-protocol
-meta3d-engine-scene/scene view render/game view render/web render/asset/ui/event/basic-protocol
+meta3d-editor-whole-protocol
+meta3d-engine-scene/scene view render/game view render/web render/asset/ui/event-protocol
+core-protocol
+    core,root,most
+    init: register root pipeline
+
+
+TODO each package should get each data through package service:
+    shouldn't directly get each data through pipeline!
+        but can get self data through pipeline!
+
+TODO api: add getPackageService
 
 # two kind render package implement:
 # SceneViewThreeRender
 # GameViewThreeRender
 
-one editor engine whole package implement = Scene + SceneViewThreeRender(new api: createSpecificDefaultGameObjects) + GameViewThreeRender + Asset
+one editor whole package implement = Scene + SceneViewThreeRender(new api: createSpecificDefaultGameObjects) + GameViewThreeRender + Asset
 
 SceneViewThreeRender->render:
 set arcball to active->render->restore active cameraView
@@ -166,12 +177,14 @@ set arcball to active->render->restore active cameraView
 GameViewThreeRender->render:
 render directly with active cameraView
 
-engine whole editor implement:
+# engine whole editor implement:
+editor whole implement:
 create default scene(one active cameraView) and invoke SceneViewThreeRender's createSpecificDefaultGameObjects
 new api: addToInitFuncs, addToUpdateFuncs, addToRenderFuncs(for run action; flags: isOnlyOnce)
     //so only packages dependent on whole! whole not know packages!
-    in life handle->init: invoke scene, scene view render, ui, event, basic to register funcs
-new api: getPackageService(protocol)=>nullable<package service>
+    # in life handle->init: invoke scene, scene view render, ui, event, basic to register funcs
+    invoke scene, scene view render, ui, event, basic
+new api: getPluggablePackageService(protocol)=>nullable<package service>
 
 
 TODO remove run extension
@@ -179,7 +192,7 @@ TODO remove run extension
 # triggerRun
 # registerEventHandler?
 if(stop){
-    getPackageService(protocol)->nullable<package service>->renderOnce
+    getPluggablePackageService(protocol)->nullable<package service>->renderOnce
 }
 
 
@@ -189,9 +202,19 @@ TODO extension,contribute not know action state
 
 
 
-one publish engine whole package implement = Scene  + WebThreeRender + Asset
+one engine whole package implement = Scene  + WebThreeRender + Asset
 
 
+
+
+TODO refactor file structure???
+add packages/:
+xxx_packages/
+    extensions/
+    contributes/
+    protocols/
+        extensions/
+        contributes
 
 
 TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs(contributes)
@@ -207,6 +230,7 @@ TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs
 **** TODO run test: SceneTree+Scene View+ *Game View
 
 
+**** TODO run test: publish(Menu)
 
 
 # **** TODO ap assemble:
@@ -221,23 +245,6 @@ TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs
 **** TODO fix: auto upgrade: upgrade saved/not saved in app packages(not upgrade their extensions/contributes)
 
 
-
-
-**** TODO two kind asset package implement:
-BasicAsset
-DracoKTX2Asset
-
-
-
-
-**** TODO refactor file structure???
-add packages/:
-xxx_packages/
-    extensions/
-    contributes/
-    protocols/
-        extensions/
-        contributes
 
 
 
@@ -302,6 +309,8 @@ TODO Scene Tree = header window + Tree
 
 
 
+TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
+
 
 
 
@@ -319,6 +328,19 @@ TODO Scene Tree = header window + Tree
 
 
 ** TODO finish other
+
+
+
+# ** TODO remove unused ones
+
+# e.g. xxx-sceneview/gameview
+
+
+** TODO two kind asset package implement:
+BasicAsset
+DracoKTX2Asset
+
+
 
 
 

@@ -1,3 +1,0 @@
-let getDefaultColor =  DisposeDirectionLightUtils._getDefaultColor
-
-let getDefaultIntensity =  DisposeDirectionLightUtils._getDefaultIntensity

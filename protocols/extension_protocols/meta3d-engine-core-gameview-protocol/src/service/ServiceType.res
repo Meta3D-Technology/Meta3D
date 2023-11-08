@@ -1,1 +1,0 @@
-type service = Meta3dEngineCoreSceneviewProtocol.ServiceType.service
