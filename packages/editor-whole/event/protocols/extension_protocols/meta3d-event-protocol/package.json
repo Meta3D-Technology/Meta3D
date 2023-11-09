@@ -1,0 +1,20 @@
+{
+    "name": "meta3d-event-protocol",
+    "version": "0.20.0",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "displayName": "event protocol",
+    "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/extension_protocols/meta3d-event-protocol",
+    "description": "eee",
+    "author": "Wonder",
+    "license": "MIT",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build",
+        "meta3d:publish_dev": "yarn buildAll:ci && gulp publish_local_env",
+        "meta3d:publish_pro": "yarn buildAll:ci && gulp publish_production_env"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "rescript": "^10.0.1"
+    }
+}

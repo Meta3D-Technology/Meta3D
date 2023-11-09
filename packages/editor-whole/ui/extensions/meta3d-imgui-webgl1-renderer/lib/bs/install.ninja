@@ -1,0 +1,61 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o Main-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/Main-Meta3dImguiWebgl1Renderer.cmi
+o Main-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/Main-Meta3dImguiWebgl1Renderer.cmj
+o Main-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/Main-Meta3dImguiWebgl1Renderer.cmt
+o Main.res : cp ../../src/Main.res
+o StateType-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/StateType-Meta3dImguiWebgl1Renderer.cmi
+o StateType-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/StateType-Meta3dImguiWebgl1Renderer.cmj
+o StateType-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/StateType-Meta3dImguiWebgl1Renderer.cmt
+o StateType.res : cp ../../src/StateType.res
+o NumberType-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/NumberType-Meta3dImguiWebgl1Renderer.cmi
+o NumberType-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/NumberType-Meta3dImguiWebgl1Renderer.cmj
+o NumberType-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/NumberType-Meta3dImguiWebgl1Renderer.cmt
+o NumberType.res : cp ../../src/NumberType.res
+o ShaderData-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/ShaderData-Meta3dImguiWebgl1Renderer.cmi
+o ShaderData-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/ShaderData-Meta3dImguiWebgl1Renderer.cmj
+o ShaderData-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/ShaderData-Meta3dImguiWebgl1Renderer.cmt
+o ShaderData.res : cp ../../src/ShaderData.res
+o InitService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/InitService-Meta3dImguiWebgl1Renderer.cmi
+o InitService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/InitService-Meta3dImguiWebgl1Renderer.cmj
+o InitService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/InitService-Meta3dImguiWebgl1Renderer.cmt
+o InitService.res : cp ../../src/InitService.res
+o ClearService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/ClearService-Meta3dImguiWebgl1Renderer.cmi
+o ClearService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/ClearService-Meta3dImguiWebgl1Renderer.cmj
+o ClearService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/ClearService-Meta3dImguiWebgl1Renderer.cmt
+o ClearService.res : cp ../../src/ClearService.res
+o DrawDataType-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/DrawDataType-Meta3dImguiWebgl1Renderer.cmi
+o DrawDataType-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/DrawDataType-Meta3dImguiWebgl1Renderer.cmj
+o DrawDataType-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/DrawDataType-Meta3dImguiWebgl1Renderer.cmt
+o DrawDataType.res : cp ../../src/DrawDataType.res
+o RenderService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/RenderService-Meta3dImguiWebgl1Renderer.cmi
+o RenderService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/RenderService-Meta3dImguiWebgl1Renderer.cmj
+o RenderService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/RenderService-Meta3dImguiWebgl1Renderer.cmt
+o RenderService.res : cp ../../src/RenderService.res
+o Matrix4Service-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/Matrix4Service-Meta3dImguiWebgl1Renderer.cmi
+o Matrix4Service-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/Matrix4Service-Meta3dImguiWebgl1Renderer.cmj
+o Matrix4Service-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/Matrix4Service-Meta3dImguiWebgl1Renderer.cmt
+o Matrix4Service.res : cp ../../src/Matrix4Service.res
+o ProgramService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/ProgramService-Meta3dImguiWebgl1Renderer.cmi
+o ProgramService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/ProgramService-Meta3dImguiWebgl1Renderer.cmj
+o ProgramService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/ProgramService-Meta3dImguiWebgl1Renderer.cmt
+o ProgramService.res : cp ../../src/ProgramService.res
+o DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmi
+o DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmj
+o DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmt
+o DrawBoxIMGUIService.res : cp ../../src/DrawBoxIMGUIService.res
+o DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmi
+o DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmj
+o DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmt
+o DrawDataArrayService.res : cp ../../src/DrawDataArrayService.res
+o BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmi : cp ../bs/src/BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmi
+o BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmj : cp ../bs/src/BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmj
+o BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmt : cp ../bs/src/BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmt
+o BufferDataIMGUIService.res : cp ../../src/BufferDataIMGUIService.res
+o Meta3dImguiWebgl1Renderer.cmi : cp ../bs/Meta3dImguiWebgl1Renderer.cmi
+o Meta3dImguiWebgl1Renderer.cmj : cp ../bs/Meta3dImguiWebgl1Renderer.cmj
+o Meta3dImguiWebgl1Renderer.cmt : cp ../bs/Meta3dImguiWebgl1Renderer.cmt
+build install.stamp : touch Main-Meta3dImguiWebgl1Renderer.cmi Main-Meta3dImguiWebgl1Renderer.cmj StateType-Meta3dImguiWebgl1Renderer.cmi StateType-Meta3dImguiWebgl1Renderer.cmj NumberType-Meta3dImguiWebgl1Renderer.cmi NumberType-Meta3dImguiWebgl1Renderer.cmj ShaderData-Meta3dImguiWebgl1Renderer.cmi ShaderData-Meta3dImguiWebgl1Renderer.cmj InitService-Meta3dImguiWebgl1Renderer.cmi InitService-Meta3dImguiWebgl1Renderer.cmj ClearService-Meta3dImguiWebgl1Renderer.cmi ClearService-Meta3dImguiWebgl1Renderer.cmj DrawDataType-Meta3dImguiWebgl1Renderer.cmi DrawDataType-Meta3dImguiWebgl1Renderer.cmj RenderService-Meta3dImguiWebgl1Renderer.cmi RenderService-Meta3dImguiWebgl1Renderer.cmj Matrix4Service-Meta3dImguiWebgl1Renderer.cmi Matrix4Service-Meta3dImguiWebgl1Renderer.cmj ProgramService-Meta3dImguiWebgl1Renderer.cmi ProgramService-Meta3dImguiWebgl1Renderer.cmj DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmi DrawBoxIMGUIService-Meta3dImguiWebgl1Renderer.cmj DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmi DrawDataArrayService-Meta3dImguiWebgl1Renderer.cmj BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmi BufferDataIMGUIService-Meta3dImguiWebgl1Renderer.cmj Meta3dImguiWebgl1Renderer.cmi Meta3dImguiWebgl1Renderer.cmj

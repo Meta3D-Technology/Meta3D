@@ -237,18 +237,14 @@ TODO add engine-scene, core
 TODO add ui, event
 
 TODO add scene view render
+    TODO set viewrect related before render
+        fix UpdateCameraJob
+    TODO set arcball to active->render->restore active cameraView
 
+TODO add ui control
 
 
 TODO update meta3d-view-utils->getViewRect
-
-
-
-TODO update editor-whole
-
-
-
-TODO add ui control
 
 
 
@@ -257,6 +253,10 @@ TODO refactor get engine core, most, root:use getPackageService("meta3d-core-pro
 
 
 TODO refactor get engine scene:use getPackageService
+
+
+
+TODO update editor-whole
 
 
 
