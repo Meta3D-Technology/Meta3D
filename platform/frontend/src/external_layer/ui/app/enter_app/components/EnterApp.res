@@ -22,13 +22,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
 
       // TODO perf: if already init, not init again
-      service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
+      service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMostDefault.Most.drain->Js.Promise.then_(_ => {
         service.backend.findPublishApp(.
           progress => setDownloadProgress(_ => progress),
           account,
           appName,
         )
-        ->Meta3dBsMost.Most.observe(
+        ->Meta3dBsMostDefault.Most.observe(
           appBinaryFile => {
             setIsDownloadFinish(_ => true)
 

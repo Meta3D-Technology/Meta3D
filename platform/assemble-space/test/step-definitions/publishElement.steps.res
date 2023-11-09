@@ -268,7 +268,7 @@ defineFeature(feature, test => {
 
         publishElementContributeStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.empty(),
+            Meta3dBsMostDefault.Most.empty(),
             _,
           )
 
@@ -347,7 +347,7 @@ defineFeature(feature, test => {
       () => {
         publishElementAssembleDataStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.empty(),
+            Meta3dBsMostDefault.Most.empty(),
             _,
           )
 
@@ -433,7 +433,7 @@ defineFeature(feature, test => {
         setVisibleStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
         publishElementContributeStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.empty(),
+            Meta3dBsMostDefault.Most.empty(),
             _,
           )
 

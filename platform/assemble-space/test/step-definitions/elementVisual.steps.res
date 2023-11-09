@@ -187,7 +187,7 @@
 //       () => {
 //         getAllPublishNewestExtensionsStub.contents =
 //           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             Meta3dBsMost.Most.just([
+//             Meta3dBsMostDefault.Most.just([
 //               ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.5.0", ()),
 //               ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.5.1", ()),
 //             ]),

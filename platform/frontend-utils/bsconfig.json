@@ -21,7 +21,7 @@
   "bs-dependencies": [
     "@rescript/react",
     "rescript-indexeddb",
-    "meta3d-bs-most",
+    "meta3d-bs-most-default",
     "meta3d-commonlib",
     "meta3d-commonlib-type",
     "meta3d",

@@ -25,7 +25,7 @@
     "-bs-super-errors"
   ],
   "bs-dev-dependencies": [
-    "meta3d-engine-core-sceneview",
+    "meta3d-engine-core",
     "meta3d-component-perspectivecameraprojection",
     "meta3d-component-transform",
     "meta3d-component-geometry",
@@ -36,7 +36,7 @@
   ],
   "refmt": 3,
   "bs-dependencies": [
-    "meta3d-engine-core-sceneview-protocol",
+    "meta3d-engine-core-protocol",
     "meta3d-commonlib",
     "meta3d-commonlib-type",
     "meta3d-component-transform-protocol-common",

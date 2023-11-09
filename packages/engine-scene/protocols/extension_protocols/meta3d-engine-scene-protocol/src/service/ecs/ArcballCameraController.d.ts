@@ -1,4 +1,4 @@
-// import } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+// import } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { componentName, arcballCameraController, dataName, distance, phi, theta, target, dirty, wheelSpeed } from "meta3d-component-arcballcameracontroller-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"

@@ -1,0 +1,18 @@
+{
+    "name": "meta3d-element-assemble-element-protocol",
+    "version": "0.20.0",
+    "displayName": "element assemble element protocol",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "author": "Meta3D",
+    "main": "src/Index.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w -noEmit",
+        "meta3d:publish_dev": "tsc && gulp publish_local_env",
+        "meta3d:publish_pro": "tsc && gulp publish_production_env"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

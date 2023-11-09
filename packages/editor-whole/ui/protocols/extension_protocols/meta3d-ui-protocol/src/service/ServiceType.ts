@@ -1,6 +1,6 @@
 import { api, extensionProtocolName, state as meta3dState } from "meta3d-type/src/Index"
 import { elementContribute, elementName } from "../contribute/ElementContributeType"
-import { state, textureID, elementState } from "../state/StateType"
+import { textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
 import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, sceneTreeData, sceneTreeIndexData, sceneTreeReturnData, getValueFunc, setValueFunc } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
@@ -26,23 +26,23 @@ export type isDebug = boolean
 
 export type service = {
     readonly registerElement: < elementState> (
-        state: state,
+        meta3dState: meta3dState,
         elementContribute: elementContribute<elementState>
-    ) => state;
+    ) => meta3dState;
     readonly registerSkin: <skin> (
-        state: state,
+        meta3dState: meta3dState,
         skinContribute: skinContribute<skin>
-    ) => state;
+    ) => meta3dState;
     readonly registerUIControl: <inputData, outputData> (
-        state: state,
+        meta3dState: meta3dState,
         uiControlContribute: uiControlContribute<inputData, outputData>
-    ) => state;
+    ) => meta3dState;
     readonly getSkin: <skin> (
-        state: state,
+        meta3dState: meta3dState,
         skinName: skinName
     ) => nullable<skinContribute<skin>>;
     readonly getUIControlFunc: < inputData, outputData> (
-        state: state,
+        meta3dState: meta3dState,
         uiControlName: uiControlName
     ) => uiControlFunc<inputData, outputData>;
     // readonly updateUIControlName: (
@@ -51,14 +51,14 @@ export type service = {
     //     [oldUIControlName, newUIControlName]: [uiControlName, uiControlName]
     // ) => meta3dState;
     readonly getUIControlState: <uiControlState> (
-        state: state,
+        meta3dState: meta3dState,
         uiControlName: uiControlName,
     ) => nullable<uiControlState>;
     readonly setUIControlState: <uiControlState> (
-        state: state,
+        meta3dState: meta3dState,
         uiControlName: uiControlName,
         uiControlState: uiControlState
-    ) => state;
+    ) => meta3dState;
     // readonly prepare: (
     //     meta3dState: meta3dState,
     //     allUIControlContributes: Array<uiControlContribute<uiControlState, inputData, outputData>>
@@ -81,34 +81,34 @@ export type service = {
         time: time
     ) => Promise<meta3dState>;
     readonly getCurrentElementState: (
-        state: state
+        meta3dState: meta3dState
     ) => nullable<elementState>;
     readonly show: (
-        state: state,
+        meta3dState: meta3dState,
         elementName: elementName
-    ) => state;
+    ) => meta3dState;
     readonly hide: (
-        state: state,
+        meta3dState: meta3dState,
         elementName: elementName
-    ) => state;
+    ) => meta3dState;
     readonly isStateChange: (
-        state: state,
+        meta3dState: meta3dState,
         elementName: elementName
     ) => boolean;
     readonly getElementState: <elementState> (
-        state: state,
+        meta3dState: meta3dState,
         elementName: elementName
     ) => nullable<elementState>;
     // readonly dispatch: <action> (
-    //     state: state,
+    //     meta3dState: meta3dState,
     //     actionName: string,
     //     role: string,
     //     updateElementStateFieldFunc: updateElementStateFieldFunc
-    // ) => state;
+    // ) => meta3dState;
     readonly updateElementState: (
-        state: state,
+        meta3dState: meta3dState,
         updateElementStateFunc: updateElementStateFunc
-    ) => state;
+    ) => meta3dState;
     readonly setStyle: (
         meta3dState: meta3dState,
         style: style
@@ -137,14 +137,14 @@ export type service = {
         rect: rect
     ) => meta3dState;
     readonly getFBOTexture: (
-        state: state,
+        meta3dState: meta3dState,
         textureID: textureID,
     ) => nullable<texture>;
     readonly setFBOTexture: (
-        state: state,
+        meta3dState: meta3dState,
         textureID: textureID,
         texture: texture
-    ) => state;
+    ) => meta3dState;
     readonly getWindowBarHeight: (
         meta3dState: meta3dState
     ) => number;

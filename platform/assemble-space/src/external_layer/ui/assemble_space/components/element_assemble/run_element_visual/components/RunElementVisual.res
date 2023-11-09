@@ -61,7 +61,7 @@ module Method = {
   ) => {
     service.storage.initForElementVisualApp()
     ->service.storage.getElementVisualApp(. _)
-    ->Meta3dBsMost.Most.flatMap(appBinaryFile => {
+    ->Meta3dBsMostDefault.Most.flatMap(appBinaryFile => {
       let (meta3dState, _, _) = service.meta3d.loadApp(. appBinaryFile)
 
       service.meta3d.initExtension(.
@@ -84,9 +84,9 @@ module Method = {
 
         ()->Js.Promise.resolve
       }, _)
-      ->Meta3dBsMost.Most.fromPromise
+      ->Meta3dBsMostDefault.Most.fromPromise
     }, _)
-    ->Meta3dBsMost.Most.drain
+    ->Meta3dBsMostDefault.Most.drain
     ->Js.Promise.catch(e => {
       service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)

@@ -166,8 +166,8 @@ module Method = {
 
       ()->Js.Promise.resolve
     }, _)
-    ->Meta3dBsMost.Most.fromPromise
-    ->Meta3dBsMost.Most.drain
+    ->Meta3dBsMostDefault.Most.fromPromise
+    ->Meta3dBsMostDefault.Most.drain
     ->Js.Promise.catch(e => {
       service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)
@@ -278,14 +278,14 @@ module Method = {
         data.contributePackageData.name,
         version,
       )
-      ->Meta3dBsMost.Most.tap(elementAssembleData => {
+      ->Meta3dBsMostDefault.Most.tap(elementAssembleData => {
         Meta3dCommonlib.NullableSt.isNullable(elementAssembleData)
           ? setElementAssembleData(_ => No)
           : setElementAssembleData(_ => Loaded(
               elementAssembleData->Meta3dCommonlib.NullableSt.getExn,
             ))
       }, _)
-      ->Meta3dBsMost.Most.drain
+      ->Meta3dBsMostDefault.Most.drain
       ->Js.Promise.catch(e => {
         service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
       }, _)

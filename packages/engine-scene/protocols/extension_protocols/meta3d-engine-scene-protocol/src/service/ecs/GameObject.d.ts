@@ -8,7 +8,7 @@ import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-c
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { clonedGameObjects } from "meta3d-engine-core-sceneview-protocol/src/contribute/scene_graph/GameObjectContributeType"
+import { clonedGameObjects } from "meta3d-engine-core-protocol/src/contribute/scene_graph/GameObjectContributeType"
 import { arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol/src/Index"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 

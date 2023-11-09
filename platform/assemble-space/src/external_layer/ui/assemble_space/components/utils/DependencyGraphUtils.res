@@ -707,7 +707,7 @@ module Method = {
         package.protocol.name,
         package.name,
       )
-      ->Meta3dBsMost.Most.flatMap(
+      ->Meta3dBsMostDefault.Most.flatMap(
         ((
           file,
           entryExtensionProtocolVersion,
@@ -723,7 +723,7 @@ module Method = {
               version: entryExtensionProtocolVersion,
             },
             binaryFile: file,
-          }->Meta3dBsMost.Most.just
+          }->Meta3dBsMostDefault.Most.just
         },
         _,
       )
@@ -743,7 +743,7 @@ module Method = {
           extension.data.extensionPackageData.name,
           extension.data.extensionPackageData.protocol.name,
         )
-        ->Meta3dBsMost.Most.flatMap(
+        ->Meta3dBsMostDefault.Most.flatMap(
           ((
             (description, displayName, repoLink, implementVersion, file, account),
             (
@@ -774,7 +774,7 @@ module Method = {
                 protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
               ),
               (protocolDisplayName, protocolRepoLink, protocolDescription),
-            )->Meta3dBsMost.Most.just
+            )->Meta3dBsMostDefault.Most.just
           },
           _,
         )
@@ -801,7 +801,7 @@ module Method = {
           contribute.data.contributePackageData.name,
           contribute.data.contributePackageData.protocol.name,
         )
-        ->Meta3dBsMost.Most.flatMap(
+        ->Meta3dBsMostDefault.Most.flatMap(
           ((
             (description, displayName, repoLink, implementVersion, file, account),
             (protocolVersion, protocolIconBase64, _, _, _),
@@ -820,7 +820,7 @@ module Method = {
                 }: FrontendUtils.AssembleSpaceCommonType.contribute
               ),
               protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
-            )->Meta3dBsMost.Most.just
+            )->Meta3dBsMostDefault.Most.just
           },
           _,
         )

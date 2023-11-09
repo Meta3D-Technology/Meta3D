@@ -27,7 +27,7 @@ _hiddenLoadding()
 
 let service = _buildFrontendService(_getEnv())
 
-service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMost.Most.drain->Js.Promise.then_(_ => {
+service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMostDefault.Most.drain->Js.Promise.then_(_ => {
   Js.log("init backend success")->Js.Promise.resolve
 }, _)->ignore
 

@@ -244,7 +244,7 @@ defineFeature(feature, test => {
 
         publishPackageStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.empty(),
+            Meta3dBsMostDefault.Most.empty(),
             _,
           )
 

@@ -71,11 +71,11 @@
 //     0,
 //     visualExtensionProtocolName,
 //   )
-//   ->Meta3dBsMost.Most.map(_getNewestImplement(_, service, visualExtensionName, isDebug), _)
-//   ->Meta3dBsMost.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
+//   ->Meta3dBsMostDefault.Most.map(_getNewestImplement(_, service, visualExtensionName, isDebug), _)
+//   ->Meta3dBsMostDefault.Most.map((data: FrontendUtils.BackendCloudbaseType.implement) => {
 //     _loadAndBuildVisualExtension(service, data.file)
 //   }, _)
-//   ->Meta3dBsMost.Most.observe(extension => {
+//   ->Meta3dBsMostDefault.Most.observe(extension => {
 //     dispatch(buildAction(extension))
 //   }, _)
 //   ->Js.Promise.catch(e => {

@@ -69,8 +69,8 @@ let buildElementMR = (
   elementName,
   selectedUIControls,
   selectedUIControlInspectorData,
-  // elementStateFields,
-): elementMR => {
+): // elementStateFields,
+elementMR => {
   {
     element: {
       elementName,
@@ -90,7 +90,7 @@ let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.servic
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, protocol}) => {
     str ++
     j`
-    let ${displayName} = getUIControlFunc(uiState,"${displayName}")
+    let ${displayName} = getUIControlFunc(meta3dState,"${displayName}")
     `
   }, "")
 }
@@ -113,8 +113,8 @@ let _generateHandleUIControlEventStr = (
     configLib,
     service.meta3d.getUIControlSupportedEventNames(.
       configLib,
-    // )->Meta3dCommonlib.ArraySt.map(((  eventName, _  )) => {
-    )->Meta3dCommonlib.ArraySt.map(( eventName ) => {
+      // )->Meta3dCommonlib.ArraySt.map(((  eventName, _  )) => {
+    )->Meta3dCommonlib.ArraySt.map(eventName => {
       getActionName(event, eventName)
     }),
   )
@@ -198,7 +198,6 @@ let rec _generateChildren = (service, children: array<uiControl>): string => {
     ? {j`childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))`}
     : {
         let str = j`childrenFunc: (meta3dState) =>{
-                let uiState = api.getExtensionState(meta3dState, "meta3d-ui-protocol")
     `
         let str = str ++ _generateGetUIControlsStr(service, children)
 
@@ -314,9 +313,9 @@ window.Contribute = {
             execOrder: ${execOrder->Js.Int.toString},
             elementState: {},
             elementFunc: (meta3dState, elementState) => {
-                let { getUIControlFunc } = api.getExtensionService(meta3dState, "meta3d-ui-protocol")
+                let { ui  } = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol")
 
-                let uiState = api.getExtensionState(meta3dState, "meta3d-ui-protocol")
+                let { getUIControlFunc } = ui
 `
   }
 

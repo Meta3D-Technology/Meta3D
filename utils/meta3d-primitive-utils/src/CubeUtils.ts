@@ -1,4 +1,4 @@
-import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
+import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { state as meta3dState } from "meta3d-type"
 

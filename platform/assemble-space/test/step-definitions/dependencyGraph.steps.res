@@ -1868,7 +1868,7 @@ defineFeature(feature, test => {
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->withThreeArgs(matchAny, p1ProtocolName, p1Name, _)
           ->returns(
-            Meta3dBsMost.Most.just((p1File, p1ProtocolVersion, p1Version, p1ProtocolIconbase64)),
+            Meta3dBsMostDefault.Most.just((p1File, p1ProtocolVersion, p1Version, p1ProtocolIconbase64)),
             _,
           )
 
@@ -1876,7 +1876,7 @@ defineFeature(feature, test => {
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->withThreeArgs(matchAny, e1Name, e1ProtocolName, _)
           ->returns(
-            Meta3dBsMost.Most.just((
+            Meta3dBsMostDefault.Most.just((
               (e1Description, e1DisplayName, e1RepoLink, e1HighVersion, e1File, e1Account),
               (
                 e1ProtocolHighVersion,
@@ -1894,7 +1894,7 @@ defineFeature(feature, test => {
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->withThreeArgs(matchAny, c1Name, c1ProtocolName, _)
           ->returns(
-            Meta3dBsMost.Most.just((
+            Meta3dBsMostDefault.Most.just((
               (c1Description, c1DisplayName, c1RepoLink, c1HighVersion, c1File, c1Account),
               (
                 c1ProtocolHighVersion,

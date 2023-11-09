@@ -1,4 +1,4 @@
-open Meta3dEngineCoreSceneviewProtocol.ServiceType
+open Meta3dEngineCoreProtocol.ServiceType
 
 let getDirection = (
   usedDirectionLightContribute,

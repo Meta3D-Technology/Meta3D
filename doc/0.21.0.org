@@ -232,7 +232,39 @@ TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs
 
 **** TODO run test: Scene View
 
+TODO add engine-scene, core
 
+TODO add ui, event
+
+TODO add scene view render
+
+
+
+TODO update meta3d-view-utils->getViewRect
+
+
+
+TODO update editor-whole
+
+
+
+TODO add ui control
+
+
+
+TODO refactor get engine core, most, root:use getPackageService("meta3d-core-protocol"):
+    add core implement
+
+
+TODO refactor get engine scene:use getPackageService
+
+
+
+
+TODO publish all
+
+
+TODO pass run test
 
 
 # **** TODO run test: SceneTree+Scene View+ *Game View

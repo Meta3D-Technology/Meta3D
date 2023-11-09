@@ -30,56 +30,53 @@ let build = (
   // )->Obj.magic,
   ~getAllPublishExtensionProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getAllPublishContributeProtocols=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
   ~getAllPublishContributeProtocolConfigs=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
   ~getAllPublishExtensionProtocolConfigs=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
   ~getAllPublishExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
   ~getAllPublishNewestExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
   ~publishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~findPublishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
+  ->returns(Meta3dBsMostDefault.Most.just(Js.Nullable.null), _)
   ->Obj.magic,
   // ~findPublishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  // ->returns(Meta3dBsMost.Most.just(Js.Nullable.null), _)
+  // ->returns(Meta3dBsMostDefault.Most.just(Js.Nullable.null), _)
   // ->Obj.magic,
   // ~findAllPublishAppsByAccount=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  // ->returns(Meta3dBsMost.Most.just([]), _)
+  // ->returns(Meta3dBsMostDefault.Most.just([]), _)
   // ->Obj.magic,
   ~findAllPublishApps=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.just([]), _)
+  ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
   ~publishElementContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
   ~publishElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
   ~getElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
   ~findNewestPublishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
   ~findNewestPublishExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
   ~findNewestPublishContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMost.Most.empty(), _)
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
   ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~getExtensionService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~setExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getPackageService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~loadContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateExtension=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -184,9 +181,6 @@ let build = (
   },
   meta3d: {
     generateContribute,
-    getExtensionState: getExtensionState->Obj.magic,
-    getExtensionService: getExtensionService->Obj.magic,
-    setExtensionState: setExtensionState->Obj.magic,
     getPackageService: getPackageService->Obj.magic,
     loadContribute,
     generateExtension,

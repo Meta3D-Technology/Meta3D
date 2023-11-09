@@ -155,7 +155,7 @@
 //       () => {
 //         getAllPublishNewestExtensionsStub.contents =
 //           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             Meta3dBsMost.Most.just([
+//             Meta3dBsMostDefault.Most.just([
 //               ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.4.0", ()),
 //               ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.4.1", ()),
 //             ]),
@@ -295,13 +295,13 @@
 //       () => {
 //         initForElementVisualAppStub :=
 //           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             Meta3dBsMost.Most.just(db),
+//             Meta3dBsMostDefault.Most.just(db),
 //             _,
 //           )
 
 //         setElementVisualAppStub :=
 //           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             Meta3dBsMost.Most.just(db),
+//             Meta3dBsMostDefault.Most.just(db),
 //             _,
 //           )
 //       },
@@ -350,7 +350,7 @@
 //       () => {
 //         setElementVisualAppStub.contents
 //         ->Obj.magic
-//         ->SinonTool.calledWithArg2(db->Meta3dBsMost.Most.just, matchAny)
+//         ->SinonTool.calledWithArg2(db->Meta3dBsMostDefault.Most.just, matchAny)
 //         ->expect == true
 //       },
 //     )
@@ -479,7 +479,7 @@
 //           ServiceTool.build(
 //             ~sandbox,
 //             ~setElementVisualApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-//             ->returns(Meta3dBsMost.Most.just(1), _)
+//             ->returns(Meta3dBsMostDefault.Most.just(1), _)
 //             ->Obj.magic,
 //             ~convertAllFileDataForApp=convertAllFileDataForAppStub.contents->Obj.magic,
 //             (),

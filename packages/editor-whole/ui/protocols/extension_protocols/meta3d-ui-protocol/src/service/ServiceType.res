@@ -18,44 +18,44 @@ type isDebug = bool
 
 type service = {
   registerElement: 'elementState. (
-    StateType.state,
+    Meta3dType.Index.state,
     ElementContributeType.elementContribute<'elementState>,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   registerSkin: (
-    StateType.state,
+    Meta3dType.Index.state,
     SkinContributeType.skinContribute<StateType.skin>,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   registerUIControl: (
-    StateType.state,
+    Meta3dType.Index.state,
     UIControlContributeType.uiControlContribute<StateType.inputData, StateType.outputData>,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   render: (
     Meta3dType.Index.state,
     (uiExtensionProtocolName, imguiRendererExtensionProtocolName),
     // StateType.ioData,
     time,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  show: (StateType.state, ElementContributeType.elementName) => StateType.state,
-  hide: (StateType.state, ElementContributeType.elementName) => StateType.state,
-  isStateChange: (StateType.state, ElementContributeType.elementName) => bool,
+  show: (Meta3dType.Index.state, ElementContributeType.elementName) => Meta3dType.Index.state,
+  hide: (Meta3dType.Index.state, ElementContributeType.elementName) => Meta3dType.Index.state,
+  isStateChange: (Meta3dType.Index.state, ElementContributeType.elementName) => bool,
   getElementState: 'elementState. (
-    StateType.state,
+    Meta3dType.Index.state,
     ElementContributeType.elementName,
   ) => Js.Nullable.t<'elementState>,
   // dispatch: 'action. (
-  //   StateType.state,
+  //   Meta3dType.Index.state,
   //   string,
   //   string,
   //   updateElementStateFunc,
-  // ) => StateType.state,
-  updateElementState: (StateType.state, updateElementStateFunc) => StateType.state,
-  // getIOData: StateType.state => StateType.ioData,
+  // ) => Meta3dType.Index.state,
+  updateElementState: (Meta3dType.Index.state, updateElementStateFunc) => Meta3dType.Index.state,
+  // getIOData: Meta3dType.Index.state => StateType.ioData,
   getSkin: 'skin. (
-    StateType.state,
+    Meta3dType.Index.state,
     SkinContributeType.skinName,
   ) => Js.Nullable.t<SkinContributeType.skinContribute<'skin>>,
   getUIControlFunc: 'inputData 'outputData. (
-    StateType.state,
+    Meta3dType.Index.state,
     UIControlContributeType.uiControlName,
   ) => UIControlContributeType.uiControlFunc<'inputData, 'outputData>,
   // updateUIControlName: (
@@ -64,14 +64,14 @@ type service = {
   //   (UIControlContributeType.uiControlName, UIControlContributeType.uiControlName),
   // ) => Meta3dType.Index.state,
   getUIControlState: 'uiControlState. (
-    StateType.state,
+    Meta3dType.Index.state,
     UIControlContributeType.uiControlName,
   ) => Js.Nullable.t<'uiControlState>,
   setUIControlState: 'uiControlState. (
-    StateType.state,
+    Meta3dType.Index.state,
     UIControlContributeType.uiControlName,
     'uiControlState,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   setStyle: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.style,
@@ -95,8 +95,8 @@ type service = {
     Js.Null.t<texture>,
     Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => Meta3dType.Index.state,
-  getFBOTexture: (StateType.state, StateType.textureID) => Js.Nullable.t<texture>,
-  setFBOTexture: (StateType.state, StateType.textureID, texture) => StateType.state,
+  getFBOTexture: (Meta3dType.Index.state, StateType.textureID) => Js.Nullable.t<texture>,
+  setFBOTexture: (Meta3dType.Index.state, StateType.textureID, texture) => Meta3dType.Index.state,
   getWindowBarHeight: Meta3dType.Index.state => float,
   getContext: Meta3dType.Index.state => Meta3dImguiRendererProtocol.ServiceType.context,
   button: (
@@ -167,7 +167,7 @@ type service = {
     Meta3dImguiRendererProtocol.ServiceType.size,
   ) => (Meta3dType.Index.state, (bool, bool)),
   // prepare: (
-  //   StateType.state,
+  //   Meta3dType.Index.state,
   //   array<
   //     UIControlContributeType.uiControlContribute<
   //       StateType.uiControlState,
@@ -175,7 +175,7 @@ type service = {
   //       StateType.outputData,
   //     >,
   //   >,
-  // ) => StateType.state,
+  // ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
@@ -188,6 +188,6 @@ type service = {
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
     clearColor,
   ) => Meta3dType.Index.state,
-  getCurrentElementState: StateType.state => Js.Nullable.t<StateType.elementState>,
-  setCurrentElementState: (StateType.state, StateType.elementState) => StateType.state,
+  getCurrentElementState: Meta3dType.Index.state => Js.Nullable.t<StateType.elementState>,
+  setCurrentElementState: (Meta3dType.Index.state, StateType.elementState) => Meta3dType.Index.state,
 }

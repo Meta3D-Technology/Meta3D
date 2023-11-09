@@ -6,7 +6,7 @@ open Operators
 let feature = loadFeature("./test/features/transform_api.feature")
 
 defineFeature(feature, test => {
-  let contribute: ref<Meta3dEngineCoreSceneviewProtocol.RegisterComponentType.usedComponentContribute> = ref(Obj.magic(1))
+  let contribute: ref<Meta3dEngineCoreProtocol.RegisterComponentType.usedComponentContribute> = ref(Obj.magic(1))
   let transformComponentName = "Transform"
 
   test(."lookAt", ({given, \"when", \"and", then}) => {

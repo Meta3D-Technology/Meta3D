@@ -112,13 +112,13 @@ defineFeature(feature, test => {
 
         initForElementVisualAppStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.empty(),
+            Meta3dBsMostDefault.Most.empty(),
             _,
           )
 
         getElementVisualAppStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.fromPromise(
+            Meta3dBsMostDefault.Most.fromPromise(
               Js.Promise.make(
                 (~resolve, ~reject) => {
                   reject(.
@@ -183,13 +183,13 @@ defineFeature(feature, test => {
       () => {
         initForElementVisualAppStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.just(Obj.magic(1)),
+            Meta3dBsMostDefault.Most.just(Obj.magic(1)),
             _,
           )
 
         getElementVisualAppStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.just(appBinaryFile),
+            Meta3dBsMostDefault.Most.just(appBinaryFile),
             _,
           )
       },
@@ -240,7 +240,7 @@ defineFeature(feature, test => {
 
               loopFirstFrameID
             },
-            ~requestAnimationOtherFrame=(. _) => {
+            ~requestAnimationOtherFrame=_ => {
               loopOtherFrameID
             },
             ~querySelector=querySelectorStub.contents->Obj.magic,

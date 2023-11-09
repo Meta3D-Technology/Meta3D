@@ -1,11 +1,11 @@
-import { usedComponentContribute } from "meta3d-engine-core-sceneview-protocol/src/state/RegisterComponentType";
+import { usedComponentContribute } from "meta3d-engine-core-protocol/src/state/RegisterComponentType";
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { transform } from "meta3d-component-transform-protocol";
 import { geometry, state as geometryState } from "meta3d-component-geometry-protocol";
 import { perspectiveCameraProjection } from "meta3d-component-perspectivecameraprojection-protocol";
 import { basicCameraView } from "meta3d-component-basiccameraview-protocol";
 import { directionLight } from "meta3d-component-directionlight-protocol";
-import { service } from "meta3d-engine-core-sceneview-protocol/src/service/ServiceType"
+import { service } from "meta3d-engine-core-protocol/src/service/ServiceType"
 import { pbrMaterial, state as pbrMaterialState } from "meta3d-component-pbrmaterial-protocol/src/Index";
 import { gameObject } from "meta3d-gameobject-protocol/src/Index";
 

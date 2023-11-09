@@ -125,7 +125,7 @@ module Method = {
                 account->Meta3dCommonlib.OptionSt.getExn,
                 appDescription,
               )
-              ->Meta3dBsMost.Most.drain
+              ->Meta3dBsMostDefault.Most.drain
               ->Js.Promise.then_(_ => {
                 setIsUploadBegin(_ => false)
                 setVisible(_ => false)

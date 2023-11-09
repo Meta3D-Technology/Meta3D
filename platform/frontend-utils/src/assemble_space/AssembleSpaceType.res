@@ -74,13 +74,6 @@ type convertAllFileDataForPackage = (
 )
 
 type meta3dService = {
-  getExtensionState: 'extensionState. (. Meta3dType.Index.state, string) => 'extensionState,
-  setExtensionState: 'extensionState. (
-    . Meta3dType.Index.state,
-    string,
-    'extensionState,
-  ) => Meta3dType.Index.state,
-  getExtensionService: 'extensionService. (. Meta3dType.Index.state, string) => 'extensionService,
   getPackageService: 'packageService. (. Meta3dType.Index.state, string) => 'packageService,
   generateContribute: (
     . Meta3d.ExtensionFileType.contributePackageData,
@@ -178,11 +171,11 @@ type tabService = {openUrl: (. url) => unit}
 
 type db = IndexedDB.IDBDatabase.t
 
-type initStream = Meta3dBsMost.Most.stream<db>
+type initStream = Meta3dBsMostDefault.Most.stream<db>
 
 type storageService = {
   initForElementVisualApp: unit => initStream,
-  getElementVisualApp: (. initStream) => Meta3dBsMost.Most.stream<Js.Typed_array.ArrayBuffer.t>,
+  getElementVisualApp: (. initStream) => Meta3dBsMostDefault.Most.stream<Js.Typed_array.ArrayBuffer.t>,
   setElementVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
 }
 

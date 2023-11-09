@@ -145,7 +145,7 @@ defineFeature(feature, test => {
       setElementAssembleDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
       getElementAssembleDataStub :=
         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-          elementAssembleData1->Meta3dBsMost.Most.just,
+          elementAssembleData1->Meta3dBsMostDefault.Most.just,
           _,
         )
 

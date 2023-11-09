@@ -228,7 +228,7 @@ defineFeature(feature, test => {
             ~sandbox,
             ~error=errorStub.contents->Obj.magic,
             ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(Meta3dBsMost.Most.empty(), _)
+            ->returns(Meta3dBsMostDefault.Most.empty(), _)
             ->Obj.magic,
             (),
           ),
@@ -351,7 +351,7 @@ defineFeature(feature, test => {
 
         publishAppStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            Meta3dBsMost.Most.empty(),
+            Meta3dBsMostDefault.Most.empty(),
             _,
           )
 

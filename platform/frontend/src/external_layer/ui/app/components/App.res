@@ -70,16 +70,6 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       BackendCloudbase.buildAssembleSpaceService()
     },
     meta3d: {
-      getExtensionState: (. meta3dState, extensionProtocolName) =>
-        Meta3d.Main.getExtensionState->Obj.magic(meta3dState, extensionProtocolName),
-      setExtensionState: (. meta3dState, extensionProtocolName, extensionState) =>
-        Meta3d.Main.setExtensionState->Obj.magic(
-          meta3dState,
-          extensionProtocolName,
-          extensionState,
-        ),
-      getExtensionService: (. meta3dState, extensionProtocolName) =>
-        Meta3d.Main.getExtensionService->Obj.magic(meta3dState, extensionProtocolName),
       getPackageService: (. meta3dState, packageProtocolName) =>
         Meta3d.Main.getPackageService->Obj.magic(meta3dState, packageProtocolName),
       generateContribute: (. packageData, fileStr) =>

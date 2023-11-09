@@ -74,7 +74,7 @@ module Method = {
 
       setIsUploadBegin(_ => true)
 
-      Meta3dBsMost.Most.mergeArray([
+      Meta3dBsMostDefault.Most.mergeArray([
         service.backend.publishElementContribute(.
           progress => setUploadProgress(_ => progress),
           account->Meta3dCommonlib.OptionSt.getExn,
@@ -118,7 +118,7 @@ module Method = {
           ),
         ),
       ])
-      ->Meta3dBsMost.Most.drain
+      ->Meta3dBsMostDefault.Most.drain
       ->Js.Promise.then_(_ => {
         setIsUploadBegin(_ => false)
         setVisible(_ => false)

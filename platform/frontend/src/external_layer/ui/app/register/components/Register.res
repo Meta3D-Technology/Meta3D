@@ -10,7 +10,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   let _onFinish = values => {
     let {account} = values->Obj.magic
 
-    service.backend.checkUserName(account)->Meta3dBsMost.Most.flatMap(isPass => {
+    service.backend.checkUserName(account)->Meta3dBsMostDefault.Most.flatMap(isPass => {
       !isPass
         ? {
             service.console.error(.
@@ -18,10 +18,10 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               2->Some,
             )
 
-            Meta3dBsMost.Most.empty()
+            Meta3dBsMostDefault.Most.empty()
           }
         : {
-            service.backend.registerUser(account)->Meta3dBsMost.Most.tap(_ => {
+            service.backend.registerUser(account)->Meta3dBsMostDefault.Most.tap(_ => {
               dispatch(
                 FrontendUtils.AppStoreType.UserCenterAction(
                   FrontendUtils.UserCenterStoreType.SetAccount(account),
@@ -31,7 +31,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
               RescriptReactRouter.push("/")
             }, _)
           }
-    }, _)->Meta3dBsMost.Most.drain->Js.Promise.catch(e => {
+    }, _)->Meta3dBsMostDefault.Most.drain->Js.Promise.catch(e => {
       service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
     }, _)->Obj.magic
   }

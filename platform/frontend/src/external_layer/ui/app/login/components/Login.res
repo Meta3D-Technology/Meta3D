@@ -25,14 +25,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           request({
             method: #eth_requestAccounts,
           })
-          ->Meta3dBsMost.Most.fromPromise
-          ->Meta3dBsMost.Most.map(accounts => accounts[0], _)
-          ->Meta3dBsMost.Most.flatMap(account => {
+          ->Meta3dBsMostDefault.Most.fromPromise
+          ->Meta3dBsMostDefault.Most.map(accounts => accounts[0], _)
+          ->Meta3dBsMostDefault.Most.flatMap(account => {
             accountRef := account
 
             service.backend.handleLoginForWeb3(account)
           }, _)
-          ->Meta3dBsMost.Most.tap(_ => {
+          ->Meta3dBsMostDefault.Most.tap(_ => {
             dispatch(
               FrontendUtils.AppStoreType.UserCenterAction(
                 FrontendUtils.UserCenterStoreType.SetAccount(accountRef.contents),
@@ -41,7 +41,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
             RescriptReactRouter.push("/")
           }, _)
-          ->Meta3dBsMost.Most.drain
+          ->Meta3dBsMostDefault.Most.drain
           ->Js.Promise.then_(_ => {
             setIsLoginBegin(_ => false)
 
@@ -62,7 +62,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
     setIsLoginBegin(_ => true)
 
-    service.backend.isLoginSuccess(account)->Meta3dBsMost.Most.tap(((isSuccess, failMsg)) => {
+    service.backend.isLoginSuccess(account)->Meta3dBsMostDefault.Most.tap(((isSuccess, failMsg)) => {
       !isSuccess
         ? {
             setIsLoginBegin(_ => false)
@@ -82,7 +82,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
             setIsLoginBegin(_ => false)
           }
-    }, _)->Meta3dBsMost.Most.drain->Obj.magic
+    }, _)->Meta3dBsMostDefault.Most.drain->Obj.magic
   }
 
   let _onFinishFailed = (service: FrontendUtils.FrontendType.service, errorInfo) => {
