@@ -4,8 +4,10 @@ var Caml_array = require("rescript/lib/js/caml_array.js");
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var ManagerUtils$Meta3d = require("./ManagerUtils.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var BinaryFileOperator$Meta3d = require("../file/BinaryFileOperator.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
+var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
 
 function convertAllFileData(allExtensionFileData, allContributeFileData, entryExtensionNames) {
   return [
@@ -79,9 +81,14 @@ function getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile) {
   return ManagerUtils$Meta3d.parse2(BinaryFileOperator$Meta3d.load(packageBinaryFile));
 }
 
+function getPackageService(state, protocolName) {
+  return OptionSt$Meta3dCommonlib.toNullable(ImmutableHashMap$Meta3dCommonlib.get(state.extensionServiceMap, protocolName));
+}
+
 exports.convertAllFileData = convertAllFileData;
 exports.generate = generate;
 exports._getEntryExtensionProtocolName = _getEntryExtensionProtocolName;
 exports.load = load;
 exports.getAllExtensionAndContributeFileDataOfPackage = getAllExtensionAndContributeFileDataOfPackage;
+exports.getPackageService = getPackageService;
 /* ManagerUtils-Meta3d Not a pure module */

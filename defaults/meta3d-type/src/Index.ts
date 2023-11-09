@@ -25,6 +25,7 @@ export type api = {
   getExtensionService<extensionService>(state: state, extensionProtocolName: extensionProtocolName): extensionService,
   getExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName): extensionState,
   setExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName, extensionState: extensionState): state
+  getPackageService<packageService>(state: state, packageProtocolName: packageProtocolName): nullable<packageService>,
   registerContribute<getContributeFunc>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContributeFunc): state,
   getContribute<contribute>(state: state, contributeProtocolName: contributeProtocolName): contribute,
   getAllContributesByType<contribute>(state: state, contributeType: contributeType): Array<contribute>,
@@ -60,7 +61,7 @@ export type startConfigData = [canvasData, configData]
 export type extensionLife<extensionService> = {
   onRegister?: extensionLifeEventHandler<extensionService>,
   onRestore?: (currentState: state, targetState: state) => state,
-  onDeepCopy?: (state:state) => state,
+  onDeepCopy?: (state: state) => state,
   onStart?: (state: state, extensionService: extensionService, configData: startConfigData) => void,
   onInit?: extensionLifeAsyncEventHandler<extensionService>,
   onUpdate?: extensionLifeAsyncEventHandler<extensionService>,

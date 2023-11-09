@@ -6,6 +6,7 @@ var Js_string = require("rescript/lib/js/js_string.js");
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var Tuple2$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/tuple/Tuple2.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
+var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var NullableSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/NullableSt.bs.js");
 var ImmutableHashMap$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/hash_map/ImmutableHashMap.bs.js");
@@ -90,6 +91,10 @@ function updateExtension(state, extensionProtocolName, data) {
 
 function initExtension(state, extensionProtocolName, data) {
   return _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onInit);
+}
+
+function getPackageService(state, protocolName) {
+  return OptionSt$Meta3dCommonlib.toNullable(ImmutableHashMap$Meta3dCommonlib.get(state.extensionServiceMap, protocolName));
 }
 
 function _decideContributeType(contribute) {
@@ -186,6 +191,7 @@ function buildAPI(param) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, protocolName);
             }),
           setExtensionState: setExtensionState,
+          getPackageService: getPackageService,
           registerContribute: registerContribute,
           getContribute: getContributeExn,
           getAllContributesByType: getAllContributesByType,
@@ -210,6 +216,7 @@ exports._invokeAsyncLifeOtherHander = _invokeAsyncLifeOtherHander;
 exports.startExtension = startExtension;
 exports.updateExtension = updateExtension;
 exports.initExtension = initExtension;
+exports.getPackageService = getPackageService;
 exports._decideContributeType = _decideContributeType;
 exports._checkIsRegister = _checkIsRegister;
 exports.restore = restore;

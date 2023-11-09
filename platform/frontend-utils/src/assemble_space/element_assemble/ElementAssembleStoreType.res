@@ -138,8 +138,8 @@ type action =
   | SetIsDraw(id, isDraw)
   // | SetAction(id, (eventName, option<actionName>))
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
-  | SetVisualExtension(ApAssembleStoreType.extension)
-  | SetRunVisualExtension(ApAssembleStoreType.extension)
+  // | SetVisualExtension(ApAssembleStoreType.extension)
+  // | SetRunVisualExtension(ApAssembleStoreType.extension)
   | SetElementContribute(elementContribute)
   // | ShowElementInspector
   // | AddElementStateField(elementStateFieldData)
@@ -156,8 +156,8 @@ type state = {
   parentUIControlId: option<id>,
   inspectorCurrentUIControlId: option<id>,
   selectedUIControlInspectorData: selectedUIControlInspectorData,
-  visualExtension: option<ApAssembleStoreType.extension>,
-  runVisualExtension: option<ApAssembleStoreType.extension>,
+  // visualExtension: option<ApAssembleStoreType.extension>,
+  // runVisualExtension: option<ApAssembleStoreType.extension>,
   elementContribute: option<elementContribute>,
   // isShowElementInspector: bool,
   // elementInspectorData: elementInspectorData,

@@ -35,8 +35,7 @@
     "meta3d",
     "meta3d-type",
     "meta3d-bs-most",
-    "meta3d-bs-most-protocol",
-    "meta3d-ui-protocol",
+    "meta3d-editor-whole-protocol",
     "frontend-utils"
   ],
   "refmt": 3,

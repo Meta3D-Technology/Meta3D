@@ -44,6 +44,11 @@ export function getExtensionState<extensionState>(
     extensionProtocolName: extensionProtocolName,
 ): extensionState
 
+export function getPackageService<packageService>(
+    state: state,
+    packageProtocolName: packageProtocolName
+): nullable<packageService>
+
 export function registerContribute<contribute>(state: state, contributeProtocolName: contributeProtocolName, getContributeFunc: getContribute<contribute>
 ): state
 

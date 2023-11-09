@@ -1,4 +1,5 @@
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 
 export type viewRect = {
     x: number,
@@ -9,5 +10,6 @@ export type viewRect = {
 
 export type state = {
     // canvas:nullable<HTMLCanvasElement>
-    viewRect: nullable<viewRect>
+    viewRect: nullable<viewRect>,
+    arcballCameraControllerGameObject: nullable<gameObject>
 }

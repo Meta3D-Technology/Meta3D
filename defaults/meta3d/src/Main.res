@@ -10,6 +10,8 @@ let setExtensionState = ExtensionManager.setExtensionState
 
 let getExtensionState = ExtensionManager.getExtensionStateExn
 
+let getPackageService = ExtensionManager.getPackageService
+
 let registerContribute = ExtensionManager.registerContribute
 
 let getContribute = ExtensionManager.getContributeExn

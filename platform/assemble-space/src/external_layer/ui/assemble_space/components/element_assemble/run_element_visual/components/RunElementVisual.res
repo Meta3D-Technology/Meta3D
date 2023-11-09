@@ -2,10 +2,11 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
 module Method = {
-  let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"
+  // let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"
 
   let _getInitData = (service: FrontendUtils.AssembleSpaceType.service, isDebug) => {
     {
+      "target": "visualRun",
       "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-run-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
@@ -36,12 +37,12 @@ module Method = {
   ) => {
     service.meta3d.updateExtension(.
       meta3dState,
-      _getVisualExtensionProtocolName(),
+      ElementVisualUtils.getEditorWholePackageProtocolName(),
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
       loopFrameID.current =
-        service.other.requestAnimationOtherFrame(. time => {
+        service.other.requestAnimationOtherFrame(time => {
           _loop(service, loopFrameID, apInspectorData, time, meta3dState)
         })->Some
 
@@ -65,7 +66,7 @@ module Method = {
 
       service.meta3d.initExtension(.
         meta3dState,
-        _getVisualExtensionProtocolName(),
+        ElementVisualUtils.getEditorWholePackageProtocolName(),
         _getInitData(service, isDebug),
       )
       ->Js.Promise.then_(meta3dState => {

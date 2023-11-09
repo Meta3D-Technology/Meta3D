@@ -6,6 +6,7 @@ import * as Js_string from "../../../../../node_modules/rescript/lib/es6/js_stri
 import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
@@ -90,6 +91,10 @@ function updateExtension(state, extensionProtocolName, data) {
 
 function initExtension(state, extensionProtocolName, data) {
   return _invokeAsyncLifeOtherHander(state, extensionProtocolName, data, ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionLifeMap, extensionProtocolName).onInit);
+}
+
+function getPackageService(state, protocolName) {
+  return OptionSt$Meta3dCommonlib.toNullable(ImmutableHashMap$Meta3dCommonlib.get(state.extensionServiceMap, protocolName));
 }
 
 function _decideContributeType(contribute) {
@@ -186,6 +191,7 @@ function buildAPI(param) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionStateMap, protocolName);
             }),
           setExtensionState: setExtensionState,
+          getPackageService: getPackageService,
           registerContribute: registerContribute,
           getContribute: getContributeExn,
           getAllContributesByType: getAllContributesByType,
@@ -211,6 +217,7 @@ export {
   startExtension ,
   updateExtension ,
   initExtension ,
+  getPackageService ,
   _decideContributeType ,
   _checkIsRegister ,
   restore ,

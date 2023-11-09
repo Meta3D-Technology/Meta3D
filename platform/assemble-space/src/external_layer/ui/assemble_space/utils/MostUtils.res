@@ -1,4 +1,4 @@
-let toPromise = (stream: Meta3dBsMostProtocol.StreamType.stream<'a>): Js.Promise.t<'a> => {
+let toPromise = (stream: Meta3dBsMost.Most.stream<'a>): Js.Promise.t<'a> => {
   let result: ref<'a> = ref(Obj.magic(1))
 
   stream->Meta3dBsMost.Most.observe((value: 'a) => {

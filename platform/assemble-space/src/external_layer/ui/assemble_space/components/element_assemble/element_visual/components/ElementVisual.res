@@ -8,22 +8,23 @@ type elementAssembleData =
   | Loaded(FrontendUtils.BackendCloudbaseType.elementAssembleData)
 
 module Method = {
-  let _getVisualExtensionName = () => "meta3d-element-assemble-visual"
+  // let _getVisualExtensionName = () => "meta3d-element-assemble-visual"
 
-  let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-protocol"
+  // let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-protocol"
 
-  let getAndSetNewestVisualExtension = (service, dispatch, isDebug) => {
-    ElementVisualUtils.getAndSetNewestVisualExtension(
-      service,
-      dispatch,
-      extension => FrontendUtils.ElementAssembleStoreType.SetVisualExtension(extension),
-      (_getVisualExtensionProtocolName(), _getVisualExtensionName()),
-      isDebug,
-    )
-  }
+  // let getAndSetNewestVisualExtension = (service, dispatch, isDebug) => {
+  //   ElementVisualUtils.getAndSetNewestVisualExtension(
+  //     service,
+  //     dispatch,
+  //     extension => FrontendUtils.ElementAssembleStoreType.SetVisualExtension(extension),
+  //     (_getVisualExtensionProtocolName(), _getVisualExtensionName()),
+  //     isDebug,
+  //   )
+  // }
 
   let _getInitData = (service: FrontendUtils.AssembleSpaceType.service, isDebug) => {
     {
+      "target": "visual",
       "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-canvas")->Meta3dCommonlib.OptionSt.getExn,
     }->Obj.magic
@@ -38,23 +39,31 @@ module Method = {
   }
 
   let _updateElementContribute = (meta3dState, service, elementContribute) => {
-    let meta3dUIExtensionProtocolName = ElementVisualUtils.getUIExtensionProtocolName()
+    // let meta3dUIExtensionProtocolName = ElementVisualUtils.getUIExtensionProtocolName()
 
-    let uiState: Meta3dUiProtocol.StateType.state = service.meta3d.getExtensionState(.
-      meta3dState,
-      meta3dUIExtensionProtocolName,
-    )
+    // let uiState: Meta3dUiProtocol.StateType.state = service.meta3d.getExtensionState(.
+    //   meta3dState,
+    //   meta3dUIExtensionProtocolName,
+    // )
 
-    // let meta3dState = service.meta3d.registerContribute(meta3dState, elementContribute)
+    // // let meta3dState = service.meta3d.registerContribute(meta3dState, elementContribute)
 
-    let uiState = (
-      service.meta3d.getExtensionService(.
+    // let uiState = (
+    //   service.meta3d.getExtensionService(.
+    //     meta3dState,
+    //     meta3dUIExtensionProtocolName,
+    //   ): Meta3dUiProtocol.ServiceType.service
+    // ).registerElement(uiState, elementContribute)
+
+    // service.meta3d.setExtensionState(. meta3dState, meta3dUIExtensionProtocolName, uiState)
+
+    let editorWholePackageService: Meta3dEditorWholeProtocol.ServiceType.service =
+      service.meta3d.getPackageService(.
         meta3dState,
-        meta3dUIExtensionProtocolName,
-      ): Meta3dUiProtocol.ServiceType.service
-    ).registerElement(uiState, elementContribute)
+        ElementVisualUtils.getEditorWholePackageProtocolName(),
+      )->Meta3dCommonlib.NullableSt.getExn
 
-    service.meta3d.setExtensionState(. meta3dState, meta3dUIExtensionProtocolName, uiState)
+    editorWholePackageService.ui.registerElement(meta3dState, elementContribute)
   }
 
   let rec _loop = (
@@ -90,12 +99,12 @@ module Method = {
 
     service.meta3d.updateExtension(.
       meta3dState,
-      _getVisualExtensionProtocolName(),
+      ElementVisualUtils.getEditorWholePackageProtocolName(),
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
       loopFrameID.current =
-        service.other.requestAnimationOtherFrame(. time => {
+        service.other.requestAnimationOtherFrame(time => {
           _loop(service, loopFrameID, apInspectorData, time, meta3dState)
         })->Some
 
@@ -107,12 +116,14 @@ module Method = {
   let _generateApp = (
     service,
     ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
-    visualExtension,
   ) => {
+    // visualExtension,
+
     AppUtils.generateApp(
       service,
       (selectPackages, allPackagesStoredInApp),
-      selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
+      // selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
+      selectedExtensions,
       selectedContributes,
       Js.Nullable.null,
     )
@@ -122,7 +133,7 @@ module Method = {
     service,
     loopFrameID: React.ref<option<int>>,
     (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
-    visualExtension,
+    // visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
     let (meta3dState, _, _) = service.meta3d.loadApp(.
@@ -133,13 +144,13 @@ module Method = {
           selectedExtensions->Meta3dCommonlib.ListSt.toArray,
           selectedContributes->Meta3dCommonlib.ListSt.toArray,
         ),
-        visualExtension,
+        // visualExtension,
       ),
     )
 
     service.meta3d.initExtension(.
       meta3dState,
-      _getVisualExtensionProtocolName(),
+      ElementVisualUtils.getEditorWholePackageProtocolName(),
       _getInitData(service, isDebug),
     )
     ->Js.Promise.then_(meta3dState => {
@@ -162,12 +173,11 @@ module Method = {
     }, _)
   }
 
-  let isLoaded = (visualExtension, elementAssembleData) => {
-    visualExtension->Meta3dCommonlib.OptionSt.isSome &&
-      switch elementAssembleData {
-      | Loading => false
-      | _ => true
-      }
+  let isLoaded = elementAssembleData => {
+    switch elementAssembleData {
+    | Loading => false
+    | _ => true
+    }
   }
 
   let _getElementContributeName = () => "meta3d-element-assemble-element"
@@ -415,7 +425,7 @@ module Method = {
       canvasData,
       selectedUIControls,
       selectedUIControlInspectorData,
-      visualExtension,
+      // visualExtension,
       elementContribute,
       // elementInspectorData,
     } = elementAssembleState
@@ -435,7 +445,7 @@ module Method = {
         canvasData,
         selectedUIControls,
         selectedUIControlInspectorData,
-        visualExtension,
+        // visualExtension,
         // elementContribute,
         elementContribute,
         // elementInspectorData,
@@ -461,7 +471,7 @@ let make = (~service: service, ~account: option<string>) => {
       canvasData,
       selectedUIControls,
       selectedUIControlInspectorData,
-      visualExtension,
+      // visualExtension,
       // elementContribute,
       elementContribute,
       // elementInspectorData,
@@ -473,15 +483,15 @@ let make = (~service: service, ~account: option<string>) => {
 
   // let {elementStateFields} = elementInspectorData
 
-  service.react.useEffectOnce(() => {
-    switch visualExtension {
-    | Some(_) => ()
-    | None =>
-      Method.getAndSetNewestVisualExtension(service, dispatch, apInspectorData.isDebug)->ignore
-    }
+  // service.react.useEffectOnce(() => {
+  //   switch visualExtension {
+  //   | Some(_) => ()
+  //   | None =>
+  //     Method.getAndSetNewestVisualExtension(service, dispatch, apInspectorData.isDebug)->ignore
+  //   }
 
-    ((), None)
-  })
+  //   ((), None)
+  // })
 
   service.react.useEffect1(. () => {
     Method.getAndSetElementAssembleData(
@@ -542,18 +552,27 @@ let make = (~service: service, ~account: option<string>) => {
           None
         }
       : {
-          switch visualExtension {
-          | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-              Method.startApp(
-                service,
-                loopFrameID,
-                (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
-                visualExtension,
-                apInspectorData,
-              )->ignore
-            }, 5->Some)
-          | _ => ()
-          }
+          // switch visualExtension {
+          // | Some(visualExtension) => FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+          //     Method.startApp(
+          //       service,
+          //       loopFrameID,
+          //       (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
+          //       visualExtension,
+          //       apInspectorData,
+          //     )->ignore
+          //   }, 5->Some)
+          // | _ => ()
+          // }
+          FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+            Method.startApp(
+              service,
+              loopFrameID,
+              (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
+              // visualExtension,
+              apInspectorData,
+            )->ignore
+          }, 5->Some)
 
           (
             () => {
@@ -561,12 +580,12 @@ let make = (~service: service, ~account: option<string>) => {
             }
           )->Some
         }
-  }, [visualExtension])
+
+    // }, [visualExtension])
+  }, [])
 
   <>
-    {!Method.isLoaded(visualExtension, elementAssembleData)
-      ? <p> {React.string(`loading...`)} </p>
-      : React.null}
+    {!Method.isLoaded(elementAssembleData) ? <p> {React.string(`loading...`)} </p> : React.null}
     <canvas
       id="ui-visual-canvas"
       style={ReactDOM.Style.make(

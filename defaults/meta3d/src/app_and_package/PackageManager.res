@@ -168,3 +168,12 @@ let getAllExtensionAndContributeFileDataOfPackage = (packageBinaryFile: ArrayBuf
 ) => {
   packageBinaryFile->BinaryFileOperator.load->ManagerUtils.parse2
 }
+
+let getPackageService = (
+  state: Meta3dType.Index.state,
+  protocolName: Meta3dType.Index.packageProtocolName,
+) => {
+  state.extensionServiceMap
+  ->Meta3dCommonlib.ImmutableHashMap.get(protocolName)
+  ->Meta3dCommonlib.OptionSt.toNullable
+}

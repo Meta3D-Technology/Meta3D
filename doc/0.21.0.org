@@ -136,7 +136,8 @@ package's protocol is package role(whole for editor/whole for publish)
 
 
 
-** TODO demo1: ui control: Scene Tree(header+Tree)
+# ** TODO demo1: ui control: Scene Tree(header+Tree)
+** TODO demo1: ui control: Controller
 
 
 
@@ -163,7 +164,7 @@ TODO each package should get each data through package service:
     shouldn't directly get each data through pipeline!
         but can get self data through pipeline!
 
-TODO api: add getPackageService
+TODO new api: getPackageService(protocol)=>nullable<package service>
 
 # two kind render package implement:
 # SceneViewThreeRender
@@ -222,15 +223,23 @@ TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs
 
 
 
+
+# **** TODO run test: visual, visual run, run app with only editor-whole pacakge
+**** DONE run test: visual with only editor-whole pacakge
+
+
+
+
 **** TODO run test: Scene View
 
 
 
 
-**** TODO run test: SceneTree+Scene View+ *Game View
+# **** TODO run test: SceneTree+Scene View+ *Game View
+**** TODO run test: Controller+Scene View+ *Game View
 
 
-**** TODO run test: publish(Menu)
+**** TODO run test: publish(Button)
 
 
 # **** TODO ap assemble:

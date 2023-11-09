@@ -81,6 +81,7 @@ type meta3dService = {
     'extensionState,
   ) => Meta3dType.Index.state,
   getExtensionService: 'extensionService. (. Meta3dType.Index.state, string) => 'extensionService,
+  getPackageService: 'packageService. (. Meta3dType.Index.state, string) => 'packageService,
   generateContribute: (
     . Meta3d.ExtensionFileType.contributePackageData,
     string,
@@ -167,7 +168,7 @@ type meta3dService = {
 type otherService = {
   random: unit => float,
   requestAnimationFirstFrame: (float => unit) => int,
-  requestAnimationOtherFrame: (. float => unit) => int,
+  requestAnimationOtherFrame: (float => unit) => int,
   cancelAnimationFrame: int => unit,
 }
 
@@ -177,13 +178,11 @@ type tabService = {openUrl: (. url) => unit}
 
 type db = IndexedDB.IDBDatabase.t
 
-type initStream = Meta3dBsMostProtocol.StreamType.stream<db>
+type initStream = Meta3dBsMost.Most.stream<db>
 
 type storageService = {
   initForElementVisualApp: unit => initStream,
-  getElementVisualApp: (
-    . initStream,
-  ) => Meta3dBsMostProtocol.StreamType.stream<Js.Typed_array.ArrayBuffer.t>,
+  getElementVisualApp: (. initStream) => Meta3dBsMost.Most.stream<Js.Typed_array.ArrayBuffer.t>,
   setElementVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
 }
 

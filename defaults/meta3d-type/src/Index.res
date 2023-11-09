@@ -39,7 +39,7 @@ and extensionLifeAsyncEventHandler<'extensionService> = (
 ) => Js.Promise.t<state>
 and extensionLife<'extensionService> = {
   onRegister: Js.Nullable.t<extensionLifeEventHandler<'extensionService>>,
-  onRestore: Js.Nullable.t<(state, state) =>  state>,
+  onRestore: Js.Nullable.t<(state, state) => state>,
   onDeepCopy: Js.Nullable.t<state => state>,
   onStart: Js.Nullable.t<(state, 'extensionService, startConfigData) => unit>,
   onInit: Js.Nullable.t<extensionLifeAsyncEventHandler<'extensionService>>,
@@ -81,6 +81,10 @@ type api = {
   getExtensionService: 'extensionService. (. state, extensionProtocolName) => 'extensionService,
   getExtensionState: 'extensionState. (. state, extensionProtocolName) => 'extensionState,
   setExtensionState: 'extensionState. (. state, extensionProtocolName, 'extensionState) => state,
+  getPackageService: 'packageService. (
+    . state,
+    packageProtocolName,
+  ) => Js.Nullable.t<'packageService>,
   registerContribute: 'getContributeFunc. (
     . state,
     contributeProtocolName,

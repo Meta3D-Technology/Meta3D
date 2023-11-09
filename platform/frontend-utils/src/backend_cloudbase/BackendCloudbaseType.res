@@ -46,15 +46,15 @@ type protocol = {
 
 type protocols = array<protocol>
 
-type init = string => Meta3dBsMostProtocol.StreamType.stream<unit>
+type init = string => Meta3dBsMost.Most.stream<unit>
 
-type handleLoginForWeb3 = account => Meta3dBsMostProtocol.StreamType.stream<unit>
+type handleLoginForWeb3 = account => Meta3dBsMost.Most.stream<unit>
 
-type checkUserName = string => Meta3dBsMostProtocol.StreamType.stream<bool>
+type checkUserName = string => Meta3dBsMost.Most.stream<bool>
 
-type registerUser = string => Meta3dBsMostProtocol.StreamType.stream<unit>
+type registerUser = string => Meta3dBsMost.Most.stream<unit>
 
-type isLoginSuccess = string => Meta3dBsMostProtocol.StreamType.stream<(
+type isLoginSuccess = string => Meta3dBsMost.Most.stream<(
   bool,
   Js.Nullable.t<string>,
 )>
@@ -62,9 +62,9 @@ type isLoginSuccess = string => Meta3dBsMostProtocol.StreamType.stream<(
 type getAllPublishExtensionProtocols = (
   . limitCount,
   skipCount,
-) => Meta3dBsMostProtocol.StreamType.stream<protocols>
+) => Meta3dBsMost.Most.stream<protocols>
 
-type getAllPublishExtensionProtocolsCount = unit => Meta3dBsMostProtocol.StreamType.stream<count>
+type getAllPublishExtensionProtocolsCount = unit => Meta3dBsMost.Most.stream<count>
 
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
@@ -98,7 +98,7 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
-) => Meta3dBsMostProtocol.StreamType.stream<protocols>
+) => Meta3dBsMost.Most.stream<protocols>
 
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
@@ -130,7 +130,7 @@ type batchFindPublishContributeProtocols = (
     // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
-) => Meta3dBsMostProtocol.StreamType.stream<protocols>
+) => Meta3dBsMost.Most.stream<protocols>
 
 // type protocolConfig = {
 //   name: string,
@@ -144,7 +144,7 @@ type protocolConfigs = array<CommonType.protocolConfig>
 type getAllPublishExtensionProtocolConfigs = (
   limitCount,
   skipCount,
-) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
+) => Meta3dBsMost.Most.stream<protocolConfigs>
 
 type getAllPublishContributeProtocolConfigs = getAllPublishExtensionProtocolConfigs
 
@@ -178,7 +178,7 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
-) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
+) => Meta3dBsMost.Most.stream<protocolConfigs>
 
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
@@ -210,7 +210,7 @@ type batchFindPublishContributeProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
-) => Meta3dBsMostProtocol.StreamType.stream<protocolConfigs>
+) => Meta3dBsMost.Most.stream<protocolConfigs>
 
 type implementInfo = {
   id: string,
@@ -232,7 +232,7 @@ type getAllPublishExtensionInfos = (
   skipCount,
   protocolName,
   protocolVersion,
-) => Meta3dBsMostProtocol.StreamType.stream<implementInfos>
+) => Meta3dBsMost.Most.stream<implementInfos>
 
 type getAllPublishContributeInfos = getAllPublishExtensionInfos
 
@@ -245,7 +245,7 @@ type findPublishExtension = (
   account,
   implementName,
   implementVersion,
-) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
+) => Meta3dBsMost.Most.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 
 type findPublishContribute = findPublishExtension
 
@@ -269,25 +269,25 @@ type publishApp = (
   appName,
   account,
   description,
-) => Meta3dBsMostProtocol.StreamType.stream<unit>
+) => Meta3dBsMost.Most.stream<unit>
 
 type findPublishApp = (
   . onDownloadProgressFunc,
   account,
   appName,
-) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
+) => Meta3dBsMost.Most.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 
 type findAllPublishApps = (
   . limitCount,
   skipCount,
-) => Meta3dBsMostProtocol.StreamType.stream<array<publishAppInfo>>
+) => Meta3dBsMost.Most.stream<array<publishAppInfo>>
 
 type publishElementContribute = (
   . onUploadProgressFunc,
   account,
   (string, string, string, string, string, string, string),
   Js.Typed_array.ArrayBuffer.t,
-) => Meta3dBsMostProtocol.StreamType.stream<unit>
+) => Meta3dBsMost.Most.stream<unit>
 
 type rec uiControl = {
   displayName: string,
@@ -312,7 +312,7 @@ type publishElementAssembleData = (
   elementName,
   elementVersion,
   inspectorData,
-) => Meta3dBsMostProtocol.StreamType.stream<unit>
+) => Meta3dBsMost.Most.stream<unit>
 
 type implement = {
   id: string,
@@ -327,7 +327,7 @@ type getAllPublishNewestExtensions = (
   . limitCount,
   skipCount,
   protocolName,
-) => Meta3dBsMostProtocol.StreamType.stream<implements>
+) => Meta3dBsMost.Most.stream<implements>
 
 type elementAssembleData = {
   elementName: elementName,
@@ -339,7 +339,7 @@ type getElementAssembleData = (
   . account,
   elementName,
   elementVersion,
-) => Meta3dBsMostProtocol.StreamType.stream<Js.Nullable.t<elementAssembleData>>
+) => Meta3dBsMost.Most.stream<Js.Nullable.t<elementAssembleData>>
 
 type entryExtensionProtocolName = protocolName
 
@@ -372,7 +372,7 @@ type publishPackage = (
   ),
   (implementName, implementVersion, description),
   account,
-) => Meta3dBsMostProtocol.StreamType.stream<unit>
+) => Meta3dBsMost.Most.stream<unit>
 
 type getAllPublishPackageEntryExtensionProtocols = getAllPublishExtensionProtocols
 
@@ -402,7 +402,7 @@ type getAllPublishPackageInfos = (
   skipCount,
   protocolName,
   protocolVersion,
-) => Meta3dBsMostProtocol.StreamType.stream<packageImplementInfos>
+) => Meta3dBsMost.Most.stream<packageImplementInfos>
 
 type findPublishPackage = findPublishExtension
 
@@ -410,7 +410,7 @@ type findNewestPublishPackage = (
   . onDownloadProgressFunc,
   entryExtensionProtocolName,
   implementName,
-) => Meta3dBsMostProtocol.StreamType.stream<(
+) => Meta3dBsMost.Most.stream<(
   Js.Typed_array.ArrayBuffer.t,
   entryExtensionProtocolVersion,
   implementVersion,
@@ -421,7 +421,7 @@ type findNewestPublishExtension = (
   . onDownloadProgressFunc,
   implementName,
   protocolName,
-) => Meta3dBsMostProtocol.StreamType.stream<(
+) => Meta3dBsMost.Most.stream<(
   (
     description,
     implementDisplayName,

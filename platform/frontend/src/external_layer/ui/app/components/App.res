@@ -70,22 +70,28 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       BackendCloudbase.buildAssembleSpaceService()
     },
     meta3d: {
-      getExtensionState: (. meta3dState, name) =>
-        Meta3d.Main.getExtensionState->Obj.magic(meta3dState, name),
-      setExtensionState: (. meta3dState, name, extensionState) =>
-        Meta3d.Main.setExtensionState->Obj.magic(meta3dState, name, extensionState),
-      getExtensionService: (. meta3dState, name) =>
-        Meta3d.Main.getExtensionService->Obj.magic(meta3dState, name),
+      getExtensionState: (. meta3dState, extensionProtocolName) =>
+        Meta3d.Main.getExtensionState->Obj.magic(meta3dState, extensionProtocolName),
+      setExtensionState: (. meta3dState, extensionProtocolName, extensionState) =>
+        Meta3d.Main.setExtensionState->Obj.magic(
+          meta3dState,
+          extensionProtocolName,
+          extensionState,
+        ),
+      getExtensionService: (. meta3dState, extensionProtocolName) =>
+        Meta3d.Main.getExtensionService->Obj.magic(meta3dState, extensionProtocolName),
+      getPackageService: (. meta3dState, packageProtocolName) =>
+        Meta3d.Main.getPackageService->Obj.magic(meta3dState, packageProtocolName),
       generateContribute: (. packageData, fileStr) =>
         Meta3d.Main.generateContribute(packageData, fileStr),
       loadContribute: (. contributeBinaryFile) => Meta3d.Main.loadContribute(contributeBinaryFile),
       generateExtension: (. packageData, fileStr) =>
         Meta3d.Main.generateExtension(packageData, fileStr),
       loadExtension: (. extensionBinaryFile) => Meta3d.Main.loadExtension(extensionBinaryFile),
-      initExtension: (. state, extensionName, data) =>
-        Meta3d.Main.initExtension(state, extensionName, data),
-      updateExtension: (. state, extensionName, data) =>
-        Meta3d.Main.updateExtension(state, extensionName, data),
+      initExtension: (. state, extensionProtocolName, data) =>
+        Meta3d.Main.initExtension(state, extensionProtocolName, data),
+      updateExtension: (. state, extensionProtocolName, data) =>
+        Meta3d.Main.updateExtension(state, extensionProtocolName, data),
       generatePackage: (. (allExtensionFileData, allContributeFileData), allPackageBinaryFiles) =>
         Meta3d.Main.generatePackage(
           (allExtensionFileData, allContributeFileData),

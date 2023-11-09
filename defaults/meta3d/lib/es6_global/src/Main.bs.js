@@ -19,6 +19,8 @@ var setExtensionState = ExtensionManager$Meta3d.setExtensionState;
 
 var getExtensionState = ExtensionManager$Meta3d.getExtensionStateExn;
 
+var getPackageService = ExtensionManager$Meta3d.getPackageService;
+
 var registerContribute = ExtensionManager$Meta3d.registerContribute;
 
 var getContribute = ExtensionManager$Meta3d.getContributeExn;
@@ -90,6 +92,7 @@ export {
   getExtensionService ,
   setExtensionState ,
   getExtensionState ,
+  getPackageService ,
   registerContribute ,
   getContribute ,
   startExtension ,

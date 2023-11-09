@@ -3,18 +3,18 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"
+  // let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"
 
-  let _getVisualExtensionName = () => "meta3d-element-assemble-visual-run"
+  // let _getVisualExtensionName = () => "meta3d-element-assemble-visual-run"
 
-  let getAndSetNewestVisualExtension = (service, dispatch) => {
-    ElementVisualUtils.getAndSetNewestVisualExtension(
-      service,
-      dispatch,
-      extension => FrontendUtils.ElementAssembleStoreType.SetRunVisualExtension(extension),
-      (_getVisualExtensionProtocolName(), _getVisualExtensionName()),
-    )
-  }
+  // let getAndSetNewestVisualExtension = (service, dispatch) => {
+  //   ElementVisualUtils.getAndSetNewestVisualExtension(
+  //     service,
+  //     dispatch,
+  //     extension => FrontendUtils.ElementAssembleStoreType.SetRunVisualExtension(extension),
+  //     (_getVisualExtensionProtocolName(), _getVisualExtensionName()),
+  //   )
+  // }
 
   let _saveToLocalStorage = (service, appBinaryFile) => {
     service.storage.initForElementVisualApp()->service.storage.setElementVisualApp(.
@@ -35,7 +35,7 @@ module Method = {
     (canvasData, apInspectorData),
     (
       (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
-      (runVisualExtension, elementContribute),
+      elementContribute,
     ),
   ) => {
     ElementVisualUtils.generateApp(
@@ -45,7 +45,7 @@ module Method = {
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
         selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
-      (runVisualExtension, elementContribute),
+      elementContribute,
     )
     ->_saveToLocalStorage(service, _)
     ->Meta3dBsMost.Most.tap(
@@ -77,7 +77,11 @@ module Method = {
       selectedContributes,
       storedPackageIdsInApp,
     } = apAssembleState
-    let {canvasData, runVisualExtension, elementContribute} = elementAssembleState
+    let {
+      canvasData,
+      // runVisualExtension,
+      elementContribute,
+    } = elementAssembleState
 
     (
       (
@@ -87,7 +91,11 @@ module Method = {
         selectedContributes,
         storedPackageIdsInApp,
       ),
-      (canvasData, runVisualExtension, elementContribute),
+      (
+        canvasData,
+        // runVisualExtension,
+        elementContribute,
+      ),
     )
   }
 }
@@ -104,22 +112,26 @@ let make = (~service: service) => {
       selectedContributes,
       storedPackageIdsInApp,
     ),
-    (canvasData, runVisualExtension, elementContribute),
+    (
+      canvasData,
+      // runVisualExtension,
+      elementContribute,
+    ),
   ) = service.react.useSelector(. Method.useSelector)
 
-  service.react.useEffect1(. () => {
-    switch runVisualExtension {
-    | Some(_) => ()
-    | None =>
-      Method.getAndSetNewestVisualExtension(service, dispatch, apInspectorData.isDebug)->ignore
-    }
+  // service.react.useEffect1(. () => {
+  //   switch runVisualExtension {
+  //   | Some(_) => ()
+  //   | None =>
+  //     Method.getAndSetNewestVisualExtension(service, dispatch, apInspectorData.isDebug)->ignore
+  //   }
 
-    None
-  }, [])
+  //   None
+  // }, [])
 
   {
-    switch (runVisualExtension, elementContribute) {
-    | (Some(runVisualExtension), Some(elementContribute)) =>
+    switch elementContribute {
+    | Some(elementContribute) =>
       <Button
         onClick={_ => {
           FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
@@ -128,7 +140,7 @@ let make = (~service: service) => {
               (canvasData, apInspectorData),
               (
                 (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
-                (runVisualExtension, elementContribute),
+                elementContribute,
               ),
             )->ignore
           }, 5->Some)

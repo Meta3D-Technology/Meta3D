@@ -4,8 +4,10 @@ import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/cam
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as ManagerUtils$Meta3d from "./ManagerUtils.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
 import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function convertAllFileData(allExtensionFileData, allContributeFileData, entryExtensionNames) {
   return [
@@ -79,11 +81,16 @@ function getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile) {
   return ManagerUtils$Meta3d.parse2(BinaryFileOperator$Meta3d.load(packageBinaryFile));
 }
 
+function getPackageService(state, protocolName) {
+  return OptionSt$Meta3dCommonlib.toNullable(ImmutableHashMap$Meta3dCommonlib.get(state.extensionServiceMap, protocolName));
+}
+
 export {
   convertAllFileData ,
   generate ,
   _getEntryExtensionProtocolName ,
   load ,
   getAllExtensionAndContributeFileDataOfPackage ,
+  getPackageService ,
 }
 /* ManagerUtils-Meta3d Not a pure module */

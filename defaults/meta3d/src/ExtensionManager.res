@@ -124,6 +124,12 @@ let initExtension = (state, extensionProtocolName, data) => {
   )
 }
 
+let getPackageService = (state, protocolName: packageProtocolName) => {
+  state.extensionServiceMap
+  ->Meta3dCommonlib.ImmutableHashMap.get(protocolName)
+  ->Meta3dCommonlib.OptionSt.toNullable
+}
+
 let _decideContributeType = (contribute: contribute) => {
   open Meta3dType.ContributeType
 
@@ -180,10 +186,7 @@ let restore = (currentState, targetState) => {
     (. targetState, (extensionProtocolName, {onRestore})) => {
       onRestore
       ->Meta3dCommonlib.NullableSt.map((. handler) => {
-        handler(
-            currentState,
-            targetState
-          )
+        handler(currentState, targetState)
       })
       ->Meta3dCommonlib.NullableSt.getWithDefault(targetState)
     },
@@ -197,7 +200,7 @@ let deepCopy = state => {
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. state, (extensionProtocolName, {onDeepCopy})) => {
     onDeepCopy
     ->Meta3dCommonlib.NullableSt.map((. handler) => {
-        handler(state)
+      handler(state)
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(state)
   }, state)
@@ -291,6 +294,8 @@ and buildAPI = (): api => {
     (. state, protocolName, extensionState) =>
       setExtensionState(state, protocolName, extensionState)
   )->Obj.magic,
+  getPackageService: (. state, protocolName: packageProtocolName) =>
+    getPackageService(state, (protocolName: packageProtocolName))->Obj.magic,
   registerContribute: (
     (. state, contributeProtocolName, getContribute) =>
       registerContribute(state, contributeProtocolName, getContribute)

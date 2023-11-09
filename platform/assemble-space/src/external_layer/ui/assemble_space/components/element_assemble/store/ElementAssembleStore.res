@@ -25,8 +25,8 @@ let _createState = () => {
   parentUIControlId: None,
   inspectorCurrentUIControlId: None,
   selectedUIControlInspectorData: list{},
-  visualExtension: None,
-  runVisualExtension: None,
+  // visualExtension: None,
+  // runVisualExtension: None,
   elementContribute: None,
   // isShowElementInspector: false,
   // elementInspectorData: {
@@ -271,14 +271,14 @@ let reducer = (state, action) => {
   //     inspectorCurrentUIControlId: None,
   //     isShowElementInspector: true,
   //   }
-  | SetVisualExtension(visualExtension) => {
-      ...state,
-      visualExtension: visualExtension->Some,
-    }
-  | SetRunVisualExtension(runVisualExtension) => {
-      ...state,
-      runVisualExtension: runVisualExtension->Some,
-    }
+  // | SetVisualExtension(visualExtension) => {
+  //     ...state,
+  //     visualExtension: visualExtension->Some,
+  //   }
+  // | SetRunVisualExtension(runVisualExtension) => {
+  //     ...state,
+  //     runVisualExtension: runVisualExtension->Some,
+  //   }
   | SetElementContribute(elementContribute) => {
       ...state,
       elementContribute: elementContribute->Some,

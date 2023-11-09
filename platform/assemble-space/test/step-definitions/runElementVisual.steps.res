@@ -266,7 +266,7 @@ defineFeature(feature, test => {
         ->Obj.magic
         ->SinonTool.calledWithArg3(
           Obj.magic(101),
-          RunElementVisualTool.getVisualExtensionProtocolName(),
+          RunElementVisualTool.getEditorWholePackageProtocolName(),
           {
             "isDebug": isDebug,
             "canvas": canvas,
@@ -283,7 +283,7 @@ defineFeature(feature, test => {
         ->Obj.magic
         ->SinonTool.calledWithArg3(
           Obj.magic(102),
-          RunElementVisualTool.getVisualExtensionProtocolName(),
+          RunElementVisualTool.getEditorWholePackageProtocolName(),
           matchAny,
         )
         // requestAnimationOtherFrameStub.contents->getCallCount,
