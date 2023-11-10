@@ -1,35 +1,38 @@
 type service = {
-  getIsDebug: StateType.state => bool,
-  setIsDebug: (StateType.state, bool) => StateType.state,
+  getIsDebug: Meta3dType.Index.state => bool,
+  setIsDebug: (Meta3dType.Index.state, bool) => Meta3dType.Index.state,
   prepare: unit => unit,
-  init: (StateType.state, Meta3dType.Index.state) => StateType.state,
+  init: Meta3dType.Index.state => Meta3dType.Index.state,
   registerPipeline: (
-    ~state: StateType.state,
+    ~meta3dState: Meta3dType.Index.state,
     ~contribute: PipelineManagerType.pipelineContributeForRegister,
     ~config: Js.Nullable.t<RegisterPipelineType.config>=?,
     ~jobOrders: RegisterPipelineVOType.jobOrders=?,
     unit,
-  ) => StateType.state,
-  unregisterPipeline: (StateType.state, StateType.pipelineName) => StateType.state,
+  ) => Meta3dType.Index.state,
+  unregisterPipeline: (Meta3dType.Index.state, StateType.pipelineName) => Meta3dType.Index.state,
   registerComponent: (
-    StateType.state,
+    Meta3dType.Index.state,
     RegisterComponentType.componentContribute,
-  ) => StateType.state,
-  unregisterComponent: (StateType.state, ComponentContributeType.componentName) => StateType.state,
+  ) => Meta3dType.Index.state,
+  unregisterComponent: (
+    Meta3dType.Index.state,
+    ComponentContributeType.componentName,
+  ) => Meta3dType.Index.state,
   createAndSetComponentState: (
-    StateType.state,
+    Meta3dType.Index.state,
     ComponentContributeType.componentName,
     ComponentType.config,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   unsafeGetUsedComponentContribute: (
-    StateType.state,
+    Meta3dType.Index.state,
     ComponentContributeType.componentName,
   ) => RegisterComponentType.usedComponentContribute,
   setUsedComponentContribute: (
-    StateType.state,
+    Meta3dType.Index.state,
     RegisterComponentType.usedComponentContribute,
     ComponentContributeType.componentName,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   createComponent: RegisterComponentType.usedComponentContribute => (
     RegisterComponentType.usedComponentContribute,
     ComponentType.component,
@@ -78,28 +81,33 @@ type service = {
     ComponentType.component,
   ) => array<Meta3dGameobjectProtocol.Index.gameObject>,
   getComponentState: (
-    StateType.state,
+    Meta3dType.Index.state,
     ComponentContributeType.componentName,
   ) => Js.Nullable.t<ComponentType.state>,
   setGameObjectContribute: (
-    StateType.state,
+    Meta3dType.Index.state,
     GameObjectType.gameObjectContribute,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   createAndSetGameObjectState: (
-    StateType.state,
+    Meta3dType.Index.state,
     Meta3dGameobjectProtocol.Index.config,
-  ) => StateType.state,
-  createGameObject: StateType.state => (StateType.state, Meta3dGameobjectProtocol.Index.gameObject),
-  getNeedDisposedGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
-  deferDisposeGameObject: (
-    StateType.state,
+  ) => Meta3dType.Index.state,
+  createGameObject: Meta3dType.Index.state => (
+    Meta3dType.Index.state,
     Meta3dGameobjectProtocol.Index.gameObject,
-  ) => StateType.state,
+  ),
+  getNeedDisposedGameObjects: Meta3dType.Index.state => array<
+    Meta3dGameobjectProtocol.Index.gameObject,
+  >,
+  deferDisposeGameObject: (
+    Meta3dType.Index.state,
+    Meta3dGameobjectProtocol.Index.gameObject,
+  ) => Meta3dType.Index.state,
   disposeGameObjects: (
-    StateType.state,
+    Meta3dType.Index.state,
     array<Meta3dGameobjectProtocol.Index.gameObject>,
   ) => (
-    StateType.state,
+    Meta3dType.Index.state,
     (
       array<Meta3dGameobjectProtocol.Index.gameObject>,
       array<ComponentType.component>,
@@ -112,21 +120,21 @@ type service = {
     ),
   ),
   cloneGameObject: (
-    StateType.state,
+    Meta3dType.Index.state,
     GameObjectContributeType.cloneCount,
     Meta3dGameobjectProtocol.Index.cloneConfig,
     Meta3dGameobjectProtocol.Index.gameObject,
-  ) => (StateType.state, GameObjectContributeType.clonedGameObjects),
-  getAllGameObjects: StateType.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
+  ) => (Meta3dType.Index.state, GameObjectContributeType.clonedGameObjects),
+  getAllGameObjects: Meta3dType.Index.state => array<Meta3dGameobjectProtocol.Index.gameObject>,
   getGameObjectName: (
-    StateType.state,
+    Meta3dType.Index.state,
     Meta3dGameobjectProtocol.Index.gameObject,
   ) => Js.Nullable.t<Meta3dGameobjectProtocol.Index.name>,
   setGameObjectName: (
-    StateType.state,
+    Meta3dType.Index.state,
     Meta3dGameobjectProtocol.Index.gameObject,
     Meta3dGameobjectProtocol.Index.name,
-  ) => StateType.state,
+  ) => Meta3dType.Index.state,
   runPipeline: (
     Meta3dType.Index.state,
     Meta3dType.Index.extensionProtocolName,

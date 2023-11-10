@@ -19,7 +19,6 @@ import type { jobOrders as RegisterPipelineVOType_jobOrders } from '../../src/st
 
 import type { pipelineName as PipelineType_pipelineName } from '../../src/state/PipelineType';
 
-import type { state as StateType_state } from '../../src/state/StateType';
 
 import type { usedComponentContribute as RegisterComponentType_usedComponentContribute, component } from '../../src/state/RegisterComponentType';
 import { pipelineContribute, pipelineName } from '../contribute/work/PipelineContributeType';
@@ -28,22 +27,22 @@ import { nullable } from 'meta3d-commonlib-ts/src/nullable';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
-    readonly getIsDebug: (_1: StateType_state) => boolean;
-    readonly setIsDebug: (_1: StateType_state, isDebug: boolean) => StateType_state;
+    readonly getIsDebug: (_1: Meta3dType_Index_state) => boolean;
+    readonly setIsDebug: (_1: Meta3dType_Index_state, isDebug: boolean) => Meta3dType_Index_state;
     readonly prepare: () => void;
-    readonly init: (_1: StateType_state, _2: Meta3dType_Index_state) => StateType_state;
+    readonly init: (_1: Meta3dType_Index_state) => Meta3dType_Index_state;
     readonly registerPipeline: <config, state>(
-        state: StateType_state,
+        state: Meta3dType_Index_state,
         contribute: pipelineContribute<config, state>,
         config?: nullable<config>,
         jobOrders?: RegisterPipelineVOType_jobOrders
-    ) => StateType_state;
-    readonly unregisterPipeline: (_1: StateType_state, _2: pipelineName) => StateType_state;
-    readonly registerComponent: <config>(_1: StateType_state, _2: config) => StateType_state;
-    readonly unregisterComponent: (_1: StateType_state, _2: ComponentContributeType_componentName) => StateType_state;
-    createAndSetComponentState: <config>(_1: StateType_state, _2: ComponentContributeType_componentName, _3: config) => StateType_state;
-    readonly unsafeGetUsedComponentContribute: (_1: StateType_state, _2: ComponentContributeType_componentName) => RegisterComponentType_usedComponentContribute;
-    readonly setUsedComponentContribute: (_1: StateType_state, _2: RegisterComponentType_usedComponentContribute, _3: ComponentContributeType_componentName) => StateType_state;
+    ) => Meta3dType_Index_state;
+    readonly unregisterPipeline: (_1: Meta3dType_Index_state, _2: pipelineName) => Meta3dType_Index_state;
+    readonly registerComponent: <config>(_1: Meta3dType_Index_state, _2: config) => Meta3dType_Index_state;
+    readonly unregisterComponent: (_1: Meta3dType_Index_state, _2: ComponentContributeType_componentName) => Meta3dType_Index_state;
+    createAndSetComponentState: <config>(_1: Meta3dType_Index_state, _2: ComponentContributeType_componentName, _3: config) => Meta3dType_Index_state;
+    readonly unsafeGetUsedComponentContribute: (_1: Meta3dType_Index_state, _2: ComponentContributeType_componentName) => RegisterComponentType_usedComponentContribute;
+    readonly setUsedComponentContribute: (_1: Meta3dType_Index_state, _2: RegisterComponentType_usedComponentContribute, _3: ComponentContributeType_componentName) => Meta3dType_Index_state;
     readonly createComponent: <component>(_1: RegisterComponentType_usedComponentContribute) => [RegisterComponentType_usedComponentContribute, component];
     readonly setComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName, _4: dataValue) => RegisterComponentType_usedComponentContribute;
     readonly addComponent: <component> (_1: RegisterComponentType_usedComponentContribute, _2: GameObjectContributeType_gameObject, _3: component) => RegisterComponentType_usedComponentContribute;
@@ -56,13 +55,13 @@ export type service = {
     readonly getAllComponents: <component> (_1: RegisterComponentType_usedComponentContribute) => component[];
     readonly getComponentData: <component, dataValue> (_1: RegisterComponentType_usedComponentContribute, _2: component, _3: ComponentContributeType_dataName) => nullable<dataValue>;
     readonly getComponentGameObjects: <component> (_1: RegisterComponentType_usedComponentContribute, _2: component) => GameObjectContributeType_gameObject[];
-    readonly getComponentState: <componentState> (_1: StateType_state, _2: ComponentContributeType_componentName) => nullable<componentState>;
-    readonly setGameObjectContribute: (_1: StateType_state, _2: GameObjectType_gameObjectContribute) => StateType_state;
-    readonly createAndSetGameObjectState: (_1: StateType_state, _config: gameObjectConfig) => StateType_state;
-    readonly createGameObject: (_1: StateType_state) => [StateType_state, gameObject];
-    readonly getNeedDisposedGameObjects: (_1: StateType_state) => gameObject[];
-    readonly deferDisposeGameObject: (_1: StateType_state, _2: gameObject) => StateType_state;
-    readonly disposeGameObjects: (_1: StateType_state, _2: gameObject[]) => [StateType_state,
+    readonly getComponentState: <componentState> (_1: Meta3dType_Index_state, _2: ComponentContributeType_componentName) => nullable<componentState>;
+    readonly setGameObjectContribute: (_1: Meta3dType_Index_state, _2: GameObjectType_gameObjectContribute) => Meta3dType_Index_state;
+    readonly createAndSetGameObjectState: (_1: Meta3dType_Index_state, _config: gameObjectConfig) => Meta3dType_Index_state;
+    readonly createGameObject: (_1: Meta3dType_Index_state) => [Meta3dType_Index_state, gameObject];
+    readonly getNeedDisposedGameObjects: (_1: Meta3dType_Index_state) => gameObject[];
+    readonly deferDisposeGameObject: (_1: Meta3dType_Index_state, _2: gameObject) => Meta3dType_Index_state;
+    readonly disposeGameObjects: (_1: Meta3dType_Index_state, _2: gameObject[]) => [Meta3dType_Index_state,
         [
             Array<gameObject>,
             Array<component>,
@@ -74,9 +73,9 @@ export type service = {
             Array<component>,
         ],
     ];
-    readonly cloneGameObject: (_1: StateType_state, _2: number, _3: cloneConfig, _4: gameObject) => [StateType_state, clonedGameObjects];
-    readonly getAllGameObjects: (_1: StateType_state) => gameObject[];
-    readonly getGameObjectName: (_1: StateType_state, gameObject: gameObject) => nullable<name>,
-    readonly setGameObjectName: (_1: StateType_state, gameObject: gameObject, name: name) => StateType_state,
+    readonly cloneGameObject: (_1: Meta3dType_Index_state, _2: number, _3: cloneConfig, _4: gameObject) => [Meta3dType_Index_state, clonedGameObjects];
+    readonly getAllGameObjects: (_1: Meta3dType_Index_state) => gameObject[];
+    readonly getGameObjectName: (_1: Meta3dType_Index_state, gameObject: gameObject) => nullable<name>,
+    readonly setGameObjectName: (_1: Meta3dType_Index_state, gameObject: gameObject, name: name) => Meta3dType_Index_state,
     readonly runPipeline: (_1: Meta3dType_Index_state, _2: extensionProtocolName, _3: PipelineType_pipelineName) => Meta3dBsMostProtocol_StreamType_stream<Meta3dType_Index_state>
 };

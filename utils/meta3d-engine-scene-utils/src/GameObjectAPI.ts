@@ -1,5 +1,5 @@
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
+import { state as meta3dState } from "meta3d-type"
 import { gameObject, cloneConfig, name } from "meta3d-gameobject-protocol"
 import { geometry, componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
 import { transform, componentName as transformComponentName } from "meta3d-component-transform-protocol"
@@ -14,229 +14,229 @@ import { getChildren, setLocalPosition, setLocalScale, getGameObjects } from "./
 import { removeGameObjectData } from "meta3d-engine-scene-protocol/src/service/ecs/GameObject"
 import { buildRemovedName, buildUnUsedName, isValidGameObjectName } from "./Utils"
 
-export let createGameObject = (engineCoreState: engineCoreState, { createGameObject }: engineCoreService): [engineCoreState, gameObject] => {
-    let contribute = createGameObject(engineCoreState)
-    engineCoreState = contribute[0]
+export let createGameObject = (meta3dState: meta3dState, { createGameObject }: engineCoreService): [meta3dState, gameObject] => {
+    let contribute = createGameObject(meta3dState)
+    meta3dState = contribute[0]
     let gameObject = contribute[1]
 
     return [
-        engineCoreState,
+        meta3dState,
         gameObject
     ]
 }
 
-export let createUnUseGameObject = (engineCoreState: engineCoreState, { createGameObject, setGameObjectName }: engineCoreService): [engineCoreState, gameObject] => {
-    let contribute = createGameObject(engineCoreState)
-    engineCoreState = contribute[0]
+export let createUnUseGameObject = (meta3dState: meta3dState, { createGameObject, setGameObjectName }: engineCoreService): [meta3dState, gameObject] => {
+    let contribute = createGameObject(meta3dState)
+    meta3dState = contribute[0]
     let gameObject = contribute[1]
 
-    engineCoreState = setGameObjectName(engineCoreState, gameObject, buildUnUsedName())
+    meta3dState = setGameObjectName(meta3dState, gameObject, buildUnUsedName())
 
     return [
-        engineCoreState,
+        meta3dState,
         gameObject
     ]
 }
 
-export let getGameObjectName = (engineCoreState: engineCoreState, { getGameObjectName }: engineCoreService, gameObject: gameObject): nullable<name> => {
-    return getGameObjectName(engineCoreState, gameObject)
+export let getGameObjectName = (meta3dState: meta3dState, { getGameObjectName }: engineCoreService, gameObject: gameObject): nullable<name> => {
+    return getGameObjectName(meta3dState, gameObject)
 }
 
-export let setGameObjectName = (engineCoreState: engineCoreState, { setGameObjectName }: engineCoreService, gameObject: gameObject, name: name): engineCoreState => {
-    return setGameObjectName(engineCoreState, gameObject, name)
+export let setGameObjectName = (meta3dState: meta3dState, { setGameObjectName }: engineCoreService, gameObject: gameObject, name: name): meta3dState => {
+    return setGameObjectName(meta3dState, gameObject, name)
 }
 
-export let getTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
+export let getTransform = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, transformComponentName)
 
     return getExn(getComponent<transform>(contribute, gameObject))
 }
 
-export let addTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, transform: transform) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
+export let addTransform = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, transform: transform) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, transformComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, transform), transformComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, transform), transformComponentName)
 }
 
-export let hasTransform = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
+export let hasTransform = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, transformComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getDirectionLight = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+export let getDirectionLight = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, directionLightComponentName)
 
     return getExn(getComponent<directionLight>(contribute, gameObject))
 }
 
-export let addDirectionLight = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, directionLight: directionLight) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+export let addDirectionLight = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, directionLight: directionLight) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, directionLightComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, directionLight), directionLightComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, directionLight), directionLightComponentName)
 }
 
-export let hasDirectionLight = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+export let hasDirectionLight = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, directionLightComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+export let getGeometry = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, geometryComponentName)
 
     return getExn(getComponent<geometry>(contribute, gameObject))
 }
 
-export let addGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, geometry: geometry) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+export let addGeometry = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, geometry: geometry) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, geometryComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, geometry), geometryComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, geometry), geometryComponentName)
 }
 
-export let hasGeometry = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+export let hasGeometry = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, geometryComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+export let getPBRMaterial = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, pbrMaterialComponentName)
 
     return getExn(getComponent<pbrMaterial>(contribute, gameObject))
 }
 
-export let addPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, pbrMaterial: pbrMaterial) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+export let addPBRMaterial = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, pbrMaterial: pbrMaterial) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, pbrMaterialComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, pbrMaterial), pbrMaterialComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, pbrMaterial), pbrMaterialComponentName)
 }
 
-export let hasPBRMaterial = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+export let hasPBRMaterial = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, pbrMaterialComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
+export let getBasicCameraView = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, basicCameraViewComponentName)
 
     return getExn(getComponent<basicCameraView>(contribute, gameObject))
 }
 
-export let addBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, basicCameraView: basicCameraView) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
+export let addBasicCameraView = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, basicCameraView: basicCameraView) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, basicCameraViewComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, basicCameraView), basicCameraViewComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, basicCameraView), basicCameraViewComponentName)
 }
 
-export let hasBasicCameraView = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
+export let hasBasicCameraView = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, basicCameraViewComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
+export let getPerspectiveCameraProjection = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
 
     return getExn(getComponent<perspectiveCameraProjection>(contribute, gameObject))
 }
 
-export let addPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, perspectiveCameraProjection: perspectiveCameraProjection) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
+export let addPerspectiveCameraProjection = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, perspectiveCameraProjection: perspectiveCameraProjection) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, perspectiveCameraProjection), perspectiveCameraProjectionComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, perspectiveCameraProjection), perspectiveCameraProjectionComponentName)
 }
 
-export let hasPerspectiveCameraProjection = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
+export let hasPerspectiveCameraProjection = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let getArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+export let getArcballCameraController = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
     return getExn(getComponent<arcballCameraController>(contribute, gameObject))
 }
 
-export let addArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+export let addArcballCameraController = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, arcballCameraController: arcballCameraController) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
-    return setUsedComponentContribute(engineCoreState, addComponent(contribute, gameObject, arcballCameraController), arcballCameraControllerComponentName)
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, arcballCameraController), arcballCameraControllerComponentName)
 }
 
-export let hasArcballCameraController = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+export let hasArcballCameraController = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
     return hasComponent(contribute, gameObject)
 }
 
-export let cloneGameObject = (engineCoreState: engineCoreState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) => {
-    return cloneGameObject(engineCoreState, count, cloneConfig, sourceGameObject)
+export let cloneGameObject = (meta3dState: meta3dState, { cloneGameObject }: engineCoreService, count: number, cloneConfig: cloneConfig, sourceGameObject: gameObject) => {
+    return cloneGameObject(meta3dState, count, cloneConfig, sourceGameObject)
 }
 
-export let getNeedDisposedGameObjects = (engineCoreState: engineCoreState, { getNeedDisposedGameObjects }: engineCoreService) => {
-    return getNeedDisposedGameObjects(engineCoreState)
+export let getNeedDisposedGameObjects = (meta3dState: meta3dState, { getNeedDisposedGameObjects }: engineCoreService) => {
+    return getNeedDisposedGameObjects(meta3dState)
 }
 
-export let disposeGameObjects = (engineCoreState: engineCoreState, { deferDisposeGameObject }: engineCoreService, gameObjects: gameObject[]) => {
-    return gameObjects.reduce(deferDisposeGameObject, engineCoreState)
+export let disposeGameObjects = (meta3dState: meta3dState, { deferDisposeGameObject }: engineCoreService, gameObjects: gameObject[]) => {
+    return gameObjects.reduce(deferDisposeGameObject, meta3dState)
 }
 
-export let disposeGameObjectTransformComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: transform) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
+export let disposeGameObjectTransformComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: transform) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, transformComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<transform>(contribute, [component, gameObject]), transformComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<transform>(contribute, [component, gameObject]), transformComponentName)
 }
 
-export let disposeGameObjectPBRMaterialComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: pbrMaterial) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
+export let disposeGameObjectPBRMaterialComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: pbrMaterial) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, pbrMaterialComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<pbrMaterial>(contribute, [component, gameObject]), pbrMaterialComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<pbrMaterial>(contribute, [component, gameObject]), pbrMaterialComponentName)
 }
 
-export let disposeGameObjectDirectionLightComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: directionLight) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
+export let disposeGameObjectDirectionLightComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: directionLight) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, directionLightComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<directionLight>(contribute, [component, gameObject]), directionLightComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<directionLight>(contribute, [component, gameObject]), directionLightComponentName)
 }
 
-export let disposeGameObjectGeometryComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: geometry) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
+export let disposeGameObjectGeometryComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: geometry) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, geometryComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<geometry>(contribute, [component, gameObject]), geometryComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<geometry>(contribute, [component, gameObject]), geometryComponentName)
 }
 
-export let disposeGameObjectBasicCameraViewComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: basicCameraView) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
+export let disposeGameObjectBasicCameraViewComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: basicCameraView) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, basicCameraViewComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<basicCameraView>(contribute, [component, gameObject]), basicCameraViewComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<basicCameraView>(contribute, [component, gameObject]), basicCameraViewComponentName)
 }
 
-export let disposeGameObjectPerspectiveCameraProjectionComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: perspectiveCameraProjection) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
+export let disposeGameObjectPerspectiveCameraProjectionComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: perspectiveCameraProjection) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<perspectiveCameraProjection>(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<perspectiveCameraProjection>(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName)
 }
 
-export let disposeGameObjectArcballCameraControllerComponent = (engineCoreState: engineCoreState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) => {
-    let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+export let disposeGameObjectArcballCameraControllerComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
-    return setUsedComponentContribute(engineCoreState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<arcballCameraController>(contribute, [component, gameObject]), arcballCameraControllerComponentName)
 }
 
-export let getGameObjectAndAllChildren = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObject: gameObject): Array<gameObject> => {
-    let _func = (result: Array<gameObject>, gameObject: gameObject, engineCoreState: engineCoreState): Array<gameObject> => {
+export let getGameObjectAndAllChildren = (meta3dState: meta3dState, engineCoreService: engineCoreService, gameObject: gameObject): Array<gameObject> => {
+    let _func = (result: Array<gameObject>, gameObject: gameObject, meta3dState: meta3dState): Array<gameObject> => {
         result.push(gameObject)
 
-        let children = getChildren(engineCoreState, engineCoreService, getTransform(engineCoreState, engineCoreService, gameObject))
+        let children = getChildren(meta3dState, engineCoreService, getTransform(meta3dState, engineCoreService, gameObject))
 
         if (!isNullable(children)) {
             children = getExn(children)
             if (children.length > 0) {
                 return children.reduce((result: Array<gameObject>, child: transform) => {
-                    return _func(result, getGameObjects(engineCoreState, engineCoreService, child)[0], engineCoreState)
+                    return _func(result, getGameObjects(meta3dState, engineCoreService, child)[0], meta3dState)
                 }, result)
             }
         }
@@ -244,40 +244,40 @@ export let getGameObjectAndAllChildren = (engineCoreState: engineCoreState, engi
         return result
     }
 
-    return _func([], gameObject, engineCoreState)
+    return _func([], gameObject, meta3dState)
 }
 
 
-export let removeGameObjects = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, gameObjects: Array<gameObject>): engineCoreState => {
-    return gameObjects.reduce((engineCoreState, gameObject) => {
-        engineCoreState = setGameObjectName(engineCoreState, engineCoreService, gameObject, buildRemovedName())
+export let removeGameObjects = (meta3dState: meta3dState, engineCoreService: engineCoreService, gameObjects: Array<gameObject>): meta3dState => {
+    return gameObjects.reduce((meta3dState, gameObject) => {
+        meta3dState = setGameObjectName(meta3dState, engineCoreService, gameObject, buildRemovedName())
 
-        let transform = getTransform(engineCoreState, engineCoreService, gameObject)
+        let transform = getTransform(meta3dState, engineCoreService, gameObject)
 
-        engineCoreState = setLocalScale(engineCoreState, engineCoreService, transform, [0, 0, 0])
-        engineCoreState = setLocalPosition(engineCoreState, engineCoreService, transform, [10000, 10000, 10000])
+        meta3dState = setLocalScale(meta3dState, engineCoreService, transform, [0, 0, 0])
+        meta3dState = setLocalPosition(meta3dState, engineCoreService, transform, [10000, 10000, 10000])
 
-        return engineCoreState
-    }, engineCoreState)
+        return meta3dState
+    }, meta3dState)
 }
 
-export let restoreRemovedGameObjects = (engineCoreState: engineCoreState, engineCoreService: engineCoreService, data: Array<removeGameObjectData>): engineCoreState => {
-    return data.reduce((engineCoreState, { gameObject, name, localScale, localPosition }) => {
-        engineCoreState = getWithDefault(map((name) => {
-            return setGameObjectName(engineCoreState, engineCoreService, gameObject, name)
-        }, name), engineCoreState)
+export let restoreRemovedGameObjects = (meta3dState: meta3dState, engineCoreService: engineCoreService, data: Array<removeGameObjectData>): meta3dState => {
+    return data.reduce((meta3dState, { gameObject, name, localScale, localPosition }) => {
+        meta3dState = getWithDefault(map((name) => {
+            return setGameObjectName(meta3dState, engineCoreService, gameObject, name)
+        }, name), meta3dState)
 
-        let transform = getTransform(engineCoreState, engineCoreService, gameObject)
+        let transform = getTransform(meta3dState, engineCoreService, gameObject)
 
-        engineCoreState = setLocalScale(engineCoreState, engineCoreService, transform, localScale)
-        engineCoreState = setLocalPosition(engineCoreState, engineCoreService, transform, localPosition)
+        meta3dState = setLocalScale(meta3dState, engineCoreService, transform, localScale)
+        meta3dState = setLocalPosition(meta3dState, engineCoreService, transform, localPosition)
 
-        return engineCoreState
-    }, engineCoreState)
+        return meta3dState
+    }, meta3dState)
 }
 
-export let getAllGameObjects = (engineCoreState: engineCoreState, { getAllGameObjects, getGameObjectName }: engineCoreService): Array<gameObject> => {
-    return getAllGameObjects(engineCoreState).filter(gameObject => {
-        return getWithDefault(map(isValidGameObjectName, getGameObjectName(engineCoreState, gameObject)), true)
+export let getAllGameObjects = (meta3dState: meta3dState, { getAllGameObjects, getGameObjectName }: engineCoreService): Array<gameObject> => {
+    return getAllGameObjects(meta3dState).filter(gameObject => {
+        return getWithDefault(map(isValidGameObjectName, getGameObjectName(meta3dState, gameObject)), true)
     })
 }

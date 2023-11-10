@@ -1,15 +1,14 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 // import { state } from "meta3d-engine-scene-protocol/src/state/StateType"
 import { service } from "meta3d-engine-scene-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-// import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
+import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
+// import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
 // import { state as cameraPipelineState, states as cameraPipelineStates } from "meta3d-pipeline-camera-protocol/src/StateType";
 // import { config as cameraPipelineConfig } from "meta3d-pipeline-camera-protocol/src/ConfigType";
 // import { state as transformPipelineState, states as transformPipelineStates } from "meta3d-pipeline-transform-protocol/src/StateType";
 // import { config as transformPipelineConfig } from "meta3d-pipeline-transform-protocol/src/ConfigType";
 // import { state as webgpuTriangleState, states as webgpuTriangleStates } from "meta3d-pipeline-editor-webgpu-triangle-protocol/src/StateType";
-// import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/StateType";
 import {
 	addBasicCameraView, addGeometry, addPBRMaterial, addPerspectiveCameraProjection, addTransform, addArcballCameraController, cloneGameObject, createGameObject,
 	disposeGameObjectArcballCameraControllerComponent,
@@ -39,7 +38,7 @@ import {
 	createPBRMaterial,
 	getName as getPBRMaterialName,
 	setName as setPBRMaterialName,
-	 getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap
+	getDiffuseColor, setDiffuseColor, getGameObjects as getPBRMaterialGameObjects, getSpecular, setSpecular, getSpecularColor, setSpecularColor, getRoughness, setRoughness, getMetalness, setMetalness, getTransmission, setTransmission, getIOR, setIOR, getDiffuseMap, setDiffuseMap, getRoughnessMap, setRoughnessMap, getMetalnessMap, setMetalnessMap, getNormalMap, setNormalMap
 } from "./PBRMaterialAPI";
 import {
 	createGeometry,
@@ -72,7 +71,7 @@ import { state as directionlightState, config as directionLightConfig, direction
 import { state as gameObjectState } from "meta3d-gameobject-protocol";
 // import { active, createBasicCameraView } from "./BasicCameraViewAPI"
 // import { createPerspectiveCameraProjection, setAspect, setFar, setFovy, setNear } from "./PerspectiveCameraProjectionAPI"
-// import { pipeline as pipelineRootPipeline, job as pipelineRootJob } from "meta3d-pipeline-root-protocol/src/StateType"
+// import { pipelineRootPipeline, pipelineRootJob } from "meta3d-core-protocol/src/state/StateType"
 // import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
 import { service as textureService } from "meta3d-texture-basicsource-protocol/src/service/ServiceType"
 import { texture, state as textureState, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType"
@@ -84,58 +83,35 @@ import {
 	setName as setDirectionLightName,
 	getColor, getDirection, setDirection, getGameObjects as getDirectionLightGameObjects, getIntensity, setColor, setIntensity
 } from "./DirectionLightAPI"
-import { gameObject } from "meta3d-engine-core-protocol/src/state/GameObjectType"
 
-let _engineCoreProtocolName: string
-
-
-let _encapsulateSceneAPIReturnState = (meta3dState: meta3dState, func: (engineCoreState: engineCoreState, engineCoreService: engineCoreService) => engineCoreState, api: api): meta3dState => {
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, _engineCoreProtocolName)
-
-	let engineCoreService = api.getExtensionService<engineCoreService>(
+let _encapsulateSceneAPIReturnState = (meta3dState: meta3dState, func: (meta3dState: meta3dState, engineCoreService: engineCoreService) => meta3dState, api: api): meta3dState => {
+	let coreService = getExn(api.getPackageService<coreService>(
 		meta3dState,
-		_engineCoreProtocolName
-	)
+		"meta3d-core-protocol"
+	))
+	let engineCoreService = coreService.engineCore(meta3dState)
 
-	meta3dState =
-		api.setExtensionState(
-			meta3dState,
-			_engineCoreProtocolName,
-			func(engineCoreState, engineCoreService)
-		)
-
-	return meta3dState
+	return func(meta3dState, engineCoreService)
 }
 
-let _encapsulateSceneAPIReturnData = <Data>(meta3dState: meta3dState, func: (engineCoreState: engineCoreState, engineCoreService: engineCoreService) => Data, api: api): Data => {
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, _engineCoreProtocolName)
-
-	let engineCoreService = api.getExtensionService<engineCoreService>(
+let _encapsulateSceneAPIReturnData = <Data>(meta3dState: meta3dState, func: (meta3dState: meta3dState, engineCoreService: engineCoreService) => Data, api: api): Data => {
+	let coreService = getExn(api.getPackageService<coreService>(
 		meta3dState,
-		_engineCoreProtocolName
-	)
+		"meta3d-core-protocol"
+	))
+	let engineCoreService = coreService.engineCore(meta3dState)
 
-	return func(engineCoreState, engineCoreService)
+	return func(meta3dState, engineCoreService)
 }
 
-let _encapsulateSceneAPIReturnStateAndData = <Data>(meta3dState: meta3dState, func: (engineCoreState: engineCoreState, engineCoreService: engineCoreService) => [engineCoreState, Data], api: api): [meta3dState, Data] => {
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, _engineCoreProtocolName)
-
-	let engineCoreService = api.getExtensionService<engineCoreService>(
+let _encapsulateSceneAPIReturnStateAndData = <Data>(meta3dState: meta3dState, func: (meta3dState: meta3dState, engineCoreService: engineCoreService) => [meta3dState, Data], api: api): [meta3dState, Data] => {
+	let coreService = getExn(api.getPackageService<coreService>(
 		meta3dState,
-		_engineCoreProtocolName
-	)
+		"meta3d-core-protocol"
+	))
+	let engineCoreService = coreService.engineCore(meta3dState)
 
-	let data = func(engineCoreState, engineCoreService)
-
-	meta3dState =
-		api.setExtensionState(
-			meta3dState,
-			_engineCoreProtocolName,
-			data[0]
-		)
-
-	return [meta3dState, data[1]]
+	return func(meta3dState, engineCoreService)
 }
 
 
@@ -158,7 +134,6 @@ let _encapsulateSceneAPIReturnStateAndDataForBasicSourceTexture = <Data>(meta3dS
 
 	return [meta3dState, data[1]]
 }
-
 
 let _encapsulateSceneAPIReturnStateForBasicSourceTexture = (meta3dState: meta3dState, func: (textureState: textureState, textureService: textureService) => textureState, api: api): meta3dState => {
 	let textureState = api.getExtensionState<textureState>(meta3dState, "meta3d-texture-basicsource-protocol")
@@ -201,9 +176,7 @@ let _addMaterial = (meta3dState: meta3dState, api: api, texture: texture, pbrMat
 
 export let getExtensionServiceUtils = (
 	registerPipelineFunc: any,
-	api: api, engineCoreProtocolName: string): service => {
-	_engineCoreProtocolName = engineCoreProtocolName
-
+	api: api): service => {
 	return {
 		prepare: (meta3dState: meta3dState, isDebug, ecsConfig) => {
 			let {
@@ -215,18 +188,17 @@ export let getExtensionServiceUtils = (
 				pbrMaterialCount
 			} = ecsConfig
 
-			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, _engineCoreProtocolName)
-
-			let engineCoreService = api.getExtensionService<engineCoreService>(
+			let coreService = getExn(api.getPackageService<coreService>(
 				meta3dState,
-				_engineCoreProtocolName
-			)
+				"meta3d-core-protocol"
+			))
+			let engineCoreService = coreService.engineCore(meta3dState)
 
 			let { registerPipeline, registerComponent, setGameObjectContribute, createAndSetComponentState, createAndSetGameObjectState } = engineCoreService
 
-			engineCoreState = registerPipelineFunc(engineCoreState, engineCoreService, meta3dState, isDebug)
+			meta3dState = registerPipelineFunc(meta3dState, engineCoreService, isDebug)
 
-			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<cameraPipelineConfig, cameraPipelineState>>(meta3dState, pipelineCameraProtocolName),
+			// meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<cameraPipelineConfig, cameraPipelineState>>(meta3dState, pipelineCameraProtocolName),
 			// 	{
 			// 		isDebug,
 			// 	},
@@ -239,7 +211,7 @@ export let getExtensionServiceUtils = (
 			// 	]
 			// )
 
-			// engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<transformPipelineConfig, transformPipelineState>>(meta3dState, pipelineTransformProtocolName),
+			// meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<transformPipelineConfig, transformPipelineState>>(meta3dState, pipelineTransformProtocolName),
 			// 	null,
 			// 	[
 			// 		{
@@ -251,86 +223,76 @@ export let getExtensionServiceUtils = (
 			// )
 
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<transformState, transformConfig, transform>>(meta3dState, "meta3d-component-transform-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<transformState, transformConfig, transform>>(meta3dState, "meta3d-component-transform-protocol"))
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<geometryState, geometryConfig, geometry>>(meta3dState, "meta3d-component-geometry-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<geometryState, geometryConfig, geometry>>(meta3dState, "meta3d-component-geometry-protocol"))
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<pbrMaterialState, pbrMaterialConfig, pbrMaterial>>(meta3dState, "meta3d-component-pbrmaterial-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<pbrMaterialState, pbrMaterialConfig, pbrMaterial>>(meta3dState, "meta3d-component-pbrmaterial-protocol"))
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<basicCameraViewState, basicCameraViewConfig, basicCameraView>>(meta3dState, "meta3d-component-basiccameraview-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<basicCameraViewState, basicCameraViewConfig, basicCameraView>>(meta3dState, "meta3d-component-basiccameraview-protocol"))
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<perspecticeCameraProjectionState, perspecticeCameraProjectionConfig, perspectiveCameraProjection>>(meta3dState, "meta3d-component-perspectivecameraprojection-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<perspecticeCameraProjectionState, perspecticeCameraProjectionConfig, perspectiveCameraProjection>>(meta3dState, "meta3d-component-perspectivecameraprojection-protocol"))
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<arcballCameraControllerState, arcballCameraControllerConfig, arcballCameraController>>(meta3dState, "meta3d-component-arcballcameracontroller-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<arcballCameraControllerState, arcballCameraControllerConfig, arcballCameraController>>(meta3dState, "meta3d-component-arcballcameracontroller-protocol"))
 
-			engineCoreState =
-				registerComponent(engineCoreState, api.getContribute<componentContribute<directionlightState, directionLightConfig, directionLight>>(meta3dState, "meta3d-component-directionlight-protocol"))
+			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<directionlightState, directionLightConfig, directionLight>>(meta3dState, "meta3d-component-directionlight-protocol"))
 
 
 
-			engineCoreState = createAndSetComponentState<transformConfig>(engineCoreState, transformComponentName, {
+			meta3dState = createAndSetComponentState<transformConfig>(meta3dState, transformComponentName, {
 				isDebug,
 				float9Array1,
 				float32Array1,
 				transformCount
 			})
-			engineCoreState = createAndSetComponentState<pbrMaterialConfig>(engineCoreState, pbrMaterialComponentName, {
+			meta3dState = createAndSetComponentState<pbrMaterialConfig>(meta3dState, pbrMaterialComponentName, {
 				isDebug,
 				pbrMaterialCount
 			})
-			engineCoreState = createAndSetComponentState<geometryConfig>(engineCoreState, geometryComponentName, {
+			meta3dState = createAndSetComponentState<geometryConfig>(meta3dState, geometryComponentName, {
 				isDebug,
 				geometryCount,
 				geometryPointCount
 			})
-			engineCoreState = createAndSetComponentState<basicCameraViewConfig>(engineCoreState, basicCameraViewComponentName, {
+			meta3dState = createAndSetComponentState<basicCameraViewConfig>(meta3dState, basicCameraViewComponentName, {
 				isDebug
 			})
-			engineCoreState = createAndSetComponentState<perspecticeCameraProjectionConfig>(engineCoreState, perspecticeCameraProjectionComponentName, {
+			meta3dState = createAndSetComponentState<perspecticeCameraProjectionConfig>(meta3dState, perspecticeCameraProjectionComponentName, {
 				isDebug
 			})
-			engineCoreState = createAndSetComponentState<arcballCameraControllerConfig>(engineCoreState, arcballCameraControllerComponentName, {
+			meta3dState = createAndSetComponentState<arcballCameraControllerConfig>(meta3dState, arcballCameraControllerComponentName, {
 				isDebug
 			})
 			// TODO get directionLightCount from config
-			engineCoreState = createAndSetComponentState<directionLightConfig>(engineCoreState, directionLightComponentName, {
+			meta3dState = createAndSetComponentState<directionLightConfig>(meta3dState, directionLightComponentName, {
 				isDebug,
 				directionLightCount: 4
 			})
 
 
 
-			engineCoreState =
-				setGameObjectContribute(engineCoreState, api.getContribute<gameObjectContribute<gameObjectState>>(meta3dState, "meta3d-gameobject-protocol"))
-
-			engineCoreState = createAndSetGameObjectState(engineCoreState, { isDebug })
-
-
-
-
-
-
-
-			// engineCoreState = engineCoreService.init(engineCoreState, meta3dState)
-
-
-
-
-
-
-
 			meta3dState =
-				api.setExtensionState(
-					meta3dState,
-					_engineCoreProtocolName,
-					engineCoreState
-				)
+				setGameObjectContribute(meta3dState, api.getContribute<gameObjectContribute<gameObjectState>>(meta3dState, "meta3d-gameobject-protocol"))
+
+			meta3dState = createAndSetGameObjectState(meta3dState, { isDebug })
+
+
+
+
+
+
+
+			// meta3dState = engineCoreService.init(meta3dState, meta3dState)
+
+
+
 
 
 
@@ -375,117 +337,117 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createUnUseGameObject, api)
 			},
 			getAllGameObjects: (meta3dState) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllGameObjects(engineCoreState, engineCoreService), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAllGameObjects(meta3dState, engineCoreService), api)
 			},
 			getGameObjectName: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGameObjectName(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getGameObjectName(meta3dState, engineCoreService, gameObject), api)
 			},
 			setGameObjectName: (meta3dState, gameObject, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setGameObjectName(engineCoreState, engineCoreService, gameObject, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setGameObjectName(meta3dState, engineCoreService, gameObject, value), api)
 			},
 			getTransform: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTransform(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTransform(meta3dState, engineCoreService, gameObject), api)
 			},
 			addTransform: (meta3dState, gameObject, transform) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addTransform(engineCoreState, engineCoreService, gameObject, transform), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addTransform(meta3dState, engineCoreService, gameObject, transform), api)
 			},
 			hasTransform: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasTransform(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasTransform(meta3dState, engineCoreService, gameObject), api)
 			},
 			getDirectionLight: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirectionLight(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDirectionLight(meta3dState, engineCoreService, gameObject), api)
 			},
 			addDirectionLight: (meta3dState, gameObject, directionLight) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addDirectionLight(engineCoreState, engineCoreService, gameObject, directionLight), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addDirectionLight(meta3dState, engineCoreService, gameObject, directionLight), api)
 			},
 			hasDirectionLight: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasDirectionLight(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasDirectionLight(meta3dState, engineCoreService, gameObject), api)
 			},
 			getGeometry: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGeometry(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getGeometry(meta3dState, engineCoreService, gameObject), api)
 			},
 			addGeometry: (meta3dState, gameObject, geometry) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addGeometry(engineCoreState, engineCoreService, gameObject, geometry), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addGeometry(meta3dState, engineCoreService, gameObject, geometry), api)
 			},
 			hasGeometry: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasGeometry(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasGeometry(meta3dState, engineCoreService, gameObject), api)
 			},
 			getPBRMaterial: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPBRMaterial(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPBRMaterial(meta3dState, engineCoreService, gameObject), api)
 			},
 			addPBRMaterial: (meta3dState, gameObject, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addPBRMaterial(engineCoreState, engineCoreService, gameObject, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addPBRMaterial(meta3dState, engineCoreService, gameObject, pbrMaterial), api)
 			},
 			hasPBRMaterial: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasPBRMaterial(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasPBRMaterial(meta3dState, engineCoreService, gameObject), api)
 			},
 			getBasicCameraView: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getBasicCameraView(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getBasicCameraView(meta3dState, engineCoreService, gameObject), api)
 			},
 			addBasicCameraView: (meta3dState, gameObject, basicCameraView) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addBasicCameraView(engineCoreState, engineCoreService, gameObject, basicCameraView), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addBasicCameraView(meta3dState, engineCoreService, gameObject, basicCameraView), api)
 			},
 			hasBasicCameraView: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasBasicCameraView(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasBasicCameraView(meta3dState, engineCoreService, gameObject), api)
 			},
 			getPerspectiveCameraProjection: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPerspectiveCameraProjection(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPerspectiveCameraProjection(meta3dState, engineCoreService, gameObject), api)
 			},
 			addPerspectiveCameraProjection: (meta3dState, gameObject, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addPerspectiveCameraProjection(engineCoreState, engineCoreService, gameObject, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addPerspectiveCameraProjection(meta3dState, engineCoreService, gameObject, perspectiveCameraProjection), api)
 			},
 			hasPerspectiveCameraProjection: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasPerspectiveCameraProjection(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasPerspectiveCameraProjection(meta3dState, engineCoreService, gameObject), api)
 			},
 			getArcballCameraController: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getArcballCameraController(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getArcballCameraController(meta3dState, engineCoreService, gameObject), api)
 			},
 			addArcballCameraController: (meta3dState, gameObject, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => addArcballCameraController(engineCoreState, engineCoreService, gameObject, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addArcballCameraController(meta3dState, engineCoreService, gameObject, arcballCameraController), api)
 			},
 			hasArcballCameraController: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => hasArcballCameraController(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasArcballCameraController(meta3dState, engineCoreService, gameObject), api)
 			},
 			cloneGameObject: (meta3dState, count, cloneConfig, sourceGameObject) => {
 				// TODO add texture to cloned pbr material
 
-				return _encapsulateSceneAPIReturnStateAndData(meta3dState, (engineCoreState, engineCoreService) => cloneGameObject(engineCoreState, engineCoreService, count, cloneConfig, sourceGameObject), api)
+				return _encapsulateSceneAPIReturnStateAndData(meta3dState, (meta3dState, engineCoreService) => cloneGameObject(meta3dState, engineCoreService, count, cloneConfig, sourceGameObject), api)
 			},
 			getNeedDisposedGameObjects: (meta3dState) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNeedDisposedGameObjects(engineCoreState, engineCoreService), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getNeedDisposedGameObjects(meta3dState, engineCoreService), api)
 			},
 			disposeGameObjects: (meta3dState, gameObjects) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjects(engineCoreState, engineCoreService, gameObjects), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjects(meta3dState, engineCoreService, gameObjects), api)
 			},
 			disposeGameObjectTransformComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectTransformComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectTransformComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectPBRMaterialComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectPBRMaterialComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectPBRMaterialComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectDirectionLightComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectGeometryComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectGeometryComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectGeometryComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectGeometryComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectGeometryComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectBasicCameraViewComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectBasicCameraViewComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectBasicCameraViewComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectPerspectiveCameraProjectionComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectPerspectiveCameraProjectionComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectPerspectiveCameraProjectionComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectArcballCameraControllerComponent: (meta3dState, gameObject, component) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => disposeGameObjectArcballCameraControllerComponent(engineCoreState, engineCoreService, gameObject, component), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectArcballCameraControllerComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			getGameObjectAndAllChildren: (meta3dState, gameObject) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGameObjectAndAllChildren(engineCoreState, engineCoreService, gameObject), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getGameObjectAndAllChildren(meta3dState, engineCoreService, gameObject), api)
 			},
 			removeGameObjects: (meta3dState, gameObjects) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => removeGameObjects(engineCoreState, engineCoreService, gameObjects), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => removeGameObjects(meta3dState, engineCoreService, gameObjects), api)
 			},
 			restoreRemovedGameObjects: (meta3dState, data) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => restoreRemovedGameObjects(engineCoreState, engineCoreService, data), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => restoreRemovedGameObjects(meta3dState, engineCoreService, data), api)
 			},
 		},
 		transform: {
@@ -493,52 +455,52 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createTransform, api)
 			},
 			getGameObjects: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTransformGameObjects(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTransformGameObjects(meta3dState, engineCoreService, transform), api)
 			},
 			getName: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTransformName(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTransformName(meta3dState, engineCoreService, transform), api)
 			},
 			setName: (meta3dState, transform, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTransformName(engineCoreState, engineCoreService, transform, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setTransformName(meta3dState, engineCoreService, transform, value), api)
 			},
 			getParent: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getParent(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getParent(meta3dState, engineCoreService, transform), api)
 			},
 			setParent: (meta3dState, transform, parent) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setParent(engineCoreState, engineCoreService, transform, parent), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setParent(meta3dState, engineCoreService, transform, parent), api)
 			},
 			getChildren: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getChildren(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getChildren(meta3dState, engineCoreService, transform), api)
 			},
 			getLocalPosition: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalPosition(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getLocalPosition(meta3dState, engineCoreService, transform), api)
 			},
 			setLocalPosition: (meta3dState, transform, localPosition) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalPosition(engineCoreState, engineCoreService, transform, localPosition), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setLocalPosition(meta3dState, engineCoreService, transform, localPosition), api)
 			},
 			getLocalRotation: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalRotation(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getLocalRotation(meta3dState, engineCoreService, transform), api)
 			},
 			setLocalRotation: (meta3dState, transform, localRotation) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalRotation(engineCoreState, engineCoreService, transform, localRotation), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setLocalRotation(meta3dState, engineCoreService, transform, localRotation), api)
 			},
 			getLocalEulerAngles: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalEulerAngles(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getLocalEulerAngles(meta3dState, engineCoreService, transform), api)
 			},
 			setLocalEulerAngles: (meta3dState, transform, localEulerAngles) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalEulerAngles(engineCoreState, engineCoreService, transform, localEulerAngles), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setLocalEulerAngles(meta3dState, engineCoreService, transform, localEulerAngles), api)
 			},
 			getLocalScale: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalScale(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getLocalScale(meta3dState, engineCoreService, transform), api)
 			},
 			setLocalScale: (meta3dState, transform, localScale) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setLocalScale(engineCoreState, engineCoreService, transform, localScale), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setLocalScale(meta3dState, engineCoreService, transform, localScale), api)
 			},
 			getLocalToWorldMatrix: (meta3dState, transform) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getLocalToWorldMatrix(engineCoreState, engineCoreService, transform), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getLocalToWorldMatrix(meta3dState, engineCoreService, transform), api)
 			},
 			lookAt: (meta3dState, transform, target) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => lookAt(engineCoreState, engineCoreService, transform, target), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => lookAt(meta3dState, engineCoreService, transform, target), api)
 			},
 		},
 		directionLight: {
@@ -546,31 +508,31 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createDirectionLight, api)
 			},
 			getGameObjects: (meta3dState, directionLight) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirectionLightGameObjects(engineCoreState, engineCoreService, directionLight), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDirectionLightGameObjects(meta3dState, engineCoreService, directionLight), api)
 			},
 			getName: (meta3dState, directionLight) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirectionLightName(engineCoreState, engineCoreService, directionLight), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDirectionLightName(meta3dState, engineCoreService, directionLight), api)
 			},
 			setName: (meta3dState, directionLight, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDirectionLightName(engineCoreState, engineCoreService, directionLight, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setDirectionLightName(meta3dState, engineCoreService, directionLight, value), api)
 			},
 			getColor: (meta3dState, directionLight) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getColor(engineCoreState, engineCoreService, directionLight), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getColor(meta3dState, engineCoreService, directionLight), api)
 			},
 			setColor: (meta3dState, directionLight, color) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setColor(engineCoreState, engineCoreService, directionLight, color), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setColor(meta3dState, engineCoreService, directionLight, color), api)
 			},
 			getIntensity: (meta3dState, directionLight) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIntensity(engineCoreState, engineCoreService, directionLight), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getIntensity(meta3dState, engineCoreService, directionLight), api)
 			},
 			setIntensity: (meta3dState, directionLight, intensity) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIntensity(engineCoreState, engineCoreService, directionLight, intensity), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setIntensity(meta3dState, engineCoreService, directionLight, intensity), api)
 			},
 			getDirection: (meta3dState, directionLight) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDirection(engineCoreState, engineCoreService, directionLight), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDirection(meta3dState, engineCoreService, directionLight), api)
 			},
 			setDirection: (meta3dState, directionLight, direction) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDirection(engineCoreState, engineCoreService, directionLight, direction), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setDirection(meta3dState, engineCoreService, directionLight, direction), api)
 			},
 		},
 		basicCameraView: {
@@ -578,22 +540,22 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createBasicCameraView, api)
 			},
 			getGameObjects: (meta3dState, basicCameraView) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getBasicCameraViewGameObjects(engineCoreState, engineCoreService, basicCameraView), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getBasicCameraViewGameObjects(meta3dState, engineCoreService, basicCameraView), api)
 			},
 			getName: (meta3dState, basicCameraView) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getBasicCameraViewName(engineCoreState, engineCoreService, basicCameraView), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getBasicCameraViewName(meta3dState, engineCoreService, basicCameraView), api)
 			},
 			setName: (meta3dState, basicCameraView, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setBasicCameraViewName(engineCoreState, engineCoreService, basicCameraView, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setBasicCameraViewName(meta3dState, engineCoreService, basicCameraView, value), api)
 			},
 			active: (meta3dState, basicCameraView) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => active(engineCoreState, engineCoreService, basicCameraView), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => active(meta3dState, engineCoreService, basicCameraView), api)
 			},
 			getViewWorldToCameraMatrix: (meta3dState, basicCameraView) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getViewWorldToCameraMatrix(engineCoreState, engineCoreService, basicCameraView), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getViewWorldToCameraMatrix(meta3dState, engineCoreService, basicCameraView), api)
 			},
 			getActiveCameraView: (meta3dState, isDebug) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getActiveCameraView(engineCoreState, engineCoreService, isDebug), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getActiveCameraView(meta3dState, engineCoreService, isDebug), api)
 			},
 		},
 		geometry: {
@@ -601,43 +563,43 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createGeometry, api)
 			},
 			getName: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGeometryName(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getGeometryName(meta3dState, engineCoreService, geometry), api)
 			},
 			setName: (meta3dState, geometry, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setGeometryName(engineCoreState, engineCoreService, geometry, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setGeometryName(meta3dState, engineCoreService, geometry, value), api)
 			},
 			getVertices: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getVertices(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getVertices(meta3dState, engineCoreService, geometry), api)
 			},
 			setVertices: (meta3dState, geometry, vertices) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setVertices(engineCoreState, engineCoreService, geometry, vertices), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setVertices(meta3dState, engineCoreService, geometry, vertices), api)
 			},
 			getNormals: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNormals(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getNormals(meta3dState, engineCoreService, geometry), api)
 			},
 			setNormals: (meta3dState, geometry, normals) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNormals(engineCoreState, engineCoreService, geometry, normals), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setNormals(meta3dState, engineCoreService, geometry, normals), api)
 			},
 			getTexCoords: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTexCoords(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTexCoords(meta3dState, engineCoreService, geometry), api)
 			},
 			setTexCoords: (meta3dState, geometry, texCoords) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTexCoords(engineCoreState, engineCoreService, geometry, texCoords), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setTexCoords(meta3dState, engineCoreService, geometry, texCoords), api)
 			},
 			getTangents: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTangents(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTangents(meta3dState, engineCoreService, geometry), api)
 			},
 			setTangents: (meta3dState, geometry, tangents) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTangents(engineCoreState, engineCoreService, geometry, tangents), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setTangents(meta3dState, engineCoreService, geometry, tangents), api)
 			},
 			getIndices: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIndices(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getIndices(meta3dState, engineCoreService, geometry), api)
 			},
 			setIndices: (meta3dState, geometry, indices) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIndices(engineCoreState, engineCoreService, geometry, indices), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setIndices(meta3dState, engineCoreService, geometry, indices), api)
 			},
 			getGameObjects: (meta3dState, geometry) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getGeometryGameObjects(engineCoreState, engineCoreService, geometry), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getGeometryGameObjects(meta3dState, engineCoreService, geometry), api)
 			},
 		},
 		pbrMaterial: {
@@ -645,90 +607,90 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createPBRMaterial, api)
 			},
 			getName: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPBRMaterialName(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPBRMaterialName(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setName: (meta3dState, pbrMaterial, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setPBRMaterialName(engineCoreState, engineCoreService, pbrMaterial, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setPBRMaterialName(meta3dState, engineCoreService, pbrMaterial, value), api)
 			},
 			getDiffuseColor: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDiffuseColor(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDiffuseColor(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setDiffuseColor: (meta3dState, pbrMaterial, diffuseColor) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDiffuseColor(engineCoreState, engineCoreService, pbrMaterial, diffuseColor), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setDiffuseColor(meta3dState, engineCoreService, pbrMaterial, diffuseColor), api)
 			},
 			getSpecular: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getSpecular(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getSpecular(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setSpecular: (meta3dState, pbrMaterial, specular) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setSpecular(engineCoreState, engineCoreService, pbrMaterial, specular), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setSpecular(meta3dState, engineCoreService, pbrMaterial, specular), api)
 			},
 			getSpecularColor: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getSpecularColor(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getSpecularColor(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setSpecularColor: (meta3dState, pbrMaterial, specularColor) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setSpecularColor(engineCoreState, engineCoreService, pbrMaterial, specularColor), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setSpecularColor(meta3dState, engineCoreService, pbrMaterial, specularColor), api)
 			},
 			getRoughness: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getRoughness(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getRoughness(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setRoughness: (meta3dState, pbrMaterial, roughness) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setRoughness(engineCoreState, engineCoreService, pbrMaterial, roughness), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setRoughness(meta3dState, engineCoreService, pbrMaterial, roughness), api)
 			},
 			getMetalness: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getMetalness(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getMetalness(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setMetalness: (meta3dState, pbrMaterial, metalness) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setMetalness(engineCoreState, engineCoreService, pbrMaterial, metalness), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setMetalness(meta3dState, engineCoreService, pbrMaterial, metalness), api)
 			},
 			getTransmission: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTransmission(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTransmission(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setTransmission: (meta3dState, pbrMaterial, transmission) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTransmission(engineCoreState, engineCoreService, pbrMaterial, transmission), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setTransmission(meta3dState, engineCoreService, pbrMaterial, transmission), api)
 			},
 			getIOR: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getIOR(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getIOR(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setIOR: (meta3dState, pbrMaterial, ior) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setIOR(engineCoreState, engineCoreService, pbrMaterial, ior), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setIOR(meta3dState, engineCoreService, pbrMaterial, ior), api)
 			},
 			getDiffuseMap: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDiffuseMap(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDiffuseMap(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setDiffuseMap: (meta3dState, pbrMaterial, texture) => {
-				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDiffuseMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setDiffuseMap(meta3dState, engineCoreService, pbrMaterial, texture), api)
 
 				return _addMaterial(meta3dState, api, texture, pbrMaterial)
 			},
 			getRoughnessMap: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getRoughnessMap(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getRoughnessMap(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setRoughnessMap: (meta3dState, pbrMaterial, texture) => {
-				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setRoughnessMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setRoughnessMap(meta3dState, engineCoreService, pbrMaterial, texture), api)
 
 				return _addMaterial(meta3dState, api, texture, pbrMaterial)
 			},
 			getMetalnessMap: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getMetalnessMap(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getMetalnessMap(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setMetalnessMap: (meta3dState, pbrMaterial, texture) => {
-				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setMetalnessMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setMetalnessMap(meta3dState, engineCoreService, pbrMaterial, texture), api)
 
 				return _addMaterial(meta3dState, api, texture, pbrMaterial)
 			},
 			getNormalMap: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNormalMap(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getNormalMap(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 			setNormalMap: (meta3dState, pbrMaterial, texture) => {
-				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNormalMap(engineCoreState, engineCoreService, pbrMaterial, texture), api)
+				meta3dState = _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setNormalMap(meta3dState, engineCoreService, pbrMaterial, texture), api)
 
 				return _addMaterial(meta3dState, api, texture, pbrMaterial)
 			},
 			// getAllPBRMaterials: (meta3dState) => {
-			// 	return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllPBRMaterials(engineCoreState, engineCoreService), api)
+			// 	return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAllPBRMaterials(meta3dState, engineCoreService), api)
 			// },
 			getGameObjects: (meta3dState, pbrMaterial) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPBRMaterialGameObjects(engineCoreState, engineCoreService, pbrMaterial), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPBRMaterialGameObjects(meta3dState, engineCoreService, pbrMaterial), api)
 			},
 		},
 		basicSourceTexture: {
@@ -816,37 +778,37 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createPerspectiveCameraProjection, api)
 			},
 			getName: (meta3dState, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPerspectiveCameraProjectionName(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPerspectiveCameraProjectionName(meta3dState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setName: (meta3dState, perspectiveCameraProjection, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setPerspectiveCameraProjectionName(engineCoreState, engineCoreService, perspectiveCameraProjection, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setPerspectiveCameraProjectionName(meta3dState, engineCoreService, perspectiveCameraProjection, value), api)
 			},
 			getPMatrix: (meta3dState, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPMatrix(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPMatrix(meta3dState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			getFovy: (meta3dState, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getFovy(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getFovy(meta3dState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setFovy: (meta3dState, perspectiveCameraProjection, fovy) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setFovy(engineCoreState, engineCoreService, perspectiveCameraProjection, fovy), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setFovy(meta3dState, engineCoreService, perspectiveCameraProjection, fovy), api)
 			},
 			getNear: (meta3dState, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getNear(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getNear(meta3dState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setNear: (meta3dState, perspectiveCameraProjection, near) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setNear(engineCoreState, engineCoreService, perspectiveCameraProjection, near), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setNear(meta3dState, engineCoreService, perspectiveCameraProjection, near), api)
 			},
 			getFar: (meta3dState, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getFar(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getFar(meta3dState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setFar: (meta3dState, perspectiveCameraProjection, far) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setFar(engineCoreState, engineCoreService, perspectiveCameraProjection, far), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setFar(meta3dState, engineCoreService, perspectiveCameraProjection, far), api)
 			},
 			getAspect: (meta3dState, perspectiveCameraProjection) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAspect(engineCoreState, engineCoreService, perspectiveCameraProjection), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAspect(meta3dState, engineCoreService, perspectiveCameraProjection), api)
 			},
 			setAspect: (meta3dState, perspectiveCameraProjection, aspect) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setAspect(engineCoreState, engineCoreService, perspectiveCameraProjection, aspect), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setAspect(meta3dState, engineCoreService, perspectiveCameraProjection, aspect), api)
 			},
 		},
 		arcballCameraController: {
@@ -854,49 +816,49 @@ export let getExtensionServiceUtils = (
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createArcballCameraController, api)
 			},
 			// getAllDirtyArcballCameraControllers: (meta3dState) => {
-			// 	return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getAllDirtyArcballCameraControllers(engineCoreState, engineCoreService), api)
+			// 	return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAllDirtyArcballCameraControllers(meta3dState, engineCoreService), api)
 			// },
 			// clearDirtyList: (meta3dState) => {
-			// 	return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => clearDirtyList(engineCoreState, engineCoreService), api)
+			// 	return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => clearDirtyList(meta3dState, engineCoreService), api)
 			// },
 			getName: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getArcballCameraControllerName(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getArcballCameraControllerName(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 			setName: (meta3dState, arcballCameraController, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setArcballCameraControllerName(engineCoreState, engineCoreService, arcballCameraController, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setArcballCameraControllerName(meta3dState, engineCoreService, arcballCameraController, value), api)
 			},
 			getDistance: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getDistance(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getDistance(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 			setDistance: (meta3dState, arcballCameraController, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setDistance(engineCoreState, engineCoreService, arcballCameraController, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setDistance(meta3dState, engineCoreService, arcballCameraController, value), api)
 			},
 			getWheelSpeed: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getWheelSpeed(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getWheelSpeed(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 			setWheelSpeed: (meta3dState, arcballCameraController, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setWheelSpeed(engineCoreState, engineCoreService, arcballCameraController, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setWheelSpeed(meta3dState, engineCoreService, arcballCameraController, value), api)
 			},
 			getTarget: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTarget(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTarget(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 			setTarget: (meta3dState, arcballCameraController, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTarget(engineCoreState, engineCoreService, arcballCameraController, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setTarget(meta3dState, engineCoreService, arcballCameraController, value), api)
 			},
 			getPhi: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getPhi(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getPhi(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 			setPhi: (meta3dState, arcballCameraController, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setPhi(engineCoreState, engineCoreService, arcballCameraController, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setPhi(meta3dState, engineCoreService, arcballCameraController, value), api)
 			},
 			getTheta: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getTheta(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getTheta(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 			setTheta: (meta3dState, arcballCameraController, value) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (engineCoreState, engineCoreService) => setTheta(engineCoreState, engineCoreService, arcballCameraController, value), api)
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setTheta(meta3dState, engineCoreService, arcballCameraController, value), api)
 			},
 			getGameObjects: (meta3dState, arcballCameraController) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (engineCoreState, engineCoreService) => getArcballCameraControllerGameObjects(engineCoreState, engineCoreService, arcballCameraController), api)
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getArcballCameraControllerGameObjects(meta3dState, engineCoreService, arcballCameraController), api)
 			},
 		},
 

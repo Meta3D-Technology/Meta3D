@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType";
 import { execFunc as execUpdateCamera } from "./jobs/update/UpdateCameraJob";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-camera-protocol/src/StateType";
 import { config } from "meta3d-pipeline-camera-protocol/src/ConfigType";

@@ -257,7 +257,12 @@ TODO add ui control
 
 
 
-TODO core, event add entry implement, protocol
+TODO core add entry implement, protocol
+    TODO update engine-scene
+    TODO update Job
+    TODO update sceneview render->root pipeline(move root pipeline type to StateType)
+
+TODO event add entry implement, protocol
 
 TODO refactor get engine core, most, root:use getPackageService("meta3d-core-protocol"):
     add core implement
@@ -269,12 +274,17 @@ TODO refactor get editor whole:use getPackageService
 e.g. scenegraph utils-> api.getExtensionService<editorWholeService>(meta3dState, editorWholeProtocolName) 
 
 
-TODO fix scene->create gameObject: not consider un used
+
+
+
 
 TODO update UpdateCameraJob
     TODO update meta3d-view-utils->getViewRect
 
 
+
+TODO fix scene:remove unUsed
+    TODO create gameObject: not consider un used
 
 
 
@@ -299,7 +309,7 @@ runApp
 
 **** TODO run test: Controller+Scene View+ *Game View
 
-TODO extract Render Package from Editor Whole Package for both Editor/Engine Whole Package
+TODO extract Three Render Package from Editor Whole Package for both Editor/Engine Whole Package
 
 
 **** TODO run test: publish(Button)

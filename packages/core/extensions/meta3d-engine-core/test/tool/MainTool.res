@@ -70,9 +70,8 @@ let runPipeline = (
 ) => {
   let api: Meta3dType.Index.api = data
 
-  let mostService: Meta3dBsMostProtocol.ServiceType.service = Meta3dBsMost.Main.getExtensionService(
-    Obj.magic(1),
-  )
+  let mostService: Meta3dBsMostProtocol.ServiceType.service = 
+  Obj.magic(1)
 
   let meta3dEngineCoreExtensionProtocolName = _buildMeta3dEngineCoreExtensionProtocolName()
 

@@ -1,17 +1,60 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEngineCoreProtocol.ServiceType.service,
 > = api => {
-  getIsDebug: DirectorForJs.getIsDebug,
-  setIsDebug: DirectorForJs.setIsDebug,
+  getIsDebug: meta3dState => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")->DirectorForJs.getIsDebug
+  },
+  setIsDebug: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.setIsDebug(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
   prepare: DirectorForJs.prepare,
-  init: DirectorForJs.init,
-  registerPipeline: DirectorForJs.registerPipeline,
-  unregisterPipeline: DirectorForJs.unregisterPipeline,
-  registerComponent: DirectorForJs.registerComponent,
-  unregisterComponent: DirectorForJs.unregisterComponent,
-  createAndSetComponentState: DirectorForJs.createAndSetComponentState,
-  unsafeGetUsedComponentContribute: DirectorForJs.unsafeGetUsedComponentContribute,
-  setUsedComponentContribute: DirectorForJs.setUsedComponentContribute,
+  init: meta3dState => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.init(meta3dState)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  registerPipeline: (~meta3dState, ~contribute, ~config=Js.Nullable.null, ~jobOrders=[], ()) => {
+    DirectorForJs.registerPipeline(
+      ~state=api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol"),
+      ~contribute,
+      ~config,
+      ~jobOrders,
+      (),
+    )->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  unregisterPipeline: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.unregisterPipeline(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  registerComponent: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.registerComponent(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  unregisterComponent: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.unregisterComponent(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  createAndSetComponentState: (meta3dState, componentName, config) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.createAndSetComponentState(componentName, config)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  unsafeGetUsedComponentContribute: (meta3dState, value) => {
+    api.getExtensionState(.
+      meta3dState,
+      "meta3d-engine-core-protocol",
+    )->DirectorForJs.unsafeGetUsedComponentContribute(value)
+  },
+  setUsedComponentContribute: (meta3dState, usedComponentContribute, componentName) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.setUsedComponentContribute(usedComponentContribute, componentName)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
   createComponent: DirectorForJs.createComponent,
   setComponentData: DirectorForJs.setComponentData,
   addComponent: DirectorForJs.addComponent,
@@ -24,17 +67,80 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getAllComponents: DirectorForJs.getAllComponents,
   getComponentData: DirectorForJs.getComponentData,
   getComponentGameObjects: DirectorForJs.getComponentGameObjects,
-  getComponentState: DirectorForJs.getComponentState,
-  setGameObjectContribute: DirectorForJs.setGameObjectContribute,
-  createAndSetGameObjectState: DirectorForJs.createAndSetGameObjectState,
-  createGameObject: DirectorForJs.createGameObject,
-  getNeedDisposedGameObjects: DirectorForJs.getNeedDisposedGameObjects,
-  deferDisposeGameObject: DirectorForJs.deferDisposeGameObject,
-  disposeGameObjects: DirectorForJs.disposeGameObjects->Obj.magic,
-  cloneGameObject: DirectorForJs.cloneGameObject,
-  getAllGameObjects: DirectorForJs.getAllGameObjects,
-  getGameObjectName: DirectorForJs.getGameObjectName,
-  setGameObjectName: DirectorForJs.setGameObjectName,
+  getComponentState: (meta3dState, value) => {
+    api.getExtensionState(.
+      meta3dState,
+      "meta3d-engine-core-protocol",
+    )->DirectorForJs.getComponentState(value)
+  },
+  setGameObjectContribute: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.setGameObjectContribute(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  createAndSetGameObjectState: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.createAndSetGameObjectState(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  createGameObject: meta3dState => {
+    let (state, gameObject) =
+      api.getExtensionState(.
+        meta3dState,
+        "meta3d-engine-core-protocol",
+      )->DirectorForJs.createGameObject
+
+    (state->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _), gameObject)
+  },
+  getNeedDisposedGameObjects: meta3dState => {
+    api.getExtensionState(.
+      meta3dState,
+      "meta3d-engine-core-protocol",
+    )->DirectorForJs.getNeedDisposedGameObjects
+  },
+  deferDisposeGameObject: (meta3dState, value) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.deferDisposeGameObject(value)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
+  disposeGameObjects: (meta3dState, value) => {
+    let (state, data) =
+      api.getExtensionState(.
+        meta3dState,
+        "meta3d-engine-core-protocol",
+      )->DirectorForJs.disposeGameObjects(value)
+
+    (state->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _), data->Obj.magic)
+  },
+  cloneGameObject: (meta3dState, count, cloneConfig, sourceGameObject) => {
+    let (state, clonedGameObjects) =
+      api.getExtensionState(.
+        meta3dState,
+        "meta3d-engine-core-protocol",
+      )->DirectorForJs.cloneGameObject(count, cloneConfig, sourceGameObject)
+
+    (
+      state->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _),
+      clonedGameObjects,
+    )
+  },
+  getAllGameObjects: meta3dState => {
+    api.getExtensionState(.
+      meta3dState,
+      "meta3d-engine-core-protocol",
+    )->DirectorForJs.getAllGameObjects
+  },
+  getGameObjectName: (meta3dState, gameObject) => {
+    api.getExtensionState(.
+      meta3dState,
+      "meta3d-engine-core-protocol",
+    )->DirectorForJs.getGameObjectName(gameObject)
+  },
+  setGameObjectName: (meta3dState, gameObject, name) => {
+    api.getExtensionState(. meta3dState, "meta3d-engine-core-protocol")
+    ->DirectorForJs.setGameObjectName(gameObject, name)
+    ->api.setExtensionState(. meta3dState, "meta3d-engine-core-protocol", _)
+  },
   runPipeline: DirectorForJs.runPipeline(
     api,
     (StateContainer.unsafeGetMeta3dState, StateContainer.setMeta3dState),

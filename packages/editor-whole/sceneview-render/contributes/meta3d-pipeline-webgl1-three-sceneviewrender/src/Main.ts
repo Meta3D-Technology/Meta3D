@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType";
 import { execFunc as execInitArcballCameraController } from "./jobs/init/InitArcballCameraControllerJob";
 import { execFunc as execCreateDefaultScene } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execUpdateCameraAspect } from "./jobs/render/UpdateCameraAspectJob"

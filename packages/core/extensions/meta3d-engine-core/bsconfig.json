@@ -19,7 +19,6 @@
         "meta3d-bs-jest-cucumber",
         "meta3d-bs-jest",
         "meta3d-bs-sinon",
-        "meta3d-bs-most-default",
         "meta3d-bs-most-default"
     ],
     "bs-dependencies": [

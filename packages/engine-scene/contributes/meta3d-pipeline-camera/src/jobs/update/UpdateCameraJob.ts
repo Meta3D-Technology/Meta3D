@@ -1,4 +1,4 @@
-import { execFunc as execFuncType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
+import { execFuncType } from "meta3d-core-protocol/src/service/ServiceType"
 import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-camera-protocol/src/StateType"
 import { updateCamera } from "meta3d-pipeline-camera-utils/src/UpdateCameraJobUtils"

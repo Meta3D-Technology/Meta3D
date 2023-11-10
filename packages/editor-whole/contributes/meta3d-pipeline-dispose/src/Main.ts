@@ -1,4 +1,4 @@
-import { pipelineContribute } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType";
+import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType";
 import { execFunc as execDispose } from "./jobs/update/DisposeJob";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-dispose-protocol/src/StateType";
 import { config } from "meta3d-pipeline-dispose-protocol/src/ConfigType";
