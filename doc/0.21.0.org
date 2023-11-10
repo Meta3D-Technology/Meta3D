@@ -237,9 +237,20 @@ TODO add engine-scene, core
 TODO add ui, event
 
 TODO add scene view render
+    TODO add entry implement
+    TODO remove viewrect pipeline
+    TODO move convertscenegraph job before render
+    TODO merge pipeline
+    TODO fix bind arcball event: bind for each view render!
     TODO set viewrect related before render
-        fix UpdateCameraJob
     TODO set arcball to active->render->restore active cameraView
+
+    TODO pass compile
+
+
+
+
+
 
 TODO add ui control
 
@@ -248,12 +259,21 @@ TODO update meta3d-view-utils->getViewRect
 
 
 
+
+
+TODO core, event add entry implement, protocol
+
 TODO refactor get engine core, most, root:use getPackageService("meta3d-core-protocol"):
     add core implement
-
-
 TODO refactor get engine scene:use getPackageService
+TODO refactor get ui:use getPackageService
+TODO refactor get event:use getPackageService
 
+TODO refactor get editor whole:use getPackageService
+e.g. scenegraph utils-> api.getExtensionService<editorWholeService>(meta3dState, editorWholeProtocolName) 
+
+
+TODO fix scene->create gameObject: not consider un used
 
 
 TODO update editor-whole
@@ -264,11 +284,18 @@ TODO update editor-whole
 TODO publish all
 
 
-TODO pass run test
+TODO pass run test:
+visual
+visualRun
+runApp
 
 
 # **** TODO run test: SceneTree+Scene View+ *Game View
+**** TODO run test: Controller+Scene View
+
 **** TODO run test: Controller+Scene View+ *Game View
+
+TODO extract Render Package from Editor Whole Package for both Editor/Engine Whole Package
 
 
 **** TODO run test: publish(Button)

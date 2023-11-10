@@ -1,6 +1,6 @@
 import type { state as Meta3dType_Index_state, extensionProtocolName } from 'meta3d-type/src/Index';
 
-import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType.gen';
+import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType';
 
 import { gameObject, config as gameObjectConfig, name } from "meta3d-gameobject-protocol"
 

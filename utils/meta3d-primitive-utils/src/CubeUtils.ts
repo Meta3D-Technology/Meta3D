@@ -1,21 +1,21 @@
-import { service as engineWholeService } from "meta3d-engine-whole-protocol/src/service/ServiceType"
+import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { state as meta3dState } from "meta3d-type"
 
-export let createCubeGameObject = <engineWholeService_ extends engineWholeService>(meta3dState: meta3dState, { scene }: engineWholeService_, [localPosition, diffuseColor]: [[number, number, number], [number, number, number]]): [meta3dState, gameObject] => {
-    let data = scene.gameObject.createGameObject(meta3dState)
+export let createCubeGameObject = (meta3dState: meta3dState, engineSceneService: engineSceneService, [localPosition, diffuseColor]: [[number, number, number], [number, number, number]]): [meta3dState, gameObject] => {
+    let data = engineSceneService.gameObject.createGameObject(meta3dState)
     meta3dState = data[0]
     let gameObject = data[1]
 
-    meta3dState = scene.gameObject.setGameObjectName(meta3dState, gameObject, "Cube")
+    meta3dState = engineSceneService.gameObject.setGameObjectName(meta3dState, gameObject, "Cube")
 
-    data = scene.transform.createTransform(meta3dState)
+    data = engineSceneService.transform.createTransform(meta3dState)
     meta3dState = data[0]
     let transform = data[1]
 
-    meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
+    meta3dState = engineSceneService.gameObject.addTransform(meta3dState, gameObject, transform)
 
-    data = scene.geometry.createGeometry(meta3dState)
+    data = engineSceneService.geometry.createGeometry(meta3dState)
     meta3dState = data[0]
     let geometry = data[1]
 
@@ -53,24 +53,24 @@ export let createCubeGameObject = <engineWholeService_ extends engineWholeServic
         20, 21, 22, 20, 22, 23     // back
     ])
 
-    meta3dState = scene.geometry.setVertices(meta3dState, geometry, vertices)
-    meta3dState = scene.geometry.setNormals(meta3dState, geometry, normals)
-    meta3dState = scene.geometry.setIndices(meta3dState, geometry, indices)
+    meta3dState = engineSceneService.geometry.setVertices(meta3dState, geometry, vertices)
+    meta3dState = engineSceneService.geometry.setNormals(meta3dState, geometry, normals)
+    meta3dState = engineSceneService.geometry.setIndices(meta3dState, geometry, indices)
 
 
-    meta3dState = scene.gameObject.addGeometry(meta3dState, gameObject, geometry)
+    meta3dState = engineSceneService.gameObject.addGeometry(meta3dState, gameObject, geometry)
 
 
 
-    data = scene.pbrMaterial.createPBRMaterial(meta3dState)
+    data = engineSceneService.pbrMaterial.createPBRMaterial(meta3dState)
     meta3dState = data[0]
     let material = data[1]
-    meta3dState = scene.pbrMaterial.setDiffuseColor(meta3dState, material, diffuseColor)
-    meta3dState = scene.gameObject.addPBRMaterial(meta3dState, gameObject, material)
+    meta3dState = engineSceneService.pbrMaterial.setDiffuseColor(meta3dState, material, diffuseColor)
+    meta3dState = engineSceneService.gameObject.addPBRMaterial(meta3dState, gameObject, material)
 
 
 
-    meta3dState = scene.transform.setLocalPosition(meta3dState, transform, localPosition)
+    meta3dState = engineSceneService.transform.setLocalPosition(meta3dState, transform, localPosition)
 
 
     return [meta3dState, gameObject]

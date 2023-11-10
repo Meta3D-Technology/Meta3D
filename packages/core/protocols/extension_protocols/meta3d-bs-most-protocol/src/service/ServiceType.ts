@@ -1,4 +1,4 @@
-import { stream } from "./StreamType.gen";
+import { stream } from "./StreamType";
 
 // type eventTarget = any
 

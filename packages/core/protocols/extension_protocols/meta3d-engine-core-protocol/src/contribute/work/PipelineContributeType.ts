@@ -1,4 +1,4 @@
-import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType.gen';
+import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs-most-protocol/src/service/StreamType';
 import { state as meta3dState } from "meta3d-type"
 
 import type { pipelineData as PipelineType_pipelineData } from '../../state/PipelineType';
