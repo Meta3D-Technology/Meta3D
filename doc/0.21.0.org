@@ -255,10 +255,6 @@ TODO add scene view render
 TODO add ui control
 
 
-TODO update meta3d-view-utils->getViewRect
-
-
-
 
 
 TODO core, event add entry implement, protocol
@@ -274,6 +270,14 @@ e.g. scenegraph utils-> api.getExtensionService<editorWholeService>(meta3dState,
 
 
 TODO fix scene->create gameObject: not consider un used
+
+TODO update UpdateCameraJob
+    TODO update meta3d-view-utils->getViewRect
+
+
+
+
+
 
 
 TODO update editor-whole

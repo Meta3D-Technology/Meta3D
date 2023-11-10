@@ -41,8 +41,6 @@
 	"workspaces": [
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",
-		"extensions/*",
-		"contributes/*",
 		"packages/editor-whole/protocols/extension_protocols/*",
 		"packages/editor-whole/protocols/contribute_protocols/*",
 		"packages/editor-whole/extensions/*",
