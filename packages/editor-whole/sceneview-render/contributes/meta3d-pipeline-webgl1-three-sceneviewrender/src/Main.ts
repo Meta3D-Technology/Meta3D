@@ -13,7 +13,7 @@ import { execFunc as execBindEventOnce } from "./jobs/render/BindEventOnceJob";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-three-sceneviewrender-protocol/src/StateType";
 import { config } from "meta3d-pipeline-webgl1-three-sceneviewrender-protocol/src/ConfigType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { service as mostService } from "meta3d-bs-most-protocol/src/service/ServiceType"
+import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as converterService } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
@@ -57,7 +57,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		pipelineName: pipelineName,
 		createStateFunc: (meta3dState, { canvas }) => {
 			return {
-				mostService: api.getExtensionService<mostService>(meta3dState, "meta3d-bs-most-protocol"),
+				mostService: getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")).most(meta3dState),
 				uiService: getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol")),
 				eventService: getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol")),
 				converterService: api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-protocol"),

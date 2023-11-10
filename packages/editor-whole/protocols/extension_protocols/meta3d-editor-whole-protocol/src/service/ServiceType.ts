@@ -1,5 +1,5 @@
 import { state as meta3dState, packageProtocolName, canvasData } from "meta3d-type"
-// import { ecsConfig, scene } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { ecsConfig, scene } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { service as uiService, texture } from "meta3d-ui-protocol/src/service/ServiceType"
@@ -9,8 +9,6 @@ type addToFuncs = (meta3dState: meta3dState, func: (meta3dState: meta3dState) =>
 type ui = uiService
 
 type event = any
-
-type ecsConfig = any
 
 export type uiTexture = texture
 
@@ -28,10 +26,9 @@ type initData = {
 export type updateData = { clearColor: [number, number, number, number], time: number, skinName: nullable<string> }
 
 export type service = {
-	// scene: scene,
-	scene: any,
-	ui: ui,
-	event: event,
+	scene: (meta3dState: meta3dState) => scene,
+	ui: (meta3dState: meta3dState) => ui,
+	event: (meta3dState: meta3dState) => event,
 	// initForVisual: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,
 	// initForVisualRun: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,
 	init: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,

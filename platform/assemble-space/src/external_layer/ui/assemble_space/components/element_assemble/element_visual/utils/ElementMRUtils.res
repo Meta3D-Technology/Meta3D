@@ -313,7 +313,7 @@ window.Contribute = {
             execOrder: ${execOrder->Js.Int.toString},
             elementState: {},
             elementFunc: (meta3dState, elementState) => {
-                let { ui  } = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol")
+                let ui = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol").ui(meta3dState)
 
                 let { getUIControlFunc } = ui
 `

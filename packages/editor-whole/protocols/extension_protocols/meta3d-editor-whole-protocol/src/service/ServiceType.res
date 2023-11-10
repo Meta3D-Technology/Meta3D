@@ -7,4 +7,4 @@
 
 type ui = Meta3dUiProtocol.ServiceType.service
 
-type service = {ui: ui}
+type service = {ui: Meta3dType.Index.state => ui}

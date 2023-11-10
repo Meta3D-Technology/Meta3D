@@ -550,17 +550,15 @@ export let getExtensionServiceUtils = (
     api: api,
     allEventNames,
     // disposeGameObjectEventName,
-    // [editorWholeProtocolName, engineCoreProtocolName]
-    // editorWholeProtocolName
 ): service => {
     return {
         init: (meta3dState) => {
             let eventProtocolName = "meta3d-event-protocol"
 
-            let eventService = api.getExtensionService<eventService>(
+            let eventService = getExn(api.getPackageService<eventService>(
                 meta3dState,
                 eventProtocolName
-            )
+            ))
 
             meta3dState = _bindDisposeEvent(meta3dState, eventService, allEventNames)
 
@@ -594,7 +592,7 @@ export let getExtensionServiceUtils = (
             }
         },
         import: (meta3dState, sceneGroup) => {
-            let scene = api.getExtensionService<scene>(meta3dState, "meta3d-engine-scene-protocol")
+            let scene = getExn(api.getPackageService<scene>(meta3dState, "meta3d-engine-scene-protocol"))
 
             let standardMaterialMap = {}
             let bufferGeometryMap = {}

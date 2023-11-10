@@ -98,7 +98,7 @@ export let render = (
 
         let editorWholeService = api.getExtensionService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")
 
-        meta3dState = editorWholeService.ui.setFBOTexture(meta3dState, textureID, getExn(webglTexture))
+        meta3dState = editorWholeService.ui(meta3dState).setFBOTexture(meta3dState, textureID, getExn(webglTexture))
     }
 
 

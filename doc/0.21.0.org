@@ -273,6 +273,8 @@ TODO refactor get event:use getPackageService
 TODO refactor get editor whole:use getPackageService
 e.g. scenegraph utils-> api.getExtensionService<editorWholeService>(meta3dState, editorWholeProtocolName) 
 
+TODO fix editor whole service->ui, event
+
 
 
 
@@ -291,6 +293,7 @@ TODO fix scene:remove unUsed
 
 
 TODO update editor-whole
+    TODO extract Scenegraph Converter Package?
 
 
 
