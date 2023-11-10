@@ -1,6 +1,12 @@
 let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEventProtocol.ServiceType.service,
 > = api => {
+  eventData: meta3dState => {
+    api.getExtensionService(. meta3dState, "meta3d-event-data-protocol")-> Obj.magic
+  },
+  eventSourcing: meta3dState => {
+    api.getExtensionService(. meta3dState, "meta3d-event-sourcing-protocol")-> Obj.magic
+  },
   trigger: EventManager.trigger(api)->Obj.magic,
   registerAction: EventManager.registerAction->Obj.magic,
   onPointEvent: EventManager.onPointEvent(api),

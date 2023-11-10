@@ -18,6 +18,8 @@
   },
   "dependencies": {
     "meta3d-event-protocol": "^0.20.0",
+    "meta3d-event-data-protocol": "^0.20.0",
+    "meta3d-event-sourcing-protocol": "^0.20.0",
     "meta3d-type": "^0.20.0",
     "rescript": "^10.0.1"
   },

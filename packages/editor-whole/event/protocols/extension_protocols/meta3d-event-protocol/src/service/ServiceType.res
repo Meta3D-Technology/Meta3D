@@ -24,7 +24,13 @@ type handleFunc3 = (
   EventType.customEvent,
 ) => Js.Promise.t<Meta3dType.Index.state>
 
+type eventDataService
+
+type eventSourcingService
+
 type service = {
+  eventData: Meta3dType.Index.state => eventDataService,
+  eventSourcing: Meta3dType.Index.state => eventSourcingService,
   trigger: 'uiData. (
     Meta3dType.Index.state,
     eventExtensionProtocolName,
