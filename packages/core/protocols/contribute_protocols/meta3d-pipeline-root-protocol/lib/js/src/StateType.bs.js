@@ -55,7 +55,7 @@ var allPipelineData = [
   }
 ];
 
-var pipelineName = "Root_SceneView";
+var pipelineName = "Root";
 
 exports.pipelineName = pipelineName;
 exports.pipeline = pipeline;

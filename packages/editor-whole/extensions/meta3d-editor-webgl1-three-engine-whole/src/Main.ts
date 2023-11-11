@@ -64,7 +64,7 @@ let _prepare = (meta3dState: meta3dState, api: api, isDebug, ecsConfig) => {
 	meta3dState = getExn(api.getPackageService<coreService>(
 		meta3dState,
 		"meta3d-core-protocol"
-	)).prepare(meta3dState, isDebug)
+	)).engineBasic(meta3dState).prepare(meta3dState, isDebug)
 
 	let engineSceneService = getExn(api.getPackageService<engineSceneService>(
 		meta3dState,

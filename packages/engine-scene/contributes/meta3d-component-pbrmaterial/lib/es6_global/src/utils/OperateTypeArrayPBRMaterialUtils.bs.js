@@ -1,7 +1,7 @@
 
 
-import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
-import * as BufferPBRMaterialUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/BufferPBRMaterialUtils.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as BufferPBRMaterialUtils$Meta3dComponentWorkerUtils from "../../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/pbrmaterial/BufferPBRMaterialUtils.bs.js";
 
 function setDiffuseColor(index, data, typeArr) {
   TypeArrayUtils$Meta3dCommonlib.setFloat3(BufferPBRMaterialUtils$Meta3dComponentWorkerUtils.getDiffuseColorIndex(index), data, typeArr);

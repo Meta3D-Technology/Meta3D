@@ -17,12 +17,12 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputData, out
                 label,
             }
         ) => {
-            let { ui, getPluggablePackageService } = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-ui-protocol"))
+            let { ui, getPluggablePackageService } = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
             let { beginWindow, endWindow, beginChild, endChild, setNextWindowRect, getFBOTexture, addFBOTexture,
                 getWindowBarHeight,
                 // setUIControlState,
                 handleDragDropTarget
-            } = ui
+            } = ui(meta3dState)
 
 
             meta3dState = setNextWindowRect(meta3dState, rect)
