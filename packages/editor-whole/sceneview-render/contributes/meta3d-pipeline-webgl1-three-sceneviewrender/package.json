@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-webgl1-three-sceneviewrender",
-    "version": "0.20.0",
+    "version": "0.20.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-webgl1-three-sceneviewrender-protocol"
@@ -21,6 +21,7 @@
         "meta3d-engine-scene-protocol": "^0.20.0",
         "meta3d-event-protocol": "^0.20.0",
         "meta3d-ui-protocol": "^0.20.0",
+        "meta3d-ui-control-scene-view-protocol": "^0.20.0",
         "meta3d-editor-sceneview-render-protocol": "^0.20.0",
         "meta3d-editor-whole-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"

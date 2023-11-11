@@ -10,7 +10,7 @@ export let getTarget = (): target => {
 }
 
 let _setTarget = (target: target) => {
-    (globalThis as any)["meta3d_arcball_event_target"] = target
+    (globalThis as any)["meta3d_arcball_event_target_sceneviewrender"] = target
 }
 
 export let getIsEventStop = () => {

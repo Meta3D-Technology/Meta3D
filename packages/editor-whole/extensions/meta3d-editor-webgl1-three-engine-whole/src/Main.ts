@@ -29,7 +29,7 @@ let _registerEditorPipelines = (
 ) => {
 	let engineCoreService = getExn(api.getPackageService<coreService>(
 		meta3dState,
-		"meta3d-core-sceneview-protocol"
+		"meta3d-core-protocol"
 	)).engineCore(meta3dState)
 
 
@@ -52,7 +52,7 @@ let _registerEditorPipelines = (
 			{
 				pipelineName: pipelineRootPipeline.Init,
 				insertElementName: pipelineRootJob.Init,
-				insertAction: "before"
+				insertAction: "after"
 			}
 		]
 	)
@@ -219,7 +219,7 @@ let _execAllInitFuncs = (meta3dState, initFuncs, initData) => {
 
 	// return _func(meta3dState, initFuncs.count() - 1)
 
-	return reducePromise<meta3dState, initFunc>(initFuncs, (meta3dState, initFunc) => initFunc(meta3dState, initData), meta3dState)
+	return reducePromise<meta3dState, initFunc>(initFuncs.toArray(), (meta3dState, initFunc) => initFunc(meta3dState, initData), meta3dState)
 }
 
 let _loopEngine = (meta3dState: meta3dState, api: api) => {
@@ -241,7 +241,26 @@ let _handleError = (api: api, meta3dState: meta3dState) => {
 	)
 }
 
-let _update = (meta3dState, api: api, { clearColor, time, skinName }) => {
+let _updateForVisual = (meta3dState, api: api, { clearColor, time, skinName }) => {
+	let { getSkin, render, clear, setStyle } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
+
+	if (!isNullable(skinName)) {
+		let skin = getSkin<skin>(meta3dState, getExn(skinName))
+		if (!isNullable(skin)) {
+			meta3dState = setStyle(meta3dState, getExn(skin).skin.style)
+		}
+	}
+
+	meta3dState = clear(meta3dState, [api, "meta3d-imgui-renderer-protocol"], clearColor)
+
+	return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
+		.catch(e => {
+			_handleError(api, meta3dState)
+			throw e
+		})
+}
+
+let _updateForVisualRun = (meta3dState, api: api, { clearColor, time, skinName }) => {
 	let { getSkin, render, clear, setStyle } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
 	if (!isNullable(skinName)) {
@@ -264,6 +283,8 @@ let _update = (meta3dState, api: api, { clearColor, time, skinName }) => {
 			throw e
 		})
 }
+
+let _updateForRun = _updateForVisualRun
 
 let _prepareUIForRun = (meta3dState: meta3dState, api: api) => {
 	let { registerSkin, registerElement } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
@@ -293,10 +314,8 @@ let _createAndInsertCanvas = ({ width, height }: canvasData) => {
 	return canvas
 }
 
-let _initForRun = (meta3dState: meta3dState, api: api, [canvasData, { isDebug }]: configData) => {
+let _initForRun = (meta3dState: meta3dState, api: api, [_, { isDebug }]: configData, canvas: HTMLCanvasElement) => {
 	return _prepareUIForRun(meta3dState, api).then(meta3dState => {
-		let canvas = _createAndInsertCanvas(canvasData)
-
 		let uiService = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
 		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
@@ -317,10 +336,7 @@ let _loop = (
 ) => {
 	let [_, { skinName, clearColor }] = configData
 
-	return _update(meta3dState, api, { clearColor, time, skinName }).catch(e => {
-		_handleError(api, meta3dState)
-		throw e
-	}).then(meta3dState => {
+	return _updateForRun(meta3dState, api, { clearColor, time, skinName }).then(meta3dState => {
 		requestAnimationFrame(
 			(time) => {
 				_loop(api, meta3dState,
@@ -354,7 +370,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			})
 		},
 		update: (meta3dState, updateData) => {
-			return _update(meta3dState, api, updateData)
+			switch (updateData.target) {
+				case "visual":
+					return _updateForVisual(meta3dState, api, updateData)
+				case "visualRun":
+					return _updateForVisualRun(meta3dState, api, updateData)
+				default:
+					throw new Error("error")
+			}
 		},
 		loadScene: (meta3dState, sceneGLB) => {
 			throw new Error("not implement")
@@ -379,7 +402,13 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return api.getPackageService(meta3dState, packageProtocolName)
 		},
 		run: (meta3dState: meta3dState, configData) => {
-			_initForRun(meta3dState, api, configData).catch(e => {
+			let [canvasData, { isDebug }] = configData
+
+			let canvas = _createAndInsertCanvas(canvasData)
+
+			_execAllInitFuncs(meta3dState, api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol").initFuncs, { isDebug, canvas }).then(meta3dState => {
+				return _initForRun(meta3dState, api, configData, canvas)
+			}).catch(e => {
 				_handleError(api, meta3dState)
 				throw e
 			}).then((meta3dState: meta3dState) => {

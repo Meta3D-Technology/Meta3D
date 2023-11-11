@@ -26,6 +26,7 @@
     "dependencies": {
         "antd": "^4.21.0",
         "remporium": "^0.0.1",
+        "meta3d-editor-whole-protoco": "^0.20.0",
         "meta3d-bs-most-default": "^0.20.0",
         "rescript": "^10.0.1"
     }

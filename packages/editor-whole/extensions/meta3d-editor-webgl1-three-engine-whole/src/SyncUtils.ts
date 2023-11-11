@@ -46,7 +46,7 @@ let _getAddedEvents = (eventSourcingService: eventSourcingService, meta3dState, 
 export let sync = (meta3dState: meta3dState, api: api) => {
     let state = api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol")
 
-    let eventSourcingService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-sourcing-protocol")).eventSourcing(meta3dState)
+    let eventSourcingService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol")).eventSourcing(meta3dState)
 
     let promise = null
     if (eventSourcingService.getNeedBackwardEvents(meta3dState).count() > 0) {

@@ -1,6 +1,5 @@
 import { state as meta3dState, extensionName } from "meta3d-type/src/Index"
 import { actionName, actionContribute } from "../contribute/ActionContributeType"
-import { state } from "../state/StateType"
 import { customEvent, userData } from "./EventType.gen"
 import { browser } from "./BrowserType.gen"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"

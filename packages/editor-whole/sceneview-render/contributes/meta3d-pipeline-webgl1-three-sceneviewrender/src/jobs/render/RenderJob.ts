@@ -5,8 +5,7 @@ import { state as converterState } from "meta3d-scenegraph-converter-three-proto
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { createComposerAndRenderTarget, render } from "meta3d-pipeline-webgl1-three-utils/src/RenderJobUtils"
 import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
-// import { textureID } from "meta3d-ui-control-protocol"
-let textureID = ""
+import { textureID } from "meta3d-ui-control-scene-view-protocol"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)

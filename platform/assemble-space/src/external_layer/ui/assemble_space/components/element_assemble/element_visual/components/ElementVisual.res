@@ -32,6 +32,7 @@ module Method = {
 
   let _getUpdateData = (clearColor, skinName, time) => {
     {
+      "target": "visual",
       "clearColor": clearColor,
       "skinName": skinName,
       "time": time,
@@ -63,7 +64,7 @@ module Method = {
         ElementVisualUtils.getEditorWholePackageProtocolName(),
       )->Meta3dCommonlib.NullableSt.getExn
 
-    editorWholePackageService.ui.registerElement(meta3dState, elementContribute)
+    editorWholePackageService.ui(meta3dState).registerElement(meta3dState, elementContribute)
   }
 
   let rec _loop = (

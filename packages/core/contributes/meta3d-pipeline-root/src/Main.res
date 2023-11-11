@@ -22,7 +22,7 @@ let getContribute: Meta3dType.Index.getContribute<
   {
     pipelineName: Meta3dPipelineRootProtocol.StateType.pipelineName,
     createStateFunc: (meta3dState, _): Meta3dPipelineRootProtocol.StateType.state => {
-      let mostService: Meta3dBsMostProtocol.ServiceType.service = api.getExtensionService(.
+      let mostService: Meta3dBsMostProtocol.ServiceType.service =  api.getExtensionService(.
         meta3dState,
         "meta3d-bs-most-protocol",
       )

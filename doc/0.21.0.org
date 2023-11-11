@@ -230,7 +230,7 @@ TODO packages + actions(contributes) + uiControls(contributes) + uiControlInputs
 
 
 
-**** TODO run test: Scene View
+**** DONE run test: Scene View
 
 TODO add engine-scene, core
 
@@ -302,6 +302,13 @@ TODO update editor-whole
 TODO publish all
 
 
+TODO need publish:
+# editor whole
+# sceneview render
+# pipeline-camera
+# meta3d-pipeline-webgl1-three-sceneviewrender
+
+
 TODO pass run test:
 visual
 visualRun
@@ -310,6 +317,7 @@ runApp
 
 # **** TODO run test: SceneTree+Scene View+ *Game View
 **** TODO run test: Controller+Scene View
+
 
 **** TODO run test: Controller+Scene View+ *Game View
 
@@ -326,7 +334,14 @@ TODO feat:engine-core: add mark pipeline execOnce and exec/not exec for game vie
 
 
 
-**** TODO fix: import app/package should keep package structure(sub, subsub, ... packages)
+**** TODO feat: Selected Package: add start
+TODO start entry extension
+
+
+**** TODO fix: import app should keep package structure(sub, subsub, ... packages)
+
+
+**** TODO fix: import package should keep package structure(sub, subsub, ... packages)
 
 
 

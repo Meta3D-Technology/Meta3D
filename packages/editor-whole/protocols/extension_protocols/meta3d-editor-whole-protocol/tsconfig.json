@@ -7,8 +7,8 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"jsx": "react",
-		"noEmit": true,
-		"noUnusedLocals": true,
+		// "noEmit": true,
+		"noUnusedLocals": false,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
 		"lib": [
@@ -16,7 +16,7 @@
 			"ESNext",
 		],
 		"types": [],
-		"strict": true
+		// "strict": true
 	},
 	"include": [
 		"./src"

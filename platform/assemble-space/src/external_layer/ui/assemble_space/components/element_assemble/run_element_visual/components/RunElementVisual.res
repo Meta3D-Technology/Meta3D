@@ -14,6 +14,7 @@ module Method = {
 
   let _getUpdateData = (clearColor, skinName, time) => {
     {
+      "target": "visualRun",
       "clearColor": clearColor,
       "skinName": skinName,
       "time": time,
