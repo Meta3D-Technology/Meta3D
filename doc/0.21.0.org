@@ -294,7 +294,7 @@ TODO fix scene:remove unUsed
 
 
 TODO update editor-whole
-    TODO extract Scenegraph Converter Package?
+    # TODO extract Scenegraph Converter Package?
 
 
 
@@ -314,6 +314,8 @@ runApp
 **** TODO run test: Controller+Scene View+ *Game View
 
 TODO extract Three Render Package from Editor Whole Package for both Editor/Engine Whole Package
+
+TODO feat:engine-core: add mark pipeline execOnce and exec/not exec for game view render's pipelines
 
 
 **** TODO run test: publish(Button)

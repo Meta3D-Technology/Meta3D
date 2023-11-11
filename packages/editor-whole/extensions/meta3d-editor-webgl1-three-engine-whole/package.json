@@ -13,6 +13,10 @@
     },
     "dependencies": {
         "meta3d-editor-whole-protocol": "^0.20.0",
+        "meta3d-ui-protocol": "^0.20.0",
+        "meta3d-event-protocol": "^0.20.0",
+        "meta3d-engine-scene-protocol": "^0.20.0",
+        "meta3d-core-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"
     },
     "devDependencies": {

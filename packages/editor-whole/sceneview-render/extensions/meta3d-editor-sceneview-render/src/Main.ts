@@ -2,9 +2,7 @@ import { getExtensionService as getExtensionServiceMeta3D, createExtensionState 
 import { state } from "meta3d-editor-sceneview-render-protocol/src/state/StateType"
 import { service } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
 import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
+import { service as coreService, pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
 import {
 	state as threeState
 } from "meta3d-pipeline-webgl1-three-sceneviewrender-protocol/src/StateType";
@@ -17,19 +15,14 @@ import { config as eventConfig } from "meta3d-pipeline-editor-event-protocol/src
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) => {
-	let engineCoreProtocolName = "meta3d-engine-core-protocol"
-
-	let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
-
-	let engineCoreService = api.getExtensionService<engineCoreService>(
+	let engineCoreService = getExn(api.getPackageService<coreService>(
 		meta3dState,
-		engineCoreProtocolName
-	)
-
+		"meta3d-core-protocol"
+	)).engineCore(meta3dState)
 
 	let { registerPipeline } = engineCoreService
 
-	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<threeConfig, threeState>>(meta3dState, "meta3d-pipeline-webgl1-three-sceneviewrender-protocol"),
+	meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<threeConfig, threeState>>(meta3dState, "meta3d-pipeline-webgl1-three-sceneviewrender-protocol"),
 		{
 			canvas
 		},
@@ -47,7 +40,7 @@ let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) =
 		]
 	)
 
-	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<disposeConfig, disposeState>>(meta3dState, "meta3d-pipeline-dispose-protocol"),
+	meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<disposeConfig, disposeState>>(meta3dState, "meta3d-pipeline-dispose-protocol"),
 		null,
 		[
 			{
@@ -58,7 +51,7 @@ let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) =
 		]
 	)
 
-	engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<eventConfig, eventState>>(meta3dState, "meta3d-pipeline-editor-event-protocol"),
+	meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<eventConfig, eventState>>(meta3dState, "meta3d-pipeline-editor-event-protocol"),
 		null,
 		[
 			{
@@ -69,15 +62,7 @@ let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) =
 		]
 	)
 
-
-	meta3dState =
-		api.setExtensionState(
-			meta3dState,
-			engineCoreProtocolName,
-			engineCoreState
-		)
-
-	return meta3dState
+	return Promise.resolve(meta3dState)
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
@@ -127,9 +112,9 @@ export let createExtensionState: createExtensionStateMeta3D<
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
 	return {
 		onRegister: (meta3dState, service) => {
-			let { addToPrepareFuncs } = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
+			let { addToInitFuncs } = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
 
-			return addToPrepareFuncs(meta3dState, (meta3dState, isDebug, canvas) => _prepare(api, meta3dState, canvas))
+			return addToInitFuncs(meta3dState, (meta3dState, { canvas }) => _prepare(api, meta3dState, canvas))
 		},
 	}
 }

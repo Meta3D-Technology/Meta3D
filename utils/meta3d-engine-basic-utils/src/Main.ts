@@ -1,39 +1,26 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { service } from "meta3d-engine-basic-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
-import { state as rootState, states as rootStates } from "meta3d-pipeline-root-protocol/src/state/StateType";
-import { config as rootConfig } from "meta3d-pipeline-root-protocol/src/ConfigType";
+import { service as coreService, pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
+import { pipelineRootState, pipelineRootConfig } from "meta3d-core-protocol/src/state/StateType";
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
-export let getExtensionServiceUtils = (api: api, [engineCoreProtocolName, pipelineRootProtocolName]: [string, string]): service => {
+export let getExtensionServiceUtils = (api: api): service => {
 	return {
 		prepare: (meta3dState: meta3dState, isDebug) => {
-			let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, engineCoreProtocolName)
-
-			let engineCoreService = api.getExtensionService<engineCoreService>(
+			let engineCoreService = getExn(api.getPackageService<coreService>(
 				meta3dState,
-				engineCoreProtocolName
-			)
-
+				"meta3d-core-protocol"
+			)).engineCore(meta3dState)
 
 			let { setIsDebug, registerPipeline } = engineCoreService
 
-			engineCoreState = setIsDebug(engineCoreState, isDebug)
+			meta3dState = setIsDebug(meta3dState, isDebug)
 
 
 
-
-			engineCoreState = registerPipeline(engineCoreState, api.getContribute<pipelineContribute<rootConfig, rootState>>(meta3dState, pipelineRootProtocolName)
+			meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<pipelineRootConfig, pipelineRootState>>(meta3dState, "meta3d-pipeline-root-protocol")
 			)
 
-
-			meta3dState =
-				api.setExtensionState(
-					meta3dState,
-					engineCoreProtocolName,
-					engineCoreState
-				)
 
 			return meta3dState
 		}

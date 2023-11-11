@@ -14,5 +14,6 @@ export type pipelineContribute<config, state> = pipelineContribute_<config, stat
 
 export type service = {
     engineCore: (meta3dState: meta3dState) => engineCoreService,
-    most: (meta3dState: meta3dState) => mostService
+    most: (meta3dState: meta3dState) => mostService,
+    prepare: (meta3dState: meta3dState, isDebug: boolean) => meta3dState
 }

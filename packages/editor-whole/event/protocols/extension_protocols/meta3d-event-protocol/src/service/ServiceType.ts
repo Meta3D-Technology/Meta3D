@@ -4,8 +4,8 @@ import { state } from "../state/StateType"
 import { customEvent, userData } from "./EventType.gen"
 import { browser } from "./BrowserType.gen"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { service as eventDataService } from "meta3d-event-data-protocol/src/service/ServiceType"
-import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+import { service as eventDataService_ } from "meta3d-event-data-protocol/src/service/ServiceType"
+import { service as eventSourcingService_ } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 
 type eventExtensionProtocolName = extensionName
 
@@ -29,19 +29,24 @@ type handleFunc2 = (meta3dState: meta3dState, customEvent: customEvent) => meta3
 
 type handleFunc3 = (meta3dState: meta3dState, customEvent: customEvent) => Promise<meta3dState>
 
+export type eventDataService = eventDataService_
+
+export type eventSourcingService = eventSourcingService_
+
 export type service = {
-    eventData: (meta3dState: meta3dState) => eventDataService,
-    eventSourcing: (meta3dState: meta3dState) => eventSourcingService,
+    eventData: (meta3dState: meta3dState) => eventDataService_,
+    eventSourcing: (meta3dState: meta3dState) => eventSourcingService_,
     trigger: <uiData> (
         meta3dState: meta3dState,
         eventExtensionProtocolName: eventExtensionProtocolName,
         actionName: actionName,
         uiData: uiData
     ) => Promise<meta3dState>;
-    registerAction: <uiData, state>(
-        state: state,
-        actionContribute: actionContribute<uiData, state>
-    ) => state;
+    registerAction: <uiData>(
+        meta3dState: meta3dState,
+        // actionContribute: actionContribute<uiData, state>
+        actionContribute: actionContribute<uiData, any>
+    ) => meta3dState;
     onPointEvent(
         eventExtensionProtocolName: eventExtensionProtocolName,
         [pointEventName, priority, handleFunc]: [pointEventName, priority, handleFunc]

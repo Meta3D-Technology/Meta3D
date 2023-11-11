@@ -37,10 +37,10 @@ type service = {
     ActionContributeType.actionName,
     'uiData,
   ) => Js.Promise.t<Meta3dType.Index.state>,
-  registerAction: 'uiData 'state. (
-    StateType.state,
-    ActionContributeType.actionContribute<'uiData, 'state>,
-  ) => StateType.state,
+  registerAction: 'uiData. (
+    Meta3dType.Index.state,
+    ActionContributeType.actionContribute<'uiData, StateType.state>,
+  ) => Meta3dType.Index.state,
   onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
   onCustomGlobalEvent: (
     eventExtensionProtocolName,
