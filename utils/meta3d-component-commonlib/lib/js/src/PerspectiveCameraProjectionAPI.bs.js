@@ -7,7 +7,6 @@ var Matrix4$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/math/Matrix4.
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var Exception$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/Exception.bs.js");
 var Index$Meta3dComponentPerspectivecameraprojectionProtocol = require("meta3d-component-perspectivecameraprojection-protocol/lib/js/src/Index.bs.js");
-var FrustumPerspectiveCameraProjectionService$Meta3dComponentCommonlib = require("./perspective_camera_projection/FrustumPerspectiveCameraProjectionService.bs.js");
 
 function _getAspect(usedComponentContribute, param, cameraProjection) {
   return OptionSt$Meta3dCommonlib.fromNullable(Curry._3(param.getComponentData, usedComponentContribute, cameraProjection, Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.aspect));
@@ -29,8 +28,8 @@ function _setPMatrix(usedComponentContribute, param, cameraProjection, pMatrix) 
   return Curry._4(param.setComponentData, usedComponentContribute, cameraProjection, Index$Meta3dComponentPerspectivecameraprojectionProtocol.dataName.pMatrix, pMatrix);
 }
 
-function updatePerspectiveCameraProjection(usedComponentContribute, engineCoreService, isDebug, cameraProjection, canvasSize) {
-  var aspect = OptionSt$Meta3dCommonlib.getWithDefault(_getAspect(usedComponentContribute, engineCoreService, cameraProjection), FrustumPerspectiveCameraProjectionService$Meta3dComponentCommonlib.computeAspect(canvasSize));
+function updatePerspectiveCameraProjection(usedComponentContribute, engineCoreService, isDebug, cameraProjection) {
+  var aspect = OptionSt$Meta3dCommonlib.getWithDefault(_getAspect(usedComponentContribute, engineCoreService, cameraProjection), -1.0);
   var match = _getFovy(usedComponentContribute, engineCoreService, cameraProjection);
   var match$1 = _getNear(usedComponentContribute, engineCoreService, cameraProjection);
   var match$2 = _getFar(usedComponentContribute, engineCoreService, cameraProjection);

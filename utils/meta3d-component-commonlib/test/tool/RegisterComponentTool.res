@@ -1,5 +1,5 @@
 let registerComponent = getContributeFunc => {
-  open Meta3dEngineCoreSceneview
+  open Meta3dEngineCore
 
   StateContainer.unsafeGetState()
   ->DirectorForJs.registerComponent(getContributeFunc->Obj.magic(Obj.magic(1))->Obj.magic)

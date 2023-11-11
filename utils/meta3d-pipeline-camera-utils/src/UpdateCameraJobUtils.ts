@@ -1,5 +1,5 @@
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { state as meta3dState } from "meta3d-type"
+import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { componentName, perspectiveCameraProjection, dataName, dirty } from "meta3d-component-perspectivecameraprojection-protocol";
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 import { updatePerspectiveCameraProjection } from "meta3d-component-commonlib"
@@ -7,58 +7,56 @@ import { arcballCameraController, componentName as arcballCameraControllerCompon
 import { transform, componentName as transformComponentName, dataName as transformDataName } from "meta3d-component-transform-protocol";
 import { lookAt } from "meta3d-component-commonlib"
 
-let _updateAllDirtyPerspectiveCameraProjections = <engineCoreState_ extends engineCoreState>(
-	engineCoreState: engineCoreState, engineCoreService: engineCoreService, isDebug: boolean, canvasSize: [number, number]
-): engineCoreState_ => {
-	let usedPerspectiveCameraProjectionContribute = engineCoreService.unsafeGetUsedComponentContribute(engineCoreState, componentName)
+let _updateAllDirtyPerspectiveCameraProjections = (
+	meta3dState: meta3dState, engineCoreService: engineCoreService, isDebug: boolean
+): meta3dState => {
+	let usedPerspectiveCameraProjectionContribute = engineCoreService.unsafeGetUsedComponentContribute(meta3dState, componentName)
 	let allDirtyPerspectiveCameraProjections = engineCoreService.getAllComponents<perspectiveCameraProjection>(usedPerspectiveCameraProjectionContribute).filter(cameraProjection => {
 		return getExn(engineCoreService.getComponentData<perspectiveCameraProjection, boolean>(usedPerspectiveCameraProjectionContribute, cameraProjection, dataName.dirty))
 	})
 
 	usedPerspectiveCameraProjectionContribute = allDirtyPerspectiveCameraProjections.reduce((usedPerspectiveCameraProjectionContribute, cameraProjection) => {
-		// TODO use pipe
-
 		usedPerspectiveCameraProjectionContribute = updatePerspectiveCameraProjection(
 			usedPerspectiveCameraProjectionContribute,
-			engineCoreService, isDebug, cameraProjection, canvasSize
+			engineCoreService, isDebug, cameraProjection
 		)
 
 		return engineCoreService.setComponentData<perspectiveCameraProjection, dirty>(usedPerspectiveCameraProjectionContribute, cameraProjection, dataName.dirty, false)
 	}, usedPerspectiveCameraProjectionContribute)
 
-	return engineCoreService.setUsedComponentContribute(engineCoreState, usedPerspectiveCameraProjectionContribute, componentName) as engineCoreState_
+	return engineCoreService.setUsedComponentContribute(meta3dState, usedPerspectiveCameraProjectionContribute, componentName) as meta3dState
 }
 
 let _updateAllDirtyArcballCameraControllers = (
-	engineCoreState: engineCoreState,
+	meta3dState: meta3dState,
 	engineCoreService: engineCoreService,
-): engineCoreState => {
+): meta3dState => {
 	let { getComponentGameObjects, getComponent, unsafeGetUsedComponentContribute, getComponentData, setComponentData, getAllComponents, setUsedComponentContribute } = engineCoreService
 
-	let contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+	let contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
-	engineCoreState =
+	meta3dState =
 		getAllComponents<arcballCameraController>(contribute).filter(arcballCameraController => {
 			return getComponentData<arcballCameraController, dirty>(contribute, arcballCameraController, dataName.dirty)
-		}).reduce((engineCoreState, arcballCameraController) => {
-			contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+		}).reduce((meta3dState, arcballCameraController) => {
+			contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
 			let distance = getExn(getComponentData<arcballCameraController, distance>(contribute, arcballCameraController, arcballCameraControllerDataName.distance))
 			let phi = getExn(getComponentData<arcballCameraController, phi>(contribute, arcballCameraController, arcballCameraControllerDataName.phi))
 			let theta = getExn(getComponentData<arcballCameraController, theta>(contribute, arcballCameraController, arcballCameraControllerDataName.theta))
 			let target = getExn(getComponentData<arcballCameraController, target>(contribute, arcballCameraController, arcballCameraControllerDataName.target))
 			let transform = getExn(
-				getExn(getComponent<transform>(unsafeGetUsedComponentContribute(engineCoreState, transformComponentName), getExn(getComponentGameObjects<arcballCameraController>(contribute, arcballCameraController)[0])))
+				getExn(getComponent<transform>(unsafeGetUsedComponentContribute(meta3dState, transformComponentName), getExn(getComponentGameObjects<arcballCameraController>(contribute, arcballCameraController)[0])))
 			)
 
-			engineCoreState = setUsedComponentContribute(engineCoreState, contribute, arcballCameraControllerComponentName)
+			meta3dState = setUsedComponentContribute(meta3dState, contribute, arcballCameraControllerComponentName)
 
 
 			let x = distance * Math.sin(theta) * Math.sin(phi);
 			let y = distance * Math.cos(theta);
 			let z = distance * Math.sin(theta) * Math.cos(phi);
 
-			contribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
+			contribute = unsafeGetUsedComponentContribute(meta3dState, transformComponentName)
 
 			contribute = setComponentData(contribute, transform, transformDataName.localPosition, [
 				x, y, z
@@ -66,28 +64,28 @@ let _updateAllDirtyArcballCameraControllers = (
 
 			contribute = lookAt(contribute, engineCoreService, transform, target)
 
-			engineCoreState = setUsedComponentContribute(engineCoreState, contribute, transformComponentName)
+			meta3dState = setUsedComponentContribute(meta3dState, contribute, transformComponentName)
 
-			return engineCoreState
-		}, engineCoreState)
+			return meta3dState
+		}, meta3dState)
 
-	contribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+	contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
 	contribute = getAllComponents<arcballCameraController>(contribute).reduce((contribute, arcballCameraController) => {
 		return setComponentData(contribute, arcballCameraController, arcballCameraControllerDataName.dirty, false)
 	}, contribute)
 
-	return setUsedComponentContribute(engineCoreState, contribute, arcballCameraControllerComponentName)
+	return setUsedComponentContribute(meta3dState, contribute, arcballCameraControllerComponentName)
 }
 
-export function updateCamera<engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>(engineCoreState: engineCoreState_, engineCoreService: engineCoreService_,
-	isDebug: boolean, canvasSize: [number, number]) {
-	engineCoreState = _updateAllDirtyPerspectiveCameraProjections(
-		engineCoreState, engineCoreService, isDebug, canvasSize
+export function updateCamera(meta3dState: meta3dState, engineCoreService: engineCoreService,
+	isDebug: boolean) {
+	meta3dState = _updateAllDirtyPerspectiveCameraProjections(
+		meta3dState, engineCoreService, isDebug
 	)
 
 	return _updateAllDirtyArcballCameraControllers(
-		engineCoreState,
+		meta3dState,
 		engineCoreService,
 	)
 }

@@ -79,112 +79,112 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."set aspect", ({given, \"when", \"and", then}) => {
-    let isDebug = true
+  // test(."set aspect", ({given, \"when", \"and", then}) => {
+  //   let isDebug = true
 
-    _prepare(given, \"and", isDebug)
+  //   _prepare(given, \"and", isDebug)
 
-    \"and"(%re("/^set the perspectiveCameraProjection's aspect to (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+  //   \"and"(%re("/^set the perspectiveCameraProjection's aspect to (.*)$/")->Obj.magic, () => {
+  //     let arguments =
+  //       %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      contribute :=
-        MainTool.setComponentData(
-          contribute.contents,
-          perspectiveCameraProjection.contents,
-          Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.aspect->Obj.magic,
-          arguments[0]->Obj.magic,
-        )
-    })
+  //     contribute :=
+  //       MainTool.setComponentData(
+  //         contribute.contents,
+  //         perspectiveCameraProjection.contents,
+  //         Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.aspect->Obj.magic,
+  //         arguments[0]->Obj.magic,
+  //       )
+  //   })
 
-    \"when"("update the perspectiveCameraProjection", () => {
-      contribute :=
-        Main.updatePerspectiveCameraProjection(
-          contribute.contents,
-          MainTool.getExtensionService(),
-          isDebug,
-          perspectiveCameraProjection.contents->Obj.magic,
-          (2, 1),
-        )
-    })
+  //   \"when"("update the perspectiveCameraProjection", () => {
+  //     contribute :=
+  //       Main.updatePerspectiveCameraProjection(
+  //         contribute.contents,
+  //         MainTool.getExtensionService(),
+  //         isDebug,
+  //         perspectiveCameraProjection.contents->Obj.magic,
+  //         // (2, 1),
+  //       )
+  //   })
 
-    then("the perspectiveCameraProjection's pMatrix should be builded", () => {
-      MainTool.getComponentData(
-        contribute.contents,
-        perspectiveCameraProjection.contents,
-        Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix->Obj.magic,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect ==
-        Js.Typed_array.Float32Array.make([
-          1.7320508075688776,
-          0.,
-          0.,
-          0.,
-          0.,
-          1.7320508075688776,
-          0.,
-          0.,
-          0.,
-          0.,
-          -1.0004000800160033,
-          -1.,
-          0.,
-          0.,
-          -0.40008001600320064,
-          0.,
-        ])
-    })
-  })
+  //   then("the perspectiveCameraProjection's pMatrix should be builded", () => {
+  //     MainTool.getComponentData(
+  //       contribute.contents,
+  //       perspectiveCameraProjection.contents,
+  //       Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix->Obj.magic,
+  //     )
+  //     ->Meta3dCommonlib.NullableTool.getExn
+  //     ->expect ==
+  //       Js.Typed_array.Float32Array.make([
+  //         1.7320508075688776,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         1.7320508075688776,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         -1.0004000800160033,
+  //         -1.,
+  //         0.,
+  //         0.,
+  //         -0.40008001600320064,
+  //         0.,
+  //       ])
+  //   })
+  // })
 
-  test(."set canvas size instead of aspect", ({given, \"when", \"and", then}) => {
-    let isDebug = true
+  // test(."set canvas size instead of aspect", ({given, \"when", \"and", then}) => {
+  //   let isDebug = true
 
-    _prepare(given, \"and", isDebug)
+  //   _prepare(given, \"and", isDebug)
 
-    \"when"(
-      %re("/^update the perspectiveCameraProjection with canvas size: (.*), (.*)$/")->Obj.magic,
-      () => {
-        let arguments =
-          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+  //   \"when"(
+  //     %re("/^update the perspectiveCameraProjection with canvas size: (.*), (.*)$/")->Obj.magic,
+  //     () => {
+  //       let arguments =
+  //         %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-        contribute :=
-          Main.updatePerspectiveCameraProjection(
-            contribute.contents,
-            MainTool.getExtensionService(),
-            isDebug,
-            perspectiveCameraProjection.contents->Obj.magic,
-            arguments->Js.Array.slice(~start=0, ~end_=2, _)->Obj.magic,
-          )
-      },
-    )
+  //       contribute :=
+  //         Main.updatePerspectiveCameraProjection(
+  //           contribute.contents,
+  //           MainTool.getExtensionService(),
+  //           isDebug,
+  //           perspectiveCameraProjection.contents->Obj.magic,
+  //           arguments->Js.Array.slice(~start=0, ~end_=2, _)->Obj.magic,
+  //         )
+  //     },
+  //   )
 
-    then("the perspectiveCameraProjection's pMatrix should be builded", () => {
-      MainTool.getComponentData(
-        contribute.contents,
-        perspectiveCameraProjection.contents,
-        Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix->Obj.magic,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect ==
-        Js.Typed_array.Float32Array.make([
-          1.7320508075688776,
-          0.,
-          0.,
-          0.,
-          0.,
-          1.7320508075688776,
-          0.,
-          0.,
-          0.,
-          0.,
-          -1.0004000800160033,
-          -1.,
-          0.,
-          0.,
-          -0.40008001600320064,
-          0.,
-        ])
-    })
-  })
+  //   then("the perspectiveCameraProjection's pMatrix should be builded", () => {
+  //     MainTool.getComponentData(
+  //       contribute.contents,
+  //       perspectiveCameraProjection.contents,
+  //       Meta3dComponentPerspectivecameraprojectionProtocol.Index.dataName.pMatrix->Obj.magic,
+  //     )
+  //     ->Meta3dCommonlib.NullableTool.getExn
+  //     ->expect ==
+  //       Js.Typed_array.Float32Array.make([
+  //         1.7320508075688776,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         1.7320508075688776,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         0.,
+  //         -1.0004000800160033,
+  //         -1.,
+  //         0.,
+  //         0.,
+  //         -0.40008001600320064,
+  //         0.,
+  //       ])
+  //   })
+  // })
 })

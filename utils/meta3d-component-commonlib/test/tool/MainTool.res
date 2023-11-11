@@ -1,4 +1,4 @@
-open Meta3dEngineCoreSceneview
+open Meta3dEngineCore
 
 let unsafeGetUsedComponentContribute = componentName => {
   StateContainer.unsafeGetState()

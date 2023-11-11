@@ -1,6 +1,6 @@
 import { api, state as meta3dState } from "meta3d-type"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
-import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
+import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
+import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol";
@@ -18,14 +18,14 @@ import { service as eventService } from "meta3d-event-protocol/src/service/Servi
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { requireCheck, test } from "meta3d-ts-contract-utils"
 
-let _disposeComponents = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>({ getNeedDisposedComponents, disposeComponents, unsafeGetUsedComponentContribute, setUsedComponentContribute }: engineCoreService_, engineCoreState: engineCoreState_) => {
-    let transformContribute = unsafeGetUsedComponentContribute(engineCoreState, transformComponentName)
-    let pbrMaterialContribute = unsafeGetUsedComponentContribute(engineCoreState, pbrMaterialComponentName)
-    let geometryContribute = unsafeGetUsedComponentContribute(engineCoreState, geometryComponentName)
-    let directionLightContribute = unsafeGetUsedComponentContribute(engineCoreState, directionLightComponentName)
-    let basicCameraViewContribute = unsafeGetUsedComponentContribute(engineCoreState, basicCameraViewComponentName)
-    let perspectiveCameraProjectionContribute = unsafeGetUsedComponentContribute(engineCoreState, perspectiveCameraProjectionComponentName)
-    let arcballCameraControllerContribute = unsafeGetUsedComponentContribute(engineCoreState, arcballCameraControllerComponentName)
+let _disposeComponents = (meta3dState: meta3dState, { getNeedDisposedComponents, disposeComponents, unsafeGetUsedComponentContribute, setUsedComponentContribute }: engineCoreService) => {
+    let transformContribute = unsafeGetUsedComponentContribute(meta3dState, transformComponentName)
+    let pbrMaterialContribute = unsafeGetUsedComponentContribute(meta3dState, pbrMaterialComponentName)
+    let geometryContribute = unsafeGetUsedComponentContribute(meta3dState, geometryComponentName)
+    let directionLightContribute = unsafeGetUsedComponentContribute(meta3dState, directionLightComponentName)
+    let basicCameraViewContribute = unsafeGetUsedComponentContribute(meta3dState, basicCameraViewComponentName)
+    let perspectiveCameraProjectionContribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
+    let arcballCameraControllerContribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
     let data = disposeComponents(
         transformContribute,
@@ -92,15 +92,15 @@ let _disposeComponents = <engineCoreState_ extends engineCoreState, engineCoreSe
     let disposedArcballCameraControllers = data[1]
 
 
-    engineCoreState = setUsedComponentContribute(engineCoreState, transformContribute, transformComponentName) as engineCoreState_
-    engineCoreState = setUsedComponentContribute(engineCoreState, pbrMaterialContribute, pbrMaterialComponentName) as engineCoreState_
-    engineCoreState = setUsedComponentContribute(engineCoreState, geometryContribute, geometryComponentName) as engineCoreState_
-    engineCoreState = setUsedComponentContribute(engineCoreState, basicCameraViewContribute, basicCameraViewComponentName) as engineCoreState_
-    engineCoreState = setUsedComponentContribute(engineCoreState, perspectiveCameraProjectionContribute, perspectiveCameraProjectionComponentName) as engineCoreState_
-    engineCoreState = setUsedComponentContribute(engineCoreState, arcballCameraControllerContribute, arcballCameraControllerComponentName) as engineCoreState_
+    meta3dState = setUsedComponentContribute(meta3dState, transformContribute, transformComponentName) as meta3dState
+    meta3dState = setUsedComponentContribute(meta3dState, pbrMaterialContribute, pbrMaterialComponentName) as meta3dState
+    meta3dState = setUsedComponentContribute(meta3dState, geometryContribute, geometryComponentName) as meta3dState
+    meta3dState = setUsedComponentContribute(meta3dState, basicCameraViewContribute, basicCameraViewComponentName) as meta3dState
+    meta3dState = setUsedComponentContribute(meta3dState, perspectiveCameraProjectionContribute, perspectiveCameraProjectionComponentName) as meta3dState
+    meta3dState = setUsedComponentContribute(meta3dState, arcballCameraControllerContribute, arcballCameraControllerComponentName) as meta3dState
 
 
-    return [engineCoreState,
+    return [meta3dState,
         [
             disposedTransforms,
             disposedGeometrys,
@@ -114,10 +114,10 @@ let _disposeComponents = <engineCoreState_ extends engineCoreState, engineCoreSe
 }
 
 
-let _disposeGameObjects = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>({ getNeedDisposedGameObjects, disposeGameObjects }: engineCoreService_, engineCoreState: engineCoreState_) => {
+let _disposeGameObjects = (meta3dState: meta3dState, { getNeedDisposedGameObjects, disposeGameObjects }: engineCoreService) => {
     return disposeGameObjects(
-        engineCoreState,
-        getNeedDisposedGameObjects(engineCoreState)
+        meta3dState,
+        getNeedDisposedGameObjects(meta3dState)
     )
 }
 
@@ -155,15 +155,13 @@ let _checkNotIntersect = (
     }, true)
 }
 
-let _disposeTexture = (meta3dState: meta3dState, api: api, meta3dEngineCoreExtensionProtocolName: string, getMapFunc: any, pbrMaterial: pbrMaterial): [meta3dState, nullable<texture>] => {
-    let engineCoreState = api.getExtensionState<engineCoreState>(meta3dState, meta3dEngineCoreExtensionProtocolName)
-
-    let engineCoreService = api.getExtensionService<engineCoreService>(
+let _disposeTexture = (meta3dState: meta3dState, api: api, getMapFunc: any, pbrMaterial: pbrMaterial): [meta3dState, nullable<texture>] => {
+    let engineCoreService = getExn(api.getPackageService<coreService>(
         meta3dState,
-        meta3dEngineCoreExtensionProtocolName
-    )
+        "meta3d-core-protocol"
+    )).engineCore(meta3dState)
 
-    let texture = getMapFunc(engineCoreState, engineCoreService, pbrMaterial)
+    let texture = getMapFunc(meta3dState, engineCoreService, pbrMaterial)
 
     let disposedTexture = null
 
@@ -198,21 +196,21 @@ let _addDisposedTexture = (disposedTextures: Array<texture>, disposedTexture: nu
     return disposedTextures
 }
 
-let _disposeAllMaps = (meta3dState: meta3dState, api: api, meta3dEngineCoreExtensionProtocolName: string, disposedPBRMaterials: Array<pbrMaterial>) => {
+let _disposeAllMaps = (meta3dState: meta3dState, api: api, disposedPBRMaterials: Array<pbrMaterial>) => {
     return disposedPBRMaterials.reduce(([meta3dState, disposedTextures]: [meta3dState, Array<texture>], pbrMaterial) => {
-        let data = _disposeTexture(meta3dState, api, meta3dEngineCoreExtensionProtocolName, getDiffuseMap, pbrMaterial)
+        let data = _disposeTexture(meta3dState, api, getDiffuseMap, pbrMaterial)
         meta3dState = data[0]
         disposedTextures = _addDisposedTexture(disposedTextures, data[1])
 
-        data = _disposeTexture(meta3dState, api, meta3dEngineCoreExtensionProtocolName, getRoughnessMap, pbrMaterial)
+        data = _disposeTexture(meta3dState, api, getRoughnessMap, pbrMaterial)
         meta3dState = data[0]
         disposedTextures = _addDisposedTexture(disposedTextures, data[1])
 
-        data = _disposeTexture(meta3dState, api, meta3dEngineCoreExtensionProtocolName, getMetalnessMap, pbrMaterial)
+        data = _disposeTexture(meta3dState, api, getMetalnessMap, pbrMaterial)
         meta3dState = data[0]
         disposedTextures = _addDisposedTexture(disposedTextures, data[1])
 
-        data = _disposeTexture(meta3dState, api, meta3dEngineCoreExtensionProtocolName, getNormalMap, pbrMaterial)
+        data = _disposeTexture(meta3dState, api, getNormalMap, pbrMaterial)
         meta3dState = data[0]
         disposedTextures = _addDisposedTexture(disposedTextures, data[1])
 
@@ -220,7 +218,7 @@ let _disposeAllMaps = (meta3dState: meta3dState, api: api, meta3dEngineCoreExten
     }, [meta3dState, []])
 }
 
-export let dispose = <engineCoreState_ extends engineCoreState, engineCoreService_ extends engineCoreService>(api: api, meta3dState: meta3dState, meta3dEngineCoreExtensionProtocolName: string,
+export let dispose = (api: api, meta3dState: meta3dState,
     {
         DisposeGameObjectsEventName,
         DisposeGeometrysEventName,
@@ -232,13 +230,14 @@ export let dispose = <engineCoreState_ extends engineCoreState, engineCoreServic
         DisposeTextureEventName,
     }: any
 ) => {
-    let engineCoreService = api.getExtensionService<engineCoreService_>(meta3dState, meta3dEngineCoreExtensionProtocolName)
+    let coreService = getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol"))
+    let engineCoreService = coreService.engineCore(meta3dState)
 
-    let data1 = _disposeComponents<engineCoreState_, engineCoreService_>(
+    let data1 = _disposeComponents(
+        meta3dState,
         engineCoreService,
-        api.getExtensionState<engineCoreState_>(meta3dState, meta3dEngineCoreExtensionProtocolName),
     )
-    let engineCoreState = data1[0] as engineCoreState_
+    meta3dState = data1[0] as meta3dState
     let [
         disposedTransforms,
         disposedGeometrys,
@@ -249,8 +248,8 @@ export let dispose = <engineCoreState_ extends engineCoreState, engineCoreServic
         disposedArcballCameraControllers
     ] = data1[1] as any
 
-    let data2 = _disposeGameObjects<engineCoreState_, engineCoreService_>(engineCoreService, engineCoreState)
-    engineCoreState = data2[0] as engineCoreState_
+    let data2 = _disposeGameObjects(meta3dState, engineCoreService)
+    meta3dState = data2[0] as meta3dState
     let [
         disposedGameObjects,
         disposedTransformsFromGameObject,
@@ -267,11 +266,9 @@ export let dispose = <engineCoreState_ extends engineCoreState, engineCoreServic
     )
 
 
-    meta3dState = api.setExtensionState<engineCoreState_>(meta3dState, meta3dEngineCoreExtensionProtocolName, engineCoreState)
-
     let allDisposedPBRMaterials = disposedPBRMaterials.concat(disposedPBRMaterialsFromGameObject)
 
-    let data = _disposeAllMaps(meta3dState, api, meta3dEngineCoreExtensionProtocolName, allDisposedPBRMaterials)
+    let data = _disposeAllMaps(meta3dState, api, allDisposedPBRMaterials)
     meta3dState = data[0]
     let disposedTextures = data[1]
 
@@ -285,7 +282,7 @@ export let dispose = <engineCoreState_ extends engineCoreState, engineCoreServic
     let allDisposedPerspectiveCameraProjections = disposedPerspectiveCameraProjections.concat(disposedPerspectiveCameraProjectionsFromGameObject)
     let allDisposedArcballCameraControllers = disposedArcballCameraControllers.concat(disposedArcballCameraControllersFromGameObject)
 
-    let eventService = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
+    let eventService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
     if (allDisposedGameObjects.length > 0) {
         meta3dState = eventService.triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", eventService.createCustomEvent(DisposeGameObjectsEventName, return_(allDisposedGameObjects as any)))

@@ -1,7 +1,7 @@
 
 
-import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as CreateBasicCameraViewUtils$Meta3dComponentBasiccameraview from "./CreateBasicCameraViewUtils.bs.js";
 import * as OperateBasicCameraViewUtils$Meta3dComponentBasiccameraview from "../utils/OperateBasicCameraViewUtils.bs.js";
 

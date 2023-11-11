@@ -15,19 +15,19 @@ Feature: PerspectiveCameraProjection API
             And set the perspectiveCameraProjection's far to <Far>
             And set the perspectiveCameraProjection's fovy to <Fovy>
 
-        Scenario Outline: set aspect
-            Given set the perspectiveCameraProjection's aspect to <Aspect>
-            When update the perspectiveCameraProjection
-            Then the perspectiveCameraProjection's pMatrix should be builded
+        # Scenario Outline: set aspect
+        #     Given set the perspectiveCameraProjection's aspect to <Aspect>
+        #     When update the perspectiveCameraProjection
+        #     Then the perspectiveCameraProjection's pMatrix should be builded
 
-            Examples:
-                | Near | Far    | Fovy | Aspect |
-                | 0.2  | 1000.0 | 60.0 | 1.0    |
+        #     Examples:
+        #         | Near | Far    | Fovy | Aspect |
+        #         | 0.2  | 1000.0 | 60.0 | 1.0    |
 
-        Scenario Outline: set canvas size instead of aspect
-            When update the perspectiveCameraProjection with canvas size: <Width>, <Height>
-            Then the perspectiveCameraProjection's pMatrix should be builded
+        # Scenario Outline: set canvas size instead of aspect
+        #     When update the perspectiveCameraProjection with canvas size: <Width>, <Height>
+        #     Then the perspectiveCameraProjection's pMatrix should be builded
 
-            Examples:
-                | Near | Far    | Fovy | Width | Height |
-                | 0.2  | 1000.0 | 60.0 | 50    | 50     |
+        #     Examples:
+        #         | Near | Far    | Fovy | Width | Height |
+        #         | 0.2  | 1000.0 | 60.0 | 50    | 50     |

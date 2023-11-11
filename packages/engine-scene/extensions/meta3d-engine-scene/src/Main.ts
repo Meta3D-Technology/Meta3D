@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { state } from "meta3d-engine-scene-protocol/src/state/StateType"
 import { service } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"

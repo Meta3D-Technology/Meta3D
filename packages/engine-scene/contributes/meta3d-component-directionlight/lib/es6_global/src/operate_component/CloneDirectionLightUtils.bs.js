@@ -1,11 +1,11 @@
 
 
-import * as OptionSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
-import * as CloneUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as CloneUtils$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CloneUtils.bs.js";
 import * as CreateDirectionLightUtils$Meta3dComponentDirectionlight from "./CreateDirectionLightUtils.bs.js";
 import * as GetDirectionLightDataUtils$Meta3dComponentDirectionlight from "../operate_data/GetDirectionLightDataUtils.bs.js";
 import * as SetDirectionLightDataUtils$Meta3dComponentDirectionlight from "../operate_data/SetDirectionLightDataUtils.bs.js";
-import * as OperateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/OperateTypeArrayDirectionLightUtils.bs.js";
+import * as OperateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/OperateTypeArrayDirectionLightUtils.bs.js";
 import * as OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight from "../utils/OperateTypeArrayDirectionLightUtils.bs.js";
 
 function _setData(state) {

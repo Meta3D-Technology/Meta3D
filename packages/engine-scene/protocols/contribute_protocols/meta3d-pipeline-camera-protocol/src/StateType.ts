@@ -1,6 +1,5 @@
 import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
-import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { mostService, engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
 // import { pipelineName as viewRectPipelineName, state as viewRectState } from "meta3d-pipeline-viewRect-protocol/src/StateType"
 
 export const pipelineName = "Camera"

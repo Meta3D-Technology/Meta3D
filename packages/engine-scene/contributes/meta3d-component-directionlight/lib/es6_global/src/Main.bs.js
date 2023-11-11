@@ -1,14 +1,14 @@
 
 
-import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
-import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
-import * as CopyTypeArrayService$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
-import * as Index$Meta3dComponentDirectionlightProtocol from "../../../../../node_modules/meta3d-component-directionlight-protocol/lib/es6_global/src/Index.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as CopyTypeArrayService$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
+import * as Index$Meta3dComponentDirectionlightProtocol from "../../../../../../../node_modules/meta3d-component-directionlight-protocol/lib/es6_global/src/Index.bs.js";
 import * as CreateStateUtils$Meta3dComponentDirectionlight from "./create_state/CreateStateUtils.bs.js";
 import * as GetGameObjectsUtils$Meta3dComponentDirectionlight from "./gameobject/GetGameObjectsUtils.bs.js";
 import * as AddDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/AddDirectionLightUtils.bs.js";
-import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
+import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
 import * as GetDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/GetDirectionLightUtils.bs.js";
 import * as HasDirectionLightUtils$Meta3dComponentDirectionlight from "./gameobject/HasDirectionLightUtils.bs.js";
 import * as CloneDirectionLightUtils$Meta3dComponentDirectionlight from "./operate_component/CloneDirectionLightUtils.bs.js";

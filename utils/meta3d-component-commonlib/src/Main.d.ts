@@ -19,7 +19,7 @@ export function createSphereGeometry(contribute: usedComponentContribute, engine
 
 export function createPlaneGeometry(contribute: usedComponentContribute, engineCoreService: service): [usedComponentContribute, geometry]
 
-export function updatePerspectiveCameraProjection(contribute: usedComponentContribute, engineCoreService: service, isDebug: boolean, cameraProjection: perspectiveCameraProjection, canvasSize: [number, number]): usedComponentContribute
+export function updatePerspectiveCameraProjection(contribute: usedComponentContribute, engineCoreService: service, isDebug: boolean, cameraProjection: perspectiveCameraProjection): usedComponentContribute
 
 export function getViewWorldToCameraMatrix(basicCameraViewContribute: usedComponentContribute, engineCoreService: service, transformContribute: usedComponentContribute, cameraView: basicCameraView): nullable<Float32Array>
 

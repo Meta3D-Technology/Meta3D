@@ -14,7 +14,6 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.20.0",
         "meta3d-component-arcballcameracontroller-protocol": "^0.20.0",
         "meta3d-component-basiccameraview-protocol": "^0.20.0",
         "meta3d-component-directionlight-protocol": "^0.20.0",

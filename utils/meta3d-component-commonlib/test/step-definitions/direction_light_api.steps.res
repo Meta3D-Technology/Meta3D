@@ -19,7 +19,7 @@ defineFeature(feature, test => {
   let direction1 = ref(Obj.magic(1))
 
   let _prepare = (given, \"and") => {
-    open Meta3dEngineCoreSceneview
+    open Meta3dEngineCore
 
     let gameObject = 1
 
@@ -100,7 +100,7 @@ defineFeature(feature, test => {
   }
 
   let _prepareGetDirection = (given, \"when") => {
-    open Meta3dEngineCoreSceneview
+    open Meta3dEngineCore
 
     given(%re("/^set the transform's local euler angles to (.*), (.*), (.*)$/")->Obj.magic, () => {
       let arguments =

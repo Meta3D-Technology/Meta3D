@@ -14,7 +14,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-bs-most-protocol": "^0.20.0",
+        
         "meta3d-core-protocol": "^0.20.0",
         "meta3d-pipeline-transform-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"

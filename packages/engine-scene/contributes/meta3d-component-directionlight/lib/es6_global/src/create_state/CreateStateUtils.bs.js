@@ -1,10 +1,10 @@
 
 
-import * as ListSt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
-import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
-import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
-import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
-import * as CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js";
+import * as ListSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ListSt.bs.js";
+import * as ImmutableSparseMap$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/ImmutableSparseMap.bs.js";
+import * as CreateMapComponentUtils$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/CreateMapComponentUtils.bs.js";
+import * as BufferDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/BufferDirectionLightUtils.bs.js";
+import * as CreateTypeArrayDirectionLightUtils$Meta3dComponentWorkerUtils from "../../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/directionlight/CreateTypeArrayDirectionLightUtils.bs.js";
 import * as OperateTypeArrayDirectionLightUtils$Meta3dComponentDirectionlight from "../utils/OperateTypeArrayDirectionLightUtils.bs.js";
 
 function setAllTypeArrDataToDefault(param, count, param$1) {

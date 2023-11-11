@@ -4,7 +4,7 @@ import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeli
 import { config } from "meta3d-pipeline-camera-protocol/src/ConfigType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
-import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
+import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
 	switch (jobName) {
@@ -24,7 +24,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 		createStateFunc: (meta3dState, { isDebug }) => {
 			return {
 				mostService: getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")).most(meta3dState),
-				engineCoreService: api.getExtensionService<engineCoreService>(meta3dState, "meta3d-engine-core-protocol"),
+				engineCoreService: getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")).engineCore(meta3dState),
 				isDebug
 			}
 		},

@@ -1,11 +1,11 @@
 
 
-import * as Caml_obj from "../../../../../node_modules/rescript/lib/es6/caml_obj.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
-import * as MutableSparseMap$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
-import * as CopyTypeArrayService$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
-import * as Index$Meta3dComponentGeometryProtocol from "../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
+import * as Caml_obj from "../../../../../../../node_modules/rescript/lib/es6/caml_obj.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as TypeArrayUtils$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/scene_graph/component/TypeArrayUtils.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as CopyTypeArrayService$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/copy/CopyTypeArrayService.bs.js";
+import * as Index$Meta3dComponentGeometryProtocol from "../../../../../../../node_modules/meta3d-component-geometry-protocol/lib/es6_global/src/Index.bs.js";
 import * as AddGeometryUtils$Meta3dComponentGeometry from "./gameobject/AddGeometryUtils.bs.js";
 import * as CreateStateUtils$Meta3dComponentGeometry from "./create_state/CreateStateUtils.bs.js";
 import * as GetGeometryUtils$Meta3dComponentGeometry from "./gameobject/GetGeometryUtils.bs.js";
@@ -18,7 +18,7 @@ import * as DisposeGeometryUtils$Meta3dComponentGeometry from "./operate_compone
 import * as GetAllGeometrysUtils$Meta3dComponentGeometry from "./operate_component/GetAllGeometrysUtils.bs.js";
 import * as GetGeometryDataUtils$Meta3dComponentGeometry from "./operate_data/GetGeometryDataUtils.bs.js";
 import * as SetGeometryDataUtils$Meta3dComponentGeometry from "./operate_data/SetGeometryDataUtils.bs.js";
-import * as BufferGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/BufferGeometryUtils.bs.js";
+import * as BufferGeometryUtils$Meta3dComponentWorkerUtils from "../../../../../../../node_modules/meta3d-component-worker-utils/lib/es6_global/src/geometry/BufferGeometryUtils.bs.js";
 import * as GetNeedDisposedGeometrysUtils$Meta3dComponentGeometry from "./gameobject/GetNeedDisposedGeometrysUtils.bs.js";
 
 function _restoreTypeArrays(currentState, targetState) {
