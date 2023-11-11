@@ -12,7 +12,7 @@ import { directionLight, componentName as directionLightComponentName } from "me
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { getChildren, setLocalPosition, setLocalScale, getGameObjects } from "./TransformAPI"
 import { removeGameObjectData } from "meta3d-engine-scene-protocol/src/service/ecs/GameObject"
-import { buildRemovedName, buildUnUsedName, isValidGameObjectName } from "./Utils"
+import { buildRemovedName, isValidGameObjectName } from "./Utils"
 
 export let createGameObject = (meta3dState: meta3dState, { createGameObject }: engineCoreService): [meta3dState, gameObject] => {
     let contribute = createGameObject(meta3dState)
@@ -25,18 +25,18 @@ export let createGameObject = (meta3dState: meta3dState, { createGameObject }: e
     ]
 }
 
-export let createUnUseGameObject = (meta3dState: meta3dState, { createGameObject, setGameObjectName }: engineCoreService): [meta3dState, gameObject] => {
-    let contribute = createGameObject(meta3dState)
-    meta3dState = contribute[0]
-    let gameObject = contribute[1]
+// export let createUnUseGameObject = (meta3dState: meta3dState, { createGameObject, setGameObjectName }: engineCoreService): [meta3dState, gameObject] => {
+//     let contribute = createGameObject(meta3dState)
+//     meta3dState = contribute[0]
+//     let gameObject = contribute[1]
 
-    meta3dState = setGameObjectName(meta3dState, gameObject, buildUnUsedName())
+//     meta3dState = setGameObjectName(meta3dState, gameObject, buildUnUsedName())
 
-    return [
-        meta3dState,
-        gameObject
-    ]
-}
+//     return [
+//         meta3dState,
+//         gameObject
+//     ]
+// }
 
 export let getGameObjectName = (meta3dState: meta3dState, { getGameObjectName }: engineCoreService, gameObject: gameObject): nullable<name> => {
     return getGameObjectName(meta3dState, gameObject)

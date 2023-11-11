@@ -1,4 +1,4 @@
-import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
+import { mostService } from "meta3d-core-protocol/src/service/ServiceType"
 
 export const pipelineName = "Root"
 

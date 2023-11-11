@@ -5,7 +5,7 @@ import { lookAt as lookAtTransform } from "meta3d-component-commonlib"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { gameObject } from "meta3d-gameobject-protocol/src/Index"
 import { getExn, getWithDefault, map } from "meta3d-commonlib-ts/src/NullableUtils"
-import { buildRemovedName, buildUnUsedName, isValidGameObjectName } from "./Utils"
+import { isValidGameObjectName } from "./Utils"
 
 export function createTransform(meta3dState: meta3dState, { unsafeGetUsedComponentContribute,
     createComponent,

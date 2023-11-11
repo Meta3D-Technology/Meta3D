@@ -36,7 +36,7 @@ import {
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
-import { createEmptyPhysicalMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
+import { createEmptyPhysicalMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap, setGetAllGameObjectsFunc } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
 // import { componentName as transformComponentName } from "meta3d-component-transform-protocol"
@@ -564,10 +564,11 @@ export let getExtensionServiceUtils = (
 
             return meta3dState
         },
-        convert: (meta3dState) => {
+        convert: (getAllGameObjectsFunc, meta3dState) => {
             let isDebug = true
 
             setMeta3dState(meta3dState)
+            setGetAllGameObjectsFunc(getAllGameObjectsFunc)
 
             setThreeObjects(api, meta3dState)
 

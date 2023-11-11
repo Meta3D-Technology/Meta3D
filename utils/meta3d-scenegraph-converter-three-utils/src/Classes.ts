@@ -31,7 +31,7 @@ import {
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
-import { createEmptyPhysicalMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, setVariables, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap } from "./utils/GlobalUtils";
+import { createEmptyPhysicalMaterialInstanceMap, createEmptyGeometryInstanceMap, createEmptyMeshInstanceMap, getEngineSceneService, getMeta3dState, setAPI, setMeta3dState, setVariables, createEmptyTextureInstanceMap, createEmptyDirectionLightInstanceMap, getGetAllGameObjectsFunc } from "./utils/GlobalUtils";
 // import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName, perspectiveCameraProjection, pMatrix, dataName as perspectiveCameraProjectionDataName } from "meta3d-component-perspectivecameraprojection-protocol";
 import { gameObject } from "meta3d-gameobject-protocol"
@@ -704,10 +704,12 @@ export class Scene extends Object3D {
 
     public get children(): Array<Object3D> {
         let meta3dState = getMeta3dState()
+        let getAllGameObjectsFunc = getGetAllGameObjectsFunc()
 
         let engineSceneService = getEngineSceneService(meta3dState)
 
-        let allGameObjects = engineSceneService.gameObject.getAllGameObjects(meta3dState)
+        // let allGameObjects = engineSceneService.gameObject.getAllGameObjects(meta3dState)
+        let allGameObjects = getAllGameObjectsFunc(meta3dState)
 
         return allGameObjects.filter(gameObject => {
             return isNullable(engineSceneService.transform.getParent(meta3dState, engineSceneService.gameObject.getTransform(meta3dState, gameObject)))
@@ -1158,7 +1160,7 @@ export class Material extends EventDispatcher {
     protected material: pbrMaterial
 
     public uuid: string
-    public id: number 
+    public id: number
 
     public version: number = 0
 

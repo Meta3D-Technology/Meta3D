@@ -15,7 +15,7 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export type createGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
 
-export type createUnUseGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
+// export type createUnUseGameObject = (meta3dState: meta3dState) => [meta3dState, gameObject]
 
 export type getAllGameObjects = (meta3dState: meta3dState) => Array<gameObject>
 

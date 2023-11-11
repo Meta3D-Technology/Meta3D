@@ -1,4 +1,6 @@
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { gameObject } from "meta3d-gameobject-protocol"
+import { getAllGameObjectsFunc } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
 // import { service as engineCoreService } from "meta3d-engine-core-protocol/src/service/ServiceType"
 // import { state as engineCoreState } from "meta3d-engine-core-protocol/src/state/StateType"
 import { api, state as meta3dState } from "meta3d-type"
@@ -38,6 +40,14 @@ export let getMeta3dState = (): meta3dState => {
 
 export let setMeta3dState = (meta3dState: meta3dState): void => {
     (globalThis as any)[_globalKeyNameForMeta3dState] = meta3dState
+}
+
+export let getGetAllGameObjectsFunc = (): getAllGameObjectsFunc => {
+    return (globalThis as any)["meta3d_getAllGameObjects"]
+}
+
+export let setGetAllGameObjectsFunc = (func: getAllGameObjectsFunc): void => {
+    (globalThis as any)["meta3d_getAllGameObjects"] = func
 }
 
 let _getAPI = (): api => {

@@ -16,7 +16,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, createUnUseGameObject, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName,  getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
 } from "./GameObjectAPI"
 import {
 	createTransform,
@@ -333,9 +333,9 @@ export let getExtensionServiceUtils = (
 			createGameObject: (meta3dState) => {
 				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createGameObject, api)
 			},
-			createUnUseGameObject: (meta3dState) => {
-				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createUnUseGameObject, api)
-			},
+			// createUnUseGameObject: (meta3dState) => {
+			// 	return _encapsulateSceneAPIReturnStateAndData(meta3dState, createUnUseGameObject, api)
+			// },
 			getAllGameObjects: (meta3dState) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAllGameObjects(meta3dState, engineCoreService), api)
 			},
