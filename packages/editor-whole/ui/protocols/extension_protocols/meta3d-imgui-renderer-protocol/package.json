@@ -4,7 +4,7 @@
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "renderer protocol",
     "author": "Wonder",
-    "license": "MIT",
+    "license": "",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",

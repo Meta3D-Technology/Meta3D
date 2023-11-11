@@ -3,7 +3,7 @@
     "version": "0.20.0",
     "description": "",
     "author": "Wonder",
-    "license": "MIT",
+    "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "build:ts": "tsc"

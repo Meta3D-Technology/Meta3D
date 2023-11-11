@@ -6,7 +6,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "watch": "rescript clean && rescript build -w"
   },

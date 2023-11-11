@@ -3,7 +3,7 @@
     "version": "0.20.0",
     "description": "",
     "author": "wonder",
-    "license": "MIT",
+    "license": "",
     "scripts": {
         "watch": "tsc --watch",
         "test:watch": "jest --maxWorkers=4 --watch --config jest.json"

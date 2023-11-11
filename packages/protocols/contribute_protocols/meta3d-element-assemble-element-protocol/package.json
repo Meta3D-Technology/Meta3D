@@ -5,7 +5,7 @@
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",
-    "license": "MIT",
+    "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "meta3d:publish_dev": "tsc && gulp publish_local_env",

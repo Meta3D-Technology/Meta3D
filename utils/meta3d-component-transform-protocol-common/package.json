@@ -3,7 +3,7 @@
   "version": "0.20.0",
   "authors": "Wonder",
   "description": "",
-  "license": "MIT",
+  "license": "",
   "main": "src/Index.ts",
   "scripts": {
     "watch": "rescript clean && rescript build -w"

@@ -16,7 +16,7 @@
     "bucklescript",
     "test"
   ],
-  "license": "MIT",
+  "license": "",
   "devDependencies": {
     "bs-platform": "4.0.18"
   },

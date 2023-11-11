@@ -5,7 +5,7 @@
   "protocol": {
     "name": "meta3d-component-arcballcameracontroller-protocol"
   },
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "watch": "rescript clean && rescript build -w",
     "buildAll:ci": "rescript clean && rescript build",

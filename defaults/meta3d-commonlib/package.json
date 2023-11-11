@@ -2,7 +2,7 @@
   "name": "meta3d-commonlib",
   "version": "0.20.0",
   "authors": "Wonder",
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "watch": "rescript clean && rescript build -w"
   },

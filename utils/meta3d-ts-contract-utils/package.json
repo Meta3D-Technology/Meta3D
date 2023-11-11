@@ -1,7 +1,7 @@
 {
     "name": "meta3d-ts-contract-utils",
     "version": "0.20.0",
-    "license": "MIT",
+    "license": "",
     "main": "src/Contract.ts",
     "scripts": {
         "watch": "tsc -w -noEmit"

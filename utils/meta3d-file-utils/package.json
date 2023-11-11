@@ -3,7 +3,7 @@
   "version": "0.20.0",
   "authors": "Wonder",
   "description": "",
-  "license": "MIT",
+  "license": "",
   "scripts": {
     "watch": "rescript clean && rescript build -w",
     "buildAll:ci": "rescript clean && rescript build"

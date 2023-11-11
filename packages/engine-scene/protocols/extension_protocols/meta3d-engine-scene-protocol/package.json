@@ -4,7 +4,7 @@
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "author": "Wonder",
-    "license": "MIT",
+    "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "meta3d:publish_dev": "gulp publish_local_env",

@@ -5,7 +5,7 @@
     "protocol": {
         "name": "meta3d-pipeline-webgl1-three-sceneviewrender-protocol"
     },
-    "license": "MIT",
+    "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
