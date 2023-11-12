@@ -2,9 +2,11 @@ import { state as meta3dState, packageProtocolName, canvasData } from "meta3d-ty
 import { ecsConfig, service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
-import { service as uiService, texture } from "meta3d-ui-protocol/src/service/ServiceType"
-import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
+import { service as uiService_, texture } from "meta3d-ui-protocol/src/service/ServiceType"
+import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData } from "../state/StateType";
+import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
+import { actionContribute as actionContribute_ } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 
 export type uiTexture = texture
 
@@ -14,6 +16,14 @@ export type configData = [canvasData, { isDebug: boolean, clearColor: [number, n
 type addToInitFuncs = (meta3dState: meta3dState, func: initFunc) => meta3dState
 
 // type addToFuncs = (meta3dState: meta3dState, func: func) => meta3dState
+
+export type uiControlContribute<inputData, outputData> = uiControlContribute_<inputData, outputData>
+
+export type actionContribute<uiData, state> = actionContribute_<uiData, state>
+
+export type uiService = uiService_
+
+export type eventService = eventService_
 
 export type service = {
 	scene: (meta3dState: meta3dState) => engineSceneService,

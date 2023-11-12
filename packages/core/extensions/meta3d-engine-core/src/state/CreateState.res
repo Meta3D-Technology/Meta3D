@@ -9,5 +9,6 @@ let createState = (): Meta3dEngineCoreProtocol.StateType.state => {
     allUsedComponentContributes: Meta3dCommonlib.MutableHashMap.createEmpty(),
   },
   gameObjectContribute: None,
+  // groupStatusData: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   usedGameObjectContribute: None,
 }

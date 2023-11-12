@@ -301,21 +301,21 @@ export let addGameObjects = (meta3dState: meta3dState, engineSceneService: engin
 //     )
 // }
 
-let _getAllPerspectiveCameraProjections = (meta3dState: meta3dState,
-    scene: engineSceneService,) => {
-    return scene.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
-        return scene.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)
-    }).map(gameObject => {
-        return scene.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject)
-    })
-}
+// let _getAllPerspectiveCameraProjections = (meta3dState: meta3dState,
+//     scene: engineSceneService,) => {
+//     return scene.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
+//         return scene.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)
+//     }).map(gameObject => {
+//         return scene.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject)
+//     })
+// }
 
-export let updateAllCameraAspect = (meta3dState: meta3dState,
-    engineSceneService: engineSceneService,
-    width: number, height: number) => {
-    let aspect = width / height
+// export let updateAllCameraAspect = (meta3dState: meta3dState,
+//     engineSceneService: engineSceneService,
+//     width: number, height: number) => {
+//     let aspect = width / height
 
-    return _getAllPerspectiveCameraProjections(meta3dState, engineSceneService).reduce((meta3dState, cameraProjection) => {
-        return engineSceneService.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, aspect)
-    }, meta3dState)
-}
+//     return _getAllPerspectiveCameraProjections(meta3dState, engineSceneService).reduce((meta3dState, cameraProjection) => {
+//         return engineSceneService.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, aspect)
+//     }, meta3dState)
+// }

@@ -425,10 +425,7 @@ defineFeature(feature, test => {
     ~changedState1=_createState1(~d1=10, ()),
     ~rootJob=(
       meta3dState,
-      {
-        getStatesFunc,
-        setStatesFunc,
-      }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
       getStatesFunc(. meta3dState)
       ->Meta3dCommonlib.ImmutableHashMap.set("a1", changedState1)
@@ -478,6 +475,218 @@ defineFeature(feature, test => {
       changedState1,
     )
   }
+
+  // test(."test stop one pipeline", ({given, \"when", \"and", then}) => {
+  //   let pipeline2GroupName = "first_a2"
+  //   let stub1 = ref(Obj.magic(1))
+  //   let stub2 = ref(Obj.magic(1))
+  //   let stub3 = ref(Obj.magic(1))
+
+  //   _prepareRegister(given)
+
+  //   _prepareSandbox(given)
+
+  //   given(
+  //     "register pipeline1 contribute with one init pipeline job1",
+  //     () => {
+  //       stub1 := createEmptyStubWithJsObjSandbox(sandbox)
+  //       let rootJob1_init = (
+  //         meta3dState,
+  //         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+  //       ) => {
+  //         stub1.contents()
+
+  //         getStatesFunc(. meta3dState)->setStatesFunc(meta3dState, _)->Meta3dBsMostDefault.Most.just
+  //       }
+  //       let contribute1 = _buildPipelineContribute(
+  //         ~pipelineName="a1",
+  //         ~allPipelineData=[
+  //           {
+  //             name: "init",
+  //             groups: [
+  //               {
+  //                 name: "first_a1",
+  //                 link: #concat,
+  //                 elements: [
+  //                   {
+  //                     name: "job1",
+  //                     type_: #job,
+  //                     is_set_state: true->Js.Nullable.return,
+  //                   },
+  //                 ],
+  //               },
+  //             ],
+  //             first_group: "first_a1",
+  //           },
+  //         ],
+  //         ~getExecFunc=(_, jobName) => {
+  //           switch jobName {
+  //           | "job1" => rootJob1_init->Js.Nullable.return
+  //           | _ => Js.Nullable.null
+  //           }
+  //         },
+  //         (),
+  //       )
+
+  //       MainTool.registerPipeline(~contribute=contribute1, ())
+  //     },
+  //   )
+
+  //   given(
+  //     "register pipeline2 contribute with one init pipeline job2 after job1",
+  //     () => {
+  //       stub2 := createEmptyStubWithJsObjSandbox(sandbox)
+  //       let job2 = (
+  //         meta3dState,
+  //         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+  //       ) => {
+  //         stub2.contents()
+
+  //         getStatesFunc(. meta3dState)->setStatesFunc(meta3dState, _)->Meta3dBsMostDefault.Most.just
+  //       }
+  //       let contribute2 = _buildPipelineContribute(
+  //         ~pipelineName="a2",
+  //         ~allPipelineData=[
+  //           {
+  //             name: "init",
+  //             groups: [
+  //               {
+  //                 name: pipeline2GroupName,
+  //                 link: #concat,
+  //                 elements: [
+  //                   {
+  //                     name: "job2",
+  //                     type_: #job,
+  //                     is_set_state: true->Js.Nullable.return,
+  //                   },
+  //                 ],
+  //               },
+  //             ],
+  //             first_group: pipeline2GroupName,
+  //           },
+  //         ],
+  //         ~getExecFunc=(_, jobName) => {
+  //           switch jobName {
+  //           | "job2" => job2->Js.Nullable.return
+  //           | _ => Js.Nullable.null
+  //           }
+  //         },
+  //         (),
+  //       )
+
+  //       MainTool.registerPipeline(
+  //         ~contribute=contribute2,
+  //         ~jobOrders=[
+  //           _buildJobOrder(
+  //             ~pipelineName="init",
+  //             ~insertElementName="job1",
+  //             ~insertAction=#after,
+  //             (),
+  //           ),
+  //         ],
+  //         (),
+  //       )
+  //     },
+  //   )
+
+  //   given(
+  //     "register pipeline3 contribute with one init pipeline job3 after job2",
+  //     () => {
+  //       stub3 := createEmptyStubWithJsObjSandbox(sandbox)
+  //       let job3 = (
+  //         meta3dState,
+  //         {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+  //       ) => {
+  //         stub3.contents()
+
+  //         getStatesFunc(. meta3dState)->setStatesFunc(meta3dState, _)->Meta3dBsMostDefault.Most.just
+  //       }
+  //       let contribute3 = _buildPipelineContribute(
+  //         ~pipelineName="a3",
+  //         ~allPipelineData=[
+  //           {
+  //             name: "init",
+  //             groups: [
+  //               {
+  //                 name: "first_a3",
+  //                 link: #concat,
+  //                 elements: [
+  //                   {
+  //                     name: "job3",
+  //                     type_: #job,
+  //                     is_set_state: true->Js.Nullable.return,
+  //                   },
+  //                 ],
+  //               },
+  //             ],
+  //             first_group: "first_a3",
+  //           },
+  //         ],
+  //         ~getExecFunc=(_, jobName) => {
+  //           switch jobName {
+  //           | "job3" => job3->Js.Nullable.return
+  //           | _ => Js.Nullable.null
+  //           }
+  //         },
+  //         (),
+  //       )
+
+  //       MainTool.registerPipeline(
+  //         ~contribute=contribute3,
+  //         ~jobOrders=[
+  //           _buildJobOrder(
+  //             ~pipelineName="init",
+  //             ~insertElementName="job2",
+  //             ~insertAction=#after,
+  //             (),
+  //           ),
+  //         ],
+  //         (),
+  //       )
+  //     },
+  //   )
+
+  //   \"and"(
+  //     "init",
+  //     () => {
+  //       MainTool.init(meta3dState.contents)
+  //     },
+  //   )
+
+  //   \"when"(
+  //     "stop pipeline2's groups",
+  //     () => {
+  //       let (data, _) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
+
+  //       MainTool.stopGroup(~sandbox, ~data, ~groupName=pipeline2GroupName)
+  //     },
+  //   )
+
+  //   CucumberAsync.execStep(
+  //     \"when",
+  //     "run init pipeline",
+  //     () => {
+  //       let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
+
+  //       MainTool.runPipeline(~sandbox, ~data, ~meta3dState, ~pipelineName="init", ())
+  //       ->Meta3dBsMostDefault.Most.drain
+  //       ->Obj.magic
+  //     },
+  //   )
+
+  //   then(
+  //     "should run job1 and job3",
+  //     () => {
+  //       ((
+  //         stub1.contents->Obj.magic->getCallCount,
+  //         stub2.contents->Obj.magic->getCallCount,
+  //         stub3.contents->Obj.magic->getCallCount,
+  //       )->expect == (1, 0, 1))
+  //       ->resolve
+  //       ->Obj.magic
+  //     },
+  //   )
+  // })
 
   test(."test register one pipeline", ({given, \"when", \"and", then}) => {
     let state1 = ref(Obj.magic(1))
@@ -533,10 +742,7 @@ defineFeature(feature, test => {
     let state2 = _createState2()
     let job1 = (
       meta3dState,
-      {
-        getStatesFunc,
-        setStatesFunc,
-      }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
       getStatesFunc(. meta3dState)
       ->Meta3dCommonlib.ImmutableHashMap.set("a2", _createState2(~d2="c", ~dd2=100, ()))
@@ -545,10 +751,7 @@ defineFeature(feature, test => {
     }
     let job2 = (
       meta3dState,
-      {
-        getStatesFunc,
-        setStatesFunc,
-      }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
       let states = getStatesFunc(. meta3dState)
 
@@ -640,10 +843,7 @@ defineFeature(feature, test => {
         state2 := changedState2
         let job1 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           getStatesFunc(. meta3dState)
           ->Meta3dCommonlib.ImmutableHashMap.set("a2", changedState2)
@@ -823,10 +1023,7 @@ defineFeature(feature, test => {
     let changedState3 = _createState3(~d3=2, ())
     let job1 = (
       meta3dState,
-      {
-        getStatesFunc,
-        setStatesFunc,
-      }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+      {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
       getStatesFunc(. meta3dState)
       ->Meta3dCommonlib.ImmutableHashMap.set("a3", changedState3)
@@ -1072,10 +1269,7 @@ defineFeature(feature, test => {
         let s3 = _createState3(~d3=2, ())
         let job1 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stubJob1_3.contents()
 
@@ -1118,10 +1312,7 @@ defineFeature(feature, test => {
         let s4 = _createState4(~d4=5, ())
         let job1 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           getStatesFunc(. meta3dState)
           ->Meta3dCommonlib.ImmutableHashMap.set("a4", s4)
@@ -1130,10 +1321,7 @@ defineFeature(feature, test => {
         }
         let job2 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stubJob2_4.contents()
 
@@ -1301,10 +1489,7 @@ defineFeature(feature, test => {
         let s2 = _createState2(~d2="c", ())
         let job1 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           getStatesFunc(. meta3dState)
           ->Meta3dCommonlib.ImmutableHashMap.set("a2", s2)
@@ -1425,10 +1610,7 @@ defineFeature(feature, test => {
         stub2 := createEmptyStubWithJsObjSandbox(sandbox)
         let rootJob1_init = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub1.contents()
 
@@ -1436,10 +1618,7 @@ defineFeature(feature, test => {
         }
         let rootJob1_update = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub2.contents()
 
@@ -1549,10 +1728,7 @@ defineFeature(feature, test => {
         stub1 := createEmptyStubWithJsObjSandbox(sandbox)
         let rootJob1_init = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub1.contents()
 
@@ -1598,10 +1774,7 @@ defineFeature(feature, test => {
         stub2 := createEmptyStubWithJsObjSandbox(sandbox)
         let job1 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub2.contents()
 
@@ -1647,10 +1820,7 @@ defineFeature(feature, test => {
         stub3 := createEmptyStubWithJsObjSandbox(sandbox)
         let job2 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub3.contents()
 
@@ -1899,10 +2069,7 @@ defineFeature(feature, test => {
         let s2 = _createState1(~d1=2, ())
         let rootJob1_init = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           getStatesFunc(. meta3dState)
           ->Meta3dCommonlib.ImmutableHashMap.set("a", s1)
@@ -1911,10 +2078,7 @@ defineFeature(feature, test => {
         }
         let rootJob2_init = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           getStatesFunc(. meta3dState)
           ->Meta3dCommonlib.ImmutableHashMap.set("a", s2)
@@ -2021,10 +2185,7 @@ defineFeature(feature, test => {
 
         let rootJob_init = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub1.contents()
 
@@ -2062,10 +2223,7 @@ defineFeature(feature, test => {
 
         let createGLJob = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub2.contents()
 
@@ -2103,10 +2261,7 @@ defineFeature(feature, test => {
 
         let detectGLJob = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub3.contents()
 
@@ -2144,10 +2299,7 @@ defineFeature(feature, test => {
 
         let webglWorkerJob1 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub4.contents()
 
@@ -2155,10 +2307,7 @@ defineFeature(feature, test => {
         }
         let webglWorkerJob2 = (
           meta3dState,
-          {
-            getStatesFunc,
-            setStatesFunc,
-          }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
+          {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
         ) => {
           stub5.contents()
 

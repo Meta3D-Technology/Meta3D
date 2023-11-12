@@ -3,9 +3,7 @@ open Sinon
 let registerPipelineWithState = (
   ~contribute,
   ~state,
-  ~config: Js.Nullable.t<
-    Meta3dEngineCoreProtocol.RegisterPipelineType.config,
-  >=Js.Nullable.null,
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterPipelineType.config>=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
@@ -14,9 +12,7 @@ let registerPipelineWithState = (
 
 let registerPipeline = (
   ~contribute,
-  ~config: Js.Nullable.t<
-    Meta3dEngineCoreProtocol.RegisterPipelineType.config,
-  >=Js.Nullable.null,
+  ~config: Js.Nullable.t<Meta3dEngineCoreProtocol.RegisterPipelineType.config>=Js.Nullable.null,
   ~jobOrders: Meta3dEngineCoreProtocol.RegisterPipelineVOType.jobOrders=[],
   (),
 ) => {
@@ -70,8 +66,9 @@ let runPipeline = (
 ) => {
   let api: Meta3dType.Index.api = data
 
-  let mostService: Meta3dBsMostProtocol.ServiceType.service = 
-  Obj.magic(1)
+  let mostService: Meta3dBsMostProtocol.ServiceType.service = Meta3dBsMost.Main.getExtensionService(
+    Obj.magic(1),
+  )
 
   let meta3dEngineCoreExtensionProtocolName = _buildMeta3dEngineCoreExtensionProtocolName()
 
@@ -87,6 +84,16 @@ let runPipeline = (
   )
   ->mostService.map(StateContainer.setMeta3dState, _)
 }
+
+// let stopGroup = (~sandbox, ~data, ~groupName) => {
+//   let api: Meta3dType.Index.api = data
+
+//   let meta3dEngineCoreExtensionProtocolName = _buildMeta3dEngineCoreExtensionProtocolName()
+
+//   StateContainer.unsafeGetMeta3dState()
+//   ->DirectorForJs.stopGroup(api, _, meta3dEngineCoreExtensionProtocolName, groupName)
+//   ->StateContainer.setMeta3dState
+// }
 
 // let getStates = DirectorForJs.getStates
 

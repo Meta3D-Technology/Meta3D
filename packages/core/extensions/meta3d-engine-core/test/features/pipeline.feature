@@ -58,6 +58,20 @@ Feature: Pipeline
             When restore s2 to s1
             Then pipeline1's state should be ps1
 
+    # Rule: stop pipeline
+
+    #     Background: prepare sandbox
+    #         Given prepare sandbox
+
+    #     Scenario: test stop one pipeline
+    #         Given register pipeline1 contribute with one init pipeline job1
+    #         And register pipeline2 contribute with one init pipeline job2 after job1
+    #         And register pipeline3 contribute with one init pipeline job3 after job2
+    #         And init
+    #         When stop pipeline2's groups
+    #         And run init pipeline
+    #         Then should run job1 and job3
+
     Rule: run pipeline
 
         Background: prepare sandbox

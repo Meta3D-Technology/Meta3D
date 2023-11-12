@@ -29,7 +29,7 @@ function _setPMatrix(usedComponentContribute, param, cameraProjection, pMatrix) 
 }
 
 function updatePerspectiveCameraProjection(usedComponentContribute, engineCoreService, isDebug, cameraProjection) {
-  var aspect = OptionSt$Meta3dCommonlib.getWithDefault(_getAspect(usedComponentContribute, engineCoreService, cameraProjection), -1.0);
+  var aspect = OptionSt$Meta3dCommonlib.getWithDefault(_getAspect(usedComponentContribute, engineCoreService, cameraProjection), 1.0);
   var match = _getFovy(usedComponentContribute, engineCoreService, cameraProjection);
   var match$1 = _getNear(usedComponentContribute, engineCoreService, cameraProjection);
   var match$2 = _getFar(usedComponentContribute, engineCoreService, cameraProjection);

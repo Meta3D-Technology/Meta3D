@@ -5,6 +5,9 @@ import { browser } from "./BrowserType.gen"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { service as eventDataService_ } from "meta3d-event-data-protocol/src/service/ServiceType"
 import { service as eventSourcingService_ } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+import { events as events_ } from "meta3d-event-sourcing-protocol/src/state/StateType"
+
+export type events = events_
 
 type eventExtensionProtocolName = extensionName
 

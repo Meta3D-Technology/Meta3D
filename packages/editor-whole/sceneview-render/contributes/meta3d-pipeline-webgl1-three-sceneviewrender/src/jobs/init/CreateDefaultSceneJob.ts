@@ -13,6 +13,13 @@ let _addDefaultGameObjects = (meta3dState: meta3dState,
 ): [meta3dState, gameObject] => {
     let data = addDefaultGameObjects(meta3dState, engineSceneService)
     meta3dState = data[0]
+    let cameraView = data[1]
+
+    meta3dState = engineSceneService.basicCameraView.active(
+        meta3dState,
+        cameraView
+    )
+
 
     data = addGameObjects(meta3dState, engineSceneService)
     meta3dState = data[0]

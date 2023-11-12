@@ -1,0 +1,20 @@
+{
+    "name": "meta3d-gameview-render-utils",
+    "version": "0.20.0",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {
+        "meta3d-component-arcballcameracontroller-protocol": "^0.20.0",
+        "meta3d-component-basiccameraview-protocol": "^0.20.0",
+        "meta3d-component-geometry-protocol": "^0.20.0",
+        "meta3d-component-pbrmaterial-protocol": "^0.20.0",
+        "meta3d-component-perspectivecameraprojection-protocol": "^0.20.0",
+        "meta3d-component-transform-protocol": "^0.20.0",
+        "meta3d-core-protocol": "^0.20.0",
+        "meta3d-event-protocol": "^0.20.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

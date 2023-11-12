@@ -13,14 +13,6 @@ let _setTarget = (target: target) => {
     (globalThis as any)["meta3d_arcball_event_target_sceneviewrender"] = target
 }
 
-export let getIsEventStop = () => {
-    return (globalThis as any)["isEventStop_sceneviewrender"]
-}
-
-export let setIsEventStop = (isEventStop: boolean) => {
-    (globalThis as any)["isEventStop_sceneviewrender"] = isEventStop
-}
-
 // export let getIsEventStopForGameView = () => {
 //     return (globalThis as any)["isEventStop_gameview"]
 // }
@@ -70,7 +62,7 @@ export let reset = () => {
 
     _setTarget(target.Other)
 
-    setIsEventStop(false)
+    // setIsEventStop(false)
 }
 
 export let init = reset

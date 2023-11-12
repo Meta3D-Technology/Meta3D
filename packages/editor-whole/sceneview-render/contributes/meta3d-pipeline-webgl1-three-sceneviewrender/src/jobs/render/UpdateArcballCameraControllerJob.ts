@@ -3,11 +3,7 @@ import { getState, setState } from "../Utils";
 import { states } from "meta3d-pipeline-webgl1-three-sceneviewrender-protocol/src/StateType";
 import { update } from "meta3d-pipeline-webgl1-three-utils/src/UpdateArcballCameraControllerJobUtils";
 import { target } from "meta3d-pipeline-webgl1-three-utils/src/Type";
-import {
-    getIsEventStop,
-
-    getDragOverLocation, getPitch, getTarget, getWheel, getYaw
-} from "../ArcballCameraControllerEventUtils";
+import { getDragOverLocation, getPitch, getTarget, getWheel, getYaw } from "../ArcballCameraControllerEventUtils";
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
@@ -23,11 +19,12 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         let engineSceneService = getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
 
+        debugger
         let data = update(meta3dState, [
             getDragOverLocation, getPitch, getTarget, getWheel, getYaw
         ], engineSceneService,
             target.SceneView,
-            getIsEventStop(),
+            false,
             [
                 lastYaw, lastPitch
             ]

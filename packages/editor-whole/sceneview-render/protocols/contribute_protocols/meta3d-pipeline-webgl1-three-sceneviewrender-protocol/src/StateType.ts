@@ -8,7 +8,7 @@ import type { WebGLRenderer } from "three"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 // import { EffectComposer } from "./EffectComposer"
 
-export const pipelineName = "WebGL1_three_sceneviewrender_SceneViewRender"
+export const pipelineName = "WebGL1_Three_Sceneviewrender"
 
 export enum pipeline {
     Init = "init",
@@ -72,14 +72,13 @@ export const allPipelineData: allPipelineDataType = [
                         "type_": "job"
                     },
                     {
-                        "name": job.UpdateArcballCameraController,
-                        "type_": "job"
-                    },
-                    {
                         "name": job.ActiveArcball,
                         "type_": "job"
                     },
-
+                    {
+                        "name": job.UpdateArcballCameraController,
+                        "type_": "job"
+                    },
                     {
                         "name": job.ConvertSceneGraph,
                         "type_": "job"

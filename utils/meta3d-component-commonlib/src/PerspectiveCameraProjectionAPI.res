@@ -70,7 +70,7 @@ let updatePerspectiveCameraProjection = (
   let aspect =
     _getAspect(usedComponentContribute,engineCoreService, cameraProjection)->Meta3dCommonlib.OptionSt.getWithDefault(
       // FrustumPerspectiveCameraProjectionService.computeAspect(canvasSize),
-      -1.0
+      1.0
     )
 
   switch (

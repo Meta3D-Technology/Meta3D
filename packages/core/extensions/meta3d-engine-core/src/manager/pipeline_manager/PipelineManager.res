@@ -73,7 +73,7 @@ module ParsePipelineData = {
             meta3dEngineCoreExtensionProtocolName,
           ): Meta3dEngineCoreProtocol.StateType.state
         ),
-        states: states,
+        states,
       },
     )
   }
@@ -94,10 +94,11 @@ module ParsePipelineData = {
         unsafeGetMeta3dState(),
         (
           {
-            api: api,
-            getStatesFunc: (. meta3dState ) => _getStates(api, meta3dEngineCoreExtensionProtocolName, meta3dState),
+            api,
+            getStatesFunc: (. meta3dState) =>
+              _getStates(api, meta3dEngineCoreExtensionProtocolName, meta3dState),
             setStatesFunc: _setStates(api, meta3dEngineCoreExtensionProtocolName),
-            meta3dEngineCoreExtensionProtocolName: meta3dEngineCoreExtensionProtocolName,
+            meta3dEngineCoreExtensionProtocolName,
           }: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs
         ),
       )
@@ -240,11 +241,13 @@ let unregisterPipeline = (
   targetPipelineName: string,
 ): Meta3dEngineCoreProtocol.StateType.state => {
   ...state,
-  allRegisteredPipelineContribute: allRegisteredPipelineContribute->Meta3dCommonlib.ListSt.filter(
-    (({pipelineName}, _, _)) => {
-      pipelineName !== targetPipelineName
-    },
-  ),
+  allRegisteredPipelineContribute: allRegisteredPipelineContribute->Meta3dCommonlib.ListSt.filter(((
+    {pipelineName},
+    _,
+    _,
+  )) => {
+    pipelineName !== targetPipelineName
+  }),
 }
 
 let init = (
@@ -282,17 +285,17 @@ module MergePipelineData = {
   let _findInsertPipelineName = (
     insertElementName,
     allRegisteredPipelineContribute: Meta3dEngineCoreProtocol.PipelineManagerType.allRegisteredPipelineContribute,
-  ): Meta3dCommonlib.Result.t2<
-    Meta3dEngineCoreProtocol.PipelineContributeType.pipelineName,
-  > => {
+  ): Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.PipelineContributeType.pipelineName> => {
     allRegisteredPipelineContribute
     ->Meta3dCommonlib.ListSt.find((({pipelineName, allPipelineData}, _, _)) => {
       let {groups} = allPipelineData[0]
 
       groups->Meta3dCommonlib.ArraySt.includesByFunc(({elements}) => {
-        elements->Meta3dCommonlib.ArraySt.includesByFunc(({name}) => {
-          name === insertElementName
-        })
+        elements->Meta3dCommonlib.ArraySt.includesByFunc(
+          ({name}) => {
+            name === insertElementName
+          },
+        )
       })
     })
     ->Meta3dCommonlib.OptionSt.map((({pipelineName}, _, _)) => pipelineName)
@@ -361,12 +364,7 @@ module MergePipelineData = {
         _,
         jobOrders,
       )) => {
-        (
-          pipelineName,
-          getExecFunc,
-          allPipelineData[0],
-          jobOrders->Meta3dCommonlib.ArraySt.getFirst,
-        )
+        (pipelineName, getExecFunc, allPipelineData[0], jobOrders->Meta3dCommonlib.ArraySt.getFirst)
       })
       ->Meta3dCommonlib.ListSt.traverseResultM(((
         pipelineName,
@@ -375,31 +373,35 @@ module MergePipelineData = {
         jobOrderOpt,
       )) => {
         jobOrderOpt
-        ->Meta3dCommonlib.OptionSt.map(({insertElementName, insertAction}) => {
-          _findInsertPipelineName(
-            insertElementName,
-            allRegisteredPipelineContribute,
-          )->Meta3dCommonlib.Result.mapSuccess((
-            insertPipelineName
-          ): Meta3dEngineCoreProtocol.PipelineManagerType.jobOrder => {
-            {
-              insertPipelineName: insertPipelineName,
-              insertElementName: insertElementName,
-              insertAction: insertAction,
-            }
-          })
-        })
+        ->Meta3dCommonlib.OptionSt.map(
+          ({insertElementName, insertAction}) => {
+            _findInsertPipelineName(
+              insertElementName,
+              allRegisteredPipelineContribute,
+            )->Meta3dCommonlib.Result.mapSuccess(
+              (insertPipelineName): Meta3dEngineCoreProtocol.PipelineManagerType.jobOrder => {
+                {
+                  insertPipelineName,
+                  insertElementName,
+                  insertAction,
+                }
+              },
+            )
+          },
+        )
         ->Meta3dCommonlib.OptionSt.sequenceResultM
-        ->Meta3dCommonlib.Result.mapSuccess((
-          jobOrderOpt
-        ): Meta3dEngineCoreProtocol.PipelineManagerType.specificPipelineRelatedData => {
-          {
-            pipelineName: pipelineName,
-            getExecFunc: getExecFunc,
-            pipelineData: pipelineData,
-            jobOrder: jobOrderOpt,
-          }
-        })
+        ->Meta3dCommonlib.Result.mapSuccess(
+          (
+            jobOrderOpt
+          ): Meta3dEngineCoreProtocol.PipelineManagerType.specificPipelineRelatedData => {
+            {
+              pipelineName,
+              getExecFunc,
+              pipelineData,
+              jobOrder: jobOrderOpt,
+            }
+          },
+        )
       })
     })
   }
@@ -574,8 +576,8 @@ module MergePipelineData = {
       | Some({insertPipelineName, insertElementName, insertAction}) =>
         let nodeJobOrderOpt = (
           {
-            insertElementName: insertElementName,
-            insertAction: insertAction,
+            insertElementName,
+            insertAction,
           }: Meta3dEngineCoreProtocol.TreeType.jobOrder
         )->Some
 
@@ -620,7 +622,7 @@ module MergePipelineData = {
       name === first_group
     })
     ->Meta3dCommonlib.OptionSt.map(({name}): Meta3dEngineCoreProtocol.PipelineType.element => {
-      name: name,
+      name,
       type_: #group,
       is_set_state: false->Js.Nullable.return,
     })

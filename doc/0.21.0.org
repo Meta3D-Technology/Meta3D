@@ -316,17 +316,44 @@ runApp
 
 
 # **** TODO run test: SceneTree+Scene View+ *Game View
-**** TODO run test: Controller+Scene View
+# **** TODO run test: Controller+Scene View
 
 
-**** TODO run test: Controller+Scene View+ *Game View
+**** DONE run test: Controller+Scene View+ *Game View
 
-TODO extract Three Render Package from Editor Whole Package for both Editor/Engine Whole Package
+# TODO extract Three Render Package from Editor Whole Package for both Editor/Engine Whole Package
 
-TODO feat:engine-core: add mark pipeline execOnce and exec/not exec for game view render's pipelines
+# TODO fix update camera job
+TODO fix update camera aspect job
 
+# TODO feat:engine-core: add mark pipeline execOnce and exec/not exec for game view render's pipelines
+#     bdd test
+
+TODO publish
+# action
+# ui control
+# # core
+# editor-whole
+#     sceneview render
+#     gameview render
+sceneview render->pipeline, pro
+gameview render->meta3d-editor-gameview-render
+
+
+TODO run test: only scene view
+TODO run test: only game view
+    //nullable error
+    //arcball together
+    //not arcball
+    //should run once when init
+TODO run test: both view
 
 **** TODO run test: publish(Button)
+
+TODO publish
+sceneview render->pipeline, pro
+gameview render->meta3d-editor-gameview-render
+
 
 
 # **** TODO ap assemble:
@@ -491,6 +518,10 @@ separate header, body:
 
 ** TODO Controller
 abstract to Switch Button with configable two textures
+
+
+
+*** TODO fix: visual: why not show controller button?
 
 
 # ** TODO Message

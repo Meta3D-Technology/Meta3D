@@ -14,6 +14,12 @@ type initFunc<'state> = 'state => unit
 
 type pipelineName = string
 
+// type groupName = string
+
+// type groupStatus =
+//   | Stop
+//   | RunOnlyOnce
+
 type allPipelineData = array<pipelineData>
 
 type contributeData = {isDebug: bool}
@@ -24,6 +30,7 @@ type rec state = {
   contributeData: contributeData,
   componentContributeData: RegisterComponentType.componentContributeData,
   gameObjectContribute: option<GameObjectType.gameObjectContribute>,
+  // groupStatusData: Meta3dCommonlibType.ImmutableHashMapType.t<groupName, groupStatus>,
   mutable usedGameObjectContribute: option<GameObjectType.usedGameObjectContribute>,
 }
 and execFunc = (Meta3dType.Index.state, operateStatesFuncs) => stream<Meta3dType.Index.state>
