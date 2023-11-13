@@ -348,12 +348,29 @@ TODO run test: only game view
     //should run once when init
 TODO run test: both view
 
-**** TODO run test: publish(Button)
+**** DONE run test: publish(Button)
 
 TODO publish
-sceneview render->pipeline, pro
-gameview render->meta3d-editor-gameview-render
+sceneview render->meta3d-editor-sceneview-render, pipeline, pro
+gameview render->meta3d-editor-gameview-render, pipeline
 
+engine whole package
+web render package
+three package
+action publish, pro
+
+editor whole package->remove dispose,scenegraph, api; add three package, export scene extension
+editor whole package->extension rename to meta3d-editor-webgl1-three-whole
+editor whole package->extension pro
+
+engine scene package->engine scene
+engine scene package:
+    add dispose
+
+
+TODO run test
+
+TODO need publish
 
 
 # **** TODO ap assemble:
@@ -540,6 +557,7 @@ abstract to Switch Button with configable two textures
 
 
 
+* TODO fix: action publish: render lighter than visualRun
 
 
 

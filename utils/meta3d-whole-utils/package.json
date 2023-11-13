@@ -1,0 +1,13 @@
+{
+    "name": "meta3d-whole-utils",
+    "version": "0.20.0",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {
+        "meta3d-type": "^0.20.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

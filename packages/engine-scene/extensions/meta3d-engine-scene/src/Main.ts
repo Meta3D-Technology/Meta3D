@@ -10,6 +10,8 @@ import { config as transformPipelineConfig } from "meta3d-pipeline-transform-pro
 import { pipelineRootPipeline, pipelineRootJob } from "meta3d-core-protocol/src/state/StateType"
 import { pipeline as pipelineCameraPipeline, job as pipelineCameraJob } from "meta3d-pipeline-camera-protocol/src/StateType"
 import { getExtensionServiceUtils } from "meta3d-engine-scene-utils/src/Main"
+import { config as disposeConfig } from "meta3d-pipeline-dispose-protocol/src/ConfigType"
+import { state as disposeState } from "meta3d-pipeline-dispose-protocol/src/StateType"
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -39,6 +41,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					},
 				]
 			)
+
+			meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<disposeConfig, disposeState>>(meta3dState, "meta3d-pipeline-dispose-protocol"),
+				null,
+				[
+					{
+						pipelineName: pipelineRootPipeline.Update,
+						insertElementName: pipelineRootJob.Update,
+						insertAction: "after"
+					}
+				]
+			)
+
 
 			return meta3dState
 		},

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-scene",
-    "version": "0.20.0",
+    "version": "0.20.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-scene-protocol"
@@ -23,6 +23,7 @@
         "meta3d-engine-scene-utils": "^0.20.0",
         "meta3d-gameobject-protocol": "^0.20.0",
         "meta3d-pipeline-camera-protocol": "^0.20.0",
+        "meta3d-pipeline-dispose-protocol": "^0.20.0",
         "meta3d-core-protocol": "^0.20.0",
         "meta3d-pipeline-transform-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"

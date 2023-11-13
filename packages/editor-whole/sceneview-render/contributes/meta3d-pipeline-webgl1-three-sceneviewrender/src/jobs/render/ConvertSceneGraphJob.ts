@@ -8,11 +8,8 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	let { mostService, converterService } = getState(states)
 
 	return mostService.callFunc(() => {
-		return api.setExtensionState(meta3dState,
-			"meta3d-scenegraph-converter-three-protocol",
-			converterService.convert(
+		return converterService.convert(
 				buildGetAllGameObjectsFunc(api),
 				meta3dState)
-		)
 	})
 }

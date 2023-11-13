@@ -7,8 +7,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-scenegraph-converter-three-protocol": "^0.20.0",
-        "meta3d-three-api-protocol": "^0.20.0",
+        "meta3d-three-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"
     },
     "devDependencies": {

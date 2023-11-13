@@ -4,6 +4,7 @@ import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { service as uiService_, texture } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
+import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { actionContribute as actionContribute_ } from "meta3d-event-protocol/src/contribute/ActionContributeType"
@@ -29,13 +30,14 @@ export type service = {
 	scene: (meta3dState: meta3dState) => engineSceneService,
 	ui: (meta3dState: meta3dState) => uiService,
 	event: (meta3dState: meta3dState) => eventService,
+
+	exportScene: exportScene,
 	// initForVisual: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,
 	// initForVisualRun: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,
 	init: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,
 	update: (meta3dState: meta3dState, updateData: updateData) => Promise<meta3dState>,
 	// render: (meta3dState: meta3dState) => Promise<meta3dState>,
 	// prepare: (meta3dState: meta3dState, isDebug: boolean, ecsConfig: ecsConfig, gl: nullable<webgl1Context>, canvas: HTMLCanvasElement) => meta3dState,
-	loadScene: (meta3dState: meta3dState, sceneGLB: ArrayBuffer) => Promise<meta3dState>,
 	// addToPrepareFuncs: (meta3dState: meta3dState, func: (meta3dState: meta3dState, isDebug: boolean, canvas: HTMLCanvasElement) => meta3dState) => meta3dState,
 	addToInitFuncs: addToInitFuncs,
 	// addToUpdateFuncs: addToFuncs,

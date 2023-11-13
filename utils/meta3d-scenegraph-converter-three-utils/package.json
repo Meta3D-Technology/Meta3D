@@ -8,8 +8,7 @@
         "@types/three": "0.158.1",
         "meta3d-engine-scene-protocol": "^0.20.0",
         "meta3d-event-protocol": "^0.20.0",
-        "meta3d-scenegraph-converter-three-protocol": "^0.20.0",
-        "meta3d-three-api-protocol": "^0.20.0",
+        "meta3d-three-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"
     },
     "devDependencies": {

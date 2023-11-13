@@ -16,8 +16,7 @@ import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { service as converterService } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
-import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
+import { service as threeService} from "meta3d-three-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
@@ -60,8 +59,8 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				mostService: getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")).most(meta3dState),
 				uiService: getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol")),
 				eventService: getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol")),
-				converterService: api.getExtensionService<converterService>(meta3dState, "meta3d-scenegraph-converter-three-protocol"),
-				threeAPIService: api.getExtensionService<threeAPIService>(meta3dState, "meta3d-three-api-protocol"),
+				converterService: getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState),
+				threeAPIService: getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).api(meta3dState),
 
 				renderer: null,
 				composer: null,

@@ -582,15 +582,17 @@ export let getExtensionServiceUtils = (
                 cameraGameObject
             )
 
-            return {
-                perspectiveCamera: new PerspectiveCamera(
-                    cameraView,
-                    cameraProjection,
-                    cameraGameObject
-                ) as any,
-                scene: new Scene() as any,
-                // event: allEventNames
-            }
+            return api.setExtensionState<state>(meta3dState, "meta3d-scenegraph-converter-three-protocol",
+                {
+                    perspectiveCamera: new PerspectiveCamera(
+                        cameraView,
+                        cameraProjection,
+                        cameraGameObject
+                    ) as any,
+                    scene: new Scene() as any,
+                    // event: allEventNames
+                }
+            )
         },
         import: (meta3dState, sceneGroup) => {
             let scene = getExn(api.getPackageService<scene>(meta3dState, "meta3d-engine-scene-protocol"))

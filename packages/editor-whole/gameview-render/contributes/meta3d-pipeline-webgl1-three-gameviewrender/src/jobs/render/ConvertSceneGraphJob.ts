@@ -9,15 +9,12 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
 	let { mostService, converterService } = getState(states)
 
 	return mostService.callFunc(() => {
-        if (api.getExtensionService<renderService>(meta3dState, "meta3d-editor-gameview-render-protocol").isPipelineStop(meta3dState)) {
-            return meta3dState
-        }
+		if (api.getExtensionService<renderService>(meta3dState, "meta3d-editor-gameview-render-protocol").isPipelineStop(meta3dState)) {
+			return meta3dState
+		}
 
-		return api.setExtensionState(meta3dState,
-			"meta3d-scenegraph-converter-three-protocol",
-			converterService.convert(
-				buildGetAllGameObjectsFunc(api),
-				meta3dState)
-		)
+		return converterService.convert(
+			buildGetAllGameObjectsFunc(api),
+			meta3dState)
 	})
 }
