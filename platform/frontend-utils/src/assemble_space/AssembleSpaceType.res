@@ -56,13 +56,8 @@ type reactService = {
 type consoleService = {error: error, errorWithExn: errorWithExn}
 
 type convertAllFileDataForApp = (
-  . array<Meta3d.ExtensionFileType.extensionFileData>,
-  array<Meta3d.ExtensionFileType.contributeFileData>,
-  array<Meta3dType.Index.extensionName>,
-) => (
-  array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
-  array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
-)
+  . array<Meta3d.ExtensionFileType.contributeFileData>,
+) => array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>
 
 type convertAllFileDataForPackage = (
   . array<Meta3d.ExtensionFileType.extensionFileData>,
@@ -103,23 +98,17 @@ type meta3dService = {
     array<Js.Typed_array.ArrayBuffer.t>,
   ) => Js.Typed_array.ArrayBuffer.t,
   generateApp: (
-    . (
-      array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
-      array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
-    ),
+    . array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     array<Js.Typed_array.ArrayBuffer.t>,
     array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
     Js.Nullable.t<Meta3dType.Index.startConfigData>,
+    string,
   ) => Js.Typed_array.ArrayBuffer.t,
   convertAllFileDataForApp: convertAllFileDataForApp,
   convertAllFileDataForPackage: convertAllFileDataForPackage,
   loadApp: (
     . Js.Typed_array.ArrayBuffer.t,
-  ) => (
-    Meta3dType.Index.state,
-    array<Meta3d.AppAndPackageFileType.extensionFileData>,
-    Meta3dType.Index.startConfigData,
-  ),
+  ) => (Meta3dType.Index.state, string, Meta3dType.Index.startConfigData),
   getExtensionFuncDataStr: (. Js.Typed_array.Uint8Array.t) => string,
   getExtensionFuncData: (. string) => Js.Typed_array.Uint8Array.t,
   getContributeFuncDataStr: (. Js.Typed_array.Uint8Array.t) => string,
@@ -152,10 +141,10 @@ type meta3dService = {
   ) => string,
   // serializeActionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   // getActions: (. Meta3d.LibUtils.lib) => Meta3dType.ActionProtocolConfigType.actions,
-  serializeStartExtensionProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
+  serializeStartPackageProtocolConfigLib: (. string) => Meta3d.LibUtils.lib,
   getNeedConfigData: (
     . Meta3d.LibUtils.lib,
-  ) => Meta3dType.StartExtensionProtocolConfigType.needConfigData,
+  ) => Meta3dType.StartPackageProtocolConfigType.needConfigData,
 }
 
 type otherService = {
@@ -175,7 +164,9 @@ type initStream = Meta3dBsMostDefault.Most.stream<db>
 
 type storageService = {
   initForElementVisualApp: unit => initStream,
-  getElementVisualApp: (. initStream) => Meta3dBsMostDefault.Most.stream<Js.Typed_array.ArrayBuffer.t>,
+  getElementVisualApp: (
+    . initStream,
+  ) => Meta3dBsMostDefault.Most.stream<Js.Typed_array.ArrayBuffer.t>,
   setElementVisualApp: (. initStream, Js.Typed_array.ArrayBuffer.t) => initStream,
 }
 

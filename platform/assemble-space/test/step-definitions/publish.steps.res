@@ -128,6 +128,7 @@ defineFeature(feature, test => {
         p2EntryExtensionName,
         p2Version,
         p2Name,
+        _,
       ): Meta3d.AppAndPackageFileType.packageData,
     ),
     selectedExtensions,
@@ -275,7 +276,7 @@ defineFeature(feature, test => {
       ~packageProtocolIconBase64="ibase64",
       ~entryExtensionName="en2",
       ~packageVersion="0.0.2",
-      ~pacakgeName="p2",
+      ~packageName="p2",
       (),
     )
 
@@ -370,7 +371,7 @@ defineFeature(feature, test => {
           ~values=values.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~serializeStartExtensionProtocolConfigLib=Meta3d.Main.serializeStartExtensionProtocolConfigLib->Obj.magic,
+            ~serializeStartPackageProtocolConfigLib=Meta3d.Main.serializeStartPackageProtocolConfigLib->Obj.magic,
             ~getNeedConfigData=Meta3d.Main.getNeedConfigData->Obj.magic,
             ~publishApp=publishAppStub.contents->Obj.magic,
             ~generateApp=generateAppStub.contents->Obj.magic,

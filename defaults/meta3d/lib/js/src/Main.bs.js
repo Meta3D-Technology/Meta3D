@@ -75,7 +75,7 @@ var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIContro
 
 var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
 
-var serializeStartExtensionProtocolConfigLib = StartExtensionProtocolConfig$Meta3d.serializeLib;
+var serializeStartPackageProtocolConfigLib = StartExtensionProtocolConfig$Meta3d.serializeLib;
 
 var getNeedConfigData = StartExtensionProtocolConfig$Meta3d.getNeedConfigData;
 
@@ -119,7 +119,7 @@ exports.getUIControlSpecificDataFields = getUIControlSpecificDataFields;
 exports.hasChildren = hasChildren;
 exports.getUIControlSupportedEventNames = getUIControlSupportedEventNames;
 exports.generateHandleUIControlEventStr = generateHandleUIControlEventStr;
-exports.serializeStartExtensionProtocolConfigLib = serializeStartExtensionProtocolConfigLib;
+exports.serializeStartPackageProtocolConfigLib = serializeStartPackageProtocolConfigLib;
 exports.getNeedConfigData = getNeedConfigData;
 exports.restore = restore;
 exports.deepCopy = deepCopy;

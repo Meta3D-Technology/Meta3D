@@ -196,7 +196,7 @@ let _import = (
     let selectedPackages =
       allPackageDataStoredInApp
       ->Meta3dCommonlib.ArraySt.map(((
-        (protocol, entryExtensionName, version, name),
+        (protocol, entryExtensionName, version, name, entryExtensionProtocolConfigStr),
         binaryFile,
       )): FrontendUtils.AssembleSpaceCommonType.packageData => {
         {
@@ -206,6 +206,11 @@ let _import = (
           version,
           name,
           binaryFile,
+          protocolConfigStr: switch entryExtensionProtocolConfigStr {
+          | "" => None
+          | value => Some(value)
+          },
+          isStart: false,
         }
       })
       ->Meta3dCommonlib.ListSt.fromArray

@@ -51,7 +51,7 @@ let getAllPublishPackageInfos = (getDataByKeyContainFunc, limitCount, skipCount,
     limitCount, skipCount, [
         entryExtensionProtocolName, entryExtensionProtocolVersion
     ]).map((data) => {
-        return data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionName, packageName, packageVersion, description, fileID }) => {
+        return data.map(({ account, entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionProtocolConfigStr, entryExtensionName, packageName, packageVersion, description, fileID }) => {
             return {
                 id: fileID,
                 account,
@@ -59,6 +59,7 @@ let getAllPublishPackageInfos = (getDataByKeyContainFunc, limitCount, skipCount,
                 entryExtensionProtocolVersion,
                 entryExtensionProtocolVersionRange,
                 entryExtensionProtocolIconBase64,
+                entryExtensionProtocolConfigStr,
                 entryExtensionName,
                 name: packageName,
                 version: packageVersion,

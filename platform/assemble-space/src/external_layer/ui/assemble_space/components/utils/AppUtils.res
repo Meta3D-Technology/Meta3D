@@ -11,15 +11,16 @@ open FrontendUtils.AssembleSpaceType
 let generateApp = (
   service,
   (selectPackages, allPackagesStoredInApp),
+  //TODO remove
   selectedExtensions,
   selectedContributes,
   configData,
 ) => {
   service.meta3d.generateApp(.
     service.meta3d.convertAllFileDataForApp(.
-      selectedExtensions->Meta3dCommonlib.ArraySt.map((
-        {data}: FrontendUtils.ApAssembleStoreType.extension,
-      ) => data),
+      // selectedExtensions->Meta3dCommonlib.ArraySt.map((
+      //   {data}: FrontendUtils.ApAssembleStoreType.extension,
+      // ) => data),
       selectedContributes->Meta3dCommonlib.ArraySt.map((
         {data}: FrontendUtils.ApAssembleStoreType.contribute,
       ) => data),
@@ -29,15 +30,21 @@ let generateApp = (
       //   name: protocol.name,
       //   version: protocol.version,
       // }),
-      selectedExtensions
-      ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
-      ->Meta3dCommonlib.ArraySt.map(({data}) => data.extensionPackageData.name),
+      // selectedExtensions
+      // ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
+      // ->Meta3dCommonlib.ArraySt.map(({data}) => data.extensionPackageData.name),
     ),
     selectPackages->Meta3dCommonlib.ArraySt.map((
       {binaryFile}: FrontendUtils.PackageAssembleStoreType.package,
     ) => binaryFile),
     allPackagesStoredInApp,
     configData,
+    selectPackages
+    ->Meta3dCommonlib.ArraySt.find(({isStart}: FrontendUtils.PackageAssembleStoreType.package) =>
+      isStart
+    )
+    ->Meta3dCommonlib.OptionSt.map(({protocol}) => protocol.name)
+    ->Meta3dCommonlib.OptionSt.getExn,
   )
 }
 
@@ -52,8 +59,21 @@ let splitPackages = (selectedPackages, storedPackageIdsInApp) => {
     ->Meta3dCommonlib.ListSt.filter(({id}: FrontendUtils.AssembleSpaceCommonType.packageData) => {
       storedPackageIdsInApp->Meta3dCommonlib.ListSt.includes(id)
     })
-    ->Meta3dCommonlib.ListSt.map(({protocol, entryExtensionName, version, name, binaryFile}) => (
-      (protocol, entryExtensionName, version, name),
+    ->Meta3dCommonlib.ListSt.map(({
+      protocol,
+      entryExtensionName,
+      version,
+      name,
+      binaryFile,
+      protocolConfigStr,
+    }) => (
+      (
+        protocol,
+        entryExtensionName,
+        version,
+        name,
+        protocolConfigStr->Meta3dCommonlib.OptionSt.getWithDefault(""),
+      ),
       binaryFile,
     ))
     ->Meta3dCommonlib.ListSt.toArray,

@@ -42,9 +42,11 @@
 //   reducers: reducers,
 // }
 
+type protocolConfigStr = string
+
 type protocolConfig = {
   name: string,
   version: string,
   account: string,
-  configStr: string,
+  configStr: protocolConfigStr,
 }

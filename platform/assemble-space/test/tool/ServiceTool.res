@@ -122,7 +122,7 @@ let build = (
   ~generateHandleUIControlEventStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~serializeActionProtocolConfigLib=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getActions=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~serializeStartExtensionProtocolConfigLib=createEmptyStub(
+  ~serializeStartPackageProtocolConfigLib=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
   ~getNeedConfigData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -206,7 +206,7 @@ let build = (
     generateHandleUIControlEventStr,
     // serializeActionProtocolConfigLib,
     // getActions,
-    serializeStartExtensionProtocolConfigLib,
+    serializeStartPackageProtocolConfigLib,
     getNeedConfigData,
   },
   other: {

@@ -46,6 +46,11 @@ Feature: DependencyGraph
             When build graph data
             Then should build data: e1 -> e2, empty with higher version; e2 -> empty with higher version
 
+        Scenario: if has start package, build graph data
+            Given select package p2 for protocol2 which contain package p1 and dependent on p1 and is start pacakge
+            When build graph data
+            Then should build data: p1 -> p2
+
 
     Rule: package stored in app
 

@@ -2,7 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.publish = exports.buildPartialKeyByPackageData = exports.buildPartialKeyByEntryProcoltolData = exports._buildKey = void 0;
 const most_1 = require("most");
-const Main_1 = require("../../../../../utils/meta3d-backend-cloudbase/src/Main");
+const Main_1 = require("meta3d-backend-cloudbase/src/Main");
+const NullableUtils_1 = require("../../utils/NullableUtils");
 let _buildKey = (entryExtensionProtocolName, entryExtensionProtocolVersion, packageName, packageVersion, account) => (0, Main_1.handleKeyToLowercase)(account + "_" +
     entryExtensionProtocolName + "_" +
     entryExtensionProtocolVersion + "_" +
@@ -13,7 +14,7 @@ let _buildFileName = (packageName, packageVersion, account) => account + "_" +
 let buildPartialKeyByEntryProcoltolData = (entryExtensionProtocolName, entryExtensionProtocolVersion) => entryExtensionProtocolName + "_" + entryExtensionProtocolVersion;
 exports.buildPartialKeyByEntryProcoltolData = buildPartialKeyByEntryProcoltolData;
 exports.buildPartialKeyByPackageData = _buildFileName;
-let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionProtocolDisplayName, entryExtensionProtocolRepoLink, entryExtensionProtocolDescription, entryExtensionName], [packageName, packageVersion, description], account) => {
+let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc], packageBinaryFile, [entryExtensionProtocolName, entryExtensionProtocolVersion, entryExtensionProtocolVersionRange, entryExtensionProtocolIconBase64, entryExtensionProtocolDisplayName, entryExtensionProtocolRepoLink, entryExtensionProtocolDescription, entryExtensionProtocolConfigStr, entryExtensionName], [packageName, packageVersion, description], account) => {
     let key = (0, exports._buildKey)(entryExtensionProtocolName, entryExtensionProtocolVersion, packageName, packageVersion, account);
     return hasDataFunc("publishedpackages", key).concatMap((isExist) => {
         let fileName = _buildFileName(packageName, packageVersion, account);
@@ -30,6 +31,7 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                     entryExtensionProtocolDisplayName,
                     entryExtensionProtocolRepoLink,
                     entryExtensionProtocolDescription,
+                    entryExtensionProtocolConfigStr: (0, NullableUtils_1.getWithDefault)(entryExtensionProtocolConfigStr, ""),
                     entryExtensionName,
                     packageName,
                     packageVersion,
@@ -46,6 +48,7 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, 
                 entryExtensionProtocolDisplayName,
                 entryExtensionProtocolRepoLink,
                 entryExtensionProtocolDescription,
+                entryExtensionProtocolConfigStr: (0, NullableUtils_1.getWithDefault)(entryExtensionProtocolConfigStr, ""),
                 entryExtensionName,
                 packageName,
                 packageVersion,

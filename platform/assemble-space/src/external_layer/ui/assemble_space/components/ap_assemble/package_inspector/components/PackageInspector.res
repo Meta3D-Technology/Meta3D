@@ -3,6 +3,20 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  let startPackage = (
+    dispatch,
+    inspectorCurrentPackage: FrontendUtils.ApAssembleStoreType.package,
+  ) => {
+    dispatch(FrontendUtils.ApAssembleStoreType.StartPackage(inspectorCurrentPackage.id))
+  }
+
+  let unstartPackage = (
+    dispatch,
+    inspectorCurrentPackage: FrontendUtils.ApAssembleStoreType.package,
+  ) => {
+    dispatch(FrontendUtils.ApAssembleStoreType.UnStartPackage(inspectorCurrentPackage.id))
+  }
+
   let isPackageStoredInApp = (id, storedPackageIdsInApp) => {
     storedPackageIdsInApp->Meta3dCommonlib.ListSt.includes(id)
   }
@@ -191,7 +205,7 @@ let make = (~service: service) => {
     )
 
     None
-  }, [inspectorCurrentPackageId])
+  }, [inspectorCurrentPackageId, selectedPackages-> Obj.magic])
 
   switch inspectorCurrentPackage {
   | None => React.null
@@ -259,6 +273,20 @@ let make = (~service: service) => {
               Method.storePackageInApp(dispatchForApAssembleStore, inspectorCurrentPackage)
             }}>
             {React.string(`保存在App中`)}
+          </Button>}
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`入口包`)}, ())}
+      {inspectorCurrentPackage.isStart
+        ? <Button
+            onClick={_ => {
+              Method.unstartPackage(dispatch, inspectorCurrentPackage)
+            }}>
+            {React.string(`取消启动`)}
+          </Button>
+        : <Button
+            onClick={_ => {
+              Method.startPackage(dispatch, inspectorCurrentPackage)
+            }}>
+            {React.string(`启动`)}
           </Button>}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
       <Button

@@ -1,5 +1,8 @@
 import { fromPromise } from "most"
-import { handleKeyToLowercase } from "../../../../../utils/meta3d-backend-cloudbase/src/Main"
+import { handleKeyToLowercase } from "meta3d-backend-cloudbase/src/Main"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { getWithDefault } from "../../utils/NullableUtils"
+
 
 export let _buildKey = (
     entryExtensionProtocolName: string,
@@ -33,8 +36,9 @@ export let publish = (
         entryExtensionProtocolDisplayName,
         entryExtensionProtocolRepoLink,
         entryExtensionProtocolDescription,
+        entryExtensionProtocolConfigStr,
         entryExtensionName
-    ]: [string, string, string, string, string, string, string, string],
+    ]: [string, string, string, string, string, string, string, nullable<string>, string],
     [packageName, packageVersion, description]: [string, string, string],
     account: string
 ) => {
@@ -67,6 +71,7 @@ export let publish = (
                         entryExtensionProtocolDisplayName,
                         entryExtensionProtocolRepoLink,
                         entryExtensionProtocolDescription,
+                        entryExtensionProtocolConfigStr: getWithDefault(entryExtensionProtocolConfigStr, ""),
                         entryExtensionName,
                         packageName,
                         packageVersion,
@@ -87,6 +92,7 @@ export let publish = (
                     entryExtensionProtocolDisplayName,
                     entryExtensionProtocolRepoLink,
                     entryExtensionProtocolDescription,
+                    entryExtensionProtocolConfigStr: getWithDefault(entryExtensionProtocolConfigStr, ""),
                     entryExtensionName,
                     packageName,
                     packageVersion,

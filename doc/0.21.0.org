@@ -378,21 +378,62 @@ TODO need publish
 
 
 
-**** TODO feat: Selected Package: add start
+**** DONE feat: Selected Package: add start
 TODO start entry extension
 
+TODO fix:
+findNewestPackage
 
-**** TODO fix: import app should keep package structure(sub, subsub, ... packages)
+TODO run test 
+
+
+**** TODO feat: ap assemble space: remove Extensions, Selected Extensions
+
+TODO remove Store->StartExtension
+TODO remove extension-> isStart
+
+
+TODO bdd test
+
+TODO run test
+
 
 
 **** TODO fix: import package should keep package structure(sub, subsub, ... packages)
 
+TODO bdd test
+
+TODO run test
+
+
+**** TODO fix: import app should keep package structure(sub, subsub, ... packages)
+
+TODO bdd test
+
+TODO run test
+
+
+**** TODO feat: ap assemble space: Debug: should keep package structure
+
+
+**** TODO fix: ap assemble space: Debug: Package-> show Debug: if show one package->switch package: should not show Debug!
 
 
 **** TODO fix: auto upgrade: upgrade saved/not saved in app packages(not upgrade their extensions/contributes)
 
+TODO bdd test
+
+TODO run test
 
 
+
+**** TODO style: import package: show info under import button like import app
+
+
+**** TODO refactor: extract asset package
+
+
+# **** TODO fix: package name duplicate?
 
 
 *** TODO ui control
@@ -425,7 +466,7 @@ TODO only get editor whole service
 
 
 
-*** TODO run test
+*** TODO run test: Controller+Scene View UI Control
 
 
 
@@ -461,6 +502,11 @@ TODO because element contribute dependent on uiControlInput and Action, dependen
 
 
 
+*** TODO run test: + GameView + Publish UI Control
+
+
+
+*** TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
 
 
 ** TODO demo2: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)

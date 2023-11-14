@@ -14,7 +14,7 @@ defineFeature(feature, test => {
     // let getDataByKeyFunc, downloadFileFunc
     // let getDataByKeyContainFunc
 
-    let _createFuncsForPublish = (sandbox) =>  {
+    let _createFuncsForPublish = (sandbox) => {
         onUploadProgressFunc = "onUploadProgressFunc"
         uploadFileFunc = sandbox.stub()
         hasDataFunc = sandbox.stub()
@@ -27,7 +27,7 @@ defineFeature(feature, test => {
         getFileIDFunc = getFileID
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -42,6 +42,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName,
             entryExtensionProtocolRepoLink,
             entryExtensionProtocolDescription,
+            entryExtensionProtocolConfigStr,
             entryExtensionProtocolIconBase64,
             entryExtensionName,
             account,
@@ -73,6 +74,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName = "epd1"
             entryExtensionProtocolRepoLink = "epl1"
             entryExtensionProtocolDescription = "epdp1"
+            entryExtensionProtocolConfigStr = "epc1"
             entryExtensionName = "e1"
             account = "account1"
             description = "d1"
@@ -91,6 +93,7 @@ defineFeature(feature, test => {
                     entryExtensionProtocolDisplayName,
                     entryExtensionProtocolRepoLink,
                     entryExtensionProtocolDescription,
+                    entryExtensionProtocolConfigStr,
                     entryExtensionName,
                 ],
                 [
@@ -128,6 +131,7 @@ defineFeature(feature, test => {
                     entryExtensionProtocolDisplayName,
                     entryExtensionProtocolRepoLink,
                     entryExtensionProtocolDescription,
+                    entryExtensionProtocolConfigStr,
                     entryExtensionName,
                     packageName,
                     packageVersion,
@@ -150,6 +154,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName1,
             entryExtensionProtocolRepoLink1,
             entryExtensionProtocolDescription1,
+            entryExtensionProtocolConfigStr1,
             entryExtensionName1,
             account1,
             description1
@@ -162,6 +167,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName2,
             entryExtensionProtocolRepoLink2,
             entryExtensionProtocolDescription2,
+            entryExtensionProtocolConfigStr2,
             entryExtensionName2,
             account2,
             description2
@@ -197,6 +203,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName1 = "epd1"
             entryExtensionProtocolRepoLink1 = "epl1"
             entryExtensionProtocolDescription1 = "epdp1"
+            entryExtensionProtocolConfigStr1 = "epc1"
             entryExtensionName1 = "e1"
             account1 = "account1"
             description1 = "d1"
@@ -211,6 +218,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName2 = "epd2"
             entryExtensionProtocolRepoLink2 = "epl2"
             entryExtensionProtocolDescription2 = "epdp2"
+            entryExtensionProtocolConfigStr2 = null
             entryExtensionName2 = entryExtensionName1
             account2 = account1
             description2 = "d2"
@@ -229,6 +237,7 @@ defineFeature(feature, test => {
                     entryExtensionProtocolDisplayName1,
                     entryExtensionProtocolRepoLink1,
                     entryExtensionProtocolDescription1,
+                    entryExtensionProtocolConfigStr1,
                     entryExtensionName1,
                 ],
                 [
@@ -253,6 +262,7 @@ defineFeature(feature, test => {
                     entryExtensionProtocolDisplayName2,
                     entryExtensionProtocolRepoLink2,
                     entryExtensionProtocolDescription2,
+                    entryExtensionProtocolConfigStr2,
                     entryExtensionName2,
                 ],
                 [
@@ -293,6 +303,7 @@ defineFeature(feature, test => {
                     entryExtensionProtocolDisplayName: entryExtensionProtocolDisplayName2,
                     entryExtensionProtocolRepoLink: entryExtensionProtocolRepoLink2,
                     entryExtensionProtocolDescription: entryExtensionProtocolDescription2,
+                    entryExtensionProtocolConfigStr: "",
                     entryExtensionName: entryExtensionName1,
                     packageName: packageName2,
                     packageVersion: packageVersion2,

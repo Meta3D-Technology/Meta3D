@@ -9,27 +9,20 @@ module Method = {
     selectedContributes->Meta3dCommonlib.ArraySt.length == 0
   }
 
-  let getStartExtensionNeedConfigData = (
+  let getStartPackageNeedConfigData = (
     service,
-    selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
+    selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
   ) => {
-    switch selectedExtensions->Meta3dCommonlib.ListSt.find(({isStart}) => {
+    switch selectedPackages->Meta3dCommonlib.ListSt.find(({isStart}) => {
       isStart
     }) {
-    | None =>
-      // service.console.error(. {j`can't find start extension`}, None)
-      // []
-
-      Meta3dCommonlib.Result.fail({j`找不到启动扩展`})
+    | None => Meta3dCommonlib.Result.fail({j`找不到启动包`})
     | Some({protocolConfigStr}) =>
       switch protocolConfigStr {
-      | None =>
-        // service.console.error(. {j`start extension should has protocolConfigStr`}, None)
-        // []
-        Meta3dCommonlib.Result.fail({j`启动扩展应该有protocolConfigStr`})
+      | None => Meta3dCommonlib.Result.fail({j`启动包应该有protocolConfigStr`})
       | Some(protocolConfigStr) =>
         service.meta3d.getNeedConfigData(.
-          service.meta3d.serializeStartExtensionProtocolConfigLib(. protocolConfigStr),
+          service.meta3d.serializeStartPackageProtocolConfigLib(. protocolConfigStr),
         )->Meta3dCommonlib.Result.succeed
       }
     }
@@ -37,10 +30,10 @@ module Method = {
 
   let _buildConfigData = (
     values,
-    startExtensionNeedConfigData: Meta3dType.StartExtensionProtocolConfigType.needConfigData,
+    startPackageNeedConfigData: Meta3dType.StartPackageProtocolConfigType.needConfigData,
     apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
-    startExtensionNeedConfigData->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, type_}) => {
+    startPackageNeedConfigData->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name, type_}) => {
       let value = (values->Obj.magic)[j`configData_${name}`->Obj.magic]
 
       map->Meta3dCommonlib.ImmutableHashMap.set(
@@ -91,11 +84,11 @@ module Method = {
           ()->Js.Promise.resolve
         }
       : {
-          getStartExtensionNeedConfigData(
+          getStartPackageNeedConfigData(
             service,
-            selectedExtensions->Meta3dCommonlib.ListSt.fromArray,
+            selectedPackages->Meta3dCommonlib.ListSt.fromArray,
           )->Meta3dCommonlib.Result.either(
-            startExtensionNeedConfigData => {
+            startPackageNeedConfigData => {
               let appBinaryFile = AppUtils.generateApp(
                 service,
                 (selectedPackages, allPackagesStoredInApp),
@@ -108,11 +101,7 @@ module Method = {
                       height: canvasData.height,
                     }: Meta3dType.Index.canvasData
                   ),
-                  _buildConfigData(
-                    values,
-                    startExtensionNeedConfigData,
-                    apInspectorData,
-                  )->Obj.magic,
+                  _buildConfigData(values, startPackageNeedConfigData, apInspectorData)->Obj.magic,
                 )->Meta3dCommonlib.NullableSt.return,
               )
 
@@ -272,14 +261,14 @@ let make = (~service: service, ~account: option<string>) => {
                   <Input />
                 </Form.Item>
                 <h1> {React.string(`Config Data`)} </h1>
-                {Method.getStartExtensionNeedConfigData(
+                {Method.getStartPackageNeedConfigData(
                   service,
-                  selectedExtensions,
+                  selectedPackages
                 )->Meta3dCommonlib.Result.either(
-                  startExtensionNeedConfigData => {
-                    startExtensionNeedConfigData
+                  startPackageNeedConfigData => {
+                    startPackageNeedConfigData
                     ->Meta3dCommonlib.ArraySt.map((
-                      item: Meta3dType.StartExtensionProtocolConfigType.configData,
+                      item: Meta3dType.StartPackageProtocolConfigType.configData,
                     ) => {
                       <Form.Item label={item.name} name={j`configData_${item.name}`}>
                         {switch item.type_ {

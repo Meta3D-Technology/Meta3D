@@ -764,6 +764,113 @@ defineFeature(feature, test => {
     },
   )
 
+  test(."if has start package, build graph data", ({given, \"when", \"and", then}) => {
+    let p1 = ref(Obj.magic(1))
+    let p1ProtocolName = "protocol1"
+    let p1ProtocolVersion = "^0.1.2"
+    let p2 = ref(Obj.magic(1))
+    let p2ProtocolName = "protocol2"
+    let p2ProtocolVersion = "^0.2.2"
+
+    _prepare(given, \"and")
+
+    _prepareFile(given)
+
+    given(
+      "select package p2 for protocol2 which contain package p1 and dependent on p1 and is start pacakge",
+      () => {
+        let pe1 = ExtensionTool.generateExtension(
+          ~name="pe1",
+          ~version="0.5.1",
+          ~protocolName=p1ProtocolName,
+          ~protocolVersion=p1ProtocolVersion,
+          ~displayName="ped1",
+          ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+          (),
+        )
+        let pe1FileData = Meta3d.Main.loadExtension(pe1)
+
+        p1 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~protocolName=p1ProtocolName,
+            ~protocolVersion=p1ProtocolVersion,
+            ~name="p1",
+            ~protocolIconBase64="pi1",
+            ~isStart=false,
+            ~binaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
+              [],
+            ),
+            (),
+          )
+
+        let pe2 = ExtensionTool.generateExtension(
+          ~name="pe2",
+          ~version="0.2.1",
+          ~protocolName=p2ProtocolName,
+          ~protocolVersion=p2ProtocolVersion,
+          ~displayName="ped2",
+          ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+            p1ProtocolName,
+            p1ProtocolVersion,
+          ),
+          (),
+        )
+        let pe2FileData = Meta3d.Main.loadExtension(pe2)
+
+        p2 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~protocolName=p2ProtocolName,
+            ~protocolVersion=p2ProtocolVersion,
+            ~name="p2",
+            ~protocolIconBase64="pi2",
+            ~isStart=true,
+            ~binaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([pe2FileData], [], ["pe2"]),
+              [p1.contents.binaryFile],
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "build graph data",
+      () => {
+        DependencyGraphUtilsTool.useEffectOnce(
+          ~setData=setDataStub.contents->Obj.magic,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
+              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            (),
+          ),
+          ~selectedExtensions=list{},
+          ~selectedPackages=list{p2.contents},
+          ~allPackagesStoredInApp=list{},
+          ~selectedContributes=list{},
+          (),
+        )
+      },
+    )
+
+    then(
+      "should build data: p1 -> p2",
+      () => {
+        ReactHookTool.getValue(~setLocalValueStub=setDataStub.contents, ())
+        // ->Meta3dCommonlib.Log.printForDebug
+        ->Js.Json.stringify
+        ->NewlineTool.removeBlankChar
+        ->expect ==
+          {
+            j`
+{"nodes":[{"id":"protocol2","value":{"title":"ped2","items":[{"text":"协议名","value":"protocol2"},{"text":"协议版本","value":"^0.2.2"},{"text":"协议icon","icon":"pi2"},{"text":"实现名","value":"pe2"},{"text":"实现版本","value":"0.2.1"},{"text":"所属包名","value":"p2"}]},"nodeType":2,"isEmpty":false},{"id":"protocol1","value":{"title":"ped1","items":[{"text":"协议名","value":"protocol1"},{"text":"协议版本","value":"^0.1.2"},{"text":"协议icon","icon":"pi2"},{"text":"实现名","value":"pe1"},{"text":"实现版本","value":"0.5.1"},{"text":"所属包名","value":"p2"}]},"nodeType":2,"isEmpty":false}],"edges":[{"source":"protocol2","target":"protocol1"}]}
+          `
+          }->NewlineTool.removeBlankChar
+      },
+    )
+  })
+
   test(."if has package stored in app, they are nodes", ({given, \"when", \"and", then}) => {
     let e1 = ref(Obj.magic(1))
     let e1Name = "e1"
@@ -1268,7 +1375,7 @@ defineFeature(feature, test => {
               [],
             ),
             ~packageData=PackageStoredInAppTool.buildPackageData(
-              ~pacakgeName="p1",
+              ~packageName="p1",
               ~packageProtocolIconBase64="pi1",
               (),
             ),
@@ -1868,7 +1975,12 @@ defineFeature(feature, test => {
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
           ->withThreeArgs(matchAny, p1ProtocolName, p1Name, _)
           ->returns(
-            Meta3dBsMostDefault.Most.just((p1File, p1ProtocolVersion, p1Version, p1ProtocolIconbase64)),
+            Meta3dBsMostDefault.Most.just((
+              p1File,
+              p1ProtocolVersion,
+              p1Version,
+              p1ProtocolIconbase64,
+            )),
             _,
           )
 
@@ -1977,6 +2089,7 @@ defineFeature(feature, test => {
             ~protocolName=p1ProtocolName,
             ~protocolVersion=p1ProtocolVersion,
             ~binaryFile=p1File,
+            ~isStart=true,
             (),
           )
       },
@@ -2026,9 +2139,9 @@ defineFeature(feature, test => {
           ->Js.Json.stringify,
         )->expect ==
           (
-            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{}},\"tl\":0},{\"hd\":[{\"id\":\"e1\",\"protocolName\":\"e1-protocol\",\"protocolVersion\":\"0.2.1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"protocolDisplayName\":\"e1ProtocolDisplayName\",\"protocolRepoLink\":\"e1ProtocolRepoLink\",\"protocolDescription\":\"e1ProtocolDescription\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},\"version\":\"0.1.1\",\"account\":\"e1Account\"},null],\"tl\":0},{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0}]",
-            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{}},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
-            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{}},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},{\"hd\":[{\"id\":\"e1\",\"protocolName\":\"e1-protocol\",\"protocolVersion\":\"0.2.1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"protocolDisplayName\":\"e1ProtocolDisplayName\",\"protocolRepoLink\":\"e1ProtocolRepoLink\",\"protocolDescription\":\"e1ProtocolDescription\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},\"version\":\"0.1.1\",\"account\":\"e1Account\"},null],\"tl\":0},{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
           )
       },
     )

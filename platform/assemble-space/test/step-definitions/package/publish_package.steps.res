@@ -261,7 +261,7 @@ defineFeature(feature, test => {
           ~values=values.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~serializeStartExtensionProtocolConfigLib=Meta3d.Main.serializeStartExtensionProtocolConfigLib->Obj.magic,
+            ~serializeStartPackageProtocolConfigLib=Meta3d.Main.serializeStartPackageProtocolConfigLib->Obj.magic,
             ~publishPackage=publishPackageStub.contents->Obj.magic,
             ~generatePackage=generatePackageStub.contents->Obj.magic,
             ~convertAllFileDataForPackage=convertAllFileDataStub.contents->Obj.magic,

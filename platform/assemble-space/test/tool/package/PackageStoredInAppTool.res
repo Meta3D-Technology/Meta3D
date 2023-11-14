@@ -2,9 +2,10 @@ let buildPackageData = (
   ~packageProtocolName="p1-protocol",
   ~packageProtocolVersion="^0.0.1",
   ~packageProtocolIconBase64="ibase64",
+  ~packageProtocolConfigStr="",
   ~entryExtensionName="en1",
   ~packageVersion="0.0.1",
-  ~pacakgeName="p1",
+  ~packageName="p1",
   (),
 ): Meta3d.AppAndPackageFileType.packageData => {
   (
@@ -15,7 +16,8 @@ let buildPackageData = (
     },
     entryExtensionName,
     packageVersion,
-    pacakgeName,
+    packageName,
+    packageProtocolConfigStr,
   )
 }
 

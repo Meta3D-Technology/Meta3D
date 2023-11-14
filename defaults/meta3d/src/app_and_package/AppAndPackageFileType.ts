@@ -1,5 +1,6 @@
 import { contributeName, createExtensionState, extensionName, getContribute, getExtensionLife, getExtensionService, packageProtocolName } from "meta3d-type";
 import { blockProtocolName, blockProtocolVersion, contributeProtocolData, extensionProtocolData, versionRange } from "../file/ExtensionFileType";
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
 
 type version = string
 
@@ -53,8 +54,10 @@ type packageProtocol = {
 
 type entryExtensionName = extensionName
 
-type pacakgeName = string
+type entryExtensionProtocolConfigStr = nullable<string>
+
+type packageName = string
 
 type packageVersion = version
 
-export type packageData = [packageProtocol, entryExtensionName, packageVersion, pacakgeName]
+export type packageData = [packageProtocol, entryExtensionName, packageVersion, packageName, entryExtensionProtocolConfigStr]

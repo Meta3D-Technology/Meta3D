@@ -59,6 +59,7 @@ module Method = {
           entryExtensionProtocolDisplayName,
           entryExtensionProtocolRepoLink,
           entryExtensionProtocolDescription,
+          entryExtensionProtocolConfigStr,
         ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
 
         setIsUploadBegin(_ => true)
@@ -74,6 +75,7 @@ module Method = {
             entryExtensionProtocolDisplayName,
             entryExtensionProtocolRepoLink,
             entryExtensionProtocolDescription,
+            entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.toNullable,
             PackageUtils.getEntryExtensionName(selectedExtensions),
           ),
           (packageName, packageVersion, packageDescription),
@@ -120,7 +122,10 @@ let make = (~service: service, ~account: option<string>) => {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-  ) = FrontendUtils.ReduxUtils.PackageAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = FrontendUtils.ReduxUtils.PackageAssemble.useSelector(
+    service.react.useSelector,
+    Method.useSelector,
+  )
 
   let (visible, setVisible) = service.react.useState(_ => false)
 

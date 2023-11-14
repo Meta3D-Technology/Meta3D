@@ -43,17 +43,21 @@ let buildPackageData = (
   ~packageProtocolName,
   ~packageProtocolVersion="^0.0.1",
   ~packageProtocolIconBase64="ibase64",
+  ~packageProtocolConfigStr="",
   ~entryExtensionName="en1",
   ~packageVersion="0.0.1",
-  ~pacakgeName="p1",
+  ~packageName="p1",
   (),
 ): AppAndPackageFileType.packageData => {
   (
-    {name: packageProtocolName, version: packageProtocolVersion,
-    iconBase64:packageProtocolIconBase64
+    {
+      name: packageProtocolName,
+      version: packageProtocolVersion,
+      iconBase64: packageProtocolIconBase64,
     },
     entryExtensionName,
     packageVersion,
-    pacakgeName,
+    packageName,
+    packageProtocolConfigStr,
   )
 }

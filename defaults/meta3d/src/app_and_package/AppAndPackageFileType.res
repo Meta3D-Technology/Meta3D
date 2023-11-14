@@ -115,8 +115,16 @@ type packageProtocol = {
 
 type entryExtensionName = extensionName
 
-type pacakgeName = string
+type entryExtensionProtocolConfigStr = string
+
+type packageName = string
 
 type packageVersion = version
 
-type packageData = (packageProtocol, entryExtensionName, packageVersion, pacakgeName)
+type packageData = (
+  packageProtocol,
+  entryExtensionName,
+  packageVersion,
+  packageName,
+  entryExtensionProtocolConfigStr,
+)

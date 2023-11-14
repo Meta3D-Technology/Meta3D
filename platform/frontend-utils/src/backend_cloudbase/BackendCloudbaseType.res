@@ -54,10 +54,7 @@ type checkUserName = string => Meta3dBsMostDefault.Most.stream<bool>
 
 type registerUser = string => Meta3dBsMostDefault.Most.stream<unit>
 
-type isLoginSuccess = string => Meta3dBsMostDefault.Most.stream<(
-  bool,
-  Js.Nullable.t<string>,
-)>
+type isLoginSuccess = string => Meta3dBsMostDefault.Most.stream<(bool, Js.Nullable.t<string>)>
 
 type getAllPublishExtensionProtocols = (
   . limitCount,
@@ -96,6 +93,16 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -103,6 +110,16 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -176,6 +193,16 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -183,6 +210,16 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -349,6 +386,8 @@ type entryExtensionProtocolVersionRange = versionRange
 
 type entryExtensionProtocolIconBase64 = protocolIconBase64
 
+type entryExtensionProtocolConfigStr = CommonType.protocolConfigStr
+
 type entryExtensionProtocolDisplayName = protocolDisplayName
 
 type entryExtensionProtocolRepoLink = repoLink
@@ -368,6 +407,7 @@ type publishPackage = (
     entryExtensionProtocolDisplayName,
     entryExtensionProtocolRepoLink,
     entryExtensionProtocolDescription,
+    Js.Nullable.t<entryExtensionProtocolConfigStr>,
     entryExtensionName,
   ),
   (implementName, implementVersion, description),
@@ -388,6 +428,7 @@ type packageImplementInfo = {
   entryExtensionProtocolVersion: entryExtensionProtocolVersion,
   entryExtensionProtocolVersionRange: entryExtensionProtocolVersionRange,
   entryExtensionProtocolIconBase64: entryExtensionProtocolIconBase64,
+  entryExtensionProtocolConfigStr: entryExtensionProtocolConfigStr,
   entryExtensionName: entryExtensionName,
   name: implementName,
   version: implementVersion,
@@ -415,6 +456,7 @@ type findNewestPublishPackage = (
   entryExtensionProtocolVersion,
   implementVersion,
   entryExtensionProtocolIconBase64,
+  entryExtensionProtocolConfigStr,
 )>
 
 type findNewestPublishExtension = (

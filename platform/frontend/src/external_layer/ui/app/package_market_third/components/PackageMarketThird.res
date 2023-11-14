@@ -196,6 +196,11 @@ let make = (
                                             version: item.version,
                                             name: item.name,
                                             binaryFile: file->Meta3dCommonlib.NullableSt.getExn,
+                                            isStart: false,
+                                            protocolConfigStr: switch item.entryExtensionProtocolConfigStr {
+                                            | "" => None
+                                            | value => Some(value)
+                                            },
                                           }),
                                         ),
                                       )

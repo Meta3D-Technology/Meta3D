@@ -4,6 +4,8 @@ type version = string
 
 type iconBase64 = string
 
+type protocolConfigStr = string
+
 type extension = {
   id: id,
   protocolName: string,
@@ -46,6 +48,8 @@ type packageData = {
   version: version,
   name: string,
   binaryFile: Js.Typed_array.ArrayBuffer.t,
+  isStart:bool,
+  protocolConfigStr: option<protocolConfigStr>,
 }
 
 type storedPackageIdsInApp = list<id>

@@ -1,6 +1,6 @@
 type protocolIconBase64 = string
 
-type protocolConfigStr = string
+type protocolConfigStr = AssembleSpaceCommonType.protocolConfigStr
 
 type id = string
 
@@ -13,6 +13,7 @@ type extension = {
   protocolIconBase64: protocolIconBase64,
   protocolConfigStr: option<protocolConfigStr>,
   // newName: option<newName>,
+  // TODO remove
   isStart: bool,
   version: version,
   data: Meta3d.ExtensionFileType.extensionFileData,
@@ -68,6 +69,8 @@ type action =
       AssembleSpaceCommonType.extension,
     )
   | SetInspectorCurrentExtensionId(id)
+  | StartPackage(id)
+  | UnStartPackage(id)
   | StartExtension(id)
   | UnStartExtension(id)
   // | SetExtensionNewName(id, newName)

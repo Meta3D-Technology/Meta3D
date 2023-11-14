@@ -41,9 +41,10 @@ Feature: App Manager
         #     Then not error
 
         # Scenario: convert allExtensionFileData and allContributeFileData and allPackageEntryExtensionProtocolData
-        Scenario: convert allExtensionFileData and allContributeFileData
-            Given generate two extensions that the seond is started
-            And generate one contribute
+        # Scenario: convert allExtensionFileData and allContributeFileData
+        Scenario: convert allContributeFileData
+            # Given generate two extensions that the seond is started
+            Given generate one contribute
             # And generate one package entry extension protocol data
             # And prepare new names
             And load them as l1
@@ -93,42 +94,46 @@ Feature: App Manager
             Given prepare flag
 
         Scenario: load and start generated app
-            Given generate two extensions
-            And generate one contribute
-            And generate one package as p1 with one extension and one contribute
+            # Given generate two extensions
+            Given generate one contribute
+            And generate one package as p1 with one extension e1 and one contribute ct1
             # And generate one package entry extension protocol data
             # And prepare new names and start the second extension
-            And start the second extension
+            # And start the second extension
+            And start p1
             And load them and convert as c1
             And prepare config data
             When generate app with c1, p1, config data and load it and start it
-            Then the three extensions should be registered
-            And the two contributes should be registered
+            # Then the three extensions should be registered
+            # And the two contributes should be registered
+            Then e1, ct1 should be registered
+            # And the two contributes should be registered
             And load result should has correct config data
-            And the second extension should be started
+            # And the second extension should be started
+            And e1 should be started
 
-        Scenario: if two extension need start, error
-            Given generate two extensions
-            And start them
-            And load them and convert as c1
-            When generate app with c1 and load it
-            Then start it should error
+        # Scenario: if two extension need start, error
+        #     Given generate two extensions
+        #     And start them
+        #     And load them and convert as c1
+        #     When generate app with c1 and load it
+        #     Then start it should error
 
-    Rule: load and handle generated app
+    # Rule: load and handle generated app
 
-        Background: prepare for load and handle generated app
-            Given prepare flag
-            And generate two extensions
-            # And prepare new names
-            And load them and convert as c1
+    #     Background: prepare for load and handle generated app
+    #         Given prepare flag
+    #         And generate two extensions
+    #         # And prepare new names
+    #         And load them and convert as c1
 
-        Scenario: load and init generated app
-            When generate app with c1 and load it and init the first extension
-            Then the first extension should be inited
+    #     Scenario: load and init generated app
+    #         When generate app with c1 and load it and init the first extension
+    #         Then the first extension should be inited
 
-        Scenario: load and update generated app
-            When generate app with c1 and load it and update the second extension
-            Then the second extension should be updated
+    #     Scenario: load and update generated app
+    #         When generate app with c1 and load it and update the second extension
+    #         Then the second extension should be updated
 
 
     Rule: load generated app with package store in app
@@ -149,9 +154,11 @@ Feature: App Manager
 
         Scenario: get all pacakge and extension and contribute file data of app
             Given generate one package as p1
-            And generate one extension as e1
+            # And generate one extension as e1
             And generate one contribute as c1
-            And load e1, c1 and convert as l1
+            # And load e1, c1 and convert as l1
+            And load c1 and convert as l1
             And generate app with p1, l1 as a1
             When get all pacakge and extension and contribute file data of a1
-            Then should return parsed p1, parsed e1, parsed c1
+            # Then should return parsed p1, parsed e1, parsed c1
+            Then should return parsed p1, parsed c1

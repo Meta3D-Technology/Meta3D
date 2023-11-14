@@ -72,7 +72,7 @@ module Method = {
   ): list<nodeData> => {
     let nodes = allPackagesNotStoredInApp->Meta3dCommonlib.ListSt.reduce(list{}, (
       nodes,
-      {name, protocol, binaryFile},
+      {name, protocol, binaryFile, isStart},
     ) => {
       let (
         allExtensionFileData,
@@ -84,7 +84,7 @@ module Method = {
           (. nodes, (extensionPackageData, _)) => {
             nodes->Meta3dCommonlib.ListSt.push({
               nodeType: PackageExtension,
-              isStart: false,
+              isStart: extensionPackageData.protocol.name == protocol.name ? isStart : false,
               packageName: name->Some,
               protocol: extensionPackageData.protocol,
               protocolIconBase64: protocol.iconBase64,
@@ -121,7 +121,7 @@ module Method = {
 
     let nodes = allPackagesStoredInApp->Meta3dCommonlib.ListSt.reduce(nodes, (
       nodes,
-      ((protocol, _, version, name), _),
+      ((protocol, _, version, name, _), _),
     ) => {
       nodes->Meta3dCommonlib.ListSt.push({
         nodeType: PackageStoredInApp,
@@ -548,14 +548,19 @@ module Method = {
       selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
     ),
   ) => {
-    switch selectedExtensions->Meta3dCommonlib.ListSt.find(({isStart}) => {
-      isStart
-    }) {
-    | None =>
+    switch (
+      allPackagesNotStoredInApp->Meta3dCommonlib.ListSt.find(({isStart}) => {
+        isStart
+      }),
+      selectedExtensions->Meta3dCommonlib.ListSt.find(({isStart}) => {
+        isStart
+      }),
+    ) {
+    | (None, None) =>
       setData(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
 
       markIsPassDependencyGraphCheck(false)
-    | Some(extension) =>
+    | _ =>
       let nodes = _buildNodes(
         service,
         (allPackagesNotStoredInApp, allPackagesStoredInApp),
@@ -618,6 +623,7 @@ module Method = {
     selectedContributesForAppStore,
     startExtensionProtocolName,
   ) => {
+
     (
       selectedPackagesForAppStore,
       selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((
@@ -631,6 +637,7 @@ module Method = {
             configStr
           ),
           isStart: extension.protocolName == startExtensionProtocolName ? true : false,
+          // isStart: false,
           version: extension.version,
           data: extension.data,
         }
@@ -675,6 +682,7 @@ module Method = {
           protocolRepoLink,
           protocolDescription,
           isEntry: extension.protocolName == startExtensionProtocolName ? true : false,
+          // isEntry: false,
           version: extension.version,
           data: extension.data,
         }
@@ -713,6 +721,7 @@ module Method = {
           entryExtensionProtocolVersion,
           packageVersion,
           entryExtensionProtocolIconBase64,
+          entryExtensionProtocolConfigStr,
         )) => {
           {
             ...package,
@@ -723,6 +732,10 @@ module Method = {
               version: entryExtensionProtocolVersion,
             },
             binaryFile: file,
+            protocolConfigStr: switch entryExtensionProtocolConfigStr {
+            | "" => package.protocolConfigStr
+            | value => value->Some
+            },
           }->Meta3dBsMostDefault.Most.just
         },
         _,
@@ -852,7 +865,7 @@ module Method = {
           selectedPackagesForAppStore,
           selectedExtensionsForAppStoreEdit,
           selectedContributesForAppStore,
-          startExtensionProtocolName,
+          startExtensionProtocolName
         )
 
         service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
@@ -881,6 +894,10 @@ module Method = {
 
         ()->Js.Promise.resolve
       },
+      // startExtensionProtocolName,
+
+      // startExtensionProtocolName,
+
       // dispatchForAppStore(
       //   FrontendUtils.AppStoreType.UserCenterAction(
       //     FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(

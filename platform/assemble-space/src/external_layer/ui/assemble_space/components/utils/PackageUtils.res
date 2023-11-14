@@ -29,6 +29,7 @@ let getEntryExtensionProtocolData = selectedExtensions => {
     protocolDisplayName,
     protocolRepoLink,
     protocolDescription,
+    protocolConfigStr,
     data,
   }) => (
     protocolName,
@@ -38,6 +39,7 @@ let getEntryExtensionProtocolData = selectedExtensions => {
     protocolDisplayName,
     protocolRepoLink,
     protocolDescription,
+    protocolConfigStr,
   ))
   ->Meta3dCommonlib.ArraySt.getExn(0)
 }

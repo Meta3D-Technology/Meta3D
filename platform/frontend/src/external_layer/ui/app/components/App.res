@@ -88,21 +88,23 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           allPackageBinaryFiles,
         ),
       generateApp: (.
-        (allExtensionFileData, allContributeFileData),
+        allContributeFileData,
         allPackageBinaryFiles,
         allPackagesStoredInApp,
         startConfigData,
+        startPackageProtocolName,
       ) =>
         Meta3d.Main.generateApp(
-          (allExtensionFileData, allContributeFileData),
+          allContributeFileData,
           allPackageBinaryFiles,
           allPackagesStoredInApp,
           startConfigData,
+          startPackageProtocolName,
         ),
       convertAllFileDataForPackage: (. allExtensionFileData, allContributeFileData, data) =>
         Meta3d.Main.convertAllFileDataForPackage(allExtensionFileData, allContributeFileData, data),
-      convertAllFileDataForApp: (. allExtensionFileData, allContributeFileData, data) =>
-        Meta3d.Main.convertAllFileDataForApp(allExtensionFileData, allContributeFileData, data),
+      convertAllFileDataForApp: (. allContributeFileData) =>
+        Meta3d.Main.convertAllFileDataForApp(allContributeFileData),
       loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
       getExtensionFuncDataStr: (. extensionFuncData) =>
         Meta3d.Main.getExtensionFuncDataStr(extensionFuncData),
@@ -130,8 +132,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       // serializeActionProtocolConfigLib: (. protocolConfigStr) =>
       //   Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
       // getActions: (. configLib) => Meta3d.Main.getActions(configLib),
-      serializeStartExtensionProtocolConfigLib: (. protocolConfigStr) =>
-        Meta3d.Main.serializeStartExtensionProtocolConfigLib(protocolConfigStr),
+      serializeStartPackageProtocolConfigLib: (. protocolConfigStr) =>
+        Meta3d.Main.serializeStartPackageProtocolConfigLib(protocolConfigStr),
       getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {

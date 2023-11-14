@@ -42,6 +42,17 @@ let _reset = state => {
   }
 }
 
+let _unstartAllSelectedPackages = (
+  selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+) => {
+  selectedPackages->Meta3dCommonlib.ListSt.map(package => {
+    {
+      ...package,
+      isStart: false,
+    }
+  })
+}
+
 let _unstartAllSelectedExtensions = selectedExtensions => {
   selectedExtensions->Meta3dCommonlib.ListSt.map(extension => {
     {
@@ -85,6 +96,28 @@ let reducer = (state, action) => {
       ...state,
       inspectorCurrentExtensionId: id->Some,
     }
+  | StartPackage(id) => {
+      ...state,
+      // TODO remove
+      selectedExtensions: state.selectedExtensions->_unstartAllSelectedExtensions,
+      selectedPackages: state.selectedPackages
+      ->_unstartAllSelectedPackages
+      ->Meta3dCommonlib.ListSt.map(package => {
+        package.id === id
+          ? {
+              ...package,
+              isStart: true,
+            }
+          : package
+      }),
+    }
+  | UnStartPackage(id) => {
+      ...state,
+      // TODO remove
+      selectedExtensions: state.selectedExtensions->_unstartAllSelectedExtensions,
+      selectedPackages: state.selectedPackages->_unstartAllSelectedPackages,
+    }
+  // TODO remove
   | StartExtension(id) => {
       ...state,
       selectedExtensions: state.selectedExtensions
@@ -98,6 +131,7 @@ let reducer = (state, action) => {
           : extension
       }),
     }
+  // TODO remove
   | UnStartExtension(id) => {
       ...state,
       selectedExtensions: state.selectedExtensions->_unstartAllSelectedExtensions,

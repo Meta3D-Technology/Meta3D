@@ -2,7 +2,7 @@
 
 import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData, packageProtocolName } from "meta3d-type"
 import { actionName, supportedEventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
-import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
+import { needConfigData } from "meta3d-type/src/package/StartPackageProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp, packageData } from "./app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
@@ -87,16 +87,11 @@ type allPackageBinaryFiles = Array<ArrayBuffer>
 
 
 export function generateApp(
-    [
-        allExtensionFileData,
-        allContributeFileData
-    ]: [
-            Array<[extensionPackageDataApp, extensionFuncData]>,
-            Array<[contributePackageDataApp, contributeFuncData]>
-        ],
+    allContributeFileData: Array<[contributePackageDataApp, contributeFuncData]>,
     allPackageBinaryFiles: allPackageBinaryFiles,
     allPackageBinaryFileDataStoredInApp: Array<[packageProtocolName, ArrayBuffer]>,
-    configData: nullable<startConfigData>
+    configData: nullable<startConfigData>,
+    startPackageProtocolName: string
 ): ArrayBuffer
 
 export function generatePackage(
@@ -113,7 +108,7 @@ export function generatePackage(
 
 export function loadApp(
     appBinaryFile: ArrayBuffer
-): [state, Array<extensionFileData>]
+): [state, string, startConfigData]
 
 
 export function loadPackage(
@@ -180,7 +175,7 @@ export type serializeActionProtocolConfigLib = (protocolConfigStr: protocolConfi
 
 
 
-export type serializeStartExtensionProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
+export type serializeStartPackageProtocolConfigLib = (protocolConfigStr: protocolConfigStr) => protocolConfigLib
 
 export type getNeedConfigData = (configLib: protocolConfigLib) => needConfigData
 

@@ -8,7 +8,7 @@ let findNewestPublishPackage = ([findNewestPublishPackage, downloadFileFunc], en
         packageName: packageName
     }, ["entryExtensionProtocolVersion", semver_1.gt], ["packageVersion", semver_1.gt]).flatMap((data) => {
         return downloadFileFunc(data.fileID).map(file => {
-            return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64];
+            return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64, data.entryExtensionProtocolConfigStr];
         });
     });
 };

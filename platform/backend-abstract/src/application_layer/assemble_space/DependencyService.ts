@@ -15,7 +15,7 @@ export let findNewestPublishPackage = ([findNewestPublishPackage, downloadFileFu
         ["packageVersion", gt]
     ).flatMap((data: any) => {
         return downloadFileFunc(data.fileID).map(file => {
-            return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64]
+            return [file, data.entryExtensionProtocolVersion, data.packageVersion, data.entryExtensionProtocolIconBase64, data.entryExtensionProtocolConfigStr]
         })
     })
 }
