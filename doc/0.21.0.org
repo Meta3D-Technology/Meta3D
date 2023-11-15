@@ -450,18 +450,11 @@ TODO run test
 
 
 
-**** TODO refactor: ap assemble space: remove Extensions, Selected Extensions
+**** DONE refactor: ap assemble space: remove Extensions, Selected Extensions
 
-TODO remove Store->StartExtension
-TODO remove extension-> isStart
+# TODO remove Store->StartExtension
+# TODO remove extension-> isStart
 
-
-**** TODO remove meta3d-imgui-webgl1-three-renderer in ui package
-
-**** TODO style: import package: show info under import button like import app
-
-
-**** TODO refactor: extract asset package
 
 
 # **** TODO fix: package name duplicate?
@@ -634,10 +627,18 @@ abstract to Switch Button with configable two textures
 
 
 
-
 * TODO fix: action publish: render lighter than visualRun
 
 
+* TODO style: import package: show info under import button like import app
+
+
+
+* TODO remove meta3d-imgui-webgl1-three-renderer in ui package
+
+
+
+* TODO refactor: extract asset package
 
 
 

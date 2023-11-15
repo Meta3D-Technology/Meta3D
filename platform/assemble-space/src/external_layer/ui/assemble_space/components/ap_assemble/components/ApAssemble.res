@@ -30,7 +30,7 @@ let make = (
         <Publish service account />
         <ApController
           service
-          selectedExtensionsFromMarket
+          // selectedExtensionsFromMarket
           selectedContributesFromMarket
           selectedPackagesFromMarket
         />
@@ -42,18 +42,18 @@ let make = (
           <Collapse.Panel header="Packages" key="1">
             <Packages service selectedPackagesFromMarket />
           </Collapse.Panel>
-          <Collapse.Panel header="Extensions" key="2">
-            <Extensions service selectedExtensionsFromMarket />
-          </Collapse.Panel>
+          // <Collapse.Panel header="Extensions" key="2">
+          //   <Extensions service selectedExtensionsFromMarket />
+          // </Collapse.Panel>
           <Collapse.Panel header="Contributes" key="3">
             <Contributes service selectedContributesFromMarket />
           </Collapse.Panel>
           <Collapse.Panel header="Selected Packages" key="4">
             <SelectedPackages service />
           </Collapse.Panel>
-          <Collapse.Panel header="Selected Extensions" key="5">
-            <SelectedExtensions service />
-          </Collapse.Panel>
+          // <Collapse.Panel header="Selected Extensions" key="5">
+          //   <SelectedExtensions service />
+          // </Collapse.Panel>
           <Collapse.Panel header="Selected Contributes" key="6">
             <SelectedContributes service />
           </Collapse.Panel>

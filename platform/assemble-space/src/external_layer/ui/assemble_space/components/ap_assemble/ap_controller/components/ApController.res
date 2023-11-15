@@ -10,21 +10,21 @@ module Method = {
   let selectAll = (
     dispatch,
     selectedPackagesFromMarket: selectedPackagesFromMarket,
-    selectedExtensionsFromMarket: selectedExtensionsFromMarket,
+    // selectedExtensionsFromMarket: selectedExtensionsFromMarket,
     selectedContributesFromMarket: selectedContributesFromMarket,
   ) => {
-    selectedExtensionsFromMarket->Meta3dCommonlib.ListSt.forEach(((
-      extension,
-      protocolConfigOpt,
-    )) => {
-      dispatch(
-        FrontendUtils.ApAssembleStoreType.SelectExtension(
-          extension.protocolIconBase64,
-          protocolConfigOpt->ExtensionsContributesUtils.getProtocolConfigStr,
-          extension,
-        ),
-      )
-    })
+    // selectedExtensionsFromMarket->Meta3dCommonlib.ListSt.forEach(((
+    //   extension,
+    //   protocolConfigOpt,
+    // )) => {
+    //   dispatch(
+    //     FrontendUtils.ApAssembleStoreType.SelectExtension(
+    //       extension.protocolIconBase64,
+    //       protocolConfigOpt->ExtensionsContributesUtils.getProtocolConfigStr,
+    //       extension,
+    //     ),
+    //   )
+    // })
     selectedContributesFromMarket->Meta3dCommonlib.ListSt.forEach(((
       contribute,
       protocolConfigOpt,
@@ -47,7 +47,7 @@ module Method = {
 let make = (
   ~service: service,
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
-  ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
+  // ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
 ) => {
   let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
@@ -64,7 +64,7 @@ let make = (
         Method.selectAll(
           dispatch,
           selectedPackagesFromMarket,
-          selectedExtensionsFromMarket,
+          // selectedExtensionsFromMarket,
           selectedContributesFromMarket,
         )
       }}>
