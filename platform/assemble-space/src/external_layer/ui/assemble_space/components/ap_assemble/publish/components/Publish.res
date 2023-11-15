@@ -64,7 +64,7 @@ module Method = {
       canvasData: FrontendUtils.ElementAssembleStoreType.canvasData,
       apInspectorData,
       storedPackageIdsInApp,
-      isChangeSelectedPackagesWhenDebug,
+      isChangeSelectedPackagesByDebug,
     ),
     values,
   ): Js.Promise.t<unit> => {
@@ -84,7 +84,7 @@ module Method = {
 
           ()->Js.Promise.resolve
         }
-      : isChangeSelectedPackagesWhenDebug
+      : isChangeSelectedPackagesByDebug
       ? {
         service.console.error(.
           {j`Debug时修改了selectedPackages数据，请将对应的包更新为最新版本`},
@@ -162,7 +162,7 @@ module Method = {
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
-      isChangeSelectedPackagesWhenDebug,
+      isChangeSelectedPackagesByDebug,
     } = apAssembleState
     let {canvasData} = elementAssembleState
 
@@ -174,7 +174,7 @@ module Method = {
         apInspectorData,
         isPassDependencyGraphCheck,
         storedPackageIdsInApp,
-        isChangeSelectedPackagesWhenDebug,
+        isChangeSelectedPackagesByDebug,
       ),
       canvasData,
     )
@@ -191,7 +191,7 @@ let make = (~service: service, ~account: option<string>) => {
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
-      isChangeSelectedPackagesWhenDebug,
+      isChangeSelectedPackagesByDebug,
     ),
     canvasData,
   ) = service.react.useSelector(. Method.useSelector)
@@ -245,7 +245,7 @@ let make = (~service: service, ~account: option<string>) => {
                             canvasData,
                             apInspectorData,
                             storedPackageIdsInApp,
-                            isChangeSelectedPackagesWhenDebug,
+                            isChangeSelectedPackagesByDebug,
                           ),
                           event->Obj.magic,
                         )->ignore

@@ -434,7 +434,12 @@ TODO publish app should check flag
 **** DONE fix: ap assemble space: Debug: Package-> show Debug: if show one package->switch package: should not show Debug!
 
 
-**** TODO fix: auto upgrade: upgrade saved/not saved in app packages(not upgrade their extensions/contributes)
+**** DONE fix: auto upgrade: upgrade saved/not saved in app packages(not upgrade their extensions/contributes)
+
+
+TODO run test:app
+TODO run test:package
+
 
 TODO clear debug flag
 

@@ -116,8 +116,15 @@ Feature: DependencyGraph
 
         Scenario: auto upgrade selected packages, extensions, contributes
             Given prepare backend
-            And select extension e1
+            And select extension e1 which is start
             And select contribute c1
             And select package p1
+            When auto upgrade
+            Then should update the newest ones to app store, ap assemble store, package assemble store
+
+        Scenario: auto upgrade selected packages, contributes
+            Given prepare backend
+            And select contribute c1
+            And select package p1 which is start
             When auto upgrade
             Then should update the newest ones to app store, ap assemble store, package assemble store

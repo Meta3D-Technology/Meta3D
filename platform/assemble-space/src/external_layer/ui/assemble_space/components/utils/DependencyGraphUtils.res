@@ -604,27 +604,47 @@ module Method = {
     }
   }
 
+  let _findStartPackageProtocolName = (
+    selectedPackages: FrontendUtils.ApAssembleStoreType.selectedPackages,
+  ) => {
+    selectedPackages
+    ->Meta3dCommonlib.ListSt.find(({isStart}) => {
+      isStart
+    })
+    ->Meta3dCommonlib.OptionSt.map(({protocol}) => {
+      protocol.name
+    })
+  }
+
   let _findStartExtensionProtocolName = (
     selectedExtensions: FrontendUtils.ApAssembleStoreType.selectedExtensions,
   ) => {
-    let {data}: FrontendUtils.ApAssembleStoreType.extension =
-      selectedExtensions
-      ->Meta3dCommonlib.ListSt.find(({isStart}) => {
-        isStart
-      })
-      ->Meta3dCommonlib.OptionSt.getExn
-
-    data.extensionPackageData.protocol.name
+    selectedExtensions
+    ->Meta3dCommonlib.ListSt.find(({isStart}) => {
+      isStart
+    })
+    ->Meta3dCommonlib.OptionSt.map(({data}) => {
+      data.extensionPackageData.protocol.name
+    })
   }
 
   let _convertSelectedDataFromForAppStoreToForApAssembleStore = (
-    selectedPackagesForAppStore,
+    selectedPackagesForAppStore: list<FrontendUtils.AssembleSpaceCommonType.packageData>,
     selectedExtensionsForAppStoreEdit,
     selectedContributesForAppStore,
-    startExtensionProtocolName,
+    (startPackageProtocolName, startExtensionProtocolName),
   ) => {
     (
-      selectedPackagesForAppStore,
+      switch startPackageProtocolName {
+      | Some(startPackageProtocolName) =>
+        selectedPackagesForAppStore->Meta3dCommonlib.ListSt.map(package => {
+          {
+            ...package,
+            isStart: package.protocol.name == startPackageProtocolName ? true : false,
+          }
+        })
+      | None => selectedPackagesForAppStore
+      },
       selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((
         (extension, protocolConfig): FrontendUtils.AssembleSpaceCommonType.extensionData,
         _,
@@ -635,8 +655,11 @@ module Method = {
           protocolConfigStr: protocolConfig->Meta3dCommonlib.OptionSt.map(({configStr}) =>
             configStr
           ),
-          isStart: extension.protocolName == startExtensionProtocolName ? true : false,
-          // isStart: false,
+          isStart: switch startExtensionProtocolName {
+          | Some(startExtensionProtocolName) =>
+            extension.protocolName == startExtensionProtocolName ? true : false
+          | None => false
+          },
           version: extension.version,
           data: extension.data,
         }
@@ -658,13 +681,22 @@ module Method = {
   }
 
   let _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore = (
-    selectedPackagesForApAssembleStore,
+    selectedPackagesForApAssembleStore: list<FrontendUtils.AssembleSpaceCommonType.packageData>,
     selectedExtensionsForAppStoreEdit,
     selectedContributesForApAssembleStore,
-    startExtensionProtocolName,
+    (startPackageProtocolName, startExtensionProtocolName),
   ) => {
     (
-      selectedPackagesForApAssembleStore,
+      switch startPackageProtocolName {
+      | Some(startPackageProtocolName) =>
+        selectedPackagesForApAssembleStore->Meta3dCommonlib.ListSt.map(package => {
+          {
+            ...package,
+            isStart: package.protocol.name == startPackageProtocolName ? true : false,
+          }
+        })
+      | None => selectedPackagesForApAssembleStore
+      },
       selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((
         (extension, protocolConfig): FrontendUtils.AssembleSpaceCommonType.extensionData,
         (protocolDisplayName, protocolRepoLink, protocolDescription),
@@ -680,8 +712,11 @@ module Method = {
           protocolDisplayName,
           protocolRepoLink,
           protocolDescription,
-          isEntry: extension.protocolName == startExtensionProtocolName ? true : false,
-          // isEntry: false,
+          isEntry: switch startExtensionProtocolName {
+          | Some(startExtensionProtocolName) =>
+            extension.protocolName == startExtensionProtocolName ? true : false
+          | None => false
+          },
           version: extension.version,
           data: extension.data,
         }
@@ -702,6 +737,7 @@ module Method = {
   ) => {
     setOperateInfo(_ => "自动升级版本中...")
 
+    let startPackageProtocolName = _findStartPackageProtocolName(selectedPackages)
     let startExtensionProtocolName = _findStartExtensionProtocolName(selectedExtensions)
 
     selectedPackages
@@ -864,7 +900,7 @@ module Method = {
           selectedPackagesForAppStore,
           selectedExtensionsForAppStoreEdit,
           selectedContributesForAppStore,
-          startExtensionProtocolName,
+          (startPackageProtocolName, startExtensionProtocolName),
         )
 
         service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
@@ -887,12 +923,16 @@ module Method = {
             selectedPackagesForApAssembleStore,
             selectedExtensionsForAppStoreEdit,
             selectedContributesForApAssembleStore,
-            startExtensionProtocolName,
+            (startPackageProtocolName, startExtensionProtocolName),
           ),
         )
 
         ()->Js.Promise.resolve
       },
+      // startExtensionProtocolName,
+
+      // startExtensionProtocolName,
+
       // startExtensionProtocolName,
 
       // startExtensionProtocolName,
