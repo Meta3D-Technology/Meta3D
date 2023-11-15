@@ -3,7 +3,7 @@
 var LibUtils$Meta3d = require("../file/LibUtils.bs.js");
 
 function serializeLib(protocolConfigStr) {
-  return LibUtils$Meta3d.serializeLib(protocolConfigStr, "StartExtensionProtocolConfig");
+  return LibUtils$Meta3d.serializeLib(protocolConfigStr, "StartPackageProtocolConfig");
 }
 
 function getNeedConfigData(configLib) {

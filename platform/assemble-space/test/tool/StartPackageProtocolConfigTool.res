@@ -1,6 +1,6 @@
 let buildProtocolConfigStr = () => {
   `
-window.StartExtensionProtocolConfig = {
+window.StartPackageProtocolConfig = {
     getNeedConfigData: () => {
         return [
         {

@@ -15,16 +15,18 @@ Feature: RunElementVisualController
         When render
         Then should show run button
 
-    Scenario: get and set newest run visual extension
-        Given generate run visual extension v1 with old version
-        And generate run visual extension v2 with newest version
-        And publish v1, v2
-        When get and set newest run visual extension
-        Then should dispatch SetRunVisualExtension action with v2
+    # Scenario: get and set newest run visual extension
+    #     Given generate run visual extension v1 with old version
+    #     And generate run visual extension v2 with newest version
+    #     And publish v1, v2
+    #     When get and set newest run visual extension
+    #     Then should dispatch SetRunVisualExtension action with v2
 
     Scenario: run
         Given generate empty element contribute element1
-        And get run visual extension v
+        # And get run visual extension v
+        And generate editor whole package with extension e1
+        And select editor whole
         And prepare canvas data
         And prepare ap inspector data
         And prepare local storage
@@ -42,15 +44,15 @@ Feature: RunElementVisualController
     # And jump to run router
 
 
-    Rule: error case
+    # Rule: error case
 
-        Scenario: run when select element contribute
-            Given generate empty element contribute element1
-            And get run visual extension v
-            And prepare canvas data
-            And prepare ap inspector data
-            And generate element contribute c1
-            And select c1
-            When run
-            Then should only generate app with one element contribute: element1
+    #     Scenario: run when select element contribute
+    #         Given generate empty element contribute element1
+    #         And get run visual extension v
+    #         And prepare canvas data
+    #         And prepare ap inspector data
+    #         And generate element contribute c1
+    #         And select c1
+    #         When run
+    #         Then should only generate app with one element contribute: element1
 

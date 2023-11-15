@@ -90,7 +90,7 @@ let build = (
   ->returns(Js.Typed_array.ArrayBuffer.make(0), _)
   ->Obj.magic,
   ~convertAllFileDataForApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(([], []), _)
+  ->returns([], _)
   ->Obj.magic,
   ~convertAllFileDataForPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(([], []), _)
@@ -104,7 +104,7 @@ let build = (
   ->returns("", _)
   ->Obj.magic,
   ~getContributeFuncData=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~getAllExtensionAndContributeFileDataOfPackage=createEmptyStub(
+  ~getAllDataOfPackage=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
   ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -196,7 +196,7 @@ let build = (
     getExtensionFuncData,
     getContributeFuncDataStr,
     getContributeFuncData,
-    getAllExtensionAndContributeFileDataOfPackage,
+    getAllDataOfPackage,
     execGetContributeFunc,
     hasChildren,
     serializeUIControlProtocolConfigLib,

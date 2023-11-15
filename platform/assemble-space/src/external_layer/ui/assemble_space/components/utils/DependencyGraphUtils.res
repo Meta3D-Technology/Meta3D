@@ -77,7 +77,7 @@ module Method = {
       let (
         allExtensionFileData,
         allContributeFileData,
-      ) = service.meta3d.getAllExtensionAndContributeFileDataOfPackage(. binaryFile)
+      ) = PackageUtils.getPackageAllExtensionAndContributeFileData(service, binaryFile)
 
       let nodes =
         allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParam(
@@ -623,7 +623,6 @@ module Method = {
     selectedContributesForAppStore,
     startExtensionProtocolName,
   ) => {
-
     (
       selectedPackagesForAppStore,
       selectedExtensionsForAppStoreEdit->Meta3dCommonlib.ListSt.map(((
@@ -865,7 +864,7 @@ module Method = {
           selectedPackagesForAppStore,
           selectedExtensionsForAppStoreEdit,
           selectedContributesForAppStore,
-          startExtensionProtocolName
+          startExtensionProtocolName,
         )
 
         service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.

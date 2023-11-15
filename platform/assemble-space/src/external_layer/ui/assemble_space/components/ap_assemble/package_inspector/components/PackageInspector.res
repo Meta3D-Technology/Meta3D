@@ -54,10 +54,16 @@ module Method = {
     )
   }
 
-  let updateSelectedPackage = (dispatch, service: service, packageId, extensions, contributes) => {
+  let updateSelectedPackage = (
+    dispatch,
+    service: service,
+    inspectorCurrentPackage: FrontendUtils.AssembleSpaceCommonType.packageData,
+    extensions,
+    contributes,
+  ) => {
     dispatch(
       FrontendUtils.ApAssembleStoreType.UpdateSelectedPackage(
-        packageId,
+        inspectorCurrentPackage.id,
         service.meta3d.generatePackage(.
           (
             extensions->Meta3dCommonlib.ArraySt.map(((
@@ -76,13 +82,14 @@ module Method = {
             )),
           ),
           [],
+          PackageUtils.buildPackageData(inspectorCurrentPackage),
         ),
       ),
     )
   }
 
   let setExtension = (
-    setExtensions,
+    (setExtensions, setIsDebugChangeMap),
     newExtensionFuncDataStr,
     extensionPackageData: Meta3d.AppAndPackageFileType.extensionPackageData,
   ) => {
@@ -98,10 +105,16 @@ module Method = {
           : extension
       })
     })
+    setIsDebugChangeMap(isDebugChangeMap =>
+      isDebugChangeMap->Meta3dCommonlib.ImmutableHashMap.set(
+        extensionPackageData.protocol.name,
+        true,
+      )
+    )
   }
 
   let setContribute = (
-    setContributes,
+    (setContributes, setIsDebugChangeMap),
     newContributeFuncDataStr,
     contributePackageData: Meta3d.AppAndPackageFileType.contributePackageData,
   ) => {
@@ -120,6 +133,12 @@ module Method = {
           : contribute
       })
     })
+    setIsDebugChangeMap(isDebugChangeMap =>
+      isDebugChangeMap->Meta3dCommonlib.ImmutableHashMap.set(
+        contributePackageData.protocol.name,
+        true,
+      )
+    )
   }
 
   let useEffectOnce = (
@@ -138,7 +157,8 @@ module Method = {
       let (
         allExtensionFileData,
         allContributeFileData,
-      ) = service.meta3d.getAllExtensionAndContributeFileDataOfPackage(.
+      ) = PackageUtils.getPackageAllExtensionAndContributeFileData(
+        service,
         inspectorCurrentPackage.binaryFile,
       )
 
@@ -187,6 +207,9 @@ let make = (~service: service) => {
   let (inspectorCurrentPackage, setInspectorCurrentPackage) = service.react.useState(_ => None)
   let (extensions, setExtensions) = service.react.useState(_ => [])
   let (contributes, setContributes) = service.react.useState(_ => [])
+  let (isDebugChangeMap, setIsDebugChangeMap) = service.react.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
   let (isShowDebug, setIsShowDebug) = service.react.useState(_ => false)
 
   let (
@@ -205,7 +228,7 @@ let make = (~service: service) => {
     )
 
     None
-  }, [inspectorCurrentPackageId, selectedPackages-> Obj.magic])
+  }, [inspectorCurrentPackageId, selectedPackages->Obj.magic])
 
   switch inspectorCurrentPackage {
   | None => React.null
@@ -289,12 +312,6 @@ let make = (~service: service) => {
             {React.string(`启动`)}
           </Button>}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
-      <Button
-        onClick={_ => {
-          Method.showDebug(setIsShowDebug)
-        }}>
-        {React.string(`显示Debug`)}
-      </Button>
       {isShowDebug
         ? <>
             <Button
@@ -303,7 +320,7 @@ let make = (~service: service) => {
                   Method.updateSelectedPackage(
                     dispatch,
                     service,
-                    inspectorCurrentPackage.id,
+                    inspectorCurrentPackage,
                     extensions,
                     contributes,
                   )
@@ -329,10 +346,15 @@ let make = (~service: service) => {
                         </Typography.Text>
                       </Space>
                       <Input.TextArea
-                        value={extensionFuncDataStr}
+                        value={switch isDebugChangeMap->Meta3dCommonlib.ImmutableHashMap.get(
+                          extensionPackageData.protocol.name,
+                        ) {
+                        | Some(isChange) if isChange => extensionFuncDataStr
+                        | _ => ""
+                        }}
                         onChange={e => {
                           Method.setExtension(
-                            setExtensions,
+                            (setExtensions, setIsDebugChangeMap),
                             e->EventUtils.getEventTargetValue,
                             extensionPackageData,
                           )
@@ -361,10 +383,15 @@ let make = (~service: service) => {
                         </Typography.Text>
                       </Space>
                       <Input.TextArea
-                        value={contributeFuncDataStr}
+                        value={switch isDebugChangeMap->Meta3dCommonlib.ImmutableHashMap.get(
+                          contributePackageData.protocol.name,
+                        ) {
+                        | Some(isChange) if isChange => contributeFuncDataStr
+                        | _ => ""
+                        }}
                         onChange={e => {
                           Method.setContribute(
-                            setContributes,
+                            (setContributes, setIsDebugChangeMap),
                             e->EventUtils.getEventTargetValue,
                             contributePackageData,
                           )
@@ -376,7 +403,12 @@ let make = (~service: service) => {
               }}
             />}
           </>
-        : React.null}
+        : <Button
+            onClick={_ => {
+              Method.showDebug(setIsShowDebug)
+            }}>
+            {React.string(`显示Debug`)}
+          </Button>}
     </Space>
   }
 }

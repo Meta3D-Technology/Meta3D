@@ -147,18 +147,18 @@ Feature: App Manager
             Then get pacakge of p1's protocol name should return p1
 
 
-    Rule: get all pacakge and extension and contribute file data of app
+    Rule: get all data of app
 
         # Background: prepare flag
         #     Given prepare flag
 
-        Scenario: get all pacakge and extension and contribute file data of app
+        Scenario: get all data of app
             Given generate one package as p1
             # And generate one extension as e1
             And generate one contribute as c1
             # And load e1, c1 and convert as l1
             And load c1 and convert as l1
             And generate app with p1, l1 as a1
-            When get all pacakge and extension and contribute file data of a1
+            When get all data of a1
             # Then should return parsed p1, parsed e1, parsed c1
             Then should return parsed p1, parsed c1

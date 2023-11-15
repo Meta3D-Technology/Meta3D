@@ -1,6 +1,7 @@
 'use strict';
 
 var Caml_array = require("rescript/lib/js/caml_array.js");
+var TextEncoder$Meta3d = require("../file/TextEncoder.bs.js");
 var Log$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/log/Log.bs.js");
 var ManagerUtils$Meta3d = require("./ManagerUtils.bs.js");
 var ArraySt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/ArraySt.bs.js");
@@ -49,11 +50,16 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
         ];
 }
 
-function generate(param, allPackageBinaryFiles) {
-  return BinaryFileOperator$Meta3d.generate(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
-                        param[0],
-                        param[1]
-                      ]))(allPackageBinaryFiles));
+function _encodePackageData(packageData) {
+  var encoder = new TextEncoder();
+  return TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(packageData), encoder);
+}
+
+function generate(param, allPackageBinaryFiles, packageData) {
+  return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
+                            param[0],
+                            param[1]
+                          ]))(allPackageBinaryFiles), _encodePackageData(packageData)));
 }
 
 function _getEntryExtensionProtocolName(allExtensionDataArr) {
@@ -77,7 +83,7 @@ function load(packageBinaryFile) {
         ];
 }
 
-function getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile) {
+function getAllDataOfPackage(packageBinaryFile) {
   return ManagerUtils$Meta3d.parse2(BinaryFileOperator$Meta3d.load(packageBinaryFile));
 }
 
@@ -86,9 +92,10 @@ function getPackageService(state, protocolName) {
 }
 
 exports.convertAllFileData = convertAllFileData;
+exports._encodePackageData = _encodePackageData;
 exports.generate = generate;
 exports._getEntryExtensionProtocolName = _getEntryExtensionProtocolName;
 exports.load = load;
-exports.getAllExtensionAndContributeFileDataOfPackage = getAllExtensionAndContributeFileDataOfPackage;
+exports.getAllDataOfPackage = getAllDataOfPackage;
 exports.getPackageService = getPackageService;
 /* ManagerUtils-Meta3d Not a pure module */

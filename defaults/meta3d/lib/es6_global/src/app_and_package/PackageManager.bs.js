@@ -1,6 +1,7 @@
 
 
 import * as Caml_array from "../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
 import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as ManagerUtils$Meta3d from "./ManagerUtils.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
@@ -49,11 +50,16 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
         ];
 }
 
-function generate(param, allPackageBinaryFiles) {
-  return BinaryFileOperator$Meta3d.generate(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
-                        param[0],
-                        param[1]
-                      ]))(allPackageBinaryFiles));
+function _encodePackageData(packageData) {
+  var encoder = new TextEncoder();
+  return TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(packageData), encoder);
+}
+
+function generate(param, allPackageBinaryFiles, packageData) {
+  return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
+                            param[0],
+                            param[1]
+                          ]))(allPackageBinaryFiles), _encodePackageData(packageData)));
 }
 
 function _getEntryExtensionProtocolName(allExtensionDataArr) {
@@ -77,7 +83,7 @@ function load(packageBinaryFile) {
         ];
 }
 
-function getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile) {
+function getAllDataOfPackage(packageBinaryFile) {
   return ManagerUtils$Meta3d.parse2(BinaryFileOperator$Meta3d.load(packageBinaryFile));
 }
 
@@ -87,10 +93,11 @@ function getPackageService(state, protocolName) {
 
 export {
   convertAllFileData ,
+  _encodePackageData ,
   generate ,
   _getEntryExtensionProtocolName ,
   load ,
-  getAllExtensionAndContributeFileDataOfPackage ,
+  getAllDataOfPackage ,
   getPackageService ,
 }
 /* ManagerUtils-Meta3d Not a pure module */

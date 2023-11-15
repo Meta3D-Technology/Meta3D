@@ -5,7 +5,7 @@ var PackageManager$Meta3d = require("./app_and_package/PackageManager.bs.js");
 var ExtensionManager$Meta3d = require("./ExtensionManager.bs.js");
 var ExtensionFileManager$Meta3d = require("./file/ExtensionFileManager.bs.js");
 var UIControlProtocolConfig$Meta3d = require("./contribute_protocol_config/UIControlProtocolConfig.bs.js");
-var StartExtensionProtocolConfig$Meta3d = require("./extension_protocol_config/StartExtensionProtocolConfig.bs.js");
+var StartPackageProtocolConfig$Meta3d = require("./package_protocol_config/StartPackageProtocolConfig.bs.js");
 
 var registerExtension = ExtensionManager$Meta3d.registerExtension;
 
@@ -47,9 +47,9 @@ var loadApp = AppManager$Meta3d.load;
 
 var loadPackage = PackageManager$Meta3d.load;
 
-var getAllExtensionAndContributeFileDataOfPackage = PackageManager$Meta3d.getAllExtensionAndContributeFileDataOfPackage;
+var getAllDataOfPackage = PackageManager$Meta3d.getAllDataOfPackage;
 
-var getAllPackageAndExtensionAndContributeFileDataOfApp = AppManager$Meta3d.getAllPackageAndExtensionAndContributeFileDataOfApp;
+var getAllDataOfApp = AppManager$Meta3d.getAllDataOfApp;
 
 var startApp = AppManager$Meta3d.start;
 
@@ -75,9 +75,9 @@ var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIContro
 
 var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
 
-var serializeStartPackageProtocolConfigLib = StartExtensionProtocolConfig$Meta3d.serializeLib;
+var serializeStartPackageProtocolConfigLib = StartPackageProtocolConfig$Meta3d.serializeLib;
 
-var getNeedConfigData = StartExtensionProtocolConfig$Meta3d.getNeedConfigData;
+var getNeedConfigData = StartPackageProtocolConfig$Meta3d.getNeedConfigData;
 
 var restore = ExtensionManager$Meta3d.restore;
 
@@ -105,8 +105,8 @@ exports.generateApp = generateApp;
 exports.generatePackage = generatePackage;
 exports.loadApp = loadApp;
 exports.loadPackage = loadPackage;
-exports.getAllExtensionAndContributeFileDataOfPackage = getAllExtensionAndContributeFileDataOfPackage;
-exports.getAllPackageAndExtensionAndContributeFileDataOfApp = getAllPackageAndExtensionAndContributeFileDataOfApp;
+exports.getAllDataOfPackage = getAllDataOfPackage;
+exports.getAllDataOfApp = getAllDataOfApp;
 exports.startApp = startApp;
 exports.execGetContributeFunc = execGetContributeFunc;
 exports.getExtensionFuncDataStr = getExtensionFuncDataStr;

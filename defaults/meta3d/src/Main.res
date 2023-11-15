@@ -38,9 +38,9 @@ let loadApp = AppManager.load
 
 let loadPackage = PackageManager.load
 
-let getAllExtensionAndContributeFileDataOfPackage = PackageManager.getAllExtensionAndContributeFileDataOfPackage
+let getAllDataOfPackage = PackageManager.getAllDataOfPackage
 
-let getAllPackageAndExtensionAndContributeFileDataOfApp = AppManager.getAllPackageAndExtensionAndContributeFileDataOfApp
+let getAllDataOfApp = AppManager.getAllDataOfApp
 
 let startApp = AppManager.start
 
@@ -66,9 +66,9 @@ let getUIControlSupportedEventNames = UIControlProtocolConfig.getUIControlSuppor
 
 let generateHandleUIControlEventStr = UIControlProtocolConfig.generateHandleUIControlEventStr
 
-let serializeStartPackageProtocolConfigLib = StartExtensionProtocolConfig.serializeLib
+let serializeStartPackageProtocolConfigLib = StartPackageProtocolConfig.serializeLib
 
-let getNeedConfigData = StartExtensionProtocolConfig.getNeedConfigData
+let getNeedConfigData = StartPackageProtocolConfig.getNeedConfigData
 
 let restore = ExtensionManager.restore
 

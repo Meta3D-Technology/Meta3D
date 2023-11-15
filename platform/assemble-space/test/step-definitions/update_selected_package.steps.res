@@ -59,6 +59,7 @@ defineFeature(feature, test => {
             ~binaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([e1FileData], [], ["e1"]),
               [],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             (),
           )
@@ -76,8 +77,7 @@ defineFeature(feature, test => {
           ),
           ServiceTool.build(
             ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
             ~getExtensionFuncDataStr=(. extensionFuncData) =>
               Meta3d.Main.getExtensionFuncDataStr(extensionFuncData),
             (),
@@ -105,7 +105,7 @@ defineFeature(feature, test => {
   }) => {
     let store = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
-    let id = ref(Obj.magic(1))
+    let p1 = ref(Obj.magic(1))
     let f2Str = "\u0002\u0003"
     let f2 = Js.Typed_array.Uint8Array.make([2, 3])
 
@@ -150,14 +150,16 @@ defineFeature(feature, test => {
         )
         let e1FileData = Meta3d.Main.loadExtension(e1)
 
-        let p1 = PackageSelectedPackagesTool.buildSelectedPackage(
-          ~name="p1",
-          ~binaryFile=Meta3d.Main.generatePackage(
-            Meta3d.Main.convertAllFileDataForPackage([e1FileData], [], ["e1"]),
-            [],
-          ),
-          (),
-        )
+        p1 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~name="p1",
+            ~binaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([e1FileData], [], ["e1"]),
+              [],
+              PackageStoredInAppTool.buildPackageData(),
+            ),
+            (),
+          )
 
         store :=
           PackagesTool.selectPackage(
@@ -165,15 +167,15 @@ defineFeature(feature, test => {
               AssembleSpaceStore.reducer,
               store.contents,
             ),
-            ~package=p1,
+            ~package=p1.contents,
           )
 
-        id :=
-          (
-            store.contents.apAssembleState.selectedPackages
-            ->Meta3dCommonlib.ListSt.head
-            ->Meta3dCommonlib.OptionSt.getExn
-          ).id
+        // id :=
+        //   (
+        //     store.contents.apAssembleState.selectedPackages
+        //     ->Meta3dCommonlib.ListSt.head
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   ).id
       },
     )
 
@@ -191,14 +193,16 @@ defineFeature(feature, test => {
                 ~generatePackage=(.
                   (allExtensionFileData, allContributeFileData),
                   allPackageBinaryFiles,
+                  packageData,
                 ) =>
                   Meta3d.Main.generatePackage(
                     (allExtensionFileData, allContributeFileData),
                     allPackageBinaryFiles,
+                    packageData,
                   ),
                 (),
               ),
-              id.contents,
+              p1.contents,
               [(_buildExtensionPackageData(~name="e1", ~protocolName="e1-protocol"), f2Str)],
               [],
             ),
@@ -211,12 +215,13 @@ defineFeature(feature, test => {
       () => {
         let {selectedPackages} = store.contents.apAssembleState
 
-        Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(
+        let (allExtensions, _, _, _) = Meta3d.Main.getAllDataOfPackage(
           (
             selectedPackages->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
           ).binaryFile,
         )
-        ->Meta3dCommonlib.Tuple2.getFirst
+
+        allExtensions
         ->Meta3dCommonlib.ArraySt.unsafeGetFirst
         ->Meta3dCommonlib.Tuple2.getLast
         ->expect == f2

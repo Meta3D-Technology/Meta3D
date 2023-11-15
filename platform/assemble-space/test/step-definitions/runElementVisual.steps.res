@@ -268,6 +268,7 @@ defineFeature(feature, test => {
           Obj.magic(101),
           RunElementVisualTool.getEditorWholePackageProtocolName(),
           {
+            "target": "visualRun",
             "isDebug": isDebug,
             "canvas": canvas,
           },

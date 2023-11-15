@@ -63,6 +63,7 @@ let make = (~service: service) => {
     None
   )
   let (contributeStr, setContributeStr) = service.react.useState(_ => "")
+  let (isDebugChange, setIsDebugChange) = service.react.useState(_ => false)
 
   let (
     inspectorCurrentContributeId,
@@ -84,7 +85,6 @@ let make = (~service: service) => {
   switch inspectorCurrentContribute {
   | None => React.null
   | Some(inspectorCurrentContribute) =>
-    Js.log(inspectorCurrentContribute)
     // <Collapse defaultActiveKey={["1"]}>
     //   <Collapse.Panel header="Basic" key="1" />
     //   {}
@@ -102,9 +102,10 @@ let make = (~service: service) => {
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Debug`)}, ())}
       {<>
         <Input.TextArea
-          value={contributeStr}
+          value={isDebugChange ? contributeStr : ""}
           onChange={e => {
             setContributeStr(_ => e->EventUtils.getEventTargetValue)
+            setIsDebugChange(_ => true)
           }}
         />
         <Button

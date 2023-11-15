@@ -44,13 +44,6 @@ module Method = {
       selectedContributes,
     )->Meta3dCommonlib.Result.either(
       () => {
-        let packageBinaryFile = PackageUtils.generatePackage(
-          service,
-          selectedPackages,
-          selectedExtensions,
-          selectedContributes,
-        )
-
         let (
           entryExtensionProtocolName,
           entryExtensionProtocolVersion,
@@ -61,6 +54,24 @@ module Method = {
           entryExtensionProtocolDescription,
           entryExtensionProtocolConfigStr,
         ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
+
+        let packageBinaryFile = PackageUtils.generatePackage(
+          service,
+          selectedPackages,
+          selectedExtensions,
+          selectedContributes,
+          (
+            {
+              name: entryExtensionProtocolName,
+              version: entryExtensionProtocolVersion,
+              iconBase64: entryExtensionProtocolIconBase64,
+            },
+            PackageUtils.getEntryExtensionName(selectedExtensions),
+            packageVersion,
+            packageName,
+            entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.getWithDefault(""),
+          ),
+        )
 
         setIsUploadBegin(_ => true)
 

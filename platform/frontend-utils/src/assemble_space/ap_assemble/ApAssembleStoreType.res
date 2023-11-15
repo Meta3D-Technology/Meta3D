@@ -111,4 +111,5 @@ type state = {
   apInspectorData: apInspectorData,
   isPassDependencyGraphCheck: bool,
   storedPackageIdsInApp: AssembleSpaceCommonType.storedPackageIdsInApp,
+  isChangeSelectedPackagesWhenDebug: bool,
 }

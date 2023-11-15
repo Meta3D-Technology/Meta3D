@@ -76,7 +76,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
   React.useEffect1(() => {
     service.backend.findAllPublishApps(. FrontendUtils.MarketUtils.getLimitCount(), 0)
     ->Meta3dBsMostDefault.Most.observe(allPublishApps => {
-      Js.log(allPublishApps)
       setAllPublishApps(_ => allPublishApps)
       setIsLoaded(_ => true)
     }, _)
@@ -171,11 +170,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                   Meta3dBsMostDefault.Most.empty()->Obj.magic
                                 }
                               : {
-                                  let (
-                                    data1,
-                                    data2,
-                                    configData,
-                                  ) = Meta3d.Main.getAllPackageAndExtensionAndContributeFileDataOfApp(
+                                  let (data1, data2, configData) = Meta3d.Main.getAllDataOfApp(
                                     file->Meta3dCommonlib.NullableSt.getExn,
                                   )
 

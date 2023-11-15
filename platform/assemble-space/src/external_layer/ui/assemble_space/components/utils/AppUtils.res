@@ -33,7 +33,7 @@ let generateApp = (
       // selectedExtensions
       // ->Meta3dCommonlib.ArraySt.filter(({isStart}) => isStart)
       // ->Meta3dCommonlib.ArraySt.map(({data}) => data.extensionPackageData.name),
-    ),
+    )->Meta3dCommonlib.Log.printForDebug,
     selectPackages->Meta3dCommonlib.ArraySt.map((
       {binaryFile}: FrontendUtils.PackageAssembleStoreType.package,
     ) => binaryFile),

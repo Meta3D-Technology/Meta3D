@@ -25,7 +25,7 @@ type action =
   // | NotSelectPackage(id)
   | NotSelectPackage(name, AssembleSpaceCommonType.version)
   | SetAccount(account)
-  | ImportPackage(id, selectedExtensions, selectedContributes)
+  | ImportPackage(id, selectedExtensions, selectedContributes, selectedPackages)
   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
   | UpdateSelectedPackagesAndExtensionsAndContributes(
       selectedPackages,

@@ -16,6 +16,7 @@ let _createState = () => {
     },
     isPassDependencyGraphCheck: false,
     storedPackageIdsInApp: list{},
+    isChangeSelectedPackagesWhenDebug: false,
   }
 }
 
@@ -39,6 +40,7 @@ let _reset = state => {
     ..._createState(),
     apInspectorData: state.apInspectorData,
     storedPackageIdsInApp: state.storedPackageIdsInApp,
+    isChangeSelectedPackagesWhenDebug: false,
   }
 }
 
@@ -250,6 +252,7 @@ let reducer = (state, action) => {
             }
           : package
       }),
+      isChangeSelectedPackagesWhenDebug: true,
     }
   | MarkIsPassDependencyGraphCheck(isPass) => {
       ...state,

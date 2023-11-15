@@ -1,581 +1,629 @@
-// open Meta3dBsJestCucumber
-// open Cucumber
-// open Expect
-// open Operators
+open Meta3dBsJestCucumber
+open Cucumber
+open Expect
+open Operators
 
-// open Sinon
+open Sinon
 
-// let feature = loadFeature("./test/features/elementVisual.feature")
+let feature = loadFeature("./test/features/elementVisual.feature")
 
-// defineFeature(feature, test => {
-//   let sandbox = ref(Obj.magic(1))
+defineFeature(feature, test => {
+  let sandbox = ref(Obj.magic(1))
 
-//   let _prepare = (given, \"and") => {
-//     given("prepare", () => {
-//       sandbox := createSandbox()
-//       ReactTestTool.prepare()
+  let _prepare = (given, \"and") => {
+    given("prepare", () => {
+      sandbox := createSandbox()
+      ReactTestTool.prepare()
 
-//       FileTool.buildFakeTextDecoder(FileTool.convertUint8ArrayToBuffer)
-//       FileTool.buildFakeTextEncoder(.)
-//     })
-//   }
+      FileTool.buildFakeTextDecoder(FileTool.convertUint8ArrayToBuffer)
+      FileTool.buildFakeTextEncoder(.)
+    })
+  }
 
-//   test(."if not loaded, show loading and canvas", ({given, \"when", \"and", then}) => {
-//     _prepare(given, \"and")
+  test(."if not loaded, show loading and canvas", ({given, \"when", \"and", then}) => {
+    // let useStateStub = ref(Obj.magic(1))
 
-//     \"when"(
-//       "not loaded and render",
-//       () => {
-//         ()
-//       },
-//     )
+    _prepare(given, \"and")
 
-//     then(
-//       "should show loading and canvas",
-//       () => {
-//         let useSelectorStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//           (
-//             (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
-//             (
-//               CanvasControllerTool.buildCanvasData(),
-//               list{},
-//               list{},
-//               None,
-//               None,
-              
-//             ),
-//           ),
-//           // (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
+    \"when"(
+      "not loaded and render",
+      () => {
+        ()
+      },
+    )
 
-//           _,
-//         )
+    then(
+      "should show loading and canvas",
+      () => {
+        let useSelectorStub =
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData(), true, list{}),
+              (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
+            ),
+            _,
+          )
 
-//         ElementVisualTool.buildUI(
-//           ~sandbox,
-//           ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub, ()),
-//           (),
-//         )
-//         ->ReactTestRenderer.create
-//         ->ReactTestTool.createSnapshotAndMatch
-//       },
-//     )
-//   })
+        let useStateStub =
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->onCall(0, _)
+          ->returns((ElementVisual.Loading, _ => ElementVisual.Loading), _)
 
-//   test(."if loaded, only show canvas", ({given, \"when", \"and", then}) => {
-//     let useSelectorStub = ref(Obj.magic(1))
-//     let useStateStub = ref(Obj.magic(1))
+        ElementVisualTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=useSelectorStub,
+            ~useState=useStateStub,
+            (),
+          ),
+          (),
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
+  })
 
-//     _prepare(given, \"and")
+  test(."if loaded, only show canvas", ({given, \"when", \"and", then}) => {
+    let useSelectorStub = ref(Obj.magic(1))
+    let useStateStub = ref(Obj.magic(1))
 
-//     given(
-//       "prepare the canvas",
-//       () => {
-//         ()
-//       },
-//     )
+    _prepare(given, \"and")
 
-//     \"and"(
-//       "set its width, height",
-//       () => {
-//         useSelectorStub :=
-//           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             (
-//               (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
-//               (
-//                 CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
-//                 list{},
-//                 list{},
-//                 Some(Obj.magic(1)),
-//                 None,
-                
-//               ),
-//             ),
-//             _,
-//           )
-//       },
-//     )
+    given(
+      "prepare the canvas",
+      () => {
+        ()
+      },
+    )
 
-//     \"when"(
-//       "loaded and render",
-//       () => {
-//         useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"and"(
+      "set its width, height",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
+              (
+                CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
+                list{},
+                list{},
+                Some(Obj.magic(1)),
+                None,
+              ),
+            ),
+            _,
+          )
+      },
+    )
 
-//         useStateStub.contents
-//         ->onCall(0, _)
-//         ->returns((ElementVisual.Loaded(Obj.magic(1)), _ => ElementVisual.Loaded(Obj.magic(1))), _)
-//         ->ignore
-//       },
-//     )
+    \"when"(
+      "loaded and render",
+      () => {
+        useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-//     then(
-//       "should only show canvas",
-//       () => {
-//         ElementVisualTool.buildUI(
-//           ~sandbox,
-//           ~service=ServiceTool.build(
-//             ~sandbox,
-//             ~useSelector=useSelectorStub.contents->Obj.magic,
-//             ~useState=useStateStub.contents->Obj.magic,
-//             (),
-//           ),
-//           (),
-//         )
-//         ->ReactTestRenderer.create
-//         ->ReactTestTool.createSnapshotAndMatch
-//       },
-//     )
-//   })
+        useStateStub.contents
+        ->onCall(0, _)
+        ->returns((ElementVisual.Loaded(Obj.magic(1)), _ => ElementVisual.Loaded(Obj.magic(1))), _)
+        ->ignore
+      },
+    )
 
-//   test(."get and set newest visual extension", ({given, \"when", \"and", then}) => {
-//     let name = ElementVisualTool.getVisualExtensionName()
-//     let v1 = ref(Obj.magic(1))
-//     let v2 = ref(Obj.magic(1))
-//     let isDebug = true
-//     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
-//     let useSelectorStub = ref(Obj.magic(1))
-//     let dispatchStub = ref(Obj.magic(1))
+    then(
+      "should only show canvas",
+      () => {
+        ElementVisualTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=useSelectorStub.contents->Obj.magic,
+            ~useState=useStateStub.contents->Obj.magic,
+            (),
+          ),
+          (),
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
+  })
 
-//     _prepare(given, \"and")
+  //   test(."get and set newest visual extension", ({given, \"when", \"and", then}) => {
+  //     let name = ElementVisualTool.getVisualExtensionName()
+  //     let v1 = ref(Obj.magic(1))
+  //     let v2 = ref(Obj.magic(1))
+  //     let isDebug = true
+  //     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
+  //     let useSelectorStub = ref(Obj.magic(1))
+  //     let dispatchStub = ref(Obj.magic(1))
 
-//     given(
-//       "generate visual extension v1 with old version",
-//       () => {
-//         v1 :=
-//           Meta3dTool.generateExtension(
-//             ~name,
-//             ~protocol={
-//               name: ElementVisualTool.getVisualExtensionProtocolName(),
-//               version: FrontendUtils.VersionConfig.getPlatformVersion(),
-//             },
-//             ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//             (),
-//           )
-//       },
-//     )
+  //     _prepare(given, \"and")
 
-//     given(
-//       "generate visual extension v2 with newest version",
-//       () => {
-//         v2 :=
-//           ExtensionTool.generateExtension(
-//             ~name,
-//             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
-//             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
-//             ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//             ~fileStr="",
-//             (),
-//           )
-//         // Meta3d.Main.generateExtension(
-//         //   (
-//         //     {
-//         //       name,
-//         //       protocol: {
-//         //         name: ElementVisualTool.getVisualExtensionProtocolName(),
-//         //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
-//         //       },
-//         //       dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//         //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//         //     }: Meta3d.ExtensionFileType.extensionPackageData
-//         //   ),
-//         //   "",
-//         // )
-//       },
-//     )
+  //     given(
+  //       "generate visual extension v1 with old version",
+  //       () => {
+  //         v1 :=
+  //           Meta3dTool.generateExtension(
+  //             ~name,
+  //             ~protocol={
+  //               name: ElementVisualTool.getVisualExtensionProtocolName(),
+  //               version: FrontendUtils.VersionConfig.getPlatformVersion(),
+  //             },
+  //             ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //             (),
+  //           )
+  //       },
+  //     )
 
-//     \"and"(
-//       "publish v1, v2",
-//       () => {
-//         getAllPublishNewestExtensionsStub.contents =
-//           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             Meta3dBsMostDefault.Most.just([
-//               ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.5.0", ()),
-//               ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.5.1", ()),
-//             ]),
-//             _,
-//           )
-//       },
-//     )
+  //     given(
+  //       "generate visual extension v2 with newest version",
+  //       () => {
+  //         v2 :=
+  //           ExtensionTool.generateExtension(
+  //             ~name,
+  //             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
+  //             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
+  //             ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //             ~fileStr="",
+  //             (),
+  //           )
+  //         // Meta3d.Main.generateExtension(
+  //         //   (
+  //         //     {
+  //         //       name,
+  //         //       protocol: {
+  //         //         name: ElementVisualTool.getVisualExtensionProtocolName(),
+  //         //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
+  //         //       },
+  //         //       dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //         //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+  //         //     }: Meta3d.ExtensionFileType.extensionPackageData
+  //         //   ),
+  //         //   "",
+  //         // )
+  //       },
+  //     )
 
-//     CucumberAsync.execStep(
-//       \"when",
-//       "get and set newest visual extension",
-//       () => {
-//         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //     \"and"(
+  //       "publish v1, v2",
+  //       () => {
+  //         getAllPublishNewestExtensionsStub.contents =
+  //           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //             Meta3dBsMostDefault.Most.just([
+  //               ExtensionTool.buildExtensionImplement(~file=v1.contents, ~version="0.5.0", ()),
+  //               ExtensionTool.buildExtensionImplement(~file=v2.contents, ~version="0.5.1", ()),
+  //             ]),
+  //             _,
+  //           )
+  //       },
+  //     )
 
-//         ElementVisualTool.getAndSetNewestVisualExtension(
-//           ServiceTool.build(
-//             ~sandbox,
-//             ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
-//             ~getAllPublishNewestExtensions=getAllPublishNewestExtensionsStub.contents,
-//             (),
-//           ),
-//           dispatchStub.contents,
-//           isDebug,
-//         )
-//       },
-//     )
+  //     CucumberAsync.execStep(
+  //       \"when",
+  //       "get and set newest visual extension",
+  //       () => {
+  //         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-//     then(
-//       "should dispatch SetVisualExtension action with v2",
-//       () => {
-//         dispatchStub.contents
-//         ->Obj.magic
-//         ->SinonTool.calledWith(
-//           FrontendUtils.ElementAssembleStoreType.SetVisualExtension(
-//             SelectedExtensionsTool.buildSelectedExtension(
-//               ~name,
-//               ~protocolIconBase64="",
-//               ~id="",
-//               // ~newName=ElementVisualTool.getVisualExtensionName()->Some,
-//               ~data={
-//                 extensionPackageData: ExtensionTool.buildExtensionPackageData(
-//                   ~name,
-//                   ~protocol={
-//                     name: ElementVisualTool.getVisualExtensionProtocolName(),
-//                     version: FrontendUtils.VersionConfig.getPlatformVersion(),
-//                   },
-//                   (),
-//                 ),
-//                 extensionFuncData: matchAny,
-//               },
-//               (),
-//             ),
-//           ),
-//         )
-//         ->expect == true
-//       },
-//     )
-//   })
+  //         ElementVisualTool.getAndSetNewestVisualExtension(
+  //           ServiceTool.build(
+  //             ~sandbox,
+  //             ~loadExtension=Meta3d.Main.loadExtension->Obj.magic,
+  //             ~getAllPublishNewestExtensions=getAllPublishNewestExtensionsStub.contents,
+  //             (),
+  //           ),
+  //           dispatchStub.contents,
+  //           isDebug,
+  //         )
+  //       },
+  //     )
 
-//   let _prepareStartApp = () => {
-//     //TODO implement
-//     Obj.magic(1)
-//   }
+  //     then(
+  //       "should dispatch SetVisualExtension action with v2",
+  //       () => {
+  //         dispatchStub.contents
+  //         ->Obj.magic
+  //         ->SinonTool.calledWith(
+  //           FrontendUtils.ElementAssembleStoreType.SetVisualExtension(
+  //             SelectedExtensionsTool.buildSelectedExtension(
+  //               ~name,
+  //               ~protocolIconBase64="",
+  //               ~id="",
+  //               // ~newName=ElementVisualTool.getVisualExtensionName()->Some,
+  //               ~data={
+  //                 extensionPackageData: ExtensionTool.buildExtensionPackageData(
+  //                   ~name,
+  //                   ~protocol={
+  //                     name: ElementVisualTool.getVisualExtensionProtocolName(),
+  //                     version: FrontendUtils.VersionConfig.getPlatformVersion(),
+  //                   },
+  //                   (),
+  //                 ),
+  //                 extensionFuncData: matchAny,
+  //               },
+  //               (),
+  //             ),
+  //           ),
+  //         )
+  //         ->expect == true
+  //       },
+  //     )
+  //   })
 
-//   test(."start app", ({given, \"when", \"and", then}) => {
-//     let element1 = ref(Obj.magic(1))
-//     let v = ref(Obj.magic(1))
-//     let ui = ref(Obj.magic(1))
-//     let event = ref(Obj.magic(1))
-//     let c1 = ref(Obj.magic(1))
-//     let uiState = Obj.magic(11)
-//     let selectedExtensions = ref(list{})
-//     let selectedContributes = ref(list{})
-//     let useSelectorStub = ref(Obj.magic(1))
-//     let getExtensionStateStub = ref(Obj.magic(1))
-//     let getExtensionServiceStub = ref(Obj.magic(1))
-//     let setExtensionStateFake = ref(Obj.magic(1))
-//     let execGetContributeFuncStub = ref(Obj.magic(1))
+  test(."start app", ({given, \"when", \"and", then}) => {
+    let element1 = ref(Obj.magic(1))
+    let editorWholeName = "meta3d-editor-whole"
+    let p1 = ref(Obj.magic(1))
+    // let e1 = ref(Obj.magic(1))
+    // let ui = ref(Obj.magic(1))
+    // let event = ref(Obj.magic(1))
+    // let c1 = ref(Obj.magic(1))
+    let uiState = Obj.magic(11)
+    // let selectedExtensions = ref(list{})
+    // let selectedContributes = ref(list{})
+    let selectedPackages = ref(list{})
+    let useSelectorStub = ref(Obj.magic(1))
+    // let getExtensionStateStub = ref(Obj.magic(1))
+    let getPackageServiceStub = ref(Obj.magic(1))
+    // let setExtensionStateFake = ref(Obj.magic(1))
+    let execGetContributeFuncStub = ref(Obj.magic(1))
 
-//     let loopFirstFrameID = 2
-//     let loopOtherFrameID = 3
-//     // let loopFrameIDRef = ref(ElementVisualTool.buildReactRef(1->Some))
-//     let loopFrameIDRef = ReactHookTool.buildReactRef(1->Some)
-//     // let useRefStub = ref(Obj.magic(1))
+    let loopFirstFrameID = 2
+    let loopOtherFrameID = 3
+    // let loopFrameIDRef = ref(ElementVisualTool.buildReactRef(1->Some))
+    let loopFrameIDRef = ReactHookTool.buildReactRef(1->Some)
+    // let useRefStub = ref(Obj.magic(1))
 
-//     _prepare(given, \"and")
+    _prepare(given, \"and")
 
-//     given(
-//       "prepare flag",
-//       () => {
-//         ElementVisualTool.prepareInitFlag()
-//         ElementVisualTool.prepareUpdateFlag()
-//       },
-//     )
+    given(
+      "prepare flag",
+      () => {
+        ElementVisualTool.prepareInitFlag()
+        ElementVisualTool.prepareUpdateFlag()
+      },
+    )
 
-//     \"and"(
-//       "generate empty element contribute element1",
-//       () => {
-//         element1 :=
-//           ElementVisualTool.generateElementContribute(
-//             ~sandbox,
-//             ~service=ServiceTool.build(
-//               ~sandbox,
-//               ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
-//               ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
-//               (),
-//             ),
-//             ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
-//             (),
-//           )
-//       },
-//     )
+    \"and"(
+      "generate empty element contribute element1",
+      () => {
+        element1 :=
+          ElementVisualTool.generateElementContribute(
+            ~sandbox,
+            ~service=ServiceTool.build(
+              ~sandbox,
+              ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
+              ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
+              (),
+            ),
+            ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+            (),
+          )
+      },
+    )
 
-//     \"and"(
-//       "set element1 to space state",
-//       () => {
-//         ElementVisualTool.setElementContributeToSpaceState(element1.contents->Some)
-//       },
-//     )
+    \"and"(
+      "set element1 to space state",
+      () => {
+        ElementVisualTool.setElementContributeToSpaceState(element1.contents->Some)
+      },
+    )
 
-//     \"and"(
-//       "get visual extension v",
-//       () => {
-//         v :=
-//           // Meta3d.Main.generateExtension(
-//           //   (
-//           //     {
-//           //       name: ElementVisualTool.getVisualExtensionName(),
-//           //       protocol: {
-//           //         name: ElementVisualTool.getVisualExtensionProtocolName(),
-//           //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
-//           //       },
-//           //       dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//           //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//           //     }: Meta3d.ExtensionFileType.extensionPackageData
-//           //   ),
-//           //   ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
-//           // )
+    // \"and"(
+    //   "get visual extension v",
+    //   () => {
+    //     v :=
+    //       // Meta3d.Main.generateExtension(
+    //       //   (
+    //       //     {
+    //       //       name: ElementVisualTool.getVisualExtensionName(),
+    //       //       protocol: {
+    //       //         name: ElementVisualTool.getVisualExtensionProtocolName(),
+    //       //         version: FrontendUtils.VersionConfig.getPlatformVersion(),
+    //       //       },
+    //       //       dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //       //       dependentContributeProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //       //     }: Meta3d.ExtensionFileType.extensionPackageData
+    //       //   ),
+    //       //   ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
+    //       // )
 
-//           ExtensionTool.generateExtension(
-//             ~name=ElementVisualTool.getVisualExtensionName(),
-//             ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
-//             ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
-//             ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//             ~fileStr=ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
-//             (),
-//           )->ElementVisualTool.loadAndBuildVisualExtension(
-//             ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
-//             _,
-//           )
-//       },
-//     )
+    //       ExtensionTool.generateExtension(
+    //         ~name=ElementVisualTool.getVisualExtensionName(),
+    //         ~protocolName=ElementVisualTool.getVisualExtensionProtocolName(),
+    //         ~protocolVersion=FrontendUtils.VersionConfig.getPlatformVersion(),
+    //         ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //         ~fileStr=ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
+    //         (),
+    //       )->ElementVisualTool.loadAndBuildVisualExtension(
+    //         ServiceTool.build(~sandbox, ~loadExtension=Meta3d.Main.loadExtension->Obj.magic, ()),
+    //         _,
+    //       )
+    //   },
+    // )
 
-//     \"and"(
-//       "generate extension ui",
-//       () => {
-//         ui :=
-//           ExtensionTool.generateExtension(
-//             ~name="meta3d-ui",
-//             ~protocolName="meta3d-ui-protocol",
-//             ~protocolVersion="^0.6.0",
-//             (),
-//           )->Meta3d.Main.loadExtension
-//       },
-//     )
+    // \"and"(
+    //   "generate extension ui",
+    //   () => {
+    //     ui :=
+    //       ExtensionTool.generateExtension(
+    //         ~name="meta3d-ui",
+    //         ~protocolName="meta3d-ui-protocol",
+    //         ~protocolVersion="^0.6.0",
+    //         (),
+    //       )->Meta3d.Main.loadExtension
+    //   },
+    // )
 
-//     \"and"(
-//       "generate extension event",
-//       () => {
-//         event :=
-//           ExtensionTool.generateExtension(
-//             ~name="meta3d-event",
-//             ~protocolName="meta3d-event-protocol",
-//             ~protocolVersion="^0.6.0",
-//             (),
-//           )->Meta3d.Main.loadExtension
-//       },
-//     )
+    // \"and"(
+    //   "generate extension event",
+    //   () => {
+    //     event :=
+    //       ExtensionTool.generateExtension(
+    //         ~name="meta3d-event",
+    //         ~protocolName="meta3d-event-protocol",
+    //         ~protocolVersion="^0.6.0",
+    //         (),
+    //       )->Meta3d.Main.loadExtension
+    //   },
+    // )
 
-//     \"and"(
-//       "generate contribute c1",
-//       () => {
-//         c1 := ContributeTool.generateContribute(~name="c1", ())->Meta3d.Main.loadContribute
-//       },
-//     )
+    // \"and"(
+    //   "generate contribute c1",
+    //   () => {
+    //     c1 := ContributeTool.generateContribute(~name="c1", ())->Meta3d.Main.loadContribute
+    //   },
+    // )
 
-//     \"and"(
-//       "select ui",
-//       () => {
-//         let name = "meta3d-ui"
+    \"and"(
+      "generate editor whole package with extension e1",
+      () => {
+        let e1 = ExtensionTool.generateExtension(
+          ~name=editorWholeName,
+          ~protocolName=ElementVisualTool.getEditorWholePackageProtocolName(),
+          ~fileStr=ElementVisualTool.buildEmptyExtensionFileStrWithOnInitAndOnUpdate(1, 11),
+          (),
+        )
+        let e1FileData = Meta3d.Main.loadExtension(e1)
 
-//         selectedExtensions :=
-//           list{
-//             SelectedExtensionsTool.buildSelectedExtension(
-//               ~name,
-//               // ~newName=None,
-//               ~id=name,
-//               ~data=ui.contents,
-//               (),
-//             ),
-//           }
-//       },
-//     )
+        p1 :=
+          PackageSelectedPackagesTool.buildSelectedPackage(
+            ~id="p1",
+            ~name="p1",
+            ~isStart=true,
+            ~binaryFile=Meta3d.Main.generatePackage(
+              Meta3d.Main.convertAllFileDataForPackage([e1FileData], [], ["e1"]),
+              [],
+              PackageStoredInAppTool.buildPackageData(),
+            ),
+            (),
+          )
+      },
+    )
 
-//     \"and"(
-//       "select event",
-//       () => {
-//         let name = "meta3d-event"
+    // \"and"(
+    //   "select ui",
+    //   () => {
+    //     let name = "meta3d-ui"
 
-//         selectedExtensions :=
-//           selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
-//             SelectedExtensionsTool.buildSelectedExtension(
-//               ~name,
-//               // ~newName=None,
-//               ~id=name,
-//               ~data=event.contents,
-//               (),
-//             ),
-//           )
-//       },
-//     )
+    //     selectedExtensions :=
+    //       list{
+    //         SelectedExtensionsTool.buildSelectedExtension(
+    //           ~name,
+    //           // ~newName=None,
+    //           ~id=name,
+    //           ~data=ui.contents,
+    //           (),
+    //         ),
+    //       }
+    //   },
+    // )
 
-//     \"and"(
-//       "select c1",
-//       () => {
-//         let name = "c1"
+    // \"and"(
+    //   "select event",
+    //   () => {
+    //     let name = "meta3d-event"
 
-//         selectedContributes :=
-//           list{
-//             SelectedContributesTool.buildSelectedContribute(
-//               ~name,
-//               // ~newName=None,
-//               ~id=name,
-//               ~data=c1.contents,
-//               (),
-//             ),
-//           }
-//       },
-//     )
+    //     selectedExtensions :=
+    //       selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
+    //         SelectedExtensionsTool.buildSelectedExtension(
+    //           ~name,
+    //           // ~newName=None,
+    //           ~id=name,
+    //           ~data=event.contents,
+    //           (),
+    //         ),
+    //       )
+    //   },
+    // )
 
-//     CucumberAsync.execStep(
-//       \"when",
-//       "start app with ui, c1, v",
-//       () => {
-//         getExtensionStateStub :=
-//           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(uiState, _)
-//         getExtensionServiceStub :=
-//           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-//             {
-//               "registerElement": (uiState, _) => uiState,
-//             },
-//             _,
-//           )
+    // \"and"(
+    //   "select c1",
+    //   () => {
+    //     let name = "c1"
 
-//         execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    //     selectedContributes :=
+    //       list{
+    //         SelectedContributesTool.buildSelectedContribute(
+    //           ~name,
+    //           // ~newName=None,
+    //           ~id=name,
+    //           ~data=c1.contents,
+    //           (),
+    //         ),
+    //       }
+    //   },
+    // )
 
-//         setExtensionStateFake :=
-//           ((. meta3dState, meta3dUIExtensionProtocolName, uiState) => meta3dState)
+    \"and"(
+      "select editor whole",
+      () => {
+        selectedPackages := list{p1.contents}
+      },
+    )
 
-//         ElementVisualTool.startApp(
-//           ServiceTool.build(
-//             ~sandbox,
-//             ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
-//             ~getExtensionState=getExtensionStateStub.contents->Obj.magic,
-//             ~getExtensionService=getExtensionServiceStub.contents->Obj.magic,
-//             ~setExtensionState=setExtensionStateFake.contents->Obj.magic,
-//             ~generateApp=Meta3d.Main.generateApp->Obj.magic,
-//             ~convertAllFileDataForApp=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
-//             ~loadApp=Meta3d.Main.loadApp->Obj.magic,
-//             ~initExtension=(. meta3dState, extensionName, data) =>
-//               Meta3d.Main.initExtension(meta3dState, extensionName, data),
-//             ~updateExtension=(. meta3dState, extensionName, data) =>
-//               Meta3d.Main.updateExtension(meta3dState, extensionName, data),
-//             ~requestAnimationFirstFrame=func => {
-//               func(0.)
+    CucumberAsync.execStep(
+      \"when",
+      "start app with editor whole",
+      () => {
+        // getExtensionStateStub :=
+        //   createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(uiState, _)
+        getPackageServiceStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            {"ui": _ => {"registerElement": (meta3dState, _) => meta3dState}},
+            _,
+          )
 
-//               loopFirstFrameID
-//             },
-//             ~requestAnimationOtherFrame=(. _) => {
-//               loopOtherFrameID
-//             },
-//             ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-//             ->returns(Obj.magic(1), _)
-//             ->Obj.magic,
-//             (),
-//           ),
-//           loopFrameIDRef,
-//           (list{}, selectedExtensions.contents, selectedContributes.contents, list{}),
-//           v.contents,
-//           ApInspectorTool.buildApInspectorData(),
-//         )
-//       },
-//     )
+        execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-//     then(
-//       "build app with ui, c1, v",
-//       () => {
-//         ()
-//       },
-//     )
+        // setExtensionStateFake :=
+        //   ((. meta3dState, meta3dUIExtensionProtocolName, uiState) => meta3dState)
 
-//     \"and"(
-//       "v should be inited",
-//       () => {
-//         ElementVisualTool.getInitFlag()->expect == 1
-//       },
-//     )
+        ElementVisualTool.startApp(
+          ServiceTool.build(
+            ~sandbox,
+            ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
+            // ~getExtensionState=getExtensionStateStub.contents->Obj.magic,
+            ~getPackageService=getPackageServiceStub.contents->Obj.magic,
+            // ~setExtensionState=setExtensionStateFake.contents->Obj.magic,
+            ~generateApp=Meta3d.Main.generateApp->Obj.magic,
+            ~convertAllFileDataForApp=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
+            ~loadApp=Meta3d.Main.loadApp->Obj.magic,
+            ~initExtension=(. meta3dState, extensionName, data) =>
+              Meta3d.Main.initExtension(meta3dState, extensionName, data),
+            ~updateExtension=(. meta3dState, extensionName, data) =>
+              Meta3d.Main.updateExtension(meta3dState, extensionName, data),
+            ~requestAnimationFirstFrame=func => {
+              func(0.)
 
-//     \"and"(
-//       "get element1 from space state and update it",
-//       () => {
-//         (
-//           execGetContributeFuncStub.contents
-//           ->Obj.magic
-//           ->SinonTool.calledWith(
-//             matchAny,
-//             // Meta3dCommonlib.ImmutableHashMap.createEmpty()
-//             // ->Meta3dCommonlib.ImmutableHashMap.set(
-//             //   "meta3dUIExtensionProtocolName",
-//             //   ElementVisualUtils.getUIExtensionProtocolName(),
-//             // )
-//             // ->Meta3dCommonlib.ImmutableHashMap.set(
-//             //   "meta3dImguiRendererExtensionProtocolName",
-//             //   "meta3d-imgui-renderer-protocol",
-//             // ),
-//             // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-//           ),
-//           getExtensionStateStub.contents
-//           ->Obj.magic
-//           ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
-//           getExtensionStateStub.contents
-//           ->Obj.magic
-//           ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
-//           getExtensionServiceStub.contents
-//           ->Obj.magic
-//           ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
-//         )->expect == (true, true, true, true)
-//       },
-//     )
+              loopFirstFrameID
+            },
+            ~requestAnimationOtherFrame=_ => {
+              loopOtherFrameID
+            },
+            ~querySelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+            ->returns(Obj.magic(1), _)
+            ->Obj.magic,
+            (),
+          ),
+          loopFrameIDRef,
+          (selectedPackages.contents, list{}, list{}, list{}),
+          ApInspectorTool.buildApInspectorData(),
+        )
+      },
+    )
 
-//     \"and"(
-//       "v should be updated",
-//       () => {
-//         ElementVisualTool.getUpdateFlag()->expect == 11
-//       },
-//     )
+    // then(
+    //   "build app with ui, c1, v",
+    //   () => {
+    //     ()
+    //   },
+    // )
 
-//     \"and"(
-//       "store frame id",
-//       () => {
-//         loopFrameIDRef->ReactHookTool.getReactRefValue->expect == Some(loopOtherFrameID)
-//       },
-//     )
-//   })
+    then(
+      "e1 should be inited",
+      () => {
+        ElementVisualTool.getInitFlag()->expect == 1
+      },
+    )
 
-//   test(."cancel app loop when unmount", ({given, \"and", \"when", then}) => {
-//     let loopFrameIDRef = ref(Obj.magic(1))
-//     let cancelAnimationFrameStub = ref(Obj.magic(1))
+    \"and"(
+      "get element1 from space state and update it",
+      () => {
+        // (
+        //   execGetContributeFuncStub.contents
+        //   ->Obj.magic
+        //   ->SinonTool.calledWith(
+        //     matchAny,
+        //     // Meta3dCommonlib.ImmutableHashMap.createEmpty()
+        //     // ->Meta3dCommonlib.ImmutableHashMap.set(
+        //     //   "meta3dUIExtensionProtocolName",
+        //     //   ElementVisualUtils.getUIExtensionProtocolName(),
+        //     // )
+        //     // ->Meta3dCommonlib.ImmutableHashMap.set(
+        //     //   "meta3dImguiRendererExtensionProtocolName",
+        //     //   "meta3d-imgui-renderer-protocol",
+        //     // ),
+        //     // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        //   ),
+        //   getExtensionStateStub.contents
+        //   ->Obj.magic
+        //   ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
+        //   getExtensionStateStub.contents
+        //   ->Obj.magic
+        //   ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
+        //   getExtensionServiceStub.contents
+        //   ->Obj.magic
+        //   ->SinonTool.calledWithArg2(matchAny, ElementVisualUtils.getUIExtensionProtocolName()),
+        // )->expect == (true, true, true, true)
 
-//     _prepare(given, \"and")
+        execGetContributeFuncStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWith(
+          matchAny,
+          // Meta3dCommonlib.ImmutableHashMap.createEmpty()
+          // ->Meta3dCommonlib.ImmutableHashMap.set(
+          //   "meta3dUIExtensionProtocolName",
+          //   ElementVisualUtils.getUIExtensionProtocolName(),
+          // )
+          // ->Meta3dCommonlib.ImmutableHashMap.set(
+          //   "meta3dImguiRendererExtensionProtocolName",
+          //   "meta3d-imgui-renderer-protocol",
+          // ),
+          // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+        )
+        ->expect == true
+      },
+    )
 
-//     given(
-//       "set loop frame id to i1",
-//       () => {
-//         loopFrameIDRef := ReactHookTool.buildReactRef(2->Some)
-//       },
-//     )
+    \"and"(
+      "e1 should be updated",
+      () => {
+        ElementVisualTool.getUpdateFlag()->expect == 11
+      },
+    )
 
-//     \"when"(
-//       "cancel loop when unmount",
-//       () => {
-//         cancelAnimationFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+    \"and"(
+      "store frame id",
+      () => {
+        loopFrameIDRef->ReactHookTool.getReactRefValue->expect == Some(loopOtherFrameID)
+      },
+    )
+  })
 
-//         ElementVisualTool.cancelAppLoop(
-//           ServiceTool.build(~sandbox, ~cancelAnimationFrame=cancelAnimationFrameStub.contents, ()),
-//           loopFrameIDRef.contents,
-//         )
-//       },
-//     )
+  test(."cancel app loop when unmount", ({given, \"and", \"when", then}) => {
+    let loopFrameIDRef = ref(Obj.magic(1))
+    let cancelAnimationFrameStub = ref(Obj.magic(1))
 
-//     then(
-//       "cancel animation frame by i1",
-//       () => {
-//         cancelAnimationFrameStub.contents
-//         ->Obj.magic
-//         ->SinonTool.calledWith(loopFrameIDRef.contents->ReactHookTool.getReactRefValue)
-//         ->expect == true
-//       },
-//     )
-//   })
-// })
+    _prepare(given, \"and")
+
+    given(
+      "set loop frame id to i1",
+      () => {
+        loopFrameIDRef := ReactHookTool.buildReactRef(2->Some)
+      },
+    )
+
+    \"when"(
+      "cancel loop when unmount",
+      () => {
+        cancelAnimationFrameStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        ElementVisualTool.cancelAppLoop(
+          ServiceTool.build(~sandbox, ~cancelAnimationFrame=cancelAnimationFrameStub.contents, ()),
+          loopFrameIDRef.contents,
+        )
+      },
+    )
+
+    then(
+      "cancel animation frame by i1",
+      () => {
+        cancelAnimationFrameStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWith(loopFrameIDRef.contents->ReactHookTool.getReactRefValue)
+        ->expect == true
+      },
+    )
+  })
+})

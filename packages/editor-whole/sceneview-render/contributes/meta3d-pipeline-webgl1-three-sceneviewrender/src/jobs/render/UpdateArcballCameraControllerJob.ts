@@ -19,7 +19,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         let engineSceneService = getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
 
-        debugger
         let data = update(meta3dState, [
             getDragOverLocation, getPitch, getTarget, getWheel, getYaw
         ], engineSceneService,

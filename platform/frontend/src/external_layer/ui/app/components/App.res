@@ -82,10 +82,15 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         Meta3d.Main.initExtension(state, extensionProtocolName, data),
       updateExtension: (. state, extensionProtocolName, data) =>
         Meta3d.Main.updateExtension(state, extensionProtocolName, data),
-      generatePackage: (. (allExtensionFileData, allContributeFileData), allPackageBinaryFiles) =>
+      generatePackage: (.
+        (allExtensionFileData, allContributeFileData),
+        allPackageBinaryFiles,
+        packageData,
+      ) =>
         Meta3d.Main.generatePackage(
           (allExtensionFileData, allContributeFileData),
           allPackageBinaryFiles,
+          packageData,
         ),
       generateApp: (.
         allContributeFileData,
@@ -114,8 +119,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         Meta3d.Main.getContributeFuncDataStr(contributeFuncData),
       getContributeFuncData: (. contributeFuncDataStr) =>
         Meta3d.Main.getContributeFuncData(contributeFuncDataStr),
-      getAllExtensionAndContributeFileDataOfPackage: (. packageBinaryFile) =>
-        Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(packageBinaryFile),
+      getAllDataOfPackage: (. packageBinaryFile) =>
+        Meta3d.Main.getAllDataOfPackage(packageBinaryFile),
       execGetContributeFunc: (. contributeFuncData) =>
         Meta3d.Main.execGetContributeFunc(~contributeFuncData, ()),
       serializeUIControlProtocolConfigLib: (. protocolConfigStr) =>

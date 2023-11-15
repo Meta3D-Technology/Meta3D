@@ -64,6 +64,7 @@ module Method = {
       canvasData: FrontendUtils.ElementAssembleStoreType.canvasData,
       apInspectorData,
       storedPackageIdsInApp,
+      isChangeSelectedPackagesWhenDebug,
     ),
     values,
   ): Js.Promise.t<unit> => {
@@ -83,6 +84,15 @@ module Method = {
 
           ()->Js.Promise.resolve
         }
+      : isChangeSelectedPackagesWhenDebug
+      ? {
+        service.console.error(.
+          {j`Debug时修改了selectedPackages数据，请将对应的包更新为最新版本`},
+          None,
+        )
+
+        ()->Js.Promise.resolve
+      }
       : {
           getStartPackageNeedConfigData(
             service,
@@ -152,6 +162,7 @@ module Method = {
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
+      isChangeSelectedPackagesWhenDebug,
     } = apAssembleState
     let {canvasData} = elementAssembleState
 
@@ -163,6 +174,7 @@ module Method = {
         apInspectorData,
         isPassDependencyGraphCheck,
         storedPackageIdsInApp,
+        isChangeSelectedPackagesWhenDebug,
       ),
       canvasData,
     )
@@ -179,6 +191,7 @@ let make = (~service: service, ~account: option<string>) => {
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
+      isChangeSelectedPackagesWhenDebug,
     ),
     canvasData,
   ) = service.react.useSelector(. Method.useSelector)
@@ -232,6 +245,7 @@ let make = (~service: service, ~account: option<string>) => {
                             canvasData,
                             apInspectorData,
                             storedPackageIdsInApp,
+                            isChangeSelectedPackagesWhenDebug,
                           ),
                           event->Obj.magic,
                         )->ignore
@@ -263,7 +277,7 @@ let make = (~service: service, ~account: option<string>) => {
                 <h1> {React.string(`Config Data`)} </h1>
                 {Method.getStartPackageNeedConfigData(
                   service,
-                  selectedPackages
+                  selectedPackages,
                 )->Meta3dCommonlib.Result.either(
                   startPackageNeedConfigData => {
                     startPackageNeedConfigData

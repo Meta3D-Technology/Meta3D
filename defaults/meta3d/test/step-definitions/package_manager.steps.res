@@ -388,7 +388,7 @@ defineFeature(feature, test => {
       "generate package with c1 and load it",
       () => {
         let (s, allExtensionDataArr, entryExtensionProtocolName_) =
-          Main.generatePackage(c1.contents, [])->Main.loadPackage
+          Main.generatePackage(c1.contents, [], AppManagerTool.buildPackageData())->Main.loadPackage
 
         // configDataResult := configDataResult_
 
@@ -480,7 +480,7 @@ defineFeature(feature, test => {
     \"and"(
       "generate package p1 with c1",
       () => {
-        p1 := Main.generatePackage(c1.contents, [])
+        p1 := Main.generatePackage(c1.contents, [], AppManagerTool.buildPackageData())
       },
     )
 
@@ -557,7 +557,11 @@ defineFeature(feature, test => {
       "generate package p2 with c2, p1 and load it",
       () => {
         let (s, allExtensionDataArr, entryExtensionProtocolName_) =
-          Main.generatePackage(c2.contents, [p1.contents])->Main.loadPackage
+          Main.generatePackage(
+            c2.contents,
+            [p1.contents],
+            AppManagerTool.buildPackageData(),
+          )->Main.loadPackage
 
         entryExtensionProtocolName := entryExtensionProtocolName_
 
@@ -668,7 +672,7 @@ defineFeature(feature, test => {
       "generate package with c1 and load it and init the entry extension",
       () => {
         let (s, allExtensionDataArr, entryExtensionName) =
-          Main.generatePackage(c1.contents, [])->Main.loadPackage
+          Main.generatePackage(c1.contents, [], AppManagerTool.buildPackageData())->Main.loadPackage
 
         state := s
 
@@ -715,7 +719,7 @@ defineFeature(feature, test => {
       "generate package with c1 and load it and invoke the entry extension's service",
       () => {
         let (s, allExtensionDataArr, entryExtensionName) =
-          Main.generatePackage(c1.contents, [])->Main.loadPackage
+          Main.generatePackage(c1.contents, [], AppManagerTool.buildPackageData())->Main.loadPackage
 
         state := s
 
@@ -731,101 +735,159 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."get all extension and contribute file data of package", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
-    let firstExtension = ref(Obj.magic(1))
-    let firstExtensionFileStr = PackageManagerTool.buildEmptyExtensionFileStr()
-    let firstContribute = ref(Obj.magic(1))
-    let firstContributeFileStr = PackageManagerTool.buildEmptyContributeFileStr()
+  test(."get all data of package", ({given, \"when", \"and", then}) => {
+    let e1 = ref(Obj.magic(1))
+    let e1FileStr = PackageManagerTool.buildEmptyExtensionFileStr()
+    let e2 = ref(Obj.magic(1))
+    let e2FileStr = PackageManagerTool.buildEmptyExtensionFileStr()
+    let ct1 = ref(Obj.magic(1))
+    let ct1FileStr = PackageManagerTool.buildEmptyContributeFileStr()
     let c1 = ref(Obj.magic(1))
+    let c2 = ref(Obj.magic(1))
     let entryExtensions = ref(Obj.magic(1))
-    let pacakge = ref(Obj.magic(1))
+    let p1 = ref(Obj.magic(1))
+    let p2 = ref(Obj.magic(1))
     let result = ref(Obj.magic(1))
 
     _prepare(given)
 
     given(
-      "generate one extension",
+      "generate one extension as e1",
       () => {
-        firstExtension :=
+        e1 :=
           ExtensionFileManagerTool.generateExtension(
-            ~name="first-extension",
+            ~name="e1",
             ~protocol={
-              name: "first-extension-protocol",
+              name: "e1-protocol",
               version: "0.4.1",
             },
             ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-            ~fileStr=firstExtensionFileStr,
+            ~fileStr=e1FileStr,
             (),
           )
       },
     )
 
     \"and"(
-      "generate one contribute",
+      "generate one contribute as ct1",
       () => {
-        firstContribute :=
+        ct1 :=
           ExtensionFileManagerTool.generateContribute(
-            ~name="first-contribute",
+            ~name="ct1",
             ~protocol={
-              name: "first-contribute-protocol",
+              name: "ct1-protocol",
               version: "0.5.3",
             },
-            ~fileStr=firstContributeFileStr,
+            ~fileStr=ct1FileStr,
             (),
           )
       },
     )
 
     \"and"(
-      "mark the extension as entry",
+      "mark e1 as entry",
       () => {
-        entryExtensions := ["first-extension"]
+        entryExtensions := ["e1"]
       },
     )
 
     \"and"(
       "load them and convert as c1",
       () => {
-        let firstExtensionFileData = Main.loadExtension(firstExtension.contents)
-        let firstContributeFileData = Main.loadContribute(firstContribute.contents)
+        let e1FileData = Main.loadExtension(e1.contents)
+        let ct1FileData = Main.loadContribute(ct1.contents)
 
         c1 :=
-          Main.convertAllFileDataForPackage(
-            [firstExtensionFileData],
-            [firstContributeFileData],
-            entryExtensions.contents,
+          Main.convertAllFileDataForPackage([e1FileData], [ct1FileData], entryExtensions.contents)
+      },
+    )
+
+    given(
+      "generate one extension as e2",
+      () => {
+        e2 :=
+          ExtensionFileManagerTool.generateExtension(
+            ~name="e2",
+            ~protocol={
+              name: "e2-protocol",
+              version: "0.4.1",
+            },
+            ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+            ~fileStr=e2FileStr,
+            (),
           )
       },
     )
 
     \"and"(
-      "generate package with c1",
+      "mark e2 as entry",
       () => {
-        pacakge := Main.generatePackage(c1.contents, [])
+        entryExtensions := ["e2"]
+      },
+    )
+
+    \"and"(
+      "load it and convert as c2",
+      () => {
+        let e2FileData = Main.loadExtension(e2.contents)
+
+        c2 := Main.convertAllFileDataForPackage([e2FileData], [], entryExtensions.contents)
+      },
+    )
+
+    \"and"(
+      "generate package p1 with c2",
+      () => {
+        p1 :=
+          Main.generatePackage(
+            c2.contents,
+            [],
+            AppManagerTool.buildPackageData(~packageName="p1", ()),
+          )
+      },
+    )
+
+    \"and"(
+      "generate package p2 with c1, p1 and pacakge data as d1",
+      () => {
+        p2 :=
+          Main.generatePackage(
+            c1.contents,
+            [p1.contents],
+            AppManagerTool.buildPackageData(~packageName="p2", ()),
+          )
       },
     )
 
     \"when"(
-      "get all extension and contribute file data of the package",
+      "get all data of p2",
       () => {
-        result := Main.getAllExtensionAndContributeFileDataOfPackage(pacakge.contents)
+        result := Main.getAllDataOfPackage(p2.contents)
       },
     )
 
     then(
-      "should return the extension and the contribute whose func data is binary file",
+      "should return e1, ct1, p1, d1 whose func data is binary file",
       () => {
-        let (allExtensionFileData, allContributeFileData) = result.contents
+        let (
+          allExtensionFileData,
+          allContributeFileData,
+          allPackageBinaryFiles,
+          packageData,
+        ) = result.contents
 
         (
           allExtensionFileData[0]->Meta3dCommonlib.Tuple2.getLast->Main.getExtensionFuncDataStr,
           allContributeFileData[0]->Meta3dCommonlib.Tuple2.getLast->Main.getContributeFuncDataStr,
-        )->expect == (firstExtensionFileStr, firstContributeFileStr)
+          allPackageBinaryFiles,
+          packageData,
+        )->expect ==
+          (
+            e1FileStr,
+            ct1FileStr,
+            [p1.contents],
+            AppManagerTool.buildPackageData(~packageName="p2", ()),
+          )
       },
     )
   })

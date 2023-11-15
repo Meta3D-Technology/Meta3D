@@ -105,7 +105,6 @@ let _flatten = arr => {
 }
 
 let generate = (
-  // (allExtensionFileData, allContributeFileData),
   allContributeFileData,
   allPackageBinaryFiles,
   allPackageBinaryFileDataStoredInApp: array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
@@ -175,13 +174,7 @@ let _parseAllPackageUint8StoredInApp = allPackageUint8StoredInApp => {
   ->Meta3dCommonlib.ArraySt.map(([packageData, packageUint8]) => {
     let packageBinaryFile = packageUint8->Uint8Array.buffer
 
-    (
-      TextDecoder.decodeUint8Array(packageData, decoder)
-      ->FileUtils.removeAlignedEmptyChars
-      ->Js.Json.parseExn
-      ->Obj.magic,
-      packageBinaryFile,
-    )
+    (ManagerUtils.decodePackageData(packageData, decoder), packageBinaryFile)
   })
 }
 
@@ -232,12 +225,18 @@ let load = (appBinaryFile: ArrayBuffer.t): (
   let [
     allExtensionUint8,
     allContributeUint8,
+    allPackageUint8NotStoredInApp,
     allPackageUint8StoredInApp,
     configData,
     startPackageProtocolName,
   ] = BinaryFileOperator.load(appBinaryFile)
 
-  let (state, _) = ManagerUtils.load([allExtensionUint8, allContributeUint8])
+  let (state, _) = ManagerUtils.load([
+    allExtensionUint8,
+    allContributeUint8,
+    allPackageUint8NotStoredInApp,
+    Obj.magic(1),
+  ])
 
   let state = state->_loadAllPackageUint8StoredInApp(allPackageUint8StoredInApp)
 
@@ -276,17 +275,19 @@ let start = ((state, startPackageProtocolName, configData)): unit => {
   )
 }
 
-let getAllPackageAndExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayBuffer.t): (
+let getAllDataOfApp = (appBinaryFile: ArrayBuffer.t): (
   array<(packageData, ArrayBuffer.t)>,
   (
     array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
     array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+    array<ArrayBuffer.t>,
   ),
   Meta3dType.Index.startConfigData,
 ) => {
   let [
     allExtensionUint8,
     allContributeUint8,
+    allPackageUint8NotStoredInApp,
     allPackageUint8StoredInApp,
     configData,
     _,
@@ -294,7 +295,7 @@ let getAllPackageAndExtensionAndContributeFileDataOfApp = (appBinaryFile: ArrayB
 
   (
     _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
-    [allExtensionUint8, allContributeUint8]->ManagerUtils.parse2,
+    [allExtensionUint8, allContributeUint8, allPackageUint8NotStoredInApp]->ManagerUtils.parse3,
     _decodeConfigData(configData),
   )
 }

@@ -5,7 +5,7 @@ import * as PackageManager$Meta3d from "./app_and_package/PackageManager.bs.js";
 import * as ExtensionManager$Meta3d from "./ExtensionManager.bs.js";
 import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js";
 import * as UIControlProtocolConfig$Meta3d from "./contribute_protocol_config/UIControlProtocolConfig.bs.js";
-import * as StartExtensionProtocolConfig$Meta3d from "./extension_protocol_config/StartExtensionProtocolConfig.bs.js";
+import * as StartPackageProtocolConfig$Meta3d from "./package_protocol_config/StartPackageProtocolConfig.bs.js";
 
 var registerExtension = ExtensionManager$Meta3d.registerExtension;
 
@@ -47,9 +47,9 @@ var loadApp = AppManager$Meta3d.load;
 
 var loadPackage = PackageManager$Meta3d.load;
 
-var getAllExtensionAndContributeFileDataOfPackage = PackageManager$Meta3d.getAllExtensionAndContributeFileDataOfPackage;
+var getAllDataOfPackage = PackageManager$Meta3d.getAllDataOfPackage;
 
-var getAllPackageAndExtensionAndContributeFileDataOfApp = AppManager$Meta3d.getAllPackageAndExtensionAndContributeFileDataOfApp;
+var getAllDataOfApp = AppManager$Meta3d.getAllDataOfApp;
 
 var startApp = AppManager$Meta3d.start;
 
@@ -75,9 +75,9 @@ var getUIControlSupportedEventNames = UIControlProtocolConfig$Meta3d.getUIContro
 
 var generateHandleUIControlEventStr = UIControlProtocolConfig$Meta3d.generateHandleUIControlEventStr;
 
-var serializeStartPackageProtocolConfigLib = StartExtensionProtocolConfig$Meta3d.serializeLib;
+var serializeStartPackageProtocolConfigLib = StartPackageProtocolConfig$Meta3d.serializeLib;
 
-var getNeedConfigData = StartExtensionProtocolConfig$Meta3d.getNeedConfigData;
+var getNeedConfigData = StartPackageProtocolConfig$Meta3d.getNeedConfigData;
 
 var restore = ExtensionManager$Meta3d.restore;
 
@@ -106,8 +106,8 @@ export {
   generatePackage ,
   loadApp ,
   loadPackage ,
-  getAllExtensionAndContributeFileDataOfPackage ,
-  getAllPackageAndExtensionAndContributeFileDataOfApp ,
+  getAllDataOfPackage ,
+  getAllDataOfApp ,
   startApp ,
   execGetContributeFunc ,
   getExtensionFuncDataStr ,

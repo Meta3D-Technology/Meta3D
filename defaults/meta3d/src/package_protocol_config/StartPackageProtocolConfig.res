@@ -1,5 +1,5 @@
 let serializeLib = protocolConfigStr => {
-  LibUtils.serializeLib(protocolConfigStr, "StartExtensionProtocolConfig")
+  LibUtils.serializeLib(protocolConfigStr, "StartPackageProtocolConfig")
 }
 
 let getNeedConfigData = configLib => {

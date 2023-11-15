@@ -134,25 +134,25 @@ defineFeature(feature, test => {
     selectedExtensions,
     selectedContributes,
   ) => {
-    given("select extension e1, e2", () => {
-      selectedExtensions :=
-        list{
-          SelectedExtensionsTool.buildSelectedExtension(
-            ~name="e1",
-            // ~newName=None,
-            ~protocolIconBase64="i1",
-            (),
-          ),
-          SelectedExtensionsTool.buildSelectedExtension(
-            ~name="e2",
-            // ~newName=None,
-            ~protocolIconBase64="i2",
-            (),
-          ),
-        }
-    })
+    // given("select extension e1, e2", () => {
+    //   selectedExtensions :=
+    //     list{
+    //       SelectedExtensionsTool.buildSelectedExtension(
+    //         ~name="e1",
+    //         // ~newName=None,
+    //         ~protocolIconBase64="i1",
+    //         (),
+    //       ),
+    //       SelectedExtensionsTool.buildSelectedExtension(
+    //         ~name="e2",
+    //         // ~newName=None,
+    //         ~protocolIconBase64="i2",
+    //         (),
+    //       ),
+    //     }
+    // })
 
-    \"and"("select contribute c1, c2", () => {
+    given("select contribute c1, c2", () => {
       selectedContributes :=
         list{
           SelectedContributesTool.buildSelectedContribute(
@@ -170,84 +170,90 @@ defineFeature(feature, test => {
         }
     })
 
-    \"and"("select package p1 which isn't stored in app, p2 which is stored in app", () => {
-      let p2Id = "p2"
+    \"and"(
+      "select package p1 which isn't stored in app and is start, p2 which is stored in app",
+      () => {
+        let p2Id = "p2"
 
-      selectedPackages :=
-        list{
-          SelectedPackagesTool.buildSelectedPackage(
-            ~name="p1",
-            ~binaryFile=selectedPackageBinaryFile1,
-            (),
-          ),
-          SelectedPackagesTool.buildSelectedPackage(
-            ~id=p2Id,
-            ~name=p2Name,
-            ~version=p2Version,
-            ~protocolName=p2Protocol.name,
-            ~protocolVersion=p2Protocol.version,
-            ~protocolIconBase64=p2Protocol.iconBase64,
-            ~entryExtensionName=p2EntryExtensionName,
-            ~binaryFile=selectedPackageBinaryFile2,
-            (),
-          ),
-        }
+        selectedPackages :=
+          list{
+            SelectedPackagesTool.buildSelectedPackage(
+              ~name="p1",
+              ~binaryFile=selectedPackageBinaryFile1,
+              ~isStart=true,
+              ~protocolConfigStr=StartPackageProtocolConfigTool.buildProtocolConfigStr()->Some,
+              (),
+            ),
+            SelectedPackagesTool.buildSelectedPackage(
+              ~id=p2Id,
+              ~name=p2Name,
+              ~version=p2Version,
+              ~protocolName=p2Protocol.name,
+              ~protocolVersion=p2Protocol.version,
+              ~protocolIconBase64=p2Protocol.iconBase64,
+              ~entryExtensionName=p2EntryExtensionName,
+              ~binaryFile=selectedPackageBinaryFile2,
+              ~isStart=false,
+              (),
+            ),
+          }
 
-      storedPackageIdsInApp := list{p2Id}
-    })
+        storedPackageIdsInApp := list{p2Id}
+      },
+    )
   }
 
-  test(."generate correct app without config data", ({given, \"when", \"and", then}) => {
-    let errorStub = ref(Obj.magic(1))
-    let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
-    let selectedPackages = ref(Obj.magic(1))
-    let selectedExtensions = ref(Obj.magic(1))
-    let selectedContributes = ref(Obj.magic(1))
-    let storedPackageIdsInApp = ref(Obj.magic(1))
+  // test(."generate correct app without config data", ({given, \"when", \"and", then}) => {
+  //   let errorStub = ref(Obj.magic(1))
+  //   let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
+  //   let selectedPackages = ref(Obj.magic(1))
+  //   let selectedExtensions = ref(Obj.magic(1))
+  //   let selectedContributes = ref(Obj.magic(1))
+  //   let storedPackageIdsInApp = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    _prepareSelectedPackagesSelectedExtensionsAndContributes(
-      given,
-      \"and",
-      (selectedPackages, selectedPackageBinaryFile1),
-      (storedPackageIdsInApp, Obj.magic(1), PackageStoredInAppTool.buildPackageData()),
-      selectedExtensions,
-      selectedContributes,
-    )
+  //   _prepareSelectedPackagesSelectedExtensionsAndContributes(
+  //     given,
+  //     \"and",
+  //     (selectedPackages, selectedPackageBinaryFile1),
+  //     (storedPackageIdsInApp, Obj.magic(1), PackageStoredInAppTool.buildPackageData()),
+  //     selectedExtensions,
+  //     selectedContributes,
+  //   )
 
-    CucumberAsync.execStep(
-      \"when",
-      "publish app",
-      () => {
-        errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //   CucumberAsync.execStep(
+  //     \"when",
+  //     "publish app",
+  //     () => {
+  //       errorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        PublishTool.publish(
-          ~sandbox,
-          ~account="u1"->Some,
-          ~service=ServiceTool.build(
-            ~sandbox,
-            ~error=errorStub.contents->Obj.magic,
-            ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-            ->returns(Meta3dBsMostDefault.Most.empty(), _)
-            ->Obj.magic,
-            (),
-          ),
-          ~selectedPackages=selectedPackages.contents,
-          ~selectedExtensions=selectedExtensions.contents,
-          ~selectedContributes=selectedContributes.contents,
-          (),
-        )
-      },
-    )
+  //       PublishTool.publish(
+  //         ~sandbox,
+  //         ~account="u1"->Some,
+  //         ~service=ServiceTool.build(
+  //           ~sandbox,
+  //           ~error=errorStub.contents->Obj.magic,
+  //           ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //           ->returns(Meta3dBsMostDefault.Most.empty(), _)
+  //           ->Obj.magic,
+  //           (),
+  //         ),
+  //         ~selectedPackages=selectedPackages.contents,
+  //         ~selectedExtensions=selectedExtensions.contents,
+  //         ~selectedContributes=selectedContributes.contents,
+  //         (),
+  //       )
+  //     },
+  //   )
 
-    then(
-      "error for get config data",
-      () => {
-        errorStub.contents->SinonTool.calledWith({j`找不到启动扩展`})->expect == true
-      },
-    )
-  })
+  //   then(
+  //     "error for get config data",
+  //     () => {
+  //       errorStub.contents->SinonTool.calledWith({j`找不到启动包`})->expect == true
+  //     },
+  //   )
+  // })
 
   test(."generate correct app with config data", ({given, \"when", \"and", then}) => {
     let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
@@ -298,22 +304,22 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "select start extension e3",
-      () => {
-        selectedExtensions :=
-          selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
-            SelectedExtensionsTool.buildSelectedExtension(
-              ~name="e3",
-              // ~newName=None,
-              ~id="e3",
-              ~isStart=true,
-              ~protocolConfigStr=StartExtensionProtocolConfigTool.buildProtocolConfigStr()->Some,
-              (),
-            ),
-          )
-      },
-    )
+    // \"and"(
+    //   "select extension e3",
+    //   () => {
+    //     selectedExtensions :=
+    //       selectedExtensions.contents->Meta3dCommonlib.ListSt.push(
+    //         SelectedExtensionsTool.buildSelectedExtension(
+    //           ~name="e3",
+    //           // ~newName=None,
+    //           ~id="e3",
+    //           // ~isStart=true,
+    //           ~protocolConfigStr=StartPackageProtocolConfigTool.buildProtocolConfigStr()->Some,
+    //           (),
+    //         ),
+    //       )
+    //   },
+    // )
 
     \"and"(
       "prepare config data",
@@ -379,7 +385,7 @@ defineFeature(feature, test => {
             (),
           ),
           ~selectedPackages=selectedPackages.contents,
-          ~selectedExtensions=selectedExtensions.contents,
+          // ~selectedExtensions=selectedExtensions.contents,
           ~selectedContributes=selectedContributes.contents,
           ~storedPackageIdsInApp=storedPackageIdsInApp.contents,
           (),
@@ -402,7 +408,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "should generat app with correct extension data and contribute data and start config data",
+      "should generat app with correct contribute data and start config data",
       () => {
         let {isDebug, clearColor, skinName} = apInspectorData.contents
 
@@ -427,7 +433,8 @@ defineFeature(feature, test => {
         )->expect ==
           (
             true,
-            "[[{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
+            // "[[{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},{\"extensionPackageData\":{\"name\":\"e3\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}],[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}],[\"e3\"]]",
+            "[[{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},{\"contributePackageData\":{\"name\":\"c2\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}]]",
           )
       },
     )

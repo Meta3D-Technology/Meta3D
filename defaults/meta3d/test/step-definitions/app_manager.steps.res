@@ -1059,6 +1059,7 @@ defineFeature(feature, test => {
               ["package-first-extension"],
             ),
             [],
+            AppManagerTool.buildPackageData(),
           )
       },
     )
@@ -1392,7 +1393,7 @@ defineFeature(feature, test => {
     given(
       "generate empty package p1",
       () => {
-        p1 := Main.generatePackage(([], []), [])
+        p1 := Main.generatePackage(([], []), [], AppManagerTool.buildPackageData())
       },
     )
 
@@ -1426,12 +1427,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."get all pacakge and extension and contribute file data of app", ({
-    given,
-    \"when",
-    \"and",
-    then,
-  }) => {
+  test(."get all data of app", ({given, \"when", \"and", then}) => {
     let state = ref(Obj.magic(1))
     let p1 = ref(Obj.magic(1))
     let p1ProtocolName = "p1-protocol"
@@ -1448,7 +1444,7 @@ defineFeature(feature, test => {
     given(
       "generate one package as p1",
       () => {
-        p1 := Main.generatePackage(([], []), [])
+        p1 := Main.generatePackage(([], []), [], AppManagerTool.buildPackageData())
       },
     )
 
@@ -1496,16 +1492,16 @@ defineFeature(feature, test => {
     )
 
     \"when"(
-      "get all pacakge and extension and contribute file data of a1",
+      "get all data of a1",
       () => {
-        result := Main.getAllPackageAndExtensionAndContributeFileDataOfApp(a1.contents)
+        result := Main.getAllDataOfApp(a1.contents)
       },
     )
 
     then(
       "should return parsed p1, parsed c1",
       () => {
-        let ([parsedP1], ([], [parsedC1]), _) = result.contents
+        let ([parsedP1], ([], [parsedC1], _), _) = result.contents
 
         let ((p1Protocol, _, _, _, _), _) = parsedP1
         // let (e1PackageData, _) = parsedE1

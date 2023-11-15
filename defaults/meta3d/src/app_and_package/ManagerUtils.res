@@ -42,66 +42,17 @@ let generate = ((
 }
 
 let mergeAllPackageBinaryFiles = (
-  // (
-  //   allExtensionFileData: array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
-  //   allContributeFileData: array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
-  // ),
   [allExtensionUint8, allContributeUint8]: array<Uint8Array.t>,
-  // (
-  //   allExtensionFileData: array<ExtensionFileType.extensionFileData>,
-  //   allContributeFileData: array<ExtensionFileType.contributeFileData>,
-  // ),
   allPackageBinaryFiles: array<ArrayBuffer.t>,
-): // allPackageUint8s: array<Uint8Array.t>,
-// allPackageUint8s: array<Uint8Array.t>,
-// : (
-//   array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
-//   array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
-// )
-// : (array<ExtensionFileType.extensionFileData>, array<ExtensionFileType.contributeFileData>)
-array<Uint8Array.t> => {
-  // allPackageUint8s->Meta3dCommonlib.ArraySt.reduceOneParam(
-  allPackageBinaryFiles->Meta3dCommonlib.ArraySt.reduceOneParam(
-    // (. [allExtensionUint8, allContributeUint8], packageUint8) => {
-    (. [allExtensionUint8, allContributeUint8], packageBinaryFile) => {
-      let [
-        allExtensionUint8InPackage,
-        allContributeUint8InPackage,
-        // ] = BinaryFileOperator.load(packageUint8->Uint8Array.buffer)
-      ] = BinaryFileOperator.load(packageBinaryFile)
-
-      [
-        Js.Array.concat(
-          BinaryFileOperator.load(allExtensionUint8InPackage->Uint8Array.buffer),
-          BinaryFileOperator.load(allExtensionUint8->Uint8Array.buffer),
-        )
-        ->BinaryFileOperator.generate
-        ->Uint8Array.fromBuffer,
-        Js.Array.concat(
-          BinaryFileOperator.load(allContributeUint8InPackage->Uint8Array.buffer),
-          BinaryFileOperator.load(allContributeUint8->Uint8Array.buffer),
-        )
-        ->BinaryFileOperator.generate
-        ->Uint8Array.fromBuffer,
-      ]
-
-      // [
-      //       BinaryFileOperator.merge(allExtensionUint8, allExtensionUint8InPackage),
-
-      //       BinaryFileOperator.merge(allContributeUint8, allContributeUint8InPackage)
-      //  ]
-
-      // (
-      //   BinaryFileOperator.load(allExtensionUint8->Uint8Array.buffer)
-      //   ->Meta3dCommonlib.ArraySt.chunk(2)
-      //   ->Js.Array.concat(allExtensionFileData),
-      //   BinaryFileOperator.load(allContributeUint8->Uint8Array.buffer)
-      //   ->Meta3dCommonlib.ArraySt.chunk(2)
-      //   ->Js.Array.concat(allContributeFileData),
-      // )
-    },
-    [allExtensionUint8, allContributeUint8],
-  )
+): array<Uint8Array.t> => {
+  [
+    allExtensionUint8,
+    allContributeUint8,
+    allPackageBinaryFiles
+    ->Meta3dCommonlib.ArraySt.map(Uint8Array.fromBuffer)
+    ->BinaryFileOperator.generate
+    ->Uint8Array.fromBuffer,
+  ]
 }
 
 let getExtensionFuncDataStr = (decoder, extensionFuncData) => {
@@ -127,8 +78,47 @@ let getContributeFunc = (contributeFuncData, decoder) => {
   LibUtils.getFuncFromLib(lib, "getContribute")
 }
 
-let _parse1 = ([allExtensionUint8, allContributeUint8]) => {
+let rec _mergeAllPackageBinaryUint8s = (
+  [allExtensionUint8, allContributeUint8]: array<Uint8Array.t>,
+  allPackageBinaryUint8s: array<Uint8Array.t>,
+): array<Uint8Array.t> => {
+  allPackageBinaryUint8s->Meta3dCommonlib.ArraySt.reduceOneParam(
+    (. [allExtensionUint8, allContributeUint8], packageBinaryUint8) => {
+      let [
+        allExtensionUint8InPackage,
+        allContributeUint8InPackage,
+        allSubPackageBinaryUint8s,
+        _,
+      ] = BinaryFileOperator.load(packageBinaryUint8->Uint8Array.buffer)
+
+      [
+        Js.Array.concat(
+          BinaryFileOperator.load(allExtensionUint8InPackage->Uint8Array.buffer),
+          BinaryFileOperator.load(allExtensionUint8->Uint8Array.buffer),
+        )
+        ->BinaryFileOperator.generate
+        ->Uint8Array.fromBuffer,
+        Js.Array.concat(
+          BinaryFileOperator.load(allContributeUint8InPackage->Uint8Array.buffer),
+          BinaryFileOperator.load(allContributeUint8->Uint8Array.buffer),
+        )
+        ->BinaryFileOperator.generate
+        ->Uint8Array.fromBuffer,
+      ]->_mergeAllPackageBinaryUint8s(
+        allSubPackageBinaryUint8s->Uint8Array.buffer->BinaryFileOperator.load,
+      )
+    },
+    [allExtensionUint8, allContributeUint8],
+  )
+}
+
+let _parse1 = ([allExtensionUint8, allContributeUint8, allPackageBinaryUint8s, _]) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
+
+  let [allExtensionUint8, allContributeUint8] = _mergeAllPackageBinaryUint8s(
+    [allExtensionUint8, allContributeUint8],
+    allPackageBinaryUint8s->Uint8Array.buffer->BinaryFileOperator.load,
+  )
 
   (
     BinaryFileOperator.load(allExtensionUint8->Uint8Array.buffer)
@@ -165,7 +155,14 @@ let _parse1 = ([allExtensionUint8, allContributeUint8]) => {
   )
 }
 
-let parse2 = ([allExtensionUint8, allContributeUint8]) => {
+let decodePackageData = (packageData, decoder) => {
+  TextDecoder.decodeUint8Array(packageData, decoder)
+  ->FileUtils.removeAlignedEmptyChars
+  ->Js.Json.parseExn
+  ->Obj.magic
+}
+
+let _parse = ([allExtensionUint8, allContributeUint8, allPackageBinaryUint8s]) => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
   (
@@ -191,8 +188,30 @@ let parse2 = ([allExtensionUint8, allContributeUint8]) => {
         contributeFuncData,
       )
     }),
+    BinaryFileOperator.load(allPackageBinaryUint8s->Uint8Array.buffer)->Meta3dCommonlib.ArraySt.map(
+      Uint8Array.buffer,
+    ),
   )
 }
+
+let parse2 = ([
+  allExtensionUint8,
+  allContributeUint8,
+  allPackageBinaryUint8s,
+  packageDataUint8,
+]) => {
+  let decoder = TextDecoder.newTextDecoder("utf-8")
+
+  let (data1, data2, data3) = _parse([
+    allExtensionUint8,
+    allContributeUint8,
+    allPackageBinaryUint8s,
+  ])
+
+  (data1, data2, data3, decodePackageData(packageDataUint8, decoder))
+}
+
+let parse3 = _parse
 
 let _prepare = (): Meta3dType.Index.state => {
   {

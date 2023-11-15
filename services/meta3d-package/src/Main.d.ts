@@ -1,7 +1,7 @@
 import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, getContribute, getContributeFuncResult, startConfigData } from "meta3d-type"
 import { supportedEventName, actionName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { actions } from "meta3d-type/src/contribute/ActionProtocolConfigType"
-import { needConfigData } from "meta3d-type/src/extension/StartExtensionProtocolConfigType"
+import { needConfigData } from "meta3d-type/src/package/StartPackageProtocolConfigType"
 import { extensionFileData, extensionProtocolData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "meta3d/src/file/ExtensionFileType"
 import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp } from "meta3d/src/app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"

@@ -77,7 +77,7 @@ function _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp) {
                         RE_EXN_ID: "Match_failure",
                         _1: [
                           "AppManager.res",
-                          175,
+                          174,
                           32
                         ],
                         Error: new Error()
@@ -87,7 +87,7 @@ function _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp) {
                 var packageUint8 = param[1];
                 var packageBinaryFile = packageUint8.buffer;
                 return [
-                        JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(packageData, decoder))),
+                        ManagerUtils$Meta3d.decodePackageData(packageData, decoder),
                         packageBinaryFile
                       ];
               }));
@@ -118,12 +118,12 @@ function _decodeStartPackageProtocolName(startPackageProtocolName) {
 
 function load(appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 5) {
+  if (match.length !== 6) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            232,
+            225,
             6
           ],
           Error: new Error()
@@ -131,12 +131,15 @@ function load(appBinaryFile) {
   }
   var allExtensionUint8 = match[0];
   var allContributeUint8 = match[1];
-  var allPackageUint8StoredInApp = match[2];
-  var configData = match[3];
-  var startPackageProtocolName = match[4];
+  var allPackageUint8NotStoredInApp = match[2];
+  var allPackageUint8StoredInApp = match[3];
+  var configData = match[4];
+  var startPackageProtocolName = match[5];
   var match$1 = ManagerUtils$Meta3d.load([
         allExtensionUint8,
-        allContributeUint8
+        allContributeUint8,
+        allPackageUint8NotStoredInApp,
+        1
       ]);
   var state = _loadAllPackageUint8StoredInApp(match$1[0], allPackageUint8StoredInApp);
   return [
@@ -150,9 +153,9 @@ function start(param) {
   ExtensionManager$Meta3d.startExtension(param[0], param[1], param[2]);
 }
 
-function getAllPackageAndExtensionAndContributeFileDataOfApp(appBinaryFile) {
+function getAllDataOfApp(appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 5) {
+  if (match.length !== 6) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
@@ -165,13 +168,15 @@ function getAllPackageAndExtensionAndContributeFileDataOfApp(appBinaryFile) {
   }
   var allExtensionUint8 = match[0];
   var allContributeUint8 = match[1];
-  var allPackageUint8StoredInApp = match[2];
-  var configData = match[3];
+  var allPackageUint8NotStoredInApp = match[2];
+  var allPackageUint8StoredInApp = match[3];
+  var configData = match[4];
   return [
           _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
-          ManagerUtils$Meta3d.parse2([
+          ManagerUtils$Meta3d.parse3([
                 allExtensionUint8,
-                allContributeUint8
+                allContributeUint8,
+                allPackageUint8NotStoredInApp
               ]),
           _decodeConfigData(configData)
         ];
@@ -192,6 +197,6 @@ export {
   _decodeStartPackageProtocolName ,
   load ,
   start ,
-  getAllPackageAndExtensionAndContributeFileDataOfApp ,
+  getAllDataOfApp ,
 }
 /* ManagerUtils-Meta3d Not a pure module */

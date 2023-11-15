@@ -136,7 +136,7 @@ let reducer = (state, action) => {
         !(selectedPackage.name == name && selectedPackage.version == version)
       ),
     }
-  | ImportPackage(packageId, selectedExtensions, selectedContributes) => {
+  | ImportPackage(packageId, selectedExtensions, selectedContributes, selectedPackages) => {
       ...state,
       importedPackageIds: state.importedPackageIds->Meta3dCommonlib.ListSt.push(packageId),
       selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
@@ -155,6 +155,14 @@ let reducer = (state, action) => {
           ->Meta3dCommonlib.ListSt.push(selectedContribute)
         },
       ),
+      selectedPackages: selectedPackages->Meta3dCommonlib.ListSt.reduce(state.selectedPackages, (
+        result,
+        packageData,
+      ) => {
+        result
+        ->_removeOtherSelectedPackagesOfSameProtocolName(packageData)
+        ->Meta3dCommonlib.ListSt.push(packageData)
+      }),
     }
   | ImportApp(appId, selectedExtensions, selectedContributes, selectedPackages) => {
       ...state,

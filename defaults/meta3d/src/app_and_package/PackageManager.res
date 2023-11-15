@@ -118,13 +118,20 @@ let convertAllFileData = (
   )
 }
 
-// let generate = ((allExtensionFileData, allContributeFileData)) => {
-//   ManagerUtils.generate((allExtensionFileData, allContributeFileData))->BinaryFileOperator.generate
-// }
+let _encodePackageData = packageData => {
+  let encoder = TextEncoder.newTextEncoder()
 
-let generate = ((allExtensionFileData, allContributeFileData), allPackageBinaryFiles) => {
+  TextEncoder.encodeUint8Array(packageData->Obj.magic->Js.Json.stringify, encoder)
+}
+
+let generate = (
+  (allExtensionFileData, allContributeFileData),
+  allPackageBinaryFiles,
+  packageData: packageData,
+) => {
   ManagerUtils.generate((allExtensionFileData, allContributeFileData))
   ->ManagerUtils.mergeAllPackageBinaryFiles(allPackageBinaryFiles)
+  ->Meta3dCommonlib.ArraySt.push(packageData->_encodePackageData)
   ->BinaryFileOperator.generate
 }
 
@@ -162,9 +169,11 @@ let load = (packageBinaryFile: ArrayBuffer.t): (
   (state, allExtensionDataArr, _getEntryExtensionProtocolName(allExtensionDataArr))
 }
 
-let getAllExtensionAndContributeFileDataOfPackage = (packageBinaryFile: ArrayBuffer.t): (
+let getAllDataOfPackage = (packageBinaryFile: ArrayBuffer.t): (
   array<(extensionPackageData, ExtensionFileType.extensionFuncData)>,
   array<(contributePackageData, ExtensionFileType.contributeFuncData)>,
+  array<ArrayBuffer.t>,
+  packageData,
 ) => {
   packageBinaryFile->BinaryFileOperator.load->ManagerUtils.parse2
 }

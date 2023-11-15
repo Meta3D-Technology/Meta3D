@@ -111,6 +111,7 @@ defineFeature(feature, test => {
     let entryExtensionProtocolDisplayName = "eid1"
     let entryExtensionProtocolRepoLink = "eil1"
     let entryExtensionProtocolDescription = "eidp1"
+    let entryExtensionProtocolConfigStr =StartPackageProtocolConfigTool.buildProtocolConfigStr()
     let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
     let packageBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
     let generatePackageStub = ref(Obj.magic(1))
@@ -189,6 +190,7 @@ defineFeature(feature, test => {
               ~protocolDisplayName=entryExtensionProtocolDisplayName,
               ~protocolRepoLink=entryExtensionProtocolRepoLink,
               ~protocolDescription=entryExtensionProtocolDescription,
+              ~protocolConfigStr=entryExtensionProtocolConfigStr->Some,
               ~data=ExtensionTool.buildExtensionData(
                 ~extensionPackageData=ExtensionTool.buildExtensionPackageData(
                   ~name=entryExtensionName,
@@ -321,6 +323,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolDisplayName,
             entryExtensionProtocolRepoLink,
             entryExtensionProtocolDescription,
+            entryExtensionProtocolConfigStr,
             entryExtensionName,
           ],
           [packageName, packageVersion, packageDescription],

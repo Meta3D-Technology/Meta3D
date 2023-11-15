@@ -1,10 +1,5 @@
-let buildUI = (
-  ~sandbox,
-  ~account=None,
-  ~service=ServiceTool.build(~sandbox, ()),
-  (),
-) => {
-  <ElementVisual service account  />
+let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
+  <ElementVisual service account />
 }
 
 // let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension
@@ -88,3 +83,5 @@ let generateElementContributeFileStr = ElementMRUtils.generateElementContributeF
 // let getUIProtocolVersion = ElementVisualUtils._getUIProtocolVersion
 
 // let getEventProtocolVersion = ElementVisualUtils._getEventProtocolVersion
+
+let getEditorWholePackageProtocolName = ElementVisualUtils.getEditorWholePackageProtocolName

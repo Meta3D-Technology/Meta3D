@@ -78,13 +78,17 @@ Feature: Package Manager
         #         Then the second extension should be updated
 
 
-    Rule: get all extension and contribute file data of package
+    Rule: get all data of package
 
-        Scenario: get all extension and contribute file data of package
-            Given generate one extension
-            And generate one contribute
-            And mark the extension as entry
+        Scenario: get all data of package
+            Given generate one extension as e1
+            And generate one contribute as ct1
+            And mark e1 as entry
             And load them and convert as c1
-            And generate package with c1
-            When get all extension and contribute file data of the package
-            Then should return the extension and the contribute whose func data is binary file
+            And generate one extension as e2
+            And mark e2 as entry
+            And load it and convert as c2
+            And generate package p1 with c2
+            And generate package p2 with c1, p1 and pacakge data as d1
+            When get all data of p2
+            Then should return e1, ct1, p1, d1 whose func data is binary file

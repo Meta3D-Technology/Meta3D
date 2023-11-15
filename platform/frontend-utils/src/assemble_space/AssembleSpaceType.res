@@ -96,6 +96,7 @@ type meta3dService = {
       array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     ),
     array<Js.Typed_array.ArrayBuffer.t>,
+packageData
   ) => Js.Typed_array.ArrayBuffer.t,
   generateApp: (
     . array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
@@ -113,11 +114,13 @@ type meta3dService = {
   getExtensionFuncData: (. string) => Js.Typed_array.Uint8Array.t,
   getContributeFuncDataStr: (. Js.Typed_array.Uint8Array.t) => string,
   getContributeFuncData: (. string) => Js.Typed_array.Uint8Array.t,
-  getAllExtensionAndContributeFileDataOfPackage: (
+  getAllDataOfPackage: (
     . Js.Typed_array.ArrayBuffer.t,
   ) => (
     array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
     array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
+    array<Js.Typed_array.ArrayBuffer.t>,
+    packageData
   ),
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,

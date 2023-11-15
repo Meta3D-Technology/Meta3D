@@ -44,7 +44,13 @@ let getEntryExtensionProtocolData = selectedExtensions => {
   ->Meta3dCommonlib.ArraySt.getExn(0)
 }
 
-let generatePackage = (service, selectPackages, selectedExtensions, selectedContributes) => {
+let generatePackage = (
+  service,
+  selectPackages,
+  selectedExtensions,
+  selectedContributes,
+  packageData,
+) => {
   service.meta3d.generatePackage(.
     service.meta3d.convertAllFileDataForPackage(.
       selectedExtensions->Meta3dCommonlib.ArraySt.map((
@@ -70,5 +76,47 @@ let generatePackage = (service, selectPackages, selectedExtensions, selectedCont
     selectPackages->Meta3dCommonlib.ArraySt.map((
       {binaryFile}: FrontendUtils.PackageAssembleStoreType.package,
     ) => binaryFile),
+    packageData,
+  )
+}
+
+let getPackageAllExtensionAndContributeFileData = (service, packageBinaryFile) => {
+  let rec _func = (allExtensionFileData, allContributeFileData, packageBinaryFile) => {
+    let (
+      allExtensionFileData_,
+      allContributeFileData_,
+      allSubPackagesNotStoredInApp,
+      _,
+    ) = service.meta3d.getAllDataOfPackage(. packageBinaryFile)
+
+    allSubPackagesNotStoredInApp->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. (allExtensionFileData, allContributeFileData), subPackageBinaryFile) => {
+        _func(allExtensionFileData, allContributeFileData, subPackageBinaryFile)
+      },
+      (
+        allExtensionFileData->Js.Array.concat(allExtensionFileData_, _),
+        allContributeFileData->Js.Array.concat(allContributeFileData_, _),
+      ),
+    )
+  }
+
+  _func([], [], packageBinaryFile)
+}
+
+let buildPackageData = (
+  {
+    protocol,
+    entryExtensionName,
+    version,
+    name,
+    protocolConfigStr,
+  }: FrontendUtils.AssembleSpaceCommonType.packageData,
+): Meta3d.AppAndPackageFileType.packageData => {
+  (
+    protocol,
+    entryExtensionName,
+    version,
+    name,
+    protocolConfigStr->Meta3dCommonlib.OptionSt.getWithDefault(""),
   )
 }

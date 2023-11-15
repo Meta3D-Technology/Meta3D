@@ -115,7 +115,7 @@ export function loadPackage(
     packageBinaryFile: ArrayBuffer
 ): [state, Array<extensionFileData>, extensionProtocolName]
 
-export function getAllExtensionAndContributeFileDataOfPackage(
+export function getAllDataOfPackage(
     packageBinaryFile: ArrayBuffer
 ): [
         Array<[packageData, ArrayBuffer]>,

@@ -290,7 +290,7 @@ let make = (
                                     Meta3dBsMostDefault.Most.empty()->Obj.magic
                                   }
                                 : {
-                                    Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(
+                                    Meta3d.Main.getAllDataOfPackage(
                                       file->Meta3dCommonlib.NullableSt.getExn,
                                     )->Meta3dBsMostDefault.Most.just
                                   }
@@ -302,13 +302,14 @@ let make = (
                                   () => {
                                     setIsBackendBegin(_ => false)
                                   },
-                                  (selectedExtensions, selectedContributes) =>
+                                  (selectedExtensions, selectedContributes, selectedPackages) =>
                                     dispatch(
                                       FrontendUtils.AppStoreType.UserCenterAction(
                                         FrontendUtils.UserCenterStoreType.ImportPackage(
                                           item.id,
                                           selectedExtensions,
                                           selectedContributes,
+                                          selectedPackages,
                                         ),
                                       ),
                                     ),

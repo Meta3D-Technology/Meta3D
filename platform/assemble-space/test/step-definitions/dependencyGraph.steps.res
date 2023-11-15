@@ -178,6 +178,7 @@ defineFeature(feature, test => {
             ~binaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [pc1FileData], ["pe1"]),
               [],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             (),
           )
@@ -191,8 +192,7 @@ defineFeature(feature, test => {
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
             (),
           ),
           ~selectedPackages=list{p1.contents},
@@ -352,8 +352,7 @@ defineFeature(feature, test => {
             ~setData=setDataStub.contents->Obj.magic,
             ~service=ServiceTool.build(
               ~sandbox,
-              ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-                Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+              ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
               (),
             ),
             ~selectedExtensions=list{e1.contents, e2.contents},
@@ -529,8 +528,7 @@ defineFeature(feature, test => {
             ~setData=setDataStub.contents->Obj.magic,
             ~service=ServiceTool.build(
               ~sandbox,
-              ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-                Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+              ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
               (),
             ),
             ~selectedExtensions=list{e1.contents, e2.contents, e3.contents},
@@ -706,8 +704,7 @@ defineFeature(feature, test => {
             ~setData=setDataStub.contents->Obj.magic,
             ~service=ServiceTool.build(
               ~sandbox,
-              ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-                Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+              ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
               (),
             ),
             ~selectedExtensions=list{e1.contents, e2.contents, e3.contents},
@@ -800,6 +797,7 @@ defineFeature(feature, test => {
             ~binaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
               [],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             (),
           )
@@ -828,6 +826,7 @@ defineFeature(feature, test => {
             ~binaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([pe2FileData], [], ["pe2"]),
               [p1.contents.binaryFile],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             (),
           )
@@ -841,8 +840,7 @@ defineFeature(feature, test => {
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
             (),
           ),
           ~selectedExtensions=list{},
@@ -966,6 +964,7 @@ defineFeature(feature, test => {
             ~binaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([], [pc1FileData], []),
               [],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             (),
           )
@@ -1011,8 +1010,7 @@ defineFeature(feature, test => {
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
             (),
           ),
           ~selectedExtensions=list{e1.contents},
@@ -1132,6 +1130,7 @@ defineFeature(feature, test => {
             ~binaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
               [],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             (),
           )
@@ -1154,8 +1153,7 @@ defineFeature(feature, test => {
               ~setData=setDataStub.contents->Obj.magic,
               ~service=ServiceTool.build(
                 ~sandbox,
-                ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-                  Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+                ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
                 (),
               ),
               ~selectedPackages=list{p1.contents},
@@ -1284,8 +1282,7 @@ defineFeature(feature, test => {
               ~setData=setDataStub.contents->Obj.magic,
               ~service=ServiceTool.build(
                 ~sandbox,
-                ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-                  Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+                ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
                 (),
               ),
               ~selectedExtensions=list{e1.contents},
@@ -1373,6 +1370,7 @@ defineFeature(feature, test => {
             ~pacakgeBinaryFile=Meta3d.Main.generatePackage(
               Meta3d.Main.convertAllFileDataForPackage([pe1FileData], [], ["pe1"]),
               [],
+              PackageStoredInAppTool.buildPackageData(),
             ),
             ~packageData=PackageStoredInAppTool.buildPackageData(
               ~packageName="p1",
@@ -1400,8 +1398,7 @@ defineFeature(feature, test => {
               ~setData=setDataStub.contents->Obj.magic,
               ~service=ServiceTool.build(
                 ~sandbox,
-                ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-                  Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+                ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
                 (),
               ),
               ~allPackagesStoredInApp=list{p1.contents},
@@ -1526,8 +1523,8 @@ defineFeature(feature, test => {
   //         ~setData=setDataStub.contents->Obj.magic,
   //         ~service=ServiceTool.build(
   //           ~sandbox,
-  //           ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-  //             Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+  //           ~getAllDataOfPackage=(. package) =>
+  //             Meta3d.Main.getAllDataOfPackage(package),
   //           (),
   //         ),
   //         ~selectedExtensions=list{e1.contents},
@@ -1639,8 +1636,7 @@ defineFeature(feature, test => {
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
             (),
           ),
           ~selectedExtensions=list{e1.contents, e2.contents},
@@ -1843,8 +1839,7 @@ defineFeature(feature, test => {
           ~setData=setDataStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~getAllExtensionAndContributeFileDataOfPackage=(. package) =>
-              Meta3d.Main.getAllExtensionAndContributeFileDataOfPackage(package),
+            ~getAllDataOfPackage=(. package) => Meta3d.Main.getAllDataOfPackage(package),
             (),
           ),
           ~selectedExtensions=list{e1.contents, e2.contents},

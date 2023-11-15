@@ -1,12 +1,7 @@
 open Sinon
 
-let buildUI = (
-  ~sandbox,
-  ~account=None,
-  ~service=ServiceTool.build(~sandbox, ()),
-  (),
-) => {
-  <Publish service account  />
+let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
+  <Publish service account />
 }
 
 let publish = (
@@ -20,6 +15,7 @@ let publish = (
   ~selectedExtensions=list{},
   ~selectedContributes=list{},
   ~storedPackageIdsInApp=list{},
+  ~isChangeSelectedPackagesWhenDebug=false,
   ~canvasData=CanvasControllerTool.buildCanvasData(),
   ~apInspectorData=ApInspectorTool.buildApInspectorData(),
   ~values={
@@ -39,6 +35,7 @@ let publish = (
       canvasData,
       apInspectorData,
       storedPackageIdsInApp,
+      isChangeSelectedPackagesWhenDebug,
     ),
     values,
   )
