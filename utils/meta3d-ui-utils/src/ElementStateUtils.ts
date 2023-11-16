@@ -9,7 +9,7 @@ export let getActionState = <actionState>(meta3dState: meta3dState, api: api, ac
 	return getExn(getCurrentElementState(meta3dState))[actionName] as actionState
 }
 
-export let getActionStateInUIControl = <actionState>(meta3dState: meta3dState, api: api, actionName: string): nullable<actionState> => {
+export let getActionStateInInput = <actionState>(meta3dState: meta3dState, api: api, actionName: string): nullable<actionState> => {
 	let { getCurrentElementState } = getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
 	return bind(currentElementState => {

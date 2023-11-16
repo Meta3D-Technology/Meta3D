@@ -7,7 +7,9 @@ export type state = null
 
 type childrenFunc = (meta3dState: meta3dState) => Promise<meta3dState>
 
-export type inputData = {
+export type inputFunc = null
+
+export type specificData = {
     rect: rect,
     label: string,
     childrenFunc: childrenFunc

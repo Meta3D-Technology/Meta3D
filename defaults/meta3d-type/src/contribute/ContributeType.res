@@ -6,4 +6,5 @@ type contributeType =
   | Component
   | GameObject
   | Pipeline
+  | Input
   | Unknown

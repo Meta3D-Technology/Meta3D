@@ -19,11 +19,15 @@ let buildRect = (
   (),
 ): FrontendUtils.ElementAssembleStoreType.rect => {
   {
-    x: x,
-    y: y,
-    width: width,
-    height: height,
+    x,
+    y,
+    width,
+    height,
   }
+}
+
+let buildInput = (inputName): FrontendUtils.ElementAssembleStoreType.input => {
+  inputName: inputName,
 }
 
 let buildEventData = (
@@ -31,8 +35,8 @@ let buildEventData = (
   eventName,
   actionName,
 ): FrontendUtils.ElementAssembleStoreType.eventData => {
-  eventName: eventName,
-  actionName: actionName,
+  eventName,
+  actionName,
 }
 
 let buildSpecific = (
@@ -42,9 +46,9 @@ let buildSpecific = (
   (),
 ): FrontendUtils.ElementAssembleStoreType.specificData => {
   {
-    name: name,
-    type_: type_,
-    value: value,
+    name,
+    type_,
+    value,
   }
 }
 
@@ -55,17 +59,19 @@ let buildUIControlInspectorData = (
   ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+  ~input=None,
   ~event=[],
   ~specific=[],
   ~children=list{},
   (),
 ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
-  id: id,
+  id,
   rect: buildRect(~x, ~y, ~width, ~height, ()),
-  isDraw: isDraw,
-  event: event,
-  specific: specific,
-  children: children,
+  isDraw,
+  input,
+  event,
+  specific,
+  children,
 }
 
 let setRectX = UIControlInspector.Method.setRectX

@@ -66,11 +66,16 @@ type specificData = {
 
 type specific = array<specificData>
 
+type inputName = string
+
+type input = {inputName: inputName}
+
 type rec uiControlInspectorData = {
   id: id,
   rect: rect,
   specific: specific,
   isDraw: isDraw,
+  input: option<input>,
   event: event,
   children: list<uiControlInspectorData>,
 }
@@ -137,6 +142,7 @@ type action =
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
   // | SetAction(id, (eventName, option<actionName>))
+  | SetInput(id, option<inputName>)
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
   // | SetVisualExtension(ApAssembleStoreType.extension)
   // | SetRunVisualExtension(ApAssembleStoreType.extension)

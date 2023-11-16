@@ -377,7 +377,8 @@ let registerSkin = (
 let registerUIControl = (
   state: Meta3dUiProtocol.StateType.state,
   uiControlContribute: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
-    Meta3dUiProtocol.StateType.inputData,
+    Meta3dUiProtocol.StateType.inputFunc,
+    Meta3dUiProtocol.StateType.specificData,
     Meta3dUiProtocol.StateType.outputData,
   >,
 ) => {
@@ -386,6 +387,21 @@ let registerUIControl = (
     uiControlContributeMap: state.uiControlContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
       uiControlContribute.uiControlName,
       uiControlContribute,
+    ),
+  }
+}
+
+let registerInput = (
+  state: Meta3dUiProtocol.StateType.state,
+  inputContribute: Meta3dUiProtocol.InputContributeType.inputContribute<
+    Meta3dUiProtocol.StateType.data,
+  >,
+) => {
+  {
+    ...state,
+    inputContributeMap: state.inputContributeMap->Meta3dCommonlib.ImmutableHashMap.set(
+      inputContribute.inputName,
+      inputContribute,
     ),
   }
 }
@@ -404,6 +420,12 @@ let _getUIControlExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) 
 
 let getUIControlFuncExn = (state: Meta3dUiProtocol.StateType.state, uiControlName) => {
   _getUIControlExn(state, uiControlName).func
+}
+
+let getInputFunc = (state: Meta3dUiProtocol.StateType.state, inputName) => {
+  state.inputContributeMap
+  ->Meta3dCommonlib.ImmutableHashMap.getNullable(inputName)
+  ->Meta3dCommonlib.NullableSt.map((. {func}) => func)
 }
 
 // let updateUIControlName = (

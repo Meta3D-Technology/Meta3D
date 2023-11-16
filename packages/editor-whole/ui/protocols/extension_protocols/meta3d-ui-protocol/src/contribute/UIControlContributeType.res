@@ -1,27 +1,31 @@
 type uiControlName = string
 
-type uiControlFunc<'inputData, 'outputData> = (
+// type getInputFunc<'data> = Meta3dType.Index.state => Js.Promise.t<'data>
+
+type uiControlFunc<'inputFunc, 'specificData, 'outputData> = (
   . Meta3dType.Index.state,
-  'inputData,
+  // getInputFunc<'inputFunc>,
+  'inputFunc,
+  'specificData,
 ) => Js.Promise.t<(Meta3dType.Index.state, 'outputData)>
 
-// type uiControlContribute<'uiControlState, 'inputData, 'outputData> = {
+// type uiControlContribute<'uiControlState, 'specificData, 'outputData> = {
 //   uiControlName: uiControlName,
 //   createStateFunc: unit => 'uiControlState,
-//   func: uiControlFunc<'inputData, 'outputData>,
+//   func: uiControlFunc<'specificData, 'outputData>,
 // }
 
 type init = Meta3dType.Index.state => Js.Promise.t<Meta3dType.Index.state>
 
-type uiControlContribute<'inputData, 'outputData> = {
+type uiControlContribute<'inputFunc, 'specificData, 'outputData> = {
   uiControlName: uiControlName,
-  func: uiControlFunc<'inputData, 'outputData>,
+  func: uiControlFunc<'inputFunc, 'specificData, 'outputData>,
   init: init,
 }
 
 // type skinName = string
 
-// type getUIControlContribute<'inputData, 'outputData> = skinName => uiControlContribute<
-//   'inputData,
+// type getUIControlContribute<'specificData, 'outputData> = skinName => uiControlContribute<
+//   'specificData,
 //   'outputData,
 // >

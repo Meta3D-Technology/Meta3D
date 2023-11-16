@@ -9,7 +9,9 @@ export type state = {
     rect: rect,
 }
 
-export type inputData = Merge<state, {
+export type inputFunc = null
+
+export type specificData = Merge<state, {
     label: string,
 }>
 

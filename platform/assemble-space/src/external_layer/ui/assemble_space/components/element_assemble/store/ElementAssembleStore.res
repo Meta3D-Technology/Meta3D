@@ -11,6 +11,7 @@ let _buildDefaultUIControlInspectorData = (id, specific) => {
     },
     isDraw: true->BoolForIsDraw,
     event: [],
+    input: None,
     specific,
     children: list{},
   }
@@ -205,7 +206,15 @@ let reducer = (state, action) => {
       },
       id,
     )
-
+  | SetInput(id, inputNameOpt) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        input: inputNameOpt->Meta3dCommonlib.OptionSt.map(inputName => ( {inputName:inputName}:input ))
+      },
+      id,
+    )
   | SetAction(id, (eventName, actionNameOpt)) =>
     _setUIControlInspectorData(
       state,

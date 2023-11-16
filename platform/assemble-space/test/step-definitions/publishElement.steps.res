@@ -14,6 +14,7 @@ defineFeature(feature, test => {
   // let elementInspectorData = ref(Obj.magic(1))
   let selectedUIControls = ref(Obj.magic(1))
   let selectedUIControlInspectorData = ref(Obj.magic(1))
+  let input = ref(Obj.magic(1))
   let event = ref(Obj.magic(1))
   let isDraw = ref(Obj.magic(1))
   let specific = ref(Obj.magic(1))
@@ -45,10 +46,7 @@ defineFeature(feature, test => {
           ~service=ServiceTool.build(
             ~sandbox,
             ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-              (
-              list{}  ,
-                list{},
-              ),
+              (list{}, list{}),
               _,
             ),
             (),
@@ -129,6 +127,7 @@ defineFeature(feature, test => {
       // elementInspectorData :=
       //   ElementInspectorTool.buildElementInspectorData(list{})
 
+      input := UIControlInspectorTool.buildInput("input")
       event := [UIControlInspectorTool.buildEventData(#button_click, "a1")]
 
       isDraw := false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
@@ -156,6 +155,7 @@ defineFeature(feature, test => {
           UIControlInspectorTool.buildUIControlInspectorData(
             ~id="b1",
             ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            ~input=input.contents->Some,
             ~event=event.contents,
             ~isDraw=isDraw.contents,
             ~specific=specific.contents,
@@ -234,7 +234,7 @@ defineFeature(feature, test => {
                   version: ElementContributeUtils.getElementContributeProtocolVersion(),
                 },
                 dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty()
+                dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
                 // ->Meta3dCommonlib.ImmutableHashMap.set(
                 //   "meta3d-ui-protocol",
                 //   ElementVisualTool.getUIProtocolVersion(),
@@ -391,6 +391,7 @@ defineFeature(feature, test => {
                     (),
                   ),
                   isDraw: isDraw.contents,
+                  input: input.contents->Meta3dCommonlib.NullableSt.return,
                   event: event.contents,
                   specific: specific.contents,
                   children: [
@@ -401,6 +402,7 @@ defineFeature(feature, test => {
                         (),
                       ),
                       isDraw: isDraw.contents,
+                      input: Js.Nullable.null,
                       event: event.contents,
                       specific: specific.contents,
                       children: [],

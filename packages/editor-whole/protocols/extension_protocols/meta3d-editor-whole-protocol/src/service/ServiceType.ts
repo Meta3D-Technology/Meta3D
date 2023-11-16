@@ -1,12 +1,12 @@
 import { state as meta3dState, packageProtocolName, canvasData } from "meta3d-type"
 import { ecsConfig, service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
-import { webgl1Context } from "meta3d-webgl1-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { service as uiService_, texture } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
 import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
+import { inputContribute as inputContribute_ } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { actionContribute as actionContribute_ } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 
 export type uiTexture = texture
@@ -18,7 +18,9 @@ type addToInitFuncs = (meta3dState: meta3dState, func: initFunc) => meta3dState
 
 // type addToFuncs = (meta3dState: meta3dState, func: func) => meta3dState
 
-export type uiControlContribute<inputData, outputData> = uiControlContribute_<inputData, outputData>
+export type uiControlContribute<inputFunc, specificData, outputData> = uiControlContribute_<inputFunc, specificData, outputData>
+
+export type inputContribute<data> = inputContribute_<data>
 
 export type actionContribute<uiData, state> = actionContribute_<uiData, state>
 

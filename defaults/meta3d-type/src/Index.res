@@ -58,11 +58,11 @@ and state = {
     extensionProtocolName,
     extensionLife<extensionService>,
   >,
-  contributeExceptActionMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+  contributeExceptInputMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     contributeProtocolName,
     (ContributeType.contributeType, contribute),
   >,
-  actionMap: Meta3dCommonlibType.ImmutableHashMapType.t<contributeProtocolName, array<contribute>>,
+  inputMap: Meta3dCommonlibType.ImmutableHashMapType.t<contributeProtocolName, array<contribute>>,
   packageStoreInAppMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     packageProtocolName,
     Js.Typed_array.ArrayBuffer.t,

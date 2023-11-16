@@ -26,6 +26,8 @@ let getElements = _getContributes(_, Meta3dType.ContributeType.Element)
 
 let getSkins = _getContributes(_, Meta3dType.ContributeType.Skin)
 
+let getInputs = _getContributes(_, Meta3dType.ContributeType.Input)
+
 let hasUIControl = (
   selectedContributes: array<FrontendUtils.PackageAssembleStoreType.contribute>,
 ) => {

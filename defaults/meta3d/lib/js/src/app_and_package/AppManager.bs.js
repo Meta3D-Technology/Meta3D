@@ -99,8 +99,8 @@ function _loadAllPackageUint8StoredInApp(state, allPackageUint8StoredInApp) {
                         extensionServiceMap: state.extensionServiceMap,
                         extensionStateMap: state.extensionStateMap,
                         extensionLifeMap: state.extensionLifeMap,
-                        contributeExceptActionMap: state.contributeExceptActionMap,
-                        actionMap: state.actionMap,
+                        contributeExceptInputMap: state.contributeExceptInputMap,
+                        inputMap: state.inputMap,
                         packageStoreInAppMap: ImmutableHashMap$Meta3dCommonlib.set(state.packageStoreInAppMap, param[0][0].name, param[1])
                       };
               }), state);

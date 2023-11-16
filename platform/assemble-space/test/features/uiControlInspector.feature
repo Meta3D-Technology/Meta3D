@@ -43,6 +43,16 @@ Feature: UIControlInsepctor
             Then should dispatch SetIsDraw action
 
 
+    Rule: Input
+
+        Scenario: show input
+            Given select ui control window w1
+            And select input i1 match w1
+            And set inspector current selected ui control data to w1
+            When render
+            Then should show dom with defalut value
+
+
     Rule: Specific
 
         Scenario: show specific

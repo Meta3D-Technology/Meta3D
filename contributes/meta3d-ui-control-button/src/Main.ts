@@ -1,12 +1,14 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { inputData, outputData, uiControlName } from "meta3d-ui-control-button-protocol"
+import { inputFunc, specificData, outputData, uiControlName } from "meta3d-ui-control-button-protocol"
 import { service as editorWholeService, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { initFunc } from "meta3d-editor-whole-protocol/src/state/StateType"
 
-export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
+export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
         func: (meta3dState,
+            _,
             {
                 rect,
                 label

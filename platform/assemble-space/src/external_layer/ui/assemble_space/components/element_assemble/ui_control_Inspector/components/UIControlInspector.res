@@ -92,6 +92,15 @@ module Method = {
     )
   }
 
+  let setInput = (dispatch, id, inputName: string) => {
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.SetInput(
+        id,
+        FrontendUtils.SelectUtils.isEmptySelectOptionValue(inputName) ? None : Some(inputName),
+      ),
+    )
+  }
+
   let getActions = SelectedContributesForElementUtils.getActions
 
   let setAction = (
@@ -138,7 +147,7 @@ module Method = {
   // }
 
   // let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
-  let buildRectField = (dispatch, setRectField,  id, rect, rectField) => {
+  let buildRectField = (dispatch, setRectField, id, rect, rectField) => {
     <>
       <InputNumber
         value={rectField
@@ -367,22 +376,16 @@ let make = (~service: service) => {
     selectedUIControlInspectorData,
   ) {
   | None => React.null
-  | Some({id, rect, isDraw, event, specific}) =>
+  | Some({id, rect, isDraw, input, event, specific}) =>
     let {x, y, width, height} = rect
 
     <Space direction=#vertical size=#middle>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
       <Space direction=#horizontal wrap=true>
-        {Method.buildRectField(dispatch, Method.setRectX,  id, rect, x)}
-        {Method.buildRectField(dispatch, Method.setRectY,  id, rect, y)}
-        {Method.buildRectField(dispatch, Method.setRectWidth,  id, rect, width)}
-        {Method.buildRectField(
-          dispatch,
-          Method.setRectHeight,
-          id,
-          rect,
-          height,
-        )}
+        {Method.buildRectField(dispatch, Method.setRectX, id, rect, x)}
+        {Method.buildRectField(dispatch, Method.setRectY, id, rect, y)}
+        {Method.buildRectField(dispatch, Method.setRectWidth, id, rect, width)}
+        {Method.buildRectField(dispatch, Method.setRectHeight, id, rect, height)}
       </Space>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
       {Method.buildIsDraw(dispatch, id, isDraw)}
@@ -400,7 +403,7 @@ let make = (~service: service) => {
           ),
           None,
         )->Obj.magic
-      | Some({id, protocolConfigStr}) =>
+      | Some({id, protocolConfigStr, data}) =>
         // let {name, version} = data.contributePackageData.protocol
 
         let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
@@ -409,14 +412,41 @@ let make = (~service: service) => {
           protocolConfigStr,
         )
 
+        let uiControlProtocolName = data.contributePackageData.protocol.name
+
         <Space direction=#vertical size=#middle>
+          {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
+          {FrontendUtils.SelectUtils.buildSelect(
+            Method.setInput(dispatch, id),
+            input
+            ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+            ->Meta3dCommonlib.OptionSt.getWithDefault(
+              FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+            )
+            ->Meta3dCommonlib.Log.printForDebug,
+            SelectedContributesForElementUtils.getInputs(selectedContributes)
+            ->Meta3dCommonlib.ListSt.toArray
+            ->Meta3dCommonlib.Log.printForDebug
+            ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+              data.contributePackageData.protocol.name
+              ->Js.String.replace("-input-", "-ui-control-", _)
+              ->Meta3dCommonlib.Log.printForDebug == uiControlProtocolName
+            })
+            ->Meta3dCommonlib.Log.printForDebug
+            ->Meta3dCommonlib.ArraySt.map(({data}) => {
+              (
+                service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+              )["inputName"]
+            })
+            ->Meta3dCommonlib.Log.printForDebug,
+          )}
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
           {Method.buildSpecific(service, dispatch, id, specific)}
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
           <List
             dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
             // renderItem={(( eventName, actionProtocolName )) => {
-            renderItem={(eventName) => {
+            renderItem={eventName => {
               let value =
                 ElementMRUtils.getActionName(
                   event,

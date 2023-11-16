@@ -43,6 +43,9 @@ function getExtensionService(api) {
           registerUIControl: (function (meta3dState, uiControlContribute) {
               return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerUIControl(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), uiControlContribute));
             }),
+          registerInput: (function (meta3dState, inputContribute) {
+              return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerInput(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), inputContribute));
+            }),
           render: (function (param, param$1, param$2) {
               return UIManager$Meta3dUi.render(api, param, param$1, param$2);
             }),
@@ -66,6 +69,9 @@ function getExtensionService(api) {
             }),
           getUIControlFunc: (function (meta3dState, uiControlName) {
               return UIManager$Meta3dUi.getUIControlFuncExn(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), uiControlName);
+            }),
+          getInputFunc: (function (meta3dState, inputName) {
+              return UIManager$Meta3dUi.getInputFunc(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), inputName);
             }),
           getUIControlState: (function (meta3dState, uiControlName) {
               return UIManager$Meta3dUi.getUIControlState(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), uiControlName);
@@ -187,6 +193,7 @@ function createExtensionState(param) {
           skinContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           uiControlContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           uiControlStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+          inputContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           currentElementName: undefined,
           fboTextureMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined)
         };

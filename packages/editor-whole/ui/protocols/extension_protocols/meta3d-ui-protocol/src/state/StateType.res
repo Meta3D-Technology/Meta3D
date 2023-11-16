@@ -2,7 +2,11 @@ type elementState
 
 type dependentExtensionProtocolNameMap
 
-type inputData
+type data
+
+type inputFunc
+
+type specificData
 
 type outputData
 
@@ -40,11 +44,15 @@ type state = {
   >,
   uiControlContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     UIControlContributeType.uiControlName,
-    UIControlContributeType.uiControlContribute<inputData, outputData>,
+    UIControlContributeType.uiControlContribute<inputFunc, specificData, outputData>
   >,
   uiControlStateMap: Meta3dCommonlibType.ImmutableHashMapType.t<
     UIControlContributeType.uiControlName,
     uiControlState,
+  >,
+  inputContributeMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+    InputContributeType.inputName,
+    InputContributeType.inputContribute<data>,
   >,
   // reducers: array<ElementContributeType.reducerData>,
   currentElementName: option<ElementContributeType.elementName>,

@@ -29,12 +29,6 @@ defineFeature(feature, test => {
         state :=
           Main.registerContribute(
             state.contents,
-            "a1-protocol",
-            ContributeTool.buildGetContributeFunc(_buildAction("a2"))->Obj.magic,
-          )
-        state :=
-          Main.registerContribute(
-            state.contents,
             "c1",
             ContributeTool.buildGetContributeFunc({
               "componentName": "c1",
@@ -144,7 +138,7 @@ defineFeature(feature, test => {
           ->Js.Json.stringify,
         )->expect ==
           (
-            "[{\"actionName\":\"a1\",\"handler\":1},{\"actionName\":\"a2\",\"handler\":1}]",
+            "[{\"actionName\":\"a1\",\"handler\":1}]",
             "[{\"componentName\":\"c1\",\"createComponentFunc\":1}]",
             "[{\"elementName\":\"e1\",\"execOrder\":0}]",
             "[{\"createGameObjectFunc\":1,\"getAllGameObjectsFunc\":1}]",
@@ -176,7 +170,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "get all contributes by action type by api",
+      "get all contributes by input type by api",
       () => {
         ()
       },
@@ -187,7 +181,7 @@ defineFeature(feature, test => {
       () => {
         APITool.buildAPI().getAllContributesByType(.
           state.contents,
-          Meta3dType.ContributeType.Action,
+          Meta3dType.ContributeType.Input,
         )
         ->Obj.magic
         ->Js.Json.stringify
@@ -196,7 +190,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."register contribute which is not action and already registered before", ({
+  test(."register contribute which is not input and already registered before", ({
     given,
     \"when",
     \"and",
@@ -245,7 +239,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."register contribute which is action and already registered before", ({
+  test(."register contribute which is input and already registered before", ({
     given,
     \"when",
     \"and",
@@ -254,8 +248,14 @@ defineFeature(feature, test => {
     let state = ref(Obj.magic(1))
     let protocolName = "p1"
 
+    let _buildInput = inputName =>
+      {
+        "inputName": inputName,
+        "func": Obj.magic(1),
+      }
+
     given(
-      "register action a1 of protocol name p1",
+      "register input a1 of protocol name p1",
       () => {
         state := StateTool.create()
 
@@ -263,13 +263,13 @@ defineFeature(feature, test => {
           Main.registerContribute(
             state.contents,
             protocolName,
-            ContributeTool.buildGetContributeFunc(_buildAction("a1"))->Obj.magic,
+            ContributeTool.buildGetContributeFunc(_buildInput("a1"))->Obj.magic,
           )
       },
     )
 
     \"when"(
-      "register action a2 of protocol name p1",
+      "register input a2 of protocol name p1",
       () => {
         ()
       },
@@ -284,7 +284,7 @@ defineFeature(feature, test => {
               Main.registerContribute(
                 state.contents,
                 protocolName,
-                ContributeTool.buildGetContributeFunc(_buildAction("a2"))->Obj.magic,
+                ContributeTool.buildGetContributeFunc(_buildInput("a2"))->Obj.magic,
               )
           },
         )->toNotThrow

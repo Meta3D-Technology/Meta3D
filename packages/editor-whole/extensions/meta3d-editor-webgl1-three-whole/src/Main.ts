@@ -21,6 +21,7 @@ import { init, update, render } from "meta3d-whole-utils/src/DirectorAPI"
 import { skin } from "meta3d-skin-protocol"
 import { sync } from "./SyncUtils"
 import { service as exportSceneService } from "meta3d-export-scene-protocol/src/service/ServiceType"
+import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 
 
 let _registerEditorPipelines = (
@@ -125,13 +126,26 @@ let _prepareUIControls = (meta3dState: meta3dState, api: api): Promise<meta3dSta
 	let { registerUIControl } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
 
-	let uiControlContributes = api.getAllContributesByType<uiControlContribute<any, any>>(meta3dState, contributeType.UIControl)
+	let uiControlContributes = api.getAllContributesByType<uiControlContribute<any, any, any>>(meta3dState, contributeType.UIControl)
 
 	meta3dState = uiControlContributes.reduce<meta3dState>((meta3dState, contribute) => {
 		return registerUIControl(meta3dState, contribute)
 	}, meta3dState)
 
-	return reducePromise<meta3dState, uiControlContribute<any, any>>(uiControlContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
+	return reducePromise<meta3dState, uiControlContribute<any, any, any>>(uiControlContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
+}
+
+let _prepareInputs = (meta3dState: meta3dState, api: api): meta3dState => {
+	let { registerInput } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
+
+
+	let inputContributes = api.getAllContributesByType<inputContribute<any>>(meta3dState, contributeType.Input)
+
+	meta3dState = inputContributes.reduce<meta3dState>((meta3dState, contribute) => {
+		return registerInput(meta3dState, contribute)
+	}, meta3dState)
+
+	return meta3dState
 }
 
 let _initForVisual = (meta3dState: meta3dState, api: api, { isDebug, canvas }) => {
@@ -145,6 +159,8 @@ let _initForVisual = (meta3dState: meta3dState, api: api, { isDebug, canvas }) =
 				isDebug
 			)
 		}).then(meta3dState => {
+			meta3dState = _prepareInputs(meta3dState, api)
+
 			return _prepareUIControls(meta3dState, api)
 		})
 	})
@@ -187,6 +203,8 @@ let _initForVisualRun = (meta3dState: meta3dState, api: api, { isDebug, canvas }
 				isDebug
 			)
 		}).then(meta3dState => {
+			meta3dState = _prepareInputs(meta3dState, api)
+
 			return _prepareUIControls(meta3dState, api)
 		})
 	})
@@ -312,6 +330,8 @@ let _initForRun = (meta3dState: meta3dState, api: api, [_, { isDebug }]: configD
 				isDebug
 			)
 		}).then(meta3dState => {
+			meta3dState = _prepareInputs(meta3dState, api)
+
 			return _prepareUIControls(meta3dState, api)
 		})
 	})

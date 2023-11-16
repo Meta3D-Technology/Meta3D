@@ -22,6 +22,7 @@ module Method = {
       children,
       rect,
       isDraw,
+      input,
       event,
       specific,
     }): FrontendUtils.BackendCloudbaseType.uiControl => {
@@ -39,6 +40,7 @@ module Method = {
         ).displayName,
         rect,
         isDraw,
+        input: input->Meta3dCommonlib.OptionSt.toNullable,
         event,
         specific,
         children: _convertToUIControls(children, selectedUIControls),
@@ -143,7 +145,9 @@ module Method = {
   ) => {
     (
       // elementInspectorData,
-       selectedUIControls, selectedUIControlInspectorData)
+      selectedUIControls,
+      selectedUIControlInspectorData,
+    )
   }
 }
 
@@ -153,7 +157,10 @@ let make = (~service: service, ~account: option<string>) => {
     // elementInspectorData,
     selectedUIControls,
     selectedUIControlInspectorData,
-  ) = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  ) = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(
+    service.react.useSelector,
+    Method.useSelector,
+  )
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
@@ -180,12 +187,12 @@ let make = (~service: service, ~account: option<string>) => {
       {isUploadBegin
         ? <p> {React.string({j`${uploadProgress->Js.Int.toString}% uploading...`})} </p>
         : <Form
-          // labelCol={{
-          //   "span": 8,
-          // }}
-          // wrapperCol={{
-          //   "span": 6,
-          // }}
+            // labelCol={{
+            //   "span": 8,
+            // }}
+            // wrapperCol={{
+            //   "span": 6,
+            // }}
             initialValues={{
               "remember": true,
             }}
@@ -197,7 +204,9 @@ let make = (~service: service, ~account: option<string>) => {
                     account,
                     (
                       // elementInspectorData,
-                       selectedUIControls, selectedUIControlInspectorData),
+                      selectedUIControls,
+                      selectedUIControlInspectorData,
+                    ),
                   ),
                   event->Obj.magic,
                 )->ignore

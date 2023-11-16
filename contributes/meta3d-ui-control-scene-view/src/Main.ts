@@ -1,5 +1,5 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { uiControlName, textureID, state as uiControlState, inputData, outputData, dragDropType, dragDropData } from "meta3d-ui-control-scene-view-protocol"
+import { uiControlName, textureID, state as uiControlState, inputFunc, specificData, outputData, dragDropType, dragDropData } from "meta3d-ui-control-scene-view-protocol"
 import { changeToStrictlyNull, getFBORect } from "meta3d-ui-control-view-utils/src/Main"
 import { uiControlContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
@@ -7,10 +7,11 @@ import { service as renderService } from "meta3d-editor-sceneview-render-protoco
 import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
-export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
+export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
         func: (meta3dState,
+            _,
             {
                 rect,
                 label,

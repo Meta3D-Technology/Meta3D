@@ -82,16 +82,32 @@ elementMR => {
   }
 }
 
-let _generateGetUIControlsStr = (service: FrontendUtils.AssembleSpaceType.service, uiControls) => {
+let _getInputName = (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => {
+  data.input->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+}
+
+let _generateGetUIControlsAndInputsStr = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  uiControls,
+) => {
   uiControls
   ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
     displayName
   })
-  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, protocol}) => {
+  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, data}) => {
+    let inputName = data->_getInputName
+
     str ++
     j`
     let ${displayName} = getUIControlFunc(meta3dState,"${displayName}")
+    ` ++
+    switch inputName {
+    | None => ""
+    | Some(inputName) =>
+      j`
+    let ${inputName} = getInputFunc(meta3dState,"${inputName}")
     `
+    }
   }, "")
 }
 
@@ -199,7 +215,7 @@ let rec _generateChildren = (service, children: array<uiControl>): string => {
     : {
         let str = j`childrenFunc: (meta3dState) =>{
     `
-        let str = str ++ _generateGetUIControlsStr(service, children)
+        let str = str ++ _generateGetUIControlsAndInputsStr(service, children)
 
         let str =
           str ++
@@ -223,6 +239,14 @@ and _generateAllDrawUIControlAndHandleEventStr = (
         _generateIsDrawIfBegin(data.isDraw) ++
         j`
                  return ${displayName}(meta3dState,
+        ` ++
+        data
+        ->_getInputName
+        ->Meta3dCommonlib.OptionSt.getWithDefault({
+          j`null`
+        }) ++
+        "," ++
+        j`
                 {
                   ...${service.meta3d.generateUIControlCommonDataStr(.
             protocol.configLib,
@@ -315,11 +339,11 @@ window.Contribute = {
             elementFunc: (meta3dState, elementState) => {
                 let ui = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol").ui(meta3dState)
 
-                let { getUIControlFunc } = ui
+                let { getUIControlFunc, getInputFunc } = ui
 `
   }
 
-  let str = str ++ _generateGetUIControlsStr(service, mr.uiControls)
+  let str = str ++ _generateGetUIControlsAndInputsStr(service, mr.uiControls)
 
   let str = str ++ _generateAllDrawUIControlAndHandleEventStr(service, mr.uiControls)
 

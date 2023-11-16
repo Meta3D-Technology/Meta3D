@@ -363,7 +363,14 @@ module Method = {
     ) => {
       uiControls
       ->Meta3dCommonlib.ArraySt.mapi((
-        {rect, isDraw, event, specific, children}: FrontendUtils.BackendCloudbaseType.uiControl,
+        {
+          rect,
+          isDraw,
+          input,
+          event,
+          specific,
+          children,
+        }: FrontendUtils.BackendCloudbaseType.uiControl,
         index,
       ): FrontendUtils.ElementAssembleStoreType.uiControlInspectorData => {
         id: (
@@ -371,6 +378,7 @@ module Method = {
         ).id,
         rect,
         isDraw,
+        input: input->Meta3dCommonlib.OptionSt.fromNullable,
         event,
         specific,
         children: _generate(

@@ -22,19 +22,19 @@ let getExtensionStateExn = (state, protocolName: extensionProtocolName) => {
   state.extensionStateMap->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
 }
 
-let _isAction = (protocolName: string) => {
+let _isInput = (protocolName: string) => {
   switch protocolName {
-  | name if name->Js.String.includes("-action-", _) => true
+  | name if name->Js.String.includes("-input-", _) => true
   | _ => false
   }
 }
 
 let getContributeExn = (state, protocolName: contributeProtocolName) => {
-  _isAction(protocolName)
+  _isInput(protocolName)
     ? Meta3dCommonlib.Exception.throwErr(
         Meta3dCommonlib.Exception.buildErr(
           Meta3dCommonlib.Log.buildErrorMessage(
-            ~title={j`shouldn't get action whose protocol is: ${protocolName}!`},
+            ~title={j`shouldn't get input whose protocol is: ${protocolName}!`},
             ~description={
               j``
             },
@@ -44,7 +44,7 @@ let getContributeExn = (state, protocolName: contributeProtocolName) => {
           ),
         ),
       )
-    : state.contributeExceptActionMap
+    : state.contributeExceptInputMap
       ->Meta3dCommonlib.ImmutableHashMap.getExn(protocolName)
       ->Meta3dCommonlib.Tuple2.getLast
 }
@@ -53,14 +53,14 @@ let getAllContributesByType = (state, contributeType) => {
   open Meta3dType.ContributeType
 
   switch contributeType {
-  | Action =>
-    state.actionMap
+  | Input =>
+    state.inputMap
     ->Meta3dCommonlib.ImmutableHashMap.getValidValues
     ->Meta3dCommonlib.ArraySt.reduceOneParam((. result, arr) => {
       Js.Array.concat(arr, result)
     }, [])
   | _ =>
-    state.contributeExceptActionMap
+    state.contributeExceptInputMap
     ->Meta3dCommonlib.ImmutableHashMap.getValidValues
     ->Meta3dCommonlib.ArraySt.filter(((type_, _)) => {
       type_ == contributeType
@@ -152,6 +152,9 @@ let _decideContributeType = (contribute: contribute) => {
     : !(contribute["uiControlName"]->Js.Nullable.isNullable) &&
     !(contribute["func"]->Js.Nullable.isNullable)
     ? UIControl
+    : !(contribute["inputName"]->Js.Nullable.isNullable) &&
+    !(contribute["func"]->Js.Nullable.isNullable)
+    ? Input
     : !(contribute["skinName"]->Js.Nullable.isNullable) &&
     !(contribute["skin"]->Js.Nullable.isNullable)
     ? Skin
@@ -248,26 +251,26 @@ and registerContribute = (
   let contributeType = _decideContributeType(contribute)
 
   switch contributeType {
-  | Action => {
+  | Input => {
       ...state,
-      actionMap: switch state.actionMap->Meta3dCommonlib.ImmutableHashMap.get(protocolName) {
-      | Some(actions) =>
-        state.actionMap->Meta3dCommonlib.ImmutableHashMap.set(
+      inputMap: switch state.inputMap->Meta3dCommonlib.ImmutableHashMap.get(protocolName) {
+      | Some(inputs) =>
+        state.inputMap->Meta3dCommonlib.ImmutableHashMap.set(
           protocolName,
-          actions->Meta3dCommonlib.ArraySt.push(contribute),
+          inputs->Meta3dCommonlib.ArraySt.push(contribute),
         )
-      | None => state.actionMap->Meta3dCommonlib.ImmutableHashMap.set(protocolName, [contribute])
+      | None => state.inputMap->Meta3dCommonlib.ImmutableHashMap.set(protocolName, [contribute])
       },
     }
   | _ =>
     _checkIsRegister(
       protocolName,
-      state.contributeExceptActionMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
+      state.contributeExceptInputMap->Meta3dCommonlib.ImmutableHashMap.has(protocolName),
     )
 
     {
       ...state,
-      contributeExceptActionMap: state.contributeExceptActionMap->Meta3dCommonlib.ImmutableHashMap.set(
+      contributeExceptInputMap: state.contributeExceptInputMap->Meta3dCommonlib.ImmutableHashMap.set(
         protocolName,
         (contributeType, contribute),
       ),

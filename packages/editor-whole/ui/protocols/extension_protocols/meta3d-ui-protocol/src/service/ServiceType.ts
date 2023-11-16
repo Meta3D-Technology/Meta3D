@@ -7,6 +7,7 @@ import { style, label, pos, size, rect, texture as imguiTexture, context, imguiI
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { name } from "meta3d-gameobject-protocol"
 import { localEulerAngles, localPosition, localScale } from "meta3d-component-transform-protocol"
+import { inputContribute, inputFunc, inputName } from "../contribute/InputContributeType"
 
 export type uiExtensionProtocolName = extensionProtocolName
 
@@ -33,18 +34,26 @@ export type service = {
         meta3dState: meta3dState,
         skinContribute: skinContribute<skin>
     ) => meta3dState;
-    readonly registerUIControl: <inputData, outputData> (
+    readonly registerUIControl: <inputData, specificData, outputData> (
         meta3dState: meta3dState,
-        uiControlContribute: uiControlContribute<inputData, outputData>
+        uiControlContribute: uiControlContribute<inputData, specificData, outputData>
+    ) => meta3dState;
+    readonly registerInput: <data> (
+        meta3dState: meta3dState,
+        inputContribute: inputContribute<data>
     ) => meta3dState;
     readonly getSkin: <skin> (
         meta3dState: meta3dState,
         skinName: skinName
     ) => nullable<skinContribute<skin>>;
-    readonly getUIControlFunc: < inputData, outputData> (
+    readonly getUIControlFunc: < inputData, specificData, outputData> (
         meta3dState: meta3dState,
         uiControlName: uiControlName
-    ) => uiControlFunc<inputData, outputData>;
+    ) => uiControlFunc<inputData, specificData, outputData>;
+    readonly getInputFunc: <data> (
+        meta3dState: meta3dState,
+        inputName: inputName
+    ) => nullable<inputFunc<data>>;
     // readonly updateUIControlName: (
     //     meta3dState: meta3dState,
     //     [api, uiExtensionProtocolName]: [api, uiExtensionProtocolName],
@@ -59,10 +68,6 @@ export type service = {
         uiControlName: uiControlName,
         uiControlState: uiControlState
     ) => meta3dState;
-    // readonly prepare: (
-    //     meta3dState: meta3dState,
-    //     allUIControlContributes: Array<uiControlContribute<uiControlState, inputData, outputData>>
-    // ) => Promise<meta3dState>;
     readonly init: (
         meta3dState: meta3dState,
         [api, imguiRendererExtensionProtocolName]: [api, imguiRendererExtensionProtocolName],

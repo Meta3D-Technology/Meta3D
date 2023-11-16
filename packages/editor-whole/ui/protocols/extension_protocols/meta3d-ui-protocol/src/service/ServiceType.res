@@ -27,7 +27,15 @@ type service = {
   ) => Meta3dType.Index.state,
   registerUIControl: (
     Meta3dType.Index.state,
-    UIControlContributeType.uiControlContribute<StateType.inputData, StateType.outputData>,
+    UIControlContributeType.uiControlContribute<
+      StateType.inputFunc,
+      StateType.specificData,
+      StateType.outputData,
+    >,
+  ) => Meta3dType.Index.state,
+  registerInput: (
+    Meta3dType.Index.state,
+    InputContributeType.inputContribute<StateType.data>,
   ) => Meta3dType.Index.state,
   render: (
     Meta3dType.Index.state,
@@ -54,10 +62,14 @@ type service = {
     Meta3dType.Index.state,
     SkinContributeType.skinName,
   ) => Js.Nullable.t<SkinContributeType.skinContribute<'skin>>,
-  getUIControlFunc: 'inputData 'outputData. (
+  getUIControlFunc: 'inputFunc 'specificData 'outputData. (
     Meta3dType.Index.state,
     UIControlContributeType.uiControlName,
-  ) => UIControlContributeType.uiControlFunc<'inputData, 'outputData>,
+  ) => UIControlContributeType.uiControlFunc<'inputFunc, 'specificData, 'outputData>,
+  getInputFunc: 'data. (
+    Meta3dType.Index.state,
+    InputContributeType.inputName,
+  ) => Js.Nullable.t<InputContributeType.inputFunc<'data>>,
   // updateUIControlName: (
   //   Meta3dType.Index.state,
   //   uiExtensionProtocolName,
@@ -166,16 +178,6 @@ type service = {
     },
     Meta3dImguiRendererProtocol.ServiceType.size,
   ) => (Meta3dType.Index.state, (bool, bool)),
-  // prepare: (
-  //   Meta3dType.Index.state,
-  //   array<
-  //     UIControlContributeType.uiControlContribute<
-  //       StateType.uiControlState,
-  //       StateType.inputData,
-  //       StateType.outputData,
-  //     >,
-  //   >,
-  // ) => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),
@@ -189,5 +191,8 @@ type service = {
     clearColor,
   ) => Meta3dType.Index.state,
   getCurrentElementState: Meta3dType.Index.state => Js.Nullable.t<StateType.elementState>,
-  setCurrentElementState: (Meta3dType.Index.state, StateType.elementState) => Meta3dType.Index.state,
+  setCurrentElementState: (
+    Meta3dType.Index.state,
+    StateType.elementState,
+  ) => Meta3dType.Index.state,
 }

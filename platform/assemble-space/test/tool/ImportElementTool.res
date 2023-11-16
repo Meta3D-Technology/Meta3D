@@ -8,6 +8,7 @@ let buildUIControl = (
   ~displayName="u1",
   ~rect=UIControlInspectorTool.buildRect(),
   ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+  ~input=None,
   ~event=[],
   ~specific=[],
   ~children=[],
@@ -16,6 +17,7 @@ let buildUIControl = (
   displayName,
   rect,
   isDraw,
+  input: input->Meta3dCommonlib.OptionSt.toNullable,
   event,
   specific,
   children,
@@ -30,7 +32,7 @@ let buildElementAssembleData = (
   elementName,
   elementVersion,
   inspectorData: {
-    uiControls,
+    uiControls: uiControls,
   },
 }
 

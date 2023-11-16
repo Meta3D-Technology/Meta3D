@@ -55,15 +55,17 @@ let _removeOtherSelectedExtensionsOfSameProtocolName = (
   })
 }
 
-let _removeOtherSelectedContributesOfSameProtocolName = (
+let _removeOtherSelectedContributesOfSameProtocolNameExceptInput = (
   selectedContributes: selectedContributes,
   data: contribute,
 ) => {
   let protocolName = data.protocolName
 
-  selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
-    selectedContribute.protocolName !== protocolName
-  })
+  FrontendUtils.ContributeTypeUtils.isInput(protocolName)
+    ? selectedContributes
+    : selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
+        selectedContribute.protocolName !== protocolName
+      })
 }
 
 let _removeOtherSelectedPackagesOfSameProtocolName = (
@@ -100,7 +102,7 @@ let reducer = (state, action) => {
   | SelectContribute(data, protocolConfigOpt) => {
       ...state,
       selectedContributes: state.selectedContributes
-      ->_removeOtherSelectedContributesOfSameProtocolName(data)
+      ->_removeOtherSelectedContributesOfSameProtocolNameExceptInput(data)
       ->Meta3dCommonlib.ListSt.push((data, protocolConfigOpt)),
       // selectedContributeProtocolConfigs: state.selectedContributeProtocolConfigs->Meta3dCommonlib.ListSt.push(
       //   protocolConfigOpt,
@@ -151,7 +153,7 @@ let reducer = (state, action) => {
         state.selectedContributes,
         (result, (data, protocolConfigOpt) as selectedContribute) => {
           result
-          ->_removeOtherSelectedContributesOfSameProtocolName(data)
+          ->_removeOtherSelectedContributesOfSameProtocolNameExceptInput(data)
           ->Meta3dCommonlib.ListSt.push(selectedContribute)
         },
       ),
@@ -179,7 +181,7 @@ let reducer = (state, action) => {
         state.selectedContributes,
         (result, (data, protocolConfigOpt) as selectedContribute) => {
           result
-          ->_removeOtherSelectedContributesOfSameProtocolName(data)
+          ->_removeOtherSelectedContributesOfSameProtocolNameExceptInput(data)
           ->Meta3dCommonlib.ListSt.push(selectedContribute)
         },
       ),

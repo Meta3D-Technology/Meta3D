@@ -218,8 +218,8 @@ let _prepare = (): Meta3dType.Index.state => {
     extensionServiceMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     extensionStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     extensionLifeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    contributeExceptActionMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    actionMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    contributeExceptInputMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    inputMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     packageStoreInAppMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   }
 }

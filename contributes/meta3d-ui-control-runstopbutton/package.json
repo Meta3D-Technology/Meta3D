@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-runstopbutton",
-    "version": "0.20.0",
+    "version": "0.20.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
@@ -15,8 +15,6 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-run-protocol": "^0.20.0",
-        "meta3d-action-stop-protocol": "^0.20.0",
         "meta3d-editor-whole-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0",
         "meta3d-ui-control-runstopbutton-protocol": "^0.20.0",

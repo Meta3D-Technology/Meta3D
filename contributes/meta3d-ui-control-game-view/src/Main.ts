@@ -1,14 +1,15 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { uiControlName, textureID, state as uiControlState, inputData, outputData } from "meta3d-ui-control-game-view-protocol"
+import { uiControlName, textureID, state as uiControlState, inputFunc, specificData, outputData } from "meta3d-ui-control-game-view-protocol"
 import { changeToStrictlyNull, getFBORect } from "meta3d-ui-control-view-utils/src/Main"
 import { uiControlContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as renderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
 import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 
-export let getContribute: getContributeMeta3D<uiControlContribute<inputData, outputData>> = (api) => {
+export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
         func: (meta3dState,
+            _,
             {
                 rect,
                 label,

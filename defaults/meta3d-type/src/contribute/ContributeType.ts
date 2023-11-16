@@ -5,5 +5,7 @@ export enum contributeType {
   Action,
   Component,
   GameObject,
-  Pipeline
+  Pipeline,
+  Input,
+  Unknown
 }

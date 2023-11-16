@@ -406,6 +406,122 @@ defineFeature(feature, test => {
     )
   })
 
+  test(."show input", ({given, \"when", \"and", then}) => {
+    let id = "d1"
+    let w1 = ref(Obj.magic(1))
+    let i1 = ref(Obj.magic(1))
+    let i1Name = "input1"
+    let useSelectorStub = ref(Obj.magic(1))
+    let execGetContributeFuncStub = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given(
+      "select ui control window w1",
+      () => {
+        w1 :=
+          SelectedUIControlsTool.buildSelectedUIControl(
+            ~id,
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "meta3d-ui-control-window-protocol",
+                  version: "^0.7.0",
+                },
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select input i1 match w1",
+      () => {
+        execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        i1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~id=i1Name,
+            ~protocolConfigStr=Some(""),
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=i1Name,
+                ~protocol={
+                  name: "meta3d-input-window-protocol",
+                  version: "^0.6.0",
+                },
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+
+        execGetContributeFuncStub.contents
+        ->onCall(0, _)
+        ->returns(
+          {
+            "inputName": i1Name,
+          },
+          _,
+        )
+        ->ignore
+      },
+    )
+
+    \"and"(
+      "set inspector current selected ui control data to w1",
+      () => {
+        useSelectorStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+            (
+              list{i1.contents},
+              (
+                id->Some,
+                list{w1.contents},
+                list{
+                  UIControlInspectorTool.buildUIControlInspectorData(
+                    ~id,
+                    ~input=UIControlInspectorTool.buildInput(i1Name)->Some,
+                    (),
+                  ),
+                },
+              ),
+            ),
+            _,
+          )
+      },
+    )
+
+    \"when"(
+      "render",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should show dom with defalut value",
+      () => {
+        UIControlInspectorTool.buildUI(
+          ~sandbox,
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useSelector=useSelectorStub.contents,
+            ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
+            (),
+          ),
+          (),
+        )
+        ->ReactTestRenderer.create
+        ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
+  })
+
   test(."show specific", ({given, \"when", \"and", then}) => {
     let id = "d1"
     let w1 = ref(Obj.magic(1))

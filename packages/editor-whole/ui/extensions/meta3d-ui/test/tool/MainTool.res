@@ -441,7 +441,8 @@ let registerUIControl = (
         func,
         init,
       }: Meta3dUiProtocol.UIControlContributeType.uiControlContribute<
-        Meta3dUiProtocol.StateType.inputData,
+        Meta3dUiProtocol.StateType.inputFunc,
+        Meta3dUiProtocol.StateType.specificData,
         Meta3dUiProtocol.StateType.outputData,
       >
     ),

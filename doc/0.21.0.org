@@ -98,6 +98,8 @@ stored in editor file
 
 protocol is ui control's input data type protocol
 
+map to ui control: one to one
+
 name defined in implement
 
 uiControlInput: (meta3dState, api) => Promise<ui control's input data>
@@ -463,25 +465,93 @@ TODO run test
 *** TODO ui control
 
 UI Control Inspector:
-Rect, Config(old: Specific), Input, Event
-
-TODO remove IsDraw
-
-TODO Event is read from ui control output data:
-    TODO remove Config.ts->getUIControlSupportedEventNames, generateHandleUIControlEventStr
+# Rect, Config(old: Specific), Input, Event
+Rect, Specific, Input, Event
 
 
+# TODO rename Specific to Config
+
+# TODO Event is read from ui control output data:
+#     TODO remove Config.ts->getUIControlSupportedEventNames, generateHandleUIControlEventStr
 
 
-TODO only get editor whole service
+**** DONE add Input
+map to ui control: one to one
+
+name defined in implement
+
+uiControlInput: (meta3dState, api) => Promise<ui control's input data>
 
 
+TODO ui
+TODO editor whole->register
+TODO element mr
+
+
+TODO contribute third: support get multiple implement of one protocol
+
+
+TODO element assemble space->UIControlInspector
+TODO select only has matched inputs
+
+
+
+TODO finish input, pro
+
+TODO update ui control, action
+
+
+**** DONE bdd test
+
+uiControlInspector
+
+elementmr
+
+
+**** DONE run test
+
+TODO publish:
+meta3d-ui-control-runstopbutton
+meta3d-ui
+
+
+
+**** TODO Specific get image base64
+
+
+
+
+
+**** TODO only get editor whole service
+TODO update ui control and input api:
+api = {
+    editorWholePackage service(actually engine-whole-protocol),
+}
+
+api = {
+    editorWholePackage service,
+
+    get/setActionState(for all actions' states),
+}
+
+
+**** TODO update Action
+    update api
+
+TODO move uiData to action protocol
+
+
+**** TODO refactor: remove meta3d-input-runstopbutton2
 
 
 *** TODO action
 
 
 TODO only get editor whole service
+
+
+
+
 
 *** TODO ui control input
 
@@ -490,9 +560,12 @@ TODO only get editor whole service
 
 
 
-*** TODO run test: Controller+Scene View UI Control
+*** TODO run test: Controller+Scene View+Game View UI Control
 
 
+*** TODO abstract Controller
+
+TODO move two textures to UI Control Inspector->Config
 
 
 # *** TODO feat: support published element contribute as a new UI Control(higher level)
@@ -527,7 +600,20 @@ TODO because element contribute dependent on uiControlInput and Action, dependen
 *** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
 
 
-*** TODO run test: + GameView + Publish UI Control
+*** TODO run test: Publish UI Control
+
+TODO run test:publish->engine render
+
+
+
+
+*** TODO refactor: remove ui control->init
+
+# *** TODO refactor: rename inputData to specificData
+*** TODO refactor: move rect out of specficData
+
+
+*** TODO refactor: remove IsDraw
 
 
 
@@ -621,6 +707,13 @@ abstract to Switch Button with configable two textures
 
 
 
+
+
+
+* TODO refactor: continue "ap assemble space: remove Extensions, Selected Extensions"
+
+TODO remove Store->StartExtension
+TODO remove extension-> isStart
 
 
 

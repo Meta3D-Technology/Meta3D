@@ -32,6 +32,16 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
         ),
       )
     },
+    registerInput: (meta3dState, inputContribute) => {
+      api.setExtensionState(.
+        meta3dState,
+        "meta3d-ui-protocol",
+        (UIManager.registerInput->Obj.magic)(
+          api.getExtensionState(. meta3dState, "meta3d-ui-protocol"),
+          inputContribute,
+        ),
+      )
+    },
     getSkin: (meta3dState, skinName) => {
       (UIManager.getSkin->Obj.magic)(
         api.getExtensionState(. meta3dState, "meta3d-ui-protocol"),
@@ -59,6 +69,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
           uiControlName,
           uiControlState,
         ),
+      )
+    },
+    getInputFunc: (meta3dState, inputName) => {
+      (UIManager.getInputFunc->Obj.magic)(
+        api.getExtensionState(. meta3dState, "meta3d-ui-protocol"),
+        inputName,
       )
     },
     hide: (meta3dState, elementName) => {
@@ -186,6 +202,7 @@ let createExtensionState: Meta3dType.Index.createExtensionState<
     skinContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     uiControlContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     uiControlStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    inputContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     // ioData: None,
     // reducers: [],
     currentElementName: None,

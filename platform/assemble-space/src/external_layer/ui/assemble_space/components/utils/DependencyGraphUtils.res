@@ -207,6 +207,9 @@ module Method = {
         | _ => true
         }
       })
+      ->ListSt.filter(({protocol}) => {
+        !FrontendUtils.ContributeTypeUtils.isInput(protocol.name)
+      })
       ->ListSt.toArray
 
     // let resultArr = []

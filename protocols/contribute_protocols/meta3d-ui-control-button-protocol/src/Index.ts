@@ -6,7 +6,9 @@ export const uiControlName = "Button"
 
 export type state = null
 
-export type inputData = {
+export type inputFunc = null
+
+export type specificData = {
     rect: rect,
     label: string,
 }
