@@ -19,7 +19,7 @@ type versionRange = string
 
 type generateUIControlCommonDataStr = string => string
 
-type uiControlSpecicFieldType = [#string]
+type uiControlSpecicFieldType = [#string | #imageBase64]
 
 type uiControlSpecicFieldValue
 

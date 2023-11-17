@@ -240,6 +240,28 @@ module Method = {
     </Space>
   }
 
+  let _handleUploadImage = %raw(`
+function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
+        let reader = new FileReader()
+
+        reader.onload = () => {
+            onloadFunc(file, reader.result)
+        }
+
+        reader.onprogress = (event) => {
+            onprogressFunc(event.loaded, event.total)
+        }
+
+        reader.onerror = (event) => {
+            onerrorFunc(event, file)
+        }
+
+    reader.readAsDataURL(file)
+
+    return false
+}
+`)
+
   let _setSpecificData = (dispatch, specific, id, i, value, type_) => {
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetSpecificData(
@@ -285,47 +307,51 @@ module Method = {
         i,
       ) => {
         <Card key={name} title={name}>
-          <Input
-            key={name}
-            value={_getSpecificDataValue(value)
-            ->Meta3dCommonlib.OptionSt.map(SpecificUtils.convertValueToString(_, type_))
-            ->Meta3dCommonlib.OptionSt.getWithDefault("")}
-            onChange={e => {
-              _setSpecificData(
-                dispatch,
-                specific,
-                id,
-                i,
-                e
-                ->EventUtils.getEventTargetValue
-                ->SpecificUtils.convertStringToValue(type_)
-                ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
-                type_,
-              )
-            }}
-          />
-          // {FrontendUtils.SelectUtils.buildSelect(value =>
-          //   FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
-          //     ? ()
-          //     : {
-          //         _setSpecificData(
-          //           dispatch,
-          //           specific,
-          //           id,
-          //           i,
-          //           value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
-          //           type_,
-          //         )
-          //       }
-          // , value
-          // ->_getSpecificDataValueElementFieldValue
-          // ->Meta3dCommonlib.OptionSt.getWithDefault(
-          //   FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-          // ), elementStateFields
-          // ->_getSpecificTypeElementStateFieldNames(
-          //   type_->FrontendUtils.ElementAssembleStoreType.specificTypeToElementStateFieldType,
-          // )
-          // ->Meta3dCommonlib.ListSt.toArray)}
+          {switch type_ {
+          | #string =>
+            <Input
+              key={name}
+              value={_getSpecificDataValue(value)
+              ->Meta3dCommonlib.OptionSt.map(SpecificUtils.convertValueToString(_, type_))
+              ->Meta3dCommonlib.OptionSt.getWithDefault("")}
+              onChange={e => {
+                _setSpecificData(
+                  dispatch,
+                  specific,
+                  id,
+                  i,
+                  e
+                  ->EventUtils.getEventTargetValue
+                  ->SpecificUtils.convertStringToValue(type_)
+                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                  type_,
+                )
+              }}
+            />
+          | #imageBase64 =>
+            <Upload
+              beforeUpload={file =>
+                _handleUploadImage(
+                  (file, imageBase64) => {
+                    _setSpecificData(
+                      dispatch,
+                      specific,
+                      id,
+                      i,
+                      imageBase64->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                      type_,
+                    )
+                  },
+                  (_, _) => (),
+                  (event, _) => {
+                    service.console.error(. {j`error`}, None)
+                  },
+                  file,
+                )}
+              showUploadList=false>
+              <Button icon={<Icon.UploadOutlined />}> {React.string(`上传图片`)} </Button>
+            </Upload>
+          }}
         </Card>
       })
       ->React.array}

@@ -516,32 +516,19 @@ meta3d-ui
 
 
 
-**** TODO Specific get image base64
+**** DONE Specific get image base64
+
+TODO publish
+runstop
 
 
+TODO pass run test:
+    fix View
 
 
-
-**** TODO only get editor whole service
-TODO update ui control and input api:
-api = {
-    editorWholePackage service(actually engine-whole-protocol),
-}
-
-api = {
-    editorWholePackage service,
-
-    get/setActionState(for all actions' states),
-}
+TODO pass bdd test
 
 
-**** TODO update Action
-    update api
-
-TODO move uiData to action protocol
-
-
-**** TODO refactor: remove meta3d-input-runstopbutton2
 
 
 *** TODO action
@@ -557,6 +544,46 @@ TODO only get editor whole service
 
 
 TODO only get editor whole service
+
+
+
+*** TODO support import multiple element contributes
+TODO check their used ui controls should be selected
+TODO their element contribute protocol can be different
+TODO just merge their Selected UI Controls
+
+
+TODO Scene Tree = header window + Tree
+
+
+
+TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
+
+
+*** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
+
+
+
+*** TODO only get editor whole service
+TODO update ui control and input api:
+api = {
+    editorWholePackage service(actually engine-whole-protocol),
+}
+
+api = {
+    editorWholePackage service,
+
+    get/setActionState(for all actions' states),
+}
+
+
+*** TODO update Action
+    update api
+
+TODO move uiData to action protocol
+
+
+*** TODO refactor: remove meta3d-input-runstopbutton2
 
 
 
@@ -584,26 +611,20 @@ TODO move two textures to UI Control Inspector->Config
 
 # TODO Scene Tree is published element contribute which = header window + Tree
 
-*** TODO support import multiple element contributes
-TODO check their used ui controls should be selected
-TODO their element contribute protocol can be different
-TODO just merge their Selected UI Controls
-
-
-TODO Scene Tree = header window + Tree
-
-
-
-TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
-
-
-*** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
-
 
 *** TODO run test: Publish UI Control
 
 TODO run test:publish->engine render
 
+
+*** TODO fix: start package in ap assemble space->enter Index: should unstart package
+
+
+
+
+*** TODO fix: visual: click runstop button shouldn't error
+
+TODO not trigger in visual?
 
 
 
@@ -719,7 +740,6 @@ TODO remove extension-> isStart
 
 
 
-
 * TODO fix: action publish: render lighter than visualRun
 
 
@@ -749,3 +769,7 @@ TODO remove extension-> isStart
 
 ** TODO pass run test:publish
 TODO update engine package
+
+
+
+* TODO specific->imageBase64: show preview

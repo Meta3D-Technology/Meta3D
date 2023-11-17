@@ -180,9 +180,14 @@ let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specif
       switch value {
       | SpecicFieldDataValue(value) =>
         switch type_ {
-        | #string => j`"${value->Obj.magic}"`
-        | _ => SpecificUtils.convertValueToString(value, type_)
+        // | #string => j`"${value->Obj.magic}"`
+        | #imageBase64 =>
+          value->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
+            ? {j`null,`}
+            : j`"${value->Obj.magic}",`
+        | _ => j`"${SpecificUtils.convertValueToString(value, type_)}",`
         }
+
       // | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
       }
 

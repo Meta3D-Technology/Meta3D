@@ -15,7 +15,17 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         name: "label",
         type_: "string",
         value: "RunStopButton"
-    }
+    },
+    {
+        name: "image1",
+        type_: "imageBase64",
+        value: null
+    },
+    {
+        name: "image2",
+        type_: "imageBase64",
+        value: null
+    },
 ]
 
 export let hasChildren: hasChildrenMeta3D = () => false

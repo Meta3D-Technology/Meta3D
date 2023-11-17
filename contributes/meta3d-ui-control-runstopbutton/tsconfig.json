@@ -19,7 +19,6 @@
 		"strict": true
 	},
 	"include": [
-		"./src",
-		"./url-loader.d.ts"
+		"./src"
 	]
 }

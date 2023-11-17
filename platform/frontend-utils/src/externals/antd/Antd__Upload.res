@@ -1,17 +1,22 @@
 @deriving(jsConverter)
 type listType = [@as("picture-card") #pictureCard | #picture | #text]
 
+type file
+
+type beforeUploadResult
+
 @module("antd") @react.component
 external make: (
   ~accept: string=?,
   ~_method: string=?,
   ~name: string=?,
-  ~action: string=?,
+  ~action: file => Js.Promise.t<string>=?,
   ~headers: 'a=?,
   ~directory: bool=?,
+  ~showUploadList: bool=?,
   ~onChange: ReactEvent.Form.t => unit=?,
   ~children: React.element=?,
-  ~beforeUpload: ReactEvent.Form.t => unit=?,
+  ~beforeUpload: file => beforeUploadResult=?,
   ~customRequest: unit => unit=?,
   ~data: 'b=?,
   ~defaultFileList: array<'c>=?,

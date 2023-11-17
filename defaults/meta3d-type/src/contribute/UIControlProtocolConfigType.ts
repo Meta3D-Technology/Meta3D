@@ -19,7 +19,7 @@ export type versionRange = string
 export type generateUIControlCommonDataStr = (rect: string) => string
 
 
-type uiControlSpecicFieldType = "string"
+type uiControlSpecicFieldType = "string" | "imageBase64"
 
 type uiControlSpecicFieldValue = any
 
