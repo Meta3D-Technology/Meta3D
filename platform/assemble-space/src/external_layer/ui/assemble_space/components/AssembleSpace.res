@@ -71,7 +71,7 @@ let make = (
           },
           {
             key: "2",
-            label: {React.string(`Element装配`)},
+            label: {React.string(`页面装配`)},
           },
           {
             key: "3",

@@ -8,7 +8,7 @@ exports[`Publish Element show publish button 1`] = `
   type="button"
 >
   <span>
-    发布Element
+    发布页面
   </span>
 </button>
 `;

@@ -172,10 +172,10 @@ let make = (~service: service, ~account: option<string>) => {
       onClick={_ => {
         setVisible(_ => true)
       }}>
-      {React.string(`发布Element`)}
+      {React.string(`发布页面`)}
     </Button>
     <Modal
-      title={`发布Element`}
+      title={`发布页面`}
       visible={visible}
       onOk={() => {
         setVisible(_ => false)
@@ -214,23 +214,23 @@ let make = (~service: service, ~account: option<string>) => {
             // onFinishFailed={Method.onFinishFailed(service)}
             autoComplete="off">
             <Form.Item
-              label={`Element名`}
+              label={`页面名`}
               name="elementName"
               rules={[
                 {
                   required: true,
-                  message: `输入Element名`,
+                  message: `输入页面名`,
                 },
               ]}>
               <Input />
             </Form.Item>
             <Form.Item
-              label={`Element版本号`}
+              label={`页面版本号`}
               name="elementVersion"
               rules={[
                 {
                   required: true,
-                  message: `输入Element版本号`,
+                  message: `输入页面版本号`,
                 },
               ]}>
               <Input />

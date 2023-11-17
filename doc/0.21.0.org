@@ -548,16 +548,34 @@ TODO only get editor whole service
 
 
 *** TODO support import multiple element contributes
-TODO check their used ui controls should be selected
-TODO their element contribute protocol can be different
+
+TODO Element装配、发布Element to 页面Xxx
+
+
+TODO add 发布的页面
+TODO store elementMR data as a binary file
+    TODO remove execOrder
+TODO select multiple
+TODO remove it from Contribute Market
+
+
+
 TODO just merge their Selected UI Controls
 
 
-TODO Scene Tree = header window + Tree
 
 
 
-TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
+
+TODO dependency check: check their used ui controls should be selected
+//TODO their element contribute protocol can be different
+
+
+# TODO Scene Tree = header window + Tree
+
+# TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
+TODO because element contribute dependent on uiControlInput and Action, if not has them, use empty instead
+    TODO give warn message(list them)
 
 
 *** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
@@ -716,7 +734,7 @@ abstract to Switch Button with configable two textures
 
 
 
-*** TODO fix: visual: why not show controller button?
+# *** TODO fix: visual: why not show controller button?
 
 
 # ** TODO Message
