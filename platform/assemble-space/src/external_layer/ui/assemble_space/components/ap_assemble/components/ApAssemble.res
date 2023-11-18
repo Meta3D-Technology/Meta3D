@@ -3,8 +3,8 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let resetAllAssemble = dispatch => {
-    dispatch(FrontendUtils.AssembleSpaceStoreType.ResetWhenSwitch)
+  let resetAllAssemble = dispatchForAssembleSpaceStore => {
+    dispatchForAssembleSpaceStore(FrontendUtils.AssembleSpaceStoreType.ResetWhenSwitch)
   }
 }
 
@@ -15,11 +15,15 @@ let make = (
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
+  // ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
-  let dispatch = service.react.useDispatch()
+  let dispatchForAssembleSpaceStore = service.react.useDispatch()
+  // let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   service.react.useEffectOnce(() => {
-    Method.resetAllAssemble(dispatch)
+    Method.resetAllAssemble(dispatchForAssembleSpaceStore)
+
+    // dispatchForApAssembleStore(FrontendUtils.ApAssembleStoreType.SelectAllElements(selectedElementsFromMarket))
 
     ((), None)
   })

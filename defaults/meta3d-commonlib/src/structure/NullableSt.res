@@ -20,3 +20,5 @@ let bind = (nullableData, func) => {
 }
 
 let isNullable = Js.Nullable.isNullable
+
+let getEmpty = () => Js.Nullable.undefined

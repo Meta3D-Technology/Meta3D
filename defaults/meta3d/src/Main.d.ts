@@ -4,7 +4,7 @@ import { extensionProtocolName, getExtensionService, getExtensionLife, state, ap
 import { actionName, supportedEventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/package/StartPackageProtocolConfigType"
 import { extensionFileData, contributeFileData, extensionPackageData, contributePackageData, extensionFuncData, contributeFuncData } from "./file/ExtensionFileType"
-import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp, packageData } from "./app_and_package/AppAndPackageFileType"
+import { extensionPackageData as extensionPackageDataApp, contributePackageData as contributePackageDataApp, packageData, selectedElements } from "./app_and_package/AppAndPackageFileType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function prepare(): state
@@ -90,6 +90,7 @@ export function generateApp(
     allContributeFileData: Array<[contributePackageDataApp, contributeFuncData]>,
     allPackageBinaryFiles: allPackageBinaryFiles,
     allPackageBinaryFileDataStoredInApp: Array<[packageProtocolName, ArrayBuffer]>,
+    selectedElements: selectedElements,
     configData: nullable<startConfigData>,
     startPackageProtocolName: string
 ): ArrayBuffer
@@ -125,11 +126,13 @@ export function getAllDataOfPackage(
         ]
     ]
 
-export function getAllExtensionAndContributeFileDataOfApp(
+export function getAllDataOfApp(
     appBinaryFile: ArrayBuffer
 ): [
         Array<[extensionPackageDataApp, extensionFuncData]>,
-        Array<[contributePackageDataApp, contributeFuncData]>
+        Array<[contributePackageDataApp, contributeFuncData]>,
+        Array<ArrayBuffer>,
+        selectedElements
     ]
 
 export function startApp(

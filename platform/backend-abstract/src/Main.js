@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.publishElementContribute = exports.publishElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.handleLoginForWeb3 = exports.init = void 0;
+exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.publishElementContribute = exports.publishElementAssembleData = exports.findAllElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = exports.findAllPublishApps = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.handleLoginForWeb3 = exports.init = void 0;
 const MarketService = __importStar(require("./application_layer/market/MarketService"));
 const LoginService = __importStar(require("./application_layer/user/LoginService"));
 const PublishAppService = __importStar(require("./application_layer/publish/PublishAppService"));
@@ -54,6 +54,7 @@ exports.findPublishApp = PublishAppService.findPublishApp;
 exports.findAllPublishApps = PublishAppService.findAllPublishApps;
 exports.getAllPublishNewestData = GetElementDataService.getAllPublishNewestData;
 exports.getElementAssembleData = GetElementDataService.getElementAssembleData;
+exports.findAllElementAssembleData = GetElementDataService.findAllElementAssembleData;
 exports.publishElementAssembleData = PublishElementContributeService.publishElementAssembleData;
 exports.publishElementContribute = PublishElementContributeService.publishElementContribute;
 exports.publishPackage = PublishPackageService.publish;

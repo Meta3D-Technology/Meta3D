@@ -24,6 +24,7 @@ type backendService = {
   findAllPublishApps: findAllPublishApps,
   findPublishApp: findPublishApp,
   findPublishPackage: findPublishPackage,
+  findAllElementAssembleData: findAllElementAssembleData,
 }
 
 type error = (. string, option<int>) => unit

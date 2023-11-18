@@ -79,6 +79,17 @@ let _removeOtherSelectedPackagesOfSameProtocolName = (
   })
 }
 
+let _removeOtherSelectedElementOfSameName = (
+  selectedElements: selectedElements,
+  elementAssembleData: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+) => {
+  let elementName = elementAssembleData.elementName
+
+  selectedElements->Meta3dCommonlib.ListSt.filter(selectedElement => {
+    selectedElement.elementName !== elementName
+  })
+}
+
 let reducer = (state, action) => {
   switch action {
   | SelectExtension(data, protocolConfigOpt) => {
@@ -137,6 +148,22 @@ let reducer = (state, action) => {
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.filter(selectedPackage =>
         !(selectedPackage.name == name && selectedPackage.version == version)
       ),
+    }
+  | SelectElement(elementAssembleData) => {
+      ...state,
+      selectedElements: state.selectedElements
+      ->_removeOtherSelectedElementOfSameName(elementAssembleData)
+      ->Meta3dCommonlib.ListSt.push(elementAssembleData),
+    }
+  | NotSelectElement(name, version) => {
+      ...state,
+      selectedElements: state.selectedElements->Meta3dCommonlib.ListSt.filter(elementAssembleData =>
+        !(elementAssembleData.elementName == name && elementAssembleData.elementVersion == version)
+      ),
+    }
+  | SelectAllElements(elements) => {
+      ...state,
+      selectedElements: elements,
     }
   | ImportPackage(packageId, selectedExtensions, selectedContributes, selectedPackages) => {
       ...state,
@@ -213,6 +240,7 @@ let initialState = {
   selectedExtensions: list{},
   selectedContributes: list{},
   selectedPackages: list{},
+  selectedElements: list{},
   importedPackageIds: list{},
   importedAppIds: list{},
 }

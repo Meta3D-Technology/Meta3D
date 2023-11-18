@@ -113,6 +113,8 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -120,6 +122,8 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -233,6 +237,8 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -240,6 +246,8 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -368,16 +376,15 @@ type publishElementContribute = (
 
 type rec uiControl = {
   displayName: string,
-  rect: ElementAssembleStoreType.rect,
-  isDraw: ElementAssembleStoreType.isDraw,
-  input: Js.Nullable.t<ElementAssembleStoreType.input>,
-  event: ElementAssembleStoreType.event,
-  specific: ElementAssembleStoreType.specific,
+  rect: CommonType.rect,
+  isDraw: CommonType.isDraw,
+  input: Js.Nullable.t<CommonType.input>,
+  event: CommonType.event,
+  specific: CommonType.specific,
   children: array<uiControl>,
 }
 
 type inspectorData = {
-  // element: ElementAssembleStoreType.elementInspectorData,
   uiControls: array<uiControl>,
 }
 
@@ -418,6 +425,11 @@ type getElementAssembleData = (
   elementName,
   elementVersion,
 ) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<elementAssembleData>>
+
+type findAllElementAssembleData = (
+  . limitCount,
+  skipCount,
+) => Meta3dBsMostDefault.Most.stream<array<elementAssembleData>>
 
 type entryExtensionProtocolName = protocolName
 

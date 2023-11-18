@@ -50,3 +50,47 @@ type protocolConfig = {
   account: string,
   configStr: protocolConfigStr,
 }
+
+
+type rectField = IntForRectField(int)
+
+type rect = {
+  x: rectField,
+  y: rectField,
+  width: rectField,
+  height: rectField,
+}
+
+
+type isDraw = BoolForIsDraw(bool)
+
+
+type inputName = string
+
+type input = {inputName: inputName}
+
+type actionName = string
+
+type eventData = {
+  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  // eventName: eventName,
+  actionName: actionName,
+}
+
+type event = array<eventData>
+
+
+type specificDataType = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldType
+
+
+type specificDataValue =
+  SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
+// | ElementStateFieldForSpecificDataValue(string)
+
+type specificData = {
+  name: string,
+  type_: specificDataType,
+  value: specificDataValue,
+}
+
+type specific = array<specificData>

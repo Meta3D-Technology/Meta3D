@@ -61,3 +61,5 @@ type packageName = string
 type packageVersion = version
 
 export type packageData = [packageProtocol, entryExtensionName, packageVersion, packageName, entryExtensionProtocolConfigStr]
+
+export type selectedElements = any

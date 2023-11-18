@@ -44,6 +44,8 @@ export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestDa
 
 export let getElementAssembleData = GetElementDataService.getElementAssembleData
 
+export let findAllElementAssembleData = GetElementDataService.findAllElementAssembleData
+
 export let publishElementAssembleData = PublishElementContributeService.publishElementAssembleData
 
 export let publishElementContribute = PublishElementContributeService.publishElementContribute

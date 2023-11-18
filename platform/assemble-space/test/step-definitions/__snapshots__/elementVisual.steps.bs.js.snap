@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ElementVisual if loaded, only show canvas 1`] = `
+exports[`ElementVisual show canvas 1`] = `
 <canvas
   height="20px"
   id="ui-visual-canvas"
@@ -15,26 +15,4 @@ exports[`ElementVisual if loaded, only show canvas 1`] = `
   }
   width="10px"
 />
-`;
-
-exports[`ElementVisual if not loaded, show loading and canvas 1`] = `
-Array [
-  <p>
-    loading...
-  </p>,
-  <canvas
-    height="0px"
-    id="ui-visual-canvas"
-    style={
-      Object {
-        "borderColor": "red",
-        "borderStyle": "solid",
-        "borderWidth": "2px",
-        "height": "0px",
-        "width": "0px",
-      }
-    }
-    width="0px"
-  />,
-]
 `;

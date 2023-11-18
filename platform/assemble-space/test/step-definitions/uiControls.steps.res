@@ -158,7 +158,7 @@ defineFeature(feature, test => {
               UIControlInspectorTool.buildSpecific(
                 ~name="s1",
                 ~type_=#string,
-                ~value="d1"->Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                ~value="d1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                 (),
               ),
             ],

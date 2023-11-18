@@ -12,10 +12,10 @@ let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state
   UIControlInspector.Method.useSelector
 
 let buildRect = (
-  ~x=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~y=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  ~x=0->FrontendUtils.CommonType.IntForRectField,
+  ~y=0->FrontendUtils.CommonType.IntForRectField,
+  ~width=0->FrontendUtils.CommonType.IntForRectField,
+  ~height=0->FrontendUtils.CommonType.IntForRectField,
   (),
 ): FrontendUtils.ElementAssembleStoreType.rect => {
   {
@@ -42,7 +42,7 @@ let buildEventData = (
 let buildSpecific = (
   ~name="s1",
   ~type_=#string,
-  ~value="d1"->Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+  ~value="d1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
   (),
 ): FrontendUtils.ElementAssembleStoreType.specificData => {
   {
@@ -54,11 +54,11 @@ let buildSpecific = (
 
 let buildUIControlInspectorData = (
   ~id,
-  ~x=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~y=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~width=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~height=0->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-  ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+  ~x=0->FrontendUtils.CommonType.IntForRectField,
+  ~y=0->FrontendUtils.CommonType.IntForRectField,
+  ~width=0->FrontendUtils.CommonType.IntForRectField,
+  ~height=0->FrontendUtils.CommonType.IntForRectField,
+  ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
   ~input=None,
   ~event=[],
   ~specific=[],

@@ -61,3 +61,7 @@ let buildPackageData = (
     packageProtocolConfigStr,
   )
 }
+
+let buildSelectedElements = (~data1=1, ()): AppAndPackageFileType.selectedElements => {
+  [data1]->Obj.magic
+}

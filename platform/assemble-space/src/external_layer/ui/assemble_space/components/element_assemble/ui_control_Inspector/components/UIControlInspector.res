@@ -160,7 +160,7 @@ module Method = {
             dispatch,
             id,
             rect,
-            value->IntUtils.stringToInt->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+            value->IntUtils.stringToInt->FrontendUtils.CommonType.IntForRectField,
           )
         }}
       />
@@ -214,7 +214,7 @@ module Method = {
           setIsDraw(
             dispatch,
             id,
-            value->BoolUtils.stringToBool->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+            value->BoolUtils.stringToBool->FrontendUtils.CommonType.BoolForIsDraw,
           ),
         isDraw
         ->getIsDrawBoolValue
@@ -323,7 +323,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                   e
                   ->EventUtils.getEventTargetValue
                   ->SpecificUtils.convertStringToValue(type_)
-                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                  ->FrontendUtils.CommonType.SpecicFieldDataValue,
                   type_,
                 )
               }}
@@ -338,7 +338,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                       specific,
                       id,
                       i,
-                      imageBase64->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                      imageBase64->FrontendUtils.CommonType.SpecicFieldDataValue,
                       type_,
                     )
                   },

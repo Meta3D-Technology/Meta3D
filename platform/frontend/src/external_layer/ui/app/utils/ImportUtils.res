@@ -21,6 +21,14 @@ let _convertAllPackageData = allPackageData => {
   ->Meta3dCommonlib.ListSt.fromArray
 }
 
+let _removeElementContribute = (
+  selectedContributes: FrontendUtils.UserCenterStoreType.selectedContributes,
+) => {
+  selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+    protocolName != FrontendUtils.ElementUtils.getElementContributeProtocolName()
+  })
+}
+
 let _import = (
   (
     service: FrontendUtils.FrontendType.service,
@@ -234,7 +242,7 @@ let _import = (
 
       dispatchImportApp(
         selectedExtensions,
-        selectedContributes,
+        selectedContributes->_removeElementContribute,
         Meta3dCommonlib.ListSt.concat(selectedPackagesStoredInApp, selectedPackagesNotStoredInApp),
       )
       dispatchBatchStorePackagesInApp(

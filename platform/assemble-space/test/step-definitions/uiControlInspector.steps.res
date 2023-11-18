@@ -112,7 +112,7 @@ defineFeature(feature, test => {
                 list{
                   UIControlInspectorTool.buildUIControlInspectorData(
                     ~id=id2,
-                    ~y=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                    ~y=10->FrontendUtils.CommonType.IntForRectField,
                     (),
                   ),
                 },
@@ -215,7 +215,7 @@ defineFeature(feature, test => {
   //               list{
   //                 UIControlInspectorTool.buildUIControlInspectorData(
   //                   ~id,
-  //                   ~width=10->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+  //                   ~width=10->FrontendUtils.CommonType.IntForRectField,
   //                   (),
   //                 ),
   //               },
@@ -250,13 +250,13 @@ defineFeature(feature, test => {
   test(."set rect x", ({given, \"when", \"and", then}) => {
     let id = "1"
     let rect: FrontendUtils.ElementAssembleStoreType.rect = UIControlInspectorTool.buildRect(
-      ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-      ~y=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-      ~width=3->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-      ~height=4->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+      ~x=1->FrontendUtils.CommonType.IntForRectField,
+      ~y=2->FrontendUtils.CommonType.IntForRectField,
+      ~width=3->FrontendUtils.CommonType.IntForRectField,
+      ~height=4->FrontendUtils.CommonType.IntForRectField,
       (),
     )
-    let x = 11->FrontendUtils.ElementAssembleStoreType.IntForRectField
+    let x = 11->FrontendUtils.CommonType.IntForRectField
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given)
@@ -349,7 +349,7 @@ defineFeature(feature, test => {
   //               list{
   //                 UIControlInspectorTool.buildUIControlInspectorData(
   //                   ~id,
-  //                   ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+  //                   ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
   //                   (),
   //                 ),
   //               },
@@ -383,7 +383,7 @@ defineFeature(feature, test => {
 
   test(."set isDraw", ({given, \"when", \"and", then}) => {
     let id = "1"
-    let isDraw = false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw
+    let isDraw = false->FrontendUtils.CommonType.BoolForIsDraw
     let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given)
@@ -569,7 +569,7 @@ defineFeature(feature, test => {
                         ~type_=#string,
                         ~value="Window1"
                         ->Obj.magic
-                        ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                        ->FrontendUtils.CommonType.SpecicFieldDataValue,
                         (),
                       ),
                     ],
@@ -709,7 +709,7 @@ defineFeature(feature, test => {
       UIControlInspectorTool.buildSpecific(
         ~name="label",
         ~type_,
-        ~value="Window1"->Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+        ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
         (),
       ),
     ]
@@ -729,7 +729,7 @@ defineFeature(feature, test => {
           i,
           "Window2"
           ->SpecificUtils.convertStringToValue(type_)
-          ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+          ->FrontendUtils.CommonType.SpecicFieldDataValue,
           type_,
         )
       },
@@ -747,7 +747,7 @@ defineFeature(feature, test => {
                 ~type_,
                 ~value="Window2"
                 ->Obj.magic
-                ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                ->FrontendUtils.CommonType.SpecicFieldDataValue,
                 (),
               ),
             ],

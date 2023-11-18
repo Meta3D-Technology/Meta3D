@@ -3,10 +3,9 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _isSelectedNothing = (selectedPackages, selectedExtensions, selectedContributes) => {
+  let _isSelectedNothing = (selectedPackages, selectedContributes) => {
     selectedPackages->Meta3dCommonlib.ArraySt.length == 0 &&
-    selectedExtensions->Meta3dCommonlib.ArraySt.length == 0 &&
-    selectedContributes->Meta3dCommonlib.ArraySt.length == 0
+      selectedContributes->Meta3dCommonlib.ListSt.length == 0
   }
 
   let getStartPackageNeedConfigData = (
@@ -53,34 +52,99 @@ module Method = {
     ))
   }
 
+  let _buildSelectedElements = (selectedUIControls, selectedUIControlInspectorData) => {
+    let rec _buildUIControls = (selectedUIControls, selectedUIControlInspectorData) => {
+      selectedUIControls
+      ->Meta3dCommonlib.ListSt.mapi((
+        index,
+        {id, displayName, children}: FrontendUtils.ElementAssembleStoreType.uiControl,
+      ) => {
+        let uiControlInspectorData: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData =
+          selectedUIControlInspectorData
+          ->Meta3dCommonlib.ListSt.nth(index)
+          ->Meta3dCommonlib.OptionSt.getExn
+
+        (
+          {
+            displayName,
+            rect: uiControlInspectorData.rect,
+            isDraw: uiControlInspectorData.isDraw,
+            input: uiControlInspectorData.input->Meta3dCommonlib.OptionSt.toNullable,
+            event: uiControlInspectorData.event,
+            specific: uiControlInspectorData.specific,
+            children: _buildUIControls(children, uiControlInspectorData.children),
+          }: FrontendUtils.BackendCloudbaseType.uiControl
+        )
+      })
+      ->Meta3dCommonlib.ListSt.toArray
+    }
+
+    list{
+      (
+        {
+          elementName: ElementContributeUtils.getElementContributeName(),
+          elementVersion: ElementVisualUtils.getElementContributeVersion(),
+          inspectorData: {
+            uiControls: _buildUIControls(selectedUIControls, selectedUIControlInspectorData),
+          },
+        }: FrontendUtils.BackendCloudbaseType.elementAssembleData
+      ),
+    }
+  }
+
+  let _addGeneratedElementContribute = (
+    service,
+    selectedContributes,
+    account,
+    selectedUIControls,
+    selectedUIControlInspectorData,
+  ) => {
+    selectedContributes->Meta3dCommonlib.ListSt.push(
+      ElementVisualUtils.generateElementContribute(
+        service,
+        account,
+        ElementContributeUtils.buildElementContributeFileStr(
+          service,
+          selectedUIControls,
+          selectedUIControlInspectorData,
+        ),
+      ),
+    )
+  }
+
   let onFinish = (
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,
       selectedPackages,
-      selectedExtensions,
       selectedContributes,
       canvasData: FrontendUtils.ElementAssembleStoreType.canvasData,
       apInspectorData,
       storedPackageIdsInApp,
       isChangeSelectedPackagesByDebug,
+      selectedUIControls,
+      selectedUIControlInspectorData,
     ),
     values,
   ): Js.Promise.t<unit> => {
     let appName = values["appName"]
     let appDescription = values["appDescription"]
 
+    let account = account->Meta3dCommonlib.OptionSt.getExn
+
+    let selectedElements = _buildSelectedElements(
+      selectedUIControls,
+      selectedUIControlInspectorData,
+    )
+
     let (selectedPackages, allPackagesStoredInApp) = AppUtils.splitPackages(
       selectedPackages,
       storedPackageIdsInApp,
     )
-    let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
-    let selectedContributes = selectedContributes->Meta3dCommonlib.ListSt.toArray
-
-    _isSelectedNothing(selectedPackages, selectedExtensions, selectedContributes)
+    _isSelectedNothing(selectedPackages, selectedContributes)
       ? {
-          service.console.error(. {j`请至少选择一个扩展或者贡献`}, None)
+          service.console.error(. {j`请至少选择一个`}, None)
 
           ()->Js.Promise.resolve
         }
@@ -94,6 +158,17 @@ module Method = {
         ()->Js.Promise.resolve
       }
       : {
+          let selectedContributes =
+            selectedContributes
+            ->_addGeneratedElementContribute(
+              service,
+              _,
+              account,
+              selectedUIControls,
+              selectedUIControlInspectorData,
+            )
+            ->Meta3dCommonlib.ListSt.toArray
+
           getStartPackageNeedConfigData(
             service,
             selectedPackages->Meta3dCommonlib.ListSt.fromArray,
@@ -102,8 +177,8 @@ module Method = {
               let appBinaryFile = AppUtils.generateApp(
                 service,
                 (selectedPackages, allPackagesStoredInApp),
-                selectedExtensions,
                 selectedContributes,
+                selectedElements,
                 (
                   (
                     {
@@ -121,7 +196,7 @@ module Method = {
                 progress => setUploadProgress(_ => progress),
                 appBinaryFile,
                 appName,
-                account->Meta3dCommonlib.OptionSt.getExn,
+                account,
                 appDescription,
               )
               ->Meta3dBsMostDefault.Most.drain
@@ -157,24 +232,24 @@ module Method = {
   ) => {
     let {
       selectedPackages,
-      selectedExtensions,
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
       isChangeSelectedPackagesByDebug,
     } = apAssembleState
-    let {canvasData} = elementAssembleState
+    let {canvasData, selectedUIControls, selectedUIControlInspectorData} = elementAssembleState
 
     (
       (
         selectedPackages,
-        selectedExtensions,
         selectedContributes,
         apInspectorData,
         isPassDependencyGraphCheck,
         storedPackageIdsInApp,
         isChangeSelectedPackagesByDebug,
+        selectedUIControls,
+        selectedUIControlInspectorData,
       ),
       canvasData,
     )
@@ -186,12 +261,13 @@ let make = (~service: service, ~account: option<string>) => {
   let (
     (
       selectedPackages,
-      selectedExtensions,
       selectedContributes,
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
       isChangeSelectedPackagesByDebug,
+      selectedUIControls,
+      selectedUIControlInspectorData,
     ),
     canvasData,
   ) = service.react.useSelector(. Method.useSelector)
@@ -240,12 +316,13 @@ let make = (~service: service, ~account: option<string>) => {
                           (
                             account,
                             selectedPackages,
-                            selectedExtensions,
                             selectedContributes,
                             canvasData,
                             apInspectorData,
                             storedPackageIdsInApp,
                             isChangeSelectedPackagesByDebug,
+                            selectedUIControls,
+                            selectedUIControlInspectorData,
                           ),
                           event->Obj.magic,
                         )->ignore

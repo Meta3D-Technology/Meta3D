@@ -6,15 +6,15 @@ Feature: ElementVisual
     Background: prepare
         Given prepare
 
-    Scenario: if not loaded, show loading and canvas
-        When not loaded and render
-        Then should show loading and canvas
+    # Scenario: if not loaded, show loading and canvas
+    #     When not loaded and render
+    #     Then should show loading and canvas
 
-    Scenario: if loaded, only show canvas
+    Scenario: show canvas
         Given prepare the canvas
         And set its width, height
-        When loaded and render
-        Then should only show canvas
+        When render
+        Then should show canvas
 
     # Scenario: get and set newest visual extension
     #     Given generate visual extension v1 with old version

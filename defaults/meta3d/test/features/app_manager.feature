@@ -158,7 +158,7 @@ Feature: App Manager
             And generate one contribute as c1
             # And load e1, c1 and convert as l1
             And load c1 and convert as l1
-            And generate app with p1, l1 as a1
+            And generate app with p1, l1 and selectedElements as a1
             When get all data of a1
             # Then should return parsed p1, parsed e1, parsed c1
-            Then should return parsed p1, parsed c1
+            Then should return parsed p1, parsed c1, selectedElements

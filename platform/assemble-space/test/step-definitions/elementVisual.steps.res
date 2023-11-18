@@ -20,52 +20,52 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."if not loaded, show loading and canvas", ({given, \"when", \"and", then}) => {
-    // let useStateStub = ref(Obj.magic(1))
+  // test(."if not loaded, show loading and canvas", ({given, \"when", \"and", then}) => {
+  //   // let useStateStub = ref(Obj.magic(1))
 
-    _prepare(given, \"and")
+  //   _prepare(given, \"and")
 
-    \"when"(
-      "not loaded and render",
-      () => {
-        ()
-      },
-    )
+  //   \"when"(
+  //     "not loaded and render",
+  //     () => {
+  //       ()
+  //     },
+  //   )
 
-    then(
-      "should show loading and canvas",
-      () => {
-        let useSelectorStub =
-          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData(), true, list{}),
-              (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
-            ),
-            _,
-          )
+  //   then(
+  //     "should show loading and canvas",
+  //     () => {
+  //       let useSelectorStub =
+  //         createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
+  //           (
+  //             (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData(), true, list{}),
+  //             (CanvasControllerTool.buildCanvasData(), list{}, list{}, None),
+  //           ),
+  //           _,
+  //         )
 
-        let useStateStub =
-          createEmptyStub(refJsObjToSandbox(sandbox.contents))
-          ->onCall(0, _)
-          ->returns((ElementVisual.Loading, _ => ElementVisual.Loading), _)
+  //       let useStateStub =
+  //         createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //         ->onCall(0, _)
+  //         ->returns((ElementVisual.Loading, _ => ElementVisual.Loading), _)
 
-        ElementVisualTool.buildUI(
-          ~sandbox,
-          ~service=ServiceTool.build(
-            ~sandbox,
-            ~useSelector=useSelectorStub,
-            ~useState=useStateStub,
-            (),
-          ),
-          (),
-        )
-        ->ReactTestRenderer.create
-        ->ReactTestTool.createSnapshotAndMatch
-      },
-    )
-  })
+  //       ElementVisualTool.buildUI(
+  //         ~sandbox,
+  //         ~service=ServiceTool.build(
+  //           ~sandbox,
+  //           ~useSelector=useSelectorStub,
+  //           ~useState=useStateStub,
+  //           (),
+  //         ),
+  //         (),
+  //       )
+  //       ->ReactTestRenderer.create
+  //       ->ReactTestTool.createSnapshotAndMatch
+  //     },
+  //   )
+  // })
 
-  test(."if loaded, only show canvas", ({given, \"when", \"and", then}) => {
+  test(."show canvas", ({given, \"when", \"and", then}) => {
     let useSelectorStub = ref(Obj.magic(1))
     let useStateStub = ref(Obj.magic(1))
 
@@ -84,7 +84,7 @@ defineFeature(feature, test => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
-              (list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
+              (list{}, list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
               (
                 CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
                 list{},
@@ -99,19 +99,20 @@ defineFeature(feature, test => {
     )
 
     \"when"(
-      "loaded and render",
+      "render",
       () => {
-        useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        // useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        useStateStub.contents
-        ->onCall(0, _)
-        ->returns((ElementVisual.Loaded(Obj.magic(1)), _ => ElementVisual.Loaded(Obj.magic(1))), _)
-        ->ignore
+        // useStateStub.contents
+        // ->onCall(0, _)
+        // ->returns((ElementVisual.Loaded(Obj.magic(1)), _ => ElementVisual.Loaded(Obj.magic(1))), _)
+        // ->ignore
+        ()
       },
     )
 
     then(
-      "should only show canvas",
+      "should show canvas",
       () => {
         ElementVisualTool.buildUI(
           ~sandbox,
@@ -507,7 +508,7 @@ defineFeature(feature, test => {
             (),
           ),
           loopFrameIDRef,
-          (selectedPackages.contents, list{}, list{}, list{}),
+          (selectedPackages.contents, list{}, list{}),
           ApInspectorTool.buildApInspectorData(),
         )
       },

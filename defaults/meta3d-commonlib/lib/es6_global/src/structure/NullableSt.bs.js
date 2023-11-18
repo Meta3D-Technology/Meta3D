@@ -26,6 +26,10 @@ function isNullable(prim) {
   return prim == null;
 }
 
+function getEmpty(param) {
+  
+}
+
 var map = Js_null_undefined.bind;
 
 export {
@@ -35,5 +39,6 @@ export {
   map ,
   bind ,
   isNullable ,
+  getEmpty ,
 }
 /* No side effect */

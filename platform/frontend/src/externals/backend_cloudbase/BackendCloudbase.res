@@ -89,6 +89,9 @@ external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
 external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
 
 @module("backend-cloudbase")
+external findAllElementAssembleData: findAllElementAssembleData = "findAllElementAssembleData"
+
+@module("backend-cloudbase")
 external publishPackage: publishPackage = "publishPackage"
 
 @module("backend-cloudbase")
@@ -135,6 +138,7 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,
     findPublishPackage,
+    findAllElementAssembleData,
   }
 }
 

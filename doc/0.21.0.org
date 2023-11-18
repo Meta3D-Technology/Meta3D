@@ -556,13 +556,45 @@ TODO add 发布的页面
 TODO store elementMR data as a binary file
     TODO remove execOrder
 TODO select multiple
-TODO remove it from Contribute Market
+TODO remove same name but different version
+# TODO ap assemble space: add Elements, SelectedElements
+TODO update ElementVisual:
+    TODO just merge their Selected UI Controls
+
+# TODO select all: add select all elements
+
+# TODO Contribute Market not show element contribute protocol
+TODO remove element contribute protocol
 
 
 
-TODO just merge their Selected UI Controls
 
 
+TODO pass compile
+
+TODO pass bdd test
+
+TODO pass run test:
+    publish app with two elements
+    import app
+        fix load, start app 
+        fix publish app 
+            add selectedElements
+            selectedContributes add generated element contribute
+        # fix register element in editor whole
+        fix import app
+            getAllDataOfApp
+
+        compile
+        bdd test
+        run test
+            # need deselect element contribute after import old app
+            switch from element to ap: loss ui control inspector data
+            import app->publish app->run app: error: already register element contribute
+
+
+
+TODO commit
 
 
 
@@ -576,6 +608,13 @@ TODO dependency check: check their used ui controls should be selected
 # TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
 TODO because element contribute dependent on uiControlInput and Action, if not has them, use empty instead
     TODO give warn message(list them)
+
+
+
+
+
+TODO autograpde: update selected element assemble data
+
 
 
 *** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
@@ -633,6 +672,13 @@ TODO move two textures to UI Control Inspector->Config
 *** TODO run test: Publish UI Control
 
 TODO run test:publish->engine render
+
+
+
+
+*** TODO element space: fix:  remove scene view, not update visual!
+
+
 
 
 *** TODO fix: start package in ap assemble space->enter Index: should unstart package
@@ -772,21 +818,6 @@ TODO remove extension-> isStart
 * TODO refactor: extract asset package
 
 
-
-
-* TODO 构建三个示例场景
-
-1.Engine + Example use Engine package
-2.Editor
-3.Scene use Editor to build and publish
-
-
-** TODO build one big scene with glbs as showcase
-
-3D场景漫游
-
-** TODO pass run test:publish
-TODO update engine package
 
 
 

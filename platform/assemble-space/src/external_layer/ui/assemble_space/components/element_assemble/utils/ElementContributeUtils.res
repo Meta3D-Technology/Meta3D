@@ -1,4 +1,6 @@
-let getElementContributeProtocolName = () => "meta3d-element-assemble-element-protocol"
+let getElementContributeName = () => "meta3d-element-assemble-element"
+
+let getElementContributeProtocolName = FrontendUtils.ElementUtils.getElementContributeProtocolName
 
 let getElementContributeProtocolVersion = () => {
   j`^${FrontendUtils.VersionConfig.getPlatformVersion()}`
@@ -10,14 +12,16 @@ let getElementContributeDescription = () => "element contribute"
 
 let buildElementContributeFileStr = (
   service,
-  elementContributeName,
+  // elementContributeName,
   selectedUIControls,
   selectedUIControlInspectorData,
-  // elementStateFields,
 ) => {
+  // elementStateFields,
+
   ElementMRUtils.buildElementMR(
     service,
-    elementContributeName,
+    // elementContributeName,
+    getElementContributeName(),
     selectedUIControls->Meta3dCommonlib.ListSt.toArray,
     selectedUIControlInspectorData->Meta3dCommonlib.ListSt.toArray,
     // elementStateFields,

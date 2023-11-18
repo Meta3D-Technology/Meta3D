@@ -108,6 +108,7 @@ let generate = (
   allContributeFileData,
   allPackageBinaryFiles,
   allPackageBinaryFileDataStoredInApp: array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
+  selectedElements: selectedElements,
   configData: Js.Nullable.t<Meta3dType.Index.startConfigData>,
   startPackageProtocolName,
 ) => {
@@ -126,6 +127,9 @@ let generate = (
     ->_flatten
     ->BinaryFileOperator.generate
     ->Uint8Array.fromBuffer,
+  )
+  ->Meta3dCommonlib.ArraySt.push(
+    TextEncoder.encodeUint8Array(selectedElements->Obj.magic->Js.Json.stringify, encoder),
   )
   ->Meta3dCommonlib.ArraySt.push(
     TextEncoder.encodeUint8Array(
@@ -207,13 +211,10 @@ let _decodeConfigData = configData => {
   ->Obj.magic
 }
 
-let _decodeStartPackageProtocolName = startPackageProtocolName => {
+let _decode = data => {
   let decoder = TextDecoder.newTextDecoder("utf-8")
 
-  TextDecoder.decodeUint8Array(startPackageProtocolName, decoder)
-  // ->FileUtils.removeAlignedEmptyChars
-  // ->Js.Json.parseExn
-  ->Obj.magic
+  TextDecoder.decodeUint8Array(data, decoder)->Obj.magic
 }
 
 let load = (appBinaryFile: ArrayBuffer.t): (
@@ -221,12 +222,14 @@ let load = (appBinaryFile: ArrayBuffer.t): (
   // array<extensionFileData>,
   string,
   Meta3dType.Index.startConfigData,
+  // selectedElements,
 ) => {
   let [
     allExtensionUint8,
     allContributeUint8,
     allPackageUint8NotStoredInApp,
     allPackageUint8StoredInApp,
+    selectedElementsUint8,
     configData,
     startPackageProtocolName,
   ] = BinaryFileOperator.load(appBinaryFile)
@@ -240,7 +243,12 @@ let load = (appBinaryFile: ArrayBuffer.t): (
 
   let state = state->_loadAllPackageUint8StoredInApp(allPackageUint8StoredInApp)
 
-  (state, _decodeStartPackageProtocolName(startPackageProtocolName), _decodeConfigData(configData))
+  (
+    state,
+    _decode(startPackageProtocolName),
+    _decodeConfigData(configData),
+    // _decode(selectedElementsUint8),
+  )
 }
 
 // let _getStartExtensionProtocolName = (
@@ -283,12 +291,14 @@ let getAllDataOfApp = (appBinaryFile: ArrayBuffer.t): (
     array<ArrayBuffer.t>,
   ),
   Meta3dType.Index.startConfigData,
+  selectedElements,
 ) => {
   let [
     allExtensionUint8,
     allContributeUint8,
     allPackageUint8NotStoredInApp,
     allPackageUint8StoredInApp,
+    selectedElementsUint8,
     configData,
     _,
   ] = BinaryFileOperator.load(appBinaryFile)
@@ -297,5 +307,6 @@ let getAllDataOfApp = (appBinaryFile: ArrayBuffer.t): (
     _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
     [allExtensionUint8, allContributeUint8, allPackageUint8NotStoredInApp]->ManagerUtils.parse3,
     _decodeConfigData(configData),
+    _decode(selectedElementsUint8)->Js.Json.parseExn->Obj.magic,
   )
 }

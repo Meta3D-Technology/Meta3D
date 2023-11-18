@@ -179,16 +179,16 @@ defineFeature(feature, test => {
           list{
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b1",
-              ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+              ~x=1->FrontendUtils.CommonType.IntForRectField,
               // ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
-              ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+              ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
               (),
             ),
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b2",
               // ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
-              ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-              ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+              ~x=2->FrontendUtils.CommonType.IntForRectField,
+              ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
               (),
             ),
           }
@@ -339,7 +339,7 @@ defineFeature(feature, test => {
           list{
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="b1",
-              ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+              ~x=1->FrontendUtils.CommonType.IntForRectField,
               ~event=[UIControlInspectorTool.buildEventData(#button_click, "a1")],
               (),
             ),
@@ -584,8 +584,8 @@ handle click event code...
           list{
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id="w1",
-              ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-              ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+              ~x=1->FrontendUtils.CommonType.IntForRectField,
+              ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
               ~input=UIControlInspectorTool.buildInput("input1")->Some,
               ~specific=[
                 UIControlInspectorTool.buildSpecific(
@@ -593,19 +593,19 @@ handle click event code...
                   ~type_=#string,
                   ~value="Window1"
                   ->Obj.magic
-                  ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                  ->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
                 UIControlInspectorTool.buildSpecific(
                   ~name="image1",
                   ~type_=#imageBase64,
-                  ~value="aaa"-> Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                  ~value="aaa"-> Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
                 UIControlInspectorTool.buildSpecific(
                   ~name="image2",
                   ~type_=#imageBase64,
-                  ~value=Js.Nullable.null-> Obj.magic->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                  ~value=Js.Nullable.null-> Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
               ],
@@ -833,16 +833,16 @@ handle click event code...
             list{
               UIControlInspectorTool.buildUIControlInspectorData(
                 ~id="w1",
-                ~x=1->FrontendUtils.ElementAssembleStoreType.IntForRectField,
+                ~x=1->FrontendUtils.CommonType.IntForRectField,
                 // ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
-                ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+                ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
                 ~specific=[
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
                     ~type_=#string,
                     ~value="Window1"
                     ->Obj.magic
-                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -851,8 +851,8 @@ handle click event code...
               UIControlInspectorTool.buildUIControlInspectorData(
                 ~id="w2",
                 // ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
-                ~x=2->FrontendUtils.ElementAssembleStoreType.IntForRectField,
-                ~isDraw=false->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+                ~x=2->FrontendUtils.CommonType.IntForRectField,
+                ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
                 ~specific=[
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
@@ -860,7 +860,7 @@ handle click event code...
                     // ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
                     ~value="Window1"
                     ->Obj.magic
-                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -1138,7 +1138,7 @@ handle click event code...
                     ~type_=#string,
                     ~value="Window1"
                     ->Obj.magic
-                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -1152,7 +1152,7 @@ handle click event code...
                     ~type_=#string,
                     ~value="Window2"
                     ->Obj.magic
-                    ->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],

@@ -85,4 +85,25 @@ export let getElementAssembleData = (
 
             return just(marketImplementAccountData[0])
         })
+
+}
+
+export let findAllElementAssembleData = (
+    getDataFunc: any,
+    limitCount: number,
+    skipCount: number,
+) => {
+    return fromPromise(getDataFunc("publishedelementassembledata", limitCount, skipCount)).flatMap((data: any) => {
+        return just(data.map(({
+            elementName,
+            elementVersion,
+            inspectorData
+        }) => {
+            return {
+                elementName,
+                elementVersion,
+                inspectorData
+            }
+        }))
+    })
 }

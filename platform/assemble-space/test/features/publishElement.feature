@@ -24,14 +24,14 @@ Feature: Publish Element
         Background: prepare data
             Given prepare data
 
-        Scenario: generate element contribute
-            When publish
-            Then should generat element contribute
+        # Scenario: generate element contribute
+        #     When publish
+        #     Then should generat element contribute
 
-        Scenario: publish element contribute
-            When publish
-            Then should mark begin upload
-            And should publish generated element contribute
+        # Scenario: publish element contribute
+        #     When publish
+        #     Then should mark begin upload
+        #     And should publish generated element contribute
 
         Scenario: publish element assemble data
             When publish

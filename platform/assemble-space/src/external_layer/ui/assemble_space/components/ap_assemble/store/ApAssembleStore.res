@@ -5,6 +5,7 @@ let _createState = () => {
     selectedPackages: list{},
     selectedExtensions: list{},
     selectedContributes: list{},
+    // selectedElements: list{},
     inspectorCurrentExtensionId: None,
     inspectorCurrentContributeId: None,
     inspectorCurrentPackageId: None,
@@ -281,6 +282,10 @@ let reducer = (state, action) => {
       ...state,
       storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
     }
+  // | SelectAllElements(elements) => {
+  //     ...state,
+  //     selectedElements: elements,
+  //   }
   }
 }
 

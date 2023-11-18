@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
+exports.findAllElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestData = void 0;
 const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const most_1 = require("most");
 const semver_1 = require("semver");
@@ -54,4 +54,16 @@ let getElementAssembleData = (getMarketImplementAccountDataWithWhereDataFunc, ac
     });
 };
 exports.getElementAssembleData = getElementAssembleData;
+let findAllElementAssembleData = (getDataFunc, limitCount, skipCount) => {
+    return (0, most_1.fromPromise)(getDataFunc("publishedelementassembledata", limitCount, skipCount)).flatMap((data) => {
+        return (0, most_1.just)(data.map(({ elementName, elementVersion, inspectorData }) => {
+            return {
+                elementName,
+                elementVersion,
+                inspectorData
+            };
+        }));
+    });
+};
+exports.findAllElementAssembleData = findAllElementAssembleData;
 //# sourceMappingURL=GetElementDataService.js.map

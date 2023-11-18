@@ -36,10 +36,11 @@ Feature: Publish
             # And select extension e3
             And prepare config data
             And prepare ap inspector data
+            And prepare element data
             When publish app
             Then should mark begin upload
             # And should generat app with correct extension data and contribute data and start config data
-            And should generat app with correct contribute data and start config data
+            And should generate app with correct contribute data which add generated element contribute and builded selected elements and start config data
             And should publish the generated app
             And should mark finish upload
             And should close modal

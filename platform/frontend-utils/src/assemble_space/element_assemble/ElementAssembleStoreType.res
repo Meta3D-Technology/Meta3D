@@ -1,8 +1,8 @@
 type elementStateFieldType = [#string | #int | #bool]
 
-type specificDataType = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldType
+// type specificDataType = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldType
 
-external specificTypeToElementStateFieldType: specificDataType => elementStateFieldType =
+external specificTypeToElementStateFieldType: CommonType.specificDataType => elementStateFieldType =
   "%identity"
 
 type protocolIconBase64 = string
@@ -31,44 +31,27 @@ type selectedUIControls = list<uiControl>
 
 // type eventName = string
 
-type actionName = string
+type actionName = CommonType.actionName
 
-type eventData = {
-  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
-  // eventName: eventName,
-  actionName: actionName,
-}
+type eventData = CommonType.eventData
 
-type event = array<eventData>
+type event = CommonType.event
 
-type rectField = IntForRectField(int)
-// | ElementStateFieldForRectField(string)
+type rectField = CommonType.rectField
 
-type rect = {
-  x: rectField,
-  y: rectField,
-  width: rectField,
-  height: rectField,
-}
+type rect = CommonType.rect
 
-type isDraw = BoolForIsDraw(bool)
-// | ElementStateFieldForIsDraw(string)
+type isDraw = CommonType.isDraw
 
-type specificDataValue =
-  SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)
-// | ElementStateFieldForSpecificDataValue(string)
+type specificDataValue = CommonType.specificDataValue
 
-type specificData = {
-  name: string,
-  type_: specificDataType,
-  value: specificDataValue,
-}
+type specificData = CommonType.specificData
 
-type specific = array<specificData>
+type specific = CommonType.specific
 
-type inputName = string
+type inputName = CommonType.inputName
 
-type input = {inputName: inputName}
+type input = CommonType.input
 
 type rec uiControlInspectorData = {
   id: id,
@@ -167,4 +150,5 @@ type state = {
   elementContribute: option<elementContribute>,
   // isShowElementInspector: bool,
   // elementInspectorData: elementInspectorData,
+  isImportElement: bool,
 }

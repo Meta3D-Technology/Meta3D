@@ -64,6 +64,10 @@ let rec _buildUIControls = (
   )
 }
 
+// let _deepCopySelectedUIControlInspectorData = selectedUIControlInspectorData => {
+//   selectedUIControlInspectorData->Obj.magic->Js.Json.stringify->Js.Json.parseExn->Obj.magic
+// }
+
 let buildElementMR = (
   service: FrontendUtils.AssembleSpaceType.service,
   elementName,
@@ -78,7 +82,12 @@ elementMR => {
       // elementStateFields: elementStateFields->Meta3dCommonlib.ListSt.toArray,
       // reducers,
     },
-    uiControls: _buildUIControls(service, selectedUIControls, selectedUIControlInspectorData),
+    uiControls: _buildUIControls(
+      service,
+      selectedUIControls,
+      // selectedUIControlInspectorData->Meta3dCommonlib.Log.printForDebug->_deepCopySelectedUIControlInspectorData->Meta3dCommonlib.Log.printForDebug,
+      selectedUIControlInspectorData,
+    ),
   }
 }
 

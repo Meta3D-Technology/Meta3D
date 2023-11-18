@@ -37,6 +37,7 @@ let _createState = () => {
   //   //   handlers: list{},
   //   // },
   // },
+  isImportElement: false,
 }
 
 let _setUIControlInspectorData = (state, setFunc, id) => {
@@ -211,7 +212,9 @@ let reducer = (state, action) => {
       state,
       data => {
         ...data,
-        input: inputNameOpt->Meta3dCommonlib.OptionSt.map(inputName => ( {inputName:inputName}:input ))
+        input: inputNameOpt->Meta3dCommonlib.OptionSt.map((inputName): input => {
+          inputName: inputName,
+        }),
       },
       id,
     )
@@ -242,19 +245,23 @@ let reducer = (state, action) => {
               ? data.event->Meta3dCommonlib.ArraySt.map(eventData => {
                   eventData.eventName === eventName
                     ? {
-                        {
-                          eventName,
-                          actionName,
-                        }
+                        (
+                          {
+                            eventName,
+                            actionName,
+                          }: eventData
+                        )
                       }
                     : eventData
                 })
               : data.event->Js.Array.concat(
                   [
-                    {
-                      eventName,
-                      actionName,
-                    },
+                    (
+                      {
+                        eventName,
+                        actionName,
+                      }: eventData
+                    ),
                   ],
                   _,
                 )
@@ -323,6 +330,7 @@ let reducer = (state, action) => {
       ...state,
       selectedUIControls,
       selectedUIControlInspectorData,
+      isImportElement: true,
       // elementInspectorData,
       // elementContribute: None,
     }

@@ -128,3 +128,5 @@ type packageData = (
   packageName,
   entryExtensionProtocolConfigStr,
 )
+
+type selectedElements

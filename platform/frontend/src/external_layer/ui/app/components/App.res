@@ -14,9 +14,13 @@ module Method = {
 let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {account, selectedExtensions, selectedContributes, selectedPackages} = AppStore.useSelector((
-    {userCenterState}: FrontendUtils.AppStoreType.state,
-  ) => userCenterState)
+  let {
+    account,
+    selectedExtensions,
+    selectedContributes,
+    selectedPackages,
+    selectedElements,
+  } = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
     ui: {
@@ -96,6 +100,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         allContributeFileData,
         allPackageBinaryFiles,
         allPackagesStoredInApp,
+        selectedElements,
         startConfigData,
         startPackageProtocolName,
       ) =>
@@ -103,6 +108,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           allContributeFileData,
           allPackageBinaryFiles,
           allPackagesStoredInApp,
+          selectedElements->Obj.magic,
           startConfigData,
           startPackageProtocolName,
         ),
@@ -266,7 +272,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() =>
         <Layout>
           <Layout.Header>
-            <Nav currentKey="6" />
+            <Nav currentKey="7" />
           </Layout.Header>
           <Layout.Content>
             <AssembleSpace.AssembleSpace
@@ -275,11 +281,14 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
               selectedExtensionsFromMarket=selectedExtensions
               selectedContributesFromMarket=selectedContributes
               selectedPackagesFromMarket=selectedPackages
+              selectedElementsFromMarket=selectedElements
             />
           </Layout.Content>
         </Layout>
       , account, service)
     | list{"ShowPublishedApps"} => <ShowPublishedApps service />
+    | list{"ShowPublishedElements"} =>
+      Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />
     | list{"RunElementVisual"} =>
       <AssembleSpace.RunElementVisual service={_buildAssembleSpaceService()} />

@@ -9,7 +9,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account, ) => {
+let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
   let dispatch = service.react.useDispatch()
 
   service.react.useEffectOnce(() => {
@@ -39,7 +39,7 @@ let make = (~service: service, ~account, ) => {
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        <ElementVisual service account />
+        <ElementVisual service account selectedElementsFromMarket />
       </Layout.Content>
       <Layout.Sider theme=#light>
         // <ElementInspector service />

@@ -76,6 +76,9 @@ external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
 external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
 
 @module("backend-4everland")
+external findAllElementAssembleData: findAllElementAssembleData = "findAllElementAssembleData"
+
+@module("backend-4everland")
 external findNewestPublishPackage: findNewestPublishPackage = "findNewestPublishPackage"
 
 @module("backend-4everland")
@@ -124,6 +127,7 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
     getAllPublishPackageInfos,
     findPublishPackage,
     findPublishApp,
+    findAllElementAssembleData,
   }
 }
 

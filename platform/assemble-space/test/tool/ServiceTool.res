@@ -67,6 +67,9 @@ let build = (
   ~getElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
+  // ~findAllElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  // ->returns(Meta3dBsMostDefault.Most.just([]), _)
+  // ->Obj.magic,
   ~findNewestPublishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
@@ -175,6 +178,7 @@ let build = (
     publishElementContribute,
     publishElementAssembleData,
     getElementAssembleData,
+    // findAllElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishExtension,
     findNewestPublishContribute,

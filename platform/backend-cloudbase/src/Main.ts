@@ -231,7 +231,14 @@ export let getElementAssembleData = (
     elementVersion,
 )
 
-
+export let findAllElementAssembleData = (
+    limitCount,
+    skipCount,
+) => Abstract.findAllElementAssembleData(
+    getData,
+    limitCount,
+    skipCount,
+)
 
 
 export let publishPackage = (onUploadProgressFunc,

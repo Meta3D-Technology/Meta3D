@@ -1,5 +1,11 @@
-let buildUI = (~sandbox, ~account=None, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <ElementVisual service account />
+let buildUI = (
+  ~sandbox,
+  ~account=None,
+  ~selectedElementsFromMarket=list{},
+  ~service=ServiceTool.build(~sandbox, ()),
+  (),
+) => {
+  <ElementVisual service account selectedElementsFromMarket />
 }
 
 // let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension
@@ -51,26 +57,14 @@ let getUpdateFlag = %raw(` function(){return window.updateFlag} `)
 let generateElementContribute = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~protocolName=ElementContributeUtils.getElementContributeProtocolName(),
-  ~protocolVersion=ElementContributeUtils.getElementContributeProtocolVersion(),
-  ~elementName=ElementVisual.Method._getElementContributeName(),
-  ~elementVersion=ElementVisual.Method._getElementContributeVersion(),
+  // ~protocolName=ElementContributeUtils.getElementContributeProtocolName(),
+  // ~protocolVersion=ElementContributeUtils.getElementContributeProtocolVersion(),
+  // ~elementName=ElementContributeUtils.getElementContributeName(),
+  // ~elementVersion=ElementVisualUtils.getElementContributeVersion(),
   ~account="meta3d",
   ~fileStr="",
   (),
-) =>
-  ElementVisual.Method._generateElementContribute(
-    service,
-    protocolName,
-    protocolVersion,
-    elementName,
-    elementVersion,
-    account,
-    elementName,
-    ElementContributeUtils.getElementContributeRepoLink(),
-    ElementContributeUtils.getElementContributeDescription(),
-    fileStr,
-  )
+) => ElementVisual.Method.generateElementContribute(service, account, fileStr)
 
 let buildEmptyContributeFileStr = () => {
   `window.Contribute = { getContribute: (api) =>{ return {} }}`

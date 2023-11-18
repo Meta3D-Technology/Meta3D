@@ -41,6 +41,8 @@ type package = AssembleSpaceCommonType.packageData
 
 type selectedPackages = list<package>
 
+// type selectedElements = list<BackendCloudbaseType.elementAssembleData>
+
 type isDebug = bool
 
 type clearColor = (float, float, float, float)
@@ -99,11 +101,13 @@ type action =
   | StorePackageInApp(id)
   | UnStorePackageInApp(id)
   | BatchStorePackagesInApp(list<id>)
+  // | SelectAllElements(selectedElements)
 
 type state = {
   selectedPackages: selectedPackages,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
+  // selectedElements: selectedElements,
   inspectorCurrentExtensionId: option<id>,
   inspectorCurrentContributeId: option<id>,
   inspectorCurrentPackageId: option<id>,

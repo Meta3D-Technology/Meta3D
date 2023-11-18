@@ -114,18 +114,16 @@ module Method = {
     ->ignore
   }
 
-  let _generateApp = (
-    service,
-    ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
-  ) => {
+  let _generateApp = (service, ((selectPackages, allPackagesStoredInApp), selectedContributes)) => {
     // visualExtension,
 
     AppUtils.generateApp(
       service,
       (selectPackages, allPackagesStoredInApp),
       // selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
-      selectedExtensions,
+      // selectedExtensions,
       selectedContributes,
+      list{},
       Js.Nullable.null,
     )
   }
@@ -133,7 +131,7 @@ module Method = {
   let startApp = (
     service,
     loopFrameID: React.ref<option<int>>,
-    (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
+    (selectedPackages, selectedContributes, storedPackageIdsInApp),
     // visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
@@ -142,7 +140,7 @@ module Method = {
         service,
         (
           AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
-          selectedExtensions->Meta3dCommonlib.ListSt.toArray,
+          // selectedExtensions->Meta3dCommonlib.ListSt.toArray,
           selectedContributes->Meta3dCommonlib.ListSt.toArray,
         ),
         // visualExtension,
@@ -174,124 +172,131 @@ module Method = {
     }, _)
   }
 
-  let isLoaded = elementAssembleData => {
-    switch elementAssembleData {
-    | Loading => false
-    | _ => true
-    }
-  }
+  // let isLoaded = elementAssembleData => {
+  //   switch elementAssembleData {
+  //   | Loading => false
+  //   | _ => true
+  //   }
+  // }
 
-  let _getElementContributeName = () => "meta3d-element-assemble-element"
+  // let _getElementContributeName = () => "meta3d-element-assemble-element"
 
-  let _getElementContributeVersion = () => FrontendUtils.VersionConfig.getPlatformVersion()
+  // let getElementContributeVersion = () => FrontendUtils.VersionConfig.getPlatformVersion()
 
-  let buildElementContributeFileStr = (
-    service,
-    selectedUIControls,
-    selectedUIControlInspectorData,
-  ) =>
-    // elementStateFields,
+  let buildElementContributeFileStr = ElementContributeUtils.buildElementContributeFileStr
+  // let buildElementContributeFileStr = (
+  //   service,
+  //   selectedUIControls,
+  //   selectedUIControlInspectorData,
+  // ) =>
+  //   // elementStateFields,
 
-    ElementContributeUtils.buildElementContributeFileStr(
-      service,
-      _getElementContributeName(),
-      selectedUIControls,
-      selectedUIControlInspectorData,
-      // elementStateFields,
-    )
+  //   ElementContributeUtils.buildElementContributeFileStr(
+  //     service,
+  //     _getElementContributeName(),
+  //     selectedUIControls,
+  //     selectedUIControlInspectorData,
+  //     // elementStateFields,
+  //   )
 
-  let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
-    id: "",
-    version,
-    protocolIconBase64: "",
-    protocolConfigStr: None,
-    // newName: name->Some,
-    data,
-  }
+  // let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
+  //   id: "",
+  //   version,
+  //   protocolIconBase64: "",
+  //   protocolConfigStr: None,
+  //   // newName: name->Some,
+  //   data,
+  // }
 
-  let _generateElementContribute = (
-    service,
-    protocolName,
-    protocolVersion,
-    elementName,
-    elementVersion,
-    account,
-    displayName,
-    repoLink,
-    description,
-    fileStr,
-  ) => {
-    ElementVisualUtils.generateElementContributeBinaryFile(
-      service,
-      elementName,
-      elementVersion,
-      account,
-      protocolName,
-      protocolVersion,
-      displayName,
-      repoLink,
-      description,
-      fileStr,
-    )
-    ->service.meta3d.loadContribute(. _)
-    ->_buildContribute(elementVersion, _)
-  }
+  // let _generateElementContribute = (
+  //   service,
+  //   protocolName,
+  //   protocolVersion,
+  //   elementName,
+  //   elementVersion,
+  //   account,
+  //   displayName,
+  //   repoLink,
+  //   description,
+  //   fileStr,
+  // ) => {
+  //   ElementVisualUtils.generateElementContributeBinaryFile(
+  //     service,
+  //     elementName,
+  //     elementVersion,
+  //     account,
+  //     protocolName,
+  //     protocolVersion,
+  //     displayName,
+  //     repoLink,
+  //     description,
+  //     fileStr,
+  //   )
+  //   ->service.meta3d.loadContribute(. _)
+  //   ->_buildContribute(elementVersion, _)
+  // }
 
-  let generateElementContributeData = (service, account, fileStr) => {
-    _generateElementContribute(
-      service,
-      ElementContributeUtils.getElementContributeProtocolName(),
-      ElementContributeUtils.getElementContributeProtocolVersion(),
-      _getElementContributeName(),
-      _getElementContributeVersion(),
-      account,
-      _getElementContributeName(),
-      ElementContributeUtils.getElementContributeRepoLink(),
-      ElementContributeUtils.getElementContributeDescription(),
-      fileStr,
-    )
-  }
+  let generateElementContribute = ElementVisualUtils.generateElementContribute
+
+  //  (service, account, fileStr) => {
+  //   // _generateElementContribute(
+  //   //   service,
+  //   //   ElementContributeUtils.getElementContributeProtocolName(),
+  //   //   ElementContributeUtils.getElementContributeProtocolVersion(),
+  //   //   _getElementContributeName(),
+  //   //   getElementContributeVersion(),
+  //   //   account,
+  //   //   _getElementContributeName(),
+  //   //   ElementContributeUtils.getElementContributeRepoLink(),
+  //   //   ElementContributeUtils.getElementContributeDescription(),
+  //   //   fileStr,
+  //   // )
+
+  //   ElementVisualUtils.generateElementContributeBinaryFile(service, account, fileStr)
+  //   // ->service.meta3d.loadContribute(. _)
+  //   // ->_buildContribute(elementVersion, _)
+  // }
 
   let updateElementContribute = (dispatch, elementContribute) => {
     dispatch(FrontendUtils.ElementAssembleStoreType.SetElementContribute(elementContribute))
   }
 
-  let getAndSetElementAssembleData = (
-    service,
-    setElementAssembleData,
-    selectedContributes,
-    account,
-  ) => {
-    switch selectedContributes->SelectedContributesForElementUtils.getElements {
-    | elements if elements->Meta3dCommonlib.ListSt.length > 1 =>
-      service.console.error(. {j`should only select 1 element at most`}, None)
+  // let getAndSetElementAssembleData = (
+  //   service,
+  //   setElementAssembleData,
+  //   selectedContributes,
+  //   account,
+  // ) => {
+  //   switch selectedContributes->SelectedContributesForElementUtils.getElements {
+  //   | elements if elements->Meta3dCommonlib.ListSt.length > 1 =>
+  //     service.console.error(. {j`should only select 1 element at most`}, None)
 
-      Js.Promise.resolve()
-    | elements if elements->Meta3dCommonlib.ListSt.length === 0 =>
-      setElementAssembleData(_ => No)
+  //     Js.Promise.resolve()
+  //   | elements if elements->Meta3dCommonlib.ListSt.length === 0 =>
+  //     setElementAssembleData(_ => No)
 
-      Js.Promise.resolve()
-    | list{element} =>
-      let {version, data} = element
+  //     Js.Promise.resolve()
+  //   | list{element} =>
+  //     let {version, data} = element
 
-      service.backend.getElementAssembleData(.
-        account->Meta3dCommonlib.OptionSt.getExn,
-        data.contributePackageData.name,
-        version,
-      )
-      ->Meta3dBsMostDefault.Most.tap(elementAssembleData => {
-        Meta3dCommonlib.NullableSt.isNullable(elementAssembleData)
-          ? setElementAssembleData(_ => No)
-          : setElementAssembleData(_ => Loaded(
-              elementAssembleData->Meta3dCommonlib.NullableSt.getExn,
-            ))
-      }, _)
-      ->Meta3dBsMostDefault.Most.drain
-      ->Js.Promise.catch(e => {
-        service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
-      }, _)
-    }
-  }
+  //     service.backend.getElementAssembleData(.
+  //       account->Meta3dCommonlib.OptionSt.getExn,
+  //       data.contributePackageData.name,
+  //       version,
+  //     )
+  //     ->Meta3dBsMostDefault.Most.tap(elementAssembleData => {
+  //       Meta3dCommonlib.NullableSt.isNullable(elementAssembleData)
+  //         ? setElementAssembleData(_ => No)
+  //         : setElementAssembleData(_ => Loaded(
+  //             elementAssembleData->Meta3dCommonlib.NullableSt.getExn,
+  //           ))
+  //     }, _)
+  //     ->Meta3dBsMostDefault.Most.drain
+  //     ->Js.Promise.catch(e => {
+  //       service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+  //     }, _)
+  //   }
+  // }
 
   let _generateSelectedUIControls = (service, selectedContributes, uiControls) => {
     let selectedUIControls =
@@ -394,23 +399,62 @@ module Method = {
     uiControls->_generate(selectedUIControls)
   }
 
-  let importElement = (service, dispatch, elementAssembleData, selectedContributes) => {
-    switch elementAssembleData {
-    | Loaded(elementAssembleData) =>
-      let {elementName, elementVersion, inspectorData} = elementAssembleData
-      let {uiControls} = inspectorData
+  // let importElement = (service, dispatch, elementAssembleData, selectedContributes) => {
+  //   switch elementAssembleData {
+  //   | Loaded(elementAssembleData) =>
+  //     let {elementName, elementVersion, inspectorData} = elementAssembleData
+  //     let {uiControls} = inspectorData
 
-      let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
+  //     let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
 
-      dispatch(
-        FrontendUtils.ElementAssembleStoreType.Import(
-          selectedUIControls,
-          _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
-        ),
-      )
+  //     dispatch(
+  //       FrontendUtils.ElementAssembleStoreType.Import(
+  //         selectedUIControls,
+  //         _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
+  //       ),
+  //     )
 
-    | _ => ()
-    }
+  //   | _ => ()
+  //   }
+  // }
+
+  let importElement = (service, dispatch, selectedElementsFromMarket, selectedContributes) => {
+    // switch elementAssembleData {
+    // | Loaded(elementAssembleData) =>
+    //   let {elementName, elementVersion, inspectorData} = elementAssembleData
+    //   let {uiControls} = inspectorData
+
+    //   let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
+
+    //   dispatch(
+    //     FrontendUtils.ElementAssembleStoreType.Import(
+    //       selectedUIControls,
+    //       _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
+    //     ),
+    //   )
+
+    // | _ => ()
+    // }
+
+    let mergedUIControls = selectedElementsFromMarket->Meta3dCommonlib.ListSt.reduce([], (
+      mergedUIControls,
+      {inspectorData}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+    ) => {
+      mergedUIControls->Js.Array.concat(inspectorData.uiControls, _)
+    })
+
+    let selectedUIControls = _generateSelectedUIControls(
+      service,
+      selectedContributes,
+      mergedUIControls,
+    )
+
+    dispatch(
+      FrontendUtils.ElementAssembleStoreType.Import(
+        selectedUIControls,
+        _generateSelectedUIControlInspectorData(mergedUIControls, selectedUIControls),
+      ),
+    )
   }
 
   let setElementContributeToSpaceState = elementContribute => {
@@ -424,8 +468,9 @@ module Method = {
   ) => {
     let {
       selectedPackages,
-      selectedExtensions,
+      // selectedExtensions,
       selectedContributes,
+      // selectedElementsFromMarket,
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
@@ -437,6 +482,7 @@ module Method = {
       // visualExtension,
       elementContribute,
       // elementInspectorData,
+      isImportElement,
     } = elementAssembleState
 
     // let (_, elementContribute) = elementContribute
@@ -444,8 +490,9 @@ module Method = {
     (
       (
         selectedPackages,
-        selectedExtensions,
+        // selectedExtensions,
         selectedContributes,
+        // selectedElementsFromMarket,
         apInspectorData,
         isPassDependencyGraphCheck,
         storedPackageIdsInApp,
@@ -458,20 +505,22 @@ module Method = {
         // elementContribute,
         elementContribute,
         // elementInspectorData,
+        isImportElement,
       ),
     )
   }
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>) => {
+let make = (~service: service, ~account: option<string>, ~selectedElementsFromMarket) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
     (
       selectedPackages,
-      selectedExtensions,
+      // selectedExtensions,
       selectedContributes,
+      // selectedElementsFromMarket,
       apInspectorData,
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
@@ -484,10 +533,11 @@ let make = (~service: service, ~account: option<string>) => {
       // elementContribute,
       elementContribute,
       // elementInspectorData,
+      isImportElement,
     ),
   ) = service.react.useSelector(. Method.useSelector)
 
-  let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
+  // let (elementAssembleData, setElementAssembleData) = service.react.useState(_ => Loading)
   let loopFrameID = service.react.useRef(None)
 
   // let {elementStateFields} = elementInspectorData
@@ -502,30 +552,40 @@ let make = (~service: service, ~account: option<string>) => {
   //   ((), None)
   // })
 
-  service.react.useEffect1(. () => {
-    Method.getAndSetElementAssembleData(
-      service,
-      setElementAssembleData,
-      selectedContributes,
-      account,
-    )->ignore
+  // service.react.useEffect1(. () => {
+  //   Method.getAndSetElementAssembleData(
+  //     service,
+  //     setElementAssembleData,
+  //     selectedContributes,
+  //     account,
+  //   )->ignore
 
-    None
-  }, [selectedContributes])
+  //   None
+  // }, [selectedContributes])
+
+  // service.react.useEffect1(. () => {
+  //   FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+  //     Method.importElement(service, dispatch, elementAssembleData, selectedContributes)
+  //   }, 5->Some)
+
+  //   None
+  // }, [elementAssembleData])
 
   service.react.useEffect1(. () => {
     FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-      Method.importElement(service, dispatch, elementAssembleData, selectedContributes)
+      !isImportElement
+        ? Method.importElement(service, dispatch, selectedElementsFromMarket, selectedContributes)
+        : ()
     }, 5->Some)
 
     None
-  }, [elementAssembleData])
+  }, [selectedElementsFromMarket])
 
   service.react.useEffect1(.
     () => {
       selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
         ? FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-            Method.generateElementContributeData(
+            Method.generateElementContribute(
               service,
               account->Meta3dCommonlib.OptionSt.getExn,
               Method.buildElementContributeFileStr(
@@ -577,7 +637,7 @@ let make = (~service: service, ~account: option<string>) => {
             Method.startApp(
               service,
               loopFrameID,
-              (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
+              (selectedPackages, selectedContributes, storedPackageIdsInApp),
               // visualExtension,
               apInspectorData,
             )->ignore
@@ -594,7 +654,7 @@ let make = (~service: service, ~account: option<string>) => {
   }, [])
 
   <>
-    {!Method.isLoaded(elementAssembleData) ? <p> {React.string(`loading...`)} </p> : React.null}
+    // {!Method.isLoaded(elementAssembleData) ? <p> {React.string(`loading...`)} </p> : React.null}
     <canvas
       id="ui-visual-canvas"
       style={ReactDOM.Style.make(

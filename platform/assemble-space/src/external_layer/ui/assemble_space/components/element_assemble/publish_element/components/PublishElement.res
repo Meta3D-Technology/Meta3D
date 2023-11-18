@@ -3,14 +3,14 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _getSelectedUIControl = (
-    id,
-    selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
-  ) => {
-    selectedUIControls
-    ->Meta3dCommonlib.ListSt.find(selectedUIControl => selectedUIControl.id === id)
-    ->Meta3dCommonlib.OptionSt.getExn
-  }
+  // let _getSelectedUIControl = (
+  //   id,
+  //   selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
+  // ) => {
+  //   selectedUIControls
+  //   ->Meta3dCommonlib.ListSt.find(selectedUIControl => selectedUIControl.id === id)
+  //   ->Meta3dCommonlib.OptionSt.getExn
+  // }
 
   let rec _convertToUIControls = (
     selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
@@ -68,58 +68,69 @@ module Method = {
 
       // let {elementStateFields} = elementInspectorData
 
-      let protocolName = ElementContributeUtils.getElementContributeProtocolName()
-      let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
-      let displayName = elementName
-      let repoLink = ElementContributeUtils.getElementContributeRepoLink()
-      let description = ElementContributeUtils.getElementContributeDescription()
+      // let protocolName = ElementContributeUtils.getElementContributeProtocolName()
+      // let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
+      // let displayName = elementName
+      // let repoLink = ElementContributeUtils.getElementContributeRepoLink()
+      // let description = ElementContributeUtils.getElementContributeDescription()
 
       setIsUploadBegin(_ => true)
 
-      Meta3dBsMostDefault.Most.mergeArray([
-        service.backend.publishElementContribute(.
-          progress => setUploadProgress(_ => progress),
-          account->Meta3dCommonlib.OptionSt.getExn,
-          (
-            elementName,
-            elementVersion,
-            protocolName,
-            protocolVersion,
-            displayName,
-            repoLink,
-            description,
-          ),
-          ElementVisualUtils.generateElementContributeBinaryFile(
-            service,
-            elementName,
-            elementVersion,
-            account->Meta3dCommonlib.OptionSt.getExn,
-            protocolName,
-            protocolVersion,
-            displayName,
-            repoLink,
-            description,
-            ElementContributeUtils.buildElementContributeFileStr(
-              service,
-              elementName,
-              selectedUIControls,
-              selectedUIControlInspectorData,
-              // elementStateFields,
-            ),
-          ),
-        ),
-        service.backend.publishElementAssembleData(.
-          account->Meta3dCommonlib.OptionSt.getExn,
-          elementName,
-          elementVersion,
-          (
-            {
-              // element: elementInspectorData,
-              uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
-            }: FrontendUtils.BackendCloudbaseType.inspectorData
-          ),
-        ),
-      ])
+      // Meta3dBsMostDefault.Most.mergeArray([
+      //   // service.backend.publishElementContribute(.
+      //   //   progress => setUploadProgress(_ => progress),
+      //   //   account->Meta3dCommonlib.OptionSt.getExn,
+      //   //   (
+      //   //     elementName,
+      //   //     elementVersion,
+      //   //     protocolName,
+      //   //     protocolVersion,
+      //   //     displayName,
+      //   //     repoLink,
+      //   //     description,
+      //   //   ),
+      //   //   ElementVisualUtils.generateElementContributeBinaryFile(
+      //   //     service,
+      //   //     elementName,
+      //   //     elementVersion,
+      //   //     account->Meta3dCommonlib.OptionSt.getExn,
+      //   //     protocolName,
+      //   //     protocolVersion,
+      //   //     displayName,
+      //   //     repoLink,
+      //   //     description,
+      //   //     ElementContributeUtils.buildElementContributeFileStr(
+      //   //       service,
+      //   //       elementName,
+      //   //       selectedUIControls,
+      //   //       selectedUIControlInspectorData,
+      //   //       // elementStateFields,
+      //   //     ),
+      //   //   ),
+      //   // ),
+      //   service.backend.publishElementAssembleData(.
+      //     account->Meta3dCommonlib.OptionSt.getExn,
+      //     elementName,
+      //     elementVersion,
+      //     (
+      //       {
+      //         // element: elementInspectorData,
+      //         uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
+      //       }: FrontendUtils.BackendCloudbaseType.inspectorData
+      //     ),
+      //   ),
+      // ])
+      service.backend.publishElementAssembleData(.
+        account->Meta3dCommonlib.OptionSt.getExn,
+        elementName,
+        elementVersion,
+        (
+          {
+            // element: elementInspectorData,
+            uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls)
+          }: FrontendUtils.BackendCloudbaseType.inspectorData
+        )
+      )
       ->Meta3dBsMostDefault.Most.drain
       ->Js.Promise.then_(_ => {
         setIsUploadBegin(_ => false)

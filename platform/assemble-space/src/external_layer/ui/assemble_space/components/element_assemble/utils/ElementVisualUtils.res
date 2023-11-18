@@ -95,14 +95,16 @@ let _removeElementContribute = selectedContributes => {
 let generateApp = (
   service,
   ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
+  selectedElements,
   elementContribute,
 ) => {
   AppUtils.generateApp(
     service,
     (selectPackages, allPackagesStoredInApp),
     // selectedExtensions->Meta3dCommonlib.ArraySt.push(runVisualExtension),
-    selectedExtensions,
+    // selectedExtensions,
     selectedContributes->_removeElementContribute->Meta3dCommonlib.ArraySt.push(elementContribute),
+    selectedElements,
     Js.Nullable.null,
   )
 }
@@ -121,42 +123,57 @@ let getEditorWholePackageProtocolName = () => "meta3d-editor-whole-protocol"
 
 // let _getEventProtocolVersion = () => ">=0.12.0"
 
-let generateElementContributeBinaryFile = (
-  service: FrontendUtils.AssembleSpaceType.service,
-  name,
+// let generateElementContribute = (service, account, fileStr) => {
+//   _generateElementContribute(
+//     service,
+//     ElementContributeUtils.getElementContributeProtocolName(),
+//     ElementContributeUtils.getElementContributeProtocolVersion(),
+//     ElementContributeUtils.getElementContributeName(),
+//     getElementContributeVersion(),
+//     account,
+//     ElementContributeUtils.getElementContributeName(),
+//     ElementContributeUtils.getElementContributeRepoLink(),
+//     ElementContributeUtils.getElementContributeDescription(),
+//     fileStr,
+//   )
+// }
+
+let getElementContributeVersion = () => FrontendUtils.VersionConfig.getPlatformVersion()
+
+let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
+  id: "",
   version,
+  protocolIconBase64: "",
+  protocolConfigStr: None,
+  data,
+}
+
+let generateElementContribute = (
+  service: FrontendUtils.AssembleSpaceType.service,
   account,
-  protocolName,
-  protocolVersion,
-  displayName,
-  repoLink,
-  description,
   fileStr,
 ) => {
   service.meta3d.generateContribute(.
     (
       {
-        name,
-        version,
+        name: ElementContributeUtils.getElementContributeName(),
+        version: getElementContributeVersion(),
         account,
         protocol: {
-          name: protocolName,
-          version: protocolVersion,
+          name: ElementContributeUtils.getElementContributeProtocolName(),
+          version: ElementContributeUtils.getElementContributeProtocolVersion(),
         },
-        displayName,
-        repoLink,
-        description,
+        displayName: ElementContributeUtils.getElementContributeName(),
+        repoLink: ElementContributeUtils.getElementContributeRepoLink(),
+        description: ElementContributeUtils.getElementContributeDescription(),
         dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
         dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-        // ->Meta3dCommonlib.ImmutableHashMap.set(
-        //   getUIExtensionProtocolName(),
-        //   _getUIProtocolVersion(),
-        // )
-        // ->Meta3dCommonlib.ImmutableHashMap.set("meta3d-event-protocol", _getEventProtocolVersion()),
       }: Meta3d.ExtensionFileType.contributePackageData
     ),
     fileStr,
   )
+  ->service.meta3d.loadContribute(. _)
+  ->_buildContribute(getElementContributeVersion(), _)
 }
 
 let cancelAppLoop = (

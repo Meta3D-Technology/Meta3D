@@ -43,8 +43,9 @@ module Method = {
       (
         AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-        selectedContributes->Meta3dCommonlib.ListSt.toArray
+        selectedContributes->Meta3dCommonlib.ListSt.toArray,
       ),
+      list{},
       elementContribute,
     )
     ->_saveToLocalStorage(service, _)

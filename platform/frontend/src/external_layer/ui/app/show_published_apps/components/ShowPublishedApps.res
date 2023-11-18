@@ -1,8 +1,6 @@
 open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 
-// TODO check login
-
 module Method = {
   let buildKey = (account, appName) => {
     j`${account}_${appName}`
@@ -170,7 +168,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                   Meta3dBsMostDefault.Most.empty()->Obj.magic
                                 }
                               : {
-                                  let (data1, data2, configData) = Meta3d.Main.getAllDataOfApp(
+                                  let (
+                                    data1,
+                                    data2,
+                                    configData,
+                                    allElements,
+                                  ) = Meta3d.Main.getAllDataOfApp(
                                     file->Meta3dCommonlib.NullableSt.getExn,
                                   )
 
@@ -182,6 +185,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                   dispatchForApAssembleStore(
                                     FrontendUtils.ApAssembleStoreType.SetApInspectorData(
                                       apInspectorData,
+                                    ),
+                                  )
+                                  dispatch(
+                                    FrontendUtils.AppStoreType.UserCenterAction(
+                                      FrontendUtils.UserCenterStoreType.SelectAllElements(
+                                      allElements->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                                    ),
                                     ),
                                   )
                                   dispatchForElementAssembleStore(

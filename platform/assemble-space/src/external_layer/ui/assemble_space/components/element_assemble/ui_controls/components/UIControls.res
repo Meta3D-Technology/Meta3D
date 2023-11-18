@@ -16,7 +16,7 @@ module Method = {
       {
         name,
         type_,
-        value: value->FrontendUtils.ElementAssembleStoreType.SpecicFieldDataValue,
+        value: value->FrontendUtils.CommonType.SpecicFieldDataValue,
       }
     })
   }

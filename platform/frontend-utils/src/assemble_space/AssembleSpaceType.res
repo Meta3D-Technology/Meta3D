@@ -8,6 +8,8 @@ type selectedExtensionsFromMarket = list<AssembleSpaceCommonType.extensionData>
 
 type selectedContributesFromMarket = list<AssembleSpaceCommonType.contributeData>
 
+type selectedElementsFromMarket = list<elementAssembleData>
+
 type dispatch = AssembleSpaceStoreType.action => unit
 
 type useDispatch = unit => dispatch
@@ -96,12 +98,13 @@ type meta3dService = {
       array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     ),
     array<Js.Typed_array.ArrayBuffer.t>,
-packageData
+    packageData,
   ) => Js.Typed_array.ArrayBuffer.t,
   generateApp: (
     . array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     array<Js.Typed_array.ArrayBuffer.t>,
     array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
+    array<elementAssembleData>,
     Js.Nullable.t<Meta3dType.Index.startConfigData>,
     string,
   ) => Js.Typed_array.ArrayBuffer.t,
@@ -120,7 +123,7 @@ packageData
     array<(extensionPackageData, Meta3d.ExtensionFileType.extensionFuncData)>,
     array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
     array<Js.Typed_array.ArrayBuffer.t>,
-    packageData
+    packageData,
   ),
   execGetContributeFunc: (
     . Js.Typed_array.Uint8Array.t,

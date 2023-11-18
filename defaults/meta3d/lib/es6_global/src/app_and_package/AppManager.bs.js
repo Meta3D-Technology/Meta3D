@@ -36,17 +36,17 @@ function _flatten(arr) {
   return ArraySt$Meta3dCommonlib.reduceOneParam(arr, Js_array.concat, []);
 }
 
-function generate(allContributeFileData, allPackageBinaryFiles, allPackageBinaryFileDataStoredInApp, configData, startPackageProtocolName) {
+function generate(allContributeFileData, allPackageBinaryFiles, allPackageBinaryFileDataStoredInApp, selectedElements, configData, startPackageProtocolName) {
   var encoder = new TextEncoder();
-  return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
-                                    [],
-                                    allContributeFileData
-                                  ]))(allPackageBinaryFiles), new Uint8Array(BinaryFileOperator$Meta3d.generate(_flatten(ArraySt$Meta3dCommonlib.map(allPackageBinaryFileDataStoredInApp, (function (param) {
-                                            return [
-                                                    TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder),
-                                                    new Uint8Array(param[1])
-                                                  ];
-                                          })))))), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)), TextEncoder$Meta3d.encodeUint8Array(startPackageProtocolName, encoder)));
+  return BinaryFileOperator$Meta3d.generate(ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(ArraySt$Meta3dCommonlib.push(ManagerUtils$Meta3d.mergeAllPackageBinaryFiles(ManagerUtils$Meta3d.generate([
+                                        [],
+                                        allContributeFileData
+                                      ]))(allPackageBinaryFiles), new Uint8Array(BinaryFileOperator$Meta3d.generate(_flatten(ArraySt$Meta3dCommonlib.map(allPackageBinaryFileDataStoredInApp, (function (param) {
+                                                return [
+                                                        TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(param[0]), encoder),
+                                                        new Uint8Array(param[1])
+                                                      ];
+                                              })))))), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(selectedElements), encoder)), TextEncoder$Meta3d.encodeUint8Array(JSON.stringify(NullableSt$Meta3dCommonlib.getWithDefault(configData, [])), encoder)), TextEncoder$Meta3d.encodeUint8Array(startPackageProtocolName, encoder)));
 }
 
 function getExtensionFuncDataStr(extensionFuncData) {
@@ -77,7 +77,7 @@ function _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp) {
                         RE_EXN_ID: "Match_failure",
                         _1: [
                           "AppManager.res",
-                          174,
+                          178,
                           32
                         ],
                         Error: new Error()
@@ -111,19 +111,19 @@ function _decodeConfigData(configData) {
   return JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(configData, decoder)));
 }
 
-function _decodeStartPackageProtocolName(startPackageProtocolName) {
+function _decode(data) {
   var decoder = new TextDecoder("utf-8");
-  return TextDecoder$Meta3d.decodeUint8Array(startPackageProtocolName, decoder);
+  return TextDecoder$Meta3d.decodeUint8Array(data, decoder);
 }
 
 function load(appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 6) {
+  if (match.length !== 7) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            225,
+            227,
             6
           ],
           Error: new Error()
@@ -133,8 +133,8 @@ function load(appBinaryFile) {
   var allContributeUint8 = match[1];
   var allPackageUint8NotStoredInApp = match[2];
   var allPackageUint8StoredInApp = match[3];
-  var configData = match[4];
-  var startPackageProtocolName = match[5];
+  var configData = match[5];
+  var startPackageProtocolName = match[6];
   var match$1 = ManagerUtils$Meta3d.load([
         allExtensionUint8,
         allContributeUint8,
@@ -144,7 +144,7 @@ function load(appBinaryFile) {
   var state = _loadAllPackageUint8StoredInApp(match$1[0], allPackageUint8StoredInApp);
   return [
           state,
-          _decodeStartPackageProtocolName(startPackageProtocolName),
+          _decode(startPackageProtocolName),
           _decodeConfigData(configData)
         ];
 }
@@ -155,12 +155,12 @@ function start(param) {
 
 function getAllDataOfApp(appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
-  if (match.length !== 6) {
+  if (match.length !== 7) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            287,
+            296,
             6
           ],
           Error: new Error()
@@ -170,7 +170,8 @@ function getAllDataOfApp(appBinaryFile) {
   var allContributeUint8 = match[1];
   var allPackageUint8NotStoredInApp = match[2];
   var allPackageUint8StoredInApp = match[3];
-  var configData = match[4];
+  var selectedElementsUint8 = match[4];
+  var configData = match[5];
   return [
           _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp),
           ManagerUtils$Meta3d.parse3([
@@ -178,7 +179,8 @@ function getAllDataOfApp(appBinaryFile) {
                 allContributeUint8,
                 allPackageUint8NotStoredInApp
               ]),
-          _decodeConfigData(configData)
+          _decodeConfigData(configData),
+          JSON.parse(_decode(selectedElementsUint8))
         ];
 }
 
@@ -194,7 +196,7 @@ export {
   _parseAllPackageUint8StoredInApp ,
   _loadAllPackageUint8StoredInApp ,
   _decodeConfigData ,
-  _decodeStartPackageProtocolName ,
+  _decode ,
   load ,
   start ,
   getAllDataOfApp ,

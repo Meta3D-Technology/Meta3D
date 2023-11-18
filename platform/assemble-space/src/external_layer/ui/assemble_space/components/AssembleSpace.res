@@ -41,6 +41,7 @@ let make = (
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
+  ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
   let dispatch = service.react.useDispatch()
 
@@ -89,8 +90,9 @@ let make = (
           selectedExtensionsFromMarket
           selectedContributesFromMarket
           selectedPackagesFromMarket
+          // selectedElementsFromMarket
         />
-      | Element => <ElementAssemble service account />
+      | Element => <ElementAssemble service account selectedElementsFromMarket />
       | Package =>
         <PackageAssemble
           service

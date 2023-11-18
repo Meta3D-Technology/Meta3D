@@ -1,13 +1,13 @@
-let getAndSetElementAssembleData = ElementVisual.Method.getAndSetElementAssembleData
+// let getAndSetElementAssembleData = ElementVisual.Method.getAndSetElementAssembleData
 
-let buildNo = () => ElementVisual.No
+// let buildNo = () => ElementVisual.No
 
-let buildLoaded = assembleData => ElementVisual.Loaded(assembleData)
+// let buildLoaded = assembleData => ElementVisual.Loaded(assembleData)
 
 let buildUIControl = (
   ~displayName="u1",
   ~rect=UIControlInspectorTool.buildRect(),
-  ~isDraw=true->FrontendUtils.ElementAssembleStoreType.BoolForIsDraw,
+  ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
   ~input=None,
   ~event=[],
   ~specific=[],

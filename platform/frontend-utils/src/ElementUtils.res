@@ -1,0 +1,1 @@
+let getElementContributeProtocolName = () => "meta3d-element-assemble-element-protocol"
