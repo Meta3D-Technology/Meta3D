@@ -119,6 +119,7 @@ export function publishElementAssembleData([errorFunc, getMarketImplementAccount
             }
 
             let data = {
+                account,
                 elementName,
                 elementVersion,
                 inspectorData,

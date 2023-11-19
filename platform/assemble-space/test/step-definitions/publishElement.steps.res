@@ -139,10 +139,30 @@ defineFeature(feature, test => {
           SelectedUIControlsTool.buildSelectedUIControl(
             ~id="b1",
             ~displayName="b1",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol={
+                  name: "p1",
+                  version: "^0.0.1",
+                },
+                (),
+              ),
+              (),
+            ),
             ~children=list{
               SelectedUIControlsTool.buildSelectedUIControl(
                 ~id="b2",
                 ~displayName="b2",
+                ~data=ContributeTool.buildContributeData(
+                  ~contributePackageData=ContributeTool.buildContributePackageData(
+                    ~protocol={
+                      name: "p2",
+                      version: "^0.0.2",
+                    },
+                    (),
+                  ),
+                  (),
+                ),
                 ~children=list{},
                 (),
               ),
@@ -385,6 +405,10 @@ defineFeature(feature, test => {
               // element: elementInspectorData.contents,
               uiControls: [
                 {
+                  protocol: {
+                    name: "p1",
+                    version: "^0.0.1",
+                  },
                   displayName: "b1",
                   rect: UIControlInspectorTool.buildRect(
                     ~x=1->FrontendUtils.CommonType.IntForRectField,
@@ -396,6 +420,10 @@ defineFeature(feature, test => {
                   specific: specific.contents,
                   children: [
                     {
+                      protocol: {
+                        name: "p2",
+                        version: "^0.0.2",
+                      },
                       displayName: "b2",
                       rect: UIControlInspectorTool.buildRect(
                         ~x=2->FrontendUtils.CommonType.IntForRectField,
@@ -411,7 +439,7 @@ defineFeature(feature, test => {
                 },
               ],
             }: FrontendUtils.BackendCloudbaseType.inspectorData
-          )
+          ),
         )
         ->expect == true
       },

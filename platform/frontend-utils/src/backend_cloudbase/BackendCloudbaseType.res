@@ -115,6 +115,10 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -122,6 +126,10 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -239,6 +247,10 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -246,6 +258,10 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -374,7 +390,13 @@ type publishElementContribute = (
   Js.Typed_array.ArrayBuffer.t,
 ) => Meta3dBsMostDefault.Most.stream<unit>
 
+type uiControlProtocol = {
+  name: protocolName,
+  version: versionRange,
+}
+
 type rec uiControl = {
+  protocol: uiControlProtocol,
   displayName: string,
   rect: CommonType.rect,
   isDraw: CommonType.isDraw,
@@ -384,9 +406,7 @@ type rec uiControl = {
   children: array<uiControl>,
 }
 
-type inspectorData = {
-  uiControls: array<uiControl>,
-}
+type inspectorData = {uiControls: array<uiControl>}
 
 type elementName = string
 
@@ -415,6 +435,7 @@ type getAllPublishNewestExtensions = (
 ) => Meta3dBsMostDefault.Most.stream<implements>
 
 type elementAssembleData = {
+  account: account,
   elementName: elementName,
   elementVersion: elementVersion,
   inspectorData: inspectorData,

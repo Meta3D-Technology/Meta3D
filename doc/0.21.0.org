@@ -602,19 +602,30 @@ TODO commit
 TODO dependency check: check their used ui controls should be selected
 //TODO their element contribute protocol can be different
 
+TODO add protocol
 
-# TODO Scene Tree = header window + Tree
+# TODO ShowPublishedElement:add account
+
+# before isImportElement
+
+TODO bdd test
+
+TODO run test
+    republish elements
+
 
 # TODO because element contribute dependent on uiControlInput and Action, dependency check should check them! 
 TODO because element contribute dependent on uiControlInput and Action, if not has them, use empty instead
     TODO give warn message(list them)
 
 
+TODO bdd test
 
 
 
 TODO autograpde: update selected element assemble data
 
+TODO bdd test
 
 
 *** TODO feat: action, uiControlInput add input textarea so that can get content by select or input

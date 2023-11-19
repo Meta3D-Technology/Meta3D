@@ -52,12 +52,12 @@ module Method = {
     ))
   }
 
-  let _buildSelectedElements = (selectedUIControls, selectedUIControlInspectorData) => {
+  let _buildSelectedElements = (selectedUIControls, selectedUIControlInspectorData, account) => {
     let rec _buildUIControls = (selectedUIControls, selectedUIControlInspectorData) => {
       selectedUIControls
       ->Meta3dCommonlib.ListSt.mapi((
         index,
-        {id, displayName, children}: FrontendUtils.ElementAssembleStoreType.uiControl,
+        {id, data, displayName, children}: FrontendUtils.ElementAssembleStoreType.uiControl,
       ) => {
         let uiControlInspectorData: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData =
           selectedUIControlInspectorData
@@ -66,6 +66,10 @@ module Method = {
 
         (
           {
+            protocol: {
+              name: data.contributePackageData.protocol.name,
+              version: data.contributePackageData.protocol.version,
+            },
             displayName,
             rect: uiControlInspectorData.rect,
             isDraw: uiControlInspectorData.isDraw,
@@ -82,6 +86,7 @@ module Method = {
     list{
       (
         {
+          account,
           elementName: ElementContributeUtils.getElementContributeName(),
           elementVersion: ElementVisualUtils.getElementContributeVersion(),
           inspectorData: {
@@ -136,6 +141,7 @@ module Method = {
     let selectedElements = _buildSelectedElements(
       selectedUIControls,
       selectedUIControlInspectorData,
+      account,
     )
 
     let (selectedPackages, allPackagesStoredInApp) = AppUtils.splitPackages(

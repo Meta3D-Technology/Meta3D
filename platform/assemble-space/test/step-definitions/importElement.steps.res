@@ -9,7 +9,6 @@ let feature = loadFeature("./test/features/importElement.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
-  let isDebug = true
 
   let _prepare = (given, \"and") => {
     given("prepare", () => {
@@ -172,6 +171,14 @@ defineFeature(feature, test => {
   // })
 
   test(."import element", ({given, \"when", \"and", then}) => {
+    let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+      name: "meta3d-ui-control-window-protocol",
+      version: "^0.7.0",
+    }
+    let buttonProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+      name: "meta3d-ui-control-button-protocol",
+      version: "^0.7.0",
+    }
     // let element1 = ref(Obj.magic(1))
     // let elementName1 = "element1"
     // let elementVersion1 = "0.0.1"
@@ -197,11 +204,6 @@ defineFeature(feature, test => {
     given(
       "generate ui control u1, u2",
       () => {
-        let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-          name: "meta3d-ui-control-window-protocol",
-          version: "0.7.0",
-        }
-
         u1 :=
           ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
@@ -216,7 +218,7 @@ defineFeature(feature, test => {
           ContributeTool.buildContributeData(
             ~contributePackageData=ContributeTool.buildContributePackageData(
               ~displayName="u2",
-              ~protocol=windowProtocol,
+              ~protocol=buttonProtocol,
               (),
             ),
             (),
@@ -263,6 +265,8 @@ defineFeature(feature, test => {
       () => {
         uiControl1 :=
           ImportElementTool.buildUIControl(
+            ~protocolName=windowProtocol.name,
+            ~protocolVersion="^0.1.0",
             ~displayName="u1",
             ~rect=UIControlInspectorTool.buildRect(
               ~x=1->FrontendUtils.CommonType.IntForRectField,
@@ -277,6 +281,7 @@ defineFeature(feature, test => {
 
         e1 :=
           ImportElementTool.buildElementAssembleData(
+            ~account="a1",
             ~elementName="d1",
             ~elementVersion="0.0.1",
             // ~element=ei1.contents,
@@ -291,6 +296,8 @@ defineFeature(feature, test => {
       () => {
         uiControl2 :=
           ImportElementTool.buildUIControl(
+            ~protocolName=buttonProtocol.name,
+            ~protocolVersion="^0.2.0",
             ~displayName="u2",
             ~rect=UIControlInspectorTool.buildRect(
               ~x=2->FrontendUtils.CommonType.IntForRectField,
@@ -305,6 +312,7 @@ defineFeature(feature, test => {
 
         e2 :=
           ImportElementTool.buildElementAssembleData(
+            ~account="a2",
             ~elementName="d2",
             ~elementVersion="0.0.1",
             ~uiControls=[uiControl2.contents],

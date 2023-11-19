@@ -70,6 +70,7 @@ defineFeature(feature, test => {
             expect(addMarketImplementDataFunc).toCalledWith([
                 "publishedelementassembledata",
                 {
+                    "account": account,
                     "elementName": elementName, "elementVersion": elementVersion,
                     "inspectorData": inspectorData,
                     "key": "meta3d"

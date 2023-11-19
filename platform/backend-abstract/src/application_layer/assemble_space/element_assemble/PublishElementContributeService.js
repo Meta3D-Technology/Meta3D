@@ -52,6 +52,7 @@ function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFun
             errorFunc("version: " + elementVersion + " already exist, please update version");
         }
         let data = {
+            account,
             elementName,
             elementVersion,
             inspectorData,

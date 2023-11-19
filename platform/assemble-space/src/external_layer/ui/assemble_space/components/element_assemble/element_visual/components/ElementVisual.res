@@ -307,16 +307,24 @@ module Method = {
     let rec _generate = uiControls => {
       uiControls
       ->Meta3dCommonlib.ArraySt.map((
-        {displayName, children}: FrontendUtils.BackendCloudbaseType.uiControl,
+        {protocol, displayName, children}: FrontendUtils.BackendCloudbaseType.uiControl,
       ) => {
-        switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl =>
-          selectedUIControl.data.contributePackageData.displayName === displayName
-        ) {
+        switch selectedUIControls->Meta3dCommonlib.ArraySt.find(selectedUIControl => {
+          selectedUIControl.data.contributePackageData.protocol.name == protocol.name &&
+            Meta3d.Semver.gte(
+              Meta3d.Semver.minVersion(
+                selectedUIControl.data.contributePackageData.protocol.version,
+              ),
+              Meta3d.Semver.minVersion(protocol.version),
+            )
+        }) {
         | None =>
           Meta3dCommonlib.Exception.throwErr(
             Meta3dCommonlib.Exception.buildErr(
               Meta3dCommonlib.Log.buildErrorMessage(
-                ~title={j`${displayName} not select`},
+                ~title={
+                  j`ui control whose displayName:${displayName}, protocolName: ${protocol.name} not select or protocolVersion: ${protocol.version} not match`
+                },
                 ~description={
                   ""
                 },

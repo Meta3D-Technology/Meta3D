@@ -26,18 +26,23 @@ module Method = {
       event,
       specific,
     }): FrontendUtils.BackendCloudbaseType.uiControl => {
+      let {displayName, data} =
+        HierachyUtils.findSelectedUIControlData(
+          None,
+          (
+            (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
+            (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
+          ),
+          selectedUIControls,
+          id,
+        )->Meta3dCommonlib.OptionSt.getExn
+
       {
-        displayName: (
-          HierachyUtils.findSelectedUIControlData(
-            None,
-            (
-              (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
-              (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
-            ),
-            selectedUIControls,
-            id,
-          )->Meta3dCommonlib.OptionSt.getExn
-        ).displayName,
+        protocol: {
+          name: data.contributePackageData.protocol.name,
+          version: data.contributePackageData.protocol.version,
+        },
+        displayName,
         rect,
         isDraw,
         input: input->Meta3dCommonlib.OptionSt.toNullable,
@@ -127,9 +132,9 @@ module Method = {
         (
           {
             // element: elementInspectorData,
-            uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls)
+            uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
           }: FrontendUtils.BackendCloudbaseType.inspectorData
-        )
+        ),
       )
       ->Meta3dBsMostDefault.Most.drain
       ->Js.Promise.then_(_ => {

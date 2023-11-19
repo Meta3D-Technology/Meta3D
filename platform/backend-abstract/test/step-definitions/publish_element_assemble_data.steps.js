@@ -44,6 +44,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             expect(addMarketImplementDataFunc).toCalledWith([
                 "publishedelementassembledata",
                 {
+                    "account": account,
                     "elementName": elementName, "elementVersion": elementVersion,
                     "inspectorData": inspectorData,
                     "key": "meta3d"

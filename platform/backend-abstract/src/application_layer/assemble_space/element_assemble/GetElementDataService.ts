@@ -95,11 +95,13 @@ export let findAllElementAssembleData = (
 ) => {
     return fromPromise(getDataFunc("publishedelementassembledata", limitCount, skipCount)).flatMap((data: any) => {
         return just(data.map(({
+            account,
             elementName,
             elementVersion,
             inspectorData
         }) => {
             return {
+                account,
                 elementName,
                 elementVersion,
                 inspectorData
