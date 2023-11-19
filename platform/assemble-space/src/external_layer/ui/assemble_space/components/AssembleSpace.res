@@ -90,7 +90,7 @@ let make = (
           selectedExtensionsFromMarket
           selectedContributesFromMarket
           selectedPackagesFromMarket
-          // selectedElementsFromMarket
+          selectedElementsFromMarket
         />
       | Element => <ElementAssemble service account selectedElementsFromMarket />
       | Package =>

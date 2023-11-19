@@ -15,7 +15,7 @@ let make = (
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
-  // ~selectedElementsFromMarket: selectedElementsFromMarket,
+  ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
   let dispatchForAssembleSpaceStore = service.react.useDispatch()
   // let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
@@ -31,7 +31,7 @@ let make = (
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>
-        <Publish service account />
+        <Publish service account selectedElementsFromMarket />
         <ApController
           service
           // selectedExtensionsFromMarket

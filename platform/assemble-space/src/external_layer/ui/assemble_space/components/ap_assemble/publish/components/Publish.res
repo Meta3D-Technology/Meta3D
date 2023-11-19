@@ -52,50 +52,79 @@ module Method = {
     ))
   }
 
-  let _buildSelectedElements = (selectedUIControls, selectedUIControlInspectorData, account) => {
-    let rec _buildUIControls = (selectedUIControls, selectedUIControlInspectorData) => {
-      selectedUIControls
-      ->Meta3dCommonlib.ListSt.mapi((
-        index,
-        {id, data, displayName, children}: FrontendUtils.ElementAssembleStoreType.uiControl,
-      ) => {
-        let uiControlInspectorData: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData =
-          selectedUIControlInspectorData
-          ->Meta3dCommonlib.ListSt.nth(index)
-          ->Meta3dCommonlib.OptionSt.getExn
+  // let _buildSelectedElements = (
+  //   selectedElements,
+  //   selectedUIControls,
+  //   selectedUIControlInspectorData,
+  //   account,
+  // ) => {
+  //   let rec _buildUIControls = (selectedUIControls, selectedUIControlInspectorData) => {
+  //     selectedUIControls
+  //     ->Meta3dCommonlib.ListSt.mapi((
+  //       index,
+  //       {id, data, displayName, children}: FrontendUtils.ElementAssembleStoreType.uiControl,
+  //     ) => {
+  //       let uiControlInspectorData: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData =
+  //         selectedUIControlInspectorData
+  //         ->Meta3dCommonlib.ListSt.nth(index)
+  //         ->Meta3dCommonlib.OptionSt.getExn
 
-        (
-          {
-            protocol: {
-              name: data.contributePackageData.protocol.name,
-              version: data.contributePackageData.protocol.version,
-            },
-            displayName,
-            rect: uiControlInspectorData.rect,
-            isDraw: uiControlInspectorData.isDraw,
-            input: uiControlInspectorData.input->Meta3dCommonlib.OptionSt.toNullable,
-            event: uiControlInspectorData.event,
-            specific: uiControlInspectorData.specific,
-            children: _buildUIControls(children, uiControlInspectorData.children),
-          }: FrontendUtils.BackendCloudbaseType.uiControl
-        )
-      })
-      ->Meta3dCommonlib.ListSt.toArray
-    }
+  //       (
+  //         {
+  //           protocol: {
+  //             name: data.contributePackageData.protocol.name,
+  //             version: data.contributePackageData.protocol.version,
+  //           },
+  //           displayName,
+  //           rect: uiControlInspectorData.rect,
+  //           isDraw: uiControlInspectorData.isDraw,
+  //           input: uiControlInspectorData.input->Meta3dCommonlib.OptionSt.toNullable,
+  //           event: uiControlInspectorData.event,
+  //           specific: uiControlInspectorData.specific,
+  //           children: _buildUIControls(children, uiControlInspectorData.children),
+  //         }: FrontendUtils.BackendCloudbaseType.uiControl
+  //       )
+  //     })
+  //     ->Meta3dCommonlib.ListSt.toArray
+  //   }
 
-    list{
-      (
-        {
-          account,
-          elementName: ElementContributeUtils.getElementContributeName(),
-          elementVersion: ElementVisualUtils.getElementContributeVersion(),
-          inspectorData: {
-            uiControls: _buildUIControls(selectedUIControls, selectedUIControlInspectorData),
-          },
-        }: FrontendUtils.BackendCloudbaseType.elementAssembleData
-      ),
-    }
-  }
+  //   selectedElements->Meta3dCommonlib.ListSt.length > 1
+  //     ? Meta3dCommonlib.Exception.throwErr(
+  //         Meta3dCommonlib.Exception.buildErr(
+  //           Meta3dCommonlib.Log.buildErrorMessage(
+  //             ~title={
+  //               j`should only select one element`
+  //             },
+  //             ~description={
+  //               ""
+  //             },
+  //             ~reason="",
+  //             ~solution=j``,
+  //             ~params=j``,
+  //           ),
+  //         ),
+  //       )
+  //     : {
+  //         let {
+  //           elementName,
+  //           elementVersion,
+  //         }: FrontendUtils.BackendCloudbaseType.elementAssembleData =
+  //           selectedElements->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
+
+  //         list{
+  //           (
+  //             {
+  //               account,
+  //               elementName,
+  //               elementVersion,
+  //               inspectorData: {
+  //                 uiControls: _buildUIControls(selectedUIControls, selectedUIControlInspectorData),
+  //               },
+  //             }: FrontendUtils.BackendCloudbaseType.elementAssembleData
+  //           ),
+  //         }
+  //       }
+  // }
 
   let _addGeneratedElementContribute = (
     service,
@@ -124,6 +153,7 @@ module Method = {
       account,
       selectedPackages,
       selectedContributes,
+      selectedElementsFromMarket,
       canvasData: FrontendUtils.ElementAssembleStoreType.canvasData,
       apInspectorData,
       storedPackageIdsInApp,
@@ -138,11 +168,12 @@ module Method = {
 
     let account = account->Meta3dCommonlib.OptionSt.getExn
 
-    let selectedElements = _buildSelectedElements(
-      selectedUIControls,
-      selectedUIControlInspectorData,
-      account,
-    )
+    // let selectedElements = _buildSelectedElements(
+    //   selectedElements,
+    //   selectedUIControls,
+    //   selectedUIControlInspectorData,
+    //   account,
+    // )
 
     let (selectedPackages, allPackagesStoredInApp) = AppUtils.splitPackages(
       selectedPackages,
@@ -158,6 +189,17 @@ module Method = {
       ? {
         service.console.error(.
           {j`Debug时修改了selectedPackages数据，请将对应的包更新为最新版本`},
+          None,
+        )
+
+        ()->Js.Promise.resolve
+      }
+      : selectedElementsFromMarket->Meta3dCommonlib.ListSt.length > 1
+      ? {
+        service.console.error(.
+          {
+            j`请只选择一个最新的页面`
+          },
           None,
         )
 
@@ -184,7 +226,7 @@ module Method = {
                 service,
                 (selectedPackages, allPackagesStoredInApp),
                 selectedContributes,
-                selectedElements,
+                selectedElementsFromMarket,
                 (
                   (
                     {
@@ -263,7 +305,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>) => {
+let make = (~service: service, ~account: option<string>, ~selectedElementsFromMarket) => {
   let (
     (
       selectedPackages,
@@ -323,6 +365,7 @@ let make = (~service: service, ~account: option<string>) => {
                             account,
                             selectedPackages,
                             selectedContributes,
+                            selectedElementsFromMarket,
                             canvasData,
                             apInspectorData,
                             storedPackageIdsInApp,
