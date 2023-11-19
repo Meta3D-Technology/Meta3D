@@ -29,14 +29,13 @@ Feature: Import Element
     Rule: import element
 
         Scenario: import element
-            Given generate ui control u1, u2
-            And select u1
-            # And select selected u1
-            And select u2
-            And select element e1 which has u1
-            And select element e2 which has u2
-            # And set element assemble data to d1 which has u1, u2
+            Given generate u1 of window, u2 of button
+            And generate action a1
+            And generate input i1
+            And select them
+            And select element e1 which has window
+            And select element e2 which has button
             When import all selected elements
-            Then should generate selected u1_1, u2_1
-            And generate selected ui control inspector data i1, i2
-            And dispatch Import action with u1_1, u2_1, i1, i2
+            Then should generate selected ui controls
+            And generate selected ui control inspector data
+            And dispatch Import action with them

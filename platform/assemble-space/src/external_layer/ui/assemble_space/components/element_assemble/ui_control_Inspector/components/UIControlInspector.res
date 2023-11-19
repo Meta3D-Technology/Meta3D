@@ -448,23 +448,21 @@ let make = (~service: service) => {
             ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
             ->Meta3dCommonlib.OptionSt.getWithDefault(
               FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-            )
-            ->Meta3dCommonlib.Log.printForDebug,
+            ),
             SelectedContributesForElementUtils.getInputs(selectedContributes)
             ->Meta3dCommonlib.ListSt.toArray
-            ->Meta3dCommonlib.Log.printForDebug
             ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-              data.contributePackageData.protocol.name
-              ->Js.String.replace("-input-", "-ui-control-", _)
-              ->Meta3dCommonlib.Log.printForDebug == uiControlProtocolName
+              data.contributePackageData.protocol.name->Js.String.replace(
+                "-input-",
+                "-ui-control-",
+                _,
+              ) == uiControlProtocolName
             })
-            ->Meta3dCommonlib.Log.printForDebug
             ->Meta3dCommonlib.ArraySt.map(({data}) => {
               (
                 service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
               )["inputName"]
-            })
-            ->Meta3dCommonlib.Log.printForDebug,
+            }),
           )}
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
           {Method.buildSpecific(service, dispatch, id, specific)}

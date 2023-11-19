@@ -426,6 +426,40 @@ module Method = {
   //   }
   // }
 
+  let _removeNotExistedInputAndEvent = (uiControls, service, selectedContributes) => {
+    let selectedActionNames = SelectedContributesForElementUtils.getActions(
+      selectedContributes,
+    )->Meta3dCommonlib.ListSt.map(({data}) => {
+      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
+    })
+    let selectedInputNames = SelectedContributesForElementUtils.getInputs(
+      selectedContributes,
+    )->Meta3dCommonlib.ListSt.map(({data}) => {
+      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
+    })
+
+    let rec _remove = uiControls => {
+      uiControls->Meta3dCommonlib.ArraySt.map((
+        uiControl: FrontendUtils.BackendCloudbaseType.uiControl,
+      ) => {
+        {
+          ...uiControl,
+          input: uiControl.input->Meta3dCommonlib.NullableSt.bind(input => {
+            selectedInputNames->Meta3dCommonlib.ListSt.includes(input.inputName)
+              ? input->Meta3dCommonlib.NullableSt.return
+              : Meta3dCommonlib.NullableSt.getEmpty()
+          }),
+          event: uiControl.event->Meta3dCommonlib.ArraySt.filter(({actionName}) => {
+            selectedActionNames->Meta3dCommonlib.ListSt.includes(actionName)
+          }),
+          children: _remove(uiControl.children),
+        }
+      })
+    }
+
+    _remove(uiControls)
+  }
+
   let importElement = (service, dispatch, selectedElementsFromMarket, selectedContributes) => {
     // switch elementAssembleData {
     // | Loaded(elementAssembleData) =>
@@ -444,12 +478,15 @@ module Method = {
     // | _ => ()
     // }
 
-    let mergedUIControls = selectedElementsFromMarket->Meta3dCommonlib.ListSt.reduce([], (
-      mergedUIControls,
-      {inspectorData}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
-    ) => {
-      mergedUIControls->Js.Array.concat(inspectorData.uiControls, _)
-    })
+    let mergedUIControls =
+      selectedElementsFromMarket
+      ->Meta3dCommonlib.ListSt.reduce([], (
+        mergedUIControls,
+        {inspectorData}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+      ) => {
+        mergedUIControls->Js.Array.concat(inspectorData.uiControls, _)
+      })
+      ->_removeNotExistedInputAndEvent(service, selectedContributes)
 
     let selectedUIControls = _generateSelectedUIControls(
       service,

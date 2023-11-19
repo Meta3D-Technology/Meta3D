@@ -189,6 +189,8 @@ defineFeature(feature, test => {
     // let setElementAssembleDataStub = ref(Obj.magic(1))
     let u1 = ref(Obj.magic(1))
     let u2 = ref(Obj.magic(1))
+    let a1 = ref(Obj.magic(1))
+    let i1 = ref(Obj.magic(1))
     let e1 = ref(Obj.magic(1))
     let e2 = ref(Obj.magic(1))
     // let selectedUIControls = ref(list{})
@@ -197,12 +199,15 @@ defineFeature(feature, test => {
     let uiControl2 = ref(Obj.magic(1))
     let id1RandomResult = 0.3
     let id2RandomResult = 0.4
+    let a1Name = "action1"
+    let i1Name = "input1"
     let dispatchStub = ref(Obj.magic(1))
+    let execGetContributeFuncStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     given(
-      "generate ui control u1, u2",
+      "generate u1 of window, u2 of button",
       () => {
         u1 :=
           ContributeTool.buildContributeData(
@@ -227,41 +232,98 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select u1",
+      "generate action a1",
+      () => {
+        execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        let actionProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+          name: "meta3d-action-a1-protocol",
+          version: "^0.7.0",
+        }
+        a1 :=
+          ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~name=a1Name,
+              ~protocol=actionProtocol,
+              (),
+            ),
+            (),
+          )
+
+        execGetContributeFuncStub.contents
+        ->onCall(0, _)
+        ->returns(
+          {
+            "actionName": a1Name,
+          },
+          _,
+        )
+        ->ignore
+      },
+    )
+
+    \"and"(
+      "generate input i1",
+      () => {
+        let inputProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+          name: "meta3d-input-i1-protocol",
+          version: "^0.7.0",
+        }
+        i1 :=
+          ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~name=i1Name,
+              ~protocol=inputProtocol,
+              (),
+            ),
+            (),
+          )
+
+        execGetContributeFuncStub.contents
+        ->onCall(1, _)
+        ->returns(
+          {
+            "inputName": i1Name,
+          },
+          _,
+        )
+        ->ignore
+      },
+    )
+
+    \"and"(
+      "select them",
       () => {
         selectedContributes :=
           list{
             SelectedContributesTool.buildSelectedContribute(
               ~protocolConfigStr=""->Some,
-              // ~newName=None,
               ~data=u1.contents,
+              (),
+            ),
+            SelectedContributesTool.buildSelectedContribute(
+              ~protocolConfigStr=""->Some,
+              ~data=u2.contents,
+              (),
+            ),
+            SelectedContributesTool.buildSelectedContribute(
+              ~id=a1Name,
+              ~protocolConfigStr=""->Some,
+              ~data=a1.contents,
+              (),
+            ),
+            SelectedContributesTool.buildSelectedContribute(
+              ~id=i1Name,
+              ~protocolConfigStr=""->Some,
+              ~data=i1.contents,
               (),
             ),
           }
       },
     )
 
-    // \"and"("select selected u1", () => {
-    //   ()
-    // })
-
     \"and"(
-      "select u2",
-      () => {
-        selectedContributes :=
-          selectedContributes.contents->Meta3dCommonlib.ListSt.push(
-            SelectedContributesTool.buildSelectedContribute(
-              ~protocolConfigStr=""->Some,
-              // ~newName=None,
-              ~data=u2.contents,
-              (),
-            ),
-          )
-      },
-    )
-
-    \"and"(
-      "select element e1 which has u1",
+      "select element e1 which has window",
       () => {
         uiControl1 :=
           ImportElementTool.buildUIControl(
@@ -273,7 +335,8 @@ defineFeature(feature, test => {
               (),
             ),
             ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
-            ~event=[UIControlInspectorTool.buildEventData(#button_click, "action1")],
+            ~input=UIControlInspectorTool.buildInput(i1Name)->Some,
+            ~event=[UIControlInspectorTool.buildEventData(#button_click, a1Name)],
             ~specific=[Obj.magic(10)],
             ~children=[],
             (),
@@ -284,7 +347,6 @@ defineFeature(feature, test => {
             ~account="a1",
             ~elementName="d1",
             ~elementVersion="0.0.1",
-            // ~element=ei1.contents,
             ~uiControls=[uiControl1.contents],
             (),
           )
@@ -292,7 +354,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "select element e2 which has u2",
+      "select element e2 which has button",
       () => {
         uiControl2 :=
           ImportElementTool.buildUIControl(
@@ -304,7 +366,8 @@ defineFeature(feature, test => {
               (),
             ),
             ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
-            ~event=[UIControlInspectorTool.buildEventData(#button_click, "action2")],
+            ~input=UIControlInspectorTool.buildInput("i2_")->Some,
+            ~event=[UIControlInspectorTool.buildEventData(#button_click, "a2_")],
             ~specific=[Obj.magic(10)],
             ~children=[],
             (),
@@ -335,6 +398,7 @@ defineFeature(feature, test => {
             ->onCall(1, _)
             ->returns(id2RandomResult, _)
             ->Obj.magic,
+            ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
             (),
           ),
           dispatchStub.contents,
@@ -345,21 +409,21 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should generate selected u1_1, u2_1",
+      "should generate selected ui controls",
       () => {
         ()
       },
     )
 
     \"and"(
-      "generate selected ui control inspector data i1, i2",
+      "generate selected ui control inspector data",
       () => {
         ()
       },
     )
 
     \"and"(
-      "dispatch Import action with u1_1, u2_1, i1, i2",
+      "dispatch Import action with them",
       () => {
         let uiControl1Contribute =
           selectedContributes.contents->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
@@ -369,7 +433,7 @@ defineFeature(feature, test => {
           ->Meta3dCommonlib.ListSt.nth(1)
           ->Meta3dCommonlib.OptionSt.getExn
 
-        let {rect, isDraw, event, specific} = uiControl1.contents
+        let {rect, isDraw, input, event, specific} = uiControl1.contents
 
         let id1 = IdTool.generateId(id1RandomResult)
         let id2 = IdTool.generateId(id2RandomResult)
@@ -405,6 +469,7 @@ defineFeature(feature, test => {
                 ~id=id1,
                 ~x=rect.x,
                 ~isDraw,
+                ~input=input->Meta3dCommonlib.OptionSt.fromNullable,
                 ~event,
                 ~specific,
                 ~children=list{},
@@ -414,7 +479,8 @@ defineFeature(feature, test => {
                 ~id=id2,
                 ~x=uiControl2.contents.rect.x,
                 ~isDraw=uiControl2.contents.isDraw,
-                ~event=uiControl2.contents.event,
+                ~input=None,
+                ~event=[],
                 ~specific=uiControl2.contents.specific,
                 ~children=list{},
                 (),
