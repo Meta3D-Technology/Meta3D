@@ -1896,7 +1896,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."auto upgrade selected packages, extensions, contributes", ({
+  test(."auto upgrade selected packages, extensions, contributes, elements", ({
     given,
     \"when",
     \"and",
@@ -1951,19 +1951,27 @@ defineFeature(feature, test => {
     let p1ProtocolVersion = "0.1.0"
     let p1ProtocolIconbase64 = "ib"
     let p1File = Js.Typed_array.ArrayBuffer.make(10)
+    let element1 = ref(Obj.magic(1))
+    let element1Account = "element1Account"
+    let element1Name = "element1Name"
+    let element1LowVersion = "0.20.0"
+    let element1HighVersion = "0.20.1"
     let findNewestPublishPackageStub = ref(Obj.magic(1))
     let findNewestPublishExtensionStub = ref(Obj.magic(1))
     let findNewestPublishContributeStub = ref(Obj.magic(1))
+    let findNewestPublishElementAssembleDataStub = ref(Obj.magic(1))
     let loadExtensionFake = (. file) => file
     let loadContributeFake = (. file) => file
-    let dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub = ref(Obj.magic(1))
+    let dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub = ref(
+      Obj.magic(1),
+    )
 
     _prepare(given, \"and")
 
     given(
       "prepare backend",
       () => {
-        dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub :=
+        dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
         findNewestPublishPackageStub :=
@@ -2012,6 +2020,21 @@ defineFeature(feature, test => {
               ),
               c1ProtocolConfig,
             )),
+            _,
+          )
+
+        findNewestPublishElementAssembleDataStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withOneArg(element1Name, _)
+          ->returns(
+            Meta3dBsMostDefault.Most.just(
+              ImportElementTool.buildElementAssembleData(
+                ~account=element1Account,
+                ~elementName=element1Name,
+                ~elementVersion=element1HighVersion,
+                (),
+              ),
+            ),
             _,
           )
       },
@@ -2090,6 +2113,19 @@ defineFeature(feature, test => {
       },
     )
 
+    \"and"(
+      "select element element1",
+      () => {
+        element1 :=
+          ImportElementTool.buildElementAssembleData(
+            ~account=element1Account,
+            ~elementName=element1Name,
+            ~elementVersion=element1LowVersion,
+            (),
+          )
+      },
+    )
+
     CucumberAsync.execStep(
       \"when",
       "auto upgrade",
@@ -2102,7 +2138,8 @@ defineFeature(feature, test => {
             ~findNewestPublishPackage=findNewestPublishPackageStub.contents->Obj.magic,
             ~findNewestPublishExtension=findNewestPublishExtensionStub.contents->Obj.magic,
             ~findNewestPublishContribute=findNewestPublishContributeStub.contents->Obj.magic,
-            ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents->Obj.magic,
+            ~findNewestPublishElementAssembleData=findNewestPublishElementAssembleDataStub.contents->Obj.magic,
+            ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction=dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents->Obj.magic,
             (),
           ),
           createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -2112,6 +2149,7 @@ defineFeature(feature, test => {
           list{p1.contents},
           list{e1.contents},
           list{c1.contents},
+          list{element1.contents},
         )
       },
     )
@@ -2120,21 +2158,21 @@ defineFeature(feature, test => {
       "should update the newest ones to app store, ap assemble store, package assemble store",
       () => {
         (
-          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents
           ->Obj.magic
           ->SinonTool.getArg(~callIndex=0, ~argIndex=3, ~stub=_, ())
           ->Js.Json.stringify,
-          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents
           ->Obj.magic
           ->SinonTool.getArg(~callIndex=0, ~argIndex=4, ~stub=_, ())
           ->Js.Json.stringify,
-          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents
           ->Obj.magic
           ->SinonTool.getArg(~callIndex=0, ~argIndex=4, ~stub=_, ())
           ->Js.Json.stringify,
         )->expect ==
           (
-            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":false},\"tl\":0},{\"hd\":[{\"id\":\"e1\",\"protocolName\":\"e1-protocol\",\"protocolVersion\":\"0.2.1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"protocolDisplayName\":\"e1ProtocolDisplayName\",\"protocolRepoLink\":\"e1ProtocolRepoLink\",\"protocolDescription\":\"e1ProtocolDescription\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},\"version\":\"0.1.1\",\"account\":\"e1Account\"},null],\"tl\":0},{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":false},\"tl\":0},{\"hd\":[{\"id\":\"e1\",\"protocolName\":\"e1-protocol\",\"protocolVersion\":\"0.2.1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"protocolDisplayName\":\"e1ProtocolDisplayName\",\"protocolRepoLink\":\"e1ProtocolRepoLink\",\"protocolDescription\":\"e1ProtocolDescription\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}},\"version\":\"0.1.1\",\"account\":\"e1Account\"},null],\"tl\":0},{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0},{\"hd\":{\"account\":\"element1Account\",\"elementName\":\"element1Name\",\"elementVersion\":\"0.20.1\",\"inspectorData\":{\"uiControls\":[]}},\"tl\":0}]",
             "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":false},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
             "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":false},\"tl\":0},{\"hd\":{\"id\":\"e1\",\"protocolIconBase64\":\"e1ProtocolIconBase64\",\"isStart\":true,\"version\":\"0.1.1\",\"data\":{\"extensionPackageData\":{\"name\":\"e1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"\",\"repoLink\":\"\",\"description\":\"\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"extensionFuncData\":{}}},\"tl\":0},{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
           )
@@ -2174,14 +2212,16 @@ defineFeature(feature, test => {
     let findNewestPublishPackageStub = ref(Obj.magic(1))
     let findNewestPublishContributeStub = ref(Obj.magic(1))
     let loadContributeFake = (. file) => file
-    let dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub = ref(Obj.magic(1))
+    let dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub = ref(
+      Obj.magic(1),
+    )
 
     _prepare(given, \"and")
 
     given(
       "prepare backend",
       () => {
-        dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub :=
+        dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
         findNewestPublishPackageStub :=
@@ -2269,7 +2309,7 @@ defineFeature(feature, test => {
             ~loadContribute=loadContributeFake->Obj.magic,
             ~findNewestPublishPackage=findNewestPublishPackageStub.contents->Obj.magic,
             ~findNewestPublishContribute=findNewestPublishContributeStub.contents->Obj.magic,
-            ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents->Obj.magic,
+            ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction=dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents->Obj.magic,
             (),
           ),
           createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -2279,6 +2319,7 @@ defineFeature(feature, test => {
           list{p1.contents},
           list{},
           list{c1.contents},
+          list{},
         )
       },
     )
@@ -2287,21 +2328,21 @@ defineFeature(feature, test => {
       "should update the newest ones to app store, ap assemble store, package assemble store",
       () => {
         (
-          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents
           ->Obj.magic
           ->SinonTool.getArg(~callIndex=0, ~argIndex=3, ~stub=_, ())
           ->Js.Json.stringify,
-          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents
           ->Obj.magic
           ->SinonTool.getArg(~callIndex=0, ~argIndex=4, ~stub=_, ())
           ->Js.Json.stringify,
-          dispatchUpdateSelectedPackagesAndExtensionsAndContributesActionStub.contents
+          dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsActionStub.contents
           ->Obj.magic
           ->SinonTool.getArg(~callIndex=0, ~argIndex=4, ~stub=_, ())
           ->Js.Json.stringify,
         )->expect ==
           (
-            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},0,{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0}]",
+            "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},0,{\"hd\":[{\"id\":\"c1\",\"protocolName\":\"c1-protocol\",\"protocolVersion\":\"0.3.1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}},\"version\":\"0.3.1\",\"account\":\"c1Account\"},null],\"tl\":0},0]",
             "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},0,{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
             "[{\"hd\":{\"id\":\"p1\",\"protocol\":{\"version\":\"0.1.0\",\"name\":\"p1-protocol\",\"iconBase64\":\"ib\"},\"entryExtensionName\":\"pet1\",\"version\":\"0.0.1\",\"name\":\"p1\",\"binaryFile\":{},\"isStart\":true},\"tl\":0},0,{\"hd\":{\"id\":\"c1\",\"protocolIconBase64\":\"c1ProtocolIconBase64\",\"version\":\"0.3.1\",\"data\":{\"contributePackageData\":{\"name\":\"c1\",\"version\":\"0.0.1\",\"account\":\"meta3d\",\"protocol\":{\"name\":\"p1\",\"version\":\"^0.0.1\"},\"displayName\":\"d1\",\"repoLink\":\"\",\"description\":\"dp1\",\"dependentPackageStoredInAppProtocolNameMap\":{},\"dependentBlockProtocolNameMap\":{}},\"contributeFuncData\":{}}},\"tl\":0}]",
           )

@@ -196,7 +196,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       useDispatch: () => {
         AppStore.useDispatch()
       },
-      dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (.
+      dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction: (.
         dispatchForAppStore,
         dispatchForApAssembleStore,
         dispatchForPackageAssembleStore,
@@ -204,6 +204,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           selectedPackagesForAppStore,
           selectedExtensionsForAppStore,
           selectedContributesForAppStore,
+          selectedElementsForAppStore,
         ),
         (
           selectedPackagesForApAssembleStore,
@@ -218,10 +219,11 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       ) => {
         dispatchForAppStore(
           FrontendUtils.AppStoreType.UserCenterAction(
-            FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+            FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributesAndElements(
               selectedPackagesForAppStore,
               selectedExtensionsForAppStore,
               selectedContributesForAppStore,
+              selectedElementsForAppStore,
             ),
           ),
         )

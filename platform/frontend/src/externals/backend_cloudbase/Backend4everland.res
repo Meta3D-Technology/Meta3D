@@ -100,6 +100,10 @@ external getAllPublishPackageInfos: getAllPublishPackageInfos = "getAllPublishPa
 @module("backend-4everland")
 external findPublishPackage: findPublishPackage = "findPublishPackage"
 
+@module("backend-4everland")
+external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
+  "findNewestPublishElementAssembleData"
+
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
     init,
@@ -148,5 +152,6 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     findNewestPublishPackage,
     findNewestPublishExtension,
     findNewestPublishContribute,
+    findNewestPublishElementAssembleData,
   }
 }

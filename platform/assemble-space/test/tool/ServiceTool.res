@@ -79,6 +79,9 @@ let build = (
   ~findNewestPublishContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
+  ~findNewestPublishElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  ->returns(Meta3dBsMostDefault.Most.empty(), _)
+  ->Obj.magic,
   ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getPackageService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~loadContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -107,9 +110,7 @@ let build = (
   ->returns("", _)
   ->Obj.magic,
   ~getContributeFuncData=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
-  ~getAllDataOfPackage=createEmptyStub(
-    refJsObjToSandbox(sandbox.contents),
-  )->Obj.magic,
+  ~getAllDataOfPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~execGetContributeFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns({"uiControlName": ""}, _)
   ->Obj.magic,
@@ -141,7 +142,7 @@ let build = (
   ~buildText=(. ~children) => {
     <span> {children} </span>
   },
-  ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=createEmptyStub(
+  ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
   // ~dispatchStorePackageInApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -182,6 +183,7 @@ let build = (
     findNewestPublishPackage,
     findNewestPublishExtension,
     findNewestPublishContribute,
+    findNewestPublishElementAssembleData,
   },
   meta3d: {
     generateContribute,
@@ -239,7 +241,7 @@ let build = (
   },
   app: {
     useDispatch: () => Obj.magic(1),
-    dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction->Obj.magic,
+    dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction: dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction->Obj.magic,
     // dispatchStorePackageInApp: dispatchStorePackageInApp->Obj.magic,
     // dispatchUnStorePackageInApp: dispatchUnStorePackageInApp->Obj.magic,
   },

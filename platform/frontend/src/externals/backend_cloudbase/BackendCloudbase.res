@@ -113,6 +113,10 @@ external findNewestPublishExtension: findNewestPublishExtension = "findNewestPub
 @module("backend-cloudbase")
 external findNewestPublishContribute: findNewestPublishContribute = "findNewestPublishContribute"
 
+@module("backend-cloudbase")
+external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
+  "findNewestPublishElementAssembleData"
+
 let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   {
     init,
@@ -159,5 +163,6 @@ let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendServi
     findNewestPublishPackage,
     findNewestPublishExtension,
     findNewestPublishContribute,
+    findNewestPublishElementAssembleData,
   }
 }

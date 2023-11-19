@@ -36,7 +36,8 @@ import {
 import {
     findNewestPublishPackage as findNewestPublishPackageFind,
     findNewestPublishExtension as findNewestPublishExtensionFind,
-    findNewestPublishContribute as findNewestPublishContributeFind
+    findNewestPublishContribute as findNewestPublishContributeFind,
+    findNewestPublishElementAssembleData as findNewestPublishElementAssembleDataFind,
 } from "./application_layer/FindNewestService";
 import { filterMarketImplementCollection } from "meta3d-backend-cloudbase";
 
@@ -312,3 +313,5 @@ export let findNewestPublishContribute = (onDownloadProgressFunc, contributeName
         curry2(downloadFile)(onDownloadProgressFunc), contributeName, contributeProtocolName
     )
 }
+
+export let findNewestPublishElementAssembleData = findNewestPublishElementAssembleDataFind

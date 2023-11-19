@@ -222,15 +222,19 @@ let reducer = (state, action) => {
       }),
     }
   | SetAccount(account) => {...state, account: Some(account)}
-  | UpdateSelectedPackagesAndExtensionsAndContributes(
+  | UpdateSelectedPackagesAndExtensionsAndContributesAndElements(
       selectedPackages,
       selectedExtensions,
       selectedContributes,
+      selectedElements,
     ) => {
       ...state,
       selectedPackages,
       selectedExtensions,
       selectedContributes,
+      selectedElements: selectedElements->Meta3dCommonlib.ListSt.length == 0
+        ? state.selectedElements
+        : selectedElements,
     }
   }
 }

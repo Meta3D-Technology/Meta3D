@@ -119,6 +119,10 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -126,6 +130,10 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -251,6 +259,10 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -258,6 +270,10 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -551,3 +567,7 @@ type findNewestPublishExtension = (
 )>
 
 type findNewestPublishContribute = findNewestPublishExtension
+
+type findNewestPublishElementAssembleData = (
+  . elementName,
+) => Meta3dBsMostDefault.Most.stream<elementAssembleData>

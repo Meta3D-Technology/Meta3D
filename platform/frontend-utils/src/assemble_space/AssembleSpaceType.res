@@ -40,6 +40,7 @@ type backendService = {
   findNewestPublishPackage: findNewestPublishPackage,
   findNewestPublishExtension: findNewestPublishExtension,
   findNewestPublishContribute: findNewestPublishContribute,
+  findNewestPublishElementAssembleData: findNewestPublishElementAssembleData,
 }
 
 type callback1Func<'a> = unit => 'a
@@ -196,11 +197,16 @@ type dispatchForPackageAssembleStore = PackageAssembleStoreType.action => unit
 
 type appService = {
   useDispatch: unit => dispatchForAppStore,
-  dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (
+  dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction: (
     . dispatchForAppStore,
     dispatchForApAssembleStore,
     dispatchForPackageAssembleStore,
-    (selectedPackagesFromMarket, selectedExtensionsFromMarket, selectedContributesFromMarket),
+    (
+      selectedPackagesFromMarket,
+      selectedExtensionsFromMarket,
+      selectedContributesFromMarket,
+      selectedElementsFromMarket,
+    ),
     (
       ApAssembleStoreType.selectedPackages,
       ApAssembleStoreType.selectedExtensions,

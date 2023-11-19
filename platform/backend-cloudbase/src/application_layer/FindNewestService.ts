@@ -206,3 +206,39 @@ export let findNewestPublishContribute = (
 ) => {
     return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedcontributeprotocols", "publishedcontributeprotocolconfigs", "publishedcontributes"], implementName, protocolName)
 }
+
+export let findNewestPublishElementAssembleData = (
+    elementName: string,
+) => {
+    return fromPromise(
+        getDatabase().collection("publishedelementassembledata")
+            .where({
+                elementName: elementName
+            })
+            .orderBy("elementVersion", "desc")
+            .get()
+            .then(res => {
+                /*! need sort again
+                */
+                let result = _descSort(res.data, gt, "elementVersion").map(({
+                    account,
+                    elementName,
+                    elementVersion,
+                    inspectorData
+                }) => {
+                    return {
+                        account,
+                        elementName,
+                        elementVersion,
+                        inspectorData
+                    }
+                })
+
+                if (result.length == 0) {
+                    throw new Error("error")
+                }
+
+                return result[0]
+            })
+    )
+}

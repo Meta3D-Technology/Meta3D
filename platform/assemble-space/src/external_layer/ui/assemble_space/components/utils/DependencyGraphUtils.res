@@ -737,6 +737,7 @@ module Method = {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
+    selectedElementsFromMarket,
   ) => {
     setOperateInfo(_ => "自动升级版本中...")
 
@@ -887,11 +888,36 @@ module Method = {
         (selectedPackages, selectedExtensions, selectedContributes)->Js.Promise.resolve
       }, _)
     }, _)
+    ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
+      selectedElementsFromMarket
+      ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
+        result,
+        element: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+      ) => {
+        service.backend.findNewestPublishElementAssembleData(. element.elementName)
+        ->MostUtils.toPromise
+        ->Js.Promise.then_(
+          elementAssembleData => {
+            result->Meta3dCommonlib.ListSt.push(elementAssembleData)->Js.Promise.resolve
+          },
+          _,
+        )
+      })
+      ->Js.Promise.then_(selectedElements => {
+        (
+          selectedPackages,
+          selectedExtensions,
+          selectedContributes,
+          selectedElements,
+        )->Js.Promise.resolve
+      }, _)
+    }, _)
     ->Js.Promise.then_(
       ((
         selectedPackagesForAppStore,
         selectedExtensionsForAppStoreEdit,
         selectedContributesForAppStore,
+        selectedElementsForAppStore,
       )) => {
         setOperateInfo(_ => "")
 
@@ -906,7 +932,7 @@ module Method = {
           (startPackageProtocolName, startExtensionProtocolName),
         )
 
-        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
+        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction(.
           dispatchForAppStore,
           dispatchForApAssembleStore,
           dispatchForPackageAssembleStore,
@@ -916,6 +942,7 @@ module Method = {
               extensionData
             ),
             selectedContributesForAppStore,
+            selectedElementsForAppStore,
           ),
           (
             selectedPackagesForApAssembleStore,
@@ -984,6 +1011,7 @@ module Method = {
   let buildOperateInfoDefault = () => ""
 }
 
+// TODO refactor: split for ap assemble and package assemble 
 @react.component
 let make = (
   ~service: service,
@@ -992,6 +1020,7 @@ let make = (
   ~storedPackageIdsInApp,
   ~selectedExtensions,
   ~selectedContributes,
+  ~selectedElementsFromMarket,
 ) => {
   let dispatchForAppStore = service.app.useDispatch()
   let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(
@@ -1054,6 +1083,7 @@ let make = (
                         selectedPackages,
                         selectedExtensions,
                         selectedContributes,
+                        selectedElementsFromMarket,
                       )->ignore
                     }, 5->Some)
                   }}>
