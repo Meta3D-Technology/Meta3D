@@ -636,6 +636,43 @@ TODO bdd test
 
 *** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
 
+**** TODO input
+
+# TODO generate and register contribute
+
+
+TODO store in element data:
+    TODO add to ui control inspector->input 
+    TODO store in element data when publish element
+    TODO when generate app(in visual, visual run, run app), selectedContributes add generated contribute from element data
+
+
+
+# TODO selectedContributes add generated contribute
+# refer to generateElementContribute
+
+
+
+# TODO update ui control inspector->input: refer to SetInput
+
+TODO auto generate inputName
+
+TODO provide default str
+
+
+TODO bdd test
+
+TODO run test:
+    create, run
+    publish app->import app->run
+
+
+
+
+
+
+**** TODO action
+
 
 
 *** TODO only get editor whole service
@@ -809,6 +846,9 @@ abstract to Switch Button with configable two textures
 
 
 
+
+
+* TODO refactor: remove Specific->label
 
 
 
