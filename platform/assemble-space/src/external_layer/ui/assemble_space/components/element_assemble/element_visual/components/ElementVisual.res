@@ -114,15 +114,22 @@ module Method = {
     ->ignore
   }
 
-  let _generateApp = (service, ((selectPackages, allPackagesStoredInApp), selectedContributes)) => {
-    // visualExtension,
-
+  let _generateApp = (
+    service,
+    ((selectPackages, allPackagesStoredInApp), selectedContributes),
+    (account, selectedUIControlInspectorData),
+  ) => {
     AppUtils.generateApp(
       service,
       (selectPackages, allPackagesStoredInApp),
-      // selectedExtensions->Meta3dCommonlib.ArraySt.push(visualExtension),
-      // selectedExtensions,
-      selectedContributes,
+      selectedContributes
+      ->FrontendUtils.ElementUtils.addGeneratedInputContributeForElementAssemble(
+        (service.meta3d.generateContribute, service.meta3d.loadContribute),
+        _,
+        account,
+        selectedUIControlInspectorData,
+      )
+      ->Meta3dCommonlib.ListSt.toArray,
       list{},
       Js.Nullable.null,
     )
@@ -132,17 +139,20 @@ module Method = {
     service,
     loopFrameID: React.ref<option<int>>,
     (selectedPackages, selectedContributes, storedPackageIdsInApp),
+    (account, selectedUIControlInspectorData),
     // visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
     let (meta3dState, _, _) = service.meta3d.loadApp(.
+      ElementVisualUtils.buildEmptyAddGeneratedContributeFunc(),
       _generateApp(
         service,
         (
           AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
           // selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-          selectedContributes->Meta3dCommonlib.ListSt.toArray,
+          selectedContributes,
         ),
+        (account, selectedUIControlInspectorData),
         // visualExtension,
       ),
     )
@@ -242,7 +252,7 @@ module Method = {
   //   // _generateElementContribute(
   //   //   service,
   //   //   ElementContributeUtils.getElementContributeProtocolName(),
-  //   //   ElementContributeUtils.getElementContributeProtocolVersion(),
+  //   //   FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
   //   //   _getElementContributeName(),
   //   //   getElementContributeVersion(),
   //   //   account,
@@ -391,7 +401,17 @@ module Method = {
         ).id,
         rect,
         isDraw,
-        input: input->Meta3dCommonlib.OptionSt.fromNullable,
+        input: input
+        ->Meta3dCommonlib.OptionSt.fromNullable
+        ->Meta3dCommonlib.OptionSt.map(({
+          inputName,
+          inputFileStr,
+        }): FrontendUtils.ElementAssembleStoreType.input => {
+          {
+            inputName,
+            inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.fromNullable,
+          }
+        }),
         event,
         specific,
         children: _generate(
@@ -426,7 +446,7 @@ module Method = {
   //   }
   // }
 
-  let _removeNotExistedInputAndEvent = (uiControls, service, selectedContributes) => {
+  let _removeNotExistedInputAndEventExceptFileStr = (uiControls, service, selectedContributes) => {
     let selectedActionNames = SelectedContributesForElementUtils.getActions(
       selectedContributes,
     )->Meta3dCommonlib.ListSt.map(({data}) => {
@@ -445,6 +465,7 @@ module Method = {
         {
           ...uiControl,
           input: uiControl.input->Meta3dCommonlib.NullableSt.bind(input => {
+            ElementVisualUtils.isForInputFileStr(input.inputName, uiControl.protocol.name) ||
             selectedInputNames->Meta3dCommonlib.ListSt.includes(input.inputName)
               ? input->Meta3dCommonlib.NullableSt.return
               : Meta3dCommonlib.NullableSt.getEmpty()
@@ -486,7 +507,7 @@ module Method = {
       ) => {
         mergedUIControls->Js.Array.concat(inspectorData.uiControls, _)
       })
-      ->_removeNotExistedInputAndEvent(service, selectedContributes)
+      ->_removeNotExistedInputAndEventExceptFileStr(service, selectedContributes)
 
     let selectedUIControls = _generateSelectedUIControls(
       service,
@@ -683,6 +704,7 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
               service,
               loopFrameID,
               (selectedPackages, selectedContributes, storedPackageIdsInApp),
+              (account->Meta3dCommonlib.OptionSt.getExn, selectedUIControlInspectorData),
               // visualExtension,
               apInspectorData,
             )->ignore

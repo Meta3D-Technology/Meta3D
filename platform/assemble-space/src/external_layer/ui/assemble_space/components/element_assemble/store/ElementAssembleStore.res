@@ -213,8 +213,21 @@ let reducer = (state, action) => {
       data => {
         ...data,
         input: inputNameOpt->Meta3dCommonlib.OptionSt.map((inputName): input => {
-          inputName: inputName,
+          inputName,
+          inputFileStr: None,
         }),
+      },
+      id,
+    )
+  | SetInputFileStr(id, inputName, inputFileStr) =>
+    _setUIControlInspectorData(
+      state,
+      data => {
+        ...data,
+        input: {
+          inputName,
+          inputFileStr: inputFileStr->Some,
+        }->Some,
       },
       id,
     )

@@ -116,7 +116,7 @@ function _decode(data) {
   return TextDecoder$Meta3d.decodeUint8Array(data, decoder);
 }
 
-function load(appBinaryFile) {
+function load(addGeneratedContributeFunc, appBinaryFile) {
   var match = BinaryFileOperator$Meta3d.load(appBinaryFile);
   if (match.length !== 7) {
     throw {
@@ -133,9 +133,10 @@ function load(appBinaryFile) {
   var allContributeUint8 = match[1];
   var allPackageUint8NotStoredInApp = match[2];
   var allPackageUint8StoredInApp = match[3];
+  var selectedElementsUint8 = match[4];
   var configData = match[5];
   var startPackageProtocolName = match[6];
-  var match$1 = ManagerUtils$Meta3d.load([
+  var match$1 = ManagerUtils$Meta3d.loadApp(addGeneratedContributeFunc, JSON.parse(_decode(selectedElementsUint8)), [
         allExtensionUint8,
         allContributeUint8,
         allPackageUint8NotStoredInApp,
@@ -160,7 +161,7 @@ function getAllDataOfApp(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            296,
+            294,
             6
           ],
           Error: new Error()

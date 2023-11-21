@@ -664,7 +664,7 @@ defineFeature(feature, test => {
   //       expect(
   //         () => {
   //           let (s, allExtensionDataArr, _) =
-  //             Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+  //             Main.generateApp(c1.contents, [], Js.Nullable.null)->AppManagerTool.loadApp(~appBinaryFile=_, ())
   //         },
   //       )->toThrowMessage("version not match")
   //     },
@@ -761,7 +761,7 @@ defineFeature(feature, test => {
   //       expect(
   //         () => {
   //           let (s, allExtensionDataArr, _) =
-  //             Main.generateApp(c1.contents, [], Js.Nullable.null)->Main.loadApp
+  //             Main.generateApp(c1.contents, [], Js.Nullable.null)->AppManagerTool.loadApp(~appBinaryFile=_, ())
   //         },
   //       )->toThrowMessage("version not match")
   //     },
@@ -848,7 +848,7 @@ defineFeature(feature, test => {
   //       expect(
   //         () => {
   //           let (s, allExtensionDataArr, _) =
-  //             Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->Main.loadApp
+  //             Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->AppManagerTool.loadApp(~appBinaryFile=_, ())
   //         },
   //       )->toThrowMessage("version not match")
   //     },
@@ -938,7 +938,7 @@ defineFeature(feature, test => {
   //       expect(
   //         () => {
   //           let (s, allExtensionDataArr, _) =
-  //             Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->Main.loadApp
+  //             Main.generateApp(c1.contents, [p1.contents], Js.Nullable.null)->AppManagerTool.loadApp(~appBinaryFile=_, ())
   //         },
   //       )->toNotThrow
   //     },
@@ -1127,7 +1127,7 @@ defineFeature(feature, test => {
             AppManagerTool.buildSelectedElements(),
             configData.contents->Obj.magic->Meta3dCommonlib.NullableSt.return,
             startPackageProtocolName.contents,
-          )->Main.loadApp
+          )->AppManagerTool.loadApp(~appBinaryFile=_, ())
 
         configDataResult := configDataResult_
 
@@ -1241,7 +1241,7 @@ defineFeature(feature, test => {
   //   \"when"(
   //     "generate app with c1 and load it",
   //     () => {
-  //       loadData := Main.generateApp(c1.contents, [], [], Js.Nullable.null)->Main.loadApp
+  //       loadData := Main.generateApp(c1.contents, [], [], Js.Nullable.null)->AppManagerTool.loadApp(~appBinaryFile=_, ())
   //     },
   //   )
 
@@ -1320,7 +1320,7 @@ defineFeature(feature, test => {
   //     "generate app with c1 and load it and init the first extension",
   //     () => {
   //       let (s, _, _) =
-  //         Main.generateApp(c1.contents, [], [], Js.Nullable.null, "")->Main.loadApp
+  //         Main.generateApp(c1.contents, [], [], Js.Nullable.null, "")->AppManagerTool.loadApp(~appBinaryFile=_, ())
 
   //       state := s
 
@@ -1359,7 +1359,7 @@ defineFeature(feature, test => {
   //     "generate app with c1 and load it and update the second extension",
   //     () => {
   //       let (s, _, _) =
-  //         Main.generateApp(c1.contents, [], [], Js.Nullable.null, "")->Main.loadApp
+  //         Main.generateApp(c1.contents, [], [], Js.Nullable.null, "")->AppManagerTool.loadApp(~appBinaryFile=_, ())
 
   //       state := s
 
@@ -1414,7 +1414,7 @@ defineFeature(feature, test => {
             AppManagerTool.buildSelectedElements(),
             Js.Nullable.null,
             "",
-          )->Main.loadApp
+          )->AppManagerTool.loadApp(~appBinaryFile=_, ())
 
         state := s
       },

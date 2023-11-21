@@ -58,17 +58,13 @@ let generateElementContribute = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
   // ~protocolName=ElementContributeUtils.getElementContributeProtocolName(),
-  // ~protocolVersion=ElementContributeUtils.getElementContributeProtocolVersion(),
+  // ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
   // ~elementName=ElementContributeUtils.getElementContributeName(),
   // ~elementVersion=ElementVisualUtils.getElementContributeVersion(),
   ~account="meta3d",
   ~fileStr="",
   (),
 ) => ElementVisual.Method.generateElementContribute(service, account, fileStr)
-
-let buildEmptyContributeFileStr = () => {
-  `window.Contribute = { getContribute: (api) =>{ return {} }}`
-}
 
 let buildElementMR = ElementMRUtils.buildElementMR
 

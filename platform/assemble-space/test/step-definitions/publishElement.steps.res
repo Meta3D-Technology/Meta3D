@@ -127,7 +127,7 @@ defineFeature(feature, test => {
       // elementInspectorData :=
       //   ElementInspectorTool.buildElementInspectorData(list{})
 
-      input := UIControlInspectorTool.buildInput("input")
+      input := UIControlInspectorTool.buildInput(~inputName="input", ())
       event := [UIControlInspectorTool.buildEventData(#button_click, "a1")]
 
       isDraw := false->FrontendUtils.CommonType.BoolForIsDraw
@@ -251,7 +251,7 @@ defineFeature(feature, test => {
   //               description: ElementContributeUtils.getElementContributeDescription(),
   //               protocol: {
   //                 name: ElementContributeUtils.getElementContributeProtocolName(),
-  //                 version: ElementContributeUtils.getElementContributeProtocolVersion(),
+  //                 version: FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
   //               },
   //               dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   //               dependentBlockProtocolNameMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
@@ -342,7 +342,7 @@ defineFeature(feature, test => {
   //           elementName.contents,
   //           elementVersion.contents,
   //           ElementContributeUtils.getElementContributeProtocolName(),
-  //           ElementContributeUtils.getElementContributeProtocolVersion(),
+  //           FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
   //           elementName.contents,
   //           ElementContributeUtils.getElementContributeRepoLink(),
   //           ElementContributeUtils.getElementContributeDescription(),
@@ -415,7 +415,7 @@ defineFeature(feature, test => {
                     (),
                   ),
                   isDraw: isDraw.contents,
-                  input: input.contents->Meta3dCommonlib.NullableSt.return,
+                  input: input.contents->Some->ImportElementTool.convertInput,
                   event: event.contents,
                   specific: specific.contents,
                   children: [

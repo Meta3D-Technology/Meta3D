@@ -217,7 +217,7 @@ let _decode = data => {
   TextDecoder.decodeUint8Array(data, decoder)->Obj.magic
 }
 
-let load = (appBinaryFile: ArrayBuffer.t): (
+let load = (addGeneratedContributeFunc, appBinaryFile: ArrayBuffer.t): (
   Meta3dType.Index.state,
   // array<extensionFileData>,
   string,
@@ -234,7 +234,10 @@ let load = (appBinaryFile: ArrayBuffer.t): (
     startPackageProtocolName,
   ] = BinaryFileOperator.load(appBinaryFile)
 
-  let (state, _) = ManagerUtils.load([
+  let (state, _) = ManagerUtils.loadApp(
+    addGeneratedContributeFunc,
+    _decode(selectedElementsUint8)->Js.Json.parseExn->Obj.magic,
+    [
     allExtensionUint8,
     allContributeUint8,
     allPackageUint8NotStoredInApp,
@@ -243,12 +246,7 @@ let load = (appBinaryFile: ArrayBuffer.t): (
 
   let state = state->_loadAllPackageUint8StoredInApp(allPackageUint8StoredInApp)
 
-  (
-    state,
-    _decode(startPackageProtocolName),
-    _decodeConfigData(configData),
-    // _decode(selectedElementsUint8),
-  )
+  (state, _decode(startPackageProtocolName), _decodeConfigData(configData))
 }
 
 // let _getStartExtensionProtocolName = (

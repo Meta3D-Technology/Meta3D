@@ -37,13 +37,19 @@ module Method = {
       (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
       elementContribute,
     ),
+    (account, selectedUIControlInspectorData),
   ) => {
     ElementVisualUtils.generateApp(
       service,
       (
         AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-        selectedContributes->Meta3dCommonlib.ListSt.toArray,
+        FrontendUtils.ElementUtils.addGeneratedInputContributeForElementAssemble(
+          (service.meta3d.generateContribute, service.meta3d.loadContribute),
+          selectedContributes,
+          account,
+          selectedUIControlInspectorData,
+        )->Meta3dCommonlib.ListSt.toArray,
       ),
       list{},
       elementContribute,
@@ -82,6 +88,7 @@ module Method = {
       canvasData,
       // runVisualExtension,
       elementContribute,
+      selectedUIControlInspectorData,
     } = elementAssembleState
 
     (
@@ -96,13 +103,14 @@ module Method = {
         canvasData,
         // runVisualExtension,
         elementContribute,
+        selectedUIControlInspectorData,
       ),
     )
   }
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~account) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -117,6 +125,7 @@ let make = (~service: service) => {
       canvasData,
       // runVisualExtension,
       elementContribute,
+      selectedUIControlInspectorData,
     ),
   ) = service.react.useSelector(. Method.useSelector)
 
@@ -143,6 +152,7 @@ let make = (~service: service) => {
                 (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
                 elementContribute,
               ),
+              (account->Meta3dCommonlib.OptionSt.getExn, selectedUIControlInspectorData),
             )->ignore
           }, 5->Some)
         }}>

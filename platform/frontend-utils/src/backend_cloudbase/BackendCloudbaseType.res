@@ -411,12 +411,17 @@ type uiControlProtocol = {
   version: versionRange,
 }
 
+type input = {
+  inputName: CommonType. inputName,
+  inputFileStr: Js.Nullable.t<CommonType.inputFileStr>,
+}
+
 type rec uiControl = {
   protocol: uiControlProtocol,
   displayName: string,
   rect: CommonType.rect,
   isDraw: CommonType.isDraw,
-  input: Js.Nullable.t<CommonType.input>,
+  input: Js.Nullable.t<input>,
   event: CommonType.event,
   specific: CommonType.specific,
   children: array<uiControl>,

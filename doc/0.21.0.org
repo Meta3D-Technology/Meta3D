@@ -644,6 +644,8 @@ TODO bdd test
 TODO store in element data:
     TODO add to ui control inspector->input 
     TODO store in element data when publish element
+    TODO build from selectedElements get it
+
     TODO when generate app(in visual, visual run, run app), selectedContributes add generated contribute from element data
 
 
@@ -667,6 +669,11 @@ TODO run test:
     publish app->import app->run
 
 
+
+
+**** TODO refactor: not add element contribute when publish
+    TODO add when run app
+    TODO not remove when import
 
 
 

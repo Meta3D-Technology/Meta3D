@@ -23,7 +23,7 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
       <Space direction=#horizontal size=#small>
         <PublishElement service account />
         // <ElementController service />
-        <RunElementVisualController service />
+        <RunElementVisualController service account />
         <CanvasController service />
       </Space>
     </Layout.Content>

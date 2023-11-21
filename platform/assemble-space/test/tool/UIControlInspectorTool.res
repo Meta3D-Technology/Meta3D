@@ -26,8 +26,13 @@ let buildRect = (
   }
 }
 
-let buildInput = (inputName): FrontendUtils.ElementAssembleStoreType.input => {
-  inputName: inputName,
+let buildInput = (
+  ~inputName,
+  ~inputFileStr=None,
+  (),
+): FrontendUtils.ElementAssembleStoreType.input => {
+  inputName,
+  inputFileStr,
 }
 
 let buildEventData = (

@@ -74,7 +74,7 @@ function _getEntryExtensionProtocolName(allExtensionDataArr) {
 }
 
 function load(packageBinaryFile) {
-  var match = ManagerUtils$Meta3d.load(BinaryFileOperator$Meta3d.load(packageBinaryFile));
+  var match = ManagerUtils$Meta3d.loadPackage(BinaryFileOperator$Meta3d.load(packageBinaryFile));
   var allExtensionDataArr = match[1];
   return [
           match[0],

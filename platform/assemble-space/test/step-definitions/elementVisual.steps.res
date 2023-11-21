@@ -262,12 +262,23 @@ defineFeature(feature, test => {
     let uiState = Obj.magic(11)
     // let selectedExtensions = ref(list{})
     // let selectedContributes = ref(list{})
+    let account = "a1"
+    let inputName = "i1"
+    let inputFileStr = ElementVisualTool.buildEmptyContributeFileStr()
+    let selectedUIControlInspectorData = ref(Obj.magic(1))
     let selectedPackages = ref(list{})
+    let allContributeDataArrRef = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
     // let getExtensionStateStub = ref(Obj.magic(1))
     let getPackageServiceStub = ref(Obj.magic(1))
     // let setExtensionStateFake = ref(Obj.magic(1))
     let execGetContributeFuncStub = ref(Obj.magic(1))
+    // let registerContributeStub = ref(Obj.magic(1))
+    let convertAllFileDataForAppFake = allContributeDataArr => {
+      allContributeDataArrRef := allContributeDataArr
+
+      Meta3d.Main.convertAllFileDataForApp(allContributeDataArr)
+    }
 
     let loopFirstFrameID = 2
     let loopOtherFrameID = 3
@@ -307,6 +318,24 @@ defineFeature(feature, test => {
       "set element1 to space state",
       () => {
         ElementVisualTool.setElementContributeToSpaceState(element1.contents->Some)
+      },
+    )
+
+    \"and"(
+      "prepare one input file str in ui control inspector data",
+      () => {
+        selectedUIControlInspectorData :=
+          list{
+            UIControlInspectorTool.buildUIControlInspectorData(
+              ~id=inputName,
+              ~input=UIControlInspectorTool.buildInput(
+                ~inputName,
+                ~inputFileStr=inputFileStr->Some,
+                (),
+              )->Some,
+              (),
+            ),
+          }
       },
     )
 
@@ -488,8 +517,10 @@ defineFeature(feature, test => {
             ~getPackageService=getPackageServiceStub.contents->Obj.magic,
             // ~setExtensionState=setExtensionStateFake.contents->Obj.magic,
             ~generateApp=Meta3d.Main.generateApp->Obj.magic,
-            ~convertAllFileDataForApp=Meta3d.Main.convertAllFileDataForApp->Obj.magic,
+            ~convertAllFileDataForApp=convertAllFileDataForAppFake->Obj.magic,
             ~loadApp=Meta3d.Main.loadApp->Obj.magic,
+            ~generateContribute=Meta3d.Main.generateContribute->Obj.magic,
+            ~loadContribute=Meta3d.Main.loadContribute->Obj.magic,
             ~initExtension=(. meta3dState, extensionName, data) =>
               Meta3d.Main.initExtension(meta3dState, extensionName, data),
             ~updateExtension=(. meta3dState, extensionName, data) =>
@@ -509,6 +540,7 @@ defineFeature(feature, test => {
           ),
           loopFrameIDRef,
           (selectedPackages.contents, list{}, list{}),
+          (account, selectedUIControlInspectorData.contents),
           ApInspectorTool.buildApInspectorData(),
         )
       },
@@ -525,6 +557,28 @@ defineFeature(feature, test => {
       "e1 should be inited",
       () => {
         ElementVisualTool.getInitFlag()->expect == 1
+      },
+    )
+
+    \"and"(
+      "register one generated input contribute",
+      () => {
+        allContributeDataArrRef.contents->expect == [
+            ContributeTool.generateContribute(
+              ~name=inputName,
+              ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
+              ~account,
+              ~displayName="",
+              ~repoLink="",
+              ~description="",
+              ~protocolName=j`${inputName}-protocol`,
+              ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
+              ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              ~fileStr=inputFileStr,
+              (),
+            )->Meta3d.Main.loadContribute,
+          ]
       },
     )
 

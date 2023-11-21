@@ -51,7 +51,6 @@ type protocolConfig = {
   configStr: protocolConfigStr,
 }
 
-
 type rectField = IntForRectField(int)
 
 type rect = {
@@ -61,13 +60,11 @@ type rect = {
   height: rectField,
 }
 
-
 type isDraw = BoolForIsDraw(bool)
-
 
 type inputName = string
 
-type input = {inputName: inputName}
+type inputFileStr = string
 
 type actionName = string
 
@@ -79,9 +76,7 @@ type eventData = {
 
 type event = array<eventData>
 
-
 type specificDataType = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldType
-
 
 type specificDataValue =
   SpecicFieldDataValue(Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldValue)

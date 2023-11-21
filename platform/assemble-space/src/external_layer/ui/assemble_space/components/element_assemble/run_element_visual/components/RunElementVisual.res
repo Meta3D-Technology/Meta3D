@@ -63,7 +63,10 @@ module Method = {
     service.storage.initForElementVisualApp()
     ->service.storage.getElementVisualApp(. _)
     ->Meta3dBsMostDefault.Most.flatMap(appBinaryFile => {
-      let (meta3dState, _, _) = service.meta3d.loadApp(. appBinaryFile)
+      let (meta3dState, _, _) = service.meta3d.loadApp(.
+        ElementVisualUtils.buildEmptyAddGeneratedContributeFunc(),
+        appBinaryFile,
+      )
 
       service.meta3d.initExtension(.
         meta3dState,

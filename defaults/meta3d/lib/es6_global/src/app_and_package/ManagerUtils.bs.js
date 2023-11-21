@@ -359,6 +359,13 @@ function _checkAllDependents(param) {
         ];
 }
 
+function _addGeneratedContribute(param, addGeneratedContributeFunc, selectedElements) {
+  return [
+          param[0],
+          Curry._2(addGeneratedContributeFunc, param[1], selectedElements)
+        ];
+}
+
 function _run(param) {
   var allExtensionDataArr = param[0];
   var state = ArraySt$Meta3dCommonlib.reduceOneParam(allExtensionDataArr, (function (state, param) {
@@ -374,7 +381,11 @@ function _run(param) {
         ];
 }
 
-function load(data) {
+function loadApp(addGeneratedContributeFunc, selectedElements, data) {
+  return _run(_addGeneratedContribute(_checkAllDependents(_parse1(data)), addGeneratedContributeFunc, selectedElements));
+}
+
+function loadPackage(data) {
   return _run(_checkAllDependents(_parse1(data)));
 }
 
@@ -398,7 +409,9 @@ export {
   _checkVersion ,
   _checkDependentMap ,
   _checkAllDependents ,
+  _addGeneratedContribute ,
   _run ,
-  load ,
+  loadApp ,
+  loadPackage ,
 }
 /* semver Not a pure module */

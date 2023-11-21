@@ -101,6 +101,31 @@ module Method = {
     )
   }
 
+  let buildDefaultInputFileStr = uiControlProtocolName => {
+    j`
+window.Contribute = {
+    getContribute: (api) => {
+      return {
+        inputName: "${ElementVisualUtils.buildDefaultInputNameForInputFileStr(
+        uiControlProtocolName,
+      )}",
+        func: (meta3dState) =>{
+            return Promise.resolve(null)
+        }
+      }
+    }
+}
+    `
+  }
+
+  let setInputFileStrData = (dispatch, id, inputName, inputFileStr) => {
+    switch inputFileStr {
+    | Some(inputFileStr) =>
+      dispatch(FrontendUtils.ElementAssembleStoreType.SetInputFileStr(id, inputName, inputFileStr))
+    | None => ()
+    }
+  }
+
   let getActions = SelectedContributesForElementUtils.getActions
 
   let setAction = (
@@ -395,6 +420,15 @@ let make = (~service: service) => {
     ),
   ) = service.react.useSelector(. Method.useSelector)
 
+  let (inputFileStr, setInputFileStr) = service.react.useState(_ =>
+    Method.getCurrentSelectedUIControlInspectorData(
+      inspectorCurrentUIControlId,
+      selectedUIControlInspectorData,
+    )->Meta3dCommonlib.OptionSt.bind(({input}) =>
+      input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) => inputFileStr)
+    )
+  )
+
   // let {elementStateFields} = elementInspectorData
 
   switch Method.getCurrentSelectedUIControlInspectorData(
@@ -442,28 +476,53 @@ let make = (~service: service) => {
 
         <Space direction=#vertical size=#middle>
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
-          {FrontendUtils.SelectUtils.buildSelect(
-            Method.setInput(dispatch, id),
-            input
-            ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
-            ->Meta3dCommonlib.OptionSt.getWithDefault(
-              FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-            ),
-            SelectedContributesForElementUtils.getInputs(selectedContributes)
-            ->Meta3dCommonlib.ListSt.toArray
-            ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-              data.contributePackageData.protocol.name->Js.String.replace(
-                "-input-",
-                "-ui-control-",
-                _,
-              ) == uiControlProtocolName
-            })
-            ->Meta3dCommonlib.ArraySt.map(({data}) => {
-              (
-                service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
-              )["inputName"]
-            }),
-          )}
+          {<>
+            {FrontendUtils.SelectUtils.buildSelect(
+              Method.setInput(dispatch, id),
+              input
+              ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+              ->Meta3dCommonlib.OptionSt.getWithDefault(
+                FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+              ),
+              SelectedContributesForElementUtils.getInputs(selectedContributes)
+              ->Meta3dCommonlib.ListSt.toArray
+              ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+                data.contributePackageData.protocol.name->Js.String.replace(
+                  "-input-",
+                  "-ui-control-",
+                  _,
+                ) == uiControlProtocolName
+              })
+              ->Meta3dCommonlib.ArraySt.map(({data}) => {
+                (
+                  service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
+                )["inputName"]
+              }),
+            )}
+            {TextareaUtils.isNotShowTextareaForTest()
+              ? React.null
+              : <Input.TextArea
+                  value={inputFileStr->Meta3dCommonlib.OptionSt.getWithDefault(
+                    Method.buildDefaultInputFileStr(uiControlProtocolName),
+                  )}
+                  onChange={e => {
+                    setInputFileStr(_ => e->EventUtils.getEventTargetValue->Some)
+                  }}
+                />}
+            <Button
+              onClick={_ => {
+                FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                  Method.setInputFileStrData(
+                    dispatch,
+                    id,
+                    ElementVisualUtils.buildDefaultInputNameForInputFileStr(uiControlProtocolName),
+                    inputFileStr,
+                  )
+                }, 5->Some)
+              }}>
+              {React.string(`提交`)}
+            </Button>
+          </>}
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
           {Method.buildSpecific(service, dispatch, id, specific)}
           {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}

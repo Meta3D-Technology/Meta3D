@@ -65,3 +65,11 @@ let buildPackageData = (
 let buildSelectedElements = (~data1=1, ()): AppAndPackageFileType.selectedElements => {
   [data1]->Obj.magic
 }
+
+let loadApp = (
+  ~addGeneratedContributeFunc=(allExtensionDataArr, _) => allExtensionDataArr,
+  ~appBinaryFile,
+  (),
+) => {
+  Main.loadApp(addGeneratedContributeFunc, appBinaryFile)
+}

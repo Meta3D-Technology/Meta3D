@@ -71,6 +71,11 @@ type convertAllFileDataForPackage = (
   array<(contributePackageData, Meta3d.ExtensionFileType.contributeFuncData)>,
 )
 
+type addGeneratedContributeFunc = (
+  array<Meta3d.ExtensionFileType.contributeFileData>,
+  Meta3d.AppAndPackageFileType.selectedElements,
+) => array<Meta3d.ExtensionFileType.contributeFileData>
+
 type meta3dService = {
   getPackageService: 'packageService. (. Meta3dType.Index.state, string) => 'packageService,
   generateContribute: (
@@ -112,7 +117,8 @@ type meta3dService = {
   convertAllFileDataForApp: convertAllFileDataForApp,
   convertAllFileDataForPackage: convertAllFileDataForPackage,
   loadApp: (
-    . Js.Typed_array.ArrayBuffer.t,
+    . addGeneratedContributeFunc,
+    Js.Typed_array.ArrayBuffer.t,
   ) => (Meta3dType.Index.state, string, Meta3dType.Index.startConfigData),
   getExtensionFuncDataStr: (. Js.Typed_array.Uint8Array.t) => string,
   getExtensionFuncData: (. string) => Js.Typed_array.Uint8Array.t,

@@ -2,9 +2,9 @@ let getElementContributeName = () => "meta3d-element-assemble-element"
 
 let getElementContributeProtocolName = FrontendUtils.ElementUtils.getElementContributeProtocolName
 
-let getElementContributeProtocolVersion = () => {
-  j`^${FrontendUtils.VersionConfig.getPlatformVersion()}`
-}
+// let getElementContributeProtocolVersion = () => {
+//   j`^${FrontendUtils.VersionConfig.getPlatformVersion()}`
+// }
 
 let getElementContributeRepoLink = () => ""
 

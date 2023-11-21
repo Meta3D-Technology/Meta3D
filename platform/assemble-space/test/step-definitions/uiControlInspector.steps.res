@@ -19,6 +19,8 @@ defineFeature(feature, test => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+
+      TextareaTool.markNotShowTextareaForTest()
     })
   }
 
@@ -485,7 +487,7 @@ defineFeature(feature, test => {
                 list{
                   UIControlInspectorTool.buildUIControlInspectorData(
                     ~id,
-                    ~input=UIControlInspectorTool.buildInput(i1Name)->Some,
+                    ~input=UIControlInspectorTool.buildInput(~inputName=i1Name, ())->Some,
                     (),
                   ),
                 },
@@ -567,9 +569,7 @@ defineFeature(feature, test => {
                       UIControlInspectorTool.buildSpecific(
                         ~name="label",
                         ~type_=#string,
-                        ~value="Window1"
-                        ->Obj.magic
-                        ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                        ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                         (),
                       ),
                     ],
@@ -745,9 +745,7 @@ defineFeature(feature, test => {
               UIControlInspectorTool.buildSpecific(
                 ~name="label",
                 ~type_,
-                ~value="Window2"
-                ->Obj.magic
-                ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                ~value="Window2"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                 (),
               ),
             ],

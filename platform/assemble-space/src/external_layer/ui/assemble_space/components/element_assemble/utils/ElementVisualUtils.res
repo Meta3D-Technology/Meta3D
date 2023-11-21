@@ -127,9 +127,9 @@ let getEditorWholePackageProtocolName = () => "meta3d-editor-whole-protocol"
 //   _generateElementContribute(
 //     service,
 //     ElementContributeUtils.getElementContributeProtocolName(),
-//     ElementContributeUtils.getElementContributeProtocolVersion(),
+//     FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
 //     ElementContributeUtils.getElementContributeName(),
-//     getElementContributeVersion(),
+//     FrontendUtils.ElementUtils. getElementContributeVersion(),
 //     account,
 //     ElementContributeUtils.getElementContributeName(),
 //     ElementContributeUtils.getElementContributeRepoLink(),
@@ -138,15 +138,20 @@ let getEditorWholePackageProtocolName = () => "meta3d-editor-whole-protocol"
 //   )
 // }
 
-let getElementContributeVersion = () => FrontendUtils.VersionConfig.getPlatformVersion()
+// let FrontendUtils.ElementUtils. getElementContributeVersion = () => FrontendUtils.VersionConfig.getPlatformVersion()
 
-let _buildContribute = (version, data): FrontendUtils.ApAssembleStoreType.contribute => {
-  id: "",
-  version,
-  protocolIconBase64: "",
-  protocolConfigStr: None,
-  data,
-}
+// let buildContribute = (
+//   ~id="",
+//   ~version,
+//   ~data,
+//   (),
+// ): FrontendUtils.ApAssembleStoreType.contribute => {
+//   id,
+//   version,
+//   protocolIconBase64: "",
+//   protocolConfigStr: None,
+//   data,
+// }
 
 let generateElementContribute = (
   service: FrontendUtils.AssembleSpaceType.service,
@@ -157,11 +162,11 @@ let generateElementContribute = (
     (
       {
         name: ElementContributeUtils.getElementContributeName(),
-        version: getElementContributeVersion(),
+        version: FrontendUtils.ElementUtils.getElementContributeVersion(),
         account,
         protocol: {
           name: ElementContributeUtils.getElementContributeProtocolName(),
-          version: ElementContributeUtils.getElementContributeProtocolVersion(),
+          version: FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
         },
         displayName: ElementContributeUtils.getElementContributeName(),
         repoLink: ElementContributeUtils.getElementContributeRepoLink(),
@@ -173,7 +178,11 @@ let generateElementContribute = (
     fileStr,
   )
   ->service.meta3d.loadContribute(. _)
-  ->_buildContribute(getElementContributeVersion(), _)
+  ->FrontendUtils.ElementUtils.buildContribute(
+    ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
+    ~data=_,
+    (),
+  )
 }
 
 let cancelAppLoop = (
@@ -184,4 +193,18 @@ let cancelAppLoop = (
   | Some(id) => service.other.cancelAnimationFrame(id)
   | None => ()
   }
+}
+
+let buildDefaultInputNameForInputFileStr = uiControlProtocolName => {
+  uiControlProtocolName
+  ->Js.String.replace("-protocol", "", _)
+  ->Js.String.replace("-ui-control-", "-input-", _)
+}
+
+let isForInputFileStr = (inputName, uiControlProtocolName) => {
+  uiControlProtocolName->buildDefaultInputNameForInputFileStr == inputName
+}
+
+let buildEmptyAddGeneratedContributeFunc = () => {
+  (allContributeDataArr, _) => allContributeDataArr
 }

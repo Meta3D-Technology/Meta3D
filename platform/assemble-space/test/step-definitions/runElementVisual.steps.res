@@ -255,7 +255,13 @@ defineFeature(feature, test => {
     then(
       "load app",
       () => {
-        loadAppStub.contents->Obj.magic->SinonTool.calledWith(appBinaryFile)->expect == true
+        loadAppStub.contents
+        ->Obj.magic
+        ->SinonTool.calledWithArg2(
+          matchAny,
+          appBinaryFile,
+        )
+        ->expect == true
       },
     )
 

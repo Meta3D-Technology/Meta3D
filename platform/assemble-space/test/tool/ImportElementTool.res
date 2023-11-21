@@ -4,6 +4,28 @@
 
 // let buildLoaded = assembleData => ElementVisual.Loaded(assembleData)
 
+let convertInput = input => {
+  input
+  ->Meta3dCommonlib.OptionSt.map((
+    {inputName, inputFileStr}: FrontendUtils.ElementAssembleStoreType.input,
+  ): FrontendUtils.BackendCloudbaseType.input => {
+    inputName,
+    inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.toNullable,
+  })
+  ->Meta3dCommonlib.OptionSt.toNullable
+}
+
+let inConvertInput = input => {
+  input
+  ->Meta3dCommonlib.NullableSt.map((.
+    {inputName, inputFileStr}: FrontendUtils.BackendCloudbaseType.input,
+  ): FrontendUtils.ElementAssembleStoreType.input => {
+    inputName,
+    inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.fromNullable,
+  })
+  ->Meta3dCommonlib.OptionSt.fromNullable
+}
+
 let buildUIControl = (
   ~protocolName="p1",
   ~protocolVersion="^0.0.1",
@@ -23,7 +45,7 @@ let buildUIControl = (
   displayName,
   rect,
   isDraw,
-  input: input->Meta3dCommonlib.OptionSt.toNullable,
+  input: input->convertInput,
   event,
   specific,
   children,

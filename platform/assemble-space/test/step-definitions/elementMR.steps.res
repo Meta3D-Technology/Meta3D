@@ -586,26 +586,24 @@ handle click event code...
               ~id="w1",
               ~x=1->FrontendUtils.CommonType.IntForRectField,
               ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
-              ~input=UIControlInspectorTool.buildInput("input1")->Some,
+              ~input=UIControlInspectorTool.buildInput(~inputName="input1", ())->Some,
               ~specific=[
                 UIControlInspectorTool.buildSpecific(
                   ~name="label",
                   ~type_=#string,
-                  ~value="Window1"
-                  ->Obj.magic
-                  ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
                 UIControlInspectorTool.buildSpecific(
                   ~name="image1",
                   ~type_=#imageBase64,
-                  ~value="aaa"-> Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  ~value="aaa"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
                 UIControlInspectorTool.buildSpecific(
                   ~name="image2",
                   ~type_=#imageBase64,
-                  ~value=Js.Nullable.null-> Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  ~value=Js.Nullable.null->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
               ],
@@ -840,9 +838,7 @@ handle click event code...
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
                     ~type_=#string,
-                    ~value="Window1"
-                    ->Obj.magic
-                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                    ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -858,9 +854,7 @@ handle click event code...
                     ~name="label",
                     ~type_=#string,
                     // ~value="label"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForSpecificDataValue,
-                    ~value="Window1"
-                    ->Obj.magic
-                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                    ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -1136,9 +1130,7 @@ handle click event code...
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
                     ~type_=#string,
-                    ~value="Window1"
-                    ->Obj.magic
-                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                    ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],
@@ -1150,9 +1142,7 @@ handle click event code...
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
                     ~type_=#string,
-                    ~value="Window2"
-                    ->Obj.magic
-                    ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                    ~value="Window2"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                     (),
                   ),
                 ],

@@ -164,7 +164,7 @@ let load = (packageBinaryFile: ArrayBuffer.t): (
   array<extensionFileData>,
   Meta3dType.Index.extensionProtocolName,
 ) => {
-  let (state, allExtensionDataArr) = packageBinaryFile->BinaryFileOperator.load->ManagerUtils.load
+  let (state, allExtensionDataArr) = packageBinaryFile->BinaryFileOperator.load->ManagerUtils.loadPackage
 
   (state, allExtensionDataArr, _getEntryExtensionProtocolName(allExtensionDataArr))
 }

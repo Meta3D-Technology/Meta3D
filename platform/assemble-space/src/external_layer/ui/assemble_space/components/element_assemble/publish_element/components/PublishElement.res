@@ -45,7 +45,17 @@ module Method = {
         displayName,
         rect,
         isDraw,
-        input: input->Meta3dCommonlib.OptionSt.toNullable,
+        input: input
+        ->Meta3dCommonlib.OptionSt.map(({
+          inputName,
+          inputFileStr,
+        }): FrontendUtils.BackendCloudbaseType.input => {
+          {
+            inputName,
+            inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.toNullable,
+          }
+        })
+        ->Meta3dCommonlib.OptionSt.toNullable,
         event,
         specific,
         children: _convertToUIControls(children, selectedUIControls),
@@ -74,7 +84,7 @@ module Method = {
       // let {elementStateFields} = elementInspectorData
 
       // let protocolName = ElementContributeUtils.getElementContributeProtocolName()
-      // let protocolVersion = ElementContributeUtils.getElementContributeProtocolVersion()
+      // let protocolVersion = FrontendUtils.ElementUtils.getElementContributeProtocolVersion()
       // let displayName = elementName
       // let repoLink = ElementContributeUtils.getElementContributeRepoLink()
       // let description = ElementContributeUtils.getElementContributeDescription()
