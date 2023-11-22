@@ -361,7 +361,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
     )
   }
 
-  let _getSpecificDataValue = (
+  let getSpecificDataValue = (
     specificDataValue: FrontendUtils.ElementAssembleStoreType.specificDataValue,
   ) => {
     switch specificDataValue {
@@ -379,7 +379,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
   //   }
   // }
 
-  let buildSpecific = (service, dispatch, id, specific) => {
+  let buildSpecific = (service, dispatch, (imageBase64Map, setImageBase64Map), id, specific) => {
     <>
       {specific
       ->Meta3dCommonlib.ArraySt.mapi((
@@ -391,7 +391,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
           | #string =>
             <Input
               key={name}
-              value={_getSpecificDataValue(value)
+              value={getSpecificDataValue(value)
               ->Meta3dCommonlib.OptionSt.map(SpecificUtils.convertValueToString(_, type_))
               ->Meta3dCommonlib.OptionSt.getWithDefault("")}
               onChange={e => {
@@ -409,28 +409,39 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
               }}
             />
           | #imageBase64 =>
-            <Upload
-              beforeUpload={file =>
-                _handleUploadImage(
-                  (file, imageBase64) => {
-                    _setSpecificData(
-                      dispatch,
-                      specific,
-                      id,
-                      i,
-                      imageBase64->FrontendUtils.CommonType.SpecicFieldDataValue,
-                      type_,
-                    )
-                  },
-                  (_, _) => (),
-                  (event, _) => {
-                    service.console.error(. {j`error`}, None)
-                  },
-                  file,
-                )}
-              showUploadList=false>
-              <Button icon={<Icon.UploadOutlined />}> {React.string(`上传图片`)} </Button>
-            </Upload>
+            <Space direction=#horizontal>
+              <Upload
+                listType=#pictureCard
+                beforeUpload={file =>
+                  _handleUploadImage(
+                    (file, imageBase64) => {
+                      setImageBase64Map(map =>
+                        map->Meta3dCommonlib.ImmutableSparseMap.set(i, imageBase64->Obj.magic)
+                      )
+
+                      _setSpecificData(
+                        dispatch,
+                        specific,
+                        id,
+                        i,
+                        imageBase64->FrontendUtils.CommonType.SpecicFieldDataValue,
+                        type_,
+                      )
+                    },
+                    (_, _) => (),
+                    (event, _) => {
+                      service.console.error(. {j`error`}, None)
+                    },
+                    file,
+                  )}
+                showUploadList=false>
+                <Button icon={<Icon.UploadOutlined />}> {React.string(`上传图片`)} </Button>
+              </Upload>
+              {switch imageBase64Map->Meta3dCommonlib.ImmutableSparseMap.get(i) {
+              | Some(imageBase64) => <Image preview=true src={imageBase64} width=40 height=40 />
+              | None => React.null
+              }}
+            </Space>
           }}
         </Card>
       })
@@ -471,6 +482,21 @@ let make = (
 
   let selectedContributes = service.react.useSelector(. Method.useSelector)
 
+  let (imageBase64Map, setImageBase64Map) = service.react.useState(_ =>
+    currentSelectedUIControlInspectorData.specific->Meta3dCommonlib.ArraySt.reduceOneParami(
+      (. map, {type_, value}, i) => {
+        switch type_ {
+        | #imageBase64 =>
+          map->Meta3dCommonlib.ImmutableSparseMap.set(
+            i,
+            value->Method.getSpecificDataValue->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+          )
+        | _ => map
+        }
+      },
+      Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
+    )
+  )
   let (inputFileStr, setInputFileStr) = service.react.useState(_ =>
     currentSelectedUIControlInspectorData.input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) =>
       inputFileStr
@@ -552,7 +578,7 @@ let make = (
         </Button>
       </>}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
-      {Method.buildSpecific(service, dispatch, id, specific)}
+      {Method.buildSpecific(service, dispatch, (imageBase64Map, setImageBase64Map), id, specific)}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
       <List
         dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}

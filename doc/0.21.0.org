@@ -803,6 +803,7 @@ TODO run test
 TODO not trigger in visual?
 
 
+** DONE specific->imageBase64: show preview
 
 ** TODO abstract Controller
 
@@ -960,4 +961,3 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 
 
-* TODO specific->imageBase64: show preview
