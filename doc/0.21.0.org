@@ -787,7 +787,8 @@ TODO run test
 
 
 
-*** TODO element space: fix:  remove scene view, not update visual!
+# *** TODO element space: fix:  remove scene view, not update visual!
+*** DONE element space: fix:  remove last selected ui control, not clear!
 
 
 

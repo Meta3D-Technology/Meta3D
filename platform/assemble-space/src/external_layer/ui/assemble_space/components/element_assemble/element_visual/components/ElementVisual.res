@@ -668,20 +668,18 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
 
   service.react.useEffect1(.
     () => {
-      selectedUIControlInspectorData->Meta3dCommonlib.ListSt.length > 0
-        ? FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-            Method.generateElementContribute(
-              service,
-              account->Meta3dCommonlib.OptionSt.getExn,
-              Method.buildElementContributeFileStr(
-                service,
-                selectedUIControls,
-                selectedUIControlInspectorData,
-                // elementStateFields,
-              ),
-            )->Method.updateElementContribute(dispatch, _)
-          }, 5->Some)
-        : ()
+      FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+        Method.generateElementContribute(
+          service,
+          account->Meta3dCommonlib.OptionSt.getExn,
+          Method.buildElementContributeFileStr(
+            service,
+            selectedUIControls,
+            selectedUIControlInspectorData,
+            // elementStateFields,
+          ),
+        )->Method.updateElementContribute(dispatch, _)
+      }, 5->Some)
 
       None
     },
