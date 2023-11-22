@@ -12,7 +12,7 @@ type packageData = AssembleSpaceCommonType.packageData
 
 type selectedPackages = list<packageData>
 
-type selectedElements = list<FrontendUtils.BackendCloudbaseType.elementAssembleData>
+type selectedElements = list<BackendCloudbaseType.elementAssembleData>
 
 type account = string
 
@@ -26,12 +26,12 @@ type action =
   | SelectPackage(packageData)
   // | NotSelectPackage(id)
   | NotSelectPackage(name, AssembleSpaceCommonType.version)
-  | SelectElement(FrontendUtils.BackendCloudbaseType.elementAssembleData)
+  | SelectElement(BackendCloudbaseType.elementAssembleData)
   | NotSelectElement(
-      FrontendUtils.BackendCloudbaseType.elementName,
-      FrontendUtils.BackendCloudbaseType.elementVersion,
+      BackendCloudbaseType.elementName,
+      BackendCloudbaseType.elementVersion,
     )
-  | SelectAllElements(list<FrontendUtils.BackendCloudbaseType.elementAssembleData>)
+  | SelectAllElements(list<BackendCloudbaseType.elementAssembleData>)
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes, selectedPackages)
   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)

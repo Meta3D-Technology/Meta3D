@@ -881,8 +881,9 @@ defineFeature(feature, test => {
                     ~id,
                     ~event=[
                       UIControlInspectorTool.buildEventData(
-                        _getButtonClickEventName(),
-                        action2Name,
+                        ~eventName=_getButtonClickEventName(),
+                        ~actionName=action2Name,
+                        (),
                       ),
                     ],
                     (),

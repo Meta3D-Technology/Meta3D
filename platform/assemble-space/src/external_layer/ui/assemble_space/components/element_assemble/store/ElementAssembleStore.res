@@ -59,6 +59,63 @@ let _setUIControlInspectorData = (state, setFunc, id) => {
   }
 }
 
+let _setActionData = (state, id, eventName, actionNameOpt, actionFileStr) => {
+  _setUIControlInspectorData(
+    state,
+    data => {
+      ...data,
+      event: switch data.event {
+      | event
+        if event->Meta3dCommonlib.ArraySt.length == 0 &&
+          actionNameOpt->Meta3dCommonlib.OptionSt.isSome => [
+          {
+            eventName,
+            actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
+            actionFileStr,
+          },
+        ]
+      | _ =>
+        switch actionNameOpt {
+        | None =>
+          data.event->Meta3dCommonlib.ArraySt.filter(eventData => {
+            eventData.eventName !== eventName
+          })
+        | Some(actionName) =>
+          data.event->Meta3dCommonlib.ArraySt.includesByFunc(eventData => {
+            eventData.eventName === eventName
+          })
+            ? data.event->Meta3dCommonlib.ArraySt.map(eventData => {
+                eventData.eventName === eventName
+                  ? {
+                      (
+                        {
+                          eventName,
+                          actionName,
+                          actionFileStr,
+                        }: eventData
+                      )
+                    }
+                  : eventData
+              })
+            : data.event->Js.Array.concat(
+                [
+                  (
+                    {
+                      eventName,
+                      actionName,
+                      actionFileStr,
+                    }: eventData
+                  ),
+                ],
+                _,
+              )
+        }
+      },
+    },
+    id,
+  )
+}
+
 let _findParentUIControlId = (
   (hasChildren, serializeUIControlProtocolConfigLib),
   selectedUIControls,
@@ -232,57 +289,9 @@ let reducer = (state, action) => {
       id,
     )
   | SetAction(id, (eventName, actionNameOpt)) =>
-    _setUIControlInspectorData(
-      state,
-      data => {
-        ...data,
-        event: switch data.event {
-        | event
-          if event->Meta3dCommonlib.ArraySt.length == 0 &&
-            actionNameOpt->Meta3dCommonlib.OptionSt.isSome => [
-            {
-              eventName,
-              actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
-            },
-          ]
-        | _ =>
-          switch actionNameOpt {
-          | None =>
-            data.event->Meta3dCommonlib.ArraySt.filter(eventData => {
-              eventData.eventName !== eventName
-            })
-          | Some(actionName) =>
-            data.event->Meta3dCommonlib.ArraySt.includesByFunc(eventData => {
-              eventData.eventName === eventName
-            })
-              ? data.event->Meta3dCommonlib.ArraySt.map(eventData => {
-                  eventData.eventName === eventName
-                    ? {
-                        (
-                          {
-                            eventName,
-                            actionName,
-                          }: eventData
-                        )
-                      }
-                    : eventData
-                })
-              : data.event->Js.Array.concat(
-                  [
-                    (
-                      {
-                        eventName,
-                        actionName,
-                      }: eventData
-                    ),
-                  ],
-                  _,
-                )
-          }
-        },
-      },
-      id,
-    )
+    _setActionData(state, id, eventName, actionNameOpt, None)
+  | SetActionFileStr(id, eventName, actionName, actionFileStr) =>
+    _setActionData(state, id, eventName, actionName->Some, actionFileStr->Some)
   | SelectRootUIControl => {
       ...state,
       parentUIControlId: None,

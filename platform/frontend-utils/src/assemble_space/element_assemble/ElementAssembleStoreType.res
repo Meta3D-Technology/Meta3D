@@ -33,9 +33,9 @@ type selectedUIControls = list<uiControl>
 
 type actionName = CommonType.actionName
 
-type eventData = CommonType.eventData
+// type eventData = CommonType.eventData
 
-type event = CommonType.event
+// type event = CommonType.event
 
 type rectField = CommonType.rectField
 
@@ -55,6 +55,14 @@ type input = {
   inputName: inputName,
   inputFileStr: option<CommonType.inputFileStr>,
 }
+
+type eventData = {
+  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  actionName: actionName,
+  actionFileStr: option<CommonType.actionFileStr>,
+}
+
+type event = array<eventData>
 
 type rec uiControlInspectorData = {
   id: id,
@@ -131,6 +139,12 @@ type action =
   | SetInput(id, option<inputName>)
   | SetInputFileStr(id, inputName, CommonType.inputFileStr)
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
+  | SetActionFileStr(
+      id,
+      Meta3dType.ContributeProtocolConfigType.eventName,
+      actionName,
+      CommonType.actionFileStr,
+    )
   // | SetVisualExtension(ApAssembleStoreType.extension)
   // | SetRunVisualExtension(ApAssembleStoreType.extension)
   | SetElementContribute(elementContribute)

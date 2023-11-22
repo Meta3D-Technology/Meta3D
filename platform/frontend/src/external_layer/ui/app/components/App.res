@@ -116,7 +116,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         Meta3d.Main.convertAllFileDataForPackage(allExtensionFileData, allContributeFileData, data),
       convertAllFileDataForApp: (. allContributeFileData) =>
         Meta3d.Main.convertAllFileDataForApp(allContributeFileData),
-      loadApp: (. appBinaryFile) => Meta3d.Main.loadApp(appBinaryFile),
+      loadApp: (. addGeneratedContributeFunc, appBinaryFile) =>
+        Meta3d.Main.loadApp(addGeneratedContributeFunc, appBinaryFile),
       getExtensionFuncDataStr: (. extensionFuncData) =>
         Meta3d.Main.getExtensionFuncDataStr(extensionFuncData),
       getExtensionFuncData: (. extensionFuncDataStr) =>

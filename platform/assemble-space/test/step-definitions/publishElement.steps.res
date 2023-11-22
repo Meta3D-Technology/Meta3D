@@ -128,7 +128,9 @@ defineFeature(feature, test => {
       //   ElementInspectorTool.buildElementInspectorData(list{})
 
       input := UIControlInspectorTool.buildInput(~inputName="input", ())
-      event := [UIControlInspectorTool.buildEventData(#button_click, "a1")]
+      event := [
+          UIControlInspectorTool.buildEventData(~eventName=#button_click, ~actionName="a1", ()),
+        ]
 
       isDraw := false->FrontendUtils.CommonType.BoolForIsDraw
 
@@ -416,7 +418,7 @@ defineFeature(feature, test => {
                   ),
                   isDraw: isDraw.contents,
                   input: input.contents->Some->ImportElementTool.convertInput,
-                  event: event.contents,
+                  event: event.contents->ImportElementTool.convertEvent,
                   specific: specific.contents,
                   children: [
                     {
@@ -431,7 +433,7 @@ defineFeature(feature, test => {
                       ),
                       isDraw: isDraw.contents,
                       input: Meta3dCommonlib.NullableSt.getEmpty(),
-                      event: event.contents,
+                      event: event.contents->ImportElementTool.convertEvent,
                       specific: specific.contents,
                       children: [],
                     },

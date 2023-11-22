@@ -69,34 +69,35 @@ type extensionFileData = {
   extensionFuncData: extensionFuncData,
 }
 
-type contributePackageData = {
-  name: contributeName,
-  version: version,
-  account: account,
-  displayName: string,
-  repoLink: string,
-  description: string,
-  // protocolName: contributeProtocolName,
-  // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
-  // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
-  protocol: ExtensionFileType.contributeProtocolData,
-  // dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-  //   ExtensionFileType.dependentExtensionProtocolNameKey,
-  //   ExtensionFileType.dependentExtensionData,
-  // >,
-  // dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-  //   ExtensionFileType.dependentContributeProtocolNameKey,
-  //   ExtensionFileType.dependentContributeData,
-  // >,
-  dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    packageProtocolName,
-    packageProtocolVersion,
-  >,
-  dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
-    ExtensionFileType.blockProtocolName,
-    ExtensionFileType.blockProtocolVersion,
-  >,
-}
+// type contributePackageData = {
+//   name: contributeName,
+//   version: version,
+//   account: account,
+//   displayName: string,
+//   repoLink: string,
+//   description: string,
+//   // protocolName: contributeProtocolName,
+//   // dependentExtensionProtocolNameMap: dependentExtensionProtocolNameMap,
+//   // dependentContributeProtocolNameMap: dependentContributeProtocolNameMap,
+//   protocol: ExtensionFileType.contributeProtocolData,
+//   // dependentExtensionProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+//   //   ExtensionFileType.dependentExtensionProtocolNameKey,
+//   //   ExtensionFileType.dependentExtensionData,
+//   // >,
+//   // dependentContributeProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+//   //   ExtensionFileType.dependentContributeProtocolNameKey,
+//   //   ExtensionFileType.dependentContributeData,
+//   // >,
+//   dependentPackageStoredInAppProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+//     packageProtocolName,
+//     packageProtocolVersion,
+//   >,
+//   dependentBlockProtocolNameMap: Meta3dCommonlibType.ImmutableHashMapType.t<
+//     ExtensionFileType.blockProtocolName,
+//     ExtensionFileType.blockProtocolVersion,
+//   >,
+// }
+type contributePackageData = ExtensionFileType.contributePackageData
 
 // type contributeFuncData = ExtensionFileType.contributeFuncData
 // type contributeFuncData = Js.Typed_array.Uint8Array.t

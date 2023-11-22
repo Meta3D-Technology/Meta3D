@@ -37,10 +37,10 @@ function convertAllFileData(allExtensionFileData, allContributeFileData, entryEx
                                 name: contributePackageData.name,
                                 version: contributePackageData.version,
                                 account: contributePackageData.account,
+                                protocol: contributePackageData.protocol,
                                 displayName: contributePackageData.displayName,
                                 repoLink: contributePackageData.repoLink,
                                 description: contributePackageData.description,
-                                protocol: contributePackageData.protocol,
                                 dependentPackageStoredInAppProtocolNameMap: contributePackageData.dependentPackageStoredInAppProtocolNameMap,
                                 dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                               },

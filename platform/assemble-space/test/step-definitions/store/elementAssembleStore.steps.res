@@ -21,10 +21,7 @@ defineFeature(feature, test => {
 
   test(."set rect of hierachy ui control", ({given, \"when", \"and", then}) => {
     let id2 = ref(Obj.magic(1))
-    let rect = UIControlInspectorTool.buildRect(
-      ~x=11->FrontendUtils.CommonType.IntForRectField,
-      (),
-    )
+    let rect = UIControlInspectorTool.buildRect(~x=11->FrontendUtils.CommonType.IntForRectField, ())
 
     _prepare(given)
 
@@ -189,7 +186,7 @@ defineFeature(feature, test => {
           list{
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id=id1.contents,
-              ~event=[UIControlInspectorTool.buildEventData(eventName, actionName)],
+              ~event=[UIControlInspectorTool.buildEventData(~eventName, ~actionName, ())],
               (),
             ),
           }
@@ -243,8 +240,16 @@ defineFeature(feature, test => {
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id=id1.contents,
               ~event=[
-                UIControlInspectorTool.buildEventData(eventName1, actionName1),
-                UIControlInspectorTool.buildEventData(eventName2, actionName2),
+                UIControlInspectorTool.buildEventData(
+                  ~eventName=eventName1,
+                  ~actionName=actionName1,
+                  (),
+                ),
+                UIControlInspectorTool.buildEventData(
+                  ~eventName=eventName2,
+                  ~actionName=actionName2,
+                  (),
+                ),
               ],
               (),
             ),

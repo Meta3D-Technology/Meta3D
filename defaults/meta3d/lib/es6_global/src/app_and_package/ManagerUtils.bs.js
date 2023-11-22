@@ -73,13 +73,20 @@ function getContributeFunc(contributeFuncData, decoder) {
   return LibUtils$Meta3d.getFuncFromLib(lib, "getContribute");
 }
 
+function convertContributeFuncData(contributeFuncData) {
+  var decoder = new TextDecoder("utf-8");
+  return {
+          getContributeFunc: getContributeFunc(contributeFuncData, decoder)
+        };
+}
+
 function _mergeAllPackageBinaryUint8s(param) {
   if (param.length !== 2) {
     throw {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            81,
+            87,
             39
           ],
           Error: new Error()
@@ -94,7 +101,7 @@ function _mergeAllPackageBinaryUint8s(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            86,
+                            92,
                             4
                           ],
                           Error: new Error()
@@ -108,7 +115,7 @@ function _mergeAllPackageBinaryUint8s(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            87,
+                            93,
                             10
                           ],
                           Error: new Error()
@@ -134,7 +141,7 @@ function _parse1(param) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            115,
+            121,
             14
           ],
           Error: new Error()
@@ -153,7 +160,7 @@ function _parse1(param) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            118,
+            124,
             6
           ],
           Error: new Error()
@@ -168,7 +175,7 @@ function _parse1(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            126,
+                            132,
                             34
                           ],
                           Error: new Error()
@@ -192,7 +199,7 @@ function _parse1(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            144,
+                            150,
                             34
                           ],
                           Error: new Error()
@@ -202,9 +209,7 @@ function _parse1(param) {
                   var contributeFuncData = param[1];
                   return {
                           contributePackageData: JSON.parse(FileUtils$Meta3d.removeAlignedEmptyChars(TextDecoder$Meta3d.decodeUint8Array(contributePackageData, decoder))),
-                          contributeFuncData: {
-                            getContributeFunc: getContributeFunc(contributeFuncData, decoder)
-                          }
+                          contributeFuncData: convertContributeFuncData(contributeFuncData)
                         };
                 }))
         ];
@@ -220,7 +225,7 @@ function _parse(param) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            165,
+            172,
             13
           ],
           Error: new Error()
@@ -237,7 +242,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            171,
+                            178,
                             34
                           ],
                           Error: new Error()
@@ -256,7 +261,7 @@ function _parse(param) {
                           RE_EXN_ID: "Match_failure",
                           _1: [
                             "ManagerUtils.res",
-                            182,
+                            189,
                             34
                           ],
                           Error: new Error()
@@ -281,7 +286,7 @@ function parse2(param) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "ManagerUtils.res",
-            197,
+            204,
             13
           ],
           Error: new Error()
@@ -399,6 +404,7 @@ export {
   getContributeFuncDataStr ,
   getContributeFuncData ,
   getContributeFunc ,
+  convertContributeFuncData ,
   _mergeAllPackageBinaryUint8s ,
   _parse1 ,
   decodePackageData ,

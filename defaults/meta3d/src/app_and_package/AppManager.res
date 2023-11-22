@@ -237,12 +237,8 @@ let load = (addGeneratedContributeFunc, appBinaryFile: ArrayBuffer.t): (
   let (state, _) = ManagerUtils.loadApp(
     addGeneratedContributeFunc,
     _decode(selectedElementsUint8)->Js.Json.parseExn->Obj.magic,
-    [
-    allExtensionUint8,
-    allContributeUint8,
-    allPackageUint8NotStoredInApp,
-    Obj.magic(1),
-  ])
+    [allExtensionUint8, allContributeUint8, allPackageUint8NotStoredInApp, Obj.magic(1)],
+  )
 
   let state = state->_loadAllPackageUint8StoredInApp(allPackageUint8StoredInApp)
 

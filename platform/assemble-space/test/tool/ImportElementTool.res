@@ -15,6 +15,16 @@ let convertInput = input => {
   ->Meta3dCommonlib.OptionSt.toNullable
 }
 
+let convertEvent = event => {
+  event->Meta3dCommonlib.ArraySt.map((
+    {eventName, actionName, actionFileStr}: FrontendUtils.ElementAssembleStoreType.eventData,
+  ): FrontendUtils.BackendCloudbaseType.eventData => {
+    eventName,
+    actionName,
+    actionFileStr: actionFileStr->Meta3dCommonlib.OptionSt.toNullable,
+  })
+}
+
 let inConvertInput = input => {
   input
   ->Meta3dCommonlib.NullableSt.map((.
@@ -24,6 +34,16 @@ let inConvertInput = input => {
     inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.fromNullable,
   })
   ->Meta3dCommonlib.OptionSt.fromNullable
+}
+
+let inConvertEvent = event => {
+  event->Meta3dCommonlib.ArraySt.map((
+    {eventName, actionName, actionFileStr}: FrontendUtils.BackendCloudbaseType.eventData,
+  ): FrontendUtils.ElementAssembleStoreType.eventData => {
+    eventName,
+    actionName,
+    actionFileStr: actionFileStr->Meta3dCommonlib.OptionSt.fromNullable,
+  })
 }
 
 let buildUIControl = (
@@ -46,7 +66,7 @@ let buildUIControl = (
   rect,
   isDraw,
   input: input->convertInput,
-  event,
+  event: event->convertEvent,
   specific,
   children,
 }

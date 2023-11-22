@@ -66,15 +66,17 @@ type inputName = string
 
 type inputFileStr = string
 
+type actionFileStr = string
+
 type actionName = string
 
-type eventData = {
-  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
-  // eventName: eventName,
-  actionName: actionName,
-}
+// type eventData = {
+//   eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+//   // eventName: eventName,
+//   actionName: actionName,
+// }
 
-type event = array<eventData>
+// type event = array<eventData>
 
 type specificDataType = Meta3dType.UIControlProtocolConfigType.uiControlSpecicFieldType
 

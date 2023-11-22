@@ -72,9 +72,9 @@ type convertAllFileDataForPackage = (
 )
 
 type addGeneratedContributeFunc = (
-  array<Meta3d.ExtensionFileType.contributeFileData>,
+  array<Meta3d.AppAndPackageFileType.contributeFileData>,
   Meta3d.AppAndPackageFileType.selectedElements,
-) => array<Meta3d.ExtensionFileType.contributeFileData>
+) => array<Meta3d.AppAndPackageFileType.contributeFileData>
 
 type meta3dService = {
   getPackageService: 'packageService. (. Meta3dType.Index.state, string) => 'packageService,

@@ -1,6 +1,7 @@
 
 
 import * as AppManager$Meta3d from "./app_and_package/AppManager.bs.js";
+import * as ManagerUtils$Meta3d from "./app_and_package/ManagerUtils.bs.js";
 import * as PackageManager$Meta3d from "./app_and_package/PackageManager.bs.js";
 import * as ExtensionManager$Meta3d from "./ExtensionManager.bs.js";
 import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js";
@@ -61,6 +62,8 @@ var getExtensionFuncData = AppManager$Meta3d.getExtensionFuncData;
 
 var getContributeFuncDataStr = AppManager$Meta3d.getContributeFuncDataStr;
 
+var convertContributeFuncData = ManagerUtils$Meta3d.convertContributeFuncData;
+
 var getContributeFuncData = AppManager$Meta3d.getContributeFuncData;
 
 var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
@@ -113,6 +116,7 @@ export {
   getExtensionFuncDataStr ,
   getExtensionFuncData ,
   getContributeFuncDataStr ,
+  convertContributeFuncData ,
   getContributeFuncData ,
   serializeUIControlProtocolConfigLib ,
   generateUIControlCommonDataStr ,

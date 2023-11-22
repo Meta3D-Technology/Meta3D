@@ -44,12 +44,20 @@ module Method = {
       (
         AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-        FrontendUtils.ElementUtils.addGeneratedInputContributeForElementAssemble(
+        selectedContributes
+        ->FrontendUtils.ElementUtils.addGeneratedInputContributeForElementAssemble(
           (service.meta3d.generateContribute, service.meta3d.loadContribute),
-          selectedContributes,
+          _,
           account,
           selectedUIControlInspectorData,
-        )->Meta3dCommonlib.ListSt.toArray,
+        )
+        ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
+          (service.meta3d.generateContribute, service.meta3d.loadContribute),
+          _,
+          account,
+          selectedUIControlInspectorData,
+        )
+        ->Meta3dCommonlib.ListSt.toArray,
       ),
       list{},
       elementContribute,

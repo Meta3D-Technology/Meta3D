@@ -36,12 +36,14 @@ let buildInput = (
 }
 
 let buildEventData = (
-  // eventName: Meta3dType.ContributeProtocolConfigType.eventName,
-  eventName,
-  actionName,
+  ~eventName,
+  ~actionName,
+  ~actionFileStr=None,
+  (),
 ): FrontendUtils.ElementAssembleStoreType.eventData => {
   eventName,
   actionName,
+  actionFileStr,
 }
 
 let buildSpecific = (

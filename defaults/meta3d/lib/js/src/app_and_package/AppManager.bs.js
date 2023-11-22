@@ -20,10 +20,10 @@ function convertAllFileData(allContributeFileData) {
                               name: contributePackageData.name,
                               version: contributePackageData.version,
                               account: contributePackageData.account,
+                              protocol: contributePackageData.protocol,
                               displayName: contributePackageData.displayName,
                               repoLink: contributePackageData.repoLink,
                               description: contributePackageData.description,
-                              protocol: contributePackageData.protocol,
                               dependentPackageStoredInAppProtocolNameMap: contributePackageData.dependentPackageStoredInAppProtocolNameMap,
                               dependentBlockProtocolNameMap: contributePackageData.dependentBlockProtocolNameMap
                             },
@@ -161,7 +161,7 @@ function getAllDataOfApp(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            294,
+            290,
             6
           ],
           Error: new Error()

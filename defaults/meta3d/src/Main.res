@@ -52,6 +52,8 @@ let getExtensionFuncData = AppManager.getExtensionFuncData
 
 let getContributeFuncDataStr = AppManager.getContributeFuncDataStr
 
+let convertContributeFuncData = ManagerUtils.convertContributeFuncData
+
 let getContributeFuncData = AppManager.getContributeFuncData
 
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib

@@ -336,7 +336,13 @@ defineFeature(feature, test => {
             ),
             ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
             ~input=UIControlInspectorTool.buildInput(~inputName=i1Name, ())->Some,
-            ~event=[UIControlInspectorTool.buildEventData(#button_click, a1Name)],
+            ~event=[
+              UIControlInspectorTool.buildEventData(
+                ~eventName=#button_click,
+                ~actionName=a1Name,
+                (),
+              ),
+            ],
             ~specific=[Obj.magic(10)],
             ~children=[],
             (),
@@ -367,7 +373,13 @@ defineFeature(feature, test => {
             ),
             ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
             ~input=UIControlInspectorTool.buildInput(~inputName="i2_", ())->Some,
-            ~event=[UIControlInspectorTool.buildEventData(#button_click, "a2_")],
+            ~event=[
+              UIControlInspectorTool.buildEventData(
+                ~eventName=#button_click,
+                ~actionName="a2_",
+                (),
+              ),
+            ],
             ~specific=[Obj.magic(10)],
             ~children=[],
             (),
@@ -470,7 +482,7 @@ defineFeature(feature, test => {
                 ~x=rect.x,
                 ~isDraw,
                 ~input=input->ImportElementTool.inConvertInput,
-                ~event,
+                ~event=event->ImportElementTool.inConvertEvent,
                 ~specific,
                 ~children=list{},
                 (),

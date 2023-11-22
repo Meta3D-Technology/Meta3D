@@ -92,6 +92,31 @@ module Method = {
     )
   }
 
+  let buildInputNameSelectValues = (
+    service,
+    selectedContributes,
+    uiControlProtocolName,
+    input: option<FrontendUtils.ElementAssembleStoreType.input>,
+  ) => {
+    let values =
+      SelectedContributesForElementUtils.getInputs(selectedContributes)
+      ->Meta3dCommonlib.ListSt.toArray
+      ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+        data.contributePackageData.protocol.name->Js.String.replace("-input-", "-ui-control-", _) ==
+          uiControlProtocolName
+      })
+      ->Meta3dCommonlib.ArraySt.map(({data}) => {
+        (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
+      })
+
+    switch input {
+    | Some({inputName}) if !(values->Meta3dCommonlib.ArraySt.includes(inputName)) =>
+      values->Meta3dCommonlib.ArraySt.push(inputName)
+    // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. value) => value)
+    | _ => values
+    }
+  }
+
   let setInput = (dispatch, id, inputName: string) => {
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetInput(
@@ -102,8 +127,7 @@ module Method = {
   }
 
   let buildDefaultInputFileStr = uiControlProtocolName => {
-    j`
-window.Contribute = {
+    j`window.Contribute = {
     getContribute: (api) => {
       return {
         inputName: "${ElementVisualUtils.buildDefaultInputNameForInputFileStr(
@@ -114,8 +138,7 @@ window.Contribute = {
         }
       }
     }
-}
-    `
+}`
   }
 
   let setInputFileStrData = (dispatch, id, inputName, inputFileStr) => {
@@ -144,6 +167,72 @@ window.Contribute = {
         ),
       ),
     )
+  }
+
+  let buildActionNameSelectValues = (service, actions, actionName) => {
+    let values = actions->Meta3dCommonlib.ArraySt.map((
+      {data}: FrontendUtils.ApAssembleStoreType.contribute,
+    ) => {
+      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
+    })
+
+    switch actionName {
+    | Some(actionName) if !(values->Meta3dCommonlib.ArraySt.includes(actionName)) =>
+      values->Meta3dCommonlib.ArraySt.push(actionName)
+    | _ => values
+    }
+  }
+
+  let buildDefaultActionFileStr = (uiControlProtocolName, eventName) => {
+    j`window.Contribute = {
+  getContribute: (api) => {
+    return {
+      actionName: "${ElementVisualUtils.buildDefaultActionNameForActionFileStr(
+        uiControlProtocolName,
+        eventName,
+      )}",
+      init: (meta3dState) => {
+        let eventSourcingService = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol").event(meta3dState).eventSourcing(meta3dState)
+
+        return new Promise((resolve, reject) => {
+          resolve(eventSourcingService.on(meta3dState, "${eventName}", 0, (meta3dState) => {
+            return Promise.resolve(meta3dState)
+          }, (meta3dState) => {
+            return Promise.resolve(meta3dState)
+          }))
+        })
+      },
+      handler: (meta3dState, uiData) => {
+        return new Promise((resolve, reject) => {
+          let eventSourcingService = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol").event(meta3dState).eventSourcing(meta3dState)
+
+          resolve(eventSourcingService.addEvent(meta3dState, {
+            name: "${eventName}",
+            inputData: []
+          }))
+        })
+      },
+      createState: () => {
+        return null
+      }
+    }
+  }
+}`
+  }
+
+  let setActionFileStrData = (dispatch, id, eventName, actionName, actionFileStr) => {
+    switch actionFileStr {
+    | Some(actionFileStr) =>
+      dispatch(
+        FrontendUtils.ElementAssembleStoreType.SetActionFileStr(
+          id,
+          eventName,
+          actionName,
+          actionFileStr,
+        ),
+      )
+    | None => ()
+    }
   }
 
   let _getRectFieldIntValue = (rectField: FrontendUtils.ElementAssembleStoreType.rectField) => {
@@ -428,6 +517,27 @@ let make = (~service: service) => {
       input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) => inputFileStr)
     )
   )
+  let (actionFileStrMap, setActionFileStrMap) = service.react.useState(_ => {
+    let map = Meta3dCommonlib.ImmutableHashMap.createEmpty()
+
+    Method.getCurrentSelectedUIControlInspectorData(
+      inspectorCurrentUIControlId,
+      selectedUIControlInspectorData,
+    )
+    ->Meta3dCommonlib.OptionSt.map(({event}) =>
+      event->Meta3dCommonlib.ArraySt.reduceOneParam(
+        (. map, {eventName, actionFileStr}) => {
+          switch actionFileStr {
+          | Some(actionFileStr) =>
+            map->Meta3dCommonlib.ImmutableHashMap.set(eventName->Obj.magic, actionFileStr)
+          | None => map
+          }
+        },
+        map,
+      )
+    )
+    ->Meta3dCommonlib.OptionSt.getWithDefault(map)
+  })
 
   // let {elementStateFields} = elementInspectorData
 
@@ -484,20 +594,12 @@ let make = (~service: service) => {
               ->Meta3dCommonlib.OptionSt.getWithDefault(
                 FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
               ),
-              SelectedContributesForElementUtils.getInputs(selectedContributes)
-              ->Meta3dCommonlib.ListSt.toArray
-              ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-                data.contributePackageData.protocol.name->Js.String.replace(
-                  "-input-",
-                  "-ui-control-",
-                  _,
-                ) == uiControlProtocolName
-              })
-              ->Meta3dCommonlib.ArraySt.map(({data}) => {
-                (
-                  service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
-                )["inputName"]
-              }),
+              Method.buildInputNameSelectValues(
+                service,
+                selectedContributes,
+                uiControlProtocolName,
+                input,
+              ),
             )}
             {TextareaUtils.isNotShowTextareaForTest()
               ? React.null
@@ -539,20 +641,62 @@ let make = (~service: service) => {
                 )
 
               <List.Item key={eventName->Obj.magic}>
-                <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
-                {FrontendUtils.SelectUtils.buildSelect(
-                  Method.setAction(dispatch, id, eventName),
-                  value,
-                  actions
-                  // ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-                  //   data.contributePackageData.protocol.name == actionProtocolName
-                  // })
-                  ->Meta3dCommonlib.ArraySt.map(({data}) => {
-                    (
-                      service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic
-                    )["actionName"]
-                  }),
-                )}
+                <Space direction=#vertical size=#middle>
+                  {<Space direction=#horizontal size=#middle>
+                    <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
+                    {FrontendUtils.SelectUtils.buildSelect(
+                      Method.setAction(dispatch, id, eventName),
+                      value,
+                      Method.buildActionNameSelectValues(
+                        service,
+                        actions,
+                        ElementMRUtils.getActionName(
+                          event,
+                          eventName,
+                        )->Meta3dCommonlib.OptionSt.fromNullable,
+                      ),
+                    )}
+                  </Space>}
+                  {TextareaUtils.isNotShowTextareaForTest()
+                    ? React.null
+                    : <Input.TextArea
+                        value={actionFileStrMap
+                        ->Meta3dCommonlib.ImmutableHashMap.get(eventName->Obj.magic)
+                        ->Meta3dCommonlib.OptionSt.getWithDefault(
+                          Method.buildDefaultActionFileStr(
+                            uiControlProtocolName,
+                            eventName->Obj.magic,
+                          ),
+                        )}
+                        onChange={e => {
+                          setActionFileStrMap(map =>
+                            map->Meta3dCommonlib.ImmutableHashMap.set(
+                              eventName->Obj.magic,
+                              e->EventUtils.getEventTargetValue,
+                            )
+                          )
+                        }}
+                      />}
+                  <Button
+                    onClick={_ => {
+                      FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                        Method.setActionFileStrData(
+                          dispatch,
+                          id,
+                          eventName,
+                          ElementVisualUtils.buildDefaultActionNameForActionFileStr(
+                            uiControlProtocolName,
+                            eventName->Obj.magic,
+                          ),
+                          actionFileStrMap->Meta3dCommonlib.ImmutableHashMap.get(
+                            eventName->Obj.magic,
+                          ),
+                        )
+                      }, 5->Some)
+                    }}>
+                    {React.string(`提交`)}
+                  </Button>
+                </Space>
               </List.Item>
             }}
           />

@@ -1,6 +1,7 @@
 'use strict';
 
 var AppManager$Meta3d = require("./app_and_package/AppManager.bs.js");
+var ManagerUtils$Meta3d = require("./app_and_package/ManagerUtils.bs.js");
 var PackageManager$Meta3d = require("./app_and_package/PackageManager.bs.js");
 var ExtensionManager$Meta3d = require("./ExtensionManager.bs.js");
 var ExtensionFileManager$Meta3d = require("./file/ExtensionFileManager.bs.js");
@@ -61,6 +62,8 @@ var getExtensionFuncData = AppManager$Meta3d.getExtensionFuncData;
 
 var getContributeFuncDataStr = AppManager$Meta3d.getContributeFuncDataStr;
 
+var convertContributeFuncData = ManagerUtils$Meta3d.convertContributeFuncData;
+
 var getContributeFuncData = AppManager$Meta3d.getContributeFuncData;
 
 var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
@@ -112,6 +115,7 @@ exports.execGetContributeFunc = execGetContributeFunc;
 exports.getExtensionFuncDataStr = getExtensionFuncDataStr;
 exports.getExtensionFuncData = getExtensionFuncData;
 exports.getContributeFuncDataStr = getContributeFuncDataStr;
+exports.convertContributeFuncData = convertContributeFuncData;
 exports.getContributeFuncData = getContributeFuncData;
 exports.serializeUIControlProtocolConfigLib = serializeUIControlProtocolConfigLib;
 exports.generateUIControlCommonDataStr = generateUIControlCommonDataStr;

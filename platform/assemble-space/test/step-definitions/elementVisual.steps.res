@@ -265,6 +265,9 @@ defineFeature(feature, test => {
     let account = "a1"
     let inputName = "i1"
     let inputFileStr = ElementVisualTool.buildEmptyContributeFileStr()
+    let eventName = "run"
+    let actionName = "action1"
+    let actionFileStr = ElementVisualTool.buildEmptyContributeFileStr()
     let selectedUIControlInspectorData = ref(Obj.magic(1))
     let selectedPackages = ref(list{})
     let allContributeDataArrRef = ref(Obj.magic(1))
@@ -322,7 +325,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "prepare one input file str in ui control inspector data",
+      "prepare one input file str in one ui control inspector data",
       () => {
         selectedUIControlInspectorData :=
           list{
@@ -333,6 +336,28 @@ defineFeature(feature, test => {
                 ~inputFileStr=inputFileStr->Some,
                 (),
               )->Some,
+              (),
+            ),
+          }
+      },
+    )
+
+    \"and"(
+      "prepare one action file str in one ui control inspector data",
+      () => {
+        selectedUIControlInspectorData :=
+          list{
+            ...selectedUIControlInspectorData.contents,
+            UIControlInspectorTool.buildUIControlInspectorData(
+              ~id=actionName,
+              ~event=[
+                UIControlInspectorTool.buildEventData(
+                  ~eventName=eventName->Obj.magic,
+                  ~actionName,
+                  ~actionFileStr=actionFileStr->Some,
+                  (),
+                ),
+              ],
               (),
             ),
           }
@@ -561,7 +586,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "register one generated input contribute",
+      "register one generated input contribute one generated action contribute",
       () => {
         allContributeDataArrRef.contents->expect == [
             ContributeTool.generateContribute(
@@ -576,6 +601,20 @@ defineFeature(feature, test => {
               ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
               ~fileStr=inputFileStr,
+              (),
+            )->Meta3d.Main.loadContribute,
+            ContributeTool.generateContribute(
+              ~name=actionName,
+              ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
+              ~account,
+              ~displayName="",
+              ~repoLink="",
+              ~description="",
+              ~protocolName=j`${actionName}-protocol`,
+              ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
+              ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+              ~fileStr=actionFileStr,
               (),
             )->Meta3d.Main.loadContribute,
           ]

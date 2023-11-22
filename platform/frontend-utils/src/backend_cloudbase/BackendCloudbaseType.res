@@ -123,6 +123,10 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -130,6 +134,10 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -263,6 +271,10 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -270,6 +282,10 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -412,9 +428,17 @@ type uiControlProtocol = {
 }
 
 type input = {
-  inputName: CommonType. inputName,
+  inputName: CommonType.inputName,
   inputFileStr: Js.Nullable.t<CommonType.inputFileStr>,
 }
+
+type eventData = {
+  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+  actionName: CommonType.actionName,
+  actionFileStr: Js.Nullable.t<CommonType.actionFileStr>,
+}
+
+type event = array<eventData>
 
 type rec uiControl = {
   protocol: uiControlProtocol,
@@ -422,7 +446,7 @@ type rec uiControl = {
   rect: CommonType.rect,
   isDraw: CommonType.isDraw,
   input: Js.Nullable.t<input>,
-  event: CommonType.event,
+  event: event,
   specific: CommonType.specific,
   children: array<uiControl>,
 }

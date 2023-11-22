@@ -129,6 +129,12 @@ module Method = {
         account,
         selectedUIControlInspectorData,
       )
+      ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
+        (service.meta3d.generateContribute, service.meta3d.loadContribute),
+        _,
+        account,
+        selectedUIControlInspectorData,
+      )
       ->Meta3dCommonlib.ListSt.toArray,
       list{},
       Js.Nullable.null,
@@ -412,7 +418,15 @@ module Method = {
             inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.fromNullable,
           }
         }),
-        event,
+        event: event->Meta3dCommonlib.ArraySt.map(({
+          eventName,
+          actionName,
+          actionFileStr,
+        }): FrontendUtils.ElementAssembleStoreType.eventData => {
+          eventName,
+          actionName,
+          actionFileStr: actionFileStr->Meta3dCommonlib.OptionSt.fromNullable,
+        }),
         specific,
         children: _generate(
           children,
@@ -470,7 +484,12 @@ module Method = {
               ? input->Meta3dCommonlib.NullableSt.return
               : Meta3dCommonlib.NullableSt.getEmpty()
           }),
-          event: uiControl.event->Meta3dCommonlib.ArraySt.filter(({actionName}) => {
+          event: uiControl.event->Meta3dCommonlib.ArraySt.filter(({eventName, actionName}) => {
+            ElementVisualUtils.isForActionFileStr(
+              actionName,
+              uiControl.protocol.name,
+              eventName->Obj.magic,
+            ) ||
             selectedActionNames->Meta3dCommonlib.ListSt.includes(actionName)
           }),
           children: _remove(uiControl.children),

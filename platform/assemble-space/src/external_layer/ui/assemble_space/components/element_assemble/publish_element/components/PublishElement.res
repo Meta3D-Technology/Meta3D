@@ -56,7 +56,17 @@ module Method = {
           }
         })
         ->Meta3dCommonlib.OptionSt.toNullable,
-        event,
+        event: event->Meta3dCommonlib.ArraySt.map(({
+          eventName,
+          actionName,
+          actionFileStr,
+        }): FrontendUtils.BackendCloudbaseType.eventData => {
+          {
+            eventName,
+            actionName,
+            actionFileStr: actionFileStr->Meta3dCommonlib.OptionSt.toNullable,
+          }
+        }),
         specific,
         children: _convertToUIControls(children, selectedUIControls),
       }

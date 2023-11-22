@@ -636,7 +636,7 @@ TODO bdd test
 
 *** TODO feat: action, uiControlInput add input textarea so that can get content by select or input
 
-**** TODO input
+**** DONE input
 
 # TODO generate and register contribute
 
@@ -666,23 +666,54 @@ TODO bdd test
 
 TODO run test:
     create, run
+        fix select
+    run app
+
     publish app->import app->run
 
 
 
 
-**** TODO refactor: not add element contribute when publish
-    TODO add when run app
-    TODO not remove when import
+# **** TODO refactor: not add element contribute when publish
+#     TODO add when run app
+#     TODO not remove when import
 
 
 
 
-**** TODO action
+**** DONE action
+
+
+TODO store in element data:
+    TODO add to ui control inspector->action 
+    TODO store in element data when publish element
+    TODO build from selectedElements get it
+
+    TODO when generate app(in visual, visual run, run app), selectedContributes add generated contribute from element data
 
 
 
-*** TODO only get editor whole service
+TODO auto generate actionName
+
+TODO provide default str
+
+
+
+TODO pass compile
+
+TODO pass bdd test
+
+TODO pass run test:
+    create, run
+    run app
+    publish app->import app->run
+
+    TODO fix ui:
+    rows newline
+
+
+
+*** TODO refactor api for input, action
 TODO update ui control and input api:
 api = {
     editorWholePackage service(actually engine-whole-protocol),
@@ -693,6 +724,16 @@ api = {
 
     get/setActionState(for all actions' states),
 }
+
+
+TODO add utils api:
+e.g.:
+nullable->getExn, ...; 
+immutable->List, ...
+
+
+
+TODO update default input, action file str
 
 
 *** TODO update Action
@@ -866,6 +907,7 @@ TODO remove extension-> isStart
 
 
 
+* TODO fix: publish app: can't overwrite app?
 
 
 * TODO fix: action publish: render lighter than visualRun

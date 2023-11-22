@@ -199,6 +199,7 @@ let buildDefaultInputNameForInputFileStr = uiControlProtocolName => {
   uiControlProtocolName
   ->Js.String.replace("-protocol", "", _)
   ->Js.String.replace("-ui-control-", "-input-", _)
+  ->Js.String.replaceByRe(%re("/-/g"), "_", _)
 }
 
 let isForInputFileStr = (inputName, uiControlProtocolName) => {
@@ -207,4 +208,15 @@ let isForInputFileStr = (inputName, uiControlProtocolName) => {
 
 let buildEmptyAddGeneratedContributeFunc = () => {
   (allContributeDataArr, _) => allContributeDataArr
+}
+
+let buildDefaultActionNameForActionFileStr = (uiControlProtocolName, eventName) => {
+  uiControlProtocolName
+  ->Js.String.replace("-protocol", {j`-${eventName}`}, _)
+  ->Js.String.replace("-ui-control-", "-action-", _)
+  ->Js.String.replaceByRe(%re("/-/g"), "_", _)
+}
+
+let isForActionFileStr = (actionName, uiControlProtocolName, eventName) => {
+  buildDefaultActionNameForActionFileStr(uiControlProtocolName, eventName) == actionName
 }

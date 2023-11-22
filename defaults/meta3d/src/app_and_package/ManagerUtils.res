@@ -78,6 +78,12 @@ let getContributeFunc = (contributeFuncData, decoder) => {
   LibUtils.getFuncFromLib(lib, "getContribute")
 }
 
+let convertContributeFuncData = contributeFuncData => {
+  let decoder = TextDecoder.newTextDecoder("utf-8")
+
+  {getContributeFunc: getContributeFunc(contributeFuncData, decoder)->Obj.magic}
+}
+
 let rec _mergeAllPackageBinaryUint8s = (
   [allExtensionUint8, allContributeUint8]: array<Uint8Array.t>,
   allPackageBinaryUint8s: array<Uint8Array.t>,
@@ -147,9 +153,10 @@ let _parse1 = ([allExtensionUint8, allContributeUint8, allPackageBinaryUint8s, _
         ->FileUtils.removeAlignedEmptyChars
         ->Js.Json.parseExn
         ->Obj.magic,
-        contributeFuncData: {
-          getContributeFunc: getContributeFunc(contributeFuncData, decoder)->Obj.magic,
-        },
+        // contributeFuncData: {
+        //   getContributeFunc: getContributeFunc(contributeFuncData, decoder)->Obj.magic,
+        // },
+        contributeFuncData: convertContributeFuncData(contributeFuncData),
       }
     }),
   )
