@@ -28,13 +28,16 @@ let trigger = (
   let state: StateType.state =
     api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
-  let actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
-    Meta3dEventProtocol.StateType.uiData,
-    Meta3dEventProtocol.StateType.actionState,
-  > =
-    state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.getExn(actionName)
-
-  actionContribute.handler(meta3dState, uiData)
+  switch state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.get(actionName) {
+  | None => Js.Promise.resolve(meta3dState)
+  | Some(
+      actionContribute: Meta3dEventProtocol.ActionContributeType.actionContribute<
+        Meta3dEventProtocol.StateType.uiData,
+        Meta3dEventProtocol.StateType.actionState,
+      >,
+    ) =>
+    actionContribute.handler(meta3dState, uiData)
+  }
 }
 
 let onPointEvent = (
@@ -202,13 +205,10 @@ let getPointDragOverEventName = NameEventDoService.getPointDragOverEventName->Ob
 
 let getPointDragDropEventName = NameEventDoService.getPointDragDropEventName->Obj.magic
 
-let getAllActionContributes = (
-  state: Meta3dEventProtocol.StateType.state
-) => {
+let getAllActionContributes = (state: Meta3dEventProtocol.StateType.state) => {
   let state = state->StateType.protocolStateToState
 
-    state.actionContributeMap
-    ->Meta3dCommonlib.ImmutableHashMap.entries
+  state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.entries
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {

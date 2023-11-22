@@ -21,8 +21,12 @@ function registerAction(state, actionContribute) {
 
 function trigger(api, meta3dState, eventExtensionProtocolName, actionName, uiData) {
   var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
-  var actionContribute = ImmutableHashMap$Meta3dCommonlib.getExn(state.actionContributeMap, actionName);
-  return Curry._2(actionContribute.handler, meta3dState, uiData);
+  var actionContribute = ImmutableHashMap$Meta3dCommonlib.get(state.actionContributeMap, actionName);
+  if (actionContribute !== undefined) {
+    return Curry._2(actionContribute.handler, meta3dState, uiData);
+  } else {
+    return Promise.resolve(meta3dState);
+  }
 }
 
 function onPointEvent(api, eventExtensionProtocolName, param) {

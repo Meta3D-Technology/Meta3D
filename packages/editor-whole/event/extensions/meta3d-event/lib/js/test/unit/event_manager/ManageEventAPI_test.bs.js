@@ -68,7 +68,11 @@ Meta3d_jest.describe("ManageEventAPI", (function (param) {
                                   getAllContributesByType: init.getAllContributesByType,
                                   getPackage: init.getPackage,
                                   restore: init.restore,
-                                  deepCopy: init.deepCopy
+                                  deepCopy: init.deepCopy,
+                                  nullable: init.nullable,
+                                  immutable: init.immutable,
+                                  action: init.action,
+                                  uiControl: init.uiControl
                                 };
                         };
                         Meta3d_jest.test("test", (function (param) {

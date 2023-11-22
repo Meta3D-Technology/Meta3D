@@ -793,29 +793,14 @@ TODO run test
 
 
 
-*** TODO fix: start package in ap assemble space->enter Index: should unstart package
+# *** TODO fix: start package in ap assemble space->enter Index: should unstart package
 
 
 
 
-*** TODO fix: visual: click runstop button shouldn't error
+*** DONE fix: visual: click runstop button shouldn't error
 
 TODO not trigger in visual?
-
-
-
-*** TODO refactor: remove ui control->init
-
-# *** TODO refactor: rename inputData to specificData
-*** TODO refactor: move rect out of specficData
-
-
-*** TODO refactor: remove IsDraw
-
-
-
-*** TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
-
 
 
 
@@ -823,6 +808,15 @@ TODO not trigger in visual?
 
 TODO move two textures to UI Control Inspector->Config
 
+
+
+** TODO Menu
+Menu->Specific: set Array<Array<name:string, actionName:string>>
+
+
+** TODO Asset
+separate header, body:
+    header = multiple Image Buttons
 
 
 
@@ -884,18 +878,9 @@ handle event
    **** TODO publish: bind event when active has arcball
 
 
-
-** TODO Menu
-Menu->Specific: set Array<Array<name:string, actionName:string>>
-
 ** TODO SceneTree
 separate header, body:
     header = multiple Image Buttons
-
-** TODO Asset
-separate header, body:
-    header = multiple Image Buttons
-
 ** TODO Controller
 abstract to Switch Button with configable two textures
 
@@ -938,6 +923,21 @@ use api.nullable.xxx, ...
 
 e.g. use import type {List} from "immutable" instead of import {List} from "immutable"
 
+
+
+
+
+* TODO refactor: remove ui control->init
+
+# *** TODO refactor: rename inputData to specificData
+* TODO refactor: move rect out of specficData
+
+
+* TODO refactor: remove IsDraw
+
+
+
+* TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
 
 
 
