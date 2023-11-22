@@ -31,7 +31,8 @@ import {
     // getDataFromPackageMarketEntryExtensionProtocolCollection,
     getData,
     batchFindMarketProtocolCollection,
-    getMarketImplementAccountDataWithWhereData
+    getMarketImplementAccountDataWithWhereData,
+    deleteFile
 } from "./application_layer/BackendService";
 import {
     findNewestPublishPackage as findNewestPublishPackageFind,
@@ -137,7 +138,8 @@ export let findPublishContribute = (onDownloadProgressFunc,
 export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
     onUploadProgressFunc,
     uploadFile,
-    hasData,
+    deleteFile,
+    getDataByKey,
     addData,
     updateData,
     getFileID,

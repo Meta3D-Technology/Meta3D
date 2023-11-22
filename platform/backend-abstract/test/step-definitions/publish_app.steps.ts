@@ -11,17 +11,20 @@ const feature = loadFeature("./test/features/publish_app.feature")
 
 defineFeature(feature, test => {
     let sandbox = null
-    let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasAccountFunc, addDataFunc, getFileIDFunc
-    let getDataByKeyFunc, downloadFileFunc
+    let onUploadProgressFunc, deleteFileFunc, updateDataFunc, uploadFileFunc, getDataByKeyFunc, addDataFunc, getFileIDFunc
     let getDataByKeyContainFunc
+    let downloadFileFunc
     let getDataFunc
 
-    let _createFuncsForPublish = (sandbox) =>  {
+    let _createFuncsForPublish = (sandbox) => {
         onUploadProgressFunc = "onUploadProgressFunc"
         uploadFileFunc = sandbox.stub()
-        hasAccountFunc = sandbox.stub()
+        getDataByKeyFunc = sandbox.stub()
         addDataFunc = sandbox.stub().returns(
             resolve(null)
+        )
+        deleteFileFunc = sandbox.stub().returns(
+            just(null)
         )
         updateDataFunc = sandbox.stub().returns(
             resolve(null)
@@ -29,7 +32,7 @@ defineFeature(feature, test => {
         getFileIDFunc = getFileID
     }
 
-    let _prepare = (given) =>  {
+    let _prepare = (given) => {
         given('prepare sandbox', () => {
             sandbox = createSandbox()
         });
@@ -47,8 +50,8 @@ defineFeature(feature, test => {
             uploadFileFunc.returns(
                 just({ fileID })
             )
-            hasAccountFunc.returns(
-                just(false)
+            getDataByKeyFunc.returns(
+                resolve([])
             )
         });
 
@@ -61,7 +64,7 @@ defineFeature(feature, test => {
 
         when('publish the app', () => {
             return publish(
-                [onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc],
+                [onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc],
                 appBinaryFile,
                 appName,
                 account,
@@ -110,11 +113,11 @@ defineFeature(feature, test => {
             uploadFileFunc.onCall(1).returns(
                 just({ fileID: fileID2 })
             )
-            hasAccountFunc.onCall(0).returns(
-                just(false)
+            getDataByKeyFunc.onCall(0).returns(
+                resolve([])
             )
-            hasAccountFunc.onCall(1).returns(
-                just(true)
+            getDataByKeyFunc.onCall(1).returns(
+                resolve([{ fileID: fileID1 }])
             )
         });
 
@@ -132,7 +135,7 @@ defineFeature(feature, test => {
 
         and('publish the first app', () => {
             return publish(
-                [onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc],
+                [onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc],
                 appBinaryFile1,
                 appName1,
                 account1,
@@ -142,7 +145,7 @@ defineFeature(feature, test => {
 
         when('publish the second app', () => {
             return publish(
-                [onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc],
+                [onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc],
                 appBinaryFile2,
                 appName2,
                 account2,
@@ -150,7 +153,11 @@ defineFeature(feature, test => {
             ).drain()
         });
 
-        then(/^should upload app(\d+)'s binary file$/, () => {
+        then("should delete the first app's binary file", () => {
+            expect(deleteFileFunc).toCalledWith([fileID1])
+        });
+
+        and("upload the second app's binary file", () => {
             expect(uploadFileFunc.getCall(1)).toCalledWith([
                 onUploadProgressFunc,
                 "apps/account1_app1.arrayBuffer",
@@ -177,16 +184,16 @@ defineFeature(feature, test => {
     });
 
 
-    let _createFuncsForFindPublishApp = (sandbox) =>  {
+    let _createFuncsForFindPublishApp = (sandbox) => {
         getDataByKeyFunc = sandbox.stub()
         downloadFileFunc = sandbox.stub()
     }
 
-    let _createFuncsForFindAllPublishAppsByAccount = (sandbox) =>  {
+    let _createFuncsForFindAllPublishAppsByAccount = (sandbox) => {
         getDataByKeyContainFunc = sandbox.stub()
     }
 
-    let _createFuncsForFindAllPublishApps = (sandbox) =>  {
+    let _createFuncsForFindAllPublishApps = (sandbox) => {
         getDataFunc = sandbox.stub()
     }
 

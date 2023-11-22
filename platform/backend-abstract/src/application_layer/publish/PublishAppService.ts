@@ -1,4 +1,4 @@
-import { fromPromise, just, Stream } from "most"
+import { empty, fromPromise, just, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { publishAppInfo } from "./PublishAppType"
 import { handleKeyToLowercase } from "meta3d-backend-cloudbase/src/Main"
@@ -8,15 +8,32 @@ let _buildFileName = (appName: string, account: string) => account + "_" + appNa
 export let _buildKey = (appName: string, account: string) => handleKeyToLowercase(_buildFileName(appName, account))
 
 export let publish = (
-    [onUploadProgressFunc, uploadFileFunc, hasDataFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any],
+    [onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any],
     appBinaryFile: ArrayBuffer, appName: string, account: string, description: string) => {
     let key = _buildKey(appName, account)
 
-    return hasDataFunc("publishedapps", key).concatMap((isExist) => {
+    return fromPromise(getDataByKeyFunc("publishedapps", key)).concatMap((data: Array<publishAppInfo>) => {
         let fileName = _buildFileName(appName, account)
         let filePath = "apps/" + fileName + ".arrayBuffer"
+        let isExist = false
+        let stream = null
 
-        return uploadFileFunc(onUploadProgressFunc, filePath, appBinaryFile, fileName).concatMap((uploadData) => {
+        if (data.length > 1) {
+            throw new Error("count shouldn't > 1")
+        }
+
+        if (data.length == 1) {
+            isExist = true
+            stream = deleteFileFunc(data[0].fileID)
+        }
+        else {
+            isExist = false
+            stream = just(null)
+        }
+
+        return stream.concatMap(_ => {
+            return uploadFileFunc(onUploadProgressFunc, filePath, appBinaryFile, fileName)
+        }).concatMap((uploadData) => {
             let fileID = getFileIDFunc(uploadData, filePath)
 
             if (isExist) {

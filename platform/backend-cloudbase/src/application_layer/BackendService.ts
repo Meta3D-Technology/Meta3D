@@ -124,6 +124,10 @@ export let getDataByKey = (collectionName: string, key: string) => {
 		.then(res => res.data)
 }
 
+export let deleteFile = (fileID: string) => {
+	return BackendService.deleteFile(getBackend(), fileID)
+}
+
 export let hasData = (collectionName: string, key: string) => BackendService.hasData(getBackend(), collectionName, key)
 
 export let getFileID = BackendService.getFileID

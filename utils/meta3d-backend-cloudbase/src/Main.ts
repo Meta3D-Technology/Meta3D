@@ -294,4 +294,10 @@ export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: stri
     })
 }
 
+export let deleteFile = (app: any, fileID: string) => {
+    return fromPromise(app.deleteFile({
+        fileList: [fileID]
+    }))
+}
+
 export let parseMarketCollectionDataBodyForNodejs = null

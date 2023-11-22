@@ -63,7 +63,8 @@ exports.findPublishContribute = findPublishContribute;
 let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
     onUploadProgressFunc,
     BackendService_1.uploadFile,
-    BackendService_1.hasData,
+    BackendService_1.deleteFile,
+    BackendService_1.getDataByKey,
     BackendService_1.addData,
     BackendService_1.updateData,
     BackendService_1.getFileID,

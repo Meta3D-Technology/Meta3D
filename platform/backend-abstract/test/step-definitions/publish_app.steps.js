@@ -11,15 +11,16 @@ const PublishAppTool_1 = require("../tool/PublishAppTool");
 const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.feature");
 (0, jest_cucumber_1.defineFeature)(feature, test => {
     let sandbox = null;
-    let onUploadProgressFunc, updateDataFunc, uploadFileFunc, hasAccountFunc, addDataFunc, getFileIDFunc;
-    let getDataByKeyFunc, downloadFileFunc;
+    let onUploadProgressFunc, deleteFileFunc, updateDataFunc, uploadFileFunc, getDataByKeyFunc, addDataFunc, getFileIDFunc;
     let getDataByKeyContainFunc;
+    let downloadFileFunc;
     let getDataFunc;
     let _createFuncsForPublish = (sandbox) => {
         onUploadProgressFunc = "onUploadProgressFunc";
         uploadFileFunc = sandbox.stub();
-        hasAccountFunc = sandbox.stub();
+        getDataByKeyFunc = sandbox.stub();
         addDataFunc = sandbox.stub().returns((0, PromiseTool_1.resolve)(null));
+        deleteFileFunc = sandbox.stub().returns((0, most_1.just)(null));
         updateDataFunc = sandbox.stub().returns((0, PromiseTool_1.resolve)(null));
         getFileIDFunc = meta3d_backend_cloudbase_1.getFileID;
     };
@@ -35,7 +36,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         given('prepare funcs', () => {
             _createFuncsForPublish(sandbox);
             uploadFileFunc.returns((0, most_1.just)({ fileID }));
-            hasAccountFunc.returns((0, most_1.just)(false));
+            getDataByKeyFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         and('generate a app', () => {
             appBinaryFile = new ArrayBuffer(10);
@@ -44,7 +45,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             description = "d1";
         });
         when('publish the app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description).drain();
         });
         then('should upload app', () => {
             expect(uploadFileFunc).toCalledWith([
@@ -77,8 +78,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             _createFuncsForPublish(sandbox);
             uploadFileFunc.onCall(0).returns((0, most_1.just)({ fileID: fileID1 }));
             uploadFileFunc.onCall(1).returns((0, most_1.just)({ fileID: fileID2 }));
-            hasAccountFunc.onCall(0).returns((0, most_1.just)(false));
-            hasAccountFunc.onCall(1).returns((0, most_1.just)(true));
+            getDataByKeyFunc.onCall(0).returns((0, PromiseTool_1.resolve)([]));
+            getDataByKeyFunc.onCall(1).returns((0, PromiseTool_1.resolve)([{ fileID: fileID1 }]));
         });
         and('generate two apps with the same key', () => {
             appBinaryFile1 = new ArrayBuffer(10);
@@ -91,12 +92,15 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             description2 = "d2";
         });
         and('publish the first app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1, description1).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1, description1).drain();
         });
         when('publish the second app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, hasAccountFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2, description2).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2, description2).drain();
         });
-        then(/^should upload app(\d+)'s binary file$/, () => {
+        then("should delete the first app's binary file", () => {
+            expect(deleteFileFunc).toCalledWith([fileID1]);
+        });
+        and("upload the second app's binary file", () => {
             expect(uploadFileFunc.getCall(1)).toCalledWith([
                 onUploadProgressFunc,
                 "apps/account1_app1.arrayBuffer",

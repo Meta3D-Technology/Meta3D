@@ -753,16 +753,10 @@ TODO run test
 
 *** DONE fix: can't get input/action file str!
 
-*** TODO refactor: remove meta3d-input-runstopbutton2
-
 
 
 # *** TODO run test: Controller+Scene View+Game View UI Control
 
-
-*** TODO abstract Controller
-
-TODO move two textures to UI Control Inspector->Config
 
 
 # *** TODO feat: support published element contribute as a new UI Control(higher level)
@@ -789,7 +783,7 @@ TODO move two textures to UI Control Inspector->Config
 
 
 
-*** TODO fix: publish app: can't overwrite app?
+*** DONE fix: publish app: can't overwrite app?
 
 
 
@@ -820,6 +814,15 @@ TODO not trigger in visual?
 
 
 *** TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
+
+
+
+
+** TODO abstract Controller
+
+TODO move two textures to UI Control Inspector->Config
+
+
 
 
 ** TODO demo2: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)
@@ -946,6 +949,8 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 * TODO remove meta3d-imgui-webgl1-three-renderer in ui package
 
+
+* TODO refactor: remove meta3d-input-runstopbutton2
 
 
 * TODO refactor: extract asset package
