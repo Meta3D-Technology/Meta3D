@@ -793,7 +793,6 @@ TODO run test
 
 
 
-# *** TODO fix: start package in ap assemble space->enter Index: should unstart package
 
 
 
@@ -805,9 +804,27 @@ TODO not trigger in visual?
 
 ** DONE specific->imageBase64: show preview
 
-** TODO abstract Controller
+** DONE abstract Controller
 
 TODO move two textures to UI Control Inspector->Config
+
+
+** TODO fix: input/action file str->name should be unique
+
+e.g. two switch button
+
+
+** TODO fix: action file str: switch Select should reset eventData
+
+
+** TODO fix: input/action file str: switch select from custom to other, should reset file str
+
+
+** TODO fix: start package in ap assemble space->enter Index: should unstart package
+
+ap->showelements->ap
+
+
 
 
 
@@ -952,12 +969,11 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 * TODO remove meta3d-imgui-webgl1-three-renderer in ui package
 
 
-* TODO refactor: remove meta3d-input-runstopbutton2
-
-
 * TODO refactor: extract asset package
 
 
+
+* TODO feat: check version's format when publish app and element
 
 
 

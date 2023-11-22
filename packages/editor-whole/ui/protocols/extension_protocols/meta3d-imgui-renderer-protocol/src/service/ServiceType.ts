@@ -146,11 +146,11 @@ export type service = {
   readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>;
   readonly sceneTree: sceneTreeFunc;
   readonly inspector: inspectorFunc;
-  readonly runStopButton: (
+  readonly switchButton: (
     isRunState: boolean,
     textures: {
-      "runTexture": imguiImplTexture,
-      "stopTexture": imguiImplTexture,
+      "event1Texture": imguiImplTexture,
+      "event2Texture": imguiImplTexture,
     },
     size: size
   ) => [boolean, boolean];

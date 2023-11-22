@@ -225,12 +225,12 @@ export type service = {
         windowName: string,
         rect: rect,
     ) => [meta3dState, [nullable<name>, nullable<localPosition>, nullable<localEulerAngles>, nullable<localScale>]];
-    readonly runStopButton: (
+    readonly switchButton: (
         meta3dState: meta3dState,
         isRunState: boolean,
         textures: {
-            "runTexture": imguiImplTexture,
-            "stopTexture": imguiImplTexture,
+            "event1Texture": imguiImplTexture,
+            "event2Texture": imguiImplTexture,
         },
         size: size
     ) => [meta3dState, [boolean, boolean]];

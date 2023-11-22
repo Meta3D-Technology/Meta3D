@@ -35,7 +35,11 @@ function init(sandbox, getExtensionService, getPackageServiceOpt, getAllContribu
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ], isInitEvent, isDebug, canvas);
@@ -63,7 +67,11 @@ function clear(sandbox, clearColor, getExtensionService, getPackageServiceOpt, g
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ], clearColor);
@@ -99,7 +107,11 @@ function render(sandbox, getExtensionServiceOpt, getPackageServiceOpt, getAllCon
               getAllContributesByType: getAllContributesByType,
               getPackage: getPackage,
               restore: restore,
-              deepCopy: deepCopy
+              deepCopy: deepCopy,
+              nullable: 1,
+              immutable: 1,
+              action: 1,
+              uiControl: 1
             }, meta3dState, [
               uiExtensionProtocolName,
               imguiRendererExtensionProtocolName
@@ -146,7 +158,11 @@ function beginWindow(sandbox, label, getExtensionService, getPackageServiceOpt, 
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ], label);
@@ -174,7 +190,11 @@ function endWindow(sandbox, getExtensionService, getPackageServiceOpt, getAllCon
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ]);
@@ -202,7 +222,11 @@ function setNextWindowRect(sandbox, rect, getExtensionService, getPackageService
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ], rect);
@@ -240,7 +264,11 @@ function addFBOTexture(sandbox, getExtensionService, texture, rect, getPackageSe
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ], texture, rect);
@@ -268,7 +296,11 @@ function getContext(sandbox, getExtensionService, getPackageServiceOpt, getAllCo
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ]);
@@ -296,7 +328,11 @@ function button(sandbox, label, size, getExtensionService, getPackageServiceOpt,
                 getAllContributesByType: getAllContributesByType,
                 getPackage: getPackage,
                 restore: restore,
-                deepCopy: deepCopy
+                deepCopy: deepCopy,
+                nullable: 1,
+                immutable: 1,
+                action: 1,
+                uiControl: 1
               },
               imguiRendererExtensionProtocolName
             ], label, size);
@@ -348,7 +384,11 @@ function deepCopy(sandbox, meta3dState, getExtensionService, getPackageServiceOp
               getAllContributesByType: getAllContributesByType,
               getPackage: getPackage,
               restore: restore,
-              deepCopy: deepCopy$1
+              deepCopy: deepCopy$1,
+              nullable: 1,
+              immutable: 1,
+              action: 1,
+              uiControl: 1
             }, meta3dState);
 }
 
@@ -371,7 +411,11 @@ function restore(sandbox, currentMeta3dState, targetMeta3dState, getExtensionSer
               getAllContributesByType: getAllContributesByType,
               getPackage: getPackage,
               restore: restore$1,
-              deepCopy: deepCopy
+              deepCopy: deepCopy,
+              nullable: 1,
+              immutable: 1,
+              action: 1,
+              uiControl: 1
             }, currentMeta3dState, targetMeta3dState);
 }
 

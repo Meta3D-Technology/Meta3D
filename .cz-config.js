@@ -24,7 +24,10 @@ module.exports = {
     { name: "utils" },
     { name: "demos" },
     { name: "backend" },
-    { name: "defaults" }
+    { name: "defaults" },
+    { name: "uicontrol" },
+    { name: "action" },
+    { name: "input" },
   ],
 
   // it needs to match the value for field type. Eg.: "fix"

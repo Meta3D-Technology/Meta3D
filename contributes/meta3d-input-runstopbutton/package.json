@@ -1,10 +1,10 @@
 {
     "name": "meta3d-input-runstopbutton",
-    "version": "0.20.1",
+    "version": "0.20.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
-        "name": "meta3d-input-runstopbutton-protocol"
+        "name": "meta3d-input-switch-button-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -16,7 +16,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.20.0",
-        "meta3d-input-runstopbutton-protocol": "^0.20.0"
+        "meta3d-input-switch-button-protocol": "^0.20.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

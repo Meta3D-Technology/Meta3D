@@ -156,7 +156,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     menu: UIManager.menu((api, "meta3d-imgui-renderer-protocol")),
     sceneTree: UIManager.sceneTree((api, "meta3d-imgui-renderer-protocol")),
     inspector: UIManager.inspector((api, "meta3d-imgui-renderer-protocol")),
-    runStopButton: UIManager.runStopButton((api, "meta3d-imgui-renderer-protocol")),
+    switchButton: UIManager.switchButton((api, "meta3d-imgui-renderer-protocol")),
     // getIOData: UIManager.getIOData,
     // dispatch: UIManager.dispatch,
     updateElementState: (meta3dState, updateElementStateFunc) => {

@@ -78,7 +78,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
         inspector: (...params) => {
             return _notImplement()
         },
-        runStopButton: (...params) => {
+        switchButton: (...params) => {
             return _notImplement()
         },
         getContext: () => {

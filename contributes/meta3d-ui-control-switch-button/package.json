@@ -1,10 +1,10 @@
 {
-    "name": "meta3d-ui-control-runstopbutton",
+    "name": "meta3d-ui-control-switch-button",
     "version": "0.20.6",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
-        "name": "meta3d-ui-control-runstopbutton-protocol"
+        "name": "meta3d-ui-control-switch-button-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -17,7 +17,7 @@
     "dependencies": {
         "meta3d-editor-whole-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0",
-        "meta3d-ui-control-runstopbutton-protocol": "^0.20.0"
+        "meta3d-ui-control-switch-button-protocol": "^0.20.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

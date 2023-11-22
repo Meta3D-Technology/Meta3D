@@ -1,17 +1,17 @@
 import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { imguiImplTexture } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
-import { func } from "meta3d-input-runstopbutton-protocol"
+import { func } from "meta3d-input-switch-button-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
-export const uiControlName = "RunStopButton"
+export const uiControlName = "SwitchButton"
 
 export type imageBase64 = string
 
 export type state = {
-    runTexture: nullable<imguiImplTexture>,
-    stopTexture: nullable<imguiImplTexture>,
-    lastRunTextureImageBase64: nullable<imageBase64>,
-    lastStopTextureImageBase64: nullable<imageBase64>,
+    event1Texture: nullable<imguiImplTexture>,
+    event2Texture: nullable<imguiImplTexture>,
+    lastEvent1TextureImageBase64: nullable<imageBase64>,
+    lastEvent2TextureImageBase64: nullable<imageBase64>,
 }
 
 export type inputFunc = nullable<func>
@@ -23,8 +23,8 @@ export type specificData = {
     image2: nullable<imageBase64>,
 }
 
-type isRun = boolean
+type isEvent1 = boolean
 
-type isStop = boolean
+type isEvent2 = boolean
 
-export type outputData = [isRun, isStop]
+export type outputData = [isEvent1, isEvent2]

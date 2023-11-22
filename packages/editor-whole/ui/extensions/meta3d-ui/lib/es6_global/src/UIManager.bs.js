@@ -497,11 +497,11 @@ function inspector(data, meta3dState, gameObjectName, localPosition, localEulerA
               }), data);
 }
 
-function runStopButton(data, meta3dState, isRun, textures, size) {
+function switchButton(data, meta3dState, isRun, textures, size) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
                         imguiRendererState,
-                        imguiRendererService.runStopButton(isRun, textures, size)
+                        imguiRendererService.switchButton(isRun, textures, size)
                       ];
               }), data);
 }
@@ -637,7 +637,7 @@ export {
   menu ,
   sceneTree ,
   inspector ,
-  runStopButton ,
+  switchButton ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

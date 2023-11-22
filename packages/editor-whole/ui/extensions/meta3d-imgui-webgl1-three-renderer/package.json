@@ -1,6 +1,6 @@
 {
     "name": "meta3d-imgui-webgl1-three-renderer",
-    "version": "0.20.0",
+    "version": "0.20.1",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-imgui-webgl1-three-renderer",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/extensions/meta3d-imgui-webgpu-renderer",

@@ -1,7 +1,7 @@
 import { inputFunc } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 
-type isRun = boolean
+type isEvent1 = boolean
 
-export type data = isRun
+export type data = isEvent1
 
 export type func = inputFunc<data>

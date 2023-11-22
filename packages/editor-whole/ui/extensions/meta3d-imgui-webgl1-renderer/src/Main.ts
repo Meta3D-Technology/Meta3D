@@ -232,21 +232,21 @@ export let getExtensionService: getExtensionServiceMeta3D<
         // inspector: inspector,
         sceneTree: {} as any,
         inspector: {} as any,
-        runStopButton: (isRunState, { runTexture, stopTexture }, [width, height]) => {
-            let isRun = false
-            let isStop = false
+        switchButton: (isEvent1State, { event1Texture, event2Texture }, [width, height]) => {
+            let isEvent1 = false
+            let isEvent2 = false
 
-            if (isRunState) {
-                if (ImGui.ImageButton(stopTexture._texture, new ImGui.ImVec2(width, height))) {
-                    isStop = true
+            if (isEvent1State) {
+                if (ImGui.ImageButton(event2Texture._texture, new ImGui.ImVec2(width, height))) {
+                    isEvent2 = true
                 }
             }
-            else if (ImGui.ImageButton(runTexture._texture, new ImGui.ImVec2(width, height))) {
-                isRun = true
+            else if (ImGui.ImageButton(event1Texture._texture, new ImGui.ImVec2(width, height))) {
+                isEvent1 = true
             }
 
 
-            return [isRun, isStop]
+            return [isEvent1, isEvent2]
         },
         getContext: () => {
             return ImGui_Impl.gl

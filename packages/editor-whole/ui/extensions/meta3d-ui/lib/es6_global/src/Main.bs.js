@@ -169,8 +169,8 @@ function getExtensionService(api) {
           inspector: (function (param, param$1, param$2, param$3, param$4, param$5, param$6) {
               return UIManager$Meta3dUi.inspector(partial_arg$5, param, param$1, param$2, param$3, param$4, param$5, param$6);
             }),
-          runStopButton: (function (param, param$1, param$2, param$3) {
-              return UIManager$Meta3dUi.runStopButton(partial_arg$6, param, param$1, param$2, param$3);
+          switchButton: (function (param, param$1, param$2, param$3) {
+              return UIManager$Meta3dUi.switchButton(partial_arg$6, param, param$1, param$2, param$3);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

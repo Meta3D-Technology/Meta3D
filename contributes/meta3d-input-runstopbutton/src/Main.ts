@@ -1,5 +1,5 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { data } from "meta3d-input-runstopbutton-protocol"
+import { data } from "meta3d-input-switch-button-protocol"
 import { inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 

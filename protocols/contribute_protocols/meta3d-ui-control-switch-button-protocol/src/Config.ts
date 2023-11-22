@@ -14,7 +14,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "RunStopButton"
+        value: "SwitchButton"
     },
     {
         name: "image1",
@@ -30,22 +30,22 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
-export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["run", "stop"]
+export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["event1", "event2"]
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([runActionName, stopActionName]) => {
-    if (!isNullable(runActionName) && !isNullable(stopActionName)) {
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([event1ActionName, event2ActionName]) => {
+    if (!isNullable(event1ActionName) && !isNullable(event2ActionName)) {
         return `
-                let [isRun, isStop] = data[1]
+                let [isTriggerEvent1, isTriggerEvent2] = data[1]
 
-                if (isRun) {
+                if (isTriggerEvent1) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${runActionName}", null)
+                    return trigger(meta3dState, "meta3d-event-protocol", "${event1ActionName}", null)
                 }
-                if (isStop) {
+                if (isTriggerEvent2) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${stopActionName}", null)
+                    return trigger(meta3dState, "meta3d-event-protocol", "${event2ActionName}", null)
                 }
                 `
     }
