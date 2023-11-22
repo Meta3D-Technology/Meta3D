@@ -362,6 +362,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		scene: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-engine-scene-protocol")),
 		ui: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-ui-protocol")),
 		event: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-event-protocol")),
+		core: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-core-protocol")),
 
 		exportScene: ([onFinishFunc, onErrorFunc], meta3dState) => {
 			return api.getExtensionService<exportSceneService>(meta3dState, "meta3d-export-scene-protocol").export([onFinishFunc, onErrorFunc], meta3dState)

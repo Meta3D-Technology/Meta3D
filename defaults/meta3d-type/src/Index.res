@@ -69,6 +69,40 @@ and state = {
   >,
 }
 
+type nullableAPI = {
+  getExn: 'data. (. Js.Nullable.t<'data>) => 'data,
+  isNullable: 'data. (. Js.Nullable.t<'data>) => bool,
+  return: 'data. (. 'data) => Js.Nullable.t<'data>,
+  getWithDefault: 'data. (. Js.Nullable.t<'data>, 'data) => 'data,
+  map: 'data1 'data2. (. (. 'data1) => 'data2, Js.Nullable.t<'data1>) => Js.Nullable.t<'data2>,
+  bind: 'data1 'data2. (
+    . (. 'data1) => Js.Nullable.t<'data2>,
+    Js.Nullable.t<'data1>,
+  ) => Js.Nullable.t<'data2>,
+  getEmpty: 'data. unit => Js.Nullable.t<'data>,
+}
+
+type list
+
+type map
+
+type immutableAPI = {
+  createList: (. state) => list,
+  createMap: (. state) => map,
+}
+
+type actionName = string
+
+type actionAPI = {
+  getActionState: 'actionState. (. state, actionName) => Js.Nullable.t<'actionState>,
+  setActionState: 'actionState. (. state, actionName, 'actionState) => state,
+}
+
+type uiControlAPI = {
+  getUIControlState: 'uiControlState. (. state, uiControlName) => Js.Nullable.t<'uiControlState>,
+  setUIControlState: 'uiControlState. (. state, uiControlName, 'uiControlState) => state,
+}
+
 type api = {
   /* ! rank2 polymorphism */
   registerExtension: 'getExtensionServiceFunc 'getLifeFunc 'extensionState. (
@@ -99,6 +133,10 @@ type api = {
   getPackage: (. state, packageProtocolName) => Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>,
   restore: (. state, state) => state,
   deepCopy: (. state) => state,
+  nullable: nullableAPI,
+  immutable: immutableAPI,
+  action: actionAPI,
+  uiControl: uiControlAPI,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

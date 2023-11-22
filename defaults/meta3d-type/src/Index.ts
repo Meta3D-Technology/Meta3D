@@ -1,5 +1,6 @@
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { contributeType } from "./contribute/ContributeType"
+import type { List, Map } from "immutable"
 
 export type extensionName = string
 
@@ -20,6 +21,26 @@ export type getContributeFuncResult = any
 export abstract class state { protected opaque!: any }; /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
+export type nullableAPI = {
+  getExn: <data>(data: nullable<data>) => data;
+  isNullable: <data>(data: nullable<data>) => boolean;
+  return: <data>(data: data) => nullable<data>;
+  getWithDefault: <data>(data: nullable<data>, defaultValue: data) => data;
+  map: <data1, data2>(func: (data: data1) => data2, data: nullable<data1>) => nullable<data2>;
+  bind: <data1, data2>(func: (data: data1) => nullable<data2>, data: nullable<data1>) => nullable<data2>;
+  getEmpty: <data>() => nullable<data>;
+};
+
+// tslint:disable-next-line:interface-over-type-literal
+export type immutableAPI = { createList: <T>(state: state) => List<T>; createMap: <K, V>(state: state) => Map<K, V> };
+
+// tslint:disable-next-line:interface-over-type-literal
+export type actionAPI = { getActionState: <actionState> (state: state, actionName: string) => actionState; setActionState: <actionState> (state: state, actionName: string, actionState: actionState) => state };
+
+// tslint:disable-next-line:interface-over-type-literal
+export type uiControlAPI = { getUIControlState: <uiControlState> (state: state, uiControlName: string) => uiControlState; setUIControlState: <uiControlState> (state: state, uiControlName: string, uiControlState: uiControlState) => state };
+
+// tslint:disable-next-line:interface-over-type-literal
 export type api = {
   registerExtension<getExtensionServiceFunc, getLifeFunc, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, extensionState: extensionState): state,
   getExtensionService<extensionService>(state: state, extensionProtocolName: extensionProtocolName): extensionService,
@@ -32,6 +53,10 @@ export type api = {
   getPackage(state: state, packageProtocolName: packageProtocolName): nullable<ArrayBuffer>
   restore(currentState: state, targetState: state): state,
   deepCopy(state: state): state,
+  nullable: nullableAPI;
+  immutable: immutableAPI;
+  action: actionAPI;
+  uiControl: uiControlAPI
 };
 
 // tslint:disable-next-line:interface-over-type-literal

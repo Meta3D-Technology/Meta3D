@@ -478,7 +478,7 @@ module Method = {
       ) => {
         {
           ...uiControl,
-          input: uiControl.input->Meta3dCommonlib.NullableSt.bind(input => {
+          input: uiControl.input->Meta3dCommonlib.NullableSt.bind((. input) => {
             ElementVisualUtils.isForInputFileStr(input.inputName, uiControl.protocol.name) ||
             selectedInputNames->Meta3dCommonlib.ListSt.includes(input.inputName)
               ? input->Meta3dCommonlib.NullableSt.return

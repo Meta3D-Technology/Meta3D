@@ -4,7 +4,6 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import * as JSZip from "jszip"
 import { saveAs } from "file-saver";
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import indexHtml from "../publish/index.html"
 import meta3dJs from "../publish/meta3d.js"
 import basis_transcoderJs from "../publish/three/basis/basis_transcoder.js"
@@ -12,7 +11,6 @@ import draco_decoderJs from "../publish/three/draco/gltf/draco_decoder.js"
 import draco_encoderJs from "../publish/three/draco/gltf/draco_encoder.js"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-publish-protocol"
-import { getActionState } from "meta3d-ui-utils/src/ElementStateUtils"
 import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 import { eventName, inputData } from "meta3d-action-publish-protocol/src/EventType"
 
@@ -33,11 +31,11 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
     return {
         actionName: actionName,
         init: (meta3dState) => {
-            let eventSourcingService = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
+            let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    if (getActionState<runState>(meta3dState, api, runActionName).isRun) {
+                    if (api.action.getActionState<runState>(meta3dState, runActionName).isRun) {
                         console.warn("can't publish when run")
 
                         return (new Promise((resolve) => {
@@ -45,7 +43,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                         }))
                     }
 
-                    let enginePackageBinary = getExn(api.getPackage(meta3dState, "meta3d-engine-whole-protocol"))
+                    let enginePackageBinary = api.nullable.getExn(api.getPackage(meta3dState, "meta3d-engine-whole-protocol"))
 
 
                     let zip = new JSZip.default() as JSZip
@@ -58,7 +56,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                     _loadAndWriteThreeJsData(zip, "draco/gltf/", "draco_encoder", draco_encoderJs)
 
                     return (new Promise((resolve, reject) => {
-                        return getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).exportScene([(glb) => {
+                        return api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).exportScene([(glb) => {
                             resolve(glb)
                         }, (err) => {
                             throw err
@@ -85,7 +83,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
             //console.log("publish")
 
             return new Promise<meta3dState>((resolve, reject) => {
-                let eventSourcingService = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
+                let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,

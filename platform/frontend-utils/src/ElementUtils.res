@@ -77,7 +77,7 @@ let addGeneratedInputContributeForRunApp = (
     uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
       (. allContributeDataArr, {input, children}: BackendCloudbaseType.uiControl) => {
         input
-        ->Meta3dCommonlib.NullableSt.bind((
+        ->Meta3dCommonlib.NullableSt.bind((. 
           {inputName, inputFileStr}: BackendCloudbaseType.input,
         ) => {
           inputFileStr->Meta3dCommonlib.NullableSt.map(

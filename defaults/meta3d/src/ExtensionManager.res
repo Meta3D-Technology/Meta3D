@@ -209,6 +209,86 @@ let deepCopy = state => {
   }, state)
 }
 
+let _buildNullableAPI = (): Meta3dType.Index.nullableAPI => {
+  getExn: (. data) => Meta3dCommonlib.NullableSt.getExn(data),
+  isNullable: (. data) => Meta3dCommonlib.NullableSt.isNullable(data),
+  return: (. data) => Meta3dCommonlib.NullableSt.return(data),
+  getWithDefault: (. nullableData, default) =>
+    Meta3dCommonlib.NullableSt.getWithDefault(nullableData, default),
+  map: (. func, data) => Meta3dCommonlib.NullableSt.map(data, func),
+  bind: (. func, data) => Meta3dCommonlib.NullableSt.bind(data, func),
+  getEmpty: Meta3dCommonlib.NullableSt.getEmpty,
+}
+
+let _buildImmutableAPI = (nullableAPI, getPackageService): Meta3dType.Index.immutableAPI => {
+  createList: %raw(`
+  function (state){
+    let { createList } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+
+    return createList()
+  }
+  `),
+  createMap: %raw(`
+  function (state){
+    let { createMap } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+
+    return createMap()
+  }
+  `),
+}
+
+let _buildActionAPI = (
+  nullableAPI: Meta3dType.Index.nullableAPI,
+  getPackageService,
+): Meta3dType.Index.actionAPI => {
+  getActionState: %raw(`
+  function (state, actionName){
+    let { getCurrentElementState } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
+
+    return nullableAPI.bind(currentElementState => {
+      return currentElementState[actionName]
+    }, getCurrentElementState(state))
+  }
+  `),
+  setActionState: %raw(`
+  function (state, actionName, actionState){
+    let { updateElementState } = nullableAPI. getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
+
+    state = updateElementState(state,
+      (elementState) => {
+        return Object.assign({}, elementState, {
+            [actionName]: actionState
+        })
+      }
+    )
+
+    return state
+  }
+  `),
+}
+
+let _buildUIControlAPI = (
+  nullableAPI: Meta3dType.Index.nullableAPI,
+  getPackageService,
+): Meta3dType.Index.uiControlAPI => {
+  getUIControlState: %raw(`
+  function (state, uiControlName){
+    let { getUIControlState } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
+
+    return getUIControlState(state, uiControlName)
+  }
+  `),
+  setUIControlState: %raw(`
+  function (state, uiControlName, uiControlState){
+    let { setUIControlState } = nullableAPI. getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
+
+    state = setUIControlState(state, uiControlName, uiControlState)
+
+    return state
+  }
+  `),
+}
+
 let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
@@ -312,4 +392,14 @@ and buildAPI = (): api => {
   restore: (. currentExtensionState, targetExtensionState) =>
     restore(currentExtensionState, targetExtensionState),
   deepCopy: (. extensionState) => deepCopy(extensionState),
+  nullable: _buildNullableAPI(),
+  immutable: _buildImmutableAPI(_buildNullableAPI(), (. state, protocolName) =>
+    getPackageService(state, protocolName)->Obj.magic
+  ),
+  action: _buildActionAPI(_buildNullableAPI(), (. state, protocolName) =>
+    getPackageService(state, protocolName)->Obj.magic
+  ),
+  uiControl: _buildUIControlAPI(_buildNullableAPI(), (. state, protocolName) =>
+    getPackageService(state, protocolName)->Obj.magic
+  ),
 }

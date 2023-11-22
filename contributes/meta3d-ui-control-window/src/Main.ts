@@ -1,7 +1,6 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { uiControlName, state as uiControlState, inputFunc, specificData, outputData } from "meta3d-ui-control-window-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
@@ -14,7 +13,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 childrenFunc
             }
         ) => {
-            let { beginWindow, endWindow, setNextWindowRect } = getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+            let { beginWindow, endWindow, setNextWindowRect } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
             meta3dState = setNextWindowRect(meta3dState, rect)
 

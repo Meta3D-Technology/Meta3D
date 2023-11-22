@@ -1,6 +1,5 @@
 'use strict';
 
-var Curry = require("rescript/lib/js/curry.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
 var OptionSt$Meta3dCommonlib = require("./OptionSt.bs.js");
 
@@ -18,7 +17,7 @@ function getWithDefault(nullableData, $$default) {
 
 function bind(nullableData, func) {
   return OptionSt$Meta3dCommonlib.toNullable(OptionSt$Meta3dCommonlib.bind(OptionSt$Meta3dCommonlib.fromNullable(nullableData), (function (val) {
-                    return OptionSt$Meta3dCommonlib.fromNullable(Curry._1(func, val));
+                    return OptionSt$Meta3dCommonlib.fromNullable(func(val));
                   })));
 }
 

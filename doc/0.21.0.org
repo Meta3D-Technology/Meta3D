@@ -713,7 +713,7 @@ TODO pass run test:
 
 
 
-*** TODO refactor api for input, action
+*** DONE refactor api for input, action
 TODO update ui control and input api:
 api = {
     editorWholePackage service(actually engine-whole-protocol),
@@ -732,21 +732,32 @@ nullable->getExn, ...;
 immutable->List, ...
 
 
+TODO update action,input,uiControl
+
+TODO update immutable
+
+
 
 TODO update default input, action file str
 
+TODO run test
+    TODO update package: core package add immutable extension
 
-*** TODO update Action
+
+
+
+
+
+*** DONE update Action
     update api
 
-TODO move uiData to action protocol
-
+*** TODO fix: can't get input/action file str!
 
 *** TODO refactor: remove meta3d-input-runstopbutton2
 
 
 
-*** TODO run test: Controller+Scene View+Game View UI Control
+# *** TODO run test: Controller+Scene View+Game View UI Control
 
 
 *** TODO abstract Controller
@@ -771,10 +782,14 @@ TODO move two textures to UI Control Inspector->Config
 # TODO Scene Tree is published element contribute which = header window + Tree
 
 
-*** TODO run test: Publish UI Control
+# *** TODO run test: Publish UI Control
 
-TODO run test:publish->engine render
+# TODO run test:publish->engine render
 
+
+
+
+*** TODO fix: publish app: can't overwrite app?
 
 
 
@@ -899,6 +914,8 @@ abstract to Switch Button with configable two textures
 * TODO refactor: remove Specific->label
 
 
+* TODO update Action: move uiData to action protocol
+
 
 * TODO refactor: continue "ap assemble space: remove Extensions, Selected Extensions"
 
@@ -907,7 +924,17 @@ TODO remove extension-> isStart
 
 
 
-* TODO fix: publish app: can't overwrite app?
+
+* TODO update api for action,input,uiControl
+
+use api.nullable.xxx, ...
+
+
+* TODO perf: remove direct dependent one immutable, use immutable extension instead
+
+e.g. use import type {List} from "immutable" instead of import {List} from "immutable"
+
+
 
 
 * TODO fix: action publish: render lighter than visualRun

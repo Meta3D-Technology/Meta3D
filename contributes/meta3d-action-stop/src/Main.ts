@@ -1,15 +1,13 @@
 import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionName, state } from "meta3d-action-stop-protocol"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { eventName, inputData } from "meta3d-action-stop-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { eventSourcingService, events } from "meta3d-event-protocol/src/service/ServiceType"
 import { actionName as runActionName } from "meta3d-action-run-protocol"
-import { List } from "immutable"
 
-let _getLastEventsToRun = (eventSourcingService: eventSourcingService, meta3dState: meta3dState) => {
+let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
     let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
     let _func = (result: events, index: number): events => {
@@ -17,7 +15,7 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, meta3dSta
             throw new Error("not find run event")
         }
 
-        let event = getExn(allEvents.get(index))
+        let event = api.nullable.getExn(allEvents.get(index))
 
         result = result.push(event)
 
@@ -28,7 +26,7 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, meta3dSta
         return _func(result, index - 1)
     }
 
-    return _func(List(), allEvents.count() - 1).reverse()
+    return _func(api.immutable.createList(meta3dState), allEvents.count() - 1).reverse()
 }
 
 // let _backwardEventsBeforeRun = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, lastEventsToRun: events) => {
@@ -41,12 +39,11 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
     return {
         actionName: actionName,
         init: (meta3dState) => {
-            let eventSourcingService = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
+            let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    // debugger
-                    let lastEventsToRun = _getLastEventsToRun(eventSourcingService, meta3dState)
+                    let lastEventsToRun = _getLastEventsToRun(eventSourcingService, api, meta3dState)
 
                     // return eventSourcingService.backwardView(
                     //     meta3dState,
@@ -65,7 +62,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
         },
         handler: (meta3dState, uiData) => {
             return new Promise<meta3dState>((resolve, reject) => {
-                let eventSourcingService = getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
+                let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,

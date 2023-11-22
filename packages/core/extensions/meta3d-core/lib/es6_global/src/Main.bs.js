@@ -11,6 +11,9 @@ function getExtensionService(api) {
             }),
           most: (function (meta3dState) {
               return api.getExtensionService(meta3dState, "meta3d-bs-most-protocol");
+            }),
+          immutable: (function (meta3dState) {
+              return api.getExtensionService(meta3dState, "meta3d-immutable-protocol");
             })
         };
 }

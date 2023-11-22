@@ -15,7 +15,7 @@ let map = Js.Nullable.bind
 let bind = (nullableData, func) => {
   nullableData
   ->OptionSt.fromNullable
-  ->OptionSt.bind(val => func(val)->OptionSt.fromNullable)
+  ->OptionSt.bind(val => func(. val)->OptionSt.fromNullable)
   ->OptionSt.toNullable
 }
 
