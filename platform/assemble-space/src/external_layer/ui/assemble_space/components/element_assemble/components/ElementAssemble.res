@@ -42,8 +42,7 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
         <ElementVisual service account selectedElementsFromMarket />
       </Layout.Content>
       <Layout.Sider theme=#light>
-        // <ElementInspector service />
-        <UIControlInspector service />
+        <ElementInspector service />
       </Layout.Sider>
     </Layout>
   </Layout>

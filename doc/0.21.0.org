@@ -751,7 +751,7 @@ TODO run test
 *** DONE update Action
     update api
 
-*** TODO fix: can't get input/action file str!
+*** DONE fix: can't get input/action file str!
 
 *** TODO refactor: remove meta3d-input-runstopbutton2
 

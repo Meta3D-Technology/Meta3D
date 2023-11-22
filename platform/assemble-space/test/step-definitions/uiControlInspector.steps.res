@@ -41,10 +41,7 @@ defineFeature(feature, test => {
           ~sandbox,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-              (list{}, (None, list{}, list{})),
-              _,
-            ),
+            ~useSelector=createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(list{}, _),
             (),
           ),
           (),
@@ -106,20 +103,7 @@ defineFeature(feature, test => {
       () => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              list{},
-              (
-                id2->Some,
-                list{u1.contents},
-                list{
-                  UIControlInspectorTool.buildUIControlInspectorData(
-                    ~id=id2,
-                    ~y=10->FrontendUtils.CommonType.IntForRectField,
-                    (),
-                  ),
-                },
-              ),
-            ),
+            list{},
             _,
           )
       },
@@ -143,6 +127,12 @@ defineFeature(feature, test => {
             ->returns([], _)
             ->Obj.magic,
             ~useSelector=useSelectorStub.contents,
+            (),
+          ),
+          ~currentSelectedUIControl=u1.contents,
+          ~currentSelectedUIControlInspectorData=UIControlInspectorTool.buildUIControlInspectorData(
+            ~id=id2,
+            ~y=10->FrontendUtils.CommonType.IntForRectField,
             (),
           ),
           (),
@@ -479,20 +469,21 @@ defineFeature(feature, test => {
       () => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              list{i1.contents},
-              (
-                id->Some,
-                list{w1.contents},
-                list{
-                  UIControlInspectorTool.buildUIControlInspectorData(
-                    ~id,
-                    ~input=UIControlInspectorTool.buildInput(~inputName=i1Name, ())->Some,
-                    (),
-                  ),
-                },
-              ),
-            ),
+            list{i1.contents},
+            // (
+            //   list{i1.contents},
+            //   (
+            //     id->Some,
+            //     list{w1.contents},
+            //     list{
+            //       UIControlInspectorTool.buildUIControlInspectorData(
+            //         ~id,
+            //         ~input=UIControlInspectorTool.buildInput(~inputName=i1Name, ())->Some,
+            //         (),
+            //       ),
+            //     },
+            //   ),
+            // ),
             _,
           )
       },
@@ -514,6 +505,12 @@ defineFeature(feature, test => {
             ~sandbox,
             ~useSelector=useSelectorStub.contents,
             ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
+            (),
+          ),
+          ~currentSelectedUIControl=w1.contents,
+          ~currentSelectedUIControlInspectorData=UIControlInspectorTool.buildUIControlInspectorData(
+            ~id,
+            ~input=UIControlInspectorTool.buildInput(~inputName=i1Name, ())->Some,
             (),
           ),
           (),
@@ -555,31 +552,7 @@ defineFeature(feature, test => {
     \"and"(
       "set inspector current selected ui control data to w1",
       () => {
-        useSelectorStub :=
-          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              list{},
-              (
-                id->Some,
-                list{w1.contents},
-                list{
-                  UIControlInspectorTool.buildUIControlInspectorData(
-                    ~id,
-                    ~specific=[
-                      UIControlInspectorTool.buildSpecific(
-                        ~name="label",
-                        ~type_=#string,
-                        ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
-                        (),
-                      ),
-                    ],
-                    (),
-                  ),
-                },
-              ),
-            ),
-            _,
-          )
+        useSelectorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(list{}, _)
       },
     )
 
@@ -596,6 +569,19 @@ defineFeature(feature, test => {
         UIControlInspectorTool.buildUI(
           ~sandbox,
           ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+          ~currentSelectedUIControl=w1.contents,
+          ~currentSelectedUIControlInspectorData=UIControlInspectorTool.buildUIControlInspectorData(
+            ~id,
+            ~specific=[
+              UIControlInspectorTool.buildSpecific(
+                ~name="label",
+                ~type_=#string,
+                ~value="Window1"->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
+                (),
+              ),
+            ],
+            (),
+          ),
           (),
         )
         ->ReactTestRenderer.create
@@ -871,26 +857,7 @@ defineFeature(feature, test => {
       () => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              list{a1.contents, a2.contents},
-              (
-                id->Some,
-                list{d1.contents},
-                list{
-                  UIControlInspectorTool.buildUIControlInspectorData(
-                    ~id,
-                    ~event=[
-                      UIControlInspectorTool.buildEventData(
-                        ~eventName=_getButtonClickEventName(),
-                        ~actionName=action2Name,
-                        (),
-                      ),
-                    ],
-                    (),
-                  ),
-                },
-              ),
-            ),
+            list{a1.contents, a2.contents},
             _,
           )
       },
@@ -914,6 +881,18 @@ defineFeature(feature, test => {
             ~getUIControlSupportedEventNames=getUIControlSupportedEventNamesStub.contents->Obj.magic,
             ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
             ~useSelector=useSelectorStub.contents,
+            (),
+          ),
+          ~currentSelectedUIControl=d1.contents,
+          ~currentSelectedUIControlInspectorData=UIControlInspectorTool.buildUIControlInspectorData(
+            ~id,
+            ~event=[
+              UIControlInspectorTool.buildEventData(
+                ~eventName=_getButtonClickEventName(),
+                ~actionName=action2Name,
+                (),
+              ),
+            ],
             (),
           ),
           (),

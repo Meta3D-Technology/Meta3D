@@ -3,23 +3,6 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let getCurrentSelectedUIControlInspectorData = (
-    inspectorCurrentUIControlId,
-    selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
-  ) => {
-    inspectorCurrentUIControlId->Meta3dCommonlib.OptionSt.bind(inspectorCurrentUIControlId =>
-      HierachyUtils.findSelectedUIControlData(
-        None,
-        (
-          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.id,
-          (data: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData) => data.children,
-        ),
-        selectedUIControlInspectorData,
-        inspectorCurrentUIControlId,
-      )
-    )
-  }
-
   // let setRect = (dispatch, id, rect) => {
   //   dispatch(FrontendUtils.ElementAssembleStoreType.SetRect(id, rect))
   // }
@@ -73,23 +56,6 @@ module Method = {
 
   let setIsDraw = (dispatch, id, isDraw) => {
     dispatch(FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw))
-  }
-
-  let getCurrentSelectedUIControl = (
-    inspectorCurrentUIControlId,
-    selectedUIControls: FrontendUtils.ElementAssembleStoreType.selectedUIControls,
-  ) => {
-    inspectorCurrentUIControlId->Meta3dCommonlib.OptionSt.bind(inspectorCurrentUIControlId =>
-      HierachyUtils.findSelectedUIControlData(
-        None,
-        (
-          (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
-          (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.children,
-        ),
-        selectedUIControls,
-        inspectorCurrentUIControlId,
-      )
-    )
   }
 
   let buildInputNameSelectValues = (
@@ -472,236 +438,188 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
     </>
   }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
-  ) => {
+  let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) => {
     let {selectedContributes} = apAssembleState
-    let {
-      // elementInspectorData,
-      inspectorCurrentUIControlId,
-      selectedUIControls,
-      selectedUIControlInspectorData,
-    } = elementAssembleState
 
-    (
-      selectedContributes,
-      (
-        // elementInspectorData,
-        inspectorCurrentUIControlId,
-        selectedUIControls,
-        selectedUIControlInspectorData,
-      ),
-    )
+    // let {
+    //   // elementInspectorData,
+    //   inspectorCurrentUIControlId,
+    //   selectedUIControls,
+    //   selectedUIControlInspectorData,
+    // } = elementAssembleState
+
+    // (
+    //   selectedContributes,
+    //   // (
+    //   //   // elementInspectorData,
+    //   //   inspectorCurrentUIControlId,
+    //   //   selectedUIControls,
+    //   //   selectedUIControlInspectorData,
+    //   // ),
+    // )
+    selectedContributes
   }
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (
+  ~service: service,
+  ~currentSelectedUIControl: FrontendUtils.ElementAssembleStoreType.uiControl,
+  ~currentSelectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.uiControlInspectorData,
+) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (
-    selectedContributes,
-    (
-      // elementInspectorData,
-      inspectorCurrentUIControlId,
-      selectedUIControls,
-      selectedUIControlInspectorData,
-    ),
-  ) = service.react.useSelector(. Method.useSelector)
+  let selectedContributes = service.react.useSelector(. Method.useSelector)
 
   let (inputFileStr, setInputFileStr) = service.react.useState(_ =>
-    Method.getCurrentSelectedUIControlInspectorData(
-      inspectorCurrentUIControlId,
-      selectedUIControlInspectorData,
-    )->Meta3dCommonlib.OptionSt.bind(({input}) =>
-      input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) => inputFileStr)
+    currentSelectedUIControlInspectorData.input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) =>
+      inputFileStr
     )
   )
   let (actionFileStrMap, setActionFileStrMap) = service.react.useState(_ => {
-    let map = Meta3dCommonlib.ImmutableHashMap.createEmpty()
-
-    Method.getCurrentSelectedUIControlInspectorData(
-      inspectorCurrentUIControlId,
-      selectedUIControlInspectorData,
+    currentSelectedUIControlInspectorData.event->Meta3dCommonlib.ArraySt.reduceOneParam(
+      (. map, {eventName, actionFileStr}) => {
+        switch actionFileStr {
+        | Some(actionFileStr) =>
+          map->Meta3dCommonlib.ImmutableHashMap.set(eventName->Obj.magic, actionFileStr)
+        | None => map
+        }
+      },
+      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     )
-    ->Meta3dCommonlib.OptionSt.map(({event}) =>
-      event->Meta3dCommonlib.ArraySt.reduceOneParam(
-        (. map, {eventName, actionFileStr}) => {
-          switch actionFileStr {
-          | Some(actionFileStr) =>
-            map->Meta3dCommonlib.ImmutableHashMap.set(eventName->Obj.magic, actionFileStr)
-          | None => map
-          }
-        },
-        map,
-      )
-    )
-    ->Meta3dCommonlib.OptionSt.getWithDefault(map)
   })
 
-  // let {elementStateFields} = elementInspectorData
+  let {id, rect, isDraw, input, event, specific} = currentSelectedUIControlInspectorData
+  let {x, y, width, height} = rect
 
-  switch Method.getCurrentSelectedUIControlInspectorData(
-    inspectorCurrentUIControlId,
-    selectedUIControlInspectorData,
-  ) {
-  | None => React.null
-  | Some({id, rect, isDraw, input, event, specific}) =>
-    let {x, y, width, height} = rect
+  let {protocolConfigStr, data} = currentSelectedUIControl
 
-    <Space direction=#vertical size=#middle>
-      {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
-      <Space direction=#horizontal wrap=true>
-        {Method.buildRectField(dispatch, Method.setRectX, id, rect, x)}
-        {Method.buildRectField(dispatch, Method.setRectY, id, rect, y)}
-        {Method.buildRectField(dispatch, Method.setRectWidth, id, rect, width)}
-        {Method.buildRectField(dispatch, Method.setRectHeight, id, rect, height)}
-      </Space>
-      {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
-      {Method.buildIsDraw(dispatch, id, isDraw)}
-      {switch Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls) {
-      | None =>
-        service.console.errorWithExn(.
-          Meta3dCommonlib.Exception.buildErr(
-            Meta3dCommonlib.Log.buildErrorMessage(
-              ~title="currentSelectedUIControl should exist",
-              ~description="",
-              ~reason="",
-              ~solution=j``,
-              ~params=j``,
-            ),
-          ),
-          None,
-        )->Obj.magic
-      | Some({id, protocolConfigStr, data}) =>
-        // let {name, version} = data.contributePackageData.protocol
+  let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
 
-        let actions = selectedContributes->Method.getActions->Meta3dCommonlib.ListSt.toArray
+  let uiControlConfigLib = service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr)
 
-        let uiControlConfigLib = service.meta3d.serializeUIControlProtocolConfigLib(.
-          protocolConfigStr,
-        )
+  let uiControlProtocolName = data.contributePackageData.protocol.name
 
-        let uiControlProtocolName = data.contributePackageData.protocol.name
-
-        <Space direction=#vertical size=#middle>
-          {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
-          {<>
-            {FrontendUtils.SelectUtils.buildSelect(
-              Method.setInput(dispatch, id),
-              input
-              ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
-              ->Meta3dCommonlib.OptionSt.getWithDefault(
-                FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-              ),
-              Method.buildInputNameSelectValues(
-                service,
-                selectedContributes,
-                uiControlProtocolName,
-                input,
-              ),
-            )}
-            {TextareaUtils.isNotShowTextareaForTest()
-              ? React.null
-              : <Input.TextArea
-                  value={inputFileStr->Meta3dCommonlib.OptionSt.getWithDefault(
-                    Method.buildDefaultInputFileStr(uiControlProtocolName),
-                  )}
-                  onChange={e => {
-                    setInputFileStr(_ => e->EventUtils.getEventTargetValue->Some)
-                  }}
-                />}
-            <Button
-              onClick={_ => {
-                FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-                  Method.setInputFileStrData(
-                    dispatch,
-                    id,
-                    ElementVisualUtils.buildDefaultInputNameForInputFileStr(uiControlProtocolName),
-                    inputFileStr,
-                  )
-                }, 5->Some)
-              }}>
-              {React.string(`提交`)}
-            </Button>
-          </>}
-          {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
-          {Method.buildSpecific(service, dispatch, id, specific)}
-          {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
-          <List
-            dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
-            // renderItem={(( eventName, actionProtocolName )) => {
-            renderItem={eventName => {
-              let value =
-                ElementMRUtils.getActionName(
-                  event,
-                  eventName,
-                )->Meta3dCommonlib.NullableSt.getWithDefault(
-                  FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-                )
-
-              <List.Item key={eventName->Obj.magic}>
-                <Space direction=#vertical size=#middle>
-                  {<Space direction=#horizontal size=#middle>
-                    <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
-                    {FrontendUtils.SelectUtils.buildSelect(
-                      Method.setAction(dispatch, id, eventName),
-                      value,
-                      Method.buildActionNameSelectValues(
-                        service,
-                        actions,
-                        ElementMRUtils.getActionName(
-                          event,
-                          eventName,
-                        )->Meta3dCommonlib.OptionSt.fromNullable,
-                      ),
-                    )}
-                  </Space>}
-                  {TextareaUtils.isNotShowTextareaForTest()
-                    ? React.null
-                    : <Input.TextArea
-                        value={actionFileStrMap
-                        ->Meta3dCommonlib.ImmutableHashMap.get(eventName->Obj.magic)
-                        ->Meta3dCommonlib.OptionSt.getWithDefault(
-                          Method.buildDefaultActionFileStr(
-                            uiControlProtocolName,
-                            eventName->Obj.magic,
-                          ),
-                        )}
-                        onChange={e => {
-                          setActionFileStrMap(map =>
-                            map->Meta3dCommonlib.ImmutableHashMap.set(
-                              eventName->Obj.magic,
-                              e->EventUtils.getEventTargetValue,
-                            )
-                          )
-                        }}
-                      />}
-                  <Button
-                    onClick={_ => {
-                      FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-                        Method.setActionFileStrData(
-                          dispatch,
-                          id,
-                          eventName,
-                          ElementVisualUtils.buildDefaultActionNameForActionFileStr(
-                            uiControlProtocolName,
-                            eventName->Obj.magic,
-                          ),
-                          actionFileStrMap->Meta3dCommonlib.ImmutableHashMap.get(
-                            eventName->Obj.magic,
-                          ),
-                        )
-                      }, 5->Some)
-                    }}>
-                    {React.string(`提交`)}
-                  </Button>
-                </Space>
-              </List.Item>
-            }}
-          />
-        </Space>
-      }}
+  <Space direction=#vertical size=#middle>
+    {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
+    <Space direction=#horizontal wrap=true>
+      {Method.buildRectField(dispatch, Method.setRectX, id, rect, x)}
+      {Method.buildRectField(dispatch, Method.setRectY, id, rect, y)}
+      {Method.buildRectField(dispatch, Method.setRectWidth, id, rect, width)}
+      {Method.buildRectField(dispatch, Method.setRectHeight, id, rect, height)}
     </Space>
-  }
+    {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
+    {Method.buildIsDraw(dispatch, id, isDraw)}
+    <Space direction=#vertical size=#middle>
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
+      {<>
+        {FrontendUtils.SelectUtils.buildSelect(
+          Method.setInput(dispatch, id),
+          input
+          ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+          ->Meta3dCommonlib.OptionSt.getWithDefault(
+            FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+          ),
+          Method.buildInputNameSelectValues(
+            service,
+            selectedContributes,
+            uiControlProtocolName,
+            input,
+          ),
+        )}
+        {TextareaUtils.isNotShowTextareaForTest()
+          ? React.null
+          : <Input.TextArea
+              value={inputFileStr->Meta3dCommonlib.OptionSt.getWithDefault(
+                Method.buildDefaultInputFileStr(uiControlProtocolName),
+              )}
+              onChange={e => {
+                setInputFileStr(_ => e->EventUtils.getEventTargetValue->Some)
+              }}
+            />}
+        <Button
+          onClick={_ => {
+            FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+              Method.setInputFileStrData(
+                dispatch,
+                id,
+                ElementVisualUtils.buildDefaultInputNameForInputFileStr(uiControlProtocolName),
+                inputFileStr,
+              )
+            }, 5->Some)
+          }}>
+          {React.string(`提交`)}
+        </Button>
+      </>}
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
+      {Method.buildSpecific(service, dispatch, id, specific)}
+      {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
+      <List
+        dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
+        renderItem={eventName => {
+          let value =
+            ElementMRUtils.getActionName(
+              event,
+              eventName,
+            )->Meta3dCommonlib.NullableSt.getWithDefault(
+              FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+            )
+
+          <List.Item key={eventName->Obj.magic}>
+            <Space direction=#vertical size=#middle>
+              {<Space direction=#horizontal size=#middle>
+                <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
+                {FrontendUtils.SelectUtils.buildSelect(
+                  Method.setAction(dispatch, id, eventName),
+                  value,
+                  Method.buildActionNameSelectValues(
+                    service,
+                    actions,
+                    ElementMRUtils.getActionName(
+                      event,
+                      eventName,
+                    )->Meta3dCommonlib.OptionSt.fromNullable,
+                  ),
+                )}
+              </Space>}
+              {TextareaUtils.isNotShowTextareaForTest()
+                ? React.null
+                : <Input.TextArea
+                    value={actionFileStrMap
+                    ->Meta3dCommonlib.ImmutableHashMap.get(eventName->Obj.magic)
+                    ->Meta3dCommonlib.OptionSt.getWithDefault(
+                      Method.buildDefaultActionFileStr(uiControlProtocolName, eventName->Obj.magic),
+                    )}
+                    onChange={e => {
+                      setActionFileStrMap(map =>
+                        map->Meta3dCommonlib.ImmutableHashMap.set(
+                          eventName->Obj.magic,
+                          e->EventUtils.getEventTargetValue,
+                        )
+                      )
+                    }}
+                  />}
+              <Button
+                onClick={_ => {
+                  FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
+                    Method.setActionFileStrData(
+                      dispatch,
+                      id,
+                      eventName,
+                      ElementVisualUtils.buildDefaultActionNameForActionFileStr(
+                        uiControlProtocolName,
+                        eventName->Obj.magic,
+                      ),
+                      actionFileStrMap->Meta3dCommonlib.ImmutableHashMap.get(eventName->Obj.magic),
+                    )
+                  }, 5->Some)
+                }}>
+                {React.string(`提交`)}
+              </Button>
+            </Space>
+          </List.Item>
+        }}
+      />
+    </Space>
+  </Space>
 }

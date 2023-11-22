@@ -1,12 +1,8 @@
-let buildUI = (~sandbox, ~service, ()) => {
-  <UIControlInspector service />
-}
-
 // let setContributeNewName = (~dispatch, ~inspectorCurrentContribute, ~newName) => {
 //   UIControlInspector.Method.setContributeNewName(dispatch, inspectorCurrentContribute, newName)
 // }
 
-let getCurrentSelectedUIControlInspectorData = UIControlInspector.Method.getCurrentSelectedUIControlInspectorData
+let getCurrentSelectedUIControlInspectorData = ElementInspector.Method.getCurrentSelectedUIControlInspectorData
 
 let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
   UIControlInspector.Method.useSelector
@@ -96,3 +92,13 @@ let setAction = UIControlInspector.Method.setAction
 let setSpecificData = UIControlInspector.Method._setSpecificData
 
 let buildEmptySelectOptionValue = FrontendUtils.SelectUtils.buildEmptySelectOptionValue
+
+let buildUI = (
+  ~sandbox,
+  ~service,
+  ~currentSelectedUIControl=SelectedUIControlsTool.buildSelectedUIControl(),
+  ~currentSelectedUIControlInspectorData=buildUIControlInspectorData(~id="id", ()),
+  (),
+) => {
+  <UIControlInspector service currentSelectedUIControl currentSelectedUIControlInspectorData />
+}
