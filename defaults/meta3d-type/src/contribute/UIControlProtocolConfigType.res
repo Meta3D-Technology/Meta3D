@@ -11,8 +11,8 @@ type supportedEventName = [
   | #button_click
   | #run
   | #stop
-  | #event1
-  | #event2
+  | #click1
+  | #click2
 ]
 
 type actionName = Js.Nullable.t<string>

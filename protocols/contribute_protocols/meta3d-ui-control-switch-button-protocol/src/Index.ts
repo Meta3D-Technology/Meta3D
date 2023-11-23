@@ -8,10 +8,10 @@ export const uiControlName = "SwitchButton"
 export type imageBase64 = string
 
 export type state = {
-    event1Texture: nullable<imguiImplTexture>,
-    event2Texture: nullable<imguiImplTexture>,
-    lastEvent1TextureImageBase64: nullable<imageBase64>,
-    lastEvent2TextureImageBase64: nullable<imageBase64>,
+    click1Texture: nullable<imguiImplTexture>,
+    click2Texture: nullable<imguiImplTexture>,
+    lastClick1TextureImageBase64: nullable<imageBase64>,
+    lastClick2TextureImageBase64: nullable<imageBase64>,
 }
 
 export type inputFunc = nullable<func>
@@ -23,8 +23,8 @@ export type specificData = {
     image2: nullable<imageBase64>,
 }
 
-type isEvent1 = boolean
+type isClick1 = boolean
 
-type isEvent2 = boolean
+type isClick2 = boolean
 
-export type outputData = [isEvent1, isEvent2]
+export type outputData = [isClick1, isClick2]

@@ -34,22 +34,22 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
-export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["event1", "event2"]
+export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["click1", "click2"]
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([event1ActionName, event2ActionName]) => {
-    if (!isNullable(event1ActionName) && !isNullable(event2ActionName)) {
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([click1ActionName, click2ActionName]) => {
+    if (!isNullable(click1ActionName) && !isNullable(click2ActionName)) {
         return `
-                let [isTriggerEvent1, isTriggerEvent2] = data[1]
+                let [isTriggerClick1, isTriggerClick2] = data[1]
 
-                if (isTriggerEvent1) {
+                if (isTriggerClick1) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${event1ActionName}", null)
+                    return trigger(meta3dState, "meta3d-event-protocol", "${click1ActionName}", null)
                 }
-                if (isTriggerEvent2) {
+                if (isTriggerClick2) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${event2ActionName}", null)
+                    return trigger(meta3dState, "meta3d-event-protocol", "${click2ActionName}", null)
                 }
                 `
     }

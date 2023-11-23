@@ -173,8 +173,8 @@ type service = {
     Meta3dType.Index.state,
     bool,
     {
-      "event1Texture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
-      "event2Texture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      "click1Texture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+      "click2Texture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
     },
     Meta3dImguiRendererProtocol.ServiceType.size,
   ) => (Meta3dType.Index.state, (bool, bool)),

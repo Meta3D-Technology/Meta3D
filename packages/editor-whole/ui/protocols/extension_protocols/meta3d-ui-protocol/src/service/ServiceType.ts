@@ -229,8 +229,8 @@ export type service = {
         meta3dState: meta3dState,
         isRunState: boolean,
         textures: {
-            "event1Texture": imguiImplTexture,
-            "event2Texture": imguiImplTexture,
+            "click1Texture": imguiImplTexture,
+            "click2Texture": imguiImplTexture,
         },
         size: size
     ) => [meta3dState, [boolean, boolean]];

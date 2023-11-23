@@ -136,7 +136,7 @@ type service = {
   ) => inspectorReturnData,
   switchButton: (
     . bool,
-    {"event1Texture": imguiImplTexture, "event2Texture": imguiImplTexture},
+    {"click1Texture": imguiImplTexture, "click2Texture": imguiImplTexture},
     size,
   ) => (bool, bool),
   getContext: unit => context,

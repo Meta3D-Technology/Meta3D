@@ -149,8 +149,8 @@ export type service = {
   readonly switchButton: (
     isRunState: boolean,
     textures: {
-      "event1Texture": imguiImplTexture,
-      "event2Texture": imguiImplTexture,
+      "click1Texture": imguiImplTexture,
+      "click2Texture": imguiImplTexture,
     },
     size: size
   ) => [boolean, boolean];

@@ -465,7 +465,7 @@ let button = (
 let registerUIControl = (
   ~uiControlName,
   ~func,
-  ~init=(_, _) => Js.Promise.resolve(Obj.magic(1)),
+  ~init=_ => Js.Promise.resolve(Obj.magic(1)),
   ~state=createState(),
   (),
 ) => {
