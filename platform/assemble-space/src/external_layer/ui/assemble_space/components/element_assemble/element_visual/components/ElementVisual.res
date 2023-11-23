@@ -479,13 +479,13 @@ module Method = {
         {
           ...uiControl,
           input: uiControl.input->Meta3dCommonlib.NullableSt.bind((. input) => {
-            ElementVisualUtils.isForInputFileStr(input.inputName) ||
+            ElementVisualUtils.isCustomInput(input.inputName) ||
             selectedInputNames->Meta3dCommonlib.ListSt.includes(input.inputName)
               ? input->Meta3dCommonlib.NullableSt.return
               : Meta3dCommonlib.NullableSt.getEmpty()
           }),
           event: uiControl.event->Meta3dCommonlib.ArraySt.filter(({eventName, actionName}) => {
-            ElementVisualUtils.isForActionFileStr(actionName, eventName->Obj.magic) ||
+            ElementVisualUtils.isCustomAction(actionName, eventName->Obj.magic) ||
             selectedActionNames->Meta3dCommonlib.ListSt.includes(actionName)
           }),
           children: _remove(uiControl.children),

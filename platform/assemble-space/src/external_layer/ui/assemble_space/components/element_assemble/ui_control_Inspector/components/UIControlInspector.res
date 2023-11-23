@@ -98,7 +98,7 @@ module Method = {
     j`window.Contribute = {
     getContribute: (api) => {
       return {
-        inputName: "${ElementVisualUtils.buildDefaultInputNameForInputFileStr(
+        inputName: "${ElementVisualUtils.buildDefaultInputNameForCustomInput(
         random,
         uiControlProtocolName,
       )}",
@@ -169,7 +169,7 @@ module Method = {
     j`window.Contribute = {
   getContribute: (api) => {
     return {
-      actionName: "${ElementVisualUtils.buildDefaultActionNameForActionFileStr(
+      actionName: "${ElementVisualUtils.buildDefaultActionNameForCustomAction(
         random,
         uiControlProtocolName,
         eventName,

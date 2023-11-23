@@ -869,8 +869,32 @@ implement
 ** DONE feat: auto generate version when publish package
 
 
+** DONE refactor: rename to custom
+
+
+** TODO add custom actions:Array<[actionName, fileStr]> and custom inputs
+
+
+
+TODO custom action: generate unique protocol name
+
+TODO remove custom in UIControlInspector
+
+# TODO when switch between Assemble and Index, not remain selected contributes in ap assemble store
+
+
+
 ** TODO Menu
-Menu->Specific: set Array<Array<name:string, actionName:string>>
+Menu->Specific: 
+# set Array<Array<name:string, actionName:string>>
+Array<[menuLabel, Record<menuLabel, string>]>
+
+# TODO actionName use Select
+
+TODO use Textarea directly 
+
+
+
 
 
 ** TODO Asset
