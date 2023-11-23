@@ -111,11 +111,12 @@ defineFeature(feature, test => {
     let entryExtensionProtocolDisplayName = "eid1"
     let entryExtensionProtocolRepoLink = "eil1"
     let entryExtensionProtocolDescription = "eidp1"
-    let entryExtensionProtocolConfigStr =StartPackageProtocolConfigTool.buildProtocolConfigStr()
+    let entryExtensionProtocolConfigStr = StartPackageProtocolConfigTool.buildProtocolConfigStr()
     let selectedPackageBinaryFile1 = Js.Typed_array.ArrayBuffer.make(10)
     let packageBinaryFile = Js.Typed_array.ArrayBuffer.make(1)
     let generatePackageStub = ref(Obj.magic(1))
     let convertAllFileDataStub = ref(Obj.magic(1))
+    let findNewestPublishPackageStub = ref(Obj.magic(1))
     let publishPackageStub = ref(Obj.magic(1))
     let setUploadProgressStub = ref(Obj.magic(1))
     let setIsUploadBeginStub = ref(Obj.magic(1))
@@ -244,6 +245,16 @@ defineFeature(feature, test => {
 
         convertAllFileDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
+        findNewestPublishPackageStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withThreeArgs(Sinon.matchAny, entryExtensionProtocolName, packageName, _)
+          ->returns(
+            (Obj.magic(1), Obj.magic(1), packageVersion, Obj.magic(1), Obj.magic(1))
+            ->Meta3dCommonlib.NullableSt.return
+            ->Meta3dBsMostDefault.Most.just,
+            _,
+          )
+
         publishPackageStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             Meta3dBsMostDefault.Most.empty(),
@@ -265,6 +276,7 @@ defineFeature(feature, test => {
             ~sandbox,
             ~serializeStartPackageProtocolConfigLib=Meta3d.Main.serializeStartPackageProtocolConfigLib->Obj.magic,
             ~publishPackage=publishPackageStub.contents->Obj.magic,
+            ~findNewestPublishPackage=findNewestPublishPackageStub.contents->Obj.magic,
             ~generatePackage=generatePackageStub.contents->Obj.magic,
             ~convertAllFileDataForPackage=convertAllFileDataStub.contents->Obj.magic,
             (),
@@ -278,6 +290,13 @@ defineFeature(feature, test => {
     )
 
     then(
+      "should find newest package version",
+      () => {
+        ()
+      },
+    )
+
+    \"and"(
       "should mark begin upload",
       () => {
         let func = SinonTool.getFirstArg(~callIndex=0, ~stub=setIsUploadBeginStub.contents, ())
@@ -326,7 +345,7 @@ defineFeature(feature, test => {
             entryExtensionProtocolConfigStr,
             entryExtensionName,
           ],
-          [packageName, packageVersion, packageDescription],
+          [packageName, "0.1.1", packageDescription],
           account,
         )
         ->expect == true

@@ -29,7 +29,8 @@ Feature: Publish Package
             And select entry extension e3
             And select package p1
             When publish package
-            Then should mark begin upload
+            Then should find newest package version
+            And should mark begin upload
             And should generat package with correct extension data and contribute data
             And should publish the generated package
             And should mark finish upload

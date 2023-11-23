@@ -866,6 +866,8 @@ implement
 
 
 
+** DONE feat: auto generate version when publish package
+
 
 ** TODO Menu
 Menu->Specific: set Array<Array<name:string, actionName:string>>

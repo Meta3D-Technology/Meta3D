@@ -129,6 +129,8 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -136,6 +138,8 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -281,6 +285,8 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -288,6 +294,8 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -578,13 +586,15 @@ type findNewestPublishPackage = (
   . onDownloadProgressFunc,
   entryExtensionProtocolName,
   implementName,
-) => Meta3dBsMostDefault.Most.stream<(
-  Js.Typed_array.ArrayBuffer.t,
-  entryExtensionProtocolVersion,
-  implementVersion,
-  entryExtensionProtocolIconBase64,
-  entryExtensionProtocolConfigStr,
-)>
+) => Meta3dBsMostDefault.Most.stream<
+  Js.Nullable.t<(
+    Js.Typed_array.ArrayBuffer.t,
+    entryExtensionProtocolVersion,
+    implementVersion,
+    entryExtensionProtocolIconBase64,
+    entryExtensionProtocolConfigStr,
+  )>,
+>
 
 type findNewestPublishExtension = (
   . onDownloadProgressFunc,

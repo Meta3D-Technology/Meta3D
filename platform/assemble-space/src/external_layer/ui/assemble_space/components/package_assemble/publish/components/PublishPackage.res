@@ -31,7 +31,7 @@ module Method = {
     values,
   ): Js.Promise.t<unit> => {
     let packageName = values["packageName"]
-    let packageVersion = values["packageVersion"]
+    // let packageVersion = values["packageVersion"]
     let packageDescription = values["packageDescription"]
 
     let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
@@ -55,43 +55,57 @@ module Method = {
           entryExtensionProtocolConfigStr,
         ) = PackageUtils.getEntryExtensionProtocolData(selectedExtensions)
 
-        let packageBinaryFile = PackageUtils.generatePackage(
-          service,
-          selectedPackages,
-          selectedExtensions,
-          selectedContributes,
-          (
-            {
-              name: entryExtensionProtocolName,
-              version: entryExtensionProtocolVersion,
-              iconBase64: entryExtensionProtocolIconBase64,
-            },
-            PackageUtils.getEntryExtensionName(selectedExtensions),
-            packageVersion,
-            packageName,
-            entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.getWithDefault(""),
-          ),
+        service.backend.findNewestPublishPackage(.
+          progress => (),
+          entryExtensionProtocolName,
+          packageName,
         )
+        ->Meta3dBsMostDefault.Most.map(data => {
+          data
+          ->Meta3dCommonlib.NullableSt.map((. (_, _, packageVersion, _, _)) =>
+            packageVersion->Meta3d.Semver.inc(#patch)
+          )
+          ->Meta3dCommonlib.NullableSt.getWithDefault("0.0.1")
+        }, _)
+        ->Meta3dBsMostDefault.Most.flatMap(packageVersion => {
+          let packageBinaryFile = PackageUtils.generatePackage(
+            service,
+            selectedPackages,
+            selectedExtensions,
+            selectedContributes,
+            (
+              {
+                name: entryExtensionProtocolName,
+                version: entryExtensionProtocolVersion,
+                iconBase64: entryExtensionProtocolIconBase64,
+              },
+              PackageUtils.getEntryExtensionName(selectedExtensions),
+              packageVersion,
+              packageName,
+              entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.getWithDefault(""),
+            ),
+          )
 
-        setIsUploadBegin(_ => true)
+          setIsUploadBegin(_ => true)
 
-        service.backend.publishPackage(.
-          progress => setUploadProgress(_ => progress),
-          packageBinaryFile,
-          (
-            entryExtensionProtocolName,
-            entryExtensionProtocolVersion,
-            entryExtensionProtocolVersionRange,
-            entryExtensionProtocolIconBase64,
-            entryExtensionProtocolDisplayName,
-            entryExtensionProtocolRepoLink,
-            entryExtensionProtocolDescription,
-            entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.toNullable,
-            PackageUtils.getEntryExtensionName(selectedExtensions),
-          ),
-          (packageName, packageVersion, packageDescription),
-          account->Meta3dCommonlib.OptionSt.getExn,
-        )
+          service.backend.publishPackage(.
+            progress => setUploadProgress(_ => progress),
+            packageBinaryFile,
+            (
+              entryExtensionProtocolName,
+              entryExtensionProtocolVersion,
+              entryExtensionProtocolVersionRange,
+              entryExtensionProtocolIconBase64,
+              entryExtensionProtocolDisplayName,
+              entryExtensionProtocolRepoLink,
+              entryExtensionProtocolDescription,
+              entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.toNullable,
+              PackageUtils.getEntryExtensionName(selectedExtensions),
+            ),
+            (packageName, packageVersion, packageDescription),
+            account->Meta3dCommonlib.OptionSt.getExn,
+          )
+        }, _)
         ->Meta3dBsMostDefault.Most.drain
         ->Js.Promise.then_(_ => {
           setIsUploadBegin(_ => false)
@@ -201,17 +215,17 @@ let make = (~service: service, ~account: option<string>) => {
                   ]}>
                   <Input />
                 </Form.Item>
-                <Form.Item
-                  label={`包版本号`}
-                  name="packageVersion"
-                  rules={[
-                    {
-                      required: true,
-                      message: `输入包版本号`,
-                    },
-                  ]}>
-                  <Input />
-                </Form.Item>
+                // <Form.Item
+                //   label={`包版本号`}
+                //   name="packageVersion"
+                //   rules={[
+                //     {
+                //       required: true,
+                //       message: `输入包版本号`,
+                //     },
+                //   ]}>
+                //   <Input />
+                // </Form.Item>
                 <Form.Item
                   label={`包介绍`}
                   name="packageDescription"

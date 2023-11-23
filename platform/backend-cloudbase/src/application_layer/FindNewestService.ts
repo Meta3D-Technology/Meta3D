@@ -28,9 +28,15 @@ export let findNewestPublishPackage = (
         .then(res => {
             let firstOrderByFieldValue = _descSort(res.data, firstGtFunc, firstOrderByFieldName)[0][firstOrderByFieldName]
 
-            return _descSort(res.data.filter(data => {
+            let arr = _descSort(res.data.filter(data => {
                 return data[firstOrderByFieldName] == firstOrderByFieldValue
-            }), secondGtFunc, secondOrderByFieldName)[0]
+            }), secondGtFunc, secondOrderByFieldName)
+
+            if (arr.length == 0) {
+                return null
+            }
+
+            return arr[0]
         })
     )
 }

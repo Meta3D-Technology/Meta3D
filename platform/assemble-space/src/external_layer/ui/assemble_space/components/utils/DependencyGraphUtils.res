@@ -754,31 +754,31 @@ module Method = {
         package.protocol.name,
         package.name,
       )
-      ->Meta3dBsMostDefault.Most.flatMap(
-        ((
+      ->Meta3dBsMostDefault.Most.flatMap(data => {
+        let (
           file,
           entryExtensionProtocolVersion,
           packageVersion,
           entryExtensionProtocolIconBase64,
           entryExtensionProtocolConfigStr,
-        )) => {
-          {
-            ...package,
-            version: packageVersion,
-            protocol: {
-              ...package.protocol,
-              iconBase64: entryExtensionProtocolIconBase64,
-              version: entryExtensionProtocolVersion,
-            },
-            binaryFile: file,
-            protocolConfigStr: switch entryExtensionProtocolConfigStr {
-            | "" => package.protocolConfigStr
-            | value => value->Some
-            },
-          }->Meta3dBsMostDefault.Most.just
-        },
-        _,
-      )
+        ) =
+          data->Meta3dCommonlib.NullableSt.getExn
+
+        {
+          ...package,
+          version: packageVersion,
+          protocol: {
+            ...package.protocol,
+            iconBase64: entryExtensionProtocolIconBase64,
+            version: entryExtensionProtocolVersion,
+          },
+          binaryFile: file,
+          protocolConfigStr: switch entryExtensionProtocolConfigStr {
+          | "" => package.protocolConfigStr
+          | value => value->Some
+          },
+        }->Meta3dBsMostDefault.Most.just
+      }, _)
       ->MostUtils.toPromise
       ->Js.Promise.then_(package => {
         result->Meta3dCommonlib.ListSt.push(package)->Js.Promise.resolve
