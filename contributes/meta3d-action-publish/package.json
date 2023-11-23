@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-publish",
-    "version": "0.20.4",
+    "version": "0.20.11",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-action-publish-protocol"
