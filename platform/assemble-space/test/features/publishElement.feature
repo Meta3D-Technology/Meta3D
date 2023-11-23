@@ -35,7 +35,8 @@ Feature: Publish Element
 
         Scenario: publish element assemble data
             When publish
-            Then should publish element assemble data
+            Then should find newest element version
+            And publish element assemble data
 
         Scenario: handle after publish successfully
             When publish

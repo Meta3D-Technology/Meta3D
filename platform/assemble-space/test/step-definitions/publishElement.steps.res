@@ -123,7 +123,7 @@ defineFeature(feature, test => {
     given("prepare data", () => {
       account := "u1"
       elementName := "e1"
-      elementVersion := "0.0.1"
+      elementVersion := "0.1.1"
       // elementInspectorData :=
       //   ElementInspectorTool.buildElementInspectorData(list{})
 
@@ -357,6 +357,7 @@ defineFeature(feature, test => {
   // })
 
   test(."publish element assemble data", ({given, \"when", \"and", then}) => {
+    let findNewestPublishElementAssembleDataStub = ref(Obj.magic(1))
     let publishElementAssembleDataStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
@@ -367,6 +368,20 @@ defineFeature(feature, test => {
       \"when",
       "publish",
       () => {
+        findNewestPublishElementAssembleDataStub :=
+          createEmptyStub(refJsObjToSandbox(sandbox.contents))
+          ->withOneArg(elementName.contents, _)
+          ->returns(
+            ImportElementTool.buildElementAssembleData(
+              ~elementName=elementName.contents,
+              ~elementVersion=elementVersion.contents,
+              (),
+            )
+            ->Meta3dCommonlib.NullableSt.return
+            ->Meta3dBsMostDefault.Most.just,
+            _,
+          )
+
         publishElementAssembleDataStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             Meta3dBsMostDefault.Most.empty(),
@@ -378,14 +393,13 @@ defineFeature(feature, test => {
           ~account=account.contents->Some,
           ~values={
             "elementName": elementName.contents,
-            "elementVersion": elementVersion.contents,
           },
           ~service=ServiceTool.build(
             ~sandbox,
+            ~findNewestPublishElementAssembleData=findNewestPublishElementAssembleDataStub.contents->Obj.magic,
             ~publishElementAssembleData=publishElementAssembleDataStub.contents->Obj.magic,
             (),
           ),
-          // ~elementInspectorData=elementInspectorData.contents,
           ~selectedUIControls=selectedUIControls.contents,
           ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
           (),
@@ -394,17 +408,23 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should publish element assemble data",
+      "should find newest element version",
+      () => {
+        ()
+      },
+    )
+
+    \"and"(
+      "publish element assemble data",
       () => {
         publishElementAssembleDataStub.contents
         ->Obj.magic
         ->SinonTool.calledWithArg4(
           account.contents,
           elementName.contents,
-          elementVersion.contents,
+          "0.1.2",
           (
             {
-              // element: elementInspectorData.contents,
               uiControls: [
                 {
                   protocol: {
@@ -476,6 +496,11 @@ defineFeature(feature, test => {
           ~setVisible=setVisibleStub.contents->Obj.magic,
           ~service=ServiceTool.build(
             ~sandbox,
+            ~findNewestPublishElementAssembleData=createEmptyStub(
+              refJsObjToSandbox(sandbox.contents),
+            )
+            ->returns(Meta3dCommonlib.NullableSt.getEmpty()->Meta3dBsMostDefault.Most.just, _)
+            ->Obj.magic,
             ~publishElementAssembleData=publishElementAssembleDataStub.contents->Obj.magic,
             (),
           ),

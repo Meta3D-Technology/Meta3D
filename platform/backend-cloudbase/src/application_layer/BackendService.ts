@@ -114,14 +114,17 @@ export let updateData = (collectionName: string, key: string, updateData: any) =
 
 export let addData = (collectionName: string, key: string, data: any) => BackendService.addDataToMarketProtocolCollection(getBackend(), null, collectionName, key, null, data)
 
-export let getDataByKey = (collectionName: string, key: string) => {
+export let getDataWithWhereData = (collectionName: string, whereData: any) => {
 	return getDatabase().collection(collectionName)
-		.where({ key: BackendService.handleKeyToLowercase(key) })
-		//TODO support 1000
+		.where(whereData)
 		.skip(0)
 		.limit(1000)
 		.get()
 		.then(res => res.data)
+}
+
+export let getDataByKey = (collectionName: string, key: string) => {
+	return getDataWithWhereData(collectionName, { key: BackendService.handleKeyToLowercase(key) })
 }
 
 export let deleteFile = (fileID: string) => {

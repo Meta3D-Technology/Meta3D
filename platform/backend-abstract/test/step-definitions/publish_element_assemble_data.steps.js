@@ -82,5 +82,71 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             expect(errorFunc.getCall(0).args[0]).toEqual("version: 0.0.2 already exist, please update version");
         });
     });
+    // test('if not find, return empty', ({ given, when, then, and }) => {
+    //     // let app = { "app": true }
+    //     let account = "meta3d"
+    //     let elementName = "test1"
+    //     // let elementVersion = "0.0.2"
+    //     // let inspectorData: any = {
+    //     //     element: 1,
+    //     //     uiControls: []
+    //     // }
+    //     let getDataWithWhereDataFunc
+    //     _prepare(given)
+    //     given('prepare funcs', () => {
+    //         getDataWithWhereDataFunc = sandbox.stub()
+    //         getDataWithWhereDataFunc.returns(
+    //             resolve([
+    //             ])
+    //         )
+    //     });
+    //     when('find the published element version', () => {
+    //     });
+    //     then('should return empty', () => {
+    //         return findPublishNewestElementVersion(
+    //             getDataWithWhereDataFunc,
+    //             account,
+    //             elementName
+    //         ).observe(result => {
+    //             expect(result).toBeNull()
+    //         })
+    //     });
+    // });
+    // test('if find, return published newest element version', ({ given, when, then, and }) => {
+    //     let account = "meta3d"
+    //     let elementName = "test1"
+    //     let elementVersionLow = "0.0.2"
+    //     let elementVersionHigh = "0.0.3"
+    //     let getDataWithWhereDataFunc
+    //     _prepare(given)
+    //     given('prepare funcs', () => {
+    //         getDataWithWhereDataFunc = sandbox.stub()
+    //         getDataWithWhereDataFunc.returns(
+    //             resolve([
+    //                 {
+    //                     elementVersion
+    //                 }
+    //             ])
+    //         )
+    //     });
+    //     and('publish', () => {
+    //     });
+    //     when('find the published element version', () => {
+    //     });
+    //     then('should return the element version', () => {
+    //         return findPublishNewestElementVersion(
+    //             getDataWithWhereDataFunc,
+    //             account,
+    //             elementName
+    //         ).observe(result => {
+    //             expect(getDataWithWhereDataFunc).toCalledWith(
+    //                 [
+    //                     "publishedelementassembledata", { account, elementName }
+    //                 ]
+    //             )
+    //             expect(result).toEqual(elementVersion)
+    //         })
+    //     });
+    // });
 });
 //# sourceMappingURL=publish_element_assemble_data.steps.js.map

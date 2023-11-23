@@ -16,3 +16,17 @@ Feature: Publish Element Assemble Data
         And publish
         When publish with the same publisher, element name, element version
         Then should error
+
+
+    # Rule: findPublishNewestElementVersion
+
+    #     Scenario: if not find, return empty
+    #         Given prepare funcs
+    #         When find the published element version
+    #         Then should return empty
+
+    #     Scenario: if find, return published newest element version
+    #         Given prepare funcs
+    #         And publish old one and new one
+    #         When find the published element version
+    #         Then should return the newest element version

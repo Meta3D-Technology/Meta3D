@@ -62,4 +62,12 @@ function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFun
     }));
 }
 exports.publishElementAssembleData = publishElementAssembleData;
+// export let findPublishNewestElementVersion = (getDataWithWhereData: any, account: string, elementName: string): Stream<nullable<string>> => {
+//     return fromPromise(getDataWithWhereData("publishedelementassembledata", { account, elementName })).flatMap((data: any) => {
+//         if (data.length === 0) {
+//             return just(null)
+//         }
+//         return just(data[0].elementVersion)
+//     })
+// }
 //# sourceMappingURL=PublishElementContributeService.js.map

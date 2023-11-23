@@ -89,7 +89,7 @@ module Method = {
   ): Js.Promise.t<unit> =>
     {
       let elementName: string = values["elementName"]
-      let elementVersion: string = values["elementVersion"]
+      // let elementVersion: string = values["elementVersion"]
 
       // let {elementStateFields} = elementInspectorData
 
@@ -145,17 +145,27 @@ module Method = {
       //     ),
       //   ),
       // ])
-      service.backend.publishElementAssembleData(.
-        account->Meta3dCommonlib.OptionSt.getExn,
-        elementName,
-        elementVersion,
-        (
-          {
-            // element: elementInspectorData,
-            uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
-          }: FrontendUtils.BackendCloudbaseType.inspectorData
-        ),
-      )
+
+      service.backend.findNewestPublishElementAssembleData(. elementName)
+      ->Meta3dBsMostDefault.Most.map(elementAssembleData => {
+        elementAssembleData
+        ->Meta3dCommonlib.NullableSt.map((.
+          {elementVersion}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+        ) => elementVersion->Meta3d.Semver.inc(#patch))
+        ->Meta3dCommonlib.NullableSt.getWithDefault("0.0.1")
+      }, _)
+      ->Meta3dBsMostDefault.Most.flatMap(elementVersion => {
+        service.backend.publishElementAssembleData(.
+          account->Meta3dCommonlib.OptionSt.getExn,
+          elementName,
+          elementVersion,
+          (
+            {
+              uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
+            }: FrontendUtils.BackendCloudbaseType.inspectorData
+          ),
+        )
+      }, _)
       ->Meta3dBsMostDefault.Most.drain
       ->Js.Promise.then_(_ => {
         setIsUploadBegin(_ => false)
@@ -260,17 +270,17 @@ let make = (~service: service, ~account: option<string>) => {
               ]}>
               <Input />
             </Form.Item>
-            <Form.Item
-              label={`页面版本号`}
-              name="elementVersion"
-              rules={[
-                {
-                  required: true,
-                  message: `输入页面版本号`,
-                },
-              ]}>
-              <Input />
-            </Form.Item>
+            // <Form.Item
+            //   label={`页面版本号`}
+            //   name="elementVersion"
+            //   rules={[
+            //     {
+            //       required: true,
+            //       message: `输入页面版本号`,
+            //     },
+            //   ]}>
+            //   <Input />
+            // </Form.Item>
             <Form.Item
               wrapperCol={{
                 "offset": 8,

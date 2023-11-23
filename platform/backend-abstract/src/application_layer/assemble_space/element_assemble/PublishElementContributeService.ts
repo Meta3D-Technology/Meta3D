@@ -1,5 +1,6 @@
 import { handleKeyToLowercase } from "meta3d-backend-cloudbase";
-import { fromPromise } from "most";
+import { nullable } from "meta3d-commonlib-ts/src/nullable";
+import { Stream, fromPromise, just } from "most";
 
 let _getFileDirname = (fileType: "extension" | "contribute") => {
     switch (fileType) {
@@ -134,3 +135,13 @@ export function publishElementAssembleData([errorFunc, getMarketImplementAccount
         })
     )
 }
+
+// export let findPublishNewestElementVersion = (getDataWithWhereData: any, account: string, elementName: string): Stream<nullable<string>> => {
+//     return fromPromise(getDataWithWhereData("publishedelementassembledata", { account, elementName })).flatMap((data: any) => {
+//         if (data.length === 0) {
+//             return just(null)
+//         }
+
+//         return just(data[0].elementVersion)
+//     })
+// }

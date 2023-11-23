@@ -235,7 +235,8 @@ export let findNewestPublishElementAssembleData = (
                 })
 
                 if (result.length == 0) {
-                    throw new Error("error")
+                    // throw new Error("error")
+                    return null
                 }
 
                 return result[0]

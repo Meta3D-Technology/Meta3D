@@ -2,6 +2,8 @@ type version = string
 
 type versionRange = string
 
+type release = [#major | #premajor | #minor | #preminor | #patch | #prepatch | #prerelease]
+
 @module("semver")
 external satisfies: (version, versionRange) => bool = "satisfies"
 
@@ -16,3 +18,6 @@ external gte: (version, version) => bool = "gte"
 
 @module("semver")
 external eq: (version, version) => bool = "eq"
+
+@module("semver")
+external inc: (version, release) => version = "inc"

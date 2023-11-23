@@ -836,21 +836,28 @@ button +p
 ** DONE fix: event name
 
 
-** TODO fix: start package in ap assemble space->enter Index: should unstart package
+# ** TODO fix: start package in ap assemble space->enter Index: should unstart package
 
-ap->showelements->ap
+# ap->showelements->ap
 
 
 # * TODO feat: check version's format when publish app and element
-** TODO feat: auto generate version when publish app and element
+** DONE feat: auto generate version when publish element
 
-1.can select: major, minor, patch
-2.generate new major, minor, patch added version!
+# 1.can select: major, minor, patch
+# 2.generate new major, minor, patch added version!
 
-default select is patch
+# default select is patch
+
+
+
+TODO search element name to get element version
+
 
 
 ** TODO feat: auto add version when publish extension,contribute, protocol
+
+add new script
 
 
 

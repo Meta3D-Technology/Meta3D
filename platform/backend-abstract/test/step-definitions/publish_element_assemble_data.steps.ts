@@ -2,7 +2,7 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import { publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
+import {  publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
 // import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, isContain } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/publish_element_assemble_data.feature")
@@ -134,4 +134,83 @@ defineFeature(feature, test => {
             )
         });
     });
+
+    // test('if not find, return empty', ({ given, when, then, and }) => {
+    //     // let app = { "app": true }
+    //     let account = "meta3d"
+    //     let elementName = "test1"
+    //     // let elementVersion = "0.0.2"
+    //     // let inspectorData: any = {
+    //     //     element: 1,
+    //     //     uiControls: []
+    //     // }
+    //     let getDataWithWhereDataFunc
+
+    //     _prepare(given)
+
+    //     given('prepare funcs', () => {
+    //         getDataWithWhereDataFunc = sandbox.stub()
+
+    //         getDataWithWhereDataFunc.returns(
+    //             resolve([
+    //             ])
+    //         )
+    //     });
+
+    //     when('find the published element version', () => {
+    //     });
+
+    //     then('should return empty', () => {
+    //         return findPublishNewestElementVersion(
+    //             getDataWithWhereDataFunc,
+    //             account,
+    //             elementName
+    //         ).observe(result => {
+    //             expect(result).toBeNull()
+    //         })
+    //     });
+    // });
+
+    // test('if find, return published newest element version', ({ given, when, then, and }) => {
+    //     let account = "meta3d"
+    //     let elementName = "test1"
+    //     let elementVersionLow = "0.0.2"
+    //     let elementVersionHigh = "0.0.3"
+    //     let getDataWithWhereDataFunc
+
+    //     _prepare(given)
+
+    //     given('prepare funcs', () => {
+    //         getDataWithWhereDataFunc = sandbox.stub()
+
+    //         getDataWithWhereDataFunc.returns(
+    //             resolve([
+    //                 {
+    //                     elementVersion
+    //                 }
+    //             ])
+    //         )
+    //     });
+
+    //     and('publish', () => {
+    //     });
+
+    //     when('find the published element version', () => {
+    //     });
+
+    //     then('should return the element version', () => {
+    //         return findPublishNewestElementVersion(
+    //             getDataWithWhereDataFunc,
+    //             account,
+    //             elementName
+    //         ).observe(result => {
+    //             expect(getDataWithWhereDataFunc).toCalledWith(
+    //                 [
+    //                     "publishedelementassembledata", { account, elementName }
+    //                 ]
+    //             )
+    //             expect(result).toEqual(elementVersion)
+    //         })
+    //     });
+    // });
 })

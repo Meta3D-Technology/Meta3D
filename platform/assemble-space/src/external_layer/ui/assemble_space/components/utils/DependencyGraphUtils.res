@@ -898,7 +898,9 @@ module Method = {
         ->MostUtils.toPromise
         ->Js.Promise.then_(
           elementAssembleData => {
-            result->Meta3dCommonlib.ListSt.push(elementAssembleData)->Js.Promise.resolve
+            result
+            ->Meta3dCommonlib.ListSt.push(elementAssembleData->Meta3dCommonlib.NullableSt.getExn)
+            ->Js.Promise.resolve
           },
           _,
         )
@@ -1011,7 +1013,7 @@ module Method = {
   let buildOperateInfoDefault = () => ""
 }
 
-// TODO refactor: split for ap assemble and package assemble 
+// TODO refactor: split for ap assemble and package assemble
 @react.component
 let make = (
   ~service: service,

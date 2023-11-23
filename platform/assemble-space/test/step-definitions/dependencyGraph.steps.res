@@ -2033,7 +2033,7 @@ defineFeature(feature, test => {
                 ~elementName=element1Name,
                 ~elementVersion=element1HighVersion,
                 (),
-              ),
+              )->Meta3dCommonlib.NullableSt.return,
             ),
             _,
           )

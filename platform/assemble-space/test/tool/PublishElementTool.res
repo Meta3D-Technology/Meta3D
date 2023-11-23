@@ -18,7 +18,7 @@ let publish = (
   ~selectedUIControlInspectorData=list{},
   ~values={
     "elementName": "n1",
-    "elementVersion": "0.0.1",
+    // "elementVersion": "0.0.1",
   },
   (),
 ) => {
