@@ -89,7 +89,8 @@ Feature: UIControlInsepctor
 
         Scenario: set action
             When set action
-            Then should dispatch SetAction action
+            Then should delete value of the event from actionFileStrMap
+            And should dispatch SetAction action
 
         Scenario: set action with empty action name
             When set action with empty action name

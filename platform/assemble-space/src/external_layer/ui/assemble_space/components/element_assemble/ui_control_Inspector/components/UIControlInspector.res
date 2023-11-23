@@ -83,7 +83,9 @@ module Method = {
     }
   }
 
-  let setInput = (dispatch, id, inputName: string) => {
+  let setInput = (dispatch, setInputFileStr, id, inputName: string) => {
+    setInputFileStr(_ => None)
+
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetInput(
         id,
@@ -129,11 +131,15 @@ module Method = {
 
   let setAction = (
     dispatch,
+    setActionFileStrMap,
     id,
     eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
-    // eventName: Meta3dType.UIControlProtocolConfigType.eventName,
     actionName: string,
   ) => {
+    setActionFileStrMap(map =>
+      map->Meta3dCommonlib.ImmutableHashMap.deleteVal(eventName->Obj.magic)
+    )
+
     dispatch(
       FrontendUtils.ElementAssembleStoreType.SetAction(
         id,
@@ -247,8 +253,9 @@ module Method = {
   // }
 
   // let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
-  let buildRectField = (dispatch, setRectField, id, rect, rectField) => {
-    <>
+  let buildRectField = (dispatch, setRectField, id, label, rect, rectField) => {
+    <Space direction=#horizontal>
+      <span> {React.string({j`${label}: `})} </span>
       <InputNumber
         value={rectField
         ->_getRectFieldIntValue
@@ -282,7 +289,7 @@ module Method = {
       // ), elementStateFields
       // ->_getSpecificTypeElementStateFieldNames(#int)
       // ->Meta3dCommonlib.ListSt.toArray)}
-    </>
+    </Space>
   }
 
   let getIsDrawBoolValue = (isDraw: FrontendUtils.ElementAssembleStoreType.isDraw) => {
@@ -549,14 +556,10 @@ let make = (
   <Space direction=#vertical size=#middle>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
     <Space direction=#vertical>
-      <Space direction=#horizontal wrap=true>
-        {Method.buildRectField(dispatch, Method.setRectX, id, rect, x)}
-        {Method.buildRectField(dispatch, Method.setRectY, id, rect, y)}
-      </Space>
-      <Space direction=#horizontal wrap=true>
-        {Method.buildRectField(dispatch, Method.setRectWidth, id, rect, width)}
-        {Method.buildRectField(dispatch, Method.setRectHeight, id, rect, height)}
-      </Space>
+      {Method.buildRectField(dispatch, Method.setRectX, id, "X", rect, x)}
+      {Method.buildRectField(dispatch, Method.setRectY, id, "Y", rect, y)}
+      {Method.buildRectField(dispatch, Method.setRectWidth, id, "宽", rect, width)}
+      {Method.buildRectField(dispatch, Method.setRectHeight, id, "高", rect, height)}
     </Space>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
     {Method.buildIsDraw(dispatch, id, isDraw)}
@@ -564,7 +567,7 @@ let make = (
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
       {<>
         {FrontendUtils.SelectUtils.buildSelect(
-          Method.setInput(dispatch, id),
+          Method.setInput(dispatch, setInputFileStr, id),
           input
           ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
           ->Meta3dCommonlib.OptionSt.getWithDefault(
@@ -620,7 +623,7 @@ let make = (
               {<Space direction=#horizontal size=#middle>
                 <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
                 {FrontendUtils.SelectUtils.buildSelect(
-                  Method.setAction(dispatch, id, eventName),
+                  Method.setAction(dispatch, setActionFileStrMap, id, eventName),
                   value,
                   Method.buildActionNameSelectValues(
                     service,

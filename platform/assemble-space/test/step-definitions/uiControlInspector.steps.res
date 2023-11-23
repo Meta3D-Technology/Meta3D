@@ -546,7 +546,9 @@ defineFeature(feature, test => {
     then(
       "should get default input name",
       () => {
-        UIControlInspectorTool.getInputName(defaultInputFileStr.contents->Some)->expect == "meta3d_input_custom_123000000_switch_button"
+        UIControlInspectorTool.getInputName(
+          defaultInputFileStr.contents->Some,
+        )->expect == "meta3d_input_custom_123000000_switch_button"
       },
     )
   })
@@ -938,16 +940,19 @@ defineFeature(feature, test => {
     let eventName = #button_click
     let actionName = "a10"
     let dispatchStub = ref(Obj.magic(1))
+    let setActionFileStrMapStub = ref(Obj.magic(1))
 
     _prepare(given)
 
     \"when"(
       "set action",
       () => {
+        setActionFileStrMapStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
         UIControlInspectorTool.setAction(
           dispatchStub.contents->Obj.magic,
+          setActionFileStrMapStub.contents->Obj.magic,
           id,
           eventName,
           actionName,
@@ -956,6 +961,23 @@ defineFeature(feature, test => {
     )
 
     then(
+      "should delete value of the event from actionFileStrMap",
+      () => {
+        let map =
+          Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
+            "aaa",
+            "1",
+          )
+
+        ReactHookTool.getValueWithArg1(
+          ~setLocalValueStub=setActionFileStrMapStub.contents,
+          ~arg1=map->Meta3dCommonlib.ImmutableHashMap.set(eventName->Obj.magic, "2"),
+          (),
+        )->expect == map
+      },
+    )
+
+    \"and"(
       "should dispatch SetAction action",
       () => {
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
@@ -979,6 +1001,7 @@ defineFeature(feature, test => {
 
         UIControlInspectorTool.setAction(
           dispatchStub.contents->Obj.magic,
+          createEmptyStub(refJsObjToSandbox(sandbox.contents)),
           id,
           eventName,
           actionName,

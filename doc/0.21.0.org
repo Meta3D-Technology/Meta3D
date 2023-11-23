@@ -823,13 +823,17 @@ switch button +p
 button +p
 
 
-** TODO fix: input file str: select custom should refresh
+# ** TODO fix: input file str: select custom should refresh
 
 
-** TODO fix: action file str: switch Select should reset eventData
+# ** TODO fix: action file str: switch Select should reset eventData
 
 
-** TODO fix: input/action file str: switch select from custom to other, should reset file str
+** DONE fix: input/action file str: switch select from custom to other, should reset file str
+
+
+
+** TODO fix: event name
 
 
 ** TODO fix: start package in ap assemble space->enter Index: should unstart package

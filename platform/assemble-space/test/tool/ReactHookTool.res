@@ -8,6 +8,10 @@ let getValue = (~setLocalValueStub, ~callIndex=0, ()) => {
   (setLocalValueStub->SinonTool.getFirstArg(~stub=_, ~callIndex, ()))()
 }
 
+let getValueWithArg1 = (~setLocalValueStub, ~arg1, ~callIndex=0, ()) => {
+  (setLocalValueStub->SinonTool.getFirstArg(~stub=_, ~callIndex, ()))(arg1)
+}
+
 let buildEmptySetStateFunc = () => {
   () => ()
 }
@@ -16,8 +20,7 @@ let buildEmptySetStateFunc = () => {
 //   let useStateStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
 //   (
-    
-    
+
 //     useStateStub, callData->Js.Array.map(((callIndex, localValueRef)) => {
 //       let setLocalValueFunc = func => {
 //         Js.log(("set: ", localValueRef.contents, func(localValueRef.contents)))

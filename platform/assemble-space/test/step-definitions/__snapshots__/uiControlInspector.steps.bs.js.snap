@@ -26,110 +26,126 @@ exports[`UIControlInsepctor show default action and action select 1`] = `
     }
   >
     <div
-      className="ant-space ant-space-horizontal ant-space-align-center"
-      style={
-        Object {
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
+      className="ant-space ant-space-vertical"
+      style={Object {}}
     >
       <div
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              X: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -137,98 +153,119 @@ exports[`UIControlInsepctor show default action and action select 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              Y: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -236,196 +273,235 @@ exports[`UIControlInsepctor show default action and action select 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              宽: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
         className="ant-space-item"
-        style={
-          Object {
-            "paddingBottom": 8,
-          }
-        }
+        style={Object {}}
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              高: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -893,110 +969,126 @@ exports[`UIControlInsepctor show default data 1`] = `
     }
   >
     <div
-      className="ant-space ant-space-horizontal ant-space-align-center"
-      style={
-        Object {
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
+      className="ant-space ant-space-vertical"
+      style={Object {}}
     >
       <div
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              X: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1004,98 +1096,119 @@ exports[`UIControlInsepctor show default data 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              Y: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="10"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="10"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="10"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="10"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1103,196 +1216,235 @@ exports[`UIControlInsepctor show default data 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              宽: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
         className="ant-space-item"
-        style={
-          Object {
-            "paddingBottom": 8,
-          }
-        }
+        style={Object {}}
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              高: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1667,110 +1819,126 @@ exports[`UIControlInsepctor show input 1`] = `
     }
   >
     <div
-      className="ant-space ant-space-horizontal ant-space-align-center"
-      style={
-        Object {
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
+      className="ant-space ant-space-vertical"
+      style={Object {}}
     >
       <div
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              X: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1778,98 +1946,119 @@ exports[`UIControlInsepctor show input 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              Y: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1877,196 +2066,235 @@ exports[`UIControlInsepctor show input 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              宽: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
         className="ant-space-item"
-        style={
-          Object {
-            "paddingBottom": 8,
-          }
-        }
+        style={Object {}}
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              高: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2441,110 +2669,126 @@ exports[`UIControlInsepctor show nothing 1`] = `
     }
   >
     <div
-      className="ant-space ant-space-horizontal ant-space-align-center"
-      style={
-        Object {
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
+      className="ant-space ant-space-vertical"
+      style={Object {}}
     >
       <div
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              X: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2552,98 +2796,119 @@ exports[`UIControlInsepctor show nothing 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              Y: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2651,196 +2916,235 @@ exports[`UIControlInsepctor show nothing 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              宽: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
         className="ant-space-item"
-        style={
-          Object {
-            "paddingBottom": 8,
-          }
-        }
+        style={Object {}}
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              高: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -3215,110 +3519,126 @@ exports[`UIControlInsepctor show specific 1`] = `
     }
   >
     <div
-      className="ant-space ant-space-horizontal ant-space-align-center"
-      style={
-        Object {
-          "flexWrap": "wrap",
-          "marginBottom": -8,
-        }
-      }
+      className="ant-space ant-space-vertical"
+      style={Object {}}
     >
       <div
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              X: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -3326,98 +3646,119 @@ exports[`UIControlInsepctor show specific 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              Y: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -3425,196 +3766,235 @@ exports[`UIControlInsepctor show specific 1`] = `
         className="ant-space-item"
         style={
           Object {
-            "marginRight": 8,
-            "paddingBottom": 8,
+            "marginBottom": 8,
           }
         }
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              宽: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
         className="ant-space-item"
-        style={
-          Object {
-            "paddingBottom": 8,
-          }
-        }
+        style={Object {}}
       >
         <div
-          className="ant-input-number"
-          onBeforeInput={[Function]}
-          onBlur={[Function]}
-          onCompositionEnd={[Function]}
-          onCompositionStart={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
+          className="ant-space ant-space-horizontal ant-space-align-center"
+          style={Object {}}
         >
           <div
-            className="ant-input-number-handler-wrap"
+            className="ant-space-item"
+            style={
+              Object {
+                "marginRight": 8,
+              }
+            }
           >
-            <span
-              aria-disabled={false}
-              aria-label="Increase Value"
-              className="ant-input-number-handler ant-input-number-handler-up"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="up"
-                className="anticon anticon-up ant-input-number-handler-up-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="up"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
-                  />
-                </svg>
-              </span>
-            </span>
-            <span
-              aria-disabled={false}
-              aria-label="Decrease Value"
-              className="ant-input-number-handler ant-input-number-handler-down"
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              role="button"
-              unselectable="on"
-            >
-              <span
-                aria-label="down"
-                className="anticon anticon-down ant-input-number-handler-down-inner"
-                role="img"
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="down"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
-                  />
-                </svg>
-              </span>
+            <span>
+              高: 
             </span>
           </div>
           <div
-            className="ant-input-number-input-wrap"
+            className="ant-space-item"
+            style={Object {}}
           >
-            <input
-              aria-valuenow="0"
-              autoComplete="off"
-              className="ant-input-number-input"
-              disabled={false}
-              onChange={[Function]}
-              role="spinbutton"
-              step="1"
-              value="0"
-            />
+            <div
+              className="ant-input-number"
+              onBeforeInput={[Function]}
+              onBlur={[Function]}
+              onCompositionEnd={[Function]}
+              onCompositionStart={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+            >
+              <div
+                className="ant-input-number-handler-wrap"
+              >
+                <span
+                  aria-disabled={false}
+                  aria-label="Increase Value"
+                  className="ant-input-number-handler ant-input-number-handler-up"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="up"
+                    className="anticon anticon-up ant-input-number-handler-up-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="up"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M890.5 755.3L537.9 269.2c-12.8-17.6-39-17.6-51.7 0L133.5 755.3A8 8 0 00140 768h75c5.1 0 9.9-2.5 12.9-6.6L512 369.8l284.1 391.6c3 4.1 7.8 6.6 12.9 6.6h75c6.5 0 10.3-7.4 6.5-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+                <span
+                  aria-disabled={false}
+                  aria-label="Decrease Value"
+                  className="ant-input-number-handler ant-input-number-handler-down"
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  role="button"
+                  unselectable="on"
+                >
+                  <span
+                    aria-label="down"
+                    className="anticon anticon-down ant-input-number-handler-down-inner"
+                    role="img"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      data-icon="down"
+                      fill="currentColor"
+                      focusable="false"
+                      height="1em"
+                      viewBox="64 64 896 896"
+                      width="1em"
+                    >
+                      <path
+                        d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </div>
+              <div
+                className="ant-input-number-input-wrap"
+              >
+                <input
+                  aria-valuenow="0"
+                  autoComplete="off"
+                  className="ant-input-number-input"
+                  disabled={false}
+                  onChange={[Function]}
+                  role="spinbutton"
+                  step="1"
+                  value="0"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
