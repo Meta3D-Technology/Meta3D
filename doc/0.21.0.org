@@ -809,9 +809,21 @@ TODO not trigger in visual?
 TODO move two textures to UI Control Inspector->Config
 
 
-** TODO fix: input/action file str->name should be unique
+** DONE fix: input/action file str->name should be unique
 
 e.g. two switch button
+
+
+TODO fix uiControlName duplicate bug
+
+# TODO fix uiControlInspector->default action file str->event name: add id
+
+TODO p:
+switch button +p
+button +p
+
+
+** TODO fix: input file str: select custom should refresh
 
 
 ** TODO fix: action file str: switch Select should reset eventData
@@ -823,6 +835,18 @@ e.g. two switch button
 ** TODO fix: start package in ap assemble space->enter Index: should unstart package
 
 ap->showelements->ap
+
+
+# * TODO feat: check version's format when publish app and element
+** TODO feat: auto generate version when publish app and element
+
+1.can select: major, minor, patch
+2.generate new major, minor, patch added version!
+
+default select is patch
+
+
+** TODO feat: auto add version when publish extension,contribute, protocol
 
 
 
@@ -918,7 +942,7 @@ abstract to Switch Button with configable two textures
 
 
 
-* TODO refactor: remove Specific->label
+# * TODO refactor: remove Specific->label
 
 
 * TODO update Action: move uiData to action protocol
@@ -970,10 +994,4 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 
 * TODO refactor: extract asset package
-
-
-
-* TODO feat: check version's format when publish app and element
-
-
 

@@ -339,7 +339,7 @@ function button(sandbox, label, size, getExtensionService, getPackageServiceOpt,
 }
 
 function registerUIControl(uiControlName, func, initOpt, stateOpt, param) {
-  var init = initOpt !== undefined ? initOpt : (function (param) {
+  var init = initOpt !== undefined ? initOpt : (function (param, param$1) {
         return Promise.resolve(1);
       });
   var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);

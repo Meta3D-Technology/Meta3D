@@ -92,11 +92,12 @@ module Method = {
     )
   }
 
-  let buildDefaultInputFileStr = uiControlProtocolName => {
+  let buildDefaultInputFileStr = (random, uiControlProtocolName) => {
     j`window.Contribute = {
     getContribute: (api) => {
       return {
         inputName: "${ElementVisualUtils.buildDefaultInputNameForInputFileStr(
+        random,
         uiControlProtocolName,
       )}",
         func: (meta3dState) =>{
@@ -105,6 +106,15 @@ module Method = {
       }
     }
 }`
+  }
+
+  let getInputName = inputFileStr => {
+    (
+      inputFileStr
+      ->Meta3dCommonlib.OptionSt.getExn
+      ->Js.String.match_(%re("/inputName\:\s\"(.+)\",/im"), _)
+      ->Meta3dCommonlib.OptionSt.getExn
+    )[1]->Meta3dCommonlib.OptionSt.getExn
   }
 
   let setInputFileStrData = (dispatch, id, inputName, inputFileStr) => {
@@ -149,11 +159,12 @@ module Method = {
     }
   }
 
-  let buildDefaultActionFileStr = (uiControlProtocolName, eventName) => {
+  let buildDefaultActionFileStr = (random, uiControlProtocolName, eventName) => {
     j`window.Contribute = {
   getContribute: (api) => {
     return {
       actionName: "${ElementVisualUtils.buildDefaultActionNameForActionFileStr(
+        random,
         uiControlProtocolName,
         eventName,
       )}",
@@ -184,6 +195,15 @@ module Method = {
     }
   }
 }`
+  }
+
+  let getActionName = actionFileStr => {
+    (
+      actionFileStr
+      ->Meta3dCommonlib.OptionSt.getExn
+      ->Js.String.match_(%re("/actionName\:\s\"(.+)\",/im"), _)
+      ->Meta3dCommonlib.OptionSt.getExn
+    )[1]->Meta3dCommonlib.OptionSt.getExn
   }
 
   let setActionFileStrData = (dispatch, id, eventName, actionName, actionFileStr) => {
@@ -528,11 +548,15 @@ let make = (
 
   <Space direction=#vertical size=#middle>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
-    <Space direction=#horizontal wrap=true>
-      {Method.buildRectField(dispatch, Method.setRectX, id, rect, x)}
-      {Method.buildRectField(dispatch, Method.setRectY, id, rect, y)}
-      {Method.buildRectField(dispatch, Method.setRectWidth, id, rect, width)}
-      {Method.buildRectField(dispatch, Method.setRectHeight, id, rect, height)}
+    <Space direction=#vertical>
+      <Space direction=#horizontal wrap=true>
+        {Method.buildRectField(dispatch, Method.setRectX, id, rect, x)}
+        {Method.buildRectField(dispatch, Method.setRectY, id, rect, y)}
+      </Space>
+      <Space direction=#horizontal wrap=true>
+        {Method.buildRectField(dispatch, Method.setRectWidth, id, rect, width)}
+        {Method.buildRectField(dispatch, Method.setRectHeight, id, rect, height)}
+      </Space>
     </Space>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
     {Method.buildIsDraw(dispatch, id, isDraw)}
@@ -557,7 +581,7 @@ let make = (
           ? React.null
           : <Input.TextArea
               value={inputFileStr->Meta3dCommonlib.OptionSt.getWithDefault(
-                Method.buildDefaultInputFileStr(uiControlProtocolName),
+                Method.buildDefaultInputFileStr(Js.Math.random, uiControlProtocolName),
               )}
               onChange={e => {
                 setInputFileStr(_ => e->EventUtils.getEventTargetValue->Some)
@@ -569,7 +593,7 @@ let make = (
               Method.setInputFileStrData(
                 dispatch,
                 id,
-                ElementVisualUtils.buildDefaultInputNameForInputFileStr(uiControlProtocolName),
+                Method.getInputName(inputFileStr),
                 inputFileStr,
               )
             }, 5->Some)
@@ -614,7 +638,11 @@ let make = (
                     value={actionFileStrMap
                     ->Meta3dCommonlib.ImmutableHashMap.get(eventName->Obj.magic)
                     ->Meta3dCommonlib.OptionSt.getWithDefault(
-                      Method.buildDefaultActionFileStr(uiControlProtocolName, eventName->Obj.magic),
+                      Method.buildDefaultActionFileStr(
+                        Js.Math.random,
+                        uiControlProtocolName,
+                        eventName->Obj.magic,
+                      ),
                     )}
                     onChange={e => {
                       setActionFileStrMap(map =>
@@ -632,9 +660,10 @@ let make = (
                       dispatch,
                       id,
                       eventName,
-                      ElementVisualUtils.buildDefaultActionNameForActionFileStr(
-                        uiControlProtocolName,
-                        eventName->Obj.magic,
+                      Method.getActionName(
+                        actionFileStrMap->Meta3dCommonlib.ImmutableHashMap.get(
+                          eventName->Obj.magic,
+                        ),
                       ),
                       actionFileStrMap->Meta3dCommonlib.ImmutableHashMap.get(eventName->Obj.magic),
                     )

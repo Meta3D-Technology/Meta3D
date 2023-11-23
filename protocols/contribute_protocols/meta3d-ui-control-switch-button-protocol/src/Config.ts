@@ -10,11 +10,15 @@ export let generateUIControlCommonDataStr: generateUIControlCommonDataStrMeta3D 
     return "\n  {\n    rect: " + rect + "}\n  "
 }
 
+let _generateUniqueId = () => {
+    return Math.floor(Math.random() * 1000000.0).toString()
+}
+
 export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D = () => [
     {
         name: "label",
         type_: "string",
-        value: "SwitchButton"
+        value: "SwitchButton##" + _generateUniqueId()
     },
     {
         name: "image1",

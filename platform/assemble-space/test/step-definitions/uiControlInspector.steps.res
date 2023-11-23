@@ -101,11 +101,7 @@ defineFeature(feature, test => {
     \"and"(
       "set inspector current selected ui control data to u2",
       () => {
-        useSelectorStub :=
-          createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            list{},
-            _,
-          )
+        useSelectorStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(list{}, _)
       },
     )
 
@@ -517,6 +513,40 @@ defineFeature(feature, test => {
         )
         ->ReactTestRenderer.create
         ->ReactTestTool.createSnapshotAndMatch
+      },
+    )
+  })
+
+  test(."get input name from input file str", ({given, \"when", \"and", then}) => {
+    let id = "123"
+    let defaultInputFileStr = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given(
+      "build default input file str",
+      () => {
+        let randomStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(id, _)
+
+        defaultInputFileStr :=
+          UIControlInspectorTool.buildDefaultInputFileStr(
+            randomStub->Obj.magic,
+            "meta3d-ui-control-switch-button-protocol",
+          )
+      },
+    )
+
+    \"when"(
+      "get input name from it",
+      () => {
+        ()
+      },
+    )
+
+    then(
+      "should get default input name",
+      () => {
+        UIControlInspectorTool.getInputName(defaultInputFileStr.contents->Some)->expect == "meta3d_input_custom_123000000_switch_button"
       },
     )
   })

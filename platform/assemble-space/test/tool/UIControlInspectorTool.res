@@ -102,3 +102,7 @@ let buildUI = (
 ) => {
   <UIControlInspector service currentSelectedUIControl currentSelectedUIControlInspectorData />
 }
+
+let buildDefaultInputFileStr = UIControlInspector.Method.buildDefaultInputFileStr
+
+let getInputName = UIControlInspector.Method.getInputName

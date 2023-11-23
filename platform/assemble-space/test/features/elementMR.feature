@@ -9,7 +9,6 @@ Feature: ElementMR
     Scenario: build element middle represent with two buttons and generate element contribute string
         Given generate ui control button b1, b2
         And select b1, b2
-        # And prepare element inspector data
         And prepare b1's, b2's inspector data
         When build element middle represent with b1, b2 and inspector data
         And generate element contribute string
@@ -35,20 +34,19 @@ Feature: ElementMR
     Scenario: build element middle represent with window and generate element contribute string
         Given generate ui control window w1
         And select w1
-        And prepare w1's inspector data
-        When build element middle represent with w1 and inspector data
+        And generate ui control window w2
+        And select w2
+        And prepare w1's, w2's inspector data
+        When build element middle represent with w1, w2 and inspector data
         And generate element contribute string
         Then should build correct result
         And generate correct result
 
     Scenario: build element middle represent with parent window and child window and generate element contribute string
-        Given generate ui control window w1, w2
-        And select w1
-        And select selected w1
-        And select w2
-        # And prepare element inspector data
-        And prepare w1's, w2's inspector data
-        When build element middle represent with w1, w2 and inspector data
+        Given generate ui control window w1, w2, w3
+        And select w1, w2, w3
+        And prepare w1's, w2's, w3's inspector data
+        When build element middle represent with w1, w2, w3 and inspector data
         And generate element contribute string
         Then should build correct result
         And generate correct result
@@ -61,7 +59,6 @@ Feature: ElementMR
         And select w2
         And select selected w2
         And select b1
-        # And prepare element inspector data
         And prepare w1's, w2's, b1's inspector data
         When build element middle represent
         And generate element contribute string

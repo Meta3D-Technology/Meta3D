@@ -530,8 +530,14 @@ handle click event code...
     \"and",
     then,
   }) => {
+    let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
+      name: "meta3d-ui-control-window-protocol",
+      version: "0.7.0",
+    }
     let w1 = ref(Obj.magic(1))
     let w1Name = "Window1"
+    let w2 = ref(Obj.magic(1))
+    let w2Name = "Window2"
     let mr = ref(Obj.magic(1))
     let str = ref(Obj.magic(1))
     let selectedUIControls = ref(list{})
@@ -551,11 +557,6 @@ handle click event code...
           _,
         )
         ->ignore
-
-        let windowProtocol: Meta3d.ExtensionFileType.contributeProtocolData = {
-          name: "meta3d-ui-control-window-protocol",
-          version: "0.7.0",
-        }
 
         w1 :=
           ContributeTool.buildContributeData(
@@ -584,7 +585,47 @@ handle click event code...
     )
 
     \"and"(
-      "prepare w1's inspector data",
+      "generate ui control window w2",
+      () => {
+        execGetContributeFuncStub.contents
+        ->onCall(1, _)
+        ->returns(
+          {
+            "uiControlName": w2Name,
+          },
+          _,
+        )
+        ->ignore
+
+        w2 :=
+          ContributeTool.buildContributeData(
+            ~contributePackageData=ContributeTool.buildContributePackageData(
+              ~protocol=windowProtocol,
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"and"(
+      "select w2",
+      () => {
+        selectedUIControls :=
+          list{
+            ...selectedUIControls.contents,
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~id="w2",
+              ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
+              ~data=w2.contents,
+              (),
+            ),
+          }
+      },
+    )
+
+    \"and"(
+      "prepare w1's, w2's inspector data",
       () => {
         selectedUIControlInspectorData :=
           list{
@@ -615,12 +656,17 @@ handle click event code...
               ],
               (),
             ),
+            UIControlInspectorTool.buildUIControlInspectorData(
+              ~id="w2",
+              ~input=UIControlInspectorTool.buildInput(~inputName="input2", ())->Some,
+              (),
+            ),
           }
       },
     )
 
     \"when"(
-      "build element middle represent with w1 and inspector data",
+      "build element middle represent with w1, w2 and inspector data",
       () => {
         mr :=
           ElementVisualTool.buildElementMR(
@@ -667,6 +713,18 @@ handle click event code...
                   ->Meta3dCommonlib.OptionSt.getExn,
                   children: [],
                 },
+                {
+                  displayName: w2Name,
+                  protocol: {
+                    name: "meta3d-ui-control-window-protocol",
+                    version: "0.7.0",
+                    configLib,
+                  },
+                  data: selectedUIControlInspectorData.contents
+                  ->Meta3dCommonlib.ListSt.nth(1)
+                  ->Meta3dCommonlib.OptionSt.getExn,
+                  children: [],
+                },
               ],
             }: ElementMRUtils.elementMR
           )
@@ -687,8 +745,8 @@ handle click event code...
     ({given, \"when", \"and", then}) => {
       let w1 = ref(Obj.magic(1))
       let w2 = ref(Obj.magic(1))
-      let w1Name = "ParentWindow"
-      let w2Name = "ChildWindow"
+      let w3 = ref(Obj.magic(1))
+      let wName = "Window"
       let mr = ref(Obj.magic(1))
       let str = ref(Obj.magic(1))
       let selectedUIControls = ref(list{})
@@ -698,13 +756,13 @@ handle click event code...
       _prepare(given, \"and")
 
       given(
-        "generate ui control window w1, w2",
+        "generate ui control window w1, w2, w3",
         () => {
           execGetContributeFuncStub.contents
           ->onCall(0, _)
           ->returns(
             {
-              "uiControlName": w1Name,
+              "uiControlName": wName,
             },
             _,
           )
@@ -714,7 +772,17 @@ handle click event code...
           ->onCall(1, _)
           ->returns(
             {
-              "uiControlName": w2Name,
+              "uiControlName": wName,
+            },
+            _,
+          )
+          ->ignore
+
+          execGetContributeFuncStub.contents
+          ->onCall(2, _)
+          ->returns(
+            {
+              "uiControlName": wName,
             },
             _,
           )
@@ -741,25 +809,19 @@ handle click event code...
               ),
               (),
             )
+          w3 :=
+            ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~protocol=windowProtocol,
+                (),
+              ),
+              (),
+            )
         },
       )
 
       \"and"(
-        "select w1",
-        () => {
-          ()
-        },
-      )
-
-      \"and"(
-        "select selected w1",
-        () => {
-          ()
-        },
-      )
-
-      \"and"(
-        "select w2",
+        "select w1, w2, w3",
         () => {
           selectedUIControls :=
             list{
@@ -773,65 +835,24 @@ handle click event code...
                     ~data=w2.contents,
                     (),
                   ),
+                  SelectedUIControlsTool.buildSelectedUIControl(
+                    ~id="w3",
+                    ~children=list{},
+                    ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
+                    ~data=w3.contents,
+                    (),
+                  ),
                 },
                 ~protocolConfigStr=UIControlProtocolConfigTool.buildWindowContributeProtocolConfigStr(),
                 ~data=w1.contents,
                 (),
               ),
             }
-
-          // selectedUIControls := selectedUIControls.contents->Meta3dCommonlib.ListSt.push(w2)
-
-          // selectedUIControls :=
-          //   selectedUIControls.contents->Meta3dCommonlib.ListSt.mapi((
-          //     i,
-          //     {children} as selectedUIControl: FrontendUtils.ElementAssembleStoreType.uiControl,
-          //   ) => {
-          //     i === 0
-          //       ? {
-          //           ...selectedUIControl,
-          //           children: list{w2},
-          //         }
-          //       : selectedUIControl
-          //   })
         },
       )
 
-      // \"and"(
-      //   "prepare element inspector data",
-      //   () => {
-      //     elementStateFields :=
-      //       list{
-      //         ElementInspectorTool.buildElementStateFieldData(
-      //           ~name="a1",
-      //           ~type_=#int,
-      //           ~defaultValue="10",
-      //           (),
-      //         ),
-      //         ElementInspectorTool.buildElementStateFieldData(
-      //           ~name="a2",
-      //           ~type_=#string,
-      //           ~defaultValue="zzz",
-      //           (),
-      //         ),
-      //         ElementInspectorTool.buildElementStateFieldData(
-      //           ~name="a3",
-      //           ~type_=#bool,
-      //           ~defaultValue=false,
-      //           (),
-      //         ),
-      //         ElementInspectorTool.buildElementStateFieldData(
-      //           ~name="label",
-      //           ~type_=#string,
-      //           ~defaultValue="Window2",
-      //           (),
-      //         ),
-      //       }
-      //   },
-      // )
-
       \"and"(
-        "prepare w1's, w2's inspector data",
+        "prepare w1's, w2's, w3's inspector data",
         () => {
           selectedUIControlInspectorData :=
             list{
@@ -840,6 +861,7 @@ handle click event code...
                 ~x=1->FrontendUtils.CommonType.IntForRectField,
                 // ~isDraw="a3"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
                 ~isDraw=true->FrontendUtils.CommonType.BoolForIsDraw,
+                ~input=UIControlInspectorTool.buildInput(~inputName="input1", ())->Some,
                 ~specific=[
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
@@ -855,6 +877,7 @@ handle click event code...
                 // ~x="a2"->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForRectField,
                 ~x=2->FrontendUtils.CommonType.IntForRectField,
                 ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
+                ~input=UIControlInspectorTool.buildInput(~inputName="input2", ())->Some,
                 ~specific=[
                   UIControlInspectorTool.buildSpecific(
                     ~name="label",
@@ -866,12 +889,17 @@ handle click event code...
                 ],
                 (),
               ),
+              UIControlInspectorTool.buildUIControlInspectorData(
+                ~id="w3",
+                ~input=UIControlInspectorTool.buildInput(~inputName="input3", ())->Some,
+                (),
+              ),
             }
         },
       )
 
       \"when"(
-        "build element middle represent with w1, w2 and inspector data",
+        "build element middle represent with w1, w2, w3 and inspector data",
         () => {
           mr :=
             ElementVisualTool.buildElementMR(
@@ -907,7 +935,7 @@ handle click event code...
                 },
                 uiControls: [
                   {
-                    displayName: w1Name,
+                    displayName: wName,
                     protocol: {
                       name: "meta3d-ui-control-window-protocol",
                       version: "0.7.0",
@@ -918,14 +946,26 @@ handle click event code...
                     ->Meta3dCommonlib.OptionSt.getExn,
                     children: [
                       {
-                        displayName: w2Name,
+                        displayName: wName,
                         protocol: {
                           name: "meta3d-ui-control-window-protocol",
                           version: "0.7.0",
                           configLib,
                         },
                         data: selectedUIControlInspectorData.contents
-                        ->Meta3dCommonlib.ListSt.getLast
+                        ->Meta3dCommonlib.ListSt.nth(1)
+                        ->Meta3dCommonlib.OptionSt.getExn,
+                        children: [],
+                      },
+                      {
+                        displayName: wName,
+                        protocol: {
+                          name: "meta3d-ui-control-window-protocol",
+                          version: "0.7.0",
+                          configLib,
+                        },
+                        data: selectedUIControlInspectorData.contents
+                        ->Meta3dCommonlib.ListSt.nth(2)
                         ->Meta3dCommonlib.OptionSt.getExn,
                         children: [],
                       },

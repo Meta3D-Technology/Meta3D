@@ -195,28 +195,36 @@ let cancelAppLoop = (
   }
 }
 
-let buildDefaultInputNameForInputFileStr = uiControlProtocolName => {
+let buildDefaultInputNameForInputFileStr = (random, uiControlProtocolName) => {
   uiControlProtocolName
   ->Js.String.replace("-protocol", "", _)
-  ->Js.String.replace("-ui-control-", "-input-", _)
+  ->Js.String.replace(
+    "-ui-control-",
+    {j`-input-custom-${FrontendUtils.IdUtils.generateId(random)}-`},
+    _,
+  )
   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
 }
 
-let isForInputFileStr = (inputName, uiControlProtocolName) => {
-  uiControlProtocolName->buildDefaultInputNameForInputFileStr == inputName
+let isForInputFileStr = inputName => {
+  inputName->Js.String.includes("-input-custom-", _)
 }
 
 let buildEmptyAddGeneratedContributeFunc = () => {
   (allContributeDataArr, _) => allContributeDataArr
 }
 
-let buildDefaultActionNameForActionFileStr = (uiControlProtocolName, eventName) => {
+let buildDefaultActionNameForActionFileStr = (random, uiControlProtocolName, eventName) => {
   uiControlProtocolName
-  ->Js.String.replace("-protocol", {j`-${eventName}`}, _)
-  ->Js.String.replace("-ui-control-", "-action-", _)
+  ->Js.String.replace("-protocol", "", _)
+  ->Js.String.replace(
+    "-ui-control-",
+    {j`-action-custom-${eventName}-${FrontendUtils.IdUtils.generateId(random)}-`},
+    _,
+  )
   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
 }
 
-let isForActionFileStr = (actionName, uiControlProtocolName, eventName) => {
-  buildDefaultActionNameForActionFileStr(uiControlProtocolName, eventName) == actionName
+let isForActionFileStr = (actionName, eventName) => {
+  actionName->Js.String.includes({j`-action-custom-${eventName}-`}, _)
 }

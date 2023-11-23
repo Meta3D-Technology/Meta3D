@@ -7,18 +7,19 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 let _loadImage = (
     meta3dState: meta3dState,
     api: api,
+    label: string,
     image1: nullable<imageBase64>,
     image2: nullable<imageBase64>
 ): Promise<meta3dState> => {
     let { loadImage } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-    let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, uiControlName))
+    let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 
 
     let promise = null
     if (!api.nullable.isNullable(image1) && api.nullable.getWithDefault(api.nullable.map(lastEvent1TextureImageBase64 => lastEvent1TextureImageBase64 != api.nullable.getExn(image1), state.lastEvent1TextureImageBase64), true)) {
         promise = loadImage(meta3dState, api.nullable.getExn(image1)).then((event1Texture: any) => {
-            meta3dState = api.uiControl.setUIControlState<state>(meta3dState, uiControlName, {
+            meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                 ...state,
                 event1Texture,
                 lastEvent1TextureImageBase64: api.nullable.getExn(image1)
@@ -34,7 +35,7 @@ let _loadImage = (
     if (!api.nullable.isNullable(image2) && api.nullable.getWithDefault(api.nullable.map(lastEvent2TextureImageBase64 => lastEvent2TextureImageBase64 != api.nullable.getExn(image2), state.lastEvent2TextureImageBase64), true)) {
         return promise.then(meta3dState => {
             return loadImage(meta3dState, api.nullable.getExn(image2)).then((event2Texture: any) => {
-                meta3dState = api.uiControl.setUIControlState<state>(meta3dState, uiControlName, {
+                meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                     ...state,
                     event2Texture,
                     lastEvent2TextureImageBase64: api.nullable.getExn(image2)
@@ -65,9 +66,19 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             }
 
             return api.nullable.getExn(getInputFunc)(meta3dState).then(isEvent1 => {
+                if (api.nullable.isNullable(api.uiControl.getUIControlState<state>(meta3dState, label))) {
+                    meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
+                        event1Texture: null,
+                        event2Texture: null,
+                        lastEvent1TextureImageBase64: null,
+                        lastEvent2TextureImageBase64: null,
+                    })
+                }
+
                 return _loadImage(
                     meta3dState,
                     api,
+                    label,
                     image1,
                     image2,
                 ).then(meta3dState => {
@@ -77,7 +88,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     let { event1Texture,
                         event2Texture,
-                    } = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, uiControlName))
+                    } = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 
                     if (!api.nullable.isNullable(event1Texture) && !api.nullable.isNullable(event2Texture)) {
                         return switchButton(meta3dState,
@@ -93,13 +104,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             })
         },
         init: (meta3dState) => {
-            meta3dState = api.uiControl.setUIControlState<state>(meta3dState, uiControlName, {
-                event1Texture: null,
-                event2Texture: null,
-                lastEvent1TextureImageBase64: null,
-                lastEvent2TextureImageBase64: null,
-            })
-
             return Promise.resolve(meta3dState)
         }
     }

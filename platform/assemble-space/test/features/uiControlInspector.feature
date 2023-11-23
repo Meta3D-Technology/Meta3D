@@ -52,6 +52,10 @@ Feature: UIControlInsepctor
             When render
             Then should show dom with defalut value
 
+        Scenario: get input name from input file str
+            Given build default input file str
+            When get input name from it
+            Then should get default input name
 
     Rule: Specific
 

@@ -100,24 +100,29 @@ let _generateGetUIControlsAndInputsStr = (
   uiControls,
 ) => {
   uiControls
-  ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
-    displayName
-  })
+  // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
+  //   displayName
+  // })
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, data}) => {
     let inputName = data->_getInputName
 
     str ++
-    j`
+    (str->Js.String.includes({j`getUIControlFunc(meta3dState,"${displayName}")`}, _)
+      ? ""
+      : j`
     let ${displayName} = getUIControlFunc(meta3dState,"${displayName}")
-    ` ++
+    `) ++
     switch inputName {
     | None => ""
     | Some(inputName) =>
-      j`
+      str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}")`}, _)
+        ? ""
+        : j`
     let ${inputName} = getInputFunc(meta3dState,"${inputName}")
     `
     }
   }, "")
+  // ->Meta3dCommonlib.Log.printForDebug
 }
 
 let getActionName = (event: FrontendUtils.ElementAssembleStoreType.event, eventName) => {
