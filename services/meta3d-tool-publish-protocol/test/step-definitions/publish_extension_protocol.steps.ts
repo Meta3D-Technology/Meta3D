@@ -1,5 +1,5 @@
 import { loadFeature, defineFeature } from "jest-cucumber"
-import { createSandbox } from "sinon";
+import { createSandbox, match } from "sinon";
 import { empty, just } from "most";
 import { publish } from "../../src/Publish"
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
@@ -38,7 +38,7 @@ defineFeature(feature, test => {
         }
     }
 
-    let _publishExtensionProtocol = (packageFilePath = "", iconPath = "a.png") => {
+    let _publishExtensionProtocol = (packageFilePath = "", iconPath = "a.png", isAutoIncreasePatchVersion = false) => {
         return publish(
             [readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc],
             packageFilePath, iconPath,

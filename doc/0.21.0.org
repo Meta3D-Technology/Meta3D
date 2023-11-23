@@ -855,10 +855,14 @@ TODO search element name to get element version
 
 
 
-** TODO feat: auto add version when publish extension,contribute, protocol
+** DONE feat: auto add version when publish extension,contribute, protocol
 
 add new script
 
+
+TODO:
+pro
+implement
 
 
 

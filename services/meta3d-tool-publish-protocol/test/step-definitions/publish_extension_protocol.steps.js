@@ -29,7 +29,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_extens
             displayName, repoLink, description
         };
     }
-    let _publishExtensionProtocol = (packageFilePath = "", iconPath = "a.png") => {
+    let _publishExtensionProtocol = (packageFilePath = "", iconPath = "a.png", isAutoIncreasePatchVersion = false) => {
         return (0, Publish_1.publish)([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, initFunc, hasAccountFunc, getMarketProtocolCollectionFunc, addDataToMarketProtocolCollectionFunc, addMarketProtocolDataToDataFromMarketProtocolCollectionDataFunc, getDataFromMarketProtocolCollectionFunc, parseMarketCollectionDataBodyFunc], packageFilePath, iconPath, "extension");
     };
     let _prepare = (given) => {
