@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-menu-protocol",
-    "version": "0.20.13",
+    "version": "0.20.14",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",
@@ -8,7 +8,7 @@
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev_auto": "yarn version --new-version patch && yarn meta3d:publish_dev",
+        "meta3d:publish_dev_auto": "yarn version --new-version patch && npm run meta3d:publish_dev",
         "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publishConfig_local_env && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publishConfig_production_env &&gulp publish_production_env"
     },
