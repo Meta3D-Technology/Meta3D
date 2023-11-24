@@ -13,6 +13,7 @@ let generateApp = (
   (selectPackages, allPackagesStoredInApp),
   selectedContributes,
   selectedElements: list<FrontendUtils.BackendCloudbaseType.elementAssembleData>,
+  (customInputs, customActions),
   configData,
 ) => {
   service.meta3d.generateApp(.
@@ -26,6 +27,7 @@ let generateApp = (
     ) => binaryFile),
     allPackagesStoredInApp,
     selectedElements->Meta3dCommonlib.ListSt.toArray,
+    (customInputs->Meta3dCommonlib.ListSt.toArray, customActions->Meta3dCommonlib.ListSt.toArray),
     configData,
     selectPackages
     ->Meta3dCommonlib.ArraySt.find(({isStart}: FrontendUtils.PackageAssembleStoreType.package) =>

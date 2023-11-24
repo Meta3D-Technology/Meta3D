@@ -1125,6 +1125,7 @@ defineFeature(feature, test => {
             [p1.contents],
             [],
             AppManagerTool.buildSelectedElements(),
+            AppManagerTool.buildCustomData(),
             configData.contents->Obj.magic->Meta3dCommonlib.NullableSt.return,
             startPackageProtocolName.contents,
           )->AppManagerTool.loadApp(~appBinaryFile=_, ())
@@ -1412,6 +1413,7 @@ defineFeature(feature, test => {
               ),
             ],
             AppManagerTool.buildSelectedElements(),
+            AppManagerTool.buildCustomData(),
             Js.Nullable.null,
             "",
           )->AppManagerTool.loadApp(~appBinaryFile=_, ())
@@ -1437,6 +1439,7 @@ defineFeature(feature, test => {
     let c1 = ref(Obj.magic(1))
     let a1 = ref(Obj.magic(1))
     let selectedElements = ref(Obj.magic(1))
+    let customData = ref(Obj.magic(1))
     let l1 = ref(Obj.magic(1))
     let result = ref(Obj.magic(1))
     let e1Name = "e1"
@@ -1476,9 +1479,10 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "generate app with p1, l1 and selectedElements as a1",
+      "generate app with p1, l1, selectedElements, custom data as a1",
       () => {
         selectedElements := AppManagerTool.buildSelectedElements(~data1=2, ())
+        customData := AppManagerTool.buildCustomData(~customInputs=[Obj.magic(2)], ())
 
         a1 :=
           Main.generateApp(
@@ -1491,6 +1495,7 @@ defineFeature(feature, test => {
               ),
             ],
             selectedElements.contents,
+            customData.contents,
             Js.Nullable.null,
             "",
           )
@@ -1505,16 +1510,16 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should return parsed p1, parsed c1, selectedElements",
+      "should return parsed p1, parsed c1, selectedElements, custom data",
       () => {
-        let ([parsedP1], ([], [parsedC1], _), _, selectedElements_) = result.contents
+        let ([parsedP1], ([], [parsedC1], _), _, selectedElements_, customData_) = result.contents
 
         let ((p1Protocol, _, _, _, _), _) = parsedP1
         // let (e1PackageData, _) = parsedE1
         let (c1PackageData, _) = parsedC1
 
-        (p1Protocol.name, c1PackageData.name, selectedElements_)->expect ==
-          (p1ProtocolName, c1Name, selectedElements.contents)
+        (p1Protocol.name, c1PackageData.name, selectedElements_, customData_)->expect ==
+          (p1ProtocolName, c1Name, selectedElements.contents, customData.contents)
       },
     )
   })

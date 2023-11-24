@@ -45,21 +45,22 @@ module Method = {
         AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
         selectedContributes
-        ->FrontendUtils.ElementUtils.addGeneratedInputContributeForElementAssemble(
-          (service.meta3d.generateContribute, service.meta3d.loadContribute),
-          _,
-          account,
-          selectedUIControlInspectorData,
-        )
-        ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
-          (service.meta3d.generateContribute, service.meta3d.loadContribute),
-          _,
-          account,
-          selectedUIControlInspectorData,
-        )
+        // ->FrontendUtils.ElementUtils.addGeneratedInputContributesForElementAssemble(
+        //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+        //   _,
+        //   account,
+        //   selectedUIControlInspectorData,
+        // )
+        // ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
+        //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+        //   _,
+        //   account,
+        //   selectedUIControlInspectorData,
+        // )
         ->Meta3dCommonlib.ListSt.toArray,
       ),
       list{},
+      (list{}, list{}),
       elementContribute,
     )
     ->_saveToLocalStorage(service, _)
@@ -89,7 +90,7 @@ module Method = {
       apInspectorData,
       selectedPackages,
       selectedExtensions,
-      selectedContributes,
+      // selectedContributes,
       storedPackageIdsInApp,
     } = apAssembleState
     let {
@@ -104,7 +105,7 @@ module Method = {
         apInspectorData,
         selectedPackages,
         selectedExtensions,
-        selectedContributes,
+        // selectedContributes,
         storedPackageIdsInApp,
       ),
       (
@@ -118,7 +119,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account) => {
+let make = (~service: service, ~account, ~selectedContributes) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -126,7 +127,7 @@ let make = (~service: service, ~account) => {
       apInspectorData,
       selectedPackages,
       selectedExtensions,
-      selectedContributes,
+      // selectedContributes,
       storedPackageIdsInApp,
     ),
     (

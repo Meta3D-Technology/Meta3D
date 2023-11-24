@@ -49,7 +49,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~selectedContributes) => {
   let (
     inspectorCurrentUIControlId,
     selectedUIControls,
@@ -64,7 +64,9 @@ let make = (~service: service) => {
     Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls),
   ) {
   | (Some(currentSelectedUIControlInspectorData), Some(currentSelectedUIControl)) =>
-    <UIControlInspector service currentSelectedUIControl currentSelectedUIControlInspectorData />
+    <UIControlInspector
+      service currentSelectedUIControl currentSelectedUIControlInspectorData selectedContributes
+    />
   | _ => React.null
   }
 }

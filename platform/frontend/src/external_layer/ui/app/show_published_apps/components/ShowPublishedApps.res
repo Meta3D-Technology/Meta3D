@@ -152,57 +152,83 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                             item.account,
                             item.appName,
                           )
-                          ->Meta3dBsMostDefault.Most.flatMap(file => {
-                            Meta3dCommonlib.NullableSt.isNullable(file)
-                              ? {
-                                  setIsDownloadFinish(_ => true)
-                                  setCurrentImportingKey(_ => None)
+                          ->Meta3dBsMostDefault.Most.flatMap(
+                            file => {
+                              Meta3dCommonlib.NullableSt.isNullable(file)
+                                ? {
+                                    setIsDownloadFinish(_ => true)
+                                    setCurrentImportingKey(_ => None)
 
-                                  FrontendUtils.ErrorUtils.error(
-                                    {
-                                      j`account: ${item.account} appName: ${item.appName} has no published app`
-                                    },
-                                    None,
-                                  )->Obj.magic
+                                    FrontendUtils.ErrorUtils.error(
+                                      {
+                                        j`account: ${item.account} appName: ${item.appName} has no published app`
+                                      },
+                                      None,
+                                    )->Obj.magic
 
-                                  Meta3dBsMostDefault.Most.empty()->Obj.magic
-                                }
-                              : {
-                                  let (
-                                    data1,
-                                    data2,
-                                    configData,
-                                    allElements,
-                                  ) = Meta3d.Main.getAllDataOfApp(
-                                    file->Meta3dCommonlib.NullableSt.getExn,
-                                  )
+                                    Meta3dBsMostDefault.Most.empty()->Obj.magic
+                                  }
+                                : {
+                                    let (
+                                      data1,
+                                      data2,
+                                      configData,
+                                      allElements,
+                                      customData,
+                                    ) = Meta3d.Main.getAllDataOfApp(
+                                      file->Meta3dCommonlib.NullableSt.getExn,
+                                    )
 
-                                  let (canvasData, otherConfigData) = configData
+                                    let (customInputs, customActions) = customData->Obj.magic
 
-                                  let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorDataFromFile =
-                                    otherConfigData->Obj.magic
+                                    let (canvasData, otherConfigData) = configData
 
-                                  dispatchForApAssembleStore(
-                                    FrontendUtils.ApAssembleStoreType.SetApInspectorData(
-                                      apInspectorData,
-                                    ),
-                                  )
-                                  dispatch(
-                                    FrontendUtils.AppStoreType.UserCenterAction(
-                                      FrontendUtils.UserCenterStoreType.SelectAllElements(
-                                      allElements->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                                    ),
-                                    ),
-                                  )
-                                  dispatchForElementAssembleStore(
-                                    FrontendUtils.ElementAssembleStoreType.SetCanvasData(
-                                      canvasData,
-                                    ),
-                                  )
+                                    let apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorDataFromFile =
+                                      otherConfigData->Obj.magic
 
-                                  (data1, data2)->Meta3dBsMostDefault.Most.just
-                                }
-                          }, _)
+                                    dispatchForApAssembleStore(
+                                      FrontendUtils.ApAssembleStoreType.SetApInspectorData(
+                                        apInspectorData,
+                                      ),
+                                    )
+                                    dispatchForApAssembleStore(
+                                      FrontendUtils.ApAssembleStoreType.SetCustomInputs(
+                                        customInputs->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                                      ),
+                                    )
+                                    dispatchForApAssembleStore(
+                                      FrontendUtils.ApAssembleStoreType.SetCustomActions(
+                                        customActions->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                                      ),
+                                    )
+
+                                    dispatch(
+                                      FrontendUtils.AppStoreType.UserCenterAction(
+                                        FrontendUtils.UserCenterStoreType.SelectAllElements(
+                                          allElements->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                                        ),
+                                      ),
+                                    )
+
+                                    dispatchForElementAssembleStore(
+                                      FrontendUtils.ElementAssembleStoreType.SetCanvasData(
+                                        canvasData,
+                                      ),
+                                    )
+
+                                    (data1, data2)->Meta3dBsMostDefault.Most.just
+                                  }
+                            },
+                            // dispatch(
+                            //   FrontendUtils.AppStoreType.UserCenterAction(
+                            //     FrontendUtils.UserCenterStoreType.SetCustomData(
+                            //       customInputs->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                            //       customActions->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                            //     ),
+                            //   ),
+                            // )
+                            _,
+                          )
                           ->ImportUtils.importApp(
                             (
                               service,

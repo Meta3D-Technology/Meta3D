@@ -95,6 +95,10 @@ let _getInputName = (data: FrontendUtils.ElementAssembleStoreType.uiControlInspe
   data.input->Meta3dCommonlib.OptionSt.map(input => input.inputName)
 }
 
+let _handleVariableName = variableName => {
+  variableName->Js.String.replaceByRe(%re("/-/g"), "_", _)
+}
+
 let _generateGetUIControlsAndInputsStr = (
   service: FrontendUtils.AssembleSpaceType.service,
   uiControls,
@@ -110,7 +114,7 @@ let _generateGetUIControlsAndInputsStr = (
     (str->Js.String.includes({j`getUIControlFunc(meta3dState,"${displayName}")`}, _)
       ? ""
       : j`
-    let ${displayName} = getUIControlFunc(meta3dState,"${displayName}")
+    let ${displayName->_handleVariableName} = getUIControlFunc(meta3dState,"${displayName}")
     `) ++
     switch inputName {
     | None => ""
@@ -118,7 +122,7 @@ let _generateGetUIControlsAndInputsStr = (
       str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}")`}, _)
         ? ""
         : j`
-    let ${inputName} = getInputFunc(meta3dState,"${inputName}")
+    let ${inputName->_handleVariableName} = getInputFunc(meta3dState,"${inputName}")
     `
     }
   }, "")
@@ -257,10 +261,11 @@ and _generateAllDrawUIControlAndHandleEventStr = (
         str ++
         _generateIsDrawIfBegin(data.isDraw) ++
         j`
-                 return ${displayName}(meta3dState,
+                 return ${displayName->_handleVariableName}(meta3dState,
         ` ++
         data
         ->_getInputName
+        ->Meta3dCommonlib.OptionSt.map(_handleVariableName)
         ->Meta3dCommonlib.OptionSt.getWithDefault({
           j`null`
         }) ++

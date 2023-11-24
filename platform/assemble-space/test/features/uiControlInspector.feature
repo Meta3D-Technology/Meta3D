@@ -52,10 +52,12 @@ Feature: UIControlInsepctor
             When render
             Then should show dom with defalut value
 
-        Scenario: get input name from input file str
-            Given build default input file str
-            When get input name from it
-            Then should get default input name
+        Scenario: show input select
+            Given select input i1 match ui control w1
+            And select input i2 not match ui control w1
+            When build input select values
+            Then should show i1
+
 
     Rule: Specific
 
@@ -89,8 +91,7 @@ Feature: UIControlInsepctor
 
         Scenario: set action
             When set action
-            Then should delete value of the event from actionFileStrMap
-            And should dispatch SetAction action
+            Then should dispatch SetAction action
 
         Scenario: set action with empty action name
             When set action with empty action name

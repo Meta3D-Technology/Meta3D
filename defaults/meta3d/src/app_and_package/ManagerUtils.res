@@ -325,9 +325,9 @@ let _checkAllDependents = ((allExtensionDataArr, allContributeDataArr)) => {
 let _addGeneratedContribute = (
   (allExtensionDataArr, allContributeDataArr),
   addGeneratedContributeFunc,
-  selectedElements,
+  customData,
 ) => {
-  (allExtensionDataArr, allContributeDataArr->addGeneratedContributeFunc(selectedElements))
+  (allExtensionDataArr, allContributeDataArr->addGeneratedContributeFunc(customData))
 }
 
 // let _run = ((allExtensionDataArr, allContributeDataArr, configData)) => {
@@ -359,14 +359,14 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
   (state, allExtensionDataArr)
 }
 
-let loadApp = (addGeneratedContributeFunc, selectedElements, data: array<Uint8Array.t>): (
+let loadApp = (addGeneratedContributeFunc, customData, data: array<Uint8Array.t>): (
   Meta3dType.Index.state,
   array<extensionFileData>,
 ) => {
   data
   ->_parse1
   ->_checkAllDependents
-  ->_addGeneratedContribute(addGeneratedContributeFunc, selectedElements)
+  ->_addGeneratedContribute(addGeneratedContributeFunc, customData)
   ->_run
 }
 

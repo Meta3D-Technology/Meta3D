@@ -14,6 +14,16 @@ type selectedPackages = list<packageData>
 
 type selectedElements = list<BackendCloudbaseType.elementAssembleData>
 
+// type customData = list<BackendCloudbaseType.elementAssembleData>
+
+// type customInput = AssembleSpaceCommonType.customInput
+
+// type customInputs = list<AssembleSpaceCommonType.customInput>
+
+// type customAction = AssembleSpaceCommonType.customAction
+
+// type customActions = list<AssembleSpaceCommonType.customAction>
+
 type account = string
 
 type name = string
@@ -27,11 +37,9 @@ type action =
   // | NotSelectPackage(id)
   | NotSelectPackage(name, AssembleSpaceCommonType.version)
   | SelectElement(BackendCloudbaseType.elementAssembleData)
-  | NotSelectElement(
-      BackendCloudbaseType.elementName,
-      BackendCloudbaseType.elementVersion,
-    )
+  | NotSelectElement(BackendCloudbaseType.elementName, BackendCloudbaseType.elementVersion)
   | SelectAllElements(list<BackendCloudbaseType.elementAssembleData>)
+  // | SetCustomData(customInputs, customActions)
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes, selectedPackages)
   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
@@ -50,4 +58,6 @@ type state = {
   selectedElements: selectedElements,
   importedPackageIds: list<id>,
   importedAppIds: list<id>,
+  // customInputs: customInputs, 
+  // customActions: customActions,
 }

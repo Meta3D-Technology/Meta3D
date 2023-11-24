@@ -160,6 +160,8 @@ module Method = {
       isChangeSelectedPackagesByDebug,
       selectedUIControls,
       selectedUIControlInspectorData,
+      customInputs,
+      customActions,
     ),
     values,
   ): Js.Promise.t<unit> => {
@@ -227,6 +229,7 @@ module Method = {
                 (selectedPackages, allPackagesStoredInApp),
                 selectedContributes,
                 selectedElementsFromMarket,
+                (customInputs, customActions),
                 (
                   (
                     {
@@ -285,6 +288,8 @@ module Method = {
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
       isChangeSelectedPackagesByDebug,
+      customInputs,
+      customActions,
     } = apAssembleState
     let {canvasData, selectedUIControls, selectedUIControlInspectorData} = elementAssembleState
 
@@ -298,6 +303,8 @@ module Method = {
         isChangeSelectedPackagesByDebug,
         selectedUIControls,
         selectedUIControlInspectorData,
+        customInputs,
+        customActions,
       ),
       canvasData,
     )
@@ -316,6 +323,8 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
       isChangeSelectedPackagesByDebug,
       selectedUIControls,
       selectedUIControlInspectorData,
+      customInputs,
+      customActions,
     ),
     canvasData,
   ) = service.react.useSelector(. Method.useSelector)
@@ -372,6 +381,8 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
                             isChangeSelectedPackagesByDebug,
                             selectedUIControls,
                             selectedUIControlInspectorData,
+                            customInputs,
+                            customActions,
                           ),
                           event->Obj.magic,
                         )->ignore

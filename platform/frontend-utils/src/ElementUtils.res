@@ -14,8 +14,12 @@ let buildContribute = (~version, ~data, ~id="", ()): ApAssembleStoreType.contrib
   data,
 }
 
+// let _handleName = name => {
+//   name->Js.String.replaceByRe(%re("/-/g"), "_", _)
+// }
+
 let _buildProtocolName = name => {
-  j`${name}-protocol`
+  j`${name->Js.String.replaceByRe(%re("/_/g"), "-", _)}-protocol`
 }
 
 let _buildPackageData = (account, name): Meta3d.ExtensionFileType.contributePackageData => {
@@ -35,167 +39,114 @@ let _buildPackageData = (account, name): Meta3d.ExtensionFileType.contributePack
   }
 }
 
-let rec addGeneratedInputContributeForElementAssemble = (
+let _addGeneratedContributeForElementAssemble = (
   (generateContribute, loadContribute),
   selectedContributes,
   account,
-  selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
+  (name, fileStr),
 ) => {
-  selectedUIControlInspectorData->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
+  // let name = name->_handleName
+
+  selectedContributes->Meta3dCommonlib.ListSt.push(
+    generateContribute(. _buildPackageData(account, name), fileStr)
+    ->loadContribute(. _)
+    ->buildContribute(~id=name, ~version=getElementContributeVersion(), ~data=_, ()),
+  )
+}
+
+let _addGeneratedContributeForRunApp = (
+  (generateContribute, loadContribute, convertContributeFuncData),
+  allContributeDataList,
+  account,
+  (name, fileStr),
+) => {
+  // let name = name->_handleName
+
+  let {contributePackageData, contributeFuncData}: Meta3d.ExtensionFileType.contributeFileData =
+    generateContribute(_buildPackageData(account, name), fileStr)->loadContribute
+
+  allContributeDataList->Meta3dCommonlib.ListSt.push(
+    (
+      {
+        contributePackageData,
+        contributeFuncData: convertContributeFuncData(contributeFuncData),
+      }: Meta3d.AppAndPackageFileType.contributeFileData
+    ),
+  )
+}
+
+let addGeneratedInputContributesForElementAssemble = (
+  (generateContribute, loadContribute),
+  selectedContributes,
+  account,
+  customInputs: ApAssembleStoreType.customInputs,
+) => {
+  customInputs->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
     selectedContributes,
-    {input, children},
+    {name, fileStr},
   ) => {
-    input
-    ->Meta3dCommonlib.OptionSt.bind(({inputName, inputFileStr}: ElementAssembleStoreType.input) => {
-      inputFileStr->Meta3dCommonlib.OptionSt.map(
-        inputFileStr => {
-          selectedContributes->Meta3dCommonlib.ListSt.push(
-            generateContribute(. _buildPackageData(account, inputName), inputFileStr)
-            ->loadContribute(. _)
-            ->buildContribute(~id=inputName, ~version=getElementContributeVersion(), ~data=_, ()),
-          )
-        },
-      )
-    })
-    ->Meta3dCommonlib.OptionSt.getWithDefault(selectedContributes)
-    ->addGeneratedInputContributeForElementAssemble(
+    _addGeneratedContributeForElementAssemble(
       (generateContribute, loadContribute),
-      _,
+      selectedContributes,
       account,
-      children,
+      (name, fileStr),
     )
   })
 }
 
-let addGeneratedInputContributeForRunApp = (
+let addGeneratedInputContributesForRunApp = (
   (generateContribute, loadContribute, convertContributeFuncData),
-  allContributeDataArr,
+  allContributeDataList,
   account,
-  {inspectorData}: BackendCloudbaseType.elementAssembleData,
+  customInputs: ApAssembleStoreType.customInputs,
 ) => {
-  let rec _func = (allContributeDataArr, uiControls) => {
-    uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. allContributeDataArr, {input, children}: BackendCloudbaseType.uiControl) => {
-        input
-        ->Meta3dCommonlib.NullableSt.bind((. 
-          {inputName, inputFileStr}: BackendCloudbaseType.input,
-        ) => {
-          inputFileStr->Meta3dCommonlib.NullableSt.map(
-            (. inputFileStr) => {
-              let {
-                contributePackageData,
-                contributeFuncData,
-              }: Meta3d.ExtensionFileType.contributeFileData =
-                generateContribute(
-                  _buildPackageData(account, inputName),
-                  inputFileStr,
-                )->loadContribute
-
-              allContributeDataArr->Meta3dCommonlib.ListSt.push(
-                (
-                  {
-                    contributePackageData,
-                    contributeFuncData: convertContributeFuncData(contributeFuncData),
-                  }: Meta3d.AppAndPackageFileType.contributeFileData
-                ),
-              )
-            },
-          )
-        })
-        ->Meta3dCommonlib.NullableSt.getWithDefault(allContributeDataArr)
-        ->_func(children)
-      },
-      allContributeDataArr,
+  customInputs->Meta3dCommonlib.ListSt.reduce(allContributeDataList, (
+    allContributeDataList,
+    {name, fileStr},
+  ) => {
+    _addGeneratedContributeForRunApp(
+      (generateContribute, loadContribute, convertContributeFuncData),
+      allContributeDataList,
+      account,
+      (name, fileStr),
     )
-  }
-
-  _func(allContributeDataArr, inspectorData.uiControls)
+  })
 }
 
 let rec addGeneratedActionContributesForElementAssemble = (
   (generateContribute, loadContribute),
   selectedContributes,
   account,
-  selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
+  customActions: ApAssembleStoreType.customActions,
 ) => {
-  selectedUIControlInspectorData->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
+  customActions->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
     selectedContributes,
-    {event, children},
+    {name, fileStr},
   ) => {
-    event
-    ->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. selectedContributes, {actionName, actionFileStr}) => {
-        actionFileStr
-        ->Meta3dCommonlib.OptionSt.map(
-          actionFileStr => {
-            selectedContributes->Meta3dCommonlib.ListSt.push(
-              generateContribute(. _buildPackageData(account, actionName), actionFileStr)
-              ->loadContribute(. _)
-              ->buildContribute(
-                ~id=actionName,
-                ~version=getElementContributeVersion(),
-                ~data=_,
-                (),
-              ),
-            )
-          },
-        )
-        ->Meta3dCommonlib.OptionSt.getWithDefault(selectedContributes)
-      },
-      selectedContributes,
-    )
-    ->addGeneratedActionContributesForElementAssemble(
+    _addGeneratedContributeForElementAssemble(
       (generateContribute, loadContribute),
-      _,
+      selectedContributes,
       account,
-      children,
+      (name, fileStr),
     )
   })
 }
 
 let addGeneratedActionContributesForRunApp = (
   (generateContribute, loadContribute, convertContributeFuncData),
-  allContributeDataArr,
+  allContributeDataList,
   account,
-  {inspectorData}: BackendCloudbaseType.elementAssembleData,
+  customActions: ApAssembleStoreType.customActions,
 ) => {
-  let rec _func = (allContributeDataArr, uiControls) => {
-    uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (. allContributeDataArr, {event, children}: BackendCloudbaseType.uiControl) => {
-        event
-        ->Meta3dCommonlib.ArraySt.reduceOneParam(
-          (. allContributeDataArr, {actionName, actionFileStr}: BackendCloudbaseType.eventData) => {
-            actionFileStr
-            ->Meta3dCommonlib.NullableSt.map(
-              (. actionFileStr) => {
-                let {
-                  contributePackageData,
-                  contributeFuncData,
-                }: Meta3d.ExtensionFileType.contributeFileData =
-                  generateContribute(
-                    _buildPackageData(account, actionName),
-                    actionFileStr,
-                  )->loadContribute
-
-                allContributeDataArr->Meta3dCommonlib.ListSt.push(
-                  (
-                    {
-                      contributePackageData,
-                      contributeFuncData: convertContributeFuncData(contributeFuncData),
-                    }: Meta3d.AppAndPackageFileType.contributeFileData
-                  ),
-                )
-              },
-            )
-            ->Meta3dCommonlib.NullableSt.getWithDefault(allContributeDataArr)
-          },
-          allContributeDataArr,
-        )
-        ->_func(children)
-      },
-      allContributeDataArr,
+  customActions->Meta3dCommonlib.ListSt.reduce(allContributeDataList, (
+    allContributeDataList,
+    {name, fileStr},
+  ) => {
+    _addGeneratedContributeForRunApp(
+      (generateContribute, loadContribute, convertContributeFuncData),
+      allContributeDataList,
+      account,
+      (name, fileStr),
     )
-  }
-
-  _func(allContributeDataArr, inspectorData.uiControls)
+  })
 }

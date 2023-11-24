@@ -2,8 +2,6 @@ open FrontendUtils.Antd
 %%raw("import 'antd/dist/antd.css'")
 open FrontendUtils.AssembleSpaceType
 
-// TODO check login
-
 type view =
   | Ap
   | Element
@@ -21,17 +19,6 @@ module Method = {
     | Package => "3"
     }
   }
-
-  let useEffectOnce = dispatch => {
-    (
-      (),
-      Some(
-        () => {
-          reset(dispatch)
-        },
-      ),
-    )
-  }
 }
 
 @react.component
@@ -43,11 +30,28 @@ let make = (
   ~selectedContributesFromMarket: selectedContributesFromMarket,
   ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
+  // ~customInputsFromMarket: customInputsFromMarket,
+  // ~customActionsFromMarket: customActionsFromMarket,
+
   let dispatch = service.react.useDispatch()
+  let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(
+    service.react.useDispatch,
+  )
 
   let (currentAssemble, setCurrentAssemble) = service.react.useState(_ => Ap)
 
-  service.react.useEffectOnce(() => Method.useEffectOnce(dispatch))
+  service.react.useEffectOnce(() => {
+    Method.reset(dispatch)
+
+    // dispatchForApAssembleStore(
+    //   FrontendUtils.ApAssembleStoreType.SetCustomInputs(customInputsFromMarket),
+    // )
+    // dispatchForApAssembleStore(
+    //   FrontendUtils.ApAssembleStoreType.SetCustomActions(customActionsFromMarket),
+    // )
+
+    ((), None)
+  })
 
   <Layout>
     <Layout.Content>

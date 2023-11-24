@@ -59,7 +59,7 @@ let _setUIControlInspectorData = (state, setFunc, id) => {
   }
 }
 
-let _setActionData = (state, id, eventName, actionNameOpt, actionFileStr) => {
+let _setActionData = (state, id, eventName, actionNameOpt) => {
   _setUIControlInspectorData(
     state,
     data => {
@@ -71,7 +71,6 @@ let _setActionData = (state, id, eventName, actionNameOpt, actionFileStr) => {
           {
             eventName,
             actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
-            actionFileStr,
           },
         ]
       | _ =>
@@ -91,7 +90,6 @@ let _setActionData = (state, id, eventName, actionNameOpt, actionFileStr) => {
                         {
                           eventName,
                           actionName,
-                          actionFileStr,
                         }: eventData
                       )
                     }
@@ -103,7 +101,6 @@ let _setActionData = (state, id, eventName, actionNameOpt, actionFileStr) => {
                     {
                       eventName,
                       actionName,
-                      actionFileStr,
                     }: eventData
                   ),
                 ],
@@ -270,28 +267,26 @@ let reducer = (state, action) => {
       data => {
         ...data,
         input: inputNameOpt->Meta3dCommonlib.OptionSt.map((inputName): input => {
-          inputName,
-          inputFileStr: None,
+          inputName: inputName,
         }),
       },
       id,
     )
-  | SetInputFileStr(id, inputName, inputFileStr) =>
-    _setUIControlInspectorData(
-      state,
-      data => {
-        ...data,
-        input: {
-          inputName,
-          inputFileStr: inputFileStr->Some,
-        }->Some,
-      },
-      id,
-    )
-  | SetAction(id, (eventName, actionNameOpt)) =>
-    _setActionData(state, id, eventName, actionNameOpt, None)
-  | SetActionFileStr(id, eventName, actionName, actionFileStr) =>
-    _setActionData(state, id, eventName, actionName->Some, actionFileStr->Some)
+  // | SetInputFileStr(id, inputName, inputFileStr) =>
+  //   _setUIControlInspectorData(
+  //     state,
+  //     data => {
+  //       ...data,
+  //       input: {
+  //         inputName,
+  //         inputFileStr: inputFileStr->Some,
+  //       }->Some,
+  //     },
+  //     id,
+  //   )
+  | SetAction(id, (eventName, actionNameOpt)) => _setActionData(state, id, eventName, actionNameOpt)
+  // | SetActionFileStr(id, eventName, actionName, actionFileStr) =>
+  //   _setActionData(state, id, eventName, actionName->Some, actionFileStr->Some)
   | SelectRootUIControl => {
       ...state,
       parentUIControlId: None,

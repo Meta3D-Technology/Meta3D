@@ -109,6 +109,7 @@ let generate = (
   allPackageBinaryFiles,
   allPackageBinaryFileDataStoredInApp: array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
   selectedElements: selectedElements,
+  customData: customData,
   configData: Js.Nullable.t<Meta3dType.Index.startConfigData>,
   startPackageProtocolName,
 ) => {
@@ -130,6 +131,9 @@ let generate = (
   )
   ->Meta3dCommonlib.ArraySt.push(
     TextEncoder.encodeUint8Array(selectedElements->Obj.magic->Js.Json.stringify, encoder),
+  )
+  ->Meta3dCommonlib.ArraySt.push(
+    TextEncoder.encodeUint8Array(customData->Obj.magic->Js.Json.stringify, encoder),
   )
   ->Meta3dCommonlib.ArraySt.push(
     TextEncoder.encodeUint8Array(
@@ -230,13 +234,15 @@ let load = (addGeneratedContributeFunc, appBinaryFile: ArrayBuffer.t): (
     allPackageUint8NotStoredInApp,
     allPackageUint8StoredInApp,
     selectedElementsUint8,
+    customDataUint8,
     configData,
     startPackageProtocolName,
   ] = BinaryFileOperator.load(appBinaryFile)
 
   let (state, _) = ManagerUtils.loadApp(
     addGeneratedContributeFunc,
-    _decode(selectedElementsUint8)->Js.Json.parseExn->Obj.magic,
+    // _decode(selectedElementsUint8)->Js.Json.parseExn->Obj.magic,
+    _decode(customDataUint8)->Js.Json.parseExn->Obj.magic,
     [allExtensionUint8, allContributeUint8, allPackageUint8NotStoredInApp, Obj.magic(1)],
   )
 
@@ -286,6 +292,7 @@ let getAllDataOfApp = (appBinaryFile: ArrayBuffer.t): (
   ),
   Meta3dType.Index.startConfigData,
   selectedElements,
+  customData,
 ) => {
   let [
     allExtensionUint8,
@@ -293,6 +300,7 @@ let getAllDataOfApp = (appBinaryFile: ArrayBuffer.t): (
     allPackageUint8NotStoredInApp,
     allPackageUint8StoredInApp,
     selectedElementsUint8,
+    customDataUint8,
     configData,
     _,
   ] = BinaryFileOperator.load(appBinaryFile)
@@ -302,5 +310,6 @@ let getAllDataOfApp = (appBinaryFile: ArrayBuffer.t): (
     [allExtensionUint8, allContributeUint8, allPackageUint8NotStoredInApp]->ManagerUtils.parse3,
     _decodeConfigData(configData),
     _decode(selectedElementsUint8)->Js.Json.parseExn->Obj.magic,
+    _decode(customDataUint8)->Js.Json.parseExn->Obj.magic,
   )
 }

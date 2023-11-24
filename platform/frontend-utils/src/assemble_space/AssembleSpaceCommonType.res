@@ -48,8 +48,18 @@ type packageData = {
   version: version,
   name: string,
   binaryFile: Js.Typed_array.ArrayBuffer.t,
-  isStart:bool,
+  isStart: bool,
   protocolConfigStr: option<protocolConfigStr>,
 }
 
 type storedPackageIdsInApp = list<id>
+
+type customInput = {
+  name: CommonType.inputName,
+  fileStr: CommonType.inputFileStr,
+}
+
+type customAction = {
+  name: CommonType.actionName,
+  fileStr: CommonType.actionFileStr,
+}

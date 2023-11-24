@@ -11,8 +11,6 @@ let feature = loadFeature("./test/features/uiControls.feature")
 
 defineFeature(feature, test => {
   let sandbox = ref(Obj.magic(1))
-  let allPublishUIControlProtocols = ref([])
-  let selectedUIControlsFromMarket = ref(list{})
 
   let _prepare = given => {
     given("prepare", () => {
@@ -37,24 +35,7 @@ defineFeature(feature, test => {
       () => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (
-              list{
-                UIControlsTool.buildSelectedContribute(
-                  ~id="1",
-                  ~displayName="u1",
-                  ~protocolName="meta3d-ui-control-u1",
-                  ~protocolConfigStr="u1_config"->Some,
-                  (),
-                ),
-                UIControlsTool.buildSelectedContribute(
-                  ~id="2",
-                  ~displayName="a1",
-                  ~protocolName="meta3d-action-a1",
-                  (),
-                ),
-              },
-              None,
-            ),
+            (list{}, None),
             // ~newName="u1"->Some,
 
             // ~newName="a1"->Some,
@@ -77,6 +58,21 @@ defineFeature(feature, test => {
         UIControlsTool.buildUI(
           ~sandbox,
           ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+          ~selectedContributes=list{
+            UIControlsTool.buildSelectedContribute(
+              ~id="1",
+              ~displayName="u1",
+              ~protocolName="meta3d-ui-control-u1",
+              ~protocolConfigStr="u1_config"->Some,
+              (),
+            ),
+            UIControlsTool.buildSelectedContribute(
+              ~id="2",
+              ~displayName="a1",
+              ~protocolName="meta3d-action-a1",
+              (),
+            ),
+          },
           (),
         )
         ->ReactTestRenderer.create
@@ -91,7 +87,6 @@ defineFeature(feature, test => {
     let sepcific = ref(Obj.magic(1))
     let name = ref(Obj.magic(1))
     let data = ref(Obj.magic(1))
-    let s1Name = "s1"
     let execGetContributeFuncStub = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))

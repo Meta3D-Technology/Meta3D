@@ -117,26 +117,27 @@ module Method = {
   let _generateApp = (
     service,
     ((selectPackages, allPackagesStoredInApp), selectedContributes),
-    (account, selectedUIControlInspectorData),
+    // (account, selectedUIControlInspectorData),
   ) => {
     AppUtils.generateApp(
       service,
       (selectPackages, allPackagesStoredInApp),
       selectedContributes
-      ->FrontendUtils.ElementUtils.addGeneratedInputContributeForElementAssemble(
-        (service.meta3d.generateContribute, service.meta3d.loadContribute),
-        _,
-        account,
-        selectedUIControlInspectorData,
-      )
-      ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
-        (service.meta3d.generateContribute, service.meta3d.loadContribute),
-        _,
-        account,
-        selectedUIControlInspectorData,
-      )
+      // ->FrontendUtils.ElementUtils.addGeneratedInputContributesForElementAssemble(
+      //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+      //   _,
+      //   account,
+      //   selectedUIControlInspectorData,
+      // )
+      // ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
+      //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+      //   _,
+      //   account,
+      //   selectedUIControlInspectorData,
+      // )
       ->Meta3dCommonlib.ListSt.toArray,
       list{},
+      (list{}, list{}),
       Js.Nullable.null,
     )
   }
@@ -145,7 +146,7 @@ module Method = {
     service,
     loopFrameID: React.ref<option<int>>,
     (selectedPackages, selectedContributes, storedPackageIdsInApp),
-    (account, selectedUIControlInspectorData),
+    // (account, selectedUIControlInspectorData),
     // visualExtension,
     {isDebug} as apInspectorData: FrontendUtils.ApAssembleStoreType.apInspectorData,
   ) => {
@@ -158,7 +159,7 @@ module Method = {
           // selectedExtensions->Meta3dCommonlib.ListSt.toArray,
           selectedContributes,
         ),
-        (account, selectedUIControlInspectorData),
+        // (account, selectedUIControlInspectorData),
         // visualExtension,
       ),
     )
@@ -407,26 +408,8 @@ module Method = {
         ).id,
         rect,
         isDraw,
-        input: input
-        ->Meta3dCommonlib.OptionSt.fromNullable
-        ->Meta3dCommonlib.OptionSt.map(({
-          inputName,
-          inputFileStr,
-        }): FrontendUtils.ElementAssembleStoreType.input => {
-          {
-            inputName,
-            inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.fromNullable,
-          }
-        }),
-        event: event->Meta3dCommonlib.ArraySt.map(({
-          eventName,
-          actionName,
-          actionFileStr,
-        }): FrontendUtils.ElementAssembleStoreType.eventData => {
-          eventName,
-          actionName,
-          actionFileStr: actionFileStr->Meta3dCommonlib.OptionSt.fromNullable,
-        }),
+        input: input->Meta3dCommonlib.OptionSt.fromNullable,
+        event,
         specific,
         children: _generate(
           children,
@@ -550,7 +533,7 @@ module Method = {
     let {
       selectedPackages,
       // selectedExtensions,
-      selectedContributes,
+      // selectedContributes,
       // selectedElementsFromMarket,
       apInspectorData,
       isPassDependencyGraphCheck,
@@ -572,7 +555,7 @@ module Method = {
       (
         selectedPackages,
         // selectedExtensions,
-        selectedContributes,
+        // selectedContributes,
         // selectedElementsFromMarket,
         apInspectorData,
         isPassDependencyGraphCheck,
@@ -593,14 +576,19 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>, ~selectedElementsFromMarket) => {
+let make = (
+  ~service: service,
+  ~account: option<string>,
+  ~selectedElementsFromMarket,
+  ~selectedContributes,
+) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
     (
       selectedPackages,
       // selectedExtensions,
-      selectedContributes,
+      // selectedContributes,
       // selectedElementsFromMarket,
       apInspectorData,
       isPassDependencyGraphCheck,
@@ -717,7 +705,7 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
               service,
               loopFrameID,
               (selectedPackages, selectedContributes, storedPackageIdsInApp),
-              (account->Meta3dCommonlib.OptionSt.getExn, selectedUIControlInspectorData),
+              // (account->Meta3dCommonlib.OptionSt.getExn, selectedUIControlInspectorData),
               // visualExtension,
               apInspectorData,
             )->ignore

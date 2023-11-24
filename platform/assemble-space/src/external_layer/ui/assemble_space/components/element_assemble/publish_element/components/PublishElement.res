@@ -45,28 +45,8 @@ module Method = {
         displayName,
         rect,
         isDraw,
-        input: input
-        ->Meta3dCommonlib.OptionSt.map(({
-          inputName,
-          inputFileStr,
-        }): FrontendUtils.BackendCloudbaseType.input => {
-          {
-            inputName,
-            inputFileStr: inputFileStr->Meta3dCommonlib.OptionSt.toNullable,
-          }
-        })
-        ->Meta3dCommonlib.OptionSt.toNullable,
-        event: event->Meta3dCommonlib.ArraySt.map(({
-          eventName,
-          actionName,
-          actionFileStr,
-        }): FrontendUtils.BackendCloudbaseType.eventData => {
-          {
-            eventName,
-            actionName,
-            actionFileStr: actionFileStr->Meta3dCommonlib.OptionSt.toNullable,
-          }
-        }),
+        input: input->Meta3dCommonlib.OptionSt.toNullable,
+        event,
         specific,
         children: _convertToUIControls(children, selectedUIControls),
       }

@@ -20,6 +20,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     selectedContributes,
     selectedPackages,
     selectedElements,
+    // customInputs,
+    // customActions,
   } = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
 
   let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
@@ -101,6 +103,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         allPackageBinaryFiles,
         allPackagesStoredInApp,
         selectedElements,
+        customData,
         startConfigData,
         startPackageProtocolName,
       ) =>
@@ -109,6 +112,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           allPackageBinaryFiles,
           allPackagesStoredInApp,
           selectedElements->Obj.magic,
+          customData->Obj.magic,
           startConfigData,
           startPackageProtocolName,
         ),
@@ -285,6 +289,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
               selectedContributesFromMarket=selectedContributes
               selectedPackagesFromMarket=selectedPackages
               selectedElementsFromMarket=selectedElements
+              // customInputsFromMarket=customInputs
+              // customActionsFromMarket=customActions
             />
           </Layout.Content>
         </Layout>

@@ -18,12 +18,9 @@ let make = (
   ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
   let dispatchForAssembleSpaceStore = service.react.useDispatch()
-  // let dispatchForApAssembleStore = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   service.react.useEffectOnce(() => {
     Method.resetAllAssemble(dispatchForAssembleSpaceStore)
-
-    // dispatchForApAssembleStore(FrontendUtils.ApAssembleStoreType.SelectAllElements(selectedElementsFromMarket))
 
     ((), None)
   })
@@ -32,6 +29,7 @@ let make = (
     <Layout.Content>
       <Space direction=#horizontal size=#small>
         <Publish service account selectedElementsFromMarket />
+        <Custom service />
         <ApController
           service
           // selectedExtensionsFromMarket

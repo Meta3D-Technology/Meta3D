@@ -872,15 +872,44 @@ implement
 ** DONE refactor: rename to custom
 
 
-** TODO add custom actions:Array<[actionName, fileStr]> and custom inputs
+** DONE add custom actions:Array<[actionName, fileStr]> and custom inputs
 
 
+data change to store in app!
 
 TODO custom action: generate unique protocol name
+TODO custom input: generate one same protocol name
+
 
 TODO remove custom in UIControlInspector
 
+TODO no need to convert
+
+
+
+TODO not add generated when generate app, add when enter element assemble instead
+
+TODO when publish app, add custom data to app(still use selected contributes in ap assemble store)
+
+//TODO not add generated when enter app, add generated when publish app instead
+TODO update add generated when enter app
+
+TODO update import app
+
+
 # TODO when switch between Assemble and Index, not remain selected contributes in ap assemble store
+
+
+
+TODO pass compile
+
+TODO pass bdd test
+
+TODO pass run test:
+    create, run
+        TODO not clear custom data when switch
+    run app
+    publish app->import app->run
 
 
 

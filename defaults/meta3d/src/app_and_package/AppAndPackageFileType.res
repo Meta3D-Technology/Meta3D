@@ -131,3 +131,5 @@ type packageData = (
 )
 
 type selectedElements
+
+type customData

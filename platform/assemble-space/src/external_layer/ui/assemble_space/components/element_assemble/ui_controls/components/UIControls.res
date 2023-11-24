@@ -77,24 +77,31 @@ module Method = {
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {selectedContributes} = apAssembleState
+    // let {selectedContributes} = apAssembleState
     let {selectedUIControls, parentUIControlId} = elementAssembleState
 
-    (selectedContributes, selectedUIControls, parentUIControlId)
+    (
+      // selectedContributes,
+
+      selectedUIControls,
+      parentUIControlId,
+    )
   }
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~selectedContributes) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (selectedContributes, selectedUIControls, parentUIControlId) = service.react.useSelector(. 
-    Method.useSelector,
-  )
+  let (
+    // selectedContributes,
+    selectedUIControls,
+    parentUIControlId,
+  ) = service.react.useSelector(. Method.useSelector)
 
   // TODO duplicate with ap view
   <List
-  grid={{gutter: 16, column: 2}}
+    grid={{gutter: 16, column: 2}}
     dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
     renderItem={({id, protocolIconBase64, protocolConfigStr, data}) => {
       // let name = data.contributePackageData.name

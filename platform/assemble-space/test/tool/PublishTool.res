@@ -20,6 +20,8 @@ let publish = (
   ~selectedPackages=list{},
   ~selectedContributes=list{},
   ~selectedElementsFromMarket=list{},
+  ~customInputs=list{},
+  ~customActions=list{},
   ~selectedUIControls=list{},
   ~selectedUIControlInspectorData=list{},
   ~storedPackageIdsInApp=list{},
@@ -46,6 +48,8 @@ let publish = (
       isChangeSelectedPackagesByDebug,
       selectedUIControls,
       selectedUIControlInspectorData,
+      customInputs,
+      customActions,
     ),
     values,
   )

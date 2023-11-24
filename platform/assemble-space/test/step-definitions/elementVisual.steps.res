@@ -84,7 +84,7 @@ defineFeature(feature, test => {
         useSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
-              (list{}, list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
+              (list{}, ApInspectorTool.buildApInspectorData(), true, list{}),
               (
                 CanvasControllerTool.buildCanvasData(~width=10, ~height=20, ()),
                 list{},
@@ -93,6 +93,8 @@ defineFeature(feature, test => {
                 None,
               ),
             ),
+            //   (list{}, list{}, list{}, list{}, ApInspectorTool.buildApInspectorData()),
+
             _,
           )
       },
@@ -259,26 +261,26 @@ defineFeature(feature, test => {
     // let ui = ref(Obj.magic(1))
     // let event = ref(Obj.magic(1))
     // let c1 = ref(Obj.magic(1))
-    let uiState = Obj.magic(11)
+    // let uiState = Obj.magic(11)
     // let selectedExtensions = ref(list{})
     // let selectedContributes = ref(list{})
-    let account = "a1"
-    let inputName = "i1"
-    let inputFileStr = ElementVisualTool.buildEmptyContributeFileStr()
-    let eventName = "run"
-    let actionName = "action1"
-    let actionFileStr = ElementVisualTool.buildEmptyContributeFileStr()
-    let selectedUIControlInspectorData = ref(Obj.magic(1))
+    // let account = "a1"
+    // let inputName = "i1"
+    // let inputFileStr = ElementVisualTool.buildEmptyContributeFileStr()
+    // let eventName = "run"
+    // let actionName = "action1"
+    // let actionFileStr = ElementVisualTool.buildEmptyContributeFileStr()
+    // let selectedUIControlInspectorData = ref(Obj.magic(1))
     let selectedPackages = ref(list{})
-    let allContributeDataArrRef = ref(Obj.magic(1))
-    let useSelectorStub = ref(Obj.magic(1))
+    // let allContributeDataArrRef = ref(Obj.magic(1))
+    // let useSelectorStub = ref(Obj.magic(1))
     // let getExtensionStateStub = ref(Obj.magic(1))
     let getPackageServiceStub = ref(Obj.magic(1))
     // let setExtensionStateFake = ref(Obj.magic(1))
     let execGetContributeFuncStub = ref(Obj.magic(1))
     // let registerContributeStub = ref(Obj.magic(1))
     let convertAllFileDataForAppFake = allContributeDataArr => {
-      allContributeDataArrRef := allContributeDataArr
+    //   allContributeDataArrRef := allContributeDataArr
 
       Meta3d.Main.convertAllFileDataForApp(allContributeDataArr)
     }
@@ -324,45 +326,45 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare one input file str in one ui control inspector data",
-      () => {
-        selectedUIControlInspectorData :=
-          list{
-            UIControlInspectorTool.buildUIControlInspectorData(
-              ~id=inputName,
-              ~input=UIControlInspectorTool.buildInput(
-                ~inputName,
-                ~inputFileStr=inputFileStr->Some,
-                (),
-              )->Some,
-              (),
-            ),
-          }
-      },
-    )
+    // \"and"(
+    //   "prepare one input file str in one ui control inspector data",
+    //   () => {
+    //     selectedUIControlInspectorData :=
+    //       list{
+    //         UIControlInspectorTool.buildUIControlInspectorData(
+    //           ~id=inputName,
+    //           ~input=UIControlInspectorTool.buildInput(
+    //             ~inputName,
+    //             ~inputFileStr=inputFileStr->Some,
+    //             (),
+    //           )->Some,
+    //           (),
+    //         ),
+    //       }
+    //   },
+    // )
 
-    \"and"(
-      "prepare one action file str in one ui control inspector data",
-      () => {
-        selectedUIControlInspectorData :=
-          list{
-            ...selectedUIControlInspectorData.contents,
-            UIControlInspectorTool.buildUIControlInspectorData(
-              ~id=actionName,
-              ~event=[
-                UIControlInspectorTool.buildEventData(
-                  ~eventName=eventName->Obj.magic,
-                  ~actionName,
-                  ~actionFileStr=actionFileStr->Some,
-                  (),
-                ),
-              ],
-              (),
-            ),
-          }
-      },
-    )
+    // \"and"(
+    //   "prepare one action file str in one ui control inspector data",
+    //   () => {
+    //     selectedUIControlInspectorData :=
+    //       list{
+    //         ...selectedUIControlInspectorData.contents,
+    //         UIControlInspectorTool.buildUIControlInspectorData(
+    //           ~id=actionName,
+    //           ~event=[
+    //             UIControlInspectorTool.buildEventData(
+    //               ~eventName=eventName->Obj.magic,
+    //               ~actionName,
+    //               ~actionFileStr=actionFileStr->Some,
+    //               (),
+    //             ),
+    //           ],
+    //           (),
+    //         ),
+    //       }
+    //   },
+    // )
 
     // \"and"(
     //   "get visual extension v",
@@ -565,7 +567,7 @@ defineFeature(feature, test => {
           ),
           loopFrameIDRef,
           (selectedPackages.contents, list{}, list{}),
-          (account, selectedUIControlInspectorData.contents),
+          //   (account, selectedUIControlInspectorData.contents),
           ApInspectorTool.buildApInspectorData(),
         )
       },
@@ -585,41 +587,41 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "register one generated input contribute one generated action contribute",
-      () => {
-        allContributeDataArrRef.contents->expect == [
-            ContributeTool.generateContribute(
-              ~name=inputName,
-              ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
-              ~account,
-              ~displayName="",
-              ~repoLink="",
-              ~description="",
-              ~protocolName=j`${inputName}-protocol`,
-              ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
-              ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              ~fileStr=inputFileStr,
-              (),
-            )->Meta3d.Main.loadContribute,
-            ContributeTool.generateContribute(
-              ~name=actionName,
-              ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
-              ~account,
-              ~displayName="",
-              ~repoLink="",
-              ~description="",
-              ~protocolName=j`${actionName}-protocol`,
-              ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
-              ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              ~fileStr=actionFileStr,
-              (),
-            )->Meta3d.Main.loadContribute,
-          ]
-      },
-    )
+    // \"and"(
+    //   "register one generated input contribute one generated action contribute",
+    //   () => {
+    //     allContributeDataArrRef.contents->expect == [
+    //         ContributeTool.generateContribute(
+    //           ~name=inputName,
+    //           ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
+    //           ~account,
+    //           ~displayName="",
+    //           ~repoLink="",
+    //           ~description="",
+    //           ~protocolName=j`${inputName}-protocol`,
+    //           ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
+    //           ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //           ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //           ~fileStr=inputFileStr,
+    //           (),
+    //         )->Meta3d.Main.loadContribute,
+    //         ContributeTool.generateContribute(
+    //           ~name=actionName,
+    //           ~version=FrontendUtils.ElementUtils.getElementContributeVersion(),
+    //           ~account,
+    //           ~displayName="",
+    //           ~repoLink="",
+    //           ~description="",
+    //           ~protocolName=j`${actionName}-protocol`,
+    //           ~protocolVersion=FrontendUtils.ElementUtils.getElementContributeProtocolVersion(),
+    //           ~dependentPackageStoredInAppProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //           ~dependentBlockProtocolNameMap=Meta3dCommonlib.ImmutableHashMap.createEmpty(),
+    //           ~fileStr=actionFileStr,
+    //           (),
+    //         )->Meta3d.Main.loadContribute,
+    //       ]
+    //   },
+    // )
 
     \"and"(
       "get element1 from space state and update it",

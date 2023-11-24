@@ -1,8 +1,8 @@
 # ninja log v6
-0	16	1700717837261416933	src/service/ServiceType.ast	785165cefc5839bb
-1	16	1700717837261326047	Meta3dEditorWholeProtocol.cmi	27dde7c45547adb8
-16	23	1700717837270130922	src/service/ServiceType.d	702d225c4edca7ca
-23	46	1700717837292733416	src/service/ServiceType-Meta3dEditorWholeProtocol.cmj	469222d4fb5e9253
-23	46	1700717837292733416	src/service/ServiceType-Meta3dEditorWholeProtocol.cmi	469222d4fb5e9253
-23	46	1700717837292733416	../es6_global/src/service/ServiceType.bs.js	469222d4fb5e9253
-23	46	1700717837292733416	../js/src/service/ServiceType.bs.js	469222d4fb5e9253
+0	14	1700797062362993906	src/service/ServiceType.ast	785165cefc5839bb
+0	14	1700797062363189830	Meta3dEditorWholeProtocol.cmi	27dde7c45547adb8
+14	20	1700797062370725571	src/service/ServiceType.d	702d225c4edca7ca
+21	44	1700797062393772856	src/service/ServiceType-Meta3dEditorWholeProtocol.cmj	27353c2cefaf6d3b
+21	44	1700797062393772856	src/service/ServiceType-Meta3dEditorWholeProtocol.cmi	27353c2cefaf6d3b
+21	44	1700797062393772856	../es6_global/src/service/ServiceType.bs.js	27353c2cefaf6d3b
+21	44	1700797062393772856	../js/src/service/ServiceType.bs.js	27353c2cefaf6d3b

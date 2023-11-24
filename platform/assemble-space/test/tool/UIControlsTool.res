@@ -1,5 +1,10 @@
-let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <UIControls service />
+let buildUI = (
+  ~sandbox,
+  ~service=ServiceTool.build(~sandbox, ()),
+  ~selectedContributes=list{},
+  (),
+) => {
+  <UIControls service selectedContributes />
 }
 
 let buildSelectedContribute = (

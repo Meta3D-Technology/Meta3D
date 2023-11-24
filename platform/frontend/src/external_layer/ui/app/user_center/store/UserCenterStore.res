@@ -165,6 +165,11 @@ let reducer = (state, action) => {
       ...state,
       selectedElements: elements,
     }
+  // | SetCustomData(customInputs, customActions) => {
+  //     ...state,
+  //     customInputs,
+  //     customActions,
+  //   }
   | ImportPackage(packageId, selectedExtensions, selectedContributes, selectedPackages) => {
       ...state,
       importedPackageIds: state.importedPackageIds->Meta3dCommonlib.ListSt.push(packageId),
@@ -245,6 +250,8 @@ let initialState = {
   selectedContributes: list{},
   selectedPackages: list{},
   selectedElements: list{},
+  // customInputs: list{},
+  // customActions: list{},
   importedPackageIds: list{},
   importedAppIds: list{},
 }

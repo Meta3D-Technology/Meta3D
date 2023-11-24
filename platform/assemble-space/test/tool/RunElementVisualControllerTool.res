@@ -1,5 +1,5 @@
-let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ~account="a1"->Some, ()) => {
-  <RunElementVisualController service account />
+let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ~account="a1"->Some, ~selectedContributes=list{}, ()) => {
+  <RunElementVisualController service account selectedContributes/>
 }
 
 // let getAndSetNewestVisualExtension = RunElementVisualController.Method.getAndSetNewestVisualExtension

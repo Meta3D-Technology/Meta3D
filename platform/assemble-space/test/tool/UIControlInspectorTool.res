@@ -4,8 +4,8 @@
 
 let getCurrentSelectedUIControlInspectorData = ElementInspector.Method.getCurrentSelectedUIControlInspectorData
 
-let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
-  UIControlInspector.Method.useSelector
+// let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) =>
+//   UIControlInspector.Method.useSelector
 
 let buildRect = (
   ~x=0->FrontendUtils.CommonType.IntForRectField,
@@ -22,24 +22,17 @@ let buildRect = (
   }
 }
 
-let buildInput = (
-  ~inputName,
-  ~inputFileStr=None,
-  (),
-): FrontendUtils.ElementAssembleStoreType.input => {
-  inputName,
-  inputFileStr,
+let buildInput = (~inputName, ()): FrontendUtils.ElementAssembleStoreType.input => {
+  inputName: inputName,
 }
 
 let buildEventData = (
   ~eventName,
   ~actionName,
-  ~actionFileStr=None,
   (),
 ): FrontendUtils.ElementAssembleStoreType.eventData => {
   eventName,
   actionName,
-  actionFileStr,
 }
 
 let buildSpecific = (
@@ -98,11 +91,12 @@ let buildUI = (
   ~service,
   ~currentSelectedUIControl=SelectedUIControlsTool.buildSelectedUIControl(),
   ~currentSelectedUIControlInspectorData=buildUIControlInspectorData(~id="id", ()),
+  ~selectedContributes=list{},
   (),
 ) => {
-  <UIControlInspector service currentSelectedUIControl currentSelectedUIControlInspectorData />
+  <UIControlInspector
+    service currentSelectedUIControl currentSelectedUIControlInspectorData selectedContributes
+  />
 }
 
-let buildDefaultInputFileStr = UIControlInspector.Method.buildDefaultInputFileStr
-
-let getInputName = UIControlInspector.Method.getInputName
+let buildInputNameSelectValues = UIControlInspector.Method.buildInputNameSelectValues

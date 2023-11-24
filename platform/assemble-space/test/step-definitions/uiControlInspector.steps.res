@@ -517,38 +517,102 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."get input name from input file str", ({given, \"when", \"and", then}) => {
-    let id = "123"
-    let defaultInputFileStr = ref(Obj.magic(1))
+  test(."show input select", ({given, \"when", \"and", then}) => {
+    let i1 = ref(Obj.magic(1))
+    let i2 = ref(Obj.magic(1))
+    let i1Name = "1_input_window"
+    let i2Name = "2_input_button"
+    let execGetContributeFuncStub = ref(Obj.magic(1))
 
     _prepare(given)
 
     given(
-      "build default input file str",
+      "select input i1 match ui control w1",
       () => {
-        let randomStub = createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(id, _)
+        execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        defaultInputFileStr :=
-          UIControlInspectorTool.buildDefaultInputFileStr(
-            randomStub->Obj.magic,
-            "meta3d-ui-control-switch-button-protocol",
+        i1 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~id=i1Name,
+            ~protocolConfigStr=Some(""),
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=i1Name,
+                ~protocol={
+                  name: FrontendUtils.ElementUtils._buildProtocolName(i1Name),
+                  version: "^0.6.0",
+                },
+                (),
+              ),
+              (),
+            ),
+            (),
           )
+
+        execGetContributeFuncStub.contents
+        ->onCall(0, _)
+        ->returns(
+          {
+            "inputName": i1Name,
+          },
+          _,
+        )
+        ->ignore
+      },
+    )
+
+    \"and"(
+      "select input i2 not match ui control w1",
+      () => {
+        i2 :=
+          SelectedContributesTool.buildSelectedContribute(
+            ~id=i2Name,
+            ~protocolConfigStr=Some(""),
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name=i2Name,
+                ~protocol={
+                  name: FrontendUtils.ElementUtils._buildProtocolName(i2Name),
+                  version: "^0.6.0",
+                },
+                (),
+              ),
+              (),
+            ),
+            (),
+          )
+
+        execGetContributeFuncStub.contents
+        ->onCall(1, _)
+        ->returns(
+          {
+            "inputName": i2Name,
+          },
+          _,
+        )
+        ->ignore
       },
     )
 
     \"when"(
-      "get input name from it",
+      "build input select values",
       () => {
         ()
       },
     )
 
     then(
-      "should get default input name",
+      "should show i1",
       () => {
-        UIControlInspectorTool.getInputName(
-          defaultInputFileStr.contents->Some,
-        )->expect == "meta3d_input_custom_123000000_switch_button"
+        UIControlInspectorTool.buildInputNameSelectValues(
+          ServiceTool.build(
+            ~sandbox,
+            ~execGetContributeFunc=execGetContributeFuncStub.contents->Obj.magic,
+            (),
+          ),
+          list{i1.contents, i2.contents},
+          "meta3d-ui-control-window-protocol",
+        )->expect == [i1Name]
       },
     )
   })
@@ -940,19 +1004,16 @@ defineFeature(feature, test => {
     let eventName = #button_click
     let actionName = "a10"
     let dispatchStub = ref(Obj.magic(1))
-    let setActionFileStrMapStub = ref(Obj.magic(1))
 
     _prepare(given)
 
     \"when"(
       "set action",
       () => {
-        setActionFileStrMapStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
         UIControlInspectorTool.setAction(
           dispatchStub.contents->Obj.magic,
-          setActionFileStrMapStub.contents->Obj.magic,
           id,
           eventName,
           actionName,
@@ -961,23 +1022,6 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should delete value of the event from actionFileStrMap",
-      () => {
-        let map =
-          Meta3dCommonlib.ImmutableHashMap.createEmpty()->Meta3dCommonlib.ImmutableHashMap.set(
-            "aaa",
-            "1",
-          )
-
-        ReactHookTool.getValueWithArg1(
-          ~setLocalValueStub=setActionFileStrMapStub.contents,
-          ~arg1=map->Meta3dCommonlib.ImmutableHashMap.set(eventName->Obj.magic, "2"),
-          (),
-        )->expect == map
-      },
-    )
-
-    \"and"(
       "should dispatch SetAction action",
       () => {
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
@@ -1001,7 +1045,6 @@ defineFeature(feature, test => {
 
         UIControlInspectorTool.setAction(
           dispatchStub.contents->Obj.magic,
-          createEmptyStub(refJsObjToSandbox(sandbox.contents)),
           id,
           eventName,
           actionName,

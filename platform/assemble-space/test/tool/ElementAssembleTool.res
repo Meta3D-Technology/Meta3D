@@ -1,0 +1,1 @@
+let addGeneratedCustoms = ElementAssemble.Method.addGeneratedCustoms

@@ -96,6 +96,7 @@ let generateApp = (
   service,
   ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
   selectedElements,
+  customData,
   elementContribute,
 ) => {
   AppUtils.generateApp(
@@ -105,6 +106,7 @@ let generateApp = (
     // selectedExtensions,
     selectedContributes->_removeElementContribute->Meta3dCommonlib.ArraySt.push(elementContribute),
     selectedElements,
+  customData,
     Js.Nullable.null,
   )
 }
@@ -195,16 +197,16 @@ let cancelAppLoop = (
   }
 }
 
-let buildDefaultInputNameForCustomInput = (random, uiControlProtocolName) => {
-  uiControlProtocolName
-  ->Js.String.replace("-protocol", "", _)
-  ->Js.String.replace(
-    "-ui-control-",
-    {j`-input-custom-${FrontendUtils.IdUtils.generateId(random)}-`},
-    _,
-  )
-  ->Js.String.replaceByRe(%re("/-/g"), "_", _)
-}
+// let buildDefaultInputNameForCustomInput = (random, uiControlProtocolName) => {
+//   uiControlProtocolName
+//   ->Js.String.replace("-protocol", "", _)
+//   ->Js.String.replace(
+//     "-ui-control-",
+//     {j`-input-custom-${FrontendUtils.IdUtils.generateId(random)}-`},
+//     _,
+//   )
+//   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
+// }
 
 let isCustomInput = inputName => {
   inputName->Js.String.includes("-input-custom-", _)
@@ -214,16 +216,16 @@ let buildEmptyAddGeneratedContributeFunc = () => {
   (allContributeDataArr, _) => allContributeDataArr
 }
 
-let buildDefaultActionNameForCustomAction = (random, uiControlProtocolName, eventName) => {
-  uiControlProtocolName
-  ->Js.String.replace("-protocol", "", _)
-  ->Js.String.replace(
-    "-ui-control-",
-    {j`-action-custom-${eventName}-${FrontendUtils.IdUtils.generateId(random)}-`},
-    _,
-  )
-  ->Js.String.replaceByRe(%re("/-/g"), "_", _)
-}
+// let buildDefaultActionNameForCustomAction = (random, uiControlProtocolName, eventName) => {
+//   uiControlProtocolName
+//   ->Js.String.replace("-protocol", "", _)
+//   ->Js.String.replace(
+//     "-ui-control-",
+//     {j`-action-custom-${eventName}-${FrontendUtils.IdUtils.generateId(random)}-`},
+//     _,
+//   )
+//   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
+// }
 
 let isCustomAction = (actionName, eventName) => {
   actionName->Js.String.includes({j`-action-custom-${eventName}-`}, _)

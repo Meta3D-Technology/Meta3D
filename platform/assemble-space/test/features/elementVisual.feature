@@ -42,13 +42,13 @@ Feature: ElementVisual
         Given prepare flag
         And generate empty element contribute element1
         And set element1 to space state
-        And prepare one input file str in one ui control inspector data
-        And prepare one action file str in one ui control inspector data
+        # And prepare one input file str in one ui control inspector data
+        # And prepare one action file str in one ui control inspector data
         And generate editor whole package with extension e1
         And select editor whole
         When start app with editor whole
         Then e1 should be inited
-        And register one generated input contribute one generated action contribute
+        # And register one generated input contribute one generated action contribute
         And get element1 from space state and update it
         And e1 should be updated
         And store frame id

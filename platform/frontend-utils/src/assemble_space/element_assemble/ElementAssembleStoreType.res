@@ -51,16 +51,19 @@ type specific = CommonType.specific
 
 type inputName = CommonType.inputName
 
-type input = {
-  inputName: inputName,
-  inputFileStr: option<CommonType.inputFileStr>,
-}
+// type input = {
+//   inputName: inputName,
+//   // inputFileStr: option<CommonType.inputFileStr>,
+// }
+type input = CommonType.input
 
-type eventData = {
-  eventName: Meta3dType.ContributeProtocolConfigType.eventName,
-  actionName: actionName,
-  actionFileStr: option<CommonType.actionFileStr>,
-}
+// type eventData = {
+//   eventName: Meta3dType.ContributeProtocolConfigType.eventName,
+//   actionName: actionName,
+//   actionFileStr: option<CommonType.actionFileStr>,
+// }
+
+type eventData = CommonType.eventData
 
 type event = array<eventData>
 
@@ -137,14 +140,14 @@ type action =
   | SetIsDraw(id, isDraw)
   // | SetAction(id, (eventName, option<actionName>))
   | SetInput(id, option<inputName>)
-  | SetInputFileStr(id, inputName, CommonType.inputFileStr)
+  // | SetInputFileStr(id, inputName, CommonType.inputFileStr)
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
-  | SetActionFileStr(
-      id,
-      Meta3dType.ContributeProtocolConfigType.eventName,
-      actionName,
-      CommonType.actionFileStr,
-    )
+  // | SetActionFileStr(
+  //     id,
+  //     Meta3dType.ContributeProtocolConfigType.eventName,
+  //     actionName,
+  //     CommonType.actionFileStr,
+  //   )
   // | SetVisualExtension(ApAssembleStoreType.extension)
   // | SetRunVisualExtension(ApAssembleStoreType.extension)
   | SetElementContribute(elementContribute)
