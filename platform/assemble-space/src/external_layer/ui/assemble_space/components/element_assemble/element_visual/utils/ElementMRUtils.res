@@ -203,6 +203,7 @@ let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specif
           value->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
             ? {j`null,`}
             : j`"${value->Obj.magic}",`
+        | #menuItems => j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
         | _ => j`"${SpecificUtils.convertValueToString(value, type_)}",`
         }
 

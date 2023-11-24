@@ -49,6 +49,14 @@ let showCatchedErrorMessageWithFunc = (func, handleErrorFunc, durationOpt) => {
   }
 }
 
+let swallowCatchedError= func => {
+  try {
+    func()
+  } catch {
+  | Js.Exn.Error(obj) => ()
+  }
+}
+
 // let handleFail = result => {
 //   result->Meta3dCommonlib.Result.handleFail(Antd.Message.error)
 // }

@@ -165,10 +165,20 @@ function _buildImmutableAPI(nullableAPI, getPackageService) {
 
     return createList()
   }),
+          createListOfData: (function (state, data){
+    let { createListOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+
+    return createListOfData(data)
+  }),
           createMap: (function (state){
     let { createMap } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
 
     return createMap()
+  }),
+          createMapOfData: (function (state, data){
+    let { createMapOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+
+    return createMapOfData(data)
   })
         };
 }

@@ -13,7 +13,8 @@
     "test:coverage": "jest --maxWorkers=4 --config jest_coverage.json",
     "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json",
     "webpack": "webpack --config webpack.config.js",
-    "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+            "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+        "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
     "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
   },
   "dependencies": {

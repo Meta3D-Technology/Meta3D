@@ -1,7 +1,11 @@
-let _handleSpecificDataFieldType = ((handleStringTypeFunc, handleImageBase64TypeFunc), type_) => {
+let _handleSpecificDataFieldType = (
+  (handleStringTypeFunc, handleImageBase64TypeFunc, handleMenuItemsTypeFunc),
+  type_,
+) => {
   switch type_ {
   | #string => handleStringTypeFunc()
   | #imageBase64 => handleImageBase64TypeFunc()
+  | #menuItems => handleMenuItemsTypeFunc()
   }
 }
 
@@ -27,6 +31,9 @@ let convertValueToString = (value, type_): string => {
         )
         // value->Obj.magic->Meta3dCommonlib.NullableSt.getWithDefault("")->Obj.magic
       },
+      () => {
+        value->Obj.magic->Js.Json.stringify
+      },
     ),
     type_,
   )
@@ -43,6 +50,9 @@ let convertStringToValue = (
       },
       () => {
         valueStr->Obj.magic
+      },
+      () => {
+        valueStr->Obj.magic->Js.Json.parseExn->Obj.magic
       },
     ),
     type_,

@@ -84,11 +84,17 @@ type nullableAPI = {
 
 type list
 
+type arrayData
+
 type map
+
+type dictData
 
 type immutableAPI = {
   createList: (. state) => list,
+  createListOfData: (. state, arrayData) => list,
   createMap: (. state) => map,
+  createMapOfData: (. state, dictData) => map,
 }
 
 type actionName = string

@@ -394,8 +394,8 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
     specificDataValue: FrontendUtils.ElementAssembleStoreType.specificDataValue,
   ) => {
     switch specificDataValue {
-    | SpecicFieldDataValue(value) => value->Some
-    | _ => None
+    | SpecicFieldDataValue(value) => value
+    // | _ => None
     }
   }
 
@@ -420,9 +420,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
           | #string =>
             <Input
               key={name}
-              value={getSpecificDataValue(value)
-              ->Meta3dCommonlib.OptionSt.map(SpecificUtils.convertValueToString(_, type_))
-              ->Meta3dCommonlib.OptionSt.getWithDefault("")}
+              value={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
               onChange={e => {
                 _setSpecificData(
                   dispatch,
@@ -471,6 +469,32 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
               | None => React.null
               }}
             </Space>
+          | #menuItems =>
+            TextareaUtils.isNotShowTextareaForTest()
+              ? React.null
+              : <Space direction=#horizontal>
+                  <Input.TextArea
+                    value={getSpecificDataValue(value)->SpecificUtils.convertValueToString(
+                      _,
+                      type_,
+                    )}
+                    onChange={e => {
+                      FrontendUtils.ErrorUtils.swallowCatchedError(() => {
+                        _setSpecificData(
+                          dispatch,
+                          specific,
+                          id,
+                          i,
+                          e
+                          ->EventUtils.getEventTargetValue
+                          ->SpecificUtils.convertStringToValue(type_)
+                          ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                          type_,
+                        )
+                      })
+                    }}
+                  />
+                </Space>
           }}
         </Card>
       })
@@ -519,7 +543,7 @@ let make = (
         | #imageBase64 =>
           map->Meta3dCommonlib.ImmutableSparseMap.set(
             i,
-            value->Method.getSpecificDataValue->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+            value->Method.getSpecificDataValue->Obj.magic,
           )
         | _ => map
         }

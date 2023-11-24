@@ -653,6 +653,12 @@ handle click event code...
                   ~value=Js.Nullable.null->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
+                UIControlInspectorTool.buildSpecific(
+                  ~name="items",
+                  ~type_=#menuItems,
+                  ~value=[]->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  (),
+                ),
               ],
               (),
             ),

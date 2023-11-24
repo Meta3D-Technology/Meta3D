@@ -913,7 +913,7 @@ TODO pass run test:
 
 
 
-** TODO Menu
+** DONE Menu
 Menu->Specific: 
 # set Array<Array<name:string, actionName:string>>
 Array<[menuLabel, Record<menuLabel, string>]>
@@ -923,12 +923,63 @@ Array<[menuLabel, Record<menuLabel, string>]>
 TODO use Textarea directly 
 
 
+TODO test run, stop
+    TODO update core, whole package
 
+
+
+
+
+** TODO fix: change custom action: ui control inspector->event select value not change
+
+
+** TODO fix: import app->start package in ap assemble space->enter Index: should unstart package
+
+
+
+** TODO menu add actions
+
+TODO run test:
+    publish
+    ...
 
 
 ** TODO Asset
 separate header, body:
     header = multiple Image Buttons
+
+
+** TODO refactor: extract asset package
+
+
+** TODO update drag to Scene View
+
+
+
+
+
+
+** TODO SceneTree
+separate header, body:
+    header = multiple Image Buttons
+
+
+
+** TODO Inspector
+TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
+
+
+TODO can make inspector show in element visual:
+    by set uiControlInput to return true
+
+
+
+split to Inspector(as container) + multiple Component Inspectors(as member)
+
+
+
+Inspector: can edit component;set component's data;
+TODO 加入更多的Component Inspector
 
 
 
@@ -960,41 +1011,41 @@ DracoKTX2Asset
 
 
 
-* TODO UI Control可配置化、抽象化
+# * TODO UI Control可配置化、抽象化
 
 
-** TODO Inspector
-TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
+# ** TODO Inspector
+# TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
 
 
-TODO can make inspector show in element visual:
-    by set uiControlInput to return true
-
-
-
-split to Inspector(as container) + multiple Component Inspectors(as member)
+# TODO can make inspector show in element visual:
+#     by set uiControlInput to return true
 
 
 
-Inspector: can edit component;set component's data;
-TODO 加入更多的Component Inspector
+# split to Inspector(as container) + multiple Component Inspectors(as member)
 
 
-*** TODO active basic camera view
-TODO fix import scene* TODO>active
 
-*** TODO add component
-**** TODO now only add arcball, basiccameraview, perspective component, no other components
-handle event
-   **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
-   **** TODO publish: bind event when active has arcball
+# Inspector: can edit component;set component's data;
+# TODO 加入更多的Component Inspector
 
 
-** TODO SceneTree
-separate header, body:
-    header = multiple Image Buttons
-** TODO Controller
-abstract to Switch Button with configable two textures
+# *** TODO active basic camera view
+# TODO fix import scene* TODO>active
+
+# *** TODO add component
+# **** TODO now only add arcball, basiccameraview, perspective component, no other components
+# handle event
+#    **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
+#    **** TODO publish: bind event when active has arcball
+
+
+# ** TODO SceneTree
+# separate header, body:
+#     header = multiple Image Buttons
+# ** TODO Controller
+# abstract to Switch Button with configable two textures
 
 
 
@@ -1058,10 +1109,8 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 * TODO style: import package: show info under import button like import app
 
+* TODO style: select package: show info under select button
 
 
 * TODO remove meta3d-imgui-webgl1-three-renderer in ui package
-
-
-* TODO refactor: extract asset package
 

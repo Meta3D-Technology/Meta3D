@@ -6,7 +6,9 @@ import { List, Map } from "immutable"
 export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
     return {
         createList: () => List(),
+        createListOfData: (data) => List(data),
         createMap: () => Map(),
+        createMapOfData: (data) => Map(data as any),
     }
 }
 

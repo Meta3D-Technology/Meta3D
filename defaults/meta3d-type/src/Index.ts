@@ -32,7 +32,12 @@ export type nullableAPI = {
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type immutableAPI = { createList: <T>(state: state) => List<T>; createMap: <K, V>(state: state) => Map<K, V> };
+export type immutableAPI = {
+  createList: <T>(state: state) => List<T>;
+  createListOfData: <T>(state: state, data: Array<T>) => List<T>;
+  createMap: <K, V>(state: state) => Map<K, V>
+  createMapOfData: <K extends string, V>(state: state, data: Record<K, V>) => Map<K, V>
+};
 
 // tslint:disable-next-line:interface-over-type-literal
 export type actionAPI = { getActionState: <actionState> (state: state, actionName: string) => actionState; setActionState: <actionState> (state: state, actionName: string, actionState: actionState) => state };

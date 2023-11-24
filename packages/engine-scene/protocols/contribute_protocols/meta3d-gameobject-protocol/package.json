@@ -10,7 +10,7 @@
   "scripts": {
     "watch": "rescript clean && rescript build -w",
     "buildAll:ci": "rescript clean && rescript build",
-    "meta3d:publish_dev": "yarn buildAll:ci && gulp publish_local_env",
+            "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
     "meta3d:publish_pro": "yarn buildAll:ci && gulp publish_production_env"
   },
   "keywords": [],
