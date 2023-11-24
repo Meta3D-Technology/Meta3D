@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-whole",
-    "version": "0.20.9",
+    "version": "0.20.10",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-editor-whole-protocol"
@@ -9,16 +9,16 @@
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --new-version patch && gulp publish_local_env",
-"meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-editor-whole-protocol": "^0.20.0",
-        "meta3d-ui-protocol": "^0.20.0",
-        "meta3d-event-protocol": "^0.20.0",
-        "meta3d-engine-scene-protocol": "^0.20.0",
         "meta3d-core-protocol": "^0.20.0",
-        "meta3d-type": "^0.20.0"
+        "meta3d-editor-whole-protocol": "^0.20.0",
+        "meta3d-engine-scene-protocol": "^0.20.0",
+        "meta3d-event-protocol": "^0.20.0",
+        "meta3d-type": "^0.20.0",
+        "meta3d-ui-protocol": "^0.20.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
