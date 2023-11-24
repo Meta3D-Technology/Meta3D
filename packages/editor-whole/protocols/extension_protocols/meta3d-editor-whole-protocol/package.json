@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-whole-protocol",
-    "version": "0.20.8",
+    "version": "0.20.9",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "author": "Wonder",
@@ -8,7 +8,8 @@
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
-        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publishConfig_local_env && gulp publish_local_env",
+        "meta3d:publish_dev_auto": "yarn version --new-version patch && npm run meta3d:publish_dev",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publishConfig_production_env &&gulp publish_production_env"
     },
     "keywords": [],
