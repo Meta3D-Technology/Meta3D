@@ -1,0 +1,13 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o Main-Meta3dAsset.cmi : cp ../bs/src/Main-Meta3dAsset.cmi
+o Main-Meta3dAsset.cmj : cp ../bs/src/Main-Meta3dAsset.cmj
+o Main-Meta3dAsset.cmt : cp ../bs/src/Main-Meta3dAsset.cmt
+o Main.res : cp ../../src/Main.res
+o Meta3dAsset.cmi : cp ../bs/Meta3dAsset.cmi
+o Meta3dAsset.cmj : cp ../bs/Meta3dAsset.cmj
+o Meta3dAsset.cmt : cp ../bs/Meta3dAsset.cmt
+build install.stamp : touch Main-Meta3dAsset.cmi Main-Meta3dAsset.cmj Meta3dAsset.cmi Meta3dAsset.cmj

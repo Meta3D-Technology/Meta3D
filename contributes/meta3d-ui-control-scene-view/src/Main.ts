@@ -44,8 +44,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             meta3dState = endChild(meta3dState)
 
 
-            // let { handleDragDropTarget } = api.getExtensionService<service>(meta3dState, "meta3d-ui-protocol")
-
             /*! 
             * refer to https://github.com/ocornut/imgui/issues/1771
             */
@@ -67,14 +65,13 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             )
 
 
-
             // let { trigger } = api.getExtensionService<eventService>(meta3dState, "meta3d-event-protocol")
 
             // if (!isNullable(data)) {
             //     return trigger(meta3dState, "meta3d-event-protocol", dropGlbActionName, api.nullable.getExn(data)).then(meta3dState => [meta3dState, null])
             // }
 
-            return Promise.resolve([meta3dState, null])
+            return Promise.resolve([meta3dState, data])
         },
         init: (meta3dState) => Promise.resolve(meta3dState)
     }

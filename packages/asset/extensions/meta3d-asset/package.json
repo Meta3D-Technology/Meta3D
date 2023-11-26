@@ -1,21 +1,24 @@
 {
     "name": "meta3d-asset",
-    "version": "0.20.2",
+    "version": "0.20.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-asset-protocol"
     },
     "scripts": {
-        "watch": "tsc -w -noEmit",
+        "watch": "rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build",
+        "test:watch": "jest --watch --config jest.json",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
-        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
+        "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
         "meta3d-asset-protocol": "^0.20.0",
         "meta3d-load-glb-protocol": "^0.20.0",
-        "meta3d-type": "^0.20.0"
+        "meta3d-type": "^0.20.0",
+        "rescript": "^10.0.1"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

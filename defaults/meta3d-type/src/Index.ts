@@ -40,7 +40,7 @@ export type immutableAPI = {
 };
 
 // tslint:disable-next-line:interface-over-type-literal
-export type actionAPI = { getActionState: <actionState> (state: state, actionName: string) => actionState; setActionState: <actionState> (state: state, actionName: string, actionState: actionState) => state };
+export type actionAPI = { getActionState: <actionState> (state: state, actionName: string) => nullable<actionState>; setActionState: <actionState> (state: state, actionName: string, actionState: actionState) => state };
 
 // tslint:disable-next-line:interface-over-type-literal
 export type uiControlAPI = { getUIControlState: <uiControlState> (state: state, uiControlName: string) => uiControlState; setUIControlState: <uiControlState> (state: state, uiControlName: string, uiControlState: uiControlState) => state };

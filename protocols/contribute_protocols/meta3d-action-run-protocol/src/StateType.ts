@@ -9,6 +9,4 @@ export type state = {
     // loopHandle: nullable<number>
 }
 
-export type elementState = {
-    [actionName]: state
-}
+

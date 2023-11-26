@@ -1,0 +1,22 @@
+rescript = 1
+g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-asset-protocol/lib/ocaml/install.stamp
+g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib/lib/ocaml/install.stamp
+g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml/install.stamp
+g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d/lib/ocaml/install.stamp
+g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml/install.stamp
+rule astj
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -w -0-1-2-3-4-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47-48-49-50-51-52-53-54-55-56-57-58-59-60-61-62-K -warn-error +5+6 -bs-v 10.1.4 -bs-no-version-header -bs-super-errors -absname -bs-ast -o $out $i
+o src/Main.ast : astj ../../src/Main.res
+rule deps
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsb_helper.exe -hash 6fffe76f970de4b8252db557d5143248 -bs-ns Meta3dAsset $in
+  restat = 1
+o src/Main.d : deps src/Main.ast
+rule mij
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -bs-ns Meta3dAsset -I . -I src -I /Users/yang/Github/Meta3D/node_modules/meta3d-asset-protocol/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml -bs-no-version-header -bs-super-errors -w -0-1-2-3-4-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47-48-49-50-51-52-53-54-55-56-57-58-59-60-61-62-K -warn-error +5+6 -bs-gentype -bs-package-name meta3d-asset -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output es6-global:lib/es6_global/$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/Main-Meta3dAsset.cmj src/Main-Meta3dAsset.cmi ../es6_global/src/Main.bs.js ../js/src/Main.bs.js : mij src/Main.ast
+rule build_package
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -w -49 -color always -no-alias-deps  $i
+  restat = 1
+o Meta3dAsset.cmi : build_package Meta3dAsset.mlmap

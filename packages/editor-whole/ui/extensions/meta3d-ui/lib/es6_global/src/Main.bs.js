@@ -33,6 +33,10 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$7 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: (function (meta3dState, elementContribute) {
               return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerElement(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), elementContribute));
@@ -171,6 +175,9 @@ function getExtensionService(api) {
             }),
           switchButton: (function (param, param$1, param$2, param$3) {
               return UIManager$Meta3dUi.switchButton(partial_arg$6, param, param$1, param$2, param$3);
+            }),
+          imageButton: (function (param, param$1, param$2) {
+              return UIManager$Meta3dUi.imageButton(partial_arg$7, param, param$1, param$2);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

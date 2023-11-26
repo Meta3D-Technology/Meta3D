@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-stop",
-    "version": "0.20.1",
+    "version": "0.20.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "displayName": "meta3d-action-stop",
     "repoLink": "",
@@ -13,13 +13,13 @@
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-"meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-stop-protocol": "^0.20.0",
         "meta3d-action-run-protocol": "^0.20.0",
+        "meta3d-action-stop-protocol": "^0.20.0",
         "meta3d-editor-whole-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0",
         "meta3d-ui-control-button-protocol": "^0.20.0",

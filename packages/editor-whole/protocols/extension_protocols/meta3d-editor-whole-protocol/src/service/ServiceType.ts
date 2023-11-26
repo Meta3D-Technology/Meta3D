@@ -6,10 +6,12 @@ import { service as eventService_ } from "meta3d-event-protocol/src/service/Serv
 import { service as coreService_ } from "meta3d-core-protocol/src/service/ServiceType"
 import { importScene } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
+import { service as assetService_ } from "meta3d-asset-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { inputContribute as inputContribute_ } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { actionContribute as actionContribute_ } from "meta3d-event-protocol/src/contribute/ActionContributeType"
+import { addScene } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
 
 export type uiTexture = texture
 
@@ -32,12 +34,16 @@ export type eventService = eventService_
 
 export type coreService = coreService_
 
+export type assetService = assetService_
+
 export type service = {
 	scene: (meta3dState: meta3dState) => engineSceneService,
 	ui: (meta3dState: meta3dState) => uiService,
 	event: (meta3dState: meta3dState) => eventService,
 	core: (meta3dState: meta3dState) => coreService,
+	asset: (meta3dState: meta3dState) => assetService,
 
+	addScene: addScene,
 	importScene: importScene,
 	exportScene: exportScene,
 	// initForVisual: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,

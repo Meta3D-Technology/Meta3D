@@ -5,7 +5,7 @@ import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
 import { setNextWindowRect } from "./Utils"
 // import { sceneTree } from "./SceneTree"
-// import { asset } from "./Asset"
+import { asset } from "./Asset"
 // import { inspector } from "./Inspector"
 
 // let _generateUniqueId = () => {
@@ -179,8 +179,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }
             })
         },
-        // asset: asset,
-        asset: {} as any,
+        asset: asset,
         handleDragDropTarget: (type) => {
             let data = null
 
@@ -247,6 +246,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 
             return [isClick1, isClick2]
+        },
+        imageButton: (clickTexture, [width, height]) => {
+            let isClick = ImGui.ImageButton(clickTexture._texture, new ImGui.ImVec2(width, height))
+
+            return isClick
         },
         getContext: () => {
             return ImGui_Impl.gl

@@ -25,6 +25,7 @@ let buildService = (
   ~sceneTree=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~inspector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~switchButton=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~imageButton=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -51,5 +52,6 @@ let buildService = (
     sceneTree,
     inspector,
     switchButton,
+    imageButton,
   }
 }

@@ -2,6 +2,7 @@ import { getExtensionService as getExtensionServiceMeta3D, createExtensionState 
 import { initFunc, state } from "meta3d-editor-whole-protocol/src/state/StateType"
 import { configData, service } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as coreService, pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
+import { service as threeService } from "meta3d-three-protocol/src/service/ServiceType"
 import { pipelineRootPipeline, pipelineRootJob } from "meta3d-core-protocol/src/state/StateType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService, eventSourcingService, eventDataService } from "meta3d-event-protocol/src/service/ServiceType"
@@ -364,7 +365,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		ui: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-ui-protocol")),
 		event: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-event-protocol")),
 		core: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-core-protocol")),
+		asset: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-asset-protocol")),
 
+		addScene: (meta3dState, scene) => {
+			return api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, scene)
+		},
 		importScene: (meta3dState, sceneGLB) => {
 			return api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol").import(meta3dState, sceneGLB)
 		},

@@ -1,17 +1,19 @@
 {
     "name": "meta3d-asset-protocol",
-    "version": "0.20.2",
+    "version": "0.20.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "description": "",
     "author": "Meta3D",
     "license": "MIT",
     "scripts": {
-        "watch": "tsc -w -noEmit",
+        "watch": "rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "gulp publish_local_env",
-        "meta3d:publish_pro": "gulp publish_production_env"
+        "meta3d:publish_dev": "yarn buildAll:ci && gulp publish_local_env",
+        "meta3d:publish_pro": "yarn buildAll:ci && gulp publish_production_env"
     },
     "keywords": [],
     "devDependencies": {
-        "typescript": "^4.2.3"
+        "rescript": "^10.0.1"
     }
 }

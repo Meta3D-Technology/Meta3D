@@ -12,7 +12,7 @@ import { eventName, inputData } from "meta3d-action-run-protocol/src/EventType"
 
 let _markIsRun = (meta3dState: meta3dState, api: api, isRun: boolean) => {
     return api.action.setActionState(meta3dState, actionName,
-        { ...api.action.getActionState<state>(meta3dState, actionName), isRun: isRun })
+        { ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)), isRun: isRun })
 }
 
 let _startGameViewRender = (meta3dState: meta3dState, api: api): meta3dState => {
@@ -98,7 +98,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
                 }))
             })
         },
-        createState: () => {
+        createState: (meta3dState) => {
             return {
                 isRun: false,
             }

@@ -452,11 +452,11 @@ function loadImage(data, meta3dState, imageBase64Src) {
               }), data);
 }
 
-function asset(data, meta3dState, textures, glbs, label, rect) {
+function asset(data, meta3dState, fileTexture, files, label, rect) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
                         imguiRendererState,
-                        imguiRendererService.asset(textures, glbs, label, rect)
+                        imguiRendererService.asset(fileTexture, files, label, rect)
                       ];
               }), data);
 }
@@ -506,6 +506,15 @@ function switchButton(data, meta3dState, isRun, textures, size) {
               }), data);
 }
 
+function imageButton(data, meta3dState, texture, size) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.imageButton(texture, size)
+                      ];
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -539,7 +548,7 @@ function init(meta3dState, param, isInitEvent, isDebug, canvas) {
     var eventService = api.getExtensionService(meta3dState, eventExtensionProtocolName);
     var eventState = api.getExtensionState(meta3dState, eventExtensionProtocolName);
     var elementState$1 = ArraySt$Meta3dCommonlib.reduceOneParam(Curry._1(eventService.getAllActionContributes, eventState), (function (elementState, param) {
-            return ImmutableHashMap$Meta3dCommonlib.set(elementState, param[0], Curry._1(param[1].createState, undefined));
+            return ImmutableHashMap$Meta3dCommonlib.set(elementState, param[0], Curry._1(param[1].createState, meta3dState));
           }), Caml_option.valFromOption(elementState));
     var uiState$1 = setCurrentElementState(uiState, elementState$1);
     meta3dState$1 = api.setExtensionState(meta3dState, uiExtensionProtocolName, uiState$1);
@@ -638,6 +647,7 @@ export {
   sceneTree ,
   inspector ,
   switchButton ,
+  imageButton ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

@@ -7,7 +7,7 @@ export type eventHandler<uiData> = (
     uiData: uiData
 ) => Promise<meta3dState>;
 
-export type createState<state> = () => state
+export type createState<state> = (meta3dState: meta3dState) => state
 
 export type init = (meta3dState: meta3dState) => Promise<meta3dState>
 

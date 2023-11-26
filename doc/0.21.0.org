@@ -964,15 +964,42 @@ TODO run test:
 
 
 
-** TODO Asset
+** DONE Asset
 separate header, body:
     header = multiple Image Buttons
 
 
+TODO add Image Button ui control
 
-** TODO update drag to Scene View
+TODO add input
+
+TODO update export,import action
 
 
+TODO update drag to Scene View
+
+
+
+TODO action protocol remove type elementState
+
+TODO action->createState get meta3dState
+
+
+
+TODO update:
+engine-whole
+asset
+    asset
+# ui
+editor whole
+
+
+
+
+TODO run test
+    load glb
+    remove asset
+    drag glb to scene
 
 
 
@@ -1000,34 +1027,22 @@ Inspector: can edit component;set component's data;
 TODO 加入更多的Component Inspector
 
 
-** TODO add more Inspector
 
-*** TODO active basic camera view
-TODO fix import scene* TODO>active
 
-*** TODO add component
-# **** TODO now only add arcball, basiccameraview, perspective component, no other components
-**** TODO now only add arcball, basiccameraview component, no other components
-handle event
-   **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
-   **** TODO publish: bind event when active has arcball
+
+
+# ** TODO demo2: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)
 
 
 
 
 
-** TODO demo2: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)
+# ** TODO demo3: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)+Scene View+Game View
 
 
 
 
-
-** TODO demo3: ui control: Scene Tree(header+Tree)+Inspector(GameObject Inspector which only has a name)+Scene View+Game View
-
-
-
-
-** TODO finish other
+# ** TODO finish other
 
 
 
@@ -1097,6 +1112,9 @@ DracoKTX2Asset
 
 
 # * TODO refactor: remove Specific->label
+
+
+* TODO switch to element assemble, show loading...
 
 
 

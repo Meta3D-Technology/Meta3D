@@ -126,15 +126,11 @@ type service = {
   ) => Js.Promise.t<Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture>,
   asset: (
     Meta3dType.Index.state,
-    {
-      "loadGlbTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
-      "removeAssetTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
-      "glbTexture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
-    },
+    Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
     array<(string, string)>,
     Meta3dImguiRendererProtocol.ServiceType.label,
     Meta3dImguiRendererProtocol.ServiceType.rect,
-  ) => (Meta3dType.Index.state, (bool, bool, Js.Nullable.t<string>)),
+  ) => (Meta3dType.Index.state, Js.Nullable.t<string>),
   handleDragDropTarget: 'data. (
     Meta3dType.Index.state,
     string,
@@ -178,6 +174,11 @@ type service = {
     },
     Meta3dImguiRendererProtocol.ServiceType.size,
   ) => (Meta3dType.Index.state, (bool, bool)),
+  imageButton: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+    Meta3dImguiRendererProtocol.ServiceType.size,
+  ) => (Meta3dType.Index.state, bool),
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),

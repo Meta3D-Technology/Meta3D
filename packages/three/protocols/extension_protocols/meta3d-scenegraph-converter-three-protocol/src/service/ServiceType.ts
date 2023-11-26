@@ -4,8 +4,11 @@ import { gameObject } from "meta3d-gameobject-protocol"
 
 export type getAllGameObjectsFunc = (meta3dState: meta3dState) => Array<gameObject>
 
+
+export type addScene = (meta3dState: meta3dState, sceneGroup: Group) => [meta3dState, gameObject]
+
 export type service = {
 	init: (meta3dState: meta3dState) => meta3dState,
 	convert: (getAllGameObjectsFunc: getAllGameObjectsFunc, meta3dState: meta3dState) => meta3dState,
-	import: (meta3dState: meta3dState, sceneGroup: Group) => [meta3dState, gameObject]
+	import: addScene
 }

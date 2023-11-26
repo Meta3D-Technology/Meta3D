@@ -5,7 +5,8 @@ import { eventName, inputData } from "meta3d-action-stop-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { eventSourcingService, events } from "meta3d-event-protocol/src/service/ServiceType"
-import { actionName as runActionName } from "meta3d-action-run-protocol"
+// import { actionName as runActionName, evenam } from "meta3d-action-run-protocol"
+import { eventName as runEventName } from "meta3d-action-run-protocol/src/EventType"
 
 let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
     let allEvents = eventSourcingService.getAllEvents(meta3dState)
@@ -19,7 +20,7 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api,
 
         result = result.push(event)
 
-        if (event.name === runActionName) {
+        if (event.name === runEventName) {
             return result
         }
 

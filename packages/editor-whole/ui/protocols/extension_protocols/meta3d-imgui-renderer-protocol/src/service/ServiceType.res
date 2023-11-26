@@ -101,15 +101,16 @@ type service = {
   setCursorPos: (. pos) => unit,
   loadImage: (. imageSrc) => Js.Promise.t<imguiImplTexture>,
   asset: (
-    . {
-      "loadGlbTexture": imguiImplTexture,
-      "removeAssetTexture": imguiImplTexture,
-      "glbTexture": imguiImplTexture,
-    },
+    . // {
+    //   "loadGlbTexture": imguiImplTexture,
+    //   "removeAssetTexture": imguiImplTexture,
+    //   "glbTexture": imguiImplTexture,
+    // },
+    imguiImplTexture,
     array<(string, string)>,
     label,
     rect,
-  ) => (bool, bool, Js.Nullable.t<string>),
+  ) => Js.Nullable.t<string>,
   handleDragDropTarget: 'data. (. string) => Js.Nullable.t<'data>,
   menu: (. menuAllLabels, string, rect) => Js.Nullable.t<menuLabel>,
   sceneTree: (
@@ -139,5 +140,6 @@ type service = {
     {"click1Texture": imguiImplTexture, "click2Texture": imguiImplTexture},
     size,
   ) => (bool, bool),
+  imageButton: (. imguiImplTexture, size) => bool,
   getContext: unit => context,
 }

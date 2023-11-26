@@ -5,7 +5,7 @@ type eventHandler<'uiData> = (
   'uiData,
 ) => Js.Promise.t<Meta3dType.Index.state>
 
-type createState<'state> = unit => 'state
+type createState<'state> = Meta3dType.Index.state => 'state
 
 type init = Meta3dType.Index.state => Js.Promise.t<Meta3dType.Index.state>
 

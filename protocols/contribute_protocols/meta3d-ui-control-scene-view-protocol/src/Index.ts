@@ -2,6 +2,7 @@ import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { Merge } from "meta3d-commonlib-ts/src/type"
 // import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { outsideImmutableDataId } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export const uiControlName = "SceneView"
 
@@ -16,9 +17,9 @@ export type dragDropDataGeneric<Data> = {
 
 export type dragDropData = dragDropDataGeneric<any>
 
-type glbId = outsideImmutableDataId
+type fileId = outsideImmutableDataId
 
-export type dropGlbUIData = dragDropDataGeneric<glbId>
+export type dropAssetFileUIData = dragDropDataGeneric<fileId>
 
 export type state = {
     rect: rect,
@@ -30,4 +31,4 @@ export type specificData = Merge<state, {
     label: string,
 }>
 
-export type outputData = null
+export type outputData = nullable<dropAssetFileUIData>

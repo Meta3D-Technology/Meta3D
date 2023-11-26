@@ -692,11 +692,11 @@ let loadImage = (data, meta3dState, imageBase64Src) => {
   )
 }
 
-let asset = (data, meta3dState, textures, glbs, label, rect) => {
+let asset = (data, meta3dState, fileTexture, files, label, rect) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.asset(. textures, glbs, label, rect))
+      (imguiRendererState, imguiRendererService.asset(. fileTexture, files, label, rect))
     },
     data,
   )
@@ -788,6 +788,16 @@ let switchButton = (data, meta3dState, isRun, textures, size) => {
   )
 }
 
+let imageButton = (data, meta3dState, texture, size) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.imageButton(. texture, size))
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
@@ -846,7 +856,7 @@ let init = (
         (. elementState, (actionName, actionContribute)) => {
           elementState->Meta3dCommonlib.ImmutableHashMap.set(
             actionName,
-            actionContribute.createState(),
+            actionContribute.createState(meta3dState),
           )
         },
         elementState->Obj.magic,

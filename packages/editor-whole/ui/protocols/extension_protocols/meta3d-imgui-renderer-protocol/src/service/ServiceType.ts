@@ -3,6 +3,7 @@ import type { texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/servic
 import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
 import { name } from 'meta3d-gameobject-protocol';
 import { localPosition, localEulerAngles, localScale } from 'meta3d-component-transform-protocol';
+import { data as inputAssetData } from 'meta3d-input-asset-protocol';
 
 // tslint:disable-next-line:interface-over-type-literal
 export type rect = {
@@ -68,19 +69,25 @@ export type sceneTreeFunc = (sceneTreeData: sceneTreeData,
     "cloneTexture": imguiImplTexture
   }, windowName: string, rect: rect) => sceneTreeReturnData
 
+// type fileName = string
+
+// type fileId = string
+
 export type assetFunc = (
-  textures: {
-    "loadGlbTexture": imguiImplTexture,
-    "removeAssetTexture": imguiImplTexture,
-    "glbTexture": imguiImplTexture,
-    // "cameraIconTexture": imguiImplTexture,
-    // "meshIconTexture": imguiImplTexture,
-    // "lightIconTexture": imguiImplTexture,
-  },
-  glbs: Array<[string, string]>,
+  // textures: {
+  //   "loadGlbTexture": imguiImplTexture,
+  //   "removeAssetTexture": imguiImplTexture,
+  //   "glbTexture": imguiImplTexture,
+  //   // "cameraIconTexture": imguiImplTexture,
+  //   // "meshIconTexture": imguiImplTexture,
+  //   // "lightIconTexture": imguiImplTexture,
+  // },
+  fileTexture: imguiImplTexture,
+  // files: Array<[fileName, fileId]>,
+  files: inputAssetData,
   label: label,
   rect: rect,
-) => [boolean, boolean, nullable<string>]
+) => nullable<string>
 
 
 export type getValueFunc<T> = () => T
@@ -154,5 +161,6 @@ export type service = {
     },
     size: size
   ) => [boolean, boolean];
+  readonly imageButton: (_1: imguiImplTexture, _2: size) => boolean;
   readonly getContext: () => context
 };

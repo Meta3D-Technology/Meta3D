@@ -171,11 +171,12 @@ export type service = {
     ) => Promise<imguiImplTexture>;
     readonly asset: (
         meta3dState: meta3dState,
-        textures: { "loadGlbTexture": imguiImplTexture, "removeAssetTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
-        glbs: Array<[string, string]>,
+        // textures: { "loadGlbTexture": imguiImplTexture, "removeAssetTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
+        fileTexture: imguiImplTexture,
+        files: Array<[string, string]>,
         label: label,
         rect: rect,
-    ) => [meta3dState, [boolean, boolean, nullable<string>]];
+    ) => [meta3dState, nullable<string>];
     readonly menu: (
         meta3dState: meta3dState,
         allLabels: menuAllLabels,
@@ -234,6 +235,11 @@ export type service = {
         },
         size: size
     ) => [meta3dState, [boolean, boolean]];
+    readonly imageButton: (
+        meta3dState: meta3dState,
+        clickTexture: imguiImplTexture,
+        size: size
+    ) => [meta3dState, boolean];
     readonly handleDragDropTarget: <data> (
         meta3dState: meta3dState,
         type: string
