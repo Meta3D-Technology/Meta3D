@@ -930,26 +930,44 @@ TODO test run, stop
 
 
 
-** TODO fix: change custom action: ui control inspector->event select value not change
 
-
-** TODO fix: import app->start package in ap assemble space->enter Index: should unstart package
+# ** TODO fix: import app->start package in ap assemble space->enter Index: should unstart package
 
 
 
-** TODO menu add actions
+** DONE menu add actions
+
+
+TODO add all actions and extensions
+
+TODO refactor: extract asset package
+load-glb
+
+
+TODO remove import single event action?
+
+
+TODO update:
+# engine-whole
+# asset
+# editor whole
+#     import scene
+#     "meta3d-pipeline-webgl1-three-gameviewrender"
+#     "meta3d-pipeline-webgl1-three-sceneviewrender"
+
 
 TODO run test:
     publish
     ...
 
 
+
+
+
 ** TODO Asset
 separate header, body:
     header = multiple Image Buttons
 
-
-** TODO refactor: extract asset package
 
 
 ** TODO update drag to Scene View
@@ -980,6 +998,21 @@ split to Inspector(as container) + multiple Component Inspectors(as member)
 
 Inspector: can edit component;set component's data;
 TODO 加入更多的Component Inspector
+
+
+** TODO add more Inspector
+
+*** TODO active basic camera view
+TODO fix import scene* TODO>active
+
+*** TODO add component
+# **** TODO now only add arcball, basiccameraview, perspective component, no other components
+**** TODO now only add arcball, basiccameraview component, no other components
+handle event
+   **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
+   **** TODO publish: bind event when active has arcball
+
+
 
 
 
@@ -1066,6 +1099,15 @@ DracoKTX2Asset
 # * TODO refactor: remove Specific->label
 
 
+
+
+* TODO menu->specific: add warn if error
+
+
+
+* TODO fix: change custom action: ui control inspector->event select value not change
+
+
 * TODO update Action: move uiData to action protocol
 
 
@@ -1104,7 +1146,15 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 
 
+
+* TODO fix: import single event: 1.export single event 2. import event: render lighter !
+if continue 1.->2., then will render more lighter!
+
 * TODO fix: action publish: render lighter than visualRun
+
+
+
+
 
 
 * TODO style: import package: show info under import button like import app

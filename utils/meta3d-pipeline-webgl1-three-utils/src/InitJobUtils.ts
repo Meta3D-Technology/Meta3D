@@ -15,10 +15,7 @@ let _setPixelRatio = (canvas: HTMLCanvasElement) => {
     canvas.style.height = height + 'px';
 }
 
-export let init = (meta3dState: meta3dState, [converterService, threeAPIService, uiService]: [converterService, threeAPIService, uiService], canvas: HTMLCanvasElement) => {
-    meta3dState = converterService.init(meta3dState)
-
-
+export let init = (meta3dState: meta3dState, [threeAPIService, uiService]: [threeAPIService, uiService], canvas: HTMLCanvasElement) => {
     let renderer = new threeAPIService.WebGLRenderer({
         antialias: true,
         /*! clone canvas to avoid change canvas by three.js

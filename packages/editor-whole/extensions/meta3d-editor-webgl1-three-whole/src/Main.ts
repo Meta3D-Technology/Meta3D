@@ -20,6 +20,7 @@ import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionCon
 import { init, update, render } from "meta3d-whole-utils/src/DirectorAPI"
 import { skin } from "meta3d-skin-protocol"
 import { sync } from "./SyncUtils"
+import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { service as exportSceneService } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 
@@ -364,6 +365,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		event: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-event-protocol")),
 		core: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-core-protocol")),
 
+		importScene: (meta3dState, sceneGLB) => {
+			return api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol").import(meta3dState, sceneGLB)
+		},
 		exportScene: ([onFinishFunc, onErrorFunc], meta3dState) => {
 			return api.getExtensionService<exportSceneService>(meta3dState, "meta3d-export-scene-protocol").export([onFinishFunc, onErrorFunc], meta3dState)
 		},

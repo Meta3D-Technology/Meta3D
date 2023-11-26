@@ -1,0 +1,19 @@
+{
+    "name": "meta3d-action-export-single-event-protocol",
+    "version": "0.20.1",
+    "description": "",
+    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "author": "Meta3D",
+    "main": "src/StateType.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w -noEmit",
+        "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+        "meta3d:publish_dev": "gulp publish_local_env",
+        "meta3d:publish_pro": "gulp publish_production_env"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

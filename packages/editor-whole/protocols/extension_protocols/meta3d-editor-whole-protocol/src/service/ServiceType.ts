@@ -4,6 +4,7 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { service as uiService_, texture } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as coreService_ } from "meta3d-core-protocol/src/service/ServiceType"
+import { importScene } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
@@ -37,6 +38,7 @@ export type service = {
 	event: (meta3dState: meta3dState) => eventService,
 	core: (meta3dState: meta3dState) => coreService,
 
+	importScene: importScene,
 	exportScene: exportScene,
 	// initForVisual: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,
 	// initForVisualRun: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,

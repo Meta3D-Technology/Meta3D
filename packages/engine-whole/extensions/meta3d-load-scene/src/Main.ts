@@ -4,17 +4,16 @@ import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D,
 import { service as threeService } from "meta3d-three-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
-import { service as loadGLBService } from "meta3d-load-glb-protocol/src/service/ServiceType"
-import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
         loadScene: (meta3dState, sceneGLB) => {
-            let { loadGlb } = api.getExtensionService<loadGLBService>(meta3dState, "meta3d-load-glb-protocol")
+            let { loadGlb } = api.nullable.getExn(api.getPackageService<assetService>(meta3dState, "meta3d-load-glb-protocol"))
 
             return loadGlb(meta3dState, sceneGLB)
                 .then((gltf) => {
-                    let data = getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, gltf.scene)
+                    let data = api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, gltf.scene)
                     meta3dState = data[0]
 
 

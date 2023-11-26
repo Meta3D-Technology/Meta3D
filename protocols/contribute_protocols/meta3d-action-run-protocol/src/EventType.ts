@@ -1,3 +1,3 @@
-export const eventName = "Run"
+export const eventName = "RunEvent"
 
 export type inputData = []

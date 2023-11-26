@@ -12,7 +12,9 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         // console.log("init job")
 
-        let data = init(meta3dState, [converterService, threeAPIService, uiService], canvas,
+        meta3dState = converterService.init(meta3dState)
+
+        let data = init(meta3dState, [ threeAPIService, uiService], canvas,
         )
         meta3dState = data[0] as meta3dState
         let renderer = data[1] as WebGLRenderer

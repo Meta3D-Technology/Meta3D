@@ -39,13 +39,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             //     ],
             // ]
 
-            console.log(
-                rect,
-                label,
-                items
-
-            )
-
             let data = menu(meta3dState, items.map(([label, secondLevelData]) => [
                 label,
                 api.immutable.createMapOfData(meta3dState, secondLevelData).keySeq().toArray()

@@ -1,7 +1,5 @@
-import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { state as meta3dState } from "meta3d-type"
-import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { state as meta3dState, getContribute as getContributeMeta3D } from "meta3d-type"
+import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import * as JSZip from "jszip"
 import { saveAs } from "file-saver";
 import indexHtml from "../publish/index.html"

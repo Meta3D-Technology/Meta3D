@@ -4,6 +4,7 @@ import { states } from "meta3d-pipeline-webgl1-three-gameviewrender-protocol/src
 import { init } from "meta3d-pipeline-webgl1-three-utils/src/InitJobUtils"
 import { state as meta3dState } from "meta3d-type"
 import type { WebGLRenderer } from "three"
+import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
@@ -12,7 +13,11 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
     return mostService.callFunc(() => {
         // console.log("init job")
 
-        let data = init(meta3dState, [converterService, threeAPIService, uiService], canvas,
+        if (isNullable(api.getPackageService(meta3dState, "meta3d-editor-sceneview-render-protocol"))) {
+            meta3dState = converterService.init(meta3dState)
+        }
+
+        let data = init(meta3dState, [threeAPIService, uiService], canvas,
         )
         meta3dState = data[0] as meta3dState
         let renderer = data[1] as WebGLRenderer
