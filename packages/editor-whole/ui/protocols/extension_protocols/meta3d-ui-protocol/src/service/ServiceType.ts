@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { name } from "meta3d-gameobject-protocol"
 import { localEulerAngles, localPosition, localScale } from "meta3d-component-transform-protocol"
@@ -120,7 +120,8 @@ export type service = {
     ) => meta3dState;
     readonly beginWindow: (
         meta3dState: meta3dState,
-        label: label
+        label: label,
+        flags:windowFlags
     ) => meta3dState;
     readonly endWindow: (
         meta3dState: meta3dState

@@ -91,6 +91,7 @@ type service = {
   beginWindow: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,
+    Meta3dImguiRendererProtocol.ServiceType.windowFlags,
   ) => Meta3dType.Index.state,
   endWindow: Meta3dType.Index.state => Meta3dType.Index.state,
   beginChild: (

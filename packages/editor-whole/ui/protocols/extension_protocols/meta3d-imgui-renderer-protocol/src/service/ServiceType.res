@@ -82,6 +82,10 @@ type inspectorReturnData = (
   Js.Nullable.t<(float, float, float)>,
 )
 
+type windowFlags =
+  | @as(0) None
+  | @as(1) NoTitleBar
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
@@ -90,7 +94,7 @@ type service = {
   beforeExec: (. StateType.state, time) => StateType.state,
   afterExec: unit => unit,
   clear: (. clearColor) => unit,
-  beginWindow: (. label) => unit,
+  beginWindow: (. label, windowFlags) => unit,
   endWindow: unit => unit,
   beginChild: (. label) => unit,
   endChild: unit => unit,

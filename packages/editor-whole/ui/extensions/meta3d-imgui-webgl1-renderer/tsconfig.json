@@ -23,5 +23,5 @@
 	},
 	"include": [
 		"./src"
-	]
+, "mine/Inspector.ts"	]
 }

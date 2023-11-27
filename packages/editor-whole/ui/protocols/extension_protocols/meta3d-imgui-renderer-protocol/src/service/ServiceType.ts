@@ -132,6 +132,11 @@ export type ref<T> = {
   content: T
 }
 
+export enum windowFlags {
+  None,
+  NoTitleBar
+}
+
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly init: (_1: StateType_state, _2: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
@@ -140,7 +145,7 @@ export type service = {
   readonly beforeExec: (_1: StateType_state, _2: time) => StateType_state;
   readonly afterExec: () => void;
   readonly clear: (_1: clearColor) => void;
-  readonly beginWindow: (_1: label) => void;
+  readonly beginWindow: (_1: label, _2: windowFlags) => void;
   readonly endWindow: () => void;
   readonly beginChild: (_1: label) => void;
   readonly endChild: () => void;

@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { menuLabel, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { menuLabel, service, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
@@ -108,10 +108,22 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 style: style
             }
         },
-        beginWindow: (label) => {
+        beginWindow: (label, flags) => {
+            let imguiWindowFlags = null
+            switch (flags) {
+                case windowFlags.None:
+                    imguiWindowFlags = ImGui.WindowFlags.None
+                    break
+                case windowFlags.NoTitleBar:
+                    imguiWindowFlags = ImGui.WindowFlags.NoTitleBar
+                    break
+                default:
+                    throw new Error("unknown flags: " + flags)
+            }
+
             // ImGui.Begin(label + "##" + _generateUniqueId())
             // ImGui.Begin(label)
-            ImGui.Begin(label, null, ImGui.WindowFlags.NoTitleBar)
+            ImGui.Begin(label, null, imguiWindowFlags)
 
             // console.log(
             //     ImGui.IsWindowFocused(),

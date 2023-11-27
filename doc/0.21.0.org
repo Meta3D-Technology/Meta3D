@@ -1035,9 +1035,14 @@ ui control should move out
 
 ** TODO Inspector
 TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader + Window)
+    split to Inspector(as container) + multiple Component Inspectors(as member)
+
 
 
 TODO Window need input 
+
+
+TODO add Input3Float, InputText, Collapsing
 
 
 TODO can make inspector show in element visual:
@@ -1045,12 +1050,20 @@ TODO can make inspector show in element visual:
 
 
 
-split to Inspector(as container) + multiple Component Inspectors(as member)
 
 
 
-Inspector: can edit component;set component's data;
-TODO 加入更多的Component Inspector
+TODO update:
+# engine-whole
+# ui
+#     imgui render
+# editor whole
+
+# ui control tree
+
+
+
+TODO fix:
 
 
 

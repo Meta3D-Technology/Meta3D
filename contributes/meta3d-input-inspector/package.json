@@ -1,12 +1,10 @@
 {
-    "name": "meta3d-ui-control-window",
-    "version": "0.20.2",
+    "name": "meta3d-input-inspector",
+    "version": "0.20.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
-    "displayName": "window",
-    "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/contributes/meta3d-ui-control-window",
     "description": "",
     "protocol": {
-        "name": "meta3d-ui-control-window-protocol"
+        "name": "meta3d-input-window-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -18,10 +16,10 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-type": "^0.20.0",
+        "meta3d-editor-whole-protocol": "^0.20.0",
         "meta3d-input-window-protocol": "^0.20.0",
-        "meta3d-ui-control-window-protocol": "^0.20.0",
-        "meta3d-editor-whole-protocol": "^0.20.0"
+        "meta3d-action-select-scenetree-node-protocol": "^0.20.0",
+        "meta3d-type": "^0.20.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
