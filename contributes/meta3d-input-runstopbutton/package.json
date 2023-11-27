@@ -11,12 +11,13 @@
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-"meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.20.0",
+        "meta3d-editor-whole-protocol": "^0.20.0",
         "meta3d-input-switch-button-protocol": "^0.20.0"
     },
     "devDependencies": {

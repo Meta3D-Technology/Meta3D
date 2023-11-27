@@ -1004,14 +1004,40 @@ TODO run test
 
 
 
-** TODO SceneTree
+** DONE SceneTree
 separate header, body:
     header = multiple Image Buttons
 
 
+TODO rename to Tree
+
+TODO add Input
+
+
+
+TODO update:
+engine-whole
+ui
+    imgui render
+editor whole
+
+ui control tree
+dispose action
+
+
+
+TODO fix:
+not selected
+set parent bug
+ui control should move out
+
+
 
 ** TODO Inspector
-TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader)
+TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader + Window)
+
+
+TODO Window need input 
 
 
 TODO can make inspector show in element visual:
@@ -1182,3 +1208,5 @@ if continue 1.->2., then will render more lighter!
 
 * TODO remove meta3d-imgui-webgl1-three-renderer in ui package
 
+
+* TODO feat(platform): ap assemble: PackageInspector, ContributeInspector show protocol,implement repo link

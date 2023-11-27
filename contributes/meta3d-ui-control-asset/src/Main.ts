@@ -3,36 +3,27 @@ import { inputFunc, specificData, outputData, uiControlName, imageBase64, state 
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { loadImage } from "meta3d-ui-control-utils/src/SpecificDataUtils"
 
-// TODO refactor: duplicate
 let _loadImage = (
     meta3dState: meta3dState,
     api: api,
     label: string,
     image: nullable<imageBase64>,
 ): Promise<meta3dState> => {
-    let { loadImage } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+    return loadImage(meta3dState, api, [(meta3dState) => {
+        let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 
-    let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
+        return state.lastFileTextureImageBase64
+    }, (meta3dState, texture, image) => {
+        let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 
-
-    let promise = null
-    if (!api.nullable.isNullable(image) && api.nullable.getWithDefault(api.nullable.map(lastFileTextureImageBase64 => lastFileTextureImageBase64 != api.nullable.getExn(image), state.lastFileTextureImageBase64), true)) {
-        promise = loadImage(meta3dState, api.nullable.getExn(image)).then((fileTexture: any) => {
-            meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
-                ...state,
-                fileTexture,
-                lastFileTextureImageBase64: api.nullable.getExn(image)
-            })
-
-            return meta3dState
-        })
-    }
-    else {
-        promise = Promise.resolve(meta3dState)
-    }
-
-    return promise
+        return {
+            ...state,
+            fileTexture: texture,
+            lastFileTextureImageBase64: image
+        }
+    }], label, image)
 }
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {

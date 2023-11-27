@@ -52,3 +52,7 @@ export let getWithDefault = <T>(nullableValue: nullable<T>, default_: T): T => {
 
     return nullableValue as T
 }
+
+export let getEmpty = <T>(): nullable<T> => {
+    return undefined
+}

@@ -15,6 +15,8 @@ type supportedEventName = [
   | #click2
   | #select_asset
   | #drop_asset
+  | #select_tree_node
+  | #drag_tree_node
 ]
 
 type actionName = Js.Nullable.t<string>

@@ -722,24 +722,16 @@ let menu = (data, meta3dState, allLabels, windowName, rect) => {
   )
 }
 
-let sceneTree = (
-  data,
-  meta3dState,
-  sceneTreeData,
-  lastSceneTreeSelectedData,
-  textures,
-  windowName,
-  rect,
-) => {
+let tree = (data, meta3dState, treeData, treeNodeLabel, lastTreeSelectedData, windowName, rect) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
       (
         imguiRendererState,
-        imguiRendererService.sceneTree(.
-          sceneTreeData,
-          lastSceneTreeSelectedData,
-          textures,
+        imguiRendererService.tree(.
+          treeData,
+          treeNodeLabel,
+          lastTreeSelectedData,
           windowName,
           rect,
         ),

@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, sceneTreeData, sceneTreeIndexData, sceneTreeReturnData, getValueFunc, setValueFunc } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { name } from "meta3d-gameobject-protocol"
 import { localEulerAngles, localPosition, localScale } from "meta3d-component-transform-protocol"
@@ -183,18 +183,21 @@ export type service = {
         windowName: string,
         rect: rect,
     ) => [meta3dState, nullable<menuLabel>];
-    readonly sceneTree: (
+    readonly tree: (
         meta3dState: meta3dState,
-        sceneTreeData: sceneTreeData,
-        lastSceneTreeSelectedData: nullable<sceneTreeIndexData>,
-        textures: {
-            "addCubeTexture": imguiImplTexture,
-            "disposeTexture": imguiImplTexture,
-            "cloneTexture": imguiImplTexture,
-            // "cameraIconTexture": imguiImplTexture,
-            // "meshIconTexture": imguiImplTexture,
-            // "lightIconTexture": imguiImplTexture,
-        }, windowName: string, rect: rect) => [meta3dState, sceneTreeReturnData];
+        treeData: treeData,
+        rootNodeLabel: treeNodeLabel,
+        lastTreeSelectedData: nullable<treeIndexData>,
+        // textures:
+        // {
+        //     "addCubeTexture": imguiImplTexture,
+        //     "disposeTexture": imguiImplTexture,
+        //     "cloneTexture": imguiImplTexture,
+        //     // "cameraIconTexture": imguiImplTexture,
+        //     // "meshIconTexture": imguiImplTexture,
+        //     // "lightIconTexture": imguiImplTexture,
+        // },
+        windowName: string, rect: rect) => [meta3dState, treeReturnData];
     readonly inspector: (
         meta3dState: meta3dState,
         // [

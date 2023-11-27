@@ -3,7 +3,7 @@
 import * as Sinon from "../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, sceneTreeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -24,7 +24,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var asset = assetOpt !== undefined ? assetOpt : Sinon.createEmptyStub(sandbox.contents);
   var handleDragDropTarget = handleDragDropTargetOpt !== undefined ? Caml_option.valFromOption(handleDragDropTargetOpt) : Sinon.createEmptyStub(sandbox.contents);
   var menu = menuOpt !== undefined ? menuOpt : Sinon.createEmptyStub(sandbox.contents);
-  var sceneTree = sceneTreeOpt !== undefined ? sceneTreeOpt : Sinon.createEmptyStub(sandbox.contents);
+  var tree = treeOpt !== undefined ? treeOpt : Sinon.createEmptyStub(sandbox.contents);
   var inspector = inspectorOpt !== undefined ? inspectorOpt : Sinon.createEmptyStub(sandbox.contents);
   var switchButton = switchButtonOpt !== undefined ? switchButtonOpt : Sinon.createEmptyStub(sandbox.contents);
   var imageButton = imageButtonOpt !== undefined ? imageButtonOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -48,7 +48,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           asset: asset,
           handleDragDropTarget: handleDragDropTarget,
           menu: menu,
-          sceneTree: sceneTree,
+          tree: tree,
           inspector: inspector,
           switchButton: switchButton,
           imageButton: imageButton,

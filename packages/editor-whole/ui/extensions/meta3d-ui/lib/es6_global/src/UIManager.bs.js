@@ -479,11 +479,11 @@ function menu(data, meta3dState, allLabels, windowName, rect) {
               }), data);
 }
 
-function sceneTree(data, meta3dState, sceneTreeData, lastSceneTreeSelectedData, textures, windowName, rect) {
+function tree(data, meta3dState, treeData, treeNodeLabel, lastTreeSelectedData, windowName, rect) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
                         imguiRendererState,
-                        imguiRendererService.sceneTree(sceneTreeData, lastSceneTreeSelectedData, textures, windowName, rect)
+                        imguiRendererService.tree(treeData, treeNodeLabel, lastTreeSelectedData, windowName, rect)
                       ];
               }), data);
 }
@@ -644,7 +644,7 @@ export {
   asset ,
   handleDragDropTarget ,
   menu ,
-  sceneTree ,
+  tree ,
   inspector ,
   switchButton ,
   imageButton ,

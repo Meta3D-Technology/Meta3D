@@ -4,7 +4,7 @@ import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
 import { setNextWindowRect } from "./Utils"
-// import { sceneTree } from "./SceneTree"
+import { tree } from "./Tree"
 import { asset } from "./Asset"
 // import { inspector } from "./Inspector"
 
@@ -227,9 +227,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return selectItemLabel
         },
-        // sceneTree: sceneTree,
         // inspector: inspector,
-        sceneTree: {} as any,
+        tree: tree,
         inspector: {} as any,
         switchButton: (isClick1State, { click1Texture, click2Texture }, [width, height]) => {
             let isClick1 = false

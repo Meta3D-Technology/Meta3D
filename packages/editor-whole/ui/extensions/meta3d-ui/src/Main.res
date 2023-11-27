@@ -154,7 +154,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     asset: UIManager.asset((api, "meta3d-imgui-renderer-protocol")),
     handleDragDropTarget: UIManager.handleDragDropTarget((api, "meta3d-imgui-renderer-protocol")),
     menu: UIManager.menu((api, "meta3d-imgui-renderer-protocol")),
-    sceneTree: UIManager.sceneTree((api, "meta3d-imgui-renderer-protocol")),
+    tree: UIManager.tree((api, "meta3d-imgui-renderer-protocol")),
     inspector: UIManager.inspector((api, "meta3d-imgui-renderer-protocol")),
     switchButton: UIManager.switchButton((api, "meta3d-imgui-renderer-protocol")),
     imageButton: UIManager.imageButton((api, "meta3d-imgui-renderer-protocol")),

@@ -43,31 +43,33 @@ export type menuLabel = string
 
 export type menuAllLabels = Array<[menuLabel, Array<menuLabel>]>
 
-type sceneTreeNodeLabel = string
+export type treeNodeLabel = string
 
-export type sceneTreeData = Array<[sceneTreeNodeLabel, imguiImplTexture, sceneTreeData]>
+export type treeData = Array<[treeNodeLabel, imguiImplTexture, treeData]>
 
 // export type level = number
 
 type index = number
 
-// export type sceneTreeIndexData = [level, index]
-export type sceneTreeIndexData = Array<index>
+// export type treeIndexData = [level, index]
+export type treeIndexData = Array<index>
 
-export type sceneTreeDragData = {
-  source: sceneTreeIndexData,
-  target: sceneTreeIndexData
+export type treeDragData = {
+  source: treeIndexData,
+  target: treeIndexData
 }
 
-export type sceneTreeReturnData = [boolean, boolean, boolean, nullable<sceneTreeIndexData>, nullable<sceneTreeDragData>]
+export type treeReturnData = [nullable<treeIndexData>, nullable<treeDragData>]
 
-export type sceneTreeFunc = (sceneTreeData: sceneTreeData,
-  lastSceneTreeSelectedData: nullable<sceneTreeIndexData>,
-  textures: {
-    "addCubeTexture": imguiImplTexture,
-    "disposeTexture": imguiImplTexture,
-    "cloneTexture": imguiImplTexture
-  }, windowName: string, rect: rect) => sceneTreeReturnData
+export type treeFunc = (treeData: treeData,
+  rootNodeLabel: treeNodeLabel,
+  lastTreeSelectedData: nullable<treeIndexData>,
+  // textures: {
+  //   "addCubeTexture": imguiImplTexture,
+  //   "disposeTexture": imguiImplTexture,
+  //   "cloneTexture": imguiImplTexture
+  // },
+  windowName: string, rect: rect) => treeReturnData
 
 // type fileName = string
 
@@ -151,7 +153,7 @@ export type service = {
   readonly asset: assetFunc;
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>;
   readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>;
-  readonly sceneTree: sceneTreeFunc;
+  readonly tree: treeFunc;
   readonly inspector: inspectorFunc;
   readonly switchButton: (
     isRunState: boolean,

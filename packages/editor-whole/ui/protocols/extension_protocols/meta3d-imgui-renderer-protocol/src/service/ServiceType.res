@@ -33,12 +33,12 @@ type menuAllLabels = array<(menuLabel, array<menuLabel>)>
 
 type selectItemMap = Meta3dCommonlibType.ImmutableHashMapType.t<menuLabel, bool>
 
-type sceneTreeNodeLabel = string
+type treeNodeLabel = string
 
 /* !  TODO like this
-// type rec sceneTreeData = array<(sceneTreeNodeLabel, imguiImplTexture, sceneTreeData)>
+// type rec treeData = array<(treeNodeLabel, imguiImplTexture, treeData)>
 
-type sceneTreeData =
+type treeData =
   | ScriptEventFunctionNode(nodeId, scriptEventFunctionNodeData)
   | ScriptAttributeNode(nodeId, scriptAttributeNodeData)
   | TextureNode(nodeId, textureNodeData)
@@ -53,26 +53,26 @@ type sceneTreeData =
   | FolderNode(
       nodeId,
       folderNodeData,
-      UIStateAssetType.uiState(array(sceneTreeData)),
+      UIStateAssetType.uiState(array(treeData)),
     );
  */
-type sceneTreeData
+type treeData
 
 type index = int
 
-type sceneTreeIndexData = array<index>
+type treeIndexData = array<index>
 
-type sceneTreeDragData = {
-  source: sceneTreeIndexData,
-  target: sceneTreeIndexData,
+type treeDragData = {
+  source: treeIndexData,
+  target: treeIndexData,
 }
 
-type sceneTreeReturnData = (
-  bool,
-  bool,
-  bool,
-  Js.Nullable.t<sceneTreeIndexData>,
-  Js.Nullable.t<sceneTreeDragData>,
+type treeReturnData = (
+  // bool,
+  // bool,
+  // bool,
+  Js.Nullable.t<treeIndexData>,
+  Js.Nullable.t<treeDragData>,
 )
 
 type inspectorReturnData = (
@@ -113,20 +113,21 @@ type service = {
   ) => Js.Nullable.t<string>,
   handleDragDropTarget: 'data. (. string) => Js.Nullable.t<'data>,
   menu: (. menuAllLabels, string, rect) => Js.Nullable.t<menuLabel>,
-  sceneTree: (
-    . sceneTreeData,
-    Js.Nullable.t<sceneTreeIndexData>,
-    {
-      "addCubeTexture": imguiImplTexture,
-      "disposeTexture": imguiImplTexture,
-      "cloneTexture": imguiImplTexture,
-      // "cameraIconTexture": imguiImplTexture,
-      // "meshIconTexture": imguiImplTexture,
-      // "lightIconTexture": imguiImplTexture,
-    },
+  tree: (
+    . treeData,
+    treeNodeLabel,
+    Js.Nullable.t<treeIndexData>,
+    // {
+    //   "addCubeTexture": imguiImplTexture,
+    //   "disposeTexture": imguiImplTexture,
+    //   "cloneTexture": imguiImplTexture,
+    //   // "cameraIconTexture": imguiImplTexture,
+    //   // "meshIconTexture": imguiImplTexture,
+    //   // "lightIconTexture": imguiImplTexture,
+    // },
     string,
     rect,
-  ) => sceneTreeReturnData,
+  ) => treeReturnData,
   inspector: (
     . string,
     (float, float, float),

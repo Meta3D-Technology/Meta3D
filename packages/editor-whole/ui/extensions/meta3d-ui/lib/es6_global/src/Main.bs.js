@@ -167,8 +167,8 @@ function getExtensionService(api) {
           menu: (function (param, param$1, param$2, param$3) {
               return UIManager$Meta3dUi.menu(partial_arg$3, param, param$1, param$2, param$3);
             }),
-          sceneTree: (function (param, param$1, param$2, param$3, param$4, param$5) {
-              return UIManager$Meta3dUi.sceneTree(partial_arg$4, param, param$1, param$2, param$3, param$4, param$5);
+          tree: (function (param, param$1, param$2, param$3, param$4, param$5) {
+              return UIManager$Meta3dUi.tree(partial_arg$4, param, param$1, param$2, param$3, param$4, param$5);
             }),
           inspector: (function (param, param$1, param$2, param$3, param$4, param$5, param$6) {
               return UIManager$Meta3dUi.inspector(partial_arg$5, param, param$1, param$2, param$3, param$4, param$5, param$6);
