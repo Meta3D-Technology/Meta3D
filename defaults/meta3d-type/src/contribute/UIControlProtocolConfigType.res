@@ -17,6 +17,7 @@ type supportedEventName = [
   | #drop_asset
   | #select_tree_node
   | #drag_tree_node
+  | #input_change
 ]
 
 type actionName = Js.Nullable.t<string>
@@ -25,7 +26,7 @@ type versionRange = string
 
 type generateUIControlCommonDataStr = string => string
 
-type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems]
+type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems | #bool | #select | #number]
 
 type uiControlSpecicFieldValue
 

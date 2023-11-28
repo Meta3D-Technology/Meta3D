@@ -106,8 +106,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     setStyle: (meta3dState, style) => {
       UIManager.setStyle(meta3dState, (api, "meta3d-imgui-renderer-protocol"), style)
     },
-    beginWindow: (meta3dState, label) => {
-      UIManager.beginWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"), label)
+    beginWindow: (meta3dState, label, flags) => {
+      UIManager.beginWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"), label, flags)
     },
     endWindow: meta3dState => {
       UIManager.endWindow(meta3dState, (api, "meta3d-imgui-renderer-protocol"))
@@ -155,9 +155,12 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     handleDragDropTarget: UIManager.handleDragDropTarget((api, "meta3d-imgui-renderer-protocol")),
     menu: UIManager.menu((api, "meta3d-imgui-renderer-protocol")),
     tree: UIManager.tree((api, "meta3d-imgui-renderer-protocol")),
-    inspector: UIManager.inspector((api, "meta3d-imgui-renderer-protocol")),
+    // inspector: UIManager.inspector((api, "meta3d-imgui-renderer-protocol")),
     switchButton: UIManager.switchButton((api, "meta3d-imgui-renderer-protocol")),
     imageButton: UIManager.imageButton((api, "meta3d-imgui-renderer-protocol")),
+    inputText: UIManager.inputText((api, "meta3d-imgui-renderer-protocol")),
+    inputFloat3: UIManager.inputFloat3((api, "meta3d-imgui-renderer-protocol")),
+    collapsing: UIManager.collapsing((api, "meta3d-imgui-renderer-protocol")),
     // getIOData: UIManager.getIOData,
     // dispatch: UIManager.dispatch,
     updateElementState: (meta3dState, updateElementStateFunc) => {

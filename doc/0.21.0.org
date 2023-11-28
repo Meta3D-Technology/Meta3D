@@ -1033,7 +1033,7 @@ ui control should move out
 
 
 
-** TODO Inspector
+** DONE Inspector
 TODO split inspector to multiple ui controls(e.g. Input3Float, Text, InputText, CollapsingHeader + Window)
     split to Inspector(as container) + multiple Component Inspectors(as member)
 
@@ -1043,6 +1043,8 @@ TODO Window need input
 
 
 TODO add Input3Float, InputText, Collapsing
+
+TODO update UIControlInspector, ElementMRUtils
 
 
 TODO can make inspector show in element visual:
@@ -1063,8 +1065,19 @@ TODO update:
 
 
 
-TODO fix:
 
+TODO pass compile
+
+TODO pass bdd
+
+TODO publish
+
+
+TODO run test
+test type->bool,select->value
+
+
+TODO fix:
 
 
 
@@ -1090,9 +1103,6 @@ TODO fix:
 # e.g. xxx-sceneview/gameview
 
 
-** TODO two kind asset package implement:
-BasicAsset
-DracoKTX2Asset
 
 
 
@@ -1151,6 +1161,22 @@ DracoKTX2Asset
 
 
 # * TODO refactor: remove Specific->label
+
+
+* TODO fix: stop: should run gameview once
+
+* TODO fix: specific->imagebase64 preview image same
+
+* TODO Selected UIControls show label instead of display name
+
+
+
+* TODO change input/action file str to same with contribute file
+use:
+export let getContribute = (api) =>{
+    ...
+}
+
 
 
 * TODO switch to element assemble, show loading...
@@ -1223,3 +1249,9 @@ if continue 1.->2., then will render more lighter!
 
 
 * TODO feat(platform): ap assemble: PackageInspector, ContributeInspector show protocol,implement repo link
+
+
+
+* TODO two kind asset package implement:
+BasicAsset
+DracoKTX2Asset

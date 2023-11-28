@@ -200,6 +200,7 @@ let beginWindow = (
   ~sandbox,
   ~label,
   ~getExtensionService,
+  ~flags=Obj.magic(0),
   ~getPackageService=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getAllContributesByType=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~getExtensionState=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -236,6 +237,7 @@ let beginWindow = (
       imguiRendererExtensionProtocolName,
     ),
     label,
+    flags,
   )
 }
 

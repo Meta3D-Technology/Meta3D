@@ -262,14 +262,14 @@ module Method = {
         value={rectField
         ->_getRectFieldIntValue
         ->Meta3dCommonlib.OptionSt.getWithDefault(0)
-        ->Js.Int.toString}
+        ->Obj.magic}
         step="1"
         onChange={value => {
           setRectField(
             dispatch,
             id,
             rect,
-            value->IntUtils.stringToInt->FrontendUtils.CommonType.IntForRectField,
+            value->Obj.magic->FrontendUtils.CommonType.IntForRectField,
           )
         }}
       />
@@ -474,10 +474,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
               ? React.null
               : <Space direction=#horizontal>
                   <Input.TextArea
-                    value={getSpecificDataValue(value)->SpecificUtils.convertValueToString(
-                      _,
-                      type_,
-                    )}
+                    value={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
                     onChange={e => {
                       FrontendUtils.ErrorUtils.swallowCatchedError(() => {
                         _setSpecificData(
@@ -495,6 +492,62 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                     }}
                   />
                 </Space>
+          | #bool =>
+            FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+              value =>
+                _setSpecificData(
+                  dispatch,
+                  specific,
+                  id,
+                  i,
+                  value
+                  ->SpecificUtils.convertStringToValue(type_)
+                  ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  type_,
+                ),
+              getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_),
+              ["true", "false"],
+            )
+          | #select =>
+            FrontendUtils.SelectUtils.buildSelectWithKeysAndWithoutEmpty(selectedValue => {
+              _setSpecificData(
+                dispatch,
+                specific,
+                id,
+                i,
+                {
+                  "selected": selectedValue,
+                  "data": (getSpecificDataValue(value)->Obj.magic)["data"],
+                }
+                ->Obj.magic
+                ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                type_,
+              )
+            }, (
+              getSpecificDataValue(value)->Obj.magic
+            )["selected"], (
+              getSpecificDataValue(value)->Obj.magic
+            )["data"]->Meta3dCommonlib.ArraySt.map(
+              valueData => valueData["key"],
+            ), (getSpecificDataValue(value)->Obj.magic)["data"]->Meta3dCommonlib.ArraySt.map(
+              valueData => valueData["value"],
+            ))
+          | #number =>
+            <InputNumber
+              key={name}
+              value={getSpecificDataValue(value)->Obj.magic}
+              step="0.0001"
+              onChange={e => {
+                _setSpecificData(
+                  dispatch,
+                  specific,
+                  id,
+                  i,
+                  e->EventUtils.getEventTargetValue->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  type_,
+                )
+              }}
+            />
           }}
         </Card>
       })

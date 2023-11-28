@@ -65,7 +65,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = engineSceneService.gameObject.disposeGameObjects(meta3dState, clonedGameObjects)
 
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
-
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
                         allClonedGameObjects: state.allClonedGameObjects.pop(),

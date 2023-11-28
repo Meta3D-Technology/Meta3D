@@ -659,6 +659,34 @@ handle click event code...
                   ~value=[]->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   (),
                 ),
+                UIControlInspectorTool.buildSpecific(
+                  ~name="isOpen",
+                  ~type_=#bool,
+                  ~value=true->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  (),
+                ),
+                UIControlInspectorTool.buildSpecific(
+                  ~name="flags",
+                  ~type_=#select,
+                  ~value={
+                    "selected": 0,
+                    "data": [
+                      {
+                        "key": "key1",
+                        "value": 0,
+                      },
+                    ],
+                  }
+                  ->Obj.magic
+                  ->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  (),
+                ),
+                UIControlInspectorTool.buildSpecific(
+                  ~name="step",
+                  ~type_=#number,
+                  ~value=1.1->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  (),
+                ),
               ],
               (),
             ),
@@ -740,8 +768,13 @@ handle click event code...
     \"and"(
       "generate correct result",
       () => {
-        str.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-          "\nwindow.Contribute = {\n    getContribute: (api) => {\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            elementFunc: (meta3dState, elementState) => {\n                let ui = api.getPackageService(meta3dState, \"meta3d-editor-whole-protocol\").ui(meta3dState)\n\n                let { getUIControlFunc, getInputFunc } = ui\n\n    let Window1 = getUIControlFunc(meta3dState,\"Window1\")\n    \n    let input1 = getInputFunc(meta3dState,\"input1\")\n    \n                let data = null\n  if(true){\n                 return Window1(meta3dState,\n        input1,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\",image1:\"aaa\",image2:null,},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "->NewlineTool.removeBlankChar
+        str.contents
+        ->NewlineTool.unifyNewlineChar
+        ->NewlineTool.removeBlankChar
+        ->expect ==
+          "\nwindow.Contribute = {\n    getContribute: (api) => {\n        return {\n            elementName:\"ElementAssembleElement\",\n            execOrder: 0,\n            elementState: {},\n            elementFunc: (meta3dState, elementState) => {\n                let ui = api.getPackageService(meta3dState, \"meta3d-editor-whole-protocol\").ui(meta3dState)\n\n                let { getUIControlFunc, getInputFunc } = ui\n\n    let Window1 = getUIControlFunc(meta3dState,\"Window1\")\n    \n    let input1 = getInputFunc(meta3dState,\"input1\")\n    \n    let Window2 = getUIControlFunc(meta3dState,\"Window2\")\n    \n    let input2 = getInputFunc(meta3dState,\"input2\")\n    \n                let data = null\n  if(true){\n                 return Window1(meta3dState,\n        input1,\n                {\n                  ...{rect: {\n    x: 1,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{label: \"Window1\",image1: \"aaa\",image2: null,items: [],isOpen: true,flags: {\"selected\":0,\"data\":[{\"key\":\"key1\",\"value\":0}]},step: 1.1,},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\nif(true){\n                 return Window2(meta3dState,\n        input2,\n                {\n                  ...{rect: {\n    x: 0,\n    y: 0,\n    width: 0,\n    height: 0\n    }},\n        ...{},\n      childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))\n                }\n                    ).then(data =>{\n                meta3dState = data[0]\n\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n                })}})}\n  return new Promise((resolve) => {\n                    resolve(meta3dState)\n                })\n  \n            }\n        }\n    }\n}\n  "
+          ->NewlineTool.unifyNewlineChar
+          ->NewlineTool.removeBlankChar
       },
     )
   })

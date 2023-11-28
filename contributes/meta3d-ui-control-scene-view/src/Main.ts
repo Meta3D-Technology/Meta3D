@@ -3,6 +3,7 @@ import { uiControlName, textureID, state as uiControlState, inputFunc, specificD
 import { changeToStrictlyNull, getFBORect } from "meta3d-ui-control-view-utils/src/Main"
 import { uiControlContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
+import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
@@ -24,7 +25,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
             meta3dState = setNextWindowRect(meta3dState, rect)
 
-            meta3dState = beginWindow(meta3dState, label)
+            meta3dState = beginWindow(meta3dState, label, windowFlags.NoTitleBar)
 
             meta3dState = beginChild(meta3dState, "Child_SceneView")
 

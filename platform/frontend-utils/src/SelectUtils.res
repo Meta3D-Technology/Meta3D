@@ -30,4 +30,18 @@ let buildSelectWithoutEmpty = (onChange, defaultValue, values) => {
   </Select>
 }
 
+let buildSelectWithKeysAndWithoutEmpty = (onChange, defaultValue, keys, values) => {
+  open Antd
+
+  <Select key={KeyUtils.generateUniqueKey(Js.Math.random)} defaultValue={defaultValue} onChange>
+    {values
+    ->Meta3dCommonlib.ArraySt.mapi((value, i) => {
+      <Select.Option key={keys->Meta3dCommonlib.ArraySt.getExn(i)} value={value}>
+        {React.string({keys->Meta3dCommonlib.ArraySt.getExn(i)})}
+      </Select.Option>
+    })
+    ->React.array}
+  </Select>
+}
+
 let buildSelect2 = () => React.null

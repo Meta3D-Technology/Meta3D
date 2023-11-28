@@ -26,13 +26,13 @@ module Method = {
   let buildClearColorField = (dispatch, setClearColorField, clearColor, clearColorField) => {
     <>
       <InputNumber
-        value={clearColorField->FloatUtils.floatToString}
+        value={clearColorField}
         step="0.001"
-        min="0"
-        max="1"
+        min=0.0
+        max=1.0
         stringMode=true
         onChange={value => {
-          setClearColorField(dispatch, clearColor, value->FloatUtils.stringToFloat)
+          setClearColorField(dispatch, clearColor, value)
         }}
       />
     </>
@@ -61,10 +61,11 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = FrontendUtils.ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
-  let (isShowApInspector, selectedContributes, apInspectorData) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  let (
+    isShowApInspector,
+    selectedContributes,
+    apInspectorData,
+  ) = FrontendUtils.ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let {isDebug, clearColor, skinName} = apInspectorData
 
@@ -95,13 +96,7 @@ let make = (~service: service) => {
           ->SelectedContributesForElementUtils.getSkins
           ->Meta3dCommonlib.ListSt.toArray
           ->Meta3dCommonlib.ArraySt.map(({data}) => {
-            (
-              service.meta3d.execGetContributeFunc(.
-                data.contributeFuncData,
-                // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-                // Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-              )->Obj.magic
-            )["skinName"]
+            (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["skinName"]
           }),
         )}
       </Space>

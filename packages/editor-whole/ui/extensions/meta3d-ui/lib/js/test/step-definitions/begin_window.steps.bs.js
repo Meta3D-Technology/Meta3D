@@ -46,7 +46,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "prepare imgui renderer service", (function (param) {
                         beginWindowStub.contents = Sinon.createEmptyStub(sandbox.contents);
-                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, beginWindowStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, beginWindowStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
                       }));
                 Curry._2(and, "prepare api", (function (param) {
                         var __x = Sinon.createEmptyStub(sandbox.contents);
@@ -58,7 +58,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                         label.contents = "Window";
                       }));
                 Curry._2(param.when, "beginWindow", (function (param) {
-                        newMeta3dState.contents = MainTool$Meta3dUi.beginWindow(sandbox, label.contents, getExtensionServiceStub.contents, undefined, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
+                        newMeta3dState.contents = MainTool$Meta3dUi.beginWindow(sandbox, label.contents, getExtensionServiceStub.contents, undefined, undefined, undefined, Caml_option.some(getExtensionStateStub.contents), Caml_option.some(setExtensionStateStub.contents), undefined, undefined, undefined, imguiRendererExtensionProtocolName, 22, undefined);
                       }));
                 Curry._2(param.then, "invoke imgui renderer's beginWindow", (function (param) {
                         Operators$Meta3dBsJestCucumber.$eq(expect([

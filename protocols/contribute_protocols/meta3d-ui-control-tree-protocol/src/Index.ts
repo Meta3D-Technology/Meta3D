@@ -19,11 +19,6 @@ export type state = {
     lastNodeType3TextureImageBase64: nullable<imageBase64>,
 }
 
-export type inputData = {
-    rect: rect,
-    label: string,
-}
-
 export type inputFunc = nullable<func>
 
 export type specificData = {

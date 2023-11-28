@@ -198,13 +198,15 @@ let _generateSpecific = (specific: FrontendUtils.ElementAssembleStoreType.specif
       switch value {
       | SpecicFieldDataValue(value) =>
         switch type_ {
-        // | #string => j`"${value->Obj.magic}"`
         | #imageBase64 =>
           value->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
             ? {j`null,`}
             : j`"${value->Obj.magic}",`
         | #menuItems => j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
-        | _ => j`"${SpecificUtils.convertValueToString(value, type_)}",`
+        | #bool => j`${value->Obj.magic->BoolUtils.boolToString},`
+        | #select => j`${SpecificUtils.convertValueToString(value, type_)},`
+        | #number => j`${value->NumberUtils.numberToString},`
+        | _ => j`"${SpecificUtils.convertValueToString(value->Obj.magic, type_)}",`
         }
 
       // | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`

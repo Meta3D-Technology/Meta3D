@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData, windowFlags, cond } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { name } from "meta3d-gameobject-protocol"
 import { localEulerAngles, localPosition, localScale } from "meta3d-component-transform-protocol"
@@ -121,7 +121,7 @@ export type service = {
     readonly beginWindow: (
         meta3dState: meta3dState,
         label: label,
-        flags:windowFlags
+        flags: windowFlags
     ) => meta3dState;
     readonly endWindow: (
         meta3dState: meta3dState
@@ -243,6 +243,27 @@ export type service = {
         meta3dState: meta3dState,
         clickTexture: imguiImplTexture,
         size: size
+    ) => [meta3dState, boolean];
+    readonly inputText: (
+        meta3dState: meta3dState,
+        label: label,
+        value: string,
+        maxLength: number,
+        width: number
+    ) => [meta3dState, nullable<string>];
+    readonly inputFloat3: (
+        meta3dState: meta3dState,
+        label: label,
+        value: [number, number, number],
+        step: number,
+        stepFast: number,
+        width: number
+    ) => [meta3dState, nullable<[number, number, number]>];
+    readonly collapsing: (
+        meta3dState: meta3dState,
+        label: label,
+        isOpen: boolean,
+        cond: cond
     ) => [meta3dState, boolean];
     readonly handleDragDropTarget: <data> (
         meta3dState: meta3dState,

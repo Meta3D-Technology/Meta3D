@@ -37,6 +37,14 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$8 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$9 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: (function (meta3dState, elementContribute) {
               return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerElement(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), elementContribute));
@@ -89,11 +97,11 @@ function getExtensionService(api) {
                           "meta3d-imgui-renderer-protocol"
                         ], style);
             }),
-          beginWindow: (function (meta3dState, label) {
+          beginWindow: (function (meta3dState, label, flags) {
               return UIManager$Meta3dUi.beginWindow(meta3dState, [
                           api,
                           "meta3d-imgui-renderer-protocol"
-                        ], label);
+                        ], label, flags);
             }),
           endWindow: (function (meta3dState) {
               return UIManager$Meta3dUi.endWindow(meta3dState, [
@@ -170,14 +178,20 @@ function getExtensionService(api) {
           tree: (function (param, param$1, param$2, param$3, param$4, param$5) {
               return UIManager$Meta3dUi.tree(partial_arg$4, param, param$1, param$2, param$3, param$4, param$5);
             }),
-          inspector: (function (param, param$1, param$2, param$3, param$4, param$5, param$6) {
-              return UIManager$Meta3dUi.inspector(partial_arg$5, param, param$1, param$2, param$3, param$4, param$5, param$6);
-            }),
           switchButton: (function (param, param$1, param$2, param$3) {
-              return UIManager$Meta3dUi.switchButton(partial_arg$6, param, param$1, param$2, param$3);
+              return UIManager$Meta3dUi.switchButton(partial_arg$5, param, param$1, param$2, param$3);
             }),
           imageButton: (function (param, param$1, param$2) {
-              return UIManager$Meta3dUi.imageButton(partial_arg$7, param, param$1, param$2);
+              return UIManager$Meta3dUi.imageButton(partial_arg$6, param, param$1, param$2);
+            }),
+          inputText: (function (param, param$1, param$2, param$3, param$4) {
+              return UIManager$Meta3dUi.inputText(partial_arg$7, param, param$1, param$2, param$3, param$4);
+            }),
+          inputFloat3: (function (param, param$1, param$2, param$3, param$4, param$5) {
+              return UIManager$Meta3dUi.inputFloat3(partial_arg$8, param, param$1, param$2, param$3, param$4, param$5);
+            }),
+          collapsing: (function (param, param$1, param$2, param$3) {
+              return UIManager$Meta3dUi.collapsing(partial_arg$9, param, param$1, param$2, param$3);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

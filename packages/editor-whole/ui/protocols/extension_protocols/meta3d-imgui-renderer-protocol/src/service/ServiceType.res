@@ -86,6 +86,10 @@ type windowFlags =
   | @as(0) None
   | @as(1) NoTitleBar
 
+type cond =
+  | @as(0) None
+  | @as(1) Always
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
@@ -146,5 +150,14 @@ type service = {
     size,
   ) => (bool, bool),
   imageButton: (. imguiImplTexture, size) => bool,
+  inputText: (. label, string, int, int) => Js.Nullable.t<string>,
+  inputFloat3: (
+    . label,
+    (float, float, float),
+    float,
+    float,
+    int,
+  ) => Js.Nullable.t<(float, float, float)>,
+  collapsing: (. label, bool, cond) => bool,
   getContext: unit => context,
 }

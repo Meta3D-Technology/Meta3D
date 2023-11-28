@@ -356,9 +356,9 @@ function setStyle(meta3dState, data, style) {
               }), data);
 }
 
-function beginWindow(meta3dState, data, label) {
+function beginWindow(meta3dState, data, label, flags) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                imguiRendererService.beginWindow(label);
+                imguiRendererService.beginWindow(label, flags);
                 return imguiRendererState;
               }), data);
 }
@@ -488,15 +488,6 @@ function tree(data, meta3dState, treeData, treeNodeLabel, lastTreeSelectedData, 
               }), data);
 }
 
-function inspector(data, meta3dState, gameObjectName, localPosition, localEulerAngles, localScale, windowName, rect) {
-  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
-                return [
-                        imguiRendererState,
-                        imguiRendererService.inspector(gameObjectName, localPosition, localEulerAngles, localScale, windowName, rect)
-                      ];
-              }), data);
-}
-
 function switchButton(data, meta3dState, isRun, textures, size) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
@@ -511,6 +502,33 @@ function imageButton(data, meta3dState, texture, size) {
                 return [
                         imguiRendererState,
                         imguiRendererService.imageButton(texture, size)
+                      ];
+              }), data);
+}
+
+function inputText(data, meta3dState, label, value, maxLength, width) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.inputText(label, value, maxLength, width)
+                      ];
+              }), data);
+}
+
+function inputFloat3(data, meta3dState, label, value, step, stepFast, width) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.inputFloat3(label, value, step, stepFast, width)
+                      ];
+              }), data);
+}
+
+function collapsing(data, meta3dState, label, isOpen, cond) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.collapsing(label, isOpen, cond)
                       ];
               }), data);
 }
@@ -645,9 +663,11 @@ export {
   handleDragDropTarget ,
   menu ,
   tree ,
-  inspector ,
   switchButton ,
   imageButton ,
+  inputText ,
+  inputFloat3 ,
+  collapsing ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

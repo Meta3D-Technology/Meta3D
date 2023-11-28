@@ -1,11 +1,12 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { menuLabel, service, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { cond, menuLabel, service, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"
-import { setNextWindowRect } from "./Utils"
+import { buildBind, buildRef, setNextWindowRect } from "./Utils"
 import { tree } from "./Tree"
 import { asset } from "./Asset"
+import { nullable } from "meta3d-commonlib-ts/src/nullable"
 // import { inspector } from "./Inspector"
 
 // let _generateUniqueId = () => {
@@ -239,9 +240,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return selectItemLabel
         },
-        // inspector: inspector,
         tree: tree,
-        inspector: {} as any,
         switchButton: (isClick1State, { click1Texture, click2Texture }, [width, height]) => {
             let isClick1 = false
             let isClick2 = false
@@ -262,6 +261,83 @@ export let getExtensionService: getExtensionServiceMeta3D<
             let isClick = ImGui.ImageButton(clickTexture._texture, new ImGui.ImVec2(width, height))
 
             return isClick
+        },
+        inputText: (label, value, maxLength, width) => {
+            let newValue: nullable<string> = null
+            let valueRef = buildRef(value)
+
+            ImGui.PushItemWidth(width)
+
+            if (ImGui.InputText(label, buildBind(valueRef), maxLength)) {
+                newValue = valueRef.content
+            }
+
+            return newValue
+        },
+        inputFloat3: (label, [x, y, z], step, stepFast, width) => {
+            let valueXRef = buildRef(x)
+            let valueYRef = buildRef(y)
+            let valueZRef = buildRef(z)
+            let newValueX: nullable<number> = null
+            let newValueY: nullable<number> = null
+            let newValueZ: nullable<number> = null
+
+            ImGui.PushItemWidth(width)
+
+            // ImGui.PushID(_generateUniqueId())
+            ImGui.PushID(label + "_x")
+            if (ImGui.InputFloat("", buildBind(valueXRef), step, stepFast, "%.3f")) {
+                newValueX = valueXRef.content
+                newValueY = api.nullable.return(y)
+                newValueZ = api.nullable.return(z)
+            }
+            ImGui.PopID()
+            ImGui.SameLine()
+
+            ImGui.PushID(label + "_y")
+            if (ImGui.InputFloat("", buildBind(valueYRef), step, stepFast, "%.3f")) {
+                newValueY = valueYRef.content
+                newValueX = api.nullable.return(x)
+                newValueZ = api.nullable.return(z)
+            }
+            ImGui.PopID()
+            ImGui.SameLine()
+
+            ImGui.PushID(label + "_z")
+            if (ImGui.InputFloat("", buildBind(valueZRef), step, stepFast, "%.3f")) {
+                newValueZ = valueZRef.content
+                newValueX = api.nullable.return(x)
+                newValueY = api.nullable.return(y)
+            }
+            ImGui.PopID()
+            ImGui.SameLine()
+
+            ImGui.Text(label)
+
+            return api.nullable.bind(newValueX => {
+                return api.nullable.bind(newValueY => {
+                    return api.nullable.map(newValueZ => {
+                        return [newValueX, newValueY, newValueZ]
+                    }, newValueZ)
+                }, newValueY)
+            }, newValueX)
+        },
+        collapsing: (label, isOpen, cond_) => {
+            let imguiCond = null
+            switch (cond_) {
+                case cond.None:
+                    imguiCond = ImGui.Cond.None
+                    break
+                case cond.Always:
+                    imguiCond = ImGui.Cond.Always
+                    break
+                default:
+                    throw new Error("unknown cond: " + cond)
+            }
+
+            ImGui.SetNextItemOpen(isOpen, imguiCond)
+
+            return ImGui.CollapsingHeader(label)
         },
         getContext: () => {
             return ImGui_Impl.gl

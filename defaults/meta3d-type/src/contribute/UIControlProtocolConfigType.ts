@@ -10,7 +10,7 @@ export type rect = {
 
 export type childrenFunc = (state: state) => state
 
-export type supportedEventName = "button_click" | "run" | "stop" | "click1" | "click2" | "select_asset" | "drop_asset" | "select_tree_node" | "drag_tree_node"
+export type supportedEventName = "button_click" | "run" | "stop" | "click1" | "click2" | "select_asset" | "drop_asset" | "select_tree_node" | "drag_tree_node" | "input_change"
 
 export type actionName = nullable<string>
 
@@ -19,7 +19,7 @@ export type versionRange = string
 export type generateUIControlCommonDataStr = (rect: string) => string
 
 
-type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems"
+type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems" | "bool" | "select" | "number"
 
 type uiControlSpecicFieldValue = any
 

@@ -557,11 +557,16 @@ let setStyle = (meta3dState, data, style) => {
   )
 }
 
-let beginWindow = (meta3dState, data, label: Meta3dImguiRendererProtocol.ServiceType.label) => {
+let beginWindow = (
+  meta3dState,
+  data,
+  label: Meta3dImguiRendererProtocol.ServiceType.label,
+  flags,
+) => {
   _invokeIMGUIRenderFunc(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      imguiRendererService.beginWindow(. label)
+      imguiRendererService.beginWindow(. label, flags)
 
       imguiRendererState
     },
@@ -741,34 +746,34 @@ let tree = (data, meta3dState, treeData, treeNodeLabel, lastTreeSelectedData, wi
   )
 }
 
-let inspector = (
-  data,
-  meta3dState,
-  gameObjectName,
-  localPosition,
-  localEulerAngles,
-  localScale,
-  windowName,
-  rect,
-) => {
-  _invokeIMGUIRenderFuncWithParam(
-    meta3dState,
-    (. imguiRendererState, imguiRendererService) => {
-      (
-        imguiRendererState,
-        imguiRendererService.inspector(.
-          gameObjectName,
-          localPosition,
-          localEulerAngles,
-          localScale,
-          windowName,
-          rect,
-        ),
-      )
-    },
-    data,
-  )
-}
+// let inspector = (
+//   data,
+//   meta3dState,
+//   gameObjectName,
+//   localPosition,
+//   localEulerAngles,
+//   localScale,
+//   windowName,
+//   rect,
+// ) => {
+//   _invokeIMGUIRenderFuncWithParam(
+//     meta3dState,
+//     (. imguiRendererState, imguiRendererService) => {
+//       (
+//         imguiRendererState,
+//         imguiRendererService.inspector(.
+//           gameObjectName,
+//           localPosition,
+//           localEulerAngles,
+//           localScale,
+//           windowName,
+//           rect,
+//         ),
+//       )
+//     },
+//     data,
+//   )
+// }
 
 let switchButton = (data, meta3dState, isRun, textures, size) => {
   _invokeIMGUIRenderFuncWithParam(
@@ -785,6 +790,36 @@ let imageButton = (data, meta3dState, texture, size) => {
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
       (imguiRendererState, imguiRendererService.imageButton(. texture, size))
+    },
+    data,
+  )
+}
+
+let inputText = (data, meta3dState, label, value, maxLength, width) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.inputText(. label, value, maxLength, width))
+    },
+    data,
+  )
+}
+
+let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.inputFloat3(. label, value, step, stepFast, width))
+    },
+    data,
+  )
+}
+
+let collapsing = (data, meta3dState, label, isOpen, cond) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.collapsing(. label, isOpen, cond))
     },
     data,
   )

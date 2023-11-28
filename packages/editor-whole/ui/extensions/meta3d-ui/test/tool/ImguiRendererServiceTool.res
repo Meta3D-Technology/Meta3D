@@ -26,6 +26,9 @@ let buildService = (
   ~inspector=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~switchButton=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~imageButton=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~inputText=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~inputFloat3=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~collapsing=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -53,5 +56,8 @@ let buildService = (
     inspector,
     switchButton,
     imageButton,
+    inputText,
+    inputFloat3,
+    collapsing
   }
 }

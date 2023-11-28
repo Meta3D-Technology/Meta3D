@@ -33,7 +33,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    if (api.action.getActionState<runState>(meta3dState, runActionName).isRun) {
+                    if (api.nullable.getWithDefault(api.nullable.map(runState => runState.isRun, api.action.getActionState<runState>(meta3dState, runActionName)), false)) {
                         console.warn("can't publish when run")
 
                         return (new Promise((resolve) => {

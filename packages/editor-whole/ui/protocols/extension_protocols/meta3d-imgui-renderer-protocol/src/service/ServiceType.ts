@@ -1,8 +1,8 @@
 import type { state as StateType_state } from '../../src/state/StateType';
 import type { texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
 import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
-import { name } from 'meta3d-gameobject-protocol';
-import { localPosition, localEulerAngles, localScale } from 'meta3d-component-transform-protocol';
+// import { name } from 'meta3d-gameobject-protocol';
+// import { localPosition, localEulerAngles, localScale } from 'meta3d-component-transform-protocol';
 import { data as inputAssetData } from 'meta3d-input-asset-protocol';
 
 // tslint:disable-next-line:interface-over-type-literal
@@ -96,37 +96,37 @@ export type getValueFunc<T> = () => T
 
 export type setValueFunc<T> = (value: T) => void
 
-export type inspectorFunc = (
-  // [
-  //   getGameObjectNameFunc, setGameObjectNameFunc,
-  //   getLocalPositionXFunc, setLocalPositionXFunc,
-  //   getLocalPositionYFunc, setLocalPositionYFunc,
-  //   getLocalPositionZFunc, setLocalPositionZFunc,
-  //   getLocalEulerXFunc, setLocalEulerXFunc,
-  //   getLocalEulerYFunc, setLocalEulerYFunc,
-  //   getLocalEulerZFunc, setLocalEulerZFunc,
-  //   getLocalScaleXFunc, setLocalScaleXFunc,
-  //   getLocalScaleYFunc, setLocalScaleYFunc,
-  //   getLocalScaleZFunc, setLocalScaleZFunc,
-  // ]: [getValueFunc<name>, setValueFunc<name>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //     getValueFunc<number>, setValueFunc<number>,
-  //   ],
+// export type inspectorFunc = (
+//   // [
+//   //   getGameObjectNameFunc, setGameObjectNameFunc,
+//   //   getLocalPositionXFunc, setLocalPositionXFunc,
+//   //   getLocalPositionYFunc, setLocalPositionYFunc,
+//   //   getLocalPositionZFunc, setLocalPositionZFunc,
+//   //   getLocalEulerXFunc, setLocalEulerXFunc,
+//   //   getLocalEulerYFunc, setLocalEulerYFunc,
+//   //   getLocalEulerZFunc, setLocalEulerZFunc,
+//   //   getLocalScaleXFunc, setLocalScaleXFunc,
+//   //   getLocalScaleYFunc, setLocalScaleYFunc,
+//   //   getLocalScaleZFunc, setLocalScaleZFunc,
+//   // ]: [getValueFunc<name>, setValueFunc<name>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //     getValueFunc<number>, setValueFunc<number>,
+//   //   ],
 
-  gameObjectName: name,
-  localPosition: localPosition,
-  localEulerAngles: localEulerAngles,
-  localScale: localScale,
-  windowName: string,
-  rect: rect,
-) => [nullable<name>, nullable<localPosition>, nullable<localEulerAngles>, nullable<localScale>]
+//   gameObjectName: name,
+//   localPosition: localPosition,
+//   localEulerAngles: localEulerAngles,
+//   localScale: localScale,
+//   windowName: string,
+//   rect: rect,
+// ) => [nullable<name>, nullable<localPosition>, nullable<localEulerAngles>, nullable<localScale>]
 
 export type ref<T> = {
   content: T
@@ -136,6 +136,12 @@ export enum windowFlags {
   None,
   NoTitleBar
 }
+
+export enum cond {
+  None,
+  Always
+}
+
 
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
@@ -159,7 +165,7 @@ export type service = {
   readonly handleDragDropTarget: <data> (type: string) => nullable<data>;
   readonly menu: (allLabels: menuAllLabels, windowName: string, rect: rect) => nullable<menuLabel>;
   readonly tree: treeFunc;
-  readonly inspector: inspectorFunc;
+  // readonly inspector: inspectorFunc;
   readonly switchButton: (
     isRunState: boolean,
     textures: {
@@ -169,5 +175,23 @@ export type service = {
     size: size
   ) => [boolean, boolean];
   readonly imageButton: (_1: imguiImplTexture, _2: size) => boolean;
+  readonly inputText: (
+    label: label,
+    value: string,
+    maxLength: number,
+    width: number
+  ) => nullable<string>;
+  readonly inputFloat3: (
+    label: label,
+    value: [number, number, number],
+    step: number,
+    stepFast: number,
+    width: number
+  ) => nullable<[number, number, number]>;
+  readonly collapsing: (
+    label: label,
+    isOpen: boolean,
+    cond: cond
+  ) => boolean;
   readonly getContext: () => context
 };
