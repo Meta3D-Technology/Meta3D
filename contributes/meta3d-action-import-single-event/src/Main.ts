@@ -10,7 +10,7 @@ import { eventName, inputData } from "meta3d-action-import-single-event-protocol
 // import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 // import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 import { requireCheck, test } from "meta3d-ts-contract-utils"
-import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
+import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 
 let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
     requireCheck(() => {
@@ -40,15 +40,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                         // meta3dState = assetService.importAsset(meta3dState, assetFile)
 
-                        return api.nullable.getWithDefault(
-                            api.nullable.map(
-                                ({ runOnlyOnce }) => {
-                                    return runOnlyOnce(meta3dState)
-                                },
-                                editorWholeService.getPluggablePackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol")
-                            ),
-                            meta3dState
-                        )
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                     })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)

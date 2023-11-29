@@ -3,7 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-set-gameobjectname-protocol"
 import { eventName, inputData } from "meta3d-action-set-gameobjectname-protocol/src/EventType"
 import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
-import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
+import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -32,15 +32,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         allGameObjectNameData: state.allGameObjectNameData.push([gameObject, oldName]),
                     })
 
-                    return Promise.resolve(api.nullable.getWithDefault(
-                        api.nullable.map(
-                            ({ runOnlyOnce }) => {
-                                return runOnlyOnce(meta3dState)
-                            },
-                            editorWholeService.getPluggablePackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol")
-                        ),
-                        meta3dState
-                    ))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let {
                         allGameObjectNameData

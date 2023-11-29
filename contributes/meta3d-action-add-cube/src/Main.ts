@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-add-cube-protocol"
 import { eventName, inputData } from "meta3d-action-add-cube-protocol/src/EventType"
 import { disposeGameObjectAndAllChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
 import { createCubeGameObject } from "meta3d-primitive-utils/src/CubeUtils"
-import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
+import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 
 let _createCube = (meta3dState: meta3dState, api: api) => {
     let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).scene(meta3dState)
@@ -37,16 +37,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             state.addedGameObjects.push(addedGameObject)
                     })
 
-                    let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
-                    return Promise.resolve(api.nullable.getWithDefault(
-                        api.nullable.map(
-                            ({ runOnlyOnce }) => {
-                                return runOnlyOnce(meta3dState)
-                            },
-                            editorWholeService.getPluggablePackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol")
-                        ),
-                        meta3dState
-                    ))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let {
                         addedGameObjects,

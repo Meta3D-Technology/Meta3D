@@ -1,10 +1,12 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
+import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { state } from "meta3d-editor-whole-protocol/src/state/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 // import { requireCheck, test } from "meta3d-ts-contract-utils"
+import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 
 let _isCurrentAllEventsNotContainPrevious = (currentAllEvents: events, previousAllEvents: events) => {
     let result = previousAllEvents.reduce((result, { name }, index) => {
@@ -61,6 +63,8 @@ export let sync = (meta3dState: meta3dState, api: api) => {
             events
         ).then(meta3dState => {
             return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(0, allEvents.count() - events.count()))
+        }).then(meta3dState => {
+            return runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))
         })
         // .then(meta3dState => {
         // 	return eventSourcingService.cleanAllNeedEvents(meta3dState)

@@ -6,7 +6,7 @@ import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNo
 import { state as treeState } from "meta3d-ui-control-tree-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { removeGameObjectData } from "meta3d-engine-scene-protocol/src/service/ecs/GameObject"
-import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
+import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { treeIndexData } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { assertNullableExist, ensureCheck, test } from "meta3d-ts-contract-utils"
@@ -102,17 +102,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     })
 
 
-
-                    let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
-                    return Promise.resolve(api.nullable.getWithDefault(
-                        api.nullable.map(
-                            ({ runOnlyOnce }) => {
-                                return runOnlyOnce(meta3dState)
-                            },
-                            editorWholeService.getPluggablePackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol")
-                        ),
-                        meta3dState
-                    ))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let {
                         allSelectedGameObjects,

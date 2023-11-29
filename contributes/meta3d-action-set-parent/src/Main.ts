@@ -3,7 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-set-parent-protocol"
 import { eventName, inputData } from "meta3d-action-set-parent-protocol/src/EventType"
 import { findSelectedGameObject, getAllTopGameObjects, buildHierachyGameObjects } from "meta3d-scenetree-utils/src/SceneTreeUtils"
-import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
+import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -38,15 +38,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         }),
                     })
 
-                    return Promise.resolve(api.nullable.getWithDefault(
-                        api.nullable.map(
-                            ({ runOnlyOnce }) => {
-                                return runOnlyOnce(meta3dState)
-                            },
-                            editorWholeService.getPluggablePackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol")
-                        ),
-                        meta3dState
-                    ))
+
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
                     let {
@@ -73,6 +66,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         ...api.action.getActionState<state>(meta3dState, actionName),
                         allHierachyData: state.allHierachyData.pop(),
                     })
+
 
                     return Promise.resolve(meta3dState)
                 }))

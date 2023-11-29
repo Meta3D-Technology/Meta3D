@@ -1163,7 +1163,9 @@ TODO fix:
 # * TODO refactor: remove Specific->label
 
 
-* TODO fix: stop: should run gameview once
+* DONE fix: stop: should run gameview once
+
+* TODO refactor: editor whole package not dependent on ui control protocol
 
 * TODO fix: specific->imagebase64 preview image same
 
