@@ -226,8 +226,8 @@ exports[`ApInsepctor show clearColor r input 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="0.1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -327,8 +327,8 @@ exports[`ApInsepctor show clearColor r input 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -428,8 +428,8 @@ exports[`ApInsepctor show clearColor r input 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -528,8 +528,8 @@ exports[`ApInsepctor show clearColor r input 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -873,8 +873,8 @@ exports[`ApInsepctor show isDebug select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -974,8 +974,8 @@ exports[`ApInsepctor show isDebug select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -1075,8 +1075,8 @@ exports[`ApInsepctor show isDebug select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -1175,8 +1175,8 @@ exports[`ApInsepctor show isDebug select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -1521,8 +1521,8 @@ exports[`ApInsepctor show skin name select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -1622,8 +1622,8 @@ exports[`ApInsepctor show skin name select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -1723,8 +1723,8 @@ exports[`ApInsepctor show skin name select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"
@@ -1823,8 +1823,8 @@ exports[`ApInsepctor show skin name select 1`] = `
             className="ant-input-number-input-wrap"
           >
             <input
-              aria-valuemax="1"
-              aria-valuemin="0"
+              aria-valuemax={1}
+              aria-valuemin={0}
               aria-valuenow="1"
               autoComplete="off"
               className="ant-input-number-input"

@@ -1271,14 +1271,13 @@ engine whole
 
 * DONE remove meta3d-imgui-webgl1-three-renderer in ui package
 
-
-* TODO feat(platform): ap assemble: PackageInspector, ContributeInspector show protocol,implement repo link
-
+# * TODO feat(platform): ap assemble: PackageInspector, ContributeInspector show protocol,implement repo link
 
 
-* TODO two kind asset package implement:
-BasicAsset
-DracoKTX2Asset
+
+# * TODO two kind asset package implement:
+# BasicAsset
+# DracoKTX2Asset
 
 
 * TODO publish
