@@ -316,38 +316,38 @@ module Method = {
   //   ->Meta3dCommonlib.ListSt.map(({name}) => name)
   // }
 
-  let buildIsDraw = (dispatch, id, isDraw) => {
-    <Space direction=#vertical>
-      {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
-        value =>
-          setIsDraw(
-            dispatch,
-            id,
-            value->BoolUtils.stringToBool->FrontendUtils.CommonType.BoolForIsDraw,
-          ),
-        isDraw
-        ->getIsDrawBoolValue
-        ->Meta3dCommonlib.OptionSt.getWithDefault(true)
-        ->BoolUtils.boolToString,
-        ["true", "false"],
-      )}
-      // {FrontendUtils.SelectUtils.buildSelect(value =>
-      //   FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
-      //     ? ()
-      //     : {
-      //         setIsDraw(
-      //           dispatch,
-      //           id,
-      //           value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
-      //         )
-      //       }
-      // , isDraw
-      // ->getIsDrawElementFieldValue
-      // ->Meta3dCommonlib.OptionSt.getWithDefault(
-      //   FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
-      // ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
-    </Space>
-  }
+  // let buildIsDraw = (dispatch, id, isDraw) => {
+  //   <Space direction=#vertical>
+  //     {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
+  //       value =>
+  //         setIsDraw(
+  //           dispatch,
+  //           id,
+  //           value->BoolUtils.stringToBool->FrontendUtils.CommonType.BoolForIsDraw,
+  //         ),
+  //       isDraw
+  //       ->getIsDrawBoolValue
+  //       ->Meta3dCommonlib.OptionSt.getWithDefault(true)
+  //       ->BoolUtils.boolToString,
+  //       ["true", "false"],
+  //     )}
+  //     // {FrontendUtils.SelectUtils.buildSelect(value =>
+  //     //   FrontendUtils.SelectUtils.isEmptySelectOptionValue(value)
+  //     //     ? ()
+  //     //     : {
+  //     //         setIsDraw(
+  //     //           dispatch,
+  //     //           id,
+  //     //           value->FrontendUtils.ElementAssembleStoreType.ElementStateFieldForIsDraw,
+  //     //         )
+  //     //       }
+  //     // , isDraw
+  //     // ->getIsDrawElementFieldValue
+  //     // ->Meta3dCommonlib.OptionSt.getWithDefault(
+  //     //   FrontendUtils.SelectUtils.buildEmptySelectOptionValue(),
+  //     // ), elementStateFields->getBoolElementStateFieldNames->Meta3dCommonlib.ListSt.toArray)}
+  //   </Space>
+  // }
 
   let _handleUploadImage = %raw(`
 function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
@@ -650,8 +650,8 @@ let make = (
       {Method.buildRectField(dispatch, Method.setRectWidth, id, "宽", rect, width)}
       {Method.buildRectField(dispatch, Method.setRectHeight, id, "高", rect, height)}
     </Space>
-    {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
-    {Method.buildIsDraw(dispatch, id, isDraw)}
+    // {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
+    // {Method.buildIsDraw(dispatch, id, isDraw)}
     <Space direction=#vertical size=#middle>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
       {<>

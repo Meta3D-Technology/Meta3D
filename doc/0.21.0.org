@@ -1228,7 +1228,7 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 * DONE refactor: remove generateUIControlCommonDataStr
 
 
-* TODO refactor: remove IsDraw
+* DONE refactor: hide IsDraw
 
 
 * TODO publish and run test

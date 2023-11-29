@@ -369,30 +369,30 @@ defineFeature(feature, test => {
   //   )
   // })
 
-  test(."set isDraw", ({given, \"when", \"and", then}) => {
-    let id = "1"
-    let isDraw = false->FrontendUtils.CommonType.BoolForIsDraw
-    let dispatchStub = ref(Obj.magic(1))
+  // test(."set isDraw", ({given, \"when", \"and", then}) => {
+  //   let id = "1"
+  //   let isDraw = false->FrontendUtils.CommonType.BoolForIsDraw
+  //   let dispatchStub = ref(Obj.magic(1))
 
-    _prepare(given)
+  //   _prepare(given)
 
-    \"when"(
-      "set isDraw",
-      () => {
-        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  //   \"when"(
+  //     "set isDraw",
+  //     () => {
+  //       dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        UIControlInspectorTool.setIsDraw(dispatchStub.contents->Obj.magic, id, isDraw)
-      },
-    )
+  //       UIControlInspectorTool.setIsDraw(dispatchStub.contents->Obj.magic, id, isDraw)
+  //     },
+  //   )
 
-    then(
-      "should dispatch SetIsDraw action",
-      () => {
-        dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-          FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw)
-      },
-    )
-  })
+  //   then(
+  //     "should dispatch SetIsDraw action",
+  //     () => {
+  //       dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
+  //         FrontendUtils.ElementAssembleStoreType.SetIsDraw(id, isDraw)
+  //     },
+  //   )
+  // })
 
   test(."show input", ({given, \"when", \"and", then}) => {
     let id = "d1"

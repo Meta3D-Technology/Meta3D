@@ -29,18 +29,18 @@ Feature: UIControlInsepctor
             When set rect x
             Then should dispatch SetRect action with x
 
-    Rule: IsDraw
+    # Rule: IsDraw
 
-        # Scenario: show isDraw with element state fields
-        #     Given element state add fields
-        #     And select ui control button d1
-        #     And set inspector current selected ui control data to d1
-        #     When render
-        #     Then should show element state bool field select
+    #     # Scenario: show isDraw with element state fields
+    #     #     Given element state add fields
+    #     #     And select ui control button d1
+    #     #     And set inspector current selected ui control data to d1
+    #     #     When render
+    #     #     Then should show element state bool field select
 
-        Scenario: set isDraw
-            When set isDraw
-            Then should dispatch SetIsDraw action
+    #     Scenario: set isDraw
+    #         When set isDraw
+    #         Then should dispatch SetIsDraw action
 
 
     Rule: Input
