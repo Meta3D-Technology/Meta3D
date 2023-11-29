@@ -1,11 +1,11 @@
 
 
-import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Sinon from "../../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
-import * as Caml_option from "../../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Curry from "../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Sinon from "../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
+import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as BodyTool$Meta3dEvent from "./BodyTool.bs.js";
 import * as EventTool$Meta3dEvent from "./EventTool.bs.js";
-import * as OptionSt$Meta3dCommonlib from "../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BodyDoService$Meta3dEvent from "../../../src/event_manager/service/dom/BodyDoService.bs.js";
 import * as CanvasDoService$Meta3dEvent from "../../../src/event_manager/service/dom/CanvasDoService.bs.js";
 import * as ContainerManager$Meta3dEvent from "../../../src/event_manager/data/ContainerManager.bs.js";

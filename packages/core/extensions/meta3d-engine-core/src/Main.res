@@ -151,7 +151,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dEngineCoreProtocol.StateType.state,
-> = () => {
+> = (. _, _) => {
   CreateState.createState()
 }
 

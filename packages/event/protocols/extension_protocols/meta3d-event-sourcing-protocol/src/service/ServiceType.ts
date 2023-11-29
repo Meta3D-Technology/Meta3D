@@ -42,7 +42,7 @@ export type service = {
         backwardHandleFunc: handleFunc<inputData>
     ) => meta3dState,
     addEvent: <inputData extends Array<singleInputData>> (meta3dState: meta3dState, eventData: eventData<inputData>) => meta3dState,
-    createAllEvents: <inputData extends Array<singleInputData>> (allEventData: Array<eventData<inputData>>) => List<eventData<inputData>>,
+    createAllEvents: <inputData extends Array<singleInputData>> (allEventData: Array<eventData<inputData>>, meta3dState: meta3dState) => List<eventData<inputData>>,
     // addOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId, outsideImmutableData: outsideImmutableData) => meta3dState,
     // removeOutsideImmutableData: (meta3dState: meta3dState, outsideImmutableDataId: outsideImmutableDataId) => meta3dState,
     generateOutsideImmutableDataId: (meta3dState: meta3dState) => outsideImmutableDataId,
@@ -52,7 +52,7 @@ export type service = {
     // // TODO remove?
     // getAllOutsideImmutableDataFromGlobalThis: () => Seq.Indexed<[outsideImmutableDataId, outsideImmutableData]>,
     getAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState) => List<eventData<inputData>>,
-    getAllEventsFromGlobalThis: <inputData extends Array<singleInputData>>() => List<eventData<inputData>>,
+    getAllEventsFromGlobalThis: <inputData extends Array<singleInputData>>(meta3dState: meta3dState) => List<eventData<inputData>>,
     replaceAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, allEvents: List<eventData<inputData>>) => meta3dState,
     getNeedReplaceAllEvents: (meta3dState: meta3dState) => events,
     setNeedReplaceAllEvents: <inputData extends Array<singleInputData>>(meta3dState: meta3dState, allEvents: List<eventData<inputData>>) => meta3dState,

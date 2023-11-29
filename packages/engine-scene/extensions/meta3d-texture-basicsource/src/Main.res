@@ -106,7 +106,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dTextureBasicsourceProtocol.StateType.state,
-> = () => {
+> = (. _, _) => {
   maxUID: 0,
   wrapSs: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
   wrapTs: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),

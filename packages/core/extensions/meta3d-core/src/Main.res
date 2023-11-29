@@ -11,7 +11,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dCoreProtocol.StateType.state,
-> = () => Js.Nullable.null->Obj.magic
+> = (. _, _) => Js.Nullable.null->Obj.magic
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<Meta3dCoreProtocol.ServiceType.service> = (
   api,

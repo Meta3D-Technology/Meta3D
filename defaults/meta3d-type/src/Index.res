@@ -147,7 +147,7 @@ type api = {
 
 type getExtensionService<'extensionService> = api => 'extensionService
 
-type createExtensionState<'extensionState> = unit => 'extensionState
+type createExtensionState<'extensionState> = (. state, api) => 'extensionState
 
 type getContribute<'contribute> = // > = (api, 'config) => 'contribute
 api => 'contribute

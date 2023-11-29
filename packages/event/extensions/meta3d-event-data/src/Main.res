@@ -7,7 +7,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dEventDataProtocol.StateType.state,
-> = () => {}
+> = (. _, _) => {}
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<
   Meta3dEventDataProtocol.ServiceType.service,

@@ -41,8 +41,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getAllActionContributes: EventManager.getAllActionContributes->Obj.magic,
 }
 
-let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {
-  EventManager.createExtensionState()
+let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = (. meta3dState, api) => {
+  EventManager.createExtensionState(. meta3dState, api)
 }
 
 let getExtensionLife: Meta3dType.Index.getExtensionLife<Meta3dEventProtocol.ServiceType.service> = (

@@ -211,7 +211,7 @@ let getAllActionContributes = (state: Meta3dEventProtocol.StateType.state) => {
   state.actionContributeMap->Meta3dCommonlib.ImmutableHashMap.entries
 }
 
-let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = () => {
+let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = (. _, _) => {
   {
     actionContributeMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     eventManagerState: CreateEventManagerState.create(),

@@ -375,7 +375,7 @@ function _run(param) {
   var allExtensionDataArr = param[0];
   var state = ArraySt$Meta3dCommonlib.reduceOneParam(allExtensionDataArr, (function (state, param) {
           var extensionFuncData = param.extensionFuncData;
-          return ExtensionManager$Meta3d.registerExtension(state, param.extensionPackageData.protocol.name, extensionFuncData.getExtensionServiceFunc, extensionFuncData.getExtensionLifeFunc, Curry._1(extensionFuncData.createExtensionStateFunc, undefined));
+          return ExtensionManager$Meta3d.registerExtension(state, param.extensionPackageData.protocol.name, extensionFuncData.getExtensionServiceFunc, extensionFuncData.getExtensionLifeFunc, extensionFuncData.createExtensionStateFunc(state, ExtensionManager$Meta3d.buildAPI(undefined)));
         }), _prepare(undefined));
   var state$1 = ArraySt$Meta3dCommonlib.reduceOneParam(param[1], (function (state, param) {
           return ExtensionManager$Meta3d.registerContribute(state, param.contributePackageData.protocol.name, param.contributeFuncData.getContributeFunc);

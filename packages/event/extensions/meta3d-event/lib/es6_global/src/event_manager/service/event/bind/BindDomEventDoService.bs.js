@@ -1,9 +1,9 @@
 
 
-import * as Curry from "../../../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Js_array from "../../../../../../../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
+import * as Curry from "../../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_array from "../../../../../../../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as MutableSparseMap$Meta3dCommonlib from "../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/sparse_map/MutableSparseMap.bs.js";
 
 function addToEventArr(eventName, eventData, getPriorityFunc, eventArrMap) {
   var arr = MutableSparseMap$Meta3dCommonlib.get(eventArrMap, eventName);

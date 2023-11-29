@@ -1,14 +1,14 @@
 
 
-import * as Curry from "../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as OptionSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as OptionSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BodyDoService$Meta3dEvent from "./event_manager/service/dom/BodyDoService.bs.js";
 import * as CanvasDoService$Meta3dEvent from "./event_manager/service/dom/CanvasDoService.bs.js";
 import * as BrowserDoService$Meta3dEvent from "./event_manager/service/browser/BrowserDoService.bs.js";
 import * as ContainerManager$Meta3dEvent from "./event_manager/data/ContainerManager.bs.js";
 import * as InitEventDoService$Meta3dEvent from "./event_manager/service/init_event/InitEventDoService.bs.js";
 import * as NameEventDoService$Meta3dEvent from "./event_manager/service/event/NameEventDoService.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 import * as ManageEventDoService$Meta3dEvent from "./event_manager/service/event/ManageEventDoService.bs.js";
 import * as CreateEventManagerState$Meta3dEvent from "./event_manager/data/CreateEventManagerState.bs.js";
 
@@ -105,7 +105,7 @@ function getAllActionContributes(state) {
   return ImmutableHashMap$Meta3dCommonlib.entries(state.actionContributeMap);
 }
 
-function createExtensionState(param) {
+function createExtensionState(param, param$1) {
   return {
           actionContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           eventManagerState: CreateEventManagerState$Meta3dEvent.create(undefined)

@@ -33,7 +33,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                     sceneGLB,
                                     // assetFile
                                 ]
-                            }]
+                            }],
+                            meta3dState
                         ).toArray()
 
                         editorWholeService.event(meta3dState).eventData(meta3dState).exportEventData(allEvents as any)

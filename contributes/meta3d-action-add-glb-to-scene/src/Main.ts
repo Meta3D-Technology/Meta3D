@@ -10,7 +10,6 @@ import { eventName, inputData } from "meta3d-action-drop-glb-to-sceneview-protoc
 // import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 // import { getState, setState } from "./Utils"
-// import { List } from "immutable"
 import { disposeGameObjectAndAllChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
 // import { service as engineWholeService } from "meta3d-engine-whole-sceneview-protocol/src/service/ServiceType"
 // import { service as engineWholeGameViewService } from "meta3d-engine-whole-gameview-protocol/src/service/ServiceType"

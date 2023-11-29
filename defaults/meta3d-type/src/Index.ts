@@ -68,7 +68,7 @@ export type api = {
 export type getExtensionService<extensionService> = (_1: api) => extensionService;
 
 // tslint:disable-next-line:interface-over-type-literal
-export type createExtensionState<extensionState> = () => extensionState;
+export type createExtensionState<extensionState> = (_1: state, _2: api) => extensionState;
 
 export type getContribute<contribute> = (_1: api) => contribute;
 

@@ -21,6 +21,10 @@ let _buildAPI = (sandbox): Meta3dType.Index.api => {
     getPackage: createEmptyStubWithJsObjSandbox(sandbox),
     restore: createEmptyStubWithJsObjSandbox(sandbox),
     deepCopy: createEmptyStubWithJsObjSandbox(sandbox),
+    nullable: Obj.magic(1),
+    immutable: Obj.magic(1),
+    action: Obj.magic(1),
+    uiControl: Obj.magic(1),
   }
 }
 

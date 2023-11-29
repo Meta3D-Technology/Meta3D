@@ -195,7 +195,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dUiProtocol.StateType.state,
-> = () => {
+> = (. _, _) => {
   {
     elementFuncMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     elementStateMap: Meta3dCommonlib.ImmutableHashMap.createEmpty(),

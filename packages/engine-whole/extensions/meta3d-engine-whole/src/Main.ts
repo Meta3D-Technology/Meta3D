@@ -4,7 +4,6 @@ import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
 import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { List } from "immutable"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { init, update, render } from "meta3d-whole-utils/src/DirectorAPI"
 import { service as loadSceneService } from "meta3d-load-scene-protocol/src/service/ServiceType"
@@ -71,9 +70,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 export let createExtensionState: createExtensionStateMeta3D<
 	state
-> = () => {
+> = (meta3dState, api) => {
 	return {
-		initFuncs: List(),
+		initFuncs: api.immutable.createList(meta3dState),
 	}
 }
 

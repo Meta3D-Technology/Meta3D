@@ -1,7 +1,7 @@
 
 
-import * as Curry from "../../../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "../../../../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Curry from "../../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_option from "../../../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as CanvasDoService$Meta3dEvent from "../../dom/CanvasDoService.bs.js";
 import * as HandleDomEventDoService$Meta3dEvent from "./HandleDomEventDoService.bs.js";
 

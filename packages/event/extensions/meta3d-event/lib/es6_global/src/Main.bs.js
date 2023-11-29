@@ -1,7 +1,7 @@
 
 
 import * as EventManager$Meta3dEvent from "./EventManager.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ManageEventAPIForSrc$Meta3dEvent from "./event_manager/api/ManageEventAPIForSrc.bs.js";
 import * as CreateEventManagerState$Meta3dEvent from "./event_manager/data/CreateEventManagerState.bs.js";
 
@@ -66,8 +66,8 @@ function getExtensionService(api) {
         };
 }
 
-function createExtensionState(param) {
-  return EventManager$Meta3dEvent.createExtensionState(undefined);
+function createExtensionState(meta3dState, api) {
+  return EventManager$Meta3dEvent.createExtensionState(meta3dState, api);
 }
 
 function getExtensionLife(api, extensionProtocolName) {

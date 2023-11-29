@@ -339,7 +339,7 @@ let _run = ((allExtensionDataArr, allContributeDataArr)) => {
           extensionPackageData.protocol.name,
           extensionFuncData.getExtensionServiceFunc,
           extensionFuncData.getExtensionLifeFunc,
-          extensionFuncData.createExtensionStateFunc(),
+          extensionFuncData.createExtensionStateFunc(. state, ExtensionManager.buildAPI()),
         )
       },
       _prepare(),

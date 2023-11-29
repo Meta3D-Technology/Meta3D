@@ -8,7 +8,6 @@ import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType
 import { service as eventService, eventSourcingService, eventDataService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
-import { List } from "immutable"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { contributeType } from "meta3d-type/src/contribute/ContributeType"
 import { config as editorEventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
@@ -234,9 +233,9 @@ let _loopEngine = (meta3dState: meta3dState, api: api) => {
 	return update(api, meta3dState).then(meta3dState => render(api, meta3dState))
 }
 
-let _exportEventDataForDebug = (eventSourcingService: eventSourcingService, eventDataService: eventDataService) => {
+let _exportEventDataForDebug = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, eventDataService: eventDataService) => {
 	eventDataService.exportEventData(
-		eventSourcingService.getAllEventsFromGlobalThis().toArray()
+		eventSourcingService.getAllEventsFromGlobalThis(meta3dState).toArray()
 	)
 }
 
@@ -244,6 +243,7 @@ let _handleError = (api: api, meta3dState: meta3dState) => {
 	let eventService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
 	_exportEventDataForDebug(
+		meta3dState,
 		eventService.eventSourcing(meta3dState),
 		eventService.eventData(meta3dState),
 	)
@@ -435,10 +435,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 export let createExtensionState: createExtensionStateMeta3D<
 	state
-> = () => {
+> = (meta3dState, api) => {
 	return {
-		initFuncs: List(),
-		currentAllEvents: List()
+		initFuncs: api.immutable.createList(meta3dState),
+		currentAllEvents: api.immutable.createList(meta3dState),
 	}
 }
 

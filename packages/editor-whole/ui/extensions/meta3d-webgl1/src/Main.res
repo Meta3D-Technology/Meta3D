@@ -323,7 +323,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
 
 let createExtensionState: Meta3dType.Index.createExtensionState<
   Meta3dWebgl1Protocol.StateType.state,
-> = () => {
+> = (. _, _) => {
   ()
 }
 

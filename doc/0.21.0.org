@@ -1202,19 +1202,19 @@ TODO fix:
 * DONE update Action: move uiData to action protocol
 
 
-* TODO refactor: continue "ap assemble space: remove Extensions, Selected Extensions"
+# * TODO refactor: continue "ap assemble space: remove Extensions, Selected Extensions"
 
-TODO remove Store->StartExtension
-TODO remove extension-> isStart
+# TODO remove Store->StartExtension
+# TODO remove extension-> isStart
 
 
 
-* TODO update api for action,input,uiControl
+* DONE update api for action,input,uiControl
 
 use api.nullable.xxx, ...
 
 
-* TODO perf: remove direct dependent one immutable, use immutable extension instead
+* DONE perf: remove direct dependent one immutable, use immutable extension instead
 
 e.g. use import type {List} from "immutable" instead of import {List} from "immutable"
 
@@ -1222,7 +1222,7 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 
 
-* TODO refactor: remove ui control->init
+# * TODO refactor: remove ui control->init
 
 # *** TODO refactor: rename inputData to specificData
 * TODO refactor: move rect out of specficData
@@ -1230,6 +1230,8 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 * TODO refactor: remove IsDraw
 
+
+* TODO publish and run test
 
 
 * TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
