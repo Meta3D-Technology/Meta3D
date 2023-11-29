@@ -4,7 +4,7 @@ import { states } from "meta3d-pipeline-webgl1-three-sceneviewrender-protocol/sr
 import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
-import { addDefaultGameObjects, addGameObjects } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
+import { addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 import { gameObject } from "meta3d-gameobject-protocol";
 
@@ -21,7 +21,7 @@ let _addDefaultGameObjects = (meta3dState: meta3dState,
     )
 
 
-    data = addGameObjects(meta3dState, engineSceneService)
+    data = addGameObjectsForSceneView(meta3dState, engineSceneService)
     meta3dState = data[0]
     let cameraController = data[1]
     let cameraGameObject = data[2]

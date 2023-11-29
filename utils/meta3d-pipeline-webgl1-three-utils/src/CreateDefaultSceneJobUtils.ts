@@ -258,7 +258,7 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineSceneService
 
 
 // export let addGameObjectsForSceneView = (meta3dState: meta3dState, engineSceneService: engineSceneService,
-export let addGameObjects = (meta3dState: meta3dState, engineSceneService: engineSceneService,
+export let addGameObjectsForSceneView = (meta3dState: meta3dState, engineSceneService: engineSceneService,
 ): [meta3dState, arcballCameraController, gameObject] => {
     let data = _createArcballCameraGameObject(meta3dState, engineSceneService,
         30

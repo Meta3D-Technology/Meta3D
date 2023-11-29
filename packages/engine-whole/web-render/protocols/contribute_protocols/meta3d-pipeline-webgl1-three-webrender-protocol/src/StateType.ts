@@ -16,8 +16,6 @@ export enum job {
     ConvertSceneGraph = "convert_scenegraph_three_webrender_meta3d",
     Init = "init_three_webrender_meta3d",
     Render = "render_three_webrender_meta3d",
-
-    CreateDefaultScene = "create_default_scene_three_webrender_meta3d"
 }
 
 export const allPipelineData: allPipelineDataType = [
@@ -30,10 +28,6 @@ export const allPipelineData: allPipelineDataType = [
                 elements: [
                     {
                         "name": job.Init,
-                        "type_": "job"
-                    },
-                    {
-                        "name": job.CreateDefaultScene,
                         "type_": "job"
                     },
 

@@ -1241,15 +1241,23 @@ TODO remove immutable extension
 TODO update core, event,   editor/engine whole
 
 
-* TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
+# * TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/
 
 
 
 
-* TODO fix: import single event: 1.export single event 2. import event: render lighter !
+* DONE fix: import single event: 1.export single event 2. import event: render lighter !
 if continue 1.->2., then will render more lighter!
 
-* TODO fix: action publish: render lighter than visualRun
+TODO fix: action publish: render lighter than visualRun
+
+
+
+
+TODO update 
+editor whole
+web render
+engine whole
 
 
 
@@ -1271,3 +1279,10 @@ if continue 1.->2., then will render more lighter!
 * TODO two kind asset package implement:
 BasicAsset
 DracoKTX2Asset
+
+
+* TODO publish
+
+pass bdd test
+
+pass ci

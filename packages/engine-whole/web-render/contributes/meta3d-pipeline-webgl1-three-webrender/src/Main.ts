@@ -1,5 +1,4 @@
 import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType";
-import { execFunc as execCreateDefaultScene } from "./jobs/init/CreateDefaultSceneJob";
 import { execFunc as execInit } from "./jobs/init/InitJob";
 import { execFunc as execConvertSceneGraph } from "./jobs/render/ConvertSceneGraphJob";
 import { execFunc as execRender } from "./jobs/render/RenderJob";
@@ -18,8 +17,6 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execInit;
 		case job.Render:
 			return execRender;
-		case job.CreateDefaultScene:
-			return execCreateDefaultScene
 		default:
 			return null
 	}
