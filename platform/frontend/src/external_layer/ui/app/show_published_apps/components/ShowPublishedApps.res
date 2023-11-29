@@ -117,6 +117,18 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                       item.description,
                     )}
                   />
+                  {!isDownloadFinish &&
+                  currentImportingKey
+                  ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
+                    currentImportingKey == Method.buildKey(item.account, item.appName)
+                  )
+                  ->Meta3dCommonlib.OptionSt.getWithDefault(false)
+                    ? <p>
+                        {React.string({
+                          j`${downloadProgress->Js.Int.toString}% downloading...`
+                        })}
+                      </p>
+                    : React.null}
                   <Button
                     onClick={_ => {
                       _openLink(_buildURL(item.account, item.appName))
@@ -129,17 +141,6 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     importedAppIds,
                   )
                     ? <Button disabled=true> {React.string(`已导入`)} </Button>
-                    : !isDownloadFinish &&
-                    currentImportingKey
-                    ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
-                      currentImportingKey == Method.buildKey(item.account, item.appName)
-                    )
-                    ->Meta3dCommonlib.OptionSt.getWithDefault(false)
-                    ? <p>
-                      {React.string({
-                        j`${downloadProgress->Js.Int.toString}% downloading...`
-                      })}
-                    </p>
                     : <Button
                         onClick={_ => {
                           setIsDownloadFinish(_ => false)

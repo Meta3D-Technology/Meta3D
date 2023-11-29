@@ -19,8 +19,9 @@ let make = (
   let (page, setPage) = React.useState(_ => 1)
   let (allPublishPackages, setAllPublishPackages) = React.useState(_ => [])
 
-  let (backendProgress, setBackendProgress) = React.useState(_ => 0)
-  let (isBackendBegin, setIsBackendBegin) = React.useState(_ => false)
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (isDownloadBegin, setIsDownloadBegin) = React.useState(_ => false)
+  let (currentImportingKey, setCurrentImportingKey) = React.useState(_ => None)
 
   let (selectPublishPackage, setSelectPublishPackage) = React.useState(_ =>
     Meta3dCommonlib.ImmutableHashMap.createEmpty()
@@ -80,9 +81,6 @@ let make = (
         ? <p> {React.string(`loading...`)} </p>
         : {
             <>
-              {isBackendBegin
-                ? <p> {React.string({j`${backendProgress->Js.Int.toString}% backending...`})} </p>
-                : React.null}
               <List
                 itemLayout=#horizontal
                 dataSource={FrontendUtils.MarketUtils.getCurrentPage(
@@ -112,6 +110,16 @@ let make = (
                         item.description,
                       )}
                     />
+                    {isDownloadBegin &&
+                    currentImportingKey
+                    ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
+                      currentImportingKey == item.name
+                    )
+                    ->Meta3dCommonlib.OptionSt.getWithDefault(false)
+                      ? <p>
+                          {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
+                        </p>
+                      : React.null}
                     {FrontendUtils.SelectUtils.buildSelectWithoutEmpty(
                       version =>
                         setSelectPublishPackage(value =>
@@ -156,10 +164,11 @@ let make = (
                           </Button>
                         : <Button
                             onClick={_ => {
-                              setIsBackendBegin(_ => true)
+                              setIsDownloadBegin(_ => true)
+                              setCurrentImportingKey(_ => item.name->Some)
 
                               service.backend.findPublishPackage(.
-                                progress => setBackendProgress(_ => progress),
+                                progress => setDownloadProgress(_ => progress),
                                 FrontendUtils.MarketUtils.getLimitCount(),
                                 0,
                                 // item.entryExtensionProtocolName,
@@ -171,18 +180,17 @@ let make = (
                                 item.version,
                               )
                               ->Meta3dBsMostDefault.Most.observe(file => {
+                                setIsDownloadBegin(_ => false)
+                                setCurrentImportingKey(_ => None)
+
                                 Meta3dCommonlib.NullableSt.isNullable(file)
                                   ? {
-                                      setIsBackendBegin(_ => false)
-
                                       FrontendUtils.ErrorUtils.error(
                                         {j`找不到package file`},
                                         None,
                                       )->Obj.magic
                                     }
                                   : {
-                                      setIsBackendBegin(_ => false)
-
                                       dispatch(
                                         FrontendUtils.AppStoreType.UserCenterAction(
                                           FrontendUtils.UserCenterStoreType.SelectPackage({
@@ -207,7 +215,8 @@ let make = (
                                     }
                               }, _)
                               ->Js.Promise.catch(e => {
-                                setIsBackendBegin(_ => false)
+                                setIsDownloadBegin(_ => false)
+                                setCurrentImportingKey(_ => None)
 
                                 FrontendUtils.ErrorUtils.errorWithExn(
                                   e->FrontendUtils.Error.promiseErrorToExn,
@@ -221,10 +230,11 @@ let make = (
                     }
                     <Button
                       onClick={_ => {
-                        setIsBackendBegin(_ => true)
+                        setIsDownloadBegin(_ => true)
+                        setCurrentImportingKey(_ => item.name->Some)
 
                         service.backend.findPublishPackage(.
-                          progress => setBackendProgress(_ => progress),
+                          progress => setDownloadProgress(_ => progress),
                           FrontendUtils.MarketUtils.getLimitCount(),
                           0,
                           item.account,
@@ -232,18 +242,16 @@ let make = (
                           item.version,
                         )
                         ->Meta3dBsMostDefault.Most.observe(file => {
+                          setIsDownloadBegin(_ => false)
+                          setCurrentImportingKey(_ => None)
                           Meta3dCommonlib.NullableSt.isNullable(file)
                             ? {
-                                setIsBackendBegin(_ => false)
-
                                 FrontendUtils.ErrorUtils.error(
                                   {j`找不到package file`},
                                   None,
                                 )->Obj.magic
                               }
                             : {
-                                setIsBackendBegin(_ => false)
-
                                 Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
                                   file->Meta3dCommonlib.NullableSt.getExn,
                                   _buildPackageFileName(item.name, item.version),
@@ -252,7 +260,8 @@ let make = (
                               }
                         }, _)
                         ->Js.Promise.catch(e => {
-                          setIsBackendBegin(_ => false)
+                          setIsDownloadBegin(_ => false)
+                          setCurrentImportingKey(_ => None)
 
                           FrontendUtils.ErrorUtils.errorWithExn(
                             e->FrontendUtils.Error.promiseErrorToExn,
@@ -267,10 +276,11 @@ let make = (
                       ? <Button disabled=true> {React.string(`已导入`)} </Button>
                       : <Button
                           onClick={_ => {
-                            setIsBackendBegin(_ => true)
+                            setIsDownloadBegin(_ => true)
+                            setCurrentImportingKey(_ => item.name->Some)
 
                             service.backend.findPublishPackage(.
-                              progress => setBackendProgress(_ => progress),
+                              progress => setDownloadProgress(_ => progress),
                               FrontendUtils.MarketUtils.getLimitCount(),
                               0,
                               item.account,
@@ -278,10 +288,11 @@ let make = (
                               item.version,
                             )
                             ->Meta3dBsMostDefault.Most.flatMap(file => {
+                              setIsDownloadBegin(_ => false)
+                              setCurrentImportingKey(_ => None)
+
                               Meta3dCommonlib.NullableSt.isNullable(file)
                                 ? {
-                                    setIsBackendBegin(_ => false)
-
                                     FrontendUtils.ErrorUtils.error(
                                       {j`找不到package file`},
                                       None,
@@ -300,7 +311,8 @@ let make = (
                                 service,
                                 (
                                   () => {
-                                    setIsBackendBegin(_ => false)
+                                    setIsDownloadBegin(_ => false)
+                                    setCurrentImportingKey(_ => None)
                                   },
                                   (selectedExtensions, selectedContributes, selectedPackages) =>
                                     dispatch(

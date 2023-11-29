@@ -1264,12 +1264,12 @@ engine whole
 
 
 
-* TODO style: import package: show info under import button like import app
+* DONE style: import package: show info under import button like import app
 
-* TODO style: select package: show info under select button
+* DONE style: select package: show info under select button
 
 
-* TODO remove meta3d-imgui-webgl1-three-renderer in ui package
+* DONE remove meta3d-imgui-webgl1-three-renderer in ui package
 
 
 * TODO feat(platform): ap assemble: PackageInspector, ContributeInspector show protocol,implement repo link
