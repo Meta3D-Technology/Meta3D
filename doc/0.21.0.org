@@ -1171,19 +1171,23 @@ TODO fix:
 
 * DONE fix: inputNumber
 
-* TODO Selected UIControls show label instead of display name
+# * TODO Selected UIControls show label instead of display name
 
 
 
-* TODO change input/action file str to same with contribute file
-use:
-export let getContribute = (api) =>{
-    ...
-}
+# * TODO change input/action file str to same with contribute file
+# use:
+# export let getContribute = (api) =>{
+#     ...
+# }
 
 
+# TODO input
 
-* TODO switch to element assemble, show loading...
+# TODO action
+
+
+* DONE switch to element assemble, show loading...
 
 
 

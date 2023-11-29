@@ -103,13 +103,7 @@ defineFeature(feature, test => {
     \"when"(
       "render",
       () => {
-        // useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
-
-        // useStateStub.contents
-        // ->onCall(0, _)
-        // ->returns((ElementVisual.Loaded(Obj.magic(1)), _ => ElementVisual.Loaded(Obj.magic(1))), _)
-        // ->ignore
-        ()
+        useStateStub := ReactHookTool.buildEmptySetStateFunc()
       },
     )
 
@@ -280,7 +274,7 @@ defineFeature(feature, test => {
     let execGetContributeFuncStub = ref(Obj.magic(1))
     // let registerContributeStub = ref(Obj.magic(1))
     let convertAllFileDataForAppFake = allContributeDataArr => {
-    //   allContributeDataArrRef := allContributeDataArr
+      //   allContributeDataArrRef := allContributeDataArr
 
       Meta3d.Main.convertAllFileDataForApp(allContributeDataArr)
     }
@@ -565,6 +559,7 @@ defineFeature(feature, test => {
             ->Obj.magic,
             (),
           ),
+          // ReactHookTool.buildEmptySetStateFunc(),
           loopFrameIDRef,
           (selectedPackages.contents, list{}, list{}),
           //   (account, selectedUIControlInspectorData.contents),

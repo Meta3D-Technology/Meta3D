@@ -29,7 +29,9 @@ module Method = {
     )
   }
 
-  let useSelector = ({apAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) => {
+  let useSelector = (
+    {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
+  ) => {
     let {selectedContributes, customInputs, customActions} = apAssembleState
 
     (selectedContributes, customInputs, customActions)
@@ -70,7 +72,7 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
 
   {
     switch selectedContributesAfterGeneratedCustoms {
-    | None => React.null
+    | None => <p> {React.string(`处理中...`)} </p>
     | Some(selectedContributesAfterGeneratedCustoms) =>
       <Layout>
         <Layout.Content>

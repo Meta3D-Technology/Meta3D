@@ -13,7 +13,7 @@ let getValueWithArg1 = (~setLocalValueStub, ~arg1, ~callIndex=0, ()) => {
 }
 
 let buildEmptySetStateFunc = () => {
-  () => ()
+  (func) => []-> Obj.magic
 }
 
 // let buildUseStateStub = (~sandbox, ~callData=[], ()) => {

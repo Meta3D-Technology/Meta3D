@@ -114,11 +114,9 @@ module Method = {
     ->ignore
   }
 
-  let _generateApp = (
-    service,
-    ((selectPackages, allPackagesStoredInApp), selectedContributes),
+  let _generateApp = (service, ((selectPackages, allPackagesStoredInApp), selectedContributes)) => {
     // (account, selectedUIControlInspectorData),
-  ) => {
+
     AppUtils.generateApp(
       service,
       (selectPackages, allPackagesStoredInApp),
