@@ -1,6 +1,6 @@
 import { state as meta3dState } from "meta3d-type"
 import { func } from "meta3d-input-window-protocol"
-import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
+
 import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
@@ -17,7 +17,6 @@ type flagSelectValue = {
 }
 
 export type specificData = {
-    rect: rect,
     label: string,
     flag: flagSelectValue,
     childrenFunc: childrenFunc

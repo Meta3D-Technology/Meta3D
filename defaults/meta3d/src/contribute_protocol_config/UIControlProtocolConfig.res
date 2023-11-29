@@ -2,10 +2,6 @@ let serializeLib = protocolConfigStr => {
   LibUtils.serializeLib(protocolConfigStr, "UIControlProtocolConfig")
 }
 
-let generateUIControlCommonDataStr = (configLib, rect) => {
-  (LibUtils.getFuncFromLib(configLib, "generateUIControlCommonDataStr")->Obj.magic)(. rect)
-}
-
 let getUIControlSpecificDataFields = configLib => {
   (LibUtils.getFuncFromLib(configLib, "getUIControlSpecificDataFields")->Obj.magic)()
 }

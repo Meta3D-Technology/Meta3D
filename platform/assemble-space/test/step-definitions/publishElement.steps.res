@@ -221,7 +221,6 @@ defineFeature(feature, test => {
   //           ~sandbox,
   //           ~generateContribute=generateContributeStub.contents->Obj.magic,
   //           ~serializeUIControlProtocolConfigLib=Meta3d.Main.serializeUIControlProtocolConfigLib->Obj.magic,
-  //           ~generateUIControlCommonDataStr=Meta3d.Main.generateUIControlCommonDataStr->Obj.magic,
   //           ~getUIControlSupportedEventNames=Meta3d.Main.getUIControlSupportedEventNames->Obj.magic,
   //           ~generateHandleUIControlEventStr=Meta3d.Main.generateHandleUIControlEventStr->Obj.magic,
   //           (),

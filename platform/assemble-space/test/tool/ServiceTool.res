@@ -118,7 +118,6 @@ let build = (
   ~serializeUIControlProtocolConfigLib=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
-  ~generateUIControlCommonDataStr=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getUIControlSpecificDataFields=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getUIControlSupportedEventNames=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns([], _)
@@ -206,7 +205,6 @@ let build = (
     execGetContributeFunc,
     hasChildren,
     serializeUIControlProtocolConfigLib,
-    generateUIControlCommonDataStr,
     getUIControlSpecificDataFields,
     getUIControlSupportedEventNames,
     generateHandleUIControlEventStr,

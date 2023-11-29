@@ -7,8 +7,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
         uiControlName: uiControlName,
         func: (meta3dState,
             _,
+            rect,
             {
-                rect,
                 label
             }
         ) => {

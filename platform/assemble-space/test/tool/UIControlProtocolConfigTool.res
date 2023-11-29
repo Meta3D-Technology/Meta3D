@@ -1,9 +1,6 @@
 let buildButtonContributeProtocolConfigStr = () => {
   `
 window.UIControlProtocolConfig = {
-    generateUIControlCommonDataStr: (rect) => {
-        return "{rect: " + rect + "}"
-    },
     getUIControlSpecificDataFields: () => [],
     getUIControlSupportedEventNames: () => ["button_click"],
     generateHandleUIControlEventStr: ([clickActionName]) => {
@@ -20,9 +17,6 @@ window.UIControlProtocolConfig = {
 let buildWindowContributeProtocolConfigStr = () => {
   `
 window.UIControlProtocolConfig = {
-    generateUIControlCommonDataStr: (rect) => {
-        return "{rect: " + rect + "}"
-    },
     getUIControlSpecificDataFields: () => [
     {
         name: "label",

@@ -1,4 +1,4 @@
-import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
+
 import { menuLabel as menuLabel_ } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 
 export const uiControlName = "Menu"
@@ -14,7 +14,6 @@ export type menuLabel = menuLabel_
 export type menuItems = Array<[menuLabel, Record<menuLabel, actionName>]>
 
 export type specificData = {
-    rect: rect,
     label: string,
     items: menuItems,
 }

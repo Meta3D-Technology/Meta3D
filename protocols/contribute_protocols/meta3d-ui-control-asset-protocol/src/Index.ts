@@ -1,4 +1,3 @@
-import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { outsideImmutableDataId } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { imguiImplTexture } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { func } from "meta3d-input-asset-protocol"
@@ -16,7 +15,6 @@ export type state = {
 export type inputFunc = nullable<func>
 
 export type specificData = {
-    rect: rect,
     label: string,
     image: nullable<imageBase64>,
 }

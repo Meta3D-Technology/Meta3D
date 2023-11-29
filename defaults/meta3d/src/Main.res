@@ -58,8 +58,6 @@ let getContributeFuncData = AppManager.getContributeFuncData
 
 let serializeUIControlProtocolConfigLib = UIControlProtocolConfig.serializeLib
 
-let generateUIControlCommonDataStr = UIControlProtocolConfig.generateUIControlCommonDataStr
-
 let getUIControlSpecificDataFields = UIControlProtocolConfig.getUIControlSpecificDataFields
 
 let hasChildren = UIControlProtocolConfig.hasChildren

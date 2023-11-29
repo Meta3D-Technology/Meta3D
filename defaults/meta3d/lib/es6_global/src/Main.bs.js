@@ -68,8 +68,6 @@ var getContributeFuncData = AppManager$Meta3d.getContributeFuncData;
 
 var serializeUIControlProtocolConfigLib = UIControlProtocolConfig$Meta3d.serializeLib;
 
-var generateUIControlCommonDataStr = UIControlProtocolConfig$Meta3d.generateUIControlCommonDataStr;
-
 var getUIControlSpecificDataFields = UIControlProtocolConfig$Meta3d.getUIControlSpecificDataFields;
 
 var hasChildren = UIControlProtocolConfig$Meta3d.hasChildren;
@@ -119,7 +117,6 @@ export {
   convertContributeFuncData ,
   getContributeFuncData ,
   serializeUIControlProtocolConfigLib ,
-  generateUIControlCommonDataStr ,
   getUIControlSpecificDataFields ,
   hasChildren ,
   getUIControlSupportedEventNames ,

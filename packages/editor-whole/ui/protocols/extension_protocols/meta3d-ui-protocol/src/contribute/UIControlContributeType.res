@@ -6,6 +6,7 @@ type uiControlFunc<'inputFunc, 'specificData, 'outputData> = (
   . Meta3dType.Index.state,
   // getInputFunc<'inputFunc>,
   'inputFunc,
+  Meta3dType.UIControlProtocolConfigType.rect,
   'specificData,
 ) => Js.Promise.t<(Meta3dType.Index.state, 'outputData)>
 

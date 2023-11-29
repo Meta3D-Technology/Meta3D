@@ -16,9 +16,6 @@ export type actionName = nullable<string>
 
 export type versionRange = string
 
-export type generateUIControlCommonDataStr = (rect: string) => string
-
-
 type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems" | "bool" | "select" | "number"
 
 type uiControlSpecicFieldValue = any

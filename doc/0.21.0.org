@@ -1224,8 +1224,8 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 
 # * TODO refactor: remove ui control->init
 
-# *** TODO refactor: rename inputData to specificData
-* TODO refactor: move rect out of specficData
+* DONE refactor: move rect out of specficData
+* DONE refactor: remove generateUIControlCommonDataStr
 
 
 * TODO refactor: remove IsDraw

@@ -273,12 +273,12 @@ and _generateAllDrawUIControlAndHandleEventStr = (
           j`null`
         }) ++
         "," ++
+        {j`
+        rect: ${_generateRect(data.rect)},
+        `}
+        ++
         j`
                 {
-                  ...${service.meta3d.generateUIControlCommonDataStr(.
-            protocol.configLib,
-            _generateRect(data.rect),
-          )},
         ...${_generateSpecific(data.specific)},
       ${_generateChildren(service, children)}
                 }

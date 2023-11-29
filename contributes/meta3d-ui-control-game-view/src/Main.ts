@@ -1,5 +1,5 @@
 import { getContribute as getContributeMeta3D } from "meta3d-type"
-import { uiControlName, textureID, state as uiControlState, inputFunc, specificData, outputData } from "meta3d-ui-control-game-view-protocol"
+import { uiControlName, textureID, inputFunc, specificData, outputData } from "meta3d-ui-control-game-view-protocol"
 import { changeToStrictlyNull, getFBORect } from "meta3d-ui-control-view-utils/src/Main"
 import { uiControlContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as renderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
@@ -10,8 +10,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
         uiControlName: uiControlName,
         func: (meta3dState,
             _,
+            rect,
             {
-                rect,
                 label,
             }
         ) => {

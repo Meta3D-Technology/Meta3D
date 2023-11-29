@@ -24,8 +24,6 @@ type actionName = Js.Nullable.t<string>
 
 type versionRange = string
 
-type generateUIControlCommonDataStr = string => string
-
 type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems | #bool | #select | #number]
 
 type uiControlSpecicFieldValue

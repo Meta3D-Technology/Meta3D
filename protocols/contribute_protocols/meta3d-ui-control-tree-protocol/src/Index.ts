@@ -1,4 +1,4 @@
-import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
+
 import { func } from "meta3d-input-tree-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { imguiImplTexture, treeIndexData, treeReturnData } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
@@ -22,7 +22,6 @@ export type state = {
 export type inputFunc = nullable<func>
 
 export type specificData = {
-    rect: rect,
     label: string,
     rootNodeLabel: string,
     nodeType1Image: nullable<imageBase64>,

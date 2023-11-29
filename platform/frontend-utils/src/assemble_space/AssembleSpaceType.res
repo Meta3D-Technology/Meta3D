@@ -141,7 +141,6 @@ type meta3dService = {
     . Js.Typed_array.Uint8Array.t,
   ) => Meta3dType.Index.getContributeFuncResult,
   serializeUIControlProtocolConfigLib: Meta3dServiceCommonType.serializeUIControlProtocolConfigLib,
-  generateUIControlCommonDataStr: (. Meta3d.LibUtils.lib, string) => string,
   getUIControlSpecificDataFields: (
     . Meta3d.LibUtils.lib,
   ) => Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
