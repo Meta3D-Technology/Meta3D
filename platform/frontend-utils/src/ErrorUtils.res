@@ -12,13 +12,16 @@
 //   messageErrorFunc(Js.Exn.message(e), durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(10))
 // }
 
-let error = (errorMessage: string, durationOpt: option<int>) => {
-  Js.Console.error(errorMessage)
+let warn = (message: string, durationOpt: option<int>) => {
+  Js.Console.warn(message)
 
-  Antd__Message.message.error(.
-    errorMessage,
-    durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
-  )
+  Antd__Message.message.warn(. message, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5))
+}
+
+let error = (message: string, durationOpt: option<int>) => {
+  Js.Console.error(message)
+
+  Antd__Message.message.error(. message, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5))
 }
 
 let errorWithExn = (error: Js.Exn.t, durationOpt: option<int>) => {
@@ -49,11 +52,11 @@ let showCatchedErrorMessageWithFunc = (func, handleErrorFunc, durationOpt) => {
   }
 }
 
-let swallowCatchedError= func => {
+let swallowCatchedError = (func, warnMessage) => {
   try {
     func()
   } catch {
-  | Js.Exn.Error(obj) => ()
+  | Js.Exn.Error(obj) => warn(warnMessage, None)
   }
 }
 

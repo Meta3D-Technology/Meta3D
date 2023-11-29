@@ -1,6 +1,11 @@
+type warn = (. string, int) => unit
+
 type error = (. string, int) => unit
 
-type message = {error: error}
+type message = {
+  warn: warn,
+  error: error,
+}
 
 @module("antd") @val
 external message: message = "message"
@@ -10,4 +15,8 @@ external message: message = "message"
 
 let error = (. info, duration) => {
   (message->Obj.magic)["error"](. info, duration)
+}
+
+let warn = (. info, duration) => {
+  (message->Obj.magic)["warn"](. info, duration)
 }

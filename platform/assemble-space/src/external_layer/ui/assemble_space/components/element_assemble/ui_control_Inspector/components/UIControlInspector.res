@@ -497,7 +497,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                           ->FrontendUtils.CommonType.SpecicFieldDataValue,
                           type_,
                         )
-                      })
+                      }, {j`不是有效的json`})
                     }}
                   />
                 </Space>

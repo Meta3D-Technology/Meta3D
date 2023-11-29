@@ -1192,7 +1192,7 @@ TODO fix:
 
 
 
-* TODO menu->specific: add warn if error
+* DONE menu->specific: add warn if error
 
 
 
