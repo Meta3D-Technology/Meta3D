@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ts-contract-utils",
-    "version": "0.20.0",
+    "version": "0.21.0",
     "license": "",
     "main": "src/Contract.ts",
     "scripts": {

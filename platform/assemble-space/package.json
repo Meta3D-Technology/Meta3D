@@ -1,6 +1,6 @@
 {
     "name": "assemble-space",
-    "version": "0.20.0",
+    "version": "0.21.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
@@ -25,9 +25,9 @@
     },
     "dependencies": {
         "antd": "^4.21.0",
+        "meta3d-bs-most-default": "^0.21.0",
+        "meta3d-editor-whole-protocol": "^0.21.0",
         "remporium": "^0.0.1",
-        "meta3d-editor-whole-protocol": "^0.20.0",
-        "meta3d-bs-most-default": "^0.20.0",
         "rescript": "^10.0.1"
     }
 }

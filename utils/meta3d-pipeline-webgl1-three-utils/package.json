@@ -1,14 +1,14 @@
 {
     "name": "meta3d-pipeline-webgl1-three-utils",
-    "version": "0.20.0",
+    "version": "0.21.0",
     "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-three-protocol": "^0.20.0",
-        "meta3d-type": "^0.20.0"
+        "meta3d-three-protocol": "^0.21.0",
+        "meta3d-type": "^0.21.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

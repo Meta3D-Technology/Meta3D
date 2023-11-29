@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-root",
-    "version": "0.20.3",
+    "version": "0.21.0",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-root-protocol"
@@ -16,9 +16,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-core-protocol": "^0.20.0",
-        "meta3d-pipeline-root-protocol": "^0.20.0",
-        "meta3d-type": "^0.20.0",
+        "meta3d-core-protocol": "^0.21.0",
+        "meta3d-pipeline-root-protocol": "^0.21.0",
+        "meta3d-type": "^0.21.0",
         "rescript": "^10.0.1"
     },
     "devDependencies": {
@@ -26,7 +26,7 @@
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.20.0",
+        "meta3d-tool-publish": "^0.21.0",
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1"
     }
