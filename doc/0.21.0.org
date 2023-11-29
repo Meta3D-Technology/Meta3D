@@ -1169,7 +1169,7 @@ TODO fix:
 
 * DONE fix: specific->imagebase64 preview image same
 
-* TODO fix: inputNumber
+* DONE fix: inputNumber
 
 * TODO Selected UIControls show label instead of display name
 

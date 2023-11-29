@@ -546,13 +546,13 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
               key={name}
               value={getSpecificDataValue(value)->Obj.magic}
               step="0.0001"
-              onChange={e => {
+              onChange={value => {
                 _setSpecificData(
                   dispatch,
                   specific,
                   id,
                   i,
-                  e->EventUtils.getEventTargetValue->FrontendUtils.CommonType.SpecicFieldDataValue,
+                  value->Obj.magic->FrontendUtils.CommonType.SpecicFieldDataValue,
                   type_,
                 )
               }}
