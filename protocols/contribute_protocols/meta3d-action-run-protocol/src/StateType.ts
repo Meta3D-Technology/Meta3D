@@ -3,6 +3,8 @@
 
 export const actionName = "Run"
 
+export type uiData = null
+
 export type state = {
     // meta3dStateBeforeRun: nullable<meta3dState>,
     isRun: boolean,

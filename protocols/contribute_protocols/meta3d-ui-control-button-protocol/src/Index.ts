@@ -1,7 +1,5 @@
 import { rect } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 
-export type clickUIData = null
-
 export const uiControlName = "Button"
 
 export type state = null

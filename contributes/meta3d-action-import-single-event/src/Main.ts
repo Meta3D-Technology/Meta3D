@@ -1,8 +1,7 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
-import { clickUIData } from "meta3d-ui-control-button-protocol"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { eventSourcingService } from "meta3d-event-protocol/src/service/ServiceType"
-import { actionName, state } from "meta3d-action-import-single-event-protocol"
+import { uiData, actionName, state } from "meta3d-action-import-single-event-protocol"
 import { eventName, inputData } from "meta3d-action-import-single-event-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 // import { api.nullable.getExn } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -22,14 +21,13 @@ let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, api:
     }, true)
 }
 
-export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                // resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, sceneGLB, assetFile) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, sceneGLB) => {
                     _checkOnlyHasImportEvent(eventSourcingService, api, meta3dState)
 
@@ -40,7 +38,7 @@ export let getContribute: getContributeMeta3D<actionContribute<clickUIData, stat
 
                         // meta3dState = assetService.importAsset(meta3dState, assetFile)
 
-                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
+                        return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                     })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)

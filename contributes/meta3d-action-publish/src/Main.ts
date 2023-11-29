@@ -7,8 +7,7 @@ import meta3dJs from "../publish/meta3d.js"
 import basis_transcoderJs from "../publish/three/basis/basis_transcoder.js"
 import draco_decoderJs from "../publish/three/draco/gltf/draco_decoder.js"
 import draco_encoderJs from "../publish/three/draco/gltf/draco_encoder.js"
-import { clickUIData } from "meta3d-ui-control-button-protocol"
-import { actionName, state } from "meta3d-action-publish-protocol"
+import { uiData, actionName, state } from "meta3d-action-publish-protocol"
 import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 import { eventName, inputData } from "meta3d-action-publish-protocol/src/EventType"
 
@@ -25,7 +24,7 @@ let _loadAndWriteThreeJsData = (zip: JSZip, folderPath: string, name: string, js
 }
 
 
-export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {

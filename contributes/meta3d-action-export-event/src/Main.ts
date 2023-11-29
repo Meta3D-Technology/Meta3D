@@ -1,10 +1,9 @@
 import { state as meta3dState, getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { clickUIData } from "meta3d-ui-control-button-protocol"
-import { actionName, state } from "meta3d-action-export-event-protocol"
+import { uiData, actionName, state } from "meta3d-action-export-event-protocol"
 import { eventName, inputData } from "meta3d-action-export-event-protocol/src/EventType"
 
-export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {

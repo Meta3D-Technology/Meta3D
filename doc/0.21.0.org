@@ -1196,17 +1196,16 @@ TODO fix:
 
 
 
-* TODO fix: change custom action: ui control inspector->event select value not change
+# * TODO fix: change custom action: ui control inspector->event select value not change
 
 
-* TODO update Action: move uiData to action protocol
+* DONE update Action: move uiData to action protocol
 
 
 * TODO refactor: continue "ap assemble space: remove Extensions, Selected Extensions"
 
 TODO remove Store->StartExtension
 TODO remove extension-> isStart
-
 
 
 

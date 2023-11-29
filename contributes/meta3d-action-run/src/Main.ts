@@ -1,6 +1,5 @@
 import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
-import { clickUIData } from "meta3d-ui-control-button-protocol"
-import { actionName, state } from "meta3d-action-run-protocol"
+import { uiData, actionName, state } from "meta3d-action-run-protocol"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
 // import { setIsEventStopForGameView } from "meta3d-pipeline-utils/src/ArcballCameraControllerEventUtils"
@@ -56,7 +55,7 @@ let _stopGameViewRender = (meta3dState: meta3dState, api: api): meta3dState => {
 //     ], meta3dState, api)
 // }
 
-export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {

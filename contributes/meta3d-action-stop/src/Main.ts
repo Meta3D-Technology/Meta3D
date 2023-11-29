@@ -1,6 +1,5 @@
 import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
-import { clickUIData } from "meta3d-ui-control-button-protocol"
-import { actionName, state } from "meta3d-action-stop-protocol"
+import { uiData, actionName, state } from "meta3d-action-stop-protocol"
 import { eventName, inputData } from "meta3d-action-stop-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
@@ -36,7 +35,7 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api,
 //     return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - lastEventsToRun.count()))
 // }
 
-export let getContribute: getContributeMeta3D<actionContribute<clickUIData, state>> = (api) => {
+export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
