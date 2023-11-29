@@ -408,6 +408,10 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
   //   }
   // }
 
+  let buildImageBase64MapKey = (id, specificIndex) => {
+    j`${id}_${specificIndex->IntUtils.intToString}`
+  }
+
   let buildSpecific = (service, dispatch, (imageBase64Map, setImageBase64Map), id, specific) => {
     <>
       {specific
@@ -443,7 +447,10 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                   _handleUploadImage(
                     (file, imageBase64) => {
                       setImageBase64Map(map =>
-                        map->Meta3dCommonlib.ImmutableSparseMap.set(i, imageBase64->Obj.magic)
+                        map->Meta3dCommonlib.ImmutableHashMap.set(
+                          buildImageBase64MapKey(id, i),
+                          imageBase64->Obj.magic,
+                        )
                       )
 
                       _setSpecificData(
@@ -464,7 +471,9 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                 showUploadList=false>
                 <Button icon={<Icon.UploadOutlined />}> {React.string(`上传图片`)} </Button>
               </Upload>
-              {switch imageBase64Map->Meta3dCommonlib.ImmutableSparseMap.get(i) {
+              {switch imageBase64Map->Meta3dCommonlib.ImmutableHashMap.get(
+                buildImageBase64MapKey(id, i),
+              ) {
               | Some(imageBase64) => <Image preview=true src={imageBase64} width=40 height=40 />
               | None => React.null
               }}
@@ -594,14 +603,14 @@ let make = (
       (. map, {type_, value}, i) => {
         switch type_ {
         | #imageBase64 =>
-          map->Meta3dCommonlib.ImmutableSparseMap.set(
-            i,
+          map->Meta3dCommonlib.ImmutableHashMap.set(
+            Method.buildImageBase64MapKey(currentSelectedUIControlInspectorData.id, i),
             value->Method.getSpecificDataValue->Obj.magic,
           )
         | _ => map
         }
       },
-      Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
+      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
     )
   )
   // let (inputFileStr, setInputFileStr) = service.react.useState(_ =>
