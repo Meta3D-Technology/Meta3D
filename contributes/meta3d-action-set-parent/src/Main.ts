@@ -94,7 +94,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allHierachyData: api.immutable.createList(meta3dState)
+                allHierachyData: api.immutable.createList()
             }
         }
     }

@@ -63,7 +63,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                addedGLBIds: api.immutable.createList(meta3dState),
+                addedGLBIds: api.immutable.createList(),
             }
         }
     }

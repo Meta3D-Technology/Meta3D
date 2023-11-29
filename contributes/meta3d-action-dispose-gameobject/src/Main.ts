@@ -75,7 +75,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
                         allSelectedGameObjects: state.allSelectedGameObjects.push(selectedGameObject),
-                        allDisposedGameObjectData: state.allDisposedGameObjectData.push(api.immutable.createListOfData(meta3dState, disposedGameObjectData)),
+                        allDisposedGameObjectData: state.allDisposedGameObjectData.push(api.immutable.createListOfData( disposedGameObjectData)),
                     })
 
                     meta3dState = api.action.setActionState(meta3dState, selectSceneTreeNodeActionName, {
@@ -175,9 +175,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allSelectedGameObjects: api.immutable.createList(meta3dState),
-                allLastSceneTreeSelectedData: api.immutable.createList(meta3dState),
-                allDisposedGameObjectData: api.immutable.createList(meta3dState),
+                allSelectedGameObjects: api.immutable.createList(),
+                allLastSceneTreeSelectedData: api.immutable.createList(),
+                allDisposedGameObjectData: api.immutable.createList(),
             }
         }
     }

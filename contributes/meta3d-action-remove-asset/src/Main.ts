@@ -96,7 +96,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allRemoveAssetData: api.immutable.createList(meta3dState),
+                allRemoveAssetData: api.immutable.createList(),
             }
         }
     }

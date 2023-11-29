@@ -1,9 +1,9 @@
 
 
-import * as Js_array from "../../../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as TextDecoder$Meta3d from "../../../../../../../../node_modules/meta3d/lib/es6_global/src/file/TextDecoder.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as BinaryFileOperator$Meta3d from "../../../../../../../../node_modules/meta3d/lib/es6_global/src/file/BinaryFileOperator.bs.js";
+import * as Js_array from "../../../../../../../node_modules/rescript/lib/es6/js_array.js";
+import * as TextDecoder$Meta3d from "../../../../../../../node_modules/meta3d/lib/es6_global/src/file/TextDecoder.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as BinaryFileOperator$Meta3d from "../../../../../../../node_modules/meta3d/lib/es6_global/src/file/BinaryFileOperator.bs.js";
 
 function parse(eventData) {
   var decoder = new TextDecoder("utf-8");

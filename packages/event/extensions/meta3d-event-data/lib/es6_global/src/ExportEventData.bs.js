@@ -1,11 +1,11 @@
 
 
-import * as Curry from "../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Js_math from "../../../../../../../../node_modules/rescript/lib/es6/js_math.js";
-import * as TextEncoder$Meta3d from "../../../../../../../../node_modules/meta3d/lib/es6_global/src/file/TextEncoder.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as BinaryFileOperator$Meta3d from "../../../../../../../../node_modules/meta3d/lib/es6_global/src/file/BinaryFileOperator.bs.js";
-import * as DownloadUtils$Meta3dFileUtils from "../../../../../../../../node_modules/meta3d-file-utils/lib/es6_global/src/DownloadUtils.bs.js";
+import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_math from "../../../../../../../node_modules/rescript/lib/es6/js_math.js";
+import * as TextEncoder$Meta3d from "../../../../../../../node_modules/meta3d/lib/es6_global/src/file/TextEncoder.bs.js";
+import * as ArraySt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as BinaryFileOperator$Meta3d from "../../../../../../../node_modules/meta3d/lib/es6_global/src/file/BinaryFileOperator.bs.js";
+import * as DownloadUtils$Meta3dFileUtils from "../../../../../../../node_modules/meta3d-file-utils/lib/es6_global/src/DownloadUtils.bs.js";
 
 function _generateId(random) {
   return Js_math.floor_int(Curry._1(random, undefined) * 10000000.0);

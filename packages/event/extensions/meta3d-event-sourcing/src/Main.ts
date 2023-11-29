@@ -75,7 +75,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
 		},
 		createAllEvents: (allEventData, meta3dState) => {
-			return api.immutable.createListOfData(meta3dState, allEventData)
+			return api.immutable.createListOfData( allEventData)
 		},
 		// addOutsideImmutableData: (meta3dState, outsideImmutableDataId, outsideImmutableData) => {
 		// 	let state = api.getExtensionState<state>(meta3dState, "meta3d-event-sourcing-protocol")
@@ -134,7 +134,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			let result = globalThis[_getEventsKey()]
 
 			if (result === undefined) {
-				return api.immutable.createList(meta3dState)
+				return api.immutable.createList()
 			}
 
 			return result
@@ -186,7 +186,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			state = {
 				...state,
-				needReplaceAllEvents: api.immutable.createList(meta3dState)
+				needReplaceAllEvents: api.immutable.createList()
 			}
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
@@ -196,7 +196,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 			state = {
 				...state,
-				needBackwardEvents: api.immutable.createList(meta3dState)
+				needBackwardEvents: api.immutable.createList()
 			}
 
 			return api.setExtensionState(meta3dState, "meta3d-event-sourcing-protocol", state)
@@ -250,9 +250,9 @@ export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = (meta3dState, api) => {
 	return {
-		events: api.immutable.createList(meta3dState),
-		needReplaceAllEvents: api.immutable.createList(meta3dState),
-		needBackwardEvents: api.immutable.createList(meta3dState),
+		events: api.immutable.createList(),
+		needReplaceAllEvents: api.immutable.createList(),
+		needBackwardEvents: api.immutable.createList(),
 	}
 }
 

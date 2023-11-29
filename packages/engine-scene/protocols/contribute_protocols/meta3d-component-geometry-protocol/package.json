@@ -1,6 +1,6 @@
 {
   "name": "meta3d-component-geometry-protocol",
-  "version": "0.20.0",
+  "version": "0.20.3",
   "description": "",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "author": "Meta3D",
@@ -9,7 +9,8 @@
   "scripts": {
     "watch": "rescript clean && rescript build -w",
     "buildAll:ci": "rescript clean && rescript build",
-    "meta3d:publish_dev": "yarn buildAll:ci && tsc && gulp publish_local_env",
+    "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+    "meta3d:publish_dev": "yarn buildAll:ci && gulp publish_local_env",
     "meta3d:publish_pro": "yarn buildAll:ci && tsc && gulp publish_production_env"
   },
   "keywords": [],

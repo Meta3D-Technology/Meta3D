@@ -91,10 +91,15 @@ type map
 type dictData
 
 type immutableAPI = {
-  createList: (. state) => list,
-  createListOfData: (. state, arrayData) => list,
-  createMap: (. state) => map,
-  createMapOfData: (. state, dictData) => map,
+  // createList: (. state) => list,
+  // createListOfData: (. state, arrayData) => list,
+  // createMap: (. state) => map,
+  // createMapOfData: (. state, dictData) => map,
+
+  createList: unit => list,
+  createListOfData: (. arrayData) => list,
+  createMap: unit => map,
+  createMapOfData: (. dictData) => map,
 }
 
 type actionName = string

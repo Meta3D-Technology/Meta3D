@@ -274,7 +274,7 @@ and _generateAllDrawUIControlAndHandleEventStr = (
         }) ++
         "," ++
         {j`
-        rect: ${_generateRect(data.rect)},
+        ${_generateRect(data.rect)},
         `}
         ++
         j`

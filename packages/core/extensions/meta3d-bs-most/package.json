@@ -1,6 +1,6 @@
 {
   "name": "meta3d-bs-most",
-  "version": "0.20.0",
+  "version": "0.20.2",
   "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
   "displayName": "most",
   "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/extensions/meta3d-bs-most",
@@ -12,13 +12,13 @@
     "watch": "rescript clean && rescript build -w",
     "buildAll:ci": "rescript clean && rescript build",
     "webpack": "webpack --config webpack.config.js",
-            "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+    "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+    "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
     "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
   },
   "dependencies": {
-    "meta3d-bs-most-protocol": "^0.20.0",
     "meta3d-bs-most-default": "^0.20.0",
+    "meta3d-bs-most-protocol": "^0.20.0",
     "meta3d-type": "^0.20.0",
     "rescript": "^10.0.1"
   },

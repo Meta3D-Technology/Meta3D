@@ -204,7 +204,7 @@ function getExtensionService(api) {
         };
 }
 
-function createExtensionState(param) {
+function createExtensionState(param, param$1) {
   return {
           elementFuncMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
           elementStateMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),

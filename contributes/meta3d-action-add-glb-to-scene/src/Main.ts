@@ -99,7 +99,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropAssetFileUIDa
         },
         createState: (meta3dState) => {
             return {
-                importedGameObjects: api.immutable.createList(meta3dState),
+                importedGameObjects: api.immutable.createList(),
             }
         }
     }

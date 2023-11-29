@@ -1,13 +1,13 @@
 {
     "name": "meta3d-load-scene-protocol",
-    "version": "0.20.0",
+    "version": "0.20.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-"meta3d:publish_dev": "gulp publish_local_env",
+        "meta3d:publish_dev": "gulp publish_local_env",
         "meta3d:publish_pro": "gulp publish_production_env"
     },
     "keywords": [],

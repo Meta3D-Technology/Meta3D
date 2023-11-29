@@ -218,7 +218,7 @@ function getExtensionService(api) {
         };
 }
 
-function createExtensionState(param) {
+function createExtensionState(param, param$1) {
   return {
           maxUID: 0,
           wrapSs: ImmutableSparseMap$Meta3dCommonlib.createEmpty(undefined, undefined),

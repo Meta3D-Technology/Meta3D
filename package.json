@@ -34,6 +34,7 @@
 		"publish:minor2": "lerna publish minor --registry https://registry.npmjs",
 		"publish:patch": "lerna run update_patch_version --concurrency 1 && git add -A && git commit -m \"chore: update patch version\"",
 		"publish:patch2": "lerna publish patch --registry https://registry.npmjs",
+        "meta3d:publish_dev_auto": "lerna run meta3d:publish_dev_auto --concurrency 1",
 		"meta3d:publish_dev": "lerna run meta3d:publish_dev --concurrency 1",
 		"meta3d:publish_pro": "lerna run meta3d:publish_pro --concurrency 1",
 		"ci:test": "lerna run test:ci --concurrency 1"

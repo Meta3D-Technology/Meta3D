@@ -1,6 +1,6 @@
 {
     "name": "meta3d-core",
-    "version": "0.20.4",
+    "version": "0.20.8",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-core-protocol"
@@ -18,7 +18,6 @@
         "meta3d-core-protocol": "^0.20.0",
         "meta3d-engine-basic-protocol": "^0.20.0",
         "meta3d-engine-core-protocol": "^0.20.0",
-        "meta3d-immutable-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0",
         "rescript": "^10.0.1"
     },

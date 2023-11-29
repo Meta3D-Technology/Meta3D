@@ -7,7 +7,7 @@ var UIManager$Meta3dUi = require("../../src/UIManager.bs.js");
 var ImguiRendererServiceTool$Meta3dUi = require("./ImguiRendererServiceTool.bs.js");
 
 function createState(param) {
-  return Main$Meta3dUi.createExtensionState(undefined);
+  return Main$Meta3dUi.createExtensionState(1, 1);
 }
 
 function init(sandbox, getExtensionService, getPackageServiceOpt, getAllContributesByTypeOpt, getExtensionStateOpt, setExtensionStateOpt, getPackageOpt, restoreOpt, deepCopyOpt, imguiRendererExtensionProtocolNameOpt, isInitEventOpt, isDebugOpt, meta3dStateOpt, canvasOpt, param) {
@@ -234,12 +234,12 @@ function setNextWindowRect(sandbox, rect, getExtensionService, getPackageService
 }
 
 function getFBOTexture(textureID, stateOpt, param) {
-  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
+  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(1, 1);
   return UIManager$Meta3dUi.getFBOTexture(state, textureID);
 }
 
 function setFBOTexture(textureID, texture, stateOpt, param) {
-  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
+  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(1, 1);
   return UIManager$Meta3dUi.setFBOTexture(state, textureID, texture);
 }
 
@@ -343,7 +343,7 @@ function registerUIControl(uiControlName, func, initOpt, stateOpt, param) {
   var init = initOpt !== undefined ? initOpt : (function (param) {
         return Promise.resolve(1);
       });
-  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
+  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(1, 1);
   return UIManager$Meta3dUi.registerUIControl(state, {
               uiControlName: uiControlName,
               func: func,
@@ -359,7 +359,7 @@ function buildSkinContribute(skinName, skin) {
 }
 
 function registerSkin(skinName, skin, stateOpt, param) {
-  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(undefined);
+  var state = stateOpt !== undefined ? stateOpt : Main$Meta3dUi.createExtensionState(1, 1);
   return UIManager$Meta3dUi.registerSkin(state, {
               skinName: skinName,
               skin: skin

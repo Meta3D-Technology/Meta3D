@@ -26,7 +26,7 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api,
         return _func(result, index - 1)
     }
 
-    return _func(api.immutable.createList(meta3dState), allEvents.count() - 1).reverse()
+    return _func(api.immutable.createList(), allEvents.count() - 1).reverse()
 }
 
 // let _backwardEventsBeforeRun = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, lastEventsToRun: events) => {

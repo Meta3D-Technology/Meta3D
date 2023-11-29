@@ -3,6 +3,7 @@
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as Js_string from "../../../../../node_modules/rescript/lib/es6/js_string.js";
+import * as Immutable from "immutable";
 import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
@@ -158,28 +159,20 @@ function _buildNullableAPI(param) {
         };
 }
 
-function _buildImmutableAPI(nullableAPI, getPackageService) {
+function _buildImmutableAPI(param) {
   return {
-          createList: (function (state){
-    let { createList } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
-
-    return createList()
-  }),
-          createListOfData: (function (state, data){
-    let { createListOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
-
-    return createListOfData(data)
-  }),
-          createMap: (function (state){
-    let { createMap } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
-
-    return createMap()
-  }),
-          createMapOfData: (function (state, data){
-    let { createMapOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
-
-    return createMapOfData(data)
-  })
+          createList: (function (prim) {
+              return Immutable.List();
+            }),
+          createListOfData: (function (arrayData) {
+              return Immutable.List(arrayData);
+            }),
+          createMap: (function (prim) {
+              return Immutable.Map();
+            }),
+          createMapOfData: (function (dictData) {
+              return Immutable.Map(dictData);
+            })
         };
 }
 
@@ -286,7 +279,20 @@ function buildAPI(param) {
           restore: restore,
           deepCopy: deepCopy,
           nullable: _buildNullableAPI(undefined),
-          immutable: _buildImmutableAPI(_buildNullableAPI(undefined), getPackageService),
+          immutable: {
+            createList: (function (prim) {
+                return Immutable.List();
+              }),
+            createListOfData: (function (arrayData) {
+                return Immutable.List(arrayData);
+              }),
+            createMap: (function (prim) {
+                return Immutable.Map();
+              }),
+            createMapOfData: (function (dictData) {
+                return Immutable.Map(dictData);
+              })
+          },
           action: _buildActionAPI(_buildNullableAPI(undefined), getPackageService),
           uiControl: _buildUIControlAPI(_buildNullableAPI(undefined), getPackageService)
         };
@@ -319,4 +325,4 @@ export {
   registerContribute ,
   buildAPI ,
 }
-/* No side effect */
+/* immutable Not a pure module */

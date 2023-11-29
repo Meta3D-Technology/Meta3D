@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-root",
-    "version": "0.20.1",
+    "version": "0.20.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-root-protocol"
@@ -10,13 +10,12 @@
         "watch": "rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
         "webpack": "webpack --config webpack.config.js",
-                "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+        "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
         "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
     "dependencies": {
-        
         "meta3d-core-protocol": "^0.20.0",
         "meta3d-pipeline-root-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0",

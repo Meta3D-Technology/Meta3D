@@ -1,7 +1,7 @@
 open Sinon
 
 let createState = () => {
-  Main.createExtensionState()
+  Main.createExtensionState(. Obj.magic(1), Obj.magic(1))
 }
 
 let init = (
@@ -38,7 +38,7 @@ let init = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -83,7 +83,7 @@ let clear = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -146,7 +146,7 @@ let render = (
         restore: restore->Obj.magic,
         deepCopy: deepCopy->Obj.magic,
         nullable: Obj.magic(1),
-        immutable: Obj.magic(1),
+        
         action: Obj.magic(1),
         uiControl: Obj.magic(1),
       }: Meta3dType.Index.api
@@ -229,7 +229,7 @@ let beginWindow = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -272,7 +272,7 @@ let endWindow = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -314,7 +314,7 @@ let setNextWindowRect = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -366,7 +366,7 @@ let addFBOTexture = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -409,7 +409,7 @@ let getContext = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -452,7 +452,7 @@ let button = (
           restore: restore->Obj.magic,
           deepCopy: deepCopy->Obj.magic,
           nullable: Obj.magic(1),
-          immutable: Obj.magic(1),
+          
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
         }: Meta3dType.Index.api
@@ -541,7 +541,7 @@ let deepCopy = (
         restore: restore->Obj.magic,
         deepCopy: deepCopy->Obj.magic,
         nullable: Obj.magic(1),
-        immutable: Obj.magic(1),
+        
         action: Obj.magic(1),
         uiControl: Obj.magic(1),
       }: Meta3dType.Index.api
@@ -579,7 +579,7 @@ let restore = (
         restore: restore->Obj.magic,
         deepCopy: deepCopy->Obj.magic,
         nullable: Obj.magic(1),
-        immutable: Obj.magic(1),
+        
         action: Obj.magic(1),
         uiControl: Obj.magic(1),
       }: Meta3dType.Index.api

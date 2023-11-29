@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-whole",
-    "version": "0.20.5",
+    "version": "0.20.8",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-whole-protocol"
@@ -13,9 +13,9 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-engine-whole-protocol": "^0.20.0",
-        "meta3d-engine-scene-protocol": "^0.20.0",
         "meta3d-core-protocol": "^0.20.0",
+        "meta3d-engine-scene-protocol": "^0.20.0",
+        "meta3d-engine-whole-protocol": "^0.20.0",
         "meta3d-load-scene-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"
     },

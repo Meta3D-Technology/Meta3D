@@ -10,7 +10,7 @@ function getExtensionService(api) {
         };
 }
 
-function createExtensionState(param) {
+function createExtensionState(param, param$1) {
   return {};
 }
 

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-menu-protocol",
-    "version": "0.20.15",
+    "version": "0.20.17",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",

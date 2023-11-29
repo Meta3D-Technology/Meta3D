@@ -41,7 +41,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
             let data = menu(meta3dState, items.map(([label, secondLevelData]) => [
                 label,
-                api.immutable.createMapOfData(meta3dState, secondLevelData).keySeq().toArray()
+                api.immutable.createMapOfData( secondLevelData).keySeq().toArray()
             ]), "Menu Window", rect)
             meta3dState = data[0]
             let selectItemLabel = data[1]
@@ -52,10 +52,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
             selectItemLabel = api.nullable.getExn(selectItemLabel)
 
-            let actionNameMap: Map<menuLabel, actionName> = items.map(([_, secondLevelData]) => api.immutable.createMapOfData(meta3dState, secondLevelData)
+            let actionNameMap: Map<menuLabel, actionName> = items.map(([_, secondLevelData]) => api.immutable.createMapOfData( secondLevelData)
             ).reduce((result, map) => {
                 return result.concat(map)
-            }, api.immutable.createMap(meta3dState))
+            }, api.immutable.createMap())
 
             let { trigger } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 

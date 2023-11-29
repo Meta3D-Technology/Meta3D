@@ -220,35 +220,39 @@ let _buildNullableAPI = (): Meta3dType.Index.nullableAPI => {
   getEmpty: Meta3dCommonlib.NullableSt.getEmpty,
 }
 
-let _buildImmutableAPI = (nullableAPI, getPackageService): Meta3dType.Index.immutableAPI => {
-  createList: %raw(`
-  function (state){
-    let { createList } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+let _buildImmutableAPI = (): Meta3dType.Index.immutableAPI => {
+  // createList: %raw(`
+  // function (state){
+  //   let { createList } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
 
-    return createList()
-  }
-  `),
-  createListOfData: %raw(`
-  function (state, data){
-    let { createListOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+  //   return createList()
+  // }
+  // `),
+  // createListOfData: %raw(`
+  // function (state, data){
+  //   let { createListOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
 
-    return createListOfData(data)
-  }
-  `),
-  createMap: %raw(`
-  function (state){
-    let { createMap } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+  //   return createListOfData(data)
+  // }
+  // `),
+  // createMap: %raw(`
+  // function (state){
+  //   let { createMap } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
 
-    return createMap()
-  }
-  `),
-  createMapOfData: %raw(`
-  function (state, data){
-    let { createMapOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
+  //   return createMap()
+  // }
+  // `),
+  // createMapOfData: %raw(`
+  // function (state, data){
+  //   let { createMapOfData } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).core(state).immutable(state)
 
-    return createMapOfData(data)
-  }
-  `),
+  //   return createMapOfData(data)
+  // }
+  // `),
+  createList: Immutable.createList,
+  createListOfData: (. arrayData) => Immutable.createListOfData(arrayData),
+  createMap: Immutable.createMap,
+  createMapOfData: (. dictData) => Immutable.createMapOfData(dictData),
 }
 
 let _buildActionAPI = (
@@ -407,9 +411,7 @@ and buildAPI = (): api => {
     restore(currentExtensionState, targetExtensionState),
   deepCopy: (. extensionState) => deepCopy(extensionState),
   nullable: _buildNullableAPI(),
-  immutable: _buildImmutableAPI(_buildNullableAPI(), (. state, protocolName) =>
-    getPackageService(state, protocolName)->Obj.magic
-  ),
+  immutable: _buildImmutableAPI(),
   action: _buildActionAPI(_buildNullableAPI(), (. state, protocolName) =>
     getPackageService(state, protocolName)->Obj.magic
   ),

@@ -1231,7 +1231,14 @@ e.g. use import type {List} from "immutable" instead of import {List} from "immu
 * DONE refactor: hide IsDraw
 
 
-* TODO publish and run test
+* DONE publish and run test
+
+TODO update 
+all packages
+
+
+TODO remove immutable extension
+TODO update core, event,   editor/engine whole
 
 
 * TODO refactor: change root/contributes/ to root/actions, root/ui_controls,root/ui_control_inputs; remove root/extensions/, protocol/extension_protocols/

@@ -17,7 +17,7 @@ let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, api:
 }
 
 let _parseEventData = (eventDataService: eventDataService, api: api, meta3dState: meta3dState, eventData: ArrayBuffer): events => {
-    return api.immutable.createListOfData(meta3dState, eventDataService.parseEventData(eventData))
+    return api.immutable.createListOfData( eventDataService.parseEventData(eventData))
 }
 
 let _removeAllReadEvents = (events: events) => {

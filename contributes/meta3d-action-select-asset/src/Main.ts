@@ -50,7 +50,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         createState: (meta3dState) => {
             return {
                 selectedAssetFileId: null,
-                allSelectedFileAssetIds: api.immutable.createList(meta3dState)
+                allSelectedFileAssetIds: api.immutable.createList()
             }
         }
     }

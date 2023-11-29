@@ -93,7 +93,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allLocalScaleData: api.immutable.createList(meta3dState)
+                allLocalScaleData: api.immutable.createList()
             }
         }
     }

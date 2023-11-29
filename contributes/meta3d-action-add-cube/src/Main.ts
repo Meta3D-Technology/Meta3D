@@ -71,7 +71,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                addedGameObjects: api.immutable.createList(meta3dState),
+                addedGameObjects: api.immutable.createList(),
             }
         }
     }

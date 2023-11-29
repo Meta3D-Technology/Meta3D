@@ -72,7 +72,7 @@ export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = (meta3dState, api) => {
 	return {
-		initFuncs: api.immutable.createList(meta3dState),
+		initFuncs: api.immutable.createList(),
 	}
 }
 

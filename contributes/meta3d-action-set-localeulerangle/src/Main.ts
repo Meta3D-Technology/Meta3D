@@ -93,7 +93,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allLocalEulerAngleData: api.immutable.createList(meta3dState)
+                allLocalEulerAngleData: api.immutable.createList()
             }
         }
     }

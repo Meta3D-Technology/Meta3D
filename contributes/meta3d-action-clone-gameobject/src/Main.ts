@@ -36,7 +36,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
-                        allClonedGameObjects: state.allClonedGameObjects.push(api.immutable.createListOfData(meta3dState, clonedGameObjects)),
+                        allClonedGameObjects: state.allClonedGameObjects.push(api.immutable.createListOfData( clonedGameObjects)),
                     })
 
                     return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
@@ -89,7 +89,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allClonedGameObjects: api.immutable.createList(meta3dState),
+                allClonedGameObjects: api.immutable.createList(),
             }
         }
     }

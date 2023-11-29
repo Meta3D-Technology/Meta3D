@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-input-text-protocol",
-    "version": "0.20.2",
+    "version": "0.20.4",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",

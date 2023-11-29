@@ -23,6 +23,7 @@
         "meta3d-commonlib-type": "^0.20.0",
         "meta3d-type": "^0.20.0",
         "rescript": "^10.0.1",
+        "immutable": "^4.0.0-rc.12",
         "semver": "7.3.7"
     }
 }

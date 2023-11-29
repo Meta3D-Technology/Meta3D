@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-scene",
-    "version": "0.20.1",
+    "version": "0.20.2",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-engine-scene-protocol"
@@ -9,7 +9,7 @@
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-"meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
@@ -20,12 +20,12 @@
         "meta3d-component-pbrmaterial-protocol": "^0.20.0",
         "meta3d-component-perspectivecameraprojection-protocol": "^0.20.0",
         "meta3d-component-transform-protocol": "^0.20.0",
+        "meta3d-core-protocol": "^0.20.0",
         "meta3d-engine-scene-protocol": "^0.20.0",
         "meta3d-engine-scene-utils": "^0.20.0",
         "meta3d-gameobject-protocol": "^0.20.0",
         "meta3d-pipeline-camera-protocol": "^0.20.0",
         "meta3d-pipeline-dispose-protocol": "^0.20.0",
-        "meta3d-core-protocol": "^0.20.0",
         "meta3d-pipeline-transform-protocol": "^0.20.0",
         "meta3d-type": "^0.20.0"
     },
