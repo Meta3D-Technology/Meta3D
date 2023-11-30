@@ -1,3 +1,132 @@
+* TODO 加强Custom
+
+//TODO 改进 Ap Assemble->Custom:
+TODO 改进 UserCenter->Custom:
+1.加入input/action后，显示name而不是file str，并显示“修改”按钮
+2.点击“修改”按钮后，显示TextArea with file str，并显示“提交修改”按钮
+3.点击“提交修改”按钮后，更新file str，并且如果name change，需要对应更新uiControlInspectorData->input->inputName
+
+
+
+* ReDesign Custom
+
+Custom:
+Js Module(just as utils)
+Action
+Input
+
+
+
+Action,Input can invoke Js Module's export functions
+
+custom action/input should be compile to action/input
+
+can publish custom action/input
+
+can get custom action/input from selected action/input
+
+
+* TODO update custom input
+
+TODO custom action/input should be compile to action/input
+
+TODO can publish custom action/input
+
+TODO can get custom action/input from selected action/input
+test js code
+
+
+* TODO add Js Module(as utils)
+
+
+TODO Action,Input can invoke Js Module's export functions
+
+TODO publish Js Module
+
+TODO can get Js Module from selected Published
+
+
+TODO how to handle import utils(Js Module) in Input?
+
+
+
+
+* TODO 为custom data提供代码编辑器
+
+
+![image](https://img2023.cnblogs.com/blog/419321/202311/419321-20231125153737959-249842872.png)
+
+![image](https://img2023.cnblogs.com/blog/419321/202311/419321-20231125165344986-1891902166.png)
+
+
+
+# 目的
+
+1.可以更好地编辑custom data
+//2.可以发布custom data到贡献市场
+
+# 具体方案
+
+对于目的1：
+
+- 在代码编辑器中编辑custom data，**支持ts语法，提供代码提示**（包括获得editor whole协议、选择的action等贡献的协议  中定义的类型）、高亮、自动补全等功能 
+
+
+- file str应该跟原生的input/action的Main.ts文件一样，这样可方便用户要发布时可直接将其拷贝到本地
+
+/*
+对于目的2：
+
+- 增加对协议的编辑和发布
+  - 优化协议的开发过程：只填一些模板的类型，以及package.json的必备信息（如name、version），即可直接发布（到npm?)
+
+- 增加发布到贡献市场
+*/
+
+
+
+refer to:
+
+https://juejin.cn/post/7121512390159499278#heading-10
+https://juejin.cn/post/7146457023415058468
+https://theia-ide.org/
+
+https://cloud.tencent.com/document/product/1301/57912
+
+
+
+
+** TODO update Js Module to Ts Module
+
+
+
+
+
+* TODO update custom action
+
+
+
+
+
+* TODO adjust custom ui
+
+TODO move add/remove/editr custom to element assemble
+
+
+TODO refactor UI Controls, Selected UI Controls 
+refer to:
+https://app.appsmith.com/app/my-first-application/page1-65681c0a77819e3b1160e2d9/edit
+
+
+
+TODO refactor set parent
+use drag instead of select parent first!
+
+
+
+
+
+
 * TODO platform: 加强市场
 
 TODO 增加分类显示
@@ -68,6 +197,14 @@ TODO add database table
 
 
 
+
+* TODO 平台：element assemble: add selected ui control->outline, pick, drag
+
+
+ * TODO drag to set parent
+
+
+
 * TODO 优化平台UI
 
 TODO 使用图标代替文字按钮
@@ -75,6 +212,26 @@ e.g. 替代运行按钮
 
 TODO 更新排版
 e.g. 更新Extensions、 UI Controls中的图文小图标排版
+
+
+
+
+* TODO 增加用户中心
+
+查看、//修改、//删除 用户发布的扩展、贡献、包、应用
+
+
+从市场中关注协议到用户中心
+TODO store custom data for user
+TODO add a new database table to store custom data of user
+TODO how to handle import app 's custom data?
+
+Ap Assemble Space
+TODO add Elements, Selected Elements
+
+
+
+
 
 
 
@@ -172,8 +329,25 @@ https://juejin.cn/post/6960493325061193735
 给出简介：
 https://pic4.zhimg.com/80/v2-b79b57c19567a1ce65ccc4d287743e67_1440w.webp
 
+# 包括一个宣传视频
+给出详情跳转链接
+
+
+
+
+吸引客户:
+> 对于商业产品客户来说，使用一个产品前需要考虑的非常重要的点就是：这个产品能否免费试用？试用结束后是怎么计费的？性价比是否高，是否划算...
+给出详情跳转链接
+
+
+TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要更多权益请详见”->跳转到咨询页面
+
 引导用户快速注册
 如：只需输入账号名即可完成注册！快来注册吧！
+
+
+
+
 
 第一次登录
 第一次进入Market
