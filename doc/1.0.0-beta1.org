@@ -114,10 +114,13 @@ TODO show
 TODO can get compiled value
 
 
-TODO add Ts Module
-can as contribute?
+# TODO add Ts Module
+# can as contribute?
 
-多文件
+# 多文件
+
+# TODO can get compiled value
+
 
 
 
@@ -128,7 +131,38 @@ TODO local: can get compiled value in webpack
 TODO local: handle import protocol's actionName
 
 TODO local: handle import utils(Ts Module)
-just merge into?
+bundle
+
+
+TODO write a gulp to compile ts and bundle!
+
+remove imported "export"
+nest import
+
+
+implement by rescript!
+
+TODO bdd test!
+
+```ts
+export default function getModelsInOrder(currentModel, monaco) {
+  const allModels = monaco.editor.getModels();
+  //Parse import statements to perform DFS starting at selected model
+  const graph = allModels.map((model) => {
+    let importRegex = /(from|import)\s+["']([^"']*)["']/gm;
+    let importIndices = (model.getValue().match(importRegex) ?? []) //Get import strings
+      .map((s) => s.match(/["']([^"']*)["']/)![1]) //find name
+      .map((s) =>
+        allModels.findIndex(
+          (findImportModel) =>
+            s === findImportModel.uri.path.substring(1).replace(/\.[^.]*$/, "") //compare formatted import to formatted filename
+        )
+      )
+      .filter((index) => index !== -1);
+    return importIndices;
+  });
+
+```
 
 
 
@@ -163,26 +197,26 @@ TODO compiled to custom input when show them in element assemble
 # same content as online, just store in local and copy to online
 
 
-* TODO add Ts Module(as utils)
+# * TODO add Ts Module(as utils)
 
-can as contribute
-
-
-TODO Action,Input can invoke Ts Module's export functions
-
-TODO publish Ts Module
-
-TODO can get Ts Module from selected Published
+# can as contribute
 
 
-TODO how to handle import utils(Ts Module) in Input?
+# TODO Action,Input can invoke Ts Module's export functions
+
+# TODO publish Ts Module
+
+# TODO can get Ts Module from selected Published
+
+
+# TODO how to handle import utils(Ts Module) in Input?
 
 
 
-** TODO add Ts Module for custom input
+# ** TODO add Ts Module for custom input
 
 
-** TODO add Ts Module for local input(utils)
+# ** TODO add Ts Module for local input(utils)
 
 
 
