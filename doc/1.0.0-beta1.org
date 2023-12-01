@@ -11,44 +11,30 @@ TODO 改进 UserCenter->Custom:
 * ReDesign Custom
 
 Custom:
-Js Module(just as utils)
+Ts Module(just as utils)
 Action
 Input
 
 
 
-Action,Input can invoke Js Module's export functions
+Action,Input can invoke Ts Module's export functions
 
-custom action/input should be compile to action/input
+# custom action/input should be compile to action/input
 
-can publish custom action/input
+# # can publish custom action/input
 
-can get custom action/input from selected action/input
-
-
-* TODO update custom input
-
-TODO custom action/input should be compile to action/input
-
-TODO can publish custom action/input
-
-TODO can get custom action/input from selected action/input
-test js code
+# can get custom action/input from selected action/input
 
 
-* TODO add Js Module(as utils)
+# all action/input should be write online!
 
 
-TODO Action,Input can invoke Js Module's export functions
-
-TODO publish Js Module
-
-TODO can get Js Module from selected Published
+custom data store in element store
 
 
-TODO how to handle import utils(Js Module) in Input?
+import element can get its custom data
 
-
+# element assemble's custom data = selected action/input + imported custom
 
 
 * TODO 为custom data提供代码编辑器
@@ -96,7 +82,99 @@ https://cloud.tencent.com/document/product/1301/57912
 
 
 
-** TODO update Js Module to Ts Module
+
+
+# ** TODO update Js Module to Ts Module
+
+
+
+* TODO update custom input
+
+TODO custom action/input should be compile to action/input
+
+TODO can publish custom action/input
+
+TODO can get custom action/input from selected action/input
+test js code
+
+
+
+Input:
+need type:
+editor whole package
+action state
+    could read type of file by actionName?
+
+
+** TODO basic monaco demo
+
+TODO show
+
+
+TODO can get value
+
+
+TODO add Ts Module(as utils)
+can as contribute?
+
+
+
+
+** TODO custom input write online
+
+store in element
+
+import by element
+
+TODO fix ui:
+manage custom in element assemble instead of in ap assemble
+
+
+** TODO input write local
+
+# same content as online, except import protocol types 
+
+# TODO publish
+
+# TODO compiled to custom input when show them in element assemble
+
+
+same content as online, just store in local and copy to online
+
+
+* TODO add Ts Module(as utils)
+
+can as contribute
+
+
+TODO Action,Input can invoke Ts Module's export functions
+
+TODO publish Ts Module
+
+TODO can get Ts Module from selected Published
+
+
+TODO how to handle import utils(Ts Module) in Input?
+
+
+
+** TODO add Ts Module for custom input
+
+
+# ** TODO add Ts Module for local input(utils)
+
+# just merge into?
+
+
+
+* TODO monaco demo2 by give more type infer(e.g. action state type, editor whole package)
+
+
+
+
+
+# * TODO add "only import custom" button
+
 
 
 
@@ -108,19 +186,65 @@ https://cloud.tencent.com/document/product/1301/57912
 
 
 
+
+
+
+
+
 * TODO adjust custom ui
 
-TODO move add/remove/editr custom to element assemble
+TODO move add/remove/edit custom to element assemble
 
 
-TODO refactor UI Controls, Selected UI Controls 
+TODO refactor UI Controls, Selected UI Controls :
+no need to select ui controls in contribute market! select when add ui control instead!!!
+
 refer to:
 https://app.appsmith.com/app/my-first-application/page1-65681c0a77819e3b1160e2d9/edit
 
 
 
+
+
+
 TODO refactor set parent
 use drag instead of select parent first!
+
+
+
+
+
+
+
+
+
+* TODO 增加用户中心
+
+查看、//修改、//删除 用户发布的扩展、贡献、包、应用、页面
+
+
+# 从市场中关注协议到用户中心
+# TODO store custom data for user
+# TODO add a new database table to store custom data of user
+# TODO how to handle import app 's custom data?
+
+# Ap Assemble Space
+# TODO add Elements, Selected Elements
+
+
+auto save element, app to user(to local)
+
+refer to:
+https://app.appsmith.com/applications
+
+
+
+TODO optimize select one element at least for app:
+    if select multiple elements, when save/publish app should auto generate one element with inner element name!
+
+
+
+
 
 
 
@@ -137,31 +261,42 @@ TODO 增加推荐榜（如包括推荐的App等）
 
 TODO 扩展、贡献、应用、页面增加图片等说明
 
-** TODO Extension, Contribute, Package
+# ** TODO Extension, Contribute, Package
 
-refer to:
-https://airtable.com/marketplace/category/all-apps
-https://marketplace.visualstudio.com/items?itemName=amodio.restore-editors
+# refer to:
+# https://airtable.com/marketplace/category/all-apps
+# https://marketplace.visualstudio.com/items?itemName=amodio.restore-editors
 
-*** TODO Market show all implements, instead protocols
+# *** TODO Market show all implements, instead protocols
 
-use protocol icon
+# use protocol icon
 
 
-*** TODO add download count, update time, score, m
+# *** TODO add download count, update time, score, m
 
-*** TODO update ui
+# *** TODO update ui
 
-2 column
+# 2 column
 
-icon + [
-    [ display name ]
-[publisher, repo, download count, m]
-[description]
-[version, buttons...]
-]
+# icon + [
+#     [ display name ]
+# [publisher, repo, download count, m]
+# [description]
+# [version, buttons...]
+# ]
 
-*** TODO Contributes: add show by category
+# *** TODO Contributes: add show by category
+
+
+
+** TODO hidden Extension, Contribute Market and Package Assemble
+
+they are visiable only for administrator and pay user!
+
+
+
+
+
 
 
 ** TODO ShowByApp, ByElement
@@ -214,20 +349,6 @@ TODO 更新排版
 e.g. 更新Extensions、 UI Controls中的图文小图标排版
 
 
-
-
-* TODO 增加用户中心
-
-查看、//修改、//删除 用户发布的扩展、贡献、包、应用
-
-
-从市场中关注协议到用户中心
-TODO store custom data for user
-TODO add a new database table to store custom data of user
-TODO how to handle import app 's custom data?
-
-Ap Assemble Space
-TODO add Elements, Selected Elements
 
 
 
