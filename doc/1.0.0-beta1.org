@@ -19,14 +19,14 @@ Input
 
 Action,Input can invoke Ts Module's export functions
 
-# custom action/input should be compile to action/input
+custom action/input should be compile to action/input
 
-# # can publish custom action/input
+# can publish custom action/input
 
-# can get custom action/input from selected action/input
+can get custom action/input from selected action/input
 
 
-# all action/input should be write online!
+all action/input should be write online!
 
 
 custom data store in element store
@@ -111,11 +111,32 @@ action state
 TODO show
 
 
-TODO can get value
+TODO can get compiled value
 
 
-TODO add Ts Module(as utils)
+TODO add Ts Module
 can as contribute?
+
+多文件
+
+
+
+
+
+TODO local: can get compiled value in webpack
+
+TODO local: handle import protocol's actionName
+
+TODO local: handle import utils(Ts Module)
+just merge into?
+
+
+
+
+** TODO monaco demo2 by give more type infer(e.g. action state type, editor whole package)
+
+
+
 
 
 
@@ -132,14 +153,14 @@ manage custom in element assemble instead of in ap assemble
 
 ** TODO input write local
 
-# same content as online, except import protocol types 
+same content as online, except import protocol types 
 
-# TODO publish
+TODO publish
 
-# TODO compiled to custom input when show them in element assemble
+TODO compiled to custom input when show them in element assemble
 
 
-same content as online, just store in local and copy to online
+# same content as online, just store in local and copy to online
 
 
 * TODO add Ts Module(as utils)
@@ -161,13 +182,10 @@ TODO how to handle import utils(Ts Module) in Input?
 ** TODO add Ts Module for custom input
 
 
-# ** TODO add Ts Module for local input(utils)
-
-# just merge into?
+** TODO add Ts Module for local input(utils)
 
 
 
-* TODO monaco demo2 by give more type infer(e.g. action state type, editor whole package)
 
 
 
@@ -182,11 +200,21 @@ TODO how to handle import utils(Ts Module) in Input?
 
 * TODO update custom action
 
+TODO should simplify type to forward, ... funcs!
 
 
 
 
+* TODO update custom input->inputName: now can be arbitraily name
 
+custom input is add by UI Control->Input!
+
+auto get its name for build input protocol name!
+
+
+* TODO update custom actions->actionName: now can be arbitraily name
+
+protocol auto add "-action-"
 
 
 

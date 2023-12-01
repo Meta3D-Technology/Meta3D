@@ -1,5 +1,7 @@
 // type monacoEditor
 
+type proxy
+
 type editor
 
 type monaco
@@ -18,8 +20,7 @@ external monacoEditor: (
   ~language: language=?,
   ~theme: theme=?,
   ~options: options=?,
-  ~onChange: (string, ReactEvent.Form.t) => unit=?,
-  ~editorDidMount: (editor, monaco) => unit=?,
-  ~editorWillUnmount: (editor, monaco) => unit=?,
+  ~onChange: (string, ReactEvent.Form.t) => Js.Promise.t< unit>=?,
+  ~editorDidMount: (editor, monaco) => Js.Promise.t<unit>=?,
+  ~editorWillUnmount: (editor, monaco) => Js.Promise.t< unit>=?,
 ) => React.element = "default"
-
