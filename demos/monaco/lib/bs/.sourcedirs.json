@@ -1,0 +1,1 @@
+{ "dirs" : [ "src" , "src/external" ] , "pkgs" : [ [ "@rescript/react" , "/Users/yang/Github/Meta3D/node_modules/@rescript/react" ] ] , "generated" : [] }

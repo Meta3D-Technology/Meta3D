@@ -1,0 +1,33 @@
+{
+    "name": "monaco",
+    "version": "0.0.1",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w",
+        "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"
+    },
+    "dependencies": {
+        "rescript": "^10.0.1",
+        "monaco-editor": "^0.32.1",
+        "react-monaco-editor": "^0.54.0"
+    },
+    "devDependencies": {
+        "monaco-editor-webpack-plugin": "^7.1.0",
+        "clean-webpack-plugin": "^4.0.0",
+        "cross-env": "^7.0.3",
+        "html-webpack-plugin": "^5.5.0",
+        "source-map-loader": "^3.0.0",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.2.3",
+        "webpack": "^5.62.1",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.4.0",
+        "@babel/core": "^7.10.4",
+        "@babel/preset-env": "^7.10.4",
+        "@rescript/react": "0.10.3",
+        "babel-jest": "^26.1.0",
+        "css-loader": "^3.6.0",
+        "cz-customizable": "^5.2.0",
+        "gentype": "^3.48.0",
+        "identity-obj-proxy": "^3.0.0"
+    }
+}
