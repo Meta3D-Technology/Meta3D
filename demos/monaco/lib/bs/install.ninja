@@ -11,6 +11,10 @@ o Editor-Monaco.cmi : cp ../bs/src/Editor-Monaco.cmi
 o Editor-Monaco.cmj : cp ../bs/src/Editor-Monaco.cmj
 o Editor-Monaco.cmt : cp ../bs/src/Editor-Monaco.cmt
 o Editor.res : cp ../../src/Editor.res
+o Window-Monaco.cmi : cp ../bs/src/external/Window-Monaco.cmi
+o Window-Monaco.cmj : cp ../bs/src/external/Window-Monaco.cmj
+o Window-Monaco.cmt : cp ../bs/src/external/Window-Monaco.cmt
+o Window.res : cp ../../src/external/Window.res
 o MonacoEditor-Monaco.cmi : cp ../bs/src/external/MonacoEditor-Monaco.cmi
 o MonacoEditor-Monaco.cmj : cp ../bs/src/external/MonacoEditor-Monaco.cmj
 o MonacoEditor-Monaco.cmt : cp ../bs/src/external/MonacoEditor-Monaco.cmt
@@ -18,4 +22,4 @@ o MonacoEditor.res : cp ../../src/external/MonacoEditor.res
 o Monaco.cmi : cp ../bs/Monaco.cmi
 o Monaco.cmj : cp ../bs/Monaco.cmj
 o Monaco.cmt : cp ../bs/Monaco.cmt
-build install.stamp : touch Main-Monaco.cmi Main-Monaco.cmj Editor-Monaco.cmi Editor-Monaco.cmj MonacoEditor-Monaco.cmi MonacoEditor-Monaco.cmj Monaco.cmi Monaco.cmj
+build install.stamp : touch Main-Monaco.cmi Main-Monaco.cmj Editor-Monaco.cmi Editor-Monaco.cmj Window-Monaco.cmi Window-Monaco.cmj MonacoEditor-Monaco.cmi MonacoEditor-Monaco.cmj Monaco.cmi Monaco.cmj

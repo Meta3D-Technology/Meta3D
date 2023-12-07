@@ -115,6 +115,14 @@ module.exports = {
             template: './index.html',
             filename: 'index.html'
         }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'static/meta3d-type',
+                    to: 'static/meta3d-type'
+                },
+            ],
+        }),
         new MonacoWebpackPlugin({
             // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
             languages: ['typescript']

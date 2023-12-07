@@ -22,6 +22,21 @@ function onChange(param, newValue, $$event) {
               }), __x);
 }
 
+function _wrapDTs(dts) {
+  return "declare module \"meta3d-type\"{\n      " + dts + "\n    }";
+}
+
+function _addMeta3dTypeLib(editor, monaco) {
+  var __x = window.fetch("static/meta3d-type/src/Index.ts");
+  var __x$1 = Js_promise.then_((function (param) {
+          return Promise.resolve(param.text());
+        }), __x);
+  return Js_promise.then_((function (dts) {
+                var dts$1 = _wrapDTs(dts);
+                return monaco.languages.typescript.typescriptDefaults.addExtraLib(dts$1);
+              }), __x$1);
+}
+
 function editorDidMount(param, editor, monaco) {
   var tsProxyRef = param[0];
   console.log([
@@ -33,10 +48,13 @@ function editorDidMount(param, editor, monaco) {
   var __x$1 = Js_promise.then_((function (worker) {
           return worker(editor.getModel().uri);
         }), __x);
-  return Js_promise.then_((function (proxy) {
-                tsProxyRef.current = proxy;
-                return Promise.resolve(undefined);
-              }), __x$1);
+  var __x$2 = Js_promise.then_((function (proxy) {
+          tsProxyRef.current = proxy;
+          return Promise.resolve(undefined);
+        }), __x$1);
+  return Js_promise.then_((function (param) {
+                return _addMeta3dTypeLib(editor, monaco);
+              }), __x$2);
 }
 
 function editorWillUnmount(editor, monaco) {
@@ -46,6 +64,8 @@ function editorWillUnmount(editor, monaco) {
 
 var Method = {
   onChange: onChange,
+  _wrapDTs: _wrapDTs,
+  _addMeta3dTypeLib: _addMeta3dTypeLib,
   editorDidMount: editorDidMount,
   editorWillUnmount: editorWillUnmount
 };
@@ -62,7 +82,7 @@ function Editor(Props) {
     editor
   ];
   return React.createElement(ReactMonacoEditor, {
-              value: "let a = 1",
+              value: "import { api } from \"meta3d-type\"\n    \nexport let getContribute = (api:api) => {\n    return {\n        inputName: \"RunStopButtonInput\",\n        func: (meta3dState) => {\n            let runState = api.action.getActionState(meta3dState, \"Run\")\n\n            if (api.nullable.isNullable(runState)) {\n                return Promise.resolve(false)\n            }\n\n            runState = api.nullable.getExn(runState)\n\n            return Promise.resolve(runState.isRun)\n        }\n    }\n}\n\n  ",
               width: "800",
               height: "600",
               language: "typescript",
