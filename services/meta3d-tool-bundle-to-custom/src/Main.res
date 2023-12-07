@@ -1,7 +1,4 @@
-open Type
-
 let _error = msg => {
-  // Js.Console.error(msg)
   Meta3dCommonlib.Exception.throwErr(
     Meta3dCommonlib.Exception.buildErr(
       Meta3dCommonlib.Log.buildErrorMessage(
@@ -46,7 +43,6 @@ let _isRootPath = (path: string) => {
 
 let _getNpmModulePath = (pkg: string, from: string): string => {
   let rec _find = projRoot => {
-    // Js.log(("projRoot:", projRoot))
     let projRoot = ref(projRoot)
     while (
       !_isRootPath(projRoot.contents) && !_isDir(Path.resolve2(projRoot.contents, "node_modules"))
@@ -77,12 +73,6 @@ let _getNpmModulePath = (pkg: string, from: string): string => {
               }
             : _find(Path.dirname(projRoot.contents))
         }
-
-    // _isFile(fs, packageJSONPath) && packageJSON["main"]->Meta3dCommonlib.NullableSt.isNullable
-    //   ? Path.resolve2(path, packageJSON["main"]->Meta3dCommonlib.NullableSt.getExn)
-    //   : {
-    //       _find(Path.dirname(path))
-    //     }
   }
 
   _find(Path.dirname(from))
@@ -106,46 +96,7 @@ let _getImportVariableRenameMap = importDecl => {
   )
 }
 
-// let _renameImportVariables = (depTranspiledText, filePath, importVariableRenameMap) => {
 let _renameImportVariables = (depTranspiledText, importVariableRenameMap) => {
-  // Js.log(importVariableRenameMap)
-
-  //   let source = Typescript.createSourceFile(. filePath, depTranspiledText, 2)
-
-  //   source.forEachChild(.(node: Typescript.node) => {
-  //     switch node.kind->Meta3dCommonlib.Log.printForDebug {
-  //     | 240 =>
-  //       // let importDecl = node->Obj.magic
-  //       // let moduleSpecifierText =
-  //       //   importDecl["moduleSpecifier"]["getText"](. source)->Js.Json.parseExn->Obj.magic
-  //       // node->Meta3dCommonlib.Log.printForDebug-> ignore
-  //       // ()
-
-  //       let exportVariable = node->Obj.magic
-
-  //  let declaration =      exportVariable["declarationList"]["declarations"][0]
-
-  // declaration["name"]["escapedText"]
-  //     // ()
-
-  //     // ( node-> Obj.magic )["exportClause"]
-  //     // ->Meta3dCommonlib.Log.printForDebug-> ignore
-
-  //     // ["namedBindings"]["elements"]->Meta3dCommonlib.Log.printForDebug-> ignore
-
-  //     // | 259 =>
-  //     }
-  //   })
-
-  //         depTranspiledText
-
-  //         // ->Js.String.match_(%re("/export\svar\s(.+)\s.\=/img"), _)
-  //         ->Js.String.match_(%re("/(export)/g"), _)
-
-  //         ->Meta3dCommonlib.Log.printForDebug-> ignore
-
-  // depTranspiledText -> Js.String.slice(~from=0, ~to_= 128, _)->Meta3dCommonlib.Log.printForDebug-> ignore
-
   importVariableRenameMap
   ->Meta3dCommonlib.ImmutableHashMap.entries
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. text, (sourceName, targetName)) => {
@@ -157,52 +108,9 @@ let _removeExportKeyword = depTranspiledText => {
   depTranspiledText->Js.String.replaceByRe(%re("/export\s*/g"), "", _)
 }
 
-let _replaceImportClause = (
-  result,
-  transpiledText,
-  pos,
-  end,
-  depTranspiledText,
-  // (transpiledTextHandledPart, transpiledTextRemainPart),
-  lastEnd,
-) => {
-  // Js.log(("transpiledText:", transpiledText))
-  // Js.log(("pos+end:", pos, end))
-  // Js.log(("depTranspiledText:", depTranspiledText))
-
-  // transpiledText->Js.String.slice(~from=0, ~to_=pos, _) ++
-  // depTranspiledText ++
-  // transpiledText->Js.String.slice(~from=end, ~to_=transpiledText->Js.String.length, _)
-
+let _replaceImportClause = (result, transpiledText, pos, end, depTranspiledText, lastEnd) => {
   (result ++ transpiledText->Js.String.slice(~from=lastEnd, ~to_=pos, _) ++ depTranspiledText, end)
 }
-
-// let _hasNoImportClause = (source: Typescript.sourceFile) => {
-//   // !(transpiledText->Js.String.includes("import {", _))
-
-//   // source.getChildren(.)
-//   // ->Meta3dCommonlib.ArraySt.filter((node) => {
-//   //   // Js.log(node)
-//   //   switch node.kind->Meta3dCommonlib.Log.printForDebug {
-//   //   | Typescript.ImportDeclaration => true
-//   //   | _ => false
-//   //   }
-//   // })
-
-//   // ->Meta3dCommonlib.ArraySt.length == 0
-
-//   let result = ref(true)
-
-//   source.forEachChild(.(node: Typescript.node) => {
-//     switch node.kind {
-//     // | Typescript.ImportDeclaration =>
-//     | 269 => result := false
-//     | _ => ()
-//     }
-//   })
-
-//   result.contents
-// }
 
 let bundle = (filePath: string, fileSource: string) => {
   let rec _func = (filePath, fileSource) => {
@@ -216,18 +124,8 @@ let bundle = (filePath: string, fileSource: string) => {
       },
     ).outputText
 
-    // _hasNoImportClause(outputText->Meta3dCommonlib.Log.printForDebug)
-    //   ? outputText
-    //   : {
-    //     }
-
-    // let source = Typescript.createSourceFile(. filePath, fileSource, ScriptTargetType.ES2015)
-    // let source = Typescript.createSourceFile(. filePath, fileSource, 2)
     let source = Typescript.createSourceFile(. filePath, outputText, 2)
 
-    // let result = ref(outputText)
-
-    // let data = ref([])
     let data = []
 
     source.forEachChild(.(node: Typescript.node) => {
@@ -250,20 +148,10 @@ let bundle = (filePath: string, fileSource: string) => {
           ->_renameImportVariables(_getImportVariableRenameMap(importDecl))
           // ->Meta3dCommonlib.Log.printForDebug
           ->_removeExportKeyword
-        // ->Meta3dCommonlib.Log.printForDebug
-
-        // Js.log("a1")
-        // Js.log(result.contents)
-        // Js.log("a2")
-        // Js.log(depTranspiledText)
-
-        // Js.log("aaa")
 
         data
         ->Meta3dCommonlib.ArraySt.push((importDecl["pos"], importDecl["end"], depTranspiledText))
         ->ignore
-
-        // Js.log(result.contents)
 
         ()
 
@@ -272,33 +160,13 @@ let bundle = (filePath: string, fileSource: string) => {
     })
 
     // TODO handle more: e.g. rename duplicate private function name between depTranspiledText and result
-    let (result, lastEnd) = data->Meta3dCommonlib.ArraySt.reduceOneParam(
-      (.
-        (
-          result,
-          // transpiledText,
-          //  (transpiledTextHandledPart, transpiledTextRemainPart)
-          lastEnd,
-        ),
-        (pos, end, depTranspiledText),
-      ) => {
-        result->_replaceImportClause(
-          outputText,
-          pos,
-          end,
-          depTranspiledText,
-          // (transpiledTextHandledPart, transpiledTextRemainPart),
-          lastEnd,
-        )
-      },
-      (
-        "",
-        // result.contents,
-        // outputText,
-        // ("", result.contents)
-        0,
-      ),
-    )
+    let (result, lastEnd) =
+      data->Meta3dCommonlib.ArraySt.reduceOneParam(
+        (. (result, lastEnd), (pos, end, depTranspiledText)) => {
+          result->_replaceImportClause(outputText, pos, end, depTranspiledText, lastEnd)
+        },
+        ("", 0),
+      )
 
     result ++ outputText->Js.String.slice(~from=lastEnd, ~to_=outputText->Js.String.length, _)
   }
