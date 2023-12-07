@@ -1,0 +1,25 @@
+{
+    "name": "meta3d-tool-bundle-to-custom",
+    "version": "0.0.1",
+    "authors": "Meta3D",
+    "main": "./lib/js/src/Main.bs.js",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w",
+        "test:watch": "jest --watch --config jest.json",
+        "bundle": "gulp bundle"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.10.4",
+        "@babel/preset-env": "^7.10.4",
+        "@babel/preset-react": "^7.18.6",
+        "@rescript/react": "0.10.3",
+        "babel-jest": "^26.1.0",
+        "cz-customizable": "^5.2.0",
+        "jest": "^26.4.2",
+        "jest-cucumber": "^3.0.1"
+    },
+    "dependencies": {
+        "typescript": "^4.2.3",
+        "rescript": "^10.0.1"
+    }
+}

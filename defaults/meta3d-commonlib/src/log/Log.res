@@ -6,6 +6,11 @@ let printForDebug = value => {
   value
 }
 
+let printStringForDebug = value => {
+  Js.log(value)
+  value
+}
+
 let printListForDebug = list => {
   Js.log(list->Belt.List.toArray)
   list
@@ -21,19 +26,19 @@ let log = value => {
   value->Obj.magic->Js.Json.stringify->Js.log
 }
 
-let debugWithFunc = (func, isTest: bool) => isTest ? func() : ();
+let debugWithFunc = (func, isTest: bool) => isTest ? func() : ()
 
 let _debug = msg => {
-  consoleDebug(msg);
-};
+  consoleDebug(msg)
+}
 
 let debug = (buildMessageFunc, isTest: bool) =>
-  isTest ?
-    {
-      _debug(buildMessageFunc());
-      consoleTrace();
-    } :
-    ();
+  isTest
+    ? {
+        _debug(buildMessageFunc())
+        consoleTrace()
+      }
+    : ()
 
 let getJsonStr = json => Js.Json.stringify(json->Obj.magic)
 

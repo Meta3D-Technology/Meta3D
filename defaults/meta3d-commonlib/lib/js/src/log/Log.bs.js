@@ -8,6 +8,11 @@ function printForDebug(value) {
   return value;
 }
 
+function printStringForDebug(value) {
+  console.log(value);
+  return value;
+}
+
 function printListForDebug(list) {
   console.log(Belt_List.toArray(list));
   return list;
@@ -68,6 +73,7 @@ function buildAssertMessage(expect, actual) {
 }
 
 exports.printForDebug = printForDebug;
+exports.printStringForDebug = printStringForDebug;
 exports.printListForDebug = printListForDebug;
 exports.logForDebug = logForDebug;
 exports.log = log;

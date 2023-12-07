@@ -9,6 +9,8 @@
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
+        "build": "tsc",
+        "webpack2": "cross-env NODE_ENV=development npm run webpack",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
         "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",

@@ -4,12 +4,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
 	entry: "./src/Main.ts",
 	mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
+	experiments: {
+		outputModule: true,
+	  },
 	output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'static/js/[name].js',
         library: {
-            name: 'Contribute',
-            type: 'window',
+            // name: 'Contribute',
+            type: 'module',
         },
     },
 
