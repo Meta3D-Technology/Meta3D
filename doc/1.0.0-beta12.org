@@ -1,0 +1,135 @@
+* TODO 增加用户中心
+
+查看、//修改、//删除 用户发布的扩展、贡献、包、应用、页面
+
+
+# 从市场中关注协议到用户中心
+# TODO store custom data for user
+# TODO add a new database table to store custom data of user
+# TODO how to handle import app 's custom data?
+
+# Ap Assemble Space
+# TODO add Elements, Selected Elements
+
+
+auto save element, app to user(to local)
+
+refer to:
+https://app.appsmith.com/applications
+
+
+
+TODO optimize select one element at least for app:
+    if select multiple elements, when save/publish app should auto generate one element with inner element name!
+
+
+
+
+* TODO user login: save username to local storage
+
+
+
+
+
+
+* TODO platform: 加强市场
+
+TODO 增加分类显示
+
+# TODO 增加按最新、下载量等排序
+
+TODO 增加推荐榜（如包括推荐的App等）
+
+TODO 扩展、贡献、应用、页面增加图片等说明
+
+# ** TODO Extension, Contribute, Package
+
+# refer to:
+# https://airtable.com/marketplace/category/all-apps
+# https://marketplace.visualstudio.com/items?itemName=amodio.restore-editors
+
+# *** TODO Market show all implements, instead protocols
+
+# use protocol icon
+
+
+# *** TODO add download count, update time, score, m
+
+# *** TODO update ui
+
+# 2 column
+
+# icon + [
+#     [ display name ]
+# [publisher, repo, download count, m]
+# [description]
+# [version, buttons...]
+# ]
+
+# *** TODO Contributes: add show by category
+
+
+
+** TODO hidden Extension, Contribute Market and Package Assemble
+
+they are visiable only for administrator and pay user!
+
+
+
+
+
+
+
+** TODO ShowByApp, ByElement
+
+refer to:
+https://www.zcappp.cn/plugins
+https://app.appsmith.com/templates
+
+*** TODO add preview, download count, update time, scrore, m
+
+*** TODO element: add publisher, description
+
+*** TODO update ui
+
+3 column
+
+[preview]
+[display name]
+[publisher, download count, m],
+[description]
+[version, buttons...]
+
+
+*** TODO add recommend
+
+refer to:
+https://marketplace.visualstudio.com/ -> Featured
+
+
+TODO use first three ones
+
+TODO add database table
+
+
+
+
+* TODO 平台：element assemble: add selected ui control->outline, pick, drag
+
+
+ * TODO drag to set parent
+
+
+
+* TODO 优化平台UI
+
+TODO 使用图标代替文字按钮
+e.g. 替代运行按钮
+
+TODO 更新排版
+e.g. 更新Extensions、 UI Controls中的图文小图标排版
+
+
+
+
+* TODO publish

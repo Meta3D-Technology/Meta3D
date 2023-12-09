@@ -1,0 +1,122 @@
+* TODO 重命名”应用“为”编辑器“
+
+
+
+* TODO 更新extension    
+
+TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
+TODO remove unused ones
+TODO update icon
+action, uiControl, uiControlInput, package, extension, contribute use different icon
+TODO update displayName，使用中文
+TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
+
+
+
+* TODO 重构：统一编码规范
+
+
+
+
+
+* TODO 构建三个示例场景
+
+1.Engine + Example use Engine package
+2.Editor
+3.Scene use Editor to build and publish
+
+** TODO build one big scene with glbs as showcase
+
+3D场景漫游
+
+
+* TODO 跑通发布扩展、贡献的流程
+
+TODO 跑通：
+“根据template，发布extension/contribute”
+//- “使用yeoman，发布extension/contribute”
+发布action
+发布input
+发布uiControl
+
+
+* TODO 隐藏web3登录
+
+* TODO 增加官方用户:meta3d
+
+* TODO "publisher"改为meta3d
+
+* TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
+
+TODO pass run test
+
+
+* TODO add 新手引导
+
+refe to:
+https://www.google.com.hk/search?q=%E6%96%B0%E6%89%8B%E5%BC%95%E5%AF%BC+ToB&oq=%E6%96%B0%E6%89%8B%E5%BC%95%E5%AF%BC+ToB&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQABgMGIAEMgkIAhAAGAwYgAQyCQgDEAAYDBiABDIJCAQQABgMGIAEMgcIBRAAGIAEMgkIBhAAGAwYgAQyBwgHEAAYgATSAQg0NDAzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#ip=1
+
+https://maimai.cn/article/detail?fid=1744301662&efid=zWvZy6zgFCQn0gIGeGluPA
+
+
+
+https://app.appsmith.com/
+
+
+
+
+TODO 平台首页:
+加入引导链接，如 创建第一个引擎的文档链接等
+加入反馈链接（discussion, issue, 加群）
+
+引导用户star！
+
+TODO 加入帮助中心
+包括新手引导
+
+refer to:
+如何实现前端新手引导功能？
+https://juejin.cn/post/6960493325061193735
+
+第一次进入平台
+
+/*
+用户刚进来平台后有两个选项：
+
+浏览发布的编辑器
+快速注册
+*/
+//要说明各自的简介，如：只需输入账号名即可完成注册！快来注册吧！
+
+给出简介：
+https://pic4.zhimg.com/80/v2-b79b57c19567a1ce65ccc4d287743e67_1440w.webp
+
+# 包括一个宣传视频
+给出详情跳转链接
+
+
+
+
+吸引客户:
+> 对于商业产品客户来说，使用一个产品前需要考虑的非常重要的点就是：这个产品能否免费试用？试用结束后是怎么计费的？性价比是否高，是否划算...
+给出详情跳转链接
+
+
+TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要更多权益请详见”->跳转到咨询页面
+
+引导用户快速注册
+如：只需输入账号名即可完成注册！快来注册吧！
+
+
+
+
+
+第一次登录
+第一次进入Market
+第一次进入发布的编辑器、发布的页面
+第一次进入Ap Assemble
+第一次进入Element Assemble
+第一次进入Package Assemble
+第一次发布编辑器
+第一次发布页面
+第一次使用Custom
