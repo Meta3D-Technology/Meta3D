@@ -235,7 +235,7 @@ defineFeature(feature, test => {
     then(
       "should add event data1 and data2",
       () => {
-        store.contents.selectedUIControlInspectorData->Meta3dCommonlib.Log.printForDebug->expect ==
+        store.contents.selectedUIControlInspectorData->expect ==
           list{
             UIControlInspectorTool.buildUIControlInspectorData(
               ~id=id1.contents,

@@ -1,6 +1,6 @@
-let buildDefaultInputFileStr = Custom.Method.buildDefaultInputFileStr
+let buildDefaultInputFileStr = CustomInputs.Method._buildDefaultInputFileStr
 
-let getInputName = Custom.Method._getInputName
+let getInputName = CustomInputCodeEdit.Method._getInputName
 
 let buildCustomInput = (
   ~name="input1",
@@ -9,6 +9,8 @@ let buildCustomInput = (
 ): FrontendUtils.AssembleSpaceCommonType.customInput => {
   {name, fileStr}
 }
+
+let addCustomInput = CustomInputs.Method.addCustomInput
 
 let buildCustomAction = (
   ~name="action1",

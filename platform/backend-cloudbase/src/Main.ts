@@ -197,7 +197,8 @@ export let publishElementAssembleData = (
     account,
     elementName,
     elementVersion,
-    inspectorData
+    inspectorData,
+    customInputs
 ) => Abstract.publishElementAssembleData([
     _throwError,
     getMarketImplementAccountData,
@@ -208,7 +209,8 @@ export let publishElementAssembleData = (
     account,
     elementName,
     elementVersion,
-    inspectorData
+    inspectorData,
+    customInputs
 )
 
 export let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([

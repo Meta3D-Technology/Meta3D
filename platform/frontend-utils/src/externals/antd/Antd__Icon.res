@@ -31,3 +31,8 @@ module DeleteOutlined = {
   @react.component @module("@ant-design/icons")
   external make: unit => React.element = "DeleteOutlined"
 }
+
+module FileAddOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: unit => React.element = "FileAddOutlined"
+}

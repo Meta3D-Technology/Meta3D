@@ -18,8 +18,6 @@ let _createState = () => {
     isPassDependencyGraphCheck: false,
     storedPackageIdsInApp: list{},
     isChangeSelectedPackagesByDebug: false,
-    customInputs: list{},
-    customActions: list{},
   }
 }
 
@@ -44,8 +42,6 @@ let _reset = state => {
     apInspectorData: state.apInspectorData,
     storedPackageIdsInApp: state.storedPackageIdsInApp,
     isChangeSelectedPackagesByDebug: false,
-    customInputs: state.customInputs,
-    customActions: state.customActions,
   }
 }
 
@@ -285,14 +281,6 @@ let reducer = (state, action) => {
   | BatchStorePackagesInApp(ids) => {
       ...state,
       storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
-    }
-  | SetCustomInputs(customInputs) => {
-      ...state,
-      customInputs,
-    }
-  | SetCustomActions(customActions) => {
-      ...state,
-      customActions,
     }
   // | SelectAllElements(elements) => {
   //     ...state,

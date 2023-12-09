@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const WriteFilePlugin = require('write-file-webpack-plugin')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
     entry: "./lib/es6_global/src/Main.bs.js",
@@ -119,8 +120,16 @@ module.exports = {
                 {
                     from: 'static/three/basis',
                     to: 'static/three/basis'
-                }
+                },
+                {
+                    from: 'static/meta3d-type',
+                    to: 'static/meta3d-type'
+                },
             ],
+        }),
+        new MonacoWebpackPlugin({
+            // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
+            languages: ['typescript']
         }),
         // new WriteFilePlugin(),
     ],

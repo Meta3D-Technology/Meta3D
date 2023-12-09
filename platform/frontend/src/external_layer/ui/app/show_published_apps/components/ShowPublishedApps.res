@@ -175,12 +175,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                       data2,
                                       configData,
                                       allElements,
-                                      customData,
+                                      // customData,
                                     ) = Meta3d.Main.getAllDataOfApp(
                                       file->Meta3dCommonlib.NullableSt.getExn,
                                     )
 
-                                    let (customInputs, customActions) = customData->Obj.magic
+                                    // let (customInputs, customActions) = customData->Obj.magic
 
                                     let (canvasData, otherConfigData) = configData
 
@@ -192,16 +192,16 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                                         apInspectorData,
                                       ),
                                     )
-                                    dispatchForApAssembleStore(
-                                      FrontendUtils.ApAssembleStoreType.SetCustomInputs(
-                                        customInputs->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                                      ),
-                                    )
-                                    dispatchForApAssembleStore(
-                                      FrontendUtils.ApAssembleStoreType.SetCustomActions(
-                                        customActions->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                                      ),
-                                    )
+                                    // dispatchForApAssembleStore(
+                                    //   FrontendUtils.ApAssembleStoreType.SetCustomInputs(
+                                    //     customInputs->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                                    //   ),
+                                    // )
+                                    // dispatchForApAssembleStore(
+                                    //   FrontendUtils.ApAssembleStoreType.SetCustomActions(
+                                    //     customActions->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
+                                    //   ),
+                                    // )
 
                                     dispatch(
                                       FrontendUtils.AppStoreType.UserCenterAction(

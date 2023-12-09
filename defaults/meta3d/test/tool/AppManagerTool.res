@@ -66,9 +66,9 @@ let buildSelectedElements = (~data1=1, ()): AppAndPackageFileType.selectedElemen
   [data1]->Obj.magic
 }
 
-let buildCustomData = (~customInputs=[], ~customActions=[], ()): AppAndPackageFileType.customData => {
-  (customInputs, customActions)->Obj.magic
-}
+// let buildCustomData = (~customInputs=[], ~customActions=[], ()): AppAndPackageFileType.customData => {
+//   (customInputs, customActions)->Obj.magic
+// }
 
 let loadApp = (
   ~addGeneratedContributeFunc=(allExtensionDataArr, _) => allExtensionDataArr,

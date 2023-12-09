@@ -50,6 +50,7 @@ let buildElementAssembleData = (
   ~elementName="e1",
   ~elementVersion="0.0.1",
   ~uiControls=[],
+  ~customInputs=[],
   (),
 ): FrontendUtils.BackendCloudbaseType.elementAssembleData => {
   account,
@@ -58,6 +59,7 @@ let buildElementAssembleData = (
   inspectorData: {
     uiControls: uiControls,
   },
+  customInputs,
 }
 
 let importElement = ElementVisual.Method.importElement

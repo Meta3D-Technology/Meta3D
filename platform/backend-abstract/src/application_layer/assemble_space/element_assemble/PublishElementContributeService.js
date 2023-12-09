@@ -46,7 +46,7 @@ function publishElementContribute(funcArr, account, packageData, contributeBinar
     return _publish(funcArr, account, packageData, contributeBinaryFile, "contribute");
 }
 exports.publishElementContribute = publishElementContribute;
-function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementData], account, elementName, elementVersion, inspectorData) {
+function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementData], account, elementName, elementVersion, inspectorData, customInputs) {
     return (0, most_1.fromPromise)(getMarketImplementAccountDataFunc("publishedelementassembledata", account, elementName, elementVersion).then((marketImplementAccountData) => {
         if (marketImplementAccountData.length > 0) {
             errorFunc("version: " + elementVersion + " already exist, please update version");
@@ -56,6 +56,7 @@ function publishElementAssembleData([errorFunc, getMarketImplementAccountDataFun
             elementName,
             elementVersion,
             inspectorData,
+            customInputs,
             key: (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(account)
         };
         return (0, most_1.fromPromise)(addMarketImplementData("publishedelementassembledata", data));

@@ -106,7 +106,8 @@ export function publishElementAssembleData([errorFunc, getMarketImplementAccount
     account: string,
     elementName: string,
     elementVersion: string,
-    inspectorData: any
+    inspectorData: any,
+    customInputs: any,
 ) {
     return fromPromise(
         getMarketImplementAccountDataFunc(
@@ -124,6 +125,7 @@ export function publishElementAssembleData([errorFunc, getMarketImplementAccount
                 elementName,
                 elementVersion,
                 inspectorData,
+                customInputs,
                 key: handleKeyToLowercase(account)
             }
 

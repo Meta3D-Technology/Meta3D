@@ -61,14 +61,6 @@ type apInspectorDataFromFile = {
   skinName: Js.Nullable.t<skinName>,
 }
 
-type customInput = AssembleSpaceCommonType.customInput
-
-type customInputs = list<customInput>
-
-type customAction = AssembleSpaceCommonType.customAction
-
-type customActions = list<customAction>
-
 type action =
   | Reset
   | ResetWhenSwitch
@@ -109,8 +101,6 @@ type action =
   | StorePackageInApp(id)
   | UnStorePackageInApp(id)
   | BatchStorePackagesInApp(list<id>)
-  | SetCustomInputs(customInputs)
-  | SetCustomActions(customActions)
 // | SelectAllElements(selectedElements)
 
 type state = {
@@ -126,6 +116,4 @@ type state = {
   isPassDependencyGraphCheck: bool,
   storedPackageIdsInApp: AssembleSpaceCommonType.storedPackageIdsInApp,
   isChangeSelectedPackagesByDebug: bool,
-  customInputs: customInputs,
-  customActions: customActions,
 }

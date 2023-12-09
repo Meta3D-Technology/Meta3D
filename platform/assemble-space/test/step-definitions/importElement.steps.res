@@ -193,6 +193,9 @@ defineFeature(feature, test => {
     let i1 = ref(Obj.magic(1))
     let e1 = ref(Obj.magic(1))
     let e2 = ref(Obj.magic(1))
+    // let customInput1 = CustomTool.buildCustomInput(~name="Input1", ~fileStr="f1", ())
+    // let customInput2 = customInput1
+    // let customInput3 = CustomTool.buildCustomInput(~name="Input3", ~fileStr="f3", ())
     // let selectedUIControls = ref(list{})
     // let ei1 = ref(Obj.magic(1))
     let uiControl1 = ref(Obj.magic(1))
@@ -354,6 +357,7 @@ defineFeature(feature, test => {
             ~elementName="d1",
             ~elementVersion="0.0.1",
             ~uiControls=[uiControl1.contents],
+            // ~customInputs=[customInput1],
             (),
           )
       },
@@ -372,14 +376,14 @@ defineFeature(feature, test => {
               (),
             ),
             ~isDraw=false->FrontendUtils.CommonType.BoolForIsDraw,
-            ~input=UIControlInspectorTool.buildInput(~inputName="i2_", ())->Some,
-            ~event=[
-              UIControlInspectorTool.buildEventData(
-                ~eventName=#button_click,
-                ~actionName="a2_",
-                (),
-              ),
-            ],
+            // ~input=UIControlInspectorTool.buildInput(~inputName="i2_", ())->Some,
+            // ~event=[
+            //   UIControlInspectorTool.buildEventData(
+            //     ~eventName=#button_click,
+            //     ~actionName="a2_",
+            //     (),
+            //   ),
+            // ],
             ~specific=[Obj.magic(10)],
             ~children=[],
             (),
@@ -391,6 +395,7 @@ defineFeature(feature, test => {
             ~elementName="d2",
             ~elementVersion="0.0.1",
             ~uiControls=[uiControl2.contents],
+            // ~customInputs=[customInput2, customInput3],
             (),
           )
       },
@@ -498,6 +503,7 @@ defineFeature(feature, test => {
                 (),
               ),
             },
+            // list{customInput1, customInput3},
           ),
         )
         ->expect == true

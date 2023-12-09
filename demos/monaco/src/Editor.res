@@ -33,8 +33,6 @@ module Method = {
 https://github.com/microsoft/monaco-editor/issues/1839
  */
   let _wrapDTs = dts => {
-    //TODO implement
-    Obj.magic(1)
     {j`declare module "meta3d-type"{
       ${dts}
     }`}

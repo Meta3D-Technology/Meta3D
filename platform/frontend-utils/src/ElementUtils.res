@@ -18,17 +18,33 @@ let buildContribute = (~version, ~data, ~id="", ()): ApAssembleStoreType.contrib
 //   name->Js.String.replaceByRe(%re("/-/g"), "_", _)
 // }
 
-let _buildProtocolName = name => {
-  j`${name->Js.String.replaceByRe(%re("/_/g"), "-", _)}-protocol`
+// let _buildProtocolName = name => {
+//   j`${name->Js.String.replaceByRe(%re("/_/g"), "-", _)}-protocol`
+// }
+
+let _handleProtocolName = name => {
+  name->Js.String.replaceByRe(%re("/_/g"), "-", _)
 }
 
-let _buildPackageData = (account, name): Meta3d.ExtensionFileType.contributePackageData => {
+let buildCustomInputProtocolNamePrefix = () => {
+  "-input-custom-"
+}
+
+let buildCustomActionProtocolNamePrefix = () => {
+  "-action-custom-"
+}
+
+let _buildPackageData = (
+  account,
+  name,
+  protocolName,
+): Meta3d.ExtensionFileType.contributePackageData => {
   {
     name,
     version: getElementContributeVersion(),
     account,
     protocol: {
-      name: _buildProtocolName(name),
+      name: protocolName,
       version: getElementContributeProtocolVersion(),
     },
     displayName: "",
@@ -44,11 +60,12 @@ let _addGeneratedContributeForElementAssemble = (
   selectedContributes,
   account,
   (name, fileStr),
+  protocolName,
 ) => {
   // let name = name->_handleName
 
   selectedContributes->Meta3dCommonlib.ListSt.push(
-    generateContribute(. _buildPackageData(account, name), fileStr)
+    generateContribute(. _buildPackageData(account, name, protocolName), fileStr)
     ->loadContribute(. _)
     ->buildContribute(~id=name, ~version=getElementContributeVersion(), ~data=_, ()),
   )
@@ -59,11 +76,12 @@ let _addGeneratedContributeForRunApp = (
   allContributeDataList,
   account,
   (name, fileStr),
+  protocolName,
 ) => {
   // let name = name->_handleName
 
   let {contributePackageData, contributeFuncData}: Meta3d.ExtensionFileType.contributeFileData =
-    generateContribute(_buildPackageData(account, name), fileStr)->loadContribute
+    generateContribute(_buildPackageData(account, name, protocolName), fileStr)->loadContribute
 
   allContributeDataList->Meta3dCommonlib.ListSt.push(
     (
@@ -79,7 +97,7 @@ let addGeneratedInputContributesForElementAssemble = (
   (generateContribute, loadContribute),
   selectedContributes,
   account,
-  customInputs: ApAssembleStoreType.customInputs,
+  customInputs: ElementAssembleStoreType.customInputs,
 ) => {
   customInputs->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
     selectedContributes,
@@ -90,6 +108,7 @@ let addGeneratedInputContributesForElementAssemble = (
       selectedContributes,
       account,
       (name, fileStr),
+      j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
     )
   })
 }
@@ -98,7 +117,7 @@ let addGeneratedInputContributesForRunApp = (
   (generateContribute, loadContribute, convertContributeFuncData),
   allContributeDataList,
   account,
-  customInputs: ApAssembleStoreType.customInputs,
+  customInputs: ElementAssembleStoreType.customInputs,
 ) => {
   customInputs->Meta3dCommonlib.ListSt.reduce(allContributeDataList, (
     allContributeDataList,
@@ -109,6 +128,7 @@ let addGeneratedInputContributesForRunApp = (
       allContributeDataList,
       account,
       (name, fileStr),
+      j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
     )
   })
 }
@@ -117,7 +137,7 @@ let rec addGeneratedActionContributesForElementAssemble = (
   (generateContribute, loadContribute),
   selectedContributes,
   account,
-  customActions: ApAssembleStoreType.customActions,
+  customActions: ElementAssembleStoreType.customActions,
 ) => {
   customActions->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
     selectedContributes,
@@ -128,6 +148,7 @@ let rec addGeneratedActionContributesForElementAssemble = (
       selectedContributes,
       account,
       (name, fileStr),
+      j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
     )
   })
 }
@@ -136,7 +157,7 @@ let addGeneratedActionContributesForRunApp = (
   (generateContribute, loadContribute, convertContributeFuncData),
   allContributeDataList,
   account,
-  customActions: ApAssembleStoreType.customActions,
+  customActions: ElementAssembleStoreType.customActions,
 ) => {
   customActions->Meta3dCommonlib.ListSt.reduce(allContributeDataList, (
     allContributeDataList,
@@ -147,6 +168,7 @@ let addGeneratedActionContributesForRunApp = (
       allContributeDataList,
       account,
       (name, fileStr),
+      j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
     )
   })
 }

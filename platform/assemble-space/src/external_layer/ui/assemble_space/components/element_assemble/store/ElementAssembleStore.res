@@ -38,6 +38,9 @@ let _createState = () => {
   //   // },
   // },
   isImportElement: false,
+  customInputs: list{},
+  customActions: list{},
+  currentCustomInputName: None,
 }
 
 let _setUIControlInspectorData = (state, setFunc, id) => {
@@ -148,6 +151,8 @@ let _reset = state => {
   {
     ..._createState(),
     canvasData: state.canvasData,
+    // customInputs: state.customInputs,
+    // customActions: state.customActions,
   }
 }
 
@@ -348,12 +353,35 @@ let reducer = (state, action) => {
       selectedUIControls,
       selectedUIControlInspectorData,
       isImportElement: true,
-      // elementInspectorData,
-      // elementContribute: None,
+    }
+  | ImportElementCustom(customInputs) => {
+      ...state,
+      customInputs,
     }
   | SetCanvasData(canvasData) => {
       ...state,
       canvasData,
+    }
+  | AddCustomInput(customInput) => {
+      ...state,
+      customInputs: state.customInputs->Meta3dCommonlib.ListSt.push(customInput),
+    }
+  | UpdateCustomInputFileStr(oldInputName, newInputName, fileStr) => {
+      ...state,
+      customInputs: state.customInputs->Meta3dCommonlib.ListSt.map(customInput => {
+        customInput.name == oldInputName
+          ? (
+              {
+                name: newInputName,
+                fileStr,
+              }: customInput
+            )
+          : customInput
+      }),
+    }
+  | SelectCustomInput(inputName) => {
+      ...state,
+      currentCustomInputName: inputName->Some,
     }
   }
 }

@@ -56,12 +56,13 @@ let getElementAssembleData = (getMarketImplementAccountDataWithWhereDataFunc, ac
 exports.getElementAssembleData = getElementAssembleData;
 let findAllElementAssembleData = (getDataFunc, limitCount, skipCount) => {
     return (0, most_1.fromPromise)(getDataFunc("publishedelementassembledata", limitCount, skipCount)).flatMap((data) => {
-        return (0, most_1.just)(data.map(({ account, elementName, elementVersion, inspectorData }) => {
+        return (0, most_1.just)(data.map(({ account, elementName, elementVersion, inspectorData, customInputs }) => {
             return {
                 account,
                 elementName,
                 elementVersion,
-                inspectorData
+                inspectorData,
+                customInputs
             };
         }));
     });

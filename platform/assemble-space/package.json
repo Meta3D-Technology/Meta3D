@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "antd": "^4.21.0",
+        "monaco-editor": "^0.32.1",
+        "react-monaco-editor": "^0.54.0",
         "meta3d-bs-most-default": "^0.21.0",
         "meta3d-editor-whole-protocol": "^0.21.0",
         "remporium": "^0.0.1",

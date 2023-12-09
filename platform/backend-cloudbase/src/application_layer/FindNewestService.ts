@@ -235,13 +235,15 @@ export let findNewestPublishElementAssembleData = (
                     account,
                     elementName,
                     elementVersion,
-                    inspectorData
+                    inspectorData,
+                    customInputs
                 }) => {
                     return {
                         account,
                         elementName,
                         elementVersion,
-                        inspectorData
+                        inspectorData,
+                        customInputs
                     }
                 })
 

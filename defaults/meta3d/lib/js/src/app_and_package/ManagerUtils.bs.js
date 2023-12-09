@@ -364,10 +364,10 @@ function _checkAllDependents(param) {
         ];
 }
 
-function _addGeneratedContribute(param, addGeneratedContributeFunc, customData) {
+function _addGeneratedContribute(param, addGeneratedContributeFunc, selectedElements) {
   return [
           param[0],
-          Curry._2(addGeneratedContributeFunc, param[1], customData)
+          Curry._2(addGeneratedContributeFunc, param[1], selectedElements)
         ];
 }
 
@@ -386,8 +386,8 @@ function _run(param) {
         ];
 }
 
-function loadApp(addGeneratedContributeFunc, customData, data) {
-  return _run(_addGeneratedContribute(_checkAllDependents(_parse1(data)), addGeneratedContributeFunc, customData));
+function loadApp(addGeneratedContributeFunc, selectedElements, data) {
+  return _run(_addGeneratedContribute(_checkAllDependents(_parse1(data)), addGeneratedContributeFunc, selectedElements));
 }
 
 function loadPackage(data) {

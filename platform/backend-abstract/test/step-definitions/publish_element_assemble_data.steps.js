@@ -15,8 +15,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         getMarketImplementAccountDataFunc = sandbox.stub();
         addMarketImplementDataFunc = sandbox.stub();
     };
-    function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc], account, elementName, elementVersion, inspectorData);
+    function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}, customInputs = []) {
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc], account, elementName, elementVersion, inspectorData, customInputs);
     }
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -31,6 +31,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             element: 1,
             uiControls: []
         };
+        let customInputs = [
+            {
+                name: "Input1",
+                fileStr: "f1"
+            }
+        ];
         let marketImplementCollectionData = [];
         _prepare(given);
         given('prepare funcs', () => {
@@ -38,7 +44,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         when('publish', () => {
-            return _publish(account, elementName, elementVersion, inspectorData).drain();
+            return _publish(account, elementName, elementVersion, inspectorData, customInputs).drain();
         });
         and('should add to collection', () => {
             expect(addMarketImplementDataFunc).toCalledWith([
@@ -47,6 +53,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                     "account": account,
                     "elementName": elementName, "elementVersion": elementVersion,
                     "inspectorData": inspectorData,
+                    "customInputs": customInputs,
                     "key": "meta3d"
                 },
             ]);

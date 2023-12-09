@@ -10,9 +10,9 @@ type selectedContributesFromMarket = list<AssembleSpaceCommonType.contributeData
 
 type selectedElementsFromMarket = list<elementAssembleData>
 
-type customInputsFromMarket = list<AssembleSpaceCommonType.customInput>
+// type customInputsFromMarket = list<AssembleSpaceCommonType.customInput>
 
-type customActionsFromMarket = list<AssembleSpaceCommonType.customAction>
+// type customActionsFromMarket = list<AssembleSpaceCommonType.customAction>
 
 type dispatch = AssembleSpaceStoreType.action => unit
 
@@ -115,7 +115,7 @@ type meta3dService = {
     array<Js.Typed_array.ArrayBuffer.t>,
     array<(packageData, Js.Typed_array.ArrayBuffer.t)>,
     array<elementAssembleData>,
-    (array<ApAssembleStoreType.customInput>, array<ApAssembleStoreType.customAction>),
+    // (array<ApAssembleStoreType.customInput>, array<ApAssembleStoreType.customAction>),
     Js.Nullable.t<Meta3dType.Index.startConfigData>,
     string,
   ) => Js.Typed_array.ArrayBuffer.t,

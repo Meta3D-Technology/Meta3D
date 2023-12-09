@@ -103,7 +103,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         allPackageBinaryFiles,
         allPackagesStoredInApp,
         selectedElements,
-        customData,
+        // customData,
         startConfigData,
         startPackageProtocolName,
       ) =>
@@ -112,7 +112,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           allPackageBinaryFiles,
           allPackagesStoredInApp,
           selectedElements->Obj.magic,
-          customData->Obj.magic,
+          // customData->Obj.magic,
           startConfigData,
           startPackageProtocolName,
         ),

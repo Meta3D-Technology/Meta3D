@@ -18,6 +18,7 @@ defineFeature(feature, test => {
   let event = ref(Obj.magic(1))
   let isDraw = ref(Obj.magic(1))
   let specific = ref(Obj.magic(1))
+  let customInputs = ref(Obj.magic(1))
 
   let sandbox = ref(Obj.magic(1))
 
@@ -195,6 +196,8 @@ defineFeature(feature, test => {
             (),
           ),
         }
+
+      customInputs := list{CustomTool.buildCustomInput(~name="Input1", ~fileStr="f1", ())}
     })
   }
 
@@ -401,6 +404,7 @@ defineFeature(feature, test => {
           ),
           ~selectedUIControls=selectedUIControls.contents,
           ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
+          ~customInputs=customInputs.contents,
           (),
         )
       },
@@ -418,7 +422,7 @@ defineFeature(feature, test => {
       () => {
         publishElementAssembleDataStub.contents
         ->Obj.magic
-        ->SinonTool.calledWithArg4(
+        ->SinonTool.calledWithArg5(
           account.contents,
           elementName.contents,
           "0.1.2",
@@ -461,6 +465,7 @@ defineFeature(feature, test => {
               ],
             }: FrontendUtils.BackendCloudbaseType.inspectorData
           ),
+          customInputs.contents->Meta3dCommonlib.ListSt.toArray,
         )
         ->expect == true
       },

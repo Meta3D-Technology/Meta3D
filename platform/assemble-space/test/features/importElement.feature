@@ -33,9 +33,12 @@ Feature: Import Element
             And generate action a1
             And generate input i1
             And select them
+            # And select element e1 which has window and custom input1
+            # And select element e2 which has button and custom input2, input3
             And select element e1 which has window
             And select element e2 which has button
             When import all selected elements
             Then should generate selected ui controls
             And generate selected ui control inspector data
+            # And merge custom inputs
             And dispatch Import action with them

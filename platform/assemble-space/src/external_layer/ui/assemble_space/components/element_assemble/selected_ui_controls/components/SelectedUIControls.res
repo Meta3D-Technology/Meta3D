@@ -31,7 +31,9 @@ module Method = {
       {
         title: displayName,
         key: id,
-        icon: <Image preview=false src={protocolIconBase64} width=20 height=20 />,
+        icon: <Image
+          preview=false src={protocolIconBase64} width=20 height=20
+        />,
         children: convertToTreeData(children),
       }
     })

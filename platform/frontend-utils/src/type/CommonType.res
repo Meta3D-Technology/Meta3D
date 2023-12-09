@@ -22,7 +22,7 @@
 // type elementStateFields = list<elementStateFieldData>
 
 // type reducerHandler = {
-//   actionName: CommonType.actionName,
+//   actionName: actionName,
 //   updatedElementStateFieldName: string,
 // }
 
@@ -74,6 +74,17 @@ type inputFileStr = string
 type actionFileStr = string
 
 type actionName = string
+
+
+type customInput = {
+  name: inputName,
+  fileStr: inputFileStr,
+}
+
+type customAction = {
+  name: actionName,
+  fileStr: actionFileStr,
+}
 
 type eventData = {
   eventName: Meta3dType.ContributeProtocolConfigType.eventName,

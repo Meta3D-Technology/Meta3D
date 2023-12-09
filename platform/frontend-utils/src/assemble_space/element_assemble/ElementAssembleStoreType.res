@@ -115,6 +115,14 @@ type elementContribute = ApAssembleStoreType.contribute
 
 type canvasData = Meta3dType.Index.canvasData
 
+type customInput = AssembleSpaceCommonType.customInput
+
+type customInputs = list<customInput>
+
+type customAction = AssembleSpaceCommonType.customAction
+
+type customActions = list<customAction>
+
 type action =
   | Reset
   | ResetWhenSwitch
@@ -158,7 +166,12 @@ type action =
   // | SetHandlers(handlers)
   // | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
   | Import(selectedUIControls, selectedUIControlInspectorData)
+  | ImportElementCustom(customInputs)
   | SetCanvasData(canvasData)
+  | AddCustomInput(customInput)
+  | UpdateCustomInputFileStr(CommonType.inputName, CommonType.inputName, CommonType.inputFileStr)
+  // | SetCustomActions(customActions)
+  | SelectCustomInput(CommonType.inputName)
 
 type state = {
   canvasData: canvasData,
@@ -172,4 +185,7 @@ type state = {
   // isShowElementInspector: bool,
   // elementInspectorData: elementInspectorData,
   isImportElement: bool,
+  customInputs: customInputs,
+  customActions: customActions,
+  currentCustomInputName: option<CommonType.inputName>,
 }

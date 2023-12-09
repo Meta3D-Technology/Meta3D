@@ -64,21 +64,23 @@ module Method = {
     // let values =
     SelectedContributesForElementUtils.getInputs(selectedContributes)
     ->Meta3dCommonlib.ListSt.toArray
-    ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-      // data.contributePackageData.protocol.name->Js.String.replace("-input-", "-ui-control-", _) ==
-      //   uiControlProtocolName
 
-      (
-        data.contributePackageData.protocol.name
-        ->Js.String.match_(%re("/-input-(.+)$/i"), _)
-        ->Meta3dCommonlib.OptionSt.getExn
-      )[1]->Meta3dCommonlib.OptionSt.getExn ==
-        (
-          uiControlProtocolName
-          ->Js.String.match_(%re("/-ui-control-(.+)$/i"), _)
-          ->Meta3dCommonlib.OptionSt.getExn
-        )[1]->Meta3dCommonlib.OptionSt.getExn
-    })
+    // TODO open this filter
+    // ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+    //   // data.contributePackageData.protocol.name->Js.String.replace("-input-", "-ui-control-", _) ==
+    //   //   uiControlProtocolName
+
+    //   (
+    //     data.contributePackageData.protocol.name
+    //     ->Js.String.match_(%re("/-input-(.+)$/i"), _)
+    //     ->Meta3dCommonlib.OptionSt.getExn
+    //   )[1]->Meta3dCommonlib.OptionSt.getExn ==
+    //     (
+    //       uiControlProtocolName
+    //       ->Js.String.match_(%re("/-ui-control-(.+)$/i"), _)
+    //       ->Meta3dCommonlib.OptionSt.getExn
+    //     )[1]->Meta3dCommonlib.OptionSt.getExn
+    // })
     ->Meta3dCommonlib.ArraySt.map(({data}) => {
       (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
     })

@@ -29,7 +29,6 @@ let make = (
     <Layout.Content>
       <Space direction=#horizontal size=#small>
         <Publish service account selectedElementsFromMarket />
-        <Custom service />
         <ApController
           service
           // selectedExtensionsFromMarket

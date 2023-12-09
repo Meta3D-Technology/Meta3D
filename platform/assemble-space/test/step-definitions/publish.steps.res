@@ -262,8 +262,8 @@ defineFeature(feature, test => {
     // let selectedExtensions = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
     let selectedElementsFromMarket = ref(Obj.magic(1))
-    let customInputs = ref(Obj.magic(1))
-    let customActions = ref(Obj.magic(1))
+    // let customInputs = ref(Obj.magic(1))
+    // let customActions = ref(Obj.magic(1))
     let selectedUIControls = ref(Obj.magic(1))
     let selectedUIControlInspectorData = ref(Obj.magic(1))
     let canvasData = ref(Obj.magic(1))
@@ -384,13 +384,13 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(
-      "prepare custom data",
-      () => {
-        customInputs := list{CustomTool.buildCustomInput()}
-        customActions := list{CustomTool.buildCustomAction()}
-      },
-    )
+    // \"and"(
+    //   "prepare custom data",
+    //   () => {
+    //     customInputs := list{CustomTool.buildCustomInput()}
+    //     customActions := list{CustomTool.buildCustomAction()}
+    //   },
+    // )
 
     CucumberAsync.execStep(
       \"when",
@@ -441,8 +441,8 @@ defineFeature(feature, test => {
           ~selectedElementsFromMarket=selectedElementsFromMarket.contents,
           ~selectedUIControls=selectedUIControls.contents,
           ~selectedUIControlInspectorData=selectedUIControlInspectorData.contents,
-          ~customInputs=customInputs.contents,
-          ~customActions=customActions.contents,
+        //   ~customInputs=customInputs.contents,
+        //   ~customActions=customActions.contents,
           (),
         )
       },
@@ -463,22 +463,22 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "should generate app with correct contribute data which add generated element contribute and selected elements and custom data and start config data",
+      "should generate app with correct contribute data which add generated element contribute and selected elements and start config data",
       () => {
         let {isDebug, clearColor, skinName} = apInspectorData.contents
 
         (
           generateAppStub.contents
           ->Obj.magic
-          ->SinonTool.calledWithArg6(
+          ->SinonTool.calledWithArg5(
             matchAny,
             [selectedPackageBinaryFile1],
             [(p2PackageData, selectedPackageBinaryFile2)],
             selectedElementsFromMarket.contents->Meta3dCommonlib.ListSt.toArray,
-            (
-              customInputs.contents->Meta3dCommonlib.ListSt.toArray,
-              customActions.contents->Meta3dCommonlib.ListSt.toArray,
-            ),
+            // (
+            //   customInputs.contents->Meta3dCommonlib.ListSt.toArray,
+            //   customActions.contents->Meta3dCommonlib.ListSt.toArray,
+            // ),
             (
               canvasData.contents,
               {

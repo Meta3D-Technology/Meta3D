@@ -96,7 +96,7 @@ let generateApp = (
   service,
   ((selectPackages, allPackagesStoredInApp), selectedExtensions, selectedContributes),
   selectedElements,
-  customData,
+  // customData,
   elementContribute,
 ) => {
   AppUtils.generateApp(
@@ -106,7 +106,7 @@ let generateApp = (
     // selectedExtensions,
     selectedContributes->_removeElementContribute->Meta3dCommonlib.ArraySt.push(elementContribute),
     selectedElements,
-  customData,
+  // customData,
     Js.Nullable.null,
   )
 }
@@ -208,8 +208,8 @@ let cancelAppLoop = (
 //   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
 // }
 
-let isCustomInput = inputName => {
-  inputName->Js.String.includes("-input-custom-", _)
+let isCustomInput = inputProtocolName => {
+  inputProtocolName->Js.String.includes(FrontendUtils.ElementUtils.buildCustomInputProtocolNamePrefix(), _)
 }
 
 let buildEmptyAddGeneratedContributeFunc = () => {
@@ -227,6 +227,6 @@ let buildEmptyAddGeneratedContributeFunc = () => {
 //   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
 // }
 
-let isCustomAction = (actionName, eventName) => {
-  actionName->Js.String.includes({j`-action-custom-${eventName}-`}, _)
+let isCustomAction = (actionProtocolName, eventName) => {
+  actionProtocolName->Js.String.includes({j`${FrontendUtils.ElementUtils.buildCustomInputProtocolNamePrefix()}${eventName}-`}, _)
 }

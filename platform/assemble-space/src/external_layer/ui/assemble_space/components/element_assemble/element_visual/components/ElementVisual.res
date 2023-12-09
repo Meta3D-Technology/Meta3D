@@ -135,7 +135,7 @@ module Method = {
       // )
       ->Meta3dCommonlib.ListSt.toArray,
       list{},
-      (list{}, list{}),
+      // (list{}, list{}),
       Js.Nullable.null,
     )
   }
@@ -422,88 +422,76 @@ module Method = {
     uiControls->_generate(selectedUIControls)
   }
 
-  // let importElement = (service, dispatch, elementAssembleData, selectedContributes) => {
-  //   switch elementAssembleData {
-  //   | Loaded(elementAssembleData) =>
-  //     let {elementName, elementVersion, inspectorData} = elementAssembleData
-  //     let {uiControls} = inspectorData
+  // let _removeNotExistedInputAndEventExceptFileStr = (uiControls, service, selectedContributes) => {
+  //   let selectedActionNames = SelectedContributesForElementUtils.getActions(
+  //     selectedContributes,
+  //   )->Meta3dCommonlib.ListSt.map(({data}) => {
+  //     (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
+  //   })
+  //   let selectedInputNames = SelectedContributesForElementUtils.getInputs(
+  //     selectedContributes,
+  //   )->Meta3dCommonlib.ListSt.map(({data}) => {
+  //     (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
+  //   })
 
-  //     let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
-
-  //     dispatch(
-  //       FrontendUtils.ElementAssembleStoreType.Import(
-  //         selectedUIControls,
-  //         _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
-  //       ),
-  //     )
-
-  //   | _ => ()
+  //   let _findCustomInputProtocolName = name => {
+  //     (
+  //       SelectedContributesForElementUtils.getInputs(selectedContributes)
+  //       ->Meta3dCommonlib.Log.printForDebug
+  //       ->Meta3dCommonlib.ListSt.find(({data}) => {
+  //         data.contributePackageData.name == name
+  //       })
+  //       ->Meta3dCommonlib.OptionSt.getExn
+  //     ).data.contributePackageData.protocol.name
   //   }
+
+  //   let _findCustomActionProtocolName = name => {
+  //     (
+  //       SelectedContributesForElementUtils.getActions(selectedContributes)
+  //       ->Meta3dCommonlib.ListSt.find(({data}) => {
+  //         data.contributePackageData.name == name
+  //       })
+  //       ->Meta3dCommonlib.OptionSt.getExn
+  //     ).data.contributePackageData.protocol.name
+  //   }
+
+  //   let rec _remove = uiControls => {
+  //     uiControls->Meta3dCommonlib.ArraySt.map((
+  //       uiControl: FrontendUtils.BackendCloudbaseType.uiControl,
+  //     ) => {
+  //       {
+  //         ...uiControl,
+  //         input: uiControl.input->Meta3dCommonlib.NullableSt.bind((. input) => {
+  //           ElementVisualUtils.isCustomInput(
+  //             input.inputName->Meta3dCommonlib.Log.printForDebug->_findCustomInputProtocolName,
+  //           ) ||
+  //           selectedInputNames->Meta3dCommonlib.ListSt.includes(input.inputName)
+  //             ? input->Meta3dCommonlib.NullableSt.return
+  //             : Meta3dCommonlib.NullableSt.getEmpty()
+  //         }),
+  //         event: uiControl.event->Meta3dCommonlib.ArraySt.filter(({eventName, actionName}) => {
+  //           ElementVisualUtils.isCustomAction(
+  //             actionName->_findCustomActionProtocolName,
+  //             eventName->Obj.magic,
+  //           ) ||
+  //           selectedActionNames->Meta3dCommonlib.ListSt.includes(actionName)
+  //         }),
+  //         children: _remove(uiControl.children),
+  //       }
+  //     })
+  //   }
+
+  //   _remove(uiControls)
   // }
 
-  let _removeNotExistedInputAndEventExceptFileStr = (uiControls, service, selectedContributes) => {
-    let selectedActionNames = SelectedContributesForElementUtils.getActions(
-      selectedContributes,
-    )->Meta3dCommonlib.ListSt.map(({data}) => {
-      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
-    })
-    let selectedInputNames = SelectedContributesForElementUtils.getInputs(
-      selectedContributes,
-    )->Meta3dCommonlib.ListSt.map(({data}) => {
-      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
-    })
-
-    let rec _remove = uiControls => {
-      uiControls->Meta3dCommonlib.ArraySt.map((
-        uiControl: FrontendUtils.BackendCloudbaseType.uiControl,
-      ) => {
-        {
-          ...uiControl,
-          input: uiControl.input->Meta3dCommonlib.NullableSt.bind((. input) => {
-            ElementVisualUtils.isCustomInput(input.inputName) ||
-            selectedInputNames->Meta3dCommonlib.ListSt.includes(input.inputName)
-              ? input->Meta3dCommonlib.NullableSt.return
-              : Meta3dCommonlib.NullableSt.getEmpty()
-          }),
-          event: uiControl.event->Meta3dCommonlib.ArraySt.filter(({eventName, actionName}) => {
-            ElementVisualUtils.isCustomAction(actionName, eventName->Obj.magic) ||
-            selectedActionNames->Meta3dCommonlib.ListSt.includes(actionName)
-          }),
-          children: _remove(uiControl.children),
-        }
-      })
-    }
-
-    _remove(uiControls)
-  }
-
   let importElement = (service, dispatch, selectedElementsFromMarket, selectedContributes) => {
-    // switch elementAssembleData {
-    // | Loaded(elementAssembleData) =>
-    //   let {elementName, elementVersion, inspectorData} = elementAssembleData
-    //   let {uiControls} = inspectorData
-
-    //   let selectedUIControls = _generateSelectedUIControls(service, selectedContributes, uiControls)
-
-    //   dispatch(
-    //     FrontendUtils.ElementAssembleStoreType.Import(
-    //       selectedUIControls,
-    //       _generateSelectedUIControlInspectorData(uiControls, selectedUIControls),
-    //     ),
-    //   )
-
-    // | _ => ()
-    // }
-
-    let mergedUIControls =
-      selectedElementsFromMarket
-      ->Meta3dCommonlib.ListSt.reduce([], (
-        mergedUIControls,
-        {inspectorData}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
-      ) => {
-        mergedUIControls->Js.Array.concat(inspectorData.uiControls, _)
-      })
-      ->_removeNotExistedInputAndEventExceptFileStr(service, selectedContributes)
+    let mergedUIControls = selectedElementsFromMarket->Meta3dCommonlib.ListSt.reduce([], (
+      mergedUIControls,
+      {inspectorData}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+    ) => {
+      mergedUIControls->Js.Array.concat(inspectorData.uiControls, _)
+    })
+    // ->_removeNotExistedInputAndEventExceptFileStr(service, selectedContributes)
 
     let selectedUIControls = _generateSelectedUIControls(
       service,
@@ -511,10 +499,13 @@ module Method = {
       mergedUIControls,
     )
 
+    // let mergedCustomInputs = _mergeCustoms(selectedElementsFromMarket)
+
     dispatch(
       FrontendUtils.ElementAssembleStoreType.Import(
         selectedUIControls,
         _generateSelectedUIControlInspectorData(mergedUIControls, selectedUIControls),
+        // mergedCustomInputs,
       ),
     )
   }

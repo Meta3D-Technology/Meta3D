@@ -54,12 +54,6 @@ type packageData = {
 
 type storedPackageIdsInApp = list<id>
 
-type customInput = {
-  name: CommonType.inputName,
-  fileStr: CommonType.inputFileStr,
-}
+type customInput = CommonType.customInput
 
-type customAction = {
-  name: CommonType.actionName,
-  fileStr: CommonType.actionFileStr,
-}
+type customAction = CommonType.customAction

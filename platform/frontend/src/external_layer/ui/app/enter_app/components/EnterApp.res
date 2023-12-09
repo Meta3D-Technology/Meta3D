@@ -22,7 +22,15 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       // TODO perf: if already init, not init again
       service.backend.init(InitUtils.getBackendEnv(_getEnv()))
       ->Meta3dBsMostDefault.Most.drain
-      ->Js.Promise.then_(
+      ->// customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      Js.Promise.then_(
         _ => {
           service.backend.findPublishApp(.
             progress => setDownloadProgress(_ => progress),
@@ -42,12 +50,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                 : {
                     Meta3dCommonlib.NullableSt.getExn(appBinaryFile)
                     ->Meta3d.Main.loadApp(
-                      (allContributeDataArr, customData) => {
+                      (allContributeDataArr, selectedElements) => {
+                        let selectedElement: FrontendUtils.BackendCloudbaseType.elementAssembleData =
+                          selectedElements->Obj.magic->Meta3dCommonlib.ArraySt.getExn(0)
+
                         let (
-                          customInputs: array<FrontendUtils.ApAssembleStoreType.customInput>,
-                          customActions: array<FrontendUtils.ApAssembleStoreType.customAction>,
-                        ) =
-                          customData->Obj.magic
+                          customInputs: array<FrontendUtils.ElementAssembleStoreType.customInput>,
+                          customActions: array<FrontendUtils.ElementAssembleStoreType.customAction>,
+                        ) = (selectedElement.customInputs, [])
 
                         let funcs = (
                           Meta3d.Main.generateContribute,
@@ -79,6 +89,14 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             _,
           )
         },
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
         _,
       )
       ->Js.Promise.catch(

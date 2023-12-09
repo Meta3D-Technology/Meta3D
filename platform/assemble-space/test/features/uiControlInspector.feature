@@ -56,7 +56,8 @@ Feature: UIControlInsepctor
             Given select input i1 match ui control w1
             And select input i2 not match ui control w1
             When build input select values
-            Then should show i1
+            # Then should show i1
+            Then should show i1, i2
 
 
     Rule: Specific

@@ -539,7 +539,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=i1Name,
                 ~protocol={
-                  name: FrontendUtils.ElementUtils._buildProtocolName(i1Name),
+                  name: FrontendUtils.ElementUtils._handleProtocolName(i1Name),
                   version: "^0.6.0",
                 },
                 (),
@@ -572,7 +572,7 @@ defineFeature(feature, test => {
               ~contributePackageData=ContributeTool.buildContributePackageData(
                 ~name=i2Name,
                 ~protocol={
-                  name: FrontendUtils.ElementUtils._buildProtocolName(i2Name),
+                  name: FrontendUtils.ElementUtils._handleProtocolName(i2Name),
                   version: "^0.6.0",
                 },
                 (),
@@ -602,7 +602,7 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should show i1",
+      "should show i1, i2",
       () => {
         UIControlInspectorTool.buildInputNameSelectValues(
           ServiceTool.build(
@@ -612,7 +612,7 @@ defineFeature(feature, test => {
           ),
           list{i1.contents, i2.contents},
           "meta3d-ui-control-window-protocol",
-        )->expect == [i1Name]
+        )->expect == [i1Name, i2Name]
       },
     )
   })

@@ -64,6 +64,7 @@ module Method = {
         selectedUIControls,
         selectedUIControlInspectorData: FrontendUtils.ElementAssembleStoreType.selectedUIControlInspectorData,
       ),
+      customInputs,
     ),
     values,
   ): Js.Promise.t<unit> =>
@@ -144,6 +145,7 @@ module Method = {
               uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
             }: FrontendUtils.BackendCloudbaseType.inspectorData
           ),
+          customInputs->Meta3dCommonlib.ListSt.toArray,
         )
       }, _)
       ->Meta3dBsMostDefault.Most.drain
@@ -167,12 +169,14 @@ module Method = {
       // elementInspectorData,
       selectedUIControls,
       selectedUIControlInspectorData,
+      customInputs,
     }: FrontendUtils.ElementAssembleStoreType.state,
   ) => {
     (
       // elementInspectorData,
       selectedUIControls,
       selectedUIControlInspectorData,
+      customInputs,
     )
   }
 }
@@ -183,6 +187,7 @@ let make = (~service: service, ~account: option<string>) => {
     // elementInspectorData,
     selectedUIControls,
     selectedUIControlInspectorData,
+    customInputs,
   ) = FrontendUtils.ReduxUtils.ElementAssemble.useSelector(
     service.react.useSelector,
     Method.useSelector,
@@ -233,6 +238,7 @@ let make = (~service: service, ~account: option<string>) => {
                       selectedUIControls,
                       selectedUIControlInspectorData,
                     ),
+                    customInputs,
                   ),
                   event->Obj.magic,
                 )->ignore

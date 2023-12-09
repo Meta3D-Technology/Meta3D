@@ -7,6 +7,39 @@ module Method = {
     dispatch(FrontendUtils.AssembleSpaceStoreType.ResetWhenSwitch)
   }
 
+  /* ! TODO handle same name:
+now just remove duplicate one, but need handle more:
+
+compare equal(first length, then all)?{
+use local input
+} :{
+remain one custom input;
+rename another custom input's name to add post fix:"_copy";
+}
+ */
+  let _mergeCustoms = selectedElementsFromMarket => {
+    selectedElementsFromMarket
+    ->Meta3dCommonlib.ListSt.reduce([], (
+      mergedCustomInputs,
+      {customInputs}: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+    ) => {
+      mergedCustomInputs
+      ->Js.Array.concat(customInputs, _)
+      ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
+        name
+      })
+    })
+    ->Meta3dCommonlib.ListSt.fromArray
+  }
+
+  let importElementCustom = (dispatchForElementAssembleStore, selectedElementsFromMarket) => {
+    let mergedCustomInputs = _mergeCustoms(selectedElementsFromMarket)
+
+    dispatchForElementAssembleStore(
+      FrontendUtils.ElementAssembleStoreType.ImportElementCustom(mergedCustomInputs),
+    )
+  }
+
   let addGeneratedCustoms = (
     service,
     selectedContributes,
@@ -32,15 +65,19 @@ module Method = {
   let useSelector = (
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
-    let {selectedContributes, customInputs, customActions} = apAssembleState
+    let {selectedContributes} = apAssembleState
+    let {customInputs} = elementAssembleState
 
-    (selectedContributes, customInputs, customActions)
+    (selectedContributes, customInputs, list{})
   }
 }
 
 @react.component
 let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
   let dispatch = service.react.useDispatch()
+  let dispatchForElementAssembleStore = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(
+    service.react.useDispatch,
+  )
   let (selectedContributes, customInputs, customActions) = service.react.useSelector(.
     Method.useSelector,
   )
@@ -55,6 +92,12 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
 
     ((), None)
   })
+
+  service.react.useEffect1(. () => {
+    Method.importElementCustom(dispatchForElementAssembleStore, selectedElementsFromMarket)
+
+    None
+  }, [selectedElementsFromMarket])
 
   service.react.useEffect1(. () => {
     setSelectedContributesAfterGeneratedCustoms(_ =>
@@ -93,6 +136,9 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
               </Collapse.Panel>
               <Collapse.Panel header="Selected UI Controls" key="2">
                 <SelectedUIControls service />
+              </Collapse.Panel>
+              <Collapse.Panel header="Custom Inputs" key="3">
+                <CustomInputs service />
               </Collapse.Panel>
             </Collapse>
           </Layout.Sider>

@@ -2,7 +2,7 @@ import { loadFeature, defineFeature } from "jest-cucumber"
 import { createSandbox } from "sinon";
 import { just } from "most";
 import { resolve } from "meta3d-tool-utils/src/publish/PromiseTool"
-import {  publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
+import { publishElementAssembleData } from "../../src/application_layer/assemble_space/element_assemble/PublishElementContributeService";
 // import { addMarketImplementDataToDataFromMarketImplementCollectionData, buildMarketImplementAccountData, getDataFromMarketImplementAccountData, isContain } from "meta3d-backend-cloudbase";
 
 const feature = loadFeature("./test/features/publish_element_assemble_data.feature")
@@ -22,12 +22,14 @@ defineFeature(feature, test => {
         account = "u1",
         elementName = "",
         elementVersion = "",
-        inspectorData: any = {}
+        inspectorData: any = {},
+        customInputs: any = []
     ) {
         return publishElementAssembleData(
             [errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc],
             account,
-            elementName, elementVersion, inspectorData
+            elementName, elementVersion, inspectorData,
+            customInputs
         )
     }
 
@@ -45,6 +47,12 @@ defineFeature(feature, test => {
             element: 1,
             uiControls: []
         }
+        let customInputs = [
+            {
+                name: "Input1",
+                fileStr: "f1"
+            }
+        ]
         let marketImplementCollectionData = []
 
         _prepare(given)
@@ -62,7 +70,8 @@ defineFeature(feature, test => {
                 account,
                 elementName,
                 elementVersion,
-                inspectorData
+                inspectorData,
+                customInputs
             ).drain()
         });
 
@@ -73,6 +82,7 @@ defineFeature(feature, test => {
                     "account": account,
                     "elementName": elementName, "elementVersion": elementVersion,
                     "inspectorData": inspectorData,
+                    "customInputs": customInputs,
                     "key": "meta3d"
                 },
             ])
