@@ -19,7 +19,7 @@
     },
     "devDependencies": {
         "gulp": "^4.0.2",
-        "typescript": "^5.3.3",
+        "typescript": "^4.2.3",
         "meta3d-tool-publish-protocol": "^0.11.0"
     }
 }

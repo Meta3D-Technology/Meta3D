@@ -186,6 +186,7 @@ let reducer = (state, action) => {
 
       {
         ...state,
+        currentCustomInputName: None,
         selectedUIControls: HierachyUtils.addChildUIControlData(
           (
             (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
@@ -384,6 +385,7 @@ let reducer = (state, action) => {
     }
   | SelectCustomInput(inputName) => {
       ...state,
+      inspectorCurrentUIControlId: None,
       currentCustomInputName: inputName->Some,
     }
   }

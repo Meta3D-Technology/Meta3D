@@ -241,12 +241,13 @@ TODO bdd test
 
 TODO run test
 
-  TODO publish all
 
   TODO fix:
     # edit code error
     run visual too slow!
       GPU
+      TODO publish all
+      TODO update all package
 
   test:
     # import app
