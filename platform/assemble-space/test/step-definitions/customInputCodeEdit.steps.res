@@ -32,7 +32,7 @@ defineFeature(feature, test => {
       () => {
         inputName := "InputName1"
         newCode :=
-          j`export var getContribute = (api) => {
+          j`export let getContribute = (api) => {
     return {
         inputName:"${newInputName}",
         func: (meta3dState) => {
@@ -57,7 +57,7 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should convert new code",
+      "should convert new code to umd",
       () => {
         ()
       },
@@ -75,6 +75,74 @@ defineFeature(feature, test => {
             newInputName,
             "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}",
           )
+      },
+    )
+  })
+
+  test(."get code", ({given, \"when", \"and", then}) => {
+    let dispatchStub = ref(Obj.magic(1))
+    let inputName = ref(Obj.magic(1))
+    let customInputs = ref(Obj.magic(1))
+    let result = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given(
+      "build input name and custom inputs",
+      () => {
+        inputName := "InputName1"
+        customInputs :=
+          list{
+            CustomTool.buildCustomInput(
+              ~name=inputName.contents,
+              ~fileStr={
+                j`window.Contribute = {
+    getContribute: (api) => {
+      return {
+        inputName: "${inputName.contents}",
+        func: (meta3dState) =>{
+            return Promise.resolve(null)
+        }
+      }
+    }
+}`
+              },
+              (),
+            ),
+          }
+      },
+    )
+
+    \"when"(
+      "get code",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        result := CustomInputCodeEditTool.getCode(inputName.contents, customInputs.contents)
+      },
+    )
+
+    then(
+      "should get corresponding file str",
+      () => {
+        ()
+      },
+    )
+
+    \"and"(
+      "convert to es6",
+      () => {
+        result.contents->NewlineTool.removeBlankChar->expect ==
+          j`import { api } from "meta3d-type"
+
+  export let getContribute = (api:api) => {
+      return {
+          inputName: "${inputName.contents}",
+          func: (meta3dState) => {
+              return Promise.resolve(null)
+          }
+      }
+  }`->NewlineTool.removeBlankChar
       },
     )
   })

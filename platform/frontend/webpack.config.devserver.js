@@ -88,6 +88,10 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'] //在Webpack中，loader的执行顺序是从右向左执行的，webpack先将所有css模块依赖解析完得到计算结果再创建style标签。因此把style-loader放在css-loader的前面。
+            },
+            {
+                test: /\.ttf$/,
+                type: 'asset/resource'
             }
         ]
     },

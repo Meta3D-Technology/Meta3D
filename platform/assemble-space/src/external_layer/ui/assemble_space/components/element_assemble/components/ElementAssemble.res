@@ -66,9 +66,9 @@ rename another custom input's name to add post fix:"_copy";
     {apAssembleState, elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state,
   ) => {
     let {selectedContributes} = apAssembleState
-    let {customInputs} = elementAssembleState
+    let {isImportElementCustom, currentCustomInputName, customInputs} = elementAssembleState
 
-    (selectedContributes, customInputs, list{})
+    (selectedContributes, (isImportElementCustom, currentCustomInputName, customInputs, list{}))
   }
 }
 
@@ -78,9 +78,10 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
   let dispatchForElementAssembleStore = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(
     service.react.useDispatch,
   )
-  let (selectedContributes, customInputs, customActions) = service.react.useSelector(.
-    Method.useSelector,
-  )
+  let (
+    selectedContributes,
+    (isImportElementCustom, currentCustomInputName, customInputs, customActions),
+  ) = service.react.useSelector(. Method.useSelector)
 
   let (
     selectedContributesAfterGeneratedCustoms,
@@ -94,7 +95,9 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
   })
 
   service.react.useEffect1(. () => {
-    Method.importElementCustom(dispatchForElementAssembleStore, selectedElementsFromMarket)
+    !isImportElementCustom
+      ? Method.importElementCustom(dispatchForElementAssembleStore, selectedElementsFromMarket)
+      : ()
 
     None
   }, [selectedElementsFromMarket])
@@ -143,18 +146,32 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
             </Collapse>
           </Layout.Sider>
           <Layout.Content>
-            <ElementVisual
-              service
-              account
-              selectedElementsFromMarket
-              selectedContributes=selectedContributesAfterGeneratedCustoms
-            />
+            {switch currentCustomInputName {
+            | None =>
+              <Layout>
+                <Layout.Content>
+                  <ElementVisual
+                    service
+                    account
+                    selectedElementsFromMarket
+                    selectedContributes=selectedContributesAfterGeneratedCustoms
+                  />
+                </Layout.Content>
+                <Layout.Sider theme=#light>
+                  <ElementInspector
+                    service selectedContributes=selectedContributesAfterGeneratedCustoms
+                  />
+                </Layout.Sider>
+              </Layout>
+
+            | Some(currentCustomInputName) =>
+              <Layout>
+                <Layout.Content>
+                  <CustomInputCodeEdit service currentCustomInputName />
+                </Layout.Content>
+              </Layout>
+            }}
           </Layout.Content>
-          <Layout.Sider theme=#light>
-            <ElementInspector
-              service selectedContributes=selectedContributesAfterGeneratedCustoms
-            />
-          </Layout.Sider>
         </Layout>
       </Layout>
     }

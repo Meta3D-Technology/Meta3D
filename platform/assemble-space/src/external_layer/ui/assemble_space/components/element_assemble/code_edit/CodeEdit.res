@@ -19,18 +19,24 @@ module Method = {
       let tsProxy = tsProxy->Obj.magic
       let editor = editor->Obj.magic
 
-      tsProxy["getEmitOutput"](editor["getModel"](.)["uri"]["toString"](.))->Js.Promise.then_(
-        r => {
-          getNewCodeFunc(r["outputFiles"][0]["text"])
+      Window.setTimeout(() => {
+        tsProxy["getEmitOutput"](editor["getModel"](.)["uri"]["toString"](.))
+        ->Js.Promise.then_(
+          r => {
+            getNewCodeFunc(r["outputFiles"][0]["text"])
 
-          Js.Promise.resolve()
-        },
-        //   Js.log(r["outputFiles"])
+            Js.Promise.resolve()
+          },
+          //   Js.log(r["outputFiles"])
 
-        // Js.log(r["outputFiles"][0]["text"])
+          // Js.log(r["outputFiles"][0]["text"])
 
-        _,
-      )
+          _,
+        )
+        ->ignore
+      }, 0)
+
+      Js.Promise.resolve()
 
     | _ => Js.Promise.resolve()
     }

@@ -3,22 +3,34 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
+  //   let _buildDefaultInputFileStr = inputName => {
+  //     j`import { api } from "meta3d-type"
+
+  // export let getContribute = (api:api) => {
+  //     return {
+  //         inputName: "${inputName}",
+  //         func: (meta3dState) => {
+  //             return Promise.resolve(null)
+  //         }
+  //     }
+  // }`
+  //   }
   let _buildDefaultInputFileStr = inputName => {
-    j`import { api } from "meta3d-type"
-    
-export let getContribute = (api:api) => {
-    return {
+    j`window.Contribute = {
+    getContribute: (api) => {
+      return {
         inputName: "${inputName}",
-        func: (meta3dState) => {
+        func: (meta3dState) =>{
             return Promise.resolve(null)
         }
+      }
     }
 }`
   }
 
   let _generateInputName = customInputNames => {
-    let rec _func = (index) => {
-      let result = {j`Input${index -> IntUtils.intToString}`}
+    let rec _func = index => {
+      let result = {j`Input${index->IntUtils.intToString}`}
 
       customInputNames->Meta3dCommonlib.ListSt.includes(result) ? _func(index->succ) : result
     }
@@ -62,6 +74,8 @@ export let getContribute = (api:api) => {
   }
 
   let onSelect = ((dispatch, setSelectedKeys), selectedKeysValue, info: Tree.info) => {
+    CodeEditUtils.setCurrentCustomInputNameToGlobal(info.node.key)
+
     setSelectedKeys(_ => selectedKeysValue)
 
     dispatch(FrontendUtils.ElementAssembleStoreType.SelectCustomInput(info.node.key))

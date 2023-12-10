@@ -185,6 +185,7 @@ type state = {
   // isShowElementInspector: bool,
   // elementInspectorData: elementInspectorData,
   isImportElement: bool,
+  isImportElementCustom: bool,
   customInputs: customInputs,
   customActions: customActions,
   currentCustomInputName: option<CommonType.inputName>,

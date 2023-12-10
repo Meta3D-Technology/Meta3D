@@ -21,6 +21,20 @@ let _convertAllPackageData = allPackageData => {
   ->Meta3dCommonlib.ListSt.fromArray
 }
 
+let _removeElementContributeFileData = (
+  allContributeFileData: array<(
+    Meta3d.AppAndPackageFileType.contributePackageData,
+    Meta3d.ExtensionFileType.contributeFuncData,
+  )>,
+) => {
+  allContributeFileData->Meta3dCommonlib.ArraySt.filter(data => {
+    let (contributePackageData, contributeFuncData) = data
+
+    contributePackageData.protocol.name !=
+      FrontendUtils.ElementUtils.getElementContributeProtocolName()
+  })
+}
+
 let _removeElementContribute = (
   selectedContributes: FrontendUtils.UserCenterStoreType.selectedContributes,
 ) => {
@@ -168,6 +182,7 @@ let _import = (
         ->Meta3dCommonlib.ListSt.fromArray
       let selectedContributes =
         allContributeFileData
+        ->_removeElementContributeFileData
         ->Meta3dCommonlib.ArraySt.map(data => {
           let (contributePackageData, contributeFuncData) = data
 

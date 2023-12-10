@@ -38,6 +38,7 @@ let _createState = () => {
   //   // },
   // },
   isImportElement: false,
+  isImportElementCustom: false,
   customInputs: list{},
   customActions: list{},
   currentCustomInputName: None,
@@ -145,6 +146,7 @@ let _findParentUIControlId = (
 let _resetInspector = state => {
   ...state,
   inspectorCurrentUIControlId: None,
+  currentCustomInputName: None,
 }
 
 let _reset = state => {
@@ -357,6 +359,7 @@ let reducer = (state, action) => {
   | ImportElementCustom(customInputs) => {
       ...state,
       customInputs,
+      isImportElementCustom: true,
     }
   | SetCanvasData(canvasData) => {
       ...state,

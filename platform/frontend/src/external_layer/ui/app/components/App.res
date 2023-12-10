@@ -160,6 +160,9 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       useCallback1: (. func, param) => {
         React.useCallback1(func->Obj.magic, param)
       },
+      // useStore: func => {
+      //   React.useStore(func->Obj.magic)
+      // },
       useState: func => {
         React.useState(func->Obj.magic)
       },

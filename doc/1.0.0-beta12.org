@@ -25,6 +25,20 @@ TODO optimize select one element at least for app:
 
 
 
+* TODO hidden Extension, Contribute, Package Market and Package Assemble
+
+they are visiable only for administrator and pay user!
+
+
+
+TODO auto select all actions, inputs, ui controls and editor, engine whole package for normal user!
+
+
+
+
+
+
+
 * TODO user login: save username to local storage
 
 
@@ -68,11 +82,6 @@ TODO 扩展、贡献、应用、页面增加图片等说明
 
 # *** TODO Contributes: add show by category
 
-
-
-** TODO hidden Extension, Contribute Market and Package Assemble
-
-they are visiable only for administrator and pay user!
 
 
 

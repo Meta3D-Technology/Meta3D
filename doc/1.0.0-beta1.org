@@ -236,7 +236,34 @@ TODO pass compile
 TODO bdd test
 
 
+
+
+
 TODO run test
+
+  TODO publish all
+
+  TODO fix:
+    # edit code error
+    run visual too slow!
+      GPU
+
+  test:
+    # import app
+    run visual
+    use custom input
+    import elements custom
+
+    run app
+
+
+TODO pass bdd test
+
+
+
+
+** TODO refactor: merge assemble-space, frontend, frontend-utils to frontend
+
 
 
 

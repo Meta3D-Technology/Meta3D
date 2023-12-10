@@ -18,7 +18,7 @@
         "jest-cucumber": "^3.0.1"
     },
     "dependencies": {
-        "typescript": "^4.2.3",
+        "typescript": "^5.3.3",
         "rescript": "^10.0.1"
     }
 }

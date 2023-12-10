@@ -3,9 +3,24 @@ open FrontendUtils.Antd
 open FrontendUtils.AssembleSpaceType
 
 module Method = {
-  let _convertCode = code => {
+  let _convertCodeToES6 = code => {
+    code
+    ->Js.String.slice(~from=0, ~to_=code->Js.String.length - 1, _)
+    ->Js.String.replace({j`window.Contribute = {`}, "", _)
+    ->Js.String.replace(
+      {j`getContribute: (api) => {`},
+      {
+        j`import { api } from "meta3d-type"
+
+  export let getContribute = (api:api) => {`
+      },
+      _,
+    )
+  }
+
+  let _convertCodeToUMD = code => {
     code->Js.String.replace(
-      {j`export var getContribute = (api) => {`},
+      "export let getContribute = (api) => {",
       {
         j`window.Contribute = {
     getContribute: (api) => {
@@ -24,12 +39,16 @@ module Method = {
   }
 
   let getNewCode = (dispatch, inputName, newCode) => {
-    let newCode = newCode->_convertCode
+    let newCode = newCode->_convertCodeToUMD
+
+    let newInputName = newCode->_getInputName
+
+    CodeEditUtils.setCurrentCustomInputNameToGlobal(newInputName)
 
     dispatch(
       FrontendUtils.ElementAssembleStoreType.UpdateCustomInputFileStr(
         inputName,
-        newCode->_getInputName,
+        newInputName,
         newCode,
       ),
     )
@@ -44,31 +63,39 @@ module Method = {
         name == inputName
       })
       ->Meta3dCommonlib.OptionSt.getExn
-    ).fileStr
+    ).fileStr->_convertCodeToES6
   }
 
   let useSelector = ({elementAssembleState}: FrontendUtils.AssembleSpaceStoreType.state) => {
-    let {currentCustomInputName, customInputs} = elementAssembleState
+    let {customInputs} = elementAssembleState
 
-    (currentCustomInputName, customInputs)
+    customInputs
   }
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~currentCustomInputName) => {
   let dispatch = FrontendUtils.ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (currentCustomInputName, customInputs) = service.react.useSelector(. Method.useSelector)
+  let (code, setCode) = service.react.useState(_ => "")
 
-  {
-    switch currentCustomInputName {
-    | None => React.null
-    | Some(currentCustomInputName) =>
-      <CodeEdit
-        service
-        code={Method.getCode(currentCustomInputName, customInputs)}
-        getNewCodeFunc={Method.getNewCode(dispatch, currentCustomInputName)}
-      />
-    }
-  }
+  let customInputs = service.react.useSelector(. Method.useSelector)
+
+  service.react.useEffect1(. () => {
+    setCode(_ => Method.getCode(currentCustomInputName, customInputs))
+
+    None
+  }, [currentCustomInputName])
+
+  <CodeEdit
+    service
+    code={code}
+    getNewCodeFunc={newCode =>
+      Method.getNewCode(
+        dispatch,
+        // TODO refactor: use useStore instead
+        CodeEditUtils.getCurrentCustomInputNameFromGlobal()->Meta3dCommonlib.NullableSt.getExn,
+        newCode,
+      )}
+  />
 }

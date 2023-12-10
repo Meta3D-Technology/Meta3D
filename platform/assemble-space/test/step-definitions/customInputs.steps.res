@@ -53,17 +53,17 @@ defineFeature(feature, test => {
               {
                 name: "Input2",
                 fileStr: {
-                  j`import { api } from "meta3d-type"
-    
-export let getContribute = (api:api) => {
-    return {
+    j`window.Contribute = {
+    getContribute: (api) => {
+      return {
         inputName: "Input2",
-        func: (meta3dState) => {
+        func: (meta3dState) =>{
             return Promise.resolve(null)
         }
+      }
     }
 }`
-                },
+  },
               }: FrontendUtils.ElementAssembleStoreType.customInput
             ),
           )
