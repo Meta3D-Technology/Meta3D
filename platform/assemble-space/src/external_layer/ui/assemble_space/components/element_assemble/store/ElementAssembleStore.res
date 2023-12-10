@@ -158,6 +158,14 @@ let _reset = state => {
   }
 }
 
+let _resetCurrent = state => {
+  {
+    ...state,
+    currentCustomInputName: None,
+    inspectorCurrentUIControlId: None,
+  }
+}
+
 let reducer = (state, action) => {
   switch action {
   | Reset => state->_reset
@@ -185,8 +193,7 @@ let reducer = (state, action) => {
       let childUIControlInspector = _buildDefaultUIControlInspectorData(id, specific)
 
       {
-        ...state,
-        currentCustomInputName: None,
+        ...state->_resetCurrent,
         selectedUIControls: HierachyUtils.addChildUIControlData(
           (
             (data: FrontendUtils.ElementAssembleStoreType.uiControl) => data.id,
@@ -296,13 +303,14 @@ let reducer = (state, action) => {
   // | SetActionFileStr(id, eventName, actionName, actionFileStr) =>
   //   _setActionData(state, id, eventName, actionName->Some, actionFileStr->Some)
   | SelectRootUIControl => {
-      ...state,
+      ...state->_resetCurrent,
       parentUIControlId: None,
       inspectorCurrentUIControlId: None,
       // isShowElementInspector: false,
     }
+
   | SelectSelectedUIControl(funcs, id) => {
-      ...state,
+      ...state->_resetCurrent,
       parentUIControlId: _findParentUIControlId(funcs, state.selectedUIControls, id),
       inspectorCurrentUIControlId: id->Some,
       // isShowElementInspector: false,
@@ -384,8 +392,7 @@ let reducer = (state, action) => {
       }),
     }
   | SelectCustomInput(inputName) => {
-      ...state,
-      inspectorCurrentUIControlId: None,
+      ...state->_resetCurrent,
       currentCustomInputName: inputName->Some,
     }
   }

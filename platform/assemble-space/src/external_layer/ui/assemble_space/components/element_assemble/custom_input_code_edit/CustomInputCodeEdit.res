@@ -30,6 +30,10 @@ module Method = {
     ) ++ "}"
   }
 
+  let _removeSemicolon = code => {
+    code->Js.String.replaceByRe(%re("/\};/g"), "}", _)
+  }
+
   let _getInputName = inputFileStr => {
     (
       inputFileStr
@@ -39,7 +43,7 @@ module Method = {
   }
 
   let getNewCode = (dispatch, inputName, newCode) => {
-    let newCode = newCode->_convertCodeToUMD
+    let newCode = newCode->_convertCodeToUMD->_removeSemicolon
 
     let newInputName = newCode->_getInputName
 
