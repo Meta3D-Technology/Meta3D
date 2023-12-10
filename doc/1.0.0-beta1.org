@@ -248,12 +248,14 @@ TODO run test
       GPU
       TODO publish all
       TODO update all package
+    # with input1 too slow
 
   test:
     # import app
     run visual
     use custom input
     import elements custom
+      TODO fix: ui control inspectorl not get real data?
 
     run app
 

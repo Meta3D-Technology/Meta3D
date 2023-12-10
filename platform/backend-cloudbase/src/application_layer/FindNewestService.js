@@ -173,12 +173,13 @@ let findNewestPublishElementAssembleData = (elementName) => {
         .then(res => {
         /*! need sort again
         */
-        let result = _descSort(res.data, semver_1.gt, "elementVersion").map(({ account, elementName, elementVersion, inspectorData }) => {
+        let result = _descSort(res.data, semver_1.gt, "elementVersion").map(({ account, elementName, elementVersion, inspectorData, customInputs }) => {
             return {
                 account,
                 elementName,
                 elementVersion,
-                inspectorData
+                inspectorData,
+                customInputs
             };
         });
         if (result.length == 0) {
