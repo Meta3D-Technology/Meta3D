@@ -363,6 +363,7 @@ defineFeature(feature, test => {
           (canvasData.contents, apInspectorData.contents),
           ((selectedPackages.contents, list{}, list{}, list{}), element1.contents),
           ("", list{}),
+          (list{}, list{}),
         )
       },
     )
