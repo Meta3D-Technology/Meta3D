@@ -42,18 +42,27 @@ module Method = {
       inspectorCurrentUIControlId,
       selectedUIControls,
       selectedUIControlInspectorData,
+      customInputs,
     } = elementAssembleState
 
-    (inspectorCurrentUIControlId, selectedUIControls, selectedUIControlInspectorData)
+    (
+      inspectorCurrentUIControlId,
+      selectedUIControls,
+      selectedUIControlInspectorData,
+      customInputs,
+      list{},
+    )
   }
 }
 
 @react.component
-let make = (~service: service, ~selectedContributes) => {
+let make = (~service: service, ~account, ~selectedContributes) => {
   let (
     inspectorCurrentUIControlId,
     selectedUIControls,
     selectedUIControlInspectorData,
+    customInputs,
+    customActions,
   ) = service.react.useSelector(. Method.useSelector)
 
   switch (
@@ -65,7 +74,16 @@ let make = (~service: service, ~selectedContributes) => {
   ) {
   | (Some(currentSelectedUIControlInspectorData), Some(currentSelectedUIControl)) =>
     <UIControlInspector
-      service currentSelectedUIControl currentSelectedUIControlInspectorData selectedContributes
+      service
+      currentSelectedUIControl
+      currentSelectedUIControlInspectorData
+      selectedContributes={ElementVisualUtils.addGeneratedCustoms(
+        service,
+        selectedContributes,
+        account->Meta3dCommonlib.OptionSt.getExn,
+        customInputs,
+        customActions,
+      )}
     />
   | _ => React.null
   }

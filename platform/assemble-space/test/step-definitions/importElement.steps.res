@@ -420,7 +420,7 @@ defineFeature(feature, test => {
           ),
           dispatchStub.contents,
           list{e1.contents, e2.contents},
-          selectedContributes.contents,
+          selectedContributes.contents->ImportElementTool.convertSelectedContributesFromApAssembleToAssemble,
         )
       },
     )

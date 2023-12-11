@@ -38,13 +38,20 @@ module Method = {
       elementContribute,
     ),
     (account, selectedUIControlInspectorData),
+    (customInputs, customActions),
   ) => {
     ElementVisualUtils.generateApp(
       service,
       (
         AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
         selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-        selectedContributes
+        ElementVisualUtils.addGeneratedCustoms(
+          service,
+          selectedContributes,
+          account,
+          customInputs,
+          customActions,
+        )
         // ->FrontendUtils.ElementUtils.addGeneratedInputContributesForElementAssemble(
         //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
         //   _,
@@ -98,6 +105,7 @@ module Method = {
       // runVisualExtension,
       elementContribute,
       selectedUIControlInspectorData,
+      customInputs,
     } = elementAssembleState
 
     (
@@ -113,6 +121,8 @@ module Method = {
         // runVisualExtension,
         elementContribute,
         selectedUIControlInspectorData,
+        customInputs,
+        list{},
       ),
     )
   }
@@ -135,6 +145,8 @@ let make = (~service: service, ~account, ~selectedContributes) => {
       // runVisualExtension,
       elementContribute,
       selectedUIControlInspectorData,
+      customInputs,
+      customActions,
     ),
   ) = service.react.useSelector(. Method.useSelector)
 
@@ -162,6 +174,7 @@ let make = (~service: service, ~account, ~selectedContributes) => {
                 elementContribute,
               ),
               (account->Meta3dCommonlib.OptionSt.getExn, selectedUIControlInspectorData),
+              (customInputs, customActions),
             )->ignore
           }, 5->Some)
         }}>

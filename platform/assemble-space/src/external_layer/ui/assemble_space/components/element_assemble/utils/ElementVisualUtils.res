@@ -106,7 +106,7 @@ let generateApp = (
     // selectedExtensions,
     selectedContributes->_removeElementContribute->Meta3dCommonlib.ArraySt.push(elementContribute),
     selectedElements,
-  // customData,
+    // customData,
     Js.Nullable.null,
   )
 }
@@ -209,7 +209,10 @@ let cancelAppLoop = (
 // }
 
 let isCustomInput = inputProtocolName => {
-  inputProtocolName->Js.String.includes(FrontendUtils.ElementUtils.buildCustomInputProtocolNamePrefix(), _)
+  inputProtocolName->Js.String.includes(
+    FrontendUtils.ElementUtils.buildCustomInputProtocolNamePrefix(),
+    _,
+  )
 }
 
 let buildEmptyAddGeneratedContributeFunc = () => {
@@ -228,5 +231,30 @@ let buildEmptyAddGeneratedContributeFunc = () => {
 // }
 
 let isCustomAction = (actionProtocolName, eventName) => {
-  actionProtocolName->Js.String.includes({j`${FrontendUtils.ElementUtils.buildCustomInputProtocolNamePrefix()}${eventName}-`}, _)
+  actionProtocolName->Js.String.includes(
+    {j`${FrontendUtils.ElementUtils.buildCustomInputProtocolNamePrefix()}${eventName}-`},
+    _,
+  )
+}
+
+let addGeneratedCustoms = (
+  service: FrontendUtils.AssembleSpaceType.service,
+  selectedContributes,
+  account,
+  customInputs,
+  customActions,
+) => {
+  selectedContributes
+  ->FrontendUtils.ElementUtils.addGeneratedInputContributesForElementAssemble(
+    (service.meta3d.generateContribute, service.meta3d.loadContribute),
+    _,
+    account,
+    customInputs,
+  )
+  ->FrontendUtils.ElementUtils.addGeneratedActionContributesForElementAssemble(
+    (service.meta3d.generateContribute, service.meta3d.loadContribute),
+    _,
+    account,
+    customActions,
+  )
 }

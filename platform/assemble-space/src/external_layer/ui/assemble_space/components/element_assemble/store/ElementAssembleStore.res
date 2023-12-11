@@ -37,8 +37,8 @@ let _createState = () => {
   //   //   handlers: list{},
   //   // },
   // },
-  isImportElement: false,
-  isImportElementCustom: false,
+  // isImportElement: false,
+  // isImportElementCustom: false,
   customInputs: list{},
   customActions: list{},
   currentCustomInputName: None,
@@ -363,12 +363,12 @@ let reducer = (state, action) => {
       ...state,
       selectedUIControls,
       selectedUIControlInspectorData,
-      isImportElement: true,
+      // isImportElement: true,
     }
   | ImportElementCustom(customInputs) => {
       ...state,
       customInputs,
-      isImportElementCustom: true,
+      // isImportElementCustom: true,
     }
   | SetCanvasData(canvasData) => {
       ...state,

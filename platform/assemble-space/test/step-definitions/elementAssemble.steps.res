@@ -64,10 +64,7 @@ defineFeature(feature, test => {
       () => {
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        ElementAssembleTool.importElementCustom(
-          dispatchStub.contents,
-          list{e1.contents, e2.contents},
-        )
+        AssembleSpaceTool.importElementCustom(dispatchStub.contents, list{e1.contents, e2.contents})
       },
     )
 

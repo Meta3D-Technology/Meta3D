@@ -160,8 +160,8 @@ module Method = {
       isChangeSelectedPackagesByDebug,
       selectedUIControls,
       selectedUIControlInspectorData,
-      // customInputs,
-      // customActions,
+      customInputs,
+      customActions,
     ),
     values,
   ): Js.Promise.t<unit> => {
@@ -227,7 +227,13 @@ module Method = {
               let appBinaryFile = AppUtils.generateApp(
                 service,
                 (selectedPackages, allPackagesStoredInApp),
-                selectedContributes,
+                ElementVisualUtils.addGeneratedCustoms(
+                  service,
+                  selectedContributes->Meta3dCommonlib.ListSt.fromArray,
+                  account,
+                  customInputs,
+                  customActions,
+                )->Meta3dCommonlib.ListSt.toArray,
                 selectedElementsFromMarket,
                 // (customInputs, customActions),
                 (
@@ -288,10 +294,13 @@ module Method = {
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
       isChangeSelectedPackagesByDebug,
-      // customInputs,
-      // customActions,
     } = apAssembleState
-    let {canvasData, selectedUIControls, selectedUIControlInspectorData} = elementAssembleState
+    let {
+      canvasData,
+      selectedUIControls,
+      selectedUIControlInspectorData,
+      customInputs,
+    } = elementAssembleState
 
     (
       (
@@ -301,12 +310,8 @@ module Method = {
         isPassDependencyGraphCheck,
         storedPackageIdsInApp,
         isChangeSelectedPackagesByDebug,
-        selectedUIControls,
-        selectedUIControlInspectorData,
-        // customInputs,
-        // customActions,
       ),
-      canvasData,
+      (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, list{}),
     )
   }
 }
@@ -321,12 +326,8 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
       isPassDependencyGraphCheck,
       storedPackageIdsInApp,
       isChangeSelectedPackagesByDebug,
-      selectedUIControls,
-      selectedUIControlInspectorData,
-      // customInputs,
-      // customActions,
     ),
-    canvasData,
+    (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, customActions),
   ) = service.react.useSelector(. Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
@@ -381,8 +382,8 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
                             isChangeSelectedPackagesByDebug,
                             selectedUIControls,
                             selectedUIControlInspectorData,
-                            // customInputs,
-                            // customActions,
+                            customInputs,
+                            customActions,
                           ),
                           event->Obj.magic,
                         )->ignore

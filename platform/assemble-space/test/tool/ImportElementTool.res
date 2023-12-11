@@ -62,4 +62,48 @@ let buildElementAssembleData = (
   customInputs,
 }
 
-let importElement = ElementVisual.Method.importElement
+let importElement = AssembleSpace.Method.importElement
+
+// let convertSelectedContributesFromAssembleToApAssemble = (
+//   selectedContributes: FrontendUtils.AssembleSpaceType.selectedContributesFromMarket,
+// ): FrontendUtils.ApAssembleStoreType.selectedContributes => {
+//   selectedContributes->Meta3dCommonlib.ListSt.map(((
+//     {id, protocolIconBase64, version, data},
+//     protocolConfig,
+//   )): FrontendUtils.ApAssembleStoreType.contribute => {
+//     {
+//       id,
+//       protocolIconBase64,
+//       protocolConfigStr: protocolConfig->Meta3dCommonlib.OptionSt.map(({configStr}) => configStr),
+//       version,
+//       data,
+//     }
+//   })
+// }
+
+let convertSelectedContributesFromApAssembleToAssemble = (
+  selectedContributes: FrontendUtils.ApAssembleStoreType.selectedContributes,
+): FrontendUtils.AssembleSpaceType.selectedContributesFromMarket => {
+  selectedContributes->Meta3dCommonlib.ListSt.map(({
+    id,
+    protocolIconBase64,
+    protocolConfigStr,
+    version,
+    data,
+  }): FrontendUtils.AssembleSpaceCommonType.contributeData => {
+    (
+      {
+        id,
+        protocolName: "",
+        protocolIconBase64,
+        protocolVersion: "",
+        version,
+        data,
+        account: "",
+      },
+      protocolConfigStr->Meta3dCommonlib.OptionSt.map(protocolConfigStr => {
+        ProtocolConfigTool.buildProtocolConfig(~configStr=protocolConfigStr, ())
+      }),
+    )
+  })
+}
