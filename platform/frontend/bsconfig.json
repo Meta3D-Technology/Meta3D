@@ -4,6 +4,11 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "test",
+      "subdirs": true,
+      "type": "dev"
     }
   ],
   "bsc-flags": [
@@ -14,7 +19,11 @@
     "commonjs",
     "es6-global"
   ],
-  "bs-dev-dependencies": [],
+  "bs-dev-dependencies": [
+    "meta3d-bs-jest-cucumber",
+    "meta3d-bs-jest",
+    "meta3d-bs-sinon"
+  ],
   "reason": {
     "react-jsx": 3
   },
@@ -27,9 +36,9 @@
     "meta3d",
     "meta3d-type",
     "meta3d-bs-most-default",
-    "frontend-utils",
-    "meta3d-file-utils",
-    "assemble-space"
+    "meta3d-editor-whole-protocol",
+    "meta3d-ui-protocol",
+    "meta3d-file-utils"
   ],
   "refmt": 3,
   "namespace": true,

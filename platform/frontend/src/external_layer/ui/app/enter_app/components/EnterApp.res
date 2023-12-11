@@ -1,23 +1,23 @@
-open FrontendUtils.Antd
+open Antd
 %%raw("import 'antd/dist/antd.css'")
 
-let _getEnv = (): FrontendUtils.EnvType.env => #production
+let _getEnv = (): EnvType.env => #production
 
 @react.component
-let make = (~service: FrontendUtils.FrontendType.service) => {
+let make = (~service: FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
 
   let {account, appName} = AppStore.useSelector((
-    {enterAppState}: FrontendUtils.AppStoreType.state,
+    {enterAppState}: AppStoreType.state,
   ) => enterAppState)
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
 
   React.useEffect1(() => {
-    FrontendUtils.ErrorUtils.showCatchedErrorMessage(() => {
-      let account = FrontendUtils.UrlSearchUtils.get(url.search, "account")
-      let appName = FrontendUtils.UrlSearchUtils.get(url.search, "appName")
+    ErrorUtils.showCatchedErrorMessage(() => {
+      let account = UrlSearchUtils.get(url.search, "account")
+      let appName = UrlSearchUtils.get(url.search, "appName")
 
       // TODO perf: if already init, not init again
       service.backend.init(InitUtils.getBackendEnv(_getEnv()))
@@ -51,12 +51,12 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
                     Meta3dCommonlib.NullableSt.getExn(appBinaryFile)
                     ->Meta3d.Main.loadApp(
                       (allContributeDataArr, selectedElements) => {
-                        let selectedElement: FrontendUtils.BackendCloudbaseType.elementAssembleData =
+                        let selectedElement: BackendCloudbaseType.elementAssembleData =
                           selectedElements->Obj.magic->Meta3dCommonlib.ArraySt.getExn(0)
 
                         let (
-                          customInputs: array<FrontendUtils.ElementAssembleStoreType.customInput>,
-                          customActions: array<FrontendUtils.ElementAssembleStoreType.customAction>,
+                          customInputs: array<ElementAssembleStoreType.customInput>,
+                          customActions: array<ElementAssembleStoreType.customAction>,
                         ) = (selectedElement.customInputs, [])
 
                         let funcs = (
@@ -67,13 +67,13 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
 
                         allContributeDataArr
                         ->Meta3dCommonlib.ListSt.fromArray
-                        ->FrontendUtils.ElementUtils.addGeneratedInputContributesForRunApp(
+                        ->ElementUtils.addGeneratedInputContributesForRunApp(
                           funcs,
                           _,
                           account,
                           customInputs->Meta3dCommonlib.ListSt.fromArray,
                         )
-                        ->FrontendUtils.ElementUtils.addGeneratedActionContributesForRunApp(
+                        ->ElementUtils.addGeneratedActionContributesForRunApp(
                           funcs,
                           _,
                           account,
@@ -101,7 +101,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
       )
       ->Js.Promise.catch(
         e => {
-          service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+          service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
         },
         _,
       )

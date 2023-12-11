@@ -5,11 +5,16 @@
     "scripts": {
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
         "watch_pro": "gulp changeToProductionEnv &&  rescript clean && rescript build -w",
+        "buildAll:ci": "rescript clean && rescript build",
         "buildAll:dev": "gulp changeToLocalEnv && rescript clean && rescript build && gulp restoreEnv",
         "buildAll:pro": "gulp changeToProductionEnv && rescript clean && rescript build && gulp restoreEnv",
         "webpack_dev": "yarn buildAll:dev && cross-env NODE_ENV=development webpack --config webpack.config.js",
         "webpack_pro": "yarn buildAll:pro && cross-env NODE_ENV=production webpack --config webpack.config.js",
-        "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"
+        "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js",
+        "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
+        "test:update": "jest --maxWorkers=4 -u --config jest.json",
+        "test:coverage": "jest --maxWorkers=4 --config jest_coverage.json",
+        "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json --updateSnapshot"
     },
     "devDependencies": {
         "@babel/core": "^7.10.4",
@@ -38,6 +43,10 @@
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",
         "antd": "^4.21.0",
+        "monaco-editor": "^0.32.1",
+        "react-monaco-editor": "^0.54.0",
+        "meta3d-bs-most-default": "^0.21.0",
+        "meta3d-editor-whole-protocol": "^0.21.0",
         "remporium": "^0.0.1",
         "rescript": "^10.0.1",
         "rescript-indexeddb": "^0.0.3"

@@ -1,9 +1,9 @@
-open FrontendUtils.Antd
+open Antd
 %%raw("import 'antd/dist/antd.css'")
 
 @react.component
 let make = () => {
-  let {account} = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
+  let {account} = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
 
   let _isNotLogin = account => {
     !(account->Meta3dCommonlib.OptionSt.isSome)
@@ -26,7 +26,7 @@ let make = () => {
     <Layout.Content>
       <Typography.Title>
         {React.string({
-          j`欢迎使用Meta3D内测版 v${FrontendUtils.VersionConfig.getPlatformVersion()}`
+          j`欢迎使用Meta3D内测版 v${VersionConfig.getPlatformVersion()}`
         })}
       </Typography.Title>
       <Typography.Paragraph>

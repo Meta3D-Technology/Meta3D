@@ -1,10 +1,10 @@
-open FrontendUtils.Antd
+open Antd
 %%raw("import 'antd/dist/antd.css'")
 
 type values = {account: string}
 
 @react.component
-let make = (~service: FrontendUtils.FrontendType.service) => {
+let make = (~service: FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
   let (isLoginBegin, setIsLoginBegin) = React.useState(_ => false)
@@ -34,8 +34,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           }, _)
           ->Meta3dBsMostDefault.Most.tap(_ => {
             dispatch(
-              FrontendUtils.AppStoreType.UserCenterAction(
-                FrontendUtils.UserCenterStoreType.SetAccount(accountRef.contents),
+              AppStoreType.UserCenterAction(
+                UserCenterStoreType.SetAccount(accountRef.contents),
               ),
             )
 
@@ -49,7 +49,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           }, _)
           ->Js.Promise.catch(e => {
             service.console.errorWithExn(.
-              e->FrontendUtils.Error.promiseErrorToExn,
+              e->Error.promiseErrorToExn,
               None,
             )->Obj.magic
           }, _)
@@ -73,8 +73,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
           }
         : {
             dispatch(
-              FrontendUtils.AppStoreType.UserCenterAction(
-                FrontendUtils.UserCenterStoreType.SetAccount(account),
+              AppStoreType.UserCenterAction(
+                UserCenterStoreType.SetAccount(account),
               ),
             )
 
@@ -85,7 +85,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
     }, _)->Meta3dBsMostDefault.Most.drain->Obj.magic
   }
 
-  let _onFinishFailed = (service: FrontendUtils.FrontendType.service, errorInfo) => {
+  let _onFinishFailed = (service: FrontendType.service, errorInfo) => {
     service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 2->Some)
   }
 

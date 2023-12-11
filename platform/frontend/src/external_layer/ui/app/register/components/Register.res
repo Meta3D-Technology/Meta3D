@@ -1,10 +1,10 @@
-open FrontendUtils.Antd
+open Antd
 %%raw("import 'antd/dist/antd.css'")
 
 type values = {account: string}
 
 @react.component
-let make = (~service: FrontendUtils.FrontendType.service) => {
+let make = (~service: FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
 
   let _onFinish = values => {
@@ -23,8 +23,8 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
         : {
             service.backend.registerUser(account)->Meta3dBsMostDefault.Most.tap(_ => {
               dispatch(
-                FrontendUtils.AppStoreType.UserCenterAction(
-                  FrontendUtils.UserCenterStoreType.SetAccount(account),
+                AppStoreType.UserCenterAction(
+                  UserCenterStoreType.SetAccount(account),
                 ),
               )
 
@@ -32,7 +32,7 @@ let make = (~service: FrontendUtils.FrontendType.service) => {
             }, _)
           }
     }, _)->Meta3dBsMostDefault.Most.drain->Js.Promise.catch(e => {
-      service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+      service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)->Obj.magic
   }
 

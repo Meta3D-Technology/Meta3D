@@ -1,16 +1,16 @@
-open FrontendUtils.AppStoreType
+open AppStoreType
 
 // type action = ..
 
 // type action +=
-//   | UserCenterAction(FrontendUtils.UserCenterStoreType.action)
+//   | UserCenterAction(UserCenterStoreType.action)
 //   | EnterAppAction(EnterAppStore.action)
-//   | AssembleSpaceAction(FrontendUtils.AssembleSpaceStoreType.action)
+//   | AssembleSpaceAction(AssembleSpaceStoreType.action)
 
 // type state = {
-//   userCenterState: FrontendUtils.UserCenterStoreType.state,
+//   userCenterState: UserCenterStoreType.state,
 //   enterAppState: EnterFrontendUtils.AppStoreType.state,
-//   assembleSpaceState: FrontendUtils.AssembleSpaceStoreType.state,
+//   assembleSpaceState: AssembleSpaceStoreType.state,
 // }
 
 let reducer = (state, action) => {
@@ -25,10 +25,7 @@ let reducer = (state, action) => {
     }
   | AssembleSpaceAction(action) => {
       ...state,
-      assembleSpaceState: AssembleSpace.AssembleSpaceStore.reducer(
-        state.assembleSpaceState,
-        action,
-      ),
+      assembleSpaceState: AssembleSpaceStore.reducer(state.assembleSpaceState, action),
     }
   }
 }
@@ -36,7 +33,7 @@ let reducer = (state, action) => {
 let initialState = {
   userCenterState: UserCenterStore.initialState,
   enterAppState: EnterAppStore.initialState,
-  assembleSpaceState: AssembleSpace.AssembleSpaceStore.initialState,
+  assembleSpaceState: AssembleSpaceStore.initialState,
 }
 
 let store = Remporium.makeStore(initialState, reducer)

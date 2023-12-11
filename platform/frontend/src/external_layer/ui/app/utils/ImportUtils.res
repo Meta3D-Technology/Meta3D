@@ -3,9 +3,9 @@ let _convertAllPackageData = allPackageData => {
   ->Meta3dCommonlib.ArraySt.map(((
     (protocol, entryExtensionName, version, name, entryExtensionProtocolConfigStr),
     binaryFile,
-  )): FrontendUtils.AssembleSpaceCommonType.packageData => {
+  )): AssembleSpaceCommonType.packageData => {
     {
-      id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+      id: IdUtils.generateId(Js.Math.random),
       protocol,
       entryExtensionName,
       version,
@@ -31,21 +31,21 @@ let _removeElementContributeFileData = (
     let (contributePackageData, contributeFuncData) = data
 
     contributePackageData.protocol.name !=
-      FrontendUtils.ElementUtils.getElementContributeProtocolName()
+      ElementUtils.getElementContributeProtocolName()
   })
 }
 
 let _removeElementContribute = (
-  selectedContributes: FrontendUtils.UserCenterStoreType.selectedContributes,
+  selectedContributes: UserCenterStoreType.selectedContributes,
 ) => {
   selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-    protocolName != FrontendUtils.ElementUtils.getElementContributeProtocolName()
+    protocolName != ElementUtils.getElementContributeProtocolName()
   })
 }
 
 let _import = (
   (
-    service: FrontendUtils.FrontendType.service,
+    service: FrontendType.service,
     (setFlag, dispatchImportApp, dispatchBatchStorePackagesInApp),
   ),
   stream,
@@ -107,10 +107,10 @@ let _import = (
           Meta3d.ExtensionFileType.contributeFuncData,
         )>,
         allPackageBinaryFiles: array<Js.Typed_array.ArrayBuffer.t>,
-        extensionProtocols: FrontendUtils.BackendCloudbaseType.protocols,
-        extensionProtocolConfigs: FrontendUtils.BackendCloudbaseType.protocolConfigs,
-        contributeProtocols: FrontendUtils.BackendCloudbaseType.protocols,
-        contributeProtocolConfigs: FrontendUtils.BackendCloudbaseType.protocolConfigs,
+        extensionProtocols: BackendCloudbaseType.protocols,
+        extensionProtocolConfigs: BackendCloudbaseType.protocolConfigs,
+        contributeProtocols: BackendCloudbaseType.protocols,
+        contributeProtocolConfigs: BackendCloudbaseType.protocolConfigs,
       ) =
         arr->Obj.magic
 
@@ -149,7 +149,7 @@ let _import = (
           (
             (
               {
-                id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+                id: IdUtils.generateId(Js.Math.random),
                 protocolName: extensionProtocol.name,
                 protocolVersion: extensionProtocol.version,
                 protocolIconBase64: extensionProtocol.iconBase64,
@@ -174,7 +174,7 @@ let _import = (
                 ),
                 version: extensionPackageData.version,
                 account: extensionPackageData.account,
-              }: FrontendUtils.AssembleSpaceCommonType.extension
+              }: AssembleSpaceCommonType.extension
             ),
             extensionProtocolConfig,
           )
@@ -216,7 +216,7 @@ let _import = (
           (
             (
               {
-                id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+                id: IdUtils.generateId(Js.Math.random),
                 protocolName: contributeProtocol.name,
                 protocolVersion: contributeProtocol.version,
                 protocolIconBase64: contributeProtocol.iconBase64,
@@ -238,7 +238,7 @@ let _import = (
                 ),
                 version: contributePackageData.version,
                 account: contributePackageData.account,
-              }: FrontendUtils.AssembleSpaceCommonType.contribute
+              }: AssembleSpaceCommonType.contribute
             ),
             contributeProtocolConfig,
           )
@@ -279,9 +279,9 @@ let _import = (
     //   ->Meta3dCommonlib.ArraySt.map(((
     //     (protocol, entryExtensionName, version, name, entryExtensionProtocolConfigStr),
     //     binaryFile,
-    //   )): FrontendUtils.AssembleSpaceCommonType.packageData => {
+    //   )): AssembleSpaceCommonType.packageData => {
     //     {
-    //       id: FrontendUtils.IdUtils.generateId(Js.Math.random),
+    //       id: IdUtils.generateId(Js.Math.random),
     //       protocol,
     //       entryExtensionName,
     //       version,
@@ -300,7 +300,7 @@ let _import = (
   )
   ->Meta3dBsMostDefault.Most.drain
   ->Js.Promise.catch(e => {
-    service.console.errorWithExn(. e->FrontendUtils.Error.promiseErrorToExn, None)->Obj.magic
+    service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
   }, _)
   ->ignore
 }
@@ -308,7 +308,7 @@ let _import = (
 let importApp = _import
 
 let importPackage = (
-  (service: FrontendUtils.FrontendType.service, (setFlag, dispatchImportPackage)),
+  (service: FrontendType.service, (setFlag, dispatchImportPackage)),
   stream,
 ) => {
   _import(

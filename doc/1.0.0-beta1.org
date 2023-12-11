@@ -268,10 +268,29 @@ TODO pass bdd test
 
 
 
-** TODO refactor: merge assemble-space, frontend, frontend-utils to frontend
+** DONE refactor: merge assemble-space, frontend, frontend-utils to frontend
+
+merge src
+
+update store
+
+pass compile
+
+merge test
+
+pass compile
+
+pass bdd test
 
 
+merge frontend-utils
 
+pass compile
+
+pass bdd test
+
+
+pass run test
 
 ** TODO input write local
 

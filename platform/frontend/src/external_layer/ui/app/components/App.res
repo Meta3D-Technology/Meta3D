@@ -1,4 +1,4 @@
-open FrontendUtils.Antd
+open Antd
 %%raw("import 'antd/dist/antd.css'")
 
 module Method = {
@@ -11,7 +11,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.EnvType.env) => {
+let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
 
   let {
@@ -22,9 +22,9 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     selectedElements,
     // customInputs,
     // customActions,
-  } = AppStore.useSelector(({userCenterState}: FrontendUtils.AppStoreType.state) => userCenterState)
+  } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
 
-  let _buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.service => {
+  let _buildAssembleSpaceService = (): AssembleSpaceType.service => {
     ui: {
       buildTitle: (. ~level, ~children, ()) => {
         <Typography.Title level> {children} </Typography.Title>
@@ -40,14 +40,14 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     },
     url: {
       getUrlParam: paramName => {
-        FrontendUtils.UrlSearchUtils.get(RescriptReactRouter.useUrl().search, paramName)
+        UrlSearchUtils.get(RescriptReactRouter.useUrl().search, paramName)
         ->Js.Json.parseExn
         ->Obj.magic
       },
     },
     tab: {
       openUrl: (. url) => {
-        FrontendUtils.Window.\"open"(url, "_blank").focus()
+        Window.\"open"(url, "_blank").focus()
       },
     },
     storage: {
@@ -152,9 +152,9 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
     },
     console: {
       error: (. errorMessage, durationOpt) =>
-        FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+        ErrorUtils.error(errorMessage, durationOpt),
       errorWithExn: (. error, durationOpt) =>
-        FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
+        ErrorUtils.errorWithExn(error, durationOpt),
     },
     react: {
       useCallback1: (. func, param) => {
@@ -170,7 +170,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         React.useRef(value->Obj.magic)
       },
       useSelector: (. func) => {
-        AppStore.useSelector(({assembleSpaceState}: FrontendUtils.AppStoreType.state) => {
+        AppStore.useSelector(({assembleSpaceState}: AppStoreType.state) => {
           func(assembleSpaceState)
         })
       },
@@ -178,7 +178,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       //   let dispatch = AppStore.useDispatch()
 
       //   assembleSpaceAction => {
-      //     dispatch(FrontendUtils.AppStoreType.AssembleSpaceAction(assembleSpaceAction))
+      //     dispatch(AppStoreType.AssembleSpaceAction(assembleSpaceAction))
       //   }
       // },
       useDispatch: ReactUtils.useDispatchForAssembleSpaceStore,
@@ -224,8 +224,8 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
         ),
       ) => {
         dispatchForAppStore(
-          FrontendUtils.AppStoreType.UserCenterAction(
-            FrontendUtils.UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributesAndElements(
+          AppStoreType.UserCenterAction(
+            UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributesAndElements(
               selectedPackagesForAppStore,
               selectedExtensionsForAppStore,
               selectedContributesForAppStore,
@@ -234,14 +234,14 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
           ),
         )
         dispatchForApAssembleStore(
-          FrontendUtils.ApAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+          ApAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
             selectedPackagesForApAssembleStore,
             selectedExtensionsForApAssembleStore,
             selectedContributesForApAssembleStore,
           ),
         )
         dispatchForPackageAssembleStore(
-          FrontendUtils.PackageAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
+          PackageAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
             selectedPackagesForPackageAssembleStore,
             selectedExtensionsForPackageAssembleStore,
             selectedContributesForPackageAssembleStore,
@@ -250,15 +250,15 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       },
       // dispatchStorePackageInApp: (. dispatchForAppStore, id) => {
       //   dispatchForAppStore(
-      //     FrontendUtils.AppStoreType.UserCenterAction(
-      //       FrontendUtils.UserCenterStoreType.StorePackageInApp(id),
+      //     AppStoreType.UserCenterAction(
+      //       UserCenterStoreType.StorePackageInApp(id),
       //     ),
       //   )
       // },
       // dispatchUnStorePackageInApp: (. dispatchForAppStore, id) => {
       //   dispatchForAppStore(
-      //     FrontendUtils.AppStoreType.UserCenterAction(
-      //       FrontendUtils.UserCenterStoreType.UnStorePackageInApp(id),
+      //     AppStoreType.UserCenterAction(
+      //       UserCenterStoreType.UnStorePackageInApp(id),
       //     ),
       //   )
       // },
@@ -283,7 +283,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
             <Nav currentKey="7" />
           </Layout.Header>
           <Layout.Content>
-            <AssembleSpace.AssembleSpace
+            <AssembleSpace
               service={_buildAssembleSpaceService()}
               account
               selectedExtensionsFromMarket=selectedExtensions
@@ -301,7 +301,7 @@ let make = (~service: FrontendUtils.FrontendType.service, ~env: FrontendUtils.En
       Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />
     | list{"RunElementVisual"} =>
-      <AssembleSpace.RunElementVisual service={_buildAssembleSpaceService()} />
+      <RunElementVisual service={_buildAssembleSpaceService()} />
     | list{}
     | _ =>
       <Index />

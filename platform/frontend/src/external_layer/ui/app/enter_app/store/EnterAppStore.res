@@ -9,7 +9,7 @@
 //   appName: option<string>,
 // }
 
-open FrontendUtils.EnterAppStoreType
+open EnterAppStoreType
 
 let reducer = (state, action) => {
   switch action {

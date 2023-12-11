@@ -1,19 +1,19 @@
 // // type id = string
 
-// type extension = FrontendUtils.AssembleSpaceCommonType.extension
+// type extension = AssembleSpaceCommonType.extension
 
-// type selectedExtensions = list<FrontendUtils.AssembleSpaceCommonType.extensionData>
+// type selectedExtensions = list<AssembleSpaceCommonType.extensionData>
 
-// type contribute = FrontendUtils.AssembleSpaceCommonType.contribute
+// type contribute = AssembleSpaceCommonType.contribute
 
-// type selectedContributes = list<FrontendUtils.AssembleSpaceCommonType.contributeData>
+// type selectedContributes = list<AssembleSpaceCommonType.contributeData>
 
-// type packageData = FrontendUtils.AssembleSpaceCommonType.packageData
+// type packageData = AssembleSpaceCommonType.packageData
 
 // type selectedPackages = list<packageData>
 
 // // type selectedContributeProtocolConfigs = list<
-// //   option<FrontendUtils.CommonType.protocolConfig>,
+// //   option<CommonType.protocolConfig>,
 // // >
 
 // type account = string
@@ -21,13 +21,13 @@
 // type name = string
 
 // type action =
-//   | SelectExtension(extension, option<FrontendUtils.CommonType.protocolConfig>)
-//   | NotSelectExtension(name, FrontendUtils.AssembleSpaceCommonType.version)
-//   | SelectContribute(contribute, option<FrontendUtils.CommonType.protocolConfig>)
-//   | NotSelectContribute(name, FrontendUtils.AssembleSpaceCommonType.version)
+//   | SelectExtension(extension, option<CommonType.protocolConfig>)
+//   | NotSelectExtension(name, AssembleSpaceCommonType.version)
+//   | SelectContribute(contribute, option<CommonType.protocolConfig>)
+//   | NotSelectContribute(name, AssembleSpaceCommonType.version)
 //   | SelectPackage(packageData)
 //   // | NotSelectPackage(id)
-//   | NotSelectPackage(name, FrontendUtils.AssembleSpaceCommonType.version)
+//   | NotSelectPackage(name, AssembleSpaceCommonType.version)
 //   | SetAccount(account)
 //   | ImportPackage(id, selectedExtensions, selectedContributes)
 //   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
@@ -42,7 +42,7 @@
 //   importedAppIds: list<id>,
 // }
 
-open FrontendUtils.UserCenterStoreType
+open UserCenterStoreType
 
 let _removeOtherSelectedExtensionsOfSameProtocolName = (
   selectedExtensions: selectedExtensions,
@@ -61,7 +61,7 @@ let _removeOtherSelectedContributesOfSameProtocolNameExceptInput = (
 ) => {
   let protocolName = data.protocolName
 
-  FrontendUtils.ContributeTypeUtils.isInput(protocolName)
+  ContributeTypeUtils.isInput(protocolName)
     ? selectedContributes
     : selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
         selectedContribute.protocolName !== protocolName
@@ -81,7 +81,7 @@ let _removeOtherSelectedPackagesOfSameProtocolName = (
 
 let _removeOtherSelectedElementOfSameName = (
   selectedElements: selectedElements,
-  elementAssembleData: FrontendUtils.BackendCloudbaseType.elementAssembleData,
+  elementAssembleData: BackendCloudbaseType.elementAssembleData,
 ) => {
   let elementName = elementAssembleData.elementName
 

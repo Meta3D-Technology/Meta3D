@@ -1,0 +1,46 @@
+{
+    "automock": false,
+    "moduleFileExtensions": [
+        "js"
+    ],
+    "testRegex": "lib/js/test/step-definitions/.+.steps.bs.js",
+    "transformIgnorePatterns": [
+        "<rootDir>/node_modules/jest-cucumber"
+    ],
+    "moduleNameMapper": {
+        "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+    },
+    "snapshotResolver": "<rootDir>/customSnapshotResolver.js",
+    "setupFilesAfterEnv": [
+        "<rootDir>/test/helper/jest/specHelper.js"
+    ],
+    "notify": false,
+    "verbose": true,
+    "collectCoverage": true,
+    "coverageDirectory": "<rootDir>/coverage/",
+    "coveragePathIgnorePatterns": [
+        "<rootDir>/lib/js/src/.+/AssembleSpace.*",
+        "<rootDir>/lib/js/src/.+/ApAssemble.*",
+        "<rootDir>/lib/js/src/.+/ElementAssemble.*",
+        "<rootDir>/lib/js/src/.+/ExtensionInspector.*",
+        "<rootDir>/lib/js/src/.+/ContributeInspector.*",
+        "<rootDir>/lib/js/src/.+/PackageInspector.*",
+        "<rootDir>/lib/js/src/.+/ApDependencyGraph.*",
+        "<rootDir>/lib/js/src/.+/PackageDependencyGraph.*",
+        "<rootDir>/lib/js/src/.+/Most.*",
+        "<rootDir>/lib/js/src/.+/.*Store.*"
+    ],
+    "collectCoverageFrom": [
+        "lib/js/src/external_layer/ui/app/assemble_space/**/*.js",
+        "!**/node_modules/**",
+        "!**/vendor/**"
+    ],
+    "coverageThreshold": {
+        "global": {
+            "lines": 74,
+            "statements": 74,
+            "branches": 50,
+            "functions": 50
+        }
+    }
+}

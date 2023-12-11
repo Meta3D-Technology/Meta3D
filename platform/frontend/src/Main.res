@@ -1,4 +1,4 @@
-let _getEnv = (): FrontendUtils.EnvType.env => #local
+let _getEnv = (): EnvType.env => #local
 
 let _hiddenLoadding = %raw(`
     function(){
@@ -6,7 +6,7 @@ let _hiddenLoadding = %raw(`
     }
     `)
 
-let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
+let _buildFrontendService = (env): FrontendType.service => {
   backend: switch env {
   | #local => BackendCloudbase.buildFrontendService()
   | #production =>
@@ -17,9 +17,9 @@ let _buildFrontendService = (env): FrontendUtils.FrontendType.service => {
   },
   console: {
     error: (. errorMessage, durationOpt) =>
-      FrontendUtils.ErrorUtils.error(errorMessage, durationOpt),
+      ErrorUtils.error(errorMessage, durationOpt),
     errorWithExn: (. error, durationOpt) =>
-      FrontendUtils.ErrorUtils.errorWithExn(error, durationOpt),
+      ErrorUtils.errorWithExn(error, durationOpt),
   },
 }
 

@@ -1,4 +1,4 @@
-open FrontendUtils.BackendCloudbaseType
+open BackendCloudbaseType
 
 @module("backend-4everland")
 external init: init = "init"
@@ -104,7 +104,7 @@ external findPublishPackage: findPublishPackage = "findPublishPackage"
 external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
   "findNewestPublishElementAssembleData"
 
-let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
+let buildFrontendService = (): FrontendType.backendService => {
   {
     init,
     handleLoginForWeb3,
@@ -135,7 +135,7 @@ let buildFrontendService = (): FrontendUtils.FrontendType.backendService => {
   }
 }
 
-let buildAssembleSpaceService = (): FrontendUtils.AssembleSpaceType.backendService => {
+let buildAssembleSpaceService = (): AssembleSpaceType.backendService => {
   {
     getAllPublishExtensionProtocols: getAllPublishExtensionProtocols->Obj.magic,
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
