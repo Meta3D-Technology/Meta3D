@@ -25,7 +25,7 @@ TODO optimize select one element at least for app:
 
 
 
-* TODO hidden Extension, Contribute, Package Market and Package Assemble
+* TODO hidden Extension, Contribute, Package Market and Ap, Package Assemble
 
 they are visiable only for administrator and pay user!
 

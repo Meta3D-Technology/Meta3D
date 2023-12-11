@@ -256,6 +256,9 @@ TODO run test
     use custom input
     import elements custom
       TODO fix: ui control inspectorl not get real data?
+    switch->shouldn't restore
+
+    import two elements custom
 
     run app
 
