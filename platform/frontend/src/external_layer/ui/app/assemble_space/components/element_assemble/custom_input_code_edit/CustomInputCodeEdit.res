@@ -19,51 +19,42 @@ module Method = {
   }
 
   let _convertCodeToUMD = code => {
-    code->Js.String.replace(
-      "export let getContribute = (api) => {",
-      {
-        j`window.Contribute = {
+    let _func = (code, replaceSource) => {
+      code->Js.String.replace(
+        replaceSource,
+        {
+          j`window.Contribute = {
     getContribute: (api) => {
 `
-      },
-      _,
-    ) ++ "}"
+        },
+        _,
+      ) ++ "}"
+    }
+
+    // TODO should unify compile options between bundle gulp and CodeEdit->monaco
+    code
+    ->_func("export let getContribute = (api) => {")
+    ->_func("export var getContribute = function (api) {")
   }
 
   let _removeSemicolon = code => {
     code->Js.String.replaceByRe(%re("/\};/g"), "}", _)
   }
 
-  let _getInputName = inputFileStr => {
-    (
-      inputFileStr
-      ->Js.String.match_(%re("/inputName\:.*\"(.+)\",/im"), _)
-      ->Meta3dCommonlib.OptionSt.getExn
-    )[1]->Meta3dCommonlib.OptionSt.getExn
-  }
-
   let getNewCode = (dispatch, inputName, newCode) => {
     let newCode = newCode->_convertCodeToUMD->_removeSemicolon
 
-    let newInputName = newCode->_getInputName
+    let newInputName = newCode->CustomUtils.getInputName
 
     CodeEditUtils.setCurrentCustomInputNameToGlobal(newInputName)
 
-    dispatch(
-      ElementAssembleStoreType.UpdateCustomInputFileStr(
-        inputName,
-        newInputName,
-        newCode,
-      ),
-    )
+    dispatch(ElementAssembleStoreType.UpdateCustomInputFileStr(inputName, newInputName, newCode))
   }
 
   let getCode = (inputName, customInputs) => {
     (
       customInputs
-      ->Meta3dCommonlib.ListSt.find((
-        {name, fileStr}: ElementAssembleStoreType.customInput,
-      ) => {
+      ->Meta3dCommonlib.ListSt.find(({name, fileStr}: ElementAssembleStoreType.customInput) => {
         name == inputName
       })
       ->Meta3dCommonlib.OptionSt.getExn

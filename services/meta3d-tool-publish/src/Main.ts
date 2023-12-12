@@ -135,6 +135,41 @@ export let publishContribute = (env: env, packageFilePath: string, distFilePath:
 	return publish(funcArr, packageFilePath, distFilePath, "contribute")
 }
 
+export let publishBundledContribute = (env: env, packageFilePath: string, bundledSource: string) => {
+	let funcArr = null
+
+	switch (env) {
+		case "local":
+			funcArr = [
+				console.log,
+				console.error,
+				buildReadJsonFunc(packageFilePath),
+				generateContribute,
+				CloudbaseService.initLocal,
+				CloudbaseService.hasAccount,
+				CloudbaseService.uploadFile,
+				CloudbaseService.getMarketImplementAccountData,
+				CloudbaseService.addMarketImplementData,
+				CloudbaseService.getFileID,
+				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+			]
+			break;
+		case "production":
+			funcArr = [
+			]
+			break;
+		default:
+			throw new Error("unknown env")
+	}
+
+	// return publishBundled(funcArr, packageFilePath, bundledSource)
+
+	return publish(
+		( [
+			bundledSource => bundledSource
+		] as any).concat(funcArr), packageFilePath, bundledSource, "contribute")
+}
+
 
 // publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/", "main.js"))
 // publishExtension(path.join(__dirname, "../mine/t/", "package.json"), path.join(__dirname, "../mine/t/", "main.js"))

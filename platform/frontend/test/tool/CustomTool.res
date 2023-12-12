@@ -1,6 +1,6 @@
 let buildDefaultInputFileStr = CustomInputs.Method._buildDefaultInputFileStr
 
-let getInputName = CustomInputCodeEdit.Method._getInputName
+let getInputName = CustomUtils.getInputName
 
 let buildCustomInput = (
   ~name="input1",

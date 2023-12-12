@@ -7,9 +7,12 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
     return {
         inputName: "InspectorInput",
         func: (meta3dState) => {
-            return Promise.resolve(!api.nullable.isNullable(
-                api.nullable.bind(selectSceneTreeNodeState => selectSceneTreeNodeState.selectedGameObject, api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName))
-            ))
+            // return Promise.resolve(!api.nullable.isNullable(
+            //     api.nullable.bind(selectSceneTreeNodeState => selectSceneTreeNodeState.selectedGameObject, api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName))
+            // ))
+
+
+            return Promise.resolve(false)
         }
     }
 }

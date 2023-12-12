@@ -103,4 +103,12 @@ let publish = ([readFileSyncFunc, logFunc, errorFunc, readJsonFunc, generateFunc
     });
 };
 exports.publish = publish;
+// export let publishBundled = ([logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc]: [any, any, any, any, any, any, any, any, any, any, any,], packageFilePath: string, fileSource: string) => {
+//     return publish(
+//         [
+//             (fileSource) => fileSource,
+//             logFunc, errorFunc, readJsonFunc, generateFunc, initFunc, hasAccountFunc, uploadFileFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc, getFileIDFunc, parseMarketCollectionDataBodyFunc
+//         ], packageFilePath, fileSource, "contribute"
+//     )
+// }
 //# sourceMappingURL=Publish.js.map

@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishContribute = exports.publishExtension = void 0;
+exports.publishBundledContribute = exports.publishContribute = exports.publishExtension = void 0;
 const fs_1 = __importDefault(require("fs"));
 const meta3d_1 = require("meta3d");
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
@@ -156,6 +156,36 @@ let publishContribute = (env, packageFilePath, distFilePath) => {
     return (0, Publish_1.publish)(funcArr, packageFilePath, distFilePath, "contribute");
 };
 exports.publishContribute = publishContribute;
+let publishBundledContribute = (env, packageFilePath, bundledSource) => {
+    let funcArr = null;
+    switch (env) {
+        case "local":
+            funcArr = [
+                console.log,
+                console.error,
+                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+                meta3d_1.generateContribute,
+                CloudbaseService.initLocal,
+                CloudbaseService.hasAccount,
+                CloudbaseService.uploadFile,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.addMarketImplementData,
+                CloudbaseService.getFileID,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+            ];
+            break;
+        case "production":
+            funcArr = [];
+            break;
+        default:
+            throw new Error("unknown env");
+    }
+    // return publishBundled(funcArr, packageFilePath, bundledSource)
+    return (0, Publish_1.publish)([
+        bundledSource => bundledSource
+    ].concat(funcArr), packageFilePath, bundledSource, "contribute");
+};
+exports.publishBundledContribute = publishBundledContribute;
 // publishExtension(path.join(__dirname, "../mine/test_data/", "package.json"), path.join(__dirname, "../mine/test_data/", "main.js"))
 // publishExtension(path.join(__dirname, "../mine/t/", "package.json"), path.join(__dirname, "../mine/t/", "main.js"))
 //# sourceMappingURL=Main.js.map

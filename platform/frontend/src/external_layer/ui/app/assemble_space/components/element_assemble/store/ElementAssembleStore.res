@@ -365,11 +365,11 @@ let reducer = (state, action) => {
       selectedUIControlInspectorData,
       // isImportElement: true,
     }
-  | ImportElementCustom(customInputs) => {
-      ...state,
-      customInputs,
-      // isImportElementCustom: true,
-    }
+  // | ImportElementCustom(customInputs) => {
+  //     ...state,
+  //     customInputs,
+  //     // isImportElementCustom: true,
+  //   }
   | SetCanvasData(canvasData) => {
       ...state,
       canvasData,
@@ -394,6 +394,10 @@ let reducer = (state, action) => {
   | SelectCustomInput(inputName) => {
       ...state->_resetCurrent,
       currentCustomInputName: inputName->Some,
+    }
+  | SetCustom(customInputs) => {
+      ...state,
+      customInputs,
     }
   }
 }

@@ -300,6 +300,41 @@ pass run test
 
 TODO compiled to custom input when show them in element assemble
 
+# when start app:
+# when enter assemble space:
+# compile -> add to custom inputs
+# selectedContributes remove local ones
+
+when publish input:
+publish compiled one: fileStr
+  diff: use source instead of path
+
+# when select input in market:
+# get fileStr, name and store to selectedLocalBundledInputs/ActionsFromMarket instead of selectedContributesFromMarket
+
+
+# when enter assemble space:
+# add them to customs
+
+when enter assemble space:
+get bundled source -> add to custom inputs
+selectedContributes remove local ones
+
+
+  # name, fileStr
+
+
+
+# TODO handle UI Control Inspector
+# selectedContributes remove local ones
+
+
+
+# TODO handle debug
+# remove action debug?
+
+
+
 TODO handle custom input and local input of the same name(remove all post fix):
 compare equal(first length, then all)?{
 use local input;
@@ -312,12 +347,21 @@ rename custom input's name to local input's one;
 }
 
 
-# ** TODO publish app no limit only one element?
-** TODO publish element will auto select it
 
-TODO run test: select one elements->publish element->switch to Index->switch to element assemble: should remain the element's custom!
+pass compile
 
-TODO run test: select two elements->publish element: should select the merged element
+pass bdd test
+
+
+pass run test
+  import error
+
+
+
+
+update all local inputs
+
+
 
 
 
@@ -376,6 +420,16 @@ auto get its name for build input protocol name!
 * TODO update custom actions->actionName: now can be arbitraily name
 
 protocol auto add "-action-"
+
+
+
+
+# * TODO publish app no limit only one element?
+* TODO publish element will auto select it
+
+TODO run test: select one elements->publish element->switch to Index->switch to element assemble: should remain the element's custom!
+
+TODO run test: select two elements->publish element: should select the merged element
 
 
 

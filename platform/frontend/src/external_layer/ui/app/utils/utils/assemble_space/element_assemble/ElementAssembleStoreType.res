@@ -166,12 +166,13 @@ type action =
   // | SetHandlers(handlers)
   // | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
   | Import(selectedUIControls, selectedUIControlInspectorData)
-  | ImportElementCustom(customInputs)
+  // | ImportElementCustom(customInputs)
   | SetCanvasData(canvasData)
   | AddCustomInput(customInput)
   | UpdateCustomInputFileStr(CommonType.inputName, CommonType.inputName, CommonType.inputFileStr)
   // | SetCustomActions(customActions)
   | SelectCustomInput(CommonType.inputName)
+  | SetCustom(customInputs)
 
 type state = {
   canvasData: canvasData,

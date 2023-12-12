@@ -12,7 +12,15 @@ module Method = {
     dispatch(AssembleSpaceStoreType.Reset)
   }
 
-  /* ! TODO handle same name:
+  let _mergeCustoms = selectedElementsFromMarket => {
+    selectedElementsFromMarket
+    ->Meta3dCommonlib.ListSt.reduce([], (
+      mergedCustomInputs,
+      {customInputs}: BackendCloudbaseType.elementAssembleData,
+    ) => {
+      mergedCustomInputs
+      ->Js.Array.concat(customInputs, _)
+      ->/* ! TODO should handle same name:
 now just remove duplicate one, but need handle more:
 
 compare equal(first length, then all)?{
@@ -22,32 +30,60 @@ remain one custom input;
 rename another custom input's name to add post fix:"_copy";
 }
  */
-  let _mergeCustoms = selectedElementsFromMarket => {
-    selectedElementsFromMarket
-    ->Meta3dCommonlib.ListSt.reduce([], (
-      mergedCustomInputs,
-      {customInputs}: BackendCloudbaseType.elementAssembleData,
-    ) => {
-      mergedCustomInputs
-      ->Js.Array.concat(customInputs, _)
-      ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
+      Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
         name
       })
     })
     ->Meta3dCommonlib.ListSt.fromArray
   }
 
-  let importElementCustom = (dispatchForElementAssembleStore, selectedElementsFromMarket) => {
-    let mergedCustomInputs = _mergeCustoms(selectedElementsFromMarket)
+  let getImportedElementCustom = selectedElementsFromMarket => {
+    _mergeCustoms(selectedElementsFromMarket)
+  }
 
-    dispatchForElementAssembleStore(
-      ElementAssembleStoreType.ImportElementCustom(mergedCustomInputs),
+  let _mergeCustomAndLocalBundled = (customInputs, localBundledSource) => {
+    let name = localBundledSource->CustomUtils.getInputName
+
+    /* ! TODO should handle same name more:
+now just not add duplicate one, but need handle more
+*/
+    customInputs->Meta3dCommonlib.ListSt.includesByFunc((
+      customInput: AssembleSpaceCommonType.customInput,
+    ) => {
+      customInput.name == name
+    })
+      ? customInputs
+      : customInputs->Meta3dCommonlib.ListSt.push(
+          (
+            {
+              name: localBundledSource->CustomUtils.getInputName,
+              fileStr: localBundledSource,
+            }: AssembleSpaceCommonType.customInput
+          ),
+        )
+  }
+
+  let convertLocalToCustom = (
+    service,
+    customInputs,
+    selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
+  ) => {
+    (
+      selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+        !ContributeTypeUtils.isInput(protocolName)
+      }),
+      selectedContributes
+      ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+        ContributeTypeUtils.isInput(protocolName)
+      })
+      ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
+        service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
+      })
+      ->Meta3dCommonlib.ListSt.reduce(customInputs, _mergeCustomAndLocalBundled),
     )
   }
 
-  let _getUIControls = (
-    selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
-  ) => {
+  let _getUIControls = (selectedContributes: AssembleSpaceType.selectedContributesFromMarket) => {
     selectedContributes
     // ->Meta3dCommonlib.ListSt.map(Meta3dCommonlib.Tuple2.getFirst)
     ->Meta3dCommonlib.ListSt.filter((({data}, _)) => {
@@ -55,7 +91,6 @@ rename another custom input's name to add post fix:"_copy";
         Meta3dType.ContributeType.UIControl
     })
   }
-
 
   let _generateSelectedUIControls = (
     service,
@@ -143,14 +178,7 @@ rename another custom input's name to add post fix:"_copy";
     ) => {
       uiControls
       ->Meta3dCommonlib.ArraySt.mapi((
-        {
-          rect,
-          isDraw,
-          input,
-          event,
-          specific,
-          children,
-        }: BackendCloudbaseType.uiControl,
+        {rect, isDraw, input, event, specific, children}: BackendCloudbaseType.uiControl,
         index,
       ): ElementAssembleStoreType.uiControlInspectorData => {
         id: (
@@ -285,24 +313,28 @@ let make = (
   ~selectedContributesFromMarket: selectedContributesFromMarket,
   ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
-  // ~customInputsFromMarket: customInputsFromMarket,
-  // ~customActionsFromMarket: customActionsFromMarket,
-
   let dispatch = service.react.useDispatch()
-  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
-    service.react.useDispatch,
-  )
+  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
   let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
     service.react.useDispatch,
   )
 
   let (currentAssemble, setCurrentAssemble) = service.react.useState(_ => Ap)
+  let (
+    handledSelectedContributesFromMarket,
+    setHandledSelectedContributesFromMarket,
+  ) = service.react.useState(_ => None)
 
   service.react.useEffectOnce(() => {
     Method.reset(dispatch)
 
     ErrorUtils.showCatchedErrorMessage(() => {
-      Method.importElementCustom(dispatchForElementAssembleStore, selectedElementsFromMarket)
+      let (selectedContributesFromMarket, customInputs) =
+        Method.getImportedElementCustom(selectedElementsFromMarket)->Method.convertLocalToCustom(
+          service,
+          _,
+          selectedContributesFromMarket,
+        )
 
       Method.importElement(
         service,
@@ -310,6 +342,10 @@ let make = (
         selectedElementsFromMarket,
         selectedContributesFromMarket,
       )
+
+      dispatchForElementAssembleStore(ElementAssembleStoreType.SetCustom(customInputs))
+
+      setHandledSelectedContributesFromMarket(_ => selectedContributesFromMarket->Some)
     }, 5->Some)
 
     // dispatchForApAssembleStore(
@@ -322,59 +358,65 @@ let make = (
     ((), None)
   })
 
-  <Layout>
-    <Layout.Content>
-      <Menu
-        theme=#light
-        mode=#horizontal
-        defaultSelectedKeys={["1"]}
-        selectedKeys={[Method.getCurrentKey(currentAssemble)]}
-        onClick={({key}) => {
-          switch key {
-          | "2" => setCurrentAssemble(_ => Element)
-          | "3" => setCurrentAssemble(_ => Package)
-          | "1"
-          | _ =>
-            setCurrentAssemble(_ => Ap)
-          }
-        }}
-        items=[
-          {
-            key: "1",
-            label: {React.string(`应用装配`)},
-          },
-          {
-            key: "2",
-            label: {React.string(`页面装配`)},
-          },
-          {
-            key: "3",
-            label: {React.string(`包装配`)},
-          },
-        ]
-      />
-    </Layout.Content>
-    <Layout.Content>
-      {switch currentAssemble {
-      | Ap =>
-        <ApAssemble
-          service
-          account
-          selectedExtensionsFromMarket
-          selectedContributesFromMarket
-          selectedPackagesFromMarket
-          selectedElementsFromMarket
-        />
-      | Element => <ElementAssemble service account selectedElementsFromMarket />
-      | Package =>
-        <PackageAssemble
-          service
-          account
-          selectedExtensionsFromMarket
-          selectedContributesFromMarket
-          selectedPackagesFromMarket
-        />
-      }}
-    </Layout.Content>
-  </Layout>
+  {
+    switch handledSelectedContributesFromMarket {
+    | None => React.null
+    | Some(handledSelectedContributesFromMarket) =>
+      <Layout>
+        <Layout.Content>
+          <Menu
+            theme=#light
+            mode=#horizontal
+            defaultSelectedKeys={["1"]}
+            selectedKeys={[Method.getCurrentKey(currentAssemble)]}
+            onClick={({key}) => {
+              switch key {
+              | "2" => setCurrentAssemble(_ => Element)
+              | "3" => setCurrentAssemble(_ => Package)
+              | "1"
+              | _ =>
+                setCurrentAssemble(_ => Ap)
+              }
+            }}
+            items=[
+              {
+                key: "1",
+                label: {React.string(`应用装配`)},
+              },
+              {
+                key: "2",
+                label: {React.string(`页面装配`)},
+              },
+              {
+                key: "3",
+                label: {React.string(`包装配`)},
+              },
+            ]
+          />
+        </Layout.Content>
+        <Layout.Content>
+          {switch currentAssemble {
+          | Ap =>
+            <ApAssemble
+              service
+              account
+              selectedExtensionsFromMarket
+              selectedContributesFromMarket=handledSelectedContributesFromMarket
+              selectedPackagesFromMarket
+              selectedElementsFromMarket
+            />
+          | Element => <ElementAssemble service account selectedElementsFromMarket />
+          | Package =>
+            <PackageAssemble
+              service
+              account
+              selectedExtensionsFromMarket
+              selectedContributesFromMarket=handledSelectedContributesFromMarket
+              selectedPackagesFromMarket
+            />
+          }}
+        </Layout.Content>
+      </Layout>
+    }
+  }
 }
