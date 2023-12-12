@@ -63,6 +63,23 @@ let _setUIControlInspectorData = (state, setFunc, id) => {
   }
 }
 
+let _updateAllUIControlInspectorData = (state, setFunc) => {
+  {
+    ...state,
+    selectedUIControlInspectorData: HierachyUtils.mapAllSelectedUIControlData(
+      setFunc,
+      (
+        (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+        (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+          ...data,
+          children,
+        },
+      ),
+      state.selectedUIControlInspectorData,
+    ),
+  }
+}
+
 let _setActionData = (state, id, eventName, actionNameOpt) => {
   _setUIControlInspectorData(
     state,
@@ -379,17 +396,26 @@ let reducer = (state, action) => {
       customInputs: state.customInputs->Meta3dCommonlib.ListSt.push(customInput),
     }
   | UpdateCustomInputFileStr(oldInputName, newInputName, fileStr) => {
-      ...state,
-      customInputs: state.customInputs->Meta3dCommonlib.ListSt.map(customInput => {
-        customInput.name == oldInputName
-          ? (
-              {
-                name: newInputName,
-                fileStr,
-              }: customInput
-            )
-          : customInput
-      }),
+      let state = {
+        ...state,
+        customInputs: state.customInputs->Meta3dCommonlib.ListSt.map(customInput => {
+          customInput.name == oldInputName
+            ? (
+                {
+                  name: newInputName,
+                  fileStr,
+                }: customInput
+              )
+            : customInput
+        }),
+      }
+
+      state->_updateAllUIControlInspectorData(data => {
+        ...data,
+        input: data.input->Meta3dCommonlib.OptionSt.map(({inputName}): input => {
+          inputName: inputName == oldInputName ? newInputName : inputName,
+        }),
+      })
     }
   | SelectCustomInput(inputName) => {
       ...state->_resetCurrent,

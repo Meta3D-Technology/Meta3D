@@ -38,14 +38,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SelectUIControl(
-              "",
-              "",
-              "",
-              Obj.magic(1),
-              None,
-              [],
-            ),
+            ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
           )
 
         id1 :=
@@ -130,14 +123,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl(
-            "",
-            "",
-            "",
-            Obj.magic(1),
-            None,
-            [],
-          ),
+          ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
         )
 
       id1 :=
@@ -171,10 +157,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SetAction(
-              id1.contents,
-              (eventName, actionName->Some),
-            ),
+            ElementAssembleStoreType.SetAction(id1.contents, (eventName, actionName->Some)),
           )
       },
     )
@@ -315,14 +298,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SelectUIControl(
-              "",
-              "",
-              "",
-              Obj.magic(1),
-              None,
-              [],
-            ),
+            ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
           )
 
         id1 :=
@@ -408,14 +384,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl(
-            "",
-            "",
-            "",
-            Obj.magic(1),
-            None,
-            [],
-          ),
+          ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
         )
 
       id1 :=
@@ -514,6 +483,107 @@ defineFeature(feature, test => {
       "should use id1 as u2's parent ui control id",
       () => {
         store.contents.parentUIControlId->expect == id1.contents->Some
+      },
+    )
+  })
+
+  test(."update custom input file str", ({given, \"when", \"and", then}) => {
+    // let eventName = #button_click
+    let inputName = "i1"
+    let inputNewName = "i1_1"
+    let fileStr = "f1"
+    let newFileStr = "f1_1"
+
+    let _prepareForUpdate = (given, \"and") => {
+      given(
+        "init store",
+        () => {
+          store := ElementAssembleStore.initialState
+        },
+      )
+
+      \"and"(
+        "add custom input1",
+        () => {
+          store :=
+            ElementAssembleStore.reducer(
+              store.contents,
+              ElementAssembleStoreType.SetCustom(list{
+                CustomTool.buildCustomInput(~name=inputName, ~fileStr, ()),
+              }),
+            )
+        },
+      )
+
+      \"and"(
+        "select ui control u1 with id1",
+        () => {
+          store :=
+            ElementAssembleStore.reducer(
+              store.contents,
+              ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+            )
+
+          id1 :=
+            (
+              store.contents.selectedUIControls
+              ->Meta3dCommonlib.ListSt.head
+              ->Meta3dCommonlib.OptionSt.getExn
+            ).id
+        },
+      )
+
+      \"and"(
+        "set input to input1 with id1",
+        () => {
+          store :=
+            ElementAssembleStore.reducer(
+              store.contents,
+              ElementAssembleStoreType.SetInput(id1.contents, inputName->Some),
+            )
+        },
+      )
+    }
+
+    _prepare(given)
+
+    _prepareForUpdate(given, \"and")
+
+    \"when"(
+      "update custom input1's name and file str",
+      () => {
+        store :=
+          ElementAssembleStore.reducer(
+            store.contents,
+            ElementAssembleStoreType.UpdateCustomInputFileStr(inputName, inputNewName, newFileStr),
+          )
+      },
+    )
+
+    then(
+      "should has correct custom inputs",
+      () => {
+        store.contents.customInputs->expect ==
+          list{CustomTool.buildCustomInput(~name=inputNewName, ~fileStr=newFileStr, ())}
+      },
+    )
+
+    \"and"(
+      "u1's uiControlInspectorData's input should update to new name",
+      () => {
+        (
+          store.contents.selectedUIControlInspectorData
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).input->expect ==
+          // list{
+          //   UIControlInspectorTool.buildUIControlInspectorData(
+          //     ~id=id1.contents,
+          //     ~input=UIControlInspectorTool.buildInput(~inputName=inputNewName, ())->Some,
+          //     (),
+          //   ),
+          // }
+          UIControlInspectorTool.buildInput(~inputName=inputNewName, ())
       },
     )
   })

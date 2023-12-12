@@ -356,6 +356,7 @@ pass bdd test
 pass run test
   import error
 
+  fix: change input name, select not update
 
 
 
@@ -404,18 +405,21 @@ update all local inputs
 
 
 
-* TODO update custom action
-
-TODO should simplify type to forward, ... funcs!
-
-
-
 
 * TODO update custom input->inputName: now can be arbitraily name
 
 custom input is add by UI Control->Input!
 
 auto get its name for build input protocol name!
+
+
+
+* TODO update custom action
+
+TODO should simplify type to forward, ... funcs!
+
+
+
 
 
 * TODO update custom actions->actionName: now can be arbitraily name

@@ -64,3 +64,18 @@ Feature: ElementAssembleStore
             Given select ui control u2 which not has children and its parent is u1 with id2
             When select u2
             Then should use id1 as u2's parent ui control id
+
+
+
+    Rule: update custom input file str
+
+        Background: prepare for update custom input file str
+            Given init store
+            And add custom input1
+            And select ui control u1 with id1
+            And set input to input1 with id1
+
+        Scenario: update custom input file str
+            When update custom input1's name and file str
+            Then should has correct custom inputs
+            And u1's uiControlInspectorData's input should update to new name

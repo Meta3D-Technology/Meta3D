@@ -42,6 +42,18 @@ let rec mapSelectedUIControlData = (
   })
 }
 
+let rec mapAllSelectedUIControlData = (
+  handle,
+  (getChildren, setChildren),
+  allSelectedUIControlData,
+) => {
+  allSelectedUIControlData->Meta3dCommonlib.ListSt.map(data => {
+    handle(data)->setChildren(
+      mapAllSelectedUIControlData(handle, (getChildren, setChildren), getChildren(data)),
+    )
+  })
+}
+
 let rec addChildUIControlData = (
   (getId, getChildren, setChildren),
   allSelectedUIControlData,
