@@ -30,24 +30,18 @@ let _removeElementContributeFileData = (
   allContributeFileData->Meta3dCommonlib.ArraySt.filter(data => {
     let (contributePackageData, contributeFuncData) = data
 
-    contributePackageData.protocol.name !=
-      ElementUtils.getElementContributeProtocolName()
+    contributePackageData.protocol.name != ElementUtils.getElementContributeProtocolName()
   })
 }
 
-let _removeElementContribute = (
-  selectedContributes: UserCenterStoreType.selectedContributes,
-) => {
+let _removeElementContribute = (selectedContributes: UserCenterStoreType.selectedContributes) => {
   selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
     protocolName != ElementUtils.getElementContributeProtocolName()
   })
 }
 
 let _import = (
-  (
-    service: FrontendType.service,
-    (setFlag, dispatchImportApp, dispatchBatchStorePackagesInApp),
-  ),
+  (service: FrontendType.service, (setFlag, dispatchImportApp, dispatchBatchStorePackagesInApp)),
   stream,
 ) => {
   stream
@@ -186,19 +180,31 @@ let _import = (
         ->Meta3dCommonlib.ArraySt.map(data => {
           let (contributePackageData, contributeFuncData) = data
 
-          let contributeProtocol =
-            contributeProtocols
-            ->Meta3dCommonlib.ArraySt.filter(
-              contributeProtocol => {
-                contributeProtocol.name == contributePackageData.protocol.name &&
-                  Meta3d.Semver.satisfies(
-                    contributeProtocol.version,
-                    contributePackageData.protocol.version,
-                  )
-              },
-            )
-            ->Meta3dCommonlib.ArraySt.getFirst
-            ->Meta3dCommonlib.OptionSt.getExn
+          let (contributeProtocolName, contributeProtocolVersion, contributeProtocolIconBase64) =
+            ElementVisualUtils.isCustomInput(contributePackageData.protocol.name) ||
+            ElementVisualUtils.isCustomAction(contributePackageData.protocol.name)
+              ? (contributePackageData.protocol.name, contributePackageData.version, "")
+              : contributeProtocols
+                ->Meta3dCommonlib.ArraySt.filter(
+                  contributeProtocol => {
+                    contributeProtocol.name == contributePackageData.protocol.name &&
+                      Meta3d.Semver.satisfies(
+                        contributeProtocol.version,
+                        contributePackageData.protocol.version,
+                      )
+                  },
+                )
+                ->Meta3dCommonlib.ArraySt.getFirst
+                ->Meta3dCommonlib.OptionSt.map(
+                  contributeProtocol => {
+                    (
+                      contributeProtocol.name,
+                      contributeProtocol.version,
+                      contributeProtocol.iconBase64,
+                    )
+                  },
+                )
+                ->Meta3dCommonlib.OptionSt.getExn
 
           let contributeProtocolConfig =
             contributeProtocolConfigs
@@ -217,9 +223,9 @@ let _import = (
             (
               {
                 id: IdUtils.generateId(Js.Math.random),
-                protocolName: contributeProtocol.name,
-                protocolVersion: contributeProtocol.version,
-                protocolIconBase64: contributeProtocol.iconBase64,
+                protocolName: contributeProtocolName,
+                protocolVersion: contributeProtocolVersion,
+                protocolIconBase64: contributeProtocolIconBase64,
                 data: (
                   {
                     contributePackageData: {
@@ -264,6 +270,8 @@ let _import = (
         selectedPackagesStoredInApp->Meta3dCommonlib.ListSt.map(({id}) => id),
       )
     },
+    // let contributeProtocol =
+
     // dispatchImportApp(selectedExtensions, selectedContributes, selectedPackages)
     // dispatchBatchStorePackagesInApp(selectedPackages->Meta3dCommonlib.ListSt.map(({id}) => id))
 
@@ -307,10 +315,7 @@ let _import = (
 
 let importApp = _import
 
-let importPackage = (
-  (service: FrontendType.service, (setFlag, dispatchImportPackage)),
-  stream,
-) => {
+let importPackage = ((service: FrontendType.service, (setFlag, dispatchImportPackage)), stream) => {
   _import(
     (service, (setFlag, dispatchImportPackage, _ => ())),
     stream->Meta3dBsMostDefault.Most.map(

@@ -230,9 +230,15 @@ let buildEmptyAddGeneratedContributeFunc = () => {
 //   ->Js.String.replaceByRe(%re("/-/g"), "_", _)
 // }
 
-let isCustomAction = (actionProtocolName, eventName) => {
+// let isCustomAction = (actionProtocolName, eventName) => {
+//   actionProtocolName->Js.String.includes(
+//     {j`${ElementUtils.buildCustomInputProtocolNamePrefix()}${eventName}-`},
+//     _,
+//   )
+// }
+let isCustomAction = (actionProtocolName) => {
   actionProtocolName->Js.String.includes(
-    {j`${ElementUtils.buildCustomInputProtocolNamePrefix()}${eventName}-`},
+    {j`${ElementUtils.buildCustomInputProtocolNamePrefix()}`},
     _,
   )
 }
