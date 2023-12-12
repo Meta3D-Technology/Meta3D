@@ -139,7 +139,7 @@ defineFeature(feature, test => {
           AssembleSpaceTool.convertLocalToCustom(
             ServiceTool.build(
               ~sandbox,
-              ~getContributeFuncDataStr=Meta3d.Main.getContributeFuncDataStr-> Obj.magic,
+              ~getContributeFuncDataStr=Meta3d.Main.getContributeFuncDataStr->Obj.magic,
               (),
             ),
             list{customInput1.contents},
@@ -158,15 +158,32 @@ defineFeature(feature, test => {
     \"and"(
       "should add converted local input1 to custom inputs",
       () => {
-        result.contents->Meta3dCommonlib.Tuple2.getLast->expect ==
+        // (result.contents->Meta3dCommonlib.Tuple2.getLast -> Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn).fileStr ->Meta3dCommonlib.Log.printStringForDebug-> ignore
+
+        result.contents
+        ->Meta3dCommonlib.Tuple2.getLast
+        // ->Meta3dCommonlib.Log.printStringForDebug
+        ->CustomTool.formatCustomInputs
+        ->expect ==
           list{
             customInput1.contents,
             CustomTool.buildCustomInput(
               ~name=localInput1Name,
-              ~fileStr=localInput1BundledSource,
+              ~fileStr={
+                j`window.Contribute = {
+          getContribute: (api) => {
+      
+          return {
+              inputName: "localInput1",
+              func: (meta3dState) => {
+                  return Promise.resolve(null)
+              }
+          }
+      }}`
+              },
               (),
             ),
-          }
+          }->CustomTool.formatCustomInputs
       },
     )
   })

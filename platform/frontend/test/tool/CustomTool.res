@@ -12,6 +12,17 @@ let buildCustomInput = (
 
 let addCustomInput = CustomInputs.Method.addCustomInput
 
+let formatCustomInputs = customInputs => {
+  customInputs->Meta3dCommonlib.ListSt.map((
+    customInput: AssembleSpaceCommonType.customInput,
+  ): AssembleSpaceCommonType.customInput => {
+    {
+      ...customInput,
+      fileStr: customInput.fileStr->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar,
+    }
+  })
+}
+
 let buildCustomAction = (
   ~name="action1",
   ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),

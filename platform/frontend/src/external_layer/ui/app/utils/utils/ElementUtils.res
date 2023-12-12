@@ -93,6 +93,14 @@ let _addGeneratedContributeForRunApp = (
   )
 }
 
+let buildCustomInputProtocolName = name => {
+  j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName
+}
+
+let buildCustomActionProtocolName = name => {
+  j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName
+}
+
 let addGeneratedInputContributesForElementAssemble = (
   (generateContribute, loadContribute),
   selectedContributes,
@@ -108,7 +116,8 @@ let addGeneratedInputContributesForElementAssemble = (
       selectedContributes,
       account,
       (name, fileStr),
-      j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      // j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      buildCustomInputProtocolName(name),
     )
   })
 }
@@ -128,7 +137,8 @@ let addGeneratedInputContributesForRunApp = (
       allContributeDataList,
       account,
       (name, fileStr),
-      j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      // j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      buildCustomInputProtocolName(name),
     )
   })
 }
@@ -148,7 +158,8 @@ let rec addGeneratedActionContributesForElementAssemble = (
       selectedContributes,
       account,
       (name, fileStr),
-      j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      // j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      buildCustomActionProtocolName(name),
     )
   })
 }
@@ -168,7 +179,8 @@ let addGeneratedActionContributesForRunApp = (
       allContributeDataList,
       account,
       (name, fileStr),
-      j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      // j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
+      buildCustomActionProtocolName(name),
     )
   })
 }

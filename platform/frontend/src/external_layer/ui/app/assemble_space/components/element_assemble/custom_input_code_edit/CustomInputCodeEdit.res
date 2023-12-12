@@ -18,31 +18,9 @@ module Method = {
     )
   }
 
-  let _convertCodeToUMD = code => {
-    let _func = (code, replaceSource) => {
-      code->Js.String.replace(
-        replaceSource,
-        {
-          j`window.Contribute = {
-    getContribute: (api) => {
-`
-        },
-        _,
-      ) ++ "}"
-    }
-
-    // TODO should unify compile options between bundle gulp and CodeEdit->monaco
-    code
-    ->_func("export let getContribute = (api) => {")
-    ->_func("export var getContribute = function (api) {")
-  }
-
-  let _removeSemicolon = code => {
-    code->Js.String.replaceByRe(%re("/\};/g"), "}", _)
-  }
 
   let getNewCode = (dispatch, inputName, newCode) => {
-    let newCode = newCode->_convertCodeToUMD->_removeSemicolon
+    let newCode = newCode->CodeEditUtils. convertToNewCode
 
     let newInputName = newCode->CustomUtils.getInputName
 

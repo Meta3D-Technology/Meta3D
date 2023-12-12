@@ -57,7 +57,7 @@ now just not add duplicate one, but need handle more
           (
             {
               name: localBundledSource->CustomUtils.getInputName,
-              fileStr: localBundledSource,
+              fileStr: localBundledSource->CodeEditUtils.convertToNewCode,
             }: AssembleSpaceCommonType.customInput
           ),
         )
@@ -74,7 +74,7 @@ now just not add duplicate one, but need handle more
       }),
       selectedContributes
       ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-        ContributeTypeUtils.isInput(protocolName)
+        LocalUtils.isLocalInput(protocolName)
       })
       ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
         service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
