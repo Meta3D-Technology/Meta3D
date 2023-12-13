@@ -15,7 +15,7 @@ defineFeature(feature, test => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
 
-    //   TextareaTool.markNotShowTextareaForTest()
+      //   TextareaTool.markNotShowTextareaForTest()
     })
   }
 
@@ -37,7 +37,13 @@ defineFeature(feature, test => {
       () => {
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
-        CustomTool.addCustomInput(dispatchStub.contents, customInputs.contents)
+        CustomTool.addCustom(
+          dispatchStub.contents,
+          {customInput => ElementAssembleStoreType.AddCustomInput(customInput)},
+          CustomTool.buildDefaultInputFileStr,
+          "Input",
+          customInputs.contents,
+        )
       },
     )
 
@@ -53,7 +59,7 @@ defineFeature(feature, test => {
               {
                 name: "Input2",
                 fileStr: {
-    j`window.Contribute = {
+                  j`window.Contribute = {
     getContribute: (api) => {
       return {
         inputName: "Input2",
@@ -63,7 +69,7 @@ defineFeature(feature, test => {
       }
     }
 }`
-  },
+                },
               }: ElementAssembleStoreType.customInput
             ),
           )

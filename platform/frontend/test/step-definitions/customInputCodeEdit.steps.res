@@ -50,6 +50,13 @@ defineFeature(feature, test => {
 
         CustomInputCodeEditTool.getNewCode(
           dispatchStub.contents,
+          CustomUtils.getInputName,
+          CodeEditUtils.setCurrentCustomInputNameToGlobal,
+          (name, newName, newCode) => ElementAssembleStoreType.UpdateCustomInputFileStr(
+            name,
+            newName,
+            newCode,
+          ),
           inputName.contents,
           newCode.contents,
         )

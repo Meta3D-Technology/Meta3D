@@ -64,10 +64,7 @@ type isDraw = BoolForIsDraw(bool)
 
 type inputName = string
 
-type input = {
-  inputName: inputName,
-}
-
+type input = {inputName: inputName}
 
 type inputFileStr = string
 
@@ -75,16 +72,16 @@ type actionFileStr = string
 
 type actionName = string
 
+type fileStr = string
 
-type customInput = {
-  name: inputName,
-  fileStr: inputFileStr,
+type custom = {
+  name: string,
+  fileStr: fileStr,
 }
 
-type customAction = {
-  name: actionName,
-  fileStr: actionFileStr,
-}
+type customInput = custom
+
+type customAction = custom
 
 type eventData = {
   eventName: Meta3dType.ContributeProtocolConfigType.eventName,

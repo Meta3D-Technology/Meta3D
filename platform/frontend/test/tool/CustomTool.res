@@ -1,4 +1,4 @@
-let buildDefaultInputFileStr = CustomInputs.Method._buildDefaultInputFileStr
+let buildDefaultInputFileStr = CustomInputs.Method.buildDefaultInputFileStr
 
 let getInputName = CustomUtils.getInputName
 
@@ -10,7 +10,8 @@ let buildCustomInput = (
   {name, fileStr}
 }
 
-let addCustomInput = CustomInputs.Method.addCustomInput
+// let addCustomInput = CustomInputs.Method.addCustomInput
+let addCustom = CustomDomUtils.Method.addCustom
 
 let formatCustomInputs = customInputs => {
   customInputs->Meta3dCommonlib.ListSt.map((

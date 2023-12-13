@@ -1,3 +1,3 @@
-let getNewCode = CustomInputCodeEdit.Method.getNewCode
+let getNewCode = CustomCodeEditUtils.Method.getNewCode
 
-let getCode = CustomInputCodeEdit.Method.getCode
+let getCode = CustomCodeEditUtils.Method.getCode
