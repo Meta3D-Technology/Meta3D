@@ -19,7 +19,11 @@ type moduleKind = int
 // type syntaxKind = | @as(269) ImportDeclaration
 type syntaxKind = int
 
-type compilerOptions = {@as("module") module_: moduleKind}
+type compilerOptions = {
+  target: int,
+  @as("module") module_: moduleKind,
+  pretty: bool,
+}
 
 type transpileOptions = {compilerOptions: compilerOptions}
 

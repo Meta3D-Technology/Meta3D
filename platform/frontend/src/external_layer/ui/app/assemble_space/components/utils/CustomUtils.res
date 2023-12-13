@@ -10,7 +10,7 @@ let getActionName = actionFileStr => {
   actionFileStr->Js.String.includes("actionName: actionName", _)
     ? (
         actionFileStr
-        ->Js.String.match_(%re("/var\sactionName\s\=\s\"(.+)\"/im"), _)
+        ->Js.String.match_(%re("/actionName\s\=\s\"(.+)\"/im"), _)
         ->Meta3dCommonlib.OptionSt.getExn
       )[1]->Meta3dCommonlib.OptionSt.getExn
     : (

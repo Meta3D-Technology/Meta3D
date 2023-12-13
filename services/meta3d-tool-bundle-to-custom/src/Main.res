@@ -100,7 +100,11 @@ let _renameImportVariables = (depTranspiledText, importVariableRenameMap) => {
   importVariableRenameMap
   ->Meta3dCommonlib.ImmutableHashMap.entries
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. text, (sourceName, targetName)) => {
-    text->Js.String.replace({j`export var ${sourceName} =`}, {j`export var ${targetName} =`}, _)
+    text
+    ->Js.String.replace({j`export var ${sourceName} =`}, {j`export var ${targetName} =`}, _)
+    ->Js.String.replace({j`export const ${sourceName} =`}, {j`export const ${targetName} =`}, _)
+    ->Js.String.replace({j`export let ${sourceName} =`}, {j`export let ${targetName} =`}, _)
+    ->Js.String.replace({j`export function ${sourceName}(`}, {j`export function ${targetName}(`}, _)
   }, depTranspiledText)
 }
 
@@ -119,7 +123,10 @@ let bundle = (filePath: string, fileSource: string) => {
       {
         compilerOptions: {
           // module_: Typescript.ES2015,
+          target: 2,
           module_: 5,
+          // noImplicitUseStrict: true,
+          pretty: true,
         },
       },
     ).outputText
@@ -140,7 +147,7 @@ let bundle = (filePath: string, fileSource: string) => {
             ? _getLocalModulePath(~path=moduleSpecifierText, ~from=filePath->Some, ())
             : _getNpmModulePath(moduleSpecifierText, filePath)
 
-        Js.log(("depPath: ", depPath))
+        // Js.log(("depPath: ", depPath))
 
         let depTranspiledText =
           _func(depPath, Fs.readFileSync(. depPath, "utf-8"))

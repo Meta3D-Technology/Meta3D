@@ -41,7 +41,25 @@ defineFeature(feature, test => {
       "should compile and bundle it",
       () => {
         result.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
-          "//import{stateasmeta3dState}from\"meta3d-type\"//import{nullable}from\"meta3d-commonlib-ts/src/nullable\"varrunActionName=\"Run\";exportvargetContribute=function(api){return{inputName:\"RunStopButtonInput\",func:function(meta3dState){varrunState=api.action.getActionState(meta3dState,runActionName);if(api.nullable.isNullable(runState)){returnPromise.resolve(false);}runState=api.nullable.getExn(runState);returnPromise.resolve(runState.isRun);}};};"
+          {
+            j`// import { state as meta3dState } from "meta3d-type"
+    // import { nullable } from "meta3d-commonlib-ts/src/nullable"
+    const runActionName = "Run";
+    
+    export let getContribute = (api) => {
+        return {
+            inputName: "RunStopButtonInput",
+            func: (meta3dState) => {
+                let runState = api.action.getActionState(meta3dState, runActionName);
+                if (api.nullable.isNullable(runState)) {
+                    return Promise.resolve(false);
+                }
+                runState = api.nullable.getExn(runState);
+                return Promise.resolve(runState.isRun);
+            }
+        };
+    };`
+          }
           ->NewlineTool.unifyNewlineChar
           ->NewlineTool.removeBlankChar
       },
@@ -75,7 +93,36 @@ defineFeature(feature, test => {
         ->NewlineTool.unifyNewlineChar
         ->NewlineTool.removeBlankChar
         ->expect ==
-          "//import{stateasmeta3dState}from\"meta3d-type\"//import{nullable}from\"meta3d-commonlib-ts/src/nullable\"varrunActionName=\"Run\";varfunc1Utils2=function(){return1;};functionfunc2(){return2;}varfunc1Utils1=function(){returnfunc1Utils2()+func2()>3;//returntrue};exportvargetContribute=function(api){return{inputName:\"RunStopButtonInput\",func:function(meta3dState){varrunState=api.action.getActionState(meta3dState,runActionName);if(api.nullable.isNullable(runState)){returnPromise.resolve(false);}//runState=api.nullable.getExn(runState)returnPromise.resolve(func1Utils1());}};};"
+          {
+            j`// import { state as meta3dState } from "meta3d-type"
+    // import { nullable } from "meta3d-commonlib-ts/src/nullable"
+    const runActionName = "Run";
+    let func1Utils2 = () => {
+        return 1;
+    };
+    function func2Utils2() {
+        return 2;
+    }
+    
+    let func1Utils1 = () => {
+        return func1Utils2() + func2Utils2() > 3;
+        // return true
+    };
+    
+    export let getContribute = (api) => {
+        return {
+            inputName: "RunStopButtonInput",
+            func: (meta3dState) => {
+                let runState = api.action.getActionState(meta3dState, runActionName);
+                if (api.nullable.isNullable(runState)) {
+                    return Promise.resolve(false);
+                }
+                // runState = api.nullable.getExn(runState)
+                return Promise.resolve(func1Utils1());
+            }
+        };
+    };`
+          }
           ->NewlineTool.unifyNewlineChar
           ->NewlineTool.removeBlankChar
       },

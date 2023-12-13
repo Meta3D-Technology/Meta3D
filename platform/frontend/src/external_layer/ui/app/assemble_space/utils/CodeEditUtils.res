@@ -22,7 +22,6 @@ globalThis.elementAssembleStore_currentCustomActionName = currentCustomActionNam
 }
 `)
 
-
 let _convertCodeToUMD = code => {
   let _func = (code, replaceSource) => {
     code->Js.String.replace(
@@ -36,10 +35,8 @@ let _convertCodeToUMD = code => {
     )
   }
 
-  // TODO should unify compile options between bundle gulp and CodeEdit->monaco
-  code
-  ->_func("export let getContribute = (api) => {")
-  ->_func("export var getContribute = function (api) {") ++ "}"
+  code->_func("export let getContribute = (api) => {") ++ "}"
+  // ->_func("export var getContribute = function (api) {")
 }
 
 let _removeSemicolon = code => {
