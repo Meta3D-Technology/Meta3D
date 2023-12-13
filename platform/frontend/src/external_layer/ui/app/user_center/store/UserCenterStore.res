@@ -241,6 +241,7 @@ let reducer = (state, action) => {
         ? state.selectedElements
         : selectedElements,
     }
+  | SetContributes(selectedContributes) => {...state, selectedContributes}
   }
 }
 

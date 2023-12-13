@@ -49,6 +49,7 @@ type action =
       selectedContributes,
       selectedElements,
     )
+  | SetContributes(selectedContributes)
 
 type state = {
   account: option<string>,
@@ -58,6 +59,6 @@ type state = {
   selectedElements: selectedElements,
   importedPackageIds: list<id>,
   importedAppIds: list<id>,
-  // customInputs: customInputs, 
+  // customInputs: customInputs,
   // customActions: customActions,
 }

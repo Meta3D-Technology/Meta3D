@@ -115,7 +115,7 @@ now just not add duplicate one, but need handle more
   ) => {
     (
       selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-        !ContributeTypeUtils.isInput(protocolName) && !ContributeTypeUtils.isAction(protocolName)
+        !LocalUtils.isLocalInput(protocolName) && !LocalUtils.isLocalAction(protocolName)
       }),
       (
         selectedContributes
@@ -369,6 +369,7 @@ let make = (
   ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
   let dispatch = service.react.useDispatch()
+  let dispatchForAppStore = service.app.useDispatch()
   let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
   let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
     service.react.useDispatch,
@@ -396,6 +397,12 @@ let make = (
         dispatchForElementAssembleStore,
         selectedElementsFromMarket,
         selectedContributesFromMarket,
+      )
+
+      dispatchForAppStore(
+        AppStoreType.UserCenterAction(
+          UserCenterStoreType.SetContributes(selectedContributesFromMarket),
+        ),
       )
 
       dispatchForElementAssembleStore(

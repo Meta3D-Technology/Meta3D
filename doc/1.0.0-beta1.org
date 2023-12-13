@@ -434,20 +434,24 @@ pass bdd test
 
 pass run test:runstop button
   no local
-    fix: not trigger run action!
+    # fix: not trigger run action!
   has local
 
 
 
-TODO fix:
-  change action/input name not match format, shouldn't error
-
+TODO remove local input/action from selectedContributesFromMarket after import
 
 
 TODO compile should unify!
 
 
+TODO fix:
+  change action/input name not match format, shouldn't error
 
+TODO api.nullable.getExn should return any type
+
+
+TODO format
 
 
 * TODO refactor: duplicate
