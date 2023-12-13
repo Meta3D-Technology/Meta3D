@@ -6,7 +6,6 @@ export interface RGB { r: number; g: number; b: number; }
 export interface RGBA extends RGB { a: number; }
 
 import * as Bind from "./bind-imgui";
-import { Input, EType } from "./input";
 export { Bind };
 
 let bind: Bind.Module;
@@ -902,6 +901,163 @@ export class ImVec4 implements Bind.interface_ImVec4 {
     }
 }
 
+export {interface_ImMat2} from "./bind-imgui"
+export {reference_ImMat2} from "./bind-imgui"
+
+export class ImMat2 implements Bind.interface_ImMat2 {
+    public static readonly IDENTITY: Readonly<ImMat2> = new ImMat2(1.0, 0.0, 0.0, 1.0);
+
+    constructor(public m11: number = 1.0, public m12: number =0.0, public m21: number =0.0, public m22: number =1.0) {}
+
+    //constructor(public readonly native: Bind.reference_ImMat2) {}
+
+    Set(m11:number, m12:number, m21:number, m22:number): this
+    {
+        this.m11 = m11;
+        this.m12 = m12;
+        this.m21 = m21;
+        this.m22 = m22;
+        return this;
+    }
+    Copy(other: Readonly<Bind.interface_ImMat2>): this {
+        this.m11 = other.m11;
+        this.m12 = other.m12;
+        this.m21 = other.m21;
+        this.m22 = other.m22;
+        return this;
+    }
+    Equals(other: Readonly<Bind.interface_ImMat2>): boolean {
+        if(this.m11!== other.m11) { return false; }
+        if(this.m12!== other.m12) { return false; }
+        if(this.m21!== other.m21) { return false; }
+        if(this.m22!== other.m22) { return false; }
+        return true;
+    }
+    Identity(): void {
+        this.m11=1;
+        this.m12=0;
+        this.m21=0;
+        this.m22=1;
+    }
+    Transpose():ImMat2
+    {
+        return new ImMat2(this.m11, this.m21, this.m12, this.m22);
+    }
+
+    SetRotate(radius: number): this {
+        const c=Math.cos(radius), s=Math.sin(radius);
+        this.m11 = c;
+        this.m12 = -s;
+        this.m21 = s;
+        this.m22 = c;
+        return this;
+    }
+    Multiply(other: Readonly<Bind.interface_ImMat2>): Bind.interface_ImMat2
+    {
+        const m11 = this.m11 * other.m11 + this.m12 * other.m21;
+        const m12 = this.m11 * other.m12 + this.m12 * other.m22;
+        const m21 = this.m21 * other.m11 + this.m22 * other.m21;
+        const m22 = this.m21 * other.m12 + this.m22 * other.m22;
+        return new ImMat2(m11, m12, m21, m22);
+    }
+    Transform(p: Readonly<Bind.interface_ImVec2>): Bind.interface_ImVec2
+    {
+        return new ImVec2(
+            this.m11 * p.x + this.m12 * p.y,
+            this.m21 * p.x + this.m22 * p.y
+            );
+    }    
+
+    TransposeTo(target:ImMat2):void
+    {
+        target.m11 = this.m11;
+        target.m12 = this.m21;
+        target.m21 = this.m12;
+        target.m22 = this.m22;
+    }
+
+    MultiplyTo(other: Readonly<Bind.interface_ImMat2>, target:ImMat2): void
+    {
+        target.m11 = this.m11 * other.m11 + this.m12 * other.m21;
+        target.m12 = this.m11 * other.m12 + this.m12 * other.m22;
+        target.m21 = this.m21 * other.m11 + this.m22 * other.m21;
+        target.m22 = this.m21 * other.m12 + this.m22 * other.m22;
+    }
+    TransformTo(p: Readonly<Bind.interface_ImVec2>, target: ImVec2): void
+    {
+        let px=p.x;
+        let py=p.y;
+        target.x=this.m11 * px + this.m12 * py;
+        target.y=this.m21 * px + this.m22 * py;
+    }
+}
+
+
+export {ImTransform as Transform} 
+
+export class ImTransform implements Bind.interface_ImTransform 
+{
+    constructor(
+        public rotate:Bind.interface_ImMat2=new ImMat2,
+        public translate:Bind.interface_ImVec2=new ImVec2(0,0),
+        public scale:number=1) {}
+
+    Identity(): void {
+        this.rotate.Identity();
+        this.translate.Set(0,0);
+        this.scale=1;
+    }
+    Multiply(m: Readonly<Bind.interface_ImTransform>): Bind.interface_ImTransform {
+        let tm=new ImTransform;
+        tm.scale = this.scale * m.scale;
+        tm.rotate = this.rotate.Multiply(m.rotate);
+        let t=this.rotate.Transform(m.translate);
+        tm.translate.x = this.translate.x + t.x * this.scale;
+        tm.translate.y = this.translate.y + t.y * this.scale;
+        return tm;
+    }
+    Transform(point: Readonly<Bind.interface_ImVec2>): Bind.interface_ImVec2 {
+        let p=this.rotate.Transform(point);
+        p.x=p.x*this.scale+this.translate.x;
+        p.y=p.y*this.scale+this.translate.y;
+        return p;
+    }
+    Invert():Bind.interface_ImTransform
+    {
+        let tm:ImTransform=new ImTransform;
+        tm.rotate=this.rotate.Transpose();
+        tm.scale = 1.0 / this.scale;
+        let t=new ImVec2(-this.translate.x, -this.translate.y);
+        t=tm.rotate.Transform(t);
+		tm.translate.x = t.x*tm.scale;
+        tm.translate.y = t.y*tm.scale;
+        return tm;
+    }
+
+    MultiplyTo(other: ImTransform, target:ImTransform): void
+    {
+        target.scale = this.scale * other.scale;
+        this.rotate.MultiplyTo(other.rotate, target.rotate);
+        this.rotate.TransformTo(other.translate, target.translate);
+        target.translate.x = this.translate.x + target.translate.x * this.scale;
+        target.translate.y = this.translate.y + target.translate.y * this.scale;
+    }
+    TransformTo(point: Readonly<Bind.interface_ImVec2>, target: Bind.interface_ImVec2): void
+    {
+        this.rotate.TransformTo(point, target);
+        target.x=target.x*this.scale+this.translate.x;
+        target.y=target.y*this.scale+this.translate.y;
+    }
+    InvertTo(target: Bind.interface_ImTransform): void {
+        this.rotate.TransposeTo(target.rotate);
+        target.scale = 1.0 / this.scale;
+        target.translate.Set(-this.translate.x, -this.translate.y);
+        this.rotate.TransformTo(target.translate, target.translate);
+        target.translate.x = target.translate.x * this.scale;
+        target.translate.y = target.translate.y * this.scale;
+    }
+}
+
 //-----------------------------------------------------------------------------
 // Helpers
 //-----------------------------------------------------------------------------
@@ -1492,9 +1648,17 @@ export class ImDrawCmd
     // unsigned int    IdxOffset;              // Start offset in index buffer. Always equal to sum of ElemCount drawn so far.
     get IdxOffset(): number { return this.native.IdxOffset; }
     // ImDrawCallback  UserCallback;           // If != NULL, call the function instead of rendering the vertices. clip_rect and texture_id will be set normally.
-    public readonly UserCallback: ImDrawCallback | null = null; // TODO
+    get UserCallback(): ImDrawCallback | null {
+        if(this.native.UserCallback) {
+            const _callback:ImDrawCallback=(parent_list, cmd)=>{
+                this.native.UserCallback(parent_list.native, cmd.native);
+            };
+            return _callback;
+        }
+        return null;
+    } 
     // void*           UserCallbackData;       // The draw callback code can access this.
-    public readonly UserCallbackData: any = null; // TODO
+    get UserCallbackData(): any { return this.native.UserCallbackData }
 
     // ImDrawCmd() { ElemCount = 0; ClipRect.x = ClipRect.y = ClipRect.z = ClipRect.w = 0.0f; TextureId = NULL; UserCallback = NULL; UserCallbackData = NULL; }
 }
@@ -1506,7 +1670,7 @@ export class ImDrawCmd
 // typedef unsigned short ImDrawIdx;
 // #endif
 export { ImDrawIdxSize as DrawIdxSize }
-export const ImDrawIdxSize: number = 2; // bind.ImDrawIdxSize;
+export const ImDrawIdxSize: number = 4; // bind.ImDrawIdxSize;
 export { ImDrawIdx as DrawIdx }
 export type ImDrawIdx = number;
 
@@ -1793,6 +1957,17 @@ export class ImDrawList
     public PrimWriteIdx(idx: ImDrawIdx): void { this.native.PrimWriteIdx(idx); }
     // inline    void  PrimVtx(const ImVec2& pos, const ImVec2& uv, ImU32 col)     { PrimWriteIdx((ImDrawIdx)_VtxCurrentIdx); PrimWriteVtx(pos, uv, col); }
     public PrimVtx(pos: Readonly<Bind.interface_ImVec2>, uv: Readonly<Bind.interface_ImVec2>, col: Bind.ImU32): void { this.native.PrimVtx(pos, uv, col); }
+
+    AddRectFilledMultiColorRound(a: Readonly<Bind.interface_ImVec2>, b: Readonly<Bind.interface_ImVec2>, col_lt: ImU32, col_rt: ImU32, col_lb: ImU32, col_rb: ImU32, rounding: number, rounding_corners_flags: ImDrawCornerFlags): void
+    {
+        this.native.AddRectFilledMultiColorRound(a, b, col_lt, col_rt, col_lb, col_rb, rounding, rounding_corners_flags);
+    }
+    GetVertexSize(): number { return this.native.GetVertexSize(); }
+    Transform(tm:Readonly<Bind.interface_ImTransform>, start:number, end?:number): void
+    {
+        if(!end) end=0;
+        this.native.Transform(tm, start, end);
+    }
 }
 
 // All draw data to render an ImGui frame
@@ -2307,7 +2482,9 @@ export class ImFont
         this.native.RenderChar(draw_list.native, size, pos, col, c);
     }
     // IMGUI_API void              RenderText(ImDrawList* draw_list, float size, ImVec2 pos, ImU32 col, const ImVec4& clip_rect, const char* text_begin, const char* text_end, float wrap_width = 0.0f, bool cpu_fine_clip = false) const;
-    public RenderText(draw_list: ImDrawList, size: number, pos: Readonly<Bind.interface_ImVec2>, col: Bind.ImU32, clip_rect: Readonly<Bind.interface_ImVec4>, text_begin: string, text_end: number | null = null, wrap_width: number = 0.0, cpu_fine_clip: boolean = false): void {}
+    public RenderText(draw_list: ImDrawList, size: number, pos: Readonly<Bind.interface_ImVec2>, col: Bind.ImU32, clip_rect: Readonly<Bind.interface_ImVec4>, text_begin: string, text_end: number | null = null, wrap_width: number = 0.0, cpu_fine_clip: boolean = false): void {
+        this.native.RenderText(draw_list.native, size, pos, col, clip_rect, text_begin, wrap_width, cpu_fine_clip);
+    }
 
     // [Internal]
     // IMGUI_API void              GrowIndex(int new_size);
@@ -2342,6 +2519,21 @@ export class ImFont
 
     public CreateGlyph(text: string) {
         this.native.CreateGlyph(text);
+    }
+    AddFontRange(start:number, end:number) {
+        this.native.AddFontRange(start, end);
+    }
+    ClearFontRange() {
+        this.native.ClearFontRange();
+    }
+    MergeFont(font:ImFont) {
+        this.native.MergeFont(font.native);
+    }
+    ClearSubFont() {
+        this.native.ClearSubFont();
+    }
+    InRange(c:number):boolean {
+        return this.native.InRange(c);
     }
 }
 

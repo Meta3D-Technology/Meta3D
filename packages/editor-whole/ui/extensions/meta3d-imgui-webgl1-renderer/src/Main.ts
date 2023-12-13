@@ -14,7 +14,8 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 // }
 
 let _initCanvas = (canvas: HTMLCanvasElement) => {
-    ImGui_Impl.window_on_resize()
+    // ImGui_Impl.window_on_resize()
+
     canvas.style.touchAction = "none" // Disable browser handling of all panning and zooming gestures.
 }
 

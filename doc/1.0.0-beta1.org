@@ -416,7 +416,11 @@ auto get its name for build input protocol name!
 
 * DONE fix: assertion
 
-* TODO perf: solve run slow!
+* DONE perf: solve run slow!
+
+# auto change width,height?
+
+fix: canvas size error
 
 
 * TODO update custom action

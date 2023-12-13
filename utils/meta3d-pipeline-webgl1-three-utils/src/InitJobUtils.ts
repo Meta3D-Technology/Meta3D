@@ -4,7 +4,7 @@ import { converterService, threeAPIService } from "meta3d-three-protocol/src/ser
 import { createComposerAndRenderTargetForEngine } from "./RenderJobUtils"
 import { setSizeAndViewportForEngine } from "./SetSizeAndViewportUtils"
 
-let _setPixelRatio = (canvas: HTMLCanvasElement) => {
+export let setPixelRatio = (canvas: HTMLCanvasElement) => {
     let pixelRatio = globalThis.devicePixelRatio
     let width = canvas.width
     let height = canvas.height
@@ -24,9 +24,6 @@ export let init = (meta3dState: meta3dState, [threeAPIService, uiService]: [thre
         canvas: canvas.cloneNode(),
         context: uiService.getContext(meta3dState)
     })
-
-    /*! set canvas size here instead of in WebGLRenderer->setSize */
-    _setPixelRatio(canvas)
 
 
     // renderer.setPixelRatio(window.devicePixelRatio);

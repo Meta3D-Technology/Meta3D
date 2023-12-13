@@ -30,6 +30,7 @@ let g_ElementsHandle: WebGLBuffer | null = null;
 let g_FontTexture: WebGLTexture | null = null;
 const enable_vao: boolean = true;
 let g_vao: WebGLVertexArrayObject;
+// let has_videoframe: boolean = typeof VideoFrame !== "undefined";
 
 export let ctx: CanvasRenderingContext2D | null = null;
 
@@ -95,36 +96,43 @@ export function canvas_on_blur(event: FocusEvent): void {
 }
 
 const key_code_to_index: Record<string, number> = {
+    "Tab": 9,
+    "Enter": 13,
+    "Escape": 27,
+    "ArrowLeft": 37,
+    "ArrowUp": 38,
+    "ArrowRight": 39,
+    "ArrowDown": 40,
     "NumpadEnter": 176,
 };
 
 function canvas_on_keydown(event: KeyboardEvent): void {
-    // console.log(event.type, event.key, event.code, event.keyCode);
+    const key_index: number = key_code_to_index[event.code] || event.key.charCodeAt(0);
+    //console.log(event.type, event.key, event.code, key_index);
     const io = ImGui.GetIO();
     io.KeyCtrl = event.ctrlKey;
     io.KeyShift = event.shiftKey;
     io.KeyAlt = event.altKey;
     io.KeySuper = event.metaKey;
-    const key_index: number = key_code_to_index[event.code] || event.keyCode;
     ImGui.ASSERT(key_index >= 0 && key_index < ImGui.ARRAYSIZE(io.KeysDown));
     io.KeysDown[key_index] = true;
     // forward to the keypress event
-    if (/*io.WantCaptureKeyboard ||*/ event.key === "Tab") {
+    if (/*io.WantCaptureKeyboard ||*/ key_index == 9) {
         event.preventDefault();
     }
 }
 
 function canvas_on_keyup(event: KeyboardEvent): void {
-    // console.log(event.type, event.key, event.code, event.keyCode);
+    const key_index: number = key_code_to_index[event.code] || event.key.charCodeAt(0);
+    //console.log(event.type, event.key, event.code, key_index);
     const io = ImGui.GetIO();
     io.KeyCtrl = event.ctrlKey;
     io.KeyShift = event.shiftKey;
     io.KeyAlt = event.altKey;
     io.KeySuper = event.metaKey;
-    const key_index: number = key_code_to_index[event.code] || event.keyCode;
     ImGui.ASSERT(key_index >= 0 && key_index < ImGui.ARRAYSIZE(io.KeysDown));
     io.KeysDown[key_index] = false;
-    if (io.WantCaptureKeyboard) {
+    if (io.WantCaptureKeyboard || key_index == 9) {
         event.preventDefault();
     }
 }
@@ -357,7 +365,7 @@ export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRe
     // };
     // io.ClipboardUserData = null;
 
-    // if (typeof(window) !== "undefined") {
+    // if (typeof (window) !== "undefined") {
     //     window.addEventListener("resize", window_on_resize);
     //     window.addEventListener("gamepadconnected", window_on_gamepadconnected);
     //     window.addEventListener("gamepaddisconnected", window_on_gamepaddisconnected);
@@ -393,8 +401,8 @@ export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRe
     //     add_pointer_event();
     //     canvas.addEventListener("contextmenu", canvas_on_contextmenu);
 
-    //     canvas.addEventListener( 'webglcontextlost', canvas_on_contextlost, false );
-    // 	canvas.addEventListener( 'webglcontextrestored', canvas_on_contextrestored, false);
+    //     canvas.addEventListener('webglcontextlost', canvas_on_contextlost, false);
+    //     canvas.addEventListener('webglcontextrestored', canvas_on_contextrestored, false);
     // }
 
     // Setup back-end capabilities flags
@@ -482,7 +490,6 @@ export function NewFrame(time: number): void {
     let dt: number = time - prev_time;
     prev_time = time;
 
-
     /*!  refer to https://github.com/ocornut/imgui/issues/4680 */
     if (dt <= 0) {
         console.warn(`dt: ${dt} <= 0! use 0.00001 instead`);
@@ -525,7 +532,7 @@ export function NewFrame(time: number): void {
     }
     // if (io.ConfigFlags & ImGui.ConfigFlags.NavEnableGamepad) {
     //     // Update gamepad inputs
-    //     const gamepads: (Gamepad | null)[] = (typeof(navigator) !== "undefined" && typeof(navigator.getGamepads) === "function") ? navigator.getGamepads() : [];
+    //     const gamepads: (Gamepad | null)[] = (typeof (navigator) !== "undefined" && typeof (navigator.getGamepads) === "function") ? navigator.getGamepads() : [];
     //     for (let i = 0; i < gamepads.length; ++i) {
     //         const gamepad: Gamepad | null = gamepads[i];
     //         if (!gamepad) { continue; }
@@ -533,20 +540,20 @@ export function NewFrame(time: number): void {
     //         const buttons_count: number = gamepad.buttons.length;
     //         const axes_count: number = gamepad.axes.length;
 
-    //         var MAP_BUTTON=
-    //         function MAP_BUTTON(NAV_NO: number, BUTTON_NO: number): void {
-    //             if (!gamepad) { return; }
-    //             if (buttons_count > BUTTON_NO && gamepad.buttons[BUTTON_NO].pressed)
-    //                 io.NavInputs[NAV_NO] = 1.0;
-    //         }
-    //         var MAP_ANALOG=
-    //         function MAP_ANALOG(NAV_NO: number, AXIS_NO: number, V0: number, V1: number): void {
-    //             if (!gamepad) { return; }
-    //             let v: number = (axes_count > AXIS_NO) ? gamepad.axes[AXIS_NO] : V0;
-    //             v = (v - V0) / (V1 - V0);
-    //             if (v > 1.0) v = 1.0;
-    //             if (io.NavInputs[NAV_NO] < v) io.NavInputs[NAV_NO] = v;
-    //         }
+    //         var MAP_BUTTON =
+    //             function MAP_BUTTON(NAV_NO: number, BUTTON_NO: number): void {
+    //                 if (!gamepad) { return; }
+    //                 if (buttons_count > BUTTON_NO && gamepad.buttons[BUTTON_NO].pressed)
+    //                     io.NavInputs[NAV_NO] = 1.0;
+    //             }
+    //         var MAP_ANALOG =
+    //             function MAP_ANALOG(NAV_NO: number, AXIS_NO: number, V0: number, V1: number): void {
+    //                 if (!gamepad) { return; }
+    //                 let v: number = (axes_count > AXIS_NO) ? gamepad.axes[AXIS_NO] : V0;
+    //                 v = (v - V0) / (V1 - V0);
+    //                 if (v > 1.0) v = 1.0;
+    //                 if (io.NavInputs[NAV_NO] < v) io.NavInputs[NAV_NO] = v;
+    //             }
     //         // TODO: map input based on vendor and product id
     //         // https://developer.mozilla.org/en-US/docs/Web/API/Gamepad/id
     //         const match: RegExpMatchArray | null = gamepad.id.match(/^([0-9a-f]{4})-([0-9a-f]{4})-.*$/);
@@ -555,78 +562,78 @@ export function NewFrame(time: number): void {
     //         const product: string = (match && match[2]) || (match_chrome && match_chrome[2]) || "0000";
     //         switch (vendor + product) {
     //             case "046dc216": // Logitech Logitech Dual Action (Vendor: 046d Product: c216)
-    //             MAP_BUTTON(ImGui.NavInput.Activate,    1); // Cross / A
-    //             MAP_BUTTON(ImGui.NavInput.Cancel,      2); // Circle / B
-    //             MAP_BUTTON(ImGui.NavInput.Menu,        0); // Square / X
-    //             MAP_BUTTON(ImGui.NavInput.Input,       3); // Triangle / Y
-    //             MAP_ANALOG(ImGui.NavInput.DpadLeft,    4, -0.3, -0.9); // D-Pad Left
-    //             MAP_ANALOG(ImGui.NavInput.DpadRight,   4, +0.3, +0.9); // D-Pad Right
-    //             MAP_ANALOG(ImGui.NavInput.DpadUp,      5, -0.3, -0.9); // D-Pad Up
-    //             MAP_ANALOG(ImGui.NavInput.DpadDown,    5, +0.3, +0.9); // D-Pad Down
-    //             MAP_BUTTON(ImGui.NavInput.FocusPrev,   4); // L1 / LB
-    //             MAP_BUTTON(ImGui.NavInput.FocusNext,   5); // R1 / RB
-    //             MAP_BUTTON(ImGui.NavInput.TweakSlow,   6); // L2 / LT
-    //             MAP_BUTTON(ImGui.NavInput.TweakFast,   7); // R2 / RT
-    //             MAP_ANALOG(ImGui.NavInput.LStickLeft,  0, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickUp,    1, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickDown,  1, +0.3, +0.9);
-    //             break;
+    //                 MAP_BUTTON(ImGui.NavInput.Activate, 1); // Cross / A
+    //                 MAP_BUTTON(ImGui.NavInput.Cancel, 2); // Circle / B
+    //                 MAP_BUTTON(ImGui.NavInput.Menu, 0); // Square / X
+    //                 MAP_BUTTON(ImGui.NavInput.Input, 3); // Triangle / Y
+    //                 MAP_ANALOG(ImGui.NavInput.DpadLeft, 4, -0.3, -0.9); // D-Pad Left
+    //                 MAP_ANALOG(ImGui.NavInput.DpadRight, 4, +0.3, +0.9); // D-Pad Right
+    //                 MAP_ANALOG(ImGui.NavInput.DpadUp, 5, -0.3, -0.9); // D-Pad Up
+    //                 MAP_ANALOG(ImGui.NavInput.DpadDown, 5, +0.3, +0.9); // D-Pad Down
+    //                 MAP_BUTTON(ImGui.NavInput.FocusPrev, 4); // L1 / LB
+    //                 MAP_BUTTON(ImGui.NavInput.FocusNext, 5); // R1 / RB
+    //                 MAP_BUTTON(ImGui.NavInput.TweakSlow, 6); // L2 / LT
+    //                 MAP_BUTTON(ImGui.NavInput.TweakFast, 7); // R2 / RT
+    //                 MAP_ANALOG(ImGui.NavInput.LStickLeft, 0, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickUp, 1, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickDown, 1, +0.3, +0.9);
+    //                 break;
     //             case "046dc21d": // Logitech Gamepad F310 (STANDARD GAMEPAD Vendor: 046d Product: c21d)
-    //             MAP_BUTTON(ImGui.NavInput.Activate,    0); // Cross / A
-    //             MAP_BUTTON(ImGui.NavInput.Cancel,      1); // Circle / B
-    //             MAP_BUTTON(ImGui.NavInput.Menu,        2); // Square / X
-    //             MAP_BUTTON(ImGui.NavInput.Input,       3); // Triangle / Y
-    //             MAP_BUTTON(ImGui.NavInput.DpadLeft,    14); // D-Pad Left
-    //             MAP_BUTTON(ImGui.NavInput.DpadRight,   15); // D-Pad Right
-    //             MAP_BUTTON(ImGui.NavInput.DpadUp,      12); // D-Pad Up
-    //             MAP_BUTTON(ImGui.NavInput.DpadDown,    13); // D-Pad Down
-    //             MAP_BUTTON(ImGui.NavInput.FocusPrev,   4); // L1 / LB
-    //             MAP_BUTTON(ImGui.NavInput.FocusNext,   5); // R1 / RB
-    //             MAP_ANALOG(ImGui.NavInput.TweakSlow,   6, +0.3, +0.9); // L2 / LT
-    //             MAP_ANALOG(ImGui.NavInput.TweakFast,   7, +0.3, +0.9); // R2 / RT
-    //             MAP_ANALOG(ImGui.NavInput.LStickLeft,  0, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickUp,    1, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickDown,  1, +0.3, +0.9);
-    //             break;
+    //                 MAP_BUTTON(ImGui.NavInput.Activate, 0); // Cross / A
+    //                 MAP_BUTTON(ImGui.NavInput.Cancel, 1); // Circle / B
+    //                 MAP_BUTTON(ImGui.NavInput.Menu, 2); // Square / X
+    //                 MAP_BUTTON(ImGui.NavInput.Input, 3); // Triangle / Y
+    //                 MAP_BUTTON(ImGui.NavInput.DpadLeft, 14); // D-Pad Left
+    //                 MAP_BUTTON(ImGui.NavInput.DpadRight, 15); // D-Pad Right
+    //                 MAP_BUTTON(ImGui.NavInput.DpadUp, 12); // D-Pad Up
+    //                 MAP_BUTTON(ImGui.NavInput.DpadDown, 13); // D-Pad Down
+    //                 MAP_BUTTON(ImGui.NavInput.FocusPrev, 4); // L1 / LB
+    //                 MAP_BUTTON(ImGui.NavInput.FocusNext, 5); // R1 / RB
+    //                 MAP_ANALOG(ImGui.NavInput.TweakSlow, 6, +0.3, +0.9); // L2 / LT
+    //                 MAP_ANALOG(ImGui.NavInput.TweakFast, 7, +0.3, +0.9); // R2 / RT
+    //                 MAP_ANALOG(ImGui.NavInput.LStickLeft, 0, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickUp, 1, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickDown, 1, +0.3, +0.9);
+    //                 break;
     //             case "2dc86001": // 8Bitdo SN30 Pro  8Bitdo SN30 Pro (Vendor: 2dc8 Product: 6001)
     //             case "2dc86101": // 8Bitdo SN30 Pro (Vendor: 2dc8 Product: 6101)
-    //             MAP_BUTTON(ImGui.NavInput.Activate,    1); // Cross / A
-    //             MAP_BUTTON(ImGui.NavInput.Cancel,      0); // Circle / B
-    //             MAP_BUTTON(ImGui.NavInput.Menu,        4); // Square / X
-    //             MAP_BUTTON(ImGui.NavInput.Input,       3); // Triangle / Y
-    //             MAP_ANALOG(ImGui.NavInput.DpadLeft,    6, -0.3, -0.9); // D-Pad Left
-    //             MAP_ANALOG(ImGui.NavInput.DpadRight,   6, +0.3, +0.9); // D-Pad Right
-    //             MAP_ANALOG(ImGui.NavInput.DpadUp,      7, -0.3, -0.9); // D-Pad Up
-    //             MAP_ANALOG(ImGui.NavInput.DpadDown,    7, +0.3, +0.9); // D-Pad Down
-    //             MAP_BUTTON(ImGui.NavInput.FocusPrev,   6); // L1 / LB
-    //             MAP_BUTTON(ImGui.NavInput.FocusNext,   7); // R1 / RB
-    //             MAP_BUTTON(ImGui.NavInput.TweakSlow,   8); // L2 / LT
-    //             MAP_BUTTON(ImGui.NavInput.TweakFast,   9); // R2 / RT
-    //             MAP_ANALOG(ImGui.NavInput.LStickLeft,  0, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickUp,    1, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickDown,  1, +0.3, +0.9);
-    //             break;
+    //                 MAP_BUTTON(ImGui.NavInput.Activate, 1); // Cross / A
+    //                 MAP_BUTTON(ImGui.NavInput.Cancel, 0); // Circle / B
+    //                 MAP_BUTTON(ImGui.NavInput.Menu, 4); // Square / X
+    //                 MAP_BUTTON(ImGui.NavInput.Input, 3); // Triangle / Y
+    //                 MAP_ANALOG(ImGui.NavInput.DpadLeft, 6, -0.3, -0.9); // D-Pad Left
+    //                 MAP_ANALOG(ImGui.NavInput.DpadRight, 6, +0.3, +0.9); // D-Pad Right
+    //                 MAP_ANALOG(ImGui.NavInput.DpadUp, 7, -0.3, -0.9); // D-Pad Up
+    //                 MAP_ANALOG(ImGui.NavInput.DpadDown, 7, +0.3, +0.9); // D-Pad Down
+    //                 MAP_BUTTON(ImGui.NavInput.FocusPrev, 6); // L1 / LB
+    //                 MAP_BUTTON(ImGui.NavInput.FocusNext, 7); // R1 / RB
+    //                 MAP_BUTTON(ImGui.NavInput.TweakSlow, 8); // L2 / LT
+    //                 MAP_BUTTON(ImGui.NavInput.TweakFast, 9); // R2 / RT
+    //                 MAP_ANALOG(ImGui.NavInput.LStickLeft, 0, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickUp, 1, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickDown, 1, +0.3, +0.9);
+    //                 break;
     //             default: // standard gamepad: https://w3c.github.io/gamepad/#remapping
-    //             MAP_BUTTON(ImGui.NavInput.Activate,    0); // Cross / A
-    //             MAP_BUTTON(ImGui.NavInput.Cancel,      1); // Circle / B
-    //             MAP_BUTTON(ImGui.NavInput.Menu,        2); // Square / X
-    //             MAP_BUTTON(ImGui.NavInput.Input,       3); // Triangle / Y
-    //             MAP_BUTTON(ImGui.NavInput.DpadLeft,    14); // D-Pad Left
-    //             MAP_BUTTON(ImGui.NavInput.DpadRight,   15); // D-Pad Right
-    //             MAP_BUTTON(ImGui.NavInput.DpadUp,      12); // D-Pad Up
-    //             MAP_BUTTON(ImGui.NavInput.DpadDown,    13); // D-Pad Down
-    //             MAP_BUTTON(ImGui.NavInput.FocusPrev,   4); // L1 / LB
-    //             MAP_BUTTON(ImGui.NavInput.FocusNext,   5); // R1 / RB
-    //             MAP_BUTTON(ImGui.NavInput.TweakSlow,   6); // L2 / LT
-    //             MAP_BUTTON(ImGui.NavInput.TweakFast,   7); // R2 / RT
-    //             MAP_ANALOG(ImGui.NavInput.LStickLeft,  0, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickUp,    1, -0.3, -0.9);
-    //             MAP_ANALOG(ImGui.NavInput.LStickDown,  1, +0.3, +0.9);
-    //             break;
+    //                 MAP_BUTTON(ImGui.NavInput.Activate, 0); // Cross / A
+    //                 MAP_BUTTON(ImGui.NavInput.Cancel, 1); // Circle / B
+    //                 MAP_BUTTON(ImGui.NavInput.Menu, 2); // Square / X
+    //                 MAP_BUTTON(ImGui.NavInput.Input, 3); // Triangle / Y
+    //                 MAP_BUTTON(ImGui.NavInput.DpadLeft, 14); // D-Pad Left
+    //                 MAP_BUTTON(ImGui.NavInput.DpadRight, 15); // D-Pad Right
+    //                 MAP_BUTTON(ImGui.NavInput.DpadUp, 12); // D-Pad Up
+    //                 MAP_BUTTON(ImGui.NavInput.DpadDown, 13); // D-Pad Down
+    //                 MAP_BUTTON(ImGui.NavInput.FocusPrev, 4); // L1 / LB
+    //                 MAP_BUTTON(ImGui.NavInput.FocusNext, 5); // R1 / RB
+    //                 MAP_BUTTON(ImGui.NavInput.TweakSlow, 6); // L2 / LT
+    //                 MAP_BUTTON(ImGui.NavInput.TweakFast, 7); // R2 / RT
+    //                 MAP_ANALOG(ImGui.NavInput.LStickLeft, 0, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickRight, 0, +0.3, +0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickUp, 1, -0.3, -0.9);
+    //                 MAP_ANALOG(ImGui.NavInput.LStickDown, 1, +0.3, +0.9);
+    //                 break;
     //         }
     //     }
     // }
@@ -745,8 +752,12 @@ function input_text_update(io: ImGui.IO): void {
         inp.on_visible = b => {
             if (b) {
                 remove_key_event();
+                io.KeysDown[9] = false;
             } else {
                 add_key_event();
+                if (inp.isTab) {
+                    io.KeysDown[9] = true;
+                }
             }
         }
         inp.setText(current_input_text, activeId, io.Fonts.CurrentFont);
@@ -761,6 +772,54 @@ function input_text_update(io: ImGui.IO): void {
     }
     if (!inp.isVisible) {
         ImGui.SetActiveId(0);
+    }
+}
+
+function BindState() {
+    gl && gl.enable(gl.BLEND);
+    gl && gl.blendEquation(gl.FUNC_ADD);
+    gl && gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl && gl.disable(gl.CULL_FACE);
+    gl && gl.disable(gl.DEPTH_TEST);
+    gl && gl.enable(gl.SCISSOR_TEST);
+}
+
+function BindShader(ortho_projection: Float32Array) {
+    gl && gl.useProgram(g_ShaderHandle);
+    gl && gl.uniform1i(g_AttribLocationTex, 0);
+    gl && g_AttribLocationProjMtx && gl.uniformMatrix4fv(g_AttribLocationProjMtx, false, ortho_projection);
+}
+function BindMesh() {
+    const gl2: WebGL2RenderingContext | null = typeof WebGL2RenderingContext !== "undefined" && gl instanceof WebGL2RenderingContext && gl || null;
+    const gl_vao: OES_vertex_array_object | null = gl && gl.getExtension("OES_vertex_array_object") || null;
+
+    if (enable_vao) {
+        if (!g_vao) {
+            g_vao = gl2 && gl2.createVertexArray();   // || gl_vao && gl_vao.createVertexArrayOES();
+        }
+        gl2 && gl2.bindVertexArray(g_vao);
+        //gl_vao && gl_vao.bindVertexArrayOES(vertex_array_object);
+    }
+
+    gl && gl.bindBuffer(gl.ARRAY_BUFFER, g_VboHandle);
+    gl && gl.enableVertexAttribArray(g_AttribLocationPosition);
+    gl && gl.enableVertexAttribArray(g_AttribLocationUV);
+    gl && gl.enableVertexAttribArray(g_AttribLocationColor);
+
+    gl && gl.vertexAttribPointer(g_AttribLocationPosition, 2, gl.FLOAT, false, ImGui.DrawVertSize, ImGui.DrawVertPosOffset);
+    gl && gl.vertexAttribPointer(g_AttribLocationUV, 2, gl.FLOAT, false, ImGui.DrawVertSize, ImGui.DrawVertUVOffset);
+    gl && gl.vertexAttribPointer(g_AttribLocationColor, 4, gl.UNSIGNED_BYTE, true, ImGui.DrawVertSize, ImGui.DrawVertColOffset);
+}
+
+function UnbindMesh() {
+    const gl2: WebGL2RenderingContext | null = typeof WebGL2RenderingContext !== "undefined" && gl instanceof WebGL2RenderingContext && gl || null;
+    if (enable_vao) {
+        gl2 && gl2.bindVertexArray(null);
+        //gl2 && gl2.deleteVertexArray(vertex_array_object);
+        //gl_vao && gl_vao.deleteVertexArrayOES(vertex_array_object);
+    } else {
+        gl && gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
     }
 }
 
@@ -814,12 +873,7 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     // The renderer would actually work without any VAO bound, but then our VertexAttrib calls would overwrite the default one currently bound.
 
     // Setup render state: alpha-blending enabled, no face culling, no depth testing, scissor enabled, polygon fill
-    gl && gl.enable(gl.BLEND);
-    gl && gl.blendEquation(gl.FUNC_ADD);
-    gl && gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    gl && gl.disable(gl.CULL_FACE);
-    gl && gl.disable(gl.DEPTH_TEST);
-    gl && gl.enable(gl.SCISSOR_TEST);
+    BindState();
     // glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     // Setup viewport, orthographic projection matrix
@@ -835,30 +889,11 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
         0.0, 0.0, -1.0, 0.0,
         (R + L) / (L - R), (T + B) / (B - T), 0.0, 1.0,
     ]);
-    gl && gl.useProgram(g_ShaderHandle);
-    gl && gl.uniform1i(g_AttribLocationTex, 0);
-    gl && g_AttribLocationProjMtx && gl.uniformMatrix4fv(g_AttribLocationProjMtx, false, ortho_projection);
-
-    if (enable_vao) {
-        if (!g_vao) {
-            g_vao = gl2 && gl2.createVertexArray();   // || gl_vao && gl_vao.createVertexArrayOES();
-        }
-        gl2 && gl2.bindVertexArray(g_vao);
-        //gl_vao && gl_vao.bindVertexArrayOES(vertex_array_object);
-    }
-    // Render command lists
-    gl && gl.bindBuffer(gl.ARRAY_BUFFER, g_VboHandle);
-    gl && gl.enableVertexAttribArray(g_AttribLocationPosition);
-    gl && gl.enableVertexAttribArray(g_AttribLocationUV);
-    gl && gl.enableVertexAttribArray(g_AttribLocationColor);
-
-    gl && gl.vertexAttribPointer(g_AttribLocationPosition, 2, gl.FLOAT, false, ImGui.DrawVertSize, ImGui.DrawVertPosOffset);
-    gl && gl.vertexAttribPointer(g_AttribLocationUV, 2, gl.FLOAT, false, ImGui.DrawVertSize, ImGui.DrawVertUVOffset);
-    gl && gl.vertexAttribPointer(g_AttribLocationColor, 4, gl.UNSIGNED_BYTE, true, ImGui.DrawVertSize, ImGui.DrawVertColOffset);
-
+    BindShader(ortho_projection);
+    BindMesh();
     // Draw
     const pos = draw_data.DisplayPos;
-    const idx_buffer_type: GLenum = gl && ((ImGui.DrawIdxSize === 4) ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT) || 0;
+    let idx_buffer_type: GLenum;
     draw_data.IterateDrawLists((draw_list: ImGui.DrawList): void => {
         gl || ctx || console.log(draw_list);
         gl || ctx || console.log("VtxBuffer.length", draw_list.VtxBuffer.length);
@@ -867,15 +902,29 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
         let idx_buffer_offset: number = 0;
         const vx = draw_list.VtxBuffer;
         const ix = draw_list.IdxBuffer;
-        const ixU16 = new Uint16Array(ix.buffer.slice(ix.byteOffset, ix.byteOffset + ix.byteLength));
+        let ixU: Uint8Array | Uint16Array | Uint32Array = null;
+        switch (ImGui.DrawIdxSize) {
+            case 1:
+                ixU = new Uint8Array(ix.buffer.slice(ix.byteOffset, ix.byteOffset + ix.byteLength));
+                idx_buffer_type = gl.UNSIGNED_BYTE;
+                break;
+            case 2:
+                ixU = new Uint16Array(ix.buffer.slice(ix.byteOffset, ix.byteOffset + ix.byteLength));
+                idx_buffer_type = gl.UNSIGNED_SHORT;
+                break;
+            case 4:
+                ixU = new Uint32Array(ix.buffer.slice(ix.byteOffset, ix.byteOffset + ix.byteLength));
+                idx_buffer_type = gl.UNSIGNED_INT;
+                break;
+        }
 
         if (vx) {
             gl && gl.bindBuffer(gl.ARRAY_BUFFER, g_VboHandle);
             gl && gl.bufferData(gl.ARRAY_BUFFER, vx, gl.STREAM_DRAW);
         }
-        if (ixU16) {
+        if (ixU) {
             gl && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, g_ElementsHandle);
-            gl && gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, ixU16, gl.STREAM_DRAW);
+            gl && gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, ixU, gl.STREAM_DRAW);
         }
         draw_list.IterateDrawCmds((draw_cmd: ImGui.DrawCmd): void => {
             gl || ctx || console.log(draw_cmd);
@@ -892,7 +941,11 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
 
             if (draw_cmd.UserCallback !== null) {
                 // User callback (registered via ImDrawList::AddCallback)
+                UnbindMesh();
                 draw_cmd.UserCallback(draw_list, draw_cmd);
+                BindState();
+                BindShader(ortho_projection);
+                BindMesh();
             } else {
                 const clip_rect = new ImGui.Vec4(draw_cmd.ClipRect.x - pos.x, draw_cmd.ClipRect.y - pos.y, draw_cmd.ClipRect.z - pos.x, draw_cmd.ClipRect.w - pos.y);
                 if (clip_rect.x < fb_width && clip_rect.y < fb_height && clip_rect.z >= 0.0 && clip_rect.w >= 0.0) {
@@ -952,8 +1005,22 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
                                 } else {
                                     // no vertex color
                                     const image = draw_cmd.TextureId as CanvasImageSource; // HACK
-                                    const width = image instanceof HTMLVideoElement ? image.videoWidth : image.width as number;
-                                    const height = image instanceof HTMLVideoElement ? image.videoHeight : image.height as number;
+                                    let width: number = 0;
+                                    let height: number = 0;
+                                    if (image instanceof HTMLVideoElement) {
+                                        width = image.videoWidth;
+                                        height = image.videoHeight;
+                                    }
+                                    // else if (has_videoframe && image instanceof VideoFrame) {
+                                    //     width = image.displayWidth;
+                                    //     height = image.displayHeight;
+                                    // }
+                                    else {
+                                        let src = image as HTMLCanvasElement | OffscreenCanvas | ImageBitmap | HTMLOrSVGImageElement;
+                                        width = src.width as number;
+                                        height = src.height as number;
+                                    }
+
                                     image && ctx.drawImage(image,
                                         minmin.uv[0] * width, minmin.uv[1] * height,
                                         (maxmax.uv[0] - minmin.uv[0]) * width, (maxmax.uv[1] - minmin.uv[1]) * height,
@@ -986,14 +1053,7 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     });
 
     // Destroy the temporary VAO
-    if (enable_vao) {
-        gl2 && gl2.bindVertexArray(null);
-        //gl2 && gl2.deleteVertexArray(vertex_array_object);
-        //gl_vao && gl_vao.deleteVertexArrayOES(vertex_array_object);
-    } else {
-        gl && gl.bindBuffer(gl.ARRAY_BUFFER, null);
-        gl && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
-    }
+    UnbindMesh();
     // Restore modified GL state
 
     //gl && (last_program !== null) && gl.useProgram(last_program);
@@ -1193,6 +1253,10 @@ export class Texture {
                 h = srcVideo.videoHeight;
             }
         }
+        // else if (has_videoframe && src instanceof VideoFrame) {
+        //     w = src.displayWidth;
+        //     h = src.displayHeight;
+        // }
         else if (src instanceof Uint8Array || src instanceof Uint16Array) {
             if (param) {
                 w = param.width;
@@ -1202,8 +1266,9 @@ export class Texture {
                 h = this._height;
             }
         } else {
-            w = src.width;
-            h = src.height;
+            let s = src as HTMLCanvasElement | OffscreenCanvas | ImageBitmap | ImageData | HTMLImageElement;
+            w = s.width;
+            h = s.height;
         }
         if (!this._texture) {
             this._texture = gl.createTexture();

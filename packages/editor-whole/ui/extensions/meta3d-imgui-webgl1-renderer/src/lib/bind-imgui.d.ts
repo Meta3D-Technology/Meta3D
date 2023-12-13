@@ -134,6 +134,45 @@ export interface interface_ImVec4 {
 
 export interface reference_ImVec4 extends Emscripten.EmscriptenClassReference, interface_ImVec4 {}
 
+export interface interface_ImMat2 {
+    m11: number;
+    m12: number;
+    m21: number;
+    m22: number;
+    Set(m11: number, m12: number, m21: number, m22:number): this;
+    Copy(other: Readonly<interface_ImMat2>): this;
+    Equals(other: Readonly<interface_ImMat2>): boolean;
+
+    Identity(): void;
+    Transpose():interface_ImMat2;
+    SetRotate(radius:number):void;
+    Multiply(other: Readonly<interface_ImMat2>): interface_ImMat2;
+    Transform(p: Readonly<interface_ImVec2>): interface_ImVec2;
+
+    TransposeTo(target: interface_ImMat2):void;
+    MultiplyTo(other: Readonly<interface_ImMat2>, target: interface_ImMat2): void;
+    TransformTo(p: Readonly<interface_ImVec2>, target: interface_ImVec2): void;
+}
+
+export interface reference_ImMat2 extends Emscripten.EmscriptenClassReference, interface_ImMat2 {}
+
+export interface interface_ImTransform {
+    rotate: interface_ImMat2;
+    translate: interface_ImVec2;
+    scale: number;
+
+    Identity(): void;
+    Multiply(transform: Readonly<interface_ImTransform>): interface_ImTransform;
+    Transform(point: Readonly<interface_ImVec2>): interface_ImVec2;
+    Invert():interface_ImTransform;
+
+    MultiplyTo(transform: Readonly<interface_ImTransform>, target: interface_ImTransform): void;
+    TransformTo(point: Readonly<interface_ImVec2>, target: interface_ImVec2): void;
+    InvertTo(target:interface_ImTransform):void;
+}
+
+export interface reference_ImTransform extends Emscripten.EmscriptenClassReference, interface_ImTransform {}
+
 // Shared state of InputText(), passed to callback when a ImGuiInputTextFlags_Callback* flag is used and the corresponding callback is triggered.
 export interface reference_ImGuiInputTextCallbackData extends Emscripten.EmscriptenClassReference {
     // ImGuiInputTextFlags EventFlag;      // One of ImGuiInputTextFlags_Callback* // Read-only
@@ -394,7 +433,9 @@ export interface reference_ImDrawCmd extends Emscripten.EmscriptenClassReference
     // unsigned int    IdxOffset;              // Start offset in index buffer. Always equal to sum of ElemCount drawn so far.
     readonly IdxOffset: number;
     // ImDrawCallback  UserCallback;           // If != NULL, call the function instead of rendering the vertices. clip_rect and texture_id will be set normally.
+    readonly UserCallback:ImDrawCallback|null; 
     // void*           UserCallbackData;       // The draw callback code can access this.
+    readonly UserCallbackData:any;
 
     // ImDrawCmd() { ElemCount = 0; ClipRect.x = ClipRect.y = ClipRect.z = ClipRect.w = 0.0f; TextureId = NULL; UserCallback = NULL; UserCallbackData = NULL; }
     // readonly ClipRect: Readonly<ImVec4>;
@@ -550,6 +591,10 @@ export interface reference_ImDrawList extends Emscripten.EmscriptenClassReferenc
     UpdateClipRect(): void;
     // IMGUI_API void  UpdateTextureID();
     UpdateTextureID(): void;
+
+    AddRectFilledMultiColorRound(a: Readonly<interface_ImVec2>, b: Readonly<interface_ImVec2>, col_lt: ImU32, col_rt:ImU32, col_lb:ImU32, col_rb:ImU32, rounding: number, rounding_corners_flags: ImDrawCornerFlags): void;
+    GetVertexSize(): number;
+    Transform(tm: Readonly<interface_ImTransform>, start:number, end:number): void;
 }
 
 export interface reference_ImDrawData extends Emscripten.EmscriptenClassReference {
@@ -652,6 +697,7 @@ export interface reference_ImFont extends Emscripten.EmscriptenClassReference {
     // IMGUI_API void              RenderChar(ImDrawList* draw_list, float size, ImVec2 pos, ImU32 col, unsigned short c) const;
     RenderChar(draw_list: reference_ImDrawList, size: number, pos: Readonly<interface_ImVec2>, col: ImU32, c: ImWchar): void;
     // IMGUI_API void              RenderText(ImDrawList* draw_list, float size, ImVec2 pos, ImU32 col, const ImVec4& clip_rect, const char* text_begin, const char* text_end, float wrap_width = 0.0f, bool cpu_fine_clip = false) const;
+    RenderText(draw_list:reference_ImDrawList, size: number, pos: Readonly<interface_ImVec2>, col: ImU32, clip_rect: Readonly<interface_ImVec4>,text:string, wrap_width: number, cpu_fine_clip: boolean): void;
 
     // [Internal]
     // IMGUI_API void              GrowIndex(int new_size);
@@ -666,6 +712,12 @@ export interface reference_ImFont extends Emscripten.EmscriptenClassReference {
     IterateGlyphToCreate(callback: (glyph: reference_ImFontGlyph) => void): void;
     GlyphCreated(glyph: interface_ImFontGlyph):void;
     ClearGlyphCreated():void;
+
+    AddFontRange(start:number, end:number):void;
+    ClearFontRange():void;
+    MergeFont(font: reference_ImFont):void;
+    ClearSubFont():void;
+    InRange(c:number):boolean;
 }
 
 export interface interface_ImFontConfig {
@@ -2082,4 +2134,6 @@ export interface Module extends Emscripten.EmscriptenModule {
 
     GetInputTextState(id:ImGuiID):reference_ImGuiInputTextState;
     GetInputTextId():ImGuiID;
+
+    ImTransform():reference_ImTransform;
 }
