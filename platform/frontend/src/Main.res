@@ -16,10 +16,8 @@ let _buildFrontendService = (env): FrontendType.service => {
     BackendCloudbase.buildFrontendService()
   },
   console: {
-    error: (. errorMessage, durationOpt) =>
-      ErrorUtils.error(errorMessage, durationOpt),
-    errorWithExn: (. error, durationOpt) =>
-      ErrorUtils.errorWithExn(error, durationOpt),
+    error: (. errorMessage, durationOpt) => ErrorUtils.error(errorMessage, durationOpt),
+    errorWithExn: (. error, durationOpt) => ErrorUtils.errorWithExn(error, durationOpt),
   },
 }
 
@@ -27,9 +25,12 @@ _hiddenLoadding()
 
 let service = _buildFrontendService(_getEnv())
 
-service.backend.init(InitUtils.getBackendEnv(_getEnv()))->Meta3dBsMostDefault.Most.drain->Js.Promise.then_(_ => {
+service.backend.init(InitUtils.getBackendEnv(_getEnv()))
+->Meta3dBsMostDefault.Most.drain
+->Js.Promise.then_(_ => {
   Js.log("init backend success")->Js.Promise.resolve
-}, _)->ignore
+}, _)
+->ignore
 
 ReactDOM.render(
   <React.StrictMode>

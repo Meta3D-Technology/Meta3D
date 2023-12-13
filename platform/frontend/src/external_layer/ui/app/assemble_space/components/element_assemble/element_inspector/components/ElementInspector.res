@@ -43,6 +43,7 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
+      customActions,
     } = elementAssembleState
 
     (
@@ -50,7 +51,7 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
-      list{},
+      customActions,
     )
   }
 }

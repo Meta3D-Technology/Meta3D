@@ -516,9 +516,7 @@ module Method = {
     ->SpaceStateApService.setState
   }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state,
-  ) => {
+  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {
       selectedPackages,
       // selectedExtensions,
@@ -536,6 +534,7 @@ module Method = {
       elementContribute,
       // elementInspectorData,
       customInputs,
+      customActions,
     } = elementAssembleState
 
     // let (_, elementContribute) = elementContribute
@@ -559,7 +558,7 @@ module Method = {
         elementContribute,
         // elementInspectorData,
         customInputs,
-        list{},
+        customActions,
       ),
     )
   }

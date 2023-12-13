@@ -94,13 +94,13 @@ let publishElementContribute = (onUploadProgressFunc, account, packageData, cont
     BackendService_1.getFileID
 ], account, packageData, contributeBinaryFile);
 exports.publishElementContribute = publishElementContribute;
-let publishElementAssembleData = (account, elementName, elementVersion, inspectorData, customInputs) => Abstract.publishElementAssembleData([
+let publishElementAssembleData = (account, elementName, elementVersion, inspectorData, customInputs, customActions) => Abstract.publishElementAssembleData([
     _throwError,
     BackendService_1.getMarketImplementAccountData,
     BackendService_1.addMarketImplementData,
     // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
     // addMarketImplementDataToDataFromMarketImplementCollectionData,
-], account, elementName, elementVersion, inspectorData, customInputs);
+], account, elementName, elementVersion, inspectorData, customInputs, customActions);
 exports.publishElementAssembleData = publishElementAssembleData;
 let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
     BackendService_1.getMarketImplementCollection,

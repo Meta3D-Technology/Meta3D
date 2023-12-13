@@ -7,9 +7,9 @@ let _getEnv = (): EnvType.env => #production
 let make = (~service: FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
 
-  let {account, appName} = AppStore.useSelector((
-    {enterAppState}: AppStoreType.state,
-  ) => enterAppState)
+  let {account, appName} = AppStore.useSelector(({enterAppState}: AppStoreType.state) =>
+    enterAppState
+  )
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
@@ -23,6 +23,14 @@ let make = (~service: FrontendType.service) => {
       service.backend.init(InitUtils.getBackendEnv(_getEnv()))
       ->Meta3dBsMostDefault.Most.drain
       ->// customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
 
       // customData->Obj.magic
 
@@ -57,7 +65,7 @@ let make = (~service: FrontendType.service) => {
                         let (
                           customInputs: array<ElementAssembleStoreType.customInput>,
                           customActions: array<ElementAssembleStoreType.customAction>,
-                        ) = (selectedElement.customInputs, [])
+                        ) = (selectedElement.customInputs, selectedElement.customActions)
 
                         let funcs = (
                           Meta3d.Main.generateContribute,
@@ -89,6 +97,14 @@ let make = (~service: FrontendType.service) => {
             _,
           )
         },
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
         // customData->Obj.magic
 
         // customData->Obj.magic

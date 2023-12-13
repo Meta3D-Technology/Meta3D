@@ -51,6 +51,7 @@ let buildElementAssembleData = (
   ~elementVersion="0.0.1",
   ~uiControls=[],
   ~customInputs=[],
+  ~customActions=[],
   (),
 ): BackendCloudbaseType.elementAssembleData => {
   account,
@@ -60,6 +61,7 @@ let buildElementAssembleData = (
     uiControls: uiControls,
   },
   customInputs,
+  customActions,
 }
 
 let importElement = AssembleSpace.Method.importElement

@@ -7,30 +7,30 @@ module Method = {
     dispatch(AssembleSpaceStoreType.ResetWhenSwitch)
   }
 
-//   /* ! TODO handle same name:
-// now just remove duplicate one, but need handle more:
+  //   /* ! TODO handle same name:
+  // now just remove duplicate one, but need handle more:
 
-// compare equal(first length, then all)?{
-// use local input
-// } :{
-// remain one custom input;
-// rename another custom input's name to add post fix:"_copy";
-// }
-//  */
-//   let _mergeCustoms = selectedElementsFromMarket => {
-//     selectedElementsFromMarket
-//     ->Meta3dCommonlib.ListSt.reduce([], (
-//       mergedCustomInputs,
-//       {customInputs}: BackendCloudbaseType.elementAssembleData,
-//     ) => {
-//       mergedCustomInputs
-//       ->Js.Array.concat(customInputs, _)
-//       ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
-//         name
-//       })
-//     })
-//     ->Meta3dCommonlib.ListSt.fromArray
-//   }
+  // compare equal(first length, then all)?{
+  // use local input
+  // } :{
+  // remain one custom input;
+  // rename another custom input's name to add post fix:"_copy";
+  // }
+  //  */
+  //   let _mergeCustoms = selectedElementsFromMarket => {
+  //     selectedElementsFromMarket
+  //     ->Meta3dCommonlib.ListSt.reduce([], (
+  //       mergedCustomInputs,
+  //       {customInputs}: BackendCloudbaseType.elementAssembleData,
+  //     ) => {
+  //       mergedCustomInputs
+  //       ->Js.Array.concat(customInputs, _)
+  //       ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}) => {
+  //         name
+  //       })
+  //     })
+  //     ->Meta3dCommonlib.ListSt.fromArray
+  //   }
 
   // let importElementCustom = (dispatchForElementAssembleStore, selectedElementsFromMarket) => {
   //   let mergedCustomInputs = _mergeCustoms(selectedElementsFromMarket)
@@ -62,13 +62,11 @@ module Method = {
   //   )
   // }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state,
-  ) => {
+  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {selectedContributes} = apAssembleState
-    let {currentCustomInputName} = elementAssembleState
+    let {currentCustomInputName, currentCustomActionName} = elementAssembleState
 
-    (selectedContributes, currentCustomInputName)
+    (selectedContributes, currentCustomInputName, currentCustomActionName)
   }
 }
 
@@ -78,9 +76,11 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
   let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
     service.react.useDispatch,
   )
-  let (selectedContributes, currentCustomInputName) = service.react.useSelector(.
-    Method.useSelector,
-  )
+  let (
+    selectedContributes,
+    currentCustomInputName,
+    currentCustomActionName,
+  ) = service.react.useSelector(. Method.useSelector)
 
   // let (
   //   selectedContributesAfterGeneratedCustoms,
@@ -141,25 +141,33 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
           <Collapse.Panel header="Custom Inputs" key="3">
             <CustomInputs service />
           </Collapse.Panel>
+          <Collapse.Panel header="Custom Actions" key="4">
+            <CustomActions service />
+          </Collapse.Panel>
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        {switch currentCustomInputName {
-        | None =>
+        {switch (currentCustomInputName, currentCustomActionName) {
+        | (Some(currentCustomInputName), None) =>
+          <Layout>
+            <Layout.Content>
+              <CustomInputCodeEdit service currentCustomInputName />
+            </Layout.Content>
+          </Layout>
+        | (None, Some(currentCustomActionName)) =>
+          <Layout>
+            <Layout.Content>
+              <CustomActionCodeEdit service currentCustomActionName />
+            </Layout.Content>
+          </Layout>
+        | _ =>
           <Layout>
             <Layout.Content>
               <ElementVisual service account selectedElementsFromMarket selectedContributes />
             </Layout.Content>
             <Layout.Sider theme=#light>
-              <ElementInspector service account  selectedContributes />
+              <ElementInspector service account selectedContributes />
             </Layout.Sider>
-          </Layout>
-
-        | Some(currentCustomInputName) =>
-          <Layout>
-            <Layout.Content>
-              <CustomInputCodeEdit service currentCustomInputName />
-            </Layout.Content>
           </Layout>
         }}
       </Layout.Content>

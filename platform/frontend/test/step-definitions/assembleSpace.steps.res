@@ -70,7 +70,7 @@ defineFeature(feature, test => {
     then(
       "get merged custom inputs as [custom input1, custom input3]",
       () => {
-        result.contents->expect == list{customInput1, customInput3}
+        result.contents->expect == ( list{customInput1, customInput3}, list{} )
       },
     )
   })
@@ -142,7 +142,7 @@ defineFeature(feature, test => {
               ~getContributeFuncDataStr=Meta3d.Main.getContributeFuncDataStr->Obj.magic,
               (),
             ),
-            list{customInput1.contents},
+            (list{customInput1.contents}, list{}),
             list{localInput1.contents, localInput2.contents},
           )
       },
@@ -162,6 +162,7 @@ defineFeature(feature, test => {
 
         result.contents
         ->Meta3dCommonlib.Tuple2.getLast
+        ->Meta3dCommonlib.Tuple2.getFirst
         // ->Meta3dCommonlib.Log.printStringForDebug
         ->CustomTool.formatCustomInputs
         ->expect ==

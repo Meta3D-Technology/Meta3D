@@ -99,14 +99,16 @@ export let findAllElementAssembleData = (
             elementName,
             elementVersion,
             inspectorData,
-            customInputs
+            customInputs,
+            customActions,
         }) => {
             return {
                 account,
                 elementName,
                 elementVersion,
                 inspectorData,
-                customInputs
+                customInputs,
+                customActions,
             }
         }))
     })

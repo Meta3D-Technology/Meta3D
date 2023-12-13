@@ -23,13 +23,15 @@ defineFeature(feature, test => {
         elementName = "",
         elementVersion = "",
         inspectorData: any = {},
-        customInputs: any = []
+        customInputs: any = [],
+        customActions: any = [],
     ) {
         return publishElementAssembleData(
             [errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc],
             account,
             elementName, elementVersion, inspectorData,
-            customInputs
+            customInputs,
+            customActions
         )
     }
 
@@ -53,6 +55,12 @@ defineFeature(feature, test => {
                 fileStr: "f1"
             }
         ]
+        let customActions = [
+            {
+                name: "Actions",
+                fileStr: "f2"
+            }
+        ]
         let marketImplementCollectionData = []
 
         _prepare(given)
@@ -71,7 +79,8 @@ defineFeature(feature, test => {
                 elementName,
                 elementVersion,
                 inspectorData,
-                customInputs
+                customInputs,
+                customActions
             ).drain()
         });
 
@@ -83,6 +92,7 @@ defineFeature(feature, test => {
                     "elementName": elementName, "elementVersion": elementVersion,
                     "inspectorData": inspectorData,
                     "customInputs": customInputs,
+                    "customActions": customActions,
                     "key": "meta3d"
                 },
             ])

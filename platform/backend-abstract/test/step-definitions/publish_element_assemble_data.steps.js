@@ -15,8 +15,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
         getMarketImplementAccountDataFunc = sandbox.stub();
         addMarketImplementDataFunc = sandbox.stub();
     };
-    function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}, customInputs = []) {
-        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc], account, elementName, elementVersion, inspectorData, customInputs);
+    function _publish(account = "u1", elementName = "", elementVersion = "", inspectorData = {}, customInputs = [], customActions = []) {
+        return (0, PublishElementContributeService_1.publishElementAssembleData)([errorFunc, getMarketImplementAccountDataFunc, addMarketImplementDataFunc], account, elementName, elementVersion, inspectorData, customInputs, customActions);
     }
     let _prepare = (given) => {
         given('prepare sandbox', () => {
@@ -37,6 +37,12 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                 fileStr: "f1"
             }
         ];
+        let customActions = [
+            {
+                name: "Actions",
+                fileStr: "f2"
+            }
+        ];
         let marketImplementCollectionData = [];
         _prepare(given);
         given('prepare funcs', () => {
@@ -44,7 +50,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
             getMarketImplementAccountDataFunc.returns((0, PromiseTool_1.resolve)([]));
         });
         when('publish', () => {
-            return _publish(account, elementName, elementVersion, inspectorData, customInputs).drain();
+            return _publish(account, elementName, elementVersion, inspectorData, customInputs, customActions).drain();
         });
         and('should add to collection', () => {
             expect(addMarketImplementDataFunc).toCalledWith([
@@ -54,6 +60,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_elemen
                     "elementName": elementName, "elementVersion": elementVersion,
                     "inspectorData": inspectorData,
                     "customInputs": customInputs,
+                    "customActions": customActions,
                     "key": "meta3d"
                 },
             ]);

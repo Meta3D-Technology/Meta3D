@@ -65,6 +65,7 @@ module Method = {
         selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
       ),
       customInputs,
+      customActions,
     ),
     values,
   ): Js.Promise.t<unit> =>
@@ -146,6 +147,7 @@ module Method = {
             }: BackendCloudbaseType.inspectorData
           ),
           customInputs->Meta3dCommonlib.ListSt.toArray,
+          customActions->Meta3dCommonlib.ListSt.toArray,
         )
       }, _)
       ->Meta3dBsMostDefault.Most.drain
@@ -170,6 +172,7 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
+      customActions,
     }: ElementAssembleStoreType.state,
   ) => {
     (
@@ -177,6 +180,7 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
+      customActions,
     )
   }
 }
@@ -188,10 +192,8 @@ let make = (~service: service, ~account: option<string>) => {
     selectedUIControls,
     selectedUIControlInspectorData,
     customInputs,
-  ) = ReduxUtils.ElementAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+    customActions,
+  ) = ReduxUtils.ElementAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
@@ -239,6 +241,7 @@ let make = (~service: service, ~account: option<string>) => {
                       selectedUIControlInspectorData,
                     ),
                     customInputs,
+                    customActions,
                   ),
                   event->Obj.magic,
                 )->ignore

@@ -265,10 +265,7 @@ module Method = {
               }, _)
               ->Js.Promise.catch(e => {
                 setIsUploadBegin(_ => false)
-                service.console.errorWithExn(.
-                  e->Error.promiseErrorToExn,
-                  None,
-                )->Obj.magic
+                service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
               }, _)
             },
             failMessage => {
@@ -284,9 +281,7 @@ module Method = {
   //   ()
   // }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state,
-  ) => {
+  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {
       selectedPackages,
       selectedContributes,
@@ -300,6 +295,7 @@ module Method = {
       selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
+      customActions,
     } = elementAssembleState
 
     (
@@ -311,7 +307,7 @@ module Method = {
         storedPackageIdsInApp,
         isChangeSelectedPackagesByDebug,
       ),
-      (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, list{}),
+      (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, customActions),
     )
   }
 }

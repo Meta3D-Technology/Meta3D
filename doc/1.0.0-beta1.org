@@ -406,7 +406,7 @@ update all local inputs
 
 
 
-* TODO update custom input->inputName: now can be arbitraily name
+* DONE update custom input->inputName: now can be arbitraily name
 
 custom input is add by UI Control->Input!
 
@@ -414,15 +414,47 @@ auto get its name for build input protocol name!
 
 
 
+* TODO fix: assertion
+
+* TODO perf: solve run slow!
+
+
 * TODO update custom action
 
-TODO should simplify type to forward, ... funcs!
+# TODO should simplify type to forward, ... funcs!
+
+
+pass compile 
+
+pass bdd test
+
+pass run test:runstop button
+  no local
+    fix: not trigger run action!
+  has local
+
+
+
+TODO fix:
+  change action/input name not match format, shouldn't error
+
+
+
+TODO compile should unify!
 
 
 
 
 
-* TODO update custom actions->actionName: now can be arbitraily name
+* TODO refactor: duplicate
+
+
+
+
+
+
+
+* DONE update custom actions->actionName: now can be arbitraily name
 
 protocol auto add "-action-"
 

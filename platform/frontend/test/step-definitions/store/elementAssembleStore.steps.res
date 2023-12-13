@@ -508,9 +508,10 @@ defineFeature(feature, test => {
           store :=
             ElementAssembleStore.reducer(
               store.contents,
-              ElementAssembleStoreType.SetCustom(list{
-                CustomTool.buildCustomInput(~name=inputName, ~fileStr, ()),
-              }),
+              ElementAssembleStoreType.SetCustom(
+                list{CustomTool.buildCustomInput(~name=inputName, ~fileStr, ())},
+                list{},
+              ),
             )
         },
       )

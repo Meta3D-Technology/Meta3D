@@ -236,14 +236,16 @@ export let findNewestPublishElementAssembleData = (
                     elementName,
                     elementVersion,
                     inspectorData,
-                    customInputs
+                    customInputs,
+                    customActions,
                 }) => {
                     return {
                         account,
                         elementName,
                         elementVersion,
                         inspectorData,
-                        customInputs
+                        customInputs,
+                        customActions,
                     }
                 })
 

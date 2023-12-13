@@ -90,9 +90,7 @@ module Method = {
     }, _)
   }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state,
-  ) => {
+  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {
       apInspectorData,
       selectedPackages,
@@ -106,6 +104,7 @@ module Method = {
       elementContribute,
       selectedUIControlInspectorData,
       customInputs,
+      customActions,
     } = elementAssembleState
 
     (
@@ -122,7 +121,7 @@ module Method = {
         elementContribute,
         selectedUIControlInspectorData,
         customInputs,
-        list{},
+        customActions,
       ),
     )
   }

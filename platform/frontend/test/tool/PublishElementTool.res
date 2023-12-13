@@ -17,6 +17,7 @@ let publish = (
   ~selectedUIControls=list{},
   ~selectedUIControlInspectorData=list{},
   ~customInputs=list{},
+  ~customActions=list{},
   ~values={
     "elementName": "n1",
     // "elementVersion": "0.0.1",
@@ -26,7 +27,7 @@ let publish = (
   PublishElement.Method.onFinish(
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, (selectedUIControls, selectedUIControlInspectorData), customInputs),
+    (account, (selectedUIControls, selectedUIControlInspectorData), customInputs, customActions),
     values,
   )
 }

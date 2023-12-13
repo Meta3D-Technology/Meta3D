@@ -10,6 +10,19 @@ globalThis.elementAssembleStore_currentCustomInputName = currentCustomInputName
 }
 `)
 
+let getCurrentCustomActionNameFromGlobal: unit => Js.Nullable.t<string> = %raw(`
+function (){
+return globalThis.elementAssembleStore_currentCustomActionName 
+}
+`)
+
+let setCurrentCustomActionNameToGlobal = %raw(`
+function (currentCustomActionName){
+globalThis.elementAssembleStore_currentCustomActionName = currentCustomActionName
+}
+`)
+
+
 let _convertCodeToUMD = code => {
   let _func = (code, replaceSource) => {
     code->Js.String.replace(

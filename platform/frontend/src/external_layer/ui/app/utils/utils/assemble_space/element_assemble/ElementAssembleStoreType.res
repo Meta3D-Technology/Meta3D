@@ -169,10 +169,16 @@ type action =
   // | ImportElementCustom(customInputs)
   | SetCanvasData(canvasData)
   | AddCustomInput(customInput)
+  | AddCustomAction(customAction)
   | UpdateCustomInputFileStr(CommonType.inputName, CommonType.inputName, CommonType.inputFileStr)
-  // | SetCustomActions(customActions)
+  | UpdateCustomActionFileStr(
+      CommonType.actionName,
+      CommonType.actionName,
+      CommonType.actionFileStr,
+    )
   | SelectCustomInput(CommonType.inputName)
-  | SetCustom(customInputs)
+  | SelectCustomAction(CommonType.actionName)
+  | SetCustom(customInputs, customActions)
 
 type state = {
   canvasData: canvasData,
@@ -190,4 +196,5 @@ type state = {
   customInputs: customInputs,
   customActions: customActions,
   currentCustomInputName: option<CommonType.inputName>,
+  currentCustomActionName: option<CommonType.actionName>,
 }

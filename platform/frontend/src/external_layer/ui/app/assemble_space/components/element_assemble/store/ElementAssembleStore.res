@@ -42,6 +42,7 @@ let _createState = () => {
   customInputs: list{},
   customActions: list{},
   currentCustomInputName: None,
+  currentCustomActionName: None,
 }
 
 let _setUIControlInspectorData = (state, setFunc, id) => {
@@ -160,10 +161,21 @@ let _findParentUIControlId = (
   //   )
 }
 
+let _resetCurrent = state => {
+  {
+    ...state,
+    currentCustomInputName: None,
+    currentCustomActionName: None,
+    inspectorCurrentUIControlId: None,
+  }
+}
+
 let _resetInspector = state => {
-  ...state,
-  inspectorCurrentUIControlId: None,
-  currentCustomInputName: None,
+  // ...state,
+  // inspectorCurrentUIControlId: None,
+  // currentCustomInputName: None,
+  // currentCustomActionName: None,
+  state->_resetCurrent
 }
 
 let _reset = state => {
@@ -172,14 +184,6 @@ let _reset = state => {
     canvasData: state.canvasData,
     // customInputs: state.customInputs,
     // customActions: state.customActions,
-  }
-}
-
-let _resetCurrent = state => {
-  {
-    ...state,
-    currentCustomInputName: None,
-    inspectorCurrentUIControlId: None,
   }
 }
 
@@ -395,6 +399,10 @@ let reducer = (state, action) => {
       ...state,
       customInputs: state.customInputs->Meta3dCommonlib.ListSt.push(customInput),
     }
+  | AddCustomAction(customAction) => {
+      ...state,
+      customActions: state.customActions->Meta3dCommonlib.ListSt.push(customAction),
+    }
   | UpdateCustomInputFileStr(oldInputName, newInputName, fileStr) => {
       let state = {
         ...state,
@@ -417,13 +425,41 @@ let reducer = (state, action) => {
         }),
       })
     }
+  | UpdateCustomActionFileStr(oldActionName, newActionName, fileStr) => {
+      let state = {
+        ...state,
+        customActions: state.customActions->Meta3dCommonlib.ListSt.map(customAction => {
+          customAction.name == oldActionName
+            ? (
+                {
+                  name: newActionName,
+                  fileStr,
+                }: customAction
+              )
+            : customAction
+        }),
+      }
+
+      state->_updateAllUIControlInspectorData(data => {
+        ...data,
+        event: data.event->Meta3dCommonlib.ArraySt.map(action => {
+          ...action,
+          actionName: action.actionName == oldActionName ? newActionName : action.actionName,
+        }),
+      })
+    }
   | SelectCustomInput(inputName) => {
       ...state->_resetCurrent,
       currentCustomInputName: inputName->Some,
     }
-  | SetCustom(customInputs) => {
+  | SelectCustomAction(actionName) => {
+      ...state->_resetCurrent,
+      currentCustomActionName: actionName->Some,
+    }
+  | SetCustom(customInputs, customActions) => {
       ...state,
       customInputs,
+      customActions,
     }
   }
 }

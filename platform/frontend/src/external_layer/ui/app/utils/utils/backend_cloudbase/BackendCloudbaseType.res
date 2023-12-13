@@ -487,12 +487,17 @@ type customInput = CommonType.customInput
 
 type customInputs = array<customInput>
 
+type customAction = CommonType.customAction
+
+type customActions = array<customAction>
+
 type publishElementAssembleData = (
   . account,
   elementName,
   elementVersion,
   inspectorData,
-  customInputs
+  customInputs,
+  customActions
 ) => Meta3dBsMostDefault.Most.stream<unit>
 
 type implement = {
@@ -515,7 +520,8 @@ type elementAssembleData = {
   elementName: elementName,
   elementVersion: elementVersion,
   inspectorData: inspectorData,
-  customInputs: customInputs
+  customInputs: customInputs,
+  customActions: customActions
 }
 
 type getElementAssembleData = (
