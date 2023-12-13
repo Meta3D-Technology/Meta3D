@@ -6,14 +6,14 @@ let clipboard_text: string = "";
 
 export let canvas: HTMLCanvasElement | null = null;
 
-export let canvas_scale:number=ImGui.isMobile.any()?1:window.devicePixelRatio;
-export let font_scale:number=Math.max(window.devicePixelRatio, 1.5);
+export let canvas_scale: number = ImGui.isMobile.any() ? 1 : window.devicePixelRatio;
+export let font_scale: number = Math.max(window.devicePixelRatio, 1.5);
 
-export function setCanvasScale(scale:number):void {
-    canvas_scale=scale;
+export function setCanvasScale(scale: number): void {
+    canvas_scale = scale;
 }
-export function setFontScale(scale:number):void {
-    font_scale=scale;
+export function setFontScale(scale: number): void {
+    font_scale = scale;
 }
 
 export let gl: WebGL2RenderingContext | WebGLRenderingContext | null = null;
@@ -28,8 +28,8 @@ let g_AttribLocationColor: GLint = -1;
 let g_VboHandle: WebGLBuffer | null = null;
 let g_ElementsHandle: WebGLBuffer | null = null;
 let g_FontTexture: WebGLTexture | null = null;
-const enable_vao:boolean=true;
-let g_vao:WebGLVertexArrayObject;
+const enable_vao: boolean = true;
+let g_vao: WebGLVertexArrayObject;
 
 export let ctx: CanvasRenderingContext2D | null = null;
 
@@ -61,8 +61,8 @@ function document_on_paste(event: ClipboardEvent): void {
 
 export function window_on_resize(): void {
     if (canvas !== null) {
-        canvas.width = canvas.scrollWidth*canvas_scale;
-        canvas.height = canvas.scrollHeight*canvas_scale;
+        canvas.width = canvas.scrollWidth * canvas_scale;
+        canvas.height = canvas.scrollHeight * canvas_scale;
         //canvas.width = canvas.scrollWidth;
         //canvas.height = canvas.scrollHeight;
     }
@@ -70,13 +70,13 @@ export function window_on_resize(): void {
 
 function window_on_gamepadconnected(event: any /* GamepadEvent */): void {
     console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-    event.gamepad.index, event.gamepad.id,
-    event.gamepad.buttons.length, event.gamepad.axes.length);
+        event.gamepad.index, event.gamepad.id,
+        event.gamepad.buttons.length, event.gamepad.axes.length);
 }
 
 function window_on_gamepaddisconnected(event: any /* GamepadEvent */): void {
     console.log("Gamepad disconnected at index %d: %s.",
-    event.gamepad.index, event.gamepad.id);
+        event.gamepad.index, event.gamepad.id);
 }
 
 export function canvas_on_blur(event: FocusEvent): void {
@@ -114,7 +114,7 @@ function canvas_on_keydown(event: KeyboardEvent): void {
     }
 }
 
-function canvas_on_keyup(event: KeyboardEvent): void  {
+function canvas_on_keyup(event: KeyboardEvent): void {
     // console.log(event.type, event.key, event.code, event.keyCode);
     const io = ImGui.GetIO();
     io.KeyCtrl = event.ctrlKey;
@@ -129,7 +129,7 @@ function canvas_on_keyup(event: KeyboardEvent): void  {
     }
 }
 
-function canvas_on_keypress(event: KeyboardEvent): void  {
+function canvas_on_keypress(event: KeyboardEvent): void {
     //console.log(event);
     const io = ImGui.GetIO();
     io.AddInputCharacter(event.charCode);
@@ -138,7 +138,7 @@ function canvas_on_keypress(event: KeyboardEvent): void  {
     }
 }
 
-function canvas_on_pointermove(event: PointerEvent): void  {
+function canvas_on_pointermove(event: PointerEvent): void {
     const io = ImGui.GetIO();
     io.MousePos.x = event.offsetX;
     io.MousePos.y = event.offsetY;
@@ -154,20 +154,19 @@ function canvas_on_pointermove(event: PointerEvent): void  {
 // 2: Secondary button pressed, usually the right button
 // 3: Fourth button, typically the Browser Back button
 // 4: Fifth button, typically the Browser Forward button
-const mouse_button_map: number[] = [ 0, 2, 1, 3, 4 ];
+const mouse_button_map: number[] = [0, 2, 1, 3, 4];
 
-export function any_pointerdown():boolean
-{
+export function any_pointerdown(): boolean {
     const io = ImGui.GetIO();
-    for(let i=0;i<io.MouseDown.length;i++)  {
-        if(io.MouseDown[i])
+    for (let i = 0; i < io.MouseDown.length; i++) {
+        if (io.MouseDown[i])
             return true;
-    }            
+    }
     return false;
 }
 
-function canvas_on_pointerdown(event: PointerEvent): void  {
-    if(event.target!=canvas)
+function canvas_on_pointerdown(event: PointerEvent): void {
+    if (event.target != canvas)
         return;
     const io = ImGui.GetIO();
     io.MousePos.x = event.offsetX;
@@ -178,14 +177,14 @@ function canvas_on_pointerdown(event: PointerEvent): void  {
     // }
     //console.log("canvas_on_pointerdown", event);
 }
-function canvas_on_contextmenu(event: Event): void  {
+function canvas_on_contextmenu(event: Event): void {
     const io = ImGui.GetIO();
     if (io.WantCaptureMouse) {
         event.preventDefault();
     }
 }
 
-function canvas_on_pointerup(event: PointerEvent): void  {
+function canvas_on_pointerup(event: PointerEvent): void {
     const io = ImGui.GetIO();
     io.MouseDown[mouse_button_map[event.button]] = false;
     if (io.WantCaptureMouse) {
@@ -194,7 +193,7 @@ function canvas_on_pointerup(event: PointerEvent): void  {
     //console.log("canvas_on_pointerup", event);
 }
 
-function canvas_on_wheel(event: WheelEvent): void  {
+function canvas_on_wheel(event: WheelEvent): void {
     const io = ImGui.GetIO();
     let scale: number = 1.0;
     switch (event.deltaMode) {
@@ -209,69 +208,68 @@ function canvas_on_wheel(event: WheelEvent): void  {
     }
 }
 
-let touch_count:number=0;
-let touch_id:number;
-export class ITouch
-{
-    x:number;
-    y:number;
+let touch_count: number = 0;
+let touch_id: number;
+export class ITouch {
+    x: number;
+    y: number;
 }
-export let multi_touch:{[key:number]:ITouch}={};
+export let multi_touch: { [key: number]: ITouch } = {};
 
-function canvas_on_touchstart(event: TouchEvent):void {
-    for(let i=0;i<event.changedTouches.length;i++)  {
-        let touch=event.changedTouches[i];
-        touch_id=touch.identifier;        
-        multi_touch[touch.identifier]={x:touch.clientX, y:touch.clientY};
+function canvas_on_touchstart(event: TouchEvent): void {
+    for (let i = 0; i < event.changedTouches.length; i++) {
+        let touch = event.changedTouches[i];
+        touch_id = touch.identifier;
+        multi_touch[touch.identifier] = { x: touch.clientX, y: touch.clientY };
     }
-    let mtouch=multi_touch[touch_id];
-    let io=ImGui.GetIO();
-    io.MousePos.x=mtouch.x;
-    io.MousePos.y=mtouch.y;
-    io.MouseDown[0]=true;
+    let mtouch = multi_touch[touch_id];
+    let io = ImGui.GetIO();
+    io.MousePos.x = mtouch.x;
+    io.MousePos.y = mtouch.y;
+    io.MouseDown[0] = true;
 }
-function canvas_on_touchmove(event: TouchEvent):void {
-    for(let i=0;i<event.changedTouches.length;i++)  {
-        let touch=event.changedTouches[i];
-        multi_touch[touch.identifier]={x:touch.clientX, y:touch.clientY};
+function canvas_on_touchmove(event: TouchEvent): void {
+    for (let i = 0; i < event.changedTouches.length; i++) {
+        let touch = event.changedTouches[i];
+        multi_touch[touch.identifier] = { x: touch.clientX, y: touch.clientY };
     }
-    let mtouch=multi_touch[touch_id];
-    let io=ImGui.GetIO();
-    io.MousePos.x=mtouch.x;
-    io.MousePos.y=mtouch.y;
+    let mtouch = multi_touch[touch_id];
+    let io = ImGui.GetIO();
+    io.MousePos.x = mtouch.x;
+    io.MousePos.y = mtouch.y;
 }
-function canvas_on_touchend(event: TouchEvent):void {
-    let io=ImGui.GetIO();
-    for(let i=0;i<event.changedTouches.length;i++)  {
-        let touch=event.changedTouches[i];
-        if(touch.identifier==touch_id)  {
-            io.MouseDown[0]=false;
+function canvas_on_touchend(event: TouchEvent): void {
+    let io = ImGui.GetIO();
+    for (let i = 0; i < event.changedTouches.length; i++) {
+        let touch = event.changedTouches[i];
+        if (touch.identifier == touch_id) {
+            io.MouseDown[0] = false;
         }
         delete multi_touch[touch.identifier];
     }
     touch_count++;
-    if(touch_count>=200)    {
-        multi_touch={}
+    if (touch_count >= 200) {
+        multi_touch = {}
     }
 }
-function canvas_on_touchcancel(event: TouchEvent):void {
+function canvas_on_touchcancel(event: TouchEvent): void {
     canvas_on_touchend(event);
 }
 
-export let is_contextlost:boolean=false;
-export function add_key_event():void {
+export let is_contextlost: boolean = false;
+export function add_key_event(): void {
     window.addEventListener("keydown", canvas_on_keydown);
     window.addEventListener("keyup", canvas_on_keyup);
     window.addEventListener("keypress", canvas_on_keypress);
 }
-export function remove_key_event():void {
+export function remove_key_event(): void {
     window.removeEventListener("keydown", canvas_on_keydown);
     window.removeEventListener("keyup", canvas_on_keyup);
     window.removeEventListener("keypress", canvas_on_keypress);
 }
 
-export function add_pointer_event():void {
-    if(canvas) {
+export function add_pointer_event(): void {
+    if (canvas) {
         canvas.addEventListener("pointermove", canvas_on_pointermove);
         canvas.addEventListener("wheel", canvas_on_wheel);
         //canvas.addEventListener("pointerdown", canvas_on_pointerdown);
@@ -285,8 +283,8 @@ export function add_pointer_event():void {
     window.addEventListener("pointerup", canvas_on_pointerup);
 }
 
-export function remove_pointer_event():void {
-    if(canvas) {
+export function remove_pointer_event(): void {
+    if (canvas) {
         canvas.removeEventListener("pointermove", canvas_on_pointermove);
         canvas.removeEventListener("wheel", canvas_on_wheel);
         //canvas.removeEventListener("pointerdown", canvas_on_pointerdown);
@@ -301,22 +299,22 @@ export function remove_pointer_event():void {
 
 }
 
-function canvas_on_contextlost(e:Event):void {
+function canvas_on_contextlost(e: Event): void {
     e.preventDefault();
     console.log("canvas_on_contextlost");
-    is_contextlost=true;
+    is_contextlost = true;
 }
 
-function canvas_on_contextrestored(e:Event):void {
+function canvas_on_contextrestored(e: Event): void {
     console.log("canvas_on_contextrestored");
     Init(canvas);
-    is_contextlost=false;
+    is_contextlost = false;
 }
 
 export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRenderingContext | CanvasRenderingContext2D | null): void {
     const io = ImGui.GetIO();
 
-    if (typeof(window) !== "undefined") {
+    if (typeof (window) !== "undefined") {
         io.BackendPlatformName = "imgui_impl_browser";
         ImGui.LoadIniSettingsFromMemory(window.localStorage.getItem("imgui.ini") || "");
     }
@@ -324,7 +322,7 @@ export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRe
         io.BackendPlatformName = "imgui_impl_console";
     }
 
-    if (typeof(navigator) !== "undefined") {
+    if (typeof (navigator) !== "undefined") {
         io.ConfigMacOSXBehaviors = navigator.platform.match(/Mac/) !== null;
     }
 
@@ -365,22 +363,22 @@ export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRe
     //     window.addEventListener("gamepaddisconnected", window_on_gamepaddisconnected);
     // }
 
-    if (typeof(window) !== "undefined") {
-        if (value instanceof(HTMLCanvasElement)) {
+    if (typeof (window) !== "undefined") {
+        if (value instanceof (HTMLCanvasElement)) {
             canvas = value;
             value = canvas.getContext("webgl2", { alpha: false }) || canvas.getContext("webgl", { alpha: false }) || canvas.getContext("2d");
         }
-        if (typeof WebGL2RenderingContext !== "undefined" && value instanceof(WebGL2RenderingContext)) {
+        if (typeof WebGL2RenderingContext !== "undefined" && value instanceof (WebGL2RenderingContext)) {
             io.BackendRendererName = "imgui_impl_webgl2";
             canvas = canvas || value.canvas as HTMLCanvasElement;
             gl = value;
         }
-        else if (typeof WebGLRenderingContext !== "undefined" && value instanceof(WebGLRenderingContext)) {
+        else if (typeof WebGLRenderingContext !== "undefined" && value instanceof (WebGLRenderingContext)) {
             io.BackendRendererName = "imgui_impl_webgl";
             canvas = canvas || value.canvas as HTMLCanvasElement;
             gl = value;
         }
-        else if (typeof CanvasRenderingContext2D !== "undefined" && value instanceof(CanvasRenderingContext2D)) {
+        else if (typeof CanvasRenderingContext2D !== "undefined" && value instanceof (CanvasRenderingContext2D)) {
             io.BackendRendererName = "imgui_impl_2d";
             canvas = canvas || value.canvas;
             ctx = value;
@@ -396,7 +394,7 @@ export function Init(value: HTMLCanvasElement | WebGL2RenderingContext | WebGLRe
     //     canvas.addEventListener("contextmenu", canvas_on_contextmenu);
 
     //     canvas.addEventListener( 'webglcontextlost', canvas_on_contextlost, false );
-	// 	canvas.addEventListener( 'webglcontextrestored', canvas_on_contextrestored, false);
+    // 	canvas.addEventListener( 'webglcontextrestored', canvas_on_contextrestored, false);
     // }
 
     // Setup back-end capabilities flags
@@ -443,21 +441,20 @@ export function Shutdown(): void {
     ctx = null;
     canvas = null;
 
-    if (typeof(window) !== "undefined") {
+    if (typeof (window) !== "undefined") {
         window.removeEventListener("resize", window_on_resize);
         window.removeEventListener("gamepadconnected", window_on_gamepadconnected);
         window.removeEventListener("gamepaddisconnected", window_on_gamepaddisconnected);
     }
 
-    if (typeof(document) !== "undefined") {
+    if (typeof (document) !== "undefined") {
         document.body.removeEventListener("copy", document_on_copy);
         document.body.removeEventListener("cut", document_on_cut);
         document.body.removeEventListener("paste", document_on_paste);
     }
 }
 
-export function ClearBuffer(color:ImGui.ImVec4, bufferBit:number = gl.COLOR_BUFFER_BIT)
-{
+export function ClearBuffer(color: ImGui.ImVec4, bufferBit: number = gl.COLOR_BUFFER_BIT) {
     gl.clearColor(color.x, color.y, color.z, color.w);
     gl.clear(bufferBit);
 }
@@ -467,7 +464,7 @@ export function NewFrame(time: number): void {
 
     if (io.WantSaveIniSettings) {
         io.WantSaveIniSettings = false;
-        if (typeof(window) !== "undefined") {
+        if (typeof (window) !== "undefined") {
             window.localStorage.setItem("imgui.ini", ImGui.SaveIniSettingsToMemory());
         }
     }
@@ -481,15 +478,25 @@ export function NewFrame(time: number): void {
     io.DisplayFramebufferScale.x = w > 0 ? (display_w / w) : 0;
     io.DisplayFramebufferScale.y = h > 0 ? (display_h / h) : 0;
 
-    const dt: number = time - prev_time;
+    // const dt: number = time - prev_time;
+    let dt: number = time - prev_time;
     prev_time = time;
+
+
+    /*!  refer to https://github.com/ocornut/imgui/issues/4680 */
+    if (dt <= 0) {
+        console.warn(`dt: ${dt} <= 0! use 0.00001 instead`);
+
+        dt = 0.00001
+    }
+
     io.DeltaTime = dt / 1000;
 
     if (io.WantSetMousePos) {
         console.log("TODO: MousePos", io.MousePos.x, io.MousePos.y);
     }
 
-    if (typeof(document) !== "undefined") {
+    if (typeof (document) !== "undefined") {
         if (io.MouseDrawCursor) {
             document.body.style.cursor = "none";
         } else {
@@ -525,7 +532,7 @@ export function NewFrame(time: number): void {
     //         io.BackendFlags |= ImGui.BackendFlags.HasGamepad;
     //         const buttons_count: number = gamepad.buttons.length;
     //         const axes_count: number = gamepad.axes.length;
-            
+
     //         var MAP_BUTTON=
     //         function MAP_BUTTON(NAV_NO: number, BUTTON_NO: number): void {
     //             if (!gamepad) { return; }
@@ -625,135 +632,134 @@ export function NewFrame(time: number): void {
     // }
 }
 
-function toRgba(col:number):string
-{
-    const r=(col>>>24);
-    const g=(col>>16)&0xFF;
-    const b=(col>>8)&0xFF;
-    const a=(col&0xFF);
-    return 'rgba('+r+','+g+','+b+','+a+')';    
+function toRgba(col: number): string {
+    const r = (col >>> 24);
+    const g = (col >> 16) & 0xFF;
+    const b = (col >> 8) & 0xFF;
+    const a = (col & 0xFF);
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
 }
 
-export let dom_font:Font=null;
+export let dom_font: Font = null;
 
-async function font_update(io:ImGui.IO) {
-    if(!dom_font)   {
-        dom_font=new Font;
+async function font_update(io: ImGui.IO) {
+    if (!dom_font) {
+        dom_font = new Font;
     }
-    io.Fonts.Fonts.forEach(font=>{
-        let glyph=font.GlyphToCreate;
-        while(glyph)   {
-            glyph=dom_font.Create(glyph, font);
+    io.Fonts.Fonts.forEach(font => {
+        let glyph = font.GlyphToCreate;
+        while (glyph) {
+            glyph = dom_font.Create(glyph, font);
             font.GlyphCreated(glyph);
-            glyph=font.GlyphToCreate;
+            glyph = font.GlyphToCreate;
         }
     });
-    dom_font.UpdateTexture();    
+    dom_font.UpdateTexture();
 }
 
-let current_window_id:ImGui.ImGuiID=0;
-export let scroll_acc:ImGui.ImVec2=new ImGui.ImVec2(0,0);
-let mouse_first_down:boolean=false;
+let current_window_id: ImGui.ImGuiID = 0;
+export let scroll_acc: ImGui.ImVec2 = new ImGui.ImVec2(0, 0);
+let mouse_first_down: boolean = false;
 
-function scroll_update(io:ImGui.IO) {
-    const hoveredWin= ImGui.GetHoveredWindow();
-    const hoveredId= ImGui.GetHoveredId();
-    if(hoveredWin && hoveredId==0)  {
-        if(current_window_id!=hoveredWin.ID)    {
-            current_window_id=hoveredWin.ID;
-            scroll_acc.Set(0,0);
-            mouse_first_down=true;
+function scroll_update(io: ImGui.IO) {
+    const hoveredWin = ImGui.GetHoveredWindow();
+    const hoveredId = ImGui.GetHoveredId();
+    if (hoveredWin && hoveredId == 0) {
+        if (current_window_id != hoveredWin.ID) {
+            current_window_id = hoveredWin.ID;
+            scroll_acc.Set(0, 0);
+            mouse_first_down = true;
         }
 
-        if(hoveredWin.Flags & ImGui.ImGuiWindowFlags.NoMove)    {
+        if (hoveredWin.Flags & ImGui.ImGuiWindowFlags.NoMove) {
 
-            let first_down=false;
-            if(io.MouseDown[0]) {
-                first_down=mouse_first_down;
-                mouse_first_down=false;
-            }else {
-                mouse_first_down=true;
+            let first_down = false;
+            if (io.MouseDown[0]) {
+                first_down = mouse_first_down;
+                mouse_first_down = false;
+            } else {
+                mouse_first_down = true;
             }
-            
-            let scroll=new ImGui.ImVec2(hoveredWin.Scroll.x, hoveredWin.Scroll.y);
-            if(hoveredWin.ScrollbarY)   {                
-                if(io.MouseDown[0] && !first_down) {
-                    scroll.y-=io.MouseDelta.y;
-                    scroll_acc.y=io.MouseDelta.y;
-                }else if(Math.abs(scroll_acc.y)>1) {
-                    scroll.y-=scroll_acc.y;
-                    scroll_acc.y*=0.8;
+
+            let scroll = new ImGui.ImVec2(hoveredWin.Scroll.x, hoveredWin.Scroll.y);
+            if (hoveredWin.ScrollbarY) {
+                if (io.MouseDown[0] && !first_down) {
+                    scroll.y -= io.MouseDelta.y;
+                    scroll_acc.y = io.MouseDelta.y;
+                } else if (Math.abs(scroll_acc.y) > 1) {
+                    scroll.y -= scroll_acc.y;
+                    scroll_acc.y *= 0.8;
                 }
-                if(scroll.y<0) scroll.y=0;
-                else if(scroll.y>hoveredWin.ScrollMax.y)    {
-                    scroll.y=hoveredWin.ScrollMax.y;
+                if (scroll.y < 0) scroll.y = 0;
+                else if (scroll.y > hoveredWin.ScrollMax.y) {
+                    scroll.y = hoveredWin.ScrollMax.y;
                 }
-                hoveredWin.Scroll=scroll;
+                hoveredWin.Scroll = scroll;
             }
-            if(hoveredWin.ScrollbarX)   {
-                if(io.MouseDown[0]) {
-                    scroll.x-=io.MouseDelta.x;
-                    scroll_acc.x=io.MouseDelta.x;
+            if (hoveredWin.ScrollbarX) {
+                if (io.MouseDown[0]) {
+                    scroll.x -= io.MouseDelta.x;
+                    scroll_acc.x = io.MouseDelta.x;
                 }
-                if(scroll.x<0) scroll.x=0;
-                else if(scroll.x>hoveredWin.ScrollMax.x)    {
-                    scroll.x=hoveredWin.ScrollMax.x;
+                if (scroll.x < 0) scroll.x = 0;
+                else if (scroll.x > hoveredWin.ScrollMax.x) {
+                    scroll.x = hoveredWin.ScrollMax.x;
                 }
-                hoveredWin.Scroll=scroll;
+                hoveredWin.Scroll = scroll;
             }
         }
     }
 }
 
-let dom_input:Input.Input;
-let current_input_id:ImGui.ImGuiID=0;
-let current_input_text:string;
+let dom_input: Input.Input;
+let current_input_id: ImGui.ImGuiID = 0;
+let current_input_text: string;
 
-function input_text_update(io:ImGui.IO):void {
-    const activeId=ImGui.GetActiveId();
-    const inpId=ImGui.GetInputTextId();
-    if(!activeId || activeId!=inpId)    {
-        current_input_id=0;
+function input_text_update(io: ImGui.IO): void {
+    const activeId = ImGui.GetActiveId();
+    const inpId = ImGui.GetInputTextId();
+    if (!activeId || activeId != inpId) {
+        current_input_id = 0;
         return;
     }
-    if(current_input_id !=activeId) {
-        dom_input=null;
+    if (current_input_id != activeId) {
+        dom_input = null;
     }
 
-    current_input_id=activeId;
-    let inpState=ImGui.GetInputTextState(activeId);
-    let inp:Input.Input=dom_input;
-    if(!inp)  {
-        let textCol=ImGui.Vec4_toRGBA(ImGui.GetStyleColorVec4(ImGui.ImGuiCol.Text));
-        let textBg=ImGui.Vec4_toRGBA(ImGui.GetStyleColorVec4(ImGui.ImGuiCol.WindowBg));
+    current_input_id = activeId;
+    let inpState = ImGui.GetInputTextState(activeId);
+    let inp: Input.Input = dom_input;
+    if (!inp) {
+        let textCol = ImGui.Vec4_toRGBA(ImGui.GetStyleColorVec4(ImGui.ImGuiCol.Text));
+        let textBg = ImGui.Vec4_toRGBA(ImGui.GetStyleColorVec4(ImGui.ImGuiCol.WindowBg));
 
-        if(inpState.Flags & ImGui.ImGuiInputTextFlags.Multiline)    {
-            inp=Input.GetInput(Input.EType.eMultiLine, textCol, textBg);
+        if (inpState.Flags & ImGui.ImGuiInputTextFlags.Multiline) {
+            inp = Input.GetInput(Input.EType.eMultiLine, textCol, textBg);
         }
-        else if(inpState.Flags & ImGui.ImGuiInputTextFlags.Password)    {
-            inp=Input.GetInput(Input.EType.ePassword, textCol, textBg);
-        }else {
-            inp=Input.GetInput(Input.EType.eInput, textCol, textBg);
+        else if (inpState.Flags & ImGui.ImGuiInputTextFlags.Password) {
+            inp = Input.GetInput(Input.EType.ePassword, textCol, textBg);
+        } else {
+            inp = Input.GetInput(Input.EType.eInput, textCol, textBg);
         }
-        current_input_text=inpState.Text;
-        inp.on_visible=b=>{
-            if(b)   {
+        current_input_text = inpState.Text;
+        inp.on_visible = b => {
+            if (b) {
                 remove_key_event();
-            }else {
+            } else {
                 add_key_event();
             }
         }
         inp.setText(current_input_text, activeId, io.Fonts.CurrentFont);
-        dom_input=inp;
+        dom_input = inp;
     }
-    let framebb=inpState.FrameBB;
-    inp.setRect(framebb.Min.x, framebb.Min.y, framebb.Max.x-framebb.Min.x, framebb.Max.y-framebb.Min.y);
-    if(current_input_text!==inp.Text) {
-        current_input_text=inp.Text;
-        inpState.Text=inp.Text;
+    let framebb = inpState.FrameBB;
+    inp.setRect(framebb.Min.x, framebb.Min.y, framebb.Max.x - framebb.Min.x, framebb.Max.y - framebb.Min.y);
+    if (current_input_text !== inp.Text) {
+        current_input_text = inp.Text;
+        inpState.Text = inp.Text;
         //console.log(inp.Text);
     }
-    if(!inp.isVisible)  {
+    if (!inp.isVisible) {
         ImGui.SetActiveId(0);
     }
 }
@@ -762,7 +768,7 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     const io = ImGui.GetIO();
 
     font_update(io);
-    scroll_update(io);    
+    scroll_update(io);
     input_text_update(io);
 
     if (draw_data === null) { throw new Error(); }
@@ -781,29 +787,29 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     const gl_vao: OES_vertex_array_object | null = gl && gl.getExtension("OES_vertex_array_object") || null;
 
     // Backup GL state
-    
-        //const last_active_texture: GLenum | null = gl && gl.getParameter(gl.ACTIVE_TEXTURE) || null;
-        //const last_program: WebGLProgram | null = gl && gl.getParameter(gl.CURRENT_PROGRAM) || null;
-        //const last_texture: WebGLTexture | null = gl && gl.getParameter(gl.TEXTURE_BINDING_2D) || null;
-        //const last_array_buffer: WebGLBuffer | null = gl && gl.getParameter(gl.ARRAY_BUFFER_BINDING) || null;
-        //const last_element_array_buffer: WebGLBuffer | null = gl && gl.getParameter(gl.ELEMENT_ARRAY_BUFFER_BINDING) || null;
-        //const last_vertex_array_object: WebGLVertexArrayObject | WebGLVertexArrayObjectOES | null = gl2 && gl2.getParameter(gl2.VERTEX_ARRAY_BINDING) || gl && gl_vao && gl.getParameter(gl_vao.VERTEX_ARRAY_BINDING_OES) || null;
-        // GLint last_polygon_mode[2]; glGetIntegerv(GL_POLYGON_MODE, last_polygon_mode);
-        //const last_viewport: Int32Array | null = gl && gl.getParameter(gl.VIEWPORT) || null;
-        //const last_scissor_box: Int32Array | null = gl && gl.getParameter(gl.SCISSOR_BOX) || null;
-        //const last_blend_src_rgb: GLenum | null = gl && gl.getParameter(gl.BLEND_SRC_RGB) || null;
-        //const last_blend_dst_rgb: GLenum | null = gl && gl.getParameter(gl.BLEND_DST_RGB) || null;
-        //const last_blend_src_alpha: GLenum | null = gl && gl.getParameter(gl.BLEND_SRC_ALPHA) || null;
-        //const last_blend_dst_alpha: GLenum | null = gl && gl.getParameter(gl.BLEND_DST_ALPHA) || null;
-        //const last_blend_equation_rgb: GLenum | null = gl && gl.getParameter(gl.BLEND_EQUATION_RGB) || null;
-        //const last_blend_equation_alpha: GLenum | null = gl && gl.getParameter(gl.BLEND_EQUATION_ALPHA) || null;
-        //const last_enable_blend: GLboolean | null = gl && gl.getParameter(gl.BLEND) || null;
-        //const last_enable_cull_face: GLboolean | null = gl && gl.getParameter(gl.CULL_FACE) || null;
-        //const last_enable_depth_test: GLboolean | null = gl && gl.getParameter(gl.DEPTH_TEST) || null;
-        //const last_enable_scissor_test: GLboolean | null = gl && gl.getParameter(gl.SCISSOR_TEST) || null;
-        const last_enable_scissor_test: GLboolean =false;
 
-        // Setup desired GL state
+    //const last_active_texture: GLenum | null = gl && gl.getParameter(gl.ACTIVE_TEXTURE) || null;
+    //const last_program: WebGLProgram | null = gl && gl.getParameter(gl.CURRENT_PROGRAM) || null;
+    //const last_texture: WebGLTexture | null = gl && gl.getParameter(gl.TEXTURE_BINDING_2D) || null;
+    //const last_array_buffer: WebGLBuffer | null = gl && gl.getParameter(gl.ARRAY_BUFFER_BINDING) || null;
+    //const last_element_array_buffer: WebGLBuffer | null = gl && gl.getParameter(gl.ELEMENT_ARRAY_BUFFER_BINDING) || null;
+    //const last_vertex_array_object: WebGLVertexArrayObject | WebGLVertexArrayObjectOES | null = gl2 && gl2.getParameter(gl2.VERTEX_ARRAY_BINDING) || gl && gl_vao && gl.getParameter(gl_vao.VERTEX_ARRAY_BINDING_OES) || null;
+    // GLint last_polygon_mode[2]; glGetIntegerv(GL_POLYGON_MODE, last_polygon_mode);
+    //const last_viewport: Int32Array | null = gl && gl.getParameter(gl.VIEWPORT) || null;
+    //const last_scissor_box: Int32Array | null = gl && gl.getParameter(gl.SCISSOR_BOX) || null;
+    //const last_blend_src_rgb: GLenum | null = gl && gl.getParameter(gl.BLEND_SRC_RGB) || null;
+    //const last_blend_dst_rgb: GLenum | null = gl && gl.getParameter(gl.BLEND_DST_RGB) || null;
+    //const last_blend_src_alpha: GLenum | null = gl && gl.getParameter(gl.BLEND_SRC_ALPHA) || null;
+    //const last_blend_dst_alpha: GLenum | null = gl && gl.getParameter(gl.BLEND_DST_ALPHA) || null;
+    //const last_blend_equation_rgb: GLenum | null = gl && gl.getParameter(gl.BLEND_EQUATION_RGB) || null;
+    //const last_blend_equation_alpha: GLenum | null = gl && gl.getParameter(gl.BLEND_EQUATION_ALPHA) || null;
+    //const last_enable_blend: GLboolean | null = gl && gl.getParameter(gl.BLEND) || null;
+    //const last_enable_cull_face: GLboolean | null = gl && gl.getParameter(gl.CULL_FACE) || null;
+    //const last_enable_depth_test: GLboolean | null = gl && gl.getParameter(gl.DEPTH_TEST) || null;
+    //const last_enable_scissor_test: GLboolean | null = gl && gl.getParameter(gl.SCISSOR_TEST) || null;
+    const last_enable_scissor_test: GLboolean = false;
+
+    // Setup desired GL state
     // Recreate the VAO every time (this is to easily allow multiple GL contexts to be rendered to. VAO are not shared among GL contexts)
     // The renderer would actually work without any VAO bound, but then our VertexAttrib calls would overwrite the default one currently bound.
 
@@ -824,17 +830,17 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     const T: number = draw_data.DisplayPos.y;
     const B: number = draw_data.DisplayPos.y + draw_data.DisplaySize.y;
     const ortho_projection: Float32Array = new Float32Array([
-        2.0 / (R - L),     0.0,                0.0, 0.0,
-        0.0,               2.0 / (T - B),      0.0, 0.0,
-        0.0,               0.0,               -1.0, 0.0,
-        (R + L) / (L - R), (T + B) / (B - T),  0.0, 1.0,
+        2.0 / (R - L), 0.0, 0.0, 0.0,
+        0.0, 2.0 / (T - B), 0.0, 0.0,
+        0.0, 0.0, -1.0, 0.0,
+        (R + L) / (L - R), (T + B) / (B - T), 0.0, 1.0,
     ]);
     gl && gl.useProgram(g_ShaderHandle);
     gl && gl.uniform1i(g_AttribLocationTex, 0);
     gl && g_AttribLocationProjMtx && gl.uniformMatrix4fv(g_AttribLocationProjMtx, false, ortho_projection);
 
-    if(enable_vao) {
-        if(!g_vao)  {
+    if (enable_vao) {
+        if (!g_vao) {
             g_vao = gl2 && gl2.createVertexArray();   // || gl_vao && gl_vao.createVertexArrayOES();
         }
         gl2 && gl2.bindVertexArray(g_vao);
@@ -853,21 +859,21 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     // Draw
     const pos = draw_data.DisplayPos;
     const idx_buffer_type: GLenum = gl && ((ImGui.DrawIdxSize === 4) ? gl.UNSIGNED_INT : gl.UNSIGNED_SHORT) || 0;
-    draw_data.IterateDrawLists((draw_list: ImGui.DrawList): void => {           
+    draw_data.IterateDrawLists((draw_list: ImGui.DrawList): void => {
         gl || ctx || console.log(draw_list);
         gl || ctx || console.log("VtxBuffer.length", draw_list.VtxBuffer.length);
         gl || ctx || console.log("IdxBuffer.length", draw_list.IdxBuffer.length);
-            
-        let idx_buffer_offset: number = 0;
-        const vx=draw_list.VtxBuffer;
-        const ix=draw_list.IdxBuffer;
-        const ixU16=new Uint16Array(ix.buffer.slice(ix.byteOffset, ix.byteOffset+ix.byteLength));
 
-        if(vx) {
+        let idx_buffer_offset: number = 0;
+        const vx = draw_list.VtxBuffer;
+        const ix = draw_list.IdxBuffer;
+        const ixU16 = new Uint16Array(ix.buffer.slice(ix.byteOffset, ix.byteOffset + ix.byteLength));
+
+        if (vx) {
             gl && gl.bindBuffer(gl.ARRAY_BUFFER, g_VboHandle);
             gl && gl.bufferData(gl.ARRAY_BUFFER, vx, gl.STREAM_DRAW);
         }
-        if(ixU16) {
+        if (ixU16) {
             gl && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, g_ElementsHandle);
             gl && gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, ixU16, gl.STREAM_DRAW);
         }
@@ -883,7 +889,7 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
                     console.log(`${i}: ${view.pos[0].toFixed(2)} ${view.pos[1].toFixed(2)} ${view.uv[0].toFixed(5)} ${view.uv[1].toFixed(5)} ${("00000000" + view.col[0].toString(16)).substr(-8)}`);
                 }
             }
-            
+
             if (draw_cmd.UserCallback !== null) {
                 // User callback (registered via ImDrawList::AddCallback)
                 draw_cmd.UserCallback(draw_list, draw_cmd);
@@ -903,8 +909,8 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
                         ctx.beginPath();
                         ctx.rect(clip_rect.x, clip_rect.y, clip_rect.z - clip_rect.x, clip_rect.w - clip_rect.y);
                         ctx.clip();
-                        const idx = ImGui.DrawIdxSize === 4 ? 
-                            new Uint32Array(draw_list.IdxBuffer.buffer, draw_list.IdxBuffer.byteOffset + idx_buffer_offset) : 
+                        const idx = ImGui.DrawIdxSize === 4 ?
+                            new Uint32Array(draw_list.IdxBuffer.buffer, draw_list.IdxBuffer.byteOffset + idx_buffer_offset) :
                             new Uint16Array(draw_list.IdxBuffer.buffer, draw_list.IdxBuffer.byteOffset + idx_buffer_offset);
                         for (let i = 0; i < draw_cmd.ElemCount; i += 3) {
                             const i0: number = idx[i + 0];
@@ -924,7 +930,7 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
                             let minmax: ImGui.DrawVert = v0;
                             let maxmin: ImGui.DrawVert = v0;
                             let maxmax: ImGui.DrawVert = v0;
-                            for (const v of [ v1, v2, v3, v4, v5 ]) {
+                            for (const v of [v1, v2, v3, v4, v5]) {
                                 let found = false;
                                 if (v.pos[0] <= minmin.pos[0] && v.pos[1] <= minmin.pos[1]) { minmin = v; found = true; }
                                 if (v.pos[0] <= minmax.pos[0] && v.pos[1] >= minmax.pos[1]) { minmax = v; found = true; }
@@ -951,7 +957,7 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
                                     image && ctx.drawImage(image,
                                         minmin.uv[0] * width, minmin.uv[1] * height,
                                         (maxmax.uv[0] - minmin.uv[0]) * width, (maxmax.uv[1] - minmin.uv[1]) * height,
-                                        minmin.pos[0], minmin.pos[1], 
+                                        minmin.pos[0], minmin.pos[1],
                                         maxmax.pos[0] - minmin.pos[0], maxmax.pos[1] - minmin.pos[1]);
                                     // ctx.beginPath();
                                     // ctx.rect(minmin.pos[0], minmin.pos[1], maxmax.pos[0] - minmin.pos[0], maxmax.pos[1] - minmin.pos[1]);
@@ -980,36 +986,36 @@ export function RenderDrawData(draw_data: ImGui.DrawData | null = ImGui.GetDrawD
     });
 
     // Destroy the temporary VAO
-    if(enable_vao) {
+    if (enable_vao) {
         gl2 && gl2.bindVertexArray(null);
         //gl2 && gl2.deleteVertexArray(vertex_array_object);
         //gl_vao && gl_vao.deleteVertexArrayOES(vertex_array_object);
-    }else {
+    } else {
         gl && gl.bindBuffer(gl.ARRAY_BUFFER, null);
         gl && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
     }
     // Restore modified GL state
-    
-        //gl && (last_program !== null) && gl.useProgram(last_program);
-        //gl && (last_texture !== null) && gl.bindTexture(gl.TEXTURE_2D, last_texture);
-        //gl && (last_active_texture !== null) && gl.activeTexture(last_active_texture);
-        //gl2 && gl2.bindVertexArray(last_vertex_array_object);
-        //gl_vao && gl_vao.bindVertexArrayOES(last_vertex_array_object);
-        //gl && (last_array_buffer !== null) && gl.bindBuffer(gl.ARRAY_BUFFER, last_array_buffer);
-        //gl && (last_element_array_buffer !== null) && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, last_element_array_buffer);
-        //gl && (last_blend_equation_rgb !== null && last_blend_equation_alpha !== null) && gl.blendEquationSeparate(last_blend_equation_rgb, last_blend_equation_alpha);
-        //gl && (last_blend_src_rgb !== null && last_blend_src_alpha !== null && last_blend_dst_rgb !== null && last_blend_dst_alpha !== null) && gl.blendFuncSeparate(last_blend_src_rgb, last_blend_src_alpha, last_blend_dst_rgb, last_blend_dst_alpha);
-        //gl && (last_enable_blend ? gl.enable(gl.BLEND) : gl.disable(gl.BLEND));
-        //gl && (last_enable_cull_face ? gl.enable(gl.CULL_FACE) : gl.disable(gl.CULL_FACE));
-        //gl && (last_enable_depth_test ? gl.enable(gl.DEPTH_TEST) : gl.disable(gl.DEPTH_TEST));
-        gl && (last_enable_scissor_test ? gl.enable(gl.SCISSOR_TEST) : gl.disable(gl.SCISSOR_TEST));
-        // glPolygonMode(GL_FRONT_AND_BACK, (GLenum)last_polygon_mode[0]);
-        //gl && (last_viewport !== null) && gl.viewport(last_viewport[0], last_viewport[1], last_viewport[2], last_viewport[3]);
-        //gl && (last_scissor_box !== null) && gl.scissor(last_scissor_box[0], last_scissor_box[1], last_scissor_box[2], last_scissor_box[3]);
+
+    //gl && (last_program !== null) && gl.useProgram(last_program);
+    //gl && (last_texture !== null) && gl.bindTexture(gl.TEXTURE_2D, last_texture);
+    //gl && (last_active_texture !== null) && gl.activeTexture(last_active_texture);
+    //gl2 && gl2.bindVertexArray(last_vertex_array_object);
+    //gl_vao && gl_vao.bindVertexArrayOES(last_vertex_array_object);
+    //gl && (last_array_buffer !== null) && gl.bindBuffer(gl.ARRAY_BUFFER, last_array_buffer);
+    //gl && (last_element_array_buffer !== null) && gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, last_element_array_buffer);
+    //gl && (last_blend_equation_rgb !== null && last_blend_equation_alpha !== null) && gl.blendEquationSeparate(last_blend_equation_rgb, last_blend_equation_alpha);
+    //gl && (last_blend_src_rgb !== null && last_blend_src_alpha !== null && last_blend_dst_rgb !== null && last_blend_dst_alpha !== null) && gl.blendFuncSeparate(last_blend_src_rgb, last_blend_src_alpha, last_blend_dst_rgb, last_blend_dst_alpha);
+    //gl && (last_enable_blend ? gl.enable(gl.BLEND) : gl.disable(gl.BLEND));
+    //gl && (last_enable_cull_face ? gl.enable(gl.CULL_FACE) : gl.disable(gl.CULL_FACE));
+    //gl && (last_enable_depth_test ? gl.enable(gl.DEPTH_TEST) : gl.disable(gl.DEPTH_TEST));
+    gl && (last_enable_scissor_test ? gl.enable(gl.SCISSOR_TEST) : gl.disable(gl.SCISSOR_TEST));
+    // glPolygonMode(GL_FRONT_AND_BACK, (GLenum)last_polygon_mode[0]);
+    //gl && (last_viewport !== null) && gl.viewport(last_viewport[0], last_viewport[1], last_viewport[2], last_viewport[3]);
+    //gl && (last_scissor_box !== null) && gl.scissor(last_scissor_box[0], last_scissor_box[1], last_scissor_box[2], last_scissor_box[3]);
 }
 
 export function CreateFontsTexture(): void {
-    const io = ImGui.GetIO();    
+    const io = ImGui.GetIO();
 
     // Backup GL state
     const last_texture: WebGLTexture | null = gl && gl.getParameter(gl.TEXTURE_BINDING_2D);
@@ -1018,17 +1024,17 @@ export function CreateFontsTexture(): void {
     // const width: number = 256;
     // const height: number = 256;
     // const pixels: Uint8Array = new Uint8Array(4 * width * height).fill(0xff);
-    
+
     //const { width, height, pixels } = io.Fonts.GetTexDataAsRGBA32();   // Load as RGBA 32-bits (75% of the memory is wasted, but default font is so small) because it is more likely to be compatible with user's existing shaders. If your ImTextureId represent a higher-level concept than just a GL texture id, consider calling GetTexDataAsAlpha8() instead to save on GPU memory.
     const { width, height, pixels } = io.Fonts.GetTexDataAsAlpha8();
-    if(width && height && pixels) {
-        let rgba4:Uint16Array=new Uint16Array(width*height);
-        let i=0;
-        pixels.forEach(p=>{
-            rgba4[i]=0xFFF0|(p>>4);
+    if (width && height && pixels) {
+        let rgba4: Uint16Array = new Uint16Array(width * height);
+        let i = 0;
+        pixels.forEach(p => {
+            rgba4[i] = 0xFFF0 | (p >> 4);
             i++;
         })
-        
+
         // Upload texture to graphics system
         g_FontTexture = gl && gl.createTexture();
         gl && gl.bindTexture(gl.TEXTURE_2D, g_FontTexture);
@@ -1062,9 +1068,9 @@ export function DestroyFontsTexture(): void {
     const io = ImGui.GetIO();
     io.Fonts.TexID = null;
     gl && gl.deleteTexture(g_FontTexture); g_FontTexture = null;
-    if(dom_font)    {
+    if (dom_font) {
         dom_font.Destroy();
-        dom_font=null;
+        dom_font = null;
     }
 }
 
@@ -1120,7 +1126,7 @@ export function DestroyDeviceObjects(): void {
     DestroyFontsTexture();
 
     const gl2: WebGL2RenderingContext | null = typeof WebGL2RenderingContext !== "undefined" && gl instanceof WebGL2RenderingContext && gl || null;
-    if(g_vao) {
+    if (g_vao) {
         gl2 && gl2.deleteVertexArray(g_vao);
     }
     gl && gl.deleteBuffer(g_VboHandle); g_VboHandle = null;
@@ -1137,102 +1143,98 @@ export function DestroyDeviceObjects(): void {
     gl && gl.deleteShader(g_FragHandle); g_FragHandle = null;
 }
 
-export interface ITextureParam
-{
-    internalFormat?:number;
-    srcFormat?:number;
-    srcType?:number;
-    width?:number;
-    height?:number;
-    level?:number;
+export interface ITextureParam {
+    internalFormat?: number;
+    srcFormat?: number;
+    srcType?: number;
+    width?: number;
+    height?: number;
+    level?: number;
 }
 
-export class Texture
-{
-    public _texture:WebGLTexture;
-    public _internalFormat:number=gl.RGBA;
-    public _srcFormat:number=gl.RGBA;
-    public _srcType:number=gl.UNSIGNED_BYTE;
-    public _wrapS:number=gl.CLAMP_TO_EDGE;
-    public _wrapT:number=gl.CLAMP_TO_EDGE;
-    public _minFilter:number=gl.LINEAR;
-    public _magFilter:number=gl.LINEAR;
-    public _width:number=1;
-    public _height:number=1;
+export class Texture {
+    public _texture: WebGLTexture;
+    public _internalFormat: number = gl.RGBA;
+    public _srcFormat: number = gl.RGBA;
+    public _srcType: number = gl.UNSIGNED_BYTE;
+    public _wrapS: number = gl.CLAMP_TO_EDGE;
+    public _wrapT: number = gl.CLAMP_TO_EDGE;
+    public _minFilter: number = gl.LINEAR;
+    public _magFilter: number = gl.LINEAR;
+    public _width: number = 1;
+    public _height: number = 1;
 
-    constructor(param?: ITextureParam)
-    {
+    constructor(param?: ITextureParam) {
 
     }
-    public Destroy():void {
-        if(this._texture)   {
-            gl && gl.deleteTexture(this._texture); 
+    public Destroy(): void {
+        if (this._texture) {
+            gl && gl.deleteTexture(this._texture);
             this._texture = null;
         }
     }
-    public Bind(index:number=gl.TEXTURE0):void {
+    public Bind(index: number = gl.TEXTURE0): void {
         gl.activeTexture(index);
         gl.bindTexture(gl.TEXTURE_2D, this._texture);
     }
 
-    public Update(src:TexImageSource|Uint8Array|Uint16Array|null, param?:any):void {
+    public Update(src: TexImageSource | Uint8Array | Uint16Array | null, param?: any): void {
         let w, h;
-        if(src==null)   {
-            if(param) {
-                w=param.width;
-                h=param.height;
+        if (src == null) {
+            if (param) {
+                w = param.width;
+                h = param.height;
             }
         }
-        else if(src instanceof HTMLVideoElement) {
-            let srcVideo=src as HTMLVideoElement;
-            if(srcVideo)    {
-                w=srcVideo.videoWidth;
-                h=srcVideo.videoHeight;
+        else if (src instanceof HTMLVideoElement) {
+            let srcVideo = src as HTMLVideoElement;
+            if (srcVideo) {
+                w = srcVideo.videoWidth;
+                h = srcVideo.videoHeight;
             }
         }
-        else if(src instanceof Uint8Array||src instanceof Uint16Array) 
-        {
-            if(param) {
-                w=param.width;
-                h=param.height;
-            }else {
-                w=this._width;
-                h=this._height;
+        else if (src instanceof Uint8Array || src instanceof Uint16Array) {
+            if (param) {
+                w = param.width;
+                h = param.height;
+            } else {
+                w = this._width;
+                h = this._height;
             }
-        }else {
-            w=src.width;
-            h=src.height;    
+        } else {
+            w = src.width;
+            h = src.height;
         }
-        if(!this._texture)  {
-            this._texture=gl.createTexture();
+        if (!this._texture) {
+            this._texture = gl.createTexture();
             gl.bindTexture(gl.TEXTURE_2D, this._texture);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, this._wrapS);
             gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this._wrapT);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);                        
+            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
         }
-        const level = param? param.level ? param.level : 0 : 0;
+        const level = param ? param.level ? param.level : 0 : 0;
         gl.bindTexture(gl.TEXTURE_2D, this._texture);
         gl && gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, this._minFilter);
-        gl && gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, this._magFilter);    
-        if(w!=this._width||h!=this._height) {
-            if(src==null) {
-                const data:ArrayBufferView=null;
-                gl.texImage2D(gl.TEXTURE_2D, level, this._internalFormat, 
-                    w,h,0,this._srcFormat, this._srcType, data);
-            }
-            else if(src instanceof Uint8Array||src instanceof Uint16Array) {
-                gl.texImage2D(gl.TEXTURE_2D, level, this._internalFormat, 
-                    w,h,0,this._srcFormat, this._srcType, src);
-            }else {
+        gl && gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, this._magFilter);
+        if (w != this._width || h != this._height) {
+            if (src == null) {
+                const data: ArrayBufferView = null;
                 gl.texImage2D(gl.TEXTURE_2D, level, this._internalFormat,
-                    this._srcFormat, this._srcType, src);    
+                    w, h, 0, this._srcFormat, this._srcType, data);
             }
-            this._width=w;
-            this._height=h;
-        }else {
-            if(src instanceof Uint8Array||src instanceof Uint16Array) {
+            else if (src instanceof Uint8Array || src instanceof Uint16Array) {
+                gl.texImage2D(gl.TEXTURE_2D, level, this._internalFormat,
+                    w, h, 0, this._srcFormat, this._srcType, src);
+            } else {
+                gl.texImage2D(gl.TEXTURE_2D, level, this._internalFormat,
+                    this._srcFormat, this._srcType, src);
+            }
+            this._width = w;
+            this._height = h;
+        } else {
+            if (src instanceof Uint8Array || src instanceof Uint16Array) {
                 gl.texSubImage2D(gl.TEXTURE_2D, level, 0, 0, w, h, this._srcFormat, this._srcType, src);
-            }else {
+            } else {
                 gl.texSubImage2D(gl.TEXTURE_2D, level, 0, 0, this._srcFormat, this._srcType, src);
             }
         }
@@ -1240,167 +1242,159 @@ export class Texture
 
 }
 
-export class TextureCache
-{
-    public constructor() 
-    {
+export class TextureCache {
+    public constructor() {
     }
 
-    public Destroy():void {
-        Object.entries(this.cache).forEach(([key, value])=>{
-            value.Destroy();            
+    public Destroy(): void {
+        Object.entries(this.cache).forEach(([key, value]) => {
+            value.Destroy();
         });
-        this.cache={};
+        this.cache = {};
     }
 
-    public async Load(name:string, src:string) :Promise<Texture>
-    {
-        var tex: Texture =new Texture();
-        var image=new Image();
-        image.crossOrigin="anonymous";
-        image.src=src;
-        image.onload=()=>{
+    public async Load(name: string, src: string): Promise<Texture> {
+        var tex: Texture = new Texture();
+        var image = new Image();
+        image.crossOrigin = "anonymous";
+        image.src = src;
+        image.onload = () => {
             tex.Update(image);
         }
-        this.cache[name]=tex;
+        this.cache[name] = tex;
         return tex;
     }
 
-    public cache:{[key:string]:Texture}={};
+    public cache: { [key: string]: Texture } = {};
 }
 
-export class FrameBufferObject
-{
-    public constructor() 
-    {
+export class FrameBufferObject {
+    public constructor() {
     }
 
-    public Destroy():void 
-    {
-        if(this._target)    {
+    public Destroy(): void {
+        if (this._target) {
             this._target.Destroy();
-            this._target=null;
+            this._target = null;
         }
-        if(this._depth) {
+        if (this._depth) {
             gl.deleteRenderbuffer(this._depth);
-            this._depth=null;
+            this._depth = null;
         }
-        if(this._fbo)   {
+        if (this._fbo) {
             gl.deleteFramebuffer(this._fbo);
-            this._fbo=null;
+            this._fbo = null;
         }
     }
 
-    public Create(width:number, height:number, format:number=gl.RGB, depth:number=gl.DEPTH_COMPONENT16):void {
-        this.width=width;
-        this.height=height;
-        this.format=format;
-        this.depth_format=depth;
+    public Create(width: number, height: number, format: number = gl.RGB, depth: number = gl.DEPTH_COMPONENT16): void {
+        this.width = width;
+        this.height = height;
+        this.format = format;
+        this.depth_format = depth;
     }
 
-    public Bind(use:boolean=true):void {
-        if(use) {
-            if(!this._target)   {
-                let target=new Texture();
-                target._srcFormat=target._internalFormat=this.format;
-                target.Update(null, {width:this.width, height:this.height});
-                this._target=target;
+    public Bind(use: boolean = true): void {
+        if (use) {
+            if (!this._target) {
+                let target = new Texture();
+                target._srcFormat = target._internalFormat = this.format;
+                target.Update(null, { width: this.width, height: this.height });
+                this._target = target;
             }
-            if(this.depth_format && !this._depth)   {
-                let depth=gl.createRenderbuffer();
+            if (this.depth_format && !this._depth) {
+                let depth = gl.createRenderbuffer();
                 gl.bindRenderbuffer(gl.RENDERBUFFER, depth);
-                gl.renderbufferStorage(gl.RENDERBUFFER, this.depth_format, this.width, this.height);                
-                this._depth=depth;
+                gl.renderbufferStorage(gl.RENDERBUFFER, this.depth_format, this.width, this.height);
+                this._depth = depth;
             }
-            if(!this._fbo)  {
-                let fbo=gl.createFramebuffer();
+            if (!this._fbo) {
+                let fbo = gl.createFramebuffer();
                 gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
                 gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0,
                     gl.TEXTURE_2D, this._target._texture, 0);
-                if(this._depth) {
+                if (this._depth) {
                     gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT,
                         gl.RENDERBUFFER, this._depth);
                 }
-                this._fbo=fbo;
+                this._fbo = fbo;
             }
             gl.bindFramebuffer(gl.FRAMEBUFFER, this._fbo);
-            gl.viewport(0,0,this.width, this.height);
-        }else {
+            gl.viewport(0, 0, this.width, this.height);
+        } else {
             gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         }
     }
-    public get_texture():WebGLTexture {
-        return this._target?this._target._texture:null;
+    public get_texture(): WebGLTexture {
+        return this._target ? this._target._texture : null;
     }
 
     private _fbo: WebGLFramebuffer;
-    private _target:Texture;
-    private _depth:WebGLRenderbuffer;
-    public width:number;
-    public height:number;
-    public format:number;
-    public depth_format:number;
+    private _target: Texture;
+    private _depth: WebGLRenderbuffer;
+    public width: number;
+    public height: number;
+    public format: number;
+    public depth_format: number;
 }
 
-export class Shader
-{
-    constructor()
-    {
+export class Shader {
+    constructor() {
 
     }
-    public Destroy():void {
-        if(this._program)   {
+    public Destroy(): void {
+        if (this._program) {
             gl && gl.deleteProgram(this._program);
             this._program = null;
         }
-        if(this._vs)   {
+        if (this._vs) {
             gl && gl.deleteShader(this._vs);
             this._vs = null;
         }
-        if(this._ps) {
+        if (this._ps) {
             gl && gl.deleteShader(this._ps);
-            this._ps = null;        
+            this._ps = null;
         }
     }
-    public Create(vsCode:string[], psCode:string[]):void {
+    public Create(vsCode: string[], psCode: string[]): void {
         let vs;
-        if(vsCode)  {
-            vs=gl && gl.createShader(gl.VERTEX_SHADER);
+        if (vsCode) {
+            vs = gl && gl.createShader(gl.VERTEX_SHADER);
             gl && gl.shaderSource(vs as WebGLShader, vsCode.join("\n"));
             gl && gl.compileShader(vs as WebGLShader);
-            if(!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
+            if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) {
                 console.log('VertexShader compile failed: ' + gl.getShaderInfoLog(vs));
             }
-            this._vs=vs;
-        }else {
-            vs=g_VertHandle;
+            this._vs = vs;
+        } else {
+            vs = g_VertHandle;
         }
-    
+
         let ps;
-        if(psCode)  {
+        if (psCode) {
             ps = gl && gl.createShader(gl.FRAGMENT_SHADER);
             gl && gl.shaderSource(ps as WebGLShader, psCode.join("\n"));
             gl && gl.compileShader(ps as WebGLShader);
-            if(!gl.getShaderParameter(ps, gl.COMPILE_STATUS)) {
+            if (!gl.getShaderParameter(ps, gl.COMPILE_STATUS)) {
                 console.log('FragmentShader compile failed: ' + gl.getShaderInfoLog(ps));
             }
-            this._ps=ps;
-        }else {
-            ps=g_FragHandle;
+            this._ps = ps;
+        } else {
+            ps = g_FragHandle;
         }
 
         let program = gl && gl.createProgram();
         gl && gl.attachShader(program, vs as WebGLShader);
         gl && gl.attachShader(program, ps as WebGLShader);
         gl && gl.linkProgram(program);
-    
-        if(!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+
+        if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
             console.log('linkProgram failed: ' + gl.getProgramInfoLog(program));
         }
-        this._program=program;
+        this._program = program;
     }
 
-    private _program:WebGLProgram;
-    private _vs:WebGLShader;
-    private _ps:WebGLShader;
+    private _program: WebGLProgram;
+    private _vs: WebGLShader;
+    private _ps: WebGLShader;
 }
