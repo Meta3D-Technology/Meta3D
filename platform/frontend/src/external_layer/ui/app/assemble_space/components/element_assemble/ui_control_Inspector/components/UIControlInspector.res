@@ -59,31 +59,39 @@ module Method = {
   }
 
   let buildInputNameSelectValues = (service, selectedContributes, uiControlProtocolName) => {
-    // input: option<ElementAssembleStoreType.input>,
+    ErrorUtils.showCatchedErrorMessageAndReturn(
+      (. ()) => {
+        // input: option<ElementAssembleStoreType.input>,
 
-    // let values =
-    SelectedContributesForElementUtils.getInputs(selectedContributes)
-    ->Meta3dCommonlib.ListSt.toArray
+        // let values =
+        SelectedContributesForElementUtils.getInputs(selectedContributes)
+        ->Meta3dCommonlib.ListSt.toArray
 
-    // TODO open this filter
-    // ->Meta3dCommonlib.ArraySt.filter(({data}) => {
-    //   // data.contributePackageData.protocol.name->Js.String.replace("-input-", "-ui-control-", _) ==
-    //   //   uiControlProtocolName
+        // TODO open this filter
+        // ->Meta3dCommonlib.ArraySt.filter(({data}) => {
+        //   // data.contributePackageData.protocol.name->Js.String.replace("-input-", "-ui-control-", _) ==
+        //   //   uiControlProtocolName
 
-    //   (
-    //     data.contributePackageData.protocol.name
-    //     ->Js.String.match_(%re("/-input-(.+)$/i"), _)
-    //     ->Meta3dCommonlib.OptionSt.getExn
-    //   )[1]->Meta3dCommonlib.OptionSt.getExn ==
-    //     (
-    //       uiControlProtocolName
-    //       ->Js.String.match_(%re("/-ui-control-(.+)$/i"), _)
-    //       ->Meta3dCommonlib.OptionSt.getExn
-    //     )[1]->Meta3dCommonlib.OptionSt.getExn
-    // })
-    ->Meta3dCommonlib.ArraySt.map(({data}) => {
-      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
-    })
+        //   (
+        //     data.contributePackageData.protocol.name
+        //     ->Js.String.match_(%re("/-input-(.+)$/i"), _)
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   )[1]->Meta3dCommonlib.OptionSt.getExn ==
+        //     (
+        //       uiControlProtocolName
+        //       ->Js.String.match_(%re("/-ui-control-(.+)$/i"), _)
+        //       ->Meta3dCommonlib.OptionSt.getExn
+        //     )[1]->Meta3dCommonlib.OptionSt.getExn
+        // })
+        ->Meta3dCommonlib.ArraySt.map(({data}) => {
+          (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["inputName"]
+        })
+      },
+      (. ()) => {
+        []
+      },
+      5->Some,
+    )->Obj.magic
 
     // switch input {
     // | Some({inputName}) if !(values->Meta3dCommonlib.ArraySt.includes(inputName)) =>
@@ -148,25 +156,23 @@ module Method = {
     dispatch(
       ElementAssembleStoreType.SetAction(
         id,
-        (
-          eventName,
-          SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName),
-        ),
+        (eventName, SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
       ),
     )
   }
 
   let buildActionNameSelectValues = (service, actions) => {
-    // let values =
-    actions->Meta3dCommonlib.ArraySt.map(({data}: ApAssembleStoreType.contribute) => {
-      (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
-    })
-
-    // switch actionName {
-    // | Some(actionName) if !(values->Meta3dCommonlib.ArraySt.includes(actionName)) =>
-    //   values->Meta3dCommonlib.ArraySt.push(actionName)
-    // | _ => values
-    // }
+    ErrorUtils.showCatchedErrorMessageAndReturn(
+      (. ()) => {
+        actions->Meta3dCommonlib.ArraySt.map(({data}: ApAssembleStoreType.contribute) => {
+          (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
+        })
+      },
+      (. ()) => {
+        []
+      },
+      5->Some,
+    )->Obj.magic
   }
 
   //   let buildDefaultActionFileStr = (random, uiControlProtocolName, eventName) => {
@@ -267,12 +273,7 @@ module Method = {
         ->Obj.magic}
         step="1"
         onChange={value => {
-          setRectField(
-            dispatch,
-            id,
-            rect,
-            value->Obj.magic->CommonType.IntForRectField,
-          )
+          setRectField(dispatch, id, rect, value->Obj.magic->CommonType.IntForRectField)
         }}
       />
       // {SelectUtils.buildSelect(value =>
@@ -392,9 +393,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
     )
   }
 
-  let getSpecificDataValue = (
-    specificDataValue: ElementAssembleStoreType.specificDataValue,
-  ) => {
+  let getSpecificDataValue = (specificDataValue: ElementAssembleStoreType.specificDataValue) => {
     switch specificDataValue {
     | SpecicFieldDataValue(value) => value
     // | _ => None
@@ -511,16 +510,13 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
                   specific,
                   id,
                   i,
-                  value
-                  ->SpecificUtils.convertStringToValue(type_)
-                  ->CommonType.SpecicFieldDataValue,
+                  value->SpecificUtils.convertStringToValue(type_)->CommonType.SpecicFieldDataValue,
                   type_,
                 ),
               getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_),
               ["true", "false"],
             )
-          | #select =>
-            SelectUtils.buildSelectWithKeysAndWithoutEmpty(selectedValue => {
+          | #select => SelectUtils.buildSelectWithKeysAndWithoutEmpty(selectedValue => {
               _setSpecificData(
                 dispatch,
                 specific,
@@ -661,9 +657,7 @@ let make = (
           Method.setInput(dispatch, id),
           input
           ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
-          ->Meta3dCommonlib.OptionSt.getWithDefault(
-            SelectUtils.buildEmptySelectOptionValue(),
-          ),
+          ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
           Method.buildInputNameSelectValues(
             service,
             selectedContributes,
@@ -705,9 +699,7 @@ let make = (
             ElementMRUtils.getActionName(
               event,
               eventName,
-            )->Meta3dCommonlib.NullableSt.getWithDefault(
-              SelectUtils.buildEmptySelectOptionValue(),
-            )
+            )->Meta3dCommonlib.NullableSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue())
 
           <List.Item key={eventName->Obj.magic}>
             <Space direction=#vertical size=#middle>

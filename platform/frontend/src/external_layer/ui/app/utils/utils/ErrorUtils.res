@@ -52,6 +52,16 @@ let showCatchedErrorMessageWithFunc = (func, handleErrorFunc, durationOpt) => {
   }
 }
 
+let showCatchedErrorMessageAndReturn = (func, handleErrorReturnFunc, durationOpt) => {
+  try {
+    func(.)->Obj.magic
+  } catch {
+  | Js.Exn.Error(obj) =>
+    errorWithExn(obj, durationOpt)
+    handleErrorReturnFunc(.)
+  }
+}
+
 let swallowCatchedError = (func, warnMessage) => {
   try {
     func()
