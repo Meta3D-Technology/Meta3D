@@ -38,9 +38,9 @@ module Method = {
   }
 
   let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {
-    let {customActions} = elementAssembleState
+    let {customActions, currentCustomActionName} = elementAssembleState
 
-    customActions
+    (customActions, currentCustomActionName)
   }
 }
 
@@ -48,14 +48,16 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let customActions = service.react.useSelector(. Method.useSelector)
+  let (customActions, currentCustomActionName) = service.react.useSelector(. Method.useSelector)
 
   <CustomDomUtils
     service
     buildSelectActionFunc={key => ElementAssembleStoreType.SelectCustomAction(key)}
     buildAddActionFunc={customAction => ElementAssembleStoreType.AddCustomAction(customAction)}
+    buildRemoveActionFunc={actionName => ElementAssembleStoreType.RemoveCustomAction(actionName)}
     buildDefaultFileStrFunc=Method.buildDefaultActionFileStr
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomActionNameToGlobal
+    currentCustomName=currentCustomActionName
     customs=customActions
     prefix="Action"
   />

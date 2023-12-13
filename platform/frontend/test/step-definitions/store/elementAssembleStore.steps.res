@@ -487,6 +487,46 @@ defineFeature(feature, test => {
     )
   })
 
+  let _prepareForCustomInput = (given, \"and", inputName, fileStr) => {
+    given("init store", () => {
+      store := ElementAssembleStore.initialState
+    })
+
+    \"and"("add custom input1", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          ElementAssembleStoreType.SetCustom(
+            list{CustomTool.buildCustomInput(~name=inputName, ~fileStr, ())},
+            list{},
+          ),
+        )
+    })
+
+    \"and"("select ui control u1 with id1", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+        )
+
+      id1 :=
+        (
+          store.contents.selectedUIControls
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).id
+    })
+
+    \"and"("set input to input1 with id1", () => {
+      store :=
+        ElementAssembleStore.reducer(
+          store.contents,
+          ElementAssembleStoreType.SetInput(id1.contents, inputName->Some),
+        )
+    })
+  }
+
   test(."update custom input file str", ({given, \"when", \"and", then}) => {
     // let eventName = #button_click
     let inputName = "i1"
@@ -494,61 +534,9 @@ defineFeature(feature, test => {
     let fileStr = "f1"
     let newFileStr = "f1_1"
 
-    let _prepareForUpdate = (given, \"and") => {
-      given(
-        "init store",
-        () => {
-          store := ElementAssembleStore.initialState
-        },
-      )
-
-      \"and"(
-        "add custom input1",
-        () => {
-          store :=
-            ElementAssembleStore.reducer(
-              store.contents,
-              ElementAssembleStoreType.SetCustom(
-                list{CustomTool.buildCustomInput(~name=inputName, ~fileStr, ())},
-                list{},
-              ),
-            )
-        },
-      )
-
-      \"and"(
-        "select ui control u1 with id1",
-        () => {
-          store :=
-            ElementAssembleStore.reducer(
-              store.contents,
-              ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
-            )
-
-          id1 :=
-            (
-              store.contents.selectedUIControls
-              ->Meta3dCommonlib.ListSt.head
-              ->Meta3dCommonlib.OptionSt.getExn
-            ).id
-        },
-      )
-
-      \"and"(
-        "set input to input1 with id1",
-        () => {
-          store :=
-            ElementAssembleStore.reducer(
-              store.contents,
-              ElementAssembleStoreType.SetInput(id1.contents, inputName->Some),
-            )
-        },
-      )
-    }
-
     _prepare(given)
 
-    _prepareForUpdate(given, \"and")
+    _prepareForCustomInput(given, \"and", inputName, fileStr)
 
     \"when"(
       "update custom input1's name and file str",
@@ -585,6 +573,43 @@ defineFeature(feature, test => {
           //   ),
           // }
           UIControlInspectorTool.buildInput(~inputName=inputNewName, ())
+      },
+    )
+  })
+
+  test(."remove custom input", ({given, \"when", \"and", then}) => {
+    let inputName = "i1"
+
+    _prepare(given)
+
+    _prepareForCustomInput(given, \"and", inputName, "")
+
+    \"when"(
+      "remove custom input1",
+      () => {
+        store :=
+          ElementAssembleStore.reducer(
+            store.contents,
+            ElementAssembleStoreType.RemoveCustomInput(inputName),
+          )
+      },
+    )
+
+    then(
+      "should remove from custom inputs",
+      () => {
+        store.contents.customInputs->expect == list{}
+      },
+    )
+
+    \"and"(
+      "u1's uiControlInspectorData's input should be empty",
+      () => {
+        (
+          store.contents.selectedUIControlInspectorData
+          ->Meta3dCommonlib.ListSt.head
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).input->expect == None
       },
     )
   })

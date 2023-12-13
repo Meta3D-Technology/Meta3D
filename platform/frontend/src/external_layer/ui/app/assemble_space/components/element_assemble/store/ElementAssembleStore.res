@@ -403,6 +403,36 @@ let reducer = (state, action) => {
       ...state,
       customActions: state.customActions->Meta3dCommonlib.ListSt.push(customAction),
     }
+  | RemoveCustomInput(inputName) => {
+      let state = {
+        ...state,
+        customInputs: state.customInputs->Meta3dCommonlib.ListSt.filter(({name}) =>
+          name != inputName
+        ),
+      }
+
+      state->_updateAllUIControlInspectorData(data => {
+        ...data,
+        input: data.input->Meta3dCommonlib.OptionSt.bind(input => {
+          input.inputName == inputName ? None : input->Some
+        }),
+      })
+    }
+  | RemoveCustomAction(actionName) => {
+      let state = {
+        ...state,
+        customActions: state.customActions->Meta3dCommonlib.ListSt.filter(({name}) =>
+          name != actionName
+        ),
+      }
+
+      state->_updateAllUIControlInspectorData(data => {
+        ...data,
+        event: data.event->Meta3dCommonlib.ArraySt.filter(event => {
+          event.actionName != actionName
+        }),
+      })
+    }
   | UpdateCustomInputFileStr(oldInputName, newInputName, fileStr) => {
       let state = {
         ...state,

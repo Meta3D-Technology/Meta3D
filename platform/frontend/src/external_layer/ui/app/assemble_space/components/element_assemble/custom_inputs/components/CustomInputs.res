@@ -17,9 +17,9 @@ module Method = {
   }
 
   let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {
-    let {customInputs} = elementAssembleState
+    let {customInputs, currentCustomInputName} = elementAssembleState
 
-    customInputs
+    (customInputs, currentCustomInputName)
   }
 }
 
@@ -27,14 +27,16 @@ module Method = {
 let make = (~service: service) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let customInputs = service.react.useSelector(. Method.useSelector)
+  let (customInputs, currentCustomInputName) = service.react.useSelector(. Method.useSelector)
 
   <CustomDomUtils
     service
     buildSelectActionFunc={key => ElementAssembleStoreType.SelectCustomInput(key)}
     buildAddActionFunc={customInput => ElementAssembleStoreType.AddCustomInput(customInput)}
+    buildRemoveActionFunc={inputName => ElementAssembleStoreType.RemoveCustomInput(inputName)}
     buildDefaultFileStrFunc=Method.buildDefaultInputFileStr
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomInputNameToGlobal
+    currentCustomName= currentCustomInputName
     customs=customInputs
     prefix="Input"
   />

@@ -69,7 +69,7 @@ Feature: ElementAssembleStore
 
     Rule: update custom input file str
 
-        Background: prepare for update custom input file str
+        Background: prepare for custom input
             Given init store
             And add custom input1
             And select ui control u1 with id1
@@ -79,3 +79,17 @@ Feature: ElementAssembleStore
             When update custom input1's name and file str
             Then should has correct custom inputs
             And u1's uiControlInspectorData's input should update to new name
+
+
+    Rule: remove custom input
+
+        Background: prepare for custom input
+            Given init store
+            And add custom input1
+            And select ui control u1 with id1
+            And set input to input1 with id1
+
+        Scenario: remove custom input
+            When remove custom input1
+            Then should remove from custom inputs
+            And u1's uiControlInspectorData's input should be empty

@@ -468,7 +468,7 @@ TODO format
 AssembleSpace
 
 
-* TODO add dispose custom input,action
+* DONE add dispose custom input,action
 
 
 * TODO update all actions

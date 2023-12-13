@@ -33,6 +33,13 @@ module Method = {
     )
   }
 
+  let removeCustom = (dispatch, buildRemoveActionFunc, currentCustomName) => {
+    switch currentCustomName {
+    | Some(currentCustomName) => dispatch(buildRemoveActionFunc(currentCustomName))
+    | None => ()
+    }
+  }
+
   let convertToTreeData = customs => {
     customs
     ->Meta3dCommonlib.ListSt.map(({name, fileStr}: CommonType.custom): Tree.treeData => {
@@ -66,8 +73,10 @@ let make = (
   ~service: service,
   ~buildSelectActionFunc,
   ~buildAddActionFunc,
+  ~buildRemoveActionFunc,
   ~buildDefaultFileStrFunc,
   ~setCurrentCustomNameToGlobalFunc,
+  ~currentCustomName,
   ~customs,
   ~prefix,
 ) => {
@@ -83,6 +92,12 @@ let make = (
         icon={<Icon.FileAddOutlined />}
         onClick={_ => {
           Method.addCustom(dispatch, buildAddActionFunc, buildDefaultFileStrFunc, prefix, customs)
+        }}
+      />
+      <Button
+        icon={<Icon.DeleteOutlined />}
+        onClick={_ => {
+          Method.removeCustom(dispatch, buildRemoveActionFunc, currentCustomName)
         }}
       />
     </Space>

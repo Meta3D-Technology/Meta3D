@@ -170,6 +170,8 @@ type action =
   | SetCanvasData(canvasData)
   | AddCustomInput(customInput)
   | AddCustomAction(customAction)
+  | RemoveCustomInput(CommonType.inputName)
+  | RemoveCustomAction(CommonType.actionName)
   | UpdateCustomInputFileStr(CommonType.inputName, CommonType.inputName, CommonType.inputFileStr)
   | UpdateCustomActionFileStr(
       CommonType.actionName,
