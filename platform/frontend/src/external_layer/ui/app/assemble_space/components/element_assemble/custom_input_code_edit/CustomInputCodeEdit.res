@@ -18,11 +18,13 @@ module Method = {
     )
   }
 
-
   let getNewCode = (dispatch, inputName, newCode) => {
-    let newCode = newCode->CodeEditUtils. convertToNewCode
+    let newCode = newCode->CodeEditUtils.convertToNewCode
 
-    let newInputName = newCode->CustomUtils.getInputName
+    let newInputName =
+      newCode
+      ->CustomUtils.getInputName
+      ->Meta3dCommonlib.OptionSt.getWithDefault(inputName)
 
     CodeEditUtils.setCurrentCustomInputNameToGlobal(newInputName)
 

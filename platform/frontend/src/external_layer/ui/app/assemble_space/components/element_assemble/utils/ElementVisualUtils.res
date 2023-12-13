@@ -84,9 +84,7 @@
 // }
 
 let _removeElementContribute = selectedContributes => {
-  selectedContributes->Meta3dCommonlib.ArraySt.filter((
-    {data}: ApAssembleStoreType.contribute,
-  ) => {
+  selectedContributes->Meta3dCommonlib.ArraySt.filter(({data}: ApAssembleStoreType.contribute) => {
     data.contributePackageData.protocol.name !==
       ElementContributeUtils.getElementContributeProtocolName()
   })
@@ -155,11 +153,7 @@ let getEditorWholePackageProtocolName = () => "meta3d-editor-whole-protocol"
 //   data,
 // }
 
-let generateElementContribute = (
-  service: AssembleSpaceType.service,
-  account,
-  fileStr,
-) => {
+let generateElementContribute = (service: AssembleSpaceType.service, account, fileStr) => {
   service.meta3d.generateContribute(.
     (
       {
@@ -180,17 +174,10 @@ let generateElementContribute = (
     fileStr,
   )
   ->service.meta3d.loadContribute(. _)
-  ->ElementUtils.buildContribute(
-    ~version=ElementUtils.getElementContributeVersion(),
-    ~data=_,
-    (),
-  )
+  ->ElementUtils.buildContribute(~version=ElementUtils.getElementContributeVersion(), ~data=_, ())
 }
 
-let cancelAppLoop = (
-  service: AssembleSpaceType.service,
-  loopFrameID: React.ref<option<int>>,
-) => {
+let cancelAppLoop = (service: AssembleSpaceType.service, loopFrameID: React.ref<option<int>>) => {
   switch loopFrameID.current {
   | Some(id) => service.other.cancelAnimationFrame(id)
   | None => ()
@@ -209,10 +196,7 @@ let cancelAppLoop = (
 // }
 
 let isCustomInput = inputProtocolName => {
-  inputProtocolName->Js.String.includes(
-    ElementUtils.buildCustomInputProtocolNamePrefix(),
-    _,
-  )
+  inputProtocolName->Js.String.includes(ElementUtils.buildCustomInputProtocolNamePrefix(), _)
 }
 
 let buildEmptyAddGeneratedContributeFunc = () => {
@@ -236,9 +220,9 @@ let buildEmptyAddGeneratedContributeFunc = () => {
 //     _,
 //   )
 // }
-let isCustomAction = (actionProtocolName) => {
+let isCustomAction = actionProtocolName => {
   actionProtocolName->Js.String.includes(
-    {j`${ElementUtils.buildCustomInputProtocolNamePrefix()}`},
+    {j`${ElementUtils.buildCustomActionProtocolNamePrefix()}`},
     _,
   )
 }

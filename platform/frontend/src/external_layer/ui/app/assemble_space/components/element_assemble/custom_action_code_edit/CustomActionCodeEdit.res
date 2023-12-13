@@ -18,11 +18,11 @@ module Method = {
     )
   }
 
-
   let getNewCode = (dispatch, actionName, newCode) => {
-    let newCode = newCode->CodeEditUtils. convertToNewCode
+    let newCode = newCode->CodeEditUtils.convertToNewCode
 
-    let newActionName = newCode->CustomUtils.getActionName
+    let newActionName =
+      newCode->CustomUtils.getActionName->Meta3dCommonlib.OptionSt.getWithDefault(actionName)
 
     CodeEditUtils.setCurrentCustomActionNameToGlobal(newActionName)
 

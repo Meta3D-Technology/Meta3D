@@ -65,7 +65,7 @@ rename another custom input's name to add post fix:"_copy";
   }
 
   let _mergeCustomAndLocalBundledForInput = (customInputs, localBundledSource) => {
-    let name = localBundledSource->CustomUtils.getInputName
+    let name = localBundledSource->CustomUtils.getInputName->Meta3dCommonlib.OptionSt.getExn
 
     /* ! TODO should handle same name more:
 now just not add duplicate one, but need handle more
@@ -79,7 +79,7 @@ now just not add duplicate one, but need handle more
       : customInputs->Meta3dCommonlib.ListSt.push(
           (
             {
-              name: localBundledSource->CustomUtils.getInputName,
+              name,
               fileStr: localBundledSource->CodeEditUtils.convertToNewCode,
             }: AssembleSpaceCommonType.customInput
           ),
@@ -87,7 +87,7 @@ now just not add duplicate one, but need handle more
   }
 
   let _mergeCustomAndLocalBundledForAction = (customActions, localBundledSource) => {
-    let name = localBundledSource->CustomUtils.getActionName
+    let name = localBundledSource->CustomUtils.getActionName->Meta3dCommonlib.OptionSt.getExn
 
     /* ! TODO should handle same name more:
 now just not add duplicate one, but need handle more
@@ -101,11 +101,20 @@ now just not add duplicate one, but need handle more
       : customActions->Meta3dCommonlib.ListSt.push(
           (
             {
-              name: localBundledSource->CustomUtils.getActionName,
+              name,
               fileStr: localBundledSource->CodeEditUtils.convertToNewCode,
             }: AssembleSpaceCommonType.customAction
           ),
         )
+  }
+
+  let removeInputsAndActions = (
+    selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
+  ) => {
+    selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+      // !LocalUtils.isLocalInput(protocolName) && !LocalUtils.isLocalAction(protocolName)
+      !ContributeTypeUtils.isInput(protocolName) && !ContributeTypeUtils.isAction(protocolName)
+    })
   }
 
   let convertLocalToCustom = (
@@ -114,27 +123,22 @@ now just not add duplicate one, but need handle more
     selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
   ) => {
     (
-      selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-        !LocalUtils.isLocalInput(protocolName) && !LocalUtils.isLocalAction(protocolName)
-      }),
-      (
-        selectedContributes
-        ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-          LocalUtils.isLocalInput(protocolName)
-        })
-        ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
-          service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
-        })
-        ->Meta3dCommonlib.ListSt.reduce(customInputs, _mergeCustomAndLocalBundledForInput),
-        selectedContributes
-        ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-          LocalUtils.isLocalAction(protocolName)
-        })
-        ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
-          service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
-        })
-        ->Meta3dCommonlib.ListSt.reduce(customActions, _mergeCustomAndLocalBundledForAction),
-      ),
+      selectedContributes
+      ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+        LocalUtils.isLocalInput(protocolName)
+      })
+      ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
+        service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
+      })
+      ->Meta3dCommonlib.ListSt.reduce(customInputs, _mergeCustomAndLocalBundledForInput),
+      selectedContributes
+      ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+        LocalUtils.isLocalAction(protocolName)
+      })
+      ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
+        service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
+      })
+      ->Meta3dCommonlib.ListSt.reduce(customActions, _mergeCustomAndLocalBundledForAction),
     )
   }
 
@@ -385,12 +389,16 @@ let make = (
     Method.reset(dispatch)
 
     ErrorUtils.showCatchedErrorMessage(() => {
-      let (selectedContributesFromMarket, (customInputs, customActions)) =
+      let (customInputs, customActions) =
         Method.getImportedElementCustom(selectedElementsFromMarket)->Method.convertLocalToCustom(
           service,
           _,
           selectedContributesFromMarket,
         )
+
+      let selectedContributesFromMarket = Method.removeInputsAndActions(
+        selectedContributesFromMarket,
+      )
 
       Method.importElement(
         service,

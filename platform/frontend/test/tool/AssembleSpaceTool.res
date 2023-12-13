@@ -47,3 +47,5 @@ let buildSelectedContribute = (
 }
 
 let convertLocalToCustom = AssembleSpace.Method.convertLocalToCustom
+
+let removeInputsAndActions = AssembleSpace.Method.removeInputsAndActions

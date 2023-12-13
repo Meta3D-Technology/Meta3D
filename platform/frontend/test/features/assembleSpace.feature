@@ -22,5 +22,16 @@ Feature: AssembleSpace
             And select local input2
             And build custom input1 whose name is duplicated with local input2
             When convert local to custom
-            Then selectedContributes should remove all local inputs
-            And should add converted local input1 to custom inputs
+            # Then selectedContributes should remove all local inputs
+            Then should add converted local input1 to custom inputs
+
+
+    Rule: remove inputs and actions
+
+        Scenario: selectedContributesFromMarket remove inputs and actions
+            Given select local input1
+            And select local input2
+            And select local action1
+            And build custom input1
+            When remove inputs and actions
+            Then selectedContributes should remove all inputs and actions

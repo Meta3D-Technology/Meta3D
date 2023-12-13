@@ -445,8 +445,17 @@ TODO remove local input/action from selectedContributesFromMarket after import
 TODO compile should unify!
 
 
+    fix(platform): AssembleSpace->convertLocalToCustom: now remove local instead of local + custom
+    
+    because only has local, so only need remove local
+    
+
 TODO fix:
   change action/input name not match format, shouldn't error
+
+
+TODO compile error shouldn't crash
+
 
 TODO api.nullable.getExn should return any type
 
@@ -456,6 +465,8 @@ TODO format
 
 * TODO refactor: duplicate
 
+
+* TODO add dispose custom input,action
 
 
 * TODO update all actions

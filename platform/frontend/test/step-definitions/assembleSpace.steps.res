@@ -28,7 +28,6 @@ defineFeature(feature, test => {
     let customInput3 = CustomTool.buildCustomInput(~name="Input3", ~fileStr="f3", ())
     let i1Name = "input1"
     let result = ref(Obj.magic(1))
-    // let dispatchStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
@@ -70,7 +69,7 @@ defineFeature(feature, test => {
     then(
       "get merged custom inputs as [custom input1, custom input3]",
       () => {
-        result.contents->expect == ( list{customInput1, customInput3}, list{} )
+        result.contents->expect == (list{customInput1, customInput3}, list{})
       },
     )
   })
@@ -149,21 +148,12 @@ defineFeature(feature, test => {
     )
 
     then(
-      "selectedContributes should remove all local inputs",
-      () => {
-        result.contents->Meta3dCommonlib.Tuple2.getFirst->expect == list{}
-      },
-    )
-
-    \"and"(
       "should add converted local input1 to custom inputs",
       () => {
         // (result.contents->Meta3dCommonlib.Tuple2.getLast -> Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn).fileStr ->Meta3dCommonlib.Log.printStringForDebug-> ignore
 
         result.contents
-        ->Meta3dCommonlib.Tuple2.getLast
         ->Meta3dCommonlib.Tuple2.getFirst
-        // ->Meta3dCommonlib.Log.printStringForDebug
         ->CustomTool.formatCustomInputs
         ->expect ==
           list{
@@ -185,6 +175,79 @@ defineFeature(feature, test => {
               (),
             ),
           }->CustomTool.formatCustomInputs
+      },
+    )
+  })
+
+  test(."selectedContributesFromMarket remove inputs and actions", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let localInput1 = ref(Obj.magic(1))
+    let localInput1Name = "localInput1"
+    let localInput1BundledSource = AssembleSpaceTool.buildLocalInputBundledSource(localInput1Name)
+    let localInput2 = ref(Obj.magic(1))
+    let localInput2Name = "localInput2"
+    let localAction1 = ref(Obj.magic(1))
+    let customInput1 = ref(Obj.magic(1))
+    let result = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "select local input1",
+      () => {
+        localInput1 :=
+          AssembleSpaceTool.buildSelectedContribute(~protocolName="-input-protocol", ())
+      },
+    )
+
+    \"and"(
+      "select local input2",
+      () => {
+        localInput2 :=
+          AssembleSpaceTool.buildSelectedContribute(~protocolName="-input-protocol", ())
+      },
+    )
+
+    \"and"(
+      "select local action1",
+      () => {
+        localAction1 :=
+          AssembleSpaceTool.buildSelectedContribute(~protocolName="-action-protocol", ())
+      },
+    )
+
+    \"and"(
+      "build custom input1",
+      () => {
+        customInput1 :=
+          AssembleSpaceTool.buildSelectedContribute(
+            ~protocolName=ElementUtils.buildCustomInputProtocolNamePrefix(),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "remove inputs and actions",
+      () => {
+        result :=
+          AssembleSpaceTool.removeInputsAndActions(list{
+            localInput1.contents,
+            localInput2.contents,
+            localAction1.contents,
+            customInput1.contents,
+          })
+      },
+    )
+
+    then(
+      "selectedContributes should remove all inputs and actions",
+      () => {
+        result.contents->expect == list{}
       },
     )
   })
