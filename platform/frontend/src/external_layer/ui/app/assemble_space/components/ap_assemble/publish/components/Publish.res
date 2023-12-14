@@ -291,14 +291,14 @@ module Method = {
               let appBinaryFile = AppUtils.generateApp(
                 service,
                 (selectedPackages, allPackagesStoredInApp),
-                ElementVisualUtils.addGeneratedCustoms(
-                  service,
-                  selectedContributes->Meta3dCommonlib.ListSt.fromArray,
-                  account,
-                  customInputs,
-                  customActions,
-                )->Meta3dCommonlib.ListSt.toArray,
-                // selectedElementsFromMarket,
+                // ElementVisualUtils.addGeneratedCustoms(
+                //   service,
+                //   selectedContributes->Meta3dCommonlib.ListSt.fromArray,
+                //   account,
+                //   customInputs,
+                //   customActions,
+                // )->Meta3dCommonlib.ListSt.toArray,
+                selectedContributes,
                 list{
                   _buildSelectedElement(
                     account,
@@ -306,7 +306,7 @@ module Method = {
                     selectedUIControls,
                     customInputs,
                     customActions,
-                  )
+                  ),
                 },
                 (
                   (

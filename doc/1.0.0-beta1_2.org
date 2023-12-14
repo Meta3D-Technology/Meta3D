@@ -11,7 +11,7 @@ TODO pass bdd test
 TODO pass run test
 
 
-* TODO fix: run app
+* DONE fix: run app
 
 
 
