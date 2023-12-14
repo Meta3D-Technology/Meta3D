@@ -13,6 +13,7 @@ let buildUI = (
 let publish = (
   ~sandbox,
   ~service,
+  ~dispatchForAppStore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -36,6 +37,7 @@ let publish = (
 ) => {
   Publish.Method.onFinish(
     service,
+    dispatchForAppStore,
     (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,

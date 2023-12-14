@@ -7,7 +7,7 @@ type showType =
 
 @react.component
 let make = (~service: FrontendType.service) => {
-  let dispatch = AppStore.useDispatch()
+  // let dispatch = AppStore.useDispatch()
   let {selectedContributes} = AppStore.useSelector((
     {userCenterState}: AppStoreType.state,
   ) => userCenterState)

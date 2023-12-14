@@ -60,22 +60,32 @@ TODO auto select all actions, inputs, ui controls and editor, engine whole packa
 
 
 用户中心:
+
+use effect once:
+    select all ui controls
+    select editor,engine whole package
+
+
 show published apps
 
 
 create from scratch
-    select all ui controls
-    select editor,engine whole package
+    jump to assemble
+    mark engine whole package stored in package
     start editor whole package
-    jumpt to assemble
 
 create from template
-    jumpt to ShowByApp
-    after click Import, jumpt to assemble
+    jump to ShowByApp
+    after click Import:
+        jump to assemble
+        start editor whole package
 
 
 编辑应用
-    import it, jumpt to assemble
+    import it, then: 
+        jump to assemble
+        start editor whole package
+
 
 
     
@@ -85,6 +95,30 @@ create from template
 
 {{页面装配}} + 发布
 
+
+
+
+TODO finish create from scratch
+
+TODO publish app:
+should update current app name
+
+
+TODO pass compile
+
+# TODO pass bdd test
+
+TODO pass run test
+
+
+
+TODO finish create from template
+
+
+
+
+
+TODO finish edit app
 
 
 
@@ -140,8 +174,12 @@ use drag instead of select parent first!
 * TODO Custom Input/Action: should separate edit code and transpile code!
 
 
+* TODO Code: add editorWholePackage type infer
 
 
+
+
+* TODO import in ShowByApp should login first
 
 
 

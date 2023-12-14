@@ -47,9 +47,11 @@ type action =
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      // selectedElements,
-    )
+    ) // selectedElements,
   | SetContributes(selectedContributes)
+  | SelectAllUIControls(selectedContributes)
+  | SetPackages(selectedPackages)
+  | SetCurrentAppName(string)
 
 type state = {
   account: option<string>,
@@ -59,6 +61,7 @@ type state = {
   selectedElements: selectedElements,
   importedPackageIds: list<id>,
   importedAppIds: list<id>,
+  currentAppName: option<string>,
   // customInputs: customInputs,
   // customActions: customActions,
 }

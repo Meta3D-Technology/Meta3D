@@ -68,6 +68,17 @@ let _removeOtherSelectedContributesOfSameProtocolNameExceptInput = (
       })
 }
 
+let _removeOtherSelectedContributesOfSameProtocolName = (
+  selectedContributes: selectedContributes,
+  data: contribute,
+) => {
+  let protocolName = data.protocolName
+
+  selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
+    selectedContribute.protocolName !== protocolName
+  })
+}
+
 let _removeOtherSelectedPackagesOfSameProtocolName = (
   selectedPackages: selectedPackages,
   data: packageData,
@@ -242,6 +253,22 @@ let reducer = (state, action) => {
       //   : selectedElements,
     }
   | SetContributes(selectedContributes) => {...state, selectedContributes}
+  | SelectAllUIControls(allUIControls) => {
+      ...state,
+      selectedContributes: allUIControls->Meta3dCommonlib.ListSt.reduce(state.selectedContributes, (
+        result,
+        (data, protocolConfigOpt) as uiControl,
+      ) => {
+        result
+        ->_removeOtherSelectedContributesOfSameProtocolName(data)
+        ->Meta3dCommonlib.ListSt.push(uiControl)
+      }),
+    }
+  | SetPackages(selectedPackages) => {...state, selectedPackages}
+  | SetCurrentAppName(appName) => {
+      ...state,
+      currentAppName: appName->Some,
+    }
   }
 }
 
@@ -255,4 +282,5 @@ let initialState = {
   // customActions: list{},
   importedPackageIds: list{},
   importedAppIds: list{},
+  currentAppName: None,
 }

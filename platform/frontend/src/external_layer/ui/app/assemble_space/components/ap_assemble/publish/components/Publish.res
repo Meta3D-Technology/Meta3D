@@ -209,6 +209,7 @@ module Method = {
 
   let onFinish = (
     service,
+    dispatchForAppStore,
     (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,
@@ -271,6 +272,10 @@ module Method = {
           // }
           // : {
           //   }
+
+          dispatchForAppStore(
+            AppStoreType.UserCenterAction(UserCenterStoreType.SetCurrentAppName(appName)),
+          )
 
           let selectedContributes =
             selectedContributes
@@ -386,6 +391,8 @@ module Method = {
 
 @react.component
 let make = (~service: service, ~account: option<string>) => {
+  let dispatchForAppStore = service.app.useDispatch()
+
   let (
     (
       selectedPackages,
@@ -438,6 +445,7 @@ let make = (~service: service, ~account: option<string>) => {
                       ? ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
                       : Method.onFinish(
                           service,
+                          dispatchForAppStore,
                           (setUploadProgress, setIsUploadBegin, setVisible),
                           (
                             account,

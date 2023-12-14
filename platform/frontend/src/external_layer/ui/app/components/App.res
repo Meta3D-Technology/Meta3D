@@ -5,13 +5,17 @@ module Method = {
   let judgeToJumpToLogin = (buildUI, account, service) => {
     switch account {
     | Some(_) => buildUI()
-    | None => <Login service />
+    | None =>
+      RescriptReactRouter.push("/Login")
+      <Login service />
     }
   }
 }
 
 @react.component
 let make = (~service: FrontendType.service, ~env: EnvType.env) => {
+  let dispatch = AppStore.useDispatch()
+
   let url = RescriptReactRouter.useUrl()
 
   let {
@@ -20,6 +24,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     selectedContributes,
     selectedPackages,
     selectedElements,
+    currentAppName,
     // customInputs,
     // customActions,
   } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
@@ -151,10 +156,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {
-      error: (. errorMessage, durationOpt) =>
-        ErrorUtils.error(errorMessage, durationOpt),
-      errorWithExn: (. error, durationOpt) =>
-        ErrorUtils.errorWithExn(error, durationOpt),
+      error: (. errorMessage, durationOpt) => ErrorUtils.error(errorMessage, durationOpt),
+      errorWithExn: (. error, durationOpt) => ErrorUtils.errorWithExn(error, durationOpt),
     },
     react: {
       useCallback1: (. func, param) => {
@@ -265,22 +268,39 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     },
   }
 
+  // React.useEffect0(() => {
+  //   ErrorUtils.showCatchedErrorMessage(() => {
+  //     _selectAllUIControls(service, dispatch)
+  //     ->Js.Promise.then_(
+  //       () => {
+  //         _selectEditorWholeAndEngineWholePackages(service, dispatch)
+  //       },
+  //       _,
+  //     )
+  //     ->ignore
+  //   }, 5->Some)
+
+  //   None
+  // })
+
   {
     switch url.path {
     | list{"Login"} => <Login service />
     | list{"Register"} => <Register service />
-    | list{"ExtensionMarket"} =>
-      Method.judgeToJumpToLogin(() => <ExtensionMarket service />, account, service)
-    | list{"ContributeMarket"} =>
-      Method.judgeToJumpToLogin(() => <ContributeMarket service />, account, service)
+    // | list{"ExtensionMarket"} =>
+    //   Method.judgeToJumpToLogin(() => <ExtensionMarket service />, account, service)
+    // | list{"ContributeMarket"} =>
+    //   Method.judgeToJumpToLogin(() => <ContributeMarket service />, account, service)
 
-    | list{"PackageMarket"} =>
-      Method.judgeToJumpToLogin(() => <PackageMarket service />, account, service)
+    // | list{"PackageMarket"} =>
+    //   Method.judgeToJumpToLogin(() => <PackageMarket service />, account, service)
 
     | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() =>
         <Layout>
           <Layout.Header>
-            <Nav currentKey="7" />
+            <AssembleSpaceNav
+              currentKey="2" appName={currentAppName->Meta3dCommonlib.OptionSt.getExn}
+            />
           </Layout.Header>
           <Layout.Content>
             <AssembleSpace
@@ -300,11 +320,10 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     // | list{"ShowPublishedElements"} =>
     //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />
-    | list{"RunElementVisual"} =>
-      <RunElementVisual service={_buildAssembleSpaceService()} />
+    | list{"RunElementVisual"} => <RunElementVisual service={_buildAssembleSpaceService()} />
     | list{}
     | _ =>
-      <Index />
+      <UserCenter service />
     }
   }
 }

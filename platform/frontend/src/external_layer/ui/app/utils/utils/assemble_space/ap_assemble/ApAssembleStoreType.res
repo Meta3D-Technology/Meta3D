@@ -101,7 +101,11 @@ type action =
   | StorePackageInApp(id)
   | UnStorePackageInApp(id)
   | BatchStorePackagesInApp(list<id>)
-// | SelectAllElements(selectedElements)
+  // | SelectAllElements(selectedElements)
+  | SetContributesAndPackages(
+      selectedContributes,
+      selectedPackages,
+    )
 
 type state = {
   selectedPackages: selectedPackages,

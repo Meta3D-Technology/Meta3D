@@ -45,9 +45,7 @@ let _reset = state => {
   }
 }
 
-let _unstartAllSelectedPackages = (
-  selectedPackages: ApAssembleStoreType.selectedPackages,
-) => {
+let _unstartAllSelectedPackages = (selectedPackages: ApAssembleStoreType.selectedPackages) => {
   selectedPackages->Meta3dCommonlib.ListSt.map(package => {
     {
       ...package,
@@ -281,6 +279,16 @@ let reducer = (state, action) => {
   | BatchStorePackagesInApp(ids) => {
       ...state,
       storedPackageIdsInApp: state.storedPackageIdsInApp->Meta3dCommonlib.ListSt.concat(ids),
+    }
+  | SetContributesAndPackages(
+      // selectedExtensions,
+      selectedContributes,
+      selectedPackages,
+    ) => {
+      ...state,
+      // selectedExtensions,
+      selectedContributes,
+      selectedPackages,
     }
   // | SelectAllElements(elements) => {
   //     ...state,

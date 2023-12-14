@@ -143,6 +143,8 @@ let buildFrontendService = (): FrontendType.backendService => {
     getAllPublishPackageInfos,
     findPublishPackage,
     findAllElementAssembleData,
+    findNewestPublishPackage,
+    findNewestPublishContribute,
   }
 }
 

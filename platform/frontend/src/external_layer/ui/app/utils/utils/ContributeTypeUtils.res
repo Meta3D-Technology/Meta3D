@@ -1,13 +1,13 @@
+let isUIControl = protocolName => {
+  protocolName->Js.String.includes("-ui-control-", _)
+}
+
 let isInput = protocolName => {
-  protocolName->Js.String.includes("-input-", _)
+  protocolName->Js.String.includes("-input-", _) && !(protocolName->isUIControl)
 }
 
 let isAction = protocolName => {
-  protocolName->Js.String.includes("-action-", _)
-}
-
-let isUIControl = protocolName => {
-  protocolName->Js.String.includes("-ui-control-", _)
+  protocolName->Js.String.includes("-action-", _) && !(protocolName->isUIControl)
 }
 
 let decideContributeType = (protocolName: string): Meta3dType.ContributeType.contributeType => {
