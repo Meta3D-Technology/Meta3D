@@ -71,7 +71,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
+let make = (~service: service, ~account) => {
   let dispatch = service.react.useDispatch()
   let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
     service.react.useDispatch,
@@ -123,7 +123,7 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>
-        <PublishElement service account />
+        // <PublishElement service account />
         // <ElementController service />
         <RunElementVisualController service account selectedContributes />
         <CanvasController service />
@@ -163,7 +163,7 @@ let make = (~service: service, ~account, ~selectedElementsFromMarket) => {
         | _ =>
           <Layout>
             <Layout.Content>
-              <ElementVisual service account selectedElementsFromMarket selectedContributes />
+              <ElementVisual service account selectedContributes />
             </Layout.Content>
             <Layout.Sider theme=#light>
               <ElementInspector service account selectedContributes />

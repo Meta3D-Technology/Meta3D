@@ -14,8 +14,8 @@ let make = (~currentKey="1") => {
       | "3" => RescriptReactRouter.push("/ContributeMarket")
       | "4" => RescriptReactRouter.push("/PackageMarket")
       | "5" => RescriptReactRouter.push("/ShowPublishedApps")
-      | "6" => RescriptReactRouter.push("/ShowPublishedElements")
-      | "7" => RescriptReactRouter.push("/AssembleSpace")
+      // | "6" => RescriptReactRouter.push("/ShowPublishedElements")
+      | "6" => RescriptReactRouter.push("/AssembleSpace")
       | "1"
       | _ =>
         RescriptReactRouter.push("/")
@@ -42,12 +42,12 @@ let make = (~currentKey="1") => {
         key: "5",
         label: {React.string(`发布的应用`)},
       },
+      // {
+      //   key: "6",
+      //   label: {React.string(`发布的页面`)},
+      // },
       {
         key: "6",
-        label: {React.string(`发布的页面`)},
-      },
-      {
-        key: "7",
         label: {React.string(`装配空间`)},
       },
     ]

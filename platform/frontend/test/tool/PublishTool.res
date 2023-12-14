@@ -3,11 +3,11 @@ open Sinon
 let buildUI = (
   ~sandbox,
   ~account=None,
-  ~selectedElementsFromMarket=list{},
+  // ~selectedElementsFromMarket=list{},
   ~service=ServiceTool.build(~sandbox, ()),
   (),
 ) => {
-  <Publish service account selectedElementsFromMarket />
+  <Publish service account />
 }
 
 let publish = (
@@ -19,7 +19,7 @@ let publish = (
   ~account="u1"->Some,
   ~selectedPackages=list{},
   ~selectedContributes=list{},
-  ~selectedElementsFromMarket=list{},
+  // ~selectedElementsFromMarket=list{},
   ~customInputs=list{},
   ~customActions=list{},
   ~selectedUIControls=list{},
@@ -41,7 +41,7 @@ let publish = (
       account,
       selectedPackages,
       selectedContributes,
-      selectedElementsFromMarket,
+      // selectedElementsFromMarket,
       canvasData,
       apInspectorData,
       storedPackageIdsInApp,

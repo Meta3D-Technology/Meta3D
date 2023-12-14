@@ -202,7 +202,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       useDispatch: () => {
         AppStore.useDispatch()
       },
-      dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction: (.
+      dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (.
         dispatchForAppStore,
         dispatchForApAssembleStore,
         dispatchForPackageAssembleStore,
@@ -210,7 +210,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
           selectedPackagesForAppStore,
           selectedExtensionsForAppStore,
           selectedContributesForAppStore,
-          selectedElementsForAppStore,
+          // selectedElementsForAppStore,
         ),
         (
           selectedPackagesForApAssembleStore,
@@ -225,11 +225,11 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       ) => {
         dispatchForAppStore(
           AppStoreType.UserCenterAction(
-            UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributesAndElements(
+            UserCenterStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
               selectedPackagesForAppStore,
               selectedExtensionsForAppStore,
               selectedContributesForAppStore,
-              selectedElementsForAppStore,
+              // selectedElementsForAppStore,
             ),
           ),
         )
@@ -297,8 +297,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
         </Layout>
       , account, service)
     | list{"ShowPublishedApps"} => <ShowPublishedApps service />
-    | list{"ShowPublishedElements"} =>
-      Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
+    // | list{"ShowPublishedElements"} =>
+    //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />
     | list{"RunElementVisual"} =>
       <RunElementVisual service={_buildAssembleSpaceService()} />

@@ -146,12 +146,12 @@ let buildAssembleSpaceService = (): AssembleSpaceType.backendService => {
     publishPackage,
     findPublishApp,
     findAllPublishApps,
-    publishElementContribute,
-    publishElementAssembleData,
-    getElementAssembleData,
+    // publishElementContribute,
+    // publishElementAssembleData,
+    // getElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishExtension,
     findNewestPublishContribute,
-    findNewestPublishElementAssembleData,
+    // findNewestPublishElementAssembleData,
   }
 }

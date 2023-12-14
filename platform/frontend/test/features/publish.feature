@@ -37,7 +37,7 @@ Feature: Publish
             And prepare config data
             And prepare ap inspector data
             And prepare element data
-            # And prepare custom data
+            And prepare custom data
             When publish app
             Then should mark begin upload
             # And should generat app with correct extension data and contribute data and start config data

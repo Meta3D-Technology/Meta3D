@@ -1,6 +1,21 @@
-* TODO 合并应用和页面，是应用只有一个页面
+* DONE 合并应用和页面，使应用只有一个页面
+
+TODO update autoUpgrade
 
 
+TODO remove publish/findNewst/getElementAssemble backend
+
+
+TODO pass bdd test
+
+TODO pass run test
+
+
+* TODO fix: run app
+
+
+
+* TODO publish app should save to local(import it?)
 
 
 * TODO 增加用户中心

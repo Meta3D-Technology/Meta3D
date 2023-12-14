@@ -15,7 +15,6 @@ let make = (
   ~selectedPackagesFromMarket: selectedPackagesFromMarket,
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
-  ~selectedElementsFromMarket: selectedElementsFromMarket,
 ) => {
   let dispatchForAssembleSpaceStore = service.react.useDispatch()
 
@@ -28,7 +27,7 @@ let make = (
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>
-        <Publish service account selectedElementsFromMarket />
+        <Publish service account />
         <ApController
           service
           // selectedExtensionsFromMarket
@@ -61,7 +60,7 @@ let make = (
         </Collapse>
       </Layout.Sider>
       <Layout.Content>
-        <ApDependencyGraph service selectedElementsFromMarket />
+        <ApDependencyGraph service />
       </Layout.Content>
       <Layout.Sider theme=#light>
         <ExtensionInspector service />

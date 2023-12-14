@@ -55,6 +55,6 @@ let make = (~service: service) => {
     storedPackageIdsInApp=list{}
     selectedExtensions={Method.convertSelectedExtensions(selectedExtensions)}
     selectedContributes
-    selectedElementsFromMarket=list{}
+    // selectedElementsFromMarket=list{}
   />
 }

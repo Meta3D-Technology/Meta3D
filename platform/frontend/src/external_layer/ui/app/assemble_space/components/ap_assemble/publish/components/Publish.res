@@ -126,6 +126,67 @@ module Method = {
   //       }
   // }
 
+  let rec _convertToUIControls = (
+    selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
+    selectedUIControls,
+  ) => {
+    selectedUIControlInspectorData
+    ->Meta3dCommonlib.ListSt.map(({
+      id,
+      children,
+      rect,
+      isDraw,
+      input,
+      event,
+      specific,
+    }): BackendCloudbaseType.uiControl => {
+      let {displayName, data} =
+        HierachyUtils.findSelectedUIControlData(
+          None,
+          (
+            (data: ElementAssembleStoreType.uiControl) => data.id,
+            (data: ElementAssembleStoreType.uiControl) => data.children,
+          ),
+          selectedUIControls,
+          id,
+        )->Meta3dCommonlib.OptionSt.getExn
+
+      {
+        protocol: {
+          name: data.contributePackageData.protocol.name,
+          version: data.contributePackageData.protocol.version,
+        },
+        displayName,
+        rect,
+        isDraw,
+        input: input->Meta3dCommonlib.OptionSt.toNullable,
+        event,
+        specific,
+        children: _convertToUIControls(children, selectedUIControls),
+      }
+    })
+    ->Meta3dCommonlib.ListSt.toArray
+  }
+
+  let _buildSelectedElement = (
+    account,
+    selectedUIControlInspectorData,
+    selectedUIControls,
+    customInputs,
+    customActions,
+  ): BackendCloudbaseType.elementAssembleData => {
+    account,
+    elementName: ElementContributeUtils.getElementContributeName(),
+    elementVersion: ElementUtils.getElementContributeVersion(),
+    inspectorData: (
+      {
+        uiControls: _convertToUIControls(selectedUIControlInspectorData, selectedUIControls),
+      }: BackendCloudbaseType.inspectorData
+    ),
+    customInputs: customInputs->Meta3dCommonlib.ListSt.toArray,
+    customActions: customActions->Meta3dCommonlib.ListSt.toArray,
+  }
+
   let _addGeneratedElementContribute = (
     service,
     selectedContributes,
@@ -153,7 +214,7 @@ module Method = {
       account,
       selectedPackages,
       selectedContributes,
-      selectedElementsFromMarket,
+      // selectedElementsFromMarket,
       canvasData: ElementAssembleStoreType.canvasData,
       apInspectorData,
       storedPackageIdsInApp,
@@ -196,18 +257,21 @@ module Method = {
 
         ()->Js.Promise.resolve
       }
-      : selectedElementsFromMarket->Meta3dCommonlib.ListSt.length > 1
-      ? {
-        service.console.error(.
-          {
-            j`请只选择一个最新的页面`
-          },
-          None,
-        )
-
-        ()->Js.Promise.resolve
-      }
       : {
+          //  selectedElementsFromMarket->Meta3dCommonlib.ListSt.length > 1
+          // ? {
+          //   service.console.error(.
+          //     {
+          //       j`请只选择一个最新的页面`
+          //     },
+          //     None,
+          //   )
+
+          //   ()->Js.Promise.resolve
+          // }
+          // : {
+          //   }
+
           let selectedContributes =
             selectedContributes
             ->_addGeneratedElementContribute(
@@ -234,8 +298,16 @@ module Method = {
                   customInputs,
                   customActions,
                 )->Meta3dCommonlib.ListSt.toArray,
-                selectedElementsFromMarket,
-                // (customInputs, customActions),
+                // selectedElementsFromMarket,
+                list{
+                  _buildSelectedElement(
+                    account,
+                    selectedUIControlInspectorData,
+                    selectedUIControls,
+                    customInputs,
+                    customActions,
+                  )
+                },
                 (
                   (
                     {
@@ -313,7 +385,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>, ~selectedElementsFromMarket) => {
+let make = (~service: service, ~account: option<string>) => {
   let (
     (
       selectedPackages,
@@ -371,7 +443,7 @@ let make = (~service: service, ~account: option<string>, ~selectedElementsFromMa
                             account,
                             selectedPackages,
                             selectedContributes,
-                            selectedElementsFromMarket,
+                            // selectedElementsFromMarket,
                             canvasData,
                             apInspectorData,
                             storedPackageIdsInApp,

@@ -114,12 +114,11 @@ Feature: DependencyGraph
 
     Rule: auto upgrade
 
-        Scenario: auto upgrade selected packages, extensions, contributes, elements
+        Scenario: auto upgrade selected packages, extensions, contributes
             Given prepare backend
             And select extension e1 which is start
             And select contribute c1
             And select package p1
-            And select element element1
             When auto upgrade
             Then should update the newest ones to app store, ap assemble store, package assemble store
 

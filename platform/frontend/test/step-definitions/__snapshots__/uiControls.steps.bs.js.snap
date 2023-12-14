@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UIControls show uiControls list 1`] = `
+<div
+  className="ant-list ant-list-split ant-list-grid"
+>
+  <div
+    className="ant-spin-nested-loading"
+  >
+    <div
+      className="ant-spin-container"
+    >
+      <div
+        className="ant-row"
+        style={
+          Object {
+            "marginLeft": -8,
+            "marginRight": -8,
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "maxWidth": "50%",
+              "width": "50%",
+            }
+          }
+        >
+          <div
+            className="ant-col"
+            style={
+              Object {
+                "flex": "1 1 auto",
+                "paddingLeft": 8,
+                "paddingRight": 8,
+              }
+            }
+          >
+            <div
+              className="ant-list-item"
+            >
+              <div
+                className="ant-card ant-card-bordered"
+                onClick={[Function]}
+              >
+                <div
+                  className="ant-card-cover"
+                >
+                  <div
+                    className="ant-image"
+                    style={
+                      Object {
+                        "height": 50,
+                        "width": 50,
+                      }
+                    }
+                  >
+                    <img
+                      className="ant-image-img"
+                      height={50}
+                      onError={[Function]}
+                      onLoad={[Function]}
+                      src="i1"
+                      style={
+                        Object {
+                          "height": 50,
+                        }
+                      }
+                      width={50}
+                    />
+                  </div>
+                </div>
+                <div
+                  className="ant-card-body"
+                  style={
+                    Object {
+                      "padding": "0px",
+                    }
+                  }
+                >
+                  <div
+                    className="ant-card-meta"
+                  >
+                    <div
+                      className="ant-card-meta-detail"
+                    >
+                      <div
+                        className="ant-card-meta-title"
+                      >
+                        <span
+                          style={
+                            Object {
+                              "whiteSpace": "normal",
+                              "wordBreak": "break-all",
+                              "wordWrap": "break-word",
+                            }
+                          }
+                        >
+                          u1
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

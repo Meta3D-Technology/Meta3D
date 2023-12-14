@@ -38,13 +38,13 @@ type backendService = {
   publishPackage: publishPackage,
   findPublishApp: findPublishApp,
   findAllPublishApps: findAllPublishApps,
-  publishElementContribute: publishElementContribute,
-  publishElementAssembleData: publishElementAssembleData,
-  getElementAssembleData: getElementAssembleData,
+  // publishElementContribute: publishElementContribute,
+  // publishElementAssembleData: publishElementAssembleData,
+  // getElementAssembleData: getElementAssembleData,
   findNewestPublishPackage: findNewestPublishPackage,
   findNewestPublishExtension: findNewestPublishExtension,
   findNewestPublishContribute: findNewestPublishContribute,
-  findNewestPublishElementAssembleData: findNewestPublishElementAssembleData,
+  // findNewestPublishElementAssembleData: findNewestPublishElementAssembleData,
 }
 
 type callback1Func<'a> = unit => 'a
@@ -207,7 +207,7 @@ type dispatchForPackageAssembleStore = PackageAssembleStoreType.action => unit
 
 type appService = {
   useDispatch: unit => dispatchForAppStore,
-  dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction: (
+  dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (
     . dispatchForAppStore,
     dispatchForApAssembleStore,
     dispatchForPackageAssembleStore,
@@ -215,7 +215,7 @@ type appService = {
       selectedPackagesFromMarket,
       selectedExtensionsFromMarket,
       selectedContributesFromMarket,
-      selectedElementsFromMarket,
+      // selectedElementsFromMarket,
     ),
     (
       ApAssembleStoreType.selectedPackages,

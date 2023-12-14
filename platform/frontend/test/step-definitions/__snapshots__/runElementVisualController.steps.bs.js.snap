@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RunElementVisualController if data not ready, show waiting 1`] = `
+<button
+  className="ant-btn ant-btn-default"
+  disabled={true}
+  onClick={[Function]}
+  type="button"
+>
+  <span>
+    运 行
+  </span>
+</button>
+`;
+
+exports[`RunElementVisualController if data ready, show run button 1`] = `
+<button
+  className="ant-btn ant-btn-default"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  <span>
+    运 行
+  </span>
+</button>
+`;

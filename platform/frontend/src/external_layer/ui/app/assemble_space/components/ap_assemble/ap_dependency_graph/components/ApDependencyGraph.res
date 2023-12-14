@@ -19,7 +19,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~selectedElementsFromMarket) => {
+let make = (~service: service) => {
   let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -39,6 +39,6 @@ let make = (~service: service, ~selectedElementsFromMarket) => {
     storedPackageIdsInApp
     selectedExtensions
     selectedContributes
-    selectedElementsFromMarket
+    // selectedElementsFromMarket
   />
 }

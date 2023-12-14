@@ -1,12 +1,11 @@
 let buildUI = (
   ~sandbox,
   ~account=None,
-  ~selectedElementsFromMarket=list{},
   ~selectedContributes=list{},
   ~service=ServiceTool.build(~sandbox, ()),
   (),
 ) => {
-  <ElementVisual service account selectedElementsFromMarket selectedContributes />
+  <ElementVisual service account selectedContributes />
 }
 
 // let getAndSetNewestVisualExtension = ElementVisual.Method.getAndSetNewestVisualExtension

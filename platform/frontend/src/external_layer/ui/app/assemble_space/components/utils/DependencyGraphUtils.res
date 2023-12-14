@@ -737,7 +737,7 @@ module Method = {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-    selectedElementsFromMarket,
+    // selectedElementsFromMarket,
   ) => {
     setOperateInfo(_ => "自动升级版本中...")
 
@@ -888,38 +888,38 @@ module Method = {
         (selectedPackages, selectedExtensions, selectedContributes)->Js.Promise.resolve
       }, _)
     }, _)
-    ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
-      selectedElementsFromMarket
-      ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
-        result,
-        element: BackendCloudbaseType.elementAssembleData,
-      ) => {
-        service.backend.findNewestPublishElementAssembleData(. element.elementName)
-        ->MostUtils.toPromise
-        ->Js.Promise.then_(
-          elementAssembleData => {
-            result
-            ->Meta3dCommonlib.ListSt.push(elementAssembleData->Meta3dCommonlib.NullableSt.getExn)
-            ->Js.Promise.resolve
-          },
-          _,
-        )
-      })
-      ->Js.Promise.then_(selectedElements => {
-        (
-          selectedPackages,
-          selectedExtensions,
-          selectedContributes,
-          selectedElements,
-        )->Js.Promise.resolve
-      }, _)
-    }, _)
+    // ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
+    //   selectedElementsFromMarket
+    //   ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
+    //     result,
+    //     element: BackendCloudbaseType.elementAssembleData,
+    //   ) => {
+    //     service.backend.findNewestPublishElementAssembleData(. element.elementName)
+    //     ->MostUtils.toPromise
+    //     ->Js.Promise.then_(
+    //       elementAssembleData => {
+    //         result
+    //         ->Meta3dCommonlib.ListSt.push(elementAssembleData->Meta3dCommonlib.NullableSt.getExn)
+    //         ->Js.Promise.resolve
+    //       },
+    //       _,
+    //     )
+    //   })
+    //   ->Js.Promise.then_(selectedElements => {
+    //     (
+    //       selectedPackages,
+    //       selectedExtensions,
+    //       selectedContributes,
+    //       selectedElements,
+    //     )->Js.Promise.resolve
+    //   }, _)
+    // }, _)
     ->Js.Promise.then_(
       ((
         selectedPackagesForAppStore,
         selectedExtensionsForAppStoreEdit,
         selectedContributesForAppStore,
-        selectedElementsForAppStore,
+        // selectedElementsForAppStore,
       )) => {
         setOperateInfo(_ => "")
 
@@ -934,7 +934,7 @@ module Method = {
           (startPackageProtocolName, startExtensionProtocolName),
         )
 
-        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction(.
+        service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
           dispatchForAppStore,
           dispatchForApAssembleStore,
           dispatchForPackageAssembleStore,
@@ -944,7 +944,7 @@ module Method = {
               extensionData
             ),
             selectedContributesForAppStore,
-            selectedElementsForAppStore,
+            // selectedElementsForAppStore,
           ),
           (
             selectedPackagesForApAssembleStore,
@@ -1022,7 +1022,7 @@ let make = (
   ~storedPackageIdsInApp,
   ~selectedExtensions,
   ~selectedContributes,
-  ~selectedElementsFromMarket,
+  // ~selectedElementsFromMarket,
 ) => {
   let dispatchForAppStore = service.app.useDispatch()
   let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
@@ -1085,7 +1085,7 @@ let make = (
                         selectedPackages,
                         selectedExtensions,
                         selectedContributes,
-                        selectedElementsFromMarket,
+                        // selectedElementsFromMarket,
                       )->ignore
                     }, 5->Some)
                   }}>

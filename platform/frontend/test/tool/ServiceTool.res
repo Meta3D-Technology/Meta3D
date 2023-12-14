@@ -141,7 +141,7 @@ let build = (
   ~buildText=(. ~children) => {
     <span> {children} </span>
   },
-  ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction=createEmptyStub(
+  ~dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction=createEmptyStub(
     refJsObjToSandbox(sandbox.contents),
   )->Obj.magic,
   // ~dispatchStorePackageInApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -175,14 +175,14 @@ let build = (
     // findPublishPackage,
     // findAllPublishAppsByAccount,
     findAllPublishApps,
-    publishElementContribute,
-    publishElementAssembleData,
-    getElementAssembleData,
+    // publishElementContribute,
+    // publishElementAssembleData,
+    // getElementAssembleData,
     // findAllElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishExtension,
     findNewestPublishContribute,
-    findNewestPublishElementAssembleData,
+    // findNewestPublishElementAssembleData,
   },
   meta3d: {
     generateContribute,
@@ -239,7 +239,7 @@ let build = (
   },
   app: {
     useDispatch: () => Obj.magic(1),
-    dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction: dispatchUpdateSelectedPackagesAndExtensionsAndContributesAndElementsAction->Obj.magic,
+    dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction->Obj.magic,
     // dispatchStorePackageInApp: dispatchStorePackageInApp->Obj.magic,
     // dispatchUnStorePackageInApp: dispatchUnStorePackageInApp->Obj.magic,
   },

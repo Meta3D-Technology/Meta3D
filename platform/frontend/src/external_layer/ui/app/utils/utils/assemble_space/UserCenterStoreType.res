@@ -43,11 +43,11 @@ type action =
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes, selectedPackages)
   | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
-  | UpdateSelectedPackagesAndExtensionsAndContributesAndElements(
+  | UpdateSelectedPackagesAndExtensionsAndContributes(
       selectedPackages,
       selectedExtensions,
       selectedContributes,
-      selectedElements,
+      // selectedElements,
     )
   | SetContributes(selectedContributes)
 
