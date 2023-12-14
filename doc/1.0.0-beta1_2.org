@@ -15,9 +15,6 @@ TODO pass run test
 
 
 
-* TODO publish app should save to local(import it?)
-
-
 * TODO 增加用户中心
 
 查看、//修改、//删除 用户发布的扩展、贡献、包、应用、页面
@@ -56,17 +53,50 @@ TODO auto select all actions, inputs, ui controls and editor, engine whole packa
 
 
 
-
+* TODO add User Center
 
 用户中心 | 发布的应用 | 
 
 
 
-点击 编辑应用后，跳入到装配空间（导航栏改为装配空间的导航栏！）
+用户中心:
+show published apps
+
+
+create from scratch
+    select all ui controls
+    select editor,engine whole package
+    start editor whole package
+    jumpt to assemble
+
+create from template
+    jumpt to ShowByApp
+    after click Import, jumpt to assemble
+
+
+编辑应用
+    import it, jumpt to assemble
+
+
+    
+# 跳入到装配空间（导航栏改为装配空间的导航栏！）
+
+返回用户中心 | {{应用名}}
+
+{{页面装配}} + 发布
 
 
 
 
+
+
+* TODO admin view
+
+用户中心 | 扩展市场 | 贡献市场 | 包市场 | 发布的应用 | 
+
+
+
+返回用户中心 | {{应用名}} | 应用装配 | 页面装配 | 包装配
 
 
 * TODO adjust custom ui
@@ -99,6 +129,9 @@ use drag instead of select parent first!
 
 
 
+
+
+* TODO publish app should save to local(import it?)
 
 
 
@@ -211,12 +244,12 @@ e.g. 更新Extensions、 UI Controls中的图文小图标排版
 
 
 
-        # * TODO publish app no limit only one element?
-* TODO publish element will auto select it
+#         # * TODO publish app no limit only one element?
+# * TODO publish element will auto select it
 
-TODO run test: select one elements->publish element->switch to Index->switch to element assemble: should remain the element's custom!
+# TODO run test: select one elements->publish element->switch to Index->switch to element assemble: should remain the element's custom!
 
-TODO run test: select two elements->publish element: should select the merged element
+# TODO run test: select two elements->publish element: should select the merged element
 
 
 
