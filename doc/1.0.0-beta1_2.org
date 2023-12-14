@@ -1,3 +1,8 @@
+* TODO 合并应用和页面，是应用只有一个页面
+
+
+
+
 * TODO 增加用户中心
 
 查看、//修改、//删除 用户发布的扩展、贡献、包、应用、页面
@@ -32,6 +37,61 @@ they are visiable only for administrator and pay user!
 
 
 TODO auto select all actions, inputs, ui controls and editor, engine whole package for normal user!
+
+
+
+
+
+
+用户中心 | 发布的应用 | 
+
+
+
+点击 编辑应用后，跳入到装配空间（导航栏改为装配空间的导航栏！）
+
+
+
+
+
+
+* TODO adjust custom ui
+
+TODO move add/remove/edit custom to element assemble
+
+
+TODO refactor UI Controls, Selected UI Controls :
+no need to select ui controls in contribute market! select when add ui control instead!!!
+
+refer to:
+https://app.appsmith.com/app/my-first-application/page1-65681c0a77819e3b1160e2d9/edit
+
+
+
+
+
+
+TODO refactor set parent
+use drag instead of select parent first!
+
+
+
+
+
+* TODO 平台：element assemble: add selected ui control->outline, pick, drag
+
+
+ * TODO drag to set parent
+
+
+
+
+
+
+
+
+* TODO Custom Input/Action: should separate edit code and transpile code!
+
+
 
 
 
@@ -123,13 +183,6 @@ TODO add database table
 
 
 
-* TODO 平台：element assemble: add selected ui control->outline, pick, drag
-
-
- * TODO drag to set parent
-
-
-
 * TODO 优化平台UI
 
 TODO 使用图标代替文字按钮
@@ -141,4 +194,16 @@ e.g. 更新Extensions、 UI Controls中的图文小图标排版
 
 
 
-* TODO publish
+
+
+        # * TODO publish app no limit only one element?
+* TODO publish element will auto select it
+
+TODO run test: select one elements->publish element->switch to Index->switch to element assemble: should remain the element's custom!
+
+TODO run test: select two elements->publish element: should select the merged element
+
+
+
+# * TODO publish
+

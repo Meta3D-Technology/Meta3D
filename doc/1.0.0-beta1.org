@@ -483,36 +483,9 @@ protocol auto add "-action-"
 
 
 
-# * TODO publish app no limit only one element?
-* TODO publish element will auto select it
-
-TODO run test: select one elements->publish element->switch to Index->switch to element assemble: should remain the element's custom!
-
-TODO run test: select two elements->publish element: should select the merged element
-
-
-
-
-* TODO adjust custom ui
-
-TODO move add/remove/edit custom to element assemble
-
-
-TODO refactor UI Controls, Selected UI Controls :
-no need to select ui controls in contribute market! select when add ui control instead!!!
-
-refer to:
-https://app.appsmith.com/app/my-first-application/page1-65681c0a77819e3b1160e2d9/edit
 
 
 
 
 
-
-TODO refactor set parent
-use drag instead of select parent first!
-
-
-
-
-* TODO publish
+# * TODO publish
