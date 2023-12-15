@@ -6,7 +6,7 @@ type showType =
   | Third
 
 @react.component
-let make = (~service: FrontendType.service) => {
+let make = (~service: FrontendType.service, ~account) => {
   let dispatch = AppStore.useDispatch()
   let {selectedPackages} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
     userCenterState
@@ -51,10 +51,7 @@ let make = (~service: FrontendType.service) => {
   })->ignore
 
   React.useEffect1(() => {
-    service.backend.getAllPublishPackageEntryExtensionProtocols(.
-      MarketUtils.getLimitCount(),
-      0,
-    )
+    service.backend.getAllPublishPackageEntryExtensionProtocols(. MarketUtils.getLimitCount(), 0)
     // ->Meta3dBsMostDefault.Most.flatMap(protocols => {
     //   service.backend.getAllPublishPackageProtocolConfigs()->Meta3dBsMostDefault.Most.map(
     //     protocolConfigs => {
@@ -86,10 +83,7 @@ let make = (~service: FrontendType.service) => {
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(
-        e->Error.promiseErrorToExn,
-        None,
-      )->Obj.magic
+      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -98,7 +92,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="4" />
+      <Nav currentKey="5" account={account} />
     </Layout.Header>
     <Layout.Content>
       {!isLoaded
@@ -178,9 +172,7 @@ let make = (~service: FrontendType.service) => {
           <Pagination
             current={page}
             defaultPageSize={MarketUtils.getPageSize()}
-            total={MarketUtils.getAllProtocolsCount(
-              allPublishPackageEntryExtensionProtocols,
-            )}
+            total={MarketUtils.getAllProtocolsCount(allPublishPackageEntryExtensionProtocols)}
             showSizeChanger=false
             onChange=_onChange
           />

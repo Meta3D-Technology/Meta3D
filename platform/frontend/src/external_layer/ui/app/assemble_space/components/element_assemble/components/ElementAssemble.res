@@ -135,11 +135,13 @@ let make = (
   })
 
   service.react.useEffectOnce(() => {
-    Method.init(
-      dispatchForApAssembleStore,
-      selectedContributesFromMarket,
-      selectedPackagesFromMarket,
-    )
+    !UserUtils.isAdmin(account)
+      ? Method.init(
+          dispatchForApAssembleStore,
+          selectedContributesFromMarket,
+          selectedPackagesFromMarket,
+        )
+      : ()
 
     setIsInit(_ => true)
 
@@ -181,7 +183,7 @@ let make = (
             <Space direction=#horizontal size=#small>
               // <PublishElement service account />
               // <ElementController service />
-              <Publish service account />
+              {!UserUtils.isAdmin(account) ? <Publish service account /> : React.null}
               <RunElementVisualController service account selectedContributes />
               <CanvasController service />
             </Space>

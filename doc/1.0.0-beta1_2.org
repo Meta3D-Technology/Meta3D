@@ -53,7 +53,7 @@ TODO auto select all actions, inputs, ui controls and editor, engine whole packa
 
 
 
-* TODO add User Center
+* DONE add User Center
 
 用户中心 | 发布的应用 | 
 
@@ -133,10 +133,14 @@ TODO finish edit app
 
 
 
-* TODO admin view
+* DONE admin view
 
-用户中心 | 扩展市场 | 贡献市场 | 包市场 | 发布的应用 | 
+用户中心 | 发布的应用 | 扩展市场 | 贡献市场 | 包市场 | 
 
+用户中心:
+进入装配空间
+
+import package should jump to AssembleSpace
 
 
 返回用户中心 | {{应用名}} | 应用装配 | 页面装配 | 包装配

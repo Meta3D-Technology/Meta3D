@@ -143,6 +143,16 @@ let make = (~service: FrontendType.service) => {
     }, _)
   }
 
+  let _jumptToAssembleSpaceToCreateEmptyApp = dispatch => {
+    dispatch(
+      AppStoreType.UserCenterAction(UserCenterStoreType.SetCurrentAppName(_buildCurrentAppName())),
+    )
+
+    setInfo(_ => None)
+
+    _jumptToAssembleSpace()
+  }
+
   let _createFromScratch = (service, dispatch) => {
     setInfo(_ => {j`loading...`}->Some)
 
@@ -150,15 +160,7 @@ let make = (~service: FrontendType.service) => {
     _selectAllUIControls(service, dispatch)->Js.Promise.then_(() => {
       _selectEditorWholeAndEngineWholePackages(service, dispatch)
     }, _)->Js.Promise.then_(() => {
-      dispatch(
-        AppStoreType.UserCenterAction(
-          UserCenterStoreType.SetCurrentAppName(_buildCurrentAppName()),
-        ),
-      )
-
-      setInfo(_ => None)
-
-      _jumptToAssembleSpace()
+      _jumptToAssembleSpaceToCreateEmptyApp(dispatch)
 
       ()->Js.Promise.resolve
     }, _)
@@ -211,7 +213,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="1" />
+      <Nav currentKey="1" account={account} />
     </Layout.Header>
     <Layout.Content>
       //   <Typography.Title>
@@ -251,6 +253,15 @@ let make = (~service: FrontendType.service) => {
               }}>
               {React.string(`从头创建新的应用`)}
             </Button>
+            {UserUtils.isAdmin(account)
+              ? <Button
+                  _type=#default
+                  onClick={_ => {
+                    _jumptToAssembleSpaceToCreateEmptyApp(dispatch)
+                  }}>
+                  {React.string(`进入装配空间`)}
+                </Button>
+              : React.null}
           </Space>
           <Typography.Title> {React.string({j`我发布的应用`})} </Typography.Title>
           <List

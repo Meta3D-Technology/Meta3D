@@ -287,13 +287,13 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     switch url.path {
     | list{"Login"} => <Login service />
     | list{"Register"} => <Register service />
-    // | list{"ExtensionMarket"} =>
-    //   Method.judgeToJumpToLogin(() => <ExtensionMarket service />, account, service)
-    // | list{"ContributeMarket"} =>
-    //   Method.judgeToJumpToLogin(() => <ContributeMarket service />, account, service)
+    | list{"ExtensionMarket"} =>
+      Method.judgeToJumpToLogin(() => <ExtensionMarket service account />, account, service)
+    | list{"ContributeMarket"} =>
+      Method.judgeToJumpToLogin(() => <ContributeMarket service account />, account, service)
 
-    // | list{"PackageMarket"} =>
-    //   Method.judgeToJumpToLogin(() => <PackageMarket service />, account, service)
+    | list{"PackageMarket"} =>
+      Method.judgeToJumpToLogin(() => <PackageMarket service account />, account, service)
 
     | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() =>
         <Layout>
@@ -316,7 +316,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
           </Layout.Content>
         </Layout>
       , account, service)
-    | list{"ShowPublishedApps"} => <ShowPublishedApps service />
+    | list{"ShowPublishedApps"} => <ShowPublishedApps service account />
     // | list{"ShowPublishedElements"} =>
     //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />

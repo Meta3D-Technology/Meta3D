@@ -34,9 +34,7 @@ let make = (~service: FrontendType.service) => {
           }, _)
           ->Meta3dBsMostDefault.Most.tap(_ => {
             dispatch(
-              AppStoreType.UserCenterAction(
-                UserCenterStoreType.SetAccount(accountRef.contents),
-              ),
+              AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(accountRef.contents)),
             )
 
             RescriptReactRouter.push("/")
@@ -48,10 +46,7 @@ let make = (~service: FrontendType.service) => {
             ()->Js.Promise.resolve
           }, _)
           ->Js.Promise.catch(e => {
-            service.console.errorWithExn(.
-              e->Error.promiseErrorToExn,
-              None,
-            )->Obj.magic
+            service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
           }, _)
           ->ignore
         }
@@ -62,7 +57,8 @@ let make = (~service: FrontendType.service) => {
 
     setIsLoginBegin(_ => true)
 
-    service.backend.isLoginSuccess(account)->Meta3dBsMostDefault.Most.tap(((isSuccess, failMsg)) => {
+    service.backend.isLoginSuccess(account)
+    ->Meta3dBsMostDefault.Most.tap(((isSuccess, failMsg)) => {
       !isSuccess
         ? {
             setIsLoginBegin(_ => false)
@@ -72,17 +68,15 @@ let make = (~service: FrontendType.service) => {
             ()
           }
         : {
-            dispatch(
-              AppStoreType.UserCenterAction(
-                UserCenterStoreType.SetAccount(account),
-              ),
-            )
+            dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
 
             RescriptReactRouter.push("/")
 
             setIsLoginBegin(_ => false)
           }
-    }, _)->Meta3dBsMostDefault.Most.drain->Obj.magic
+    }, _)
+    ->Meta3dBsMostDefault.Most.drain
+    ->Obj.magic
   }
 
   let _onFinishFailed = (service: FrontendType.service, errorInfo) => {
@@ -91,7 +85,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="1" />
+      <Nav currentKey="1" account=None />
     </Layout.Header>
     <Layout.Content>
       <Space direction=#vertical size=#large>

@@ -22,11 +22,7 @@ let make = (~service: FrontendType.service) => {
           }
         : {
             service.backend.registerUser(account)->Meta3dBsMostDefault.Most.tap(_ => {
-              dispatch(
-                AppStoreType.UserCenterAction(
-                  UserCenterStoreType.SetAccount(account),
-                ),
-              )
+              dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
 
               RescriptReactRouter.push("/")
             }, _)
@@ -42,7 +38,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="1" />
+      <Nav currentKey="1" account=None />
     </Layout.Header>
     <Layout.Content>
       <Form

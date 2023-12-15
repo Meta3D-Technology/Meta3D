@@ -6,11 +6,11 @@ type showType =
   | Third
 
 @react.component
-let make = (~service: FrontendType.service) => {
+let make = (~service: FrontendType.service, ~account) => {
   // let dispatch = AppStore.useDispatch()
-  let {selectedContributes} = AppStore.useSelector((
-    {userCenterState}: AppStoreType.state,
-  ) => userCenterState)
+  let {selectedContributes} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
+    userCenterState
+  )
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (showType, setShowType) = React.useState(_ => Second)
@@ -60,12 +60,10 @@ let make = (~service: FrontendType.service) => {
         protocolConfigs => {
           (
             protocols->Meta3dCommonlib.ArraySt.filter(
-              ({name}: BackendCloudbaseType.protocol) =>
-                name->MarketUtils.isNotInnerProtocol,
+              ({name}: BackendCloudbaseType.protocol) => name->MarketUtils.isNotInnerProtocol,
             ),
             protocolConfigs->Meta3dCommonlib.ArraySt.filter(
-              ({name}: CommonType.protocolConfig) =>
-                name->MarketUtils.isNotInnerProtocol,
+              ({name}: CommonType.protocolConfig) => name->MarketUtils.isNotInnerProtocol,
             ),
           )
         },
@@ -80,10 +78,7 @@ let make = (~service: FrontendType.service) => {
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(
-        e->Error.promiseErrorToExn,
-        None,
-      )->Obj.magic
+      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -92,7 +87,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="3" />
+      <Nav currentKey="4" account={account} />
     </Layout.Header>
     <Layout.Content>
       {!isLoaded

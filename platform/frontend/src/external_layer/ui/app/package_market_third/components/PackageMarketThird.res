@@ -306,6 +306,16 @@ let make = (
                               ),
                               _,
                             )
+                            ->Js.Promise.then_(() => {
+                              dispatch(
+                                AppStoreType.UserCenterAction(
+                                  UserCenterStoreType.SetCurrentAppName(""),
+                                ),
+                              )
+                              RescriptReactRouter.push("/AssembleSpace")
+
+                              ()->Js.Promise.resolve
+                            }, _)
                             ->ignore
                           }}>
                           {React.string(`导入`)}

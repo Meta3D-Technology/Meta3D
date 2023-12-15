@@ -2,7 +2,7 @@ open Antd
 %%raw("import 'antd/dist/antd.css'")
 
 @react.component
-let make = (~service: FrontendType.service) => {
+let make = (~service: FrontendType.service, ~account) => {
   let dispatch = AppStore.useDispatch()
   let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
     ReactUtils.useDispatchForAssembleSpaceStore,
@@ -66,7 +66,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="2" />
+      <Nav currentKey="2" account={account} />
     </Layout.Header>
     <Layout.Content>
       {!isLoaded

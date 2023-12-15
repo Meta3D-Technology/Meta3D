@@ -6,7 +6,7 @@ type showType =
   | Third
 
 @react.component
-let make = (~service: FrontendType.service) => {
+let make = (~service: FrontendType.service, ~account) => {
   let dispatch = AppStore.useDispatch()
   let {selectedExtensions} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
     userCenterState
@@ -92,7 +92,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="2" />
+      <Nav currentKey="3" account={account} />
     </Layout.Header>
     <Layout.Content>
       {!isLoaded

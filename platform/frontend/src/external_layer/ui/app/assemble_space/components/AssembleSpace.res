@@ -345,7 +345,9 @@ let make = (
     service.react.useDispatch,
   )
 
-  let (currentAssemble, setCurrentAssemble) = service.react.useState(_ => Element)
+  let (currentAssemble, setCurrentAssemble) = service.react.useState(_ =>
+    UserUtils.isAdmin(account) ? Ap : Element
+  )
   let (
     handledSelectedContributesFromMarket,
     setHandledSelectedContributesFromMarket,
@@ -401,37 +403,39 @@ let make = (
     | None => React.null
     | Some(handledSelectedContributesFromMarket) =>
       <Layout>
-        // <Layout.Content>
-        //   <Menu
-        //     theme=#light
-        //     mode=#horizontal
-        //     defaultSelectedKeys={["1"]}
-        //     selectedKeys={[Method.getCurrentKey(currentAssemble)]}
-        //     onClick={({key}) => {
-        //       switch key {
-        //       | "2" => setCurrentAssemble(_ => Element)
-        //       | "3" => setCurrentAssemble(_ => Package)
-        //       | "1"
-        //       | _ =>
-        //         setCurrentAssemble(_ => Ap)
-        //       }
-        //     }}
-        //     items=[
-        //       {
-        //         key: "1",
-        //         label: {React.string(`应用装配`)},
-        //       },
-        //       {
-        //         key: "2",
-        //         label: {React.string(`页面装配`)},
-        //       },
-        //       {
-        //         key: "3",
-        //         label: {React.string(`包装配`)},
-        //       },
-        //     ]
-        //   />
-        // </Layout.Content>
+        {UserUtils.isAdmin(account)
+          ? <Layout.Content>
+              <Menu
+                theme=#light
+                mode=#horizontal
+                defaultSelectedKeys={["1"]}
+                selectedKeys={[Method.getCurrentKey(currentAssemble)]}
+                onClick={({key}) => {
+                  switch key {
+                  | "2" => setCurrentAssemble(_ => Element)
+                  | "3" => setCurrentAssemble(_ => Package)
+                  | "1"
+                  | _ =>
+                    setCurrentAssemble(_ => Ap)
+                  }
+                }}
+                items=[
+                  {
+                    key: "1",
+                    label: {React.string(`应用装配`)},
+                  },
+                  {
+                    key: "2",
+                    label: {React.string(`页面装配`)},
+                  },
+                  {
+                    key: "3",
+                    label: {React.string(`包装配`)},
+                  },
+                ]
+              />
+            </Layout.Content>
+          : React.null}
         <Layout.Content>
           {switch currentAssemble {
           // | Assemble => <AssembleAssemble service account />
