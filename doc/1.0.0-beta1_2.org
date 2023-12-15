@@ -190,11 +190,11 @@ pass run test
 
 
 
-* TODO publish app should save to local(import it?)
+# * TODO publish app should save to local(import it?)
 
 
 
-* TODO import in ShowByApp should login first
+* DONE import in ShowByApp should login first
 
 
 
@@ -308,3 +308,6 @@ e.g. 更新Extensions、 UI Controls中的图文小图标排版
 
 # * TODO publish
 
+* TODO refactor: remove unused ones
+
+e.g. ShowPublishedElements
