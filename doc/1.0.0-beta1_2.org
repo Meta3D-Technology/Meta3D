@@ -200,7 +200,7 @@ pass run test
 
 
 
-* TODO user login: save username to local storage
+* DONE user login: save username to local storage
 
 
 

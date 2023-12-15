@@ -9,3 +9,9 @@ function (name, value){
 window.localStorage.setItem(name, value)
 }
 `)
+
+let remove = %raw(`
+function (name){
+window.localStorage.removeItem( name ) 
+}
+`)

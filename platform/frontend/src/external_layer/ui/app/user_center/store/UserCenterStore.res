@@ -102,7 +102,7 @@ let _removeOtherSelectedElementOfSameName = (
 }
 
 let _createState = () => {
-  account: None,
+  account: LoginUtils.readAccount(),
   selectedExtensions: list{},
   selectedContributes: list{},
   selectedPackages: list{},
@@ -289,6 +289,10 @@ let reducer = (state, action) => {
       currentAppName: appName->Some,
     }
   | Reset => state->_reset
+  | LogOut => {
+      ...state,
+      account: None,
+    }
   }
 }
 

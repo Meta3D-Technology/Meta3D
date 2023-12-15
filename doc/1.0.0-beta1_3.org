@@ -30,14 +30,14 @@ TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
 3D场景漫游
 
 
-* TODO 跑通发布扩展、贡献的流程
+# * TODO 跑通发布扩展、贡献的流程
 
-TODO 跑通：
-“根据template，发布extension/contribute”
-//- “使用yeoman，发布extension/contribute”
-发布action
-发布input
-发布uiControl
+# TODO 跑通：
+# “根据template，发布extension/contribute”
+# //- “使用yeoman，发布extension/contribute”
+# 发布action
+# 发布input
+# 发布uiControl
 
 
 * TODO 隐藏web3登录

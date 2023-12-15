@@ -55,6 +55,7 @@ type action =
   | SetPackages(selectedPackages)
   | SetCurrentAppName(appName)
   | Reset
+  | LogOut
 
 type state = {
   account: option<string>,

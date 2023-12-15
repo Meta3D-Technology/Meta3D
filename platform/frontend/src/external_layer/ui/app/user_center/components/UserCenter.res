@@ -176,6 +176,14 @@ let make = (~service: FrontendType.service) => {
     RescriptReactRouter.push("/ShowPublishedApps")
   }
 
+  let _logOut = dispatch => {
+    LoginUtils.logOut()
+
+    dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.LogOut))
+
+    RescriptReactRouter.push("/Login")
+  }
+
   React.useEffect0(() => {
     ErrorUtils.showCatchedErrorMessage(() => {
       _isNotLogin(account)
@@ -234,6 +242,19 @@ let make = (~service: FrontendType.service) => {
       | Some(info) => React.string(`${info}`)
       | None =>
         <Space direction=#vertical size=#middle>
+          <Typography.Title> {React.string({j`我的信息`})} </Typography.Title>
+          <Space direction=#horizontal>
+            <Typography.Text>
+              {React.string({j`账户名：${account->Meta3dCommonlib.OptionSt.getExn}`})}
+            </Typography.Text>
+            <Button
+              onClick={_ => {
+                _logOut(dispatch)
+              }}>
+              {React.string(`登出`)}
+            </Button>
+          </Space>
+          <Typography.Title> {React.string({j`我发布的应用`})} </Typography.Title>
           <Space direction=#horizontal>
             <Button
               _type=#primary
@@ -263,7 +284,6 @@ let make = (~service: FrontendType.service) => {
                 </Button>
               : React.null}
           </Space>
-          <Typography.Title> {React.string({j`我发布的应用`})} </Typography.Title>
           <List
             itemLayout=#horizontal
             dataSource={allPublishApps}
