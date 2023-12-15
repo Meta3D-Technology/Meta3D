@@ -54,8 +54,9 @@ type action =
   | SelectAllUIControls(selectedContributes)
   | SetPackages(selectedPackages)
   | SetCurrentAppName(appName)
-  | Reset
+  // | Reset
   | LogOut
+  | RemoveElement
 
 type state = {
   account: option<string>,

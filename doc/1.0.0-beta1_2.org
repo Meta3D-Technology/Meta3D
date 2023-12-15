@@ -302,9 +302,13 @@ TODO run test:
 
 
 
-* TODO when enter UserCenter, should reset
+* DONE when enter UserCenter, should reset
 
-should remain actions, uiControls
+# should remain extensions, packages, inputs, actions, uiControls
+
+TODO run test:
+multiple import
+    create from scratch
 
 
 

@@ -34,12 +34,6 @@ let _removeElementContributeFileData = (
   })
 }
 
-let _removeElementContribute = (selectedContributes: UserCenterStoreType.selectedContributes) => {
-  selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
-    protocolName != ElementUtils.getElementContributeProtocolName()
-  })
-}
-
 let _import = (
   (service: FrontendType.service, (setFlag, dispatchImportApp, dispatchBatchStorePackagesInApp)),
   stream,
@@ -263,7 +257,7 @@ let _import = (
 
       dispatchImportApp(
         selectedExtensions,
-        selectedContributes->_removeElementContribute,
+        selectedContributes->SelectedElementContributeUtils.removeElementContribute,
         Meta3dCommonlib.ListSt.concat(selectedPackagesStoredInApp, selectedPackagesNotStoredInApp),
       )
       dispatchBatchStorePackagesInApp(

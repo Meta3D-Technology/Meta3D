@@ -156,6 +156,8 @@ let make = (~service: FrontendType.service) => {
   let _createFromScratch = (service, dispatch) => {
     setInfo(_ => {j`loading...`}->Some)
 
+    dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.RemoveElement))
+
     // TODO perf: use batchXxx to merge request
     _selectAllUIControls(service, dispatch)->Js.Promise.then_(() => {
       _selectEditorWholeAndEngineWholePackages(service, dispatch)

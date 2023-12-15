@@ -112,12 +112,12 @@ let _createState = () => {
   currentAppName: None,
 }
 
-let _reset = state => {
-  {
-    ..._createState(),
-    account: state.account,
-  }
-}
+// let _reset = state => {
+//   {
+//     ..._createState(),
+//     account: state.account,
+//   }
+// }
 
 let reducer = (state, action) => {
   switch action {
@@ -228,33 +228,40 @@ let reducer = (state, action) => {
       }),
     }
   | ImportApp(appId, appName, selectedExtensions, selectedContributes, selectedPackages) => {
-      ...state,
-      currentAppName: appName->Some,
-      // importedAppIds: state.importedAppIds->Meta3dCommonlib.ListSt.push(appId),
-      selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
-        state.selectedExtensions,
-        (result, (data, protocolConfigOpt) as selectedExtension) => {
+      let state = {
+        ...state,
+        selectedContributes: state.selectedContributes->SelectedElementContributeUtils.removeElementContribute,
+      }
+
+      {
+        ...state,
+        currentAppName: appName->Some,
+        // importedAppIds: state.importedAppIds->Meta3dCommonlib.ListSt.push(appId),
+        selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
+          state.selectedExtensions,
+          (result, (data, protocolConfigOpt) as selectedExtension) => {
+            result
+            ->_removeOtherSelectedExtensionsOfSameProtocolName(data)
+            ->Meta3dCommonlib.ListSt.push(selectedExtension)
+          },
+        ),
+        selectedContributes: selectedContributes->Meta3dCommonlib.ListSt.reduce(
+          state.selectedContributes,
+          (result, (data, protocolConfigOpt) as selectedContribute) => {
+            result
+            ->_removeOtherSelectedContributesOfSameProtocolNameExceptInput(data)
+            ->Meta3dCommonlib.ListSt.push(selectedContribute)
+          },
+        ),
+        selectedPackages: selectedPackages->Meta3dCommonlib.ListSt.reduce(state.selectedPackages, (
+          result,
+          packageData,
+        ) => {
           result
-          ->_removeOtherSelectedExtensionsOfSameProtocolName(data)
-          ->Meta3dCommonlib.ListSt.push(selectedExtension)
-        },
-      ),
-      selectedContributes: selectedContributes->Meta3dCommonlib.ListSt.reduce(
-        state.selectedContributes,
-        (result, (data, protocolConfigOpt) as selectedContribute) => {
-          result
-          ->_removeOtherSelectedContributesOfSameProtocolNameExceptInput(data)
-          ->Meta3dCommonlib.ListSt.push(selectedContribute)
-        },
-      ),
-      selectedPackages: selectedPackages->Meta3dCommonlib.ListSt.reduce(state.selectedPackages, (
-        result,
-        packageData,
-      ) => {
-        result
-        ->_removeOtherSelectedPackagesOfSameProtocolName(packageData)
-        ->Meta3dCommonlib.ListSt.push(packageData)
-      }),
+          ->_removeOtherSelectedPackagesOfSameProtocolName(packageData)
+          ->Meta3dCommonlib.ListSt.push(packageData)
+        }),
+      }
     }
   | SetAccount(account) => {...state, account: Some(account)}
   | UpdateSelectedPackagesAndExtensionsAndContributes(
@@ -288,10 +295,15 @@ let reducer = (state, action) => {
       ...state,
       currentAppName: appName->Some,
     }
-  | Reset => state->_reset
+  // | Reset => state->_reset
   | LogOut => {
       ...state,
       account: None,
+    }
+  | RemoveElement => {
+      ...state,
+      selectedContributes: state.selectedContributes->SelectedElementContributeUtils.removeElementContribute,
+      selectedElements: list{},
     }
   }
 }
