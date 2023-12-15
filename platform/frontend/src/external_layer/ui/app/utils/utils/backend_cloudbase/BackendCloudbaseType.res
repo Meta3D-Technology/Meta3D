@@ -14,6 +14,12 @@ type repoLink = string
 
 type description = string
 
+type previewBase64 = string
+
+// type useCount = int
+
+type isRecommend = bool
+
 type limitCount = int
 
 type skipCount = int
@@ -135,6 +141,18 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -142,6 +160,18 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -299,6 +329,18 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -306,6 +348,18 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -426,6 +480,8 @@ type publishAppInfo = {
   account: account,
   appName: appName,
   description: description,
+  previewBase64: Js.Nullable.t<previewBase64>,
+  isRecommend: isRecommend,
 }
 
 type publishApp = (
@@ -434,6 +490,9 @@ type publishApp = (
   appName,
   account,
   description,
+  Js.Nullable.t<previewBase64>,
+  // useCount,
+  isRecommend,
 ) => Meta3dBsMostDefault.Most.stream<unit>
 
 type findPublishApp = (
@@ -449,6 +508,10 @@ type findAllPublishApps = (
 
 type findAllPublishAppsByAccount = (
   . account,
+) => Meta3dBsMostDefault.Most.stream<array<publishAppInfo>>
+
+type findAllRecommendPublishApps = (
+  . unit,
 ) => Meta3dBsMostDefault.Most.stream<array<publishAppInfo>>
 
 type publishElementContribute = (

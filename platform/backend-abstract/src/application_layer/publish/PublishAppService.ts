@@ -9,7 +9,9 @@ export let _buildKey = (appName: string, account: string) => handleKeyToLowercas
 
 export let publish = (
     [onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any],
-    appBinaryFile: ArrayBuffer, appName: string, account: string, description: string) => {
+    appBinaryFile: ArrayBuffer, appName: string, account: string, description: string, previewBase64: nullable<string>,
+    // useCount: number,
+    isRecommend: boolean) => {
     let key = _buildKey(appName, account)
 
     return fromPromise(getDataByKeyFunc("publishedapps", key)).concatMap((data: Array<publishAppInfo>) => {
@@ -44,6 +46,9 @@ export let publish = (
                         account,
                         appName,
                         description,
+                        previewBase64,
+                        // useCount,
+                        isRecommend,
                         fileID
                     }
                 ))
@@ -55,6 +60,9 @@ export let publish = (
                     account,
                     appName,
                     description,
+                    previewBase64,
+                    // useCount,
+                    isRecommend,
                     fileID
                 }))
         })
@@ -87,13 +95,14 @@ export let findAllPublishAppsByAccount = (
             return just([])
         }
 
-        return just(data.map(({ account, appName, description }) => {
-            return {
-                account,
-                appName,
-                description
-            }
-        }))
+        // return just(data.map(({ account, appName, description }) => {
+        //     return {
+        //         account,
+        //         appName,
+        //         description
+        //     }
+        // }))
+        return just(data)
     })
 }
 
@@ -107,12 +116,26 @@ export let findAllPublishApps = (
             return just([])
         }
 
-        return just(data.map(({ account, appName, description }) => {
-            return {
-                account,
-                appName,
-                description
-            }
-        }))
+        // return just(data.map(({ account, appName, description }) => {
+        //     return {
+        //         account,
+        //         appName,
+        //         description
+        //     }
+        // }))
+        return just(data)
     })
+}
+
+export let findAllRecommendPublishApps = (
+    getDataWithWhereDataFunc: any
+): Stream<Array<publishAppInfo>> => {
+    return fromPromise(
+        getDataWithWhereDataFunc("publishedapps", { isRecommend: true })).flatMap((data: any) => {
+            if (data.length === 0) {
+                return just([])
+            }
+
+            return just(data)
+        })
 }

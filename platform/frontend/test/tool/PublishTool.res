@@ -29,6 +29,7 @@ let publish = (
   ~isChangeSelectedPackagesByDebug=false,
   ~canvasData=CanvasControllerTool.buildCanvasData(),
   ~apInspectorData=ApInspectorTool.buildApInspectorData(),
+  ~previewBase64=None,
   ~values={
     "appName": "n1",
     "appDescription": "dp1",
@@ -53,6 +54,7 @@ let publish = (
       customInputs,
       customActions,
     ),
+    previewBase64,
     values,
   )
 }

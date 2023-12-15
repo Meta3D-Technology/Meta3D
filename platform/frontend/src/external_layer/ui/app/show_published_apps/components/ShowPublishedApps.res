@@ -27,13 +27,99 @@ let make = (~service: FrontendType.service, ~account) => {
   let (refreshValue, refresh) = React.useState(_ => Js.Math.random())
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
+  let (allRecommendPublishApps, setAllRecommendPublishApps) = React.useState(_ => [])
   let (page, setPage) = React.useState(_ => 1)
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => true)
   let (currentImportingKey, setCurrentImportingKey) = React.useState(_ => None)
 
-  let onChange = (page, pageSize) => {
+  let _onChange = (page, pageSize) => {
     setPage(_ => page)
+  }
+
+  let _buildCard = (item: BackendCloudbaseType.publishAppInfo) => {
+    <Card
+      key={PublishedAppUtils.buildKey(item.account, item.appName)}
+      bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
+      cover={switch item.previewBase64->Meta3dCommonlib.OptionSt.fromNullable {
+      | Some(previewBase64) =>
+        <Row justify=#center>
+          <Image preview=false src={previewBase64} width=400 height=200 />
+        </Row>
+      | None => React.null
+      }}>
+      <Card.Meta
+        title={<span
+          style={ReactDOM.Style.make(
+            ~whiteSpace="normal",
+            ~wordWrap="break-word",
+            ~wordBreak="break-all",
+            (),
+          )}>
+          {React.string(item.appName)}
+        </span>}
+        description={<Space direction=#vertical size=#middle>
+          {React.string(item.description->Js.String.slice(~from=0, ~to_=100, _))}
+          <Space direction=#horizontal size=#small>
+            {React.string(item.account->Js.String.slice(~from=0, ~to_=10, _))}
+            {!isDownloadFinish &&
+            currentImportingKey
+            ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
+              currentImportingKey == PublishedAppUtils.buildKey(item.account, item.appName)
+            )
+            ->Meta3dCommonlib.OptionSt.getWithDefault(false)
+              ? <p>
+                  {React.string({
+                    j`${downloadProgress->Js.Int.toString}% downloading...`
+                  })}
+                </p>
+              : React.null}
+            <Button
+              _type=#primary
+              onClick={_ => {
+                LoginUtils.judgeToJumpToLogin(() => {
+                  setIsDownloadFinish(_ => false)
+                  setCurrentImportingKey(_ =>
+                    PublishedAppUtils.buildKey(item.account, item.appName)->Some
+                  )
+
+                  PublishedAppUtils.importApp(
+                    service,
+                    (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
+                    (
+                      setDownloadProgress,
+                      () => {
+                        setIsDownloadFinish(_ => true)
+                        setCurrentImportingKey(_ => None)
+                      },
+                    ),
+                    item,
+                  )
+                }, account)
+              }}>
+              {React.string(`导入`)}
+            </Button>
+            <Button
+              _type=#default
+              onClick={_ => {
+                PublishedAppUtils.openLink(PublishedAppUtils.buildURL(item.account, item.appName))
+              }}>
+              {React.string(`运行`)}
+            </Button>
+          </Space>
+        </Space>}
+      />
+    </Card>
+  }
+
+  let _buildCards = allPublishApps => {
+    <Row gutter={[16, 24]}>
+      {allPublishApps
+      ->Meta3dCommonlib.ArraySt.map(item => {
+        <Col span={8}> {_buildCard(item)} </Col>
+      })
+      ->React.array}
+    </Row>
   }
 
   RescriptReactRouter.watchUrl(url => {
@@ -52,7 +138,15 @@ let make = (~service: FrontendType.service, ~account) => {
     service.backend.findAllPublishApps(. MarketUtils.getLimitCount(), 0)
     ->Meta3dBsMostDefault.Most.observe(allPublishApps => {
       setAllPublishApps(_ => allPublishApps)
-      setIsLoaded(_ => true)
+    }, _)
+    ->Js.Promise.then_(() => {
+      service.backend.findAllRecommendPublishApps(.)->Meta3dBsMostDefault.Most.observe(
+        allRecommendPublishApps => {
+          setAllRecommendPublishApps(_ => allRecommendPublishApps)
+          setIsLoaded(_ => true)
+        },
+        _,
+      )
     }, _)
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
@@ -72,79 +166,12 @@ let make = (~service: FrontendType.service, ~account) => {
       {!isLoaded
         ? <p> {React.string(`loading...`)} </p>
         : <>
-            <List
-              itemLayout=#horizontal
-              dataSource={MarketUtils.getCurrentPage(
-                allPublishApps,
-                page,
-                MarketUtils.getPageSize(),
-              )}
-              renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
-                <List.Item>
-                  <List.Item.Meta
-                    key={PublishedAppUtils.buildKey(item.account, item.appName)}
-                    title={<Typography.Title level=3>
-                      {React.string(item.appName)}
-                    </Typography.Title>}
-                    description={UIDescriptionUtils.buildWithoutRepoLink(
-                      item.account,
-                      item.description,
-                    )}
-                  />
-                  {!isDownloadFinish &&
-                  currentImportingKey
-                  ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
-                    currentImportingKey == PublishedAppUtils.buildKey(item.account, item.appName)
-                  )
-                  ->Meta3dCommonlib.OptionSt.getWithDefault(false)
-                    ? <p>
-                        {React.string({
-                          j`${downloadProgress->Js.Int.toString}% downloading...`
-                        })}
-                      </p>
-                    : React.null}
-                  <Button
-                    onClick={_ => {
-                      PublishedAppUtils.openLink(
-                        PublishedAppUtils.buildURL(item.account, item.appName),
-                      )
-                    }}>
-                    {React.string(`运行`)}
-                  </Button>
-                  // {MarketUtils.isSelect(
-                  //   id => id,
-                  //   _generateAppId(item.account, item.appName),
-                  //   importedAppIds,
-                  // )
-                  //   ? <Button disabled=true> {React.string(`已导入`)} </Button>
-                  //   :
-                  <Button
-                    onClick={_ => {
-                      LoginUtils.judgeToJumpToLogin(() => {
-                        setIsDownloadFinish(_ => false)
-                        setCurrentImportingKey(_ =>
-                          PublishedAppUtils.buildKey(item.account, item.appName)->Some
-                        )
-
-                        PublishedAppUtils.importApp(
-                          service,
-                          (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
-                          (
-                            setDownloadProgress,
-                            () => {
-                              setIsDownloadFinish(_ => true)
-                              setCurrentImportingKey(_ => None)
-                            },
-                          ),
-                          item,
-                        )
-                      }, account)
-                    }}>
-                    {React.string(`导入`)}
-                  </Button>
-                  // }
-                </List.Item>}
-            />
+            <Typography.Title> {React.string({j`推荐`})} </Typography.Title>
+            {_buildCards(allRecommendPublishApps)}
+            <Typography.Title> {React.string({j`所有`})} </Typography.Title>
+            {_buildCards(
+              MarketUtils.getCurrentPage(allPublishApps, page, MarketUtils.getPageSize()),
+            )}
           </>}
     </Layout.Content>
     <Layout.Footer>
@@ -155,7 +182,7 @@ let make = (~service: FrontendType.service, ~account) => {
           defaultPageSize={MarketUtils.getPageSize()}
           total={allPublishApps->Meta3dCommonlib.ArraySt.length}
           showSizeChanger=false
-          onChange
+          onChange=_onChange
         />
       | false => React.null
       }}

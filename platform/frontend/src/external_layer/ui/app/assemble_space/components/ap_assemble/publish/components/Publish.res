@@ -207,6 +207,10 @@ module Method = {
     )
   }
 
+  let _isRecommend = account => {
+    UserUtils.isAdmin(account->Some)
+  }
+
   let onFinish = (
     service,
     dispatchForAppStore,
@@ -225,6 +229,7 @@ module Method = {
       customInputs,
       customActions,
     ),
+    previewBase64,
     values,
   ): Js.Promise.t<unit> => {
     let appName = values["appName"]
@@ -332,6 +337,9 @@ module Method = {
                 appName,
                 account,
                 appDescription,
+                previewBase64->Meta3dCommonlib.OptionSt.toNullable,
+                // 0,
+                _isRecommend(account),
               )
               ->Meta3dBsMostDefault.Most.drain
               ->Js.Promise.then_(_ => {
@@ -406,6 +414,7 @@ let make = (~service: service, ~account: option<string>) => {
   ) = service.react.useSelector(. Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
+  let (previewBase64, setPreviewBase64) = service.react.useState(_ => None)
 
   let (uploadProgress, setUploadProgress) = service.react.useState(_ => 0)
   let (isUploadBegin, setIsUploadBegin) = service.react.useState(_ => false)
@@ -461,6 +470,7 @@ let make = (~service: service, ~account: option<string>) => {
                             customInputs,
                             customActions,
                           ),
+                          previewBase64,
                           event->Obj.magic,
                         )->ignore
                   }, 5->Some)}
@@ -476,6 +486,38 @@ let make = (~service: service, ~account: option<string>) => {
                     },
                   ]}>
                   <Input />
+                </Form.Item>
+                <Form.Item
+                  label={`预览图`}
+                  name="appPreview"
+                  rules={[
+                    {
+                      required: false,
+                      message: `上传预览图`,
+                    },
+                  ]}>
+                  <Upload
+                    listType=#pictureCard
+                    beforeUpload={file => {
+                      UploadUtils.handleUploadImage(
+                        (file, imageBase64) => {
+                          setPreviewBase64(_ => imageBase64->Some)
+                        },
+                        (_, _) => (),
+                        (event, _) => {
+                          ErrorUtils.error({j`error`}, None)
+                        },
+                        file,
+                      )
+                    }}
+                    showUploadList=false>
+                    <Button icon={<Icon.UploadOutlined />}> {React.string(`上传`)} </Button>
+                  </Upload>
+                  {switch previewBase64 {
+                  | Some(imageBase64) =>
+                    <Image preview=true src={imageBase64} width=200 height=200 />
+                  | None => React.null
+                  }}
                 </Form.Item>
                 <Form.Item
                   label={`介绍`}

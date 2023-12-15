@@ -23,6 +23,7 @@ type backendService = {
   findPublishContribute: findPublishContribute,
   findAllPublishApps: findAllPublishApps,
   findAllPublishAppsByAccount: findAllPublishAppsByAccount,
+  findAllRecommendPublishApps: findAllRecommendPublishApps,
   findPublishApp: findPublishApp,
   findPublishPackage: findPublishPackage,
   findAllElementAssembleData: findAllElementAssembleData,

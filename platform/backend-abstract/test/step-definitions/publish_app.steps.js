@@ -30,7 +30,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
     };
     test('if not exist, publish should add app', ({ given, and, when, then }) => {
-        let appBinaryFile, appName, account, description;
+        let appBinaryFile, appName, account, description, previewBase64, isRecommend;
         let fileID = "1";
         _prepare(given);
         given('prepare funcs', () => {
@@ -43,9 +43,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             appName = "App1";
             account = "account1";
             description = "d1";
+            previewBase64 = "p1";
+            // useCount = 1
+            isRecommend = true;
         });
         when('publish the app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description, previewBase64, 
+            // useCount,
+            isRecommend).drain();
         });
         then('should upload app', () => {
             expect(uploadFileFunc).toCalledWith([
@@ -63,6 +68,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                     account,
                     appName,
                     description,
+                    previewBase64,
+                    // useCount,
+                    isRecommend,
                     fileID
                 }
             ]);
@@ -71,8 +79,8 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
     test('if exist, publish should overwrite app', ({ given, and, when, then }) => {
         let fileID1 = "1";
         let fileID2 = "2";
-        let appBinaryFile1, appName1, account1, description1;
-        let appBinaryFile2, appName2, account2, description2;
+        let appBinaryFile1, appName1, account1, description1, previewBase641, isRecommend1;
+        let appBinaryFile2, appName2, account2, description2, previewBase642, isRecommend2;
         _prepare(given);
         given('prepare funcs', () => {
             _createFuncsForPublish(sandbox);
@@ -86,16 +94,26 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
             appName1 = "app1";
             account1 = "account1";
             description1 = "d1";
+            previewBase641 = "p1";
+            // useCount1 = 0
+            isRecommend1 = false;
             appBinaryFile2 = new ArrayBuffer(11);
             appName2 = appName1;
             account2 = account1;
             description2 = "d2";
+            previewBase642 = null;
+            // useCount1 = 1
+            isRecommend2 = true;
         });
         and('publish the first app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1, description1).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile1, appName1, account1, description1, previewBase641, 
+            // useCount1,
+            isRecommend1).drain();
         });
         when('publish the second app', () => {
-            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2, description2).drain();
+            return (0, PublishAppService_1.publish)([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile2, appName2, account2, description2, previewBase642, 
+            // useCount2,
+            isRecommend2).drain();
         });
         then("should delete the first app's binary file", () => {
             expect(deleteFileFunc).toCalledWith([fileID1]);
@@ -118,6 +136,9 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                     account: account1,
                     appName: appName1,
                     description: description2,
+                    previewBase64: previewBase642,
+                    // useCount: useCount2,
+                    isRecommend: isRecommend2,
                     fileID: fileID2
                 }
             ]);
@@ -316,11 +337,13 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
                 ]);
                 expect(result).toEqual([{
                         account: account1, appName: appName1,
-                        description: description1
+                        description: description1,
+                        fileID: fileID1
                     },
                     {
                         account: account1, appName: appName2,
-                        description: description2
+                        description: description2,
+                        fileID: fileID2
                     }]);
             });
         });

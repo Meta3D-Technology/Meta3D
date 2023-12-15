@@ -23,7 +23,7 @@ TODO pass run test
 # 从市场中关注协议到用户中心
 # TODO store custom data for user
 # TODO add a new database table to store custom data of user
-# TODO how to handle import app 's custom data?
+# TODO how to handle use app 's custom data?
 
 # Ap Assemble Space
 # TODO add Elements, Selected Elements
@@ -82,7 +82,7 @@ create from template
 
 
 编辑应用
-    import it, then: 
+    use it, then: 
         jump to assemble
         start editor whole package
 
@@ -113,21 +113,21 @@ TODO pass run test
 
 
 TODO finish create from template
-    after import, jumpt to element assemble
+    after use, jumpt to element assemble
     remove 已导入 status
 
 
 TODO when enter UserCenter, should clean all selected
 
     TODO run test:
-        import twice
+        use twice
 
 
 
 
 
 TODO finish edit app
-    show list+edit(just import), run buttons
+    show list+edit(just use), run buttons
 
 
 
@@ -140,7 +140,7 @@ TODO finish edit app
 用户中心:
 进入装配空间
 
-import package should jump to AssembleSpace
+use package should jump to AssembleSpace
 
 
 返回用户中心 | {{应用名}} | 应用装配 | 页面装配 | 包装配
@@ -190,11 +190,11 @@ pass run test
 
 
 
-# * TODO publish app should save to local(import it?)
+# * TODO publish app should save to local(use it?)
 
 
 
-* DONE import in ShowByApp should login first
+* DONE use in ShowByApp should login first
 
 
 
@@ -228,7 +228,7 @@ TODO 扩展、贡献、应用、页面增加图片等说明
 # use protocol icon
 
 
-# *** TODO add download count, update time, score, m
+# *** TODO add use count, update time, score, m
 
 # *** TODO update ui
 
@@ -236,7 +236,7 @@ TODO 扩展、贡献、应用、页面增加图片等说明
 
 # icon + [
 #     [ display name ]
-# [publisher, repo, download count, m]
+# [publisher, repo, use count, m]
 # [description]
 # [version, buttons...]
 # ]
@@ -250,25 +250,30 @@ TODO 扩展、贡献、应用、页面增加图片等说明
 
 
 
-** TODO ShowByApp, ByElement
+** DONE ShowByApp
 
 refer to:
 https://www.zcappp.cn/plugins
 https://app.appsmith.com/templates
 
-*** TODO add preview, download count, update time, scrore, m
+# *** TODO add preview, use count, update time, scrore, m
+# *** TODO add preview, use count, update time, isRecommend
+*** TODO add preview, isRecommend
 
-*** TODO element: add publisher, description
+# *** TODO element: add publisher, description
+
+
+*** TODO publish app add preview
+
 
 *** TODO update ui
 
 3 column
 
-[preview]
+[preview?]
 [display name]
-[publisher, download count, m],
 [description]
-[version, buttons...]
+[publisher, buttons...]
 
 
 *** TODO add recommend
@@ -281,6 +286,25 @@ TODO use first three ones
 
 TODO add database table
 
+
+TODO admin published app always be recommended
+
+
+# *** TODO sort by update time
+# *** TODO sort by use count
+
+# newest
+
+
+TODO run test:
+    publish app with preview by admin
+    see recommend
+
+
+
+* TODO when enter UserCenter, should reset
+
+should remain actions, uiControls
 
 
 

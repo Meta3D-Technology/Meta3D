@@ -40,6 +40,8 @@ export let findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByA
 
 export let findAllPublishApps = PublishAppService.findAllPublishApps
 
+export let findAllRecommendPublishApps = PublishAppService.findAllRecommendPublishApps
+
 export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestData
 
 export let getElementAssembleData = GetElementDataService.getElementAssembleData

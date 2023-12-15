@@ -295,27 +295,31 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"PackageMarket"} =>
       Method.judgeToJumpToLogin(() => <PackageMarket service account />, account, service)
 
-    | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() =>
-        <Layout>
-          <Layout.Header>
-            <AssembleSpaceNav
-              currentKey="2" appName={currentAppName->Meta3dCommonlib.OptionSt.getExn}
-            />
-          </Layout.Header>
-          <Layout.Content>
-            <AssembleSpace
-              service={_buildAssembleSpaceService()}
-              account
-              selectedExtensionsFromMarket=selectedExtensions
-              selectedContributesFromMarket=selectedContributes
-              selectedPackagesFromMarket=selectedPackages
-              selectedElementsFromMarket=selectedElements
-              // customInputsFromMarket=customInputs
-              // customActionsFromMarket=customActions
-            />
-          </Layout.Content>
-        </Layout>
-      , account, service)
+    | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() => {
+        switch currentAppName {
+        | None =>
+          RescriptReactRouter.push("/UserCenter")
+          React.null
+        | Some(currentAppName) =>
+          <Layout>
+            <Layout.Header>
+              <AssembleSpaceNav currentKey="2" appName={currentAppName} />
+            </Layout.Header>
+            <Layout.Content>
+              <AssembleSpace
+                service={_buildAssembleSpaceService()}
+                account
+                selectedExtensionsFromMarket=selectedExtensions
+                selectedContributesFromMarket=selectedContributes
+                selectedPackagesFromMarket=selectedPackages
+                selectedElementsFromMarket=selectedElements
+                // customInputsFromMarket=customInputs
+                // customActionsFromMarket=customActions
+              />
+            </Layout.Content>
+          </Layout>
+        }
+      }, account, service)
     | list{"ShowPublishedApps"} => <ShowPublishedApps service account />
     // | list{"ShowPublishedElements"} =>
     //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)

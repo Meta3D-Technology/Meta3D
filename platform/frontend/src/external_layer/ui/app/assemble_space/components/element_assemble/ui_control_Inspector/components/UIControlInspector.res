@@ -352,28 +352,6 @@ module Method = {
   //   </Space>
   // }
 
-  let _handleUploadImage = %raw(`
-function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
-        let reader = new FileReader()
-
-        reader.onload = () => {
-            onloadFunc(file, reader.result)
-        }
-
-        reader.onprogress = (event) => {
-            onprogressFunc(event.loaded, event.total)
-        }
-
-        reader.onerror = (event) => {
-            onerrorFunc(event, file)
-        }
-
-    reader.readAsDataURL(file)
-
-    return false
-}
-`)
-
   let _setSpecificData = (dispatch, specific, id, i, value, type_) => {
     dispatch(
       ElementAssembleStoreType.SetSpecificData(
@@ -445,7 +423,7 @@ function (onloadFunc, onprogressFunc, onerrorFunc, file, ){
               <Upload
                 listType=#pictureCard
                 beforeUpload={file =>
-                  _handleUploadImage(
+                  UploadUtils.handleUploadImage(
                     (file, imageBase64) => {
                       setImageBase64Map(map =>
                         map->Meta3dCommonlib.ImmutableHashMap.set(

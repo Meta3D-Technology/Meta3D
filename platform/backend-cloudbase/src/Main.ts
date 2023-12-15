@@ -136,7 +136,9 @@ export let findPublishContribute = (onDownloadProgressFunc,
     version
 )
 
-export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
+export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description,
+    previewBase64, isRecommend
+) => Abstract.publishApp([
     onUploadProgressFunc,
     uploadFile,
     deleteFile,
@@ -146,7 +148,8 @@ export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, 
     getFileID,
 ],
     appBinaryFile, appName, account,
-    description
+    description,
+    previewBase64, isRecommend
 )
 
 export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
@@ -170,6 +173,10 @@ export let findAllPublishApps = (
     skipCount,
 )
 
+export let findAllRecommendPublishApps = (
+) => Abstract.findAllRecommendPublishApps(
+    getDataWithWhereData
+)
 
 let _throwError = (msg: string): never => {
     throw new Error(msg)

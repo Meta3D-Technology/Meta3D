@@ -1,12 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
+exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publish = exports._buildKey = void 0;
 const most_1 = require("most");
 const Main_1 = require("meta3d-backend-cloudbase/src/Main");
 let _buildFileName = (appName, account) => account + "_" + appName;
 let _buildKey = (appName, account) => (0, Main_1.handleKeyToLowercase)(_buildFileName(appName, account));
 exports._buildKey = _buildKey;
-let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description) => {
+let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], appBinaryFile, appName, account, description, previewBase64, 
+// useCount: number,
+isRecommend) => {
     let key = (0, exports._buildKey)(appName, account);
     return (0, most_1.fromPromise)(getDataByKeyFunc("publishedapps", key)).concatMap((data) => {
         let fileName = _buildFileName(appName, account);
@@ -33,6 +35,9 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByK
                     account,
                     appName,
                     description,
+                    previewBase64,
+                    // useCount,
+                    isRecommend,
                     fileID
                 }));
             }
@@ -40,6 +45,9 @@ let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByK
                 account,
                 appName,
                 description,
+                previewBase64,
+                // useCount,
+                isRecommend,
                 fileID
             }));
         });
@@ -65,13 +73,14 @@ let findAllPublishAppsByAccount = (getDataWithWhereDataFunc, account) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        return (0, most_1.just)(data.map(({ account, appName, description }) => {
-            return {
-                account,
-                appName,
-                description
-            };
-        }));
+        // return just(data.map(({ account, appName, description }) => {
+        //     return {
+        //         account,
+        //         appName,
+        //         description
+        //     }
+        // }))
+        return (0, most_1.just)(data);
     });
 };
 exports.findAllPublishAppsByAccount = findAllPublishAppsByAccount;
@@ -80,14 +89,24 @@ let findAllPublishApps = (getDataFunc, limitCount, skipCount) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        return (0, most_1.just)(data.map(({ account, appName, description }) => {
-            return {
-                account,
-                appName,
-                description
-            };
-        }));
+        // return just(data.map(({ account, appName, description }) => {
+        //     return {
+        //         account,
+        //         appName,
+        //         description
+        //     }
+        // }))
+        return (0, most_1.just)(data);
     });
 };
 exports.findAllPublishApps = findAllPublishApps;
+let findAllRecommendPublishApps = (getDataWithWhereDataFunc) => {
+    return (0, most_1.fromPromise)(getDataWithWhereDataFunc("publishedapps", { isRecommend: true })).flatMap((data) => {
+        if (data.length === 0) {
+            return (0, most_1.just)([]);
+        }
+        return (0, most_1.just)(data);
+    });
+};
+exports.findAllRecommendPublishApps = findAllRecommendPublishApps;
 //# sourceMappingURL=PublishAppService.js.map

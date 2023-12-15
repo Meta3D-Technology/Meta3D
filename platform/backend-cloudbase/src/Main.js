@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishElementAssembleData = exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
+exports.findNewestPublishElementAssembleData = exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
@@ -60,7 +60,7 @@ let findPublishContribute = (onDownloadProgressFunc, limitCount, skipCount, acco
     (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], "publishedcontributes", limitCount, skipCount, account, name, version);
 exports.findPublishContribute = findPublishContribute;
-let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description) => Abstract.publishApp([
+let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description, previewBase64, isRecommend) => Abstract.publishApp([
     onUploadProgressFunc,
     BackendService_1.uploadFile,
     BackendService_1.deleteFile,
@@ -68,7 +68,7 @@ let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, descrip
     BackendService_1.addData,
     BackendService_1.updateData,
     BackendService_1.getFileID,
-], appBinaryFile, appName, account, description);
+], appBinaryFile, appName, account, description, previewBase64, isRecommend);
 exports.publishApp = publishApp;
 let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
     BackendService_1.getDataByKey,
@@ -79,6 +79,8 @@ let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAcco
 exports.findAllPublishAppsByAccount = findAllPublishAppsByAccount;
 let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPublishApps(BackendService_1.getData, limitCount, skipCount);
 exports.findAllPublishApps = findAllPublishApps;
+let findAllRecommendPublishApps = () => Abstract.findAllRecommendPublishApps(BackendService_1.getDataWithWhereData);
+exports.findAllRecommendPublishApps = findAllRecommendPublishApps;
 let _throwError = (msg) => {
     throw new Error(msg);
 };
