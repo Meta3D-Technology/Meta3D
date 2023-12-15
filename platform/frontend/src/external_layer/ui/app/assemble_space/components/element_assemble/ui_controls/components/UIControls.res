@@ -74,9 +74,7 @@ module Method = {
     }
   }
 
-  let useSelector = (
-    {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state,
-  ) => {
+  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     // let {selectedContributes} = apAssembleState
     let {selectedUIControls, parentUIControlId} = elementAssembleState
 
@@ -90,7 +88,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~selectedContributes) => {
+let make = (~service: service, ~setIsShowUIControls, ~selectedContributes) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -123,6 +121,8 @@ let make = (~service: service, ~selectedContributes) => {
                 data,
                 parentUIControlId,
               )
+
+              setIsShowUIControls(_ => false)
             }, 5->Some)
           }}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}

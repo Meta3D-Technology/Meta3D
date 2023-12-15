@@ -191,16 +191,16 @@ let make = (
           <Layout>
             <Layout.Sider theme=#light>
               <Collapse defaultActiveKey={["1"]}>
-                <Collapse.Panel header="UI Controls" key="1">
-                  <UIControls service selectedContributes />
+                // <Collapse.Panel header="UI Controls" key="1">
+                //   <UIControls service selectedContributes />
+                // </Collapse.Panel>
+                <Collapse.Panel header="Selected UI Controls" key="1">
+                  <SelectedUIControls service selectedContributes />
                 </Collapse.Panel>
-                <Collapse.Panel header="Selected UI Controls" key="2">
-                  <SelectedUIControls service />
-                </Collapse.Panel>
-                <Collapse.Panel header="Custom Inputs" key="3">
+                <Collapse.Panel header="Custom Inputs" key="2">
                   <CustomInputs service />
                 </Collapse.Panel>
-                <Collapse.Panel header="Custom Actions" key="4">
+                <Collapse.Panel header="Custom Actions" key="3">
                   <CustomActions service />
                 </Collapse.Panel>
               </Collapse>

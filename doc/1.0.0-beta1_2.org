@@ -146,7 +146,7 @@ import package should jump to AssembleSpace
 返回用户中心 | {{应用名}} | 应用装配 | 页面装配 | 包装配
 
 
-* TODO adjust custom ui
+* DONE adjust custom ui
 
 TODO move add/remove/edit custom to element assemble
 
@@ -160,22 +160,18 @@ https://app.appsmith.com/app/my-first-application/page1-65681c0a77819e3b1160e2d9
 
 
 
+pass compile
 
+pass bdd test
 
-TODO refactor set parent
-use drag instead of select parent first!
-
-
-
-
-
-* TODO 平台：element assemble: add selected ui control->outline, pick, drag
-
-
- * TODO drag to set parent
+pass run test
 
 
 
+* TODO fix: remove shouldn't error
+
+
+* TODO fix: if not select(after remove), select root instead
 
 
 * TODO publish app should save to local(import it?)

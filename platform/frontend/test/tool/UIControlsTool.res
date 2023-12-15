@@ -2,9 +2,10 @@ let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
   ~selectedContributes=list{},
+  ~setIsShowUIControls=ReactHookTool.buildEmptySetStateFunc(),
   (),
 ) => {
-  <UIControls service selectedContributes />
+  <UIControls service setIsShowUIControls selectedContributes />
 }
 
 let buildSelectedContribute = (

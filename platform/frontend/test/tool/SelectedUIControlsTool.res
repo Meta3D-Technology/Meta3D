@@ -1,5 +1,10 @@
-let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <SelectedUIControls service />
+let buildUI = (
+  ~sandbox,
+  ~service=ServiceTool.build(~sandbox, ()),
+  ~selectedContributes=list{},
+  (),
+) => {
+  <SelectedUIControls service selectedContributes />
 }
 
 let buildSelectedUIControl = (
@@ -16,13 +21,13 @@ let buildSelectedUIControl = (
   (),
 ): ElementAssembleStoreType.uiControl => {
   {
-    id: id,
-    parentId: parentId,
-    children: children,
-    protocolIconBase64: protocolIconBase64,
-    protocolConfigStr: protocolConfigStr,
-    displayName: displayName,
-    data: data,
+    id,
+    parentId,
+    children,
+    protocolIconBase64,
+    protocolConfigStr,
+    displayName,
+    data,
   }
 }
 
