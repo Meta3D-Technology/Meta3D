@@ -28,6 +28,8 @@ type account = string
 
 type name = string
 
+type appName = string
+
 type action =
   | SelectExtension(extension, option<CommonType.protocolConfig>)
   | NotSelectExtension(name, AssembleSpaceCommonType.version)
@@ -42,7 +44,7 @@ type action =
   // | SetCustomData(customInputs, customActions)
   | SetAccount(account)
   | ImportPackage(id, selectedExtensions, selectedContributes, selectedPackages)
-  | ImportApp(id, selectedExtensions, selectedContributes, selectedPackages)
+  | ImportApp(id, appName, selectedExtensions, selectedContributes, selectedPackages)
   | UpdateSelectedPackagesAndExtensionsAndContributes(
       selectedPackages,
       selectedExtensions,
@@ -51,7 +53,8 @@ type action =
   | SetContributes(selectedContributes)
   | SelectAllUIControls(selectedContributes)
   | SetPackages(selectedPackages)
-  | SetCurrentAppName(string)
+  | SetCurrentAppName(appName)
+  | Reset
 
 type state = {
   account: option<string>,
@@ -60,8 +63,8 @@ type state = {
   selectedPackages: selectedPackages,
   selectedElements: selectedElements,
   importedPackageIds: list<id>,
-  importedAppIds: list<id>,
-  currentAppName: option<string>,
+  // importedAppIds: list<id>,
+  currentAppName: option<appName>,
   // customInputs: customInputs,
   // customActions: customActions,
 }

@@ -310,7 +310,6 @@ let _import = (
   ->Js.Promise.catch(e => {
     service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
   }, _)
-  ->ignore
 }
 
 let importApp = _import

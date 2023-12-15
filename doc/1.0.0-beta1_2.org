@@ -113,6 +113,14 @@ TODO pass run test
 
 
 TODO finish create from template
+    after import, jumpt to element assemble
+    remove 已导入 status
+
+
+TODO when enter UserCenter, should clean all selected
+
+    TODO run test:
+        import twice
 
 
 

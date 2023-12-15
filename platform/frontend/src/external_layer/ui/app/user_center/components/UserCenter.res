@@ -162,13 +162,19 @@ let make = (~service: FrontendType.service) => {
     // _jumptToAssembleSpace()
   }
 
+  let _createFromTemplate = () => {
+    RescriptReactRouter.push("/ShowPublishedApps")
+  }
+
   React.useEffect0(() => {
     ErrorUtils.showCatchedErrorMessage(() => {
       _isNotLogin(account)
         ? {
             RescriptReactRouter.push("/Login")
           }
-        : ()
+        : {
+            dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.Reset))
+          }
     }, 5->Some)
 
     None
@@ -198,14 +204,15 @@ let make = (~service: FrontendType.service) => {
       | None =>
         <Space direction=#vertical size=#middle>
           <Space direction=#horizontal>
-            //   <Button _type=#primary
-            //   onClick={_ => {
-            //       ErrorUtils.showCatchedErrorMessage(() => {
-
-            //       }, 5->Some)
-            //     }}
-            //   > {React.string(`导入模板来创建新的应用`)}
-            //   </Button>
+            <Button
+              _type=#primary
+              onClick={_ => {
+                ErrorUtils.showCatchedErrorMessage(() => {
+                  _createFromTemplate()
+                }, 5->Some)
+              }}>
+              {React.string(`导入模板来创建新的应用`)}
+            </Button>
             <Button
               _type=#default
               onClick={_ => {

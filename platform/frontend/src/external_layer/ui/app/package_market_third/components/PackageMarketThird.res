@@ -65,10 +65,7 @@ let make = (
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(
-        e->Error.promiseErrorToExn,
-        None,
-      )->Obj.magic
+      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -88,9 +85,7 @@ let make = (
                   page,
                   MarketUtils.getPageSize(),
                 )}
-                renderItem={(
-                  items: array<BackendCloudbaseType.packageImplementInfo>,
-                ) => {
+                renderItem={(items: array<BackendCloudbaseType.packageImplementInfo>) => {
                   let firstItem =
                     items->Meta3dCommonlib.ArraySt.getFirst->Meta3dCommonlib.OptionSt.getExn
 
@@ -153,10 +148,7 @@ let make = (
                             onClick={_ => {
                               dispatch(
                                 AppStoreType.UserCenterAction(
-                                  UserCenterStoreType.NotSelectPackage(
-                                    item.name,
-                                    item.version,
-                                  ),
+                                  UserCenterStoreType.NotSelectPackage(item.name, item.version),
                                 ),
                               )
                             }}>
@@ -185,10 +177,7 @@ let make = (
 
                                 Meta3dCommonlib.NullableSt.isNullable(file)
                                   ? {
-                                      ErrorUtils.error(
-                                        {j`找不到package file`},
-                                        None,
-                                      )->Obj.magic
+                                      ErrorUtils.error({j`找不到package file`}, None)->Obj.magic
                                     }
                                   : {
                                       dispatch(
@@ -218,10 +207,7 @@ let make = (
                                 setIsDownloadBegin(_ => false)
                                 setCurrentImportingKey(_ => None)
 
-                                ErrorUtils.errorWithExn(
-                                  e->Error.promiseErrorToExn,
-                                  None,
-                                )->Obj.magic
+                                ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
                               }, _)
                               ->ignore
                             }}>
@@ -246,10 +232,7 @@ let make = (
                           setCurrentImportingKey(_ => None)
                           Meta3dCommonlib.NullableSt.isNullable(file)
                             ? {
-                                ErrorUtils.error(
-                                  {j`找不到package file`},
-                                  None,
-                                )->Obj.magic
+                                ErrorUtils.error({j`找不到package file`}, None)->Obj.magic
                               }
                             : {
                                 Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
@@ -263,10 +246,7 @@ let make = (
                           setIsDownloadBegin(_ => false)
                           setCurrentImportingKey(_ => None)
 
-                          ErrorUtils.errorWithExn(
-                            e->Error.promiseErrorToExn,
-                            None,
-                          )->Obj.magic
+                          ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
                         }, _)
                         ->ignore
                       }}>
@@ -293,10 +273,7 @@ let make = (
 
                               Meta3dCommonlib.NullableSt.isNullable(file)
                                 ? {
-                                    ErrorUtils.error(
-                                      {j`找不到package file`},
-                                      None,
-                                    )->Obj.magic
+                                    ErrorUtils.error({j`找不到package file`}, None)->Obj.magic
 
                                     Meta3dBsMostDefault.Most.empty()->Obj.magic
                                   }
@@ -329,6 +306,7 @@ let make = (
                               ),
                               _,
                             )
+                            ->ignore
                           }}>
                           {React.string(`导入`)}
                         </Button>}

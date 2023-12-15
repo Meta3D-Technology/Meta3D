@@ -101,6 +101,24 @@ let _removeOtherSelectedElementOfSameName = (
   })
 }
 
+let _createState = () => {
+  account: None,
+  selectedExtensions: list{},
+  selectedContributes: list{},
+  selectedPackages: list{},
+  selectedElements: list{},
+  importedPackageIds: list{},
+  // importedAppIds: list{},
+  currentAppName: None,
+}
+
+let _reset = state => {
+  {
+    ..._createState(),
+    account: state.account,
+  }
+}
+
 let reducer = (state, action) => {
   switch action {
   | SelectExtension(data, protocolConfigOpt) => {
@@ -209,9 +227,10 @@ let reducer = (state, action) => {
         ->Meta3dCommonlib.ListSt.push(packageData)
       }),
     }
-  | ImportApp(appId, selectedExtensions, selectedContributes, selectedPackages) => {
+  | ImportApp(appId, appName, selectedExtensions, selectedContributes, selectedPackages) => {
       ...state,
-      importedAppIds: state.importedAppIds->Meta3dCommonlib.ListSt.push(appId),
+      currentAppName: appName->Some,
+      // importedAppIds: state.importedAppIds->Meta3dCommonlib.ListSt.push(appId),
       selectedExtensions: selectedExtensions->Meta3dCommonlib.ListSt.reduce(
         state.selectedExtensions,
         (result, (data, protocolConfigOpt) as selectedExtension) => {
@@ -269,18 +288,8 @@ let reducer = (state, action) => {
       ...state,
       currentAppName: appName->Some,
     }
+  | Reset => state->_reset
   }
 }
 
-let initialState = {
-  account: None,
-  selectedExtensions: list{},
-  selectedContributes: list{},
-  selectedPackages: list{},
-  selectedElements: list{},
-  // customInputs: list{},
-  // customActions: list{},
-  importedPackageIds: list{},
-  importedAppIds: list{},
-  currentAppName: None,
-}
+let initialState = _createState()
