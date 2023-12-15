@@ -60,19 +60,25 @@ module Method = {
   }
 
   let unselectUIControl = (dispatch, isDebug, selectedKeys) => {
-    Meta3dCommonlib.Contract.requireCheck(() => {
-      open Meta3dCommonlib.Contract
-      open Operators
-      test(Meta3dCommonlib.Log.buildAssertMessage(~expect=j`only has one`, ~actual=j`not`), () => {
-        selectedKeys->Meta3dCommonlib.ArraySt.length == 1
-      })
-    }, isDebug)
+    // Meta3dCommonlib.Contract.requireCheck(() => {
+    //   open Meta3dCommonlib.Contract
+    //   open Operators
+    //   test(Meta3dCommonlib.Log.buildAssertMessage(~expect=j`only has one`, ~actual=j`not`), () => {
+    //     selectedKeys->Meta3dCommonlib.ArraySt.length == 1
+    //   })
+    // }, isDebug)
 
-    dispatch(
-      ElementAssembleStoreType.UnSelectUIControlAndChildren(
-        selectedKeys->Meta3dCommonlib.ArraySt.getExn(0),
-      ),
-    )
+    selectedKeys->Meta3dCommonlib.ArraySt.length == 0
+      ? ()
+      : {
+          dispatch(
+            ElementAssembleStoreType.UnSelectUIControlAndChildren(
+              selectedKeys->Meta3dCommonlib.ArraySt.getExn(0),
+            ),
+          )
+
+          dispatch(ElementAssembleStoreType.SelectRootUIControl)
+        }
   }
 
   // let getUIControls = SelectedContributesForElementUtils.getUIControls
@@ -163,9 +169,7 @@ let make = (~service: service, ~selectedContributes) => {
   let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
   let (isShowUIControls, setIsShowUIControls) = service.react.useState(_ => false)
 
-  let (isDebug, selectedUIControls) = service.react.useSelector(.
-    Method.useSelector,
-  )
+  let (isDebug, selectedUIControls) = service.react.useSelector(. Method.useSelector)
 
   <>
     <Space direction=#vertical size=#middle>

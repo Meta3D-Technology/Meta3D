@@ -168,10 +168,10 @@ pass run test
 
 
 
-* TODO fix: remove shouldn't error
+* DONE fix: remove shouldn't error
 
 
-* TODO fix: if not select(after remove), select root instead
+* DONE fix: if not select(after remove), select root instead
 
 
 * TODO publish app should save to local(import it?)
