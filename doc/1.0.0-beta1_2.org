@@ -312,14 +312,6 @@ multiple import
 
 
 
-* TODO 优化平台UI
-
-TODO 使用图标代替文字按钮
-e.g. 替代运行按钮
-
-TODO 更新排版
-e.g. 更新Extensions、 UI Controls中的图文小图标排版
-
 
 
 
@@ -336,6 +328,6 @@ e.g. 更新Extensions、 UI Controls中的图文小图标排版
 
 # * TODO publish
 
-* TODO refactor: remove unused ones
+* DONE refactor: remove unused ones
 
 e.g. ShowPublishedElements

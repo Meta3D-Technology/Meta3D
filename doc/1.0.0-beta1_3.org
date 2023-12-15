@@ -12,6 +12,16 @@ TODO update displayName，使用中文
 TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
 
 
+* TODO 优化平台UI
+
+TODO 使用图标代替文字按钮
+e.g. 替代运行按钮
+
+TODO 更新排版
+e.g. 更新Extensions、 UI Controls中的图文小图标排版
+
+
+
 
 * TODO 重构：统一编码规范
 

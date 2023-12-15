@@ -170,7 +170,7 @@ defineFeature(feature, test => {
             customInput1.contents,
             CustomTool.buildCustomInput(
               ~name=localInput1Name,
-              ~originFileStr="exportletgetContribute=(api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}",
+              ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}",
               ~transpiledFileStr=fileStr->Some,
               (),
             ),

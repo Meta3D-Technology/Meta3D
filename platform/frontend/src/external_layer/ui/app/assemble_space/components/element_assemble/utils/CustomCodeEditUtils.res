@@ -36,7 +36,6 @@ module Method = {
       })
       ->Meta3dCommonlib.OptionSt.getExn
     ).originFileStr
-    // ->_convertCodeToES6
   }
 }
 
