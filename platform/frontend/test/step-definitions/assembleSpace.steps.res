@@ -150,7 +150,7 @@ defineFeature(feature, test => {
     then(
       "should add converted local input1 to custom inputs",
       () => {
-        // (result.contents->Meta3dCommonlib.Tuple2.getLast -> Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn).fileStr ->Meta3dCommonlib.Log.printStringForDebug-> ignore
+        // (result.contents->Meta3dCommonlib.Tuple2.getLast -> Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn).originFileStr ->Meta3dCommonlib.Log.printStringForDebug-> ignore
 
         let fileStr = {
           j`window.Contribute = {
@@ -170,7 +170,7 @@ defineFeature(feature, test => {
             customInput1.contents,
             CustomTool.buildCustomInput(
               ~name=localInput1Name,
-              ~originFileStr=fileStr,
+              ~originFileStr="exportletgetContribute=(api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}",
               ~transpiledFileStr=fileStr->Some,
               (),
             ),

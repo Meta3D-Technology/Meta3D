@@ -12,13 +12,20 @@ module Method = {
     newOriginCode,
     newTranspiledCode,
   ) => {
-    let newTranspiledCode = newTranspiledCode->CodeEditUtils.convertToNewCode
+    let newTranspiledCode = newTranspiledCode->CodeEditUtils.convertTranspliedCodeToUMDCode
 
     let newName = newTranspiledCode->getNameFunc->Meta3dCommonlib.OptionSt.getWithDefault(name)
 
     setCurrentCustomNameToGlobalFunc(newName)
 
-    dispatch(buildUpdateActionFunc(name, newName, newOriginCode, newTranspiledCode->Some))
+    dispatch(
+      buildUpdateActionFunc(
+        name,
+        newName,
+        newOriginCode,
+        newTranspiledCode->Some,
+      ),
+    )
   }
 
   let getCode = (name, customs) => {

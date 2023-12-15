@@ -183,7 +183,7 @@ let make = (~service: FrontendType.service) => {
             RescriptReactRouter.push("/Login")
           }
         : {
-            dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.Reset))
+            // dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.Reset))
 
             setInfo(_ => {j`loading...`->Some})
 

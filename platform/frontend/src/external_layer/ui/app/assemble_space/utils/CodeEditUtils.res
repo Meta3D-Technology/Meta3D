@@ -36,13 +36,28 @@ let _convertCodeToUMD = code => {
   }
 
   code->_func("export let getContribute = (api) => {") ++ "}"
-  // ->_func("export var getContribute = function (api) {")
 }
 
-let _removeSemicolon = code => {
+let removeSemicolon = code => {
   code->Js.String.replaceByRe(%re("/\};/g"), "}", _)
 }
 
-let convertToNewCode = code => {
-  code->_convertCodeToUMD->_removeSemicolon
+let convertTranspliedCodeToUMDCode = code => {
+  code->_convertCodeToUMD->removeSemicolon
+}
+
+let convertTranspliedCodeToES6Code = code => {
+  let _func = (code, replaceSource) => {
+    code->Js.String.replace(
+      replaceSource,
+      {
+        j`import { api } from "meta3d-type"
+
+export let getContribute = (api:api) => {`
+      },
+      _,
+    )
+  }
+
+  code->_func("export let getContribute = (api) => {")
 }

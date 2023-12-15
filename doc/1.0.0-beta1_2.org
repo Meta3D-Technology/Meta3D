@@ -177,7 +177,7 @@ pass run test
 
 
 
-* TODO Custom Input/Action: should separate edit code and transpile code!
+* DONE Custom Input/Action: should separate edit code and transpile code!
 
 
 pass compile
@@ -187,9 +187,6 @@ pass bdd test
 pass run test
     custom
     local+custom
-
-
-* TODO Code: add editorWholePackage type infer
 
 
 

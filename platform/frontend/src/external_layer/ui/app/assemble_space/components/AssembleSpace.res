@@ -52,8 +52,8 @@ rename another custom input's name to add post fix:"_copy";
     _mergeCustoms(selectedElementsFromMarket)
   }
 
-  let _mergeCustomAndLocalBundled = (customs, localBundledSource) => {
-    let name = localBundledSource->CustomUtils.getInputName->Meta3dCommonlib.OptionSt.getExn
+  let _mergeCustomAndLocalBundled = (getNameFunc, customs, localBundledSource) => {
+    let name = localBundledSource->getNameFunc->Meta3dCommonlib.OptionSt.getExn
 
     /* ! TODO should handle same name more:
 now just not add duplicate one, but need handle more
@@ -63,14 +63,14 @@ now just not add duplicate one, but need handle more
     })
       ? customs
       : {
-          let fileStr = localBundledSource->CodeEditUtils.convertToNewCode
-
           customs->Meta3dCommonlib.ListSt.push(
             (
               {
                 name,
-                originFileStr: fileStr,
-                transpiledFileStr: fileStr->Some,
+                originFileStr: localBundledSource->CodeEditUtils.convertTranspliedCodeToES6Code,
+                transpiledFileStr: localBundledSource
+                ->CodeEditUtils.convertTranspliedCodeToUMDCode
+                ->Some,
               }: CommonType.custom
             ),
           )
@@ -89,6 +89,7 @@ now just not add duplicate one, but need handle more
   let _convert = (
     service,
     isLocalFunc,
+    getnameFunc,
     selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
     customs,
   ) => {
@@ -99,7 +100,7 @@ now just not add duplicate one, but need handle more
     ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
       service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
     })
-    ->Meta3dCommonlib.ListSt.reduce(customs, _mergeCustomAndLocalBundled)
+    ->Meta3dCommonlib.ListSt.reduce(customs, _mergeCustomAndLocalBundled(getnameFunc))
   }
 
   let convertLocalToCustom = (
@@ -108,8 +109,20 @@ now just not add duplicate one, but need handle more
     selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
   ) => {
     (
-      _convert(service, LocalUtils.isLocalInput, selectedContributes, customInputs),
-      _convert(service, LocalUtils.isLocalAction, selectedContributes, customActions),
+      _convert(
+        service,
+        LocalUtils.isLocalInput,
+        CustomUtils.getInputName,
+        selectedContributes,
+        customInputs,
+      ),
+      _convert(
+        service,
+        LocalUtils.isLocalAction,
+        CustomUtils.getActionName,
+        selectedContributes,
+        customActions,
+      ),
     )
   }
 
@@ -380,11 +393,11 @@ let make = (
         selectedContributesFromMarket,
       )
 
-      dispatchForAppStore(
-        AppStoreType.UserCenterAction(
-          UserCenterStoreType.SetContributes(selectedContributesFromMarket),
-        ),
-      )
+      // dispatchForAppStore(
+      //   AppStoreType.UserCenterAction(
+      //     UserCenterStoreType.SetContributes(selectedContributesFromMarket),
+      //   ),
+      // )
 
       dispatchForElementAssembleStore(
         ElementAssembleStoreType.SetCustom(customInputs, customActions),
