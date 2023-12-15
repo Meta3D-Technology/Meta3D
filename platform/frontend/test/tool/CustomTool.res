@@ -1,16 +1,18 @@
-let buildDefaultInputFileStr = CustomInputs.Method.buildDefaultInputFileStr
+let buildDefaultInputOriginFileStr = CustomInputs.Method.buildDefaultInputOriginFileStr
+
+let buildDefaultInputTranspiledFileStr = CustomInputs.Method.buildDefaultInputTranspiledFileStr
 
 let getInputName = CustomUtils.getInputName
 
 let buildCustomInput = (
   ~name="input1",
-  ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+  ~originFileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+  ~transpiledFileStr=None,
   (),
 ): AssembleSpaceCommonType.customInput => {
-  {name, fileStr}
+  {name, originFileStr, transpiledFileStr}
 }
 
-// let addCustomInput = CustomInputs.Method.addCustomInput
 let addCustom = CustomDomUtils.Method.addCustom
 
 let formatCustomInputs = customInputs => {
@@ -19,15 +21,21 @@ let formatCustomInputs = customInputs => {
   ): AssembleSpaceCommonType.customInput => {
     {
       ...customInput,
-      fileStr: customInput.fileStr->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar,
+      originFileStr: customInput.originFileStr
+      ->NewlineTool.unifyNewlineChar
+      ->NewlineTool.removeBlankChar,
+      transpiledFileStr: customInput.transpiledFileStr->Meta3dCommonlib.OptionSt.map(fileStr =>
+        fileStr->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar
+      ),
     }
   })
 }
 
 let buildCustomAction = (
   ~name="action1",
-  ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+  ~originFileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+  ~transpiledFileStr=None,
   (),
 ): AssembleSpaceCommonType.customAction => {
-  {name, fileStr}
+  {name, originFileStr, transpiledFileStr}
 }

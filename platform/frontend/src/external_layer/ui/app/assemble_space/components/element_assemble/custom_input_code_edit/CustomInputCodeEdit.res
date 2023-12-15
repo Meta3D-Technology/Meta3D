@@ -22,8 +22,15 @@ let make = (~service: service, ~currentCustomInputName) => {
     buildUpdateActionFunc={(
       name,
       newName,
-      newCode,
-    ) => ElementAssembleStoreType.UpdateCustomInputFileStr(name, newName, newCode)}
+      newOriginCode,
+      newTranspiledCode,
+    ) =>
+     ElementAssembleStoreType.UpdateCustomInputFileStr(
+      name,
+      newName,
+      newOriginCode,
+      newTranspiledCode,
+    )}
     currentCustomName=currentCustomInputName
     customs=customInputs
   />

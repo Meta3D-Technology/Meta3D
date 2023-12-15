@@ -174,17 +174,26 @@ pass run test
 * DONE fix: if not select(after remove), select root instead
 
 
-* TODO publish app should save to local(import it?)
-
-
 
 
 
 * TODO Custom Input/Action: should separate edit code and transpile code!
 
 
+pass compile
+
+pass bdd test
+
+pass run test
+    custom
+    local+custom
+
+
 * TODO Code: add editorWholePackage type infer
 
+
+
+* TODO publish app should save to local(import it?)
 
 
 

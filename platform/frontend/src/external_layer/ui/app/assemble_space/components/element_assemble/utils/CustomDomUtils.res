@@ -13,7 +13,14 @@ module Method = {
     _func(1)
   }
 
-  let addCustom = (dispatch, buildAddActionFunc, buildDefaultFileStrFunc, prefix, customs) => {
+  let addCustom = (
+    dispatch,
+    buildAddActionFunc,
+    buildDefaultOriginFileStrFunc,
+    buildDefaultTranspiledFileStrFunc,
+    prefix,
+    customs,
+  ) => {
     let name =
       customs
       ->Meta3dCommonlib.ListSt.map((custom: CommonType.custom) => {
@@ -26,7 +33,8 @@ module Method = {
         (
           {
             name,
-            fileStr: buildDefaultFileStrFunc(name),
+            originFileStr: buildDefaultOriginFileStrFunc(name),
+            transpiledFileStr: buildDefaultTranspiledFileStrFunc(name)->Some,
           }: CommonType.custom
         ),
       ),
@@ -42,7 +50,7 @@ module Method = {
 
   let convertToTreeData = customs => {
     customs
-    ->Meta3dCommonlib.ListSt.map(({name, fileStr}: CommonType.custom): Tree.treeData => {
+    ->Meta3dCommonlib.ListSt.map(({name}: CommonType.custom): Tree.treeData => {
       {
         title: name,
         key: name,
@@ -74,7 +82,8 @@ let make = (
   ~buildSelectActionFunc,
   ~buildAddActionFunc,
   ~buildRemoveActionFunc,
-  ~buildDefaultFileStrFunc,
+  ~buildDefaultOriginFileStrFunc,
+  ~buildDefaultTranspiledFileStrFunc,
   ~setCurrentCustomNameToGlobalFunc,
   ~currentCustomName,
   ~customs,
@@ -91,7 +100,14 @@ let make = (
       <Button
         icon={<Icon.FileAddOutlined />}
         onClick={_ => {
-          Method.addCustom(dispatch, buildAddActionFunc, buildDefaultFileStrFunc, prefix, customs)
+          Method.addCustom(
+            dispatch,
+            buildAddActionFunc,
+            buildDefaultOriginFileStrFunc,
+            buildDefaultTranspiledFileStrFunc,
+            prefix,
+            customs,
+          )
         }}
       />
       <Button

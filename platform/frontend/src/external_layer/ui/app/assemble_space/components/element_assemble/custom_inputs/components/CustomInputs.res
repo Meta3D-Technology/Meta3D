@@ -3,7 +3,7 @@ open Antd
 open AssembleSpaceType
 
 module Method = {
-  let buildDefaultInputFileStr = inputName => {
+  let buildDefaultInputTranspiledFileStr = inputName => {
     j`window.Contribute = {
     getContribute: (api) => {
       return {
@@ -14,6 +14,10 @@ module Method = {
       }
     }
 }`
+  }
+
+  let buildDefaultInputOriginFileStr = inputName => {
+    buildDefaultInputTranspiledFileStr(inputName)->CustomCodeUtils.convertCodeToES6
   }
 
   let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {
@@ -34,9 +38,10 @@ let make = (~service: service) => {
     buildSelectActionFunc={key => ElementAssembleStoreType.SelectCustomInput(key)}
     buildAddActionFunc={customInput => ElementAssembleStoreType.AddCustomInput(customInput)}
     buildRemoveActionFunc={inputName => ElementAssembleStoreType.RemoveCustomInput(inputName)}
-    buildDefaultFileStrFunc=Method.buildDefaultInputFileStr
+    buildDefaultOriginFileStrFunc=Method.buildDefaultInputOriginFileStr
+    buildDefaultTranspiledFileStrFunc=Method.buildDefaultInputTranspiledFileStr
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomInputNameToGlobal
-    currentCustomName= currentCustomInputName
+    currentCustomName=currentCustomInputName
     customs=customInputs
     prefix="Input"
   />

@@ -3,38 +3,22 @@ open Antd
 open AssembleSpaceType
 
 module Method = {
-  let _convertCodeToES6 = code => {
-    code
-    ->Js.String.slice(~from=0, ~to_=code->Js.String.length - 1, _)
-    ->Js.String.replace({j`window.Contribute = {`}, "", _)
-    ->Js.String.replace(
-      {j`    getContribute: (api) => {`},
-      {
-        j`import { api } from "meta3d-type"
-
-export let getContribute = (api:api) => {`
-      },
-      _,
-    )
-  }
-
   let getNewCode = (
     dispatch,
     getNameFunc,
     setCurrentCustomNameToGlobalFunc,
     buildUpdateActionFunc,
     name,
-    newCode,
+    newOriginCode,
+    newTranspiledCode,
   ) => {
-    let newCode = newCode->CodeEditUtils.convertToNewCode
+    let newTranspiledCode = newTranspiledCode->CodeEditUtils.convertToNewCode
 
-    let newName = newCode->getNameFunc->Meta3dCommonlib.OptionSt.getWithDefault(name)
+    let newName = newTranspiledCode->getNameFunc->Meta3dCommonlib.OptionSt.getWithDefault(name)
 
     setCurrentCustomNameToGlobalFunc(newName)
 
-    dispatch(
-      buildUpdateActionFunc(name, newName, newCode),
-    )
+    dispatch(buildUpdateActionFunc(name, newName, newOriginCode, newTranspiledCode->Some))
   }
 
   let getCode = (name, customs) => {
@@ -44,7 +28,8 @@ export let getContribute = (api:api) => {`
         custom.name == name
       })
       ->Meta3dCommonlib.OptionSt.getExn
-    ).fileStr->_convertCodeToES6
+    ).originFileStr
+    // ->_convertCodeToES6
   }
 }
 
@@ -71,7 +56,7 @@ let make = (
   <CodeEdit
     service
     code={code}
-    getNewCodeFunc={newCode =>
+    getNewCodeFunc={(newOriginCode, newTranspiledCode) =>
       Method.getNewCode(
         dispatch,
         getNameFunc,
@@ -79,7 +64,8 @@ let make = (
         buildUpdateActionFunc,
         // TODO refactor: use useStore instead
         getCurrentCustomNameFromGlobalFunc()->Meta3dCommonlib.NullableSt.getExn,
-        newCode,
+        newOriginCode,
+        newTranspiledCode,
       )}
   />
 }

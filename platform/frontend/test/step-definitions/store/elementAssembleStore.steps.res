@@ -487,7 +487,7 @@ defineFeature(feature, test => {
     )
   })
 
-  let _prepareForCustomInput = (given, \"and", inputName, fileStr) => {
+  let _prepareForCustomInput = (given, \"and", inputName, originFileStr, transpiledFileStr) => {
     given("init store", () => {
       store := ElementAssembleStore.initialState
     })
@@ -497,7 +497,9 @@ defineFeature(feature, test => {
         ElementAssembleStore.reducer(
           store.contents,
           ElementAssembleStoreType.SetCustom(
-            list{CustomTool.buildCustomInput(~name=inputName, ~fileStr, ())},
+            list{
+              CustomTool.buildCustomInput(~name=inputName, ~originFileStr, ~transpiledFileStr, ()),
+            },
             list{},
           ),
         )
@@ -531,12 +533,14 @@ defineFeature(feature, test => {
     // let eventName = #button_click
     let inputName = "i1"
     let inputNewName = "i1_1"
-    let fileStr = "f1"
-    let newFileStr = "f1_1"
+    let originFileStr = "f1"
+    let transpiledFileStr = "f1_transplied"->Some
+    let newOriginFileStr = "f1_1"
+    let newTranspiledFileStr = "f1_1_transplied"->Some
 
     _prepare(given)
 
-    _prepareForCustomInput(given, \"and", inputName, fileStr)
+    _prepareForCustomInput(given, \"and", inputName, originFileStr, transpiledFileStr)
 
     \"when"(
       "update custom input1's name and file str",
@@ -544,7 +548,12 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.UpdateCustomInputFileStr(inputName, inputNewName, newFileStr),
+            ElementAssembleStoreType.UpdateCustomInputFileStr(
+              inputName,
+              inputNewName,
+              newOriginFileStr,
+              newTranspiledFileStr,
+            ),
           )
       },
     )
@@ -553,7 +562,14 @@ defineFeature(feature, test => {
       "should has correct custom inputs",
       () => {
         store.contents.customInputs->expect ==
-          list{CustomTool.buildCustomInput(~name=inputNewName, ~fileStr=newFileStr, ())}
+          list{
+            CustomTool.buildCustomInput(
+              ~name=inputNewName,
+              ~originFileStr=newOriginFileStr,
+              ~transpiledFileStr=newTranspiledFileStr,
+              (),
+            ),
+          }
       },
     )
 
@@ -582,7 +598,7 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    _prepareForCustomInput(given, \"and", inputName, "")
+    _prepareForCustomInput(given, \"and", inputName, "", None)
 
     \"when"(
       "remove custom input1",

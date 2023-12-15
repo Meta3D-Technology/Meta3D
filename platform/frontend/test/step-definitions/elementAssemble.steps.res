@@ -44,9 +44,17 @@ defineFeature(feature, test => {
       "prepare custom data",
       () => {
         customInputs :=
-          list{CustomTool.buildCustomInput(~name=inputName, ~fileStr=inputFileStr, ())}
+          list{
+            CustomTool.buildCustomInput(~name=inputName, ~transpiledFileStr=inputFileStr->Some, ()),
+          }
         customActions :=
-          list{CustomTool.buildCustomAction(~name=actionName, ~fileStr=actionFileStr, ())}
+          list{
+            CustomTool.buildCustomAction(
+              ~name=actionName,
+              ~transpiledFileStr=actionFileStr->Some,
+              (),
+            ),
+          }
       },
     )
 

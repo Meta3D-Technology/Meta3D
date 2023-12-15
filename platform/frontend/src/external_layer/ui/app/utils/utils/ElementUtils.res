@@ -109,13 +109,13 @@ let addGeneratedInputContributesForElementAssemble = (
 ) => {
   customInputs->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
     selectedContributes,
-    {name, fileStr},
+    {name, transpiledFileStr},
   ) => {
     _addGeneratedContributeForElementAssemble(
       (generateContribute, loadContribute),
       selectedContributes,
       account,
-      (name, fileStr),
+      (name, transpiledFileStr->Meta3dCommonlib.OptionSt.getExn),
       // j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
       buildCustomInputProtocolName(name),
     )
@@ -130,13 +130,13 @@ let addGeneratedInputContributesForRunApp = (
 ) => {
   customInputs->Meta3dCommonlib.ListSt.reduce(allContributeDataList, (
     allContributeDataList,
-    {name, fileStr},
+    {name, transpiledFileStr},
   ) => {
     _addGeneratedContributeForRunApp(
       (generateContribute, loadContribute, convertContributeFuncData),
       allContributeDataList,
       account,
-      (name, fileStr),
+      (name, transpiledFileStr->Meta3dCommonlib.OptionSt.getExn),
       // j`meta3d${buildCustomInputProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
       buildCustomInputProtocolName(name),
     )
@@ -151,13 +151,13 @@ let rec addGeneratedActionContributesForElementAssemble = (
 ) => {
   customActions->Meta3dCommonlib.ListSt.reduce(selectedContributes, (
     selectedContributes,
-    {name, fileStr},
+    {name, transpiledFileStr},
   ) => {
     _addGeneratedContributeForElementAssemble(
       (generateContribute, loadContribute),
       selectedContributes,
       account,
-      (name, fileStr),
+      (name, transpiledFileStr->Meta3dCommonlib.OptionSt.getExn),
       // j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
       buildCustomActionProtocolName(name),
     )
@@ -172,13 +172,13 @@ let addGeneratedActionContributesForRunApp = (
 ) => {
   customActions->Meta3dCommonlib.ListSt.reduce(allContributeDataList, (
     allContributeDataList,
-    {name, fileStr},
+    {name, transpiledFileStr},
   ) => {
     _addGeneratedContributeForRunApp(
       (generateContribute, loadContribute, convertContributeFuncData),
       allContributeDataList,
       account,
-      (name, fileStr),
+      (name, transpiledFileStr->Meta3dCommonlib.OptionSt.getExn),
       // j`meta3d${buildCustomActionProtocolNamePrefix()}${name}-protocol`->_handleProtocolName,
       buildCustomActionProtocolName(name),
     )

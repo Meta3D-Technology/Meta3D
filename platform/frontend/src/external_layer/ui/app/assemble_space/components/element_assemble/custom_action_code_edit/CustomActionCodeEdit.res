@@ -22,8 +22,14 @@ let make = (~service: service, ~currentCustomActionName) => {
     buildUpdateActionFunc={(
       name,
       newName,
-      newCode,
-    ) => ElementAssembleStoreType.UpdateCustomActionFileStr(name, newName, newCode)}
+      newOriginCode,
+      newTranspiledCode,
+    ) => ElementAssembleStoreType.UpdateCustomActionFileStr(
+      name,
+      newName,
+      newOriginCode,
+      newTranspiledCode,
+    )}
     currentCustomName=currentCustomActionName
     customs=customActions
   />

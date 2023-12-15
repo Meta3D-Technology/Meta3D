@@ -23,9 +23,9 @@ defineFeature(feature, test => {
   test(."get imported element custom", ({given, \"when", \"and", then}) => {
     let e1 = ref(Obj.magic(1))
     let e2 = ref(Obj.magic(1))
-    let customInput1 = CustomTool.buildCustomInput(~name="Input1", ~fileStr="f1", ())
+    let customInput1 = CustomTool.buildCustomInput(~name="Input1", ~originFileStr="f1", ())
     let customInput2 = customInput1
-    let customInput3 = CustomTool.buildCustomInput(~name="Input3", ~fileStr="f3", ())
+    let customInput3 = CustomTool.buildCustomInput(~name="Input3", ~originFileStr="f3", ())
     let i1Name = "input1"
     let result = ref(Obj.magic(1))
 
@@ -125,7 +125,7 @@ defineFeature(feature, test => {
         customInput1 :=
           CustomTool.buildCustomInput(
             ~name=localInput2Name,
-            ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
+            // ~fileStr=ElementVisualTool.buildEmptyContributeFileStr(),
             (),
           )
       },
@@ -152,16 +152,8 @@ defineFeature(feature, test => {
       () => {
         // (result.contents->Meta3dCommonlib.Tuple2.getLast -> Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn).fileStr ->Meta3dCommonlib.Log.printStringForDebug-> ignore
 
-        result.contents
-        ->Meta3dCommonlib.Tuple2.getFirst
-        ->CustomTool.formatCustomInputs
-        ->expect ==
-          list{
-            customInput1.contents,
-            CustomTool.buildCustomInput(
-              ~name=localInput1Name,
-              ~fileStr={
-                j`window.Contribute = {
+        let fileStr = {
+          j`window.Contribute = {
           getContribute: (api) => {
       
           return {
@@ -171,7 +163,15 @@ defineFeature(feature, test => {
               }
           }
       }}`
-              },
+        }
+
+        result.contents->Meta3dCommonlib.Tuple2.getFirst->CustomTool.formatCustomInputs->expect ==
+          list{
+            customInput1.contents,
+            CustomTool.buildCustomInput(
+              ~name=localInput1Name,
+              ~originFileStr=fileStr,
+              ~transpiledFileStr=fileStr->Some,
               (),
             ),
           }->CustomTool.formatCustomInputs

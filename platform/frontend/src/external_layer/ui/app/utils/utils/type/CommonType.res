@@ -76,7 +76,8 @@ type fileStr = string
 
 type custom = {
   name: string,
-  fileStr: fileStr,
+  originFileStr: fileStr,
+  transpiledFileStr: option<fileStr>,
 }
 
 type customInput = custom

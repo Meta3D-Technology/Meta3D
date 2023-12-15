@@ -3,7 +3,7 @@ open Antd
 open AssembleSpaceType
 
 module Method = {
-  let buildDefaultActionFileStr = actionName => {
+  let buildDefaultActionTranspiledFileStr = actionName => {
     j`window.Contribute = {
   getContribute: (api) => {
     return {
@@ -37,6 +37,10 @@ module Method = {
 }`
   }
 
+  let buildDefaultActionOriginFileStr = actionName => {
+    buildDefaultActionTranspiledFileStr(actionName)->CustomCodeUtils.convertCodeToES6
+  }
+
   let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {customActions, currentCustomActionName} = elementAssembleState
 
@@ -55,7 +59,8 @@ let make = (~service: service) => {
     buildSelectActionFunc={key => ElementAssembleStoreType.SelectCustomAction(key)}
     buildAddActionFunc={customAction => ElementAssembleStoreType.AddCustomAction(customAction)}
     buildRemoveActionFunc={actionName => ElementAssembleStoreType.RemoveCustomAction(actionName)}
-    buildDefaultFileStrFunc=Method.buildDefaultActionFileStr
+    buildDefaultOriginFileStrFunc=Method.buildDefaultActionOriginFileStr
+    buildDefaultTranspiledFileStrFunc=Method.buildDefaultActionTranspiledFileStr
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomActionNameToGlobal
     currentCustomName=currentCustomActionName
     customs=customActions

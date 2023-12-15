@@ -23,7 +23,8 @@ defineFeature(feature, test => {
     let dispatchStub = ref(Obj.magic(1))
     let inputName = ref(Obj.magic(1))
     let newInputName = "NewInputName1"
-    let newCode = ref(Obj.magic(1))
+    let newOriginCode = ref(Obj.magic(1))
+    let newTranspiledCode = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -31,7 +32,7 @@ defineFeature(feature, test => {
       "build input name and new code",
       () => {
         inputName := "InputName1"
-        newCode :=
+        newOriginCode :=
           j`export let getContribute = (api) => {
     return {
         inputName:"${newInputName}",
@@ -40,6 +41,7 @@ defineFeature(feature, test => {
         }
     }
 }`
+        newTranspiledCode := newOriginCode.contents
       },
     )
 
@@ -52,13 +54,20 @@ defineFeature(feature, test => {
           dispatchStub.contents,
           CustomUtils.getInputName,
           CodeEditUtils.setCurrentCustomInputNameToGlobal,
-          (name, newName, newCode) => ElementAssembleStoreType.UpdateCustomInputFileStr(
+          (
             name,
             newName,
-            newCode,
+            newOriginCode,
+            newTranspiledCode,
+          ) => ElementAssembleStoreType.UpdateCustomInputFileStr(
+            name,
+            newName,
+            newOriginCode,
+            newTranspiledCode,
           ),
           inputName.contents,
-          newCode.contents,
+          newOriginCode.contents,
+          newTranspiledCode.contents,
         )
       },
     )
@@ -80,7 +89,9 @@ defineFeature(feature, test => {
           ElementAssembleStoreType.UpdateCustomInputFileStr(
             inputName.contents,
             newInputName,
-            "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}",
+            // "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}",
+            newOriginCode.contents,
+            "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}"->Some,
           )
       },
     )
@@ -90,6 +101,7 @@ defineFeature(feature, test => {
     let dispatchStub = ref(Obj.magic(1))
     let inputName = ref(Obj.magic(1))
     let customInputs = ref(Obj.magic(1))
+    let originFileStr = ref(Obj.magic(1))
     let result = ref(Obj.magic(1))
 
     _prepare(given)
@@ -98,22 +110,35 @@ defineFeature(feature, test => {
       "build input name and custom inputs",
       () => {
         inputName := "InputName1"
+
+        originFileStr :=
+          //                 j`window.Contribute = {
+          //     getContribute: (api) => {
+          //       return {
+          //         inputName: "${inputName.contents}",
+          //         func: (meta3dState) =>{
+          //             return Promise.resolve(null)
+          //         }
+          //       }
+          //     }
+          // }`
+
+          j`import { api } from "meta3d-type"
+
+  export let getContribute = (api:api) => {
+      return {
+          inputName: "${inputName.contents}",
+          func: (meta3dState) => {
+              return Promise.resolve(null)
+          }
+      }
+  }`
+
         customInputs :=
           list{
             CustomTool.buildCustomInput(
               ~name=inputName.contents,
-              ~fileStr={
-                j`window.Contribute = {
-    getContribute: (api) => {
-      return {
-        inputName: "${inputName.contents}",
-        func: (meta3dState) =>{
-            return Promise.resolve(null)
-        }
-      }
-    }
-}`
-              },
+              ~originFileStr=originFileStr.contents,
               (),
             ),
           }
@@ -132,24 +157,7 @@ defineFeature(feature, test => {
     then(
       "should get corresponding file str",
       () => {
-        ()
-      },
-    )
-
-    \"and"(
-      "convert to es6",
-      () => {
-        result.contents->NewlineTool.removeBlankChar->expect ==
-          j`import { api } from "meta3d-type"
-
-  export let getContribute = (api:api) => {
-      return {
-          inputName: "${inputName.contents}",
-          func: (meta3dState) => {
-              return Promise.resolve(null)
-          }
-      }
-  }`->NewlineTool.removeBlankChar
+        result.contents->expect == originFileStr.contents
       },
     )
   })

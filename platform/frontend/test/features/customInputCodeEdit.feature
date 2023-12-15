@@ -22,6 +22,5 @@ Feature: CustomInputCodeEdit
             Given build input name and custom inputs
             When get code
             Then should get corresponding file str
-            And convert to es6
 
 

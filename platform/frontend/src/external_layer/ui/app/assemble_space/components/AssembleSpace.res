@@ -62,14 +62,19 @@ now just not add duplicate one, but need handle more
       custom.name == name
     })
       ? customs
-      : customs->Meta3dCommonlib.ListSt.push(
-          (
-            {
-              name,
-              fileStr: localBundledSource->CodeEditUtils.convertToNewCode,
-            }: CommonType.custom
-          ),
-        )
+      : {
+          let fileStr = localBundledSource->CodeEditUtils.convertToNewCode
+
+          customs->Meta3dCommonlib.ListSt.push(
+            (
+              {
+                name,
+                originFileStr: fileStr,
+                transpiledFileStr: fileStr->Some,
+              }: CommonType.custom
+            ),
+          )
+        }
   }
 
   let removeInputsAndActions = (

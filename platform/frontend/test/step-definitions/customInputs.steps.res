@@ -22,13 +22,15 @@ defineFeature(feature, test => {
   test(."add custom input", ({given, \"when", \"and", then}) => {
     let dispatchStub = ref(Obj.magic(1))
     let customInputs = ref(Obj.magic(1))
+    let originFileStr = ref(Obj.magic(1))
+    let transpiledFileStr = ref(Obj.magic(1))
 
     _prepare(given)
 
     given(
       "build custom inputs",
       () => {
-        customInputs := list{CustomTool.buildCustomInput(~name="Input1", ~fileStr="f1", ())}
+        customInputs := list{CustomTool.buildCustomInput(~name="Input1", ~originFileStr="f1", ())}
       },
     )
 
@@ -39,8 +41,14 @@ defineFeature(feature, test => {
 
         CustomTool.addCustom(
           dispatchStub.contents,
-          {customInput => ElementAssembleStoreType.AddCustomInput(customInput)},
-          CustomTool.buildDefaultInputFileStr,
+          {
+            customInput => {
+              originFileStr := customInput.originFileStr
+              transpiledFileStr := customInput.transpiledFileStr
+            }
+          },
+          CustomTool.buildDefaultInputOriginFileStr,
+          CustomTool.buildDefaultInputTranspiledFileStr,
           "Input",
           customInputs.contents,
         )
@@ -50,16 +58,25 @@ defineFeature(feature, test => {
     then(
       "should generate input name and default file str",
       () => {
-        dispatchStub.contents
-        ->Obj.magic
-        ->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())
-        ->expect ==
-          ElementAssembleStoreType.AddCustomInput(
-            (
-              {
-                name: "Input2",
-                fileStr: {
-                  j`window.Contribute = {
+        (
+          originFileStr.contents->NewlineTool.removeBlankChar,
+          transpiledFileStr.contents->Meta3dCommonlib.OptionSt.map(NewlineTool.removeBlankChar),
+        )->expect ==
+          (
+            {
+              j`import { api } from "meta3d-type"
+      
+      export let getContribute = (api:api) => {
+            return {
+              inputName: "Input2",
+              func: (meta3dState) =>{
+                  return Promise.resolve(null)
+              }
+            }
+          }`
+            }->NewlineTool.removeBlankChar,
+            {
+              j`window.Contribute = {
     getContribute: (api) => {
       return {
         inputName: "Input2",
@@ -69,9 +86,9 @@ defineFeature(feature, test => {
       }
     }
 }`
-                },
-              }: ElementAssembleStoreType.customInput
-            ),
+            }
+            ->NewlineTool.removeBlankChar
+            ->Some,
           )
       },
     )

@@ -23,7 +23,7 @@ module Method = {
         tsProxy["getEmitOutput"](editor["getModel"](.)["uri"]["toString"](.))
         ->Js.Promise.then_(
           r => {
-            getNewCodeFunc(r["outputFiles"][0]["text"])
+            getNewCodeFunc(newValue, r["outputFiles"][0]["text"])
 
             Js.Promise.resolve()
           },

@@ -172,11 +172,17 @@ type action =
   | AddCustomAction(customAction)
   | RemoveCustomInput(CommonType.inputName)
   | RemoveCustomAction(CommonType.actionName)
-  | UpdateCustomInputFileStr(CommonType.inputName, CommonType.inputName, CommonType.inputFileStr)
+  | UpdateCustomInputFileStr(
+      CommonType.inputName,
+      CommonType.inputName,
+      CommonType.inputFileStr,
+      option<CommonType.inputFileStr>,
+    )
   | UpdateCustomActionFileStr(
       CommonType.actionName,
       CommonType.actionName,
       CommonType.actionFileStr,
+      option<CommonType.actionFileStr>,
     )
   | SelectCustomInput(CommonType.inputName)
   | SelectCustomAction(CommonType.actionName)

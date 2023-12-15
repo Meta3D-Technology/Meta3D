@@ -1956,8 +1956,8 @@ defineFeature(feature, test => {
     // let element1Name = "element1Name"
     // let element1LowVersion = "0.20.0"
     // let element1HighVersion = "0.20.1"
-    let customInputs = [CustomTool.buildCustomInput(~name="Input1", ~fileStr="f1", ())]
-    let customActions = [CustomTool.buildCustomAction(~name="Action1", ~fileStr="f2", ())]
+    // let customInputs = [CustomTool.buildCustomInput(~name="Input1", ~fileStr="f1", ())]
+    // let customActions = [CustomTool.buildCustomAction(~name="Action1", ~fileStr="f2", ())]
     let findNewestPublishPackageStub = ref(Obj.magic(1))
     let findNewestPublishExtensionStub = ref(Obj.magic(1))
     let findNewestPublishContributeStub = ref(Obj.magic(1))

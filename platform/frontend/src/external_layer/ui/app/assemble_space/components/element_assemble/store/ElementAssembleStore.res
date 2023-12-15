@@ -433,15 +433,17 @@ let reducer = (state, action) => {
         }),
       })
     }
-  | UpdateCustomInputFileStr(oldInputName, newInputName, fileStr) => {
+  | UpdateCustomInputFileStr(oldInputName, newInputName, newOriginCode, newTranspiledCode) => {
       let state = {
         ...state,
         customInputs: state.customInputs->Meta3dCommonlib.ListSt.map(customInput => {
           customInput.name == oldInputName
             ? (
                 {
+                  ...customInput,
                   name: newInputName,
-                  fileStr,
+                  originFileStr: newOriginCode,
+                  transpiledFileStr: newTranspiledCode,
                 }: customInput
               )
             : customInput
@@ -455,7 +457,7 @@ let reducer = (state, action) => {
         }),
       })
     }
-  | UpdateCustomActionFileStr(oldActionName, newActionName, fileStr) => {
+  | UpdateCustomActionFileStr(oldActionName, newActionName, newOriginCode, newTranspiledCode) => {
       let state = {
         ...state,
         customActions: state.customActions->Meta3dCommonlib.ListSt.map(customAction => {
@@ -463,7 +465,8 @@ let reducer = (state, action) => {
             ? (
                 {
                   name: newActionName,
-                  fileStr,
+                  originFileStr: newOriginCode,
+                  transpiledFileStr: newTranspiledCode,
                 }: customAction
               )
             : customAction
