@@ -133,6 +133,8 @@ type batchFindPublishExtensionProtocols = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
@@ -140,6 +142,8 @@ type batchFindPublishExtensionProtocols = (
 type batchFindPublishContributeProtocols = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -293,6 +297,8 @@ type batchFindPublishExtensionProtocolConfigs = (
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
+
+    // . array<(protocolName, protocolVersion)>,
     protocolName,
   >,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
@@ -300,6 +306,8 @@ type batchFindPublishExtensionProtocolConfigs = (
 type batchFindPublishContributeProtocolConfigs = (
   . // . array<(protocolName, protocolVersion)>,
   array<
+    // . array<(protocolName, protocolVersion)>,
+
     // . array<(protocolName, protocolVersion)>,
 
     // . array<(protocolName, protocolVersion)>,
@@ -439,6 +447,10 @@ type findAllPublishApps = (
   skipCount,
 ) => Meta3dBsMostDefault.Most.stream<array<publishAppInfo>>
 
+type findAllPublishAppsByAccount = (
+  . account,
+) => Meta3dBsMostDefault.Most.stream<array<publishAppInfo>>
+
 type publishElementContribute = (
   . onUploadProgressFunc,
   account,
@@ -497,7 +509,7 @@ type publishElementAssembleData = (
   elementVersion,
   inspectorData,
   customInputs,
-  customActions
+  customActions,
 ) => Meta3dBsMostDefault.Most.stream<unit>
 
 type implement = {
@@ -521,7 +533,7 @@ type elementAssembleData = {
   elementVersion: elementVersion,
   inspectorData: inspectorData,
   customInputs: customInputs,
-  customActions: customActions
+  customActions: customActions,
 }
 
 type getElementAssembleData = (

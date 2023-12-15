@@ -79,23 +79,23 @@ export let findPublishApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], a
     })
 }
 
-// export let findAllPublishAppsByAccount = (
-//     getDataByKeyContainFunc: any,
-//     account: string): Stream<Array<publishAppInfo>> => {
-//     return getDataByKeyContainFunc("publishedapps", [account]).flatMap((data: any) => {
-//         if (data.length === 0) {
-//             return just([])
-//         }
+export let findAllPublishAppsByAccount = (
+    getDataWithWhereDataFunc: any,
+    account: string): Stream<Array<publishAppInfo>> => {
+    return fromPromise(getDataWithWhereDataFunc("publishedapps", { account: account })).flatMap((data: any) => {
+        if (data.length === 0) {
+            return just([])
+        }
 
-//         return just(data.map(({ account, appName, description }) => {
-//             return {
-//                 account,
-//                 appName,
-//                 description
-//             }
-//         }))
-//     })
-// }
+        return just(data.map(({ account, appName, description }) => {
+            return {
+                account,
+                appName,
+                description
+            }
+        }))
+    })
+}
 
 export let findAllPublishApps = (
     getDataFunc: any,

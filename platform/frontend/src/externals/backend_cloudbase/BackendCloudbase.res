@@ -73,6 +73,9 @@ external findPublishApp: findPublishApp = "findPublishApp"
 external findAllPublishApps: findAllPublishApps = "findAllPublishApps"
 
 @module("backend-cloudbase")
+external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPublishAppsByAccount"
+
+@module("backend-cloudbase")
 external publishElementContribute: publishElementContribute = "publishElementContribute"
 
 @module("backend-cloudbase")
@@ -138,6 +141,7 @@ let buildFrontendService = (): FrontendType.backendService => {
     getAllPublishContributeInfos,
     findPublishContribute,
     findAllPublishApps,
+    findAllPublishAppsByAccount,
     findPublishApp,
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,

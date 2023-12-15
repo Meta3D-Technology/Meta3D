@@ -127,6 +127,7 @@ TODO when enter UserCenter, should clean all selected
 
 
 TODO finish edit app
+    show list+edit(just import), run buttons
 
 
 

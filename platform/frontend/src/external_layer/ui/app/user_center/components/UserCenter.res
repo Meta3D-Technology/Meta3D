@@ -4,10 +4,18 @@ open Antd
 @react.component
 let make = (~service: FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
+  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
+    ReactUtils.useDispatchForAssembleSpaceStore,
+  )
+  let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
+    ReactUtils.useDispatchForAssembleSpaceStore,
+  )
 
   let {account} = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
 
   let (info, setInfo) = React.useState(_ => None)
+  let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
+  let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
 
   let _isNotLogin = account => {
     !(account->Meta3dCommonlib.OptionSt.isSome)
@@ -136,7 +144,7 @@ let make = (~service: FrontendType.service) => {
   }
 
   let _createFromScratch = (service, dispatch) => {
-    setInfo(_ => {j`加载中...`}->Some)
+    setInfo(_ => {j`loading...`}->Some)
 
     // TODO perf: use batchXxx to merge request
     _selectAllUIControls(service, dispatch)->Js.Promise.then_(() => {
@@ -174,6 +182,27 @@ let make = (~service: FrontendType.service) => {
           }
         : {
             dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.Reset))
+
+            setInfo(_ => {j`loading...`->Some})
+
+            service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
+            ->Meta3dBsMostDefault.Most.observe(
+              allPublishApps => {
+                setAllPublishApps(_ => allPublishApps)
+                setInfo(_ => None)
+              },
+              _,
+            )
+            ->Js.Promise.catch(
+              e => {
+                setAllPublishApps(_ => [])
+                setInfo(_ => None)
+
+                ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+              },
+              _,
+            )
+            ->ignore
           }
     }, 5->Some)
 
@@ -224,6 +253,51 @@ let make = (~service: FrontendType.service) => {
             </Button>
           </Space>
           <Typography.Title> {React.string({j`我发布的应用`})} </Typography.Title>
+          <List
+            itemLayout=#horizontal
+            dataSource={allPublishApps}
+            renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
+              <List.Item>
+                <List.Item.Meta
+                  key={PublishedAppUtils.buildKey(item.account, item.appName)}
+                  title={<Typography.Title level=3>
+                    {React.string(item.appName)}
+                  </Typography.Title>}
+                  // description={UIDescriptionUtils.buildWithoutRepoLink(
+                  //   item.account,
+                  //   item.description,
+                  // )}
+                />
+                <Button
+                  _type=#primary
+                  onClick={_ => {
+                    setInfo(_ => j`${downloadProgress->Js.Int.toString}% downloading...`->Some)
+
+                    PublishedAppUtils.importApp(
+                      service,
+                      (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
+                      (
+                        setDownloadProgress,
+                        () => {
+                          setInfo(_ => None)
+                        },
+                      ),
+                      item,
+                    )
+                  }}>
+                  {React.string(`编辑`)}
+                </Button>
+                <Button
+                  _type=#default
+                  onClick={_ => {
+                    PublishedAppUtils.openLink(
+                      PublishedAppUtils.buildURL(item.account, item.appName),
+                    )
+                  }}>
+                  {React.string(`运行`)}
+                </Button>
+              </List.Item>}
+          />
         </Space>
       }}
     </Layout.Content>

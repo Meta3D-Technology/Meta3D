@@ -36,7 +36,7 @@ export let publishApp = PublishAppService.publish
 
 export let findPublishApp = PublishAppService.findPublishApp
 
-// export let findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByAccount
+export let findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByAccount
 
 export let findAllPublishApps = PublishAppService.findAllPublishApps
 

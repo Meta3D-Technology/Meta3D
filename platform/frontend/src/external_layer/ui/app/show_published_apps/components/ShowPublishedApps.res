@@ -1,12 +1,6 @@
 open Antd
 %%raw("import 'antd/dist/antd.css'")
 
-module Method = {
-  let buildKey = (account, appName) => {
-    j`${account}_${appName}`
-  }
-}
-
 @react.component
 let make = (~service: FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
@@ -37,23 +31,6 @@ let make = (~service: FrontendType.service) => {
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => true)
   let (currentImportingKey, setCurrentImportingKey) = React.useState(_ => None)
-
-  let _buildURL = (account: string, appName: string) =>
-    j`EnterApp?account=${account}&appName=${appName}`
-
-  let _openLink = url => {
-    Window.\"open"(url, "_blank").focus()
-  }
-
-  // let _enterApp = (account: string, appName: string) => {
-  //   dispatch(AppStore.EnterAppAction(EnterAppStore.EnterApp(account, appName)))
-
-  //   RescriptReactRouter.push("/EnterApp")
-  // }
-
-  let _generateAppId = (account: string, appName: string) => {
-    j`${account}_${appName}`
-  }
 
   let onChange = (page, pageSize) => {
     setPage(_ => page)
@@ -89,7 +66,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="5" />
+      <Nav currentKey="2" />
     </Layout.Header>
     <Layout.Content>
       {!isLoaded
@@ -105,7 +82,7 @@ let make = (~service: FrontendType.service) => {
               renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
                 <List.Item>
                   <List.Item.Meta
-                    key={Method.buildKey(item.account, item.appName)}
+                    key={PublishedAppUtils.buildKey(item.account, item.appName)}
                     title={<Typography.Title level=3>
                       {React.string(item.appName)}
                     </Typography.Title>}
@@ -117,7 +94,7 @@ let make = (~service: FrontendType.service) => {
                   {!isDownloadFinish &&
                   currentImportingKey
                   ->Meta3dCommonlib.OptionSt.map(currentImportingKey =>
-                    currentImportingKey == Method.buildKey(item.account, item.appName)
+                    currentImportingKey == PublishedAppUtils.buildKey(item.account, item.appName)
                   )
                   ->Meta3dCommonlib.OptionSt.getWithDefault(false)
                     ? <p>
@@ -128,7 +105,9 @@ let make = (~service: FrontendType.service) => {
                     : React.null}
                   <Button
                     onClick={_ => {
-                      _openLink(_buildURL(item.account, item.appName))
+                      PublishedAppUtils.openLink(
+                        PublishedAppUtils.buildURL(item.account, item.appName),
+                      )
                     }}>
                     {React.string(`运行`)}
                   </Button>
@@ -142,127 +121,22 @@ let make = (~service: FrontendType.service) => {
                   <Button
                     onClick={_ => {
                       setIsDownloadFinish(_ => false)
-                      setCurrentImportingKey(_ => Method.buildKey(item.account, item.appName)->Some)
-
-                      service.backend.findPublishApp(.
-                        progress => setDownloadProgress(_ => progress),
-                        item.account,
-                        item.appName,
+                      setCurrentImportingKey(_ =>
+                        PublishedAppUtils.buildKey(item.account, item.appName)->Some
                       )
-                      ->Meta3dBsMostDefault.Most.flatMap(
-                        file => {
-                          Meta3dCommonlib.NullableSt.isNullable(file)
-                            ? {
-                                setIsDownloadFinish(_ => true)
-                                setCurrentImportingKey(_ => None)
 
-                                ErrorUtils.error(
-                                  {
-                                    j`account: ${item.account} appName: ${item.appName} has no published app`
-                                  },
-                                  None,
-                                )->Obj.magic
-
-                                Meta3dBsMostDefault.Most.empty()->Obj.magic
-                              }
-                            : {
-                                let (
-                                  data1,
-                                  data2,
-                                  configData,
-                                  allElements,
-                                ) = Meta3d.Main.getAllDataOfApp(
-                                  file->Meta3dCommonlib.NullableSt.getExn,
-                                )
-
-                                let (canvasData, otherConfigData) = configData
-
-                                let apInspectorData: ApAssembleStoreType.apInspectorDataFromFile =
-                                  otherConfigData->Obj.magic
-
-                                dispatchForApAssembleStore(
-                                  ApAssembleStoreType.SetApInspectorData(apInspectorData),
-                                )
-
-                                dispatch(
-                                  AppStoreType.UserCenterAction(
-                                    UserCenterStoreType.SelectAllElements(
-                                      allElements->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                                    ),
-                                  ),
-                                )
-
-                                dispatchForElementAssembleStore(
-                                  ElementAssembleStoreType.SetCanvasData(canvasData),
-                                )
-
-                                (data1, data2)->Meta3dBsMostDefault.Most.just
-                              }
-                        },
-                        // customData,
-
-                        // let (customInputs, customActions) = customData->Obj.magic
-
-                        // dispatchForApAssembleStore(
-                        //   ApAssembleStoreType.SetCustomInputs(
-                        //     customInputs->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                        //   ),
-                        // )
-                        // dispatchForApAssembleStore(
-                        //   ApAssembleStoreType.SetCustomActions(
-                        //     customActions->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                        //   ),
-                        // )
-
-                        // dispatch(
-                        //   AppStoreType.UserCenterAction(
-                        //     UserCenterStoreType.SetCustomData(
-                        //       customInputs->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                        //       customActions->Obj.magic->Meta3dCommonlib.ListSt.fromArray,
-                        //     ),
-                        //   ),
-                        // )
-                        _,
-                      )
-                      ->ImportUtils.importApp(
+                      PublishedAppUtils.importApp(
+                        service,
+                        (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
                         (
-                          service,
-                          (
-                            () => {
-                              setIsDownloadFinish(_ => true)
-                              setCurrentImportingKey(_ => None)
-                            },
-                            (selectedExtensions, selectedContributes, selectedPackages) =>
-                              dispatch(
-                                AppStoreType.UserCenterAction(
-                                  UserCenterStoreType.ImportApp(
-                                    _generateAppId(item.account, item.appName),
-                                    item.appName,
-                                    selectedExtensions,
-                                    selectedContributes,
-                                    selectedPackages,
-                                  ),
-                                ),
-                              ),
-                            packageIds =>
-                              dispatchForApAssembleStore(
-                                ApAssembleStoreType.BatchStorePackagesInApp(packageIds),
-                              ),
-                          ),
+                          setDownloadProgress,
+                          () => {
+                            setIsDownloadFinish(_ => true)
+                            setCurrentImportingKey(_ => None)
+                          },
                         ),
-                        // dispatchApAssembleStore(
-                        //   ApAssembleStoreType.BatchStorePackagesInApp(
-                        //     packageIds,
-                        //   ),
-                        // ),
-                        _,
+                        item,
                       )
-                      ->Js.Promise.then_(() => {
-                        RescriptReactRouter.push("/AssembleSpace")
-
-                        ()->Js.Promise.resolve
-                      }, _)
-                      ->ignore
                     }}>
                     {React.string(`导入`)}
                   </Button>

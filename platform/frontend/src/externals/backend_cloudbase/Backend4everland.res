@@ -60,6 +60,9 @@ external findPublishApp: findPublishApp = "findPublishApp"
 external findAllPublishApps: findAllPublishApps = "findAllPublishApps"
 
 @module("backend-4everland")
+external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPublishAppsByAccount"
+
+@module("backend-4everland")
 external publishElementContribute: publishElementContribute = "publishElementContribute"
 
 @module("backend-4everland")
@@ -127,6 +130,7 @@ let buildFrontendService = (): FrontendType.backendService => {
     getAllPublishContributeInfos,
     findPublishContribute,
     findAllPublishApps,
+    findAllPublishAppsByAccount,
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,
     findPublishPackage,

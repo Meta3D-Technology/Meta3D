@@ -32,7 +32,8 @@ import {
     getData,
     batchFindMarketProtocolCollection,
     getMarketImplementAccountDataWithWhereData,
-    deleteFile
+    deleteFile,
+    getDataWithWhereData
 } from "./application_layer/BackendService";
 import {
     findNewestPublishPackage as findNewestPublishPackageFind,
@@ -155,10 +156,10 @@ export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstra
     account, appName
 )
 
-// export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
-//     getDataByKeyContain,
-//     account
-// )
+export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
+    getDataWithWhereData,
+    account
+)
 
 export let findAllPublishApps = (
     limitCount,
