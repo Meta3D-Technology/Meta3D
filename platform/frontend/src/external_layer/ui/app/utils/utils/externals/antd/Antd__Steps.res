@@ -21,11 +21,18 @@ type statusVariant = [
 @deriving(jsConverter)
 type sizeVariant = [@as("default") #default | @as("small") #small]
 
+type stepItem = {
+  key: string,
+  title: string,
+  description: Js.Nullable.t<string>,
+}
+
 @module("antd") @react.component
 external make: (
   ~className: string=?,
   ~_type: typeVariant=?,
   ~current: int=?,
+  ~items: array<stepItem>=?,
   ~direction: orientation=?,
   ~labelPlacement: orientation=?,
   ~progressDot: bool=?,

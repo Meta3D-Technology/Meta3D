@@ -63,6 +63,8 @@ type action =
   | LogOut
   | RemoveElement
   | SetRelease(release)
+  | StartCreateFromScratchTourPhase1
+  | EndCreateFromScratchTourPhase1
 
 type state = {
   account: option<string>,
@@ -76,4 +78,5 @@ type state = {
   currentAppName: option<appName>,
   // customInputs: customInputs,
   // customActions: customActions,
+  isInCreateFromScratchTourPhase1: bool,
 }

@@ -42,7 +42,7 @@
     },
     "dependencies": {
         "@cloudbase/js-sdk": "^1.7.2",
-        "antd": "^4.21.0",
+        "antd": "^5.12.2",
         "@ant-design/graphs": "^1.4.1",
         "monaco-editor": "^0.32.1",
         "react-monaco-editor": "^0.54.0",

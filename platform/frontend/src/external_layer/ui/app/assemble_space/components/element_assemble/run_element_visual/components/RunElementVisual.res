@@ -1,5 +1,5 @@
 open Antd
-%%raw("import 'antd/dist/antd.css'")
+%%raw("import 'antd/dist/reset.css'")
 
 module Method = {
   // let _getVisualExtensionProtocolName = () => "meta3d-element-assemble-visual-run-protocol"

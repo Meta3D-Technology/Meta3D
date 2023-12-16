@@ -133,14 +133,30 @@ TODO save status
 use https://ant.design/components/steps
 use https://ant.design/components/tour
 
+TODO test 1
+onFinish?
+
+# content add style
+
+
+
+
+
 create input
 
 create action
 
 
+
+
+
+TODO add End Tutorial button
+
+
 *** TODO create with template add guide
 
 
+only use https://ant.design/components/tour
 
 
 
@@ -151,7 +167,9 @@ use https://ant.design/components/popover
 
 
 Show Help:
-Guide
+these two Guides
+
+-
 
 Star button
 💬 点这里加QQ群:106047770 与我们交流

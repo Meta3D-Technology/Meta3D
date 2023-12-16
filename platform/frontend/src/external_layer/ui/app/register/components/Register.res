@@ -1,5 +1,5 @@
 open Antd
-%%raw("import 'antd/dist/antd.css'")
+%%raw("import 'antd/dist/reset.css'")
 
 type values = {account: string}
 

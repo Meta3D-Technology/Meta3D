@@ -19,4 +19,5 @@ external make: (
   ~target: string=?,
   ~_type: _type=?,
   ~style: ReactDOM.Style.t=?,
+  ~ref: 'a=?,
 ) => React.element = "Button"

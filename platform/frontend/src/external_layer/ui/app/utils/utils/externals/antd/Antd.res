@@ -25,3 +25,5 @@ module Menu = Antd__Menu
 module Space = Antd__Space
 
 module Pagination = Antd__Pagination
+
+module Tour = Antd__Tour
