@@ -331,3 +331,6 @@ multiple import
 * DONE refactor: remove unused ones
 
 e.g. ShowPublishedElements
+
+
+* DONE fix: remove same name input

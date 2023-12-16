@@ -60,9 +60,12 @@ let _removeOtherSelectedContributesOfSameProtocolNameExceptInput = (
   data: contribute,
 ) => {
   let protocolName = data.protocolName
+  let name = data.data.contributePackageData.name
 
   ContributeTypeUtils.isInput(protocolName)
-    ? selectedContributes
+    ? selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
+        selectedContribute.data.contributePackageData.name !== name
+      })
     : selectedContributes->Meta3dCommonlib.ListSt.filter(((selectedContribute, _)) => {
         selectedContribute.protocolName !== protocolName
       })
