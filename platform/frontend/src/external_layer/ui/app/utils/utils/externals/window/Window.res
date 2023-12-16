@@ -7,4 +7,7 @@ external \"open": (string, string) => openResult = "open"
 external fetchDTs: string => Js.Promise.t<fetchResult> = "fetch"
 
 @val @scope("window")
+external fetch: string => Js.Promise.t<fetchResult> = "fetch"
+
+@val @scope("window")
 external setTimeout: (unit => unit, int) => unit = "setTimeout"

@@ -106,6 +106,7 @@ let _removeOtherSelectedElementOfSameName = (
 
 let _createState = () => {
   account: LoginUtils.readAccount(),
+  release: None,
   selectedExtensions: list{},
   selectedContributes: list{},
   selectedPackages: list{},
@@ -307,6 +308,10 @@ let reducer = (state, action) => {
       ...state,
       selectedContributes: state.selectedContributes->SelectedElementContributeUtils.removeElementContribute,
       selectedElements: list{},
+    }
+  | SetRelease(release) => {
+      ...state,
+      release: release->Some,
     }
   }
 }

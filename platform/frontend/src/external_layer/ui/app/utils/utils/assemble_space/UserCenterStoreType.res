@@ -30,6 +30,11 @@ type name = string
 
 type appName = string
 
+type release = {
+  version: string,
+  releaseDateUntilNow: int,
+}
+
 type action =
   | SelectExtension(extension, option<CommonType.protocolConfig>)
   | NotSelectExtension(name, AssembleSpaceCommonType.version)
@@ -57,9 +62,11 @@ type action =
   // | Reset
   | LogOut
   | RemoveElement
+  | SetRelease(release)
 
 type state = {
   account: option<string>,
+  release: option<release>,
   selectedExtensions: selectedExtensions,
   selectedContributes: selectedContributes,
   selectedPackages: selectedPackages,

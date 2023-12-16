@@ -1,6 +1,9 @@
 * DONE 重命名”应用“为”编辑器“
 
 
+* DONE fix added action
+
+
 * TODO add 新手引导
 
 refe to:
@@ -15,7 +18,16 @@ https://app.appsmith.com/
 
 
 
-TODO 平台首页:
+
+
+
+
+
+
+
+
+
+TODO UserCenter:
 加入引导链接，如 创建第一个引擎的文档链接等
 加入反馈链接（discussion, issue, 加群）
 
@@ -73,6 +85,83 @@ TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要
 
 
 
+** TODO UserCenter
+*** DONE add Left Panel
+        Star button
+        💬 点这里加QQ群:106047770 与我们交流
+        📄 文档中找到解决方案
+        ⚠️ Github上提Issue
+        👾 论坛上寻求帮助
+
+        Meta3d vX.X.X
+        XXX前发布
+
+
+*** TODO 第一次进入UserCenter时，给出简介：
+
+use https://ant.design/components/tour
+
+
+
+https://pic4.zhimg.com/80/v2-b79b57c19567a1ce65ccc4d287743e67_1440w.webp
+
+# 包括一个宣传视频
+给出详情跳转链接
+
+
+
+吸引客户:
+> 对于商业产品客户来说，使用一个产品前需要考虑的非常重要的点就是：这个产品能否免费试用？试用结束后是怎么计费的？性价比是否高，是否划算...
+给出详情跳转链接
+
+
+TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要更多权益请详见”->跳转到咨询页面
+
+
+
+** TODO Assemble Space
+
+*** TODO create from scratch add guide
+
+use https://ant.design/components/steps
+
+create input
+
+create action
+
+
+*** TODO create with template add guide
+
+
+
+
+
+*** TODO add float bar
+
+use https://ant.design/components/popover
+
+
+
+Show Help:
+Guide
+
+Star button
+💬 点这里加QQ群:106047770 与我们交流
+📄 文档中找到解决方案
+⚠️ Github上提Issue
+👾 论坛上寻求帮助
+
+Meta3d vX.X.X
+XXX前发布
+
+
+
+
+
+
+
+
+
 * TODO 更新extension    
 
 TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
@@ -98,19 +187,6 @@ e.g. 更新Extensions、 UI Controls中的图文小图标排版
 
 
 
-
-
-* TODO 构建三个示例场景
-
-1.Engine + Example use Engine package
-2.Editor
-3.Scene use Editor to build and publish
-
-** TODO build one big scene with glbs as showcase
-
-3D场景漫游
-
-
 # * TODO 跑通发布扩展、贡献的流程
 
 # TODO 跑通：
@@ -130,4 +206,17 @@ e.g. 更新Extensions、 UI Controls中的图文小图标排版
 * TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
 
 TODO pass run test
+
+
+
+
+* TODO 构建三个示例场景
+
+1.Engine + Example use Engine package
+2.Editor
+3.Scene use Editor to build and publish
+
+** TODO build one big scene with glbs as showcase
+
+3D场景漫游
 

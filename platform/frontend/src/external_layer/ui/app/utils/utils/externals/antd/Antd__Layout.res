@@ -10,7 +10,11 @@ module Header = {
 
 module Sider = {
   @module("antd") @scope("Layout") @react.component
-  external make: (~theme: theme=?, ~children: React.element=?) => React.element = "Sider"
+  external make: (
+    ~theme: theme=?,
+    ~width:int=?,
+    ~children: React.element=?,
+  ) => React.element = "Sider"
 }
 
 module Content = {
