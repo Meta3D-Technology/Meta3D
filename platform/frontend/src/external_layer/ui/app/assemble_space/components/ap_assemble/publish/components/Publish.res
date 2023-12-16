@@ -428,7 +428,7 @@ let make = (~service: service, ~account: option<string>) => {
     </Button>
     {visible
       ? <Modal
-          title={`发布应用`}
+          title={`发布编辑器`}
           visible={visible}
           onOk={() => {
             setVisible(_ => false)
@@ -477,12 +477,12 @@ let make = (~service: service, ~account: option<string>) => {
                 // onFinishFailed={Method.onFinishFailed(service)}
                 autoComplete="off">
                 <Form.Item
-                  label={`应用名`}
+                  label={`编辑器名`}
                   name="appName"
                   rules={[
                     {
                       required: true,
-                      message: `输入应用名`,
+                      message: `输入编辑器名`,
                     },
                   ]}>
                   <Input />

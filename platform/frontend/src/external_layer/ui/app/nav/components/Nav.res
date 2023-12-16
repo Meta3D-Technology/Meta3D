@@ -27,7 +27,7 @@ let make = (~currentKey="1", ~account) => {
           },
           {
             key: "2",
-            label: {React.string(`发布的应用`)},
+            label: {React.string(`发布的编辑器`)},
           },
           {
             key: "3",
@@ -49,7 +49,7 @@ let make = (~currentKey="1", ~account) => {
           },
           {
             key: "2",
-            label: {React.string(`发布的应用`)},
+            label: {React.string(`发布的编辑器`)},
           },
         ]}
   />

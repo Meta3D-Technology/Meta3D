@@ -33,7 +33,7 @@ let make = (~service: FrontendType.service) => {
     RescriptReactRouter.push("/AssembleSpace")
   }
 
-  let _buildCurrentAppName = () => {j`未命名的应用`}
+  let _buildCurrentAppName = () => {j`未命名的编辑器`}
 
   let _getAllUIControlData = () => {
     list{
@@ -256,7 +256,7 @@ let make = (~service: FrontendType.service) => {
               {React.string(`登出`)}
             </Button>
           </Space>
-          <Typography.Title> {React.string({j`我发布的应用`})} </Typography.Title>
+          <Typography.Title> {React.string({j`我发布的编辑器`})} </Typography.Title>
           <Space direction=#horizontal>
             <Button
               _type=#primary
@@ -265,7 +265,7 @@ let make = (~service: FrontendType.service) => {
                   _createFromTemplate()
                 }, 5->Some)
               }}>
-              {React.string(`导入模板来创建新的应用`)}
+              {React.string(`导入模板来创建新的编辑器`)}
             </Button>
             <Button
               _type=#default
@@ -274,7 +274,7 @@ let make = (~service: FrontendType.service) => {
                   _createFromScratch(service, dispatch)->ignore
                 }, 5->Some)
               }}>
-              {React.string(`从头创建新的应用`)}
+              {React.string(`从头创建新的编辑器`)}
             </Button>
             {UserUtils.isAdmin(account)
               ? <Button

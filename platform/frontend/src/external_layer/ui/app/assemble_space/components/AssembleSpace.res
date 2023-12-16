@@ -440,7 +440,7 @@ let make = (
                 items=[
                   {
                     key: "1",
-                    label: {React.string(`应用装配`)},
+                    label: {React.string(`编辑器装配`)},
                   },
                   {
                     key: "2",
