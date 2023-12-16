@@ -102,7 +102,7 @@ let make = (~service: FrontendType.service, ~account) => {
             <Button
               _type=#default
               onClick={_ => {
-                PublishedAppUtils.openLink(PublishedAppUtils.buildURL(item.account, item.appName))
+                LinkUtils.openLink(PublishedAppUtils.buildURL(item.account, item.appName))
               }}>
               {React.string(`运行`)}
             </Button>

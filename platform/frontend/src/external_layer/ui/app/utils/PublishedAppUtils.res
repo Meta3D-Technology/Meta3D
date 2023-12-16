@@ -5,10 +5,6 @@ let buildKey = (account, appName) => {
 let buildURL = (account: string, appName: string) =>
   j`EnterApp?account=${account}&appName=${appName}`
 
-let openLink = url => {
-  Window.\"open"(url, "_blank").focus()
-}
-
 let _generateAppId = (account: string, appName: string) => {
   j`${account}_${appName}`
 }

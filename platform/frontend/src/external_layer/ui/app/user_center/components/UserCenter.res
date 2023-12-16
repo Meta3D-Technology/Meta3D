@@ -451,7 +451,7 @@ let make = (~service: FrontendType.service) => {
                   <Button
                     _type=#default
                     onClick={_ => {
-                      PublishedAppUtils.openLink(
+                      LinkUtils.openLink(
                         PublishedAppUtils.buildURL(item.account, item.appName),
                       )
                     }}>

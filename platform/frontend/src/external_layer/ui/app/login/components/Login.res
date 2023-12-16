@@ -87,71 +87,120 @@ let make = (~service: FrontendType.service) => {
     service.console.error(. {j`Failed: ${errorInfo->Obj.magic->Js.Json.stringify}`}, 2->Some)
   }
 
-  <Layout>
-    // <Layout.Header>
-    //   <Nav currentKey="1" account=None />
-    // </Layout.Header>
-    <Layout.Content>
-      <Space direction=#vertical size=#large>
-        <Typography.Paragraph>
-          <Typography.Title> {React.string({j`只需要用户名即可登录`})} </Typography.Title>
-          <Form
-            // name="basic"
-            labelCol={{
-              "span": 8,
-            }}
-            wrapperCol={{
-              "span": 6,
-            }}
-            initialValues={{
-              "remember": true,
-            }}
-            onFinish={_onFinish}
-            onFinishFailed={_onFinishFailed(service)}
-            autoComplete="off">
-            <Form.Item
-              label={`用户名`}
-              name="account"
-              rules={[
-                {
-                  required: true,
-                  message: `输入用户名`,
-                },
-              ]}>
-              <Input />
-            </Form.Item>
-            <Form.Item
-              wrapperCol={{
-                "offset": 8,
-                "span": 16,
-              }}>
-              <Button _type=#primary htmlType="submit"> {React.string(`登录`)} </Button>
+  let _finishGuide = () => {
+    GuideUtils.markFinishFirstLogin()
+    RescriptReactRouter.push("/Login")
+  }
+
+  <>
+    {GuideUtils.readIsFinishFirstLogin()
+      ? <Layout>
+          // <Layout.Header>
+          //   <Nav currentKey="1" account=None />
+          // </Layout.Header>
+          <Layout.Content>
+            <Space direction=#vertical size=#large>
+              <Typography.Paragraph>
+                <Typography.Title>
+                  {React.string({j`只需要用户名即可登录`})}
+                </Typography.Title>
+                <Form
+                  // name="basic"
+                  labelCol={{
+                    "span": 8,
+                  }}
+                  wrapperCol={{
+                    "span": 6,
+                  }}
+                  initialValues={{
+                    "remember": true,
+                  }}
+                  onFinish={_onFinish}
+                  onFinishFailed={_onFinishFailed(service)}
+                  autoComplete="off">
+                  <Form.Item
+                    label={`用户名`}
+                    name="account"
+                    rules={[
+                      {
+                        required: true,
+                        message: `输入用户名`,
+                      },
+                    ]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    wrapperCol={{
+                      "offset": 8,
+                      "span": 16,
+                    }}>
+                    <Button _type=#primary htmlType="submit"> {React.string(`登录`)} </Button>
+                    <Button
+                      onClick={_ => {
+                        RescriptReactRouter.push("/Register")
+                      }}>
+                      {React.string(`快速注册`)}
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Typography.Paragraph>
+              <Typography.Paragraph>
+                <Typography.Title>
+                  {React.string({`或者使用MetaMask钱包登录`})}
+                </Typography.Title>
+                <Button
+                  _type=#primary
+                  onClick={_ => {
+                    _login()->ignore
+                  }}>
+                  {React.string(`使用MetaMask钱包登录`)}
+                </Button>
+                <Typography.Link href="https://zhuanlan.zhihu.com/p/112285438" target=#_blank>
+                  {React.string(`如何开启MetaMask钱包？`)}
+                </Typography.Link>
+              </Typography.Paragraph>
+            </Space>
+            {isLoginBegin ? <p> {React.string({j`loging...`})} </p> : React.null}
+          </Layout.Content>
+        </Layout>
+      : <Modal
+          title={`欢迎来到Meta3D`}
+          visible={true}
+          onOk={() => {
+            _finishGuide()
+          }}
+          onCancel={() => {
+            _finishGuide()
+          }}
+          footer={React.null}>
+          <Space direction=#vertical>
+            <Typography.Title level=2>
+              {React.string({
+                j`Meta3D是开源Web3D低代码平台，致力于建设共享互助开放的Web3D生态，实现快速搭建Web3D编辑器`
+              })}
+            </Typography.Title>
+            <Typography.Text _type=#warning>
+              {React.string({
+                j`目前处于内测阶段，完全免费`
+              })}
+            </Typography.Text>
+            <Space direction=#horizontal>
               <Button
+                _type=#primary
                 onClick={_ => {
-                  RescriptReactRouter.push("/Register")
+                  _finishGuide()
                 }}>
-                {React.string(`快速注册`)}
+                {React.string(`登录`)}
               </Button>
-            </Form.Item>
-          </Form>
-        </Typography.Paragraph>
-        <Typography.Paragraph>
-          <Typography.Title>
-            {React.string({`或者使用MetaMask钱包登录`})}
-          </Typography.Title>
-          <Button
-            _type=#primary
-            onClick={_ => {
-              _login()->ignore
-            }}>
-            {React.string(`使用MetaMask钱包登录`)}
-          </Button>
-          <Typography.Link href="https://zhuanlan.zhihu.com/p/112285438" target=#_blank>
-            {React.string(`如何开启MetaMask钱包？`)}
-          </Typography.Link>
-        </Typography.Paragraph>
-      </Space>
-      {isLoginBegin ? <p> {React.string({j`loging...`})} </p> : React.null}
-    </Layout.Content>
-  </Layout>
+              <Button
+                _type=#default
+                onClick={_ => {
+                  LinkUtils.openLink({j`https://meta3d-website.4everland.app/`})
+                }}>
+                {React.string(`了解详情`)}
+              </Button>
+            </Space>
+          </Space>
+        </Modal>}
+  </>
 }

@@ -97,9 +97,10 @@ TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要
         XXX前发布
 
 
-*** TODO 第一次进入UserCenter时，给出简介：
+# *** TODO 第一次进入UserCenter时，给出简介：
+*** DONE 第一次进入Login时，给出简介：
 
-use https://ant.design/components/tour
+use Modal
 
 
 
@@ -114,9 +115,15 @@ https://pic4.zhimg.com/80/v2-b79b57c19567a1ce65ccc4d287743e67_1440w.webp
 > 对于商业产品客户来说，使用一个产品前需要考虑的非常重要的点就是：这个产品能否免费试用？试用结束后是怎么计费的？性价比是否高，是否划算...
 给出详情跳转链接
 
+图文轮播？
+
 
 TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要更多权益请详见”->跳转到咨询页面
 
+
+
+
+TODO save status
 
 
 ** TODO Assemble Space
@@ -124,6 +131,7 @@ TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要
 *** TODO create from scratch add guide
 
 use https://ant.design/components/steps
+use https://ant.design/components/tour
 
 create input
 
