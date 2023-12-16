@@ -37,9 +37,9 @@ let make = (~service: FrontendType.service) => {
   }
 
   <Layout>
-    <Layout.Header>
-      <Nav currentKey="1" account=None />
-    </Layout.Header>
+    // <Layout.Header>
+    //   <Nav currentKey="1" account=None />
+    // </Layout.Header>
     <Layout.Content>
       <Form
         //   name="basic"

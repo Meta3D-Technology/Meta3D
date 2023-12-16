@@ -88,13 +88,13 @@ let make = (~service: FrontendType.service) => {
   }
 
   <Layout>
-    <Layout.Header>
-      <Nav currentKey="1" account=None />
-    </Layout.Header>
+    // <Layout.Header>
+    //   <Nav currentKey="1" account=None />
+    // </Layout.Header>
     <Layout.Content>
       <Space direction=#vertical size=#large>
         <Typography.Paragraph>
-          <Typography.Title> {React.string({j`使用用户名登录`})} </Typography.Title>
+          <Typography.Title> {React.string({j`只需要用户名即可登录`})} </Typography.Title>
           <Form
             // name="basic"
             labelCol={{
@@ -130,7 +130,7 @@ let make = (~service: FrontendType.service) => {
                 onClick={_ => {
                   RescriptReactRouter.push("/Register")
                 }}>
-                {React.string(`注册`)}
+                {React.string(`快速注册`)}
               </Button>
             </Form.Item>
           </Form>

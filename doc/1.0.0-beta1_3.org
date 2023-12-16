@@ -1,66 +1,6 @@
 * DONE 重命名”应用“为”编辑器“
 
 
-
-* TODO 更新extension    
-
-TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
-TODO remove unused ones
-TODO update icon
-action, uiControl, uiControlInput, package, extension, contribute use different icon
-TODO update displayName，使用中文
-TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
-
-
-* TODO 优化平台UI
-
-TODO 使用图标代替文字按钮
-e.g. 替代运行按钮
-
-TODO 更新排版
-e.g. 更新Extensions、 UI Controls中的图文小图标排版
-
-
-
-
-* TODO 重构：统一编码规范
-
-
-
-
-
-* TODO 构建三个示例场景
-
-1.Engine + Example use Engine package
-2.Editor
-3.Scene use Editor to build and publish
-
-** TODO build one big scene with glbs as showcase
-
-3D场景漫游
-
-
-# * TODO 跑通发布扩展、贡献的流程
-
-# TODO 跑通：
-# “根据template，发布extension/contribute”
-# //- “使用yeoman，发布extension/contribute”
-# 发布action
-# 发布input
-# 发布uiControl
-
-
-* TODO 隐藏web3登录
-
-* TODO 增加官方用户:meta3d
-
-* TODO "publisher"改为meta3d
-
-* TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
-
-TODO pass run test
-
-
 * TODO add 新手引导
 
 refe to:
@@ -130,3 +70,64 @@ TODO 给出“目前为体验阶段，所有用户均免费使用”、“想要
 第一次发布编辑器
 第一次发布页面
 第一次使用Custom
+
+
+
+* TODO 更新extension    
+
+TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
+TODO remove unused ones
+TODO update icon
+action, uiControl, uiControlInput, package, extension, contribute use different icon
+TODO update displayName，使用中文
+TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
+
+
+* TODO 优化平台UI
+
+TODO 使用图标代替文字按钮
+e.g. 替代运行按钮
+
+TODO 更新排版
+e.g. 更新Extensions、 UI Controls中的图文小图标排版
+
+
+
+
+* TODO 重构：统一编码规范
+
+
+
+
+
+* TODO 构建三个示例场景
+
+1.Engine + Example use Engine package
+2.Editor
+3.Scene use Editor to build and publish
+
+** TODO build one big scene with glbs as showcase
+
+3D场景漫游
+
+
+# * TODO 跑通发布扩展、贡献的流程
+
+# TODO 跑通：
+# “根据template，发布extension/contribute”
+# //- “使用yeoman，发布extension/contribute”
+# 发布action
+# 发布input
+# 发布uiControl
+
+
+# * TODO 隐藏web3登录
+
+* TODO 增加官方用户:meta3d
+
+* TODO "publisher"改为meta3d
+
+* TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
+
+TODO pass run test
+
