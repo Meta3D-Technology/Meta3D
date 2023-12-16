@@ -327,7 +327,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"RunElementVisual"} => <RunElementVisual service={_buildAssembleSpaceService()} />
     | list{}
     | _ =>
-      <UserCenter service />
+      Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
     }
   }
 }
