@@ -24,6 +24,7 @@ Feature: UIControls
             Given select uiControl u1 in ap view
             When select u1
             Then dispatch SelectUIControl action
+            And dispatch SelectSelectedUIControl action
 
         Scenario: if already select ui control Scene View before, select ui control Scene View again should error
             Given select uiControl Scene View in ap view

@@ -5,14 +5,26 @@ let buildUI = (
   ~account=None,
   // ~selectedElementsFromMarket=list{},
   ~service=ServiceTool.build(~sandbox, ()),
+  ~handleWhenShowModalFunc=() => (),
+  ~handleWhenPublishFunc=() => (),
+  ~publishButtonTarget=Obj.magic(1),
+  ~publishModalTarget=Obj.magic(1),
   (),
 ) => {
-  <Publish service account />
+  <Publish
+    service
+    handleWhenShowModalFunc
+    handleWhenPublishFunc
+    account
+    publishButtonTarget
+    publishModalTarget
+  />
 }
 
 let publish = (
   ~sandbox,
   ~service,
+  ~handleWhenPublishFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~dispatchForAppStore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
@@ -39,6 +51,7 @@ let publish = (
   Publish.Method.onFinish(
     service,
     dispatchForAppStore,
+    handleWhenPublishFunc,
     (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,

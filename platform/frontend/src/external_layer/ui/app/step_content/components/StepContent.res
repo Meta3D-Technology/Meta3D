@@ -14,7 +14,7 @@ let make = (~onStartFunc, ~title, ~description) => {
         onClick={_ => {
           onStartFunc()
         }}>
-        {React.string(`开始`)}
+        {React.string(`开始引导`)}
       </Button>
     </Space>
   </Layout>

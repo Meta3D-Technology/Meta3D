@@ -1,11 +1,23 @@
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
+  ~handleWhenSelectUIControlFunc=_ => (),
+  ~handleWhenShowUIControlsFunc=() => (),
   ~selectedContributes=list{},
   ~setIsShowUIControls=ReactHookTool.buildEmptySetStateFunc(),
+  ~selectSceneViewUIControlTarget=Obj.magic(1),
+  ~selectGameViewUIControlTarget=Obj.magic(1),
   (),
 ) => {
-  <UIControls service setIsShowUIControls selectedContributes />
+  <UIControls
+    service
+    handleWhenShowUIControlsFunc
+    handleWhenSelectUIControlFunc
+    setIsShowUIControls
+    selectedContributes
+    selectSceneViewUIControlTarget
+    selectGameViewUIControlTarget
+  />
 }
 
 let buildSelectedContribute = (

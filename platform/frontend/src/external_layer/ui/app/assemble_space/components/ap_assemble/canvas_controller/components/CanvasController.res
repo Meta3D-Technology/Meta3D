@@ -39,7 +39,11 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (
+  ~service: service,
+  ~canvasWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~canvasHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let {width, height} as canvasData = ReduxUtils.ElementAssemble.useSelector(
@@ -49,7 +53,9 @@ let make = (~service: service) => {
 
   <Space direction=#horizontal size=#small>
     <Typography.Text> {React.string(`画布大小：`)} </Typography.Text>
+    // <Button ref={canvasWidthInputTarget}>{React.string(`test`)}</Button>
     <Input
+      ref={canvasWidthInputTarget}
       value={width->Js.Int.toString}
       onChange={e => {
         Method.setWidth(
@@ -60,6 +66,7 @@ let make = (~service: service) => {
       }}
     />
     <Input
+      ref={canvasHeightInputTarget}
       value={height->Js.Int.toString}
       onChange={e => {
         Method.setHeight(

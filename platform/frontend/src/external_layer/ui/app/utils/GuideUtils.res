@@ -64,7 +64,7 @@ let markFinishCreateFromScratchTour = () => {
   )
 }
 
-let buildCreateFromScratchTourStepData = () => {
+let buildCreateFromScratchStepData = () => {
   [
     ("点击创建按钮", "点击创建按钮", ""),
     (
@@ -72,6 +72,17 @@ let buildCreateFromScratchTourStepData = () => {
       "设置画布的宽度和高度",
       "在两个输入框中分别输入宽度和高度",
     ),
+    (
+      "加入UI Control",
+      "加入UI Control",
+      "加入所有的UI Control，将它们摆放到合适的位置",
+    ),
+    //// 设置Input
+    //// 设置Action
+    ("运行", "运行", "运行编辑器"),
+    ("发布", "发布", "发布编辑器"),
+    ("返回用户中心", "返回用户中心", "返回用户中心，查看发布的编辑器"),
+    // 在用户中心和发布的编辑器中找到
   ]
 }
 
@@ -91,4 +102,92 @@ let buildSteps = (onStartFunc, current, stepData) => {
     />
     <StepContent onStartFunc title description />
   </>
+}
+
+let getRefCurrent = (ref: React.ref<Js.Nullable.t<'a>>) => {
+  ref.current->Obj.magic
+}
+
+let getInputRefCurrent = (inputRef: React.ref<Js.Nullable.t<'a>>) => {
+  inputRef.current
+  ->Obj.magic
+  ->Meta3dCommonlib.NullableSt.map((. value) => value["input"])
+  ->Obj.magic
+}
+
+let isSceneViewProtocolName = protocolName => {
+  protocolName == "meta3d-ui-control-scene-view-protocol"
+}
+
+let isGameViewProtocolName = protocolName => {
+  protocolName == "meta3d-ui-control-game-view-protocol"
+}
+
+let endCreateFromScratchTour = (dispatchForAppStore, dispatchForElementAssembleStore) => {
+  dispatchForAppStore(
+    AppStoreType.UserCenterAction(UserCenterStoreType.EndCreateFromScratchTourPhase1),
+  )
+  dispatchForElementAssembleStore(ElementAssembleStoreType.EndCreateFromScratchTourPhase2)
+  dispatchForAppStore(
+    AppStoreType.UserCenterAction(UserCenterStoreType.EndCreateFromScratchTourPhase3),
+  )
+
+  markFinishCreateFromScratchTour()
+}
+
+let buildCloseIcon = (dispatchForAppStore, dispatchForElementAssembleStore) => {
+  open Antd
+
+  <Popconfirm
+    title="结束引导"
+    description="您确定结束本次引导吗？"
+    onConfirm={_ => {
+      endCreateFromScratchTour(dispatchForAppStore, dispatchForElementAssembleStore)
+    }}
+    onCancel={event => {
+      (event->Obj.magic)["preventDefault"](.)
+      (event->Obj.magic)["stopPropagation"](.)
+    }}
+    okText="是"
+    cancelText="否">
+    <Icon.CloseOutlined
+      onClick={event => {
+        // Window.confirm("您确定要结束本次引导吗？")
+        //   ? {
+        //       Js.log("yes")
+        //       true-> Obj.magic
+        //     }
+        //   : {
+        //       Js.log("no")
+        //       Js.log(event)
+        //       (event->Obj.magic)["preventDefault"](.)
+        //       (event->Obj.magic)["stopPropagation"](.)
+        //       false-> Obj.magic
+        //     }
+
+        (event->Obj.magic)["preventDefault"](.)
+        (event->Obj.magic)["stopPropagation"](.)
+      }}
+    />
+    // <Button
+    //   onClick={event => {
+    //     // Window.confirm("您确定要结束本次引导吗？")
+    //     //   ? {
+    //     //       Js.log("yes")
+    //     //       true-> Obj.magic
+    //     //     }
+    //     //   : {
+    //     //       Js.log("no")
+    //     //       Js.log(event)
+    //     //       (event->Obj.magic)["preventDefault"](.)
+    //     //       (event->Obj.magic)["stopPropagation"](.)
+    //     //       false-> Obj.magic
+    //     //     }
+
+    //     (event->Obj.magic)["preventDefault"](.)
+    //     (event->Obj.magic)["stopPropagation"](.)
+    //   }}>
+    //   {React.string(`取消`)}
+    // </Button>
+  </Popconfirm>
 }

@@ -43,6 +43,7 @@ module Method = {
   let selectUIControl = (
     service,
     dispatch,
+    handleWhenSelectUIControlFunc,
     selectedUIControls,
     selectedContributes,
     protocolIconBase64,
@@ -59,8 +60,11 @@ module Method = {
     ) {
     | Some(errorMessage) => service.console.error(. errorMessage, None)
     | None =>
+      let id = IdUtils.generateId(Js.Math.random)
+
       dispatch(
         ElementAssembleStoreType.SelectUIControl(
+          id,
           protocolIconBase64,
           protocolConfigStr,
           displayName,
@@ -71,6 +75,14 @@ module Method = {
           )->_convertSpecificType,
         ),
       )
+      dispatch(
+        ElementAssembleStoreType.SelectSelectedUIControl(
+          (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
+          id,
+        ),
+      )
+
+      handleWhenSelectUIControlFunc(data.contributePackageData.protocol.name)
     }
   }
 
@@ -88,7 +100,15 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~setIsShowUIControls, ~selectedContributes) => {
+let make = (
+  ~service: service,
+  ~handleWhenShowUIControlsFunc,
+  ~handleWhenSelectUIControlFunc,
+  ~setIsShowUIControls,
+  ~selectedContributes,
+  ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -96,6 +116,12 @@ let make = (~service: service, ~setIsShowUIControls, ~selectedContributes) => {
     selectedUIControls,
     parentUIControlId,
   ) = service.react.useSelector(. Method.useSelector)
+
+  service.react.useEffect(.() => {
+    handleWhenShowUIControlsFunc()
+
+    None
+  })
 
   // TODO duplicate with ap view
   <List
@@ -105,7 +131,12 @@ let make = (~service: service, ~setIsShowUIControls, ~selectedContributes) => {
       // let name = data.contributePackageData.name
       let displayName = data.contributePackageData.displayName
 
-      <List.Item>
+      <List.Item
+        ref={data.contributePackageData.protocol.name->GuideUtils.isSceneViewProtocolName
+          ? selectSceneViewUIControlTarget
+          : data.contributePackageData.protocol.name->GuideUtils.isGameViewProtocolName
+          ? selectGameViewUIControlTarget
+          : Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}>
         <Card
           key={id}
           onClick={_ => {
@@ -113,6 +144,7 @@ let make = (~service: service, ~setIsShowUIControls, ~selectedContributes) => {
               Method.selectUIControl(
                 service,
                 dispatch,
+                handleWhenSelectUIControlFunc,
                 selectedUIControls,
                 selectedContributes,
                 protocolIconBase64,

@@ -1,5 +1,7 @@
 type key = string
 
+type ref
+
 type rec treeData = {
   title: string,
   key: key,

@@ -1,5 +1,6 @@
 @module("antd") @react.component
 external make: (
+  ~ref: 'a=?,
   ~style: ReactDOM.Style.t=?,
   ~onChange: float => unit=?,
   ~defaultValue: float=?,

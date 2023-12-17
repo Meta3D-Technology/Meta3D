@@ -1,5 +1,11 @@
-let buildUI = (~sandbox, ~service=ServiceTool.build(~sandbox, ()), ()) => {
-  <CanvasController service />
+let buildUI = (
+  ~sandbox,
+  ~service=ServiceTool.build(~sandbox, ()),
+  ~canvasWidthInputTarget=Obj.magic(1),
+  ~canvasHeightInputTarget=Obj.magic(1),
+  (),
+) => {
+  <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
 }
 
 let setWidth = CanvasController.Method.setWidth
@@ -14,7 +20,7 @@ let buildCanvasData = (
   // ~zIndex=0,
   (),
 ): ElementAssembleStoreType.canvasData => {
-  width: width,
-  height: height,
+  width,
+  height,
   // zIndex: zIndex,
 }

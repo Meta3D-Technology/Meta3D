@@ -140,17 +140,48 @@ onFinish?
 
 
 
+TODO Phase2
 
 
-create input
+# create input
 
-create action
-
-
+# create action
 
 
 
+
+TODO select added ui control
+
+
+
+TODO after click, should move next
+//TODO no next button 
+
+
+
+TODO finish remain tour
+
+    fix: gameview
+    fix: last step
+
+
+
+
+
+
+TODO handle finish tour
 TODO add End Tutorial button
+    custom closeIcon: https://ant.design/components/popconfirm
+
+
+commit
+
+
+TODO first jump to Tour component
+# show preview
+show run button
+
+TODO pass bdd test
 
 
 *** TODO create with template add guide
@@ -160,31 +191,13 @@ only use https://ant.design/components/tour
 
 
 
-*** TODO add float bar
-
-use https://ant.design/components/popover
-
-
-
-Show Help:
-these two Guides
-
--
-
-Star button
-💬 点这里加QQ群:106047770 与我们交流
-📄 文档中找到解决方案
-⚠️ Github上提Issue
-👾 论坛上寻求帮助
-
-Meta3d vX.X.X
-XXX前发布
 
 
 
 
+* TODO perf: optimize create from scratch backend
 
-
+merge requests: batch
 
 
 

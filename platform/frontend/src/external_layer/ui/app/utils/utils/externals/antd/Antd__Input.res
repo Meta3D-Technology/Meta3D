@@ -2,6 +2,7 @@ type size = [#large | #middle | #small]
 
 @module("antd") @react.component
 external make: (
+  ~ref: 'a=?,
   ~_type: string=?,
   ~value: string=?,
   ~onChange: ReactEvent.Form.t => unit=?,

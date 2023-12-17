@@ -27,3 +27,4 @@ module Space = Antd__Space
 module Pagination = Antd__Pagination
 
 module Tour = Antd__Tour
+module Popconfirm = Antd__Popconfirm

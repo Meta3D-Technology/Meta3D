@@ -65,6 +65,8 @@ type action =
   | SetRelease(release)
   | StartCreateFromScratchTourPhase1
   | EndCreateFromScratchTourPhase1
+  | StartCreateFromScratchTourPhase3
+  | EndCreateFromScratchTourPhase3
 
 type state = {
   account: option<string>,
@@ -79,4 +81,5 @@ type state = {
   // customInputs: customInputs,
   // customActions: customActions,
   isInCreateFromScratchTourPhase1: bool,
+  isInCreateFromScratchTourPhase3: bool,
 }

@@ -29,6 +29,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     // customActions,
   } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
 
+  let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+
   let _buildAssembleSpaceService = (): AssembleSpaceType.service => {
     ui: {
       buildTitle: (. ~level, ~children, ()) => {
@@ -185,6 +187,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       //   }
       // },
       useDispatch: ReactUtils.useDispatchForAssembleSpaceStore,
+      useEffect: (. func) => React.useEffect(func),
       useEffect1: (. func, param) => React.useEffect1(func, param),
       useEffectOnce: func => {
         React.useEffect1(() => {
@@ -303,7 +306,12 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
         | Some(currentAppName) =>
           <Layout>
             <Layout.Header>
-              <AssembleSpaceNav currentKey="2" appName={currentAppName} />
+              <AssembleSpaceNav
+                service={_buildAssembleSpaceService()}
+                currentKey="2"
+                appName={currentAppName}
+                assembleSpaceNavTarget
+              />
             </Layout.Header>
             <Layout.Content>
               <AssembleSpace
@@ -315,6 +323,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
                 selectedElementsFromMarket=selectedElements
                 // customInputsFromMarket=customInputs
                 // customActionsFromMarket=customActions
+                assembleSpaceNavTarget
               />
             </Layout.Content>
           </Layout>

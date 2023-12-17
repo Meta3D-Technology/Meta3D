@@ -263,10 +263,11 @@ module Method = {
   // }
 
   // let buildRectField = (dispatch, setRectField, elementStateFields, id, rect, rectField) => {
-  let buildRectField = (dispatch, setRectField, id, label, rect, rectField) => {
+  let buildRectField = (dispatch, setRectField, id, label, rect, rectField, ref) => {
     <Space direction=#horizontal>
       <span> {React.string({j`${label}: `})} </span>
       <InputNumber
+        ref
         value={rectField
         ->_getRectFieldIntValue
         ->Meta3dCommonlib.OptionSt.getWithDefault(0)
@@ -569,6 +570,9 @@ let make = (
   ~currentSelectedUIControl: ElementAssembleStoreType.uiControl,
   ~currentSelectedUIControlInspectorData: ElementAssembleStoreType.uiControlInspectorData,
   ~selectedContributes,
+  ~rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
@@ -621,10 +625,34 @@ let make = (
   <Space direction=#vertical size=#middle>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
     <Space direction=#vertical>
-      {Method.buildRectField(dispatch, Method.setRectX, id, "X", rect, x)}
-      {Method.buildRectField(dispatch, Method.setRectY, id, "Y", rect, y)}
-      {Method.buildRectField(dispatch, Method.setRectWidth, id, "宽", rect, width)}
-      {Method.buildRectField(dispatch, Method.setRectHeight, id, "高", rect, height)}
+      {Method.buildRectField(dispatch, Method.setRectX, id, "X", rect, x, rectXInputTarget)}
+      {Method.buildRectField(
+        dispatch,
+        Method.setRectY,
+        id,
+        "Y",
+        rect,
+        y,
+        Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+      )}
+      {Method.buildRectField(
+        dispatch,
+        Method.setRectWidth,
+        id,
+        "宽",
+        rect,
+        width,
+        rectWidthInputTarget,
+      )}
+      {Method.buildRectField(
+        dispatch,
+        Method.setRectHeight,
+        id,
+        "高",
+        rect,
+        height,
+        rectHeightInputTarget,
+      )}
     </Space>
     // {service.ui.buildTitle(. ~level=2, ~children={React.string(`IsDraw`)}, ())}
     // {Method.buildIsDraw(dispatch, id, isDraw)}

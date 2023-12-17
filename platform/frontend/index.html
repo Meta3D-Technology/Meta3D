@@ -8,6 +8,14 @@
     <meta http-equiv="origin-trial"
         content="AiooPnaqcPxd5WoMv/Mc539M7QNjYxNlafwB5x6kz652gmUuPZUrbUgiX6J/hX/cPeQ7cvqO8M9Mth5SoIy32gMAAAB7eyJvcmlnaW4iOiJodHRwczovL21ldGEzZC1wbGF0Zm9ybS1wcm9kdWN0aW9uLjRldmVybGFuZC5hcHA6NDQzIiwiZmVhdHVyZSI6IldlYkdQVSIsImV4cGlyeSI6MTY5MTcxMTk5OSwiaXNTdWJkb21haW4iOnRydWV9">
 
+    <style>
+        /* solve "ResizeObserver loop completed with undelivered notifications" error when use Antd Tour to the last step:
+        refer to 
+        https://stackoverflow.com/questions/76187282/react-resizeobserver-loop-completed-with-undelivered-notifications/77094068#77094068 */
+        iframe#webpack-dev-server-client-overlay {
+            display: none !important
+        }
+    </style>
 </head>
 
 <body>

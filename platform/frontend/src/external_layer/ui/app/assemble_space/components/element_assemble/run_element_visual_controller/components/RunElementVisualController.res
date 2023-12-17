@@ -128,7 +128,13 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account, ~selectedContributes) => {
+let make = (
+  ~service: service,
+  ~handleWhenRunFunc,
+  ~account,
+  ~selectedContributes,
+  ~runButtonTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (
@@ -163,8 +169,11 @@ let make = (~service: service, ~account, ~selectedContributes) => {
     switch elementContribute {
     | Some(elementContribute) =>
       <Button
+        ref={runButtonTarget}
         onClick={_ => {
           ErrorUtils.showCatchedErrorMessage(() => {
+            handleWhenRunFunc()
+
             Method.run(
               service,
               (canvasData, apInspectorData),

@@ -161,7 +161,17 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~selectedContributes) => {
+let make = (
+  ~service: service,
+  ~handleWhenShowUIControlsFunc,
+  ~handleWhenSelectUIControlFunc,
+  ~handleWhenSelectTreeNodeFunc,
+  ~selectedContributes,
+  ~addUIControlButtonTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rootTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (expandedKeys, setExpandedKeys) = service.react.useState(_ => [Method.getRootKey()])
@@ -175,6 +185,7 @@ let make = (~service: service, ~selectedContributes) => {
     <Space direction=#vertical size=#middle>
       <Space direction=#horizontal wrap=true>
         <Button
+          ref={addUIControlButtonTarget}
           icon={<Icon.FileAddOutlined />}
           onClick={_ => {
             setIsShowUIControls(_ => true)
@@ -187,16 +198,21 @@ let make = (~service: service, ~selectedContributes) => {
           }}
         />
       </Space>
-      <Tree
-        showIcon=true
-        treeData={selectedUIControls->Method.convertToTreeData->Method.addRootTreeNode}
-        expandedKeys
-        onExpand={expandedKeysValue =>
-          Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
-        selectedKeys
-        onSelect={(selectedKeysValue, info) =>
-          Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)}
-      />
+      <section ref={rootTarget->Obj.magic}>
+        <Tree
+          showIcon=true
+          treeData={selectedUIControls->Method.convertToTreeData->Method.addRootTreeNode}
+          expandedKeys
+          onExpand={expandedKeysValue =>
+            Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
+          selectedKeys
+          onSelect={(selectedKeysValue, info: Tree.info) => {
+            Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)
+
+            handleWhenSelectTreeNodeFunc(info.node.title)
+          }}
+        />
+      </section>
     </Space>
     <Modal
       title={`UI Controls`}
@@ -251,7 +267,15 @@ let make = (~service: service, ~selectedContributes) => {
       //     </List.Item>
       //   }}
       // />
-      <UIControls service setIsShowUIControls selectedContributes />
+      <UIControls
+        service
+        handleWhenShowUIControlsFunc
+        handleWhenSelectUIControlFunc
+        setIsShowUIControls
+        selectedContributes
+        selectSceneViewUIControlTarget
+        selectGameViewUIControlTarget
+      />
     </Modal>
   </>
 

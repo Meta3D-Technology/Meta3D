@@ -29,10 +29,15 @@ module MinusCircleOutlined = {
 
 module DeleteOutlined = {
   @react.component @module("@ant-design/icons")
-  external make: unit => React.element = "DeleteOutlined"
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "DeleteOutlined"
 }
 
 module FileAddOutlined = {
   @react.component @module("@ant-design/icons")
   external make: unit => React.element = "FileAddOutlined"
+}
+
+module CloseOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "CloseOutlined"
 }

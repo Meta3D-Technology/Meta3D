@@ -11,3 +11,6 @@ external fetch: string => Js.Promise.t<fetchResult> = "fetch"
 
 @val @scope("window")
 external setTimeout: (unit => unit, int) => unit = "setTimeout"
+
+@val @scope("window")
+external confirm: string => bool = "confirm"

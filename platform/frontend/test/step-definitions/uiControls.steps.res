@@ -85,17 +85,21 @@ defineFeature(feature, test => {
     let protocolIconBase64 = ref(Obj.magic(1))
     let protocolConfigStr = ref(Obj.magic(1))
     let sepcific = ref(Obj.magic(1))
+    let id = "i1"
     let name = ref(Obj.magic(1))
     let data = ref(Obj.magic(1))
     let execGetContributeFuncStub = ref(Obj.magic(1))
     let selectedContributes = ref(Obj.magic(1))
     let dispatchStub = ref(Obj.magic(1))
+    let randomStub = ref(Obj.magic(1))
 
     _prepare(given)
 
     given(
       "select uiControl u1 in ap view",
       () => {
+        randomStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(id, _)
+
         protocolIconBase64 := "1"
         protocolConfigStr := "c"
         name := "u1"
@@ -123,9 +127,11 @@ defineFeature(feature, test => {
             ~getUIControlSpecificDataFields=createEmptyStub(refJsObjToSandbox(sandbox.contents))
             ->returns(sepcific.contents, _)
             ->Obj.magic,
+            ~random=randomStub.contents->Obj.magic,
             (),
           ),
           dispatchStub.contents,
+          _ => (),
           list{},
           selectedContributes.contents,
           protocolIconBase64.contents,
@@ -142,8 +148,10 @@ defineFeature(feature, test => {
       () => {
         dispatchStub.contents
         ->Obj.magic
+        ->getCall(0, _)
         ->SinonTool.calledWith(
           ElementAssembleStoreType.SelectUIControl(
+            matchAny,
             protocolIconBase64.contents,
             protocolConfigStr.contents,
             name.contents,
@@ -159,6 +167,17 @@ defineFeature(feature, test => {
             ],
           ),
         )
+        ->expect == true
+      },
+    )
+
+    \"and"(
+      "dispatch SelectSelectedUIControl action",
+      () => {
+        dispatchStub.contents
+        ->Obj.magic
+        ->getCall(1, _)
+        ->SinonTool.calledWith(ElementAssembleStoreType.SelectSelectedUIControl(matchAny, id))
         ->expect == true
       },
     )
@@ -207,6 +226,7 @@ defineFeature(feature, test => {
           UIControlsTool.selectUIControl(
             ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
             Obj.magic(1),
+            _ => (),
             list{SelectedUIControlsTool.buildSelectedUIControl(~data=data.contents, ())},
             Obj.magic(1),
             Obj.magic(1),

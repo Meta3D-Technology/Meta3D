@@ -38,7 +38,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+            ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
           )
 
         id1 :=
@@ -52,6 +52,7 @@ defineFeature(feature, test => {
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
+              "",
               "",
               "",
               "",
@@ -123,7 +124,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+          ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
         )
 
       id1 :=
@@ -298,7 +299,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+            ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
           )
 
         id1 :=
@@ -317,6 +318,7 @@ defineFeature(feature, test => {
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
+              "",
               "",
               "",
               "",
@@ -346,6 +348,7 @@ defineFeature(feature, test => {
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
+              "",
               "",
               "",
               "",
@@ -384,7 +387,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+          ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
         )
 
       id1 :=
@@ -440,6 +443,7 @@ defineFeature(feature, test => {
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
+              "",
               "",
               "",
               "",
@@ -509,7 +513,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl("", "", "", Obj.magic(1), None, []),
+          ElementAssembleStoreType.SelectUIControl("","", "", "", Obj.magic(1), None, []),
         )
 
       id1 :=

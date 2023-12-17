@@ -28,7 +28,6 @@ type crudOperator = {
 // errors
 // }
 
-
 @module("antd") @react.component
 external make: (
   ~component: React.element=?,

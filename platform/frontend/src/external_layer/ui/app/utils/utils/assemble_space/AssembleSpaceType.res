@@ -55,6 +55,7 @@ type reactService = {
   useRef: 'a. 'a => React.ref<'a>,
   useDispatch: useDispatch,
   useSelector: 'a. (. AssembleSpaceStoreType.state => 'a) => 'a,
+  useEffect: 'a. (. unit => option<unit => unit>) => unit,
   useEffect1: 'a. (. unit => option<unit => unit>, array<'a>) => unit,
   useEffectOnce: (unit => (unit, option<unit => unit>)) => unit,
   useEffectOnceAsync: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,

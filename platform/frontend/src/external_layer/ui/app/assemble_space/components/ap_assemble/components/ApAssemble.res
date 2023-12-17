@@ -27,7 +27,14 @@ let make = (
   <Layout>
     <Layout.Content>
       <Space direction=#horizontal size=#small>
-        <Publish service account />
+        <Publish
+          handleWhenShowModalFunc={() => ()}
+          handleWhenPublishFunc={() => ()}
+          service
+          account
+          publishButtonTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}
+          publishModalTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}
+        />
         <ApController
           service
           // selectedExtensionsFromMarket

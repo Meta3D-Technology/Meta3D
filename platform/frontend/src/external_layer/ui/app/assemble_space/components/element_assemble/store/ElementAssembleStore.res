@@ -43,6 +43,7 @@ let _createState = () => {
   customActions: list{},
   currentCustomInputName: None,
   currentCustomActionName: None,
+  isInCreateFromScratchTourPhase2: false,
 }
 
 let _setUIControlInspectorData = (state, setFunc, id) => {
@@ -182,6 +183,7 @@ let _reset = state => {
   {
     ..._createState(),
     canvasData: state.canvasData,
+    isInCreateFromScratchTourPhase2: state.isInCreateFromScratchTourPhase2,
     // customInputs: state.customInputs,
     // customActions: state.customActions,
   }
@@ -192,6 +194,7 @@ let reducer = (state, action) => {
   | Reset => state->_reset
   | ResetWhenSwitch => state->_resetInspector
   | SelectUIControl(
+      id,
       protocolIconBase64,
       protocolConfigStr,
       displayName,
@@ -199,8 +202,6 @@ let reducer = (state, action) => {
       parentId,
       specific,
     ) => {
-      let id = IdUtils.generateId(Js.Math.random)
-
       let childUIControl = {
         id,
         parentId,
@@ -493,6 +494,14 @@ let reducer = (state, action) => {
       ...state,
       customInputs,
       customActions,
+    }
+  | StartCreateFromScratchTourPhase2 => {
+      ...state,
+      isInCreateFromScratchTourPhase2: true,
+    }
+  | EndCreateFromScratchTourPhase2 => {
+      ...state,
+      isInCreateFromScratchTourPhase2: false,
     }
   }
 }

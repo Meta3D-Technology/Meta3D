@@ -57,7 +57,14 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account, ~selectedContributes) => {
+let make = (
+  ~service: service,
+  ~account,
+  ~selectedContributes,
+  ~rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let (
     inspectorCurrentUIControlId,
     selectedUIControls,
@@ -85,6 +92,9 @@ let make = (~service: service, ~account, ~selectedContributes) => {
         customInputs,
         customActions,
       )}
+      rectXInputTarget
+      rectWidthInputTarget
+      rectHeightInputTarget
     />
   | _ => React.null
   }

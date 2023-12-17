@@ -115,6 +115,7 @@ let _createState = () => {
   // importedAppIds: list{},
   currentAppName: None,
   isInCreateFromScratchTourPhase1: false,
+  isInCreateFromScratchTourPhase3: false,
 }
 
 // let _reset = state => {
@@ -321,6 +322,14 @@ let reducer = (state, action) => {
   | EndCreateFromScratchTourPhase1 => {
       ...state,
       isInCreateFromScratchTourPhase1: false,
+    }
+  | StartCreateFromScratchTourPhase3 => {
+      ...state,
+      isInCreateFromScratchTourPhase3: true,
+    }
+  | EndCreateFromScratchTourPhase3 => {
+      ...state,
+      isInCreateFromScratchTourPhase3: false,
     }
   }
 }

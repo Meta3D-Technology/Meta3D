@@ -214,6 +214,7 @@ module Method = {
   let onFinish = (
     service,
     dispatchForAppStore,
+    handleWhenPublishFunc,
     (setUploadProgress, setIsUploadBegin, setVisible),
     (
       account,
@@ -345,6 +346,7 @@ module Method = {
               ->Js.Promise.then_(_ => {
                 setIsUploadBegin(_ => false)
                 setVisible(_ => false)
+                handleWhenPublishFunc()
 
                 ()->Js.Promise.resolve
               }, _)
@@ -398,7 +400,14 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~account: option<string>) => {
+let make = (
+  ~service: service,
+  ~handleWhenShowModalFunc,
+  ~handleWhenPublishFunc,
+  ~account: option<string>,
+  ~publishButtonTarget: React.ref<Js.Nullable.t<'a>>,
+  ~publishModalTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let dispatchForAppStore = service.app.useDispatch()
 
   let (
@@ -421,8 +430,11 @@ let make = (~service: service, ~account: option<string>) => {
 
   <>
     <Button
+      ref={publishButtonTarget}
       onClick={_ => {
         setVisible(_ => true)
+
+        handleWhenShowModalFunc()
       }}>
       {React.string(`发布`)}
     </Button>
@@ -439,134 +451,139 @@ let make = (~service: service, ~account: option<string>) => {
           footer={React.null}>
           {isUploadBegin
             ? <p> {React.string({j`${uploadProgress->Js.Int.toString}% uploading...`})} </p>
-            : <Form
-                labelCol={{
-                  "span": 8,
-                }}
-                wrapperCol={{
-                  "span": 6,
-                }}
-                initialValues={{
-                  "remember": true,
-                }}
-                onFinish={event => ErrorUtils.showCatchedErrorMessage(() => {
-                    !isPassDependencyGraphCheck
-                      ? ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
-                      : Method.onFinish(
-                          service,
-                          dispatchForAppStore,
-                          (setUploadProgress, setIsUploadBegin, setVisible),
-                          (
-                            account,
-                            selectedPackages,
-                            selectedContributes,
-                            // selectedElementsFromMarket,
-                            canvasData,
-                            apInspectorData,
-                            storedPackageIdsInApp,
-                            isChangeSelectedPackagesByDebug,
-                            selectedUIControls,
-                            selectedUIControlInspectorData,
-                            customInputs,
-                            customActions,
-                          ),
-                          previewBase64,
-                          event->Obj.magic,
-                        )->ignore
-                  }, 5->Some)}
-                // onFinishFailed={Method.onFinishFailed(service)}
-                autoComplete="off">
-                <Form.Item
-                  label={`编辑器名`}
-                  name="appName"
-                  rules={[
-                    {
-                      required: true,
-                      message: `输入编辑器名`,
-                    },
-                  ]}>
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  label={`预览图`}
-                  name="appPreview"
-                  rules={[
-                    {
-                      required: false,
-                      message: `上传预览图`,
-                    },
-                  ]}>
-                  <Upload
-                    listType=#pictureCard
-                    beforeUpload={file => {
-                      UploadUtils.handleUploadImage(
-                        (file, imageBase64) => {
-                          setPreviewBase64(_ => imageBase64->Some)
-                        },
-                        (_, _) => (),
-                        (event, _) => {
-                          ErrorUtils.error({j`error`}, None)
-                        },
-                        file,
-                      )
-                    }}
-                    showUploadList=false>
-                    <Button icon={<Icon.UploadOutlined />}> {React.string(`上传`)} </Button>
-                  </Upload>
-                  {switch previewBase64 {
-                  | Some(imageBase64) =>
-                    <Image preview=true src={imageBase64} width=200 height=200 />
-                  | None => React.null
+            : <section ref={publishModalTarget->Obj.magic}>
+                <Form
+                  labelCol={{
+                    "span": 8,
                   }}
-                </Form.Item>
-                <Form.Item
-                  label={`介绍`}
-                  name="appDescription"
-                  rules={[
-                    {
-                      required: true,
-                      message: `输入介绍`,
-                    },
-                  ]}>
-                  <Input />
-                </Form.Item>
-                <h1> {React.string(`Config Data`)} </h1>
-                {Method.getStartPackageNeedConfigData(
-                  service,
-                  selectedPackages,
-                )->Meta3dCommonlib.Result.either(
-                  startPackageNeedConfigData => {
-                    startPackageNeedConfigData
-                    ->Meta3dCommonlib.ArraySt.map((
-                      item: Meta3dType.StartPackageProtocolConfigType.configData,
-                    ) => {
-                      <Form.Item label={item.name} name={j`configData_${item.name}`}>
-                        {switch item.type_ {
-                        | #bool =>
-                          <Select>
-                            <Select.Option value={`true`}> {React.string(`true`)} </Select.Option>
-                            <Select.Option value={`false`}> {React.string(`false`)} </Select.Option>
-                          </Select>
-                        | #int
-                        | #string =>
-                          <Input />
-                        }}
-                      </Form.Item>
-                    })
-                    ->React.array
-                  },
-                  failMessage => {
-                    React.null
-                  },
-                )}
-                <Form.Item
                   wrapperCol={{
-                    "offset": 8,
-                    "span": 16,
-                  }}>
-                  <Button htmlType="submit"> {React.string(`发布`)} </Button>
-                </Form.Item>
-              </Form>}
+                    "span": 6,
+                  }}
+                  initialValues={{
+                    "remember": true,
+                  }}
+                  onFinish={event => ErrorUtils.showCatchedErrorMessage(() => {
+                      !isPassDependencyGraphCheck
+                        ? ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
+                        : Method.onFinish(
+                            service,
+                            dispatchForAppStore,
+                            handleWhenPublishFunc,
+                            (setUploadProgress, setIsUploadBegin, setVisible),
+                            (
+                              account,
+                              selectedPackages,
+                              selectedContributes,
+                              // selectedElementsFromMarket,
+                              canvasData,
+                              apInspectorData,
+                              storedPackageIdsInApp,
+                              isChangeSelectedPackagesByDebug,
+                              selectedUIControls,
+                              selectedUIControlInspectorData,
+                              customInputs,
+                              customActions,
+                            ),
+                            previewBase64,
+                            event->Obj.magic,
+                          )->ignore
+                    }, 5->Some)}
+                  // onFinishFailed={Method.onFinishFailed(service)}
+                  autoComplete="off">
+                  <Form.Item
+                    label={`编辑器名`}
+                    name="appName"
+                    rules={[
+                      {
+                        required: true,
+                        message: `输入编辑器名`,
+                      },
+                    ]}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    label={`预览图`}
+                    name="appPreview"
+                    rules={[
+                      {
+                        required: false,
+                        message: `上传预览图`,
+                      },
+                    ]}>
+                    <Upload
+                      listType=#pictureCard
+                      beforeUpload={file => {
+                        UploadUtils.handleUploadImage(
+                          (file, imageBase64) => {
+                            setPreviewBase64(_ => imageBase64->Some)
+                          },
+                          (_, _) => (),
+                          (event, _) => {
+                            ErrorUtils.error({j`error`}, None)
+                          },
+                          file,
+                        )
+                      }}
+                      showUploadList=false>
+                      <Button icon={<Icon.UploadOutlined />}> {React.string(`上传`)} </Button>
+                    </Upload>
+                    {switch previewBase64 {
+                    | Some(imageBase64) =>
+                      <Image preview=true src={imageBase64} width=200 height=200 />
+                    | None => React.null
+                    }}
+                  </Form.Item>
+                  <Form.Item
+                    label={`介绍`}
+                    name="appDescription"
+                    rules={[
+                      {
+                        required: true,
+                        message: `输入介绍`,
+                      },
+                    ]}>
+                    <Input />
+                  </Form.Item>
+                  <h1> {React.string(`Config Data`)} </h1>
+                  {Method.getStartPackageNeedConfigData(
+                    service,
+                    selectedPackages,
+                  )->Meta3dCommonlib.Result.either(
+                    startPackageNeedConfigData => {
+                      startPackageNeedConfigData
+                      ->Meta3dCommonlib.ArraySt.map((
+                        item: Meta3dType.StartPackageProtocolConfigType.configData,
+                      ) => {
+                        <Form.Item label={item.name} name={j`configData_${item.name}`}>
+                          {switch item.type_ {
+                          | #bool =>
+                            <Select>
+                              <Select.Option value={`true`}> {React.string(`true`)} </Select.Option>
+                              <Select.Option value={`false`}>
+                                {React.string(`false`)}
+                              </Select.Option>
+                            </Select>
+                          | #int
+                          | #string =>
+                            <Input />
+                          }}
+                        </Form.Item>
+                      })
+                      ->React.array
+                    },
+                    failMessage => {
+                      React.null
+                    },
+                  )}
+                  <Form.Item
+                    wrapperCol={{
+                      "offset": 8,
+                      "span": 16,
+                    }}>
+                    <Button htmlType="submit"> {React.string(`发布`)} </Button>
+                  </Form.Item>
+                </Form>
+              </section>}
         </Modal>
       : React.null}
   </>

@@ -16,7 +16,7 @@ external make: (
 
 module Item = {
   @react.component @module("antd") @scope("List")
-  external make: (~children: React.element=?) => React.element = "Item"
+  external make: (~children: React.element=?, ~ref: 'a=?) => React.element = "Item"
 
   module Meta = {
     @react.component @module("antd") @scope(("List", "Item"))

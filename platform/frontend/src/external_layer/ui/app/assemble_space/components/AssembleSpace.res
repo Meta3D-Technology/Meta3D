@@ -355,6 +355,7 @@ let make = (
   ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   ~selectedContributesFromMarket: selectedContributesFromMarket,
   ~selectedElementsFromMarket: selectedElementsFromMarket,
+  ~assembleSpaceNavTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = service.react.useDispatch()
   let dispatchForAppStore = service.app.useDispatch()
@@ -473,6 +474,7 @@ let make = (
               // selectedExtensionsFromMarket
               selectedContributesFromMarket=handledSelectedContributesFromMarket
               selectedPackagesFromMarket
+              assembleSpaceNavTarget
             />
           | Package =>
             <PackageAssemble

@@ -11,17 +11,27 @@ let make = (~service: FrontendType.service) => {
     ReactUtils.useDispatchForAssembleSpaceStore,
   )
 
-  let {account, release, isInCreateFromScratchTourPhase1} = AppStore.useSelector((
-    {userCenterState}: AppStoreType.state,
-  ) => userCenterState)
+  let {
+    account,
+    release,
+    isInCreateFromScratchTourPhase1,
+    isInCreateFromScratchTourPhase3,
+  } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
 
   let (info, setInfo) = React.useState(_ => None)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
-  let (openTour, setOpenTour) = React.useState(_ => false)
+  let (openCreateFromScratchPhase1Tour, setOpenCreateFromScratchPhase1Tour) = React.useState(_ =>
+    false
+  )
+  let (openCreateFromScratchPhase3Tour, setOpenCreateFromScratchPhase3Tour) = React.useState(_ =>
+    false
+  )
   // let (releaseData, setReleaseData) = React.useState(_ => None)
 
-  let createFromScratchTourTarget1 = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let createFromScratchButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let publishedEditorsTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let navTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
   let _isNotLogin = account => {
     !(account->Meta3dCommonlib.OptionSt.isSome)
@@ -165,6 +175,11 @@ let make = (~service: FrontendType.service) => {
           dispatch(
             AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase1),
           )
+          dispatchForElementAssembleStore(ElementAssembleStoreType.StartCreateFromScratchTourPhase2)
+          dispatch(
+            AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
+          )
+
           RescriptReactRouter.push("/UserCenter")
         }
       : {
@@ -254,13 +269,44 @@ let make = (~service: FrontendType.service) => {
     )
   }
 
-  let _buildCreateFromScratchTourStep1 = (): Antd__Tour.tourStep => {
-    {
-      title: "点击按钮",
-      description: "",
-      cover: Meta3dCommonlib.NullableSt.getEmpty(),
-      target: () => createFromScratchTourTarget1.current->Obj.magic,
-    }
+  let _buildCreateFromScratchPhase1TourSteps = (): array<Antd__Tour.tourStep> => {
+    [
+      {
+        title: "点击它",
+        description: "",
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => createFromScratchButtonTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+    ]
+  }
+
+  let _buildCreateFromScratchPhase3TourSteps = (
+    publishedEditorsTarget: React.ref<Js.Nullable.t<'a>>,
+    navTarget: React.ref<Js.Nullable.t<'a>>,
+  ): array<Antd__Tour.tourStep> => {
+    [
+      {
+        title: "查看发布的编辑器",
+        description: "按照编辑器名，找到刚刚发布的编辑器。您可以继续编辑它，或者在线运行它",
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => publishedEditorsTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "查看所有发布的编辑器",
+        description: "点击第二个导航栏：“发布的编辑器”，您可以在这里查看所有人发布的编辑器，并且找到您刚刚发布的编辑器。您可以导入它们（也就是导入模板来创建新的编辑器），或者在线运行它们",
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => navTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+    ]
   }
 
   React.useEffect0(() => {
@@ -302,7 +348,7 @@ let make = (~service: FrontendType.service) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="1" account={account} />
+      <Nav currentKey="1" account={account} navTarget />
     </Layout.Header>
     <Layout>
       {switch info {
@@ -385,29 +431,49 @@ let make = (~service: FrontendType.service) => {
             }}
           </Layout.Sider>
           <Layout.Content>
-            <Space direction=#vertical size=#middle>
-              {isInCreateFromScratchTourPhase1
-                ? {
-                    <>
-                      {GuideUtils.buildSteps(() => {
-                        setOpenTour(_ => true)
-                      }, 0, GuideUtils.buildCreateFromScratchTourStepData())}
-                      <Tour
-                        _open={openTour}
-                        onClose={() => {
-                          setOpenTour(_ => false)
+            {isInCreateFromScratchTourPhase1
+              ? {
+                  <>
+                    {GuideUtils.buildSteps(() => {
+                      setOpenCreateFromScratchPhase1Tour(_ => true)
+                    }, 0, GuideUtils.buildCreateFromScratchStepData())}
+                    <Tour
+                      _open={openCreateFromScratchPhase1Tour}
+                      onClose={() => {
+                        setOpenCreateFromScratchPhase1Tour(_ => false)
 
-                          dispatch(
-                            AppStoreType.UserCenterAction(
-                              UserCenterStoreType.EndCreateFromScratchTourPhase1,
-                            ),
-                          )
-                        }}
-                        steps={[_buildCreateFromScratchTourStep1()]}
-                      />
-                    </>
-                  }
-                : React.null}
+                        dispatch(
+                          AppStoreType.UserCenterAction(
+                            UserCenterStoreType.EndCreateFromScratchTourPhase1,
+                          ),
+                        )
+                      }}
+                      steps={_buildCreateFromScratchPhase1TourSteps()}
+                    />
+                  </>
+                }
+              : isInCreateFromScratchTourPhase3
+              ? {
+                <>
+                  {GuideUtils.buildSteps(() => {
+                    setOpenCreateFromScratchPhase3Tour(_ => true)
+                  }, 5, GuideUtils.buildCreateFromScratchStepData())}
+                  <Tour
+                    _open={openCreateFromScratchPhase3Tour}
+                    onClose={() => {
+                      setOpenCreateFromScratchPhase3Tour(_ => false)
+
+                      GuideUtils.endCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
+                    }}
+                    steps={_buildCreateFromScratchPhase3TourSteps(
+                      publishedEditorsTarget,
+                      navTarget,
+                    )}
+                  />
+                </>
+              }
+              : React.null}
+            <Space direction=#vertical size=#middle>
               <Typography.Title> {React.string({j`我的信息`})} </Typography.Title>
               <Space direction=#horizontal>
                 <Typography.Text>
@@ -433,7 +499,7 @@ let make = (~service: FrontendType.service) => {
                 </Button>
                 <Button
                   _type=#default
-                  ref={createFromScratchTourTarget1}
+                  ref={createFromScratchButtonTarget}
                   onClick={_ => {
                     ErrorUtils.showCatchedErrorMessage(() => {
                       _createFromScratch(service, dispatch)
@@ -451,49 +517,53 @@ let make = (~service: FrontendType.service) => {
                     </Button>
                   : React.null}
               </Space>
-              <List
-                itemLayout=#horizontal
-                dataSource={allPublishApps}
-                renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
-                  <List.Item>
-                    <List.Item.Meta
-                      key={PublishedAppUtils.buildKey(item.account, item.appName)}
-                      title={<Typography.Title level=3>
-                        {React.string(item.appName)}
-                      </Typography.Title>}
-                      // description={UIDescriptionUtils.buildWithoutRepoLink(
-                      //   item.account,
-                      //   item.description,
-                      // )}
-                    />
-                    <Button
-                      _type=#primary
-                      onClick={_ => {
-                        setInfo(_ => j`${downloadProgress->Js.Int.toString}% downloading...`->Some)
+              <section ref={publishedEditorsTarget->Obj.magic}>
+                <List
+                  itemLayout=#horizontal
+                  dataSource={allPublishApps}
+                  renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
+                    <List.Item>
+                      <List.Item.Meta
+                        key={PublishedAppUtils.buildKey(item.account, item.appName)}
+                        title={<Typography.Title level=3>
+                          {React.string(item.appName)}
+                        </Typography.Title>}
+                        // description={UIDescriptionUtils.buildWithoutRepoLink(
+                        //   item.account,
+                        //   item.description,
+                        // )}
+                      />
+                      <Button
+                        _type=#primary
+                        onClick={_ => {
+                          setInfo(_ =>
+                            j`${downloadProgress->Js.Int.toString}% downloading...`->Some
+                          )
 
-                        PublishedAppUtils.importApp(
-                          service,
-                          (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
-                          (
-                            setDownloadProgress,
-                            () => {
-                              setInfo(_ => None)
-                            },
-                          ),
-                          item,
-                        )
-                      }}>
-                      {React.string(`编辑`)}
-                    </Button>
-                    <Button
-                      _type=#default
-                      onClick={_ => {
-                        LinkUtils.openLink(PublishedAppUtils.buildURL(item.account, item.appName))
-                      }}>
-                      {React.string(`运行`)}
-                    </Button>
-                  </List.Item>}
-              />
+                          PublishedAppUtils.importApp(
+                            service,
+                            (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
+                            (
+                              setDownloadProgress,
+                              () => {
+                                setInfo(_ => None)
+                              },
+                            ),
+                            item,
+                          )
+                        }}>
+                        {React.string(`编辑`)}
+                      </Button>
+                      <Button
+                        _type=#default
+                        onClick={_ => {
+                          LinkUtils.openLink(PublishedAppUtils.buildURL(item.account, item.appName))
+                        }}>
+                        {React.string(`运行`)}
+                      </Button>
+                    </List.Item>}
+                />
+              </section>
             </Space>
           </Layout.Content>
         </>

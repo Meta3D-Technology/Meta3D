@@ -127,6 +127,7 @@ type action =
   | Reset
   | ResetWhenSwitch
   | SelectUIControl(
+      id,
       protocolIconBase64,
       protocolConfigStr,
       displayName,
@@ -187,6 +188,8 @@ type action =
   | SelectCustomInput(CommonType.inputName)
   | SelectCustomAction(CommonType.actionName)
   | SetCustom(customInputs, customActions)
+  | StartCreateFromScratchTourPhase2
+  | EndCreateFromScratchTourPhase2
 
 type state = {
   canvasData: canvasData,
@@ -205,4 +208,5 @@ type state = {
   customActions: customActions,
   currentCustomInputName: option<CommonType.inputName>,
   currentCustomActionName: option<CommonType.actionName>,
+  isInCreateFromScratchTourPhase2: bool,
 }

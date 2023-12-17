@@ -26,11 +26,7 @@ let buildInput = (~inputName, ()): ElementAssembleStoreType.input => {
   inputName: inputName,
 }
 
-let buildEventData = (
-  ~eventName,
-  ~actionName,
-  (),
-): ElementAssembleStoreType.eventData => {
+let buildEventData = (~eventName, ~actionName, ()): ElementAssembleStoreType.eventData => {
   eventName,
   actionName,
 }
@@ -92,10 +88,19 @@ let buildUI = (
   ~currentSelectedUIControl=SelectedUIControlsTool.buildSelectedUIControl(),
   ~currentSelectedUIControlInspectorData=buildUIControlInspectorData(~id="id", ()),
   ~selectedContributes=list{},
+  ~rectXInputTarget=Obj.magic(1),
+  ~rectWidthInputTarget=Obj.magic(1),
+  ~rectHeightInputTarget=Obj.magic(1),
   (),
 ) => {
   <UIControlInspector
-    service currentSelectedUIControl currentSelectedUIControlInspectorData selectedContributes
+    service
+    currentSelectedUIControl
+    currentSelectedUIControlInspectorData
+    selectedContributes
+    rectXInputTarget
+    rectWidthInputTarget
+    rectHeightInputTarget
   />
 }
 
