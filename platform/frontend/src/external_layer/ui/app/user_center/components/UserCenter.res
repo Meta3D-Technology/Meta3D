@@ -176,9 +176,9 @@ let make = (~service: FrontendType.service) => {
             AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase1),
           )
           dispatchForElementAssembleStore(ElementAssembleStoreType.StartCreateFromScratchTourPhase2)
-          dispatch(
-            AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
-          )
+          // dispatch(
+          //   AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
+          // )
 
           RescriptReactRouter.push("/UserCenter")
         }
@@ -190,6 +190,11 @@ let make = (~service: FrontendType.service) => {
           dispatch(
             AppStoreType.UserCenterAction(UserCenterStoreType.EndCreateFromScratchTourPhase1),
           )
+          // isInCreateFromScratchTourPhase1 && !GuideUtils.readIsFinishCreateFromScratchTour()
+          //   ? dispatchForElementAssembleStore(
+          //       ElementAssembleStoreType.StartCreateFromScratchTourPhase2,
+          //     )
+          //   : ()
 
           // TODO perf: use batchXxx to merge request
           _selectAllUIControls(service, dispatch)->Js.Promise.then_(() => {
@@ -355,8 +360,16 @@ let make = (~service: FrontendType.service) => {
       | Some(info) => React.string(`${info}`)
       | None =>
         <>
-          <Layout.Sider width=200 theme=#light>
+          <Layout.Sider width=300 theme=#light>
             <Card key={"0"}>
+              <Button
+                onClick={_ => {
+                  GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
+                }}>
+                {React.string(`打开“从头创建新的编辑器”的引导`)}
+              </Button>
+            </Card>
+            <Card key={"1"}>
               <iframe
                 src="https://ghbtns.com/github-btn.html?user=Meta3D-Technology&repo=Meta3D&type=star&count=true&size=large"
                 // frameborder="0"
@@ -374,7 +387,7 @@ let make = (~service: FrontendType.service) => {
               // <span> {React.string(`欢迎Star`)} </span>
             </Card>
             <Card
-              key={"1"}
+              key={"2"}
               // title={<span>
               //   <a
               //     href={"https://qm.qq.com/cgi-bin/qm/qr?k=SaSgwsyiccUjc3Mx3Jqliv9HJnHxL-WI&jump_from=webapi&authKey=+EQRAdLQ80spfX++pA3UB4erf6cxC+Mo4jH6bfovhdE7MOvI5WBUljCZ6roGaNZh"}>
@@ -391,7 +404,7 @@ let make = (~service: FrontendType.service) => {
                 {React.string(`加QQ群`)}
               </span>
             </Card>
-            <Card key={"2"}>
+            <Card key={"3"}>
               <span>
                 <a href={"https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B"}>
                   {React.string(`文档`)}
@@ -399,7 +412,7 @@ let make = (~service: FrontendType.service) => {
                 {React.string(``)}
               </span>
             </Card>
-            <Card key={"3"}>
+            <Card key={"4"}>
               <span>
                 <a href={"https://github.com/Meta3D-Technology/Meta3D/issues/new/choose"}>
                   {React.string(`Github`)}
@@ -407,7 +420,7 @@ let make = (~service: FrontendType.service) => {
                 {React.string(`上提Issue`)}
               </span>
             </Card>
-            <Card key={"4"}>
+            <Card key={"5"}>
               <span>
                 <a href={"https://github.com/Meta3D-Technology/Meta3D/discussions"}>
                   {React.string(`论坛`)}
@@ -439,15 +452,20 @@ let make = (~service: FrontendType.service) => {
                     }, 0, GuideUtils.buildCreateFromScratchStepData())}
                     <Tour
                       _open={openCreateFromScratchPhase1Tour}
-                      onClose={() => {
-                        setOpenCreateFromScratchPhase1Tour(_ => false)
+                      // onClose={() => {
+                      //   // setOpenCreateFromScratchPhase1Tour(_ => false)
 
-                        dispatch(
-                          AppStoreType.UserCenterAction(
-                            UserCenterStoreType.EndCreateFromScratchTourPhase1,
-                          ),
-                        )
-                      }}
+                      //   // dispatch(
+                      //   //   AppStoreType.UserCenterAction(
+                      //   //     UserCenterStoreType.EndCreateFromScratchTourPhase1,
+                      //   //   ),
+                      //   // )
+
+                      //   GuideUtils.handleCloseCreateFromScratchTour(
+                      //     dispatch,
+                      //     dispatchForElementAssembleStore,
+                      //   )
+                      // }}
                       steps={_buildCreateFromScratchPhase1TourSteps()}
                     />
                   </>

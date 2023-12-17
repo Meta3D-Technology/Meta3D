@@ -64,6 +64,17 @@ let markFinishCreateFromScratchTour = () => {
   )
 }
 
+let _markStartCreateFromScratchTour = () => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishCreateFromScratchTour: false,
+      // isInCreateFromScratchTour: false,
+    }->Js.Json.stringifyAny,
+  )
+}
+
 let buildCreateFromScratchStepData = () => {
   [
     ("点击创建按钮", "点击创建按钮", ""),
@@ -121,6 +132,18 @@ let isSceneViewProtocolName = protocolName => {
 
 let isGameViewProtocolName = protocolName => {
   protocolName == "meta3d-ui-control-game-view-protocol"
+}
+
+let startCreateFromScratchTour = (dispatchForAppStore, dispatchForElementAssembleStore) => {
+  dispatchForAppStore(
+    AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase1),
+  )
+  dispatchForElementAssembleStore(ElementAssembleStoreType.StartCreateFromScratchTourPhase2)
+  dispatchForAppStore(
+    AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
+  )
+
+  _markStartCreateFromScratchTour()
 }
 
 let endCreateFromScratchTour = (dispatchForAppStore, dispatchForElementAssembleStore) => {
@@ -190,4 +213,14 @@ let buildCloseIcon = (dispatchForAppStore, dispatchForElementAssembleStore) => {
     //   {React.string(`取消`)}
     // </Button>
   </Popconfirm>
+}
+
+let handleCloseCreateFromScratchTour = (dispatchForAppStore, dispatchForElementAssembleStore) => {
+  Window.confirm("您确定要结束本次引导吗？")
+    ? {
+        endCreateFromScratchTour(dispatchForAppStore, dispatchForElementAssembleStore)
+      }
+    : {
+        ()
+      }
 }
