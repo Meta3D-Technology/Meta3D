@@ -7,8 +7,8 @@ let buildUI = (
   ~service=ServiceTool.build(~sandbox, ()),
   ~handleWhenShowModalFunc=() => (),
   ~handleWhenPublishFunc=() => (),
-  ~publishButtonTarget=Obj.magic(1),
-  ~publishModalTarget=Obj.magic(1),
+  ~publishButtonTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~publishModalTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <Publish

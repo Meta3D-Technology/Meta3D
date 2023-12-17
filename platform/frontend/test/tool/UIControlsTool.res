@@ -5,8 +5,8 @@ let buildUI = (
   ~handleWhenShowUIControlsFunc=() => (),
   ~selectedContributes=list{},
   ~setIsShowUIControls=ReactHookTool.buildEmptySetStateFunc(),
-  ~selectSceneViewUIControlTarget=Obj.magic(1),
-  ~selectGameViewUIControlTarget=Obj.magic(1),
+  ~selectSceneViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~selectGameViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <UIControls

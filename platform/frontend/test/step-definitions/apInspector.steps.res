@@ -17,6 +17,8 @@ defineFeature(feature, test => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+
+      SelectTool.markNotShowSelectForTest()
     })
   }
 

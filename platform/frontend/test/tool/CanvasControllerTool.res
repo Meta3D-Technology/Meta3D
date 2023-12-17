@@ -1,8 +1,8 @@
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~canvasWidthInputTarget=Obj.magic(1),
-  ~canvasHeightInputTarget=Obj.magic(1),
+  ~canvasWidthInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~canvasHeightInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />

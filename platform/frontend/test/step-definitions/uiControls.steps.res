@@ -85,7 +85,7 @@ defineFeature(feature, test => {
     let protocolIconBase64 = ref(Obj.magic(1))
     let protocolConfigStr = ref(Obj.magic(1))
     let sepcific = ref(Obj.magic(1))
-    let id = "i1"
+    let id = "0"
     let name = ref(Obj.magic(1))
     let data = ref(Obj.magic(1))
     let execGetContributeFuncStub = ref(Obj.magic(1))
@@ -98,7 +98,7 @@ defineFeature(feature, test => {
     given(
       "select uiControl u1 in ap view",
       () => {
-        randomStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(id, _)
+        randomStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(0.0, _)
 
         protocolIconBase64 := "1"
         protocolConfigStr := "c"
@@ -151,7 +151,7 @@ defineFeature(feature, test => {
         ->getCall(0, _)
         ->SinonTool.calledWith(
           ElementAssembleStoreType.SelectUIControl(
-            matchAny,
+            id,
             protocolIconBase64.contents,
             protocolConfigStr.contents,
             name.contents,

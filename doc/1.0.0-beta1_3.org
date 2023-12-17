@@ -128,7 +128,7 @@ TODO save status
 
 ** TODO Assemble Space
 
-*** TODO create from scratch add guide
+*** DONE create from scratch add guide
 
 use https://ant.design/components/steps
 use https://ant.design/components/tour
@@ -177,17 +177,17 @@ TODO add End Tutorial button
 commit
 
 
-TODO first jump to Tour component
-# show preview
-show run button
+# TODO first jump to Tour component
+# # show preview
+# show run button
 
 TODO pass bdd test
 
 
-*** TODO create with template add guide
+# *** TODO create with template add guide
 
 
-only use https://ant.design/components/tour
+# only use https://ant.design/components/tour
 
 
 

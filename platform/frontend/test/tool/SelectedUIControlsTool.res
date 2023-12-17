@@ -5,10 +5,11 @@ let buildUI = (
   ~handleWhenSelectUIControlFunc=_ => (),
   ~handleWhenSelectTreeNodeFunc=_ => (),
   ~selectedContributes=list{},
-  ~addUIControlButtonTarget=Obj.magic(1),
-  ~selectSceneViewUIControlTarget=Obj.magic(1),
-  ~rootTarget=Obj.magic(1),
-  ~selectGameViewUIControlTarget=Obj.magic(1),
+  ~addUIControlButtonTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~selectSceneViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~rootTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+
+  ~selectGameViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <SelectedUIControls

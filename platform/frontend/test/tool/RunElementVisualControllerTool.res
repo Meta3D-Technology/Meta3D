@@ -2,7 +2,7 @@ let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
   ~handleWhenRunFunc=() => (),
-  ~runButtonTarget=Obj.magic(1),
+  ~runButtonTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~account="a1"->Some,
   ~selectedContributes=list{},
   (),

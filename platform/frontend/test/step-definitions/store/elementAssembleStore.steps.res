@@ -35,24 +35,36 @@ defineFeature(feature, test => {
     \"and"(
       "select ui control u2 whose parent is u1 with id2",
       () => {
-        store :=
-          ElementAssembleStore.reducer(
-            store.contents,
-            ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
-          )
-
-        id1 :=
-          (
-            store.contents.selectedUIControls
-            ->Meta3dCommonlib.ListSt.head
-            ->Meta3dCommonlib.OptionSt.getExn
-          ).id
+        id1 := "id1"
 
         store :=
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
+              id1.contents,
               "",
+              "",
+              "",
+              Obj.magic(1),
+              None,
+              [],
+            ),
+          )
+
+        // id1 :=
+        //   (
+        //     store.contents.selectedUIControls
+        //     ->Meta3dCommonlib.ListSt.head
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   ).id
+
+        id2 := "id2"
+
+        store :=
+          ElementAssembleStore.reducer(
+            store.contents,
+            ElementAssembleStoreType.SelectUIControl(
+              id2.contents,
               "",
               "",
               "",
@@ -62,16 +74,16 @@ defineFeature(feature, test => {
             ),
           )
 
-        id2 :=
-          (
-            (
-              store.contents.selectedUIControls
-              ->Meta3dCommonlib.ListSt.head
-              ->Meta3dCommonlib.OptionSt.getExn
-            ).children
-            ->Meta3dCommonlib.ListSt.head
-            ->Meta3dCommonlib.OptionSt.getExn
-          ).id
+        // id2 :=
+        //   (
+        //     (
+        //       store.contents.selectedUIControls
+        //       ->Meta3dCommonlib.ListSt.head
+        //       ->Meta3dCommonlib.OptionSt.getExn
+        //     ).children
+        //     ->Meta3dCommonlib.ListSt.head
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   ).id
       },
     )
 
@@ -296,29 +308,41 @@ defineFeature(feature, test => {
     given(
       "select ui control u1",
       () => {
+        id1 := "id1"
+
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
+            ElementAssembleStoreType.SelectUIControl(
+              id1.contents,
+              "",
+              "",
+              "",
+              Obj.magic(1),
+              None,
+              [],
+            ),
           )
 
-        id1 :=
-          (
-            store.contents.selectedUIControls
-            ->Meta3dCommonlib.ListSt.head
-            ->Meta3dCommonlib.OptionSt.getExn
-          ).id
+        // id1 :=
+        //   (
+        //     store.contents.selectedUIControls
+        //     ->Meta3dCommonlib.ListSt.head
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   ).id
       },
     )
 
     \"and"(
       "select ui control u2 whose parent is u1",
       () => {
+        id2 := "id2"
+
         store :=
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
-              "",
+              id2.contents,
               "",
               "",
               "",
@@ -328,16 +352,16 @@ defineFeature(feature, test => {
             ),
           )
 
-        id2 :=
-          (
-            (
-              store.contents.selectedUIControls
-              ->Meta3dCommonlib.ListSt.head
-              ->Meta3dCommonlib.OptionSt.getExn
-            ).children
-            ->Meta3dCommonlib.ListSt.head
-            ->Meta3dCommonlib.OptionSt.getExn
-          ).id
+        // id2 :=
+        //   (
+        //     (
+        //       store.contents.selectedUIControls
+        //       ->Meta3dCommonlib.ListSt.head
+        //       ->Meta3dCommonlib.OptionSt.getExn
+        //     ).children
+        //     ->Meta3dCommonlib.ListSt.head
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   ).id
       },
     )
 
@@ -348,7 +372,7 @@ defineFeature(feature, test => {
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
-              "",
+              "id3",
               "",
               "",
               "",
@@ -384,18 +408,28 @@ defineFeature(feature, test => {
     })
 
     \"and"("select ui control u1 which has children with id1", () => {
+      id1 := "id1"
+
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl("", "", "", "", Obj.magic(1), None, []),
+          ElementAssembleStoreType.SelectUIControl(
+            id1.contents,
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            None,
+            [],
+          ),
         )
 
-      id1 :=
-        (
-          store.contents.selectedUIControls
-          ->Meta3dCommonlib.ListSt.head
-          ->Meta3dCommonlib.OptionSt.getExn
-        ).id
+      // id1 :=
+      //   (
+      //     store.contents.selectedUIControls
+      //     ->Meta3dCommonlib.ListSt.head
+      //     ->Meta3dCommonlib.OptionSt.getExn
+      //   ).id
     })
   }
 
@@ -439,11 +473,13 @@ defineFeature(feature, test => {
     given(
       "select ui control u2 which not has children and its parent is u1 with id2",
       () => {
+        id2 := "id2"
+
         store :=
           ElementAssembleStore.reducer(
             store.contents,
             ElementAssembleStoreType.SelectUIControl(
-              "",
+              id2.contents,
               "",
               "",
               "",
@@ -453,16 +489,16 @@ defineFeature(feature, test => {
             ),
           )
 
-        id2 :=
-          (
-            (
-              store.contents.selectedUIControls
-              ->Meta3dCommonlib.ListSt.head
-              ->Meta3dCommonlib.OptionSt.getExn
-            ).children
-            ->Meta3dCommonlib.ListSt.head
-            ->Meta3dCommonlib.OptionSt.getExn
-          ).id
+        // id2 :=
+        //   (
+        //     (
+        //       store.contents.selectedUIControls
+        //       ->Meta3dCommonlib.ListSt.head
+        //       ->Meta3dCommonlib.OptionSt.getExn
+        //     ).children
+        //     ->Meta3dCommonlib.ListSt.head
+        //     ->Meta3dCommonlib.OptionSt.getExn
+        //   ).id
       },
     )
 
@@ -510,18 +546,28 @@ defineFeature(feature, test => {
     })
 
     \"and"("select ui control u1 with id1", () => {
+      id1 := "id1"
+
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SelectUIControl("","", "", "", Obj.magic(1), None, []),
+          ElementAssembleStoreType.SelectUIControl(
+            id1.contents,
+            "",
+            "",
+            "",
+            Obj.magic(1),
+            None,
+            [],
+          ),
         )
 
-      id1 :=
-        (
-          store.contents.selectedUIControls
-          ->Meta3dCommonlib.ListSt.head
-          ->Meta3dCommonlib.OptionSt.getExn
-        ).id
+      // id1 :=
+      //   (
+      //     store.contents.selectedUIControls
+      //     ->Meta3dCommonlib.ListSt.head
+      //     ->Meta3dCommonlib.OptionSt.getExn
+      //   ).id
     })
 
     \"and"("set input to input1 with id1", () => {

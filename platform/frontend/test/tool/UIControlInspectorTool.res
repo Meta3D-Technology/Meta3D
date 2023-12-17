@@ -88,9 +88,9 @@ let buildUI = (
   ~currentSelectedUIControl=SelectedUIControlsTool.buildSelectedUIControl(),
   ~currentSelectedUIControlInspectorData=buildUIControlInspectorData(~id="id", ()),
   ~selectedContributes=list{},
-  ~rectXInputTarget=Obj.magic(1),
-  ~rectWidthInputTarget=Obj.magic(1),
-  ~rectHeightInputTarget=Obj.magic(1),
+  ~rectXInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~rectWidthInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~rectHeightInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <UIControlInspector

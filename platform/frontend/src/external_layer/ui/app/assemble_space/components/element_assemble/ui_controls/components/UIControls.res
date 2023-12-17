@@ -60,7 +60,7 @@ module Method = {
     ) {
     | Some(errorMessage) => service.console.error(. errorMessage, None)
     | None =>
-      let id = IdUtils.generateId(Js.Math.random)
+      let id = IdUtils.generateId(service.other.random)
 
       dispatch(
         ElementAssembleStoreType.SelectUIControl(
