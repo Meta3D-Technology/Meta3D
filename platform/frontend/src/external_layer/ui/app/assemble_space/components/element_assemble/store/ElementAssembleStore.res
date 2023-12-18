@@ -182,7 +182,7 @@ let _resetInspector = state => {
 let _reset = state => {
   {
     ..._createState(),
-    canvasData: state.canvasData,
+    // canvasData: state.canvasData,
     isInCreateFromScratchTourPhase2: state.isInCreateFromScratchTourPhase2,
     // customInputs: state.customInputs,
     // customActions: state.customActions,

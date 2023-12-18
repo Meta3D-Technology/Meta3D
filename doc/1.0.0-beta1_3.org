@@ -208,7 +208,7 @@ TODO cache ui controls
 
 TODO cache editor whole, engine whole packages
 
-* TODO fix: ElementStore: reset->canvasData
+* DONE fix: ElementStore: reset->canvasData
 
 
 * TODO refactor: remove VersionConfig and gulp task
