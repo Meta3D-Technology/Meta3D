@@ -73,25 +73,46 @@ let make = (
     customActions,
   ) = service.react.useSelector(. Method.useSelector)
 
+  let (
+    selectedContributesAddedGeneratedCustoms,
+    setSelectedContributesAddedGeneratedCustoms,
+  ) = React.useState(_ => None)
+
+  service.react.useEffectOnce(() => {
+    ErrorUtils.showCatchedErrorMessage(() => {
+      setSelectedContributesAddedGeneratedCustoms(
+        _ =>
+          ElementVisualUtils.addGeneratedCustoms(
+            service,
+            selectedContributes,
+            account->Meta3dCommonlib.OptionSt.getExn,
+            customInputs,
+            customActions,
+          )->Some,
+      )
+    }, 5->Some)
+
+    ((), None)
+  })
+
   switch (
     Method.getCurrentSelectedUIControlInspectorData(
       inspectorCurrentUIControlId,
       selectedUIControlInspectorData,
     ),
     Method.getCurrentSelectedUIControl(inspectorCurrentUIControlId, selectedUIControls),
+    selectedContributesAddedGeneratedCustoms,
   ) {
-  | (Some(currentSelectedUIControlInspectorData), Some(currentSelectedUIControl)) =>
+  | (
+      Some(currentSelectedUIControlInspectorData),
+      Some(currentSelectedUIControl),
+      Some(selectedContributesAddedGeneratedCustoms),
+    ) =>
     <UIControlInspector
       service
       currentSelectedUIControl
       currentSelectedUIControlInspectorData
-      selectedContributes={ElementVisualUtils.addGeneratedCustoms(
-        service,
-        selectedContributes,
-        account->Meta3dCommonlib.OptionSt.getExn,
-        customInputs,
-        customActions,
-      )}
+      selectedContributes={selectedContributesAddedGeneratedCustoms}
       rectXInputTarget
       rectWidthInputTarget
       rectHeightInputTarget

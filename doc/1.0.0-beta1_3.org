@@ -294,11 +294,12 @@ TODO pass run test:publish
 
 
 
-* TODO perf: Element Assemble: change rect too slow
+* DONE perf: Element Assemble: change rect too slow
 
 with publish action?
 
 
+* TODO fix: Publish: no canvasData?
 
 
 # * TODO perf: Custom: need minify transpiled code
