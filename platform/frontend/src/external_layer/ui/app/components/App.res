@@ -14,6 +14,10 @@ module Method = {
 
 @react.component
 let make = (~service: FrontendType.service, ~env: EnvType.env) => {
+  let (messageApi, contextHolder) = Antd.Message.useMessage()
+
+  Antd.Message.setMessageAPI(messageApi)
+
   let dispatch = AppStore.useDispatch()
 
   let url = RescriptReactRouter.useUrl()
@@ -271,23 +275,9 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     },
   }
 
-  // React.useEffect0(() => {
-  //   ErrorUtils.showCatchedErrorMessage(() => {
-  //     _selectAllUIControls(service, dispatch)
-  //     ->Js.Promise.then_(
-  //       () => {
-  //         _selectEditorWholeAndEngineWholePackages(service, dispatch)
-  //       },
-  //       _,
-  //     )
-  //     ->ignore
-  //   }, 5->Some)
-
-  //   None
-  // })
-
-  {
-    switch url.path {
+  <>
+    {contextHolder}
+    {switch url.path {
     | list{"Login"} => <Login service />
     | list{"Register"} => <Register service />
     | list{"ExtensionMarket"} =>
@@ -337,6 +327,6 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{}
     | _ =>
       Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
-    }
-  }
+    }}
+  </>
 }

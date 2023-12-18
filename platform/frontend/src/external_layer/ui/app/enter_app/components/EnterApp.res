@@ -38,6 +38,27 @@ let make = (~service: FrontendType.service) => {
 
       // customData->Obj.magic
 
+      // Message.error(.
+      //   {j`account: ${account} appName: ${appName} has no published app`},
+      //   10,
+      // )
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
+      // customData->Obj.magic
+
       Js.Promise.then_(
         _ => {
           service.backend.findPublishApp(.
@@ -50,10 +71,10 @@ let make = (~service: FrontendType.service) => {
 
               Js.Nullable.isNullable(appBinaryFile)
                 ? {
-                    Message.error(.
-                      {j`account: ${account} appName: ${appName} has no published app`},
-                      10,
-                    )
+                    Antd.Message.getMessageAPI()._open(. {
+                      _type: #error,
+                      content: {j`account: ${account} appName: ${appName} has no published app`},
+                    })
                   }
                 : {
                     Meta3dCommonlib.NullableSt.getExn(appBinaryFile)
@@ -97,6 +118,27 @@ let make = (~service: FrontendType.service) => {
             _,
           )
         },
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // customData->Obj.magic
+
+        // Message.error(.
+        //   {j`account: ${account} appName: ${appName} has no published app`},
+        //   10,
+        // )
+
         // customData->Obj.magic
 
         // customData->Obj.magic

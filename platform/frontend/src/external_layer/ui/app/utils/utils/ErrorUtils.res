@@ -15,22 +15,35 @@
 let warn = (message: string, durationOpt: option<int>) => {
   Js.Console.warn(message)
 
-  Antd__Message.message.warn(. message, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5))
+  // Antd__Message.message.warn(. message, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5))
+
+  Antd.Message.getMessageAPI()._open(. {
+    _type: #warning,
+    content: message,
+  })
 }
 
 let error = (message: string, durationOpt: option<int>) => {
   Js.Console.error(message)
 
-  Antd__Message.message.error(. message, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5))
+  // Antd__Message.message.error(. message, durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5))
+  Antd.Message.getMessageAPI()._open(. {
+    _type: #error,
+    content: message,
+  })
 }
 
 let errorWithExn = (error: Js.Exn.t, durationOpt: option<int>) => {
   Js.Console.error(error)
 
-  Antd__Message.message.error(.
-    error->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
-    durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
-  )
+  // Antd__Message.message.error(.
+  //   error->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+  //   durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
+  // )
+  Antd.Message.getMessageAPI()._open(. {
+    _type: #error,
+    content: error->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+  })
 }
 
 let showCatchedErrorMessage = (func, durationOpt) => {
