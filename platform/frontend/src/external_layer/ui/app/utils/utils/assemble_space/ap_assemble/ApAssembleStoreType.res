@@ -62,7 +62,7 @@ type apInspectorDataFromFile = {
 }
 
 type action =
-  | Reset
+  | ResetWhenEnter
   | ResetWhenSwitch
   | SelectPackage(package)
   | SelectExtension(

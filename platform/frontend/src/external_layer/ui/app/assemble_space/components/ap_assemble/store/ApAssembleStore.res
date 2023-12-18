@@ -65,7 +65,7 @@ let _unstartAllSelectedExtensions = selectedExtensions => {
 
 let reducer = (state, action) => {
   switch action {
-  | Reset => state->_reset
+  | ResetWhenEnter => state->_reset
   | ResetWhenSwitch => state->_resetInspector
   | SelectPackage(package) => {
       ...state,

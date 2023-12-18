@@ -124,7 +124,7 @@ type customAction = AssembleSpaceCommonType.customAction
 type customActions = list<customAction>
 
 type action =
-  | Reset
+  | ResetWhenEnter
   | ResetWhenSwitch
   | SelectUIControl(
       id,

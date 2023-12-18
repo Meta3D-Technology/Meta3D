@@ -299,7 +299,7 @@ TODO pass run test:publish
 with publish action?
 
 
-* TODO fix: Publish: no canvasData?
+* DONE fix: Publish->import: no canvasData
 
 
 # * TODO perf: Custom: need minify transpiled code

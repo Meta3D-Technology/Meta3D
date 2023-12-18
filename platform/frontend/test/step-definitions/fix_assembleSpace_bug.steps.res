@@ -57,7 +57,8 @@ defineFeature(feature, test => {
     \"when"(
       "enter AssembleSpace",
       () => {
-        store := AssembleSpaceTool.reset(~dispatch=AssembleSpaceStore.reducer(store.contents))
+        store :=
+          AssembleSpaceTool.resetWhenEnter(~dispatch=AssembleSpaceStore.reducer(store.contents))
       },
     )
 

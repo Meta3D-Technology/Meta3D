@@ -301,7 +301,7 @@ let reducer = (state, action) => {
       ...state,
       currentAppName: appName->Some,
     }
-  // | Reset => state->_reset
+  // | ResetWhenEnter => state->_reset
   | LogOut => {
       ...state,
       account: None,

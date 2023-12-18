@@ -1,7 +1,7 @@
 type action = ..
 
 type action +=
-  | Reset
+  | ResetWhenEnter
   | ResetWhenSwitch
   | ApAssembleAction(ApAssembleStoreType.action)
   | ElementAssembleAction(ElementAssembleStoreType.action)

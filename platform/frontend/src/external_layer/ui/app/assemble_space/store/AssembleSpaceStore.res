@@ -2,19 +2,19 @@ open AssembleSpaceStoreType
 
 let reducer = (state, action) => {
   switch action {
-  | Reset => {
+  | ResetWhenEnter => {
       ...state,
       apAssembleState: ApAssembleStore.reducer(
         state.apAssembleState,
-        ApAssembleStoreType.Reset,
+        ApAssembleStoreType.ResetWhenEnter,
       ),
       elementAssembleState: ElementAssembleStore.reducer(
         state.elementAssembleState,
-        ElementAssembleStoreType.Reset,
+        ElementAssembleStoreType.ResetWhenEnter,
       ),
       packageAssembleState: PackageAssembleStore.reducer(
         state.packageAssembleState,
-        PackageAssembleStoreType.Reset,
+        PackageAssembleStoreType.ResetWhenEnter,
       ),
     }
   | ResetWhenSwitch => {

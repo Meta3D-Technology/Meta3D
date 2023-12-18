@@ -9,8 +9,8 @@ type view =
   | Package
 
 module Method = {
-  let reset = dispatch => {
-    dispatch(AssembleSpaceStoreType.Reset)
+  let resetWhenEnter = dispatch => {
+    dispatch(AssembleSpaceStoreType.ResetWhenEnter)
   }
 
   let _merge = (mergedCustoms, customs) => {
@@ -436,7 +436,7 @@ let make = (
   ) = service.react.useState(_ => None)
 
   service.react.useEffectOnce(() => {
-    Method.reset(dispatch)
+    Method.resetWhenEnter(dispatch)
 
     ErrorUtils.showCatchedErrorMessage(() => {
       let (customInputs, customActions) =

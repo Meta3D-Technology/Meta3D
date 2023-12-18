@@ -59,7 +59,7 @@ type action =
   | SelectAllUIControls(selectedContributes)
   | SetPackages(selectedPackages)
   | SetCurrentAppName(appName)
-  // | Reset
+  // | ResetWhenEnter
   | LogOut
   | RemoveElement
   | SetRelease(release)

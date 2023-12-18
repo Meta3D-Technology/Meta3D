@@ -33,10 +33,6 @@ let make = (~service: FrontendType.service) => {
   let publishedEditorsTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let navTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
-  let _isNotLogin = account => {
-    !(account->Meta3dCommonlib.OptionSt.isSome)
-  }
-
   //   let _storeEngineWholePackageInApp = (dispatch, engineWholePackageId) => {
   //     dispatchForApAssembleStore(ApAssembleStoreType.StorePackageInApp(engineWholePackageId))
   //   }
@@ -428,36 +424,30 @@ let make = (~service: FrontendType.service) => {
 
   React.useEffect0(() => {
     ErrorUtils.showCatchedErrorMessage(() => {
-      _isNotLogin(account)
-        ? {
-            RescriptReactRouter.push("/Login")
-          }
-        : {
-            // dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.Reset))
+      AssembleSpaceUtils.resetWhenLeave(dispatchForElementAssembleStore)
 
-            setInfo(_ => {j`loading...`->Some})
+      setInfo(_ => {j`loading...`->Some})
 
-            getReleaseData(dispatch)->ignore
+      getReleaseData(dispatch)->ignore
 
-            service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
-            ->Meta3dBsMostDefault.Most.observe(
-              allPublishApps => {
-                setAllPublishApps(_ => allPublishApps)
-                setInfo(_ => None)
-              },
-              _,
-            )
-            ->Js.Promise.catch(
-              e => {
-                setAllPublishApps(_ => [])
-                setInfo(_ => None)
+      service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
+      ->Meta3dBsMostDefault.Most.observe(
+        allPublishApps => {
+          setAllPublishApps(_ => allPublishApps)
+          setInfo(_ => None)
+        },
+        _,
+      )
+      ->Js.Promise.catch(
+        e => {
+          setAllPublishApps(_ => [])
+          setInfo(_ => None)
 
-                ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
-              },
-              _,
-            )
-            ->ignore
-          }
+          ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+        },
+        _,
+      )
+      ->ignore
     }, 5->Some)
 
     None

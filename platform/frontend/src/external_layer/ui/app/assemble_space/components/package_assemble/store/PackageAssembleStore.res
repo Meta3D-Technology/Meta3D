@@ -44,7 +44,7 @@ let _unmarkEntryAllSelectedExtensions = selectedExtensions => {
 
 let reducer = (state, action) => {
   switch action {
-  | Reset => _createState()
+  | ResetWhenEnter => _createState()
   | ResetWhenSwitch => state->_resetInspector
   // | SelectPackage(package) => {
   //     ...state,
