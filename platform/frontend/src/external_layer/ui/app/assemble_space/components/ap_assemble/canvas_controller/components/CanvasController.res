@@ -53,7 +53,6 @@ let make = (
 
   <Space direction=#horizontal size=#small>
     <Typography.Text> {React.string(`画布大小：`)} </Typography.Text>
-    // <Button ref={canvasWidthInputTarget}>{React.string(`test`)}</Button>
     <Input
       ref={canvasWidthInputTarget}
       value={width->Js.Int.toString}

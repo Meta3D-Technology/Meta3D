@@ -1,3 +1,5 @@
+type _type = [#flex]
+
 type alignVariant = [#top | #middle | #bottom]
 
 @deriving(jsConverter)
@@ -11,6 +13,7 @@ type flexVariant = [
 
 @module("antd") @react.component
 external make: (
+  ~_type: _type=?,
   ~align: alignVariant=?,
   ~gutter: 'a=?,
   ~justify: flexVariant=?,

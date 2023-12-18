@@ -40,12 +40,20 @@ let make = (~service: FrontendType.service, ~account) => {
   let _buildCard = (item: BackendCloudbaseType.publishAppInfo) => {
     <Card
       key={PublishedAppUtils.buildKey(item.account, item.appName)}
-      bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
+      // headStyle={ReactDOM.Style.make(~padding="20px", ())}
+      bodyStyle={ReactDOM.Style.make(~padding="20px", ())}
       cover={switch item.previewBase64->Meta3dCommonlib.OptionSt.fromNullable {
       | Some(previewBase64) =>
-        <Row justify=#center>
+        <div
+          style={ReactDOM.Style.make(
+            // ~display="flex",
+            // ~alignItems="center",
+            // ~justifyContent="center",
+            ~padding="20px",
+            (),
+          )}>
           <Image preview=false src={previewBase64} width=400 height=200 />
-        </Row>
+        </div>
       | None => React.null
       }}>
       <Card.Meta

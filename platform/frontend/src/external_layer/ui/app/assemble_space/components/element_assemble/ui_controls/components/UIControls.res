@@ -125,7 +125,7 @@ let make = (
 
   // TODO duplicate with ap view
   <List
-    grid={{gutter: 16, column: 2}}
+    grid={{gutter: 16, column: 3}}
     dataSource={selectedContributes->Method.getUIControls->Meta3dCommonlib.ListSt.toArray}
     renderItem={({id, protocolIconBase64, protocolConfigStr, data}) => {
       // let name = data.contributePackageData.name
@@ -157,18 +157,29 @@ let make = (
               setIsShowUIControls(_ => false)
             }, 5->Some)
           }}
+          bordered={false}
           bodyStyle={ReactDOM.Style.make(~padding="0px", ())}
-          cover={<Image preview=false src={protocolIconBase64} width=50 height=50 />}>
+          cover={<div
+            style={ReactDOM.Style.make(
+              ~display="flex",
+              ~alignItems="center",
+              ~justifyContent="center",
+              (),
+            )}>
+            <Image preview=false src={protocolIconBase64} width=50 height=50 />
+          </div>}>
           <Card.Meta
-            title={<span
-              style={ReactDOM.Style.make(
-                ~whiteSpace="normal",
-                ~wordWrap="break-word",
-                ~wordBreak="break-all",
-                (),
-              )}>
-              {React.string(displayName)}
-            </span>}
+            title={<Row justify=#center>
+              <span
+                style={ReactDOM.Style.make(
+                  ~whiteSpace="normal",
+                  ~wordWrap="break-word",
+                  ~wordBreak="break-all",
+                  (),
+                )}>
+                {React.string(displayName)}
+              </span>
+            </Row>}
           />
         </Card>
       </List.Item>

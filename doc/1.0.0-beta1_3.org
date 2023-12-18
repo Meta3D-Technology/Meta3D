@@ -211,28 +211,38 @@ TODO cache editor whole, engine whole packages
 * DONE fix: ElementStore: reset->canvasData
 
 
-* TODO refactor: remove VersionConfig and gulp task
+# * TODO refactor: remove VersionConfig and gulp task
+
+
+* DONE 优化平台UI
+
+# TODO 使用图标代替文字按钮
+# e.g. 替代运行按钮
+
+TODO 更新排版
+e.g. 更新Extensions、 UI Controls中的图文小图标排版
+
+3col
+
+# limit text length
+
+
+* DONE 更新extension    
+
+TODO update icon
+action, uiControl, uiControlInput, package, extension, contribute use different icon
+TODO update displayName，使用中文
+
+
+* TODO fix cache: compare version
+
 
 
 * TODO 更新extension    
 
 TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
 TODO remove unused ones
-TODO update icon
-action, uiControl, uiControlInput, package, extension, contribute use different icon
-TODO update displayName，使用中文
-TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
-
-
-* TODO 优化平台UI
-
-TODO 使用图标代替文字按钮
-e.g. 替代运行按钮
-
-TODO 更新排版
-e.g. 更新Extensions、 UI Controls中的图文小图标排版
-
-
+# TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
 
 
 * TODO 重构：统一编码规范

@@ -1,6 +1,7 @@
 {
     "name": "meta3d-ui-control-asset-protocol",
     "version": "0.21.2",
+    "displayName": "资产",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "author": "Meta3D",
     "main": "src/Index.ts",

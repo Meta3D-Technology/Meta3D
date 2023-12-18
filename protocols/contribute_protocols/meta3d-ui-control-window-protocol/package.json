@@ -1,7 +1,7 @@
 {
     "name": "meta3d-ui-control-window-protocol",
-    "version": "0.21.3",
-    "displayName": "window protocol",
+    "version": "0.21.4",
+    "displayName": "窗口",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/contribute_protocols/meta3d-ui-control-window-protocol",
     "description": "",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",

@@ -1,5 +1,6 @@
 @module("antd") @react.component
 external make: (
+  ~bordered: bool=?,
   ~title: 'a=?,
   ~key: string=?,
   ~onClick: ReactEvent.Mouse.t => unit=?,

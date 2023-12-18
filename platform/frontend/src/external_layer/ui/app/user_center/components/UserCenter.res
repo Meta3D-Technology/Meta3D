@@ -298,7 +298,7 @@ let make = (~service: FrontendType.service) => {
           //     )
           //   : ()
 
-          // TODO perf: use batchXxx to merge request
+          //// TODO perf: use batchXxx to merge request
           _selectAllUIControls(service, dispatch)->Js.Promise.then_(() => {
             _selectEditorWholeAndEngineWholePackages(service, dispatch)
           }, _)->Js.Promise.then_(() => {
