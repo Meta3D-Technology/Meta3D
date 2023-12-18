@@ -30,7 +30,8 @@ defineFeature(feature, test => {
     given(
       "build custom inputs",
       () => {
-        customInputs := list{CustomTool.buildCustomInput(~name="Input1", ~originFileStr="f1", ())}
+        customInputs :=
+          list{CustomTool.buildCustomInput(~name="Input1", ~originFileStr="f1"->Some, ())}
       },
     )
 
@@ -59,7 +60,7 @@ defineFeature(feature, test => {
       "should generate input name and default file str",
       () => {
         (
-          originFileStr.contents->NewlineTool.removeBlankChar,
+          originFileStr.contents->Meta3dCommonlib.OptionSt.getExn->NewlineTool.removeBlankChar,
           transpiledFileStr.contents->Meta3dCommonlib.OptionSt.map(NewlineTool.removeBlankChar),
         )->expect ==
           (

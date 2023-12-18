@@ -23,6 +23,8 @@ import { sync } from "./SyncUtils"
 import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { service as exportSceneService } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
+import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
+import { service as libService } from "meta3d-lib-protocol/src/service/ServiceType"
 
 
 let _registerEditorPipelines = (
@@ -361,11 +363,12 @@ export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
 	return {
-		scene: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-engine-scene-protocol")),
-		ui: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-ui-protocol")),
-		event: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-event-protocol")),
-		core: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-core-protocol")),
-		asset: meta3dState => getExn(api.getPackageService(meta3dState, "meta3d-asset-protocol")),
+		scene: meta3dState => getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol")),
+		ui: meta3dState => getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol")),
+		event: meta3dState => getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol")),
+		core: meta3dState => getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")),
+		asset: meta3dState => getExn(api.getPackageService<assetService>(meta3dState, "meta3d-asset-protocol")),
+		lib: meta3dState => getExn(api.getPackageService<libService>(meta3dState, "meta3d-lib-protocol")),
 
 		addScene: (meta3dState, scene) => {
 			return api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, scene)

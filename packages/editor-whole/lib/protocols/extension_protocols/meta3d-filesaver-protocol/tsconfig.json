@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "ES6",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"jsx": "react",
+		"noEmit": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"lib": [
+			"DOM",
+			"ESNext",
+		],
+		"types": [],
+		"strict": true
+	},
+	"include": [
+		"./src"
+	]
+}

@@ -17,13 +17,18 @@ Feature: AssembleSpace
 
     Rule: convert local to custom
 
-        Scenario: convert local to custom
+        Scenario: convert local to custom which are duplicate
             Given select local input1
             And select local input2
             And build custom input1 whose name is duplicated with local input2
             When convert local to custom
             # Then selectedContributes should remove all local inputs
             Then should add converted local input1 to custom inputs
+
+        Scenario: convert local action to custom action which is uneditable
+            Given select local action1 which is uneditable
+            When convert local to custom
+            Then should add converted local actions1 to custom actions
 
 
     Rule: remove inputs and actions

@@ -33,7 +33,7 @@ module Method = {
         (
           {
             name,
-            originFileStr: buildDefaultOriginFileStrFunc(name),
+            originFileStr: buildDefaultOriginFileStrFunc(name)->Some,
             transpiledFileStr: buildDefaultTranspiledFileStrFunc(name)->Some,
           }: CommonType.custom
         ),

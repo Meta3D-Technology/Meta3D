@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-editor-event",
-    "version": "0.21.2",
+    "version": "0.21.3",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "protocol": {
         "name": "meta3d-pipeline-editor-event-protocol"

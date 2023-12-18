@@ -138,7 +138,7 @@ defineFeature(feature, test => {
           list{
             CustomTool.buildCustomInput(
               ~name=inputName.contents,
-              ~originFileStr=originFileStr.contents,
+              ~originFileStr=originFileStr.contents->Some,
               (),
             ),
           }

@@ -18,14 +18,7 @@ module Method = {
 
     setCurrentCustomNameToGlobalFunc(newName)
 
-    dispatch(
-      buildUpdateActionFunc(
-        name,
-        newName,
-        newOriginCode,
-        newTranspiledCode->Some,
-      ),
-    )
+    dispatch(buildUpdateActionFunc(name, newName, newOriginCode, newTranspiledCode->Some))
   }
 
   let getCode = (name, customs) => {
@@ -51,7 +44,7 @@ let make = (
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (code, setCode) = service.react.useState(_ => "")
+  let (code, setCode) = service.react.useState(_ => None)
 
   service.react.useEffect1(. () => {
     setCode(_ => Method.getCode(currentCustomName, customs))
@@ -59,19 +52,25 @@ let make = (
     None
   }, [currentCustomName])
 
-  <CodeEdit
-    service
-    code={code}
-    getNewCodeFunc={(newOriginCode, newTranspiledCode) =>
-      Method.getNewCode(
-        dispatch,
-        getNameFunc,
-        setCurrentCustomNameToGlobalFunc,
-        buildUpdateActionFunc,
-        // TODO refactor: use useStore instead
-        getCurrentCustomNameFromGlobalFunc()->Meta3dCommonlib.NullableSt.getExn,
-        newOriginCode,
-        newTranspiledCode,
-      )}
-  />
+  {
+    switch code {
+    | None => React.string(`不支持编辑`)
+    | Some(code) =>
+      <CodeEdit
+        service
+        code={code}
+        getNewCodeFunc={(newOriginCode, newTranspiledCode) =>
+          Method.getNewCode(
+            dispatch,
+            getNameFunc,
+            setCurrentCustomNameToGlobalFunc,
+            buildUpdateActionFunc,
+            // TODO refactor: use useStore instead
+            getCurrentCustomNameFromGlobalFunc()->Meta3dCommonlib.NullableSt.getExn,
+            newOriginCode,
+            newTranspiledCode,
+          )}
+      />
+    }
+  }
 }

@@ -474,14 +474,6 @@ let make = (~service: FrontendType.service) => {
         <>
           <Layout.Sider width=300 theme=#light>
             <Card key={"0"}>
-              <Button
-                onClick={_ => {
-                  GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
-                }}>
-                {React.string(`打开“从头创建新的编辑器”的引导`)}
-              </Button>
-            </Card>
-            <Card key={"1"}>
               <iframe
                 src="https://ghbtns.com/github-btn.html?user=Meta3D-Technology&repo=Meta3D&type=star&count=true&size=large"
                 // frameborder="0"
@@ -497,6 +489,14 @@ let make = (~service: FrontendType.service) => {
                 title="GitHub"
               />
               // <span> {React.string(`欢迎Star`)} </span>
+            </Card>
+            <Card key={"1"}>
+              <Button
+                onClick={_ => {
+                  GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
+                }}>
+                {React.string(`打开“从头创建新的编辑器”的引导`)}
+              </Button>
             </Card>
             <Card
               key={"2"}

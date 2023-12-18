@@ -1,7 +1,5 @@
 import { state as meta3dState, getContribute as getContributeMeta3D } from "meta3d-type"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import * as JSZip from "jszip"
-import { saveAs } from "file-saver";
 import indexHtml from "../publish/index.html"
 import meta3dJs from "../publish/meta3d.js"
 import basis_transcoderJs from "../publish/three/basis/basis_transcoder.js"
@@ -11,18 +9,17 @@ import { uiData, actionName, state } from "meta3d-action-publish-protocol"
 import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 import { eventName, inputData } from "meta3d-action-publish-protocol/src/EventType"
 
-let _loadAndWriteIndexHtmlData = (zip: JSZip) => {
-    zip.file("index.html", indexHtml)
+let _loadAndWriteIndexHtmlData = (jszipService: any, zip: any) => {
+    jszipService.file(zip, "index.html", indexHtml)
 }
 
-let _loadAndWriteIndexJsData = (zip: JSZip) => {
-    zip.file("meta3d.js", meta3dJs)
+let _loadAndWriteIndexJsData = (jszipService: any, zip: any) => {
+    jszipService.file(zip, "meta3d.js", meta3dJs)
 }
 
-let _loadAndWriteThreeJsData = (zip: JSZip, folderPath: string, name: string, jsFile: any) => {
-    zip.file(`static/three/${folderPath}${name}.js`, jsFile)
+let _loadAndWriteThreeJsData = (jszipService: any, zip: any, folderPath: string, name: string, jsFile: any) => {
+    jszipService.file(zip, `static/three/${folderPath}${name}.js`, jsFile)
 }
-
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -32,6 +29,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                    let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
+
                     if (api.nullable.getWithDefault(api.nullable.map(runState => runState.isRun, api.action.getActionState<runState>(meta3dState, runActionName)), false)) {
                         console.warn("can't publish when run")
 
@@ -42,15 +41,19 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     let enginePackageBinary = api.nullable.getExn(api.getPackage(meta3dState, "meta3d-engine-whole-protocol"))
 
+                    let { jszip, filesave } = editorWholeService.lib(meta3dState)
 
-                    let zip = new JSZip.default() as JSZip
+                    let jszipService = jszip(meta3dState)
+                    let filesaveService = filesave(meta3dState)
 
-                    _loadAndWriteIndexHtmlData(zip)
-                    _loadAndWriteIndexJsData(zip)
+                    let zip = jszipService.createZip()
 
-                    _loadAndWriteThreeJsData(zip, "basis/", "basis_transcoder", basis_transcoderJs)
-                    _loadAndWriteThreeJsData(zip, "draco/gltf/", "draco_decoder", draco_decoderJs)
-                    _loadAndWriteThreeJsData(zip, "draco/gltf/", "draco_encoder", draco_encoderJs)
+                    _loadAndWriteIndexHtmlData(jszipService, zip)
+                    _loadAndWriteIndexJsData(jszipService, zip)
+
+                    _loadAndWriteThreeJsData(jszipService, zip, "basis/", "basis_transcoder", basis_transcoderJs)
+                    _loadAndWriteThreeJsData(jszipService, zip, "draco/gltf/", "draco_decoder", draco_decoderJs)
+                    _loadAndWriteThreeJsData(jszipService, zip, "draco/gltf/", "draco_encoder", draco_encoderJs)
 
                     return (new Promise((resolve, reject) => {
                         return api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).exportScene([(glb) => {
@@ -60,13 +63,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         }], meta3dState)
                     }) as Promise<ArrayBuffer>)
                         .then(sceneGLB => {
-                            zip.file("Engine.arraybuffer", enginePackageBinary, { binary: true })
-                            zip.file("Scene.glb", sceneGLB, { binary: true })
+                            jszipService.file(zip, "Engine.arraybuffer", enginePackageBinary, { binary: true })
+                            jszipService.file(zip, "Scene.glb", sceneGLB, { binary: true })
 
-                            return zip.generateAsync({ type: "blob" })
+                            return jszipService.generateAsync(zip, { type: "blob" })
                         }).then(content => {
                             // TODO get zipname from user
-                            saveAs(content, "publish.zip")
+                            filesaveService.saveAs(content, "publish.zip")
 
                             return meta3dState
                         })

@@ -52,6 +52,27 @@ rename another custom input's name to add post fix:"_copy";
     _mergeCustoms(selectedElementsFromMarket)
   }
 
+  let _mergeCustomAndUnEditableLocal = (customs, (name, localSource)) => {
+    /* ! TODO should handle same name more:
+now just not add duplicate one, but need handle more
+*/
+    customs->Meta3dCommonlib.ListSt.includesByFunc((custom: CommonType.custom) => {
+      custom.name == name
+    })
+      ? customs
+      : {
+          customs->Meta3dCommonlib.ListSt.push(
+            (
+              {
+                name,
+                originFileStr: None,
+                transpiledFileStr: localSource->Some,
+              }: CommonType.custom
+            ),
+          )
+        }
+  }
+
   let _mergeCustomAndLocalBundled = (getNameFunc, customs, localBundledSource) => {
     let name = localBundledSource->getNameFunc->Meta3dCommonlib.OptionSt.getExn
 
@@ -67,7 +88,9 @@ now just not add duplicate one, but need handle more
             (
               {
                 name,
-                originFileStr: localBundledSource->CodeEditUtils.convertTranspliedCodeToES6Code,
+                originFileStr: localBundledSource
+                ->CodeEditUtils.convertTranspliedCodeToES6Code
+                ->Some,
                 transpiledFileStr: localBundledSource
                 ->CodeEditUtils.convertTranspliedCodeToUMDCode
                 ->Some,
@@ -89,18 +112,37 @@ now just not add duplicate one, but need handle more
   let _convert = (
     service,
     isLocalFunc,
-    getnameFunc,
+    getNameFunc,
+    isUnEditableCustomFunc,
+    getUnEditableCustomNameFunc,
     selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
     customs,
   ) => {
-    selectedContributes
-    ->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
+    let locals = selectedContributes->Meta3dCommonlib.ListSt.filter((({protocolName}, _)) => {
       isLocalFunc(protocolName)
+    })
+
+    let customs =
+      locals
+      ->Meta3dCommonlib.ListSt.filter((({data}, _)) => {
+        isUnEditableCustomFunc(data.contributePackageData.name)
+      })
+      ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
+        (
+          getUnEditableCustomNameFunc(data.contributePackageData.name),
+          service.meta3d.getContributeFuncDataStr(. data.contributeFuncData),
+        )
+      })
+      ->Meta3dCommonlib.ListSt.reduce(customs, _mergeCustomAndUnEditableLocal)
+
+    locals
+    ->Meta3dCommonlib.ListSt.filter((({data}, _)) => {
+      !isUnEditableCustomFunc(data.contributePackageData.name)
     })
     ->Meta3dCommonlib.ListSt.map((({data}, _)) => {
       service.meta3d.getContributeFuncDataStr(. data.contributeFuncData)
     })
-    ->Meta3dCommonlib.ListSt.reduce(customs, _mergeCustomAndLocalBundled(getnameFunc))
+    ->Meta3dCommonlib.ListSt.reduce(customs, _mergeCustomAndLocalBundled(getNameFunc))
   }
 
   let convertLocalToCustom = (
@@ -113,6 +155,8 @@ now just not add duplicate one, but need handle more
         service,
         LocalUtils.isLocalInput,
         CustomUtils.getInputName,
+        _ => false,
+        _ => "",
         selectedContributes,
         customInputs,
       ),
@@ -120,6 +164,25 @@ now just not add duplicate one, but need handle more
         service,
         LocalUtils.isLocalAction,
         CustomUtils.getActionName,
+        name => {
+          name == "meta3d-action-publish"
+        },
+        name =>
+          name == "meta3d-action-publish"
+            ? "Publish"
+            : Meta3dCommonlib.Exception.throwErr(
+                Meta3dCommonlib.Exception.buildErr(
+                  Meta3dCommonlib.Log.buildErrorMessage(
+                    ~title={j`error`},
+                    ~description={
+                      ""
+                    },
+                    ~reason="",
+                    ~solution=j``,
+                    ~params=j``,
+                  ),
+                ),
+              ),
         selectedContributes,
         customActions,
       ),

@@ -590,7 +590,7 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    _prepareForCustomInput(given, \"and", inputName, originFileStr, transpiledFileStr)
+    _prepareForCustomInput(given, \"and", inputName, originFileStr->Some, transpiledFileStr)
 
     \"when"(
       "update custom input1's name and file str",
@@ -615,7 +615,7 @@ defineFeature(feature, test => {
           list{
             CustomTool.buildCustomInput(
               ~name=inputNewName,
-              ~originFileStr=newOriginFileStr,
+              ~originFileStr=newOriginFileStr->Some,
               ~transpiledFileStr=newTranspiledFileStr,
               (),
             ),
@@ -648,7 +648,7 @@ defineFeature(feature, test => {
 
     _prepare(given)
 
-    _prepareForCustomInput(given, \"and", inputName, "", None)
+    _prepareForCustomInput(given, \"and", inputName, ""->Some, None)
 
     \"when"(
       "remove custom input1",

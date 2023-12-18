@@ -134,6 +134,7 @@ module.exports = {
         new MonacoWebpackPlugin({
             // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
             languages: ['typescript']
+            // languages: ['']
         }),
         // new WriteFilePlugin(),
     ],

@@ -443,7 +443,7 @@ let reducer = (state, action) => {
                 {
                   ...customInput,
                   name: newInputName,
-                  originFileStr: newOriginCode,
+                  originFileStr: newOriginCode->Some,
                   transpiledFileStr: newTranspiledCode,
                 }: customInput
               )
@@ -466,7 +466,7 @@ let reducer = (state, action) => {
             ? (
                 {
                   name: newActionName,
-                  originFileStr: newOriginCode,
+                  originFileStr: newOriginCode->Some,
                   transpiledFileStr: newTranspiledCode,
                 }: customAction
               )

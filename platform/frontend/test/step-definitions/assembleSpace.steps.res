@@ -23,9 +23,9 @@ defineFeature(feature, test => {
   test(."get imported element custom", ({given, \"when", \"and", then}) => {
     let e1 = ref(Obj.magic(1))
     let e2 = ref(Obj.magic(1))
-    let customInput1 = CustomTool.buildCustomInput(~name="Input1", ~originFileStr="f1", ())
+    let customInput1 = CustomTool.buildCustomInput(~name="Input1", ~originFileStr="f1"->Some, ())
     let customInput2 = customInput1
-    let customInput3 = CustomTool.buildCustomInput(~name="Input3", ~originFileStr="f3", ())
+    let customInput3 = CustomTool.buildCustomInput(~name="Input3", ~originFileStr="f3"->Some, ())
     let i1Name = "input1"
     let result = ref(Obj.magic(1))
 
@@ -74,7 +74,7 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."convert local to custom", ({given, \"when", \"and", then}) => {
+  test(."convert local to custom which are duplicate", ({given, \"when", \"and", then}) => {
     let localInput1 = ref(Obj.magic(1))
     let localInput1Name = "localInput1"
     let localInput1BundledSource = AssembleSpaceTool.buildLocalInputBundledSource(localInput1Name)
@@ -170,11 +170,74 @@ defineFeature(feature, test => {
             customInput1.contents,
             CustomTool.buildCustomInput(
               ~name=localInput1Name,
-              ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}",
+              ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
               ~transpiledFileStr=fileStr->Some,
               (),
             ),
           }->CustomTool.formatCustomInputs
+      },
+    )
+  })
+
+  test(."convert local action to custom action which is uneditable", ({
+    given,
+    \"when",
+    \"and",
+    then,
+  }) => {
+    let localAction1 = ref(Obj.magic(1))
+    let localAction1Source = {j`source1`}
+    let result = ref(Obj.magic(1))
+
+    _prepare(given, \"and")
+
+    given(
+      "select local action1 which is uneditable",
+      () => {
+        localAction1 :=
+          AssembleSpaceTool.buildSelectedContribute(
+            ~protocolName="-action-protocol",
+            ~data=ContributeTool.buildContributeData(
+              ~contributePackageData=ContributeTool.buildContributePackageData(
+                ~name="meta3d-action-publish",
+                (),
+              ),
+              ~contributeFuncData=Meta3d.Main.getContributeFuncData(localAction1Source),
+              (),
+            ),
+            (),
+          )
+      },
+    )
+
+    \"when"(
+      "convert local to custom",
+      () => {
+        result :=
+          AssembleSpaceTool.convertLocalToCustom(
+            ServiceTool.build(
+              ~sandbox,
+              ~getContributeFuncDataStr=Meta3d.Main.getContributeFuncDataStr->Obj.magic,
+              (),
+            ),
+            (list{}, list{}),
+            list{localAction1.contents},
+          )
+      },
+    )
+
+    then(
+      "should add converted local actions1 to custom actions",
+      () => {
+        result.contents->Meta3dCommonlib.Tuple2.getLast->CustomTool.formatCustomActions->expect ==
+          list{
+            CustomTool.buildCustomAction(
+              ~name="Publish",
+              ~originFileStr=None,
+              ~transpiledFileStr=localAction1Source->Some,
+              (),
+            ),
+          }->CustomTool.formatCustomActions
       },
     )
   })

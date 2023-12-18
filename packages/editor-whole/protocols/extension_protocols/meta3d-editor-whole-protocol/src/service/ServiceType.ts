@@ -7,6 +7,7 @@ import { service as coreService_ } from "meta3d-core-protocol/src/service/Servic
 import { importScene } from "meta3d-import-scene-protocol/src/service/ServiceType"
 import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { service as assetService_ } from "meta3d-asset-protocol/src/service/ServiceType"
+import { service as libService_ } from "meta3d-lib-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { inputContribute as inputContribute_ } from "meta3d-ui-protocol/src/contribute/InputContributeType"
@@ -36,12 +37,15 @@ export type coreService = coreService_
 
 export type assetService = assetService_
 
+export type libService = libService_
+
 export type service = {
 	scene: (meta3dState: meta3dState) => engineSceneService,
 	ui: (meta3dState: meta3dState) => uiService,
 	event: (meta3dState: meta3dState) => eventService,
 	core: (meta3dState: meta3dState) => coreService,
 	asset: (meta3dState: meta3dState) => assetService,
+	lib: (meta3dState: meta3dState) => libService,
 
 	addScene: addScene,
 	importScene: importScene,

@@ -254,29 +254,117 @@ TODO update displayName，使用中文
 
 * DONE 增加官方用户:meta3d
 
-* TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
+# * TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
 
-TODO pass run test
-
-
-
-* TODO 更新extension    
-
-TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
-TODO remove unused ones
-# TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
+# TODO pass run test
 
 
 
-* TODO 构建三个示例场景
 
-1.Engine + Example use Engine package
-2.Editor
-3.Scene use Editor to build and publish
 
-** TODO build one big scene with glbs as showcase
+# * TODO 构建三个示例场景
 
-3D场景漫游
+# 1.Engine + Example use Engine package
+# 2.Editor
+# 3.Scene use Editor to build and publish
+
+# ** TODO build one big scene with glbs as showcase
+
+# 3D场景漫游
+
+
+
+
+
+* DONE handle action publish
+
+TODO bundle publish
+
+
+TODO hard code
+
+TODO add bdd test
+
+
+TODO publish related
+
+
+
+TODO pass run test:publish
+
+
+
+* TODO perf: Element Assemble: change rect too slow
+
+with publish action?
+
+
+
+
+# * TODO perf: Custom: need minify transpiled code
+
+
+* TODO 构建Editor示例场景
+
+TODO publish all
+
+
+
+
+
+
+# * TODO 更新extension    
+
+# TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
+# TODO remove unused ones
+# # TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
+
+
 
 
 * TODO "publisher"改为meta3d
+
+
+* TODO check all * TODOs and clear
+
+
+Github: lanaguage remove Javascript
+
+
+* TODO 协议统一为MIT for Meta3D, Website
+封装three相关的extension, contribute 加入License说明（说明是对three.js的封装）
+
+
+* TODO solve ci sometimes fail: Actions->Install error
+* TODO make ci pass in README
+* TODO github->[codecov](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) should contain platform/assemble-space
+
+
+* TODO author统一为Meta3D
+
+* TODO 更新logo for website, github org, production, loading
+* TODO loading, Publish->loading add Meta3D Logo
+
+* TODO 买域名
+* TODO 购买cloud，准备dev、pro两套环境
+
+* TODO 优化首次加载平台
+compress js
+
+* TODO decrease file size
+
+
+* TODO action publish->meta3d.js use compress
+
+
+* TODO host platform, website to cloudbase
+//* TODO all use 域名
+
+
+* TODO update platform production
+
+
+* TODO publish: v1.0.0-beta.1.0
+
+* TODO show changelog
+

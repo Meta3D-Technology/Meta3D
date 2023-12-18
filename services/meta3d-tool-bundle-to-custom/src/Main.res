@@ -16,6 +16,10 @@ let _error = msg => {
 
 let _isFile = (path: string) => Fs.existsSync(. path) && Fs.statSync(. path).isFile(.)
 
+// let _addExtname = (path: string, extname) => {
+//   path->Js.String.endsWith(extname, _) ? path : path ++ extname
+// }
+
 let _isDir = (path: string) => Fs.existsSync(. path) && Fs.statSync(. path).isDirectory(.)
 
 let _getLocalModulePath = (~path, ~from=None, ()) => {
@@ -24,6 +28,7 @@ let _getLocalModulePath = (~path, ~from=None, ()) => {
   | Some(from) => Path.resolve2(Path.dirname(from), path)
   }
   let tsPath = absPath->Js.String.endsWith(".ts", _) ? absPath : absPath ++ ".ts"
+  // let filePath = absPath
   let indexPath = Path.resolve2(absPath, "index.ts")
 
   _isFile(tsPath)
@@ -31,6 +36,16 @@ let _getLocalModulePath = (~path, ~from=None, ()) => {
     : _isDir(absPath) && _isFile(indexPath)
     ? indexPath
     : _error({j`Cannot find module '${path}'.`})
+
+  // _isFile(_addExtname(filePath, ".ts"))
+  //   ? _addExtname(filePath, ".ts")
+  //   : _isFile(_addExtname(filePath, ".js"))
+  //   ? _addExtname(filePath, ".js")
+  //   : _isFile(_addExtname(filePath, ".html"))
+  //   ? _addExtname(filePath, ".html")
+  //   : _isDir(absPath) && _isFile(indexPath)
+  //   ? indexPath
+  //   : _error({j`Cannot find module '${path}'.`})
 }
 
 let getLocalModulePath = (path, from) => {
