@@ -49,8 +49,9 @@
         "meta3d-bs-most-default": "^0.21.0",
         "meta3d-editor-whole-protocol": "^0.21.0",
         "remporium": "^0.0.1",
-        "moment":"^2.29.4",
+        "moment": "^2.29.4",
         "rescript": "^10.0.1",
-        "rescript-indexeddb": "^0.0.3"
+        "rescript-indexeddb": "^0.0.3",
+        "localforage": "^1.10.0"
     }
 }

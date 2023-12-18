@@ -195,10 +195,23 @@ TODO pass bdd test
 
 
 
-* TODO perf: optimize create from scratch backend
+# * TODO perf: optimize create from scratch backend
 
-merge requests: batch
+# merge requests: batch
 
+* DONE perf: cache create from scratch backend
+
+TODO separate json and file to storage
+
+
+TODO cache ui controls
+
+TODO cache editor whole, engine whole packages
+
+* TODO fix: ElementStore: reset->canvasData
+
+
+* TODO refactor: remove VersionConfig and gulp task
 
 
 * TODO 更新extension    

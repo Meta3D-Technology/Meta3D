@@ -30,7 +30,7 @@ let markFinishFirstLogin = () => {
     {
       ..._readGuideStatus(),
       isFinishFirstLogin: true,
-    }->Js.Json.stringifyAny,
+    }-> Obj.magic->Js.Json.stringify,
   )
 }
 

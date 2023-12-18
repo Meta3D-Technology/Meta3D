@@ -69,86 +69,186 @@ let make = (~service: FrontendType.service) => {
   }
 
   let _selectAllUIControls = (service: FrontendType.service, dispatch) => {
-    _getAllUIControlData()
-    ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (result, (name, protocolName)) => {
-      service.backend.findNewestPublishContribute(. progress => (), name, protocolName)
-      ->Meta3dBsMostDefault.Most.map(
-        ((
-          (description, displayName, repoLink, implementVersion, file, account),
-          (protocolVersion, protocolIconBase64, _, _, _),
-          protocolConfig,
-        )) => {
-          (
-            (
-              {
-                id: IdUtils.generateId(Js.Math.random),
-                protocolName,
-                protocolVersion,
-                protocolIconBase64,
-                version: implementVersion,
-                account,
-                data: Meta3d.Main.loadContribute(file),
-              }: UserCenterStoreType.contribute
-            ),
-            protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
+    CacheUtils.getAllUIControls()->Js.Promise.then_(data => {
+      switch data->Meta3dCommonlib.OptionSt.fromNullable {
+      | None =>
+        _getAllUIControlData()
+        ->Meta3dCommonlib.ListSt.traverseReducePromiseM((list{}, list{}), (
+          (jsons, files),
+          (name, protocolName),
+        ) => {
+          service.backend.findNewestPublishContribute(. progress => (), name, protocolName)
+          ->Meta3dBsMostDefault.Most.map(
+            ((
+              (description, displayName, repoLink, implementVersion, file, account),
+              (protocolVersion, protocolIconBase64, _, _, _),
+              protocolConfig,
+            )) => {
+              (
+                (
+                  (description, displayName, repoLink, implementVersion, account),
+                  (protocolName, protocolVersion, protocolIconBase64),
+                  protocolConfig,
+                )
+                ->Obj.magic
+                ->Js.Json.stringify,
+                file,
+              )
+            },
+            _,
           )
-        },
-        _,
-      )
-      ->MostUtils.toPromise
-      ->Js.Promise.then_(data => {
-        result->Meta3dCommonlib.ListSt.push(data)->Js.Promise.resolve
-      }, _)
-    })
-    ->Js.Promise.then_(allUIControls => {
+          ->MostUtils.toPromise
+          ->Js.Promise.then_(
+            ((json, file)) => {
+              (
+                jsons->Meta3dCommonlib.ListSt.push(json),
+                files->Meta3dCommonlib.ListSt.push(file),
+              )->Js.Promise.resolve
+            },
+            _,
+          )
+        })
+        ->Js.Promise.then_(((jsons, files)) => {
+          let jsons = jsons->Meta3dCommonlib.ListSt.toArray
+          let files = files->Meta3dCommonlib.ListSt.toArray
+
+          CacheUtils.cacheAllUIControls(jsons, files)->Js.Promise.then_(
+            _ => (jsons, files)->Js.Promise.resolve,
+            _,
+          )
+        }, _)
+      | Some((jsons, files)) => (jsons->Obj.magic, files->Obj.magic)->Js.Promise.resolve
+      }
+    }, _)->Js.Promise.then_(((jsons, files)) => {
+      jsons->Meta3dCommonlib.ArraySt.reduceOneParami((. allUIControls, json, i) => {
+        let file = files->Meta3dCommonlib.ArraySt.getExn(i)
+        let (
+          (description, displayName, repoLink, implementVersion, account),
+          (protocolName, protocolVersion, protocolIconBase64),
+          protocolConfig,
+        ) =
+          json->Js.Json.parseExn->Obj.magic
+
+        allUIControls->Meta3dCommonlib.ArraySt.push((
+          (
+            {
+              id: IdUtils.generateId(Js.Math.random),
+              protocolName,
+              protocolVersion,
+              protocolIconBase64,
+              version: implementVersion,
+              account,
+              data: Meta3d.Main.loadContribute(file),
+            }: UserCenterStoreType.contribute
+          ),
+          protocolConfig->Meta3dCommonlib.OptionSt.fromNullable,
+        ))
+      }, [])->Meta3dCommonlib.ListSt.fromArray->Js.Promise.resolve
+    }, _)->Js.Promise.then_(allUIControls => {
       dispatch(
         AppStoreType.UserCenterAction(UserCenterStoreType.SelectAllUIControls(allUIControls)),
       )
 
       ()->Js.Promise.resolve
+    }, _)->Js.Promise.catch(e => {
+      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
   }
 
   let _selectEditorWholeAndEngineWholePackages = (service: FrontendType.service, dispatch) => {
-    InitPackageUtils.getEditorWholeAndEngineWholePackageData()
-    ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
-      result,
-      (name, entryExtensionName, protocolName),
-    ) => {
-      service.backend.findNewestPublishPackage(. progress => (), protocolName, name)
-      ->Meta3dBsMostDefault.Most.map(data => {
+    CacheUtils.getPackages()->Js.Promise.then_(data => {
+      switch data->Meta3dCommonlib.OptionSt.fromNullable {
+      | None =>
+        InitPackageUtils.getEditorWholeAndEngineWholePackageData()
+        ->Meta3dCommonlib.ListSt.traverseReducePromiseM((list{}, list{}), (
+          (jsons, files),
+          (name, entryExtensionName, protocolName),
+        ) => {
+          service.backend.findNewestPublishPackage(. progress => (), protocolName, name)
+          ->Meta3dBsMostDefault.Most.map(
+            data => {
+              let (
+                file,
+                entryExtensionProtocolVersion,
+                packageVersion,
+                entryExtensionProtocolIconBase64,
+                entryExtensionProtocolConfigStr,
+              ) =
+                data->Meta3dCommonlib.NullableSt.getExn
+
+              (
+                (
+                  name,
+                  entryExtensionName,
+                  protocolName,
+                  entryExtensionProtocolVersion,
+                  packageVersion,
+                  entryExtensionProtocolIconBase64,
+                  entryExtensionProtocolConfigStr,
+                )
+                ->Obj.magic
+                ->Js.Json.stringify,
+                file,
+              )
+            },
+            _,
+          )
+          ->MostUtils.toPromise
+          ->Js.Promise.then_(
+            ((json, file)) => {
+              (
+                jsons->Meta3dCommonlib.ListSt.push(json),
+                files->Meta3dCommonlib.ListSt.push(file),
+              )->Js.Promise.resolve
+            },
+            _,
+          )
+        })
+        ->Js.Promise.then_(((jsons, files)) => {
+          let jsons = jsons->Meta3dCommonlib.ListSt.toArray
+          let files = files->Meta3dCommonlib.ListSt.toArray
+
+          CacheUtils.cachePackages(jsons, files)->Js.Promise.then_(
+            _ => (jsons, files)->Js.Promise.resolve,
+            _,
+          )
+        }, _)
+      | Some((jsons, files)) => (jsons->Obj.magic, files->Obj.magic)->Js.Promise.resolve
+      }
+    }, _)->Js.Promise.then_(((jsons, files)) => {
+      jsons->Meta3dCommonlib.ArraySt.reduceOneParami((. packages, json, i) => {
+        let file = files->Meta3dCommonlib.ArraySt.getExn(i)
         let (
-          file,
+          name,
+          entryExtensionName,
+          protocolName,
           entryExtensionProtocolVersion,
           packageVersion,
           entryExtensionProtocolIconBase64,
           entryExtensionProtocolConfigStr,
         ) =
-          data->Meta3dCommonlib.NullableSt.getExn
+          json->Js.Json.parseExn->Obj.magic
 
-        (
-          {
-            id: IdUtils.generateId(Js.Math.random),
-            name,
-            entryExtensionName,
-            version: packageVersion,
-            protocol: {
-              name: protocolName,
-              iconBase64: entryExtensionProtocolIconBase64,
-              version: entryExtensionProtocolVersion,
-            },
-            binaryFile: file,
-            protocolConfigStr: entryExtensionProtocolConfigStr->Some,
-            isStart: false,
-          }: UserCenterStoreType.packageData
+        packages->Meta3dCommonlib.ArraySt.push(
+          (
+            {
+              id: IdUtils.generateId(Js.Math.random),
+              name,
+              entryExtensionName,
+              version: packageVersion,
+              protocol: {
+                name: protocolName,
+                iconBase64: entryExtensionProtocolIconBase64,
+                version: entryExtensionProtocolVersion,
+              },
+              binaryFile: file,
+              protocolConfigStr: entryExtensionProtocolConfigStr->Some,
+              isStart: false,
+            }: UserCenterStoreType.packageData
+          ),
         )
-      }, _)
-      ->MostUtils.toPromise
-      ->Js.Promise.then_(data => {
-        result->Meta3dCommonlib.ListSt.push(data)->Js.Promise.resolve
-      }, _)
-    })
-    ->Js.Promise.then_(editorWholeAndEngineWholePackages => {
+      }, [])->Meta3dCommonlib.ListSt.fromArray->Js.Promise.resolve
+    }, _)->Js.Promise.then_(editorWholeAndEngineWholePackages => {
       dispatch(
         AppStoreType.UserCenterAction(
           UserCenterStoreType.SetPackages(editorWholeAndEngineWholePackages),
@@ -156,6 +256,8 @@ let make = (~service: FrontendType.service) => {
       )
 
       ()->Js.Promise.resolve
+    }, _)->Js.Promise.catch(e => {
+      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
   }
 
@@ -244,7 +346,7 @@ let make = (~service: FrontendType.service) => {
                   version: data["tag_name"],
                   releaseDateUntilNow: Moment.moment(.).subtract(.
                     Moment.createMomentFromDate(. published_at),
-                  ).dayOfYear(.)->Meta3dCommonlib.Log.printStringForDebug,
+                  ).dayOfYear(.),
                 }: UserCenterStoreType.release
               ),
             ),

@@ -4,14 +4,7 @@ exports.findNewestPublishElementAssembleData = exports.findNewestPublishContribu
 const most_1 = require("most");
 const BackendService_1 = require("./BackendService");
 const semver_1 = require("semver");
-let _descSort = (data, gtFunc, orderByFieldName) => {
-    return data.sort((a, b) => {
-        if (gtFunc(a[orderByFieldName], b[orderByFieldName])) {
-            return -1;
-        }
-        return 1;
-    });
-};
+const NewestUtils_1 = require("backend-abstract/src/utils/NewestUtils");
 let findNewestPublishPackage = (collectionName, whereData, [firstOrderByFieldName, firstGtFunc], [secondOrderByFieldName, secondGtFunc]) => {
     return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection(collectionName)
         .where(whereData)
@@ -19,12 +12,12 @@ let findNewestPublishPackage = (collectionName, whereData, [firstOrderByFieldNam
         // .orderBy(secondOrderByFieldName, "desc")
         .get()
         .then(res => {
-        let arr = _descSort(res.data, firstGtFunc, firstOrderByFieldName);
+        let arr = (0, NewestUtils_1.descSort)(res.data, firstGtFunc, firstOrderByFieldName);
         if (arr.length == 0) {
             return null;
         }
         let firstOrderByFieldValue = arr[0][firstOrderByFieldName];
-        arr = _descSort(res.data.filter(data => {
+        arr = (0, NewestUtils_1.descSort)(res.data.filter(data => {
             return data[firstOrderByFieldName] == firstOrderByFieldValue;
         }), secondGtFunc, secondOrderByFieldName);
         if (arr.length == 0) {
@@ -73,7 +66,7 @@ let _findNewestPublishExtensionOrContribute = (downloadFileFunc, [protocolCollec
             "version": 0.19.3, 0.19.21(should be 0.19.21, 0.19.3)
         *
         */
-        return _descSort(res.data, semver_1.gt, "version")[0];
+        return (0, NewestUtils_1.descSort)(res.data, semver_1.gt, "version")[0];
     })).flatMap((protocol) => {
         let protocolVersion = protocol.version;
         let protocolIconBase64 = protocol.iconBase64;
@@ -119,7 +112,7 @@ let _findNewestPublishExtensionOrContribute = (downloadFileFunc, [protocolCollec
                 // else {
                 //     extensionOrContribute = result[0]
                 // }
-                let data = _descSort(res.data, semver_1.gt, "version");
+                let data = (0, NewestUtils_1.descSort)(res.data, semver_1.gt, "version");
                 let extensionOrContribute = data.filter((data) => {
                     return (0, semver_1.satisfies)(protocolVersion, data.protocolVersion);
                 })[0];
@@ -173,7 +166,7 @@ let findNewestPublishElementAssembleData = (elementName) => {
         .then(res => {
         /*! need sort again
         */
-        let result = _descSort(res.data, semver_1.gt, "elementVersion").map(({ account, elementName, elementVersion, inspectorData, customInputs, customActions, }) => {
+        let result = (0, NewestUtils_1.descSort)(res.data, semver_1.gt, "elementVersion").map(({ account, elementName, elementVersion, inspectorData, customInputs, customActions, }) => {
             return {
                 account,
                 elementName,

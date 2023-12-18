@@ -3,16 +3,7 @@ import { getDatabase } from "./BackendService";
 import { satisfies, gt } from "semver";
 import { protocol, protocolConfig } from "backend-abstract/src/application_layer/market/MarketType";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
-
-let _descSort = (data: Array<any>, gtFunc: any, orderByFieldName: string) => {
-    return data.sort((a, b) => {
-        if (gtFunc(a[orderByFieldName], b[orderByFieldName])) {
-            return -1
-        }
-
-        return 1
-    })
-}
+import { descSort } from "backend-abstract/src/utils/NewestUtils";
 
 export let findNewestPublishPackage = (
     collectionName: string,
@@ -26,14 +17,14 @@ export let findNewestPublishPackage = (
         // .orderBy(secondOrderByFieldName, "desc")
         .get()
         .then(res => {
-            let arr = _descSort(res.data, firstGtFunc, firstOrderByFieldName)
+            let arr = descSort(res.data, firstGtFunc, firstOrderByFieldName)
             if (arr.length == 0) {
                 return null
             }
 
             let firstOrderByFieldValue = arr[0][firstOrderByFieldName]
 
-            arr = _descSort(res.data.filter(data => {
+            arr = descSort(res.data.filter(data => {
                 return data[firstOrderByFieldName] == firstOrderByFieldValue
             }), secondGtFunc, secondOrderByFieldName)
 
@@ -98,7 +89,7 @@ let _findNewestPublishExtensionOrContribute = (
                     "version": 0.19.3, 0.19.21(should be 0.19.21, 0.19.3) 
                 * 
                 */
-                return _descSort(res.data, gt, "version")[0]
+                return descSort(res.data, gt, "version")[0]
             })
     ).flatMap((protocol: protocol) => {
         let protocolVersion = protocol.version
@@ -154,7 +145,7 @@ let _findNewestPublishExtensionOrContribute = (
                         //     extensionOrContribute = result[0]
                         // }
 
-                        let data = _descSort(res.data, gt, "version")
+                        let data = descSort(res.data, gt, "version")
 
                         let extensionOrContribute = data.filter((data) => {
                             return satisfies(
@@ -231,7 +222,7 @@ export let findNewestPublishElementAssembleData = (
             .then(res => {
                 /*! need sort again
                 */
-                let result = _descSort(res.data, gt, "elementVersion").map(({
+                let result = descSort(res.data, gt, "elementVersion").map(({
                     account,
                     elementName,
                     elementVersion,
