@@ -68,8 +68,11 @@ let make = (~service: FrontendType.service) => {
     }
   }
 
-  let _selectAllUIControls = (service: FrontendType.service, dispatch) => {
-    CacheUtils.getAllUIControls()->Js.Promise.then_(data => {
+  let _selectAllUIControls = (service: FrontendType.service, dispatch, release) => {
+    let version =
+      release->Meta3dCommonlib.OptionSt.map(({version}: UserCenterStoreType.release) => version)
+
+    CacheUtils.getAllUIControls(version)->Js.Promise.then_(data => {
       switch data->Meta3dCommonlib.OptionSt.fromNullable {
       | None =>
         _getAllUIControlData()
@@ -112,7 +115,7 @@ let make = (~service: FrontendType.service) => {
           let jsons = jsons->Meta3dCommonlib.ListSt.toArray
           let files = files->Meta3dCommonlib.ListSt.toArray
 
-          CacheUtils.cacheAllUIControls(jsons, files)->Js.Promise.then_(
+          CacheUtils.cacheAllUIControls(version, jsons, files)->Js.Promise.then_(
             _ => (jsons, files)->Js.Promise.resolve,
             _,
           )
@@ -155,8 +158,15 @@ let make = (~service: FrontendType.service) => {
     }, _)
   }
 
-  let _selectEditorWholeAndEngineWholePackages = (service: FrontendType.service, dispatch) => {
-    CacheUtils.getPackages()->Js.Promise.then_(data => {
+  let _selectEditorWholeAndEngineWholePackages = (
+    service: FrontendType.service,
+    dispatch,
+    release,
+  ) => {
+    let version =
+      release->Meta3dCommonlib.OptionSt.map(({version}: UserCenterStoreType.release) => version)
+
+    CacheUtils.getPackages(version)->Js.Promise.then_(data => {
       switch data->Meta3dCommonlib.OptionSt.fromNullable {
       | None =>
         InitPackageUtils.getEditorWholeAndEngineWholePackageData()
@@ -208,7 +218,7 @@ let make = (~service: FrontendType.service) => {
           let jsons = jsons->Meta3dCommonlib.ListSt.toArray
           let files = files->Meta3dCommonlib.ListSt.toArray
 
-          CacheUtils.cachePackages(jsons, files)->Js.Promise.then_(
+          CacheUtils.cachePackages(version, jsons, files)->Js.Promise.then_(
             _ => (jsons, files)->Js.Promise.resolve,
             _,
           )
@@ -299,8 +309,8 @@ let make = (~service: FrontendType.service) => {
           //   : ()
 
           //// TODO perf: use batchXxx to merge request
-          _selectAllUIControls(service, dispatch)->Js.Promise.then_(() => {
-            _selectEditorWholeAndEngineWholePackages(service, dispatch)
+          _selectAllUIControls(service, dispatch, release)->Js.Promise.then_(() => {
+            _selectEditorWholeAndEngineWholePackages(service, dispatch, release)
           }, _)->Js.Promise.then_(() => {
             _jumptToAssembleSpaceToCreateEmptyApp(dispatch)
 

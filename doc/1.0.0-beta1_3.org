@@ -234,18 +234,9 @@ action, uiControl, uiControlInput, package, extension, contribute use different 
 TODO update displayName，使用中文
 
 
-* TODO fix cache: compare version
+* DONE fix cache: compare version
 
 
-
-* TODO 更新extension    
-
-TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
-TODO remove unused ones
-# TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
-
-
-* TODO 重构：统一编码规范
 
 
 
@@ -261,14 +252,19 @@ TODO remove unused ones
 
 # * TODO 隐藏web3登录
 
-* TODO 增加官方用户:meta3d
-
-* TODO "publisher"改为meta3d
+* DONE 增加官方用户:meta3d
 
 * TODO move backend to https://github.com/Meta3D-Technology/Meta3D-Backend
 
 TODO pass run test
 
+
+
+* TODO 更新extension    
+
+TODO 更新extension, contribute, package，提供典型的编辑器、引擎组件
+TODO remove unused ones
+# TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
 
 
 
@@ -282,3 +278,5 @@ TODO pass run test
 
 3D场景漫游
 
+
+* TODO "publisher"改为meta3d
