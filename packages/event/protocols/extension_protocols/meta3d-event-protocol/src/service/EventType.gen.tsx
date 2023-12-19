@@ -55,6 +55,7 @@ export type mouseDomEvent = {
   readonly webkitMovementX: (null | undefined | number); 
   readonly webkitMovementY: (null | undefined | number); 
   readonly wheelDelta: (null | undefined | number); 
+  readonly deltaY: (null | undefined | number); 
   readonly pageX: number; 
   readonly pageY: number; 
   readonly preventDefault: () => void

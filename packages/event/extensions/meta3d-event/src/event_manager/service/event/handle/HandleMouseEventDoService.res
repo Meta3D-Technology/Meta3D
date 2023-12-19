@@ -62,10 +62,16 @@ let getButton = (mouseDomEvent, state) => {
   }
 }
 
+let _getFromDeltaY = mouseDomEvent =>
+  switch Js.toOption(mouseDomEvent["deltaY"]) {
+  | Some(data) => data / -100
+  | None => 0
+  }
+
 let _getFromWheelDelta = mouseDomEvent =>
   switch Js.toOption(mouseDomEvent["wheelDelta"]) {
   | Some(wheelData) => wheelData / 120
-  | None => 0
+  | None => _getFromDeltaY(mouseDomEvent)
   }
 
 let getWheel = mouseDomEvent =>
@@ -137,7 +143,8 @@ let execEventHandle = ({eventData} as state, mouseEvent: mouseEvent) => {
 
   switch mouseDomEventDataArrMap->Meta3dCommonlib.MutableSparseMap.get(name->domEventNameToInt) {
   | None => state
-  | Some(arr) => arr->Meta3dCommonlib.ArraySt.reduceOneParam((. state, {handleFunc}: mouseDomEventData) =>
+  | Some(arr) =>
+    arr->Meta3dCommonlib.ArraySt.reduceOneParam((. state, {handleFunc}: mouseDomEventData) =>
       handleFunc(.
         /* convertMouseDomEventToMouseEvent(
                   eventName,
@@ -172,7 +179,7 @@ let setIsDrag = ({eventData} as state, isDrag) => {
     ...eventData,
     mouseEventData: {
       ...eventData.mouseEventData,
-      isDrag: isDrag,
+      isDrag,
     },
   },
 }

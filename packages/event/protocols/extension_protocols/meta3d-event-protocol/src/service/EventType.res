@@ -53,6 +53,7 @@ type mouseDomEvent = {
   "webkitMovementX": Js.Nullable.t<int>,
   "webkitMovementY": Js.Nullable.t<int>,
   "wheelDelta": Js.Nullable.t<int>,
+  "deltaY": Js.Nullable.t<int>,
   "pageX": int,
   "pageY": int,
   "preventDefault": (. unit) => unit,

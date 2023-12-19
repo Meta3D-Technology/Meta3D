@@ -40,12 +40,21 @@ function getButton(mouseDomEvent, state) {
   }
 }
 
-function _getFromWheelDelta(mouseDomEvent) {
-  var wheelData = mouseDomEvent.wheelDelta;
-  if (!(wheelData == null)) {
-    return wheelData / 120 | 0;
+function _getFromDeltaY(mouseDomEvent) {
+  var data = mouseDomEvent.deltaY;
+  if (!(data == null)) {
+    return data / -100 | 0;
   } else {
     return 0;
+  }
+}
+
+function _getFromWheelDelta(mouseDomEvent) {
+  var wheelData = mouseDomEvent.wheelDelta;
+  if (wheelData == null) {
+    return _getFromDeltaY(mouseDomEvent);
+  } else {
+    return wheelData / 120 | 0;
   }
 }
 
@@ -186,6 +195,7 @@ export {
   getLocation ,
   getLocationInView ,
   getButton ,
+  _getFromDeltaY ,
   _getFromWheelDelta ,
   getWheel ,
   _isPointerLocked ,

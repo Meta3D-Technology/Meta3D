@@ -361,7 +361,8 @@ let _fromPCDomEventArr = (state, eventExtensionProtocolName) => [
     event => _execMouseMoveEventHandle(MouseMove, event, eventExtensionProtocolName),
     _,
   ),
-  _fromPointDomEvent("mousewheel", state)->Meta3dBsMostDefault.Most.tap(
+  // _fromPointDomEvent("mousewheel", state)->Meta3dBsMostDefault.Most.tap(
+  _fromPointDomEvent("wheel", state)->Meta3dBsMostDefault.Most.tap(
     event => _execMouseEventHandle(MouseWheel, event, eventExtensionProtocolName),
     _,
   ),
