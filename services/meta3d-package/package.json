@@ -1,6 +1,6 @@
 {
   "name": "meta3d-package",
-  "version": "0.21.0",
+  "version": "1.0.0-beta.1",
   "main": "./dist/main.js",
   "types": "src/Main.d.ts",
   "scripts": {
@@ -19,6 +19,6 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "meta3d": "^0.21.0"
+    "meta3d": "^1.0.0-beta.1"
   }
 }

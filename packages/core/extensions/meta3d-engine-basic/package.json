@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-basic",
-    "version": "0.21.4",
+    "version": "1.0.0-beta.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-engine-basic-protocol"
@@ -13,10 +13,10 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-core-protocol": "^0.21.0",
-        "meta3d-engine-basic-protocol": "^0.21.0",
-        "meta3d-engine-basic-utils": "^0.21.0",
-        "meta3d-pipeline-root-protocol": "^0.21.0",
+        "meta3d-core-protocol": "^1.0.0-beta.1",
+        "meta3d-engine-basic-protocol": "^1.0.0-beta.1",
+        "meta3d-engine-basic-utils": "^1.0.0-beta.1",
+        "meta3d-pipeline-root-protocol": "^1.0.0-beta.1",
         "meta3d-type": "^0.21.0"
     },
     "devDependencies": {
@@ -24,7 +24,7 @@
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.21.0",
+        "meta3d-tool-publish": "^1.0.0-beta.1",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

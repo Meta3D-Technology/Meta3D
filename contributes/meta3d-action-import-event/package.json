@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-import-event",
-    "version": "0.21.4",
+    "version": "1.0.0-beta.1",
     "publisher": "meta3d",
     "displayName": "meta3d-action-import-event",
     "repoLink": "",
@@ -18,8 +18,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-import-event-protocol": "^0.21.0",
-        "meta3d-editor-whole-protocol": "^0.21.0",
+        "meta3d-action-import-event-protocol": "^1.0.0-beta.1",
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.1",
         "meta3d-type": "^0.21.0"
     },
     "devDependencies": {
@@ -27,7 +27,7 @@
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^0.21.0",
+        "meta3d-tool-publish": "^1.0.0-beta.1",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

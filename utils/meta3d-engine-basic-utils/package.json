@@ -1,13 +1,13 @@
 {
     "name": "meta3d-engine-basic-utils",
-    "version": "0.21.0",
+    "version": "1.0.0-beta.1",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-core-protocol": "^0.21.0",
-        "meta3d-engine-basic-protocol": "^0.21.0",
-        "meta3d-pipeline-root-protocol": "^0.21.0",
+        "meta3d-core-protocol": "^1.0.0-beta.1",
+        "meta3d-engine-basic-protocol": "^1.0.0-beta.1",
+        "meta3d-pipeline-root-protocol": "^1.0.0-beta.1",
         "meta3d-type": "^0.21.0"
     },
     "devDependencies": {

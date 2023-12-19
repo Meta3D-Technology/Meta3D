@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-utils",
-    "version": "0.21.0",
+    "version": "1.0.0-beta.1",
     "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit"
@@ -8,7 +8,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-type": "^0.21.0",
-        "meta3d-ui-protocol": "^0.21.0"
+        "meta3d-ui-protocol": "^1.0.0-beta.1"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

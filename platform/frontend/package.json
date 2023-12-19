@@ -1,6 +1,6 @@
 {
     "name": "frontend",
-    "version": "0.21.0",
+    "version": "1.0.0-beta.1",
     "authors": "Wonder",
     "scripts": {
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
@@ -32,26 +32,26 @@
         "jest": "^26.4.2",
         "jest-cucumber": "^3.0.1",
         "mini-css-extract-plugin": "^0.9.0",
+        "monaco-editor-webpack-plugin": "^7.1.0",
         "react-test-renderer": "^16.8.3",
         "style-loader": "^1.2.1",
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.4.0",
-        "write-file-webpack-plugin": "^4.5.1",
-        "monaco-editor-webpack-plugin": "^7.1.0"
+        "write-file-webpack-plugin": "^4.5.1"
     },
     "dependencies": {
+        "@ant-design/graphs": "^1.4.1",
         "@cloudbase/js-sdk": "^1.7.2",
         "antd": "^5.12.2",
-        "@ant-design/graphs": "^1.4.1",
+        "localforage": "^1.10.0",
+        "meta3d-bs-most-default": "^1.0.0-beta.1",
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.1",
+        "moment": "^2.29.4",
         "monaco-editor": "^0.32.1",
         "react-monaco-editor": "^0.54.0",
-        "meta3d-bs-most-default": "^0.21.0",
-        "meta3d-editor-whole-protocol": "^0.21.0",
         "remporium": "^0.0.1",
-        "moment": "^2.29.4",
         "rescript": "^10.0.1",
-        "rescript-indexeddb": "^0.0.3",
-        "localforage": "^1.10.0"
+        "rescript-indexeddb": "^0.0.3"
     }
 }

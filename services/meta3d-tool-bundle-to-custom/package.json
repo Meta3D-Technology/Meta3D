@@ -1,6 +1,6 @@
 {
     "name": "meta3d-tool-bundle-to-custom",
-    "version": "0.21.0",
+    "version": "1.0.0-beta.1",
     "authors": "Meta3D",
     "main": "./lib/js/src/Main.bs.js",
     "scripts": {
@@ -18,7 +18,7 @@
         "jest-cucumber": "^3.0.1"
     },
     "dependencies": {
-        "typescript": "^4.2.3",
-        "rescript": "^10.0.1"
+        "rescript": "^10.0.1",
+        "typescript": "^4.2.3"
     }
 }
