@@ -87,22 +87,22 @@ let publishExtension = (env, packageFilePath, distFilePath) => {
             break;
         case "production":
             funcArr = [
-            // fs.readFileSync,
-            // console.log,
-            // console.error,
-            // buildReadJsonFunc(packageFilePath),
-            // generateExtension,
-            // CloudbaseService.initProduction,
-            // CloudbaseService.hasAccount,
-            // CloudbaseService.uploadFile,
-            // CloudbaseService.getMarketImplementAccountData,
-            // CloudbaseService.updateMarketImplementData,
-            // CloudbaseService.getDataFromMarketImplementAccountData,
-            // CloudbaseService.isContain,
-            // CloudbaseService.buildMarketImplementAccountData,
-            // CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-            // CloudbaseService.getFileID,
-            // CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+                fs_1.default.readFileSync,
+                console.log,
+                console.error,
+                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+                meta3d_1.generateExtension,
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.uploadFile,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.addMarketImplementData,
+                // CloudbaseService.getDataFromMarketImplementAccountData,
+                // CloudbaseService.isContain,
+                // CloudbaseService.buildMarketImplementAccountData,
+                // CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+                CloudbaseService.getFileID,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
         default:
@@ -132,22 +132,18 @@ let publishContribute = (env, packageFilePath, distFilePath) => {
             break;
         case "production":
             funcArr = [
-            // fs.readFileSync,
-            // console.log,
-            // console.error,
-            // buildReadJsonFunc(packageFilePath),
-            // generateContribute,
-            // CloudbaseService.initProduction,
-            // CloudbaseService.hasAccount,
-            // CloudbaseService.uploadFile,
-            // CloudbaseService.getMarketImplementAccountData,
-            // CloudbaseService.updateMarketImplementData,
-            // CloudbaseService.getDataFromMarketImplementAccountData,
-            // CloudbaseService.isContain,
-            // CloudbaseService.buildMarketImplementAccountData,
-            // CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-            // CloudbaseService.getFileID,
-            // CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+                fs_1.default.readFileSync,
+                console.log,
+                console.error,
+                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+                meta3d_1.generateContribute,
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.uploadFile,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.addMarketImplementData,
+                CloudbaseService.getFileID,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
         default:
@@ -175,7 +171,19 @@ let publishBundledContribute = (env, packageFilePath, bundledSource) => {
             ];
             break;
         case "production":
-            funcArr = [];
+            funcArr = [
+                console.log,
+                console.error,
+                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+                meta3d_1.generateContribute,
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.uploadFile,
+                CloudbaseService.getMarketImplementAccountData,
+                CloudbaseService.addMarketImplementData,
+                CloudbaseService.getFileID,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+            ];
             break;
         default:
             throw new Error("unknown env");

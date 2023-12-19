@@ -49,33 +49,18 @@ let _getFuncArr = (env, packageFilePath) => {
                 CloudbaseService.parseMarketCollectionDataBodyForNodejs
             ];
         case "production":
-            // return [
-            // 	fs.readFileSync,
-            // 	console.log,
-            // 	console.error,
-            // 	buildReadJsonFunc(packageFilePath),
-            // 	_4everlandService.init,
-            // 	_4everlandService.hasAccount,
-            // 	_4everlandService.getMarketProtocolCollection,
-            // 	_4everlandService.isContain,
-            // 	_4everlandService.addDataToMarketProtocolCollection,
-            // 	_4everlandService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
-            // 	_4everlandService.getDataFromMarketProtocolCollection,
-            // 	_4everlandService.parseMarketCollectionDataBodyForNodejs
-            // ]
             return [
-            // fs.readFileSync,
-            // console.log,
-            // console.error,
-            // buildReadJsonFunc(packageFilePath),
-            // CloudbaseService.initProduction,
-            // CloudbaseService.hasAccount,
-            // CloudbaseService.getMarketProtocolCollection,
-            // CloudbaseService.isContain,
-            // CloudbaseService.addDataToMarketProtocolCollection,
-            // CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
-            // CloudbaseService.getDataFromMarketProtocolCollection,
-            // CloudbaseService.parseMarketCollectionDataBodyForNodejs
+                fs_1.default.readFileSync,
+                console.log,
+                console.error,
+                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
+                CloudbaseService.initProduction,
+                CloudbaseService.hasAccount,
+                CloudbaseService.getMarketProtocolCollection,
+                CloudbaseService.addDataToMarketProtocolCollection,
+                CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+                CloudbaseService.getDataFromMarketProtocolCollection,
+                CloudbaseService.parseMarketCollectionDataBodyForNodejs
             ];
         default:
             throw new Error("unknown env");

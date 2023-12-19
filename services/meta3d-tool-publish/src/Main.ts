@@ -63,22 +63,22 @@ export let publishExtension = (env: env, packageFilePath: string, distFilePath: 
 			break;
 		case "production":
 			funcArr = [
-				// fs.readFileSync,
-				// console.log,
-				// console.error,
-				// buildReadJsonFunc(packageFilePath),
-				// generateExtension,
-				// CloudbaseService.initProduction,
-				// CloudbaseService.hasAccount,
-				// CloudbaseService.uploadFile,
-				// CloudbaseService.getMarketImplementAccountData,
-				// CloudbaseService.updateMarketImplementData,
+				fs.readFileSync,
+				console.log,
+				console.error,
+				buildReadJsonFunc(packageFilePath),
+				generateExtension,
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.uploadFile,
+				CloudbaseService.getMarketImplementAccountData,
+				CloudbaseService.addMarketImplementData,
 				// CloudbaseService.getDataFromMarketImplementAccountData,
 				// CloudbaseService.isContain,
 				// CloudbaseService.buildMarketImplementAccountData,
 				// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-				// CloudbaseService.getFileID,
-				// CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+				CloudbaseService.getFileID,
+				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
 		default:
@@ -110,22 +110,18 @@ export let publishContribute = (env: env, packageFilePath: string, distFilePath:
 			break;
 		case "production":
 			funcArr = [
-				// fs.readFileSync,
-				// console.log,
-				// console.error,
-				// buildReadJsonFunc(packageFilePath),
-				// generateContribute,
-				// CloudbaseService.initProduction,
-				// CloudbaseService.hasAccount,
-				// CloudbaseService.uploadFile,
-				// CloudbaseService.getMarketImplementAccountData,
-				// CloudbaseService.updateMarketImplementData,
-				// CloudbaseService.getDataFromMarketImplementAccountData,
-				// CloudbaseService.isContain,
-				// CloudbaseService.buildMarketImplementAccountData,
-				// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-				// CloudbaseService.getFileID,
-				// CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+				fs.readFileSync,
+				console.log,
+				console.error,
+				buildReadJsonFunc(packageFilePath),
+				generateContribute,
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.uploadFile,
+				CloudbaseService.getMarketImplementAccountData,
+				CloudbaseService.addMarketImplementData,
+				CloudbaseService.getFileID,
+				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
 		default:
@@ -156,6 +152,18 @@ export let publishBundledContribute = (env: env, packageFilePath: string, bundle
 			break;
 		case "production":
 			funcArr = [
+				console.log,
+				console.error,
+				buildReadJsonFunc(packageFilePath),
+				generateContribute,
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.uploadFile,
+				CloudbaseService.getMarketImplementAccountData,
+				CloudbaseService.addMarketImplementData,
+				CloudbaseService.getFileID,
+				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+
 			]
 			break;
 		default:
@@ -165,7 +173,7 @@ export let publishBundledContribute = (env: env, packageFilePath: string, bundle
 	// return publishBundled(funcArr, packageFilePath, bundledSource)
 
 	return publish(
-		( [
+		([
 			bundledSource => bundledSource
 		] as any).concat(funcArr), packageFilePath, bundledSource, "contribute")
 }

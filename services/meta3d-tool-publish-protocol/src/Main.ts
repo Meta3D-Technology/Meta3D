@@ -23,35 +23,19 @@ let _getFuncArr = (env: env, packageFilePath: string): [any, any, any, any, any,
 				CloudbaseService.parseMarketCollectionDataBodyForNodejs
 			]
 		case "production":
-			// return [
-			// 	fs.readFileSync,
-			// 	console.log,
-			// 	console.error,
-			// 	buildReadJsonFunc(packageFilePath),
-			// 	_4everlandService.init,
-			// 	_4everlandService.hasAccount,
-			// 	_4everlandService.getMarketProtocolCollection,
-			// 	_4everlandService.isContain,
-			// 	_4everlandService.addDataToMarketProtocolCollection,
-			// 	_4everlandService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
-			// 	_4everlandService.getDataFromMarketProtocolCollection,
-			// 	_4everlandService.parseMarketCollectionDataBodyForNodejs
-			// ]
-
 			return [
-				// fs.readFileSync,
-				// console.log,
-				// console.error,
-				// buildReadJsonFunc(packageFilePath),
-				// CloudbaseService.initProduction,
-				// CloudbaseService.hasAccount,
-				// CloudbaseService.getMarketProtocolCollection,
-				// CloudbaseService.isContain,
-				// CloudbaseService.addDataToMarketProtocolCollection,
-				// CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
-				// CloudbaseService.getDataFromMarketProtocolCollection,
-				// CloudbaseService.parseMarketCollectionDataBodyForNodejs
-			] as any
+				fs.readFileSync,
+				console.log,
+				console.error,
+				buildReadJsonFunc(packageFilePath),
+				CloudbaseService.initProduction,
+				CloudbaseService.hasAccount,
+				CloudbaseService.getMarketProtocolCollection,
+				CloudbaseService.addDataToMarketProtocolCollection,
+				CloudbaseService.addMarketProtocolDataToDataFromMarketProtocolCollectionData,
+				CloudbaseService.getDataFromMarketProtocolCollection,
+				CloudbaseService.parseMarketCollectionDataBodyForNodejs
+			]
 		default:
 			throw new Error("unknown env")
 	}
