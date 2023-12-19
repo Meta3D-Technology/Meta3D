@@ -342,8 +342,12 @@ TODO test publish
 
 
 
-TODO not newest ui control?
+# TODO import: shouldn't select all ui controls
 
+TODO import: not newest ui control
+
+
+TODO fix "return to user center: guide"
 
 
 
@@ -393,10 +397,10 @@ Github: lanaguage remove Javascript
 * TODO 优化首次加载平台
 compress js
 
-* TODO decrease file size
+# * TODO decrease file size
 
 
-* TODO action publish->meta3d.js use compress
+# * TODO action publish->meta3d.js use compress
 
 
 * TODO host platform, website to cloudbase

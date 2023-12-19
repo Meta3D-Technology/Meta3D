@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-switch-button",
-    "version": "0.21.4",
+    "version": "0.21.5",
     "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
     "description": "",
     "protocol": {
@@ -18,7 +18,7 @@
     "dependencies": {
         "meta3d-editor-whole-protocol": "^0.21.0",
         "meta3d-type": "^0.21.0",
-        "meta3d-ui-control-switch-button-protocol": "^0.21.0"
+        "meta3d-ui-control-switch-button-protocol": "^0.21.11"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
