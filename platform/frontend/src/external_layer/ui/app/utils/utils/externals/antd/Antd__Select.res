@@ -1,5 +1,9 @@
+type size = [#large | #middle | #small]
+
 @module("antd") @react.component
 external make: (
+  ~size: size=?,
+  ~popupMatchSelectWidth: int=?,
   ~defaultValue: string=?,
   ~style: ReactDOM.Style.t=?,
   ~onChange: string => unit=?,

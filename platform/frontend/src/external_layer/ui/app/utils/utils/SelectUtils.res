@@ -16,7 +16,11 @@ let buildSelect = (onChange, defaultValue, values) => {
     _isNotShowSelectForTest()
       ? React.null
       : <Select
-          key={KeyUtils.generateUniqueKey(Js.Math.random)} defaultValue={defaultValue} onChange>
+          key={KeyUtils.generateUniqueKey(Js.Math.random)}
+          defaultValue={defaultValue}
+          size=#large
+          popupMatchSelectWidth=200
+          onChange>
           <Select.Option key={buildEmptySelectOptionValue()} value={buildEmptySelectOptionValue()}>
             {React.string({buildEmptySelectOptionValue()})}
           </Select.Option>

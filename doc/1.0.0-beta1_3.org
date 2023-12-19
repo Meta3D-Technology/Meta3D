@@ -305,7 +305,7 @@ with publish action?
 # * TODO perf: Custom: need minify transpiled code
 
 
-* TODO 构建Editor示例场景
+* DONE 构建Editor示例场景
 
 TODO publish all
 
@@ -370,7 +370,7 @@ TODO test inspector
 # # TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
 
 
-* TODO style: Input,Action Select fix min-width:200px
+* DONE style: Input,Action Select fix min-width:200px
 
 * TODO "publisher"改为meta3d
 
