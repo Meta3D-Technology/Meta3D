@@ -405,11 +405,10 @@ TODO test inspector
 
 
 
-* TODO publish: v1.0.0-beta.1.0
+* DONE publish: v1.0.0-beta.1.0
 
 
 # * TODO host platform, website to cloudbase
-* TODO host platform to cloudbase
 //* TODO all use 域名
 
 
@@ -419,6 +418,7 @@ TODO publish all
 
 TODO update template
 
+TODO host platform to cloudbase
 
 # * TODO show changelog
 
