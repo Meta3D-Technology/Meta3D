@@ -9,5 +9,8 @@ lib/ocaml/
 reference/
 node_modules/
 mine/
+dist/
+lib/bs/
+lib/js/
 test/coverage
 

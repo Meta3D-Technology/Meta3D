@@ -3,6 +3,9 @@ node_modules/
 bower_components/
 test/bower_components/
 mine/
+dist/
+lib/bs/
+lib/js/
 lib/bs/
 lib/js/test/
 lib/ocaml/

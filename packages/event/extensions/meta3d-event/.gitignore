@@ -8,6 +8,9 @@ lib/js/src/
 reference/
 node_modules/
 mine/
+dist/
+lib/bs/
+lib/js/
 
 npm-debug
 

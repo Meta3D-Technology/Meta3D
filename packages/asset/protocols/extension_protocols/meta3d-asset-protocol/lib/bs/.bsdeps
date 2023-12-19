@@ -1,6 +1,6 @@
 10.1.4
-/Users/yang/Github/Meta3D/packages/asset/protocols/extension_protocols/meta3d-asset-protocol
-0
+/Users/yang/Github/Meta3D/node_modules/meta3d-asset-protocol
+1 -bs-package-output commonjs:lib/js:.bs.js -bs-package-output es6-global:lib/es6_global:.bs.js
 bsconfig.json	0x1.958b69c8p+30
 src	0x1.958a4bc8p+30
 src/service	0x1.958b692cp+30
