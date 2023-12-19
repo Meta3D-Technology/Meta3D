@@ -370,8 +370,8 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		asset: meta3dState => getExn(api.getPackageService<assetService>(meta3dState, "meta3d-asset-protocol")),
 		lib: meta3dState => getExn(api.getPackageService<libService>(meta3dState, "meta3d-lib-protocol")),
 
-		addScene: (meta3dState, scene) => {
-			return api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, scene)
+		addGroup: (meta3dState, scene) => {
+			return api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).addGroup(meta3dState, scene)
 		},
 		importScene: (meta3dState, sceneGLB) => {
 			return api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol").import(meta3dState, sceneGLB)

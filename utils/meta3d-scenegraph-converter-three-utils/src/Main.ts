@@ -619,6 +619,21 @@ export let getExtensionServiceUtils = (
                 )
                 return data[0]
             }, meta3dState)]
+        },
+        addGroup: (meta3dState, group) => {
+            let scene = getExn(api.getPackageService<scene>(meta3dState, "meta3d-engine-scene-protocol"))
+
+            let standardMaterialMap = {}
+            let bufferGeometryMap = {}
+            let textureMap: Record<string, texture> = {}
+
+            setThreeObjects(api, meta3dState)
+
+
+            return _import(scene, meta3dState,
+                [standardMaterialMap, bufferGeometryMap, textureMap],
+                group, null
+            )
         }
     }
 }

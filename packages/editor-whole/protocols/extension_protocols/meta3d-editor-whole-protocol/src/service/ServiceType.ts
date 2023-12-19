@@ -12,7 +12,7 @@ import { initData, initFunc, updateData } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { inputContribute as inputContribute_ } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { actionContribute as actionContribute_ } from "meta3d-event-protocol/src/contribute/ActionContributeType"
-import { addScene } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
+import { addGroup } from "meta3d-scenegraph-converter-three-protocol/src/service/ServiceType"
 
 export type uiTexture = texture
 
@@ -47,7 +47,7 @@ export type service = {
 	asset: (meta3dState: meta3dState) => assetService,
 	lib: (meta3dState: meta3dState) => libService,
 
-	addScene: addScene,
+	addGroup: addGroup,
 	importScene: importScene,
 	exportScene: exportScene,
 	// initForVisual: (meta3dState: meta3dState, initData: initData) => Promise<meta3dState>,

@@ -347,13 +347,17 @@ TODO test publish
 TODO import: not newest ui control
 
 
-TODO fix "return to user center: guide"
+# TODO fix "return to user center: guide"
 
 
 
 TODO test controller
 
 TODO test asset
+
+    TODO fix add glb
+
+
 
 TODO test inspector
 
@@ -366,7 +370,7 @@ TODO test inspector
 # # TODO uiControlName, actionName, inputName should add "_Meta3d" postfix
 
 
-
+* TODO style: Input,Action Select fix min-width:200px
 
 * TODO "publisher"改为meta3d
 

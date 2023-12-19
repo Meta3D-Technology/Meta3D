@@ -47,7 +47,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropAssetFileUIDa
 
                     return loadGlb(meta3dState, glb)
                         .then((gltf) => {
-                            let data = editorWholeService.addScene(meta3dState, gltf.scene)
+                            let data = editorWholeService.addGroup(meta3dState, gltf.scene)
                             meta3dState = data[0]
                             let importedGameObject = data[1]
 
