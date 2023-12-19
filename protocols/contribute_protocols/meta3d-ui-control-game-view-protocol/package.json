@@ -4,7 +4,7 @@
     "displayName": "Game View",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/contribute_protocols/meta3d-ui-control-game-view-protocol",
     "description": "",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "author": "Meta3D",
     "main": "src/Index.ts",
     "license": "MIT",

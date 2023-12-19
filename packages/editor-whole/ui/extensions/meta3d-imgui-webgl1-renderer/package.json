@@ -1,7 +1,7 @@
 {
     "name": "meta3d-imgui-webgl1-renderer",
     "version": "0.21.11",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "displayName": "imgui-webgl1-renderer",
     "protocol": {
         "name": "meta3d-imgui-renderer-protocol"

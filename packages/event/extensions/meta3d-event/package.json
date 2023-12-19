@@ -1,7 +1,7 @@
 {
   "name": "meta3d-event",
   "version": "0.21.5",
-  "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+  "publisher": "meta3d",
   "displayName": "event",
   "protocol": {
     "name": "meta3d-event-protocol"

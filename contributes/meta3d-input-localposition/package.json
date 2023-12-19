@@ -1,7 +1,7 @@
 {
     "name": "meta3d-input-localposition",
     "version": "0.21.3",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "description": "",
     "protocol": {
         "name": "meta3d-input-input-float3-protocol"

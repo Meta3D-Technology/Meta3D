@@ -2,7 +2,7 @@
     "name": "meta3d-scenegraph-converter-three-protocol",
     "version": "0.21.6",
     "displayName": "converter protocol",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "author": "Meta3D",
     "license": "",
     "scripts": {

@@ -1,7 +1,7 @@
 {
     "name": "meta3d-scenegraph-converter-three",
     "version": "0.21.6",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "displayName": "meta3d-scenegraph-converter-three",
     "protocol": {
         "name": "meta3d-scenegraph-converter-three-protocol"

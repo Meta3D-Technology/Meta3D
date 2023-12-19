@@ -1,11 +1,11 @@
 {
     "name": "meta3d-event-protocol",
     "version": "0.21.5",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "displayName": "event protocol",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/extension_protocols/meta3d-event-protocol",
     "description": "eee",
-    "author": "Wonder",
+    "author": "Meta3D",
     "license": "",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

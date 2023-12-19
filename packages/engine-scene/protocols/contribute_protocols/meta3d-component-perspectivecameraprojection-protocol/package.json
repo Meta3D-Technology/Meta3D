@@ -2,7 +2,7 @@
   "name": "meta3d-component-perspectivecameraprojection-protocol",
   "version": "0.21.4",
   "description": "",
-  "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+  "publisher": "meta3d",
   "author": "Meta3D",
   "license": "",
   "main": "src/Index.js",

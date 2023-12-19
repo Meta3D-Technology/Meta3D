@@ -372,17 +372,15 @@ TODO test inspector
 
 * DONE style: Input,Action Select fix min-width:200px
 
-* TODO "publisher"改为meta3d
+* DONE "publisher"改为meta3d
 
 
-* TODO check all * TODOs and clear
+* DONE author统一为Meta3D
 
-
-Github: lanaguage remove Javascript
-
-
-* TODO 协议统一为MIT for Meta3D, Website
+* DONE 协议统一为MIT for Meta3D, Website
 封装three相关的extension, contribute 加入License说明（说明是对three.js的封装）
+
+
 
 
 * TODO solve ci sometimes fail: Actions->Install error
@@ -390,7 +388,11 @@ Github: lanaguage remove Javascript
 * TODO github->[codecov](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) should contain platform/assemble-space
 
 
-* TODO author统一为Meta3D
+
+* TODO check all * TODOs and clear
+
+
+Github: lanaguage remove Javascript
 
 * TODO 更新logo for website, github org, production, loading
 * TODO loading, Publish->loading add Meta3D Logo

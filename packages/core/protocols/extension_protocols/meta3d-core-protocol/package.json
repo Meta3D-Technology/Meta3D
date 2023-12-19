@@ -1,9 +1,9 @@
 {
     "name": "meta3d-core-protocol",
     "version": "0.21.4",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "description": "",
-    "author": "Wonder",
+    "author": "Meta3D",
     "license": "",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

@@ -2,7 +2,7 @@
     "name": "meta3d-ui-control-switch-button-protocol",
     "version": "0.21.11",
     "displayName": "切换按钮",
-    "publisher": "0xf63e1991A343814EdE505D7cfC368615EAe75307",
+    "publisher": "meta3d",
     "author": "Meta3D",
     "main": "src/Index.ts",
     "license": "MIT",

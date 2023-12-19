@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/zhobo63/imgui-ts.git"
   },
-  "author": "zhobo63",
+  "author": "Meta3D",
   "license": "",
   "devDependencies": {
     "@webpack-cli/generators": "^2.4.2",
