@@ -316,6 +316,44 @@ TODO fix message
 TODO add all ui controls
 
 
+TODO fix: wheel event not work
+
+# TODO fix: dispose gameObject error
+
+# TODO fix: import: cube: position,color not the same
+TODO fix: export single event:
+# another Aux Scene 
+# name miss
+//Cube name change
+# light has one child
+# Camera change
+
+
+TODO update and publish:
+engine-whole
+editor-whole
+asset
+three
+
+
+
+TODO test publish
+
+
+
+
+TODO not newest ui control?
+
+
+
+
+TODO test controller
+
+TODO test asset
+
+TODO test inspector
+
+
 
 # * TODO 更新extension    
 

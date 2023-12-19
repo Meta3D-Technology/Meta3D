@@ -64,7 +64,7 @@ export let sync = (meta3dState: meta3dState, api: api) => {
         ).then(meta3dState => {
             return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(0, allEvents.count() - events.count()))
         }).then(meta3dState => {
-            return runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))
+            return runGameViewRenderOnlyOnce(meta3dState,api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))
         })
         // .then(meta3dState => {
         // 	return eventSourcingService.cleanAllNeedEvents(meta3dState)

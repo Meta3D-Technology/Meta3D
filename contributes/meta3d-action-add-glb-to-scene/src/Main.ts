@@ -7,7 +7,6 @@ import { eventName, inputData } from "meta3d-action-drop-glb-to-sceneview-protoc
 // import { service as converterGameViewService } from "meta3d-scenegraph-converter-three-gameview-protocol/src/service/ServiceType"
 // import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
 // import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
-// import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { getActionState, setElementStateField } from "meta3d-ui-utils/src/ElementStateUtils"
 // import { getState, setState } from "./Utils"
 import { disposeGameObjectAndAllChildren } from "meta3d-dispose-utils/src/DisposeGameObjectUtils"
@@ -59,7 +58,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropAssetFileUIDa
                                     state.importedGameObjects.push(importedGameObject)
                             })
 
-                            return runGameViewRenderOnlyOnce(meta3dState, editorWholeService)
+                            return runGameViewRenderOnlyOnce(meta3dState,api, editorWholeService)
                         })
                 }, (meta3dState) => {
                     let {

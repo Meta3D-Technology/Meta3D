@@ -30,7 +30,6 @@ let _createCameraGameObject = (meta3dState: meta3dState, scene: engineSceneServi
     meta3dState = scene.gameObject.addTransform(meta3dState, gameObject, transform)
 
 
-
     data = scene.basicCameraView.createBasicCameraView(meta3dState)
     meta3dState = data[0]
     let cameraView = data[1]

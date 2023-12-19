@@ -17,6 +17,7 @@ module.exports = {
   scopes: [
     { name: "editor" },
     { name: "engine" },
+    { name: "extension" },
     { name: "platform" },
     { name: "services" },
     { name: "templates" },

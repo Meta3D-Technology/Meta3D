@@ -430,9 +430,11 @@ export class PerspectiveCamera extends Camera {
     public get name(): string {
         let meta3dState = getMeta3dState()
 
-        let { perspectiveCameraProjection } = getEngineSceneService(meta3dState)
+        let { gameObject, perspectiveCameraProjection } = getEngineSceneService(meta3dState)
 
-        return getWithDefault(perspectiveCameraProjection.getName(meta3dState, this.perspectiveCameraProjectionComponent), "")
+        return getWithDefault(perspectiveCameraProjection.getName(meta3dState, this.perspectiveCameraProjectionComponent),
+            getWithDefault(gameObject.getGameObjectName(meta3dState, this.gameObject), "")
+        )
     }
 
     public get far(): number {
@@ -532,9 +534,11 @@ export class DirectionLight extends Light {
     public get name(): string {
         let meta3dState = getMeta3dState()
 
-        let { directionLight } = getEngineSceneService(meta3dState)
+        let { gameObject, directionLight } = getEngineSceneService(meta3dState)
 
-        return getWithDefault(directionLight.getName(meta3dState, this._light), "")
+        return getWithDefault(directionLight.getName(meta3dState, this._light),
+            getWithDefault(gameObject.getGameObjectName(meta3dState, this.gameObject), "")
+        )
     }
 
     public get castShadow(): boolean {

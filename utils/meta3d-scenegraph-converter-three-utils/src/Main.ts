@@ -603,9 +603,22 @@ export let getExtensionServiceUtils = (
 
             setThreeObjects(api, meta3dState)
 
-            return _import(scene, meta3dState,
-                [standardMaterialMap, bufferGeometryMap, textureMap],
-                sceneGroup as Object3DType, null)
+
+
+
+            // return _import(scene, meta3dState,
+            //     [standardMaterialMap, bufferGeometryMap, textureMap],
+            //     sceneGroup as Object3DType, null)
+
+            let sceneObject = sceneGroup.children[0]
+
+            return [sceneObject.children.reduce((meta3dState, child) => {
+                let data = _import(scene, meta3dState,
+                    [standardMaterialMap, bufferGeometryMap, textureMap],
+                    child, null
+                )
+                return data[0]
+            }, meta3dState)]
         }
     }
 }

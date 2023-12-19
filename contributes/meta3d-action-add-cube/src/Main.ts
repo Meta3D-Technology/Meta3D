@@ -37,7 +37,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             state.addedGameObjects.push(addedGameObject)
                     })
 
-                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState,api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let {
                         addedGameObjects,

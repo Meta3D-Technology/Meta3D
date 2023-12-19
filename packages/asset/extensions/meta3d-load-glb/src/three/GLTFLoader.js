@@ -698,7 +698,14 @@ class GLTFLightsExtension {
 			case 'directional':
 				lightNode = new DirectionalLight(color);
 				lightNode.target.position.set(0, 0, - 1);
-				lightNode.add(lightNode.target);
+
+
+				/*! edit by Meta3D
+				* 
+				*/
+				// lightNode.add(lightNode.target);
+
+
 				break;
 
 			case 'point':

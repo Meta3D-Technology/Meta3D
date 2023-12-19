@@ -4,7 +4,6 @@ import { eventSourcingService } from "meta3d-event-protocol/src/service/ServiceT
 import { uiData, actionName, state } from "meta3d-action-import-single-event-protocol"
 import { eventName, inputData } from "meta3d-action-import-single-event-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
-// import { api.nullable.getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 // import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 // import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
@@ -38,7 +37,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                         // meta3dState = assetService.importAsset(meta3dState, assetFile)
 
-                        return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
+                        return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState,api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                     })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)

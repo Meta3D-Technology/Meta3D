@@ -317,9 +317,7 @@ const PATH_PROPERTIES = {
 };
 
 
-/*! edit by Meta3D
-* 
-*/
+/*! edit by Meta3D */
 // const DEFAULT_SPECULAR_COLOR = new Color();
 var DEFAULT_SPECULAR_COLOR = null;
 
@@ -2405,7 +2403,6 @@ class GLTFWriter {
 		for (let i = 0; i < input.length; i++) {
 
 			if (input[i] instanceof Scene) {
-
 				this.processScene(input[i]);
 
 			} else {

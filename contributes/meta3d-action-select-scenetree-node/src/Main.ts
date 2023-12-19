@@ -49,9 +49,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
                     inputData: [
-                        findSelectedGameObject(buildHierachyGameObjects([],
+                        findSelectedGameObject(api, buildHierachyGameObjects(api, [],
                             editorWholeService,
-                            meta3dState, getAllTopGameObjects(meta3dState, editorWholeService)), api.nullable.getExn(uiData))
+                            meta3dState, getAllTopGameObjects(api, meta3dState, editorWholeService)), api.nullable.getExn(uiData))
                     ]
                 }))
             })

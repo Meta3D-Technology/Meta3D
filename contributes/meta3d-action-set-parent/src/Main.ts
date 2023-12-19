@@ -39,7 +39,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     })
 
 
-                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
                     let {
@@ -79,15 +79,15 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 let { source, target } = uiData
 
-                let hierachyGameObjects = buildHierachyGameObjects([],
+                let hierachyGameObjects = buildHierachyGameObjects(api, [],
                     editorWholeService,
-                    meta3dState, getAllTopGameObjects(meta3dState, editorWholeService))
+                    meta3dState, getAllTopGameObjects(api, meta3dState, editorWholeService))
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
                     inputData: [{
-                        source: findSelectedGameObject(hierachyGameObjects, source),
-                        target: target.length == 0 ? null : findSelectedGameObject(hierachyGameObjects, target)
+                        source: findSelectedGameObject(api, hierachyGameObjects, source),
+                        target: target.length == 0 ? null : findSelectedGameObject(api, hierachyGameObjects, target)
                     }]
                 }))
             })
