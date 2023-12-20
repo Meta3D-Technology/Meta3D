@@ -223,6 +223,7 @@ defineFeature(feature, test => {
     let p1 = ref(Obj.magic(1))
     let db = Obj.magic(11)
     let selectedPackages = ref(list{})
+    let selectedUIControls = ref(list{})
     let canvasData = ref(Obj.magic(1))
     let apInspectorData = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
@@ -304,6 +305,45 @@ defineFeature(feature, test => {
     )
 
     \"and"(
+      "prepare selected scene view and game view ui controls",
+      () => {
+        selectedUIControls :=
+          list{
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~data=ContributeTool.buildContributeData(
+                ~contributePackageData=ContributeTool.buildContributePackageData(
+                  ~protocol=(
+                    {
+                      name: GuideUtils._getSceneViewProtocolName(),
+                      version: "^0.0.1",
+                    }: Meta3d.ExtensionFileType.contributeProtocolData
+                  ),
+                  (),
+                ),
+                (),
+              ),
+              (),
+            ),
+            SelectedUIControlsTool.buildSelectedUIControl(
+              ~data=ContributeTool.buildContributeData(
+                ~contributePackageData=ContributeTool.buildContributePackageData(
+                  ~protocol=(
+                    {
+                      name: GuideUtils._getGameViewProtocolName(),
+                      version: "^0.0.1",
+                    }: Meta3d.ExtensionFileType.contributeProtocolData
+                  ),
+                  (),
+                ),
+                (),
+              ),
+              (),
+            ),
+          }
+      },
+    )
+
+    \"and"(
       "prepare canvas data",
       () => {
         canvasData := CanvasControllerTool.buildCanvasData(~width=1, ~height=2, ())
@@ -362,7 +402,7 @@ defineFeature(feature, test => {
           ),
           (canvasData.contents, apInspectorData.contents),
           ((selectedPackages.contents, list{}, list{}, list{}), element1.contents),
-          ("", list{}, list{}),
+          ("", selectedUIControls.contents, list{}),
           (list{}, list{}),
         )
       },

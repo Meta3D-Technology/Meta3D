@@ -514,7 +514,7 @@ rotate Scene->che error:
 
 * DONE update ui control protocol->displayName
 
-* TODO pass bdd test
+* DONE pass bdd test
 
 * TODO update README -> snapshot
 

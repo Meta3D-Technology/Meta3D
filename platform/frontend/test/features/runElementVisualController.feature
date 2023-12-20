@@ -27,6 +27,7 @@ Feature: RunElementVisualController
         # And get run visual extension v
         And generate editor whole package with extension e1
         And select editor whole
+        And prepare selected scene view and game view ui controls
         And prepare canvas data
         And prepare ap inspector data
         And prepare local storage

@@ -30,7 +30,9 @@ let markFinishFirstLogin = () => {
     {
       ..._readGuideStatus(),
       isFinishFirstLogin: true,
-    }-> Obj.magic->Js.Json.stringify,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
   )
 }
 
@@ -126,12 +128,16 @@ let getRefCurrent = (ref: React.ref<Js.Nullable.t<'a>>) => {
 //   ->Obj.magic
 // }
 
+let _getSceneViewProtocolName = () => "meta3d-ui-control-scene-view-protocol"
+
+let _getGameViewProtocolName = () => "meta3d-ui-control-game-view-protocol"
+
 let isSceneViewProtocolName = protocolName => {
-  protocolName == "meta3d-ui-control-scene-view-protocol"
+  protocolName == _getSceneViewProtocolName()
 }
 
 let isGameViewProtocolName = protocolName => {
-  protocolName == "meta3d-ui-control-game-view-protocol"
+  protocolName == _getGameViewProtocolName()
 }
 
 let startCreateFromScratchTour = (dispatchForAppStore, dispatchForElementAssembleStore) => {
