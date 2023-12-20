@@ -215,7 +215,7 @@ module Method = {
     service,
     dispatchForAppStore,
     handleWhenPublishFunc,
-    (setUploadProgress, setIsUploadBegin, setVisible),
+    (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
       account,
       selectedPackages,
@@ -346,12 +346,16 @@ module Method = {
               ->Js.Promise.then_(_ => {
                 setIsUploadBegin(_ => false)
                 setVisible(_ => false)
+                setPreviewBase64(_ => None)
                 handleWhenPublishFunc()
 
                 ()->Js.Promise.resolve
               }, _)
               ->Js.Promise.catch(e => {
                 setIsUploadBegin(_ => false)
+                setVisible(_ => false)
+                setPreviewBase64(_ => None)
+
                 service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
               }, _)
             },
@@ -444,9 +448,11 @@ let make = (
           visible={visible}
           onOk={() => {
             setVisible(_ => false)
+            setPreviewBase64(_ => None)
           }}
           onCancel={() => {
             setVisible(_ => false)
+            setPreviewBase64(_ => None)
           }}
           footer={React.null}>
           {isUploadBegin
@@ -469,7 +475,7 @@ let make = (
                             service,
                             dispatchForAppStore,
                             handleWhenPublishFunc,
-                            (setUploadProgress, setIsUploadBegin, setVisible),
+                            (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
                             (
                               account,
                               selectedPackages,

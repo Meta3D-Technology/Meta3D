@@ -29,6 +29,7 @@ let publish = (
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~setPreviewBase64=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account="u1"->Some,
   ~selectedPackages=list{},
   ~selectedContributes=list{},
@@ -52,7 +53,7 @@ let publish = (
     service,
     dispatchForAppStore,
     handleWhenPublishFunc,
-    (setUploadProgress, setIsUploadBegin, setVisible),
+    (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
       account,
       selectedPackages,
