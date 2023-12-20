@@ -506,7 +506,7 @@ rotate Scene->che error:
 点Y\Z轴旋转,转的都是X轴
 
 
-* TODO fix(platform): UIControlInspector: import app: Specific miss image
+* DONE fix(platform): UIControlInspector: import app: Specific miss image
 
 
 * TODO import action: not need empty before!

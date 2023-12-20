@@ -388,11 +388,7 @@ module Method = {
   //   }
   // }
 
-  let buildImageBase64MapKey = (id, specificIndex) => {
-    j`${id}_${specificIndex->IntUtils.intToString}`
-  }
-
-  let buildSpecific = (service, dispatch, (imageBase64Map, setImageBase64Map), id, specific) => {
+  let buildSpecific = (service, dispatch, id, specific) => {
     <>
       {specific
       ->Meta3dCommonlib.ArraySt.mapi((
@@ -426,13 +422,6 @@ module Method = {
                 beforeUpload={file =>
                   UploadUtils.handleUploadImage(
                     (file, imageBase64) => {
-                      setImageBase64Map(map =>
-                        map->Meta3dCommonlib.ImmutableHashMap.set(
-                          buildImageBase64MapKey(id, i),
-                          imageBase64->Obj.magic,
-                        )
-                      )
-
                       _setSpecificData(
                         dispatch,
                         specific,
@@ -451,12 +440,28 @@ module Method = {
                 showUploadList=false>
                 <Button icon={<Icon.UploadOutlined />}> {React.string(`上传图片`)} </Button>
               </Upload>
-              {switch imageBase64Map->Meta3dCommonlib.ImmutableHashMap.get(
-                buildImageBase64MapKey(id, i),
-              ) {
-              | Some(imageBase64) => <Image preview=true src={imageBase64} width=40 height=40 />
-              | None => React.null
-              }}
+              // {switch imageBase64Map->Meta3dCommonlib.ImmutableHashMap.get(
+              //   buildImageBase64MapKey(id, i),
+              // ) {
+              // | Some(imageBase64) => <Image preview=true src={imageBase64} width=40 height=40 />
+              // | None =>
+              //   // React.null
+              //   <Image
+              //     preview=true
+              //     src={
+
+              //       getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+              //     width=40
+              //     height=40
+              //   />
+              // }}
+
+              <Image
+                preview=true
+                src={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+                width=40
+                height=40
+              />
             </Space>
           | #menuItems =>
             TextareaUtils.isNotShowTextareaForTest()
@@ -578,21 +583,6 @@ let make = (
 
   // let selectedContributes = service.react.useSelector(. Method.useSelector)
 
-  let (imageBase64Map, setImageBase64Map) = service.react.useState(_ =>
-    currentSelectedUIControlInspectorData.specific->Meta3dCommonlib.ArraySt.reduceOneParami(
-      (. map, {type_, value}, i) => {
-        switch type_ {
-        | #imageBase64 =>
-          map->Meta3dCommonlib.ImmutableHashMap.set(
-            Method.buildImageBase64MapKey(currentSelectedUIControlInspectorData.id, i),
-            value->Method.getSpecificDataValue->Obj.magic,
-          )
-        | _ => map
-        }
-      },
-      Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-    )
-  )
   // let (inputFileStr, setInputFileStr) = service.react.useState(_ =>
   //   currentSelectedUIControlInspectorData.input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) =>
   //     inputFileStr
@@ -708,7 +698,7 @@ let make = (
         // </Button>
       </>}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
-      {Method.buildSpecific(service, dispatch, (imageBase64Map, setImageBase64Map), id, specific)}
+      {Method.buildSpecific(service, dispatch, id, specific)}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
       <List
         dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}

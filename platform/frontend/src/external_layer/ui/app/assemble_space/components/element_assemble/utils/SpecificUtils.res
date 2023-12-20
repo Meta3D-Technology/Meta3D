@@ -30,20 +30,21 @@ let convertValueToString = (
         value->Obj.magic
       },
       value => {
-        Meta3dCommonlib.Exception.throwErr(
-          Meta3dCommonlib.Exception.buildErr(
-            Meta3dCommonlib.Log.buildErrorMessage(
-              ~title={j`error`},
-              ~description={
-                ""
-              },
-              ~reason="",
-              ~solution=j``,
-              ~params=j``,
-            ),
-          ),
-        )
+        // Meta3dCommonlib.Exception.throwErr(
+        //   Meta3dCommonlib.Exception.buildErr(
+        //     Meta3dCommonlib.Log.buildErrorMessage(
+        //       ~title={j`error`},
+        //       ~description={
+        //         ""
+        //       },
+        //       ~reason="",
+        //       ~solution=j``,
+        //       ~params=j``,
+        //     ),
+        //   ),
+        // )
         // value->Obj.magic->Meta3dCommonlib.NullableSt.getWithDefault("")->Obj.magic
+        value->Obj.magic
       },
       value => {
         value->Obj.magic->Js.Json.stringify
