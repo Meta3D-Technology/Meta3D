@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-switch-button",
-    "version": "1.0.0-beta.1.1",
+    "version": "1.0.0-beta.2",
     "displayName": "切换按钮",
     "publisher": "meta3d",
     "description": "",
@@ -17,16 +17,16 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-editor-whole-protocol": "^1.0.0-beta.1",
-        "meta3d-type": "^0.21.0",
-        "meta3d-ui-control-switch-button-protocol": "^1.0.0-beta.1"
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.2",
+        "meta3d-type": "^1.0.0-beta.2",
+        "meta3d-ui-control-switch-button-protocol": "^1.0.0-beta.2"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.0.0-beta.1",
+        "meta3d-tool-publish": "^1.0.0-beta.2",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

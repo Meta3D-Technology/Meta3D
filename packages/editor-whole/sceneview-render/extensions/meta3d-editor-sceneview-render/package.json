@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-sceneview-render",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.2",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-editor-sceneview-render-protocol"
@@ -13,18 +13,18 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-core-protocol": "^1.0.0-beta.1",
-        "meta3d-editor-sceneview-render-protocol": "^1.0.0-beta.1",
-        "meta3d-editor-whole-protocol": "^1.0.0-beta.1",
-        "meta3d-pipeline-webgl1-three-sceneviewrender-protocol": "^1.0.0-beta.1",
-        "meta3d-type": "^0.21.0"
+        "meta3d-core-protocol": "^1.0.0-beta.2",
+        "meta3d-editor-sceneview-render-protocol": "^1.0.0-beta.2",
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.2",
+        "meta3d-pipeline-webgl1-three-sceneviewrender-protocol": "^1.0.0-beta.2",
+        "meta3d-type": "^1.0.0-beta.2"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.0.0-beta.1",
+        "meta3d-tool-publish": "^1.0.0-beta.2",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

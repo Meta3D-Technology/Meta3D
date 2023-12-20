@@ -1,6 +1,6 @@
 {
     "name": "frontend",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.2",
     "authors": "Wonder",
     "scripts": {
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
@@ -45,8 +45,8 @@
         "@cloudbase/js-sdk": "^1.7.2",
         "antd": "^5.12.2",
         "localforage": "^1.10.0",
-        "meta3d-bs-most-default": "^1.0.0-beta.1",
-        "meta3d-editor-whole-protocol": "^1.0.0-beta.1",
+        "meta3d-bs-most-default": "^1.0.0-beta.2",
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.2",
         "moment": "^2.29.4",
         "monaco-editor": "^0.32.1",
         "react-monaco-editor": "^0.54.0",

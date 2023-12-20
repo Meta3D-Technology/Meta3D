@@ -1,18 +1,18 @@
 {
     "name": "meta3d-pipeline-utils",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.2",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-component-arcballcameracontroller-protocol": "^1.0.0-beta.1",
-        "meta3d-component-basiccameraview-protocol": "^1.0.0-beta.1",
-        "meta3d-component-geometry-protocol": "^1.0.0-beta.1",
-        "meta3d-component-pbrmaterial-protocol": "^1.0.0-beta.1",
-        "meta3d-component-perspectivecameraprojection-protocol": "^1.0.0-beta.1",
-        "meta3d-component-transform-protocol": "^1.0.0-beta.1",
-        "meta3d-core-protocol": "^1.0.0-beta.1",
-        "meta3d-event-protocol": "^1.0.0-beta.1"
+        "meta3d-component-arcballcameracontroller-protocol": "^1.0.0-beta.2",
+        "meta3d-component-basiccameraview-protocol": "^1.0.0-beta.2",
+        "meta3d-component-geometry-protocol": "^1.0.0-beta.2",
+        "meta3d-component-pbrmaterial-protocol": "^1.0.0-beta.2",
+        "meta3d-component-perspectivecameraprojection-protocol": "^1.0.0-beta.2",
+        "meta3d-component-transform-protocol": "^1.0.0-beta.2",
+        "meta3d-core-protocol": "^1.0.0-beta.2",
+        "meta3d-event-protocol": "^1.0.0-beta.2"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-event-protocol",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.2",
     "publisher": "meta3d",
     "displayName": "event protocol",
     "repoLink": "https://github.com/Meta3D-Technology/Meta3D/tree/master/protocols/extension_protocols/meta3d-event-protocol",
