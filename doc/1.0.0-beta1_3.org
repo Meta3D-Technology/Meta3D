@@ -509,9 +509,7 @@ rotate Scene->che error:
 * DONE fix(platform): UIControlInspector: import app: Specific miss image
 
 
-* TODO import action: not need empty before!
-
-* TODO first enter ShowPublishedApps error
+* DONE first enter ShowPublishedApps error
 
 
 * TODO update ui control protocol->displayName

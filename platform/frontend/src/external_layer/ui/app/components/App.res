@@ -319,7 +319,10 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
           </Layout>
         }
       }, account, service)
-    | list{"ShowPublishedApps"} => <ShowPublishedApps service account />
+    | list{"ShowPublishedApps"} => Method.judgeToJumpToLogin(() => {
+        <ShowPublishedApps service account />
+      }, account, service)
+
     // | list{"ShowPublishedElements"} =>
     //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />

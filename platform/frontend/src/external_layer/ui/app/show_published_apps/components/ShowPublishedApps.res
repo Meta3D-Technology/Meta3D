@@ -85,25 +85,23 @@ let make = (~service: FrontendType.service, ~account) => {
             <Button
               _type=#primary
               onClick={_ => {
-                LoginUtils.judgeToJumpToLogin(() => {
-                  setIsDownloadFinish(_ => false)
-                  setCurrentImportingKey(_ =>
-                    PublishedAppUtils.buildKey(item.account, item.appName)->Some
-                  )
+                setIsDownloadFinish(_ => false)
+                setCurrentImportingKey(_ =>
+                  PublishedAppUtils.buildKey(item.account, item.appName)->Some
+                )
 
-                  PublishedAppUtils.importApp(
-                    service,
-                    (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
-                    (
-                      setDownloadProgress,
-                      () => {
-                        setIsDownloadFinish(_ => true)
-                        setCurrentImportingKey(_ => None)
-                      },
-                    ),
-                    item,
-                  )
-                }, account)
+                PublishedAppUtils.importApp(
+                  service,
+                  (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
+                  (
+                    setDownloadProgress,
+                    () => {
+                      setIsDownloadFinish(_ => true)
+                      setCurrentImportingKey(_ => None)
+                    },
+                  ),
+                  item,
+                )
               }}>
               {React.string(`导入`)}
             </Button>
