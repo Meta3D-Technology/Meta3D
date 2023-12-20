@@ -460,7 +460,7 @@ TODO fix NoSuchKey
 
 
 
-* TODO prepare for use
+* DONE prepare for use
 
 TODO 新建粉丝群
 //微信群
@@ -472,7 +472,7 @@ TODO update README, website, UserCenter
 
 
 
-TODO Discussion发起内测讨论帖
+* TODO Discussion发起内测讨论帖
 
 TODO 邀请lj、lzy等人来测试
 
