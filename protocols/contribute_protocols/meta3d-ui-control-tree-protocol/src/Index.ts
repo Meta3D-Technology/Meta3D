@@ -10,6 +10,7 @@ export const dragDropType = "DND_TreeNode"
 export type imageBase64 = string
 
 export type state = {
+    id: string,
     lastTreeSelectedData: nullable<treeIndexData>,
     nodeType1Texture: nullable<imguiImplTexture>,
     lastNodeType1TextureImageBase64: nullable<imageBase64>,

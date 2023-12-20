@@ -422,6 +422,9 @@ TODO update template
 
     TODO update core,editor,engine package
 
+    set parent not work
+        tree+window cause error
+
 TODO fix not found
     build and publish all packages
 
@@ -441,6 +444,11 @@ TODO update website
 
 
 * DONE perf: edit UIControlInspector slow
+
+* TODO perf: UIControlInspector: edit Specific->label too fast will make visual disappear
+
+* TODO feat: UserCenter: when begin tour, add step to focus in guide
+
 
 
 * TODO prepare for use

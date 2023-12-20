@@ -130,6 +130,10 @@ export let _convertTreeData = (
     return _func(api.nullable.return([]), treeData)
 }
 
+let _generateUniqueId = () => {
+    return Math.floor(Math.random() * 1000000.0).toString()
+}
+
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
@@ -151,6 +155,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             return api.nullable.getExn(getInputFunc)(meta3dState).then((treeData) => {
                 if (api.nullable.isNullable(api.uiControl.getUIControlState<state>(meta3dState, label))) {
                     meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
+                        id: "Tree Window##" + _generateUniqueId(),
                         lastTreeSelectedData: null,
                         nodeType1Texture: null,
                         nodeType2Texture: null,
@@ -171,6 +176,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 ).then(meta3dState => {
                     let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
                     let {
+                        id,
                         lastTreeSelectedData,
                         nodeType1Texture,
                         nodeType2Texture,
@@ -183,7 +189,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                             let data = tree(meta3dState, treeData,
                                 rootNodeLabel,
                                 lastTreeSelectedData,
-                                "Tree Window", rect)
+                                id,
+                                rect)
                             meta3dState = data[0]
                             let [treeSelectedData, treeDragData] = data[1]
 
