@@ -30,6 +30,24 @@ module Method = {
     service.tab.openUrl(. url)
   }
 
+  let _checkShouldHasSceneViewAndGameView = (
+    // selectedContributes: ApAssembleStoreType.selectedContributes,
+    selectedUIControls: ElementAssembleStoreType.selectedUIControls,
+  ) => {
+    selectedUIControls->Meta3dCommonlib.ListSt.includesByFunc(({data}) => {
+      let protocolName = data.contributePackageData.protocol.name
+
+      protocolName->GuideUtils.isSceneViewProtocolName
+    }) &&
+      selectedUIControls->Meta3dCommonlib.ListSt.includesByFunc(({data}) => {
+        let protocolName = data.contributePackageData.protocol.name
+
+        protocolName->GuideUtils.isGameViewProtocolName
+      })
+      ? ()->Meta3dCommonlib.Result.succeed
+      : Meta3dCommonlib.Result.fail({j`请加入这些UI Control: Scene View和Game View`})
+  }
+
   let run = (
     service,
     (canvasData, apInspectorData),
@@ -37,57 +55,60 @@ module Method = {
       (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
       elementContribute,
     ),
-    (account, selectedUIControlInspectorData),
+    (account, selectedUIControls, selectedUIControlInspectorData),
     (customInputs, customActions),
   ) => {
-    ElementVisualUtils.generateApp(
-      service,
-      (
-        AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
-        selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-        ElementVisualUtils.addGeneratedCustoms(
-          service,
-          selectedContributes,
-          account,
-          customInputs,
-          customActions,
-        )
-        // ->ElementUtils.addGeneratedInputContributesForElementAssemble(
-        //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
-        //   _,
-        //   account,
-        //   selectedUIControlInspectorData,
-        // )
-        // ->ElementUtils.addGeneratedActionContributesForElementAssemble(
-        //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
-        //   _,
-        //   account,
-        //   selectedUIControlInspectorData,
-        // )
-        ->Meta3dCommonlib.ListSt.toArray,
-      ),
-      list{},
-      // (list{}, list{}),
-      elementContribute,
-    )
-    ->_saveToLocalStorage(service, _)
-    ->Meta3dBsMostDefault.Most.tap(
-      _ => {
-        _openLink(
-          service,
-          _buildURL(
-            canvasData->Obj.magic->Js.Json.stringify,
-            apInspectorData->Obj.magic->Js.Json.stringify,
-          ),
-        )
-      },
-      // RescriptReactRouter.push("/RunElementVisual")
-      _,
-    )
-    ->Meta3dBsMostDefault.Most.drain
-    ->Js.Promise.catch(e => {
-      service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
-    }, _)
+    _checkShouldHasSceneViewAndGameView(selectedUIControls)->Meta3dCommonlib.Result.either(() => {
+      ElementVisualUtils.generateApp(
+        service,
+        (
+          AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
+          selectedExtensions->Meta3dCommonlib.ListSt.toArray,
+          ElementVisualUtils.addGeneratedCustoms(
+            service,
+            selectedContributes,
+            account,
+            customInputs,
+            customActions,
+          )
+          // ->ElementUtils.addGeneratedInputContributesForElementAssemble(
+          //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+          //   _,
+          //   account,
+          //   selectedUIControlInspectorData,
+          // )
+          // ->ElementUtils.addGeneratedActionContributesForElementAssemble(
+          //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+          //   _,
+          //   account,
+          //   selectedUIControlInspectorData,
+          // )
+          ->Meta3dCommonlib.ListSt.toArray,
+        ),
+        list{},
+        // (list{}, list{}),
+        elementContribute,
+      )
+      ->_saveToLocalStorage(service, _)
+      ->Meta3dBsMostDefault.Most.tap(
+        _ => {
+          _openLink(
+            service,
+            _buildURL(
+              canvasData->Obj.magic->Js.Json.stringify,
+              apInspectorData->Obj.magic->Js.Json.stringify,
+            ),
+          )
+        },
+        // RescriptReactRouter.push("/RunElementVisual")
+        _,
+      )
+      ->Meta3dBsMostDefault.Most.drain
+      ->Js.Promise.catch(e => {
+        service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+      }, _)
+      ->ignore
+    }, ErrorUtils.warn(_, None))
   }
 
   let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
@@ -102,6 +123,7 @@ module Method = {
       canvasData,
       // runVisualExtension,
       elementContribute,
+      selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
       customActions,
@@ -119,6 +141,7 @@ module Method = {
         canvasData,
         // runVisualExtension,
         elementContribute,
+        selectedUIControls,
         selectedUIControlInspectorData,
         customInputs,
         customActions,
@@ -149,6 +172,7 @@ let make = (
       canvasData,
       // runVisualExtension,
       elementContribute,
+      selectedUIControls,
       selectedUIControlInspectorData,
       customInputs,
       customActions,
@@ -181,9 +205,13 @@ let make = (
                 (selectedPackages, selectedExtensions, selectedContributes, storedPackageIdsInApp),
                 elementContribute,
               ),
-              (account->Meta3dCommonlib.OptionSt.getExn, selectedUIControlInspectorData),
+              (
+                account->Meta3dCommonlib.OptionSt.getExn,
+                selectedUIControls,
+                selectedUIControlInspectorData,
+              ),
               (customInputs, customActions),
-            )->ignore
+            )
           }, 5->Some)
         }}>
         {React.string(`运行`)}

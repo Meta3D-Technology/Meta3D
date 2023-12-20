@@ -487,7 +487,7 @@ TODO 邀请xh、wy、海口小鱼儿等人来测试
 * DONE add Badge
 
 
-* TODO 建议1：改进Scene View的缺失提示可以改进下
+* DONE 建议1：改进Scene View的缺失提示可以改进下
 
 描述：我创建了个空画布后就点开始运行，会报错
 
