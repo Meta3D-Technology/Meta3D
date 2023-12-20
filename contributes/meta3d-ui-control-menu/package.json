@@ -1,6 +1,7 @@
 {
     "name": "meta3d-ui-control-menu",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.1.1",
+    "displayName": "菜单栏",
     "publisher": "meta3d",
     "description": "",
     "protocol": {

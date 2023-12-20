@@ -512,7 +512,7 @@ rotate Scene->che error:
 * DONE first enter ShowPublishedApps error
 
 
-* TODO update ui control protocol->displayName
+* DONE update ui control protocol->displayName
 
 * TODO pass bdd test
 

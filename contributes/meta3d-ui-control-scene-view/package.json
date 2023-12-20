@@ -1,8 +1,8 @@
 {
     "name": "meta3d-ui-control-scene-view",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.1.1",
     "publisher": "meta3d",
-    "displayName": "scene view",
+    "displayName": "Scene View",
     "description": "",
     "protocol": {
         "name": "meta3d-ui-control-scene-view-protocol"

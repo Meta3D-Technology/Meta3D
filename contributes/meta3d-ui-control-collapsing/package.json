@@ -1,6 +1,7 @@
 {
     "name": "meta3d-ui-control-collapsing",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.1.1",
+    "displayName": "折叠面板",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-ui-control-collapsing-protocol"

@@ -1,6 +1,7 @@
 {
     "name": "meta3d-ui-control-switch-button",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.1.1",
+    "displayName": "切换按钮",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
