@@ -387,18 +387,18 @@ let make = (
                     <Tour
                       current=currentTourStep
                       _open={openTour}
-                      // onClose={() => {
-                      //   // setOpenTour(_ => false)
+                      onClose={() => {
+                        setOpenTour(_ => false)
 
-                      //   // // dispatchForElementAssembleStore(
-                      //   // //   ElementAssembleStoreType.EndCreateFromScratchTourPhase2,
-                      //   // // )
+                        dispatchForElementAssembleStore(
+                          ElementAssembleStoreType.EndCreateFromScratchTourPhase2,
+                        )
 
-                      //   GuideUtils.handleCloseCreateFromScratchTour(
-                      //     dispatchForAppStore,
-                      //     dispatchForElementAssembleStore,
-                      //   )
-                      // }}
+                        // GuideUtils.handleCloseCreateFromScratchTour(
+                        //   dispatchForAppStore,
+                        //   dispatchForElementAssembleStore,
+                        // )
+                      }}
                       onChange={current => {
                         switch Method.buildCreateFromScratchTourStepAndStepMapData()->Meta3dCommonlib.ArraySt.find(
                           ((currentTourStep, _)) => {

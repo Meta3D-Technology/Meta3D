@@ -498,7 +498,7 @@ TODO 邀请xh、wy、海口小鱼儿等人来测试
 
 * DONE Bug: 输入框输入字母，出现NaN
 
-* TODO Bug: 新手引导最后一步 点 Finish 没反应
+* DONE Bug: 新手引导最后一步 点 Finish 没反应
 
 * TODO rotation bug?
 
