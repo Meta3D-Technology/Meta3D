@@ -116,7 +116,7 @@ module Method = {
         title: "设置画布宽度",
         description: "这里可以设置为1200",
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => canvasWidthInputTarget->GuideUtils.getInputRefCurrent,
+        target: () => canvasWidthInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
           GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
         }->Meta3dCommonlib.NullableSt.return,
@@ -125,7 +125,7 @@ module Method = {
         title: "设置画布高度",
         description: "这里可以设置为600",
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => canvasHeightInputTarget->GuideUtils.getInputRefCurrent,
+        target: () => canvasHeightInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
           GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
         }->Meta3dCommonlib.NullableSt.return,

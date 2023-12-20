@@ -119,12 +119,12 @@ let getRefCurrent = (ref: React.ref<Js.Nullable.t<'a>>) => {
   ref.current->Obj.magic
 }
 
-let getInputRefCurrent = (inputRef: React.ref<Js.Nullable.t<'a>>) => {
-  inputRef.current
-  ->Obj.magic
-  ->Meta3dCommonlib.NullableSt.map((. value) => value["input"])
-  ->Obj.magic
-}
+// let getInputRefCurrent = (inputRef: React.ref<Js.Nullable.t<'a>>) => {
+//   inputRef.current
+//   ->Obj.magic
+//   ->Meta3dCommonlib.NullableSt.map((. value) => value["input"])
+//   ->Obj.magic
+// }
 
 let isSceneViewProtocolName = protocolName => {
   protocolName == "meta3d-ui-control-scene-view-protocol"

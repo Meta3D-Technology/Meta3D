@@ -494,13 +494,22 @@ TODO 邀请xh、wy、海口小鱼儿等人来测试
 
 * DONE show default inspector
 
-* TODO export single model bug
+* DONE export single model bug
+
+* DONE Bug: 输入框输入字母，出现NaN
+
+* TODO Bug: 新手引导最后一步 点 Finish 没反应
 
 * TODO rotation bug?
 
 rotate Scene->che error:
 点Y\Z轴旋转,转的都是X轴
 
+* TODO update ui control protocol->displayName
+
+* TODO pass bdd test
+
+* TODO publish version
 
 * TODO 发布《Meta3D开发记录1：发布第一个可用版本v1.0 Beta.1》
 

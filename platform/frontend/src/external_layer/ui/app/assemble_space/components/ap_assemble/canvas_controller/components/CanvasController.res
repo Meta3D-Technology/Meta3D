@@ -53,26 +53,20 @@ let make = (
 
   <Space direction=#horizontal size=#small>
     <Typography.Text> {React.string(`画布大小：`)} </Typography.Text>
-    <Input
+    <InputNumber
       ref={canvasWidthInputTarget}
-      value={width->Js.Int.toString}
-      onChange={e => {
-        Method.setWidth(
-          dispatch,
-          canvasData,
-          e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
-        )
+      value={width->Obj.magic}
+      step="1"
+      onChange={value => {
+        Method.setWidth(dispatch, canvasData, value->Obj.magic)
       }}
     />
-    <Input
+    <InputNumber
       ref={canvasHeightInputTarget}
-      value={height->Js.Int.toString}
-      onChange={e => {
-        Method.setHeight(
-          dispatch,
-          canvasData,
-          e->EventUtils.getEventTargetValue->IntUtils.stringToInt,
-        )
+      value={height->Obj.magic}
+      step="1"
+      onChange={value => {
+        Method.setHeight(dispatch, canvasData, value->Obj.magic)
       }}
     />
   </Space>
