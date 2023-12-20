@@ -5,9 +5,10 @@ Meta3D是开源的Web3D低代码平台，致力于建设共享互助开放的Web
 [![build](https://github.com/Wonder-Technology/Meta3D/workflows/CI/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) [![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)](https://github.com/Meta3D-Technology/Meta3D/graphs/commit-activity)
 
 
-[文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B) • [搭建的编辑器Demo](https://meta3d-platform-production.4everland.app/EnterApp?account=0xf63e1991a343814ede505d7cfc368615eae75307&appName=%E5%8A%A0%E5%85%A5Cube) • [进入平台](https://meta3d-platform-production.4everland.app)
+[文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B) • [搭建的编辑器Demo](https://meta3d-production-5eol5gce9a6b9c-1302358347.tcloudbaseapp.com/EnterApp?account=meta3d&appName=%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BC%96%E8%BE%91%E5%99%A8) • [进入平台](https://meta3d-production-5eol5gce9a6b9c-1302358347.tcloudbaseapp.com/)
 
-![image](https://img2023.cnblogs.com/blog/419321/202302/419321-20230217075702984-1069462752.png)
+![image](https://img2023.cnblogs.com/blog/419321/202312/419321-20231220121451799-1993071068.png)
+
 
 Meta3D现在处于公开内测中，已经完成了基本的案例，您可以开始使用，欢迎您来一起共建开源社区！
 
@@ -32,7 +33,7 @@ Meta3D现在处于公开内测中，已经完成了基本的案例，您可以�
 
 ## 支持和社区
 
-- 💬 [点这里](https://qm.qq.com/cgi-bin/qm/qr?k=SaSgwsyiccUjc3Mx3Jqliv9HJnHxL-WI&jump_from=webapi&authKey=+EQRAdLQ80spfX++pA3UB4erf6cxC+Mo4jH6bfovhdE7MOvI5WBUljCZ6roGaNZh)加QQ群:106047770 与我们交流
+- 💬 [点这里](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=r1Z4Z5uToIO1dISsXvdJvQOtFr3IoPJx&authKey=Ft1KpywYZrlO4yUGQj5jCliI4DaVf4hkM5jiiZtm195Ei4bSNiwo1SHEogLcrc%2Fp&noverify=0&group_code=568338939)加QQ群:106047770 与我们交流
 - 📄 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B)中找到解决方案
 - ⚠️ [Github](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)上提Issue
 - 👾 [论坛](https://github.com/Meta3D-Technology/Meta3D/discussions)上寻求帮助

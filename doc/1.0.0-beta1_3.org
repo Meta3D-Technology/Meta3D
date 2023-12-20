@@ -412,7 +412,7 @@ TODO test inspector
 //* TODO all use 域名
 
 
-* TODO update platform production
+* DONE update platform production
 
 TODO publish all
 
@@ -438,16 +438,25 @@ TODO fix NoSuchKey
 
 
 
-TODO host platform to cloudbase
-
-TODO update website
-
 
 * DONE perf: edit UIControlInspector slow
 
-* TODO perf: UIControlInspector: edit Specific->label too fast will make visual disappear
 
-* TODO feat: UserCenter: when begin tour, add step to focus in guide
+* DONE fix: publish app: clean preview
+
+# * TODO perf: UIControlInspector: edit Specific->label too fast will make visual disappear
+
+# TODO label onblur set
+
+
+# TODO fix: asset: label: empty
+
+# * TODO feat: UserCenter: when begin tour, add step to focus in guide
+
+
+* DONE host platform to cloudbase
+
+* DONE update website
 
 
 
