@@ -516,7 +516,7 @@ rotate Scene->che error:
 
 * DONE pass bdd test
 
-* TODO update README -> snapshot
+* DONE update README -> snapshot
 
 use 0fx user to snapshot
 
