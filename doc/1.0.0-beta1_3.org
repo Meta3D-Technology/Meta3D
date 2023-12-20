@@ -440,7 +440,7 @@ TODO host platform to cloudbase
 TODO update website
 
 
-* TODO perf: edit UIControlInspector slow(add custom generated?)
+* DONE perf: edit UIControlInspector slow
 
 
 * TODO prepare for use

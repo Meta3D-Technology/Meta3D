@@ -610,6 +610,8 @@ let make = (
   //     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
   //   )
   // })
+  let (inputNameSelectValues, setInputNameSelectValues) = service.react.useState(_ => [])
+  let (actionNameSelectValues, setActionNameSelectValues) = service.react.useState(_ => [])
 
   let {id, rect, isDraw, input, event, specific} = currentSelectedUIControlInspectorData
   let {x, y, width, height} = rect
@@ -621,6 +623,15 @@ let make = (
   let uiControlConfigLib = service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr)
 
   let uiControlProtocolName = data.contributePackageData.protocol.name
+
+  service.react.useEffect1(. () => {
+    setInputNameSelectValues(_ =>
+      Method.buildInputNameSelectValues(service, selectedContributes, uiControlProtocolName)
+    )
+    setActionNameSelectValues(_ => Method.buildActionNameSelectValues(service, actions))
+
+    None
+  }, [selectedContributes])
 
   <Space direction=#vertical size=#middle>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
@@ -664,12 +675,13 @@ let make = (
           input
           ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
           ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
-          Method.buildInputNameSelectValues(
-            service,
-            selectedContributes,
-            uiControlProtocolName,
-            // input,
-          ),
+          // Method.buildInputNameSelectValues(
+          //   service,
+          //   selectedContributes,
+          //   uiControlProtocolName,
+          //   // input,
+          // ),
+          inputNameSelectValues,
         )}
         // {TextareaUtils.isNotShowTextareaForTest()
         //   ? React.null
@@ -714,14 +726,15 @@ let make = (
                 {SelectUtils.buildSelect(
                   Method.setAction(dispatch, id, eventName),
                   value,
-                  Method.buildActionNameSelectValues(
-                    service,
-                    actions,
-                    // ElementMRUtils.getActionName(
-                    //   event,
-                    //   eventName,
-                    // )->Meta3dCommonlib.OptionSt.fromNullable,
-                  ),
+                  // Method.buildActionNameSelectValues(
+                  //   service,
+                  //   actions,
+                  //   // ElementMRUtils.getActionName(
+                  //   //   event,
+                  //   //   eventName,
+                  //   // )->Meta3dCommonlib.OptionSt.fromNullable,
+                  // ),
+                  actionNameSelectValues,
                 )}
               </Space>}
               // {TextareaUtils.isNotShowTextareaForTest()
