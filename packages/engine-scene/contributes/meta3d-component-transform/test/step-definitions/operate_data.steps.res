@@ -10,7 +10,6 @@ defineFeature(feature, test => {
     Meta3dEngineCoreProtocol.ComponentContributeType.componentContribute<
       StateType.state,
       Meta3dComponentTransformProtocol.Index.config,
-      
       Meta3dComponentTransformProtocol.Index.needDisposedComponents,
       Meta3dComponentTransformProtocol.Index.batchDisposeData,
       Meta3dComponentTransformProtocol.Index.cloneConfig,
@@ -46,84 +45,108 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos2->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos2
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          parent1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.position,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos2
+      },
+    )
+
+    \"and"(
+      %re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos2->Obj.magic,
         )
-    })
-
-    \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos2->Obj.magic,
-        )
-    })
-
-    then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos2
-    })
-
-    \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.position,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos2
-    })
-
-    \"and"(%re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos2
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos2
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s position should return pos(\d+) \+ pos(\d+)$/")->Obj.magic,
@@ -147,84 +170,108 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos1->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos1
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          parent1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.position,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos1
+      },
+    )
+
+    \"and"(
+      %re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos2->Obj.magic,
         )
-    })
-
-    \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos1->Obj.magic,
-        )
-    })
-
-    then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos1
-    })
-
-    \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.position,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos1
-    })
-
-    \"and"(%re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos1
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s position should return pos(\d+) \+ pos(\d+)$/")->Obj.magic,
@@ -247,44 +294,56 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get child(\d+)'s position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
+          Meta3dComponentTransformProtocol.Index.dataName.position,
         )
-    })
-
-    then(%re("/^get child(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.position,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos1
+      },
+    )
   })
 
   test(."change parent\'s position should affect children", ({\"when", \"and", then}) => {
@@ -295,84 +354,108 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set parent(\d+)'s position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.position,
+            pos2->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos2
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos2->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set parent(\d+)'s position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
-          pos2->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos2
+      },
+    )
 
-    then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos2
-    })
-
-    \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.position,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos2
-    })
-
-    \"and"(%re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos2
-    })
+    \"and"(
+      %re("/^get child(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          child1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos2
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s position should return pos(\d+) \+ pos(\d+)$/")->Obj.magic,
@@ -397,74 +480,95 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            pos2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s position to pos(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.position,
+            pos3->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos1
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          pos2->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set child(\d+)'s position to pos(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
+          parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.position,
-          pos3->Obj.magic,
         )
-    })
-
-    then(%re("/^get parent(\d+)'s local position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos1
-    })
-
-    \"and"(%re("/^get parent(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.position,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos1
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s local position should return pos(\d+) - pos(\d+)$/")->Obj.magic,
@@ -479,15 +583,18 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^get child(\d+)'s position should return pos(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.position,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == pos3
-    })
+    \"and"(
+      %re("/^get child(\d+)'s position should return pos(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          child1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.position,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == pos3
+      },
+    )
   })
 
   test(."get the rotation in world coordinate system", ({\"when", \"and", then}) => {
@@ -497,44 +604,56 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          rotation1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            rotation1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
+          Meta3dComponentTransformProtocol.Index.dataName.rotation,
         )
-    })
-
-    then(%re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.rotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == rotation1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == rotation1
+      },
+    )
   })
 
   test(."change parent\'s rotation should affect children", ({\"when", \"and", then}) => {
@@ -545,74 +664,95 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            rotation1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            rotation2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set parent(\d+)'s rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.rotation,
+            rotation2->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          rotation1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == rotation2
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          rotation2->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set parent(\d+)'s rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.rotation,
-          rotation2->Obj.magic,
         )
-    })
-
-    then(%re("/^get parent(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == rotation2
-    })
-
-    \"and"(%re("/^get parent(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.rotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == rotation2
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == rotation2
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic,
@@ -627,15 +767,18 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.rotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == [-14.148975834432052, -29.71284925230731, -84.89385500659232, 1462.650035039141]
-    })
+    \"and"(
+      %re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          child1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.rotation,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == [-14.148975834432052, -29.71284925230731, -84.89385500659232, 1462.650035039141]
+      },
+    )
   })
 
   test(."change child\'s rotation should not affect parent", ({\"when", \"and", then}) => {
@@ -647,74 +790,95 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            rotation1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            rotation2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s rotation to rotation(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.rotation,
+            rotation3->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          rotation1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == rotation1
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          rotation2->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set child(\d+)'s rotation to rotation(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
+          parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.rotation,
-          rotation3->Obj.magic,
         )
-    })
-
-    then(%re("/^get parent(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == rotation1
-    })
-
-    \"and"(%re("/^get parent(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.rotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == rotation1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == rotation1
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s local rotation should return rotation(\d+)$/")->Obj.magic,
@@ -729,15 +893,18 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.rotation,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == [6.826419538772125, 8.489076950779234, 6.460195134263704, -10.027219687210458]
-    })
+    \"and"(
+      %re("/^get child(\d+)'s rotation should return rotation(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          child1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.rotation,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == [6.826419538772125, 8.489076950779234, 6.460195134263704, -10.027219687210458]
+      },
+    )
   })
 
   test(."get the euler angles in world coordinate system", ({\"when", \"and", then}) => {
@@ -747,34 +914,43 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
-          eulerAngles->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
+            eulerAngles->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
     then(
       %re("/^get child(\d+)'s euler angles should return euler angles(\d+)$/")->Obj.magic,
@@ -800,54 +976,69 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
-          eulerAngles1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
+            eulerAngles1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
-          eulerAngles2->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
+            eulerAngles2->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
-          eulerAngles2->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
+            eulerAngles2->Obj.magic,
+          )
+      },
+    )
 
     then(
       %re("/^get parent(\d+)'s local euler angles should return euler angles(\d+)$/")->Obj.magic,
@@ -917,54 +1108,69 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
-          eulerAngles1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
+            eulerAngles1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
-          eulerAngles2->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s local euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localEulerAngles,
+            eulerAngles2->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s euler angles to euler angles(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
-          eulerAngles3->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s euler angles to euler angles(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.eulerAngles,
+            eulerAngles3->Obj.magic,
+          )
+      },
+    )
 
     then(
       %re("/^get parent(\d+)'s local euler angles should return euler angles(\d+)$/")->Obj.magic,
@@ -1030,44 +1236,56 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localScale,
-          scale1->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale,
+            scale1->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get child(\d+)'s scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
+          Meta3dComponentTransformProtocol.Index.dataName.scale,
         )
-    })
-
-    then(%re("/^get child(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.scale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale1
+      },
+    )
   })
 
   test(."change parent\'s scale should affect children", ({\"when", \"and", then}) => {
@@ -1082,84 +1300,108 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale,
+            scale1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale,
+            scale2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set parent(\d+)'s scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.scale,
+            scale2->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
-          scale1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale2
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localScale,
-          scale2->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set parent(\d+)'s scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.scale,
-          scale2->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale2
+      },
+    )
 
-    then(%re("/^get parent(\d+)'s local scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localScale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale2
-    })
-
-    \"and"(%re("/^get parent(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.scale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale2
-    })
-
-    \"and"(%re("/^get child(\d+)'s local scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localScale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale2
-    })
+    \"and"(
+      %re("/^get child(\d+)'s local scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          child1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.localScale,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale2
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s scale should return scale(\d+) \* scale(\d+)$/")->Obj.magic,
@@ -1188,74 +1430,95 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^set parent(\d+)'s local scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale,
+            scale1->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s local scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localScale,
+            scale2->Obj.magic,
+          )
+      },
+    )
+
+    \"and"(
+      %re("/^set child(\d+)'s scale to scale(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.scale,
+            scale3->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get parent(\d+)'s local scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localScale,
-          scale1->Obj.magic,
         )
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale1
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
+    \"and"(
+      %re("/^get parent(\d+)'s scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
           state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localScale,
-          scale2->Obj.magic,
-        )
-    })
-
-    \"and"(%re("/^set child(\d+)'s scale to scale(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
+          parent1.contents,
           Meta3dComponentTransformProtocol.Index.dataName.scale,
-          scale3->Obj.magic,
         )
-    })
-
-    then(%re("/^get parent(\d+)'s local scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localScale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale1
-    })
-
-    \"and"(%re("/^get parent(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        parent1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.scale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale1
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale1
+      },
+    )
 
     \"and"(
       %re("/^get child(\d+)'s local scale should return scale(\d+) \/ scale(\d+)$/")->Obj.magic,
@@ -1272,15 +1535,18 @@ defineFeature(feature, test => {
       },
     )
 
-    \"and"(%re("/^get child(\d+)'s scale should return scale(\d+)$/")->Obj.magic, () => {
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        child1.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.scale,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == scale3
-    })
+    \"and"(
+      %re("/^get child(\d+)'s scale should return scale(\d+)$/")->Obj.magic,
+      () => {
+        contribute.contents.getComponentDataFunc(.
+          state.contents,
+          child1.contents,
+          Meta3dComponentTransformProtocol.Index.dataName.scale,
+        )
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == scale3
+      },
+    )
   })
 
   test(.
@@ -1291,14 +1557,17 @@ defineFeature(feature, test => {
 
       _getContributeAndCreateAState((\"when", \"and"))
 
-      \"when"(%re("/^create two transforms as transform(\d+), transform(\d+)$/")->Obj.magic, () => {
-        let (s, t1) = contribute.contents.createComponentFunc(. state.contents)
-        let (s, t2) = contribute.contents.createComponentFunc(. s)
+      \"when"(
+        %re("/^create two transforms as transform(\d+), transform(\d+)$/")->Obj.magic,
+        () => {
+          let (s, t1) = contribute.contents.createComponentFunc(. state.contents)
+          let (s, t2) = contribute.contents.createComponentFunc(. s)
 
-        state := s
-        transform1 := t1
-        transform2 := t2
-      })
+          state := s
+          transform1 := t1
+          transform2 := t2
+        },
+      )
 
       then(
         %re(
@@ -1326,38 +1595,47 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"("create a transform", () => {
-      let (s, t) = contribute.contents.createComponentFunc(. state.contents)
+    \"when"(
+      "create a transform",
+      () => {
+        let (s, t) = contribute.contents.createComponentFunc(. state.contents)
 
-      state := s
-      transform := t
-    })
+        state := s
+        transform := t
+      },
+    )
 
-    \"and"(%re("/^set the transform's local position to (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    \"and"(
+      %re("/^set the transform's local position to (.*), (.*), (.*)$/")->Obj.magic,
+      () => {
+        let arguments =
+          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      state :=
-        contribute.contents.setComponentDataFunc(.
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            transform.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localPosition,
+            arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
+          )
+      },
+    )
+
+    then(
+      %re("/^get the transform's local position to (.*), (.*), (.*)$/")->Obj.magic,
+      () => {
+        let arguments =
+          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+
+        contribute.contents.getComponentDataFunc(.
           state.contents,
           transform.contents,
           Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-          arguments->Js.Array.slice(~start=0, ~end_=3, _)->Obj.magic,
         )
-    })
-
-    then(%re("/^get the transform's local position to (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
-
-      contribute.contents.getComponentDataFunc(.
-        state.contents,
-        transform.contents,
-        Meta3dComponentTransformProtocol.Index.dataName.localPosition,
-      )
-      ->Meta3dCommonlib.NullableTool.getExn
-      ->expect == arguments->Js.Array.slice(~start=0, ~end_=3, _)
-    })
+        ->Meta3dCommonlib.NullableTool.getExn
+        ->expect == arguments->Js.Array.slice(~start=0, ~end_=3, _)
+      },
+    )
   })
 
   test(."get normal matrix", ({\"when", \"and", then}) => {
@@ -1366,60 +1644,75 @@ defineFeature(feature, test => {
 
     _getContributeAndCreateAState((\"when", \"and"))
 
-    \"when"(%re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic, () => {
-      let (s, p) = contribute.contents.createComponentFunc(. state.contents)
-      let (s, c) = contribute.contents.createComponentFunc(. s)
+    \"when"(
+      %re("/^create two transforms as parent(\d+), child(\d+)$/")->Obj.magic,
+      () => {
+        let (s, p) = contribute.contents.createComponentFunc(. state.contents)
+        let (s, c) = contribute.contents.createComponentFunc(. s)
 
-      state := s
-      parent1 := p
-      child1 := c
-    })
+        state := s
+        parent1 := p
+        child1 := c
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.parent,
-          parent1.contents->Js.Nullable.return->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^set child(\d+)'s parent to parent(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.parent,
+            parent1.contents->Js.Nullable.return->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set parent(\d+)'s local rotation to (.*), (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    \"and"(
+      %re("/^set parent(\d+)'s local rotation to (.*), (.*), (.*), (.*)$/")->Obj.magic,
+      () => {
+        let arguments =
+          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          parent1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          arguments->Js.Array.slice(~start=1, ~end_=5, _)->Obj.magic,
-        )
-    })
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            parent1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            arguments->Js.Array.slice(~start=1, ~end_=5, _)->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^set child(\d+)'s local rotation to (.*), (.*), (.*), (.*)$/")->Obj.magic, () => {
-      let arguments =
-        %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
+    \"and"(
+      %re("/^set child(\d+)'s local rotation to (.*), (.*), (.*), (.*)$/")->Obj.magic,
+      () => {
+        let arguments =
+          %external(arguments)->Meta3dCommonlib.NumberTool.getExnAndConvertArgumentsToNumber
 
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.localRotation,
-          arguments->Js.Array.slice(~start=1, ~end_=5, _)->Obj.magic,
-        )
-    })
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.localRotation,
+            arguments->Js.Array.slice(~start=1, ~end_=5, _)->Obj.magic,
+          )
+      },
+    )
 
-    \"and"(%re("/^update child(\d+)$/")->Obj.magic, () => {
-      state :=
-        contribute.contents.setComponentDataFunc(.
-          state.contents,
-          child1.contents,
-          Meta3dComponentTransformProtocol.Index.dataName.update,
-          Js.Nullable.null->Obj.magic,
-        )
-    })
+    \"and"(
+      %re("/^update child(\d+)$/")->Obj.magic,
+      () => {
+        state :=
+          contribute.contents.setComponentDataFunc(.
+            state.contents,
+            child1.contents,
+            Meta3dComponentTransformProtocol.Index.dataName.update,
+            Js.Nullable.null->Obj.magic,
+          )
+      },
+    )
 
     then(
       %re(

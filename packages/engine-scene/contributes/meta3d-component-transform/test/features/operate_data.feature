@@ -141,6 +141,22 @@ Feature: Operate data
             And get child1's local euler angles should return euler angles4
             And get child1's euler angles should return euler angles5
 
+
+    # Rule: euler angles more test
+
+    #     Scenario Outline: aaa
+    #         When create one transform as tran1
+    #         And set tran1's local euler angles to <X1>, <Y1>, <Z1>
+    #         Then get tran1's local euler angles should return <X1>, <Y1>, <Z1>
+
+    #         Examples:
+    #             | X1  | Y1   | Z1  |
+    #             | 0.0 | 90.0 | 0.0 |
+    #             # | 0.0 | 91.0 | 0.0 |
+    #             # | 0.0 | 90.0 | 0.1 |
+    #             | 0.0 | 120.0 | 0.0 |
+
+
     Rule: get scale
 
         Scenario: get the scale in world coordinate system

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-input-localeulerangle",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0-beta.1.1",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
@@ -17,6 +17,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-select-scenetree-node-protocol": "^1.0.0-beta.1",
+        "meta3d-action-set-localeulerangle-protocol": "^1.0.0-beta.1",
         "meta3d-editor-whole-protocol": "^1.0.0-beta.1",
         "meta3d-input-input-float3-protocol": "^1.0.0-beta.1",
         "meta3d-type": "^0.21.0"

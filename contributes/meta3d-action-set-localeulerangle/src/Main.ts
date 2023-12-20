@@ -16,11 +16,18 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
                     let engineSceneService = editorWholeService.scene(meta3dState)
 
-                    let oldLocalEulerAngle = engineSceneService.transform.getLocalEulerAngles(meta3dState,
-                        engineSceneService.gameObject.getTransform(meta3dState,
-                            gameObject
-                        )
+                    let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
+
+                    let transformComponent = engineSceneService.gameObject.getTransform(meta3dState,
+                        gameObject
                     )
+
+
+                    let oldLocalEulerAngle = api.nullable.getWithDefault(state.localEulerAngleMap.get(transformComponent), engineSceneService.transform.getLocalEulerAngles(meta3dState,
+                        transformComponent
+                    )
+                    )
+
 
                     meta3dState = engineSceneService.transform.setLocalEulerAngles(meta3dState,
                         engineSceneService.gameObject.getTransform(meta3dState,
@@ -29,14 +36,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         localEulerAngle
                     )
 
-
-                    let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
                         allLocalEulerAngleData: state.allLocalEulerAngleData.push([gameObject, oldLocalEulerAngle]),
+                        localEulerAngleMap: state.localEulerAngleMap.set(transformComponent, localEulerAngle)
                     })
 
-                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState,api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let {
                         allLocalEulerAngleData
@@ -51,10 +57,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
                         .scene(meta3dState)
 
+                    let transformComponent = engineSceneService.gameObject.getTransform(meta3dState,
+                        gameObject
+                    )
+
                     meta3dState = engineSceneService.transform.setLocalEulerAngles(meta3dState,
-                        engineSceneService.gameObject.getTransform(meta3dState,
-                            gameObject
-                        ),
+                        transformComponent,
                         localEulerAngle
                     )
 
@@ -62,6 +70,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
                         allLocalEulerAngleData: state.allLocalEulerAngleData.pop(),
+                        localEulerAngleMap: state.localEulerAngleMap.set(transformComponent, localEulerAngle)
                     })
 
                     return Promise.resolve(meta3dState)
@@ -93,7 +102,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: (meta3dState) => {
             return {
-                allLocalEulerAngleData: api.immutable.createList()
+                allLocalEulerAngleData: api.immutable.createList(),
+                localEulerAngleMap: api.immutable.createMap()
             }
         }
     }

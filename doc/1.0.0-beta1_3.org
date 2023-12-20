@@ -500,14 +500,27 @@ TODO 邀请xh、wy、海口小鱼儿等人来测试
 
 * DONE Bug: 新手引导最后一步 点 Finish 没反应
 
-* TODO rotation bug?
+* DONE rotation bug?
 
 rotate Scene->che error:
 点Y\Z轴旋转,转的都是X轴
 
+
+* TODO fix(platform): UIControlInspector: import app: Specific miss image
+
+
+* TODO import action: not need empty before!
+
+* TODO first enter ShowPublishedApps error
+
+
 * TODO update ui control protocol->displayName
 
 * TODO pass bdd test
+
+* TODO update README -> snapshot
+
+use 0fx user to snapshot
 
 * TODO publish version
 
