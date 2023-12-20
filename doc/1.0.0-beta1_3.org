@@ -432,9 +432,16 @@ TODO fix NoSuchKey
 
 
 
+
+
+
 TODO host platform to cloudbase
 
 TODO update website
+
+
+* TODO perf: edit UIControlInspector slow(add custom generated?)
+
 
 * TODO prepare for use
 
