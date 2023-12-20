@@ -500,7 +500,8 @@ let make = (~service: FrontendType.service) => {
             >
               <span>
                 <a
-                  href={"https://qm.qq.com/cgi-bin/qm/qr?k=SaSgwsyiccUjc3Mx3Jqliv9HJnHxL-WI&jump_from=webapi&authKey=+EQRAdLQ80spfX++pA3UB4erf6cxC+Mo4jH6bfovhdE7MOvI5WBUljCZ6roGaNZh"}>
+                  href={"https://qm.qq.com/cgi-bin/qm/qr?k=SaSgwsyiccUjc3Mx3Jqliv9HJnHxL-WI&jump_from=webapi&authKey=+EQRAdLQ80spfX++pA3UB4erf6cxC+Mo4jH6bfovhdE7MOvI5WBUljCZ6roGaNZh"}
+                  target="_blank">
                   {React.string(`点这里`)}
                 </a>
                 {React.string(`加QQ群`)}
@@ -508,7 +509,9 @@ let make = (~service: FrontendType.service) => {
             </Card>
             <Card key={"3"}>
               <span>
-                <a href={"https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B"}>
+                <a
+                  href={"https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B"}
+                  target="_blank">
                   {React.string(`文档`)}
                 </a>
                 {React.string(``)}
@@ -516,7 +519,9 @@ let make = (~service: FrontendType.service) => {
             </Card>
             <Card key={"4"}>
               <span>
-                <a href={"https://github.com/Meta3D-Technology/Meta3D/issues/new/choose"}>
+                <a
+                  href={"https://github.com/Meta3D-Technology/Meta3D/issues/new/choose"}
+                  target="_blank">
                   {React.string(`Github`)}
                 </a>
                 {React.string(`上提Issue`)}
@@ -524,7 +529,7 @@ let make = (~service: FrontendType.service) => {
             </Card>
             <Card key={"5"}>
               <span>
-                <a href={"https://github.com/Meta3D-Technology/Meta3D/discussions"}>
+                <a href={"https://github.com/Meta3D-Technology/Meta3D/discussions"} target="_blank">
                   {React.string(`论坛`)}
                 </a>
                 {React.string(`上寻求帮助`)}
