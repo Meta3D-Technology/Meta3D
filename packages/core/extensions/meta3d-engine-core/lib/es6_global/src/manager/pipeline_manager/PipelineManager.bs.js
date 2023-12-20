@@ -356,18 +356,27 @@ function _insertToAsChildNodeOrSameLevelTree(treeDataList, nodeInsertPipelineNam
                 var match;
                 var exit = 0;
                 if (insertPipelineNameOpt !== undefined && insertPipelineNameOpt === nodeInsertPipelineName) {
+                  var match$1 = ListSt$Meta3dCommonlib.includesByFunc(sameLevelTreeList, (function (tree) {
+                          return TreeNode$Meta3dEngineCore.isEqual(tree, node);
+                        })) ? [
+                      sameLevelTreeList,
+                      false
+                    ] : [
+                      ListSt$Meta3dCommonlib.push(sameLevelTreeList, node),
+                      true
+                    ];
                   match = [
                     ListSt$Meta3dCommonlib.addInReduce(newTreeDataList, [
-                          ListSt$Meta3dCommonlib.push(sameLevelTreeList, node),
+                          match$1[0],
                           insertPipelineNameOpt
                         ]),
-                    true
+                    match$1[1]
                   ];
                 } else {
                   exit = 1;
                 }
                 if (exit === 1) {
-                  var match$1 = ListSt$Meta3dCommonlib.reduce(sameLevelTreeList, [
+                  var match$2 = ListSt$Meta3dCommonlib.reduce(sameLevelTreeList, [
                         /* [] */0,
                         false
                       ], (function (param, tree) {
@@ -380,10 +389,10 @@ function _insertToAsChildNodeOrSameLevelTree(treeDataList, nodeInsertPipelineNam
                         }));
                   match = [
                     ListSt$Meta3dCommonlib.addInReduce(newTreeDataList, [
-                          match$1[0],
+                          match$2[0],
                           insertPipelineNameOpt
                         ]),
-                    match$1[1]
+                    match$2[1]
                   ];
                 }
                 return [

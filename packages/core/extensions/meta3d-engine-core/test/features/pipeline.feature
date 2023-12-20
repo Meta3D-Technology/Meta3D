@@ -109,6 +109,12 @@ Feature: Pipeline
             When run init pipeline
             Then run init pipeline's all jobs
 
+        Scenario: test register three pipelines case3
+            Given register pipeline1, pipeline2, pipeline3 contribute
+            And init
+            When run init pipeline
+            Then run init pipeline's all jobs
+
         Scenario: test register four pipelines case1
             Given register pipeline1, pipeline2, pipeline3, pipeline4 contribute
             And init

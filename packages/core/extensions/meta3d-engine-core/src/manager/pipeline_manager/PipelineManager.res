@@ -454,14 +454,27 @@ module MergePipelineData = {
       (sameLevelTreeList, insertPipelineNameOpt),
     ) => {
       let (newTreeDataList, isInsertTo_) = switch insertPipelineNameOpt {
-      | Some(insertPipelineName) if insertPipelineName === nodeInsertPipelineName => (
+      | Some(insertPipelineName) if insertPipelineName === nodeInsertPipelineName =>
+        // Js.log("zzz")
+
+        let (treeList, isInsertTo) =
+          sameLevelTreeList->Meta3dCommonlib.ListSt.includesByFunc(tree => {
+            TreeNode.isEqual(tree, node)
+          })
+            ? (sameLevelTreeList, false)
+            : (sameLevelTreeList->Meta3dCommonlib.ListSt.push(node), true)
+
+        (
           newTreeDataList->Meta3dCommonlib.ListSt.addInReduce((
-            sameLevelTreeList->Meta3dCommonlib.ListSt.push(node),
+            // sameLevelTreeList->Meta3dCommonlib.ListSt.push(node),
+            treeList,
             insertPipelineNameOpt,
           )),
-          true,
+          // true,
+          isInsertTo,
         )
       | _ =>
+        // Js.log("zzz222")
         let (sameLevelTreeList, isInsertTo) = sameLevelTreeList->Meta3dCommonlib.ListSt.reduce(
           (list{}, false),
           ((sameLevelTreeList, isInsertTo), tree) => {
@@ -552,12 +565,17 @@ module MergePipelineData = {
     >,
   ): Meta3dCommonlib.Result.t2<Meta3dEngineCoreProtocol.TreeType.tree> => {
     allSpecificPipelineRelatedData
+    // ->Meta3dCommonlib.Log.printForDebug
     ->Meta3dCommonlib.ListSt.reduce(list{}, (
       treeDataList,
       {pipelineName, getExecFunc, pipelineData, jobOrder},
     ) => {
+      // Js.log("begin")
+      // treeDataList->Meta3dCommonlib.Log.printForDebug->ignore
+
       switch jobOrder {
       | None =>
+        // Js.log("None")
         let (treeDataList, insertedTreeOpt) =
           treeDataList->_handleInsertedAsRootNode((
             pipelineName,
@@ -590,8 +608,13 @@ module MergePipelineData = {
             insertPipelineName->Some,
           ))
 
+        // treeDataList->Meta3dCommonlib.Log.printForDebug->ignore
+
         switch insertedTreeOpt {
         | Some(insertedTree) =>
+          // Js.log("insertedTree")
+          // insertedTree->Meta3dCommonlib.Log.printForDebug->ignore
+
           let (treeDataList, isInsertTo) =
             treeDataList->_insertToAsChildNodeOrSameLevelTree(insertPipelineName, insertedTree)
 

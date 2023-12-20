@@ -427,6 +427,7 @@ defineFeature(feature, test => {
       meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
+      // Js.log("root")
       getStatesFunc(. meta3dState)
       ->Meta3dCommonlib.ImmutableHashMap.set("a1", changedState1)
       ->setStatesFunc(meta3dState, _)
@@ -753,6 +754,7 @@ defineFeature(feature, test => {
       meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
+      // Js.log("job2_a2")
       let states = getStatesFunc(. meta3dState)
 
       states
@@ -1025,6 +1027,7 @@ defineFeature(feature, test => {
       meta3dState,
       {getStatesFunc, setStatesFunc}: Meta3dEngineCoreProtocol.StateType.operateStatesFuncs,
     ) => {
+      // Js.log("job1_a3")
       getStatesFunc(. meta3dState)
       ->Meta3dCommonlib.ImmutableHashMap.set("a3", changedState3)
       ->setStatesFunc(meta3dState, _)
@@ -1180,6 +1183,92 @@ defineFeature(feature, test => {
               ~pipelineName="init",
               ~insertElementName=rootJobName,
               ~insertAction=#before,
+              (),
+            ),
+          ],
+          (),
+        )
+        MainTool.registerPipeline(
+          ~contribute=contribute2,
+          ~jobOrders=[
+            _buildJobOrder(
+              ~pipelineName="init",
+              ~insertElementName=rootJobName,
+              ~insertAction=#after,
+              (),
+            ),
+          ],
+          (),
+        )
+        MainTool.registerPipeline(~contribute=contribute1, ())
+      },
+    )
+
+    \"and"(
+      "init",
+      () => {
+        MainTool.init(meta3dState.contents)
+      },
+    )
+
+    CucumberAsync.execStep(
+      \"when",
+      "run init pipeline",
+      () => {
+        let (data, meta3dState) = RunPipelineTool.buildFakeDataAndMeta3DState(sandbox)
+
+        MainTool.runPipeline(~sandbox, ~data, ~meta3dState, ~pipelineName="init", ())
+        ->Meta3dBsMostDefault.Most.drain
+        ->Obj.magic
+      },
+    )
+
+    then(
+      "run init pipeline's all jobs",
+      () => {
+        let states = MainTool.getStates()
+
+        ((
+          states->Meta3dCommonlib.ImmutableHashMap.get("a1"),
+          states->Meta3dCommonlib.ImmutableHashMap.get("a2"),
+          states->Meta3dCommonlib.ImmutableHashMap.get("a3"),
+        )->expect == (Some(state1.contents), Some(state2.contents), Some(state3.contents)))
+        ->resolve
+        ->Obj.magic
+      },
+    )
+  })
+
+
+  test(."test register three pipelines case3", ({given, \"when", \"and", then}) => {
+    let state1 = ref(Obj.magic(1))
+    let state2 = ref(Obj.magic(1))
+    let state3 = ref(Obj.magic(1))
+
+    _prepareRegister(given)
+
+    _prepareSandbox(given)
+
+    given(
+      "register pipeline1, pipeline2, pipeline3 contribute",
+      () => {
+        let (
+          (rootJobName, contribute1, s1),
+          (job1Name_a2, contribute2, s2),
+          (contribute3, s3),
+        ) = _prepareForRegisterThreePipelines()
+        state1 := s1
+        state2 := s2
+        state3 := s3
+
+        MainTool.registerPipeline(
+          ~contribute=contribute3,
+          ~jobOrders=[
+            _buildJobOrder(
+              ~pipelineName="init",
+              // ~insertElementName=job1Name_a2,
+              ~insertElementName="job2_a2",
+              ~insertAction=#after,
               (),
             ),
           ],
