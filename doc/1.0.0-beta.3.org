@@ -15,7 +15,7 @@ TODO fix run app
 
 TODO remove publishedelementassembledata in production database
 
-* TODO remove custom label
+* DONE remove custom label
 
 
 * TODO import app should add select all ui controls

@@ -493,10 +493,10 @@ let make = (
                     selectGameViewUIControlTarget
                   />
                 </Collapse.Panel>
-                <Collapse.Panel header="Custom Inputs" key="2">
+                <Collapse.Panel header="Inputs" key="2">
                   <CustomInputs service />
                 </Collapse.Panel>
-                <Collapse.Panel header="Custom Actions" key="3">
+                <Collapse.Panel header="Actions" key="3">
                   <CustomActions service />
                 </Collapse.Panel>
               </Collapse>
