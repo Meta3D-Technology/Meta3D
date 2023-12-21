@@ -227,11 +227,13 @@ exports.getAccountFromMarketImplementCollectionData = getAccountFromMarketImplem
 // export let getFileDataFromMarketImplementCollectionData = (data: collectionData) => {
 //     return data.fileData
 // }
-let downloadFile = (app, parseMarketCollectionDataBody, fileID) => {
+let downloadFile = (app, parseMarketCollectionDataBody, fileID, notUseCache) => {
     return (0, most_1.fromPromise)(app.getTempFileURL({
         fileList: [fileID]
     })).flatMap(({ fileList }) => {
-        return (0, most_1.fromPromise)(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()));
+        // return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
+        let tempFileURL = notUseCache ? fileList[0].tempFileURL + "?cachebust=" + Math.floor(Math.random() * 1000000) : fileList[0].tempFileURL;
+        return (0, most_1.fromPromise)(fetch(tempFileURL).then(response => response.arrayBuffer()));
     });
 };
 exports.downloadFile = downloadFile;

@@ -189,14 +189,14 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
         when('find the published app', () => {
         });
-        then('should return the app file', () => {
+        then('should return the app file not use cache', () => {
             return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], account, appName).observe(result => {
                 expect(getDataByKeyFunc).toCalledWith([
                     sinon_1.match.string,
                     "a1_an1"
                 ]);
                 expect(downloadFileFunc).toCalledWith([
-                    fileID
+                    fileID, true
                 ]);
                 expect(result).toEqual(appBinaryFile);
             });

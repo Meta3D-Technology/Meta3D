@@ -64,7 +64,7 @@ let findPublishApp = ([getDataByKeyFunc, downloadFileFunc], account, appName) =>
         if (data.length === 0) {
             return (0, most_1.just)(null);
         }
-        return downloadFileFunc(data[0].fileID);
+        return downloadFileFunc(data[0].fileID, true);
     });
 };
 exports.findPublishApp = findPublishApp;

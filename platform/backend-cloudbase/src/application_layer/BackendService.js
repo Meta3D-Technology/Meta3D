@@ -59,10 +59,10 @@ exports.mapMarketImplementCollection = BackendService.mapMarketImplementCollecti
 exports.filterMarketImplementCollection = BackendService.filterMarketImplementCollection;
 exports.getAccountFromMarketImplementCollectionData = BackendService.getAccountFromMarketImplementCollectionData;
 // export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
-let downloadFile = (onDownloadProgressFunc, fileID) => {
+let downloadFile = (onDownloadProgressFunc, fileID, notUseCache = false) => {
     // TODO support onDownloadProgressFunc
     onDownloadProgressFunc(0);
-    return BackendService.downloadFile((0, Repo_1.getBackend)(), null, fileID);
+    return BackendService.downloadFile((0, Repo_1.getBackend)(), null, fileID, notUseCache);
 };
 exports.downloadFile = downloadFile;
 let _blobToFile = (theBlob, fileName) => {

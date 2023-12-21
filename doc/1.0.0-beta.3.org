@@ -22,7 +22,7 @@ TODO remove publishedelementassembledata in production database
 
 * DONE specific: fix empty value
 
-* TODO fix: publish app with the same name->import it: still old one
+* DONE fix: publish app with the same name->import it: still old one
 because cache?
 
 

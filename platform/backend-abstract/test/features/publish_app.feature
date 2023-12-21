@@ -36,7 +36,7 @@ Feature: Publish App
             And generate a app
             And publish the app
             When find the published app
-            Then should return the app file
+            Then should return the app file not use cache
 
         # Rule: findAllPublishAppsByAccount
 

@@ -278,7 +278,7 @@ defineFeature(feature, test => {
         when('find the published app', () => {
         });
 
-        then('should return the app file', () => {
+        then('should return the app file not use cache', () => {
             return findPublishApp(
                 [getDataByKeyFunc, downloadFileFunc],
                 account,
@@ -291,7 +291,7 @@ defineFeature(feature, test => {
                     ]
                 )
                 expect(downloadFileFunc).toCalledWith([
-                    fileID
+                    fileID, true
                 ])
                 expect(result).toEqual(appBinaryFile)
             })

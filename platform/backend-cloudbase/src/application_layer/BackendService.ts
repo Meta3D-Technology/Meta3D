@@ -74,11 +74,11 @@ export let getAccountFromMarketImplementCollectionData = BackendService.getAccou
 
 // export let getFileDataFromMarketImplementCollectionData = BackendService.getFileDataFromMarketImplementCollectionData
 
-export let downloadFile = (onDownloadProgressFunc, fileID) => {
+export let downloadFile = (onDownloadProgressFunc, fileID, notUseCache = false) => {
 	// TODO support onDownloadProgressFunc
 	onDownloadProgressFunc(0)
 
-	return BackendService.downloadFile(getBackend(), null, fileID)
+	return BackendService.downloadFile(getBackend(), null, fileID, notUseCache)
 }
 
 

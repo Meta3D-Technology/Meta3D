@@ -83,7 +83,7 @@ export let findPublishApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], a
             return just(null)
         }
 
-        return downloadFileFunc(data[0].fileID)
+        return downloadFileFunc(data[0].fileID, true)
     })
 }
 
