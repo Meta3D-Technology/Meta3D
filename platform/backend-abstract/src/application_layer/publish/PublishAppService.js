@@ -59,12 +59,12 @@ exports.publish = publish;
 // 	// let _meta3DState = loadApp(_findAppBinaryFile(account, appName))
 // 	let _meta3DState = loadApp(appBinaryFile)
 // }
-let findPublishApp = ([getDataByKeyFunc, downloadFileFunc], account, appName) => {
+let findPublishApp = ([getDataByKeyFunc, downloadFileFunc], account, appName, notUseCacheForFindApp) => {
     return (0, most_1.fromPromise)(getDataByKeyFunc("publishedapps", (0, exports._buildKey)(appName, account))).flatMap((data) => {
         if (data.length === 0) {
             return (0, most_1.just)(null);
         }
-        return downloadFileFunc(data[0].fileID, true);
+        return downloadFileFunc(data[0].fileID, notUseCacheForFindApp);
     });
 };
 exports.findPublishApp = findPublishApp;

@@ -163,7 +163,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         when('find the published app', () => {
         });
         then('should return empty', () => {
-            return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], "", "").observe(result => {
+            return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], "", "", false).observe(result => {
                 expect(result).toBeNull();
             });
         });
@@ -187,10 +187,10 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/publish_app.fe
         });
         and('publish the app', () => {
         });
-        when('find the published app', () => {
+        when('find the published app by not use cache', () => {
         });
         then('should return the app file not use cache', () => {
-            return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], account, appName).observe(result => {
+            return (0, PublishAppService_1.findPublishApp)([getDataByKeyFunc, downloadFileFunc], account, appName, true).observe(result => {
                 expect(getDataByKeyFunc).toCalledWith([
                     sinon_1.match.string,
                     "a1_an1"

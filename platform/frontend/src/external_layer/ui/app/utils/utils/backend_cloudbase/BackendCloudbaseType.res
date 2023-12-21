@@ -72,175 +72,11 @@ type getAllPublishExtensionProtocolsCount = unit => Meta3dBsMostDefault.Most.str
 type getAllPublishContributeProtocols = getAllPublishExtensionProtocols
 
 type batchFindPublishExtensionProtocols = (
-  . // . array<(protocolName, protocolVersion)>,
-  array<
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-    protocolName,
-  >,
+  . array<protocolName>,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
 
 type batchFindPublishContributeProtocols = (
-  . // . array<(protocolName, protocolVersion)>,
-  array<
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-    protocolName,
-  >,
+  . array<protocolName>,
 ) => Meta3dBsMostDefault.Most.stream<protocols>
 
 // type protocolConfig = {
@@ -260,175 +96,11 @@ type getAllPublishExtensionProtocolConfigs = (
 type getAllPublishContributeProtocolConfigs = getAllPublishExtensionProtocolConfigs
 
 type batchFindPublishExtensionProtocolConfigs = (
-  . // . array<(protocolName, protocolVersion)>,
-  array<
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-    protocolName,
-  >,
+  . array<protocolName>,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
 
 type batchFindPublishContributeProtocolConfigs = (
-  . // . array<(protocolName, protocolVersion)>,
-  array<
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-
-    // . array<(protocolName, protocolVersion)>,
-    protocolName,
-  >,
+  . array<protocolName>,
 ) => Meta3dBsMostDefault.Most.stream<protocolConfigs>
 
 type implementInfo = {
@@ -495,10 +167,13 @@ type publishApp = (
   isRecommend,
 ) => Meta3dBsMostDefault.Most.stream<unit>
 
+type notUseCacheForFindApp = bool
+
 type findPublishApp = (
   . onDownloadProgressFunc,
   account,
   appName,
+  notUseCacheForFindApp,
 ) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
 
 type findAllPublishApps = (

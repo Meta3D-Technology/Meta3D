@@ -77,13 +77,13 @@ export let publish = (
 // }
 
 
-export let findPublishApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], account: string, appName: string): Stream<nullable<ArrayBuffer>> => {
+export let findPublishApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], account: string, appName: string, notUseCacheForFindApp: boolean): Stream<nullable<ArrayBuffer>> => {
     return fromPromise(getDataByKeyFunc("publishedapps", _buildKey(appName, account))).flatMap((data: any) => {
         if (data.length === 0) {
             return just(null)
         }
 
-        return downloadFileFunc(data[0].fileID, true)
+        return downloadFileFunc(data[0].fileID, notUseCacheForFindApp)
     })
 }
 

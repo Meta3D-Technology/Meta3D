@@ -218,6 +218,7 @@ module Method = {
     (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
       account,
+      previousAppName,
       selectedPackages,
       selectedContributes,
       // selectedElementsFromMarket,
@@ -349,6 +350,12 @@ module Method = {
                 setPreviewBase64(_ => None)
                 handleWhenPublishFunc()
 
+                previousAppName == appName
+                  ? dispatchForAppStore(
+                      AppStoreType.UserCenterAction(UserCenterStoreType.MarkNotUseCacheForFindApp),
+                    )
+                  : ()
+
                 ()->Js.Promise.resolve
               }, _)
               ->Js.Promise.catch(e => {
@@ -372,7 +379,11 @@ module Method = {
   //   ()
   // }
 
-  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
+  let useSelector = ({userCenterState, assembleSpaceState}: AppStoreType.state) => {
+    let {currentAppName} = userCenterState
+
+    let {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state = assembleSpaceState
+
     let {
       selectedPackages,
       selectedContributes,
@@ -390,15 +401,24 @@ module Method = {
     } = elementAssembleState
 
     (
+      currentAppName,
       (
-        selectedPackages,
-        selectedContributes,
-        apInspectorData,
-        isPassDependencyGraphCheck,
-        storedPackageIdsInApp,
-        isChangeSelectedPackagesByDebug,
+        (
+          selectedPackages,
+          selectedContributes,
+          apInspectorData,
+          isPassDependencyGraphCheck,
+          storedPackageIdsInApp,
+          isChangeSelectedPackagesByDebug,
+        ),
+        (
+          canvasData,
+          selectedUIControls,
+          selectedUIControlInspectorData,
+          customInputs,
+          customActions,
+        ),
       ),
-      (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, customActions),
     )
   }
 }
@@ -415,16 +435,19 @@ let make = (
   let dispatchForAppStore = service.app.useDispatch()
 
   let (
+    currentAppName,
     (
-      selectedPackages,
-      selectedContributes,
-      apInspectorData,
-      isPassDependencyGraphCheck,
-      storedPackageIdsInApp,
-      isChangeSelectedPackagesByDebug,
+      (
+        selectedPackages,
+        selectedContributes,
+        apInspectorData,
+        isPassDependencyGraphCheck,
+        storedPackageIdsInApp,
+        isChangeSelectedPackagesByDebug,
+      ),
+      (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, customActions),
     ),
-    (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, customActions),
-  ) = service.react.useSelector(. Method.useSelector)
+  ) = service.react.useAllSelector(. Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
   let (previewBase64, setPreviewBase64) = service.react.useState(_ => None)
@@ -478,6 +501,7 @@ let make = (
                             (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
                             (
                               account,
+                              currentAppName->Meta3dCommonlib.OptionSt.getExn,
                               selectedPackages,
                               selectedContributes,
                               // selectedElementsFromMarket,

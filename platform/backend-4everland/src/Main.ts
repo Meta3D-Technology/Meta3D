@@ -1,5 +1,5 @@
 import * as Abstract from "backend-abstract";
-import { curry2 } from "../../../defaults/meta3d-fp/src/Curry";
+import { curry3_1 } from "meta3d-fp/src/Curry";
 
 import {
     init as initCloud, handleLoginForWeb3 as handleLoginForWeb3Cloud, getMarketProtocolCollection, getDataFromMarketProtocolCollection, getMarketImplementCollection,
@@ -54,7 +54,7 @@ export let findPublishExtension = (onDownloadProgressFunc,
     version
 ) => Abstract.findPublishImplement([
     getMarketImplement,
-    curry2(downloadFile)(onDownloadProgressFunc)
+    curry3_1(downloadFile)(onDownloadProgressFunc)
 ],
     "publishedextensions",
     account,
@@ -68,7 +68,7 @@ export let findPublishContribute = (onDownloadProgressFunc,
     version
 ) => Abstract.findPublishImplement([
     getMarketImplement,
-    curry2(downloadFile)(onDownloadProgressFunc)
+    curry3_1(downloadFile)(onDownloadProgressFunc)
 ],
     "publishedcontributes",
     account,
@@ -87,11 +87,11 @@ export let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account) 
     appBinaryFile, appName, account
 )
 
-export let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
+export let findPublishApp = (onDownloadProgressFunc, account, appName, notUseCacheForFindApp) => Abstract.findPublishApp([
     getDataByKey,
-    curry2(downloadFile)(onDownloadProgressFunc)
+    curry3_1(downloadFile)(onDownloadProgressFunc)
 ],
-    account, appName
+    account, appName, notUseCacheForFindApp
 )
 
 // export let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(
@@ -104,7 +104,7 @@ export let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPubli
     limitCount, skipCount
 )
 
-let _throwError = (msg: string): never  => {
+let _throwError = (msg: string): never => {
     throw new Error(msg)
 }
 
@@ -146,7 +146,7 @@ let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
 //     mapMarketImplementCollection,
 //     getAccountFromMarketImplementCollectionData,
 //     getFileDataFromMarketImplementCollectionData,
-//     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
+//     curry3_1(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 // ],
 //     "publishedextensions",
 //     protocolName
@@ -198,7 +198,7 @@ export let getAllPublishPackageInfos = (
 
 export let findPublishPackage = (onDownloadProgressFunc, account, packageName, packageVersion) => Abstract.findPublishPackage([
     getDataByKeyContain,
-    curry2(downloadFile)(onDownloadProgressFunc)
+    curry3_1(downloadFile)(onDownloadProgressFunc)
 ],
     account, packageName, packageVersion
 )

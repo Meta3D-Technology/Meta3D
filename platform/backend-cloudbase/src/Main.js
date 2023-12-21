@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
-const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
+const Curry_1 = require("meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
 const FindNewestService_1 = require("./application_layer/FindNewestService");
 const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
@@ -52,12 +52,12 @@ let getAllPublishContributeInfos = (limitCount, skipCount, protocolName, protoco
 exports.getAllPublishContributeInfos = getAllPublishContributeInfos;
 let findPublishExtension = (onDownloadProgressFunc, limitCount, skipCount, account, name, version) => Abstract.findPublishImplement([
     BackendService_1.getMarketImplement,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+    (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], "publishedextensions", limitCount, skipCount, account, name, version);
 exports.findPublishExtension = findPublishExtension;
 let findPublishContribute = (onDownloadProgressFunc, limitCount, skipCount, account, name, version) => Abstract.findPublishImplement([
     BackendService_1.getMarketImplement,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+    (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], "publishedcontributes", limitCount, skipCount, account, name, version);
 exports.findPublishContribute = findPublishContribute;
 let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, description, previewBase64, isRecommend) => Abstract.publishApp([
@@ -70,10 +70,10 @@ let publishApp = (onUploadProgressFunc, appBinaryFile, appName, account, descrip
     BackendService_1.getFileID,
 ], appBinaryFile, appName, account, description, previewBase64, isRecommend);
 exports.publishApp = publishApp;
-let findPublishApp = (onDownloadProgressFunc, account, appName) => Abstract.findPublishApp([
+let findPublishApp = (onDownloadProgressFunc, account, appName, notUseCacheForFindApp) => Abstract.findPublishApp([
     BackendService_1.getDataByKey,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
-], account, appName);
+    (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+], account, appName, notUseCacheForFindApp);
 exports.findPublishApp = findPublishApp;
 let findAllPublishAppsByAccount = (account) => Abstract.findAllPublishAppsByAccount(BackendService_1.getDataWithWhereData, account);
 exports.findAllPublishAppsByAccount = findAllPublishAppsByAccount;
@@ -127,7 +127,7 @@ let _throwError = (msg) => {
 //     getMarketImplementCollection,
 //     mapMarketImplementCollection,
 //     getAccountFromMarketImplementCollectionData,
-//     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
+//     curry3_1(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
 // ],
 //     "publishedextensions",
 //     limitCount,
@@ -172,20 +172,20 @@ let getAllPublishPackageInfos = (limitCount, skipCount, entryExtensionProtocolNa
 exports.getAllPublishPackageInfos = getAllPublishPackageInfos;
 let findPublishPackage = (onDownloadProgressFunc, limitCount, skipCount, account, packageName, packageVersion) => Abstract.findPublishPackage([
     BackendService_1.getDataByKeyContain,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+    (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], limitCount, skipCount, account, packageName, packageVersion);
 exports.findPublishPackage = findPublishPackage;
 let findNewestPublishPackage = (onDownloadProgressFunc, entryExtensionProtocolName, packageName) => Abstract.findNewestPublishPackage([
     FindNewestService_1.findNewestPublishPackage,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+    (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
 ], entryExtensionProtocolName, packageName);
 exports.findNewestPublishPackage = findNewestPublishPackage;
 let findNewestPublishExtension = (onDownloadProgressFunc, extensionName, extensionProtocolName) => {
-    return (0, FindNewestService_1.findNewestPublishExtension)((0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc), extensionName, extensionProtocolName);
+    return (0, FindNewestService_1.findNewestPublishExtension)((0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc), extensionName, extensionProtocolName);
 };
 exports.findNewestPublishExtension = findNewestPublishExtension;
 let findNewestPublishContribute = (onDownloadProgressFunc, contributeName, contributeProtocolName) => {
-    return (0, FindNewestService_1.findNewestPublishContribute)((0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc), contributeName, contributeProtocolName);
+    return (0, FindNewestService_1.findNewestPublishContribute)((0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc), contributeName, contributeProtocolName);
 };
 exports.findNewestPublishContribute = findNewestPublishContribute;
 // export let findNewestPublishElementAssembleData = findNewestPublishElementAssembleDataFind

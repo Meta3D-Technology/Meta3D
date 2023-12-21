@@ -3,11 +3,18 @@ open Antd
 
 @react.component
 let make = (~service: FrontendType.service) => {
+  let dispatch = AppStore.useDispatch()
+
   let url = RescriptReactRouter.useUrl()
 
-  let {account, appName} = AppStore.useSelector(({enterAppState}: AppStoreType.state) =>
-    enterAppState
-  )
+  let (notUseCacheForFindApp, (account, appName)) = AppStore.useSelector((
+    {userCenterState, enterAppState}: AppStoreType.state,
+  ) => {
+    let {notUseCacheForFindApp} = userCenterState
+    let {account, appName} = enterAppState
+
+    (notUseCacheForFindApp, (account, appName))
+  })
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
@@ -26,8 +33,11 @@ let make = (~service: FrontendType.service) => {
             progress => setDownloadProgress(_ => progress),
             account,
             appName,
+            notUseCacheForFindApp,
           )->Meta3dBsMostDefault.Most.observe(
             appBinaryFile => {
+              dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.MarkUseCacheForFindApp))
+
               setIsDownloadFinish(_ => true)
 
               Js.Nullable.isNullable(appBinaryFile)

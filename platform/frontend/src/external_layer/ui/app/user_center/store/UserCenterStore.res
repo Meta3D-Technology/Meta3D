@@ -114,6 +114,7 @@ let _createState = () => {
   importedPackageIds: list{},
   // importedAppIds: list{},
   currentAppName: None,
+  notUseCacheForFindApp: false,
   isInCreateFromScratchTourPhase1: false,
   isInCreateFromScratchTourPhase3: false,
 }
@@ -330,6 +331,14 @@ let reducer = (state, action) => {
   | EndCreateFromScratchTourPhase3 => {
       ...state,
       isInCreateFromScratchTourPhase3: false,
+    }
+  | MarkNotUseCacheForFindApp => {
+      ...state,
+      notUseCacheForFindApp: true,
+    }
+  | MarkUseCacheForFindApp => {
+      ...state,
+      notUseCacheForFindApp: false,
     }
   }
 }

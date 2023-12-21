@@ -35,7 +35,7 @@ Feature: Publish App
             Given prepare funcs
             And generate a app
             And publish the app
-            When find the published app
+            When find the published app by not use cache
             Then should return the app file not use cache
 
         # Rule: findAllPublishAppsByAccount

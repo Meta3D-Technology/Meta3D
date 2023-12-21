@@ -67,6 +67,8 @@ type action =
   | EndCreateFromScratchTourPhase1
   | StartCreateFromScratchTourPhase3
   | EndCreateFromScratchTourPhase3
+  | MarkNotUseCacheForFindApp
+  | MarkUseCacheForFindApp
 
 type state = {
   account: option<string>,
@@ -78,6 +80,7 @@ type state = {
   importedPackageIds: list<id>,
   // importedAppIds: list<id>,
   currentAppName: option<appName>,
+  notUseCacheForFindApp: bool,
   // customInputs: customInputs,
   // customActions: customActions,
   isInCreateFromScratchTourPhase1: bool,

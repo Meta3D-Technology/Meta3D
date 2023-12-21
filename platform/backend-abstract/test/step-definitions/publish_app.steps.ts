@@ -241,7 +241,7 @@ defineFeature(feature, test => {
         then('should return empty', () => {
             return findPublishApp(
                 [getDataByKeyFunc, downloadFileFunc],
-                "", ""
+                "", "", false
             ).observe(result => {
                 expect(result).toBeNull()
             })
@@ -275,14 +275,15 @@ defineFeature(feature, test => {
         and('publish the app', () => {
         });
 
-        when('find the published app', () => {
+        when('find the published app by not use cache', () => {
         });
 
         then('should return the app file not use cache', () => {
             return findPublishApp(
                 [getDataByKeyFunc, downloadFileFunc],
                 account,
-                appName
+                appName,
+                true
             ).observe(result => {
                 expect(getDataByKeyFunc).toCalledWith(
                     [

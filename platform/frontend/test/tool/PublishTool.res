@@ -31,6 +31,7 @@ let publish = (
   ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setPreviewBase64=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~account="u1"->Some,
+  ~currentAppName="",
   ~selectedPackages=list{},
   ~selectedContributes=list{},
   // ~selectedElementsFromMarket=list{},
@@ -56,6 +57,7 @@ let publish = (
     (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
       account,
+      currentAppName,
       selectedPackages,
       selectedContributes,
       // selectedElementsFromMarket,

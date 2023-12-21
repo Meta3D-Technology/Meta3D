@@ -13,6 +13,7 @@ let importApp = (
   service: FrontendType.service,
   (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
   (setDownloadProgress, onFinish),
+  notUseCacheForFindApp,
   release,
   item: BackendCloudbaseType.publishAppInfo,
 ) => {
@@ -20,8 +21,11 @@ let importApp = (
     progress => setDownloadProgress(_ => progress),
     item.account,
     item.appName,
+    notUseCacheForFindApp,
   )
   ->Meta3dBsMostDefault.Most.flatMap(file => {
+    dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.MarkUseCacheForFindApp))
+
     Meta3dCommonlib.NullableSt.isNullable(file)
       ? {
           onFinish()
@@ -72,7 +76,6 @@ let importApp = (
       service,
       (
         () => {
-          // onFinish()
           ()
         },
         (selectedExtensions, selectedContributes, selectedPackages) =>
@@ -91,6 +94,8 @@ let importApp = (
           dispatchForApAssembleStore(ApAssembleStoreType.BatchStorePackagesInApp(packageIds)),
       ),
     ),
+    // onFinish()
+
     _,
   )
   ->Js.Promise.then_(() => {

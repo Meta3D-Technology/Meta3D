@@ -54,6 +54,7 @@ type reactService = {
   useState: 'a. ('a => 'a) => ('a, ('a => 'a) => unit),
   useRef: 'a. 'a => React.ref<'a>,
   useDispatch: useDispatch,
+  useAllSelector: 'a. (. AppStoreType.state => 'a) => 'a,
   useSelector: 'a. (. AssembleSpaceStoreType.state => 'a) => 'a,
   useEffect: 'a. (. unit => option<unit => unit>) => unit,
   useEffect1: 'a. (. unit => option<unit => unit>, array<'a>) => unit,

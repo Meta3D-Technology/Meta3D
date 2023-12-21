@@ -14,6 +14,7 @@ let make = (~service: FrontendType.service) => {
   let {
     account,
     release,
+    notUseCacheForFindApp,
     isInCreateFromScratchTourPhase1,
     isInCreateFromScratchTourPhase3,
   } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
@@ -628,6 +629,7 @@ let make = (~service: FrontendType.service) => {
                                 setInfo(_ => None)
                               },
                             ),
+                            notUseCacheForFindApp,
                             release,
                             item,
                           )
