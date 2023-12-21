@@ -31,7 +31,7 @@ TODO perf: only
 * DONE tour: metion click guide button
 
 
-* TODO fix tour: end tour->start tour: should reset
+* DONE fix tour: end tour->start tour: should reset
 
 * TODO fix: release time before error?
 

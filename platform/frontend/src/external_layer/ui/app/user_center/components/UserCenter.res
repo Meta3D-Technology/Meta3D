@@ -422,6 +422,10 @@ let make = (~service: FrontendType.service) => {
             <Card key={"1"}>
               <Button
                 onClick={_ => {
+                  setOpenCreateFromScratchPhase1BeforeTour(_ => true)
+                  setOpenCreateFromScratchPhase1Tour(_ => false)
+                  setOpenCreateFromScratchPhase3BeforeTour(_ => false)
+
                   GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
                 }}>
                 {React.string(`打开“从头创建新的编辑器”的引导`)}
