@@ -16,7 +16,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "InputText##" + _generateUniqueId()
+        value: "文字输入框##" + _generateUniqueId()
     },
     {
         name: "maxLength",

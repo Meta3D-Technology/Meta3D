@@ -52,7 +52,7 @@ module Method = {
     customs
     ->Meta3dCommonlib.ListSt.map(({name}: CommonType.custom): Tree.treeData => {
       {
-        title: name,
+        title: {React.string(name)},
         key: name,
         icon: React.null,
         children: [],

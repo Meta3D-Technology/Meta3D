@@ -55,3 +55,5 @@ let buildSelectedUIControl = (
 
 let useSelector = ({apAssembleState}: AssembleSpaceStoreType.state) =>
   SelectedUIControls.Method.useSelector
+
+let convertToTreeData = SelectedUIControls.Method.convertToTreeData

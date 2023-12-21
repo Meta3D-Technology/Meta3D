@@ -16,7 +16,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "Tree##" + _generateUniqueId()
+        value: "树##" + _generateUniqueId()
     },
     {
         name: "rootNodeLabel",

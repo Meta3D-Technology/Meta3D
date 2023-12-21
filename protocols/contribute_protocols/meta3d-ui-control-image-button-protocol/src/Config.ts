@@ -16,7 +16,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "Image Button##" + _generateUniqueId()
+        value: "图片按钮##" + _generateUniqueId()
     },
     {
         name: "image",

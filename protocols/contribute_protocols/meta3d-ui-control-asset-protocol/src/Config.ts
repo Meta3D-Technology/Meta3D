@@ -12,7 +12,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "Asset"
+        value: "资产"
     },
     {
         name: "image",

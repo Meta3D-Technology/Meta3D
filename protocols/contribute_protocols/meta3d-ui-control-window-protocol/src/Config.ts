@@ -16,7 +16,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "Window##" + _generateUniqueId()
+        value: "窗口##" + _generateUniqueId()
     },
     {
         name: "flag",

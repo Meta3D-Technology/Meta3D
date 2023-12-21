@@ -100,3 +100,10 @@ let convertStringToValue = (
     valueStr,
   )
 }
+
+let getSpecificDataValue = (specificDataValue: ElementAssembleStoreType.specificDataValue) => {
+  switch specificDataValue {
+  | SpecicFieldDataValue(value) => value
+  // | _ => None
+  }
+}

@@ -372,13 +372,6 @@ module Method = {
     )
   }
 
-  let getSpecificDataValue = (specificDataValue: ElementAssembleStoreType.specificDataValue) => {
-    switch specificDataValue {
-    | SpecicFieldDataValue(value) => value
-    // | _ => None
-    }
-  }
-
   // let _getSpecificDataValueElementFieldValue = (
   //   specificDataValue: ElementAssembleStoreType.specificDataValue,
   // ) => {
@@ -400,7 +393,7 @@ module Method = {
           | #string =>
             <Input
               key={name}
-              value={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+              value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
               onChange={e => {
                 _setSpecificData(
                   dispatch,
@@ -450,17 +443,17 @@ module Method = {
               //     preview=true
               //     src={
 
-              //       getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+              //       SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
               //     width=40
               //     height=40
               //   />
               // }}
 
-              {getSpecificDataValue(value)->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
+              {SpecificUtils.getSpecificDataValue(value)->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
                 ? React.null
                 : <Image
                     preview=true
-                    src={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+                    src={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
                     width=40
                     height=40
                   />}
@@ -470,7 +463,7 @@ module Method = {
               ? React.null
               : <Space direction=#horizontal>
                   <Input.TextArea
-                    value={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+                    value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
                     onChange={e => {
                       ErrorUtils.swallowCatchedError(() => {
                         _setSpecificData(
@@ -499,7 +492,7 @@ module Method = {
                   value->SpecificUtils.convertStringToValue(type_)->CommonType.SpecicFieldDataValue,
                   type_,
                 ),
-              getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_),
+              SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_),
               ["true", "false"],
             )
           | #select => SelectUtils.buildSelectWithKeysAndWithoutEmpty(selectedValue => {
@@ -510,25 +503,25 @@ module Method = {
                 i,
                 {
                   "selected": selectedValue,
-                  "data": (getSpecificDataValue(value)->Obj.magic)["data"],
+                  "data": (SpecificUtils.getSpecificDataValue(value)->Obj.magic)["data"],
                 }
                 ->Obj.magic
                 ->CommonType.SpecicFieldDataValue,
                 type_,
               )
             }, (
-              getSpecificDataValue(value)->Obj.magic
+              SpecificUtils.getSpecificDataValue(value)->Obj.magic
             )["selected"], (
-              getSpecificDataValue(value)->Obj.magic
+              SpecificUtils.getSpecificDataValue(value)->Obj.magic
             )["data"]->Meta3dCommonlib.ArraySt.map(
               valueData => valueData["key"],
-            ), (getSpecificDataValue(value)->Obj.magic)["data"]->Meta3dCommonlib.ArraySt.map(
+            ), (SpecificUtils.getSpecificDataValue(value)->Obj.magic)["data"]->Meta3dCommonlib.ArraySt.map(
               valueData => valueData["value"],
             ))
           | #number =>
             <InputNumber
               key={name}
-              value={getSpecificDataValue(value)->Obj.magic}
+              value={SpecificUtils.getSpecificDataValue(value)->Obj.magic}
               step="0.0001"
               onChange={value => {
                 _setSpecificData(

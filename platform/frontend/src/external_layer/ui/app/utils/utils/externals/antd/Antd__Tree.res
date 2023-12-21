@@ -3,7 +3,7 @@ type key = string
 type ref
 
 type rec treeData = {
-  title: string,
+  title: React.element,
   key: key,
   // icon: Js.Nullable.t<React.element>,
   icon: React.element,

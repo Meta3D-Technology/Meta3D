@@ -18,16 +18,55 @@ module Method = {
         )
   }
 
-  let rec convertToTreeData = selectedUIControls => {
+  let _findLabel = (
+    id,
+    selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
+  ): option<string> => {
+    (
+      HierachyUtils.findSelectedUIControlData(
+        None,
+        (
+          (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+          (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+        ),
+        selectedUIControlInspectorData,
+        id,
+      )
+      ->Meta3dCommonlib.OptionSt.getExn
+    ).specific
+    ->Meta3dCommonlib.ArraySt.find(({name}) => name == "label")
+    ->Meta3dCommonlib.OptionSt.map(({value}) =>
+      SpecificUtils.getSpecificDataValue(value)->Obj.magic
+    )
+  }
+
+  let rec convertToTreeData = (
+    service: service,
+    selectedUIControls,
+    selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
+  ) => {
     selectedUIControls
     ->Meta3dCommonlib.ListSt.map((
       {id, protocolIconBase64, displayName, children}: ElementAssembleStoreType.uiControl,
     ): Tree.treeData => {
       {
-        title: displayName,
+        title: <Space direction=#horizontal wrap=true>
+          {service.ui.buildText(.
+            ~_type=#default,
+            ~children={
+              React.string(
+                _findLabel(
+                  id,
+                  selectedUIControlInspectorData,
+                )->Meta3dCommonlib.OptionSt.getWithDefault(displayName),
+              )
+            },
+            (),
+          )}
+        </Space>,
         key: id,
         icon: <Image preview=false src={protocolIconBase64} width=20 height=20 />,
-        children: convertToTreeData(children),
+        children: convertToTreeData(service, children, selectedUIControlInspectorData),
       }
     })
     ->Meta3dCommonlib.ListSt.toArray
@@ -37,7 +76,9 @@ module Method = {
     [
       (
         {
-          title: "root",
+          title: {
+            React.string({j`root`})
+          },
           key: getRootKey(),
           children: allTreeData,
           icon: React.null,
@@ -154,9 +195,13 @@ module Method = {
 
   let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {apInspectorData} = apAssembleState
-    let {selectedUIControls, parentUIControlId} = elementAssembleState
+    let {
+      selectedUIControls,
+      selectedUIControlInspectorData,
+      parentUIControlId,
+    } = elementAssembleState
 
-    (apInspectorData.isDebug, selectedUIControls)
+    (apInspectorData.isDebug, selectedUIControls, selectedUIControlInspectorData)
   }
 }
 
@@ -179,7 +224,9 @@ let make = (
   let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
   let (isShowUIControls, setIsShowUIControls) = service.react.useState(_ => false)
 
-  let (isDebug, selectedUIControls) = service.react.useSelector(. Method.useSelector)
+  let (isDebug, selectedUIControls, selectedUIControlInspectorData) = service.react.useSelector(.
+    Method.useSelector,
+  )
 
   <>
     <Space direction=#vertical size=#middle>
@@ -201,7 +248,9 @@ let make = (
       <section ref={rootTarget->Obj.magic}>
         <Tree
           showIcon=true
-          treeData={selectedUIControls->Method.convertToTreeData->Method.addRootTreeNode}
+          treeData={selectedUIControls
+          ->Method.convertToTreeData(service, _, selectedUIControlInspectorData)
+          ->Method.addRootTreeNode}
           expandedKeys
           onExpand={expandedKeysValue =>
             Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}

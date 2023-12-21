@@ -10,9 +10,6 @@ external make: (
 
 module Panel = {
   @module("antd") @scope("Collapse") @react.component
-  external make: (
-    ~header: string=?,
-    ~key: string=?,
-    ~children: React.element=?,
-  ) => React.element = "Panel"
+  external make: (~header: string=?, ~key: string=?, ~children: React.element=?) => React.element =
+    "Panel"
 }

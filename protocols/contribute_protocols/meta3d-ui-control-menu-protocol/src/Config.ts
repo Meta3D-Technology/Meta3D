@@ -14,7 +14,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "Menu##" + _generateUniqueId()
+        value: "菜单栏##" + _generateUniqueId()
     },
     {
         name: "items",

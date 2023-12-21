@@ -38,19 +38,22 @@ TODO perf: only
 -1?
 
 
-* TODO feat: Selected UI Controls 's name should = label
+* DONE feat: Selected UI Controls 's name should = label
 
+TODO fix
+
+TODO update label to displayName
+
+TODO update ui
+
+TODO fix find children
+
+TODO pass bdd test
 
 
 * TODO fix: import action: not need empty before!
 
 
-
-
-* TODO solve ci sometimes fail: Actions->Install error
-* TODO make ci pass in README
-* TODO github->codecov should contain platform/assemble-space
-* TODO Github: lanaguage remove Javascript
 
 
 
@@ -130,6 +133,12 @@ TODO 延迟/预加载 monaco-editor
 
 * TODO check all * TODOs and clear
 
+
+
+* TODO solve ci sometimes fail: Actions->Install error
+* TODO make ci pass in README
+* TODO github->codecov should contain platform/assemble-space
+* TODO Github: lanaguage remove Javascript
 
 
 
