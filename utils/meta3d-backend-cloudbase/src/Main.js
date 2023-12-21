@@ -31,26 +31,40 @@ exports.checkUserName = checkUserName;
 let handleLoginForWeb3 = (app, account) => {
     return (0, exports.checkUserName)(app, account).flatMap((isNotHasData) => {
         if (isNotHasData) {
-            return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
-                fileData: []
-            }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
-                fileData: []
-            }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
-                fileData: []
-            })));
+            return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {}));
+            // .concat(fromPromise(
+            //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
+            //         fileData: []
+            //     })
+            // )).concat(fromPromise(
+            //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
+            //         fileData: []
+            //     })
+            // )).concat(fromPromise(
+            //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
+            //         fileData: []
+            //     })
+            // ))
         }
         return (0, most_1.just)(account);
     });
 };
 exports.handleLoginForWeb3 = handleLoginForWeb3;
 let registerUser = (app, account) => {
-    return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
-        fileData: []
-    }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
-        fileData: []
-    }))).concat((0, most_1.fromPromise)((0, exports.addDataToMarketImplementCollection)(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
-        fileData: []
-    })));
+    return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {}));
+    // .concat(fromPromise(
+    //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
+    //         fileData: []
+    //     })
+    // )).concat(fromPromise(
+    //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedcontributes", account, _buildEmptyCollectionData(), {
+    //         fileData: []
+    //     })
+    // )).concat(fromPromise(
+    //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedelementassembledata", account, _buildEmptyCollectionData(), {
+    //         fileData: []
+    //     })
+    // ))
 };
 exports.registerUser = registerUser;
 let handleKeyToLowercase = (key) => {

@@ -1,6 +1,13 @@
 * TODO publish all to local env
 
 
+TODO fix: register: add fileData:[]
+
+
+
+TODO remove publishedelementassembledata
+
+
 * TODO remove custom label
 
 
