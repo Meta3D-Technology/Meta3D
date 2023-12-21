@@ -33,7 +33,7 @@ TODO perf: only
 
 * DONE fix tour: end tour->start tour: should reset
 
-* TODO fix: release time before error?
+* DONE fix: release time before error?
 
 -1?
 

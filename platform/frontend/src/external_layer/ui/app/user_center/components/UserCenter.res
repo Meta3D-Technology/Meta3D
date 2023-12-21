@@ -271,7 +271,7 @@ let make = (~service: FrontendType.service) => {
                   version: data["tag_name"],
                   releaseDateUntilNow: Moment.moment(.).subtract(.
                     Moment.createMomentFromDate(. published_at),
-                  ).dayOfYear(.),
+                  ).dayOfYear(.) - 1,
                 }: UserCenterStoreType.release
               ),
             ),
@@ -280,6 +280,8 @@ let make = (~service: FrontendType.service) => {
 
         ()->Js.Promise.resolve
       },
+      // let releaseDateUntilNow =
+
       // Js.log(Moment.moment(.))
       // Js.log(Moment.createMomentFromDate(. published_at))
       // Js.log(Moment.moment(.).subtract(. Moment.createMomentFromDate(. published_at)))
@@ -488,7 +490,11 @@ let make = (~service: FrontendType.service) => {
                   {React.string({j`Meta3D ${version}`})}
                 </Typography.Title>
                 <Typography.Title level=5>
-                  {React.string({j`${releaseDateUntilNow->IntUtils.intToString}天前更新`})}
+                  {React.string(
+                    releaseDateUntilNow == 0
+                      ? {j`今天`}
+                      : j`${releaseDateUntilNow->IntUtils.intToString}天前` ++ {j`更新`},
+                  )}
                 </Typography.Title>
               </>
             }}
