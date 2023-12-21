@@ -18,8 +18,9 @@ TODO remove publishedelementassembledata in production database
 * DONE remove custom label
 
 
-* TODO import app should add select all ui controls
+* DONE import app should add select all ui controls
 
+* TODO specific: fix empty value
 
 * TODO tour: metion click guide button
 
@@ -34,6 +35,12 @@ TODO UI Control Inspector->Input add filter
 TODO
 Custom Input, Action should extract name
 Custom Action should simplify type to forward, ... funcs!
+
+
+
+TODO optimize input: how can first show ui control, then edit input?
+
+
 
 
 * TODO Custom: Input: 给出type

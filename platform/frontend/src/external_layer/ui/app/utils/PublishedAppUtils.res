@@ -13,6 +13,7 @@ let importApp = (
   service: FrontendType.service,
   (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
   (setDownloadProgress, onFinish),
+  release,
   item: BackendCloudbaseType.publishAppInfo,
 ) => {
   service.backend.findPublishApp(.
@@ -71,7 +72,8 @@ let importApp = (
       service,
       (
         () => {
-          onFinish()
+          // onFinish()
+          ()
         },
         (selectedExtensions, selectedContributes, selectedPackages) =>
           dispatch(
@@ -92,6 +94,11 @@ let importApp = (
     _,
   )
   ->Js.Promise.then_(() => {
+    UIControlUtils.selectAllUIControls(service, dispatch, release)
+  }, _)
+  ->Js.Promise.then_(() => {
+    onFinish()
+
     RescriptReactRouter.push("/AssembleSpace")
 
     ()->Js.Promise.resolve

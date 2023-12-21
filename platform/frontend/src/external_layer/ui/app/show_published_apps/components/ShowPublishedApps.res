@@ -19,7 +19,7 @@ let make = (~service: FrontendType.service, ~account) => {
   //   }
   // })
 
-  // let {account} = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
+  let {release} = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
   // let {importedAppIds} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
   //   userCenterState
   // )
@@ -100,6 +100,7 @@ let make = (~service: FrontendType.service, ~account) => {
                       setCurrentImportingKey(_ => None)
                     },
                   ),
+                  release,
                   item,
                 )
               }}>
