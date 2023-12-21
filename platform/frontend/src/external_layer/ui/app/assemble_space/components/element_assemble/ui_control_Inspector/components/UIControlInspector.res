@@ -456,12 +456,14 @@ module Method = {
               //   />
               // }}
 
-              <Image
-                preview=true
-                src={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
-                width=40
-                height=40
-              />
+              {getSpecificDataValue(value)->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
+                ? React.null
+                : <Image
+                    preview=true
+                    src={getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+                    width=40
+                    height=40
+                  />}
             </Space>
           | #menuItems =>
             TextareaUtils.isNotShowTextareaForTest()

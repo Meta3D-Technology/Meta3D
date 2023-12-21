@@ -43,8 +43,7 @@ let convertValueToString = (
         //     ),
         //   ),
         // )
-        // value->Obj.magic->Meta3dCommonlib.NullableSt.getWithDefault("")->Obj.magic
-        value->Obj.magic
+        value->Obj.magic->Meta3dCommonlib.NullableSt.getWithDefault("")->Obj.magic
       },
       value => {
         value->Obj.magic->Js.Json.stringify

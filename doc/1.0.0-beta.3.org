@@ -20,7 +20,12 @@ TODO remove publishedelementassembledata in production database
 
 * DONE import app should add select all ui controls
 
-* TODO specific: fix empty value
+* DONE specific: fix empty value
+
+* TODO fix: publish app with the same name->import it: still old one
+because cache?
+
+
 
 * TODO tour: metion click guide button
 
