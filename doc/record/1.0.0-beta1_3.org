@@ -520,8 +520,4 @@ rotate Scene->che error:
 
 use 0fx user to snapshot
 
-* TODO publish version
-
-* TODO 发布《Meta3D开发记录1：发布第一个可用版本v1.0 Beta.1》
-
-发布到官网博客、知乎、博客园、https://w2solo.com/?page=3
+* DONE publish version
