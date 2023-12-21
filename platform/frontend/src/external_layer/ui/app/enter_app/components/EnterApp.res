@@ -22,44 +22,7 @@ let make = (~service: FrontendType.service) => {
       // TODO perf: if already init, not init again
       service.backend.init(InitUtils.getBackendEnv(_getEnv()))
       ->Meta3dBsMostDefault.Most.drain
-      ->// customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // Message.error(.
-      //   {j`account: ${account} appName: ${appName} has no published app`},
-      //   10,
-      // )
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      // customData->Obj.magic
-
-      Js.Promise.then_(
+      ->Js.Promise.then_(
         _ => {
           service.backend.findPublishApp(.
             progress => setDownloadProgress(_ => progress),
@@ -71,10 +34,12 @@ let make = (~service: FrontendType.service) => {
 
               Js.Nullable.isNullable(appBinaryFile)
                 ? {
-                    Antd.Message.getMessageAPI()._open(. {
-                      _type: #error,
-                      content: {j`account: ${account} appName: ${appName} has no published app`},
-                    })
+                    ErrorUtils.error(
+                      {
+                        j`account: ${account} appName: ${appName} has no published app`
+                      },
+                      None,
+                    )
                   }
                 : {
                     Meta3dCommonlib.NullableSt.getExn(appBinaryFile)
@@ -118,43 +83,6 @@ let make = (~service: FrontendType.service) => {
             _,
           )
         },
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // Message.error(.
-        //   {j`account: ${account} appName: ${appName} has no published app`},
-        //   10,
-        // )
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
-        // customData->Obj.magic
-
         _,
       )
       ->Js.Promise.catch(

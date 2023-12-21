@@ -1,4 +1,4 @@
-let _getEnv = (): EnvType.env => #production
+let _getEnv = (): EnvType.env => #local
 
 let _hiddenLoadding = %raw(`
     function(){

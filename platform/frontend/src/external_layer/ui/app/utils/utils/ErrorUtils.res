@@ -20,6 +20,7 @@ let warn = (message: string, durationOpt: option<int>) => {
   Antd.Message.getMessageAPI()._open(. {
     _type: #warning,
     content: message,
+    duration: durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
   })
 }
 
@@ -30,6 +31,7 @@ let error = (message: string, durationOpt: option<int>) => {
   Antd.Message.getMessageAPI()._open(. {
     _type: #error,
     content: message,
+    duration: durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
   })
 }
 
@@ -43,6 +45,7 @@ let errorWithExn = (error: Js.Exn.t, durationOpt: option<int>) => {
   Antd.Message.getMessageAPI()._open(. {
     _type: #error,
     content: error->Js.Exn.message->Meta3dCommonlib.OptionSt.getExn->Obj.magic,
+    duration: durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
   })
 }
 

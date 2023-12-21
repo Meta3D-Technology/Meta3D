@@ -26,6 +26,7 @@ type openDataType = [#success | #error | #warning]
 type openData = {
   @as("type") _type: openDataType,
   content: string,
+  duration: int
 }
 
 type messageApi = {@as("open") _open: (. openData) => unit}

@@ -1,15 +1,23 @@
-* TODO publish all to local env
+* DONE publish all to local env
 
 
 TODO fix: register: add fileData:[]
 
 
+TODO publish all packages
 
-TODO remove publishedelementassembledata
+
+
+* TODO remove publishedelementassembledata
 
 
 * TODO remove custom label
 
+
+* TODO import app should add select all ui controls
+
+
+* TODO tour: metion click guide button
 
 
 * TODO Custom: 简化

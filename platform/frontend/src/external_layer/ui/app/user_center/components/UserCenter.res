@@ -173,6 +173,22 @@ let make = (~service: FrontendType.service) => {
           service.backend.findNewestPublishPackage(. progress => (), protocolName, name)
           ->Meta3dBsMostDefault.Most.map(
             data => {
+              data->Meta3dCommonlib.NullableSt.isNullable
+                ? Meta3dCommonlib.Exception.throwErr(
+                    Meta3dCommonlib.Exception.buildErr(
+                      Meta3dCommonlib.Log.buildErrorMessage(
+                        ~title={j`package not exist`},
+                        ~description={
+                          j``
+                        },
+                        ~reason="",
+                        ~solution=j``,
+                        ~params=j`protocolName: ${protocolName}, name: ${name}`,
+                      ),
+                    ),
+                  )
+                : ()
+
               let (
                 file,
                 entryExtensionProtocolVersion,

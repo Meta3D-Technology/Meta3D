@@ -1,14 +1,14 @@
 # ninja log v6
-1	25	1702973287794157464	src/state/StateType.ast	b77cdc3afc8a15dc
-1	27	1702973287794219995	src/service/ServiceType.ast	785165cefc5839bb
-2	28	1702973287794709996	Meta3dAssetProtocol.cmi	3809cb3bf0a1578c
-25	39	1702973287810894274	src/state/StateType.d	e67c05e9db4e307d
-27	43	1702973287815328862	src/service/ServiceType.d	f2d6bc4aa9df18b6
-39	71	1702973287840413379	src/state/StateType-Meta3dAssetProtocol.cmj	973e3ceb7031d6c5
-39	71	1702973287840413379	src/state/StateType-Meta3dAssetProtocol.cmi	973e3ceb7031d6c5
-39	71	1702973287840413379	../es6_global/src/state/StateType.bs.js	973e3ceb7031d6c5
-39	71	1702973287840413379	../js/src/state/StateType.bs.js	973e3ceb7031d6c5
-71	104	1702973287875484853	src/service/ServiceType-Meta3dAssetProtocol.cmj	55b62d7cceb66512
-71	104	1702973287875484853	src/service/ServiceType-Meta3dAssetProtocol.cmi	55b62d7cceb66512
-71	104	1702973287875484853	../es6_global/src/service/ServiceType.bs.js	55b62d7cceb66512
-71	104	1702973287875484853	../js/src/service/ServiceType.bs.js	55b62d7cceb66512
+0	26	1703120058213178358	src/service/ServiceType.ast	785165cefc5839bb
+2	27	1703120058213168541	src/state/StateType.ast	b77cdc3afc8a15dc
+4	29	1703120058214997281	Meta3dAssetProtocol.cmi	3809cb3bf0a1578c
+26	34	1703120058221958406	src/service/ServiceType.d	f2d6bc4aa9df18b6
+27	34	1703120058222170141	src/state/StateType.d	e67c05e9db4e307d
+34	66	1703120058252577046	src/state/StateType-Meta3dAssetProtocol.cmj	7529b0524fec42d1
+34	66	1703120058252577046	src/state/StateType-Meta3dAssetProtocol.cmi	7529b0524fec42d1
+34	66	1703120058252577046	../es6_global/src/state/StateType.bs.js	7529b0524fec42d1
+34	66	1703120058252577046	../js/src/state/StateType.bs.js	7529b0524fec42d1
+66	99	1703120058285931645	src/service/ServiceType-Meta3dAssetProtocol.cmj	cba77de97100d044
+66	99	1703120058285931645	src/service/ServiceType-Meta3dAssetProtocol.cmi	cba77de97100d044
+66	99	1703120058285931645	../es6_global/src/service/ServiceType.bs.js	cba77de97100d044
+66	99	1703120058285931645	../js/src/service/ServiceType.bs.js	cba77de97100d044
