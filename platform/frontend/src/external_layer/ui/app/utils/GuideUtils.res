@@ -99,7 +99,12 @@ let buildCreateFromScratchStepData = () => {
   ]
 }
 
-let buildSteps = (onStartFunc, current, stepData) => {
+let buildSteps = (
+  onStartFunc,
+  current,
+  stepData,
+  beginGuideTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
   let (_, title, description) = stepData->Meta3dCommonlib.ArraySt.getExn(current)
 
   <>
@@ -113,7 +118,7 @@ let buildSteps = (onStartFunc, current, stepData) => {
         }
       })}
     />
-    <StepContent onStartFunc title description />
+    <StepContent onStartFunc title description beginGuideTarget />
   </>
 }
 

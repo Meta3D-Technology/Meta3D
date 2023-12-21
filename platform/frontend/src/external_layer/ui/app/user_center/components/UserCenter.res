@@ -21,14 +21,23 @@ let make = (~service: FrontendType.service) => {
   let (info, setInfo) = React.useState(_ => None)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
+  let (
+    openCreateFromScratchPhase1BeforeTour,
+    setOpenCreateFromScratchPhase1BeforeTour,
+  ) = React.useState(_ => true)
   let (openCreateFromScratchPhase1Tour, setOpenCreateFromScratchPhase1Tour) = React.useState(_ =>
     false
   )
+  let (
+    openCreateFromScratchPhase3BeforeTour,
+    setOpenCreateFromScratchPhase3BeforeTour,
+  ) = React.useState(_ => false)
   let (openCreateFromScratchPhase3Tour, setOpenCreateFromScratchPhase3Tour) = React.useState(_ =>
     false
   )
   // let (releaseData, setReleaseData) = React.useState(_ => None)
 
+  let beginGuideTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let createFromScratchButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let publishedEditorsTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let navTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
@@ -291,6 +300,20 @@ let make = (~service: FrontendType.service) => {
     )
   }
 
+  let _buildCreateFromScratchBeforeTourSteps = (): array<Antd__Tour.tourStep> => {
+    [
+      {
+        title: "点击开始引导按钮",
+        description: "",
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => beginGuideTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+    ]
+  }
+
   let _buildCreateFromScratchPhase1TourSteps = (): array<Antd__Tour.tourStep> => {
     [
       {
@@ -358,6 +381,12 @@ let make = (~service: FrontendType.service) => {
       )
       ->ignore
     }, 5->Some)
+
+    None
+  })
+
+  React.useEffect0(() => {
+    isInCreateFromScratchTourPhase3 ? setOpenCreateFromScratchPhase3BeforeTour(_ => true) : ()
 
     None
   })
@@ -464,8 +493,16 @@ let make = (~service: FrontendType.service) => {
               ? {
                   <>
                     {GuideUtils.buildSteps(() => {
+                      setOpenCreateFromScratchPhase1BeforeTour(_ => false)
                       setOpenCreateFromScratchPhase1Tour(_ => true)
-                    }, 0, GuideUtils.buildCreateFromScratchStepData())}
+                    }, 0, GuideUtils.buildCreateFromScratchStepData(), beginGuideTarget)}
+                    <Tour
+                      _open={openCreateFromScratchPhase1BeforeTour}
+                      onClose={() => {
+                        setOpenCreateFromScratchPhase1BeforeTour(_ => false)
+                      }}
+                      steps={_buildCreateFromScratchBeforeTourSteps()}
+                    />
                     <Tour
                       _open={openCreateFromScratchPhase1Tour}
                       // onClose={() => {
@@ -491,7 +528,15 @@ let make = (~service: FrontendType.service) => {
                 <>
                   {GuideUtils.buildSteps(() => {
                     setOpenCreateFromScratchPhase3Tour(_ => true)
-                  }, 5, GuideUtils.buildCreateFromScratchStepData())}
+                    setOpenCreateFromScratchPhase3BeforeTour(_ => false)
+                  }, 5, GuideUtils.buildCreateFromScratchStepData(), beginGuideTarget)}
+                  <Tour
+                    _open={openCreateFromScratchPhase3BeforeTour}
+                    onClose={() => {
+                      setOpenCreateFromScratchPhase3BeforeTour(_ => false)
+                    }}
+                    steps={_buildCreateFromScratchBeforeTourSteps()}
+                  />
                   <Tour
                     _open={openCreateFromScratchPhase3Tour}
                     onClose={() => {

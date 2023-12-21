@@ -22,12 +22,25 @@ TODO remove publishedelementassembledata in production database
 
 * DONE specific: fix empty value
 
-* DONE fix: publish app with the same name->import it: still old one
+* TODO fix: publish app with the same name->import it: still old one
 because cache?
 
 
+TODO perf: only
 
-* TODO tour: metion click guide button
+* DONE tour: metion click guide button
+
+
+* TODO fix tour: end tour->start tour: should reset
+
+* TODO fix: release time before error?
+
+-1?
+
+
+* TODO feat: Selected UI Controls 's name should = label
+
+
 
 
 * TODO Custom: 简化
@@ -163,7 +176,12 @@ TODO 简化文档，让用户能够最快上手
 （建议用户先clone Meta3D，然后修改template）
 
 
-加入 目前发布的最全的编辑器的介绍
+加入 目前发布的最全的编辑器的介绍:
+TODO doc: add editor doc, and editor help add editor doc link
+
+
+TODO add doc: add Material Inspector to Editor
+
 
 
 TODO 给出API链接：
@@ -173,7 +191,6 @@ TODO 给出API链接：
 
 
 
-- TODO doc: add editor doc, and editor help add editor doc link
 
 
 

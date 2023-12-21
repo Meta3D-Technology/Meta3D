@@ -312,6 +312,7 @@ let make = (
   let (currentTourStep, setCurrentTourStep) = service.react.useState(_ => 0)
   let (openTour, setOpenTour) = service.react.useState(_ => false)
 
+  let beginGuideTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let canvasWidthInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let canvasHeightInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let addUIControlButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
@@ -383,7 +384,7 @@ let make = (
                   <>
                     {GuideUtils.buildSteps(() => {
                       setOpenTour(_ => true)
-                    }, currentStep, GuideUtils.buildCreateFromScratchStepData())}
+                    }, currentStep, GuideUtils.buildCreateFromScratchStepData(), beginGuideTarget)}
                     <Tour
                       current=currentTourStep
                       _open={openTour}
