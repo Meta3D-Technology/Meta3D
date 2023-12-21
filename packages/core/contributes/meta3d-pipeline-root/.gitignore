@@ -5,7 +5,11 @@ test/bower_components/
 mine/
 dist/
 lib/bs/
+.bs.js
+.gen.tsx
 lib/js/
 lib/bs/
+.bs.js
+.gen.tsx
 lib/js/test/
 lib/ocaml/

@@ -8,10 +8,14 @@ node_modules/
 mine/
 dist/
 lib/bs/
+.bs.js
+.gen.tsx
 lib/js/
 ocaml/
 
 lib/bs/
+.bs.js
+.gen.tsx
 
 coverage
 

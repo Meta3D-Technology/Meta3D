@@ -4,12 +4,16 @@
 .vscode/
 jest_0/
 lib/bs/
+.bs.js
+.gen.tsx
 lib/js/src/
 reference/
 node_modules/
 mine/
 dist/
 lib/bs/
+.bs.js
+.gen.tsx
 lib/js/
 
 npm-debug

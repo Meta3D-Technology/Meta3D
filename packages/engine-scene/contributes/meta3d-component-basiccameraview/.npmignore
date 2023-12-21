@@ -14,6 +14,8 @@ test/
 donate/
 
 lib/bs/
+.bs.js
+.gen.tsx
 
 lib/js/test/
 
