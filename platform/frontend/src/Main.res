@@ -1,5 +1,3 @@
-let _getEnv = (): EnvType.env => #local
-
 let _hiddenLoadding = %raw(`
     function(){
     document.querySelector("#loading").style.display = "none"
@@ -23,9 +21,9 @@ let _buildFrontendService = (env): FrontendType.service => {
 
 _hiddenLoadding()
 
-let service = _buildFrontendService(_getEnv())
+let service = _buildFrontendService(EnvUtils.getEnv())
 
-service.backend.init(InitUtils.getBackendEnv(_getEnv()))
+service.backend.init(InitUtils.getBackendEnv(EnvUtils.getEnv()))
 ->Meta3dBsMostDefault.Most.drain
 ->Js.Promise.then_(_ => {
   Js.log("init backend success")->Js.Promise.resolve
@@ -35,7 +33,7 @@ service.backend.init(InitUtils.getBackendEnv(_getEnv()))
 ReactDOM.render(
   <React.StrictMode>
     <AppStore.AppStore.Provider store=AppStore.store>
-      <App service env={_getEnv()} />
+      <App service env={EnvUtils.getEnv()} />
     </AppStore.AppStore.Provider>
   </React.StrictMode>,
   ReactDOM.querySelector("#root")->Meta3dCommonlib.OptionSt.getExn,

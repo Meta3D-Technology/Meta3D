@@ -514,12 +514,12 @@ type findAllRecommendPublishApps = (
   . unit,
 ) => Meta3dBsMostDefault.Most.stream<array<publishAppInfo>>
 
-type publishElementContribute = (
-  . onUploadProgressFunc,
-  account,
-  (string, string, string, string, string, string, string),
-  Js.Typed_array.ArrayBuffer.t,
-) => Meta3dBsMostDefault.Most.stream<unit>
+// type publishElementContribute = (
+//   . onUploadProgressFunc,
+//   account,
+//   (string, string, string, string, string, string, string),
+//   Js.Typed_array.ArrayBuffer.t,
+// ) => Meta3dBsMostDefault.Most.stream<unit>
 
 type uiControlProtocol = {
   name: protocolName,
@@ -566,14 +566,14 @@ type customAction = CommonType.customAction
 
 type customActions = array<customAction>
 
-type publishElementAssembleData = (
-  . account,
-  elementName,
-  elementVersion,
-  inspectorData,
-  customInputs,
-  customActions,
-) => Meta3dBsMostDefault.Most.stream<unit>
+// type publishElementAssembleData = (
+//   . account,
+//   elementName,
+//   elementVersion,
+//   inspectorData,
+//   customInputs,
+//   customActions,
+// ) => Meta3dBsMostDefault.Most.stream<unit>
 
 type implement = {
   id: string,
@@ -599,16 +599,16 @@ type elementAssembleData = {
   customActions: customActions,
 }
 
-type getElementAssembleData = (
-  . account,
-  elementName,
-  elementVersion,
-) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<elementAssembleData>>
+// type getElementAssembleData = (
+//   . account,
+//   elementName,
+//   elementVersion,
+// ) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<elementAssembleData>>
 
-type findAllElementAssembleData = (
-  . limitCount,
-  skipCount,
-) => Meta3dBsMostDefault.Most.stream<array<elementAssembleData>>
+// type findAllElementAssembleData = (
+//   . limitCount,
+//   skipCount,
+// ) => Meta3dBsMostDefault.Most.stream<array<elementAssembleData>>
 
 type entryExtensionProtocolName = protocolName
 
@@ -712,6 +712,6 @@ type findNewestPublishExtension = (
 
 type findNewestPublishContribute = findNewestPublishExtension
 
-type findNewestPublishElementAssembleData = (
-  . elementName,
-) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<elementAssembleData>>
+// type findNewestPublishElementAssembleData = (
+//   . elementName,
+// ) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<elementAssembleData>>

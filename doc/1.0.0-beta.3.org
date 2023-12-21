@@ -8,8 +8,12 @@ TODO publish all packages
 
 
 
-* TODO remove publishedelementassembledata
+* DONE remove publishedelementassembledata
 
+
+TODO fix run app
+
+TODO remove publishedelementassembledata in production database
 
 * TODO remove custom label
 

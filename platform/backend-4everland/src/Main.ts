@@ -108,60 +108,60 @@ let _throwError = (msg: string): never  => {
     throw new Error(msg)
 }
 
-export let publishElementContribute = (
-    onUploadProgressFunc,
-    account,
-    packageData,
-    contributeBinaryFile,
-) => Abstract.publishElementContribute([
-    onUploadProgressFunc,
-    _throwError, uploadFile, getMarketImplementAccountData, updateMarketImplementData,
-    getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
-    getFileID
-],
-    account,
-    packageData,
-    contributeBinaryFile,
-)
+// export let publishElementContribute = (
+//     onUploadProgressFunc,
+//     account,
+//     packageData,
+//     contributeBinaryFile,
+// ) => Abstract.publishElementContribute([
+//     onUploadProgressFunc,
+//     _throwError, uploadFile, getMarketImplementAccountData, updateMarketImplementData,
+//     getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
+//     getFileID
+// ],
+//     account,
+//     packageData,
+//     contributeBinaryFile,
+// )
 
-export let publishElementAssembleData = (
-    account,
-    elementName,
-    elementVersion,
-    inspectorData
-) => Abstract.publishElementAssembleData([
-    _throwError,
-    getMarketImplementAccountData, updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
-],
-    account,
-    elementName,
-    elementVersion,
-    inspectorData
-)
+// export let publishElementAssembleData = (
+//     account,
+//     elementName,
+//     elementVersion,
+//     inspectorData
+// ) => Abstract.publishElementAssembleData([
+//     _throwError,
+//     getMarketImplementAccountData, updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
+// ],
+//     account,
+//     elementName,
+//     elementVersion,
+//     inspectorData
+// )
 
 let _onDownloadProgressFuncForSingleExtensionOrContribute = console.log
 
-export let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewestData([
-    getMarketImplementCollection,
-    mapMarketImplementCollection,
-    getAccountFromMarketImplementCollectionData,
-    getFileDataFromMarketImplementCollectionData,
-    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
-],
-    "publishedextensions",
-    protocolName
-)
+// export let getAllPublishNewestExtensions = (protocolName) => Abstract.getAllPublishNewestData([
+//     getMarketImplementCollection,
+//     mapMarketImplementCollection,
+//     getAccountFromMarketImplementCollectionData,
+//     getFileDataFromMarketImplementCollectionData,
+//     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
+// ],
+//     "publishedextensions",
+//     protocolName
+// )
 
-export let getElementAssembleData = (
-    account,
-    elementName,
-    elementVersion,
-) => Abstract.getElementAssembleData(
-    [getMarketImplementAccountData, getDataFromMarketImplementAccountData],
-    account,
-    elementName,
-    elementVersion,
-)
+// export let getElementAssembleData = (
+//     account,
+//     elementName,
+//     elementVersion,
+// ) => Abstract.getElementAssembleData(
+//     [getMarketImplementAccountData, getDataFromMarketImplementAccountData],
+//     account,
+//     elementName,
+//     elementVersion,
+// )
 
 
 export let publishPackage = (onUploadProgressFunc,

@@ -65,24 +65,24 @@ external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPubl
 @module("backend-4everland")
 external findAllRecommendPublishApps: findAllRecommendPublishApps = "findAllRecommendPublishApps"
 
-@module("backend-4everland")
-external publishElementContribute: publishElementContribute = "publishElementContribute"
+// @module("backend-4everland")
+// external publishElementContribute: publishElementContribute = "publishElementContribute"
 
-@module("backend-4everland")
-external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
+// @module("backend-4everland")
+// external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
 
 @module("backend-4everland")
 external publishApp: publishApp = "publishApp"
 
-@module("backend-4everland")
-external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
-  "getAllPublishNewestExtensions"
+// @module("backend-4everland")
+// external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
+//   "getAllPublishNewestExtensions"
 
-@module("backend-4everland")
-external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
+// @module("backend-4everland")
+// external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
 
-@module("backend-4everland")
-external findAllElementAssembleData: findAllElementAssembleData = "findAllElementAssembleData"
+// @module("backend-4everland")
+// external findAllElementAssembleData: findAllElementAssembleData = "findAllElementAssembleData"
 
 @module("backend-4everland")
 external findNewestPublishPackage: findNewestPublishPackage = "findNewestPublishPackage"
@@ -106,9 +106,9 @@ external getAllPublishPackageInfos: getAllPublishPackageInfos = "getAllPublishPa
 @module("backend-4everland")
 external findPublishPackage: findPublishPackage = "findPublishPackage"
 
-@module("backend-4everland")
-external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
-  "findNewestPublishElementAssembleData"
+// @module("backend-4everland")
+// external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
+//   "findNewestPublishElementAssembleData"
 
 let buildFrontendService = (): FrontendType.backendService => {
   {
@@ -139,7 +139,7 @@ let buildFrontendService = (): FrontendType.backendService => {
     getAllPublishPackageInfos,
     findPublishPackage,
     findPublishApp,
-    findAllElementAssembleData,
+    // findAllElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishContribute,
   }
@@ -151,7 +151,7 @@ let buildAssembleSpaceService = (): AssembleSpaceType.backendService => {
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
-    getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
+    // getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp,
     publishPackage,
     findPublishApp,

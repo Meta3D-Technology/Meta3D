@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishElementAssembleData = exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = void 0;
+exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = void 0;
 const most_1 = require("most");
 const BackendService_1 = require("./BackendService");
 const semver_1 = require("semver");
@@ -156,31 +156,41 @@ let findNewestPublishContribute = (downloadFileFunc, implementName, protocolName
     return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedcontributeprotocols", "publishedcontributeprotocolconfigs", "publishedcontributes"], implementName, protocolName);
 };
 exports.findNewestPublishContribute = findNewestPublishContribute;
-let findNewestPublishElementAssembleData = (elementName) => {
-    return (0, most_1.fromPromise)((0, BackendService_1.getDatabase)().collection("publishedelementassembledata")
-        .where({
-        elementName: elementName
-    })
-        .orderBy("elementVersion", "desc")
-        .get()
-        .then(res => {
-        /*! need sort again
-        */
-        let result = (0, NewestUtils_1.descSort)(res.data, semver_1.gt, "elementVersion").map(({ account, elementName, elementVersion, inspectorData, customInputs, customActions, }) => {
-            return {
-                account,
-                elementName,
-                elementVersion,
-                inspectorData,
-                customInputs,
-                customActions,
-            };
-        });
-        if (result.length == 0) {
-            // throw new Error("error")
-            return null;
-        }
-        return result[0];
-    }));
-};
-exports.findNewestPublishElementAssembleData = findNewestPublishElementAssembleData;
+// export let findNewestPublishElementAssembleData = (
+//     elementName: string,
+// ) => {
+//     return fromPromise(
+//         getDatabase().collection("publishedelementassembledata")
+//             .where({
+//                 elementName: elementName
+//             })
+//             .orderBy("elementVersion", "desc")
+//             .get()
+//             .then(res => {
+//                 /*! need sort again
+//                 */
+//                 let result = descSort(res.data, gt, "elementVersion").map(({
+//                     account,
+//                     elementName,
+//                     elementVersion,
+//                     inspectorData,
+//                     customInputs,
+//                     customActions,
+//                 }) => {
+//                     return {
+//                         account,
+//                         elementName,
+//                         elementVersion,
+//                         inspectorData,
+//                         customInputs,
+//                         customActions,
+//                     }
+//                 })
+//                 if (result.length == 0) {
+//                     // throw new Error("error")
+//                     return null
+//                 }
+//                 return result[0]
+//             })
+//     )
+// }

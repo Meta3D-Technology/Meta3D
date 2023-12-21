@@ -42,9 +42,9 @@ let build = (
   ~getAllPublishExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMostDefault.Most.just([]), _)
   ->Obj.magic,
-  ~getAllPublishNewestExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
-  ->returns(Meta3dBsMostDefault.Most.just([]), _)
-  ->Obj.magic,
+  // ~getAllPublishNewestExtensions=createEmptyStub(refJsObjToSandbox(sandbox.contents))
+  // ->returns(Meta3dBsMostDefault.Most.just([]), _)
+  // ->Obj.magic,
   ~publishPackage=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~publishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~findPublishApp=createEmptyStub(refJsObjToSandbox(sandbox.contents))
@@ -170,7 +170,7 @@ let build = (
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
-    getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
+    // getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishPackage,
     publishApp,
     findPublishApp,

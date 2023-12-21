@@ -25,12 +25,19 @@ let importApp = (
       ? {
           onFinish()
 
-          ErrorUtils.error(
-            {
-              j`account: ${item.account} appName: ${item.appName} has no published app`
-            },
-            None,
-          )->Obj.magic
+          Meta3dCommonlib.Exception.throwErr(
+            Meta3dCommonlib.Exception.buildErr(
+              Meta3dCommonlib.Log.buildErrorMessage(
+                ~title={j`account: ${item.account} appName: ${item.appName} has no published app`},
+                ~description={
+                  ""
+                },
+                ~reason="",
+                ~solution=j``,
+                ~params=j``,
+              ),
+            ),
+          )
 
           Meta3dBsMostDefault.Most.empty()->Obj.magic
         }
@@ -88,6 +95,9 @@ let importApp = (
     RescriptReactRouter.push("/AssembleSpace")
 
     ()->Js.Promise.resolve
+  }, _)
+  ->Js.Promise.catch(e => {
+    service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
   }, _)
   ->ignore
 }

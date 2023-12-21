@@ -39,7 +39,7 @@ import {
     findNewestPublishPackage as findNewestPublishPackageFind,
     findNewestPublishExtension as findNewestPublishExtensionFind,
     findNewestPublishContribute as findNewestPublishContributeFind,
-    findNewestPublishElementAssembleData as findNewestPublishElementAssembleDataFind,
+    // findNewestPublishElementAssembleData as findNewestPublishElementAssembleDataFind,
 } from "./application_layer/FindNewestService";
 import { filterMarketImplementCollection } from "meta3d-backend-cloudbase";
 
@@ -182,78 +182,78 @@ let _throwError = (msg: string): never => {
     throw new Error(msg)
 }
 
-export let publishElementContribute = (
-    onUploadProgressFunc,
-    account,
-    packageData,
-    contributeBinaryFile,
-) => Abstract.publishElementContribute([
-    onUploadProgressFunc,
-    _throwError, uploadFile, getMarketImplementAccountData,
-    addMarketImplementData,
-    // updateMarketImplementData,
-    // getDataFromMarketImplementAccountData,
-    // buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
-    getFileID
-],
-    account,
-    packageData,
-    contributeBinaryFile,
-)
+// export let publishElementContribute = (
+//     onUploadProgressFunc,
+//     account,
+//     packageData,
+//     contributeBinaryFile,
+// ) => Abstract.publishElementContribute([
+//     onUploadProgressFunc,
+//     _throwError, uploadFile, getMarketImplementAccountData,
+//     addMarketImplementData,
+//     // updateMarketImplementData,
+//     // getDataFromMarketImplementAccountData,
+//     // buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
+//     getFileID
+// ],
+//     account,
+//     packageData,
+//     contributeBinaryFile,
+// )
 
-export let publishElementAssembleData = (
-    account,
-    elementName,
-    elementVersion,
-    inspectorData,
-    customInputs,
-    customActions,
-) => Abstract.publishElementAssembleData([
-    _throwError,
-    getMarketImplementAccountData,
-    addMarketImplementData,
-    // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
-    // addMarketImplementDataToDataFromMarketImplementCollectionData,
-],
-    account,
-    elementName,
-    elementVersion,
-    inspectorData,
-    customInputs,
-    customActions,
-)
+// export let publishElementAssembleData = (
+//     account,
+//     elementName,
+//     elementVersion,
+//     inspectorData,
+//     customInputs,
+//     customActions,
+// ) => Abstract.publishElementAssembleData([
+//     _throwError,
+//     getMarketImplementAccountData,
+//     addMarketImplementData,
+//     // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
+//     // addMarketImplementDataToDataFromMarketImplementCollectionData,
+// ],
+//     account,
+//     elementName,
+//     elementVersion,
+//     inspectorData,
+//     customInputs,
+//     customActions,
+// )
 
-export let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
-    getMarketImplementCollection,
-    mapMarketImplementCollection,
-    getAccountFromMarketImplementCollectionData,
-    curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
-],
-    "publishedextensions",
-    limitCount,
-    skipCount,
-    protocolName
-)
+// export let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
+//     getMarketImplementCollection,
+//     mapMarketImplementCollection,
+//     getAccountFromMarketImplementCollectionData,
+//     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
+// ],
+//     "publishedextensions",
+//     limitCount,
+//     skipCount,
+//     protocolName
+// )
 
-export let getElementAssembleData = (
-    account,
-    elementName,
-    elementVersion,
-) => Abstract.getElementAssembleData(
-    getMarketImplementAccountDataWithWhereData,
-    account,
-    elementName,
-    elementVersion,
-)
+// export let getElementAssembleData = (
+//     account,
+//     elementName,
+//     elementVersion,
+// ) => Abstract.getElementAssembleData(
+//     getMarketImplementAccountDataWithWhereData,
+//     account,
+//     elementName,
+//     elementVersion,
+// )
 
-export let findAllElementAssembleData = (
-    limitCount,
-    skipCount,
-) => Abstract.findAllElementAssembleData(
-    getData,
-    limitCount,
-    skipCount,
-)
+// export let findAllElementAssembleData = (
+//     limitCount,
+//     skipCount,
+// ) => Abstract.findAllElementAssembleData(
+//     getData,
+//     limitCount,
+//     skipCount,
+// )
 
 
 export let publishPackage = (onUploadProgressFunc,
@@ -328,4 +328,4 @@ export let findNewestPublishContribute = (onDownloadProgressFunc, contributeName
     )
 }
 
-export let findNewestPublishElementAssembleData = findNewestPublishElementAssembleDataFind
+// export let findNewestPublishElementAssembleData = findNewestPublishElementAssembleDataFind

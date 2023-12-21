@@ -2,8 +2,8 @@ import { Stream } from "most";
 import * as MarketService from "./application_layer/market/MarketService"
 import * as LoginService from "./application_layer/user/LoginService"
 import * as PublishAppService from "./application_layer/publish/PublishAppService"
-import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
-import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
+// import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
+// import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
 import * as PublishPackageService from "./application_layer/publish/PublishPackageService"
 import * as PackageMarketService from "./application_layer/market/PackageMarketService"
 import * as DependencyService from "./application_layer/assemble_space/DependencyService"
@@ -42,15 +42,15 @@ export let findAllPublishApps = PublishAppService.findAllPublishApps
 
 export let findAllRecommendPublishApps = PublishAppService.findAllRecommendPublishApps
 
-export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestData
+// export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestData
 
-export let getElementAssembleData = GetElementDataService.getElementAssembleData
+// export let getElementAssembleData = GetElementDataService.getElementAssembleData
 
-export let findAllElementAssembleData = GetElementDataService.findAllElementAssembleData
+// export let findAllElementAssembleData = GetElementDataService.findAllElementAssembleData
 
-export let publishElementAssembleData = PublishElementContributeService.publishElementAssembleData
+// export let publishElementAssembleData = PublishElementContributeService.publishElementAssembleData
 
-export let publishElementContribute = PublishElementContributeService.publishElementContribute
+// export let publishElementContribute = PublishElementContributeService.publishElementContribute
 
 export let publishPackage = PublishPackageService.publish
 

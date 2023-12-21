@@ -78,24 +78,24 @@ external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPubl
 @module("backend-cloudbase")
 external findAllRecommendPublishApps: findAllRecommendPublishApps = "findAllRecommendPublishApps"
 
-@module("backend-cloudbase")
-external publishElementContribute: publishElementContribute = "publishElementContribute"
+// @module("backend-cloudbase")
+// external publishElementContribute: publishElementContribute = "publishElementContribute"
 
-@module("backend-cloudbase")
-external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
+// @module("backend-cloudbase")
+// external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
 
 @module("backend-cloudbase")
 external publishApp: publishApp = "publishApp"
 
-@module("backend-cloudbase")
-external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
-  "getAllPublishNewestExtensions"
+// @module("backend-cloudbase")
+// external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
+//   "getAllPublishNewestExtensions"
 
-@module("backend-cloudbase")
-external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
+// @module("backend-cloudbase")
+// external getElementAssembleData: getElementAssembleData = "getElementAssembleData"
 
-@module("backend-cloudbase")
-external findAllElementAssembleData: findAllElementAssembleData = "findAllElementAssembleData"
+// @module("backend-cloudbase")
+// external findAllElementAssembleData: findAllElementAssembleData = "findAllElementAssembleData"
 
 @module("backend-cloudbase")
 external publishPackage: publishPackage = "publishPackage"
@@ -119,9 +119,9 @@ external findNewestPublishExtension: findNewestPublishExtension = "findNewestPub
 @module("backend-cloudbase")
 external findNewestPublishContribute: findNewestPublishContribute = "findNewestPublishContribute"
 
-@module("backend-cloudbase")
-external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
-  "findNewestPublishElementAssembleData"
+// @module("backend-cloudbase")
+// external findNewestPublishElementAssembleData: findNewestPublishElementAssembleData =
+//   "findNewestPublishElementAssembleData"
 
 let buildFrontendService = (): FrontendType.backendService => {
   {
@@ -150,7 +150,7 @@ let buildFrontendService = (): FrontendType.backendService => {
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,
     findPublishPackage,
-    findAllElementAssembleData,
+    // findAllElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishContribute,
   }
@@ -162,7 +162,7 @@ let buildAssembleSpaceService = (): AssembleSpaceType.backendService => {
     getAllPublishContributeProtocols: getAllPublishContributeProtocols->Obj.magic,
     getAllPublishContributeProtocolConfigs: getAllPublishContributeProtocolConfigs->Obj.magic,
     getAllPublishExtensionProtocolConfigs: getAllPublishExtensionProtocolConfigs->Obj.magic,
-    getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
+    // getAllPublishNewestExtensions: getAllPublishNewestExtensions->Obj.magic,
     publishApp,
     publishPackage,
     findPublishApp,

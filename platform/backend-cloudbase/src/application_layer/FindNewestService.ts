@@ -209,43 +209,43 @@ export let findNewestPublishContribute = (
     return _findNewestPublishExtensionOrContribute(downloadFileFunc, ["publishedcontributeprotocols", "publishedcontributeprotocolconfigs", "publishedcontributes"], implementName, protocolName)
 }
 
-export let findNewestPublishElementAssembleData = (
-    elementName: string,
-) => {
-    return fromPromise(
-        getDatabase().collection("publishedelementassembledata")
-            .where({
-                elementName: elementName
-            })
-            .orderBy("elementVersion", "desc")
-            .get()
-            .then(res => {
-                /*! need sort again
-                */
-                let result = descSort(res.data, gt, "elementVersion").map(({
-                    account,
-                    elementName,
-                    elementVersion,
-                    inspectorData,
-                    customInputs,
-                    customActions,
-                }) => {
-                    return {
-                        account,
-                        elementName,
-                        elementVersion,
-                        inspectorData,
-                        customInputs,
-                        customActions,
-                    }
-                })
+// export let findNewestPublishElementAssembleData = (
+//     elementName: string,
+// ) => {
+//     return fromPromise(
+//         getDatabase().collection("publishedelementassembledata")
+//             .where({
+//                 elementName: elementName
+//             })
+//             .orderBy("elementVersion", "desc")
+//             .get()
+//             .then(res => {
+//                 /*! need sort again
+//                 */
+//                 let result = descSort(res.data, gt, "elementVersion").map(({
+//                     account,
+//                     elementName,
+//                     elementVersion,
+//                     inspectorData,
+//                     customInputs,
+//                     customActions,
+//                 }) => {
+//                     return {
+//                         account,
+//                         elementName,
+//                         elementVersion,
+//                         inspectorData,
+//                         customInputs,
+//                         customActions,
+//                     }
+//                 })
 
-                if (result.length == 0) {
-                    // throw new Error("error")
-                    return null
-                }
+//                 if (result.length == 0) {
+//                     // throw new Error("error")
+//                     return null
+//                 }
 
-                return result[0]
-            })
-    )
-}
+//                 return result[0]
+//             })
+//     )
+// }

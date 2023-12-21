@@ -2,12 +2,12 @@ var gulp = require("gulp");
 var fs = require("fs")
 
 let _changeToEnv = (env) => {
-    let mainFilePath = "./src/Main.res"
+    let mainFilePath = "./src/external_layer/ui/app/utils/EnvUtils.res"
 
     fs.writeFileSync(mainFilePath, fs.readFileSync(mainFilePath, {
         encoding: 'utf8',
         // }).replace(/^let\s_getEnv\s\=\s\(\)\s\=>\s.+$/img, "let _getEnv = () => " + env)
-    }).replace(/^let\s_getEnv\s\=\s\(\).+$/img, "let _getEnv = (): EnvType.env => " + env)
+    }).replace(/^let\sgetEnv\s\=\s\(\).+$/img, "let getEnv = (): EnvType.env => " + env)
     )
 }
 

@@ -1,8 +1,6 @@
 open Antd
 %%raw("import 'antd/dist/reset.css'")
 
-let _getEnv = (): EnvType.env => #production
-
 @react.component
 let make = (~service: FrontendType.service) => {
   let url = RescriptReactRouter.useUrl()
@@ -20,7 +18,7 @@ let make = (~service: FrontendType.service) => {
       let appName = UrlSearchUtils.get(url.search, "appName")
 
       // TODO perf: if already init, not init again
-      service.backend.init(InitUtils.getBackendEnv(_getEnv()))
+      service.backend.init(InitUtils.getBackendEnv(EnvUtils.getEnv()))
       ->Meta3dBsMostDefault.Most.drain
       ->Js.Promise.then_(
         _ => {
@@ -34,11 +32,18 @@ let make = (~service: FrontendType.service) => {
 
               Js.Nullable.isNullable(appBinaryFile)
                 ? {
-                    ErrorUtils.error(
-                      {
-                        j`account: ${account} appName: ${appName} has no published app`
-                      },
-                      None,
+                    Meta3dCommonlib.Exception.throwErr(
+                      Meta3dCommonlib.Exception.buildErr(
+                        Meta3dCommonlib.Log.buildErrorMessage(
+                          ~title={j`account: ${account} appName: ${appName} has no published app`},
+                          ~description={
+                            ""
+                          },
+                          ~reason="",
+                          ~solution=j``,
+                          ~params=j``,
+                        ),
+                      ),
                     )
                   }
                 : {

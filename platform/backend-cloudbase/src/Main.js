@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishElementAssembleData = exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllElementAssembleData = exports.getElementAssembleData = exports.getAllPublishNewestExtensions = exports.publishElementAssembleData = exports.publishElementContribute = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
+exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("../../../defaults/meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
@@ -84,35 +84,74 @@ exports.findAllRecommendPublishApps = findAllRecommendPublishApps;
 let _throwError = (msg) => {
     throw new Error(msg);
 };
-let publishElementContribute = (onUploadProgressFunc, account, packageData, contributeBinaryFile) => Abstract.publishElementContribute([
-    onUploadProgressFunc,
-    _throwError, BackendService_1.uploadFile, BackendService_1.getMarketImplementAccountData,
-    BackendService_1.addMarketImplementData,
-    // updateMarketImplementData,
-    // getDataFromMarketImplementAccountData,
-    // buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
-    BackendService_1.getFileID
-], account, packageData, contributeBinaryFile);
-exports.publishElementContribute = publishElementContribute;
-let publishElementAssembleData = (account, elementName, elementVersion, inspectorData, customInputs, customActions) => Abstract.publishElementAssembleData([
-    _throwError,
-    BackendService_1.getMarketImplementAccountData,
-    BackendService_1.addMarketImplementData,
-    // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
-    // addMarketImplementDataToDataFromMarketImplementCollectionData,
-], account, elementName, elementVersion, inspectorData, customInputs, customActions);
-exports.publishElementAssembleData = publishElementAssembleData;
-let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
-    BackendService_1.getMarketImplementCollection,
-    BackendService_1.mapMarketImplementCollection,
-    BackendService_1.getAccountFromMarketImplementCollectionData,
-    (0, Curry_1.curry2)(BackendService_1.downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
-], "publishedextensions", limitCount, skipCount, protocolName);
-exports.getAllPublishNewestExtensions = getAllPublishNewestExtensions;
-let getElementAssembleData = (account, elementName, elementVersion) => Abstract.getElementAssembleData(BackendService_1.getMarketImplementAccountDataWithWhereData, account, elementName, elementVersion);
-exports.getElementAssembleData = getElementAssembleData;
-let findAllElementAssembleData = (limitCount, skipCount) => Abstract.findAllElementAssembleData(BackendService_1.getData, limitCount, skipCount);
-exports.findAllElementAssembleData = findAllElementAssembleData;
+// export let publishElementContribute = (
+//     onUploadProgressFunc,
+//     account,
+//     packageData,
+//     contributeBinaryFile,
+// ) => Abstract.publishElementContribute([
+//     onUploadProgressFunc,
+//     _throwError, uploadFile, getMarketImplementAccountData,
+//     addMarketImplementData,
+//     // updateMarketImplementData,
+//     // getDataFromMarketImplementAccountData,
+//     // buildMarketImplementAccountData, addMarketImplementDataToDataFromMarketImplementCollectionData,
+//     getFileID
+// ],
+//     account,
+//     packageData,
+//     contributeBinaryFile,
+// )
+// export let publishElementAssembleData = (
+//     account,
+//     elementName,
+//     elementVersion,
+//     inspectorData,
+//     customInputs,
+//     customActions,
+// ) => Abstract.publishElementAssembleData([
+//     _throwError,
+//     getMarketImplementAccountData,
+//     addMarketImplementData,
+//     // updateMarketImplementData, getDataFromMarketImplementAccountData, isContain, buildMarketImplementAccountData, 
+//     // addMarketImplementDataToDataFromMarketImplementCollectionData,
+// ],
+//     account,
+//     elementName,
+//     elementVersion,
+//     inspectorData,
+//     customInputs,
+//     customActions,
+// )
+// export let getAllPublishNewestExtensions = (limitCount, skipCount, protocolName) => Abstract.getAllPublishNewestData([
+//     getMarketImplementCollection,
+//     mapMarketImplementCollection,
+//     getAccountFromMarketImplementCollectionData,
+//     curry2(downloadFile)(_onDownloadProgressFuncForSingleExtensionOrContribute)
+// ],
+//     "publishedextensions",
+//     limitCount,
+//     skipCount,
+//     protocolName
+// )
+// export let getElementAssembleData = (
+//     account,
+//     elementName,
+//     elementVersion,
+// ) => Abstract.getElementAssembleData(
+//     getMarketImplementAccountDataWithWhereData,
+//     account,
+//     elementName,
+//     elementVersion,
+// )
+// export let findAllElementAssembleData = (
+//     limitCount,
+//     skipCount,
+// ) => Abstract.findAllElementAssembleData(
+//     getData,
+//     limitCount,
+//     skipCount,
+// )
 let publishPackage = (onUploadProgressFunc, packageBinaryFile, entryExtensionData, packageData, account) => Abstract.publishPackage([
     onUploadProgressFunc,
     BackendService_1.uploadFile,
@@ -149,4 +188,4 @@ let findNewestPublishContribute = (onDownloadProgressFunc, contributeName, contr
     return (0, FindNewestService_1.findNewestPublishContribute)((0, Curry_1.curry2)(BackendService_1.downloadFile)(onDownloadProgressFunc), contributeName, contributeProtocolName);
 };
 exports.findNewestPublishContribute = findNewestPublishContribute;
-exports.findNewestPublishElementAssembleData = FindNewestService_1.findNewestPublishElementAssembleData;
+// export let findNewestPublishElementAssembleData = findNewestPublishElementAssembleDataFind
