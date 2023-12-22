@@ -89,7 +89,7 @@ type touchDomEvent = {
   "preventDefault": unit => unit,
 }
 
-@genType
+// @genType
 type mouseEvent = {
   name: domEventName,
   location: pointData<int>,
@@ -100,7 +100,7 @@ type mouseEvent = {
   event: mouseDomEvent,
 }
 
-@genType
+// @genType
 type keyboardEvent = {
   name: domEventName,
   keyCode: int,
@@ -126,7 +126,7 @@ type touchData = {
   force: int,
 }
 
-@genType
+// @genType
 type touchEvent = {
   name: domEventName,
   location: pointData<int>,
@@ -138,7 +138,7 @@ type touchEvent = {
 
 type userData
 
-@genType
+// @genType
 type customEvent = {
   name: string,
   // target: option<GameObjectPrimitiveType.gameObject>,
@@ -152,7 +152,7 @@ type customEvent = {
 
 type pointDomEvent = {"preventDefault": (. unit) => unit, "stopPropagation": (. unit) => unit}
 
-@genType
+// @genType
 type pointEvent = {
   name: pointEventName,
   location: pointData<int>,

@@ -6,7 +6,7 @@
     "description": "",
     "publisher": "meta3d",
     "author": "Meta3D",
-    "main": "src/Index.ts",
+    "main": "src/Index.d.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

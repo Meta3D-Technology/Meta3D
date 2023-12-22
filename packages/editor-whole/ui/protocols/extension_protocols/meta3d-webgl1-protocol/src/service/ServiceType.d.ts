@@ -1,25 +1,25 @@
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-// export abstract class webgl1Context { protected opaque!: any }; /* simulate opaque types */
+// export abstract class webgl1Context { protected opaque: any } /* simulate opaque types */
 
 export type webgl1Context = WebGLRenderingContext
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class program { protected opaque!: any }; /* simulate opaque types */
+export abstract class program { protected opaque: any } /* simulate opaque types */
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class buffer { protected opaque!: any }; /* simulate opaque types */
+export abstract class buffer { protected opaque: any } /* simulate opaque types */
 
-export abstract class renderBuffer { protected opaque!: any }; /* simulate opaque types */
+export abstract class renderBuffer { protected opaque: any } /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
 export type attributeLocation = number;
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class uniformLocation { protected opaque!: any }; /* simulate opaque types */
+export abstract class uniformLocation { protected opaque: any } /* simulate opaque types */
 
 
 export type glenum = number;
@@ -32,20 +32,20 @@ export type glsizei = number;
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class shader { protected opaque!: any }; /* simulate opaque types */
+export abstract class shader { protected opaque: any } /* simulate opaque types */
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class texture { protected opaque!: any }; /* simulate opaque types */
+export abstract class texture { protected opaque: any } /* simulate opaque types */
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class fbo { protected opaque!: any }; /* simulate opaque types */
+export abstract class fbo { protected opaque: any } /* simulate opaque types */
 
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class extension { protected opaque!: any }; /* simulate opaque types */
+export abstract class extension { protected opaque: any } /* simulate opaque types */
 
 
 // tslint:disable-next-line:interface-over-type-literal

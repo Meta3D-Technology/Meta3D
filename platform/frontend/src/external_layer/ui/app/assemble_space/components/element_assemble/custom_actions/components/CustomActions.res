@@ -38,7 +38,8 @@ module Method = {
   }
 
   let buildDefaultActionOriginFileStr = actionName => {
-    buildDefaultActionTranspiledFileStr(actionName)->CustomCodeUtils.convertCodeToES6
+    buildDefaultActionTranspiledFileStr(actionName)
+    ->CustomCodeUtils.convertCodeToES6
   }
 
   let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {

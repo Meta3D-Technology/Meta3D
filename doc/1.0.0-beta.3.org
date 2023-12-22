@@ -76,28 +76,13 @@ show begin guide metion tour
 * DONE custom: code edit's width,height to 100%
 
 
-* TODO Custom: 简化
+* DONE Code: add editorWholePackage type infer
 
-TODO Custom Input: Create Input from UI Control Inspector->Input
-TODO add corresponding protocol name
+TODO pass editor whole
 
-TODO UI Control Inspector->Input add filter
+TODO update default code for input, action
 
-TODO
-Custom Input, Action should extract name
-Custom Action should simplify type to forward, ... funcs!
-
-
-
-TODO optimize input: how can first show ui control, then edit input?
-
-
-
-
-* TODO Custom: Input: 给出type
-
-* TODO Code: add editorWholePackage type infer
-
+TODO refactor meta3d-type
 
 
 * TODO add float bar
@@ -124,6 +109,13 @@ XXX前发布
 
 
 * TODO guide: upgrade Guide to be component
+
+
+
+* TODO move doc to platform as guide doc
+  TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
+  TODO 在新手引导后，给出更多的文档链接
+
 
 
 * TODO Custom: 加入新手引导
@@ -211,7 +203,9 @@ TODO 平台、官网加入数据统计
 
 * TODO publish
 
-TODO need update packages in production
+TODO update production
+  TODO need update packages
+  TODO need update template's inputs and actions(reselect all)
 
 
 
@@ -225,10 +219,10 @@ TODO need update packages in production
 在新手引导的基础上，向用户开放下面的能力：
 认识基本知识：
   如基本概念、Input、Action等
-让用户能够自己搭建出完整的编辑器；
+让用户能够自己搭建出简化版的完整的编辑器；
   需要给出editorWholePackage api文档
 知道如何使用完整的编辑器；
-知道如何对完整的编辑器进行初步的扩展：
+知道如何对简化版的完整的编辑器进行初步的扩展：
   如加入Material Inspector: edit material's color
 
 
@@ -291,11 +285,16 @@ TODO 给出API链接：
 如input,action中的api的类型（editor whole package部分跳转到它的协议？）
 
 
+TODO Custom: Input: 给出type
+给出Input对应的protocol的link
 
 
-TODO move doc to platform as guide doc
-  TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
-  TODO 在新手引导后，给出更多的文档链接
+
+
+TODO move related doc to platform as guide doc
+  # TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
+  # TODO 在新手引导后，给出更多的文档链接
+  e.g. give input type doc link when select input, ...
 
 
 
@@ -331,7 +330,9 @@ TODO 压缩所有的图片
 ** TODO 更新Discussion
 https://github.com/Meta3D-Technology/Meta3D/discussions/43
 
-** TODO 邀请lj、xh、wkh、ty等熟人来使用
+** TODO 邀请lj、xh、wkh等熟人来使用
+
+** TODO 邀请ty、xiaoyu、tianhao来使用
 
 ** TODO 邀请QQ群的同学来测试
 

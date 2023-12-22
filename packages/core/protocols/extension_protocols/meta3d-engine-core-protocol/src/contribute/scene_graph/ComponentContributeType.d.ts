@@ -30,7 +30,7 @@ export type getAllComponentsFunc<state, component> = (_1: state) => component[];
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class dataValue { protected opaque!: any }; /* simulate opaque types */
+export abstract class dataValue { protected opaque: any } /* simulate opaque types */
 
 export type dataName = number
 

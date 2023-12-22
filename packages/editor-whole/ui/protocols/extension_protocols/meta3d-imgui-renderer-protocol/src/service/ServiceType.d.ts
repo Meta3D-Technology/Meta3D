@@ -1,4 +1,4 @@
-import type { state as StateType_state } from '../../src/state/StateType';
+import type { state as StateType_state } from '../state/StateType';
 import type { texture as webgl1Texture } from 'meta3d-webgl1-protocol/src/service/ServiceType';
 import { nullable, strictNullable } from 'meta3d-commonlib-ts/src/nullable';
 // import { name } from 'meta3d-gameobject-protocol';

@@ -144,7 +144,7 @@ export type touchEvent = {
 
 // tslint:disable-next-line:max-classes-per-file 
 // tslint:disable-next-line:class-name
-export abstract class userData { protected opaque!: any }; /* simulate opaque types */
+export abstract class userData { protected opaque: any } /* simulate opaque types */
 
 // tslint:disable-next-line:interface-over-type-literal
 export type customEvent = {

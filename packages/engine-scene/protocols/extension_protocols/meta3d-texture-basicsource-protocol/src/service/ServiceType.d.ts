@@ -1,19 +1,19 @@
 import { nullable } from 'meta3d-commonlib-ts/src/nullable';
-import type { material as StateType_material } from '../.././src/state/StateType';
+import type { material as StateType_material } from '../state/StateType';
 
-import type { state as StateType_state } from '../.././src/state/StateType';
+import type { state as StateType_state } from '../state/StateType';
 
-import type { textureDataType as StateType_textureDataType } from '../.././src/state/StateType';
+import type { textureDataType as StateType_textureDataType } from '../state/StateType';
 
-import type { texture as StateType_texture } from '../.././src/state/StateType';
+import type { texture as StateType_texture } from '../state/StateType';
 
-import type { wrap as StateType_wrap } from '../.././src/state/StateType';
+import type { wrap as StateType_wrap } from '../state/StateType';
 
-import type { filter as StateType_filter } from '../.././src/state/StateType';
+import type { filter as StateType_filter } from '../state/StateType';
 
-import type { format as StateType_format } from '../.././src/state/StateType';
+import type { format as StateType_format } from '../state/StateType';
 
-import type { htmlImageElement } from '../.././src/state/StateType';
+import type { htmlImageElement } from '../state/StateType';
 
 type actuallyDisposedTexture = nullable<StateType_texture>
 

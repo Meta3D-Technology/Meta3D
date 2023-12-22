@@ -181,13 +181,13 @@ defineFeature(feature, test => {
           list{
             CustomTool.buildCustomInput(
               ~name=localInput1Name,
-              ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
+              ~originFileStr="import{api}from\"meta3d-type\"import{serviceaseditorWholeService}from\"meta3d-editor-whole-protocol/src/service/ServiceType\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
               ~transpiledFileStr=fileStr1->Some,
               (),
             ),
             CustomTool.buildCustomInput(
               ~name=localInput2Name,
-              ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput2\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
+              ~originFileStr="import{api}from\"meta3d-type\"import{serviceaseditorWholeService}from\"meta3d-editor-whole-protocol/src/service/ServiceType\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput2\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
               ~transpiledFileStr=fileStr2->Some,
               (),
             ),

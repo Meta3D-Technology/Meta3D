@@ -42,22 +42,32 @@ module Method = {
     }
   }
 
-  let _wrapDTs = dts => {
-    j`declare module "meta3d-type"{
+  let _wrapDTs = (dts, moduleName) => {
+    j`declare module "${moduleName}"{
       ${dts}
     }`
   }
 
-  let _addMeta3dTypeLib = (editor, monaco) => {
-    let path = "static/meta3d-type/src/Index.ts"
+  let _addTypeLibs = (editor, monaco) => {
+    let data = [
+      ("static/dts/meta3d-type/src/Index.d.ts", "meta3d-type"),
+      (
+        "static/dts/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
+        "meta3d-editor-whole-protocol/src/service/ServiceType",
+      ),
+    ]
 
-    Window.fetchDTs(path)->Js.Promise.then_(({text}: WindowType.fetchResult) => {
-      text(.)->Js.Promise.resolve
-    }, _)->Js.Promise.then_(dts => {
-      let dts = dts->_wrapDTs
+    data->Meta3dCommonlib.ArraySt.traverseReducePromiseM((. _, (path, moduleName)) => {
+      Window.fetchDTs(path)->Js.Promise.then_(({text}: WindowType.fetchResult) => {
+        text(.)->Js.Promise.resolve
+      }, _)->Js.Promise.then_(dts => {
+        let dts = dts->_wrapDTs(moduleName)
 
-      monaco["languages"]["typescript"]["typescriptDefaults"]["addExtraLib"](. dts)
-    }, _)
+        monaco["languages"]["typescript"]["typescriptDefaults"]["addExtraLib"](. dts)
+
+        ()->Js.Promise.resolve
+      }, _)
+    }, ())
   }
 
   let editorDidMount = (
@@ -82,7 +92,7 @@ module Method = {
 
       Js.Promise.resolve()
     }, _)->Js.Promise.then_(_ => {
-      _addMeta3dTypeLib(editor, monaco)
+      _addTypeLibs(editor, monaco)
     }, _)
   }
 

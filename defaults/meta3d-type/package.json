@@ -3,7 +3,7 @@
     "version": "1.0.0-beta.2",
     "authors": "Wonder",
     "main": "lib/js/src/Index.bs.js",
-    "types": "src/Index.ts",
+    "types": "src/Index.d.ts",
     "license": "",
     "scripts": {
         "watch": "rescript clean && rescript build -w",

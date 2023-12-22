@@ -18,7 +18,8 @@ export type packageProtocolName = string
 
 export type getContributeFuncResult = any
 
-export abstract class state { protected opaque!: any }; /* simulate opaque types */
+// export abstract class state { protected opaque: any } /* simulate opaque types */
+export type state = any
 
 // tslint:disable-next-line:interface-over-type-literal
 export type nullableAPI = {

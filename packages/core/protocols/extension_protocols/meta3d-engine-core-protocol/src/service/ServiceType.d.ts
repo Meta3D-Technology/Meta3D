@@ -4,23 +4,23 @@ import type { stream as Meta3dBsMostProtocol_StreamType_stream } from 'meta3d-bs
 
 import { gameObject, config as gameObjectConfig, name } from "meta3d-gameobject-protocol"
 
-import type { componentName as ComponentContributeType_componentName } from '../../src/contribute/scene_graph/ComponentContributeType';
+import type { componentName as ComponentContributeType_componentName } from '../contribute/scene_graph/ComponentContributeType';
 
 
-import type { dataName as ComponentContributeType_dataName } from '../../src/contribute/scene_graph/ComponentContributeType';
+import type { dataName as ComponentContributeType_dataName } from '../contribute/scene_graph/ComponentContributeType';
 
 import type { gameObjectContribute as GameObjectType_gameObjectContribute } from '../state/GameObjectType';
 
 // import type { gameObject as GameObjectType_gameObject } from '../state/GameObjectType';
 
-import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../../src/contribute/scene_graph/GameObjectContributeType';
+import type { gameObject as GameObjectContributeType_gameObject, clonedGameObjects } from '../contribute/scene_graph/GameObjectContributeType';
 
-import type { jobOrders as RegisterPipelineVOType_jobOrders } from '../../src/state/vo/RegisterPipelineVOType';
+import type { jobOrders as RegisterPipelineVOType_jobOrders } from '../state/vo/RegisterPipelineVOType';
 
-import type { pipelineName as PipelineType_pipelineName } from '../../src/state/PipelineType';
+import type { pipelineName as PipelineType_pipelineName } from '../state/PipelineType';
 
 
-import type { usedComponentContribute as RegisterComponentType_usedComponentContribute, component } from '../../src/state/RegisterComponentType';
+import type { usedComponentContribute as RegisterComponentType_usedComponentContribute, component } from '../state/RegisterComponentType';
 import { pipelineContribute, pipelineName } from '../contribute/work/PipelineContributeType';
 import { cloneConfig } from 'meta3d-gameobject-protocol/src/Index';
 import { nullable } from 'meta3d-commonlib-ts/src/nullable';

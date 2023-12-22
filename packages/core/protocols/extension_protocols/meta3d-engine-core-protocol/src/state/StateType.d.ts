@@ -1,6 +1,6 @@
 import { state as meta3dState, extensionProtocolName, api } from "meta3d-type"
 
-export abstract class state { protected opaque!: any }; /* simulate opaque types */
+export abstract class state { protected opaque: any } /* simulate opaque types */
 
 export type operateStatesFuncs = {
 	api: api,

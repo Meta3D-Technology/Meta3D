@@ -1,5 +1,5 @@
 import { state as meta3dState, packageProtocolName, canvasData } from "meta3d-type"
-import { ecsConfig, service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { ecsConfig, service as engineSceneService_ } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { service as uiService_, texture } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
@@ -28,6 +28,8 @@ export type uiControlContribute<inputFunc, specificData, outputData> = uiControl
 export type inputContribute<data> = inputContribute_<data>
 
 export type actionContribute<uiData, state> = actionContribute_<uiData, state>
+
+export type engineSceneService = engineSceneService_
 
 export type uiService = uiService_
 

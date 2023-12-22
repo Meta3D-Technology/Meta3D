@@ -51,13 +51,17 @@ let convertTranspliedCodeToES6Code = code => {
     code->Js.String.replace(
       replaceSource,
       {
-        j`import { api } from "meta3d-type"
-
-export let getContribute = (api:api) => {`
+        j`export let getContribute = (api:api) => {`
       },
       _,
     )
   }
 
-  code->_func("export let getContribute = (api) => {")
+  ({
+    j`import { api } from "meta3d-type"
+import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+
+`
+  } ++
+  code->_func("export let getContribute = (api) => {"))->CustomCodeUtils.addType
 }

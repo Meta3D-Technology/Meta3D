@@ -66,6 +66,7 @@ defineFeature(feature, test => {
           (
             {
               j`import { api } from "meta3d-type"
+import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
       
       export let getContribute = (api:api) => {
             return {

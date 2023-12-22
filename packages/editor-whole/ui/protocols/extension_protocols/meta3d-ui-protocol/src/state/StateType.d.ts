@@ -8,4 +8,4 @@ export type inputData = any
 
 export type outputData = any
 
-export abstract class state { protected opaque!: any }; /* simulate opaque types */
+export abstract class state { protected opaque: any } /* simulate opaque types */

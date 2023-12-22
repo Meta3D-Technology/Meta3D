@@ -126,8 +126,8 @@ module.exports = {
                     to: 'static/three/basis'
                 },
                 {
-                    from: 'static/meta3d-type',
-                    to: 'static/meta3d-type'
+                    from: 'static/dts',
+                    to: 'static/dts'
                 },
             ],
         }),

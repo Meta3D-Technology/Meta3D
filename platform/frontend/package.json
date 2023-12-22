@@ -3,6 +3,7 @@
     "version": "1.0.0-beta.2",
     "authors": "Wonder",
     "scripts": {
+        "bundle_dts": "gulp bundle_dts",
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
         "watch_pro": "gulp changeToProductionEnv &&  rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
@@ -38,7 +39,8 @@
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.4.0",
-        "write-file-webpack-plugin": "^4.5.1"
+        "write-file-webpack-plugin": "^4.5.1",
+        "dts-bundle-generator":"^9.0.0"
     },
     "dependencies": {
         "@ant-design/graphs": "^1.4.1",
