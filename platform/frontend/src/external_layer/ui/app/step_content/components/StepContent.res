@@ -2,19 +2,19 @@ open Antd
 %%raw("import 'antd/dist/reset.css'")
 
 @react.component
-let make = (
-  ~onStartFunc,
-  ~title,
-  ~description,
-  ~beginGuideTarget: React.ref<Js.Nullable.t<'a>>,
-) => {
+let make = (~onStartFunc, ~title, ~description) => {
+  // ~beginGuideTarget: React.ref<Js.Nullable.t<'a>>,
+
   <Layout>
-    <section ref={beginGuideTarget->Obj.magic}>
-      <Space direction=#horizontal>
-        <Space direction=#vertical>
-          <Typography.Title level=3> {React.string({j`${title}`})} </Typography.Title>
-          <Typography.Text> {React.string({j`${description}`})} </Typography.Text>
-        </Space>
+    // <section ref={beginGuideTarget->Obj.magic}>
+    <Space direction=#horizontal>
+      <Space direction=#vertical>
+        <Typography.Title level=3> {React.string({j`${title}`})} </Typography.Title>
+        <Typography.Text> {React.string({j`${description}`})} </Typography.Text>
+      </Space>
+      {switch onStartFunc {
+      | None => React.null
+      | Some(onStartFunc) =>
         <Badge dot=true>
           <Button
             _type=#primary
@@ -24,7 +24,8 @@ let make = (
             {React.string(`开始引导`)}
           </Button>
         </Badge>
-      </Space>
-    </section>
+      }}
+    </Space>
+    // </section>
   </Layout>
 }

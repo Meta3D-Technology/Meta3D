@@ -269,6 +269,7 @@ module Method = {
       currentCustomInputName,
       currentCustomActionName,
       isInCreateFromScratchTourPhase2,
+      isJumpToCreateFromScratchTourPhase2Guide,
     } = elementAssembleState
 
     (
@@ -276,6 +277,7 @@ module Method = {
       currentCustomInputName,
       currentCustomActionName,
       isInCreateFromScratchTourPhase2,
+      isJumpToCreateFromScratchTourPhase2Guide,
     )
   }
 }
@@ -300,6 +302,7 @@ let make = (
     currentCustomInputName,
     currentCustomActionName,
     isInCreateFromScratchTourPhase2,
+    isJumpToCreateFromScratchTourPhase2Guide,
   ) = service.react.useSelector(. Method.useSelector)
 
   // let (
@@ -312,7 +315,7 @@ let make = (
   let (currentTourStep, setCurrentTourStep) = service.react.useState(_ => 0)
   let (openTour, setOpenTour) = service.react.useState(_ => false)
 
-  let beginGuideTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  // let beginGuideTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let canvasWidthInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let canvasHeightInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let addUIControlButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
@@ -379,88 +382,112 @@ let make = (
       ? {React.string(`初始化...`)}
       : <Layout>
           <Layout.Content>
-            {isInCreateFromScratchTourPhase2
+            {isJumpToCreateFromScratchTourPhase2Guide
               ? {
-                  <>
-                    {GuideUtils.buildSteps(() => {
-                      setOpenTour(_ => true)
-                    }, currentStep, GuideUtils.buildCreateFromScratchStepData(), beginGuideTarget)}
-                    <Tour
-                      current=currentTourStep
-                      _open={openTour}
-                      onClose={() => {
-                        setOpenTour(_ => false)
+                  GuideUtils.buildSteps(
+                    (
+                      () => {
+                        setOpenTour(_ => true)
 
                         dispatchForElementAssembleStore(
-                          ElementAssembleStoreType.EndCreateFromScratchTourPhase2,
+                          ElementAssembleStoreType.EndJumpToCreateFromScratchTourPhase2Guide,
                         )
-
-                        // GuideUtils.handleCloseCreateFromScratchTour(
-                        //   dispatchForAppStore,
-                        //   dispatchForElementAssembleStore,
-                        // )
-                      }}
-                      onChange={current => {
-                        switch Method.buildCreateFromScratchTourStepAndStepMapData()->Meta3dCommonlib.ArraySt.find(
-                          ((currentTourStep, _)) => {
-                            currentTourStep == current
-                          },
-                        ) {
-                        | Some((_, currentStep)) => setCurrentStep(_ => currentStep)
-                        | None => ()
-                        }
-
-                        setCurrentTourStep(_ => current)
-                      }}
-                      steps={Method.buildCreateFromScratchTourSteps(
-                        dispatchForAppStore,
-                        dispatchForElementAssembleStore,
-                        canvasWidthInputTarget,
-                        canvasHeightInputTarget,
-                        addUIControlButtonTarget,
-                        selectSceneViewUIControlTarget,
-                        rectWidthInputTarget,
-                        rectHeightInputTarget,
-                        rootTarget,
-                        selectGameViewUIControlTarget,
-                        rectXInputTarget,
-                        runButtonTarget,
-                        publishButtonTarget,
-                        publishModalTarget,
-                        assembleSpaceNavTarget,
-                      )}
-                    />
-                  </>
+                      }
+                    )->Some,
+                    currentStep,
+                    GuideUtils.buildCreateFromScratchStepData(),
+                  )
                 }
-              : React.null}
-            <Space direction=#horizontal size=#small>
-              // <PublishElement service account />
-              // <ElementController service />
-              {!UserUtils.isAdmin(account)
-                ? <Publish
-                    service
-                    account
-                    publishButtonTarget
-                    publishModalTarget
-                    handleWhenShowModalFunc={() => {
-                      currentTourStep == 13 ? setCurrentTourStep(current => current->succ) : ()
-                    }}
-                    handleWhenPublishFunc={() => {
-                      currentTourStep == 14 ? setCurrentTourStep(current => current->succ) : ()
-                    }}
-                  />
-                : React.null}
-              <RunElementVisualController
-                service
-                handleWhenRunFunc={() => {
-                  currentTourStep == 12 ? setCurrentTourStep(current => current->succ) : ()
-                }}
-                account
-                selectedContributes
-                runButtonTarget
-              />
-              <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
-            </Space>
+              : <>
+                  {isInCreateFromScratchTourPhase2
+                    ? {
+                        <>
+                          {GuideUtils.buildSteps(
+                            None,
+                            currentStep,
+                            GuideUtils.buildCreateFromScratchStepData(),
+                          )}
+                          <Tour
+                            current=currentTourStep
+                            _open={openTour}
+                            onClose={() => {
+                              setOpenTour(_ => false)
+
+                              dispatchForElementAssembleStore(
+                                ElementAssembleStoreType.EndCreateFromScratchTourPhase2,
+                              )
+
+                              // GuideUtils.handleCloseCreateFromScratchTour(
+                              //   dispatchForAppStore,
+                              //   dispatchForElementAssembleStore,
+                              // )
+                            }}
+                            onChange={current => {
+                              switch Method.buildCreateFromScratchTourStepAndStepMapData()->Meta3dCommonlib.ArraySt.find(
+                                ((currentTourStep, _)) => {
+                                  currentTourStep == current
+                                },
+                              ) {
+                              | Some((_, currentStep)) => setCurrentStep(_ => currentStep)
+                              | None => ()
+                              }
+
+                              setCurrentTourStep(_ => current)
+                            }}
+                            steps={Method.buildCreateFromScratchTourSteps(
+                              dispatchForAppStore,
+                              dispatchForElementAssembleStore,
+                              canvasWidthInputTarget,
+                              canvasHeightInputTarget,
+                              addUIControlButtonTarget,
+                              selectSceneViewUIControlTarget,
+                              rectWidthInputTarget,
+                              rectHeightInputTarget,
+                              rootTarget,
+                              selectGameViewUIControlTarget,
+                              rectXInputTarget,
+                              runButtonTarget,
+                              publishButtonTarget,
+                              publishModalTarget,
+                              assembleSpaceNavTarget,
+                            )}
+                          />
+                        </>
+                      }
+                    : React.null}
+                  <Space direction=#horizontal size=#small>
+                    // <PublishElement service account />
+                    // <ElementController service />
+                    {!UserUtils.isAdmin(account)
+                      ? <Publish
+                          service
+                          account
+                          publishButtonTarget
+                          publishModalTarget
+                          handleWhenShowModalFunc={() => {
+                            currentTourStep == 13
+                              ? setCurrentTourStep(current => current->succ)
+                              : ()
+                          }}
+                          handleWhenPublishFunc={() => {
+                            currentTourStep == 14
+                              ? setCurrentTourStep(current => current->succ)
+                              : ()
+                          }}
+                        />
+                      : React.null}
+                    <RunElementVisualController
+                      service
+                      handleWhenRunFunc={() => {
+                        currentTourStep == 12 ? setCurrentTourStep(current => current->succ) : ()
+                      }}
+                      account
+                      selectedContributes
+                      runButtonTarget
+                    />
+                    <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
+                  </Space>
+                </>}
           </Layout.Content>
           <Layout>
             <Layout.Sider theme=#light>

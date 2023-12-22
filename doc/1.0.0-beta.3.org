@@ -61,8 +61,19 @@ TODO pass run test
 
 
 
-* TODO study
+* DONE study
 
+
+* DONE tour: remove before tour, use jump to guide component instead
+tour1, tour2
+
+tour3:
+directly begin guide
+show begin guide metion tour
+
+
+
+* TODO custom: code edit's width,height to 100%
 
 
 * TODO Custom: 简化
@@ -166,6 +177,18 @@ TODO 从头创建编辑器引导的模板
 
 
 
+* TODO 加入数据统计
+
+//TODO 平台加入埋点
+
+TODO 平台、官网加入数据统计
+
+
+* TODO publish
+
+TODO need update packages in production
+
+
 * TODO 更新资料
 
 - TODO release: show changelog
@@ -181,6 +204,17 @@ TODO 从头创建编辑器引导的模板
 - TODO 视频使用AI朗读，外挂字幕？
 
 https://www.google.com.hk/search?q=%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95%E6%80%8E%E4%B9%88%E7%94%A8&newwindow=1&sca_esv=584247228&ei=bINcZaTHFYyEvr0P-eqzgAU&oq=%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95+%E8%A7%86%E9%A2%91&gs_lp=Egxnd3Mtd2l6LXNlcnAiE-WkluaMguWtl-W5lSDop4bpopEqAggAMgoQABhHGNYEGLADMgoQABhHGNYEGLADMgoQABhHGNYEGLADMgoQABhHGNYEGLADMgoQABhHGNYEGLADMgoQABhHGNYEGLADMgoQABhHGNYEGLADMgoQABhHGNYEGLADSL8jUABYAHABeAGQAQCYAQCgAQCqAQC4AQPIAQDiAwQYACBBiAYBkAYI&sclient=gws-wiz-serp#ip=1
+
+
+
+
+- TODO 制作宣传视频（<1min）
+
+
+TODO first modal guide add this video
+
+
+
 
 - TODO 更新文档
 
@@ -205,6 +239,7 @@ TODO doc: add editor doc, and editor help add editor doc link
 
 
 TODO add doc: add Material Inspector to Editor
+or add guide?
 
 
 
@@ -214,6 +249,8 @@ TODO 给出API链接：
 
 
 
+TODO move doc to platform as guide doc
+在用户可能的操作时，给出文档链接
 
 
 
@@ -230,16 +267,6 @@ https://cn.nocobase.com/
   - TODO update README
     update snapshot
     add gif
-
-
-
-* TODO 加入数据统计
-
-//TODO 平台加入埋点
-
-TODO 平台、官网加入数据统计
-
-
 
 
 
