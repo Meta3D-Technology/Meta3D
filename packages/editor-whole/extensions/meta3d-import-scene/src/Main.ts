@@ -10,7 +10,7 @@ import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/
 import { event } from "meta3d-pipeline-dispose-protocol/src/EventType"
 import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
 
-let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
+let _cleanScene = (api: api, meta3dState: meta3dState): meta3dState => {
     let { gameObject } = api.nullable.getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
 
     meta3dState = gameObject.disposeGameObjects(
@@ -36,12 +36,15 @@ let _disposeScene = (api: api, meta3dState: meta3dState): meta3dState => {
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
+        cleanScene: meta3dState => {
+            return _cleanScene(api, meta3dState)
+        },
         import: (meta3dState, sceneGLB) => {
             let { loadGlb } = api.nullable.getExn(api.getPackageService<assetService>(meta3dState, "meta3d-load-glb-protocol"))
 
             return loadGlb(meta3dState, sceneGLB)
                 .then((gltf) => {
-                    meta3dState = _disposeScene(api, meta3dState)
+                    meta3dState = _cleanScene(api, meta3dState)
 
                     let data1 = api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, gltf.scene)
                     meta3dState = data1[0]

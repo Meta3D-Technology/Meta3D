@@ -51,10 +51,17 @@ TODO fix find children
 TODO pass bdd test
 
 
-* TODO fix: import action: not need empty before!
+* DONE fix: import action: not need empty before!
+TODO fix duplicate
+
+TODO publish
+
+
+TODO pass run test
 
 
 
+* TODO study
 
 
 
@@ -79,8 +86,12 @@ TODO optimize input: how can first show ui control, then edit input?
 * TODO Custom: Input: 给出type
 
 
+* TODO guide: upgrade Guide to be component
+
+
 * TODO Custom: 加入新手引导
 
+add another guide
 
 
 
@@ -217,6 +228,8 @@ e.g. 展示搭建编辑器（包括引擎）、使用编辑器开发web3d应用 
 
 https://cn.nocobase.com/
   - TODO update README
+    update snapshot
+    add gif
 
 
 
@@ -232,6 +245,8 @@ TODO 平台、官网加入数据统计
 
 * TODO 内部测试：个人用户
 
+
+** TODO 邀请lj、ty等熟人来使用
 
 ** TODO 邀请QQ群的同学来测试
 

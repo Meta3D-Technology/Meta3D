@@ -148,11 +148,11 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should add converted local input1 to custom inputs",
+      "should add converted local input1 to custom inputs and replace custom input1 to local input2",
       () => {
         // (result.contents->Meta3dCommonlib.Tuple2.getLast -> Meta3dCommonlib.ListSt.nth(1)->Meta3dCommonlib.OptionSt.getExn).originFileStr ->Meta3dCommonlib.Log.printStringForDebug-> ignore
 
-        let fileStr = {
+        let fileStr1 = {
           j`window.Contribute = {
           getContribute: (api) => {
       
@@ -164,14 +164,31 @@ defineFeature(feature, test => {
           }
       }}`
         }
+        let fileStr2 = {
+          j`window.Contribute = {
+          getContribute: (api) => {
+      
+          return {
+              inputName: "localInput2",
+              func: (meta3dState) => {
+                  return Promise.resolve(null)
+              }
+          }
+      }}`
+        }
 
         result.contents->Meta3dCommonlib.Tuple2.getFirst->CustomTool.formatCustomInputs->expect ==
           list{
-            customInput1.contents,
             CustomTool.buildCustomInput(
               ~name=localInput1Name,
               ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput1\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
-              ~transpiledFileStr=fileStr->Some,
+              ~transpiledFileStr=fileStr1->Some,
+              (),
+            ),
+            CustomTool.buildCustomInput(
+              ~name=localInput2Name,
+              ~originFileStr="import{api}from\"meta3d-type\"exportletgetContribute=(api:api)=>{return{inputName:\"localInput2\",func:(meta3dState)=>{returnPromise.resolve(null)}}}"->Some,
+              ~transpiledFileStr=fileStr2->Some,
               (),
             ),
           }->CustomTool.formatCustomInputs

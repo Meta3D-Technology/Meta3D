@@ -373,6 +373,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		addGroup: (meta3dState, scene) => {
 			return api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).addGroup(meta3dState, scene)
 		},
+		cleanScene: (meta3dState) => {
+			return api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol").cleanScene(meta3dState)
+		},
 		importScene: (meta3dState, sceneGLB) => {
 			return api.getExtensionService<importSceneService>(meta3dState, "meta3d-import-scene-protocol").import(meta3dState, sceneGLB)
 		},

@@ -23,7 +23,7 @@ Feature: AssembleSpace
             And build custom input1 whose name is duplicated with local input2
             When convert local to custom
             # Then selectedContributes should remove all local inputs
-            Then should add converted local input1 to custom inputs
+            Then should add converted local input1 to custom inputs and replace custom input1 to local input2
 
         Scenario: convert local action to custom action which is uneditable
             Given select local action1 which is uneditable

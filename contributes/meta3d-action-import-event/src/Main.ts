@@ -4,20 +4,24 @@ import { events, eventSourcingService, eventDataService } from "meta3d-event-pro
 import { uiData, actionName, state } from "meta3d-action-import-event-protocol"
 import { eventName, inputData } from "meta3d-action-import-event-protocol/src/EventType"
 import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
-import { requireCheck, test } from "meta3d-ts-contract-utils"
+// import { requireCheck, test } from "meta3d-ts-contract-utils"
+import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
+import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
+import { addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
 
-let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
-    requireCheck(() => {
-        test("should only has import event", () => {
-            let allEvents = eventSourcingService.getAllEvents(meta3dState)
+// let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
+//     requireCheck(() => {
+//         test("should only has import event", () => {
+//             let allEvents = eventSourcingService.getAllEvents(meta3dState)
 
-            return allEvents.count() == 1 && api.nullable.getExn(allEvents.last()).name == eventName
-        })
-    }, true)
-}
+//             return allEvents.count() == 1 && api.nullable.getExn(allEvents.last()).name == eventName
+//         })
+//     }, true)
+// }
 
-let _parseEventData = (eventDataService: eventDataService, api: api, meta3dState: meta3dState, eventData: ArrayBuffer): events => {
-    return api.immutable.createListOfData( eventDataService.parseEventData(eventData))
+let _parseEventData = (eventDataService: eventDataService, api: api, eventData: ArrayBuffer): events => {
+    return api.immutable.createListOfData(eventDataService.parseEventData(eventData))
 }
 
 let _removeAllReadEvents = (events: events) => {
@@ -30,6 +34,34 @@ let _removeAllReadEvents = (events: events) => {
     }))
 }
 
+let _resetScene = (
+    api: api,
+    editorWholeService: editorWholeService,
+    meta3dState: meta3dState,
+) => {
+    meta3dState = editorWholeService.cleanScene(meta3dState)
+
+    let engineSceneService = api.nullable.getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
+
+    let data1 = addDefaultGameObjects(meta3dState, engineSceneService)
+    meta3dState = data1[0]
+
+    meta3dState = activeFirstBasicCameraView(meta3dState, engineSceneService)
+
+    let data2 = addGameObjectsForSceneView(meta3dState, engineSceneService)
+    meta3dState = data2[0]
+    let cameraGameObject = data2[2]
+
+
+
+    let { setArcballCameraControllerGameObject } = api.nullable.getExn(api.getPackageService<renderService>(meta3dState, "meta3d-editor-sceneview-render-protocol"))
+
+    meta3dState = setArcballCameraControllerGameObject(meta3dState, cameraGameObject)
+
+
+    return meta3dState
+}
+
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
@@ -39,18 +71,25 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, eventData) => {
                     return new Promise((resolve, reject) => {
-                        _checkOnlyHasImportEvent(eventSourcingService, api, meta3dState)
+                        // _checkOnlyHasImportEvent(eventSourcingService, api, meta3dState)
+
+                        let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
 
                         let events = _parseEventData(
-                            api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventData(meta3dState),
+                            editorWholeService.event(meta3dState).eventData(meta3dState),
                             api,
-                            meta3dState,
                             eventData
                         )
 
                         events = _removeAllReadEvents(events)
 
                         meta3dState = eventSourcingService.setNeedReplaceAllEvents(meta3dState, events)
+
+                        meta3dState = _resetScene(
+                            api,
+                            editorWholeService,
+                            meta3dState,
+                        )
 
                         resolve(meta3dState)
 

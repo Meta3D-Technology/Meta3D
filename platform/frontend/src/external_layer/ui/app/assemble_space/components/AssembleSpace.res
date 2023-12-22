@@ -54,50 +54,42 @@ rename another custom input's name to add post fix:"_copy";
 
   let _mergeCustomAndUnEditableLocal = (customs, (name, localSource)) => {
     /* ! TODO should handle same name more:
-now just not add duplicate one, but need handle more
+now just replace add duplicate one, but need handle more
 */
-    customs->Meta3dCommonlib.ListSt.includesByFunc((custom: CommonType.custom) => {
-      custom.name == name
+    customs
+    ->Meta3dCommonlib.ListSt.filter((custom: CommonType.custom) => {
+      custom.name != name
     })
-      ? customs
-      : {
-          customs->Meta3dCommonlib.ListSt.push(
-            (
-              {
-                name,
-                originFileStr: None,
-                transpiledFileStr: localSource->Some,
-              }: CommonType.custom
-            ),
-          )
-        }
+    ->Meta3dCommonlib.ListSt.push(
+      (
+        {
+          name,
+          originFileStr: None,
+          transpiledFileStr: localSource->Some,
+        }: CommonType.custom
+      ),
+    )
   }
 
   let _mergeCustomAndLocalBundled = (getNameFunc, customs, localBundledSource) => {
     let name = localBundledSource->getNameFunc->Meta3dCommonlib.OptionSt.getExn
 
     /* ! TODO should handle same name more:
-now just not add duplicate one, but need handle more
+now just replace add duplicate one, but need handle more
 */
-    customs->Meta3dCommonlib.ListSt.includesByFunc((custom: CommonType.custom) => {
-      custom.name == name
+    customs
+    ->Meta3dCommonlib.ListSt.filter((custom: CommonType.custom) => {
+      custom.name != name
     })
-      ? customs
-      : {
-          customs->Meta3dCommonlib.ListSt.push(
-            (
-              {
-                name,
-                originFileStr: localBundledSource
-                ->CodeEditUtils.convertTranspliedCodeToES6Code
-                ->Some,
-                transpiledFileStr: localBundledSource
-                ->CodeEditUtils.convertTranspliedCodeToUMDCode
-                ->Some,
-              }: CommonType.custom
-            ),
-          )
-        }
+    ->Meta3dCommonlib.ListSt.push(
+      (
+        {
+          name,
+          originFileStr: localBundledSource->CodeEditUtils.convertTranspliedCodeToES6Code->Some,
+          transpiledFileStr: localBundledSource->CodeEditUtils.convertTranspliedCodeToUMDCode->Some,
+        }: CommonType.custom
+      ),
+    )
   }
 
   let removeInputsAndActions = (
