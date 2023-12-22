@@ -96,6 +96,32 @@ TODO optimize input: how can first show ui control, then edit input?
 
 * TODO Custom: Input: 给出type
 
+* TODO Code: add editorWholePackage type infer
+
+
+
+* TODO add float bar
+
+use https://ant.design/components/popover
+
+
+
+Show Help:
+these two Guides
+
+-
+
+Star button
+💬 点这里加QQ群:106047770 与我们交流
+📄 文档中找到解决方案
+⚠️ Github上提Issue
+👾 论坛上寻求帮助
+
+Meta3d vX.X.X
+XXX前发布
+
+
+
 
 * TODO guide: upgrade Guide to be component
 
@@ -157,18 +183,6 @@ TODO 延迟/预加载 monaco-editor
 
 
 
-* TODO solve ci sometimes fail: Actions->Install error
-* TODO make ci pass in README
-* TODO github->codecov should contain platform/assemble-space
-* TODO Github: lanaguage remove Javascript
-
-
-
-
-* TODO 更新logo for website, github org, production, loading
-* TODO loading, Publish->loading add Meta3D Logo
-
-
 * TODO 准备模板
 
 TODO 完整编辑器的模板
@@ -184,12 +198,42 @@ TODO 从头创建编辑器引导的模板
 TODO 平台、官网加入数据统计
 
 
+
+
+
+* TODO solve ci sometimes fail: Actions->Install error
+* TODO make ci pass in README
+* TODO github->codecov should contain platform/assemble-space
+* TODO Github: lanaguage remove Javascript
+
+
+
+
 * TODO publish
 
 TODO need update packages in production
 
 
+
+* TODO 更新logo for website, github org, production, loading
+* TODO loading, Publish->loading add Meta3D Logo
+
+
 * TODO 更新资料
+
+# 在新手引导的基础上，达成下面的目的：
+在新手引导的基础上，向用户开放下面的能力：
+认识基本知识：
+  如基本概念、Input、Action等
+让用户能够自己搭建出完整的编辑器；
+  需要给出editorWholePackage api文档
+知道如何使用完整的编辑器；
+知道如何对完整的编辑器进行初步的扩展：
+  如加入Material Inspector: edit material's color
+
+
+
+
 
 - TODO release: show changelog
 
@@ -250,7 +294,8 @@ TODO 给出API链接：
 
 
 TODO move doc to platform as guide doc
-在用户可能的操作时，给出文档链接
+  TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
+  TODO 在新手引导后，给出更多的文档链接
 
 
 
@@ -270,10 +315,23 @@ https://cn.nocobase.com/
 
 
 
+
+
+* TODO 文档优化
+
+TODO 压缩所有的图片
+
+
+
+
 * TODO 内部测试：个人用户
 
+** TODO 完善QQ官方群 公告
 
-** TODO 邀请lj、ty等熟人来使用
+** TODO 更新Discussion
+https://github.com/Meta3D-Technology/Meta3D/discussions/43
+
+** TODO 邀请lj、xh、wkh、ty等熟人来使用
 
 ** TODO 邀请QQ群的同学来测试
 
