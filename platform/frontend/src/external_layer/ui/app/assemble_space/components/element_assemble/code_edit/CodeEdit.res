@@ -99,8 +99,8 @@ let make = (~service: service, ~code, ~getNewCodeFunc) => {
   let editor = React.useRef(None)
 
   <MonacoEditor.monacoEditor
-    width="800"
-    height="600"
+    width="100%"
+    height="100%"
     language=#typescript
     theme=#"vs-dark"
     value={code}

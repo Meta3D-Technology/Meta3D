@@ -73,7 +73,7 @@ show begin guide metion tour
 
 
 
-* TODO custom: code edit's width,height to 100%
+* DONE custom: code edit's width,height to 100%
 
 
 * TODO Custom: 简化

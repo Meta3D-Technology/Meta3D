@@ -10,16 +10,14 @@ module Header = {
 
 module Sider = {
   @module("antd") @scope("Layout") @react.component
-  external make: (
-    ~theme: theme=?,
-    ~width:int=?,
-    ~children: React.element=?,
-  ) => React.element = "Sider"
+  external make: (~theme: theme=?, ~width: int=?, ~children: React.element=?) => React.element =
+    "Sider"
 }
 
 module Content = {
   @module("antd") @scope("Layout") @react.component
-  external make: (~children: React.element=?) => React.element = "Content"
+  external make: (~children: React.element=?, ~style: ReactDOM.Style.t=?) => React.element =
+    "Content"
 }
 
 module Footer = {

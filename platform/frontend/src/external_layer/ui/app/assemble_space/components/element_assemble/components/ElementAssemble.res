@@ -532,17 +532,25 @@ let make = (
             <Layout.Content>
               {switch (currentCustomInputName, currentCustomActionName) {
               | (Some(currentCustomInputName), None) =>
-                <Layout>
-                  <Layout.Content>
-                    <CustomInputCodeEdit service currentCustomInputName />
-                  </Layout.Content>
-                </Layout>
+                <Layout.Content
+                  style={ReactDOM.Style.make(
+                    ~width={j`100%`},
+                    ~height={j`100%`},
+                    ~minHeight="600px",
+                    (),
+                  )}>
+                  <CustomInputCodeEdit service currentCustomInputName />
+                </Layout.Content>
               | (None, Some(currentCustomActionName)) =>
-                <Layout>
-                  <Layout.Content>
-                    <CustomActionCodeEdit service currentCustomActionName />
-                  </Layout.Content>
-                </Layout>
+                <Layout.Content
+                  style={ReactDOM.Style.make(
+                    ~width={j`100%`},
+                    ~height={j`100%`},
+                    ~minHeight="600px",
+                    (),
+                  )}>
+                  <CustomActionCodeEdit service currentCustomActionName />
+                </Layout.Content>
               | _ =>
                 <Layout>
                   <Layout.Content>
