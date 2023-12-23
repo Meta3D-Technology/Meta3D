@@ -110,7 +110,7 @@ let make = (~service: service) => {
         />
         <Button
           onClick={_ => {
-            ErrorUtils.showCatchedErrorMessage(() => {
+            MessageUtils.showCatchedErrorMessage(() => {
               Method.updateSelectedContribute(
                 dispatch,
                 service,

@@ -80,7 +80,7 @@ let make = (~service: FrontendType.service, ~account) => {
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(
+      MessageUtils.errorWithExn(
         e->Error.promiseErrorToExn,
         None,
       )->Obj.magic

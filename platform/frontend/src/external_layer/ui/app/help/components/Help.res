@@ -29,16 +29,31 @@ let make = (
     </Card>
     <Card key={"1"}>
       <section ref={guideTarget->Obj.magic}>
-        <Button
-          onClick={_ => {
-            // setOpenCreateFromScratchPhase1TourFunc(_ => false)
+        <Tooltip title={j`打开“从头创建新的编辑器”的引导`}>
+          <Button
+            _type=#primary
+            onClick={_ => {
+              // setOpenCreateFromScratchPhase1TourFunc(_ => false)
 
-            GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
+              GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
 
-            RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
-          }}>
-          {React.string(`打开“从头创建新的编辑器”的引导`)}
-        </Button>
+              RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
+            }}>
+            {React.string(`打开新人引导`)}
+          </Button>
+        </Tooltip>
+        <Tooltip title={j`当您执行某些操作时，会打开对应的帮助文档`}>
+          <Button
+            _type=#default
+            onClick={_ => {
+              GuideUtils.markIsFinishShowInput(false)
+              GuideUtils.markIsFinishShowAction(false)
+
+              MessageUtils.success({j`成功`}, None)
+            }}>
+            {React.string(`打开帮助文档`)}
+          </Button>
+        </Tooltip>
       </section>
     </Card>
     <Card

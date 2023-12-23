@@ -6,7 +6,7 @@ module ShowInput = {
       }),
     )
 
-    GuideUtils.markFinishShowInput()
+    GuideUtils.markIsFinishShowInput(true)
   }
 }
 
@@ -18,6 +18,6 @@ module ShowAction = {
       }),
     )
 
-    GuideUtils.markFinishShowAction()
+    GuideUtils.markIsFinishShowAction(true)
   }
 }

@@ -84,12 +84,12 @@ let readIsFinishShowInput = () => {
   _readGuideStatus().isFinishShowInput
 }
 
-let markFinishShowInput = () => {
+let markIsFinishShowInput = (isFinishShowInput) => {
   LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
-      isFinishShowInput: true,
+      isFinishShowInput
     }
     ->Obj.magic
     ->Js.Json.stringify,
@@ -100,12 +100,12 @@ let readIsFinishShowAction = () => {
   _readGuideStatus().isFinishShowAction
 }
 
-let markFinishShowAction = () => {
+let markIsFinishShowAction = (isFinishShowAction) => {
   LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
-      isFinishShowAction: true,
+      isFinishShowAction
     }
     ->Obj.magic
     ->Js.Json.stringify,

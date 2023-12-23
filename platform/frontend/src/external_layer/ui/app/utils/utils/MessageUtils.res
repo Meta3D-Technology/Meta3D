@@ -12,6 +12,14 @@
 //   messageErrorFunc(Js.Exn.message(e), durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(10))
 // }
 
+let success = (message: string, durationOpt: option<int>) => {
+  Antd.Message.getMessageAPI()._open(. {
+    _type: #success,
+    content: message,
+    duration: durationOpt->Meta3dCommonlib.OptionSt.getWithDefault(5),
+  })
+}
+
 let warn = (message: string, durationOpt: option<int>) => {
   Js.Console.warn(message)
 

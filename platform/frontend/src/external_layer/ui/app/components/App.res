@@ -162,8 +162,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {
-      error: (. errorMessage, durationOpt) => ErrorUtils.error(errorMessage, durationOpt),
-      errorWithExn: (. error, durationOpt) => ErrorUtils.errorWithExn(error, durationOpt),
+      error: (. errorMessage, durationOpt) => MessageUtils.error(errorMessage, durationOpt),
+      errorWithExn: (. error, durationOpt) => MessageUtils.errorWithExn(error, durationOpt),
     },
     react: {
       useCallback1: (. func, param) => {

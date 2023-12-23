@@ -65,7 +65,7 @@ let make = (
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+      MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -177,7 +177,7 @@ let make = (
 
                                 Meta3dCommonlib.NullableSt.isNullable(file)
                                   ? {
-                                      ErrorUtils.error({j`找不到package file`}, None)->Obj.magic
+                                      MessageUtils.error({j`找不到package file`}, None)->Obj.magic
                                     }
                                   : {
                                       dispatch(
@@ -207,7 +207,7 @@ let make = (
                                 setIsDownloadBegin(_ => false)
                                 setCurrentImportingKey(_ => None)
 
-                                ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+                                MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
                               }, _)
                               ->ignore
                             }}>
@@ -232,7 +232,7 @@ let make = (
                           setCurrentImportingKey(_ => None)
                           Meta3dCommonlib.NullableSt.isNullable(file)
                             ? {
-                                ErrorUtils.error({j`找不到package file`}, None)->Obj.magic
+                                MessageUtils.error({j`找不到package file`}, None)->Obj.magic
                               }
                             : {
                                 Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
@@ -246,7 +246,7 @@ let make = (
                           setIsDownloadBegin(_ => false)
                           setCurrentImportingKey(_ => None)
 
-                          ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+                          MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
                         }, _)
                         ->ignore
                       }}>
@@ -273,7 +273,7 @@ let make = (
 
                               Meta3dCommonlib.NullableSt.isNullable(file)
                                 ? {
-                                    ErrorUtils.error({j`找不到package file`}, None)->Obj.magic
+                                    MessageUtils.error({j`找不到package file`}, None)->Obj.magic
 
                                     Meta3dBsMostDefault.Most.empty()->Obj.magic
                                   }

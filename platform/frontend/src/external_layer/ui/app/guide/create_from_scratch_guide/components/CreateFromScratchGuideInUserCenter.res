@@ -75,7 +75,7 @@ let make = (
   }
 
   React.useEffect0(() => {
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       isInCreateFromScratchTourPhase1 ? setOpenTourPhase1(_ => true) : setOpenTourPhase1(_ => false)
       isInCreateFromScratchTourPhase3 ? setOpenTourPhase3(_ => true) : setOpenTourPhase3(_ => false)
     }, 5->Some)

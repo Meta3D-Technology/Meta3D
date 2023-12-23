@@ -20,7 +20,7 @@ let make = (~service: FrontendType.service) => {
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
 
   React.useEffect1(() => {
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       let account = UrlSearchUtils.get(url.search, "account")
       let appName = UrlSearchUtils.get(url.search, "appName")
 

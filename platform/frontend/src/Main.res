@@ -14,8 +14,8 @@ let _buildFrontendService = (env): FrontendType.service => {
     BackendCloudbase.buildFrontendService()
   },
   console: {
-    error: (. errorMessage, durationOpt) => ErrorUtils.error(errorMessage, durationOpt),
-    errorWithExn: (. error, durationOpt) => ErrorUtils.errorWithExn(error, durationOpt),
+    error: (. errorMessage, durationOpt) => MessageUtils.error(errorMessage, durationOpt),
+    errorWithExn: (. error, durationOpt) => MessageUtils.errorWithExn(error, durationOpt),
   },
 }
 

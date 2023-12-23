@@ -161,7 +161,7 @@ let make = (~service: FrontendType.service, ~account) => {
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+      MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 

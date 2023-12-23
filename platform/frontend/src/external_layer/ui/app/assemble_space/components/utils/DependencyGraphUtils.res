@@ -1041,7 +1041,7 @@ let make = (
   )
 
   service.react.useEffect1(. () => {
-    ErrorUtils.showCatchedErrorMessageWithFunc(
+    MessageUtils.showCatchedErrorMessageWithFunc(
       () => {
         Method.useEffectOnce(
           setData,
@@ -1075,7 +1075,7 @@ let make = (
             ? {
                 <Button
                   onClick={_ => {
-                    ErrorUtils.showCatchedErrorMessage(() => {
+                    MessageUtils.showCatchedErrorMessage(() => {
                       Method.autoUpgradeVersion(
                         service,
                         setOperateInfo,

@@ -437,7 +437,7 @@ let make = (
   service.react.useEffectOnce(() => {
     Method.resetWhenEnter(dispatch)
 
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       let (customInputs, customActions) =
         Method.getImportedElementCustom(selectedElementsFromMarket)->Method.convertLocalToCustom(
           service,

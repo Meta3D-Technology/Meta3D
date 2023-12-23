@@ -74,7 +74,7 @@ let make = (
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      ErrorUtils.errorWithExn(
+      MessageUtils.errorWithExn(
         e->Error.promiseErrorToExn,
         None,
       )->Obj.magic
@@ -193,7 +193,7 @@ let make = (
                                   ? {
                                       setIsDownloadBegin(_ => false)
 
-                                      ErrorUtils.error(
+                                      MessageUtils.error(
                                         {j`找不到contribute file`},
                                         None,
                                       )->Obj.magic
@@ -233,7 +233,7 @@ let make = (
                               ->Js.Promise.catch(e => {
                                 setIsDownloadBegin(_ => false)
 
-                                ErrorUtils.errorWithExn(
+                                MessageUtils.errorWithExn(
                                   e->Error.promiseErrorToExn,
                                   None,
                                 )->Obj.magic

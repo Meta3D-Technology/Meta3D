@@ -503,9 +503,9 @@ let make = (
                   initialValues={{
                     "remember": true,
                   }}
-                  onFinish={event => ErrorUtils.showCatchedErrorMessage(() => {
+                  onFinish={event => MessageUtils.showCatchedErrorMessage(() => {
                       !isPassDependencyGraphCheck
-                        ? ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
+                        ? MessageUtils.error({j`请通过DependencyGraph检查`}, None)
                         : Method.onFinish(
                             service,
                             dispatchForAppStore,
@@ -562,7 +562,7 @@ let make = (
                           },
                           (_, _) => (),
                           (event, _) => {
-                            ErrorUtils.error({j`error`}, None)
+                            MessageUtils.error({j`error`}, None)
                           },
                           file,
                         )

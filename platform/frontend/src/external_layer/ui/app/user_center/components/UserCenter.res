@@ -241,7 +241,7 @@ let make = (~service: FrontendType.service) => {
 
             ()->Js.Promise.resolve
           }, _)->Js.Promise.catch(e => {
-            ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+            MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
           }, _)->ignore
         }
 
@@ -316,7 +316,7 @@ let make = (~service: FrontendType.service) => {
   }
 
   React.useEffect0(() => {
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       AssembleSpaceUtils.resetWhenLeave(dispatchForElementAssembleStore)
 
       setInfo(_ => {j`loading...`->Some})
@@ -336,7 +336,7 @@ let make = (~service: FrontendType.service) => {
           setAllPublishApps(_ => [])
           setInfo(_ => None)
 
-          ErrorUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+          MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
         },
         _,
       )
@@ -380,7 +380,7 @@ let make = (~service: FrontendType.service) => {
                 <Button
                   _type=#primary
                   onClick={_ => {
-                    ErrorUtils.showCatchedErrorMessage(() => {
+                    MessageUtils.showCatchedErrorMessage(() => {
                       _createFromTemplate()
                     }, 5->Some)
                   }}>
@@ -390,7 +390,7 @@ let make = (~service: FrontendType.service) => {
                   _type=#default
                   ref={createFromScratchButtonTarget}
                   onClick={_ => {
-                    ErrorUtils.showCatchedErrorMessage(() => {
+                    MessageUtils.showCatchedErrorMessage(() => {
                       _createFromScratch(service, dispatch)
                     }, 5->Some)
                   }}>

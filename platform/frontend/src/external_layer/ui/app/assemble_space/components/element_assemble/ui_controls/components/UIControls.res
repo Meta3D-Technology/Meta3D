@@ -140,7 +140,7 @@ let make = (
         <Card
           key={id}
           onClick={_ => {
-            ErrorUtils.showCatchedErrorMessage(() => {
+            MessageUtils.showCatchedErrorMessage(() => {
               Method.selectUIControl(
                 service,
                 dispatch,

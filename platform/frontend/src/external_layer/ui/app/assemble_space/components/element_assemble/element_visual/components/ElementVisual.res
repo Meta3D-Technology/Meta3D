@@ -170,7 +170,7 @@ module Method = {
     ->Js.Promise.then_(meta3dState => {
       loopFrameID.current =
         service.other.requestAnimationFirstFrame(time => {
-          ErrorUtils.showCatchedErrorMessage(
+          MessageUtils.showCatchedErrorMessage(
             () => {
               _loop(service, loopFrameID, apInspectorData, time, meta3dState)
             },
@@ -624,7 +624,7 @@ let make = (
   // }, [selectedContributes])
 
   // service.react.useEffect1(. () => {
-  //   ErrorUtils.showCatchedErrorMessage(() => {
+  //   MessageUtils.showCatchedErrorMessage(() => {
   //     Method.importElement(service, dispatch, elementAssembleData, selectedContributes)
   //   }, 5->Some)
 
@@ -632,7 +632,7 @@ let make = (
   // }, [elementAssembleData])
 
   // service.react.useEffect1(. () => {
-  //   ErrorUtils.showCatchedErrorMessage(() => {
+  //   MessageUtils.showCatchedErrorMessage(() => {
   //     // !isImportElement
   //     //   ? Method.importElement(service, dispatch, selectedElementsFromMarket, selectedContributes)
   //     // : ()
@@ -646,7 +646,7 @@ let make = (
 
   service.react.useEffect1(.
     () => {
-      ErrorUtils.showCatchedErrorMessage(() => {
+      MessageUtils.showCatchedErrorMessage(() => {
         Method.generateElementContribute(
           service,
           account->Meta3dCommonlib.OptionSt.getExn,
@@ -677,13 +677,13 @@ let make = (
   service.react.useEffect1(. () => {
     !isPassDependencyGraphCheck
       ? {
-          ErrorUtils.error({j`请通过DependencyGraph检查`}, None)
+          MessageUtils.error({j`请通过DependencyGraph检查`}, None)
 
           None
         }
       : {
           // switch visualExtension {
-          // | Some(visualExtension) => ErrorUtils.showCatchedErrorMessage(() => {
+          // | Some(visualExtension) => MessageUtils.showCatchedErrorMessage(() => {
           //     Method.startApp(
           //       service,
           //       loopFrameID,
@@ -694,7 +694,7 @@ let make = (
           //   }, 5->Some)
           // | _ => ()
           // }
-          ErrorUtils.showCatchedErrorMessage(() => {
+          MessageUtils.showCatchedErrorMessage(() => {
             Method.startApp(
               service,
               loopFrameID,

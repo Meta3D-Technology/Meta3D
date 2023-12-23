@@ -59,7 +59,7 @@ module Method = {
   }
 
   let buildInputNameSelectValues = (service, selectedContributes, uiControlProtocolName) => {
-    ErrorUtils.showCatchedErrorMessageAndReturn(
+    MessageUtils.showCatchedErrorMessageAndReturn(
       (. ()) => {
         // input: option<ElementAssembleStoreType.input>,
 
@@ -162,7 +162,7 @@ module Method = {
   }
 
   let buildActionNameSelectValues = (service, actions) => {
-    ErrorUtils.showCatchedErrorMessageAndReturn(
+    MessageUtils.showCatchedErrorMessageAndReturn(
       (. ()) => {
         actions->Meta3dCommonlib.ArraySt.map(({data}: ApAssembleStoreType.contribute) => {
           (service.meta3d.execGetContributeFunc(. data.contributeFuncData)->Obj.magic)["actionName"]
@@ -465,7 +465,7 @@ module Method = {
                   <Input.TextArea
                     value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
                     onChange={e => {
-                      ErrorUtils.swallowCatchedError(() => {
+                      MessageUtils.swallowCatchedError(() => {
                         _setSpecificData(
                           dispatch,
                           specific,
@@ -680,7 +680,7 @@ let make = (
         //     />}
         // <Button
         //   onClick={_ => {
-        //     ErrorUtils.showCatchedErrorMessage(() => {
+        //     MessageUtils.showCatchedErrorMessage(() => {
         //       Method.setInputFileStrData(
         //         dispatch,
         //         id,
@@ -745,7 +745,7 @@ let make = (
               //     />}
               // <Button
               //   onClick={_ => {
-              //     ErrorUtils.showCatchedErrorMessage(() => {
+              //     MessageUtils.showCatchedErrorMessage(() => {
               //       Method.setActionFileStrData(
               //         dispatch,
               //         id,

@@ -108,7 +108,7 @@ module Method = {
         service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
       }, _)
       ->ignore
-    }, ErrorUtils.warn(_, None))
+    }, MessageUtils.warn(_, None))
   }
 
   let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
@@ -203,7 +203,7 @@ let make = (
       <Button
         ref={runButtonTarget}
         onClick={_ => {
-          ErrorUtils.showCatchedErrorMessage(() => {
+          MessageUtils.showCatchedErrorMessage(() => {
             // handleWhenRunFunc()
             eventEmitter.emit(. EventUtils.getRunEventName(), Obj.magic(1))
 

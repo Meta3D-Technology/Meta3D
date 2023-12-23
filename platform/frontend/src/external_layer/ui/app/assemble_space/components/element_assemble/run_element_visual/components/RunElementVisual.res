@@ -77,7 +77,7 @@ module Method = {
         loopFrameID.current =
           service.other.requestAnimationFirstFrame(
             time => {
-              ErrorUtils.showCatchedErrorMessage(
+              MessageUtils.showCatchedErrorMessage(
                 () => {
                   _loop(service, loopFrameID, apInspectorData, time, meta3dState)
                 },
@@ -123,7 +123,7 @@ let make = (~service: AssembleSpaceType.service) => {
     service.url.getUrlParam("apInspectorData")->Obj.magic
 
   React.useEffect1(() => {
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       Method.startApp(service, loopFrameID, apInspectorData)->ignore
     }, 5->Some)
 

@@ -79,7 +79,7 @@ let make = (
   ) = React.useState(_ => None)
 
   service.react.useEffectOnce(() => {
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       setSelectedContributesAddedGeneratedCustoms(
         _ =>
           ElementVisualUtils.addGeneratedCustoms(

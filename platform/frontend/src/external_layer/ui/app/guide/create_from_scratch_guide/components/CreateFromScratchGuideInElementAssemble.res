@@ -212,7 +212,7 @@ let make = (
   let (openTour, setOpenTour) = service.react.useState(_ => false)
 
   React.useEffect0(() => {
-    ErrorUtils.showCatchedErrorMessage(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       isInCreateFromScratchTourPhase2 ? setOpenTour(_ => true) : setOpenTour(_ => false)
 
       eventEmitter.addListener(.

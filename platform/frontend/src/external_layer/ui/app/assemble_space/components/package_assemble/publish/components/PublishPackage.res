@@ -187,7 +187,7 @@ let make = (~service: service, ~account: option<string>) => {
                 initialValues={{
                   "remember": true,
                 }}
-                onFinish={event => ErrorUtils.showCatchedErrorMessage(() => {
+                onFinish={event => MessageUtils.showCatchedErrorMessage(() => {
                     Method.onFinish(
                       service,
                       (setUploadProgress, setIsUploadBegin, setVisible),

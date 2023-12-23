@@ -143,7 +143,7 @@ TODO add Meta3D
 # action guide
 merge to current guide
 
-should give doc link in drawer
+not open doc drawer
 
 
 
@@ -322,7 +322,19 @@ TODO Custom: Input: 给出type
 TODO move related doc to platform as guide doc
   # TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
   # TODO 在新手引导后，给出更多的文档链接
-  e.g. give input type doc link when select input, ...
+  # e.g. give input type doc link when select input, ...
+  actions:
+    first enter user center:
+      认识基本知识： 如基本概念、Input、Action等
+    show input
+    show action
+    add ui controls
+    run template: introduce editor
+    import template:
+      how to 搭建出简化版的完整的编辑器；
+        需要给出editorWholePackage api文档
+      how to extend
+
 
 
 
