@@ -4,7 +4,7 @@ type key = string
 external make: (
   ~defaultActiveKey: array<key>=?,
   ~activeKey: key=?,
-  ~onChange: key=?,
+  ~onChange: array<key> => unit=?,
   ~children: React.element=?,
 ) => React.element = "Collapse"
 

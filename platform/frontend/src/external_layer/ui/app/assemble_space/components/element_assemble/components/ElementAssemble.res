@@ -260,7 +260,21 @@ let make = (
           </Layout.Content>
           <Layout>
             <Layout.Sider theme=#light>
-              <Collapse defaultActiveKey={["1"]}>
+              <Collapse
+                onChange={key => {
+                  switch key {
+                  | key
+                    if key->Meta3dCommonlib.ArraySt.includes("2") &&
+                      !GuideUtils.readIsFinishShowInput() =>
+                    DocGuideUtils.ShowInput.openDocDrawer(dispatch)
+                  | key
+                    if key->Meta3dCommonlib.ArraySt.includes("3") &&
+                      !GuideUtils.readIsFinishShowAction() =>
+                    DocGuideUtils.ShowAction.openDocDrawer(dispatch)
+                  | _ => ()
+                  }
+                }}
+                defaultActiveKey={["1"]}>
                 // <Collapse.Panel header="UI Controls" key="1">
                 //   <UIControls service selectedContributes />
                 // </Collapse.Panel>

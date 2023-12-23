@@ -1,6 +1,8 @@
 type guideStatus = {
   isFinishFirstLogin: bool,
   isFinishCreateFromScratchTour: bool,
+  isFinishShowInput: bool,
+  isFinishShowAction: bool,
   // isInCreateFromScratchTour: bool,
 }
 
@@ -9,7 +11,8 @@ let _buildKey = () => {j`meta3d_guide_status`}
 let _createDefaultStatus = (): guideStatus => {
   isFinishFirstLogin: false,
   isFinishCreateFromScratchTour: false,
-  // isInCreateFromScratchTour: false,
+  isFinishShowInput: false,
+  isFinishShowAction: false,
 }
 
 let _readGuideStatus = (): guideStatus => {
@@ -74,6 +77,38 @@ let _markStartCreateFromScratchTour = () => {
       isFinishCreateFromScratchTour: false,
       // isInCreateFromScratchTour: false,
     }->Js.Json.stringifyAny,
+  )
+}
+
+let readIsFinishShowInput = () => {
+  _readGuideStatus().isFinishShowInput
+}
+
+let markFinishShowInput = () => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishShowInput: true,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
+  )
+}
+
+let readIsFinishShowAction = () => {
+  _readGuideStatus().isFinishShowAction
+}
+
+let markFinishShowAction = () => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishShowAction: true,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
   )
 }
 

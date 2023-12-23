@@ -125,21 +125,25 @@ XXX前发布
 
 TODO add Meta3D
 
+# * TODO 开头引导说明目前能做什么，可以了解更多
 
-* TODO 开头引导说明目前能做什么，可以了解更多
-
-use https://ant.design/components/carousel-cn
+# use https://ant.design/components/carousel-cn
 
 
-* TODO move doc to platform as guide doc
+* DONE move doc to platform as guide doc
   TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
-  TODO 在新手引导后，给出更多的文档链接
+  # TODO 在新手引导后，给出更多的文档链接
 
-
+  TODO when open Input/Action select, give doc drawer
 
 * TODO Custom: 加入新手引导
 
-add another guide
+# add another two guides:
+# input guide
+# action guide
+merge to current guide
+
+should give doc link in drawer
 
 
 
@@ -194,19 +198,14 @@ TODO 延迟/预加载 monaco-editor
 
 
 
-* TODO 准备模板
-
-TODO 完整编辑器的模板
-
-TODO 从头创建编辑器引导的模板
-
-
-
 * TODO 加入数据统计
 
 //TODO 平台加入埋点
 
 TODO 平台、官网加入数据统计
+
+使用Google Analytics 分析数据
+使用Inspectlet 收集网站点击和滚动类的用户行为数据
 
 
 
@@ -217,6 +216,13 @@ TODO 平台、官网加入数据统计
 * TODO github->codecov should contain platform/assemble-space
 * TODO Github: lanaguage remove Javascript
 
+
+
+* TODO 准备模板
+
+TODO 完整编辑器的模板
+
+TODO 从头创建编辑器引导的模板
 
 
 
@@ -241,6 +247,9 @@ TODO update production
 让用户能够自己搭建出简化版的完整的编辑器；
   需要给出editorWholePackage api文档
 知道如何使用完整的编辑器；
+知道UI Control的用法：
+  给出每个UI Control的文档
+  refer to: https://docs.appsmith.com/reference/widgets
 知道如何对简化版的完整的编辑器进行初步的扩展：
   如加入Material Inspector: edit material's color
 
@@ -353,7 +362,6 @@ https://github.com/Meta3D-Technology/Meta3D/discussions/43
 
 ** TODO 邀请lj、xh、wkh等熟人来使用
 
-** TODO 邀请ty、xiaoyu、tianhao来使用
 
 ** TODO 邀请QQ群的同学来测试
 
@@ -374,9 +382,19 @@ https://www.google.com/search?q=opensea+%E5%8F%91%E8%A1%8Cnft&newwindow=1&sca_es
 赠送其10M币，发电子邮件表示感谢并说明积分奖励
 
 
-可建议在讨论中给出反馈的同学留下qq号，从而拉到一个群里发QQ红包
+# 可建议在讨论中给出反馈的同学留下qq号，从而拉到一个群里发QQ红包
+可建议在讨论中给出反馈的同学留下qq号，抽奖赠送一个月的会员（未来上付费功能后兑现）
+
+
+
+** TODO fix feedbacks
+
 
 
 ** TODO 发布《Meta3D开发记录1：发布第一个可用版本v1.0 Beta.1》
 
 发布到官网博客、知乎、博客园、https://w2solo.com/?page=3
+
+
+
+** TODO 邀请ty、xiaoyu、tianhao来使用

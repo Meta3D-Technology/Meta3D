@@ -204,15 +204,19 @@ let make = (~service: FrontendType.service) => {
   let _createFromScratch = (service, dispatch) => {
     !isInCreateFromScratchTourPhase1 && !GuideUtils.readIsFinishCreateFromScratchTour()
       ? {
-          dispatch(
-            AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase1),
-          )
-          dispatchForElementAssembleStore(ElementAssembleStoreType.StartCreateFromScratchTourPhase2)
           // dispatch(
-          //   AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
+          //   AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase1),
           // )
+          // dispatchForElementAssembleStore(ElementAssembleStoreType.StartCreateFromScratchTourPhase2)
+          // // dispatch(
+          // //   AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
+          // // )
 
-          RescriptReactRouter.push("/UserCenter")
+          // RescriptReactRouter.push("/UserCenter")
+
+            GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
+
+            RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
         }
       : {
           setInfo(_ => {j`loading...`}->Some)
