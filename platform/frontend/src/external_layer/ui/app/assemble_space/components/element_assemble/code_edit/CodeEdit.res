@@ -50,6 +50,7 @@ module Method = {
 
   let _addTypeLibs = (editor, monaco) => {
     let data = [
+      ("static/dts/immutable/src/immutable.d.ts", "immutable"),
       ("static/dts/meta3d-type/src/Index.d.ts", "meta3d-type"),
       (
         "static/dts/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",

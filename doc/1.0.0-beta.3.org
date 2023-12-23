@@ -85,6 +85,10 @@ TODO update default code for input, action
 TODO refactor meta3d-type
 
 
+* DONE Code: add immutable type infer
+
+
+
 * TODO add float bar
 
 use https://ant.design/components/popover
@@ -110,6 +114,9 @@ XXX前发布
 
 * TODO guide: upgrade Guide to be component
 
+
+
+* TODO 开头引导说明目前能做什么，可以了解更多
 
 
 * TODO move doc to platform as guide doc
