@@ -121,7 +121,9 @@ XXX前发布
 * DONE refactor: guide: upgrade Guide to be component
 
 
-* TODO style: change Nav to light
+* DONE style: change Nav to light
+
+TODO add Meta3D
 
 
 * TODO 开头引导说明目前能做什么，可以了解更多

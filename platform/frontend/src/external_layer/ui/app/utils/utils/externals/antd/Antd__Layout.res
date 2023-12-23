@@ -5,7 +5,11 @@ external make: (~children: React.element=?, ~style: ReactDOM.Style.t=?) => React
 
 module Header = {
   @module("antd") @scope("Layout") @react.component
-  external make: (~children: React.element=?) => React.element = "Header"
+  external make: (
+    ~theme: theme=?,
+    ~children: React.element=?,
+    ~style: ReactDOM.Style.t=?,
+  ) => React.element = "Header"
 }
 
 module Sider = {

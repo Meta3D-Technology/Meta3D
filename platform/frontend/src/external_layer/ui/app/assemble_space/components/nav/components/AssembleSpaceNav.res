@@ -16,7 +16,7 @@ let make = (
 
   <section ref={assembleSpaceNavTarget->Obj.magic}>
     <Menu
-      theme=#dark
+      theme=#light
       mode=#horizontal
       defaultSelectedKeys={["2"]}
       selectedKeys={[currentKey]}

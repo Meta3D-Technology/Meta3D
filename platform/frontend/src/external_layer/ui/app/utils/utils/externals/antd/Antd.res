@@ -33,3 +33,5 @@ module Badge = Antd__Badge
 
 module Tooltip = Antd__Tooltip
 module Drawer = Antd__Drawer
+
+module ConfigProvider = Antd__ConfigProvider
