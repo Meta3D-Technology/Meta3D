@@ -5,16 +5,16 @@ let buildUI = (
   ~account=None,
   // ~selectedElementsFromMarket=list{},
   ~service=ServiceTool.build(~sandbox, ()),
-  ~handleWhenShowModalFunc=() => (),
-  ~handleWhenPublishFunc=() => (),
+  // ~handleWhenShowModalFunc=() => (),
+  // ~handleWhenPublishFunc=() => (),
   ~publishButtonTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~publishModalTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <Publish
     service
-    handleWhenShowModalFunc
-    handleWhenPublishFunc
+    // handleWhenShowModalFunc
+    // handleWhenPublishFunc
     account
     publishButtonTarget
     publishModalTarget
@@ -24,12 +24,13 @@ let buildUI = (
 let publish = (
   ~sandbox,
   ~service,
-  ~handleWhenPublishFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  // ~handleWhenPublishFunc=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~dispatchForAppStore=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setVisible=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setIsUploadBegin=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setUploadProgress=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~setPreviewBase64=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~eventEmitter=EventTool.buildEventEmitter(),
   ~account="u1"->Some,
   ~currentAppName="",
   ~selectedPackages=list{},
@@ -53,9 +54,9 @@ let publish = (
   Publish.Method.onFinish(
     service,
     dispatchForAppStore,
-    handleWhenPublishFunc,
     (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
+      eventEmitter,
       account,
       currentAppName,
       selectedPackages,

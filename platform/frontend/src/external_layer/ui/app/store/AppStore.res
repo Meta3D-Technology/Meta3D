@@ -34,6 +34,7 @@ let initialState = {
   userCenterState: UserCenterStore.initialState,
   enterAppState: EnterAppStore.initialState,
   assembleSpaceState: AssembleSpaceStore.initialState,
+  eventEmitter: Event.eventEmitter(),
 }
 
 let store = Remporium.makeStore(initialState, reducer)

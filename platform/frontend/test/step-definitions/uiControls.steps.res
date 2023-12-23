@@ -131,7 +131,7 @@ defineFeature(feature, test => {
             (),
           ),
           dispatchStub.contents,
-          _ => (),
+          EventTool.buildEventEmitter(),
           list{},
           selectedContributes.contents,
           protocolIconBase64.contents,
@@ -226,7 +226,7 @@ defineFeature(feature, test => {
           UIControlsTool.selectUIControl(
             ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
             Obj.magic(1),
-            _ => (),
+          EventTool.buildEventEmitter(),
             list{SelectedUIControlsTool.buildSelectedUIControl(~data=data.contents, ())},
             Obj.magic(1),
             Obj.magic(1),

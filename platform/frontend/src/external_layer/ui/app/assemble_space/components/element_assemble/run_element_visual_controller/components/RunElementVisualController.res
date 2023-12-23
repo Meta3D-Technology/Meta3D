@@ -111,7 +111,9 @@ module Method = {
     }, ErrorUtils.warn(_, None))
   }
 
-  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
+  let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
+    let {apAssembleState, elementAssembleState} = assembleSpaceState
+
     let {
       apInspectorData,
       selectedPackages,
@@ -131,6 +133,41 @@ module Method = {
 
     (
       (
+        (
+          apInspectorData,
+          selectedPackages,
+          selectedExtensions,
+          // selectedContributes,
+          storedPackageIdsInApp,
+        ),
+        (
+          canvasData,
+          // runVisualExtension,
+          elementContribute,
+          selectedUIControls,
+          selectedUIControlInspectorData,
+          customInputs,
+          customActions,
+        ),
+      ),
+      eventEmitter,
+    )
+  }
+}
+
+@react.component
+let make = (
+  ~service: service,
+  // ~handleWhenRunFunc,
+  ~account,
+  ~selectedContributes,
+  ~runButtonTarget: React.ref<Js.Nullable.t<'a>>,
+) => {
+  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+
+  let (
+    (
+      (
         apInspectorData,
         selectedPackages,
         selectedExtensions,
@@ -146,38 +183,9 @@ module Method = {
         customInputs,
         customActions,
       ),
-    )
-  }
-}
-
-@react.component
-let make = (
-  ~service: service,
-  ~handleWhenRunFunc,
-  ~account,
-  ~selectedContributes,
-  ~runButtonTarget: React.ref<Js.Nullable.t<'a>>,
-) => {
-  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
-
-  let (
-    (
-      apInspectorData,
-      selectedPackages,
-      selectedExtensions,
-      // selectedContributes,
-      storedPackageIdsInApp,
     ),
-    (
-      canvasData,
-      // runVisualExtension,
-      elementContribute,
-      selectedUIControls,
-      selectedUIControlInspectorData,
-      customInputs,
-      customActions,
-    ),
-  ) = service.react.useSelector(. Method.useSelector)
+    eventEmitter,
+  ) = service.react.useAllSelector(. Method.useSelector)
 
   // service.react.useEffect1(. () => {
   //   switch runVisualExtension {
@@ -196,7 +204,8 @@ let make = (
         ref={runButtonTarget}
         onClick={_ => {
           ErrorUtils.showCatchedErrorMessage(() => {
-            handleWhenRunFunc()
+            // handleWhenRunFunc()
+            eventEmitter.emit(. EventUtils.getRunEventName(), Obj.magic(1))
 
             Method.run(
               service,

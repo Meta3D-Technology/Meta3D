@@ -35,7 +35,7 @@ let make = (
 
             GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
 
-            RescriptReactRouter.push("/UserCenter")
+            RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
           }}>
           {React.string(`打开“从头创建新的编辑器”的引导`)}
         </Button>

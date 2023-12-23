@@ -1,8 +1,8 @@
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~handleWhenSelectUIControlFunc=_ => (),
-  ~handleWhenShowUIControlsFunc=() => (),
+  // ~handleWhenSelectUIControlFunc=_ => (),
+  // ~handleWhenShowUIControlsFunc=() => (),
   ~selectedContributes=list{},
   ~setIsShowUIControls=ReactHookTool.buildEmptySetStateFunc(),
   ~selectSceneViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
@@ -11,8 +11,8 @@ let buildUI = (
 ) => {
   <UIControls
     service
-    handleWhenShowUIControlsFunc
-    handleWhenSelectUIControlFunc
+    // handleWhenShowUIControlsFunc
+    // handleWhenSelectUIControlFunc
     setIsShowUIControls
     selectedContributes
     selectSceneViewUIControlTarget

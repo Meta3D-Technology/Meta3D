@@ -11,14 +11,17 @@ let make = (~service: FrontendType.service) => {
     ReactUtils.useDispatchForAssembleSpaceStore,
   )
 
-  let {
-    account,
-    release,
-    notUseCacheForFindApp,
-    isInCreateFromScratchTourPhase1,
-    isJumpToCreateFromScratchTourPhase1Guide,
-    isInCreateFromScratchTourPhase3,
-  } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
+  let (
+    (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
+    isInCreateFromScratchTourPhase2,
+  ) = AppStore.useSelector(({userCenterState, assembleSpaceState}: AppStoreType.state) => {
+    let {account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1} = userCenterState
+
+    (
+      (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
+      assembleSpaceState.elementAssembleState.isInCreateFromScratchTourPhase2,
+    )
+  })
 
   let (info, setInfo) = React.useState(_ => None)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
@@ -53,9 +56,9 @@ let make = (~service: FrontendType.service) => {
   //     dispatch(ApAssembleStoreType.StartPackage(editorWholePackageId))
   //   }
 
-  let _jumptToAssembleSpace = () => {
-    RescriptReactRouter.push("/AssembleSpace")
-  }
+  // let _jumptToAssembleSpace = () => {
+  //   RescriptReactRouter.push("/AssembleSpace")
+  // }
 
   let _buildCurrentAppName = () => {j`未命名的编辑器`}
 
@@ -186,14 +189,16 @@ let make = (~service: FrontendType.service) => {
     }, _)
   }
 
-  let _jumptToAssembleSpaceToCreateEmptyApp = dispatch => {
+  let _jumptToAssembleSpaceToCreateEmptyApp = (dispatch, isInCreateFromScratchTourPhase2) => {
     dispatch(
       AppStoreType.UserCenterAction(UserCenterStoreType.SetCurrentAppName(_buildCurrentAppName())),
     )
 
     setInfo(_ => None)
 
-    _jumptToAssembleSpace()
+    isInCreateFromScratchTourPhase2
+      ? RescriptReactRouter.push("/CreateFromScratchGuideBeginInElementAssemble")
+      : RescriptReactRouter.push("/AssembleSpace")
   }
 
   let _createFromScratch = (service, dispatch) => {
@@ -228,7 +233,7 @@ let make = (~service: FrontendType.service) => {
           UIControlUtils.selectAllUIControls(service, dispatch, release)->Js.Promise.then_(() => {
             _selectEditorWholeAndEngineWholePackages(service, dispatch, release)
           }, _)->Js.Promise.then_(() => {
-            _jumptToAssembleSpaceToCreateEmptyApp(dispatch)
+            _jumptToAssembleSpaceToCreateEmptyApp(dispatch, isInCreateFromScratchTourPhase2)
 
             ()->Js.Promise.resolve
           }, _)->Js.Promise.catch(e => {
@@ -306,70 +311,6 @@ let make = (~service: FrontendType.service) => {
     )
   }
 
-  // let _buildCreateFromScratchBeforeTourSteps = (): array<Antd__Tour.tourStep> => {
-  //   [
-  //     {
-  //       title: "点击开始引导按钮",
-  //       description: "",
-  //       cover: Meta3dCommonlib.NullableSt.getEmpty(),
-  //       target: () => beginGuideTarget->GuideUtils.getRefCurrent,
-  //       closeIcon: {
-  //         GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
-  //       }->Meta3dCommonlib.NullableSt.return,
-  //     },
-  //   ]
-  // }
-
-  let _buildCreateFromScratchPhase1TourSteps = (): array<Antd__Tour.tourStep> => {
-    [
-      {
-        title: "点击它",
-        description: "",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => createFromScratchButtonTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-    ]
-  }
-
-  let _buildCreateFromScratchPhase3TourSteps = (
-    publishedEditorsTarget: React.ref<Js.Nullable.t<'a>>,
-    navTarget: React.ref<Js.Nullable.t<'a>>,
-    guideTarget: React.ref<Js.Nullable.t<'a>>,
-  ): array<Antd__Tour.tourStep> => {
-    [
-      {
-        title: "查看发布的编辑器",
-        description: "按照编辑器名，找到刚刚发布的编辑器。您可以继续编辑它，或者在线运行它",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => publishedEditorsTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "查看所有发布的编辑器",
-        description: "点击第二个导航栏：“发布的编辑器”，您可以在这里查看所有人发布的编辑器，并且找到您刚刚发布的编辑器。您可以导入它们（也就是导入模板来创建新的编辑器），或者在线运行它们",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => navTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "这里可以打开更多引导",
-        description: "",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => guideTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatch, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-    ]
-  }
-
   React.useEffect0(() => {
     ErrorUtils.showCatchedErrorMessage(() => {
       AssembleSpaceUtils.resetWhenLeave(dispatchForElementAssembleStore)
@@ -401,12 +342,6 @@ let make = (~service: FrontendType.service) => {
     None
   })
 
-  // React.useEffect0(() => {
-  //   isInCreateFromScratchTourPhase3 ? setOpenCreateFromScratchPhase3BeforeTour(_ => true) : ()
-
-  //   None
-  // })
-
   <Layout>
     <Layout.Header>
       <Nav currentKey="1" account={account} navTarget />
@@ -420,194 +355,106 @@ let make = (~service: FrontendType.service) => {
             <Help guideTarget />
           </Layout.Sider>
           <Layout.Content>
-            {isJumpToCreateFromScratchTourPhase1Guide
-              ? {
-                  GuideUtils.buildSteps(
-                    (
-                      () => {
-                        dispatch(
-                          AppStoreType.UserCenterAction(
-                            UserCenterStoreType.EndJumpToCreateFromScratchTourPhase1Guide,
-                          ),
+            <CreateFromScratchGuideInUserCenter
+              service createFromScratchButtonTarget publishedEditorsTarget navTarget guideTarget
+            />
+            <Space direction=#vertical size=#middle>
+              <Typography.Title> {React.string({j`我的信息`})} </Typography.Title>
+              <Space direction=#horizontal>
+                <Typography.Text>
+                  {React.string({j`账户名：${account->Meta3dCommonlib.OptionSt.getExn}`})}
+                </Typography.Text>
+                <Button
+                  onClick={_ => {
+                    _logOut(dispatch)
+                  }}>
+                  {React.string(`登出`)}
+                </Button>
+              </Space>
+              <Typography.Title> {React.string({j`我发布的编辑器`})} </Typography.Title>
+              <Space direction=#horizontal>
+                <Button
+                  _type=#primary
+                  onClick={_ => {
+                    ErrorUtils.showCatchedErrorMessage(() => {
+                      _createFromTemplate()
+                    }, 5->Some)
+                  }}>
+                  {React.string(`导入模板来创建新的编辑器`)}
+                </Button>
+                <Button
+                  _type=#default
+                  ref={createFromScratchButtonTarget}
+                  onClick={_ => {
+                    ErrorUtils.showCatchedErrorMessage(() => {
+                      _createFromScratch(service, dispatch)
+                    }, 5->Some)
+                  }}>
+                  {React.string(`从头创建新的编辑器`)}
+                </Button>
+                {UserUtils.isAdmin(account)
+                  ? <Button
+                      _type=#default
+                      onClick={_ => {
+                        _jumptToAssembleSpaceToCreateEmptyApp(
+                          dispatch,
+                          isInCreateFromScratchTourPhase2,
                         )
-
-                        // setOpenCreateFromScratchPhase1Tour(_ => true)
-                      }
-                    )->Some,
-                    0,
-                    GuideUtils.buildCreateFromScratchStepData(),
-                  )
-                }
-              : <>
-                  {isInCreateFromScratchTourPhase1
-                    ? {
-                        <>
-                          {GuideUtils.buildSteps(
-                            None,
-                            0,
-                            GuideUtils.buildCreateFromScratchStepData(),
-                          )}
-                          <Tour
-                            _open={true}
-                            // onClose={() => {
-                            //   // setOpenCreateFromScratchPhase1Tour(_ => false)
-
-                            //   // dispatch(
-                            //   //   AppStoreType.UserCenterAction(
-                            //   //     UserCenterStoreType.EndCreateFromScratchTourPhase1,
-                            //   //   ),
-                            //   // )
-
-                            //   GuideUtils.handleCloseCreateFromScratchTour(
-                            //     dispatch,
-                            //     dispatchForElementAssembleStore,
-                            //   )
-                            // }}
-                            steps={_buildCreateFromScratchPhase1TourSteps()}
-                          />
-                        </>
-                      }
-                    : isInCreateFromScratchTourPhase3
-                    ? {
-                      <>
-                        {GuideUtils.buildSteps(
-                          None,
-                          //   () => {
-                          //   setOpenCreateFromScratchPhase3Tour(_ => true)
-                          //   setOpenCreateFromScratchPhase3BeforeTour(_ => false)
-                          // }
-                          5,
-                          GuideUtils.buildCreateFromScratchStepData(),
-                        )}
-                        // <Tour
-                        //   _open={openCreateFromScratchPhase3BeforeTour}
-                        //   onClose={() => {
-                        //     setOpenCreateFromScratchPhase3BeforeTour(_ => false)
-                        //   }}
-                        //   steps={_buildCreateFromScratchBeforeTourSteps()}
-                        // />
-                        <Tour
-                          _open={true}
-                          onClose={() => {
-                            // setOpenCreateFromScratchPhase3Tour(_ => false)
-
-                            GuideUtils.endCreateFromScratchTour(
-                              dispatch,
-                              dispatchForElementAssembleStore,
-                            )
-                          }}
-                          steps={_buildCreateFromScratchPhase3TourSteps(
-                            publishedEditorsTarget,
-                            navTarget,
-                            guideTarget,
-                          )}
-                        />
-                      </>
-                    }
-                    : React.null}
-                  <Space direction=#vertical size=#middle>
-                    <Typography.Title> {React.string({j`我的信息`})} </Typography.Title>
-                    <Space direction=#horizontal>
-                      <Typography.Text>
-                        {React.string({j`账户名：${account->Meta3dCommonlib.OptionSt.getExn}`})}
-                      </Typography.Text>
-                      <Button
-                        onClick={_ => {
-                          _logOut(dispatch)
-                        }}>
-                        {React.string(`登出`)}
-                      </Button>
-                    </Space>
-                    <Typography.Title>
-                      {React.string({j`我发布的编辑器`})}
-                    </Typography.Title>
-                    <Space direction=#horizontal>
+                      }}>
+                      {React.string(`进入装配空间`)}
+                    </Button>
+                  : React.null}
+              </Space>
+              <section ref={publishedEditorsTarget->Obj.magic}>
+                <List
+                  itemLayout=#horizontal
+                  dataSource={allPublishApps}
+                  renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
+                    <List.Item>
+                      <List.Item.Meta
+                        key={PublishedAppUtils.buildKey(item.account, item.appName)}
+                        title={<Typography.Title level=3>
+                          {React.string(item.appName)}
+                        </Typography.Title>}
+                        // description={UIDescriptionUtils.buildWithoutRepoLink(
+                        //   item.account,
+                        //   item.description,
+                        // )}
+                      />
                       <Button
                         _type=#primary
                         onClick={_ => {
-                          ErrorUtils.showCatchedErrorMessage(() => {
-                            _createFromTemplate()
-                          }, 5->Some)
+                          setInfo(_ =>
+                            j`${downloadProgress->Js.Int.toString}% downloading...`->Some
+                          )
+
+                          PublishedAppUtils.importApp(
+                            service,
+                            (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
+                            (
+                              setDownloadProgress,
+                              () => {
+                                setInfo(_ => None)
+                              },
+                            ),
+                            notUseCacheForFindApp,
+                            release,
+                            item,
+                          )
                         }}>
-                        {React.string(`导入模板来创建新的编辑器`)}
+                        {React.string(`编辑`)}
                       </Button>
                       <Button
                         _type=#default
-                        ref={createFromScratchButtonTarget}
                         onClick={_ => {
-                          ErrorUtils.showCatchedErrorMessage(() => {
-                            _createFromScratch(service, dispatch)
-                          }, 5->Some)
+                          LinkUtils.openLink(PublishedAppUtils.buildURL(item.account, item.appName))
                         }}>
-                        {React.string(`从头创建新的编辑器`)}
+                        {React.string(`运行`)}
                       </Button>
-                      {UserUtils.isAdmin(account)
-                        ? <Button
-                            _type=#default
-                            onClick={_ => {
-                              _jumptToAssembleSpaceToCreateEmptyApp(dispatch)
-                            }}>
-                            {React.string(`进入装配空间`)}
-                          </Button>
-                        : React.null}
-                    </Space>
-                    <section ref={publishedEditorsTarget->Obj.magic}>
-                      <List
-                        itemLayout=#horizontal
-                        dataSource={allPublishApps}
-                        renderItem={(item: BackendCloudbaseType.publishAppInfo) =>
-                          <List.Item>
-                            <List.Item.Meta
-                              key={PublishedAppUtils.buildKey(item.account, item.appName)}
-                              title={<Typography.Title level=3>
-                                {React.string(item.appName)}
-                              </Typography.Title>}
-                              // description={UIDescriptionUtils.buildWithoutRepoLink(
-                              //   item.account,
-                              //   item.description,
-                              // )}
-                            />
-                            <Button
-                              _type=#primary
-                              onClick={_ => {
-                                setInfo(_ =>
-                                  j`${downloadProgress->Js.Int.toString}% downloading...`->Some
-                                )
-
-                                PublishedAppUtils.importApp(
-                                  service,
-                                  (
-                                    dispatch,
-                                    dispatchForApAssembleStore,
-                                    dispatchForElementAssembleStore,
-                                  ),
-                                  (
-                                    setDownloadProgress,
-                                    () => {
-                                      setInfo(_ => None)
-                                    },
-                                  ),
-                                  notUseCacheForFindApp,
-                                  release,
-                                  item,
-                                )
-                              }}>
-                              {React.string(`编辑`)}
-                            </Button>
-                            <Button
-                              _type=#default
-                              onClick={_ => {
-                                LinkUtils.openLink(
-                                  PublishedAppUtils.buildURL(item.account, item.appName),
-                                )
-                              }}>
-                              {React.string(`运行`)}
-                            </Button>
-                          </List.Item>}
-                      />
-                    </section>
-                  </Space>
-                </>}
+                    </List.Item>}
+                />
+              </section>
+            </Space>
           </Layout.Content>
         </>
       }}

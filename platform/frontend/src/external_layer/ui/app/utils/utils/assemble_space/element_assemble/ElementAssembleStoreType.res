@@ -190,7 +190,7 @@ type action =
   | SetCustom(customInputs, customActions)
   | StartCreateFromScratchTourPhase2
   | EndCreateFromScratchTourPhase2
-  | EndJumpToCreateFromScratchTourPhase2Guide
+  // | EndJumpToCreateFromScratchTourPhase2Guide
 
 type state = {
   canvasData: canvasData,
@@ -210,5 +210,5 @@ type state = {
   currentCustomInputName: option<CommonType.inputName>,
   currentCustomActionName: option<CommonType.actionName>,
   isInCreateFromScratchTourPhase2: bool,
-  isJumpToCreateFromScratchTourPhase2Guide: bool,
+  // isJumpToCreateFromScratchTourPhase2Guide: bool,
 }

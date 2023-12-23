@@ -214,9 +214,10 @@ module Method = {
   let onFinish = (
     service,
     dispatchForAppStore,
-    handleWhenPublishFunc,
+    // handleWhenPublishFunc,
     (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
+      eventEmitter:Event.eventEmitter,
       account,
       previousAppName,
       selectedPackages,
@@ -344,20 +345,28 @@ module Method = {
                 _isRecommend(account),
               )
               ->Meta3dBsMostDefault.Most.drain
-              ->Js.Promise.then_(_ => {
-                setIsUploadBegin(_ => false)
-                setVisible(_ => false)
-                setPreviewBase64(_ => None)
-                handleWhenPublishFunc()
+              ->Js.Promise.then_(
+                _ => {
+                  setIsUploadBegin(_ => false)
+                  setVisible(_ => false)
+                  setPreviewBase64(_ => None)
 
-                previousAppName == appName
-                  ? dispatchForAppStore(
-                      AppStoreType.UserCenterAction(UserCenterStoreType.MarkNotUseCacheForFindApp),
-                    )
-                  : ()
+                  eventEmitter.emit(. EventUtils.getPublishAppEventName(), Obj.magic(1))
 
-                ()->Js.Promise.resolve
-              }, _)
+                  previousAppName == appName
+                    ? dispatchForAppStore(
+                        AppStoreType.UserCenterAction(
+                          UserCenterStoreType.MarkNotUseCacheForFindApp,
+                        ),
+                      )
+                    : ()
+
+                  ()->Js.Promise.resolve
+                },
+                // handleWhenPublishFunc()
+
+                _,
+              )
               ->Js.Promise.catch(e => {
                 setIsUploadBegin(_ => false)
                 setVisible(_ => false)
@@ -379,7 +388,7 @@ module Method = {
   //   ()
   // }
 
-  let useSelector = ({userCenterState, assembleSpaceState}: AppStoreType.state) => {
+  let useSelector = ({userCenterState, assembleSpaceState, eventEmitter}: AppStoreType.state) => {
     let {currentAppName} = userCenterState
 
     let {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state = assembleSpaceState
@@ -419,6 +428,7 @@ module Method = {
           customActions,
         ),
       ),
+      eventEmitter,
     )
   }
 }
@@ -426,8 +436,8 @@ module Method = {
 @react.component
 let make = (
   ~service: service,
-  ~handleWhenShowModalFunc,
-  ~handleWhenPublishFunc,
+  // ~handleWhenShowModalFunc,
+  // ~handleWhenPublishFunc,
   ~account: option<string>,
   ~publishButtonTarget: React.ref<Js.Nullable.t<'a>>,
   ~publishModalTarget: React.ref<Js.Nullable.t<'a>>,
@@ -447,6 +457,7 @@ let make = (
       ),
       (canvasData, selectedUIControls, selectedUIControlInspectorData, customInputs, customActions),
     ),
+    eventEmitter,
   ) = service.react.useAllSelector(. Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
@@ -461,7 +472,8 @@ let make = (
       onClick={_ => {
         setVisible(_ => true)
 
-        handleWhenShowModalFunc()
+        // handleWhenShowModalFunc()
+        eventEmitter.emit(. EventUtils.getShowPublishAppModalEventName(), Obj.magic(1))
       }}>
       {React.string(`发布`)}
     </Button>
@@ -497,9 +509,10 @@ let make = (
                         : Method.onFinish(
                             service,
                             dispatchForAppStore,
-                            handleWhenPublishFunc,
+                            // handleWhenPublishFunc,
                             (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
                             (
+                              eventEmitter,
                               account,
                               currentAppName->Meta3dCommonlib.OptionSt.getExn,
                               selectedPackages,

@@ -40,7 +40,7 @@
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.4.0",
         "write-file-webpack-plugin": "^4.5.1",
-        "dts-bundle-generator":"^9.0.0"
+        "dts-bundle-generator": "^9.0.0"
     },
     "dependencies": {
         "@ant-design/graphs": "^1.4.1",
@@ -54,6 +54,7 @@
         "react-monaco-editor": "^0.54.0",
         "remporium": "^0.0.1",
         "rescript": "^10.0.1",
-        "rescript-indexeddb": "^0.0.3"
+        "rescript-indexeddb": "^0.0.3",
+        "fbemitter": "^3.0.0"
     }
 }

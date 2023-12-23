@@ -118,8 +118,10 @@ XXX前发布
 
 
 
-* TODO guide: upgrade Guide to be component
+* DONE refactor: guide: upgrade Guide to be component
 
+
+* TODO style: change Nav to light
 
 
 * TODO 开头引导说明目前能做什么，可以了解更多
@@ -326,6 +328,8 @@ https://cn.nocobase.com/
   - TODO update README
     update snapshot
     add gif
+
+    add contributors: show avater
 
 
 

@@ -1,15 +1,13 @@
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~handleWhenRunFunc=() => (),
+  // ~handleWhenRunFunc=() => (),
   ~runButtonTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~account="a1"->Some,
   ~selectedContributes=list{},
   (),
 ) => {
-  <RunElementVisualController
-    service handleWhenRunFunc account selectedContributes runButtonTarget
-  />
+  <RunElementVisualController service account selectedContributes runButtonTarget />
 }
 
 // let getAndSetNewestVisualExtension = RunElementVisualController.Method.getAndSetNewestVisualExtension

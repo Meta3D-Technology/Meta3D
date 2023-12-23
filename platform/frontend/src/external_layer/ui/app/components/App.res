@@ -332,9 +332,13 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />
     | list{"RunElementVisual"} => <RunElementVisual service={_buildAssembleSpaceService()} />
-    | list{}
-    | _ =>
-      Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
+    | list{"CreateFromScratchGuideBeginInUserCenter"} => Method.judgeToJumpToLogin(() => {
+        <CreateFromScratchGuideBeginInUserCenter account />
+      }, account, service)
+    | list{"CreateFromScratchGuideBeginInElementAssemble"} => Method.judgeToJumpToLogin(() => {
+        <CreateFromScratchGuideBeginInElementAssemble account />
+      }, account, service)
+    | _ => Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
     }}
   </>
 }

@@ -1,9 +1,9 @@
 let buildUI = (
   ~sandbox,
   ~service=ServiceTool.build(~sandbox, ()),
-  ~handleWhenShowUIControlsFunc=() => (),
-  ~handleWhenSelectUIControlFunc=_ => (),
-  ~handleWhenSelectTreeNodeFunc=_ => (),
+  // ~handleWhenShowUIControlsFunc=() => (),
+  // ~handleWhenSelectUIControlFunc=_ => (),
+  // ~handleWhenSelectTreeNodeFunc=_ => (),
   ~selectedContributes=list{},
   ~addUIControlButtonTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~selectSceneViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
@@ -14,9 +14,9 @@ let buildUI = (
 ) => {
   <SelectedUIControls
     service
-    handleWhenShowUIControlsFunc
-    handleWhenSelectUIControlFunc
-    handleWhenSelectTreeNodeFunc
+    // handleWhenShowUIControlsFunc
+    // handleWhenSelectUIControlFunc
+    // handleWhenSelectTreeNodeFunc
     selectedContributes
     addUIControlButtonTarget
     selectSceneViewUIControlTarget

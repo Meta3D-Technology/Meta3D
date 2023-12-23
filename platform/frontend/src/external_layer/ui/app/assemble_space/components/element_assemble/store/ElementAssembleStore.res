@@ -44,7 +44,7 @@ let _createState = () => {
   currentCustomInputName: None,
   currentCustomActionName: None,
   isInCreateFromScratchTourPhase2: false,
-  isJumpToCreateFromScratchTourPhase2Guide: false,
+  // isJumpToCreateFromScratchTourPhase2Guide: false,
 }
 
 let _setUIControlInspectorData = (state, setFunc, id) => {
@@ -185,7 +185,7 @@ let _reset = state => {
     ..._createState(),
     canvasData: state.canvasData,
     isInCreateFromScratchTourPhase2: state.isInCreateFromScratchTourPhase2,
-    isJumpToCreateFromScratchTourPhase2Guide: state.isJumpToCreateFromScratchTourPhase2Guide,
+    // isJumpToCreateFromScratchTourPhase2Guide: state.isJumpToCreateFromScratchTourPhase2Guide,
     // customInputs: state.customInputs,
     // customActions: state.customActions,
   }
@@ -500,16 +500,16 @@ let reducer = (state, action) => {
   | StartCreateFromScratchTourPhase2 => {
       ...state,
       isInCreateFromScratchTourPhase2: true,
-      isJumpToCreateFromScratchTourPhase2Guide: true,
+      // isJumpToCreateFromScratchTourPhase2Guide: true,
     }
-  | EndJumpToCreateFromScratchTourPhase2Guide => {
-      ...state,
-      isJumpToCreateFromScratchTourPhase2Guide: false,
-    }
+  // | EndJumpToCreateFromScratchTourPhase2Guide => {
+  //     ...state,
+  //     isJumpToCreateFromScratchTourPhase2Guide: false,
+  //   }
   | EndCreateFromScratchTourPhase2 => {
       ...state,
       isInCreateFromScratchTourPhase2: false,
-      isJumpToCreateFromScratchTourPhase2Guide: false,
+      // isJumpToCreateFromScratchTourPhase2Guide: false,
     }
   }
 }

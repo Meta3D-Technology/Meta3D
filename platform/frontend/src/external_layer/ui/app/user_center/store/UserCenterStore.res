@@ -116,7 +116,7 @@ let _createState = () => {
   currentAppName: None,
   notUseCacheForFindApp: false,
   isInCreateFromScratchTourPhase1: false,
-  isJumpToCreateFromScratchTourPhase1Guide: false,
+  // isJumpToCreateFromScratchTourPhase1Guide: false,
   isInCreateFromScratchTourPhase3: false,
 }
 
@@ -320,16 +320,16 @@ let reducer = (state, action) => {
   | StartCreateFromScratchTourPhase1 => {
       ...state,
       isInCreateFromScratchTourPhase1: true,
-      isJumpToCreateFromScratchTourPhase1Guide:true
+      // isJumpToCreateFromScratchTourPhase1Guide:true
     }
-  | EndJumpToCreateFromScratchTourPhase1Guide => {
-      ...state,
-      isJumpToCreateFromScratchTourPhase1Guide:false
-    }
+  // | EndJumpToCreateFromScratchTourPhase1Guide => {
+  //     ...state,
+  //     // isJumpToCreateFromScratchTourPhase1Guide:false
+  //   }
   | EndCreateFromScratchTourPhase1 => {
       ...state,
       isInCreateFromScratchTourPhase1: false,
-      isJumpToCreateFromScratchTourPhase1Guide:false
+      // isJumpToCreateFromScratchTourPhase1Guide:false
     }
   | StartCreateFromScratchTourPhase3 => {
       ...state,

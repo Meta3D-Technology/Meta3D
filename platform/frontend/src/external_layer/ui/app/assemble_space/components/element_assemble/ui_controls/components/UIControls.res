@@ -43,7 +43,8 @@ module Method = {
   let selectUIControl = (
     service,
     dispatch,
-    handleWhenSelectUIControlFunc,
+    // handleWhenSelectUIControlFunc,
+    eventEmitter: Event.eventEmitter,
     selectedUIControls,
     selectedContributes,
     protocolIconBase64,
@@ -82,28 +83,28 @@ module Method = {
         ),
       )
 
-      handleWhenSelectUIControlFunc(data.contributePackageData.protocol.name)
+      // handleWhenSelectUIControlFunc(data.contributePackageData.protocol.name)
+      eventEmitter.emit(.
+        EventUtils.getSelectUIControlEventName(),
+        data.contributePackageData.protocol.name->Obj.magic,
+      )
     }
   }
 
-  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
-    // let {selectedContributes} = apAssembleState
+  let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
+    let {apAssembleState, elementAssembleState} = assembleSpaceState
+
     let {selectedUIControls, parentUIControlId} = elementAssembleState
 
-    (
-      // selectedContributes,
-
-      selectedUIControls,
-      parentUIControlId,
-    )
+    ((selectedUIControls, parentUIControlId), eventEmitter)
   }
 }
 
 @react.component
 let make = (
   ~service: service,
-  ~handleWhenShowUIControlsFunc,
-  ~handleWhenSelectUIControlFunc,
+  // ~handleWhenShowUIControlsFunc,
+  // ~handleWhenSelectUIControlFunc,
   ~setIsShowUIControls,
   ~selectedContributes,
   ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
@@ -111,14 +112,13 @@ let make = (
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  let (
-    // selectedContributes,
-    selectedUIControls,
-    parentUIControlId,
-  ) = service.react.useSelector(. Method.useSelector)
+  let ((selectedUIControls, parentUIControlId), eventEmitter) = service.react.useAllSelector(.
+    Method.useSelector,
+  )
 
   service.react.useEffect(.() => {
-    handleWhenShowUIControlsFunc()
+    // handleWhenShowUIControlsFunc()
+    eventEmitter.emit(. EventUtils.getShowUIControlsEventName(), Obj.magic(1))
 
     None
   })
@@ -144,7 +144,8 @@ let make = (
               Method.selectUIControl(
                 service,
                 dispatch,
-                handleWhenSelectUIControlFunc,
+                // handleWhenSelectUIControlFunc,
+                eventEmitter,
                 selectedUIControls,
                 selectedContributes,
                 protocolIconBase64,

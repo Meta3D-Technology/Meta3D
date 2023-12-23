@@ -9,4 +9,5 @@ type state = {
   userCenterState: UserCenterStoreType.state,
   enterAppState: EnterAppStoreType.state,
   assembleSpaceState: AssembleSpaceStoreType.state,
+  eventEmitter: Event.eventEmitter,
 }

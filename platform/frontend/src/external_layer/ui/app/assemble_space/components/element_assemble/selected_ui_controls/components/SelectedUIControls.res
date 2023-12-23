@@ -31,8 +31,7 @@ module Method = {
         ),
         selectedUIControlInspectorData,
         id,
-      )
-      ->Meta3dCommonlib.OptionSt.getExn
+      )->Meta3dCommonlib.OptionSt.getExn
     ).specific
     ->Meta3dCommonlib.ArraySt.find(({name}) => name == "label")
     ->Meta3dCommonlib.OptionSt.map(({value}) =>
@@ -193,7 +192,9 @@ module Method = {
   //   }
   // }
 
-  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
+  let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
+    let {apAssembleState, elementAssembleState} = assembleSpaceState
+
     let {apInspectorData} = apAssembleState
     let {
       selectedUIControls,
@@ -201,16 +202,16 @@ module Method = {
       parentUIControlId,
     } = elementAssembleState
 
-    (apInspectorData.isDebug, selectedUIControls, selectedUIControlInspectorData)
+    ((apInspectorData.isDebug, selectedUIControls, selectedUIControlInspectorData), eventEmitter)
   }
 }
 
 @react.component
 let make = (
   ~service: service,
-  ~handleWhenShowUIControlsFunc,
-  ~handleWhenSelectUIControlFunc,
-  ~handleWhenSelectTreeNodeFunc,
+  // ~handleWhenShowUIControlsFunc,
+  // ~handleWhenSelectUIControlFunc,
+  // ~handleWhenSelectTreeNodeFunc,
   ~selectedContributes,
   ~addUIControlButtonTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
@@ -224,9 +225,10 @@ let make = (
   let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
   let (isShowUIControls, setIsShowUIControls) = service.react.useState(_ => false)
 
-  let (isDebug, selectedUIControls, selectedUIControlInspectorData) = service.react.useSelector(.
-    Method.useSelector,
-  )
+  let (
+    (isDebug, selectedUIControls, selectedUIControlInspectorData),
+    eventEmitter,
+  ) = service.react.useAllSelector(. Method.useSelector)
 
   <>
     <Space direction=#vertical size=#middle>
@@ -258,7 +260,8 @@ let make = (
           onSelect={(selectedKeysValue, info: Tree.info) => {
             Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)
 
-            handleWhenSelectTreeNodeFunc(info.node.title)
+            // handleWhenSelectTreeNodeFunc(info.node.title)
+            eventEmitter.emit(. EventUtils.getSelectTreeNodeEventName(), info.node.title->Obj.magic)
           }}
         />
       </section>
@@ -318,8 +321,8 @@ let make = (
       // />
       <UIControls
         service
-        handleWhenShowUIControlsFunc
-        handleWhenSelectUIControlFunc
+        // handleWhenShowUIControlsFunc
+        // handleWhenSelectUIControlFunc
         setIsShowUIControls
         selectedContributes
         selectSceneViewUIControlTarget

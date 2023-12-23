@@ -65,7 +65,7 @@ type action =
   | SetRelease(release)
   | StartCreateFromScratchTourPhase1
   | EndCreateFromScratchTourPhase1
-  | EndJumpToCreateFromScratchTourPhase1Guide
+  // | EndJumpToCreateFromScratchTourPhase1Guide
   | StartCreateFromScratchTourPhase3
   | EndCreateFromScratchTourPhase3
   | MarkNotUseCacheForFindApp
@@ -85,6 +85,6 @@ type state = {
   // customInputs: customInputs,
   // customActions: customActions,
   isInCreateFromScratchTourPhase1: bool,
-  isJumpToCreateFromScratchTourPhase1Guide: bool,
+  // isJumpToCreateFromScratchTourPhase1Guide: bool,
   isInCreateFromScratchTourPhase3: bool,
 }

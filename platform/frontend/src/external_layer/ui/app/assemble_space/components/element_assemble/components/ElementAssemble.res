@@ -94,190 +94,21 @@ module Method = {
   //   )
   // }
 
-  let buildCreateFromScratchTourSteps = (
-    dispatchForAppStore,
-    dispatchForElementAssembleStore,
-    canvasWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
-    canvasHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
-    addUIControlButtonTarget: React.ref<Js.Nullable.t<'a>>,
-    selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
-    rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
-    rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
-    rootTarget: React.ref<Js.Nullable.t<'a>>,
-    selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
-    rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
-    runButtonTarget: React.ref<Js.Nullable.t<'a>>,
-    publishButtonTarget: React.ref<Js.Nullable.t<'a>>,
-    publishModalTarget: React.ref<Js.Nullable.t<'a>>,
-    assembleSpaceNavTarget: React.ref<Js.Nullable.t<'a>>,
-  ): array<Antd__Tour.tourStep> => {
-    [
-      {
-        title: "设置画布宽度",
-        description: "这里可以设置为1200",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => canvasWidthInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置画布高度",
-        description: "这里可以设置为600",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => canvasHeightInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "点击加入UI Control的按钮",
-        description: "",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => addUIControlButtonTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "加入Scene View",
-        description: "Scene View负责显示编辑视图，点击它",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => selectSceneViewUIControlTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Scene View的宽度",
-        description: "这里可以设置为500",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectWidthInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Scene View的高度",
-        description: "这里可以设置为500",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectHeightInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "选择Root",
-        description: "",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rootTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "点击加入UI Control的按钮",
-        description: "",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => addUIControlButtonTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "加入Game View",
-        description: "Game View负责显示运行视图，点击它",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => selectGameViewUIControlTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Game View的x坐标",
-        description: "这里可以设置为500",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectXInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Game View的宽度",
-        description: "这里可以设置为500",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectWidthInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Game View的高度",
-        description: "这里可以设置为500",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectHeightInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "运行编辑器",
-        description: "点击它，可在新的窗口中实时运行编辑器。您可以在Scene View中通过拖动来转动相机",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => runButtonTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "发布编辑器",
-        description: "点击它",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => publishButtonTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "发布编辑器",
-        description: "首先输入必要的信息；然后点击发布按钮",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => publishModalTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "返回用户中心",
-        description: "点击第一个导航栏：“返回用户中心”，返回到用户中心",
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => assembleSpaceNavTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-    ]
-  }
-
-  let buildCreateFromScratchTourStepAndStepMapData = () => {
-    [(0, 1), (2, 2), (12, 3), (13, 4), (15, 5)]
-  }
-
   let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
     let {selectedContributes} = apAssembleState
     let {
       currentCustomInputName,
       currentCustomActionName,
-      isInCreateFromScratchTourPhase2,
-      isJumpToCreateFromScratchTourPhase2Guide,
+      // isInCreateFromScratchTourPhase2,
+      // isJumpToCreateFromScratchTourPhase2Guide,
     } = elementAssembleState
 
     (
       selectedContributes,
       currentCustomInputName,
       currentCustomActionName,
-      isInCreateFromScratchTourPhase2,
-      isJumpToCreateFromScratchTourPhase2Guide,
+      // isInCreateFromScratchTourPhase2,
+      // isJumpToCreateFromScratchTourPhase2Guide,
     )
   }
 }
@@ -301,8 +132,8 @@ let make = (
     selectedContributes,
     currentCustomInputName,
     currentCustomActionName,
-    isInCreateFromScratchTourPhase2,
-    isJumpToCreateFromScratchTourPhase2Guide,
+    // isInCreateFromScratchTourPhase2,
+    // isJumpToCreateFromScratchTourPhase2Guide,
   ) = service.react.useSelector(. Method.useSelector)
 
   // let (
@@ -311,9 +142,9 @@ let make = (
   // ) = service.react.useState(_ => None)
 
   let (isInit, setIsInit) = service.react.useState(_ => false)
-  let (currentStep, setCurrentStep) = service.react.useState(_ => 1)
-  let (currentTourStep, setCurrentTourStep) = service.react.useState(_ => 0)
-  let (openTour, setOpenTour) = service.react.useState(_ => false)
+  // let (currentStep, setCurrentStep) = service.react.useState(_ => 1)
+  // let (currentTourStep, setCurrentTourStep) = service.react.useState(_ => 0)
+  // let (openTour, setOpenTour) = service.react.useState(_ => false)
 
   // let beginGuideTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let canvasWidthInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
@@ -382,112 +213,50 @@ let make = (
       ? {React.string(`初始化...`)}
       : <Layout>
           <Layout.Content>
-            {isJumpToCreateFromScratchTourPhase2Guide
-              ? {
-                  GuideUtils.buildSteps(
-                    (
-                      () => {
-                        setOpenTour(_ => true)
-
-                        dispatchForElementAssembleStore(
-                          ElementAssembleStoreType.EndJumpToCreateFromScratchTourPhase2Guide,
-                        )
-                      }
-                    )->Some,
-                    currentStep,
-                    GuideUtils.buildCreateFromScratchStepData(),
-                  )
-                }
-              : <>
-                  {isInCreateFromScratchTourPhase2
-                    ? {
-                        <>
-                          {GuideUtils.buildSteps(
-                            None,
-                            currentStep,
-                            GuideUtils.buildCreateFromScratchStepData(),
-                          )}
-                          <Tour
-                            current=currentTourStep
-                            _open={openTour}
-                            onClose={() => {
-                              setOpenTour(_ => false)
-
-                              dispatchForElementAssembleStore(
-                                ElementAssembleStoreType.EndCreateFromScratchTourPhase2,
-                              )
-
-                              // GuideUtils.handleCloseCreateFromScratchTour(
-                              //   dispatchForAppStore,
-                              //   dispatchForElementAssembleStore,
-                              // )
-                            }}
-                            onChange={current => {
-                              switch Method.buildCreateFromScratchTourStepAndStepMapData()->Meta3dCommonlib.ArraySt.find(
-                                ((currentTourStep, _)) => {
-                                  currentTourStep == current
-                                },
-                              ) {
-                              | Some((_, currentStep)) => setCurrentStep(_ => currentStep)
-                              | None => ()
-                              }
-
-                              setCurrentTourStep(_ => current)
-                            }}
-                            steps={Method.buildCreateFromScratchTourSteps(
-                              dispatchForAppStore,
-                              dispatchForElementAssembleStore,
-                              canvasWidthInputTarget,
-                              canvasHeightInputTarget,
-                              addUIControlButtonTarget,
-                              selectSceneViewUIControlTarget,
-                              rectWidthInputTarget,
-                              rectHeightInputTarget,
-                              rootTarget,
-                              selectGameViewUIControlTarget,
-                              rectXInputTarget,
-                              runButtonTarget,
-                              publishButtonTarget,
-                              publishModalTarget,
-                              assembleSpaceNavTarget,
-                            )}
-                          />
-                        </>
-                      }
-                    : React.null}
-                  <Space direction=#horizontal size=#small>
-                    // <PublishElement service account />
-                    // <ElementController service />
-                    {!UserUtils.isAdmin(account)
-                      ? <Publish
-                          service
-                          account
-                          publishButtonTarget
-                          publishModalTarget
-                          handleWhenShowModalFunc={() => {
-                            currentTourStep == 13
-                              ? setCurrentTourStep(current => current->succ)
-                              : ()
-                          }}
-                          handleWhenPublishFunc={() => {
-                            currentTourStep == 14
-                              ? setCurrentTourStep(current => current->succ)
-                              : ()
-                          }}
-                        />
-                      : React.null}
-                    <RunElementVisualController
-                      service
-                      handleWhenRunFunc={() => {
-                        currentTourStep == 12 ? setCurrentTourStep(current => current->succ) : ()
-                      }}
-                      account
-                      selectedContributes
-                      runButtonTarget
-                    />
-                    <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
-                  </Space>
-                </>}
+            <CreateFromScratchGuideInElementAssemble
+              service
+              canvasWidthInputTarget
+              canvasHeightInputTarget
+              addUIControlButtonTarget
+              selectSceneViewUIControlTarget
+              rectWidthInputTarget
+              rectHeightInputTarget
+              rootTarget
+              selectGameViewUIControlTarget
+              rectXInputTarget
+              runButtonTarget
+              publishButtonTarget
+              publishModalTarget
+              assembleSpaceNavTarget
+            />
+            <Space direction=#horizontal size=#small>
+              // <PublishElement service account />
+              // <ElementController service />
+              {!UserUtils.isAdmin(account)
+                ? <Publish
+                    service
+                    account
+                    publishButtonTarget
+                    publishModalTarget
+                    //   handleWhenShowModalFunc={() => {
+                    //     currentTourStep == 13 ? setCurrentTourStep(current => current->succ) : ()
+                    //   }}
+                    //   handleWhenPublishFunc={() => {
+                    //     currentTourStep == 14 ? setCurrentTourStep(current => current->succ) : ()
+                    //   }}
+                  />
+                : React.null}
+              <RunElementVisualController
+                service
+                // handleWhenRunFunc={() => {
+                //   currentTourStep == 12 ? setCurrentTourStep(current => current->succ) : ()
+                // }}
+                account
+                selectedContributes
+                runButtonTarget
+              />
+              <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
+            </Space>
           </Layout.Content>
           <Layout>
             <Layout.Sider theme=#light>
@@ -498,22 +267,22 @@ let make = (
                 <Collapse.Panel header="Selected UI Controls" key="1">
                   <SelectedUIControls
                     service
-                    handleWhenShowUIControlsFunc={() => {
-                      currentTourStep == 2 || currentTourStep == 7
-                        ? setCurrentTourStep(current => current->succ)
-                        : ()
-                    }}
-                    handleWhenSelectUIControlFunc={protocolName => {
-                      (GuideUtils.isSceneViewProtocolName(protocolName) && currentTourStep == 3) ||
-                        (GuideUtils.isGameViewProtocolName(protocolName) && currentTourStep == 8)
-                        ? setCurrentTourStep(current => current->succ)
-                        : ()
-                    }}
-                    handleWhenSelectTreeNodeFunc={title => {
-                      title == "root" && currentTourStep == 6
-                        ? setCurrentTourStep(current => current->succ)
-                        : ()
-                    }}
+                    // handleWhenShowUIControlsFunc={() => {
+                    //   currentTourStep == 2 || currentTourStep == 7
+                    //     ? setCurrentTourStep(current => current->succ)
+                    //     : ()
+                    // }}
+                    // handleWhenSelectUIControlFunc={protocolName => {
+                    //   (GuideUtils.isSceneViewProtocolName(protocolName) && currentTourStep == 3) ||
+                    //     (GuideUtils.isGameViewProtocolName(protocolName) && currentTourStep == 8)
+                    //     ? setCurrentTourStep(current => current->succ)
+                    //     : ()
+                    // }}
+                    // handleWhenSelectTreeNodeFunc={title => {
+                    //   title == "root" && currentTourStep == 6
+                    //     ? setCurrentTourStep(current => current->succ)
+                    //     : ()
+                    // }}
                     selectedContributes
                     addUIControlButtonTarget
                     rootTarget

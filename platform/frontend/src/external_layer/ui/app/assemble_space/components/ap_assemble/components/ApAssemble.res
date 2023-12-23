@@ -28,8 +28,6 @@ let make = (
     <Layout.Content>
       <Space direction=#horizontal size=#small>
         <Publish
-          handleWhenShowModalFunc={() => ()}
-          handleWhenPublishFunc={() => ()}
           service
           account
           publishButtonTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}
