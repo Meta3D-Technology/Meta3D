@@ -91,11 +91,11 @@ TODO refactor meta3d-type
 * DONE add tooltip
 
 
-* TODO add float bar
+* DONE add float bar
 
 # use https://ant.design/components/popover
 
-add button to assemble nav
+# add button to assemble nav
 
 use https://ant.design/components/drawer-cn#drawer-demo-multi-level-drawer
 

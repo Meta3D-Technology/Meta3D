@@ -426,6 +426,7 @@ let make = (
     handledSelectedContributesFromMarket,
     setHandledSelectedContributesFromMarket,
   ) = service.react.useState(_ => None)
+  let (openHelpDrawer, setOpenHelpDrawer) = service.react.useState(_ => false)
 
   service.react.useEffectOnce(() => {
     Method.resetWhenEnter(dispatch)
@@ -476,72 +477,100 @@ let make = (
     switch handledSelectedContributesFromMarket {
     | None => React.null
     | Some(handledSelectedContributesFromMarket) =>
-      <Layout>
-        {UserUtils.isAdmin(account)
-          ? <Layout.Content>
-              <Menu
-                theme=#light
-                mode=#horizontal
-                defaultSelectedKeys={["1"]}
-                selectedKeys={[Method.getCurrentKey(currentAssemble)]}
-                onClick={({key}) => {
-                  switch key {
-                  | "2" => setCurrentAssemble(_ => Element)
-                  | "3" => setCurrentAssemble(_ => Package)
-                  | "1"
-                  | _ =>
-                    setCurrentAssemble(_ => Ap)
-                  }
-                }}
-                items=[
-                  {
-                    key: "1",
-                    label: {React.string(`编辑器装配`)},
-                  },
-                  {
-                    key: "2",
-                    label: {React.string(`页面装配`)},
-                  },
-                  {
-                    key: "3",
-                    label: {React.string(`包装配`)},
-                  },
-                ]
+      <>
+        <Layout>
+          {UserUtils.isAdmin(account)
+            ? <Layout.Content>
+                <Menu
+                  theme=#light
+                  mode=#horizontal
+                  defaultSelectedKeys={["1"]}
+                  selectedKeys={[Method.getCurrentKey(currentAssemble)]}
+                  onClick={({key}) => {
+                    switch key {
+                    | "2" => setCurrentAssemble(_ => Element)
+                    | "3" => setCurrentAssemble(_ => Package)
+                    | "1"
+                    | _ =>
+                      setCurrentAssemble(_ => Ap)
+                    }
+                  }}
+                  items=[
+                    {
+                      key: "1",
+                      label: {React.string(`编辑器装配`)},
+                    },
+                    {
+                      key: "2",
+                      label: {React.string(`页面装配`)},
+                    },
+                    {
+                      key: "3",
+                      label: {React.string(`包装配`)},
+                    },
+                  ]
+                />
+              </Layout.Content>
+            : React.null}
+          <Layout.Content>
+            {switch currentAssemble {
+            // | Assemble => <AssembleAssemble service account />
+            | Ap =>
+              <ApAssemble
+                service
+                account
+                selectedExtensionsFromMarket
+                selectedContributesFromMarket=handledSelectedContributesFromMarket
+                selectedPackagesFromMarket
+                // selectedElementsFromMarket
               />
-            </Layout.Content>
-          : React.null}
-        <Layout.Content>
-          {switch currentAssemble {
-          // | Assemble => <AssembleAssemble service account />
-          | Ap =>
-            <ApAssemble
-              service
-              account
-              selectedExtensionsFromMarket
-              selectedContributesFromMarket=handledSelectedContributesFromMarket
-              selectedPackagesFromMarket
-              // selectedElementsFromMarket
-            />
-          | Element =>
-            <ElementAssemble
-              service
-              account
-              // selectedExtensionsFromMarket
-              selectedContributesFromMarket=handledSelectedContributesFromMarket
-              selectedPackagesFromMarket
-              assembleSpaceNavTarget
-            />
-          | Package =>
-            <PackageAssemble
-              service
-              account
-              selectedExtensionsFromMarket
-              selectedContributesFromMarket=handledSelectedContributesFromMarket
-              selectedPackagesFromMarket
-            />
-          }}
-        </Layout.Content>
-      </Layout>
+            | Element =>
+              <ElementAssemble
+                service
+                account
+                // selectedExtensionsFromMarket
+                selectedContributesFromMarket=handledSelectedContributesFromMarket
+                selectedPackagesFromMarket
+                assembleSpaceNavTarget
+              />
+            | Package =>
+              <PackageAssemble
+                service
+                account
+                selectedExtensionsFromMarket
+                selectedContributesFromMarket=handledSelectedContributesFromMarket
+                selectedPackagesFromMarket
+              />
+            }}
+          </Layout.Content>
+          <Layout.Footer
+            style={ReactDOM.Style.make(
+              ~position="sticky",
+              ~bottom="0",
+              ~padding="5px",
+              ~borderTop="solid 1px",
+              (),
+            )}>
+            <Button
+              _type=#primary
+              style={ReactDOM.Style.make(~float="right", ())}
+              onClick={_ => {
+                setOpenHelpDrawer(_ => true)
+              }}>
+              {React.string(`帮助`)}
+            </Button>
+          </Layout.Footer>
+        </Layout>
+        <Drawer
+          _open={openHelpDrawer}
+          title={j`帮助`}
+          placement=#right
+          onClose={() => {
+            setOpenHelpDrawer(_ => false)
+          }}>
+          <Help guideTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic} />
+        </Drawer>
+      </>
     }
   }
 }

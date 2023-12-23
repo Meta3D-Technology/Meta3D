@@ -1,7 +1,7 @@
 type theme = [#dark | #light]
 
 @module("antd") @react.component
-external make: (~children: React.element=?) => React.element = "Layout"
+external make: (~children: React.element=?, ~style: ReactDOM.Style.t=?) => React.element = "Layout"
 
 module Header = {
   @module("antd") @scope("Layout") @react.component
@@ -22,5 +22,6 @@ module Content = {
 
 module Footer = {
   @module("antd") @scope("Layout") @react.component
-  external make: (~children: React.element=?) => React.element = "Footer"
+  external make: (~children: React.element=?, ~style: ReactDOM.Style.t=?) => React.element =
+    "Footer"
 }

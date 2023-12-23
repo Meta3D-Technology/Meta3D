@@ -509,6 +509,7 @@ let reducer = (state, action) => {
   | EndCreateFromScratchTourPhase2 => {
       ...state,
       isInCreateFromScratchTourPhase2: false,
+      isJumpToCreateFromScratchTourPhase2Guide: false,
     }
   }
 }

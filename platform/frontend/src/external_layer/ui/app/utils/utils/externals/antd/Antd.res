@@ -32,3 +32,4 @@ module Popconfirm = Antd__Popconfirm
 module Badge = Antd__Badge
 
 module Tooltip = Antd__Tooltip
+module Drawer = Antd__Drawer
