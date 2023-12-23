@@ -89,8 +89,10 @@ let buildUI = (
   ~currentSelectedUIControlInspectorData=buildUIControlInspectorData(~id="id", ()),
   ~selectedContributes=list{},
   ~rectXInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~rectYInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~rectWidthInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~rectHeightInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~inputSelectTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <UIControlInspector
@@ -99,8 +101,10 @@ let buildUI = (
     currentSelectedUIControlInspectorData
     selectedContributes
     rectXInputTarget
+    rectYInputTarget
     rectWidthInputTarget
     rectHeightInputTarget
+    inputSelectTarget
   />
 }
 

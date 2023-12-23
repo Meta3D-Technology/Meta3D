@@ -109,6 +109,7 @@ let make = (
   ~selectedContributes,
   ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectTreeUIControlTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
@@ -116,12 +117,19 @@ let make = (
     Method.useSelector,
   )
 
-  service.react.useEffect(.() => {
+  // service.react.useEffect(.() => {
+  //   // handleWhenShowUIControlsFunc()
+  //   eventEmitter.emit(. EventUtils.getAddUIControlsEventName(), Obj.magic(1))
+
+  //   None
+  // })
+
+  service.react.useEffect1(.() => {
     // handleWhenShowUIControlsFunc()
-    eventEmitter.emit(. EventUtils.getShowUIControlsEventName(), Obj.magic(1))
+    // eventEmitter.emit(. EventUtils.getAddUIControlsEventName(), Obj.magic(1))
 
     None
-  })
+  }, [])
 
   // TODO duplicate with ap view
   <List
@@ -136,6 +144,8 @@ let make = (
           ? selectSceneViewUIControlTarget
           : data.contributePackageData.protocol.name->GuideUtils.isGameViewProtocolName
           ? selectGameViewUIControlTarget
+          : data.contributePackageData.protocol.name->GuideUtils.isTreeProtocolName
+          ? selectTreeUIControlTarget
           : Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}>
         <Card
           key={id}

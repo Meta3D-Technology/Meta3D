@@ -62,8 +62,10 @@ let make = (
   ~account,
   ~selectedContributes,
   ~rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rectYInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~inputSelectTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let (
     inspectorCurrentUIControlId,
@@ -114,8 +116,10 @@ let make = (
       currentSelectedUIControlInspectorData
       selectedContributes={selectedContributesAddedGeneratedCustoms}
       rectXInputTarget
+      rectYInputTarget
       rectWidthInputTarget
       rectHeightInputTarget
+      inputSelectTarget
     />
   | _ => React.null
   }

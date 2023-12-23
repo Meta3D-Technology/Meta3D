@@ -38,8 +38,7 @@ module Method = {
   }
 
   let buildDefaultActionOriginFileStr = actionName => {
-    buildDefaultActionTranspiledFileStr(actionName)
-    ->CustomCodeUtils.convertCodeToES6
+    buildDefaultActionTranspiledFileStr(actionName)->CustomCodeUtils.convertCodeToES6
   }
 
   let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {
@@ -62,6 +61,9 @@ let make = (~service: service) => {
     buildRemoveActionFunc={actionName => ElementAssembleStoreType.RemoveCustomAction(actionName)}
     buildDefaultOriginFileStrFunc=Method.buildDefaultActionOriginFileStr
     buildDefaultTranspiledFileStrFunc=Method.buildDefaultActionTranspiledFileStr
+    addButtonTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}
+    addEventName={EventUtils.getAddActionEventName()}
+    selectEventName={EventUtils.getSelectActionInActionsEventName()}
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomActionNameToGlobal
     currentCustomName=currentCustomActionName
     customs=customActions

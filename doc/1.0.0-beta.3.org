@@ -141,9 +141,26 @@ TODO add Meta3D
 # add another two guides:
 # input guide
 # action guide
-merge to current guide
+merge to current guide:
+add Tree
+add Input
+Run to test input: show gameObjects
+(image)
+add Action:Select Scene Tree Node
+Run to test action
 
 not open doc drawer
+
+TODO pass input
+
+      TODO change Tree to Window
+      TODO directly change null to true for input
+      TODO add Button as child
+      TODO add click action
+
+TODO pass action
+
+TODO update steps change
 
 
 
@@ -194,6 +211,19 @@ TODO 延迟/预加载 monaco-editor
 
 
 
+# * TODO user: add email
+* TODO user: change username to email
+
+TODO check email format valid when register
+
+
+TODO update database
+
+
+
+
+
+
 * TODO check all * TODOs and clear
 
 
@@ -218,19 +248,23 @@ TODO 平台、官网加入数据统计
 
 
 
-* TODO 准备模板
-
-TODO 完整编辑器的模板
-
-TODO 从头创建编辑器引导的模板
-
 
 
 * TODO publish
 
+
+* TODO 准备模板 in production
+
+
 TODO update production
   TODO need update packages
   TODO need update template's inputs and actions(reselect all)
+
+
+TODO 完整编辑器的模板
+
+TODO 从头创建编辑器引导的模板
+  TODO Guide: add Run the template
 
 
 
@@ -319,6 +353,10 @@ TODO Custom: Input: 给出type
 
 
 
+TODO update platform/frontend -> TODO link
+
+
+
 TODO move related doc to platform as guide doc
   # TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
   # TODO 在新手引导后，给出更多的文档链接
@@ -395,7 +433,8 @@ https://www.google.com/search?q=opensea+%E5%8F%91%E8%A1%8Cnft&newwindow=1&sca_es
 
 
 # 可建议在讨论中给出反馈的同学留下qq号，从而拉到一个群里发QQ红包
-可建议在讨论中给出反馈的同学留下qq号，抽奖赠送一个月的会员（未来上付费功能后兑现）
+# 可建议在讨论中给出反馈的同学留下qq号，抽奖赠送一个月的会员（未来上付费功能后兑现）
+可建议在讨论中给出反馈的同学留下邮箱，抽奖赠送一个月的会员（未来上付费功能后兑现）
 
 
 

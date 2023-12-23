@@ -10,8 +10,20 @@ let getPublishAppEventName = () => "PublishAppEventName"
 
 let getRunEventName = () => "RunEventName"
 
-let getShowUIControlsEventName = () => "ShowUIControlsEventName"
+let getAddUIControlsEventName = () => "ShowUIControlsEventName"
 
 let getSelectUIControlEventName = () => "SelectUIControlEventName"
 
 let getSelectTreeNodeEventName = () => "SelectTreeNodeEventName"
+
+let getExpandInputCollapseEventName = () => "ExpandInputCollapseEventName"
+
+let getSelectInputInUIControlInspectorEventName = () => "SelectInputInUIControlInspectorEventName"
+
+let getAddInputEventName = () => "AddInputEventName"
+
+let getSelectInputInInputsEventName = () => "SelectInputInInputsEventName"
+
+let getAddActionEventName = () => "AddActionEventName"
+
+let getSelectActionInActionsEventName = () => "SelectActionInActionsEventName"

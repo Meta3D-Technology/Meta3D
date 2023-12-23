@@ -11,7 +11,10 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service, ~currentCustomInputName) => {
+let make = (
+  ~service: service,
+  ~currentCustomInputName,
+) => {
   let customInputs = service.react.useSelector(. Method.useSelector)
 
   <CustomCodeEditUtils
@@ -24,8 +27,7 @@ let make = (~service: service, ~currentCustomInputName) => {
       newName,
       newOriginCode,
       newTranspiledCode,
-    ) =>
-     ElementAssembleStoreType.UpdateCustomInputFileStr(
+    ) => ElementAssembleStoreType.UpdateCustomInputFileStr(
       name,
       newName,
       newOriginCode,

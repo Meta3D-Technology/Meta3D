@@ -28,7 +28,7 @@ let make = (
     [
       {
         title: "点击它",
-        description: "",
+        description: {React.string(``)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => createFromScratchButtonTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -46,7 +46,9 @@ let make = (
     [
       {
         title: "查看发布的编辑器",
-        description: "按照编辑器名，找到刚刚发布的编辑器。您可以继续编辑它，或者在线运行它",
+        description: {
+          React.string(`按照编辑器名，找到刚刚发布的编辑器。您可以继续编辑它，或者在线运行它`)
+        },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => publishedEditorsTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -55,7 +57,9 @@ let make = (
       },
       {
         title: "查看所有发布的编辑器",
-        description: "点击第二个导航栏：“发布的编辑器”，您可以在这里查看所有人发布的编辑器，并且找到您刚刚发布的编辑器。您可以导入它们（也就是导入模板来创建新的编辑器），或者在线运行它们",
+        description: {
+          React.string(`点击第二个导航栏：“发布的编辑器”，您可以在这里查看所有人发布的编辑器，并且找到您刚刚发布的编辑器。您可以导入它们（也就是导入模板来创建新的编辑器），或者在线运行它们`)
+        },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => navTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -64,7 +68,7 @@ let make = (
       },
       {
         title: "这里可以打开更多引导",
-        description: "",
+        description: {React.string(``)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => guideTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -95,7 +99,7 @@ let make = (
         : isInCreateFromScratchTourPhase3
         ? {
           <>
-            {GuideUtils.buildSteps(None, 5, GuideUtils.buildCreateFromScratchStepData())}
+            {GuideUtils.buildSteps(None, 4, GuideUtils.buildCreateFromScratchStepData())}
             <Tour
               _open={openTourPhase3}
               onClose={() => {

@@ -28,7 +28,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~addInputButtonTarget: React.ref<Js.Nullable.t<'a>>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (customInputs, currentCustomInputName) = service.react.useSelector(. Method.useSelector)
@@ -40,6 +40,9 @@ let make = (~service: service) => {
     buildRemoveActionFunc={inputName => ElementAssembleStoreType.RemoveCustomInput(inputName)}
     buildDefaultOriginFileStrFunc=Method.buildDefaultInputOriginFileStr
     buildDefaultTranspiledFileStrFunc=Method.buildDefaultInputTranspiledFileStr
+    addButtonTarget=addInputButtonTarget
+    addEventName={EventUtils.getAddInputEventName()}
+    selectEventName={EventUtils.getSelectInputInInputsEventName()}
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomInputNameToGlobal
     currentCustomName=currentCustomInputName
     customs=customInputs

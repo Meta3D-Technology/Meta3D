@@ -20,7 +20,9 @@ module Sider = {
 
 module Content = {
   @module("antd") @scope("Layout") @react.component
-  external make: (~children: React.element=?, ~style: ReactDOM.Style.t=?) => React.element =
+  external make: (
+    ~ref:'a=?,
+    ~children: React.element=?, ~style: ReactDOM.Style.t=?) => React.element =
     "Content"
 }
 

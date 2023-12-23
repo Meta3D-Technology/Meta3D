@@ -7,7 +7,7 @@ type buttonProps = {
 
 type tourStep = {
   title: string,
-  description: string,
+  description: React.element,
   cover: Js.Nullable.t<React.element>,
   target: unit => target,
   closeIcon: Js.Nullable.t<React.element>,

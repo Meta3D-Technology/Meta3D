@@ -393,7 +393,9 @@ module Method = {
           | #string =>
             <Input
               key={name}
-              value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+              value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(
+                type_,
+              )}
               onChange={e => {
                 _setSpecificData(
                   dispatch,
@@ -449,11 +451,15 @@ module Method = {
               //   />
               // }}
 
-              {SpecificUtils.getSpecificDataValue(value)->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
+              {SpecificUtils.getSpecificDataValue(value)
+              ->Obj.magic
+              ->Meta3dCommonlib.NullableSt.isNullable
                 ? React.null
                 : <Image
                     preview=true
-                    src={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+                    src={SpecificUtils.getSpecificDataValue(
+                      value,
+                    )->SpecificUtils.convertValueToString(type_)}
                     width=40
                     height=40
                   />}
@@ -463,7 +469,9 @@ module Method = {
               ? React.null
               : <Space direction=#horizontal>
                   <Input.TextArea
-                    value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(type_)}
+                    value={SpecificUtils.getSpecificDataValue(
+                      value,
+                    )->SpecificUtils.convertValueToString(type_)}
                     onChange={e => {
                       MessageUtils.swallowCatchedError(() => {
                         _setSpecificData(
@@ -515,9 +523,9 @@ module Method = {
               SpecificUtils.getSpecificDataValue(value)->Obj.magic
             )["data"]->Meta3dCommonlib.ArraySt.map(
               valueData => valueData["key"],
-            ), (SpecificUtils.getSpecificDataValue(value)->Obj.magic)["data"]->Meta3dCommonlib.ArraySt.map(
-              valueData => valueData["value"],
-            ))
+            ), (
+              SpecificUtils.getSpecificDataValue(value)->Obj.magic
+            )["data"]->Meta3dCommonlib.ArraySt.map(valueData => valueData["value"]))
           | #number =>
             <InputNumber
               key={name}
@@ -541,27 +549,9 @@ module Method = {
     </>
   }
 
-  // let useSelector = ({apAssembleState}: AssembleSpaceStoreType.state) => {
-  //   let {selectedContributes} = apAssembleState
-
-  //   // let {
-  //   //   // elementInspectorData,
-  //   //   inspectorCurrentUIControlId,
-  //   //   selectedUIControls,
-  //   //   selectedUIControlInspectorData,
-  //   // } = elementAssembleState
-
-  //   // (
-  //   //   selectedContributes,
-  //   //   // (
-  //   //   //   // elementInspectorData,
-  //   //   //   inspectorCurrentUIControlId,
-  //   //   //   selectedUIControls,
-  //   //   //   selectedUIControlInspectorData,
-  //   //   // ),
-  //   // )
-  //   selectedContributes
-  // }
+  let useSelector = ({eventEmitter}: AppStoreType.state) => {
+    eventEmitter
+  }
 }
 
 @react.component
@@ -571,12 +561,14 @@ let make = (
   ~currentSelectedUIControlInspectorData: ElementAssembleStoreType.uiControlInspectorData,
   ~selectedContributes,
   ~rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~rectYInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
+  ~inputSelectTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
-  // let selectedContributes = service.react.useSelector(. Method.useSelector)
+  let eventEmitter = service.react.useAllSelector(. Method.useSelector)
 
   // let (inputFileStr, setInputFileStr) = service.react.useState(_ =>
   //   currentSelectedUIControlInspectorData.input->Meta3dCommonlib.OptionSt.bind(({inputFileStr}) =>
@@ -629,7 +621,7 @@ let make = (
         "Y",
         rect,
         y,
-        Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+        rectYInputTarget->Obj.magic,
       )}
       {Method.buildRectField(
         dispatch,
@@ -655,19 +647,24 @@ let make = (
     <Space direction=#vertical size=#middle>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
       {<>
-        {SelectUtils.buildSelect(
-          Method.setInput(dispatch, id),
-          input
-          ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
-          ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
-          // Method.buildInputNameSelectValues(
-          //   service,
-          //   selectedContributes,
-          //   uiControlProtocolName,
-          //   // input,
-          // ),
-          inputNameSelectValues,
-        )}
+        <section ref={inputSelectTarget->Obj.magic}>
+          {SelectUtils.buildSelect(
+            value => {
+              Method.setInput(dispatch, id, value)
+              eventEmitter.emit(. EventUtils.getSelectInputInUIControlInspectorEventName(), value->Obj.magic)
+            },
+            input
+            ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+            ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
+            // Method.buildInputNameSelectValues(
+            //   service,
+            //   selectedContributes,
+            //   uiControlProtocolName,
+            //   // input,
+            // ),
+            inputNameSelectValues,
+          )}
+        </section>
         // {TextareaUtils.isNotShowTextareaForTest()
         //   ? React.null
         //   : <Input.TextArea

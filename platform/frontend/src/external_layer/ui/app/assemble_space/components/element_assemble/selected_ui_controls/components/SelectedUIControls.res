@@ -39,6 +39,28 @@ module Method = {
     )
   }
 
+  let findTitle = (
+    id,
+    title,
+    selectedUIControls: ElementAssembleStoreType.selectedUIControls,
+    selectedUIControlInspectorData: ElementAssembleStoreType.selectedUIControlInspectorData,
+  ) => {
+    id === getRootKey()
+      ? title
+      : {
+          let {displayName} =
+            selectedUIControls
+            ->Meta3dCommonlib.ListSt.find(data => {
+              data.id == id
+            })
+            ->Meta3dCommonlib.OptionSt.getExn
+
+          _findLabel(id, selectedUIControlInspectorData)->Meta3dCommonlib.OptionSt.getWithDefault(
+            displayName,
+          )
+        }
+  }
+
   let rec convertToTreeData = (
     service: service,
     selectedUIControls,
@@ -215,8 +237,9 @@ let make = (
   ~selectedContributes,
   ~addUIControlButtonTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
-  ~rootTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectedUIControlTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectTreeUIControlTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
@@ -238,6 +261,8 @@ let make = (
           icon={<Icon.FileAddOutlined />}
           onClick={_ => {
             setIsShowUIControls(_ => true)
+
+            eventEmitter.emit(. EventUtils.getAddUIControlsEventName(), Obj.magic(1))
           }}
         />
         <Button
@@ -247,7 +272,7 @@ let make = (
           }}
         />
       </Space>
-      <section ref={rootTarget->Obj.magic}>
+      <section ref={selectedUIControlTarget->Obj.magic}>
         <Tree
           showIcon=true
           treeData={selectedUIControls
@@ -261,7 +286,15 @@ let make = (
             Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)
 
             // handleWhenSelectTreeNodeFunc(info.node.title)
-            eventEmitter.emit(. EventUtils.getSelectTreeNodeEventName(), info.node.title->Obj.magic)
+            eventEmitter.emit(.
+              EventUtils.getSelectTreeNodeEventName(),
+              Method.findTitle(
+                info.node.key,
+                info.node.title,
+                selectedUIControls,
+                selectedUIControlInspectorData,
+              )->Obj.magic,
+            )
           }}
         />
       </section>
@@ -327,6 +360,7 @@ let make = (
         selectedContributes
         selectSceneViewUIControlTarget
         selectGameViewUIControlTarget
+        selectTreeUIControlTarget
       />
     </Modal>
   </>

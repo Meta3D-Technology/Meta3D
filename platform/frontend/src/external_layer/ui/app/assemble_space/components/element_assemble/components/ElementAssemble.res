@@ -94,21 +94,26 @@ module Method = {
   //   )
   // }
 
-  let useSelector = ({apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state) => {
+  let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
+    let {apAssembleState, elementAssembleState} = assembleSpaceState
+
     let {selectedContributes} = apAssembleState
     let {
       currentCustomInputName,
       currentCustomActionName,
-      // isInCreateFromScratchTourPhase2,
+      isInCreateFromScratchTourPhase2,
       // isJumpToCreateFromScratchTourPhase2Guide,
     } = elementAssembleState
 
     (
-      selectedContributes,
-      currentCustomInputName,
-      currentCustomActionName,
-      // isInCreateFromScratchTourPhase2,
-      // isJumpToCreateFromScratchTourPhase2Guide,
+      (
+        selectedContributes,
+        currentCustomInputName,
+        currentCustomActionName,
+        isInCreateFromScratchTourPhase2,
+        // isJumpToCreateFromScratchTourPhase2Guide,
+      ),
+      eventEmitter,
     )
   }
 }
@@ -129,12 +134,14 @@ let make = (
   )
 
   let (
-    selectedContributes,
-    currentCustomInputName,
-    currentCustomActionName,
-    // isInCreateFromScratchTourPhase2,
-    // isJumpToCreateFromScratchTourPhase2Guide,
-  ) = service.react.useSelector(. Method.useSelector)
+    (
+      selectedContributes,
+      currentCustomInputName,
+      currentCustomActionName,
+      isInCreateFromScratchTourPhase2,
+    ),
+    eventEmitter,
+  ) = service.react.useAllSelector(. Method.useSelector)
 
   // let (
   //   selectedContributesAfterGeneratedCustoms,
@@ -153,13 +160,19 @@ let make = (
   let selectSceneViewUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let rectWidthInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let rectHeightInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
-  let rootTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let selectedUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let inputSelectTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let selectGameViewUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let selectTreeUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let rectXInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let rectYInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let runButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let publishButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let publishModalTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
-  // let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let inputCollapseTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let addInputButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let inputCodeEditTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
   service.react.useEffectOnce(() => {
     Method.resetAllAssemble(dispatch)
@@ -221,13 +234,19 @@ let make = (
               selectSceneViewUIControlTarget
               rectWidthInputTarget
               rectHeightInputTarget
-              rootTarget
+              selectedUIControlTarget
+              inputSelectTarget
               selectGameViewUIControlTarget
+              selectTreeUIControlTarget
               rectXInputTarget
+              rectYInputTarget
               runButtonTarget
               publishButtonTarget
               publishModalTarget
               assembleSpaceNavTarget
+              inputCollapseTarget
+              addInputButtonTarget
+              inputCodeEditTarget
             />
             <Space direction=#horizontal size=#small>
               // <PublishElement service account />
@@ -262,17 +281,26 @@ let make = (
             <Layout.Sider theme=#light>
               <Collapse
                 onChange={key => {
-                  switch key {
-                  | key
-                    if key->Meta3dCommonlib.ArraySt.includes("2") &&
-                      !GuideUtils.readIsFinishShowInput() =>
-                    DocGuideUtils.ShowInput.openDocDrawer(dispatch)
-                  | key
-                    if key->Meta3dCommonlib.ArraySt.includes("3") &&
-                      !GuideUtils.readIsFinishShowAction() =>
-                    DocGuideUtils.ShowAction.openDocDrawer(dispatch)
-                  | _ => ()
-                  }
+                  isInCreateFromScratchTourPhase2
+                    ? switch key {
+                      | key if key->Meta3dCommonlib.ArraySt.includes("2") =>
+                        eventEmitter.emit(.
+                          EventUtils.getExpandInputCollapseEventName(),
+                          Obj.magic(1),
+                        )
+                      | _ => ()
+                      }
+                    : switch key {
+                      | key
+                        if key->Meta3dCommonlib.ArraySt.includes("2") &&
+                          !GuideUtils.readIsFinishShowInput() =>
+                        DocGuideUtils.ShowInput.openDocDrawer(dispatch)
+                      | key
+                        if key->Meta3dCommonlib.ArraySt.includes("3") &&
+                          !GuideUtils.readIsFinishShowAction() =>
+                        DocGuideUtils.ShowAction.openDocDrawer(dispatch)
+                      | _ => ()
+                      }
                 }}
                 defaultActiveKey={["1"]}>
                 // <Collapse.Panel header="UI Controls" key="1">
@@ -299,15 +327,22 @@ let make = (
                     // }}
                     selectedContributes
                     addUIControlButtonTarget
-                    rootTarget
+                    selectedUIControlTarget
                     selectSceneViewUIControlTarget
                     selectGameViewUIControlTarget
+                    selectTreeUIControlTarget
                   />
                 </Collapse.Panel>
-                <Collapse.Panel header="Inputs" key="2">
-                  <CustomInputs service />
+                // <section ref={inputCollapseTarget->Obj.magic}>
+                <Collapse.Panel ref={inputCollapseTarget} header="Inputs" key="2">
+                  <CustomInputs service addInputButtonTarget />
                 </Collapse.Panel>
-                <Collapse.Panel header="Actions" key="3">
+                // </section>
+                <Collapse.Panel
+                  // ref={Meta3dCommonlib.NullableSt.getEmpty()}
+                  // ref={inputCollapseTarget}
+                  header="Actions"
+                  key="3">
                   <CustomActions service />
                 </Collapse.Panel>
               </Collapse>
@@ -316,6 +351,7 @@ let make = (
               {switch (currentCustomInputName, currentCustomActionName) {
               | (Some(currentCustomInputName), None) =>
                 <Layout.Content
+                  ref={inputCodeEditTarget}
                   style={ReactDOM.Style.make(
                     ~width={j`100%`},
                     ~height={j`100%`},
@@ -345,8 +381,10 @@ let make = (
                       account
                       selectedContributes
                       rectXInputTarget
+                      rectYInputTarget
                       rectWidthInputTarget
                       rectHeightInputTarget
+                      inputSelectTarget
                     />
                   </Layout.Sider>
                 </Layout>

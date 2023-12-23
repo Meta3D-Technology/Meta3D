@@ -74,6 +74,10 @@ module Method = {
 
     dispatch(buildSelectActionFunc(info.node.key))
   }
+
+  let useSelector = ({eventEmitter}: AppStoreType.state) => {
+    eventEmitter
+  }
 }
 
 @react.component
@@ -85,11 +89,16 @@ let make = (
   ~buildDefaultOriginFileStrFunc,
   ~buildDefaultTranspiledFileStrFunc,
   ~setCurrentCustomNameToGlobalFunc,
+  ~addButtonTarget: React.ref<Js.Nullable.t<'a>>,
+  ~addEventName,
+  ~selectEventName,
   ~currentCustomName,
   ~customs,
   ~prefix,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+
+  let eventEmitter = service.react.useAllSelector(. Method.useSelector)
 
   let (selectedKeys, setSelectedKeys) = service.react.useState(_ => [])
 
@@ -98,8 +107,11 @@ let make = (
   <Space direction=#vertical size=#middle>
     <Space direction=#horizontal wrap=true>
       <Button
+        ref={addButtonTarget}
         icon={<Icon.FileAddOutlined />}
         onClick={_ => {
+          eventEmitter.emit(. addEventName, Obj.magic(1))
+
           Method.addCustom(
             dispatch,
             buildAddActionFunc,
@@ -122,14 +134,17 @@ let make = (
       autoExpandParent=false
       treeData={customs->Method.convertToTreeData}
       selectedKeys
-      onSelect={(selectedKeysValue, info) =>
+      onSelect={(selectedKeysValue, info) => {
+        eventEmitter.emit(. selectEventName, info.node.key->Obj.magic)
+
         Method.onSelect(
           (dispatch, setSelectedKeys),
           buildSelectActionFunc,
           setCurrentCustomNameToGlobalFunc,
           selectedKeysValue,
           info,
-        )}
+        )
+      }}
     />
   </Space>
 }
