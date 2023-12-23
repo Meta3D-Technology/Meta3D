@@ -418,21 +418,23 @@ let make = (~service: FrontendType.service) => {
         <>
           <Layout.Sider width=300 theme=#light>
             <Card key={"0"}>
-              <iframe
-                src="https://ghbtns.com/github-btn.html?user=Meta3D-Technology&repo=Meta3D&type=star&count=true&size=large"
-                // frameborder="0"
-                style={ReactDOM.Style.make(
-                  // ~borderStyle="solid",
-                  // ~borderColor="red",
-                  ~borderWidth="0px",
-                  (),
-                )}
-                scrolling="0"
-                width="170"
-                height="30"
-                title="GitHub"
-              />
-              // <span> {React.string(`欢迎Star`)} </span>
+              <Tooltip placement=#right title={j`来点个star吧，感恩~`}>
+                <iframe
+                  src="https://ghbtns.com/github-btn.html?user=Meta3D-Technology&repo=Meta3D&type=star&count=true&size=large"
+                  // frameborder="0"
+                  style={ReactDOM.Style.make(
+                    // ~borderStyle="solid",
+                    // ~borderColor="red",
+                    ~borderWidth="0px",
+                    (),
+                  )}
+                  scrolling="0"
+                  width="170"
+                  height="30"
+                  title="GitHub"
+                />
+                // <span> {React.string(`欢迎Star`)} </span>
+              </Tooltip>
             </Card>
             <Card key={"1"}>
               <section ref={guideTarget->Obj.magic}>

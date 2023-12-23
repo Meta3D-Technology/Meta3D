@@ -88,10 +88,16 @@ TODO refactor meta3d-type
 * DONE Code: add immutable type infer
 
 
+* DONE add tooltip
+
 
 * TODO add float bar
 
-use https://ant.design/components/popover
+# use https://ant.design/components/popover
+
+add button to assemble nav
+
+use https://ant.design/components/drawer-cn#drawer-demo-multi-level-drawer
 
 
 
@@ -117,6 +123,8 @@ XXX前发布
 
 
 * TODO 开头引导说明目前能做什么，可以了解更多
+
+use https://ant.design/components/carousel-cn
 
 
 * TODO move doc to platform as guide doc
