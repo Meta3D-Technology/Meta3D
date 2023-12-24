@@ -131,11 +131,7 @@ module Method = {
   // }
 
   let useSelector = (
-    {
-      selectedPackages,
-      selectedExtensions,
-      selectedContributes,
-    }: PackageAssembleStoreType.state,
+    {selectedPackages, selectedExtensions, selectedContributes}: PackageAssembleStoreType.state,
   ) => {
     (selectedPackages, selectedExtensions, selectedContributes)
   }
@@ -147,10 +143,7 @@ let make = (~service: service, ~account: option<string>) => {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-  ) = ReduxUtils.PackageAssemble.useSelector(
-    service.react.useSelector,
-    Method.useSelector,
-  )
+  ) = ReduxUtils.PackageAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
 
@@ -209,6 +202,7 @@ let make = (~service: service, ~account: option<string>) => {
                   name="packageName"
                   rules={[
                     {
+                      _type: Meta3dCommonlib.NullableSt.getEmpty(),
                       required: true,
                       message: `输入包名`,
                     },
@@ -231,6 +225,7 @@ let make = (~service: service, ~account: option<string>) => {
                   name="packageDescription"
                   rules={[
                     {
+                      _type: Meta3dCommonlib.NullableSt.getEmpty(),
                       required: true,
                       message: `输入包介绍`,
                     },

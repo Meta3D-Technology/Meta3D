@@ -52,7 +52,7 @@ defineFeature(feature, test => {
         });
 
         then('should return false data', () => {
-            expect(data).toEqual([false, "用户名未注册"])
+            expect(data).toEqual([false, "邮箱未注册"])
         });
     });
 

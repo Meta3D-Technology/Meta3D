@@ -102,7 +102,7 @@ let make = (~service: FrontendType.service) => {
             <Space direction=#vertical size=#large>
               <Typography.Paragraph>
                 <Typography.Title>
-                  {React.string({j`只需要用户名即可登录`})}
+                  {React.string({j`只需要邮箱即可登录`})}
                 </Typography.Title>
                 <Form
                   // name="basic"
@@ -119,12 +119,13 @@ let make = (~service: FrontendType.service) => {
                   onFinishFailed={_onFinishFailed(service)}
                   autoComplete="off">
                   <Form.Item
-                    label={`用户名`}
+                    label={`邮箱`}
                     name="account"
                     rules={[
                       {
+                        _type: #email->Meta3dCommonlib.NullableSt.return,
                         required: true,
-                        message: `输入用户名`,
+                        message: `请输入正确的邮箱`,
                       },
                     ]}>
                     <Input />

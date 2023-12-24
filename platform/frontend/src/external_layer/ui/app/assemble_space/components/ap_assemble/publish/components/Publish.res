@@ -217,7 +217,7 @@ module Method = {
     // handleWhenPublishFunc,
     (setUploadProgress, setIsUploadBegin, setVisible, setPreviewBase64),
     (
-      eventEmitter:Event.eventEmitter,
+      eventEmitter: Event.eventEmitter,
       account,
       previousAppName,
       selectedPackages,
@@ -538,6 +538,7 @@ let make = (
                     name="appName"
                     rules={[
                       {
+                        _type: Meta3dCommonlib.NullableSt.getEmpty(),
                         required: true,
                         message: `输入编辑器名`,
                       },
@@ -549,6 +550,7 @@ let make = (
                     name="appPreview"
                     rules={[
                       {
+                        _type: Meta3dCommonlib.NullableSt.getEmpty(),
                         required: false,
                         message: `上传预览图`,
                       },
@@ -581,6 +583,7 @@ let make = (
                     name="appDescription"
                     rules={[
                       {
+                        _type: Meta3dCommonlib.NullableSt.getEmpty(),
                         required: true,
                         message: `输入介绍`,
                       },

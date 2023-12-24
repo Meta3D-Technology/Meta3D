@@ -35,7 +35,7 @@ const feature = (0, jest_cucumber_1.loadFeature)("./test/features/login.feature"
             });
         });
         then('should return false data', () => {
-            expect(data).toEqual([false, "用户名未注册"]);
+            expect(data).toEqual([false, "邮箱未注册"]);
         });
     });
     test('login success', ({ given, when, then, and }) => {

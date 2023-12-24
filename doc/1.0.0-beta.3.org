@@ -170,7 +170,7 @@ TODO update steps change
 
 
 # * TODO user: add email
-* TODO user: change username to email
+* DONE user: change username to email
 
 TODO check email format valid when register
 
@@ -265,6 +265,7 @@ TODO 平台、官网加入数据统计
 TODO update production
   TODO need update packages
   TODO need update template's inputs and actions(reselect all)
+  # TODO update database->user for email
 
 
 TODO 完整编辑器的模板

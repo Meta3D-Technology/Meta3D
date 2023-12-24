@@ -1,9 +1,17 @@
 type labelAlign = [#left | #right]
+
 type layout = [#horizontal | #vertical | #inline]
+
 type size = [#small | #middle | #large]
+
 type validatedMessages = {required: string}
+
 type formEvent = ReactEvent.Form.t => unit
+
+type ruleType = [#email]
+
 type rule = {
+  @as("type") _type: Js.Nullable.t<ruleType>,
   required: bool,
   message: string,
 }

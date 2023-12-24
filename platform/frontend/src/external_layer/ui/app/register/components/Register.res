@@ -13,10 +13,7 @@ let make = (~service: FrontendType.service) => {
     service.backend.checkUserName(account)->Meta3dBsMostDefault.Most.flatMap(isPass => {
       !isPass
         ? {
-            service.console.error(.
-              `用户名已经存在，请重新输入新的用户名`,
-              2->Some,
-            )
+            service.console.error(. `邮箱已经存在，请重新输入新的邮箱`, 2->Some)
 
             Meta3dBsMostDefault.Most.empty()
           }
@@ -56,12 +53,13 @@ let make = (~service: FrontendType.service) => {
         onFinishFailed={_onFinishFailed}
         autoComplete="off">
         <Form.Item
-          label={`用户名`}
+          label={`邮箱`}
           name="account"
           rules={[
             {
+              _type: #email -> Meta3dCommonlib.NullableSt.return,
               required: true,
-              message: `输入用户名`,
+              message: `请输入正确的邮箱`,
             },
           ]}>
           <Input />

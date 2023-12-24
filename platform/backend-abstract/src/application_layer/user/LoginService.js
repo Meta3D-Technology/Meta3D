@@ -5,7 +5,7 @@ const most_1 = require("most");
 let isLoginSuccess = (hasDataFunc, account) => {
     return hasDataFunc("user", account).flatMap(has => {
         if (!has) {
-            return (0, most_1.just)([false, "用户名未注册"]);
+            return (0, most_1.just)([false, "邮箱未注册"]);
         }
         return (0, most_1.just)([true, null]);
     });
