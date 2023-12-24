@@ -178,7 +178,7 @@ TODO check email format valid when register
 TODO update database
 
 
-* TODO 平台：优化Specific
+* DONE 平台：优化Specific
 
 //* TODO perf: UIControlInspector: edit Specific->label too fast will make visual disappear
 

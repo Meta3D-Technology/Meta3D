@@ -397,17 +397,20 @@ module Method = {
                 type_,
               )}
               onChange={e => {
-                _setSpecificData(
-                  dispatch,
-                  specific,
-                  id,
-                  i,
-                  e
-                  ->EventUtils.getEventTargetValue
-                  ->SpecificUtils.convertStringToValue(type_)
-                  ->CommonType.SpecicFieldDataValue,
-                  type_,
-                )
+                switch e
+                ->EventUtils.getEventTargetValue
+                ->SpecificUtils.convertStringToValue(type_) {
+                | value if value->Obj.magic == "" => MessageUtils.warn({j`不能为空`}, None)
+                | value =>
+                  _setSpecificData(
+                    dispatch,
+                    specific,
+                    id,
+                    i,
+                    value->CommonType.SpecicFieldDataValue,
+                    type_,
+                  )
+                }
               }}
             />
           | #imageBase64 =>
