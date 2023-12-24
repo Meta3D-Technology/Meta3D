@@ -197,23 +197,24 @@ pass bdd test
 
 
 
-* TODO 优化：压缩custom代码
+# * TODO 优化：压缩custom代码
 
-TODO perf: Custom: need minify transpiled code
+# TODO perf: Custom: need minify transpiled code
 
 
-* TODO 优化： action publish->meta3d.js use compress
+* DONE 优化： action publish->meta3d.js use compress
+
+
+* TODO 平台：优化后端加载
+
+使用requestIdleCallback等API，在空闲时间加载必备的后端资源（如packages等）
+
 
 
 * TODO 优化：减小engine-whole、editor-whole包体积
 
 
 * TODO 优化：减小发布的app的大小
-
-
-* TODO 平台：优化后端加载
-
-使用requestIdleCallback等API，在空闲时间加载必备的后端资源（如packages等）
 
 
 
