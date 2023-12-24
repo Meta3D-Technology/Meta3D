@@ -59,6 +59,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   let release = React.useRef(None)
   let idleTasks = React.useRef(list{})
   let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  // let monacoEditor = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
   let _buildAssembleSpaceService = (): AssembleSpaceType.service => {
     ui: {
@@ -330,6 +331,16 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     }, _)
   }
 
+//   let _deferLoad = %raw(`
+// function (){
+// return import(
+//     /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
+//   ).then(value =>{
+// MonacoUtils.setMonaco(value)
+//   })
+// }
+// `)
+
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
       // dispatch(
@@ -378,7 +389,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     None
   })
 
-  React.useEffect1(() => {
+  React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
       let rec _handle = (deadline: RequestIdleCallback.deadline) => {
         let tasks = ref(idleTasks.current)
@@ -420,7 +431,13 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     }, 5->Some)
 
     None
-  }, [])
+  })
+
+  // React.useEffect0(() => {
+  //   _deferLoad()->ignore
+
+  //   None
+  // })
 
   <>
     {contextHolder}

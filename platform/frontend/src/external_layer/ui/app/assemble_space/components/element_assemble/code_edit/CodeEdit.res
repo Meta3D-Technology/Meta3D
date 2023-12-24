@@ -102,21 +102,87 @@ module Method = {
 
     Js.Promise.resolve()
   }
+
+  let getMonaco = %raw(`
+function (){
+return globalThis["meta3d_monaco"]
+}
+`)
+
+  let setMonaco = %raw(`
+function (monaco){
+globalThis["meta3d_monaco"] = monaco
+}
+`)
+
+  let deferLoad = %raw(`
+function (){
+return import(
+    /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
+  ).then(value =>{
+setMonaco(value)
+
+return value
+  })
+}
+`)
 }
 
 @react.component
 let make = (~service: service, ~code, ~getNewCodeFunc) => {
-  let tsProxy = React.useRef(None)
-  let editor = React.useRef(None)
+  let tsProxy = service.react.useRef(None)
+  let editor = service.react.useRef(None)
 
-  <MonacoEditor.monacoEditor
-    width="100%"
-    height="100%"
-    language=#typescript
-    theme=#"vs-dark"
-    value={code}
-    onChange={Method.onChange(getNewCodeFunc, (tsProxy, editor))}
-    editorDidMount={Method.editorDidMount((tsProxy, editor))}
-    editorWillUnmount={Method.editorWillUnmount}
-  />
+  let (monaco, setMonaco) = service.react.useState(_ => None)
+
+  service.react.useEffect1(. () => {
+    MessageUtils.showCatchedErrorMessage(() => {
+      switch Method.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
+      | None =>
+        Method.deferLoad()->Js.Promise.then_(
+          value => {
+            value->Js.Promise.resolve
+          },
+          _,
+        )
+
+      | Some(value) => value->Js.Promise.resolve
+      }
+      ->Js.Promise.then_(
+        monaco => {
+          setMonaco(_ => monaco->Some)
+
+          ()->Js.Promise.resolve
+        },
+        _,
+      )
+      ->Js.Promise.catch(
+        e => {
+          service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+        },
+        _,
+      )
+      ->ignore
+    }, 5->Some)
+
+    None
+  }, [])
+
+  {
+    switch monaco {
+    | None => React.string(`loading...`)
+    | Some(monaco) =>
+      <MonacoEditor.monacoEditor
+        monaco
+        width="100%"
+        height="100%"
+        language=#typescript
+        theme=#"vs-dark"
+        value={code}
+        onChange={Method.onChange(getNewCodeFunc, (tsProxy, editor))}
+        editorDidMount={Method.editorDidMount((tsProxy, editor))}
+        editorWillUnmount={Method.editorWillUnmount}
+      />
+    }
+  }
 }

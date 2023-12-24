@@ -212,6 +212,26 @@ pass bdd test
 
 TODO wait for previous task
 
+* DONE 优化：减小platform文件体积
+
+refer to
+
+https://segmentfault.com/a/1190000041564651#item-5-1
+
+TODO 延迟/预加载 monaco-editor
+
+
+fix:
+first load not show
+onChange not work
+theme
+
+new value error
+switch between action
+# switch between input, action
+
+
+# * TODO guide: add end guide button
 
 
 * TODO 优化：减小engine-whole、editor-whole包体积
@@ -220,14 +240,6 @@ TODO wait for previous task
 * TODO 优化：减小发布的app的大小
 
 
-
-* TODO 优化：减小platform文件体积
-
-refer to
-
-https://segmentfault.com/a/1190000041564651#item-5-1
-
-TODO 延迟/预加载 monaco-editor
 
 
 

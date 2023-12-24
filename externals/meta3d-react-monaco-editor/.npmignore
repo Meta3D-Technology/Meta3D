@@ -1,0 +1,11 @@
+.eslintignore
+.eslintrc
+.github/
+.gitignore
+.npmignore
+.travis.yml
+.vscode/
+/example/
+/examples/
+tsconfig.json
+yarn-error.log

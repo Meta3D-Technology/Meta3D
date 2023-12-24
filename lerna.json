@@ -1,5 +1,6 @@
 {
 	"packages": [
+		"externals/*",
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",
 		"packages/asset/protocols/extension_protocols/*",
