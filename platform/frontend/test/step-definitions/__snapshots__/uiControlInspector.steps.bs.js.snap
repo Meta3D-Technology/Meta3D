@@ -478,6 +478,11 @@ exports[`UIControlInsepctor show default action and action select 1`] = `
       <div
         className="ant-space-item"
       >
+        <section />
+      </div>
+      <div
+        className="ant-space-item"
+      >
         <h1>
           2
         </h1>
@@ -525,6 +530,11 @@ exports[`UIControlInsepctor show default action and action select 1`] = `
                           <span>
                             button_click: 
                           </span>
+                        </div>
+                        <div
+                          className="ant-space-item"
+                        >
+                          <section />
                         </div>
                       </div>
                     </div>
@@ -1014,6 +1024,11 @@ exports[`UIControlInsepctor show default data 1`] = `
         <h1>
           2
         </h1>
+      </div>
+      <div
+        className="ant-space-item"
+      >
+        <section />
       </div>
       <div
         className="ant-space-item"
@@ -1579,6 +1594,11 @@ exports[`UIControlInsepctor show input 1`] = `
       <div
         className="ant-space-item"
       >
+        <section />
+      </div>
+      <div
+        className="ant-space-item"
+      >
         <h1>
           2
         </h1>
@@ -2140,6 +2160,11 @@ exports[`UIControlInsepctor show nothing 1`] = `
       <div
         className="ant-space-item"
       >
+        <section />
+      </div>
+      <div
+        className="ant-space-item"
+      >
         <h1>
           2
         </h1>
@@ -2697,6 +2722,11 @@ exports[`UIControlInsepctor show specific 1`] = `
         <h1>
           2
         </h1>
+      </div>
+      <div
+        className="ant-space-item"
+      >
+        <section />
       </div>
       <div
         className="ant-space-item"

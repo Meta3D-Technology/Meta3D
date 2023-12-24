@@ -1,3 +1,5 @@
 let buildEventEmitter = (): Event.eventEmitter => {
-  Obj.magic(1)
+  addListener: (. _, _) => (),
+  emit: (. _, _) => (),
+  remove: (. ()) => (),
 }

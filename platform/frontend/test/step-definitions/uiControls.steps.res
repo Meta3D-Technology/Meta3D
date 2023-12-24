@@ -19,7 +19,7 @@ defineFeature(feature, test => {
   }
 
   test(."show uiControls list", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+    let useAllSelectorStub = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -33,13 +33,9 @@ defineFeature(feature, test => {
     \"and"(
       "select action a1 in ap view",
       () => {
-        useSelectorStub :=
+        useAllSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
-            (list{}, None),
-            // ~newName="u1"->Some,
-
-            // ~newName="a1"->Some,
-
+            ((list{}, None), EventTool.buildEventEmitter()),
             _,
           )
       },
@@ -57,7 +53,7 @@ defineFeature(feature, test => {
       () => {
         UIControlsTool.buildUI(
           ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+          ~service=ServiceTool.build(~sandbox, ~useAllSelector=useAllSelectorStub.contents, ()),
           ~selectedContributes=list{
             UIControlsTool.buildSelectedContribute(
               ~id="1",
@@ -226,7 +222,7 @@ defineFeature(feature, test => {
           UIControlsTool.selectUIControl(
             ServiceTool.build(~sandbox, ~error=errorStub.contents, ()),
             Obj.magic(1),
-          EventTool.buildEventEmitter(),
+            EventTool.buildEventEmitter(),
             list{SelectedUIControlsTool.buildSelectedUIControl(~data=data.contents, ())},
             Obj.magic(1),
             Obj.magic(1),

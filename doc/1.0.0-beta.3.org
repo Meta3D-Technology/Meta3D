@@ -182,11 +182,13 @@ TODO update database
 
 //* TODO perf: UIControlInspector: edit Specific->label too fast will make visual disappear
 
-TODO perf: UIControlInspector: label should onblur set
+//TODO perf: UIControlInspector: label should onblur set
 
-optimize UIControlInspector->buildSpecific->Input, InputNumber
+//optimize UIControlInspector->buildSpecific->Input, InputNumber
 
 TODO fix: asset: label: empty will make visual disappear
+
+pass bdd test
 
 
 * TODO 平台：优化UI
@@ -253,6 +255,14 @@ TODO 平台、官网加入数据统计
 * TODO Github: lanaguage remove Javascript
 
 
+
+* TODO 准备模板 in local
+
+
+TODO 完整编辑器的模板
+
+TODO 从头创建编辑器引导的模板
+  TODO Guide: add Run the template
 
 
 
@@ -406,6 +416,10 @@ https://cn.nocobase.com/
 
 
 
+TODO update FAQ
+TODO https://github.com/Meta3D-Technology/Meta3D/discussions/43 add FAQ link
+
+
 
 * TODO 文档优化
 
@@ -445,7 +459,23 @@ https://www.google.com/search?q=opensea+%E5%8F%91%E8%A1%8Cnft&newwindow=1&sca_es
 
 # 可建议在讨论中给出反馈的同学留下qq号，从而拉到一个群里发QQ红包
 # 可建议在讨论中给出反馈的同学留下qq号，抽奖赠送一个月的会员（未来上付费功能后兑现）
-可建议在讨论中给出反馈的同学留下邮箱，抽奖赠送一个月的会员（未来上付费功能后兑现）
+# 可建议在讨论中给出反馈的同学留下邮箱，抽奖赠送一个月的会员（未来上付费功能后兑现）
+TODO 可在讨论中给出链接，请给出反馈的同学点击该链接（跳转到页面（需要给出邮箱，可读取localStorage获得），填写一个form（给出一些建议，非必须））后提交即可参加抽奖赠送一个月的会员（未来上付费功能后兑现）
+提示用户：中奖的用户会收到邮件
+form:
+反馈评分：好、一般、差
+期望增加哪些功能：select
+
+建议: textarea
+
+引导加QQ群、Github提Issue、来论坛(link: 公测帖)讨论
+
+提交form后，对于反馈为"好"的用户：
+建议加star
+
+
+TODO 讨论中给出新帖子，公布哪些用户（邮箱）中奖及其奖品
+
 
 
 

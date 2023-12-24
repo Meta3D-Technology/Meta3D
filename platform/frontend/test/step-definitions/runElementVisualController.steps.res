@@ -33,23 +33,26 @@ defineFeature(feature, test => {
     then(
       "should show waiting",
       () => {
-        let useSelectorStub =
+        let useAllSelectorStub =
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
               (
-                CanvasControllerTool.buildCanvasData(),
-                list{},
-                list{},
-                ApInspectorTool.buildApInspectorData(),
+                (
+                  CanvasControllerTool.buildCanvasData(),
+                  list{},
+                  list{},
+                  ApInspectorTool.buildApInspectorData(),
+                ),
+                (None, None),
               ),
-              (None, None),
+              EventTool.buildEventEmitter(),
             ),
             _,
           )
 
         RunElementVisualControllerTool.buildUI(
           ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub, ()),
+          ~service=ServiceTool.build(~sandbox, ~useAllSelector=useAllSelectorStub, ()),
           (),
         )
         ->ReactTestRenderer.create
@@ -59,23 +62,26 @@ defineFeature(feature, test => {
   })
 
   test(."if data ready, show run button", ({given, \"when", \"and", then}) => {
-    let useSelectorStub = ref(Obj.magic(1))
+    let useAllSelectorStub = ref(Obj.magic(1))
 
     _prepare(given, \"and")
 
     given(
       "prepare runVisualExtension, elementContribute",
       () => {
-        useSelectorStub :=
+        useAllSelectorStub :=
           createEmptyStub(refJsObjToSandbox(sandbox.contents))->returns(
             (
               (
-                CanvasControllerTool.buildCanvasData(),
-                list{},
-                list{},
-                ApInspectorTool.buildApInspectorData(),
+                (
+                  CanvasControllerTool.buildCanvasData(),
+                  list{},
+                  list{},
+                  ApInspectorTool.buildApInspectorData(),
+                ),
+                (Some(Obj.magic(1)), Some(Obj.magic(1))),
               ),
-              (Some(Obj.magic(1)), Some(Obj.magic(1))),
+              EventTool.buildEventEmitter(),
             ),
             _,
           )
@@ -96,7 +102,7 @@ defineFeature(feature, test => {
           ~sandbox,
           ~service=ServiceTool.build(
             ~sandbox,
-            ~useSelector=useSelectorStub.contents->Obj.magic,
+            ~useAllSelector=useAllSelectorStub.contents->Obj.magic,
             (),
           ),
           (),
@@ -113,7 +119,7 @@ defineFeature(feature, test => {
   //     let v2 = ref(Obj.magic(1))
   //     let isDebug = true
   //     let getAllPublishNewestExtensionsStub = ref(Obj.magic(1))
-  //     let useSelectorStub = ref(Obj.magic(1))
+  //     let useAllSelectorStub = ref(Obj.magic(1))
   //     let dispatchStub = ref(Obj.magic(1))
 
   //     _prepare(given, \"and")
@@ -226,7 +232,7 @@ defineFeature(feature, test => {
     let selectedUIControls = ref(list{})
     let canvasData = ref(Obj.magic(1))
     let apInspectorData = ref(Obj.magic(1))
-    let useSelectorStub = ref(Obj.magic(1))
+    let useAllSelectorStub = ref(Obj.magic(1))
     let initForElementVisualAppStub = ref(Obj.magic(1))
     let setElementVisualAppStub = ref(Obj.magic(1))
     let openUrlStub = ref(Obj.magic(1))
@@ -456,7 +462,7 @@ defineFeature(feature, test => {
   //     let selectedContributes = ref(list{})
   //     let canvasData = ref(Obj.magic(1))
   //     let apInspectorData = ref(Obj.magic(1))
-  //     let useSelectorStub = ref(Obj.magic(1))
+  //     let useAllSelectorStub = ref(Obj.magic(1))
   //     let convertAllFileDataForAppStub = ref(Obj.magic(1))
 
   //     _prepare(given, \"and")
