@@ -66,6 +66,7 @@ let make = (
   ~rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~inputSelectTarget: React.ref<Js.Nullable.t<'a>>,
+  ~actionSelectTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let (
     inspectorCurrentUIControlId,
@@ -120,6 +121,7 @@ let make = (
       rectWidthInputTarget
       rectHeightInputTarget
       inputSelectTarget
+      actionSelectTarget
     />
   | _ => React.null
   }

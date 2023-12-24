@@ -93,6 +93,7 @@ let buildUI = (
   ~rectWidthInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~rectHeightInputTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~inputSelectTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~actionSelectTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <UIControlInspector
@@ -105,6 +106,7 @@ let buildUI = (
     rectWidthInputTarget
     rectHeightInputTarget
     inputSelectTarget
+    actionSelectTarget
   />
 }
 

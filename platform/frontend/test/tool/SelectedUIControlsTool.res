@@ -9,7 +9,8 @@ let buildUI = (
   ~selectSceneViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~selectedUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~selectGameViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
-  ~selectTreeUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~selectWindowUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~selectButtonUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <SelectedUIControls
@@ -22,7 +23,8 @@ let buildUI = (
     selectSceneViewUIControlTarget
     selectedUIControlTarget
     selectGameViewUIControlTarget
-    selectTreeUIControlTarget
+    selectWindowUIControlTarget
+    selectButtonUIControlTarget
   />
 }
 

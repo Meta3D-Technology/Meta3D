@@ -24,6 +24,10 @@ let getAddInputEventName = () => "AddInputEventName"
 
 let getSelectInputInInputsEventName = () => "SelectInputInInputsEventName"
 
+let getExpandActionCollapseEventName = () => "ExpandActionCollapseEventName"
+
+let getSelectActionInUIControlInspectorEventName = () => "SelectActionInUIControlInspectorEventName"
+
 let getAddActionEventName = () => "AddActionEventName"
 
 let getSelectActionInActionsEventName = () => "SelectActionInActionsEventName"

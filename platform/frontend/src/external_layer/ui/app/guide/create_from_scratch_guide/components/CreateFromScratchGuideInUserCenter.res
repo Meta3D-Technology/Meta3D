@@ -99,7 +99,7 @@ let make = (
         : isInCreateFromScratchTourPhase3
         ? {
           <>
-            {GuideUtils.buildSteps(None, 4, GuideUtils.buildCreateFromScratchStepData())}
+            {GuideUtils.buildSteps(None, 5, GuideUtils.buildCreateFromScratchStepData())}
             <Tour
               _open={openTourPhase3}
               onClose={() => {

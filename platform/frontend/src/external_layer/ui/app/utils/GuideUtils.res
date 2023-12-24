@@ -126,7 +126,7 @@ let buildCreateFromScratchStepData = () => {
       "加入所有的UI Control，将它们摆放到合适的位置",
     ),
     ("加入Input", "加入Input脚本", "Input提供了UI Control的数据"),
-    // ("加入Action", "加入Action脚本", "Action是事件的Handler"),
+    ("加入Action", "加入Action脚本", "Action负责处理UI Control的事件"),
     // ("运行", "运行", "运行编辑器"),
     ("发布", "发布", "发布编辑器"),
     // ("返回用户中心", "返回用户中心", "返回用户中心，查看发布的编辑器"),
@@ -174,8 +174,12 @@ let isGameViewProtocolName = protocolName => {
   protocolName == _getGameViewProtocolName()
 }
 
-let isTreeProtocolName = protocolName => {
-  protocolName == "meta3d-ui-control-tree-protocol"
+let isWindowProtocolName = protocolName => {
+  protocolName == "meta3d-ui-control-window-protocol"
+}
+
+let isButtonProtocolName = protocolName => {
+  protocolName == "meta3d-ui-control-button-protocol"
 }
 
 let startCreateFromScratchTour = (dispatchForAppStore, dispatchForElementAssembleStore) => {

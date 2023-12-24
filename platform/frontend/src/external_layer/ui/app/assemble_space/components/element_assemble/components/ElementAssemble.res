@@ -162,17 +162,21 @@ let make = (
   let rectHeightInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let selectedUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let inputSelectTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let actionSelectTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let selectGameViewUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
-  let selectTreeUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let selectWindowUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let selectButtonUIControlTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let rectXInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let rectYInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let runButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let publishButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let publishModalTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
-  let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let inputCollapseTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let addInputButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let inputCodeEditTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let actionCollapseTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let addActionButtonTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
+  let actionCodeEditTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
   service.react.useEffectOnce(() => {
     Method.resetAllAssemble(dispatch)
@@ -236,8 +240,10 @@ let make = (
               rectHeightInputTarget
               selectedUIControlTarget
               inputSelectTarget
+              actionSelectTarget
               selectGameViewUIControlTarget
-              selectTreeUIControlTarget
+              selectWindowUIControlTarget
+              selectButtonUIControlTarget
               rectXInputTarget
               rectYInputTarget
               runButtonTarget
@@ -247,6 +253,9 @@ let make = (
               inputCollapseTarget
               addInputButtonTarget
               inputCodeEditTarget
+              actionCollapseTarget
+              addActionButtonTarget
+              actionCodeEditTarget
             />
             <Space direction=#horizontal size=#small>
               // <PublishElement service account />
@@ -286,6 +295,11 @@ let make = (
                       | key if key->Meta3dCommonlib.ArraySt.includes("2") =>
                         eventEmitter.emit(.
                           EventUtils.getExpandInputCollapseEventName(),
+                          Obj.magic(1),
+                        )
+                      | key if key->Meta3dCommonlib.ArraySt.includes("3") =>
+                        eventEmitter.emit(.
+                          EventUtils.getExpandActionCollapseEventName(),
                           Obj.magic(1),
                         )
                       | _ => ()
@@ -330,7 +344,8 @@ let make = (
                     selectedUIControlTarget
                     selectSceneViewUIControlTarget
                     selectGameViewUIControlTarget
-                    selectTreeUIControlTarget
+                    selectWindowUIControlTarget
+                    selectButtonUIControlTarget
                   />
                 </Collapse.Panel>
                 // <section ref={inputCollapseTarget->Obj.magic}>
@@ -340,10 +355,10 @@ let make = (
                 // </section>
                 <Collapse.Panel
                   // ref={Meta3dCommonlib.NullableSt.getEmpty()}
-                  // ref={inputCollapseTarget}
+                  ref={actionCollapseTarget}
                   header="Actions"
                   key="3">
-                  <CustomActions service />
+                  <CustomActions service addActionButtonTarget />
                 </Collapse.Panel>
               </Collapse>
             </Layout.Sider>
@@ -362,6 +377,7 @@ let make = (
                 </Layout.Content>
               | (None, Some(currentCustomActionName)) =>
                 <Layout.Content
+                  ref={actionCodeEditTarget}
                   style={ReactDOM.Style.make(
                     ~width={j`100%`},
                     ~height={j`100%`},
@@ -385,6 +401,7 @@ let make = (
                       rectWidthInputTarget
                       rectHeightInputTarget
                       inputSelectTarget
+                      actionSelectTarget
                     />
                   </Layout.Sider>
                 </Layout>

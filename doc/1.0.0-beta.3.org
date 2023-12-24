@@ -136,7 +136,7 @@ TODO add Meta3D
 
   TODO when open Input/Action select, give doc drawer
 
-* TODO Custom: 加入新手引导
+* DONE Custom: 加入新手引导
 
 # add another two guides:
 # input guide
@@ -160,8 +160,22 @@ TODO pass input
 
 TODO pass action
 
+TODO auto expand tree all nodes
+
+TODO fix: input/action collapse not accu
+
+TODO fix last step
+
 TODO update steps change
 
+
+# * TODO user: add email
+* TODO user: change username to email
+
+TODO check email format valid when register
+
+
+TODO update database
 
 
 * TODO 平台：优化Specific
@@ -210,14 +224,6 @@ https://segmentfault.com/a/1190000041564651#item-5-1
 TODO 延迟/预加载 monaco-editor
 
 
-
-# * TODO user: add email
-* TODO user: change username to email
-
-TODO check email format valid when register
-
-
-TODO update database
 
 
 
@@ -287,6 +293,10 @@ TODO 从头创建编辑器引导的模板
 知道如何对简化版的完整的编辑器进行初步的扩展：
   如加入Material Inspector: edit material's color
 
+
+注意：
+文档保持最精简，后面再加
+e.g. UI Controls不需要全部介绍，只介绍几个重要的即可
 
 
 

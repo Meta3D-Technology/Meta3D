@@ -7,7 +7,8 @@ let buildUI = (
   ~setIsShowUIControls=ReactHookTool.buildEmptySetStateFunc(),
   ~selectSceneViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   ~selectGameViewUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
-  ~selectTreeUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~selectWindowUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
+  ~selectButtonUIControlTarget=Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic,
   (),
 ) => {
   <UIControls
@@ -18,7 +19,8 @@ let buildUI = (
     selectedContributes
     selectSceneViewUIControlTarget
     selectGameViewUIControlTarget
-    selectTreeUIControlTarget
+    selectWindowUIControlTarget
+    selectButtonUIControlTarget
   />
 }
 

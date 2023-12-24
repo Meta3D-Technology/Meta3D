@@ -33,6 +33,8 @@ type info = {
 
 @module("antd") @react.component
 external make: (
+  ~autoExpandParent:bool=?,
+  ~expandAction:bool = ?,
   ~treeData: allTreeData=?,
   ~expandedKeys: keys=?,
   ~selectedKeys: keys=?,

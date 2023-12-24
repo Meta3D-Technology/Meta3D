@@ -49,7 +49,7 @@ module Method = {
 }
 
 @react.component
-let make = (~service: service) => {
+let make = (~service: service, ~addActionButtonTarget: React.ref<Js.Nullable.t<'a>>) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (customActions, currentCustomActionName) = service.react.useSelector(. Method.useSelector)
@@ -61,7 +61,7 @@ let make = (~service: service) => {
     buildRemoveActionFunc={actionName => ElementAssembleStoreType.RemoveCustomAction(actionName)}
     buildDefaultOriginFileStrFunc=Method.buildDefaultActionOriginFileStr
     buildDefaultTranspiledFileStrFunc=Method.buildDefaultActionTranspiledFileStr
-    addButtonTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic}
+    addButtonTarget=addActionButtonTarget
     addEventName={EventUtils.getAddActionEventName()}
     selectEventName={EventUtils.getSelectActionInActionsEventName()}
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomActionNameToGlobal

@@ -565,6 +565,7 @@ let make = (
   ~rectWidthInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~inputSelectTarget: React.ref<Js.Nullable.t<'a>>,
+  ~actionSelectTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
@@ -651,7 +652,10 @@ let make = (
           {SelectUtils.buildSelect(
             value => {
               Method.setInput(dispatch, id, value)
-              eventEmitter.emit(. EventUtils.getSelectInputInUIControlInspectorEventName(), value->Obj.magic)
+              eventEmitter.emit(.
+                EventUtils.getSelectInputInUIControlInspectorEventName(),
+                value->Obj.magic,
+              )
             },
             input
             ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
@@ -705,19 +709,27 @@ let make = (
             <Space direction=#vertical size=#middle>
               {<Space direction=#horizontal size=#middle>
                 <span> {React.string({j`${eventName->Obj.magic}: `})} </span>
-                {SelectUtils.buildSelect(
-                  Method.setAction(dispatch, id, eventName),
-                  value,
-                  // Method.buildActionNameSelectValues(
-                  //   service,
-                  //   actions,
-                  //   // ElementMRUtils.getActionName(
-                  //   //   event,
-                  //   //   eventName,
-                  //   // )->Meta3dCommonlib.OptionSt.fromNullable,
-                  // ),
-                  actionNameSelectValues,
-                )}
+                <section ref={actionSelectTarget->Obj.magic}>
+                  {SelectUtils.buildSelect(
+                    value => {
+                      Method.setAction(dispatch, id, eventName, value)
+                      eventEmitter.emit(.
+                        EventUtils.getSelectActionInUIControlInspectorEventName(),
+                        value->Obj.magic,
+                      )
+                    },
+                    value,
+                    // Method.buildActionNameSelectValues(
+                    //   service,
+                    //   actions,
+                    //   // ElementMRUtils.getActionName(
+                    //   //   event,
+                    //   //   eventName,
+                    //   // )->Meta3dCommonlib.OptionSt.fromNullable,
+                    // ),
+                    actionNameSelectValues,
+                  )}
+                </section>
               </Space>}
               // {TextareaUtils.isNotShowTextareaForTest()
               //   ? React.null

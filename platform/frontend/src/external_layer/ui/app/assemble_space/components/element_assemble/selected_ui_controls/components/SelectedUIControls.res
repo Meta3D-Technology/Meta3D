@@ -49,11 +49,15 @@ module Method = {
       ? title
       : {
           let {displayName} =
-            selectedUIControls
-            ->Meta3dCommonlib.ListSt.find(data => {
-              data.id == id
-            })
-            ->Meta3dCommonlib.OptionSt.getExn
+            HierachyUtils.findSelectedUIControlData(
+              None,
+              (
+                (data: ElementAssembleStoreType.uiControl) => data.id,
+                (data: ElementAssembleStoreType.uiControl) => data.children,
+              ),
+              selectedUIControls,
+              id,
+            )->Meta3dCommonlib.OptionSt.getExn
 
           _findLabel(id, selectedUIControlInspectorData)->Meta3dCommonlib.OptionSt.getWithDefault(
             displayName,
@@ -108,12 +112,22 @@ module Method = {
     ]
   }
 
-  let onExpand = ((setExpandedKeys, setAutoExpandParent), expandedKeysValue) => {
-    setExpandedKeys(_ => expandedKeysValue)
-    // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-    // or, you can remove all expanded children keys.
-    setAutoExpandParent(_ => false)
+  let getAllKeys = selectedUIControls => {
+    HierachyUtils.reduceAllSelectedUIControlData(
+      [],
+      (result, data: ElementAssembleStoreType.uiControl) =>
+        result->Meta3dCommonlib.ArraySt.push(data.id),
+      (data: ElementAssembleStoreType.uiControl) => data.children,
+      selectedUIControls,
+    )
   }
+
+  // let onExpand = ((setExpandedKeys, setAutoExpandParent), expandedKeysValue) => {
+  //   setExpandedKeys(_ => expandedKeysValue)
+  //   // if not set autoExpandParent to false, if children expanded, parent can not collapse.
+  //   // or, you can remove all expanded children keys.
+  //   setAutoExpandParent(_ => false)
+  // }
 
   let onSelect = (service, (dispatch, setSelectedKeys), selectedKeysValue, info: Tree.info) => {
     setSelectedKeys(_ => selectedKeysValue)
@@ -239,13 +253,14 @@ let make = (
   ~selectSceneViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectedUIControlTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
-  ~selectTreeUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectWindowUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectButtonUIControlTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
   let (expandedKeys, setExpandedKeys) = service.react.useState(_ => [Method.getRootKey()])
   let (selectedKeys, setSelectedKeys) = service.react.useState(_ => [])
-  let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
+  // let (autoExpandParent, setAutoExpandParent) = service.react.useState(_ => true)
   let (isShowUIControls, setIsShowUIControls) = service.react.useState(_ => false)
 
   let (
@@ -274,13 +289,14 @@ let make = (
       </Space>
       <section ref={selectedUIControlTarget->Obj.magic}>
         <Tree
+          autoExpandParent=true
           showIcon=true
           treeData={selectedUIControls
           ->Method.convertToTreeData(service, _, selectedUIControlInspectorData)
           ->Method.addRootTreeNode}
-          expandedKeys
-          onExpand={expandedKeysValue =>
-            Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
+          expandedKeys={Method.getAllKeys(selectedUIControls)}
+          // onExpand={expandedKeysValue =>
+          //   Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
           selectedKeys
           onSelect={(selectedKeysValue, info: Tree.info) => {
             Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)
@@ -360,7 +376,8 @@ let make = (
         selectedContributes
         selectSceneViewUIControlTarget
         selectGameViewUIControlTarget
-        selectTreeUIControlTarget
+        selectWindowUIControlTarget
+        selectButtonUIControlTarget
       />
     </Modal>
   </>

@@ -16,6 +16,7 @@ type clickEvent = {
 
 @react.component @module("antd")
 external make: (
+  ~ref:'a=?,
   ~theme: theme=?,
   ~mode: mode=?,
   ~defaultSelectedKeys: array<key>=?,

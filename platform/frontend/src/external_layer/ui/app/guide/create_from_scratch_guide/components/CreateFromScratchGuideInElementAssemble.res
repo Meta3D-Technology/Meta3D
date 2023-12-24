@@ -4,7 +4,7 @@ open AssembleSpaceType
 
 module Method = {
   let buildCreateFromScratchTourStepAndStepMapData = () => {
-    [(0, 1), (2, 2), (12, 3), (13, 4), (15, 5)]
+    [(0, 1), (2, 2), (20, 3), (27, 4), (34, 5)]
   }
 
   let buildCreateFromScratchTourSteps = (
@@ -18,8 +18,10 @@ module Method = {
     rectHeightInputTarget: React.ref<Js.Nullable.t<'a>>,
     selectedUIControlTarget: React.ref<Js.Nullable.t<'a>>,
     inputSelectTarget: React.ref<Js.Nullable.t<'a>>,
+    actionSelectTarget: React.ref<Js.Nullable.t<'a>>,
     selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
-    selectTreeUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+    selectWindowUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+    selectButtonUIControlTarget: React.ref<Js.Nullable.t<'a>>,
     rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
     rectYInputTarget: React.ref<Js.Nullable.t<'a>>,
     runButtonTarget: React.ref<Js.Nullable.t<'a>>,
@@ -29,6 +31,9 @@ module Method = {
     inputCollapseTarget: React.ref<Js.Nullable.t<'a>>,
     addInputButtonTarget: React.ref<Js.Nullable.t<'a>>,
     inputCodeEditTarget: React.ref<Js.Nullable.t<'a>>,
+    actionCollapseTarget: React.ref<Js.Nullable.t<'a>>,
+    addActionButtonTarget: React.ref<Js.Nullable.t<'a>>,
+    actionCodeEditTarget: React.ref<Js.Nullable.t<'a>>,
   ): array<Antd__Tour.tourStep> => {
     [
       {
@@ -60,7 +65,7 @@ module Method = {
       },
       {
         title: "加入Scene View",
-        description: {React.string(`Scene View负责显示编辑视图，点击它`)},
+        description: {React.string(`点击它。Scene View负责显示编辑视图`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => selectSceneViewUIControlTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -69,7 +74,7 @@ module Method = {
       },
       {
         title: "设置Scene View的宽度",
-        description: {React.string(`这里可以设置为500`)},
+        description: {React.string(`这里可以设置为400`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => rectWidthInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -78,24 +83,24 @@ module Method = {
       },
       {
         title: "设置Scene View的高度",
-        description: {React.string(`这里可以设置为500`)},
+        description: {React.string(`这里可以设置为400`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => rectHeightInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
           GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
         }->Meta3dCommonlib.NullableSt.return,
       },
-      {
-        title: "选择Root",
-        description: {
-          React.string(`UI Control将会加入到选中的节点中。这里点击React`)
-        },
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => selectedUIControlTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
+      // {
+      //   title: "选择Root",
+      //   description: {
+      //     React.string(`UI Control将会加入到选中的节点中。这里点击Root`)
+      //   },
+      //   cover: Meta3dCommonlib.NullableSt.getEmpty(),
+      //   target: () => selectedUIControlTarget->GuideUtils.getRefCurrent,
+      //   closeIcon: {
+      //     GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+      //   }->Meta3dCommonlib.NullableSt.return,
+      // },
       {
         title: "点击加入UI Control的按钮",
         description: {React.string(``)},
@@ -107,7 +112,7 @@ module Method = {
       },
       {
         title: "加入Game View",
-        description: {React.string(`Game View负责显示运行视图，点击它`)},
+        description: {React.string(`点击它。Game View负责显示运行视图`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => selectGameViewUIControlTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -116,7 +121,7 @@ module Method = {
       },
       {
         title: "设置Game View的x坐标",
-        description: {React.string(`这里可以设置为500`)},
+        description: {React.string(`这里可以设置为400`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => rectXInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -125,7 +130,7 @@ module Method = {
       },
       {
         title: "设置Game View的宽度",
-        description: {React.string(`这里可以设置为500`)},
+        description: {React.string(`这里可以设置为400`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => rectWidthInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -134,7 +139,7 @@ module Method = {
       },
       {
         title: "设置Game View的高度",
-        description: {React.string(`这里可以设置为500`)},
+        description: {React.string(`这里可以设置为400`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => rectHeightInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -170,14 +175,70 @@ module Method = {
           GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
         }->Meta3dCommonlib.NullableSt.return,
       },
-
       {
-        title: "加入Tree",
+        title: "加入窗口",
         description: {
-          React.string(`点击它。Tree负责显示层级数据，这里用来作为Scene Tree，显示场景中所有物体的name`)
+          // React.string(`点击它。窗口负责显示层级数据，这里用来作为Scene Tree，显示场景中所有物体的name`)
+          React.string(`点击它。窗口是容器，能加入其它的UI Control到它中`)
         },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => selectTreeUIControlTarget->GuideUtils.getRefCurrent,
+        target: () => selectWindowUIControlTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "设置窗口的y坐标",
+        description: {React.string(`这里可以设置为500`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => rectYInputTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "设置窗口的宽度",
+        description: {React.string(`这里可以设置为200`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => rectWidthInputTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "设置窗口的高度",
+        description: {React.string(`这里可以设置为100`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => rectHeightInputTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "选择窗口",
+        description: {React.string(`这里点击窗口`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => selectedUIControlTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "点击加入UI Control的按钮",
+        description: {React.string(``)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => addUIControlButtonTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "加入按钮",
+        description: {
+          React.string(`点击它，将其加入到窗口中`)
+        },
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => selectButtonUIControlTarget->GuideUtils.getRefCurrent,
         closeIcon: {
           GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
         }->Meta3dCommonlib.NullableSt.return,
@@ -211,76 +272,9 @@ module Method = {
       },
       {
         title: "更新代码",
-        description: <Space direction=#vertical>
-          <Typography.Text>
-            {React.string(`1.点击下面的链接获得更新代码 2.将全部代码替换为它 3.点Next继续下一步的引导`)}
-          </Typography.Text>
-          <Typography.Link href={j`TODO link`} target=#_blank>
-            {React.string(`点我获得更新代码`)}
-            // `import { api } from "meta3d-type"
-            // import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-
-            // var nodeType;
-            // (function (nodeType) {
-            //     nodeType[nodeType["Type1"] = 0] = "Type1";
-            //     nodeType[nodeType["Type2"] = 1] = "Type2";
-            //     nodeType[nodeType["Type3"] = 2] = "Type3";
-            // })(nodeType || (nodeType = {}));
-            // let getAllTopGameObjects = (api, meta3dState, editorWholeService) => {
-            //     let { gameObject, transform } = editorWholeService.scene(meta3dState);
-            //     return gameObject.getAllGameObjects(meta3dState).filter(gameObject_ => {
-            //         return api.nullable.isNullable(transform.getParent(meta3dState, gameObject.getTransform(meta3dState, gameObject_)));
-            //     });
-            // };
-            // let buildHierachyGameObjects = (api, result, editorWholeService, meta3dState, parentGameObjects) => {
-            //     let { gameObject, transform } = editorWholeService.scene(meta3dState);
-            //     return parentGameObjects.reduce((result, parentGameObject) => {
-            //         let children = transform.getChildren(meta3dState, gameObject.getTransform(meta3dState, parentGameObject));
-            //         if (api.nullable.isNullable(children) || api.nullable.getExn(children).length == 0) {
-            //             result.push([parentGameObject, []]);
-            //         }
-            //         else {
-            //             result.push([parentGameObject, buildHierachyGameObjects(api, [], editorWholeService, meta3dState, api.nullable.getExn(children).map(child => {
-            //                     return transform.getGameObjects(meta3dState, child)[0];
-            //                 }))]);
-            //         }
-            //         return result;
-            //     }, result);
-            // };
-            // let findSelectedGameObject = (api, hierachyGameObjects, treeIndexData) => {
-            //     let _func = (hierachyGameObjects, index, treeIndexData) => {
-            //         if (treeIndexData.length == 0) {
-            //             return hierachyGameObjects[index][0];
-            //         }
-            //         return _func(hierachyGameObjects[index][1], api.nullable.getExn(treeIndexData[0]), treeIndexData.slice(1));
-            //     };
-            //     return _func(hierachyGameObjects, api.nullable.getExn(treeIndexData[0]), treeIndexData.slice(1));
-            // };
-
-            // let _convertToTreeData = (api, editorWholeService, meta3dState, hierachyGameObjects) => {
-            //     let { gameObject } = editorWholeService.scene(meta3dState);
-            //     return hierachyGameObjects.map(([gameObject_, children]) => {
-            //         return [
-            //             api.nullable.getWithDefault(gameObject.getGameObjectName(meta3dState, gameObject_), ""),
-            //             gameObject.hasBasicCameraView(meta3dState, gameObject_) && gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject_) ? nodeType.Type1 :
-            //                 gameObject.hasDirectionLight(meta3dState, gameObject_) ? nodeType.Type2 :
-            //                     nodeType.Type3,
-            //             _convertToTreeData(api, editorWholeService, meta3dState, children)
-            //         ];
-            //     });
-            // };
-            // export let getContribute = (api:api) => {
-            //     return {
-            //         inputName: "SceneTreeInput",
-            //         func: (meta3dState) => {
-            //             let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"));
-            //             let hierachyGameObjects = buildHierachyGameObjects(api, [], editorWholeService, meta3dState, getAllTopGameObjects(api, meta3dState, editorWholeService));
-            //             return Promise.resolve(_convertToTreeData(api, editorWholeService, meta3dState, hierachyGameObjects));
-            //         }
-            //     };
-            // };`
-          </Typography.Link>
-        </Space>,
+        description: {
+          React.string(`将“Promise.resolve(null)”替换为：“Promise.resolve(true)”`)
+        },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => inputCodeEditTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -288,8 +282,8 @@ module Method = {
         }->Meta3dCommonlib.NullableSt.return,
       },
       {
-        title: "选择Tree",
-        description: {React.string(`这里点击刚加入的UI Control：树`)},
+        title: "选择窗口",
+        description: {React.string(`这里点击窗口`)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => selectedUIControlTarget->GuideUtils.getRefCurrent,
         closeIcon: {
@@ -297,37 +291,12 @@ module Method = {
         }->Meta3dCommonlib.NullableSt.return,
       },
       {
-        title: "选择SceneTreeInput",
-        description: {React.string(`选择SceneTreeInput`)},
+        title: "选择Input1",
+        description: {
+          React.string(`这里选择刚加入的Input1，从而指定要绘制窗口。注：如果将Input1中的true改为false，则会隐藏窗口。`)
+        },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => inputSelectTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Tree的y坐标",
-        description: {React.string(`这里可以设置为500`)},
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectYInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Tree的宽度",
-        description: {React.string(`这里可以设置为200`)},
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectWidthInputTarget->GuideUtils.getRefCurrent,
-        closeIcon: {
-          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
-        }->Meta3dCommonlib.NullableSt.return,
-      },
-      {
-        title: "设置Tree的高度",
-        description: {React.string(`这里可以设置为200`)},
-        cover: Meta3dCommonlib.NullableSt.getEmpty(),
-        target: () => rectHeightInputTarget->GuideUtils.getRefCurrent,
         closeIcon: {
           GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
         }->Meta3dCommonlib.NullableSt.return,
@@ -354,7 +323,78 @@ module Method = {
       {
         title: "运行编辑器",
         description: {
-          React.string(`点击它。可以看到Scene Tree中显示了相机、立方体、方向光的name`)
+          // React.string(`点击它。可以看到Scene Tree中显示了相机、立方体、方向光的name`)
+          React.string(`点击它。您可以在左下方看到绘制的窗口`)
+        },
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => runButtonTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "展开Action",
+        description: {React.string(`点击它`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => actionCollapseTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "加入Action",
+        description: {React.string(`点击它`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => addActionButtonTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "选择加入的Action",
+        description: {React.string(`点击Action1`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => actionCollapseTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "更新代码",
+        description: {
+          React.string(`在第12行代码：“return Promise.resolve(meta3dState)”之前插入一行代码：
+alert("触发按钮的click事件")`)
+        },
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => actionCodeEditTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "选择按钮",
+        description: {React.string(`这里点击按钮`)},
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => selectedUIControlTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "选择Action1",
+        description: {
+          React.string(`这里选择刚加入的Action1，从而指定触发按钮的click事件时，将会执行Action1`)
+        },
+        cover: Meta3dCommonlib.NullableSt.getEmpty(),
+        target: () => actionSelectTarget->GuideUtils.getRefCurrent,
+        closeIcon: {
+          GuideUtils.buildCloseIcon(dispatchForAppStore, dispatchForElementAssembleStore)
+        }->Meta3dCommonlib.NullableSt.return,
+      },
+      {
+        title: "运行编辑器",
+        description: {
+          React.string(`点击它。您可以点击按钮，将会弹一个alert`)
         },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => runButtonTarget->GuideUtils.getRefCurrent,
@@ -415,8 +455,10 @@ let make = (
   ~selectedUIControlTarget: React.ref<Js.Nullable.t<'a>>,
   // ~treeTarget: React.ref<Js.Nullable.t<'a>>,
   ~inputSelectTarget: React.ref<Js.Nullable.t<'a>>,
+  ~actionSelectTarget: React.ref<Js.Nullable.t<'a>>,
   ~selectGameViewUIControlTarget: React.ref<Js.Nullable.t<'a>>,
-  ~selectTreeUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectWindowUIControlTarget: React.ref<Js.Nullable.t<'a>>,
+  ~selectButtonUIControlTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectXInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~rectYInputTarget: React.ref<Js.Nullable.t<'a>>,
   ~runButtonTarget: React.ref<Js.Nullable.t<'a>>,
@@ -426,6 +468,9 @@ let make = (
   ~inputCollapseTarget: React.ref<Js.Nullable.t<'a>>,
   ~addInputButtonTarget: React.ref<Js.Nullable.t<'a>>,
   ~inputCodeEditTarget: React.ref<Js.Nullable.t<'a>>,
+  ~actionCollapseTarget: React.ref<Js.Nullable.t<'a>>,
+  ~addActionButtonTarget: React.ref<Js.Nullable.t<'a>>,
+  ~actionCodeEditTarget: React.ref<Js.Nullable.t<'a>>,
 ) => {
   let dispatchForAppStore = service.app.useDispatch()
   let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
@@ -444,53 +489,6 @@ let make = (
     MessageUtils.showCatchedErrorMessage(() => {
       isInCreateFromScratchTourPhase2 ? setOpenTour(_ => true) : setOpenTour(_ => false)
 
-      // eventEmitter.addListener(.
-      //   EventUtils.getShowPublishAppModalEventName(),
-      //   _ => {
-      //     currentTourStep == 13 ? setCurrentTourStep(current => current->succ) : ()
-      //   },
-      // )
-      // eventEmitter.addListener(.
-      //   EventUtils.getPublishAppEventName(),
-      //   _ => {
-      //     currentTourStep == 14 ? setCurrentTourStep(current => current->succ) : ()
-      //   },
-      // )
-      // eventEmitter.addListener(.
-      //   EventUtils.getRunEventName(),
-      //   _ => {
-      //     currentTourStep == 12 ? setCurrentTourStep(current => current->succ) : ()
-      //   },
-      // )
-      // eventEmitter.addListener(.
-      //   EventUtils.getAddUIControlsEventName(),
-      //   _ => {
-      //     currentTourStep == 2 || currentTourStep == 7
-      //       ? setCurrentTourStep(current => current->succ)
-      //       : ()
-      //   },
-      // )
-      // eventEmitter.addListener(.
-      //   EventUtils.getSelectUIControlEventName(),
-      //   protocolName => {
-      //     let protocolName = protocolName->Obj.magic
-
-      //     (GuideUtils.isSceneViewProtocolName(protocolName) && currentTourStep == 3) ||
-      //     GuideUtils.isGameViewProtocolName(protocolName) && currentTourStep == 8 ||
-      //     (GuideUtils.isTreeProtocolName(protocolName) && currentTourStep == 15)
-      //       ? setCurrentTourStep(current => current->succ)
-      //       : ()
-      //   },
-      // )
-      // eventEmitter.addListener(.
-      //   EventUtils.getSelectTreeNodeEventName(),
-      //   title => {
-      //     let title = title->Obj.magic
-
-      //     title == "root" && currentTourStep == 6
-      //       ? setCurrentTourStep(current => current->succ)
-      //       : ()
-      //   },
       eventEmitter.addListener(.
         EventUtils.getShowPublishAppModalEventName(),
         _ => {
@@ -503,12 +501,12 @@ let make = (
           setCurrentTourStep(current => current->succ)
         },
       )
-      eventEmitter.addListener(.
-        EventUtils.getRunEventName(),
-        _ => {
-          setCurrentTourStep(current => current->succ)
-        },
-      )
+      // eventEmitter.addListener(.
+      //   EventUtils.getRunEventName(),
+      //   _ => {
+      //     setCurrentTourStep(current => current->succ)
+      //   },
+      // )
       eventEmitter.addListener(.
         EventUtils.getAddUIControlsEventName(),
         _ => {
@@ -523,7 +521,12 @@ let make = (
       eventEmitter.addListener(.
         EventUtils.getSelectUIControlEventName(),
         protocolName => {
-          setCurrentTourStep(current => current->succ)
+          Window.setTimeout(
+            () => {
+              setCurrentTourStep(current => current->succ)
+            },
+            0,
+          )
         },
       )
       eventEmitter.addListener(.
@@ -532,8 +535,10 @@ let make = (
           let title = title->Obj.magic
 
           title == "root" ||
-          title->Js.String.includes("Tree", _) ||
-          title->Js.String.includes("树", _)
+          title->Js.String.includes("Window", _) ||
+          title->Js.String.includes("窗口", _) ||
+          title->Js.String.includes("Button", _) ||
+          title->Js.String.includes("按钮", _)
             ? setCurrentTourStep(current => current->succ)
             : ()
         },
@@ -549,7 +554,7 @@ let make = (
         inputName => {
           let inputName = inputName->Obj.magic
 
-          inputName == "SceneTreeInput" ? setCurrentTourStep(current => current->succ) : ()
+          inputName == "Input1" ? setCurrentTourStep(current => current->succ) : ()
         },
       )
       eventEmitter.addListener(.
@@ -561,9 +566,38 @@ let make = (
       eventEmitter.addListener(.
         EventUtils.getSelectInputInInputsEventName(),
         inputName => {
-          let inputName = inputName->Obj.magic
+          // let inputName = inputName->Obj.magic
 
           // inputName == "Input1" ? setCurrentTourStep(current => current->succ) : ()
+          setCurrentTourStep(current => current->succ)
+        },
+      )
+      eventEmitter.addListener(.
+        EventUtils.getExpandActionCollapseEventName(),
+        _ => {
+          setCurrentTourStep(current => current->succ)
+        },
+      )
+      eventEmitter.addListener(.
+        EventUtils.getSelectActionInUIControlInspectorEventName(),
+        inputName => {
+          let inputName = inputName->Obj.magic
+
+          inputName == "Action1" ? setCurrentTourStep(current => current->succ) : ()
+        },
+      )
+      eventEmitter.addListener(.
+        EventUtils.getAddActionEventName(),
+        _ => {
+          setCurrentTourStep(current => current->succ)
+        },
+      )
+      eventEmitter.addListener(.
+        EventUtils.getSelectActionInActionsEventName(),
+        inputName => {
+          // let inputName = inputName->Obj.magic
+
+          // inputName == "Action1" ? setCurrentTourStep(current => current->succ) : ()
           setCurrentTourStep(current => current->succ)
         },
       )
@@ -610,8 +644,10 @@ let make = (
                 rectHeightInputTarget,
                 selectedUIControlTarget,
                 inputSelectTarget,
+                actionSelectTarget,
                 selectGameViewUIControlTarget,
-                selectTreeUIControlTarget,
+                selectWindowUIControlTarget,
+                selectButtonUIControlTarget,
                 rectXInputTarget,
                 rectYInputTarget,
                 runButtonTarget,
@@ -621,6 +657,9 @@ let make = (
                 inputCollapseTarget,
                 addInputButtonTarget,
                 inputCodeEditTarget,
+                actionCollapseTarget,
+                addActionButtonTarget,
+                actionCodeEditTarget,
               )}
             />
           </>
