@@ -338,6 +338,10 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"CreateFromScratchGuideBeginInElementAssemble"} => Method.judgeToJumpToLogin(() => {
         <CreateFromScratchGuideBeginInElementAssemble account />
       }, account, service)
+    | list{"meta3d"} =>
+      LoginUtils.login(dispatch, "meta3d")
+
+      React.null
     | _ => Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
     }}
   </>

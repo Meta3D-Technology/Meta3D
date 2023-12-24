@@ -191,9 +191,9 @@ TODO fix: asset: label: empty will make visual disappear
 pass bdd test
 
 
-* TODO 平台：优化UI
+# * TODO 平台：优化UI
 
-TODO 优化UIControlInspector UI
+# TODO 优化UIControlInspector UI
 
 
 

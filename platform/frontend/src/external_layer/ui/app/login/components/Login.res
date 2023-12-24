@@ -70,11 +70,7 @@ let make = (~service: FrontendType.service) => {
             ()
           }
         : {
-            LoginUtils.saveAccount(account)
-
-            dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
-
-            RescriptReactRouter.push("/")
+            LoginUtils.login(dispatch, account)
 
             setIsLoginBegin(_ => false)
           }

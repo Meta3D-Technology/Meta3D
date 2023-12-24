@@ -18,3 +18,12 @@ let readAccount = () => {
 let logOut = () => {
   LocalStorageUtils.remove(_buildAccountKey())
 }
+
+
+let login = (dispatch, account) => {
+            saveAccount(account)
+
+            dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
+
+            RescriptReactRouter.push("/")
+}
