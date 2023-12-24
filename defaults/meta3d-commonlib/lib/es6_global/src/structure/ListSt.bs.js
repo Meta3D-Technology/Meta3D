@@ -166,6 +166,8 @@ var length = Belt_List.length;
 
 var head = Belt_List.head;
 
+var tail = Belt_List.tail;
+
 var nth = Belt_List.get;
 
 var reverse = Belt_List.reverse;
@@ -201,6 +203,7 @@ export {
   filter ,
   length ,
   head ,
+  tail ,
   nth ,
   getLast ,
   removeDuplicateItemsU ,

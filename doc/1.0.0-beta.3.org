@@ -205,9 +205,12 @@ pass bdd test
 * DONE 优化： action publish->meta3d.js use compress
 
 
-* TODO 平台：优化后端加载
+* DONE 平台：优化后端加载
 
-使用requestIdleCallback等API，在空闲时间加载必备的后端资源（如packages等）
+使用requestIdleCallback等API，在空闲时间加载必备的后端资源（如packages, monaco等）
+
+
+TODO wait for previous task
 
 
 

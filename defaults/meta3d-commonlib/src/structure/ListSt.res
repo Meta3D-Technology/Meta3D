@@ -121,6 +121,8 @@ let length = Belt.List.length
 
 let head = Belt.List.head
 
+let tail = Belt.List.tail
+
 let nth = Belt.List.get
 
 let getLast = list => list->nth(length(list) - 1)

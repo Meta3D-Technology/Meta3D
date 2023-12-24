@@ -27,6 +27,10 @@ let reducer = (state, action) => {
       ...state,
       assembleSpaceState: AssembleSpaceStore.reducer(state.assembleSpaceState, action),
     }
+  // | SetIdleTasks(idleTasks) => {
+  //     ...state,
+  //     idleTasks,
+  //   }
   }
 }
 
@@ -35,6 +39,7 @@ let initialState = {
   enterAppState: EnterAppStore.initialState,
   assembleSpaceState: AssembleSpaceStore.initialState,
   eventEmitter: Event.eventEmitter(),
+  // idleTasks: list{},
 }
 
 let store = Remporium.makeStore(initialState, reducer)

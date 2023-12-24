@@ -22,17 +22,42 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
   let url = RescriptReactRouter.useUrl()
 
-  let {
+  let (
     account,
     selectedExtensions,
     selectedContributes,
     selectedPackages,
     selectedElements,
     currentAppName,
-    // customInputs,
-    // customActions,
-  } = AppStore.useSelector(({userCenterState}: AppStoreType.state) => userCenterState)
+    // release,
 
+    // idleTasks,
+  ) = AppStore.useSelector(({userCenterState}: AppStoreType.state) => {
+    let {
+      account,
+      selectedExtensions,
+      selectedContributes,
+      selectedPackages,
+      selectedElements,
+      currentAppName,
+      // release,
+    } = userCenterState
+
+    (
+      account,
+      selectedExtensions,
+      selectedContributes,
+      selectedPackages,
+      selectedElements,
+      currentAppName,
+      // release,
+
+      // idleTasks,
+    )
+  })
+
+  let release = React.useRef(None)
+  let idleTasks = React.useRef(list{})
   let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
   let _buildAssembleSpaceService = (): AssembleSpaceType.service => {
@@ -279,6 +304,123 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       // },
     },
   }
+
+  let _getReleaseData = dispatch => {
+    Window.fetch("https://api.github.com/repos/Meta3D-Technology/Meta3D/releases/latest")
+    ->Js.Promise.then_(({json}: WindowType.fetchResult) => {
+      json(.)->Js.Promise.resolve
+    }, _)
+    ->Js.Promise.then_(json => {
+      let data = json->Obj.magic
+
+      let published_at = data["published_at"]
+
+      let release = (
+        {
+          version: data["tag_name"],
+          releaseDateUntilNow: Moment.moment(.).subtract(.
+            Moment.createMomentFromDate(. published_at),
+          ).dayOfYear(.) - 1,
+        }: UserCenterStoreType.release
+      )
+
+      dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetRelease(release)))
+
+      release->Js.Promise.resolve
+    }, _)
+  }
+
+  React.useEffect0(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
+      // dispatch(
+      //   AppStoreType.SetIdleTasks(),
+      // )
+      idleTasks.current = list{
+        () => {
+          _getReleaseData(dispatch)
+          ->Js.Promise.then_(
+            release_ => {
+              release.current = release_->Some
+
+              ()->Js.Promise.resolve
+            },
+            _,
+          )
+          ->ignore
+
+          true
+        },
+        () => {
+          switch release.current {
+          | None => false
+          | Some(release) =>
+            UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
+
+            true
+          }
+        },
+        () => {
+          switch release.current {
+          | None => false
+          | Some(release) =>
+            SelectPackageUtils.selectEditorWholeAndEngineWholePackages(
+              service,
+              dispatch,
+              release->Some,
+            )->ignore
+
+            true
+          }
+        },
+      }
+    }, 5->Some)
+
+    None
+  })
+
+  React.useEffect1(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
+      let rec _handle = (deadline: RequestIdleCallback.deadline) => {
+        let tasks = ref(idleTasks.current)
+
+        while deadline.timeRemaining(.) > 0 && tasks.contents->Meta3dCommonlib.ListSt.length > 0 {
+          let isTaskExec = (
+            tasks.contents->Meta3dCommonlib.ListSt.head->Meta3dCommonlib.OptionSt.getExn
+          )()
+
+          isTaskExec
+            ? {
+                tasks :=
+                  tasks.contents
+                  ->Meta3dCommonlib.ListSt.tail
+                  ->Meta3dCommonlib.OptionSt.getWithDefault(list{})
+              }
+            : ()
+        }
+
+        idleTasks.current = tasks.contents
+
+        // dispatch(AppStoreType.SetIdleTasks(tasks.contents))
+
+        idleTasks.current->Meta3dCommonlib.ListSt.length > 0
+          ? {
+              // Js.log("continue next")
+              RequestIdleCallback.requestIdleCallback(
+                _handle,
+                Meta3dCommonlib.NullableSt.getEmpty(),
+              )->ignore
+            }
+          : ()
+      }
+
+      RequestIdleCallback.requestIdleCallback(
+        _handle,
+        Meta3dCommonlib.NullableSt.getEmpty(),
+      )->ignore
+    }, 5->Some)
+
+    None
+  }, [])
 
   <>
     {contextHolder}

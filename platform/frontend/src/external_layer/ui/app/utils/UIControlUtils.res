@@ -99,4 +99,11 @@ let selectAllUIControls = (service: FrontendType.service, dispatch, release) => 
 
     ()->Js.Promise.resolve
   }, _)
+              // ->Js.Promise.then_(
+              //   () => {
+              //     Js.log("finish")
+              //     ()->Js.Promise.resolve
+              //   },
+              //   _,
+              // )
 }
