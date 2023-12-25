@@ -353,7 +353,7 @@ Meta3d_jest.describe("InitEventAPI", (function (param) {
                                 _testMouseEvent(/* Click */1, "click");
                               }));
                         Meta3d_jest.describe("bind mousewheel event", (function (param) {
-                                _testMouseEvent(/* MouseWheel */5, "mousewheel");
+                                _testMouseEvent(/* MouseWheel */5, "wheel");
                               }));
                         Meta3d_jest.describe("bind mousemove event", (function (param) {
                                 _testMouseEvent(/* MouseMove */4, "mousemove");
@@ -1189,7 +1189,7 @@ Meta3d_jest.describe("InitEventAPI", (function (param) {
                                 _testPointEvent(CustomEventTool$Meta3dEvent.getPointTapEventName(undefined), "click");
                               }));
                         Meta3d_jest.describe("test trigger pointscale event", (function (param) {
-                                _testPointEvent(CustomEventTool$Meta3dEvent.getPointScaleEventName(undefined), "mousewheel");
+                                _testPointEvent(CustomEventTool$Meta3dEvent.getPointScaleEventName(undefined), "wheel");
                               }));
                         Meta3d_jest.describe("test trigger pointmove event", (function (param) {
                                 _testPointEvent(CustomEventTool$Meta3dEvent.getPointMoveEventName(undefined), "mousemove");

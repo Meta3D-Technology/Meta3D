@@ -4,7 +4,7 @@
     "displayName": "折叠面板",
     "publisher": "meta3d",
     "author": "Meta3D",
-    "main": "src/Index.d.ts",
+    "main": "src/Index.ts",
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",

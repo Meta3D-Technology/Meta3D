@@ -266,9 +266,6 @@ TODO 从头创建编辑器引导的模板
 
 
 
-* TODO github->codecov should contain platform/assemble-space
-* TODO Github: lanaguage remove Javascript
-
 
 
 
@@ -279,6 +276,15 @@ TODO pass ci:
   TODO pass ci in local
   TODO solve ci sometimes fail: Actions->Install error
   TODO make ci pass in README
+
+
+TODO publish
+
+
+TODO github->codecov should contain platform/assemble-space
+TODO Github: lanaguage remove Javascript
+
+
 
 * TODO 准备模板 in production
 

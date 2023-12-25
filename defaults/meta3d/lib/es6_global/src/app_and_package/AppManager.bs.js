@@ -77,7 +77,7 @@ function _parseAllPackageUint8StoredInApp(allPackageUint8StoredInApp) {
                         RE_EXN_ID: "Match_failure",
                         _1: [
                           "AppManager.res",
-                          182,
+                          115,
                           32
                         ],
                         Error: new Error()
@@ -123,7 +123,7 @@ function load(addGeneratedContributeFunc, appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            231,
+            164,
             6
           ],
           Error: new Error()
@@ -161,7 +161,7 @@ function getAllDataOfApp(appBinaryFile) {
           RE_EXN_ID: "Match_failure",
           _1: [
             "AppManager.res",
-            298,
+            231,
             6
           ],
           Error: new Error()

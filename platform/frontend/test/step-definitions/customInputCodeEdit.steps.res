@@ -25,6 +25,10 @@ defineFeature(feature, test => {
     let newInputName = "NewInputName1"
     let newOriginCode = ref(Obj.magic(1))
     let newTranspiledCode = ref(Obj.magic(1))
+    // let resultName = ref(Obj.magic(1))
+    // let resultNewName = ref(Obj.magic(1))
+    // let resultNewOriginCode = ref(Obj.magic(1))
+    // let resultNewTranspiledCode = ref(Obj.magic(1))
 
     _prepare(given)
 
@@ -54,17 +58,9 @@ defineFeature(feature, test => {
           dispatchStub.contents,
           CustomUtils.getInputName,
           CodeEditUtils.setCurrentCustomInputNameToGlobal,
-          (
-            name,
-            newName,
-            newOriginCode,
-            newTranspiledCode,
-          ) => ElementAssembleStoreType.UpdateCustomInputFileStr(
-            name,
-            newName,
-            newOriginCode,
-            newTranspiledCode,
-          ),
+          (name, newName, newOriginCode, newTranspiledCode) => {
+            (name, newName, newOriginCode, newTranspiledCode)
+          },
           inputName.contents,
           newOriginCode.contents,
           newTranspiledCode.contents,
@@ -82,16 +78,22 @@ defineFeature(feature, test => {
     \"and"(
       "get new input name from it",
       () => {
-        dispatchStub.contents
-        ->Obj.magic
-        ->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())
-        ->expect ==
-          ElementAssembleStoreType.UpdateCustomInputFileStr(
+        let (name, newName, newOriginCode_, newTranspiledCode) =
+          dispatchStub.contents->Obj.magic->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())
+
+        (
+          name,
+          newName,
+          newOriginCode_,
+          newTranspiledCode->Meta3dCommonlib.OptionSt.map(NewlineTool.unifyNewlineChar),
+        )->expect ==
+          (
             inputName.contents,
             newInputName,
-            // "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}",
             newOriginCode.contents,
-            "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}"->Some,
+            "window.Contribute = {\n    getContribute: (api) => {\n\n    return {\n        inputName:\"NewInputName1\",\n        func: (meta3dState) => {\n            return Promise.resolve(meta3dState)\n        }\n    }\n}}"
+            ->NewlineTool.unifyNewlineChar
+            ->Some,
           )
       },
     )

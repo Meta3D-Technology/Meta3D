@@ -418,7 +418,7 @@ EventTool.getPointEventBindedDom(),
 
         describe("bind click event", () => _testMouseEvent(Click, "click"))
 
-        describe("bind mousewheel event", () => _testMouseEvent(MouseWheel, "mousewheel"))
+        describe("bind mousewheel event", () => _testMouseEvent(MouseWheel, "wheel"))
 
         describe("bind mousemove event", () => {
           _testMouseEvent(MouseMove, "mousemove")
@@ -1768,7 +1768,7 @@ describe("bind dom event to trigger point event", () => {
       )
 
       describe("test trigger pointscale event", () =>
-        _testPointEvent(CustomEventTool.getPointScaleEventName(), "mousewheel")
+        _testPointEvent(CustomEventTool.getPointScaleEventName(), "wheel")
       )
 
       describe("test trigger pointmove event", () =>
