@@ -19,6 +19,7 @@ defineFeature(feature, test => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+      TestTool.prepare()
 
       SelectTool.markNotShowSelectForTest()
       TextareaTool.markNotShowTextareaForTest()

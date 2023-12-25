@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Publish show publish button 1`] = `
+<button
+  className="ant-btn css-dev-only-do-not-override-p7e5j5 ant-btn-default"
+  disabled={false}
+  onClick={[Function]}
+  style={Object {}}
+  type="button"
+>
+  <span>
+    发 布
+  </span>
+  
+</button>
+`;

@@ -14,9 +14,12 @@ defineFeature(feature, test => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+      TestTool.prepare()
 
       FileTool.buildFakeTextDecoder(FileTool.convertUint8ArrayToBuffer)
       FileTool.buildFakeTextEncoder(.)
+
+      
     })
   }
 

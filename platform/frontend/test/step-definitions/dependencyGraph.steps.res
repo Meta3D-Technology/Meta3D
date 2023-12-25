@@ -15,6 +15,7 @@ defineFeature(feature, test => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+      TestTool.prepare()
 
       setDataStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
     })

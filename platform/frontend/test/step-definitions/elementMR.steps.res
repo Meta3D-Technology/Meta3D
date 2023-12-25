@@ -41,6 +41,7 @@ defineFeature(feature, test => {
     given("prepare", () => {
       sandbox := createSandbox()
       ReactTestTool.prepare()
+      TestTool.prepare()
 
       execGetContributeFuncStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 

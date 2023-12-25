@@ -1,6 +1,6 @@
 let _isNotShowSelectForTest = %raw(`
 function (){
-return globalThis.isNotShowSelectForTest
+return globalThis.isNotShowSelectForTest == true
 }
 `)
 

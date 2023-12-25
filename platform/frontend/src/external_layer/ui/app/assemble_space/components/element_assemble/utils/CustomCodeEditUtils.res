@@ -56,21 +56,23 @@ let make = (
     switch code {
     | None => React.string(`不支持编辑`)
     | Some(code) =>
-      <CodeEdit
-        service
-        code={code}
-        getNewCodeFunc={(newOriginCode, newTranspiledCode) =>
-          Method.getNewCode(
-            dispatch,
-            getNameFunc,
-            setCurrentCustomNameToGlobalFunc,
-            buildUpdateActionFunc,
-            // TODO refactor: use useStore instead
-            getCurrentCustomNameFromGlobalFunc()->Meta3dCommonlib.NullableSt.getExn,
-            newOriginCode,
-            newTranspiledCode,
-          )}
-      />
+      CodeEditUtils.isNotShowEditorForTest()
+        ? React.null
+        : <CodeEdit
+            service
+            code={code}
+            getNewCodeFunc={(newOriginCode, newTranspiledCode) =>
+              Method.getNewCode(
+                dispatch,
+                getNameFunc,
+                setCurrentCustomNameToGlobalFunc,
+                buildUpdateActionFunc,
+                // TODO refactor: use useStore instead
+                getCurrentCustomNameFromGlobalFunc()->Meta3dCommonlib.NullableSt.getExn,
+                newOriginCode,
+                newTranspiledCode,
+              )}
+          />
     }
   }
 }

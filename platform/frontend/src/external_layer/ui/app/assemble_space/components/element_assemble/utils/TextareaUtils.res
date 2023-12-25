@@ -1,5 +1,5 @@
 let isNotShowTextareaForTest = %raw(`
 function (){
-return globalThis.isNotShowTextareaForTest
+return globalThis.isNotShowTextareaForTest == true
 }
 `)
