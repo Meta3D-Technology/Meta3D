@@ -250,38 +250,35 @@ switch between action
 
 
 
-* TODO 加入数据统计
-
-//TODO 平台加入埋点
-
-TODO 平台、官网加入数据统计
-
-使用Google Analytics 分析数据
-使用Inspectlet 收集网站点击和滚动类的用户行为数据
 
 
 
 
 
-* TODO solve ci sometimes fail: Actions->Install error
-* TODO make ci pass in README
-* TODO github->codecov should contain platform/assemble-space
-* TODO Github: lanaguage remove Javascript
+* DONE 准备模板 in local
 
 
-
-* TODO 准备模板 in local
-
-
-TODO 完整编辑器的模板
+# TODO 完整编辑器的模板
 
 TODO 从头创建编辑器引导的模板
   TODO Guide: add Run the template
 
 
 
+
+* TODO github->codecov should contain platform/assemble-space
+* TODO Github: lanaguage remove Javascript
+
+
+
+
 * TODO publish
 
+
+TODO pass ci:
+  TODO pass ci in local
+  TODO solve ci sometimes fail: Actions->Install error
+  TODO make ci pass in README
 
 * TODO 准备模板 in production
 
@@ -293,9 +290,27 @@ TODO update production
 
 
 TODO 完整编辑器的模板
+auto upgrade?
 
 TODO 从头创建编辑器引导的模板
-  TODO Guide: add Run the template
+  TODO finish "TODO update"
+
+
+
+
+* TODO 加入数据统计 in production
+
+//TODO 平台加入埋点
+
+TODO 平台、官网加入数据统计
+
+# 使用Google Analytics 分析数据
+# 使用Inspectlet 收集网站点击和滚动类的用户行为数据
+
+使用百度统计
+https://tongji.baidu.com/main/setting/52340731/home/site/getjs?siteId=20002434
+
+
 
 
 

@@ -28,6 +28,16 @@ let make = (~account) => {
         0,
         GuideUtils.buildCreateFromScratchStepData(),
       )}
+      // TODO update
+      <Button
+        _type=#link
+        onClick={_ => {
+          LinkUtils.openLink(
+            PublishedAppUtils.buildURL("0xf63e1991a343814ede505d7cfc368615eae75307", "t3"),
+          )
+        }}>
+        {React.string(`提前预览最终成果`)}
+      </Button>
     </Layout.Content>
   </Layout>
 }

@@ -47,7 +47,7 @@ let make = (
       {
         title: "查看发布的编辑器",
         description: {
-          React.string(`按照编辑器名，找到刚刚发布的编辑器。您可以继续编辑它，或者在线运行它`)
+          React.string(`在这里可以按照编辑器名，找到刚刚发布的编辑器。以后您可以继续编辑它，或者在线运行它。现在请点Next`)
         },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => publishedEditorsTarget->GuideUtils.getRefCurrent,
@@ -58,7 +58,7 @@ let make = (
       {
         title: "查看所有发布的编辑器",
         description: {
-          React.string(`点击第二个导航栏：“发布的编辑器”，您可以在这里查看所有人发布的编辑器，并且找到您刚刚发布的编辑器。您可以导入它们（也就是导入模板来创建新的编辑器），或者在线运行它们`)
+          React.string(`第二个导航栏：“发布的编辑器”可以查看所有人发布的编辑器，包括您刚刚发布的编辑器。以后您可以导入它们（也就是导入模板来创建新的编辑器），或者在线运行它们。现在请点Next`)
         },
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => navTarget->GuideUtils.getRefCurrent,
@@ -67,7 +67,7 @@ let make = (
         }->Meta3dCommonlib.NullableSt.return,
       },
       {
-        title: "这里可以打开更多引导",
+        title: "这里可以打开更多引导。本次引导结束，感谢您的配合~",
         description: {React.string(``)},
         cover: Meta3dCommonlib.NullableSt.getEmpty(),
         target: () => guideTarget->GuideUtils.getRefCurrent,
