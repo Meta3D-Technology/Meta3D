@@ -31,7 +31,7 @@
         "<rootDir>/lib/js/src/.+/.*Store.*"
     ],
     "collectCoverageFrom": [
-        "lib/js/src/external_layer/ui/app/assemble_space/**/*.js",
+        "lib/js/src/**/*.js",
         "!**/node_modules/**",
         "!**/vendor/**"
     ],

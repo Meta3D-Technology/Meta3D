@@ -20,6 +20,6 @@ jobs:
       run: yarn ci:test
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
       with:
         token: 4facce3d-d742-4d11-8f12-47ed5e43be1d
