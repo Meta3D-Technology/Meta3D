@@ -3,7 +3,7 @@
     "moduleFileExtensions": [
         "js"
     ],
-    "testRegex": "lib/es6_global/test/step-definitions/.+.steps.bs.js",
+    "testRegex": "lib/js/test/step-definitions/.+.steps.bs.js",
     "transformIgnorePatterns": [
         "<rootDir>/node_modules/jest-cucumber"
     ],
@@ -19,19 +19,19 @@
     "collectCoverage": true,
     "coverageDirectory": "<rootDir>/coverage/",
     "coveragePathIgnorePatterns": [
-        "<rootDir>/lib/es6_global/src/.+/AssembleSpace.*",
-        "<rootDir>/lib/es6_global/src/.+/ApAssemble.*",
-        "<rootDir>/lib/es6_global/src/.+/ElementAssemble.*",
-        "<rootDir>/lib/es6_global/src/.+/ExtensionInspector.*",
-        "<rootDir>/lib/es6_global/src/.+/ContributeInspector.*",
-        "<rootDir>/lib/es6_global/src/.+/PackageInspector.*",
-        "<rootDir>/lib/es6_global/src/.+/ApDependencyGraph.*",
-        "<rootDir>/lib/es6_global/src/.+/PackageDependencyGraph.*",
-        "<rootDir>/lib/es6_global/src/.+/Most.*",
-        "<rootDir>/lib/es6_global/src/.+/.*Store.*"
+        "<rootDir>/lib/js/src/.+/AssembleSpace.*",
+        "<rootDir>/lib/js/src/.+/ApAssemble.*",
+        "<rootDir>/lib/js/src/.+/ElementAssemble.*",
+        "<rootDir>/lib/js/src/.+/ExtensionInspector.*",
+        "<rootDir>/lib/js/src/.+/ContributeInspector.*",
+        "<rootDir>/lib/js/src/.+/PackageInspector.*",
+        "<rootDir>/lib/js/src/.+/ApDependencyGraph.*",
+        "<rootDir>/lib/js/src/.+/PackageDependencyGraph.*",
+        "<rootDir>/lib/js/src/.+/Most.*",
+        "<rootDir>/lib/js/src/.+/.*Store.*"
     ],
     "collectCoverageFrom": [
-        "lib/es6_global/src/external_layer/ui/app/assemble_space/**/*.js",
+        "lib/js/src/external_layer/ui/app/assemble_space/**/*.js",
         "!**/node_modules/**",
         "!**/vendor/**"
     ],
