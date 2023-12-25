@@ -234,12 +234,10 @@ switch between action
 # * TODO guide: add end guide button
 
 
-* TODO 优化：减小engine-whole、editor-whole包体积
+# * TODO 优化：减小engine-whole、editor-whole包体积
 
 
-* TODO 优化：减小发布的app的大小
-
-
+# * TODO 优化：减小发布的app的大小
 
 
 
@@ -248,7 +246,7 @@ switch between action
 
 
 
-* TODO check all * TODOs and clear
+* DONE check all * TODOs and clear
 
 
 

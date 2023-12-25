@@ -12,54 +12,6 @@ let convertAllFileData = (
   // TODO change to entryExtensionProtocolNames
   entryExtensionNames: array<Meta3dType.Index.extensionName>,
 ) => {
-  // ManagerUtils.convertAllFileData(
-  //   allExtensionFileData,
-  //   allContributeFileData,
-  //   allPackageEntryExtensionProtocolData,
-  //   (allExtensionNewNames, ([], entryExtensionNames), allContributeNewNames),
-  // )
-
-  // TODO check:allExtensionNewNames.length == allExtensionFileData.length
-  // TODO check:allContributeNewNames.length == allContributeFileData.length
-
-  // let allExtensionDataMap =
-  //   allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
-  //     (. result, {extensionPackageData}, i) => {
-  //       result->Meta3dCommonlib.ImmutableHashMap.set(
-  //         extensionPackageData.protocol.name,
-  //         (
-  //           allExtensionNewNames->Meta3dCommonlib.ArraySt.getExn(i),
-  //           extensionPackageData.protocol.version,
-  //         ),
-  //       )
-  //     },
-  //     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  //   )
-  // let allExtensionDataMap =
-  //   allPackageEntryExtensionProtocolData->Meta3dCommonlib.ArraySt.reduceOneParam(
-  //     (. allExtensionDataMap, ({name, version}, entryExtensionName)) => {
-  //       allExtensionDataMap->Meta3dCommonlib.ImmutableHashMap.set(
-  //         name,
-  //         (entryExtensionName, version),
-  //       )
-  //     },
-  //     allExtensionDataMap,
-  //   )
-
-  // let allContributeDataMap =
-  //   allContributeFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
-  //     (. result, {contributePackageData}, i) => {
-  //       result->Meta3dCommonlib.ImmutableHashMap.set(
-  //         contributePackageData.protocol.name,
-  //         (
-  //           allContributeNewNames->Meta3dCommonlib.ArraySt.getExn(i),
-  //           contributePackageData.protocol.version,
-  //         ),
-  //       )
-  //     },
-  //     Meta3dCommonlib.ImmutableHashMap.createEmpty(),
-  //   )
-
   (
     allExtensionFileData->Meta3dCommonlib.ArraySt.reduceOneParami(
       (. result, {extensionPackageData, extensionFuncData}, i) => {
@@ -164,7 +116,8 @@ let load = (packageBinaryFile: ArrayBuffer.t): (
   array<extensionFileData>,
   Meta3dType.Index.extensionProtocolName,
 ) => {
-  let (state, allExtensionDataArr) = packageBinaryFile->BinaryFileOperator.load->ManagerUtils.loadPackage
+  let (state, allExtensionDataArr) =
+    packageBinaryFile->BinaryFileOperator.load->ManagerUtils.loadPackage
 
   (state, allExtensionDataArr, _getEntryExtensionProtocolName(allExtensionDataArr))
 }

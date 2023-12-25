@@ -1,5 +1,3 @@
-// TODO unify .d.ts, .ts!
-
 import { extensionProtocolName, getExtensionService, getExtensionLife, state, api, contributeProtocolName, getContribute, getContributeFuncResult, startConfigData, packageProtocolName } from "meta3d-type"
 import { actionName, supportedEventName, } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 import { needConfigData } from "meta3d-type/src/package/StartPackageProtocolConfigType"

@@ -106,7 +106,6 @@ let make = (~service: FrontendType.service) => {
           //     )
           //   : ()
 
-          //// TODO perf: use batchXxx to merge request
           UIControlUtils.selectAllUIControls(service, dispatch, release)->Js.Promise.then_(() => {
             SelectPackageUtils.selectEditorWholeAndEngineWholePackages(service, dispatch, release)
           }, _)->Js.Promise.then_(() => {
