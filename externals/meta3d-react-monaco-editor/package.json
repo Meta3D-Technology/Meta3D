@@ -6,10 +6,7 @@
   "module": "lib/cmd/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "preversion": "npm run lint",
-    "build": "tsc",
-    "clean": "rimraf lib",
-    "format": "eslint --fix '{src,example}/**/*.{ts,tsx}'"
+    "build": "tsc"
   },
   "keywords": [
     "monaco",
