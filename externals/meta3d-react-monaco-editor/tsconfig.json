@@ -3,17 +3,14 @@
     "declaration": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "module": "esnext",
+		"target": "ES6",
+		"module": "CommonJS",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "outDir": "./lib",
     "rootDir": "./src",
     "skipLibCheck": true,
-    "sourceMap": true,
-    "target": "es5"
+    "sourceMap": true
   },
   "include": ["./src"]
 }

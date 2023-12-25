@@ -1,9 +1,3 @@
-let isNotShowEditorForTest = %raw(`
-function (){
-return globalThis.isNotShowEditorForTest == true
-}
-`)
-
 let getCurrentCustomInputNameFromGlobal: unit => Js.Nullable.t<string> = %raw(`
 function (){
 return globalThis.elementAssembleStore_currentCustomInputName 

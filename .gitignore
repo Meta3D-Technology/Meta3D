@@ -6,12 +6,13 @@ jest_0/
 reference/
 node_modules/
 mine/
-dist/
 lib/bs/
 .bs.js
 .gen.tsx
 lib/js/
 ocaml/
+
+dist/
 
 lib/bs/
 .bs.js

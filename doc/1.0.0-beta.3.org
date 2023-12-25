@@ -288,6 +288,7 @@ TODO Github: lanaguage remove Javascript
 
 * TODO 准备模板 in production
 
+TODO need update all
 
 TODO update production
   TODO need update packages
@@ -431,6 +432,16 @@ TODO move related doc to platform as guide doc
 
 
 
+TODO 引导结束后，给出弹出文档，包括开发完整编辑器等
+
+
+
+TODO 初次运行 模板时(in ShowApp or UserCenter or RunElementVisualController)，弹出文档，包括：操作演示视频、glb模型资源、event资源
+
+
+
+
+
 
 
 
@@ -496,8 +507,13 @@ https://www.google.com/search?q=opensea+%E5%8F%91%E8%A1%8Cnft&newwindow=1&sca_es
 # 可建议在讨论中给出反馈的同学留下qq号，从而拉到一个群里发QQ红包
 # 可建议在讨论中给出反馈的同学留下qq号，抽奖赠送一个月的会员（未来上付费功能后兑现）
 # 可建议在讨论中给出反馈的同学留下邮箱，抽奖赠送一个月的会员（未来上付费功能后兑现）
-TODO 可在讨论中给出链接，请给出反馈的同学点击该链接（跳转到页面（需要给出邮箱，可读取localStorage获得），填写一个form（给出一些建议，非必须））后提交即可参加抽奖赠送一个月的会员（未来上付费功能后兑现）
-提示用户：中奖的用户会收到邮件
+
+# TODO 可在讨论中给出链接，请给出反馈的同学点击该链接（跳转到页面（需要给出邮箱，可读取localStorage获得），填写一个form（给出一些建议，非必须））后提交即可参加抽奖赠送一个月的会员（未来上付费功能后兑现）
+
+TODO 可在讨论中给出注册的邮箱；然后将一个链接发给该邮箱，点击该链接后会填写一个form（给出一些建议，非必须））后提交，即可抽奖获得激活码，以后凭该码即获得一个月的会员
+
+提示用户：中奖的用户会收到邮件，包括激活码
+
 form:
 反馈评分：好、一般、差
 期望增加哪些功能：select

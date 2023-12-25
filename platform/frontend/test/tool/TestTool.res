@@ -1,3 +1,3 @@
 let prepare = () => {
-  CodeEditTool.markNotShowEditorForTest()
+  ()
 }
