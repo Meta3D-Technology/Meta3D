@@ -1,6 +1,6 @@
 {
     "name": "frontend",
-    "version": "1.0.0-beta.2",
+    "version": "1.0.0-beta.3",
     "authors": "Wonder",
     "scripts": {
         "bundle_dts": "gulp bundle_dts",
@@ -27,6 +27,7 @@
         "cross-env": "^7.0.3",
         "css-loader": "^3.6.0",
         "cz-customizable": "^5.2.0",
+        "dts-bundle-generator": "^9.0.0",
         "gentype": "^3.48.0",
         "html-webpack-plugin": "^5.5.0",
         "identity-obj-proxy": "^3.0.0",
@@ -39,21 +40,20 @@
         "webpack": "^5.62.1",
         "webpack-cli": "^4.9.1",
         "webpack-dev-server": "^4.4.0",
-        "write-file-webpack-plugin": "^4.5.1",
-        "dts-bundle-generator": "^9.0.0"
+        "write-file-webpack-plugin": "^4.5.1"
     },
     "dependencies": {
         "@ant-design/graphs": "^1.4.1",
         "@cloudbase/js-sdk": "^1.7.2",
         "antd": "^5.12.2",
+        "fbemitter": "^3.0.0",
         "localforage": "^1.10.0",
-        "meta3d-bs-most-default": "^1.0.0-beta.2",
-        "meta3d-editor-whole-protocol": "^1.0.0-beta.2",
-        "meta3d-react-monaco-editor": "^0.0.1",
+        "meta3d-bs-most-default": "^1.0.0-beta.3",
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.3",
+        "meta3d-react-monaco-editor": "^1.0.0-beta.3",
         "moment": "^2.29.4",
         "remporium": "^0.0.1",
         "rescript": "^10.0.1",
-        "rescript-indexeddb": "^0.0.3",
-        "fbemitter": "^3.0.0"
+        "rescript-indexeddb": "^0.0.3"
     }
 }

@@ -1,6 +1,6 @@
 {
   "name": "meta3d-bs-sinon",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "BuckleScript bindings to the sinon",
   "scripts": {
     "watch": "bsb -clean-world -make-world -w",

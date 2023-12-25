@@ -1,6 +1,6 @@
 {
   "name": "meta3d-react-monaco-editor",
-  "version": "0.0.1",
+  "version": "1.0.0-beta.3",
   "description": "Monaco Editor for React",
   "main": "lib/index.js",
   "module": "lib/cmd/index.js",

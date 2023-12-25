@@ -1,6 +1,6 @@
 {
     "name": "meta3d-input-inspector",
-    "version": "1.0.0-beta.2",
+    "version": "1.0.0-beta.3",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
@@ -16,17 +16,17 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-select-scenetree-node-protocol": "^1.0.0-beta.2",
-        "meta3d-editor-whole-protocol": "^1.0.0-beta.2",
-        "meta3d-input-window-protocol": "^1.0.0-beta.2",
-        "meta3d-type": "^1.0.0-beta.2"
+        "meta3d-action-select-scenetree-node-protocol": "^1.0.0-beta.3",
+        "meta3d-editor-whole-protocol": "^1.0.0-beta.3",
+        "meta3d-input-window-protocol": "^1.0.0-beta.3",
+        "meta3d-type": "^1.0.0-beta.3"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.0.0-beta.2",
+        "meta3d-tool-publish": "^1.0.0-beta.3",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

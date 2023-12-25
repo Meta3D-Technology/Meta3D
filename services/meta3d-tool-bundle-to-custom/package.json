@@ -1,6 +1,6 @@
 {
     "name": "meta3d-tool-bundle-to-custom",
-    "version": "1.0.0-beta.2",
+    "version": "1.0.0-beta.3",
     "authors": "Meta3D",
     "main": "./lib/js/src/Main.bs.js",
     "scripts": {
