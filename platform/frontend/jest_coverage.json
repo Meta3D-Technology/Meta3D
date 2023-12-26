@@ -3,6 +3,9 @@
     "moduleFileExtensions": [
         "js"
     ],
+    "moduleNameMapper": {
+        "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+    },
     "testRegex": "lib/js/test/step-definitions/.+.steps.bs.js",
     "transformIgnorePatterns": [
         "<rootDir>/node_modules/jest-cucumber"
