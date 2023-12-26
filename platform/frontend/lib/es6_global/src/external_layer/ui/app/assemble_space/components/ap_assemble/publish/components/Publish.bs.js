@@ -82,7 +82,7 @@ function _convertToUIControls(selectedUIControlInspectorData, selectedUIControls
                             displayName: match.displayName,
                             rect: param.rect,
                             isDraw: param.isDraw,
-                            input: OptionSt$Meta3dCommonlib.toNullable(param.input),
+                            input: OptionSt$Meta3dCommonlib.toStrictNullable(param.input),
                             event: param.event,
                             specific: param.specific,
                             children: _convertToUIControls(param.children, selectedUIControls)
@@ -168,7 +168,7 @@ function onFinish(service, dispatchForAppStore, param, param$1, previewBase64, v
                             Curry._1(setUploadProgress, (function (param) {
                                     return progress;
                                   }));
-                          }), appBinaryFile, appName, account, appDescription, OptionSt$Meta3dCommonlib.toNullable(previewBase64), UserUtils$Frontend.isAdmin(account)));
+                          }), appBinaryFile, appName, account, appDescription, OptionSt$Meta3dCommonlib.toStrictNullable(previewBase64), UserUtils$Frontend.isAdmin(account)));
                 var __x$1 = Js_promise.then_((function (param) {
                         Curry._1(setIsUploadBegin, (function (param) {
                                 return false;

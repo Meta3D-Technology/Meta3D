@@ -42,6 +42,14 @@ function fromNullable(optionData) {
 
 var toNullable = Js_null_undefined.from_opt;
 
+function toStrictNullable(optionData) {
+  if (optionData !== undefined) {
+    return Caml_option.valFromOption(optionData);
+  } else {
+    return null;
+  }
+}
+
 function forEachResult(optionData, func) {
   if (optionData !== undefined) {
     return Curry._1(func, Caml_option.valFromOption(optionData));
@@ -86,6 +94,7 @@ exports.map = map;
 exports.bind = bind;
 exports.fromNullable = fromNullable;
 exports.toNullable = toNullable;
+exports.toStrictNullable = toStrictNullable;
 exports.forEachResult = forEachResult;
 exports.sequenceResultM = sequenceResultM;
 exports.open_ = open_;

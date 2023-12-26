@@ -159,7 +159,7 @@ module Method = {
         displayName,
         rect,
         isDraw,
-        input: input->Meta3dCommonlib.OptionSt.toNullable,
+        input: input->Meta3dCommonlib.OptionSt.toStrictNullable,
         event,
         specific,
         children: _convertToUIControls(children, selectedUIControls),
@@ -340,7 +340,7 @@ module Method = {
                 appName,
                 account,
                 appDescription,
-                previewBase64->Meta3dCommonlib.OptionSt.toNullable,
+                previewBase64->Meta3dCommonlib.OptionSt.toStrictNullable,
                 // 0,
                 _isRecommend(account),
               )

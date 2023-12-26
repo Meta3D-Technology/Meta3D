@@ -287,10 +287,12 @@ TODO Github: lanaguage remove Javascript
 
 * DONE fix: if user is admin, not exec selectAllUIControls, selectEditorWholeAndEngineWholePackages tasks
 
-* TODO fix: upload preview
+* DONE fix: upload preview
 
 
-* TODO fix: import app ->publish without preview: not work
+* DONE fix: import app ->publish without preview: not work
+
+* TODO idle task not work?
 
 * TODO fix: handle RuntimeError: abort(Assertion error
 

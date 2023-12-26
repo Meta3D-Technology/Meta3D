@@ -96,7 +96,7 @@ function onFinish(service, param, param$1, values) {
                                         entryExtensionProtocolDisplayName,
                                         entryExtensionProtocolRepoLink,
                                         entryExtensionProtocolDescription,
-                                        OptionSt$Meta3dCommonlib.toNullable(entryExtensionProtocolConfigStr),
+                                        OptionSt$Meta3dCommonlib.toStrictNullable(entryExtensionProtocolConfigStr),
                                         PackageUtils$Frontend.getEntryExtensionName(selectedExtensions)
                                       ], [
                                         packageName,

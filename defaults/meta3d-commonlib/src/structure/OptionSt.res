@@ -1,6 +1,6 @@
 let unsafeGet = Belt.Option.getUnsafe
 
-let _getExn = %bs.raw(`
+let _getExn = %raw(`
 (nullableData) => {
   if (nullableData !== undefined) {
     return nullableData;
@@ -11,8 +11,8 @@ let _getExn = %bs.raw(`
 `)
 
 // let getExn = Belt.Option.getExn
-let getExn = (optionData:option<'a>):'a =>{
-  optionData -> unsafeGet -> _getExn
+let getExn = (optionData: option<'a>): 'a => {
+  optionData->unsafeGet->_getExn
 }
 
 let buildFailResult = () => Result.failWith(`data not exist in option data`)
@@ -34,6 +34,12 @@ let bind = Belt.Option.flatMap
 let fromNullable = optionData => Js.Nullable.toOption(optionData)
 
 let toNullable = optionData => Js.Nullable.from_opt(optionData)
+
+let toStrictNullable = optionData =>
+  switch optionData {
+  | None => Js.Nullable.null
+  | Some(optionData) => optionData->Js.Nullable.return
+  }
 
 let forEachResult = (optionData, func) =>
   switch optionData {

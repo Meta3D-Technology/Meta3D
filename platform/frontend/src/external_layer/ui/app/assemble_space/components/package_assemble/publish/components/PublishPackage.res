@@ -99,7 +99,7 @@ module Method = {
               entryExtensionProtocolDisplayName,
               entryExtensionProtocolRepoLink,
               entryExtensionProtocolDescription,
-              entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.toNullable,
+              entryExtensionProtocolConfigStr->Meta3dCommonlib.OptionSt.toStrictNullable,
               PackageUtils.getEntryExtensionName(selectedExtensions),
             ),
             (packageName, packageVersion, packageDescription),
