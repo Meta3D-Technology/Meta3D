@@ -3,13 +3,13 @@
     "moduleFileExtensions": [
         "js"
     ],
-    "moduleNameMapper": {
-        "^.+\\.(css|less|scss)$": "identity-obj-proxy"
-    },
     "testRegex": "lib/js/test/step-definitions/.+.steps.bs.js",
     "transformIgnorePatterns": [
         "<rootDir>/node_modules/jest-cucumber"
     ],
+    "moduleNameMapper": {
+        "^.+\\.(css|less|scss)$": "identity-obj-proxy"
+    },
     "snapshotResolver": "<rootDir>/customSnapshotResolver.js",
     "setupFilesAfterEnv": [
         "<rootDir>/test/helper/jest/specHelper.js"
@@ -31,16 +31,16 @@
         "<rootDir>/lib/js/src/.+/.*Store.*"
     ],
     "collectCoverageFrom": [
-        "lib/js/src/**/*.js",
+        "lib/js/src/external_layer/ui/app/assemble_space/**/*.js",
         "!**/node_modules/**",
         "!**/vendor/**"
     ],
     "coverageThreshold": {
         "global": {
-            "lines": 10,
-            "statements": 10,
-            "branches": 10,
-            "functions": 10
+            "lines": 60,
+            "statements": 60,
+            "branches": 49,
+            "functions": 49
         }
     }
 }
