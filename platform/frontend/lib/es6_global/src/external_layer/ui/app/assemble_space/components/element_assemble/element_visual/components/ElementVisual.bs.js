@@ -44,12 +44,17 @@ function _loop(service, loopFrameID, apInspectorData, time, meta3dState) {
   var elementContribute = ElementContributeApService$Frontend.getElementContribute(SpaceStateApService$Frontend.getState(undefined));
   var meta3dState$1 = elementContribute !== undefined ? _updateElementContribute(meta3dState, service, service.meta3d.execGetContributeFunc(elementContribute.data.contributeFuncData)) : meta3dState;
   var __x = service.meta3d.updateExtension(meta3dState$1, ElementVisualUtils$Frontend.getEditorWholePackageProtocolName(undefined), _getUpdateData(apInspectorData.clearColor, apInspectorData.skinName, time));
-  Js_promise.then_((function (meta3dState) {
+  var __x$1 = Js_promise.then_((function (meta3dState) {
           loopFrameID.current = Curry._1(service.other.requestAnimationOtherFrame, (function (time) {
-                  _loop(service, loopFrameID, apInspectorData, time, meta3dState);
+                  MessageUtils$Frontend.showCatchedErrorMessage((function (param) {
+                          _loop(service, loopFrameID, apInspectorData, time, meta3dState);
+                        }), 5);
                 }));
           return Promise.resolve(undefined);
         }), __x);
+  Js_promise.$$catch((function (e) {
+          return service.console.errorWithExn(e, undefined);
+        }), __x$1);
 }
 
 function _generateApp(service, param) {

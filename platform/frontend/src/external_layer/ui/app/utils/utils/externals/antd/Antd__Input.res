@@ -6,6 +6,7 @@ external make: (
   ~_type: string=?,
   ~value: string=?,
   ~onChange: ReactEvent.Form.t => unit=?,
+  ~onBlur: ReactEvent.Form.t => unit=?,
   ~defaultValue: string=?,
   ~placeholder: string=?,
   ~disabled: bool=?,

@@ -106,10 +106,18 @@ module Method = {
     ->Js.Promise.then_(meta3dState => {
       loopFrameID.current =
         service.other.requestAnimationOtherFrame(time => {
-          _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+          MessageUtils.showCatchedErrorMessage(
+            () => {
+              _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+            },
+            5->Some,
+          )
         })->Some
 
       ()->Js.Promise.resolve
+    }, _)
+    ->Js.Promise.catch(e => {
+      service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
   }

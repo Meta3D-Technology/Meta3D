@@ -292,11 +292,16 @@ TODO Github: lanaguage remove Javascript
 
 * DONE fix: import app ->publish without preview: not work
 
-* TODO idle task not work?
+# * TODO idle task not work?
 
-* TODO fix: handle RuntimeError: abort(Assertion error
+* DONE fix: handle RuntimeError: abort(Assertion error
 
-TODO give message and continue
+TODO catch(promise error)
+
+TODO give message 
+
+TODO handle error
+  fix: update when blur
 
 
 

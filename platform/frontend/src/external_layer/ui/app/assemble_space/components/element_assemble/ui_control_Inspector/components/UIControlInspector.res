@@ -381,7 +381,14 @@ module Method = {
   //   }
   // }
 
-  let buildSpecific = (service, dispatch, id, specific) => {
+  let buildSpecific = (
+    service,
+    dispatch,
+    setSpecificStringValueFunc,
+    specificStringValue,
+    id,
+    specific,
+  ) => {
     <>
       {specific
       ->Meta3dCommonlib.ArraySt.mapi((
@@ -393,8 +400,12 @@ module Method = {
           | #string =>
             <Input
               key={name}
-              value={SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(
-                type_,
+              value={specificStringValue
+              ->Meta3dCommonlib.ImmutableHashMap.get(id)
+              ->Meta3dCommonlib.OptionSt.getWithDefault(
+                SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(
+                  type_,
+                ),
               )}
               onChange={e => {
                 switch e
@@ -402,15 +413,55 @@ module Method = {
                 ->SpecificUtils.convertStringToValue(type_) {
                 | value if value->Obj.magic == "" => MessageUtils.warn({j`不能为空`}, None)
                 | value =>
-                  _setSpecificData(
-                    dispatch,
-                    specific,
-                    id,
-                    i,
-                    value->CommonType.SpecicFieldDataValue,
-                    type_,
+                  // _setSpecificData(
+                  //   dispatch,
+                  //   specific,
+                  //   id,
+                  //   i,
+                  //   value->CommonType.SpecicFieldDataValue,
+                  //   type_,
+                  // )
+
+                  setSpecificStringValueFunc(specificStringValue =>
+                    specificStringValue->Meta3dCommonlib.ImmutableHashMap.set(
+                      id,
+                      value->Obj.magic,
+                    )
                   )
                 }
+              }}
+              onBlur={e => {
+                // switch e
+                // ->EventUtils.getEventTargetValue
+                // ->SpecificUtils.convertStringToValue(type_) {
+                // | value if value->Obj.magic == "" => MessageUtils.warn({j`不能为空`}, None)
+                // | value =>
+                //   _setSpecificData(
+                //     dispatch,
+                //     specific,
+                //     id,
+                //     i,
+                //     value->CommonType.SpecicFieldDataValue,
+                //     type_,
+                //   )
+                // }
+
+                _setSpecificData(
+                  dispatch,
+                  specific,
+                  id,
+                  i,
+                  specificStringValue
+                  ->Meta3dCommonlib.ImmutableHashMap.get(id)
+                  ->Meta3dCommonlib.OptionSt.getWithDefault(
+                    SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(
+                      type_,
+                    ),
+                  )
+                  ->Obj.magic
+                  ->CommonType.SpecicFieldDataValue,
+                  type_,
+                )
               }}
             />
           | #imageBase64 =>
@@ -593,6 +644,9 @@ let make = (
   // })
   let (inputNameSelectValues, setInputNameSelectValues) = service.react.useState(_ => [])
   let (actionNameSelectValues, setActionNameSelectValues) = service.react.useState(_ => [])
+  let (specificStringValue, setSpecificStringValue) = service.react.useState(_ =>
+    Meta3dCommonlib.ImmutableHashMap.createEmpty()
+  )
 
   let {id, rect, isDraw, input, event, specific} = currentSelectedUIControlInspectorData
   let {x, y, width, height} = rect
@@ -697,7 +751,14 @@ let make = (
         // </Button>
       </>}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
-      {Method.buildSpecific(service, dispatch, id, specific)}
+      {Method.buildSpecific(
+        service,
+        dispatch,
+        setSpecificStringValue,
+        specificStringValue,
+        id,
+        specific,
+      )}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
       <List
         dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}

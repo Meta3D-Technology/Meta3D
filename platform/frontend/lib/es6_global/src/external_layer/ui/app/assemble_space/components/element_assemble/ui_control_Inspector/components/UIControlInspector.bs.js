@@ -16,6 +16,7 @@ import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../../../../..
 import * as ElementMRUtils$Frontend from "../../element_visual/utils/ElementMRUtils.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as NullableSt$Meta3dCommonlib from "../../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 import * as SelectedContributesForElementUtils$Frontend from "../../utils/SelectedContributesForElementUtils.bs.js";
 
 import 'antd/dist/reset.css'
@@ -162,7 +163,7 @@ function _setSpecificData(dispatch, specific, id, i, value, type_) {
             });
 }
 
-function buildSpecific(service, dispatch, id, specific) {
+function buildSpecific(service, dispatch, setSpecificStringValueFunc, specificStringValue, id, specific) {
   return React.createElement(React.Fragment, undefined, ArraySt$Meta3dCommonlib.mapi(specific, (function (param, i) {
                     var value = param.value;
                     var type_ = param.type_;
@@ -198,16 +199,21 @@ function buildSpecific(service, dispatch, id, specific) {
                                                   return valueData.value;
                                                 }))) : (
                                         type_ === "string" ? React.createElement(Antd.Input, {
-                                                value: SpecificUtils$Frontend.convertValueToString(SpecificUtils$Frontend.getSpecificDataValue(value), type_),
+                                                value: OptionSt$Meta3dCommonlib.getWithDefault(ImmutableHashMap$Meta3dCommonlib.get(specificStringValue, id), SpecificUtils$Frontend.convertValueToString(SpecificUtils$Frontend.getSpecificDataValue(value), type_)),
                                                 onChange: (function (e) {
                                                     var value = SpecificUtils$Frontend.convertStringToValue(EventUtils$Frontend.getEventTargetValue(e), type_);
                                                     if (value === "") {
                                                       return MessageUtils$Frontend.warn("不能为空", undefined);
                                                     } else {
-                                                      return _setSpecificData(dispatch, specific, id, i, /* SpecicFieldDataValue */{
-                                                                  _0: value
-                                                                }, type_);
+                                                      return Curry._1(setSpecificStringValueFunc, (function (specificStringValue) {
+                                                                    return ImmutableHashMap$Meta3dCommonlib.set(specificStringValue, id, value);
+                                                                  }));
                                                     }
+                                                  }),
+                                                onBlur: (function (e) {
+                                                    _setSpecificData(dispatch, specific, id, i, /* SpecicFieldDataValue */{
+                                                          _0: OptionSt$Meta3dCommonlib.getWithDefault(ImmutableHashMap$Meta3dCommonlib.get(specificStringValue, id), SpecificUtils$Frontend.convertValueToString(SpecificUtils$Frontend.getSpecificDataValue(value), type_))
+                                                        }, type_);
                                                   }),
                                                 key: name
                                               }) : (
@@ -306,11 +312,14 @@ function UIControlInspector(Props) {
   var match$1 = Curry._1(service.react.useState, (function (param) {
           return [];
         }));
+  var setActionNameSelectValues = match$1[1];
+  var actionNameSelectValues = match$1[0];
+  var match$2 = Curry._1(service.react.useState, (function (param) {
+          return ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+        }));
   var rect = currentSelectedUIControlInspectorData.rect;
   var $$event = currentSelectedUIControlInspectorData.event;
   var id = currentSelectedUIControlInspectorData.id;
-  var setActionNameSelectValues = match$1[1];
-  var actionNameSelectValues = match$1[0];
   var actions = ListSt$Meta3dCommonlib.toArray(SelectedContributesForElementUtils$Frontend.getActions(selectedContributes));
   var uiControlConfigLib = service.meta3d.serializeUIControlProtocolConfigLib(currentSelectedUIControl.protocolConfigStr);
   var uiControlProtocolName = currentSelectedUIControl.data.contributePackageData.protocol.name;
@@ -340,7 +349,7 @@ function UIControlInspector(Props) {
                                 eventEmitter.emit(EventUtils$Frontend.getSelectInputInUIControlInspectorEventName(undefined), value);
                               }), OptionSt$Meta3dCommonlib.getWithDefault(OptionSt$Meta3dCommonlib.map(currentSelectedUIControlInspectorData.input, (function (input) {
                                         return input.inputName;
-                                      })), SelectUtils$Frontend.buildEmptySelectOptionValue(undefined)), match[0]))), service.ui.buildTitle(2, "Specific", undefined), buildSpecific(service, dispatch, id, currentSelectedUIControlInspectorData.specific), service.ui.buildTitle(2, "Event", undefined), React.createElement(Antd.List, {
+                                      })), SelectUtils$Frontend.buildEmptySelectOptionValue(undefined)), match[0]))), service.ui.buildTitle(2, "Specific", undefined), buildSpecific(service, dispatch, match$2[1], match$2[0], id, currentSelectedUIControlInspectorData.specific), service.ui.buildTitle(2, "Event", undefined), React.createElement(Antd.List, {
                       dataSource: service.meta3d.getUIControlSupportedEventNames(uiControlConfigLib),
                       renderItem: (function (eventName) {
                           var value = NullableSt$Meta3dCommonlib.getWithDefault(ElementMRUtils$Frontend.getActionName($$event, eventName), SelectUtils$Frontend.buildEmptySelectOptionValue(undefined));
