@@ -1,6 +1,8 @@
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { contributeType } from "./contribute/ContributeType"
+// import { contributeType } from "./contribute/ContributeType"
 import type { List, Map } from "immutable"
+
+type contributeType = any
 
 export type extensionName = string
 

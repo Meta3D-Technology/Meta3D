@@ -1,4 +1,5 @@
-import { pipeline, state as pipelineRootState_, states as pipelineRootStates_, job } from "meta3d-pipeline-root-protocol/src/StateType"
+import { state as pipelineRootState_, states as pipelineRootStates_ } from "meta3d-pipeline-root-protocol/src/StateType"
+import { pipeline, job } from "meta3d-pipeline-root-protocol/src/StateType"
 import { config } from "meta3d-pipeline-root-protocol/src/ConfigType"
 
 export type state = null

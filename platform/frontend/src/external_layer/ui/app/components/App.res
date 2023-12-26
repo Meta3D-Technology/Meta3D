@@ -331,15 +331,15 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     }, _)
   }
 
-//   let _deferLoad = %raw(`
-// function (){
-// return import(
-//     /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
-//   ).then(value =>{
-// MonacoUtils.setMonaco(value)
-//   })
-// }
-// `)
+  //   let _deferLoad = %raw(`
+  // function (){
+  // return import(
+  //     /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
+  //   ).then(value =>{
+  // MonacoUtils.setMonaco(value)
+  //   })
+  // }
+  // `)
 
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
@@ -362,26 +362,30 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
           true
         },
         () => {
-          switch release.current {
-          | None => false
-          | Some(release) =>
-            UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
+          UserUtils.isAdmin(account)
+            ? true
+            : switch release.current {
+              | None => false
+              | Some(release) =>
+                UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
 
-            true
-          }
+                true
+              }
         },
         () => {
-          switch release.current {
-          | None => false
-          | Some(release) =>
-            SelectPackageUtils.selectEditorWholeAndEngineWholePackages(
-              service,
-              dispatch,
-              release->Some,
-            )->ignore
+          UserUtils.isAdmin(account)
+            ? true
+            : switch release.current {
+              | None => false
+              | Some(release) =>
+                SelectPackageUtils.selectEditorWholeAndEngineWholePackages(
+                  service,
+                  dispatch,
+                  release->Some,
+                )->ignore
 
-            true
-          }
+                true
+              }
         },
       }
     }, 5->Some)

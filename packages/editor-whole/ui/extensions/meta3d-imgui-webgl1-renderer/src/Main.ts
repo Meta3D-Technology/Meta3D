@@ -1,5 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState } from "meta3d-type"
-import { cond, menuLabel, service, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { menuLabel, service } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { cond, windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { state } from "meta3d-imgui-renderer-protocol/src/state/StateType"
 import * as ImGui from "./lib/imgui"
 import * as ImGui_Impl from "./lib/imgui_impl"

@@ -12,7 +12,7 @@ gulp.task("publish_local_env", function (done) {
     })
 });
 
-gulp.task("publish_production_env", function (done) {
+gulp.task("publish_pro1duction_env", function (done) {
     publish.publishContribute(
         "production",
         path.join(__dirname, "package.json"),

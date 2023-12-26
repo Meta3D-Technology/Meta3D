@@ -269,7 +269,7 @@ TODO 从头创建编辑器引导的模板
 
 
 
-* TODO publish
+* DONE publish
 
 
 TODO pass ci:
@@ -281,10 +281,11 @@ TODO pass ci:
 TODO publish
 
 
-TODO github->codecov should contain platform/assemble-space
+//TODO github->codecov should contain platform/assemble-space
 TODO Github: lanaguage remove Javascript
 
 
+* DONE fix: if user is admin, not exec selectAllUIControls, selectEditorWholeAndEngineWholePackages tasks
 
 * TODO 准备模板 in production
 
@@ -429,14 +430,10 @@ TODO move related doc to platform as guide doc
       how to 搭建出简化版的完整的编辑器；
         需要给出editorWholePackage api文档
       how to extend
-
-
-
-TODO 引导结束后，给出弹出文档，包括开发完整编辑器等
-
-
-
-TODO 初次运行 模板时(in ShowApp or UserCenter or RunElementVisualController)，弹出文档，包括：操作演示视频、glb模型资源、event资源
+    after finish guide:
+      给出弹出文档，包括开发完整编辑器等
+    初次运行 模板时(in ShowApp or UserCenter or RunElementVisualController):
+      包括：操作演示视频、glb模型资源、event资源
 
 
 

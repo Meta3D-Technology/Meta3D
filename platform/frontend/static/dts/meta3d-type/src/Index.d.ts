@@ -3,17 +3,7 @@
 import { List, Map } from 'immutable';
 
 export type nullable<Value extends any> = Value | null | undefined;
-declare enum contributeType {
-	UIControl = 0,
-	Skin,
-	Element,
-	Action,
-	Component,
-	GameObject,
-	Pipeline,
-	Input,
-	Unknown
-}
+export type contributeType = any;
 export type extensionName = string;
 export type contributeName = string;
 export type extensionProtocolName = string;

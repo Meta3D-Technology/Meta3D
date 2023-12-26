@@ -6,17 +6,7 @@ import { Group } from 'three';
 
 export type nullable<Value extends any> = Value | null | undefined;
 export type strictNullable<Value extends any> = Value | null;
-declare enum contributeType {
-	UIControl = 0,
-	Skin,
-	Element,
-	Action,
-	Component,
-	GameObject,
-	Pipeline,
-	Input,
-	Unknown
-}
+export type contributeType = any;
 export type extensionName = string;
 export type extensionProtocolName = string;
 export type contributeProtocolName = string;
