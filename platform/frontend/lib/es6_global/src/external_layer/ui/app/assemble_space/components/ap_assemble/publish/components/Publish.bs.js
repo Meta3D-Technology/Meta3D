@@ -370,12 +370,7 @@ function Publish(Props) {
                                   }), React.createElement(Antd.Form.Item, {
                                     label: "预览图",
                                     children: null,
-                                    name: "appPreview",
-                                    rules: [{
-                                        type: NullableSt$Meta3dCommonlib.getEmpty(undefined),
-                                        required: false,
-                                        message: "上传预览图"
-                                      }]
+                                    name: "appPreview"
                                   }, React.createElement(Antd.Upload, {
                                         showUploadList: false,
                                         children: React.createElement(Antd.Button, {

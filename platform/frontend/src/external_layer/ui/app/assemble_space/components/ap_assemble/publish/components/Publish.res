@@ -545,16 +545,7 @@ let make = (
                     ]}>
                     <Input />
                   </Form.Item>
-                  <Form.Item
-                    label={`预览图`}
-                    name="appPreview"
-                    rules={[
-                      {
-                        _type: Meta3dCommonlib.NullableSt.getEmpty(),
-                        required: false,
-                        message: `上传预览图`,
-                      },
-                    ]}>
+                  <Form.Item label={`预览图`} name="appPreview">
                     <Upload
                       listType=#pictureCard
                       beforeUpload={file => {
