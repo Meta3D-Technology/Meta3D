@@ -7,6 +7,7 @@ reference/
 node_modules/
 mine/
 dist/
+lib/
 lib/bs/
 .bs.js
 .gen.tsx
