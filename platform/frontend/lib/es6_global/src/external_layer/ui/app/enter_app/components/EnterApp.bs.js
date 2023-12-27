@@ -5,6 +5,7 @@ import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/
 import * as React from "react";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Main$Meta3d from "../../../../../../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as EnvUtils$Frontend from "../../utils/EnvUtils.bs.js";
 import * as InitUtils$Frontend from "../../utils/InitUtils.bs.js";
@@ -88,7 +89,9 @@ function EnterApp(Props) {
                         }), __x$1);
                 }), 5);
         }), []);
-  return React.createElement(React.Fragment, undefined, match$2[0] ? null : React.createElement("p", undefined, "" + match$1[0].toString() + "% downloading..."));
+  return React.createElement(React.Fragment, undefined, match$2[0] ? null : React.createElement(Loading$Frontend.make, {
+                    text: "" + match$1[0].toString() + "% 下载中"
+                  }));
 }
 
 var make = EnterApp;

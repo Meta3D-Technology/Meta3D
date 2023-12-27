@@ -6,6 +6,7 @@ import * as Curry from "../../../../../../../../../../../../../node_modules/resc
 import * as React from "react";
 import * as Semver from "semver";
 import * as Js_promise from "../../../../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
+import * as Loading$Frontend from "../../../../../loading/components/Loading.bs.js";
 import * as ReduxUtils$Frontend from "../../../../../utils/utils/ReduxUtils.bs.js";
 import * as MessageUtils$Frontend from "../../../../../utils/utils/MessageUtils.bs.js";
 import * as PackageUtils$Frontend from "../../../utils/PackageUtils.bs.js";
@@ -181,7 +182,9 @@ function PublishPackage(Props) {
                               }));
                       }),
                     footer: null,
-                    children: match$3[0] ? React.createElement("p", undefined, "" + match$2[0].toString() + "% uploading...") : React.createElement(Antd.Form, {
+                    children: match$3[0] ? React.createElement(Loading$Frontend.make, {
+                            text: "" + match$2[0].toString() + "% 上传中"
+                          }) : React.createElement(Antd.Form, {
                             initialValues: {
                               remember: true
                             },

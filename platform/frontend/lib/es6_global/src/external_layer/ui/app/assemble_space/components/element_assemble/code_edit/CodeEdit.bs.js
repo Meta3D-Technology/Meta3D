@@ -5,6 +5,7 @@ import * as React from "react";
 import * as Caml_array from "../../../../../../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Js_promise from "../../../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Caml_option from "../../../../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Loading$Frontend from "../../../../loading/components/Loading.bs.js";
 import * as MessageUtils$Frontend from "../../../../utils/utils/MessageUtils.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
@@ -151,7 +152,9 @@ function CodeEdit(Props) {
                 }), 5);
         }), []);
   if (monaco === undefined) {
-    return "loading...";
+    return React.createElement(Loading$Frontend.make, {
+                text: "加载中，请稍候"
+              });
   }
   var partial_arg = [
     tsProxy,

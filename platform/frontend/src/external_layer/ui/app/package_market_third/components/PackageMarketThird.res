@@ -75,7 +75,7 @@ let make = (
   <Layout>
     <Layout.Content>
       {!isLoaded
-        ? <p> {React.string(`loading...`)} </p>
+        ? <Loading text={j`加载中，请稍候`} />
         : {
             <>
               <List
@@ -111,9 +111,7 @@ let make = (
                       currentImportingKey == item.name
                     )
                     ->Meta3dCommonlib.OptionSt.getWithDefault(false)
-                      ? <p>
-                          {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})}
-                        </p>
+                      ? <Loading text={j`${downloadProgress->Js.Int.toString}% 下载中`} />
                       : React.null}
                     {SelectUtils.buildSelectWithoutEmpty(
                       version =>
@@ -177,7 +175,10 @@ let make = (
 
                                 Meta3dCommonlib.NullableSt.isNullable(file)
                                   ? {
-                                      MessageUtils.error({j`找不到package file`}, None)->Obj.magic
+                                      MessageUtils.error(
+                                        {j`找不到package file`},
+                                        None,
+                                      )->Obj.magic
                                     }
                                   : {
                                       dispatch(
@@ -207,7 +208,10 @@ let make = (
                                 setIsDownloadBegin(_ => false)
                                 setCurrentImportingKey(_ => None)
 
-                                MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
+                                MessageUtils.errorWithExn(
+                                  e->Error.promiseErrorToExn,
+                                  None,
+                                )->Obj.magic
                               }, _)
                               ->ignore
                             }}>

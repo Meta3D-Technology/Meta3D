@@ -6,6 +6,7 @@ import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/
 import * as React from "react";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Main$Meta3d from "../../../../../../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as RescriptReactRouter from "../../../../../../../../../../node_modules/@rescript/react/lib/es6_global/src/RescriptReactRouter.bs.js";
 import * as ImportUtils$Frontend from "../../utils/ImportUtils.bs.js";
@@ -122,7 +123,9 @@ function PackageMarketThird(Props) {
                                                   key: item.name
                                                 }), isDownloadBegin && OptionSt$Meta3dCommonlib.getWithDefault(OptionSt$Meta3dCommonlib.map(currentImportingKey, (function (currentImportingKey) {
                                                         return currentImportingKey === item.name;
-                                                      })), false) ? React.createElement("p", undefined, "" + downloadProgress.toString() + "% downloading...") : null, SelectUtils$Frontend.buildSelectWithoutEmpty((function (version) {
+                                                      })), false) ? React.createElement(Loading$Frontend.make, {
+                                                    text: "" + downloadProgress.toString() + "% 下载中"
+                                                  }) : null, SelectUtils$Frontend.buildSelectWithoutEmpty((function (version) {
                                                     Curry._1(setSelectPublishPackage, (function (value) {
                                                             return ImmutableHashMap$Meta3dCommonlib.set(value, item.name, OptionSt$Meta3dCommonlib.getExn(ArraySt$Meta3dCommonlib.find(items, (function (item) {
                                                                                   return item.version === version;
@@ -310,7 +313,9 @@ function PackageMarketThird(Props) {
                                                     children: "导入"
                                                   }));
                                 })
-                            })) : React.createElement("p", undefined, "loading...")
+                            })) : React.createElement(Loading$Frontend.make, {
+                          text: "加载中，请稍候"
+                        })
                 }), React.createElement(Antd.Layout.Footer, {
                   children: isLoaded ? React.createElement(Antd.Pagination, {
                           current: page,

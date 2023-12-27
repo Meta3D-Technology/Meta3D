@@ -491,7 +491,7 @@ let make = (
           }}
           footer={React.null}>
           {isUploadBegin
-            ? <p> {React.string({j`${uploadProgress->Js.Int.toString}% uploading...`})} </p>
+            ? <Loading text={j`${uploadProgress->Js.Int.toString}% 上传中`} />
             : <section ref={publishModalTarget->Obj.magic}>
                 <Form
                   labelCol={{

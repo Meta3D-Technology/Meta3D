@@ -157,7 +157,7 @@ let make = (~service: FrontendType.service) => {
                 </Typography.Link>
               </Typography.Paragraph>
             </Space>
-            {isLoginBegin ? <p> {React.string({j`loging...`})} </p> : React.null}
+            {isLoginBegin ? <Loading text={j`加载中，请稍候`} /> : React.null}
           </Layout.Content>
         </Layout>
       : <Modal

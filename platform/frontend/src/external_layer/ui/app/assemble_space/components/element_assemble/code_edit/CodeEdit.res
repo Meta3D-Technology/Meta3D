@@ -170,7 +170,7 @@ let make = (~service: service, ~code, ~getNewCodeFunc) => {
 
   {
     switch monaco {
-    | None => React.string(`loading...`)
+    | None => <Loading text={j`加载中，请稍候`} />
     | Some(monaco) =>
       <MonacoEditor.monacoEditor
         monaco

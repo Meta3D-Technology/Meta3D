@@ -7,6 +7,7 @@ import * as React from "react";
 import * as Js_string from "../../../../../../../../../../node_modules/rescript/lib/es6/js_string.js";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Nav$Frontend from "../../nav/components/Nav.bs.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as LinkUtils$Frontend from "../../utils/LinkUtils.bs.js";
 import * as ReactUtils$Frontend from "../../utils/ReactUtils.bs.js";
@@ -109,7 +110,9 @@ function ShowPublishedApps(Props) {
                                 children: null
                               }, Js_string.slice(0, 10, item.account), !isDownloadFinish && OptionSt$Meta3dCommonlib.getWithDefault(OptionSt$Meta3dCommonlib.map(currentImportingKey, (function (currentImportingKey) {
                                           return currentImportingKey === PublishedAppUtils$Frontend.buildKey(item.account, item.appName);
-                                        })), false) ? React.createElement("p", undefined, "" + downloadProgress.toString() + "% downloading...") : null, React.createElement(Antd.Button, {
+                                        })), false) ? React.createElement(Loading$Frontend.make, {
+                                      text: "" + downloadProgress.toString() + "% 下载中"
+                                    }) : null, React.createElement(Antd.Button, {
                                     onClick: (function (param) {
                                         Curry._1(setIsDownloadFinish, (function (param) {
                                                 return false;
@@ -214,7 +217,9 @@ function ShowPublishedApps(Props) {
                               children: "推荐"
                             }), _buildCards(match$4[0]), React.createElement(Antd.Typography.Title, {
                               children: "所有"
-                            }), _buildCards(MarketUtils$Frontend.getCurrentPage(allPublishApps, match$5[0], MarketUtils$Frontend.getPageSize(undefined)))) : React.createElement("p", undefined, "loading...")
+                            }), _buildCards(MarketUtils$Frontend.getCurrentPage(allPublishApps, match$5[0], MarketUtils$Frontend.getPageSize(undefined)))) : React.createElement(Loading$Frontend.make, {
+                          text: "加载中，请稍候"
+                        })
                 }), React.createElement(Antd.Layout.Footer, {
                   children: isLoaded ? React.createElement(Antd.Pagination, {
                           defaultCurrent: 1,

@@ -91,7 +91,7 @@ let make = (~service: FrontendType.service, ~account) => {
     </Layout.Header>
     <Layout.Content>
       {!isLoaded
-        ? <p> {React.string(`loading...`)} </p>
+        ? <Loading text={j`加载中，请稍候`} />
         : {
             switch contributeProtocolItem {
             | Some(item: BackendCloudbaseType.protocol) =>

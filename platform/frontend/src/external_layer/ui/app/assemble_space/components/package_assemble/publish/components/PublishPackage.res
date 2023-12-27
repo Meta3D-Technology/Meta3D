@@ -169,7 +169,7 @@ let make = (~service: service, ~account: option<string>) => {
           }}
           footer={React.null}>
           {isUploadBegin
-            ? <p> {React.string({j`${uploadProgress->Js.Int.toString}% uploading...`})} </p>
+            ? <Loading text={j`${uploadProgress->Js.Int.toString}% 上传中`} />
             : <Form
                 labelCol={{
                   "span": 8,

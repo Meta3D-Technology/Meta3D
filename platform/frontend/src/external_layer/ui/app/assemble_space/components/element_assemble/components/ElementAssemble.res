@@ -220,7 +220,7 @@ let make = (
 
   // {
   //   switch selectedContributesAfterGeneratedCustoms {
-  //   | None => <p> {React.string(`处理中...`)} </p>
+  //   | None => <p> {React.string(`处理中`)} </p>
   //   | Some(selectedContributesAfterGeneratedCustoms) =>
   //   }
   // }

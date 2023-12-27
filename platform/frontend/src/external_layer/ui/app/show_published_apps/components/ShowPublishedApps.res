@@ -78,11 +78,7 @@ let make = (~service: FrontendType.service, ~account) => {
               currentImportingKey == PublishedAppUtils.buildKey(item.account, item.appName)
             )
             ->Meta3dCommonlib.OptionSt.getWithDefault(false)
-              ? <p>
-                  {React.string({
-                    j`${downloadProgress->Js.Int.toString}% downloading...`
-                  })}
-                </p>
+              ? <Loading text={j`${downloadProgress->Js.Int.toString}% 下载中`} />
               : React.null}
             <Button
               _type=#primary
@@ -174,7 +170,7 @@ let make = (~service: FrontendType.service, ~account) => {
     </Layout.Header>
     <Layout.Content>
       {!isLoaded
-        ? <p> {React.string(`loading...`)} </p>
+        ? <Loading text={j`加载中，请稍候`} />
         : <>
             <Typography.Title> {React.string({j`推荐`})} </Typography.Title>
             {_buildCards(allRecommendPublishApps)}

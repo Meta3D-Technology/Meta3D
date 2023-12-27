@@ -6,6 +6,7 @@ import * as Curry from "../../../../../../../../../../../../../node_modules/resc
 import * as React from "react";
 import * as Caml_array from "../../../../../../../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Js_promise from "../../../../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
+import * as Loading$Frontend from "../../../../../loading/components/Loading.bs.js";
 import * as Icons from "@ant-design/icons";
 import * as AppUtils$Frontend from "../../../utils/AppUtils.bs.js";
 import * as IntUtils$Frontend from "../../../utils/IntUtils.bs.js";
@@ -315,7 +316,9 @@ function Publish(Props) {
                               }));
                       }),
                     footer: null,
-                    children: match$7[0] ? React.createElement("p", undefined, "" + match$6[0].toString() + "% uploading...") : React.createElement("section", {
+                    children: match$7[0] ? React.createElement(Loading$Frontend.make, {
+                            text: "" + match$6[0].toString() + "% 上传中"
+                          }) : React.createElement("section", {
                             ref: publishModalTarget
                           }, React.createElement(Antd.Form, {
                                 initialValues: {

@@ -60,12 +60,10 @@ let make = (~service: FrontendType.service, ~account) => {
         protocolConfigs => {
           (
             protocols->Meta3dCommonlib.ArraySt.filter(
-              ({name}: BackendCloudbaseType.protocol) =>
-                name->MarketUtils.isNotInnerProtocol,
+              ({name}: BackendCloudbaseType.protocol) => name->MarketUtils.isNotInnerProtocol,
             ),
             protocolConfigs->Meta3dCommonlib.ArraySt.filter(
-              ({name}: CommonType.protocolConfig) =>
-                name->MarketUtils.isNotInnerProtocol,
+              ({name}: CommonType.protocolConfig) => name->MarketUtils.isNotInnerProtocol,
             ),
           )
         },
@@ -80,10 +78,7 @@ let make = (~service: FrontendType.service, ~account) => {
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      MessageUtils.errorWithExn(
-        e->Error.promiseErrorToExn,
-        None,
-      )->Obj.magic
+      MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -96,7 +91,7 @@ let make = (~service: FrontendType.service, ~account) => {
     </Layout.Header>
     <Layout.Content>
       {!isLoaded
-        ? <p> {React.string(`loading...`)} </p>
+        ? <Loading text={j`加载中，请稍候`} />
         : {
             switch extensionProtocolItem {
             | Some(item: BackendCloudbaseType.protocol) =>

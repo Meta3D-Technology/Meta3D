@@ -735,7 +735,6 @@ let make = (
   }, [selectedContributes, customInputs->Obj.magic, customActions->Obj.magic])
 
   <>
-    // {!Method.isLoaded(elementAssembleData) ? <p> {React.string(`loading...`)} </p> : React.null}
     <canvas
       id="ui-visual-canvas"
       style={ReactDOM.Style.make(

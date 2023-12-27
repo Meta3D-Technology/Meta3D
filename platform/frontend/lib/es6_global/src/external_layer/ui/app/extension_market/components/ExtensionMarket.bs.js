@@ -6,6 +6,7 @@ import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/
 import * as React from "react";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Nav$Frontend from "../../nav/components/Nav.bs.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as RescriptReactRouter from "../../../../../../../../../../node_modules/@rescript/react/lib/es6_global/src/RescriptReactRouter.bs.js";
 import * as MarketUtils$Frontend from "../../utils/utils/MarketUtils.bs.js";
@@ -175,7 +176,9 @@ function ExtensionMarket(Props) {
                                                       }))));
                                 })
                             })
-                    ) : React.createElement("p", undefined, "loading...")
+                    ) : React.createElement(Loading$Frontend.make, {
+                          text: "加载中，请稍候"
+                        })
                 }), React.createElement(Antd.Layout.Footer, {
                   children: isLoaded && !match$1[0] ? React.createElement(Antd.Pagination, {
                           current: page,

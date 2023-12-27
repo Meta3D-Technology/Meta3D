@@ -607,9 +607,7 @@ module Method = {
     }
   }
 
-  let _findStartPackageProtocolName = (
-    selectedPackages: ApAssembleStoreType.selectedPackages,
-  ) => {
+  let _findStartPackageProtocolName = (selectedPackages: ApAssembleStoreType.selectedPackages) => {
     selectedPackages
     ->Meta3dCommonlib.ListSt.find(({isStart}) => {
       isStart
@@ -737,9 +735,10 @@ module Method = {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
-    // selectedElementsFromMarket,
   ) => {
-    setOperateInfo(_ => "自动升级版本中...")
+    // selectedElementsFromMarket,
+
+    setOperateInfo(_ => "自动升级版本中"->Some)
 
     let startPackageProtocolName = _findStartPackageProtocolName(selectedPackages)
     let startExtensionProtocolName = _findStartExtensionProtocolName(selectedExtensions)
@@ -888,40 +887,13 @@ module Method = {
         (selectedPackages, selectedExtensions, selectedContributes)->Js.Promise.resolve
       }, _)
     }, _)
-    // ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
-    //   selectedElementsFromMarket
-    //   ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
-    //     result,
-    //     element: BackendCloudbaseType.elementAssembleData,
-    //   ) => {
-    //     service.backend.findNewestPublishElementAssembleData(. element.elementName)
-    //     ->MostUtils.toPromise
-    //     ->Js.Promise.then_(
-    //       elementAssembleData => {
-    //         result
-    //         ->Meta3dCommonlib.ListSt.push(elementAssembleData->Meta3dCommonlib.NullableSt.getExn)
-    //         ->Js.Promise.resolve
-    //       },
-    //       _,
-    //     )
-    //   })
-    //   ->Js.Promise.then_(selectedElements => {
-    //     (
-    //       selectedPackages,
-    //       selectedExtensions,
-    //       selectedContributes,
-    //       selectedElements,
-    //     )->Js.Promise.resolve
-    //   }, _)
-    // }, _)
     ->Js.Promise.then_(
       ((
         selectedPackagesForAppStore,
         selectedExtensionsForAppStoreEdit,
         selectedContributesForAppStore,
-        // selectedElementsForAppStore,
       )) => {
-        setOperateInfo(_ => "")
+        setOperateInfo(_ => None)
 
         let (
           selectedPackagesForApAssembleStore,
@@ -944,7 +916,6 @@ module Method = {
               extensionData
             ),
             selectedContributesForAppStore,
-            // selectedElementsForAppStore,
           ),
           (
             selectedPackagesForApAssembleStore,
@@ -961,6 +932,37 @@ module Method = {
 
         ()->Js.Promise.resolve
       },
+      // ->Js.Promise.then_(((selectedPackages, selectedExtensions, selectedContributes)) => {
+      //   selectedElementsFromMarket
+      //   ->Meta3dCommonlib.ListSt.traverseReducePromiseM(list{}, (
+      //     result,
+      //     element: BackendCloudbaseType.elementAssembleData,
+      //   ) => {
+      //     service.backend.findNewestPublishElementAssembleData(. element.elementName)
+      //     ->MostUtils.toPromise
+      //     ->Js.Promise.then_(
+      //       elementAssembleData => {
+      //         result
+      //         ->Meta3dCommonlib.ListSt.push(elementAssembleData->Meta3dCommonlib.NullableSt.getExn)
+      //         ->Js.Promise.resolve
+      //       },
+      //       _,
+      //     )
+      //   })
+      //   ->Js.Promise.then_(selectedElements => {
+      //     (
+      //       selectedPackages,
+      //       selectedExtensions,
+      //       selectedContributes,
+      //       selectedElements,
+      //     )->Js.Promise.resolve
+      //   }, _)
+      // }, _)
+
+      // selectedElementsForAppStore,
+
+      // selectedElementsForAppStore,
+
       // startExtensionProtocolName,
 
       // startExtensionProtocolName,
@@ -1010,7 +1012,7 @@ module Method = {
     )
   }
 
-  let buildOperateInfoDefault = () => ""
+  // let buildOperateInfoDefault = () => ""
 }
 
 // TODO refactor: split for ap assemble and package assemble
@@ -1022,18 +1024,18 @@ let make = (
   ~storedPackageIdsInApp,
   ~selectedExtensions,
   ~selectedContributes,
-  // ~selectedElementsFromMarket,
 ) => {
+  // ~selectedElementsFromMarket,
+
   let dispatchForAppStore = service.app.useDispatch()
-  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
-    service.react.useDispatch,
-  )
+  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
   let dispatchForPackageAssembleStore = ReduxUtils.PackageAssemble.useDispatch(
     service.react.useDispatch,
   )
 
   let (data, setData) = service.react.useState(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
-  let (operateInfo, setOperateInfo) = service.react.useState(_ => Method.buildOperateInfoDefault())
+  // let (operateInfo, setOperateInfo) = service.react.useState(_ => Method.buildOperateInfoDefault())
+  let (operateInfo, setOperateInfo) = service.react.useState(_ => None)
 
   let (allPackagesNotStoredInApp, allPackagesStoredInApp) = AppUtils.splitPackages(
     selectedPackages,
@@ -1070,31 +1072,29 @@ let make = (
     ? {React.string(`请指定启动扩展`)}
     : {
         <>
-          <p> {React.string(operateInfo)} </p>
-          {operateInfo == Method.buildOperateInfoDefault()
-            ? {
-                <Button
-                  onClick={_ => {
-                    MessageUtils.showCatchedErrorMessage(() => {
-                      Method.autoUpgradeVersion(
-                        service,
-                        setOperateInfo,
-                        dispatchForAppStore,
-                        dispatchForApAssembleStore,
-                        dispatchForPackageAssembleStore,
-                        selectedPackages,
-                        selectedExtensions,
-                        selectedContributes,
-                        // selectedElementsFromMarket,
-                      )->ignore
-                    }, 5->Some)
-                  }}>
-                  {React.string(`自动升级版本`)}
-                </Button>
-              }
-            : {
-                React.null
-              }}
+          {switch operateInfo {
+          | None =>
+            <Button
+              onClick={_ => {
+                MessageUtils.showCatchedErrorMessage(() => {
+                  Method.autoUpgradeVersion(
+                    service,
+                    setOperateInfo,
+                    dispatchForAppStore,
+                    dispatchForApAssembleStore,
+                    dispatchForPackageAssembleStore,
+                    selectedPackages,
+                    selectedExtensions,
+                    selectedContributes,
+                    // selectedElementsFromMarket,
+                  )->ignore
+                }, 5->Some)
+              }}>
+              {React.string(`自动升级版本`)}
+            </Button>
+
+          | Some(operateInfo) => <Loading text=operateInfo />
+          }}
           <FlowAnalysisGraph
             data={data->Obj.magic}
             nodeCfg={

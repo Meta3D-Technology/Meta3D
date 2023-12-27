@@ -118,17 +118,9 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: 'static/three/draco',
-                    to: 'static/three/draco'
-                },
-                {
-                    from: 'static/three/basis',
-                    to: 'static/three/basis'
-                },
-                {
-                    from: 'static/dts',
-                    to: 'static/dts'
-                },
+                    from: 'static/',
+                    to: 'static/'
+                }
             ],
         }),
         new MonacoWebpackPlugin({

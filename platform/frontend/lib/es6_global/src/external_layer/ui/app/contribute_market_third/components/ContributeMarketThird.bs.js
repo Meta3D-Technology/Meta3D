@@ -6,6 +6,7 @@ import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/
 import * as React from "react";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Main$Meta3d from "../../../../../../../../../../node_modules/meta3d/lib/es6_global/src/Main.bs.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as MarketUtils$Frontend from "../../utils/utils/MarketUtils.bs.js";
 import * as SelectUtils$Frontend from "../../utils/utils/SelectUtils.bs.js";
@@ -103,7 +104,9 @@ function ContributeMarketThird(Props) {
   if (isLoaded) {
     var protocolName = contributeProtocolItem.name;
     var protocolVersion = contributeProtocolItem.version;
-    tmp = React.createElement(React.Fragment, undefined, match$6[0] ? React.createElement("p", undefined, "" + match$5[0].toString() + "% downloading...") : null, React.createElement(Antd.List, {
+    tmp = React.createElement(React.Fragment, undefined, match$6[0] ? React.createElement(Loading$Frontend.make, {
+                text: "" + match$5[0].toString() + "% 下载中"
+              }) : null, React.createElement(Antd.List, {
               itemLayout: "horizontal",
               dataSource: MarketUtils$Frontend.getCurrentPage(_groupAllPublishContributes(allPublishContributes), page, MarketUtils$Frontend.getPageSize(undefined)),
               renderItem: (function (items) {
@@ -197,7 +200,9 @@ function ContributeMarketThird(Props) {
                 })
             }));
   } else {
-    tmp = React.createElement("p", undefined, "loading...");
+    tmp = React.createElement(Loading$Frontend.make, {
+          text: "加载中，请稍候"
+        });
   }
   return React.createElement(Antd.Layout, {
               children: null

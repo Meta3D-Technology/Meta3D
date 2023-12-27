@@ -7,6 +7,7 @@ import * as React from "react";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
 import * as Nav$Frontend from "../../nav/components/Nav.bs.js";
 import * as Help$Frontend from "../../help/components/Help.bs.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as LinkUtils$Frontend from "../../utils/LinkUtils.bs.js";
 import * as UserUtils$Frontend from "../../utils/UserUtils.bs.js";
@@ -90,7 +91,7 @@ function UserCenter(Props) {
           MessageUtils$Frontend.showCatchedErrorMessage((function (param) {
                   AssembleSpaceUtils$Frontend.resetWhenLeave(dispatchForElementAssembleStore);
                   Curry._1(setInfo, (function (param) {
-                          return "loading...";
+                          return "加载中，请稍候";
                         }));
                   var __x = service.backend.findAllPublishAppsByAccount(OptionSt$Meta3dCommonlib.getExn(account));
                   var __x$1 = Most.observe((function (allPublishApps) {
@@ -121,7 +122,9 @@ function UserCenter(Props) {
                         account: account
                       })
                 }), React.createElement(Antd.Layout, {
-                  children: info !== undefined ? "" + info + "" : React.createElement(React.Fragment, undefined, React.createElement(Antd.Layout.Sider, {
+                  children: info !== undefined ? React.createElement(Loading$Frontend.make, {
+                          text: info
+                        }) : React.createElement(React.Fragment, undefined, React.createElement(Antd.Layout.Sider, {
                               theme: "light",
                               width: 300,
                               children: React.createElement(Help$Frontend.make, {
@@ -177,7 +180,7 @@ function UserCenter(Props) {
                                                         return RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter");
                                                       }
                                                       Curry._1(setInfo, (function (param) {
-                                                              return "loading...";
+                                                              return "加载中，请稍候";
                                                             }));
                                                       Curry._1(dispatch, {
                                                             RE_EXN_ID: AppStoreType$Frontend.UserCenterAction,
@@ -226,7 +229,7 @@ function UserCenter(Props) {
                                                             }), React.createElement(Antd.Button, {
                                                               onClick: (function (param) {
                                                                   Curry._1(setInfo, (function (param) {
-                                                                          return "" + downloadProgress.toString() + "% downloading...";
+                                                                          return "" + downloadProgress.toString() + "% 下载中";
                                                                         }));
                                                                   PublishedAppUtils$Frontend.importApp(service, [
                                                                         dispatch,

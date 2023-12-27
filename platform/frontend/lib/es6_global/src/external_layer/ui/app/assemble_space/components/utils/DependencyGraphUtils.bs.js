@@ -7,6 +7,7 @@ import * as React from "react";
 import * as Semver from "semver";
 import * as Caml_obj from "../../../../../../../../../../../node_modules/rescript/lib/es6/caml_obj.js";
 import * as Js_promise from "../../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
+import * as Loading$Frontend from "../../../loading/components/Loading.bs.js";
 import * as AppUtils$Frontend from "./AppUtils.bs.js";
 import * as Graphs from "@ant-design/graphs";
 import * as MostUtils$Frontend from "../../../utils/MostUtils.bs.js";
@@ -555,7 +556,7 @@ function _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore(sel
 
 function autoUpgradeVersion(service, setOperateInfo, dispatchForAppStore, dispatchForApAssembleStore, dispatchForPackageAssembleStore, selectedPackages, selectedExtensions, selectedContributes) {
   Curry._1(setOperateInfo, (function (param) {
-          return "自动升级版本中...";
+          return "自动升级版本中";
         }));
   var startPackageProtocolName = _findStartPackageProtocolName(selectedPackages);
   var startExtensionProtocolName = _findStartExtensionProtocolName(selectedExtensions);
@@ -672,7 +673,7 @@ function autoUpgradeVersion(service, setOperateInfo, dispatchForAppStore, dispat
                 var selectedExtensionsForAppStoreEdit = param[1];
                 var selectedPackagesForAppStore = param[0];
                 Curry._1(setOperateInfo, (function (param) {
-                        return "";
+                        
                       }));
                 var match = _convertSelectedDataFromForAppStoreToForApAssembleStore(selectedPackagesForAppStore, selectedExtensionsForAppStoreEdit, selectedContributesForAppStore, [
                       startPackageProtocolName,
@@ -698,10 +699,6 @@ function autoUpgradeVersion(service, setOperateInfo, dispatchForAppStore, dispat
               }), __x$2);
 }
 
-function buildOperateInfoDefault(param) {
-  return "";
-}
-
 var Method = {
   _buildNodes: _buildNodes,
   _buildNodeErrorInfo: _buildNodeErrorInfo,
@@ -723,8 +720,7 @@ var Method = {
   _findStartExtensionProtocolName: _findStartExtensionProtocolName,
   _convertSelectedDataFromForAppStoreToForApAssembleStore: _convertSelectedDataFromForAppStoreToForApAssembleStore,
   _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore: _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore,
-  autoUpgradeVersion: autoUpgradeVersion,
-  buildOperateInfoDefault: buildOperateInfoDefault
+  autoUpgradeVersion: autoUpgradeVersion
 };
 
 function DependencyGraphUtils(Props) {
@@ -743,7 +739,7 @@ function DependencyGraphUtils(Props) {
   var setData = match[1];
   var data = match[0];
   var match$1 = Curry._1(service.react.useState, (function (param) {
-          return "";
+          
         }));
   var setOperateInfo = match$1[1];
   var operateInfo = match$1[0];
@@ -771,14 +767,16 @@ function DependencyGraphUtils(Props) {
   if (Caml_obj.equal(data, ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined))) {
     return "请指定启动扩展";
   } else {
-    return React.createElement(React.Fragment, undefined, React.createElement("p", undefined, operateInfo), operateInfo === "" ? React.createElement(Antd.Button, {
+    return React.createElement(React.Fragment, undefined, operateInfo !== undefined ? React.createElement(Loading$Frontend.make, {
+                      text: operateInfo
+                    }) : React.createElement(Antd.Button, {
                       onClick: (function (param) {
                           MessageUtils$Frontend.showCatchedErrorMessage((function (param) {
                                   autoUpgradeVersion(service, setOperateInfo, dispatchForAppStore, dispatchForApAssembleStore, dispatchForPackageAssembleStore, selectedPackages, selectedExtensions, selectedContributes);
                                 }), 5);
                         }),
                       children: "自动升级版本"
-                    }) : null, React.createElement(Graphs.FlowAnalysisGraph, {
+                    }), React.createElement(Graphs.FlowAnalysisGraph, {
                     behaviors: [
                       "drag-canvas",
                       "zoom-canvas",

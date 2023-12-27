@@ -8,9 +8,9 @@ let make = (
   ~allPublishExtensionProtocolConfigs,
 ) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedExtensions} = AppStore.useSelector((
-    {userCenterState}: AppStoreType.state,
-  ) => userCenterState)
+  let {selectedExtensions} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
+    userCenterState
+  )
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (page, setPage) = React.useState(_ => 1)
@@ -74,10 +74,7 @@ let make = (
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      MessageUtils.errorWithExn(
-        e->Error.promiseErrorToExn,
-        None,
-      )->Obj.magic
+      MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -87,7 +84,7 @@ let make = (
   <Layout>
     <Layout.Content>
       {!isLoaded
-        ? <p> {React.string(`loading...`)} </p>
+        ? <Loading text={j`加载中，请稍候`} />
         : {
             let (protocolName, protocolVersion) = (
               extensionProtocolItem.name,
@@ -96,7 +93,7 @@ let make = (
 
             <>
               {isDownloadBegin
-                ? <p> {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})} </p>
+                ? <Loading text={j`${downloadProgress->Js.Int.toString}% 下载中`} />
                 : React.null}
               <List
                 itemLayout=#horizontal
@@ -151,9 +148,9 @@ let make = (
                       //   selectedExtensions,
                       // )
                       MarketUtils.isSelect(
-                        (
-                          ({version, data}, _): AssembleSpaceCommonType.extensionData,
-                        ) => {j`${version}_${data.extensionPackageData.name}`},
+                        (({version, data}, _): AssembleSpaceCommonType.extensionData) => {
+                          j`${version}_${data.extensionPackageData.name}`
+                        },
                         {
                           j`${extensionProtocolItem.info.version}_${extensionProtocolItem.info.name}`
                         },
@@ -215,12 +212,7 @@ let make = (
                                               account: extensionProtocolItem.info.account,
                                             },
                                             allPublishExtensionProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                              (
-                                                {
-                                                  name,
-                                                  version,
-                                                }: CommonType.protocolConfig,
-                                              ) => {
+                                              ({name, version}: CommonType.protocolConfig) => {
                                                 name === protocolName && version === protocolVersion
                                               },
                                             ),

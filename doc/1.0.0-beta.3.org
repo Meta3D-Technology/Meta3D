@@ -310,7 +310,7 @@ TODO handle error
 # * TODO fix: first register
 
 
-* TODO 准备模板 in production
+* DONE 准备模板 in production
 
 TODO need update all
 
@@ -354,10 +354,11 @@ TODO finish "TODO update"
 
 
 
-* TODO 更新logo for website, github org, production, loading
+* DONE 更新logo for website, github org, production, loading
 
+    <img src="/static/image/gif/loading.gif" />
 
-* TODO loading, Publish->loading add Meta3D Logo
+* DONE loading, Publish->loading add Meta3D Logo
 
 add logo + loading... gif
 

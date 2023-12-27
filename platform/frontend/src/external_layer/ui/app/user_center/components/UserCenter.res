@@ -92,7 +92,7 @@ let make = (~service: FrontendType.service) => {
           RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
         }
       : {
-          setInfo(_ => {j`loading...`}->Some)
+          setInfo(_ => {j`加载中，请稍候`}->Some)
 
           dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.RemoveElement))
 
@@ -140,7 +140,7 @@ let make = (~service: FrontendType.service) => {
     MessageUtils.showCatchedErrorMessage(() => {
       AssembleSpaceUtils.resetWhenLeave(dispatchForElementAssembleStore)
 
-      setInfo(_ => {j`loading...`->Some})
+      setInfo(_ => {j`加载中，请稍候`->Some})
 
       service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
       ->Meta3dBsMostDefault.Most.observe(
@@ -171,7 +171,7 @@ let make = (~service: FrontendType.service) => {
     </Layout.Header>
     <Layout>
       {switch info {
-      | Some(info) => React.string(`${info}`)
+      | Some(info) => <Loading text=info />
       | None =>
         <>
           <Layout.Sider width=300 theme=#light>
@@ -247,9 +247,7 @@ let make = (~service: FrontendType.service) => {
                       <Button
                         _type=#primary
                         onClick={_ => {
-                          setInfo(_ =>
-                            j`${downloadProgress->Js.Int.toString}% downloading...`->Some
-                          )
+                          setInfo(_ => j`${downloadProgress->Js.Int.toString}% 下载中`->Some)
 
                           PublishedAppUtils.importApp(
                             service,

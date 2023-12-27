@@ -6,6 +6,7 @@ import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/
 import * as React from "react";
 import * as Caml_array from "../../../../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
 import * as Js_promise from "../../../../../../../../../../node_modules/rescript/lib/es6/js_promise.js";
+import * as Loading$Frontend from "../../loading/components/Loading.bs.js";
 import * as AppStore$Frontend from "../../store/AppStore.bs.js";
 import * as LinkUtils$Frontend from "../../utils/LinkUtils.bs.js";
 import * as GuideUtils$Frontend from "../../utils/GuideUtils.bs.js";
@@ -155,7 +156,9 @@ function Login(Props) {
                                       href: "https://zhuanlan.zhihu.com/p/112285438",
                                       target: "_blank",
                                       children: "如何开启MetaMask钱包？"
-                                    }))), match[0] ? React.createElement("p", undefined, "loging...") : null)
+                                    }))), match[0] ? React.createElement(Loading$Frontend.make, {
+                                text: "加载中，请稍候"
+                              }) : null)
                   }) : React.createElement(Antd.Modal, {
                     title: "欢迎来到Meta3D",
                     visible: true,

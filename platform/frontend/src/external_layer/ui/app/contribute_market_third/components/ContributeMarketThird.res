@@ -8,9 +8,9 @@ let make = (
   ~allPublishContributeProtocolConfigs,
 ) => {
   let dispatch = AppStore.useDispatch()
-  let {selectedContributes} = AppStore.useSelector((
-    {userCenterState}: AppStoreType.state,
-  ) => userCenterState)
+  let {selectedContributes} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
+    userCenterState
+  )
 
   let (isLoaded, setIsLoaded) = React.useState(_ => false)
   let (page, setPage) = React.useState(_ => 1)
@@ -74,10 +74,7 @@ let make = (
     ->Js.Promise.catch(e => {
       setIsLoaded(_ => false)
 
-      MessageUtils.errorWithExn(
-        e->Error.promiseErrorToExn,
-        None,
-      )->Obj.magic
+      MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
     }, _)
     ->ignore
 
@@ -87,7 +84,7 @@ let make = (
   <Layout>
     <Layout.Content>
       {!isLoaded
-        ? <p> {React.string(`loading...`)} </p>
+        ? <Loading text={j`加载中，请稍候`} />
         : {
             let (protocolName, protocolVersion) = (
               contributeProtocolItem.name,
@@ -96,7 +93,7 @@ let make = (
 
             <>
               {isDownloadBegin
-                ? <p> {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})} </p>
+                ? <Loading text={j`${downloadProgress->Js.Int.toString}% 下载中`} />
                 : React.null}
               <List
                 itemLayout=#horizontal
@@ -152,12 +149,9 @@ let make = (
                       // )
 
                       MarketUtils.isSelect(
-                        (
-                          (
-                            {version, data},
-                            _,
-                          ): AssembleSpaceCommonType.contributeData,
-                        ) => {j`${version}_${data.contributePackageData.name}`},
+                        (({version, data}, _): AssembleSpaceCommonType.contributeData) => {
+                          j`${version}_${data.contributePackageData.name}`
+                        },
                         {
                           j`${contributeProtocolItem.info.version}_${contributeProtocolItem.info.name}`
                         },
@@ -216,12 +210,7 @@ let make = (
                                               account: contributeProtocolItem.info.account,
                                             },
                                             allPublishContributeProtocolConfigs->Meta3dCommonlib.ArraySt.find(
-                                              (
-                                                {
-                                                  name,
-                                                  version,
-                                                }: CommonType.protocolConfig,
-                                              ) => {
+                                              ({name, version}: CommonType.protocolConfig) => {
                                                 name === protocolName && version === protocolVersion
                                               },
                                             ),

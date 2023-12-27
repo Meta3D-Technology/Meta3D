@@ -114,7 +114,7 @@ let make = (~service: FrontendType.service) => {
 
   <>
     {!isDownloadFinish
-      ? <p> {React.string({j`${downloadProgress->Js.Int.toString}% downloading...`})} </p>
+      ? <Loading text={j`${downloadProgress->Js.Int.toString}% 下载中`} />
       : React.null}
   </>
 }
