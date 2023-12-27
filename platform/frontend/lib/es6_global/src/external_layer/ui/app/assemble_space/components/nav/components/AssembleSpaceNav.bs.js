@@ -11,6 +11,14 @@ import * as AppStoreType$Frontend from "../../../../utils/utils/assemble_space/A
 import 'antd/dist/reset.css'
 ;
 
+function useSelector(param) {
+  return param.elementAssembleState.isInCreateFromScratchTourPhase2;
+}
+
+var Method = {
+  useSelector: useSelector
+};
+
 function AssembleSpaceNav(Props) {
   var service = Props.service;
   var currentKeyOpt = Props.currentKey;
@@ -19,6 +27,7 @@ function AssembleSpaceNav(Props) {
   var currentKey = currentKeyOpt !== undefined ? currentKeyOpt : "2";
   var dispatchForAppStore = Curry._1(service.app.useDispatch, undefined);
   var dispatchForElementAssembleStore = ReduxUtils$Frontend.ElementAssemble.useDispatch(service.react.useDispatch);
+  var isInCreateFromScratchTourPhase2 = service.react.useSelector(useSelector);
   return React.createElement("section", {
               ref: assembleSpaceNavTarget
             }, React.createElement(Antd.Menu, {
@@ -39,7 +48,7 @@ function AssembleSpaceNav(Props) {
                   onClick: (function (param) {
                       switch (param.key) {
                         case "1" :
-                            if (!GuideUtils$Frontend.readIsFinishCreateFromScratchTour(undefined)) {
+                            if (!GuideUtils$Frontend.readIsFinishCreateFromScratchTour(undefined) && isInCreateFromScratchTourPhase2) {
                               Curry._1(dispatchForElementAssembleStore, /* EndCreateFromScratchTourPhase2 */4);
                               Curry._1(dispatchForAppStore, {
                                     RE_EXN_ID: AppStoreType$Frontend.UserCenterAction,
@@ -59,6 +68,7 @@ function AssembleSpaceNav(Props) {
 var make = AssembleSpaceNav;
 
 export {
+  Method ,
   make ,
 }
 /*  Not a pure module */

@@ -2,6 +2,12 @@ open AssembleSpaceType
 open Antd
 %%raw("import 'antd/dist/reset.css'")
 
+module Method = {
+  let useSelector = ({elementAssembleState}: AssembleSpaceStoreType.state) => {
+    elementAssembleState.isInCreateFromScratchTourPhase2
+  }
+}
+
 @react.component
 let make = (
   ~service: service,
@@ -14,6 +20,8 @@ let make = (
     service.react.useDispatch,
   )
 
+  let isInCreateFromScratchTourPhase2 = service.react.useSelector(. Method.useSelector)
+
   <section ref={assembleSpaceNavTarget->Obj.magic}>
     <Menu
       theme=#light
@@ -23,7 +31,7 @@ let make = (
       onClick={({key}) => {
         switch key {
         | "1" =>
-          !GuideUtils.readIsFinishCreateFromScratchTour()
+          !GuideUtils.readIsFinishCreateFromScratchTour() && isInCreateFromScratchTourPhase2
             ? {
                 dispatchForElementAssembleStore(
                   ElementAssembleStoreType.EndCreateFromScratchTourPhase2,

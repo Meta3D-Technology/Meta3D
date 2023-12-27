@@ -329,7 +329,7 @@ TODO 从头创建编辑器引导的模板
 
 
 
-* TODO 加入数据统计 in production
+* DONE 加入数据统计 in production
 
 //TODO 平台加入埋点
 
@@ -350,7 +350,7 @@ TODO upload preview
 TODO finish "TODO update"
 
 
-* TODO fix: if not finish phase1,2 guide , not start phase3 guide
+* DONE fix: if not finish phase1,2 guide , not start phase3 guide
 
 
 
