@@ -28,13 +28,10 @@ let make = (~account) => {
         0,
         GuideUtils.buildCreateFromScratchStepData(),
       )}
-      // TODO update
       <Button
         _type=#link
         onClick={_ => {
-          LinkUtils.openLink(
-            PublishedAppUtils.buildURL("0xf63e1991a343814ede505d7cfc368615eae75307", "t3"),
-          )
+          LinkUtils.openLink(PublishedAppUtils.buildURL("meta3d", "最简单的编辑器1"))
         }}>
         {React.string(`提前预览最终成果`)}
       </Button>

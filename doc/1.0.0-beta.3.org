@@ -341,9 +341,7 @@ TODO 平台、官网加入数据统计
 使用百度统计
 https://tongji.baidu.com/main/setting/52340731/home/site/getjs?siteId=20002434
 
-
-
-* TODO finish "TODO update"
+* DONE finish "TODO update"
 
 TODO update production
 
@@ -352,8 +350,16 @@ TODO upload preview
 TODO finish "TODO update"
 
 
+* TODO fix: if not finish phase1,2 guide , not start phase3 guide
+
+
+
 * TODO 更新logo for website, github org, production, loading
+
+
 * TODO loading, Publish->loading add Meta3D Logo
+
+add logo + loading... gif
 
 
 * TODO 更新资料

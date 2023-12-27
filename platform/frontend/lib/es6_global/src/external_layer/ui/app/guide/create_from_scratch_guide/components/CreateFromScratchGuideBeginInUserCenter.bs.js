@@ -31,7 +31,7 @@ function CreateFromScratchGuideBeginInUserCenter(Props) {
                         RescriptReactRouter.push("/UserCenter");
                       }), 0, GuideUtils$Frontend.buildCreateFromScratchStepData(undefined)), React.createElement(Antd.Button, {
                       onClick: (function (param) {
-                          LinkUtils$Frontend.openLink(PublishedAppUtils$Frontend.buildURL("0xf63e1991a343814ede505d7cfc368615eae75307", "t3"));
+                          LinkUtils$Frontend.openLink(PublishedAppUtils$Frontend.buildURL("meta3d", "最简单的编辑器1"));
                         }),
                       children: "提前预览最终成果",
                       type: "link"
