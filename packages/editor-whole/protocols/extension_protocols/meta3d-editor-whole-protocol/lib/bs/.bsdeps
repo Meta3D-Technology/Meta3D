@@ -1,9 +1,0 @@
-10.1.4
-/Users/yang/Github/Meta3D/node_modules/meta3d-editor-whole-protocol
-1 -bs-package-output commonjs:lib/js:.bs.js -bs-package-output es6-global:lib/es6_global:.bs.js
-bsconfig.json	0x1.9530ccdp+30
-src	0x1.9614d23p+30
-src/service	0x1.96150178p+30
-src/state	0x1.96150184p+30
-===
-/Users/yang/Github/Meta3D/node_modules/rescript/darwin/rescript.exe	0x1.95811b6p+30

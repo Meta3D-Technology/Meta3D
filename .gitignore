@@ -14,7 +14,6 @@ ocaml/
 
 dist/
 
-lib/bs/
 .bs.js
 .gen.tsx
 
