@@ -363,6 +363,17 @@ TODO finish "TODO update"
 add logo + loading... gif
 
 
+* DONE update production
+  TODO need update template's inputs and actions(reselect all)
+
+
+
+* DONE fix Collapse?
+
+
+* TODO production: auto upgrade template; update ui, editor-whole package
+
+
 * TODO 更新资料
 
 # 在新手引导的基础上，达成下面的目的：
@@ -405,6 +416,9 @@ https://www.google.com.hk/search?q=%E5%A4%96%E6%8C%82%E5%AD%97%E5%B9%95%E6%80%8E
 
 - TODO 制作宣传视频（<1min）
 
+剪辑+快进+音乐
+
+快速演示整个功能
 
 TODO first modal guide add this video
 
@@ -447,11 +461,6 @@ TODO Custom: Input: 给出type
 
 
 
-
-TODO update platform/frontend -> TODO link
-
-
-
 TODO move related doc to platform as guide doc
   # TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
   # TODO 在新手引导后，给出更多的文档链接
@@ -471,6 +480,11 @@ TODO move related doc to platform as guide doc
       给出弹出文档，包括开发完整编辑器等
     初次运行 模板时(in ShowApp or UserCenter or RunElementVisualController):
       包括：操作演示视频、glb模型资源、event资源
+
+
+
+TODO update platform/frontend -> TODO link
+
 
 
 
@@ -501,9 +515,137 @@ TODO https://github.com/Meta3D-Technology/Meta3D/discussions/43 add FAQ link
 
 
 
+
+# ** TODO
+
+
+# TODO 简介
+
+# # login doc jump to here
+
+
+
+
+# TODO first tutiol
+# use guide
+
+
+
+
+
+# TODO move related doc to platform as guide doc
+#   # TODO 在用户可能的操作时，给出文档链接(float bar->help give info)
+#   # TODO 在新手引导后，给出更多的文档链接
+#   # e.g. give input type doc link when select input, ...
+#   actions:
+#     first enter user center:
+#       认识基本知识： 如基本概念、Input、Action等
+#     show input
+#     show action
+#     add ui controls
+#     run template: introduce editor
+#     import template:
+#       how to 搭建出简化版的完整的编辑器；
+#         需要给出editorWholePackage api文档
+#       how to extend
+#     after finish guide:
+#       给出弹出文档，包括开发完整编辑器等
+#     初次运行 模板时(in ShowApp or UserCenter or RunElementVisualController):
+#       包括：操作演示视频、glb模型资源、event资源
+
+
+
+
+# TODO 给出API链接：
+# 如input,action中的api的类型（editor whole package部分跳转到它的协议？）
+
+
+# TODO Custom: Input: 给出type
+# 给出Input对应的protocol的link
+
+
+
+
+# TODO 知道UI Control的用法：
+#   给出每个UI Control的文档
+#   refer to: https://docs.appsmith.com/reference/widgets
+
+# 注意：
+# 文档保持最精简，后面再加
+# e.g. UI Controls不需要全部介绍，只介绍几个重要的即可
+
+
+
+
+
+
+# TODO update platform/frontend -> TODO link
+
+
+
+
+# - TODO release: show changelog
+
+# - TODO 更新一句话口号
+# 快速搭建Web3D编辑器，共建开放互助的web3d生态
+
+# - TODO 官网突出平台的入口
+
+
+# - TODO 官网: add star
+
+# - TODO 调整Meta3D的用处，删除开发Web3D引擎，转而强调快速搭建 Web3D编辑器
+
+
+
+
+# - TODO 制作宣传视频（<1min）
+
+# 剪辑+快进+音乐
+
+# 快速演示整个功能
+
+# TODO first modal guide add this video
+
+
+
+
+
+
+# - TODO 给出多个gif，展示各种特性
+# e.g. 展示搭建编辑器（包括引擎）、使用编辑器开发web3d应用  的过程、自定义Menu等ui control。。。。。。
+
+#   - TODO update doc
+#   - TODO update 官网
+#   - 参考：
+
+# https://cn.nocobase.com/
+#   - TODO update README
+#     update snapshot
+#     add gif
+
+#     add contributors: show avater
+
+
+
+
+# TODO update FAQ
+# TODO https://github.com/Meta3D-Technology/Meta3D/discussions/43 add FAQ link
+
+
+
+# TODO website: finish all TODOs
+
+
+
 * TODO 文档优化
 
 TODO 压缩所有的图片
+
+
+
+* TODO move website to gitpage?
+
 
 
 * TODO publish
@@ -517,6 +659,8 @@ TODO 压缩所有的图片
 https://github.com/Meta3D-Technology/Meta3D/discussions/43
 
 ** TODO 邀请lj、xh、wkh等熟人来使用
+
+能不能学会目前开放的流程？
 
 
 ** TODO 邀请QQ群的同学来测试

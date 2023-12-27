@@ -138,8 +138,9 @@ export enum windowFlags {
 }
 
 export enum cond {
-  None,
-  Always
+  // None,
+  Always,
+  Once
 }
 
 

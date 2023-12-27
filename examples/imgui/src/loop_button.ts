@@ -474,7 +474,9 @@ export let loop = (time: number) => {
 
     ImGui.InputText("Name", (_ = name) => name = _, 30);
 
-    ImGui.SetNextItemOpen(true, ImGui.Cond.Always);
+    // ImGui.SetNextItemOpen(true, ImGui.Cond.Once);
+    ImGui.SetNextItemOpen(false, ImGui.Cond.Once);
+    // ImGui.SetNextItemOpen(true, ImGui.Cond.None);
     if (ImGui.CollapsingHeader("Transform")) {
         ImGui.PushItemWidth(400/4);
         ImGui.PushID(1);

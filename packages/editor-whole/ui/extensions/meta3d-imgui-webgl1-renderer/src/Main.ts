@@ -327,11 +327,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
         collapsing: (label, isOpen, cond_) => {
             let imguiCond = null
             switch (cond_) {
-                case cond.None:
-                    imguiCond = ImGui.Cond.None
-                    break
                 case cond.Always:
                     imguiCond = ImGui.Cond.Always
+                    break
+                case cond.Once:
+                    imguiCond = ImGui.Cond.Once
                     break
                 default:
                     throw new Error("unknown cond: " + cond)

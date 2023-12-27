@@ -27,15 +27,15 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         name: "cond",
         type_: "select",
         value: {
-            selected: cond.None,
+            selected: cond.Always,
             data: [
-                {
-                    key: "None",
-                    value: cond.None
-                },
                 {
                     key: "Always",
                     value: cond.Always
+                },
+                {
+                    key: "Once",
+                    value: cond.Once
                 }
             ]
         }

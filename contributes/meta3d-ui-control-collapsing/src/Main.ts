@@ -17,7 +17,11 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
         ) => {
             let { collapsing } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-            if (collapsing(meta3dState, label, isOpen, cond.selected)) {
+            let data = collapsing(meta3dState, label, isOpen, cond.selected)
+            meta3dState = data[0]
+            let isOpen_ = data[1]
+
+            if (isOpen_) {
                 return childrenFunc(meta3dState).then(meta3dState => {
                     return [meta3dState, null]
                 })
