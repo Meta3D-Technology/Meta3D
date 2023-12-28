@@ -384,12 +384,24 @@ TODO add material inspector
 
 * DONE fix: handle fetch release fail
 
+* DONE fix: Enter App shouldn't exec idle task
 
 * TODO fix: import event error
+load dispose load export
 
-* TODO fix: import event: asset should reset
+dispose export import:error
+
+
+* TODO fix: import event twice: asset shouldn't add again
+
+
+* TODO fix: Scene Tree: rootNodeLabel
+
 
 * TODO perf: export single event is so big
+
+
+* TODO test in production
 
 
 * TODO 更新资料

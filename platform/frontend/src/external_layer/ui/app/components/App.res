@@ -357,50 +357,51 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
-      // dispatch(
-      //   AppStoreType.SetIdleTasks(),
-      // )
-      idleTasks.current = list{
-        () => {
-          _getReleaseData(dispatch)
-          ->Js.Promise.then_(
-            release_ => {
-              release.current = release_->Some
+      switch url.path {
+      | list{"EnterApp"} => ()
+      | _ =>
+        idleTasks.current = list{
+          () => {
+            _getReleaseData(dispatch)
+            ->Js.Promise.then_(
+              release_ => {
+                release.current = release_->Some
 
-              ()->Js.Promise.resolve
-            },
-            _,
-          )
-          ->ignore
+                ()->Js.Promise.resolve
+              },
+              _,
+            )
+            ->ignore
 
-          true
-        },
-        () => {
-          UserUtils.isAdmin(account)
-            ? true
-            : switch release.current {
-              | None => false
-              | Some(release) =>
-                UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
+            true
+          },
+          () => {
+            UserUtils.isAdmin(account)
+              ? true
+              : switch release.current {
+                | None => false
+                | Some(release) =>
+                  UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
 
-                true
-              }
-        },
-        () => {
-          UserUtils.isAdmin(account)
-            ? true
-            : switch release.current {
-              | None => false
-              | Some(release) =>
-                SelectPackageUtils.selectEditorWholeAndEngineWholePackages(
-                  service,
-                  dispatch,
-                  release->Some,
-                )->ignore
+                  true
+                }
+          },
+          () => {
+            UserUtils.isAdmin(account)
+              ? true
+              : switch release.current {
+                | None => false
+                | Some(release) =>
+                  SelectPackageUtils.selectEditorWholeAndEngineWholePackages(
+                    service,
+                    dispatch,
+                    release->Some,
+                  )->ignore
 
-                true
-              }
-        },
+                  true
+                }
+          },
+        }
       }
     }, 5->Some)
 
