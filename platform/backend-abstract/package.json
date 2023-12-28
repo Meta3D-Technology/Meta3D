@@ -1,7 +1,7 @@
 {
     "name": "backend-abstract",
     "main": "src/Main.js",
-    "version": "1.0.0-beta.3",
+    "version": "1.0.0-beta.4",
     "authors": "Wonder",
     "scripts": {
         "watch": "tsc --watch",
@@ -9,7 +9,7 @@
         "test:ci": "tsc --build --clean && jest --maxWorkers=4 --config jest_coverage.json && tsc --build"
     },
     "dependencies": {
-        "meta3d-structure-utils": "^1.0.0-beta.3",
+        "meta3d-structure-utils": "^1.0.0-beta.4",
         "most": "^1.9.0",
         "semver": "7.3.7"
     },

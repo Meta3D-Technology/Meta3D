@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-utils",
-    "version": "1.0.0-beta.3",
+    "version": "1.0.0-beta.4",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
@@ -11,7 +11,7 @@
         "meta3d-component-pbrmaterial-protocol": "^1.0.0-beta.3",
         "meta3d-component-perspectivecameraprojection-protocol": "^1.0.0-beta.3",
         "meta3d-component-transform-protocol": "^1.0.0-beta.3",
-        "meta3d-core-protocol": "^1.0.0-beta.3",
+        "meta3d-core-protocol": "^1.0.0-beta.4",
         "meta3d-event-protocol": "^1.0.0-beta.3"
     },
     "devDependencies": {

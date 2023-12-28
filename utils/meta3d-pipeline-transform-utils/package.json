@@ -1,15 +1,15 @@
 {
     "name": "meta3d-pipeline-transform-utils",
-    "version": "1.0.0-beta.3",
+    "version": "1.0.0-beta.4",
     "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-core-protocol": "^1.0.0-beta.3",
-        "meta3d-pipeline-transform-protocol": "^1.0.0-beta.3",
-        "meta3d-type": "^1.0.0-beta.3"
+        "meta3d-core-protocol": "^1.0.0-beta.4",
+        "meta3d-pipeline-transform-protocol": "^1.0.0-beta.4",
+        "meta3d-type": "^1.0.0-beta.4"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
