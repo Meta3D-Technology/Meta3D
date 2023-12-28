@@ -173,7 +173,7 @@ let make = (~service: FrontendType.service) => {
           <Space direction=#vertical>
             <Typography.Title level=2>
               {React.string({
-                j`Meta3D是开源Web3D低代码平台，致力于建设共享互助开放的Web3D生态，实现快速搭建Web3D编辑器`
+                j`Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放互助的web3d生态`
               })}
             </Typography.Title>
             <Typography.Text _type=#warning>

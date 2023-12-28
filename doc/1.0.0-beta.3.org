@@ -677,10 +677,17 @@ TODO https://github.com/Meta3D-Technology/Meta3D/discussions/43 add FAQ link
 
 
 
-* TODO 文档优化
+* DONE 文档优化
 
 TODO 压缩所有的图片
 
+
+
+* DONE update README
+  update snapshot
+  # add gif
+
+  # add contributors: show avater
 
 
 # * TODO move website to gitpage?
