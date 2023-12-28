@@ -371,7 +371,25 @@ add logo + loading... gif
 * DONE fix Collapse?
 
 
-* TODO production: auto upgrade template; update ui, editor-whole package
+# * TODO fix: auto upgrade should upgrade element
+
+
+* DONE production: auto upgrade template; update ui, editor-whole package
+
+# TODO why transform collapse not update?
+
+TODO add material inspector
+
+# TODO publish new app
+
+* DONE fix: handle fetch release fail
+
+
+* TODO fix: import event error
+
+* TODO fix: import event: asset should reset
+
+* TODO perf: export single event is so big
 
 
 * TODO 更新资料

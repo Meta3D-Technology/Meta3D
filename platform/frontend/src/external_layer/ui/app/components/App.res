@@ -329,6 +329,20 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
       release->Js.Promise.resolve
     }, _)
+    ->Js.Promise.catch(e => {
+      service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+
+      let release = (
+        {
+          version: {j`v${VersionConfig.getPlatformVersion()}`},
+          releaseDateUntilNow: 10,
+        }: UserCenterStoreType.release
+      )
+
+      dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetRelease(release)))
+
+      release->Js.Promise.resolve
+    }, _)
   }
 
   //   let _deferLoad = %raw(`
