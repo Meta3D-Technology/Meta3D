@@ -622,6 +622,7 @@ defineFeature(feature, test => {
   test(."show specific", ({given, \"when", \"and", then}) => {
     let id = "d1"
     let w1 = ref(Obj.magic(1))
+    let useStateStub = ref(Obj.magic(1))
     let useSelectorStub = ref(Obj.magic(1))
 
     _prepare(given)
@@ -664,9 +665,21 @@ defineFeature(feature, test => {
     then(
       "should show dom with defalut value",
       () => {
+        useStateStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        useStateStub.contents
+        ->returns((Obj.magic(1), Obj.magic(1)), _)
+        ->onCall(2, _)
+        ->returns((Meta3dCommonlib.ImmutableHashMap.createEmpty(), Obj.magic(1)), _)
+        ->ignore
+
         UIControlInspectorTool.buildUI(
           ~sandbox,
-          ~service=ServiceTool.build(~sandbox, ~useSelector=useSelectorStub.contents, ()),
+          ~service=ServiceTool.build(
+            ~sandbox,
+            ~useState=useStateStub.contents,
+            ~useSelector=useSelectorStub.contents,
+            (),
+          ),
           ~currentSelectedUIControl=w1.contents,
           ~currentSelectedUIControlInspectorData=UIControlInspectorTool.buildUIControlInspectorData(
             ~id,
@@ -811,9 +824,7 @@ defineFeature(feature, test => {
           specific,
           id,
           i,
-          "Window2"
-          ->SpecificUtils.convertStringToValue(type_)
-          ->CommonType.SpecicFieldDataValue,
+          "Window2"->SpecificUtils.convertStringToValue(type_)->CommonType.SpecicFieldDataValue,
           type_,
         )
       },

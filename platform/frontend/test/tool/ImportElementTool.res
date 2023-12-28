@@ -5,7 +5,7 @@
 // let buildLoaded = assembleData => ElementVisual.Loaded(assembleData)
 
 let convertInput = input => {
-  input->Meta3dCommonlib.OptionSt.toNullable
+  input->Meta3dCommonlib.OptionSt.toStrictNullable
 }
 
 let convertEvent = event => {
