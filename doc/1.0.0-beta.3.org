@@ -386,7 +386,7 @@ TODO add material inspector
 
 * DONE fix: Enter App shouldn't exec idle task
 
-* TODO fix: import event error
+* DONE fix: import event error
 load dispose load export
 
 dispose export import:error
@@ -401,7 +401,11 @@ dispose export import:error
 * TODO perf: export single event is so big
 
 
+* TODO publish all in dev and production
+
 * TODO test in production
+
+auto upgrade
 
 
 * TODO 更新资料
@@ -674,7 +678,7 @@ TODO 压缩所有的图片
 
 
 
-* TODO move website to gitpage?
+# * TODO move website to gitpage?
 
 
 
