@@ -13,6 +13,7 @@ let importApp = (
   service: FrontendType.service,
   (dispatch, dispatchForApAssembleStore, dispatchForElementAssembleStore),
   (setDownloadProgress, onFinish),
+  eventEmitter: Event.eventEmitter,
   notUseCacheForFindApp,
   release,
   item: BackendCloudbaseType.publishAppInfo,
@@ -108,8 +109,17 @@ let importApp = (
 
     ()->Js.Promise.resolve
   }, _)
+  ->Js.Promise.then_(() => {
+    eventEmitter.emit(. EventUtils.getImportAppEventName(), (item.account, item.appName)->Obj.magic)
+
+    ()->Js.Promise.resolve
+  }, _)
   ->Js.Promise.catch(e => {
     service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
   }, _)
   ->ignore
+}
+
+let isCompleteEditor = appName => {
+  appName == "完整的编辑器"
 }

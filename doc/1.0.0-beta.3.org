@@ -400,9 +400,9 @@ dispose export import:error
 
 * DONE fix: Scene Tree: rootNodeLabel
 
-* TODO publish all in dev and production
+* DONE publish all in dev and production
 
-* TODO test in production
+* DONE test in production
 
 auto upgrade
 
@@ -504,7 +504,8 @@ TODO move related doc to platform as guide doc
   # e.g. give input type doc link when select input, ...
   actions:
     first enter user center:
-      认识基本知识： 如基本概念、Input、Action等
+    #   认识基本知识： 如基本概念、Input、Action等
+        简介
     show input
     show action
     add ui controls
@@ -515,6 +516,7 @@ TODO move related doc to platform as guide doc
       how to extend
     after finish guide:
       给出弹出文档，包括开发完整编辑器等
+    first import app
     初次运行 模板时(in ShowApp or UserCenter or RunElementVisualController):
       包括：操作演示视频、glb模型资源、event资源
 

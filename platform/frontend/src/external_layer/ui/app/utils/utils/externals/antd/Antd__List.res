@@ -25,6 +25,7 @@ module Item = {
       ~avatar: React.element=?,
       ~description: React.element=?,
       ~key: string=?,
+      ~style: ReactDOM.Style.t=?,
     ) => React.element = "Meta"
   }
 }

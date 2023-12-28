@@ -19,9 +19,13 @@ let make = (~service: FrontendType.service, ~account) => {
   //   }
   // })
 
-  let {release, notUseCacheForFindApp} = AppStore.useSelector((
-    {userCenterState}: AppStoreType.state,
-  ) => userCenterState)
+  let ((release, notUseCacheForFindApp), eventEmitter) = AppStore.useSelector((
+    {userCenterState, eventEmitter}: AppStoreType.state,
+  ) => {
+    let {release, notUseCacheForFindApp} = userCenterState
+
+    ((release, notUseCacheForFindApp), eventEmitter)
+  })
   // let {importedAppIds} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
   //   userCenterState
   // )
@@ -78,7 +82,7 @@ let make = (~service: FrontendType.service, ~account) => {
               currentImportingKey == PublishedAppUtils.buildKey(item.account, item.appName)
             )
             ->Meta3dCommonlib.OptionSt.getWithDefault(false)
-              ? <Loading text={j`${downloadProgress->Js.Int.toString}% 下载中`} />
+              ? <Loading text={j`${downloadProgress->Js.Int.toString}% 导入中`} />
               : React.null}
             <Button
               _type=#primary
@@ -98,6 +102,7 @@ let make = (~service: FrontendType.service, ~account) => {
                       setCurrentImportingKey(_ => None)
                     },
                   ),
+                  eventEmitter,
                   notUseCacheForFindApp,
                   release,
                   item,

@@ -27,6 +27,14 @@ let reducer = (state, action) => {
       ...state,
       assembleSpaceState: AssembleSpaceStore.reducer(state.assembleSpaceState, action),
     }
+  | OpenDocDrawer(docDrawerData) => {
+      ...state,
+      docDrawerData: docDrawerData->Some,
+    }
+  | CloseDocDrawer => {
+      ...state,
+      docDrawerData: None,
+    }
   // | SetIdleTasks(idleTasks) => {
   //     ...state,
   //     idleTasks,
@@ -39,6 +47,7 @@ let initialState = {
   enterAppState: EnterAppStore.initialState,
   assembleSpaceState: AssembleSpaceStore.initialState,
   eventEmitter: Event.eventEmitter(),
+  docDrawerData: None,
   // idleTasks: list{},
 }
 

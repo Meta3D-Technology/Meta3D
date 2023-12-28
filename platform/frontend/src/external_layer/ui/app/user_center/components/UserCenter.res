@@ -4,6 +4,7 @@ open Antd
 @react.component
 let make = (~service: FrontendType.service) => {
   let dispatch = AppStore.useDispatch()
+  // let dispatchForAssembleStore = ReactUtils.useDispatchForAssembleSpaceStore()
   let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
     ReactUtils.useDispatchForAssembleSpaceStore,
   )
@@ -12,14 +13,22 @@ let make = (~service: FrontendType.service) => {
   )
 
   let (
-    (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
-    isInCreateFromScratchTourPhase2,
-  ) = AppStore.useSelector(({userCenterState, assembleSpaceState}: AppStoreType.state) => {
+    (
+      (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
+      isInCreateFromScratchTourPhase2,
+    ),
+    eventEmitter,
+  ) = AppStore.useSelector((
+    {userCenterState, assembleSpaceState, eventEmitter}: AppStoreType.state,
+  ) => {
     let {account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1} = userCenterState
 
     (
-      (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
-      assembleSpaceState.elementAssembleState.isInCreateFromScratchTourPhase2,
+      (
+        (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
+        assembleSpaceState.elementAssembleState.isInCreateFromScratchTourPhase2,
+      ),
+      eventEmitter,
     )
   })
 
@@ -165,6 +174,16 @@ let make = (~service: FrontendType.service) => {
     None
   })
 
+  React.useEffect0(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
+      !GuideUtils.readIsFinishFirstEnterUserCenter()
+        ? DocGuideUtils.FirstEnterUserCenter.openDocDrawer(dispatch)
+        : ()
+    }, 5->Some)
+
+    None
+  })
+
   <Layout>
     <Layout.Header>
       <Nav currentKey="1" account={account} navTarget />
@@ -247,7 +266,7 @@ let make = (~service: FrontendType.service) => {
                       <Button
                         _type=#primary
                         onClick={_ => {
-                          setInfo(_ => j`${downloadProgress->Js.Int.toString}% 下载中`->Some)
+                          setInfo(_ => j`${downloadProgress->Js.Int.toString}% 导入中`->Some)
 
                           PublishedAppUtils.importApp(
                             service,
@@ -258,6 +277,7 @@ let make = (~service: FrontendType.service) => {
                                 setInfo(_ => None)
                               },
                             ),
+                            eventEmitter,
                             notUseCacheForFindApp,
                             release,
                             item,

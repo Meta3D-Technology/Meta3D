@@ -46,8 +46,12 @@ let make = (
           <Button
             _type=#default
             onClick={_ => {
-              GuideUtils.markIsFinishShowInput(false)
-              GuideUtils.markIsFinishShowAction(false)
+              GuideUtils.markIsFinishFirstEnterUserCenter(false)
+              GuideUtils.markIsFinishFirstAddUIControl(false)
+              GuideUtils.markIsFinishFirstRunCompleteEditorTemplate(false)
+              GuideUtils.markIsFinishFirstImportCompleteEditorTemplate(false)
+              GuideUtils.markIsFinishInput(false)
+              GuideUtils.markIsFinishAction(false)
 
               MessageUtils.success({j`成功`}, None)
             }}>

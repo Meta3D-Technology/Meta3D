@@ -401,9 +401,9 @@ now just replace add duplicate one, but need handle more
     }
   }
 
-  let useSelector = ({docDrawerData}: AssembleSpaceStoreType.state) => {
-    docDrawerData
-  }
+  // let useSelector = ({docDrawerData}: AssembleSpaceStoreType.state) => {
+  //   docDrawerData
+  // }
 }
 
 @react.component
@@ -423,7 +423,7 @@ let make = (
     service.react.useDispatch,
   )
 
-  let docDrawerData = service.react.useSelector(. Method.useSelector)
+  // let docDrawerData = service.react.useSelector(. Method.useSelector)
 
   let (currentAssemble, setCurrentAssemble) = service.react.useState(_ =>
     UserUtils.isAdmin(account) ? Ap : Element
@@ -575,32 +575,6 @@ let make = (
             setOpenHelpDrawer(_ => false)
           }}>
           <Help guideTarget={Meta3dCommonlib.NullableSt.getEmpty()->Obj.magic} />
-        </Drawer>
-        <Drawer
-          _open={docDrawerData->Meta3dCommonlib.OptionSt.isSome}
-          title={j`文档帮助`}
-          placement=#right
-          onClose={() => {
-            dispatch(AssembleSpaceStoreType.CloseDocDrawer)
-          }}>
-          {switch docDrawerData {
-          | Some(docDrawerData) =>
-            <List
-              itemLayout=#horizontal
-              dataSource={docDrawerData->Meta3dCommonlib.ListSt.toArray}
-              renderItem={((text, link)) => {
-                <List.Item>
-                  <List.Item.Meta
-                    key={text}
-                    title={<Typography.Link href={link} target=#_blank>
-                      {React.string(text)}
-                    </Typography.Link>}
-                  />
-                </List.Item>
-              }}
-            />
-          | None => React.null
-          }}
         </Drawer>
       </>
     }

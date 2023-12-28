@@ -32,14 +32,6 @@ let reducer = (state, action) => {
         PackageAssembleStoreType.ResetWhenSwitch,
       ),
     }
-  | OpenDocDrawer(docDrawerData) => {
-      ...state,
-      docDrawerData: docDrawerData->Some,
-    }
-  | CloseDocDrawer => {
-      ...state,
-      docDrawerData: None,
-    }
   | ApAssembleAction(action) => {
       ...state,
       apAssembleState: ApAssembleStore.reducer(state.apAssembleState, action),
@@ -59,5 +51,4 @@ let initialState = {
   apAssembleState: ApAssembleStore.initialState,
   elementAssembleState: ElementAssembleStore.initialState,
   packageAssembleState: PackageAssembleStore.initialState,
-  docDrawerData: None,
 }

@@ -1,8 +1,12 @@
 type guideStatus = {
   isFinishFirstLogin: bool,
   isFinishCreateFromScratchTour: bool,
-  isFinishShowInput: bool,
-  isFinishShowAction: bool,
+  isFinishFirstEnterUserCenter: bool,
+  isFinishFirstAddUIControl: bool,
+  isFinishFirstRunCompleteEditorTemplate: bool,
+  isFinishFirstImportCompleteEditorTemplate: bool,
+  isFinishInput: bool,
+  isFinishAction: bool,
   // isInCreateFromScratchTour: bool,
 }
 
@@ -11,8 +15,12 @@ let _buildKey = () => {j`meta3d_guide_status`}
 let _createDefaultStatus = (): guideStatus => {
   isFinishFirstLogin: false,
   isFinishCreateFromScratchTour: false,
-  isFinishShowInput: false,
-  isFinishShowAction: false,
+  isFinishFirstEnterUserCenter: false,
+  isFinishFirstAddUIControl: false,
+  isFinishFirstRunCompleteEditorTemplate: false,
+  isFinishFirstImportCompleteEditorTemplate: false,
+  isFinishInput: false,
+  isFinishAction: false,
 }
 
 let _readGuideStatus = (): guideStatus => {
@@ -80,32 +88,96 @@ let _markStartCreateFromScratchTour = () => {
   )
 }
 
-let readIsFinishShowInput = () => {
-  _readGuideStatus().isFinishShowInput
+let readIsFinishFirstEnterUserCenter = () => {
+  _readGuideStatus().isFinishFirstEnterUserCenter
 }
 
-let markIsFinishShowInput = (isFinishShowInput) => {
+let markIsFinishFirstEnterUserCenter = isFinishFirstEnterUserCenter => {
   LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
-      isFinishShowInput
+      isFinishFirstEnterUserCenter,
     }
     ->Obj.magic
     ->Js.Json.stringify,
   )
 }
 
-let readIsFinishShowAction = () => {
-  _readGuideStatus().isFinishShowAction
+let readIsFinishFirstAddUIControl = () => {
+  _readGuideStatus().isFinishFirstAddUIControl
 }
 
-let markIsFinishShowAction = (isFinishShowAction) => {
+let markIsFinishFirstAddUIControl = isFinishFirstAddUIControl => {
   LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
-      isFinishShowAction
+      isFinishFirstAddUIControl,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
+  )
+}
+
+let readIsFinishFirstRunCompleteEditorTemplate = () => {
+  _readGuideStatus().isFinishFirstRunCompleteEditorTemplate
+}
+
+let markIsFinishFirstRunCompleteEditorTemplate = isFinishFirstRunCompleteEditorTemplate => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishFirstRunCompleteEditorTemplate,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
+  )
+}
+
+let readIsFinishFirstImportCompleteEditorTemplate = () => {
+  _readGuideStatus().isFinishFirstImportCompleteEditorTemplate
+}
+
+let markIsFinishFirstImportCompleteEditorTemplate = isFinishFirstImportCompleteEditorTemplate => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishFirstImportCompleteEditorTemplate,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
+  )
+}
+
+let readIsFinishInput = () => {
+  _readGuideStatus().isFinishInput
+}
+
+let markIsFinishInput = isFinishInput => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishInput,
+    }
+    ->Obj.magic
+    ->Js.Json.stringify,
+  )
+}
+
+let readIsFinishAction = () => {
+  _readGuideStatus().isFinishAction
+}
+
+let markIsFinishAction = isFinishAction => {
+  LocalStorageUtils.set(
+    _buildKey(),
+    {
+      ..._readGuideStatus(),
+      isFinishAction,
     }
     ->Obj.magic
     ->Js.Json.stringify,

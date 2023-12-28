@@ -7,13 +7,13 @@ let make = (~service: FrontendType.service) => {
 
   let url = RescriptReactRouter.useUrl()
 
-  let (notUseCacheForFindApp, (account, appName)) = AppStore.useSelector((
-    {userCenterState, enterAppState}: AppStoreType.state,
+  let ((notUseCacheForFindApp, (account, appName)), eventEmitter) = AppStore.useSelector((
+    {userCenterState, enterAppState, eventEmitter}: AppStoreType.state,
   ) => {
     let {notUseCacheForFindApp} = userCenterState
     let {account, appName} = enterAppState
 
-    (notUseCacheForFindApp, (account, appName))
+    ((notUseCacheForFindApp, (account, appName)), eventEmitter)
   })
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
@@ -57,6 +57,11 @@ let make = (~service: FrontendType.service) => {
                     )
                   }
                 : {
+                    eventEmitter.emit(.
+                      EventUtils.getRunAppEventName(),
+                      (account, appName)->Obj.magic,
+                    )
+
                     Meta3dCommonlib.NullableSt.getExn(appBinaryFile)
                     ->Meta3d.Main.loadApp(
                       (allContributeDataArr, selectedElements) => {

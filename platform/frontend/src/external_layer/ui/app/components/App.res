@@ -23,16 +23,20 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   let url = RescriptReactRouter.useUrl()
 
   let (
-    account,
-    selectedExtensions,
-    selectedContributes,
-    selectedPackages,
-    selectedElements,
-    currentAppName,
-    // release,
+    (
+      account,
+      selectedExtensions,
+      selectedContributes,
+      selectedPackages,
+      selectedElements,
+      currentAppName,
+      // release,
 
-    // idleTasks,
-  ) = AppStore.useSelector(({userCenterState}: AppStoreType.state) => {
+      // idleTasks,
+    ),
+    docDrawerData,
+    eventEmitter,
+  ) = AppStore.useSelector(({userCenterState, docDrawerData, eventEmitter}: AppStoreType.state) => {
     let {
       account,
       selectedExtensions,
@@ -44,15 +48,19 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     } = userCenterState
 
     (
-      account,
-      selectedExtensions,
-      selectedContributes,
-      selectedPackages,
-      selectedElements,
-      currentAppName,
-      // release,
+      (
+        account,
+        selectedExtensions,
+        selectedContributes,
+        selectedPackages,
+        selectedElements,
+        currentAppName,
+        // release,
 
-      // idleTasks,
+        // idleTasks,
+      ),
+      docDrawerData,
+      eventEmitter,
     )
   })
 
@@ -452,11 +460,31 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     None
   })
 
-  // React.useEffect0(() => {
-  //   _deferLoad()->ignore
+  React.useEffect0(() => {
+    eventEmitter.addListener(.EventUtils.getAddUIControlsEventName(), _ => {
+      !GuideUtils.readIsFinishFirstAddUIControl()
+        ? DocGuideUtils.FirstAddUIControl.openDocDrawer(dispatch)
+        : ()
+    })
+    eventEmitter.addListener(.EventUtils.getRunAppEventName(), data => {
+      let (account, appName) = data->Obj.magic
 
-  //   None
-  // })
+      appName -> PublishedAppUtils.isCompleteEditor &&
+        !GuideUtils.readIsFinishFirstRunCompleteEditorTemplate()
+        ? DocGuideUtils.FirstRunCompleteEditorTemplate.openDocDrawer(dispatch)
+        : ()
+    })
+    eventEmitter.addListener(.EventUtils.getImportAppEventName(), data => {
+      let (account, appName) = data->Obj.magic
+
+      appName -> PublishedAppUtils.isCompleteEditor &&
+        !GuideUtils.readIsFinishFirstImportCompleteEditorTemplate()
+        ? DocGuideUtils.FirstImportCompleteEditorTemplate.openDocDrawer(dispatch)
+        : ()
+    })
+
+    None
+  })
 
   <>
     {contextHolder}
@@ -522,5 +550,32 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       React.null
     | _ => Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
     }}
+    <Drawer
+      _open={docDrawerData->Meta3dCommonlib.OptionSt.isSome}
+      title={j`文档帮助`}
+      placement=#right
+      onClose={() => {
+        dispatch(AppStoreType.CloseDocDrawer)
+      }}>
+      {switch docDrawerData {
+      | Some(docDrawerData) =>
+        <List
+          itemLayout=#horizontal
+          dataSource={docDrawerData->Meta3dCommonlib.ListSt.toArray}
+          renderItem={((text, link)) => {
+            <List.Item>
+              <List.Item.Meta
+                key={text}
+                style={ReactDOM.Style.make(~textDecoration="underline", ())}
+                title={<Typography.Link href={link} target=#_blank>
+                  {React.string(text)}
+                </Typography.Link>}
+              />
+            </List.Item>
+          }}
+        />
+      | None => React.null
+      }}
+    </Drawer>
   </>
 }

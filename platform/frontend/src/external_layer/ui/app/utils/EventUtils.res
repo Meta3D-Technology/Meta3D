@@ -31,3 +31,7 @@ let getSelectActionInUIControlInspectorEventName = () => "SelectActionInUIContro
 let getAddActionEventName = () => "AddActionEventName"
 
 let getSelectActionInActionsEventName = () => "SelectActionInActionsEventName"
+
+let getRunAppEventName = () => "RunAppEventName"
+
+let getImportAppEventName = () => "ImportAppEventName"
