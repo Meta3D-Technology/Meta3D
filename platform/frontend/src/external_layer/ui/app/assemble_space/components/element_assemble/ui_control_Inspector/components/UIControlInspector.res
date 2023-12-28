@@ -372,6 +372,10 @@ module Method = {
     )
   }
 
+  let _buildSpecificStringValueKey = (id, name) => {
+    j`${id}_${name}`
+  }
+
   // let _getSpecificDataValueElementFieldValue = (
   //   specificDataValue: ElementAssembleStoreType.specificDataValue,
   // ) => {
@@ -401,7 +405,7 @@ module Method = {
             <Input
               key={name}
               value={specificStringValue
-              ->Meta3dCommonlib.ImmutableHashMap.get(id)
+              ->Meta3dCommonlib.ImmutableHashMap.get(_buildSpecificStringValueKey(id, name))
               ->Meta3dCommonlib.OptionSt.getWithDefault(
                 SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(
                   type_,
@@ -424,7 +428,7 @@ module Method = {
 
                   setSpecificStringValueFunc(specificStringValue =>
                     specificStringValue->Meta3dCommonlib.ImmutableHashMap.set(
-                      id,
+                      _buildSpecificStringValueKey(id, name),
                       value->Obj.magic,
                     )
                   )
@@ -452,7 +456,7 @@ module Method = {
                   id,
                   i,
                   specificStringValue
-                  ->Meta3dCommonlib.ImmutableHashMap.get(id)
+                  ->Meta3dCommonlib.ImmutableHashMap.get(_buildSpecificStringValueKey(id, name))
                   ->Meta3dCommonlib.OptionSt.getWithDefault(
                     SpecificUtils.getSpecificDataValue(value)->SpecificUtils.convertValueToString(
                       type_,

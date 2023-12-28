@@ -7,7 +7,7 @@ import { eventName, inputData } from "meta3d-action-import-single-event-protocol
 // import { service as importSceneService } from "meta3d-import-scene-protocol/src/service/ServiceType"
 // import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 // import { service as runEngineGameViewService } from "meta3d-editor-run-engine-gameview-protocol/src/service/ServiceType"
-import { requireCheck, test } from "meta3d-ts-contract-utils"
+// import { requireCheck, test } from "meta3d-ts-contract-utils"
 import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 import { eventData, singleInputData } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 

@@ -392,20 +392,23 @@ load dispose load export
 dispose export import:error
 
 
-* TODO fix: import event twice: asset shouldn't add again
+# * TODO fix: import event twice: asset shouldn't add again
 
 
-* TODO fix: Scene Tree: rootNodeLabel
+# * TODO perf: export single event is so big
 
 
-* TODO perf: export single event is so big
-
+* DONE fix: Scene Tree: rootNodeLabel
 
 * TODO publish all in dev and production
 
 * TODO test in production
 
 auto upgrade
+
+select actions to update
+
+export event and import for test
 
 
 * TODO 更新资料
