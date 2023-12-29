@@ -94,7 +94,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     },
     tab: {
       openUrl: (. url) => {
-        Window.\"open"(url, "_blank").focus()
+        LinkUtils.openLink(url)
       },
     },
     storage: {
