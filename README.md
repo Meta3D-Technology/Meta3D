@@ -1,6 +1,6 @@
 # Meta3D
 
-Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放互助的web3d生态
+Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放互助的Web3D生态
 
 [![build](https://github.com/Meta3D-Technology/Meta3D/actions/workflows/ci.yml/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) [![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)](https://github.com/Meta3D-Technology/Meta3D/graphs/commit-activity)
 
