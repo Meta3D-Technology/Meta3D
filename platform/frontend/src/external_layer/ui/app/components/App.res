@@ -36,7 +36,9 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     ),
     docDrawerData,
     eventEmitter,
-  ) = AppStore.useSelector(({userCenterState, docDrawerData, eventEmitter}: AppStoreType.state) => {
+  ) = AppStore.useSelector((
+    {userCenterState, assembleSpaceState, docDrawerData, eventEmitter}: AppStoreType.state,
+  ) => {
     let {
       account,
       selectedExtensions,
@@ -462,23 +464,25 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
   React.useEffect0(() => {
     eventEmitter.addListener(.EventUtils.getAddUIControlsEventName(), _ => {
-      !GuideUtils.readIsFinishFirstAddUIControl()
+      !GuideUtils.readIsInCreateFromScratchTour() && !GuideUtils.readIsFinishFirstAddUIControl()
         ? DocGuideUtils.FirstAddUIControl.openDocDrawer(dispatch)
         : ()
     })
     eventEmitter.addListener(.EventUtils.getRunAppEventName(), data => {
       let (account, appName) = data->Obj.magic
 
-      appName -> PublishedAppUtils.isCompleteEditor &&
-        !GuideUtils.readIsFinishFirstRunCompleteEditorTemplate()
+      !GuideUtils.readIsInCreateFromScratchTour() &&
+      appName->PublishedAppUtils.isCompleteEditor &&
+      !GuideUtils.readIsFinishFirstRunCompleteEditorTemplate()
         ? DocGuideUtils.FirstRunCompleteEditorTemplate.openDocDrawer(dispatch)
         : ()
     })
     eventEmitter.addListener(.EventUtils.getImportAppEventName(), data => {
       let (account, appName) = data->Obj.magic
 
-      appName -> PublishedAppUtils.isCompleteEditor &&
-        !GuideUtils.readIsFinishFirstImportCompleteEditorTemplate()
+      !GuideUtils.readIsInCreateFromScratchTour() &&
+      appName->PublishedAppUtils.isCompleteEditor &&
+      !GuideUtils.readIsFinishFirstImportCompleteEditorTemplate()
         ? DocGuideUtils.FirstImportCompleteEditorTemplate.openDocDrawer(dispatch)
         : ()
     })

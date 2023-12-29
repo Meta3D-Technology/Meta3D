@@ -84,7 +84,7 @@ let make = (~service: FrontendType.service) => {
   }
 
   let _createFromScratch = (service, dispatch) => {
-    !isInCreateFromScratchTourPhase1 && !GuideUtils.readIsFinishCreateFromScratchTour()
+    !isInCreateFromScratchTourPhase1 && GuideUtils.readIsInCreateFromScratchTour()
       ? {
           // dispatch(
           //   AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase1),
@@ -176,7 +176,7 @@ let make = (~service: FrontendType.service) => {
 
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
-      !GuideUtils.readIsFinishFirstEnterUserCenter()
+      !GuideUtils.readIsInCreateFromScratchTour() && !GuideUtils.readIsFinishFirstEnterUserCenter()
         ? DocGuideUtils.FirstEnterUserCenter.openDocDrawer(dispatch)
         : ()
     }, 5->Some)

@@ -411,7 +411,7 @@ select actions to update
 export event and import for test
 
 
-* TODO 更新资料
+* DONE 更新资料
 
 # 在新手引导的基础上，达成下面的目的：
 在新手引导的基础上，向用户开放下面的能力：
@@ -694,7 +694,7 @@ TODO 压缩所有的图片
 
 
 
-* TODO publish
+* DONE publish
 
 update website
 
@@ -703,12 +703,13 @@ pass ci
 update production
   TODO run test
 
+* DONE fix: not give doc drawer when guide
 
 * TODO 内部测试：个人用户
 
-** TODO 完善QQ官方群 公告
+** DONE 完善QQ官方群 公告
 
-** TODO 更新Discussion
+** DONE 更新Discussion
 https://github.com/Meta3D-Technology/Meta3D/discussions/43
 
 ** TODO 邀请lj、xh、wkh等熟人来使用
@@ -755,6 +756,16 @@ form:
 
 提交form后，对于反馈为"好"的用户：
 建议加star
+
+
+
+  TODO finish form page
+
+  TODO generate active code
+
+  TODO finish whole flow
+
+
 
 
 TODO 讨论中给出新帖子，公布哪些用户（邮箱）中奖及其奖品

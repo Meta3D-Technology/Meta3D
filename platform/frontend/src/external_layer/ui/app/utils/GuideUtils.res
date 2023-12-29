@@ -1,5 +1,6 @@
 type guideStatus = {
   isFinishFirstLogin: bool,
+  isStartCreateFromScratchTour: bool,
   isFinishCreateFromScratchTour: bool,
   isFinishFirstEnterUserCenter: bool,
   isFinishFirstAddUIControl: bool,
@@ -14,6 +15,7 @@ let _buildKey = () => {j`meta3d_guide_status`}
 
 let _createDefaultStatus = (): guideStatus => {
   isFinishFirstLogin: false,
+  isStartCreateFromScratchTour: false,
   isFinishCreateFromScratchTour: false,
   isFinishFirstEnterUserCenter: false,
   isFinishFirstAddUIControl: false,
@@ -47,8 +49,9 @@ let markFinishFirstLogin = () => {
   )
 }
 
-let readIsFinishCreateFromScratchTour = () => {
-  _readGuideStatus().isFinishCreateFromScratchTour
+let readIsInCreateFromScratchTour = () => {
+  _readGuideStatus().isStartCreateFromScratchTour &&
+  !_readGuideStatus().isFinishCreateFromScratchTour
 }
 
 // let markBeginCreateFromScratchTour = () => {
@@ -71,6 +74,7 @@ let markFinishCreateFromScratchTour = () => {
     _buildKey(),
     {
       ..._readGuideStatus(),
+      isStartCreateFromScratchTour: false,
       isFinishCreateFromScratchTour: true,
       // isInCreateFromScratchTour: false,
     }->Js.Json.stringifyAny,
@@ -82,6 +86,7 @@ let _markStartCreateFromScratchTour = () => {
     _buildKey(),
     {
       ..._readGuideStatus(),
+      isStartCreateFromScratchTour: true,
       isFinishCreateFromScratchTour: false,
       // isInCreateFromScratchTour: false,
     }->Js.Json.stringifyAny,
@@ -90,6 +95,11 @@ let _markStartCreateFromScratchTour = () => {
 
 let readIsFinishFirstEnterUserCenter = () => {
   _readGuideStatus().isFinishFirstEnterUserCenter
+}
+
+let readIsInFirstEnterUserCenter = () => {
+  _readGuideStatus().isStartCreateFromScratchTour &&
+  !_readGuideStatus().isFinishFirstEnterUserCenter
 }
 
 let markIsFinishFirstEnterUserCenter = isFinishFirstEnterUserCenter => {

@@ -1,1 +1,1 @@
-let getEnv = (): EnvType.env => #local
+let getEnv = (): EnvType.env => #production

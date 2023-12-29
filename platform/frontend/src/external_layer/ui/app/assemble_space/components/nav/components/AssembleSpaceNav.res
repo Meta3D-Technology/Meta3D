@@ -31,7 +31,7 @@ let make = (
       onClick={({key}) => {
         switch key {
         | "1" =>
-          !GuideUtils.readIsFinishCreateFromScratchTour() && isInCreateFromScratchTourPhase2
+          GuideUtils.readIsInCreateFromScratchTour() && isInCreateFromScratchTourPhase2
             ? {
                 dispatchForElementAssembleStore(
                   ElementAssembleStoreType.EndCreateFromScratchTourPhase2,
