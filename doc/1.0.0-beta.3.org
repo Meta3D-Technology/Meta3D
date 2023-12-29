@@ -651,21 +651,42 @@ TODO https://github.com/Meta3D-Technology/Meta3D/discussions/43 add FAQ link
 
 
 
-# - TODO 给出多个gif，展示各种特性
-# e.g. 展示搭建编辑器（包括引擎）、使用编辑器开发web3d应用  的过程、自定义Menu等ui control。。。。。。
-
-#   - TODO update doc
-#   - TODO update 官网
-#   - 参考：
-
-# https://cn.nocobase.com/
-#   - TODO update README
-#     update snapshot
-#     add gif
-
-#     add contributors: show avater
+- TODO 给出多个gif，展示各种特性
+e.g. 展示搭建编辑器（包括引擎）、使用编辑器开发web3d应用  的过程、自定义Menu等ui control。。。。。。
 
 
+
+add ui control: window, change rect
+
+# test in Github
+
+# test in doc
+
+add action to button, run editor in visual, click button to trigger alert
+
+publish editor->see in user center
+
+import template
+
+run complete editor demo gif, add cube, load glb, 
+
+
+
+  - TODO update doc->简介
+  # - TODO update 官网
+  # - 参考：
+
+https://cn.nocobase.com/
+  - TODO update README
+    update snapshot
+    add gif
+
+    # add contributors: show avater
+
+
+- First Login
+# show gifs in doc draw
+show gifs in Modal
 
 
 # TODO update FAQ

@@ -88,6 +88,23 @@ let make = (~service: FrontendType.service) => {
     RescriptReactRouter.push("/Login")
   }
 
+  let _afterChange = currentSlide => {
+    // _finishGuide()
+    ()
+  }
+
+  let _getCaroselStyle = () => {
+    ReactDOM.Style.make(
+      ~margin="10px",
+      ~height="500px",
+      // ~color="#ffffff",
+      // ~lineHeight="500px",
+      ~textAlign="center",
+      ~background="#364d79",
+      (),
+    )
+  }
+
   <>
     {GuideUtils.readIsFinishFirstLogin()
       ? <Layout>
@@ -160,27 +177,87 @@ let make = (~service: FrontendType.service) => {
             {isLoginBegin ? <Loading text={j`加载中，请稍候`} /> : React.null}
           </Layout.Content>
         </Layout>
-      : <Modal
-          title={`欢迎来到Meta3D`}
-          visible={true}
-          onOk={() => {
-            _finishGuide()
-          }}
-          onCancel={() => {
-            _finishGuide()
-          }}
-          footer={React.null}>
-          <Space direction=#vertical>
-            <Typography.Title level=2>
-              {React.string({
-                j`Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放互助的web3d生态`
-              })}
-            </Typography.Title>
-            <Typography.Text _type=#warning>
-              {React.string({
-                j`目前处于内测阶段，完全免费`
-              })}
-            </Typography.Text>
+      : <>
+          <Carousel
+            style={_getCaroselStyle()}
+            dots=true
+            autoplay=true
+            autoplaySpeed=15000
+            afterChange={_afterChange}>
+            <Space direction=#vertical>
+              <Typography.Title level=2>
+                {React.string({
+                  j`Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放互助的web3d生态`
+                })}
+              </Typography.Title>
+              <Typography.Text _type=#warning>
+                {React.string({
+                  j`目前处于内测阶段，完全免费`
+                })}
+              </Typography.Text>
+            </Space>
+            <section>
+              <Row align=#middle justify=#center>
+                <Space direction=#vertical>
+                  <Typography.Title level=2>
+                    {React.string({
+                      j`加入UI Control`
+                    })}
+                  </Typography.Title>
+                  <img src="/static/image/gif/add_ui_control.gif" />
+                </Space>
+              </Row>
+            </section>
+            <section>
+              <Row align=#middle justify=#center>
+                <Space direction=#vertical>
+                  <Typography.Title level=2>
+                    {React.string({
+                      j`加入Action脚本`
+                    })}
+                  </Typography.Title>
+                  <img src="/static/image/gif/add_action.gif" />
+                </Space>
+              </Row>
+            </section>
+            <section>
+              <Row align=#middle justify=#center>
+                <Space direction=#vertical>
+                  <Typography.Title level=2>
+                    {React.string({
+                      j`发布编辑器`
+                    })}
+                  </Typography.Title>
+                  <img src="/static/image/gif/publish.gif" />
+                </Space>
+              </Row>
+            </section>
+            <section>
+              <Row align=#middle justify=#center>
+                <Space direction=#vertical>
+                  <Typography.Title level=2>
+                    {React.string({
+                      j`导入编辑器`
+                    })}
+                  </Typography.Title>
+                  <img src="/static/image/gif/import.gif" />
+                </Space>
+              </Row>
+            </section>
+            <section>
+              <Row align=#middle justify=#center>
+                <Space direction=#vertical>
+                  <Typography.Title level=2>
+                    {React.string({
+                      j`运行“完整的编辑器”模板`
+                    })}
+                  </Typography.Title>
+                  <img src="/static/image/gif/run_complete_editor.gif" />
+                </Space>
+              </Row>
+            </section>
+          </Carousel>
+          <Row align=#middle justify=#center>
             <Space direction=#horizontal>
               <Button
                 _type=#primary
@@ -197,7 +274,7 @@ let make = (~service: FrontendType.service) => {
                 {React.string(`了解详情`)}
               </Button>
             </Space>
-          </Space>
-        </Modal>}
+          </Row>
+        </>}
   </>
 }

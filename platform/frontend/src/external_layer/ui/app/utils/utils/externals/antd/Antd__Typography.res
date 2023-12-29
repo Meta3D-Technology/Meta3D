@@ -13,7 +13,9 @@ module Title = {
 
 module Text = {
   @react.component @module("antd") @scope("Typography")
-  external make: (~_type: textType=?, ~children: React.element=?) => React.element = "Text"
+  external make: (
+    
+    ~_type: textType=?, ~children: React.element=?) => React.element = "Text"
 }
 
 module Link = {
