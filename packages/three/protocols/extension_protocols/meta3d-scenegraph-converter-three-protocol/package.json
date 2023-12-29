@@ -1,6 +1,6 @@
 {
     "name": "meta3d-scenegraph-converter-three-protocol",
-    "version": "1.0.0-beta.3",
+    "version": "1.0.0",
     "displayName": "converter protocol",
     "publisher": "meta3d",
     "author": "Meta3D",

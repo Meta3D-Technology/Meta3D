@@ -1,6 +1,6 @@
 {
     "name": "monaco",
-    "version": "1.0.0-beta.1",
+    "version": "1.0.0",
     "scripts": {
         "watch": "rescript clean && rescript build -w",
         "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js"

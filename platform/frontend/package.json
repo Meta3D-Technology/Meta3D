@@ -1,6 +1,6 @@
 {
     "name": "frontend",
-    "version": "1.0.0-beta.4",
+    "version": "1.0.0",
     "authors": "Wonder",
     "scripts": {
         "bundle_dts": "gulp bundle_dts",
@@ -48,9 +48,9 @@
         "antd": "^5.12.2",
         "fbemitter": "^3.0.0",
         "localforage": "^1.10.0",
-        "meta3d-bs-most-default": "^1.0.0-beta.4",
-        "meta3d-editor-whole-protocol": "^1.0.0-beta.4",
-        "meta3d-react-monaco-editor": "^1.0.0-beta.4",
+        "meta3d-bs-most-default": "^1.0.0",
+        "meta3d-editor-whole-protocol": "^1.0.0",
+        "meta3d-react-monaco-editor": "^1.0.0",
         "moment": "^2.29.4",
         "remporium": "^0.0.1",
         "rescript": "^10.0.1",

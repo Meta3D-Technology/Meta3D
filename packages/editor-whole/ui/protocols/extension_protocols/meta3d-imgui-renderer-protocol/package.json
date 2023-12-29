@@ -1,6 +1,6 @@
 {
     "name": "meta3d-imgui-renderer-protocol",
-    "version": "1.0.0-beta.4",
+    "version": "1.0.0",
     "publisher": "meta3d",
     "displayName": "renderer protocol",
     "author": "Meta3D",

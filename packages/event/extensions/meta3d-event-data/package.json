@@ -1,6 +1,6 @@
 {
   "name": "meta3d-event-data",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0",
   "publisher": "meta3d",
   "protocol": {
     "name": "meta3d-event-data-protocol"
@@ -17,8 +17,8 @@
     "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
   },
   "dependencies": {
-    "meta3d-event-data-protocol": "^1.0.0-beta.3",
-    "meta3d-type": "^1.0.0-beta.4",
+    "meta3d-event-data-protocol": "^1.0.0",
+    "meta3d-type": "^1.0.0",
     "rescript": "^10.0.1"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "cz-customizable": "^6.3.0",
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
-    "meta3d-tool-publish": "^1.0.0-beta.4",
+    "meta3d-tool-publish": "^1.0.0",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }
