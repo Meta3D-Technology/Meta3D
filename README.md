@@ -9,6 +9,9 @@ Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放�
 
 <!-- ![image](https://img2023.cnblogs.com/blog/419321/202312/419321-20231228184839012-1192918596.png) -->
 
+
+> Meta3D现在处于v1.0版本公测中，这是可用版本，欢迎大家使用，并来这里[讨论](https://github.com/Meta3D-Technology/Meta3D/discussions/43)，感谢您~
+
 **加入UI Control**
 
 ![Alt Text](./platform/frontend/static/image/gif/add_ui_control.gif)
@@ -35,7 +38,6 @@ Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放�
 后面Meta3D会发布更多和引擎和编辑器相关的扩展，从而使用户可以直接组装已有的扩展来搭建出完整的引擎和编辑器！谢谢支持！ -->
 
 
-> Meta3D现在处于v1.0版本公测中，这是可用版本，欢迎大家使用，并来这里[讨论](https://github.com/Meta3D-Technology/Meta3D/discussions/43)，感谢您~
 
 <!-- 已经完成了基本的案例，您可以开始使用，欢迎您来一起共建开源社区！
 
