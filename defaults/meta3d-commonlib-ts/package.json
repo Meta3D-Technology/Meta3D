@@ -6,7 +6,7 @@
     "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit",
-        "build:ts": "tsc"
+        "build": "tsc"
     },
     "keywords": [],
     "devDependencies": {

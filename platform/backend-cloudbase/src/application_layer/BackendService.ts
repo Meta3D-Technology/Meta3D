@@ -186,3 +186,6 @@ export let getData = (collectionName: string, limitCount: number, skipCount: num
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getData("publishedpackages")
 
 // export let getDataFromPackageMarketEntryExtensionProtocolCollection = getDataFromMarketProtocolCollection
+
+
+export let getKey = BackendService.getKey

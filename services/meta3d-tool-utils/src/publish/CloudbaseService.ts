@@ -1,6 +1,7 @@
 import tcb from "@cloudbase/node-sdk"
-import { fromPromise, just } from "most";
+import { just } from "most";
 import * as BackendService from "meta3d-backend-cloudbase";
+import * as CompatibleService from "./compatible/CompatibleService";
 
 export let initLocal = () => {
 	let app: any = tcb.init({
@@ -78,3 +79,21 @@ export let addMarketImplementData = BackendService.addMarketImplementData
 export let uploadFile = BackendService.uploadFile
 
 export let parseMarketCollectionDataBodyForNodejs = BackendService.parseMarketCollectionDataBodyForNodejs
+
+export let updateAllDatabaseData = (
+	mapFunc: any,
+	app: any,
+	collectionName: string,
+) => CompatibleService.updateAllDatabaseData(
+	[
+		BackendService.getMarketProtocolCollectionCount,
+		BackendService.getMarketProtocolCollection,
+		parseMarketCollectionDataBodyForNodejs,
+		BackendService.mapMarketImplementCollection,
+		BackendService.getKey,
+		mapFunc,
+		BackendService.updateMarketImplementData
+	],
+	app,
+	collectionName
+)

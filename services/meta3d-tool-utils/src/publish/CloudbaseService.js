@@ -26,10 +26,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.addMarketImplementData = exports.getFileID = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
+exports.updateAllDatabaseData = exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.addMarketImplementData = exports.getFileID = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
+const CompatibleService = __importStar(require("./compatible/CompatibleService"));
 let initLocal = () => {
     let app = node_sdk_1.default.init({
         secretId: "AKIDdL16e8c2KOWccglputqiU8cO5fMYlhcM",
@@ -86,4 +87,14 @@ exports.getFileID = BackendService.getFileID;
 exports.addMarketImplementData = BackendService.addMarketImplementData;
 exports.uploadFile = BackendService.uploadFile;
 exports.parseMarketCollectionDataBodyForNodejs = BackendService.parseMarketCollectionDataBodyForNodejs;
+let updateAllDatabaseData = (mapFunc, app, collectionName) => CompatibleService.updateAllDatabaseData([
+    BackendService.getMarketProtocolCollectionCount,
+    BackendService.getMarketProtocolCollection,
+    exports.parseMarketCollectionDataBodyForNodejs,
+    BackendService.mapMarketImplementCollection,
+    BackendService.getKey,
+    mapFunc,
+    BackendService.updateMarketImplementData
+], app, collectionName);
+exports.updateAllDatabaseData = updateAllDatabaseData;
 //# sourceMappingURL=CloudbaseService.js.map

@@ -23,11 +23,48 @@ answer: no, can still update in database by:
 
 
 
-** TODO update user table
+** DONE update user table
+
+test: add Mbi:0 field
+
+
 
 
 ** TODO update publishedapp table and apps storage
 
+TODO apps storage:
+get file id from table
+get old buffer
+return new buffer
+
+
+
+* TODO 加入发布版本时自动化执行脚本
+
+预发包括:
+（local -> pre-production）
+
+- update frontend/static/{dts file} by copy(finish)
+- increase VersionConfig(done)
+- publish platform's production code to cloud host pre-production
+- lerna publish
+- publish all new version extension,contribute to pre-production
+- update all packages in pre-production
+- invoke compatible tool to upgrade user's data in pre-production
+
+
+正式发布包括:
+（pre-production -> production）
+
+- publish platform's production to cloud host production
+- publish all new version extension,contribute to production
+- update all packages in production
+- invoke compatible tool to upgrade user's data in production
+
+下个版本开始开发时：
+(prepare local)
+
+- clean local data, copy production data to local
 
 
 * TODO 完善ui control

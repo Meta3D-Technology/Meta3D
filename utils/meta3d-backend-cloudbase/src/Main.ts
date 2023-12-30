@@ -252,9 +252,9 @@ export let getMarketImplementAccountData = (app: any, _parseMarketCollectionData
 //         .update(updateData)
 // }
 
-export let updateMarketImplementData = (app: any, collectionName: string, account: account, updateData: marketImplementAccountData, _oldMarketImplementCollectionData: marketImplementCollectionData) => {
+export let updateMarketImplementData = (app: any, collectionName: string, key: string, updateData: marketImplementAccountData, _oldMarketImplementCollectionData: marketImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: handleKeyToLowercase(account) })
+        .where({ key: handleKeyToLowercase(key) })
         .update(updateData)
 }
 
@@ -307,3 +307,7 @@ export let deleteFile = (app: any, fileID: string) => {
 }
 
 export let parseMarketCollectionDataBodyForNodejs = null
+
+export let getKey = (data: collectionData) => {
+    return data.key
+}

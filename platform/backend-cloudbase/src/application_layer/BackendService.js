@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getData = exports.getDataByKeyContain = exports.addMarketImplementData = exports.getMarketImplementAccountDataWithWhereData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.deleteFile = exports.getDataByKey = exports.getDataWithWhereData = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
+exports.getKey = exports.getData = exports.getDataByKeyContain = exports.addMarketImplementData = exports.getMarketImplementAccountDataWithWhereData = exports.getMarketImplementAccountData = exports.getFileID = exports.hasData = exports.deleteFile = exports.getDataByKey = exports.getDataWithWhereData = exports.addData = exports.updateData = exports.uploadFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getDataFromMarketProtocolCollection = exports.getMarketImplement = exports.getMarketImplementCollection = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.getDatabase = exports.init = void 0;
 const js_sdk_1 = require("@cloudbase/js-sdk");
 const most_1 = require("most");
 const Repo_1 = require("../domain_layer/repo/Repo");
@@ -149,3 +149,4 @@ exports.getData = getData;
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getMarketProtocolCollection("publishedpackages")
 // export let getPackageMarketEntryExtensionProtocolCollection = () => getData("publishedpackages")
 // export let getDataFromPackageMarketEntryExtensionProtocolCollection = getDataFromMarketProtocolCollection
+exports.getKey = BackendService.getKey;
