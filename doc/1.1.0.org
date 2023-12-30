@@ -71,7 +71,7 @@ return new buffer
 - clean local data, copy production data to local
 
 
-* TODO fix compatible bdd test coverage
+* DONE fix compatible bdd test coverage
 
 
 * TODO 完善ui control
