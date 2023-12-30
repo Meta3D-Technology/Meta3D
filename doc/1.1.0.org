@@ -47,9 +47,9 @@ return new buffer
 （local -> pre-production）
 
 - update frontend/static/{dts file} by copy(finish)
-- increase VersionConfig(done)
 - publish platform's production code to cloud host pre-production
 - lerna publish
+- increase VersionConfig(done)
 - publish all new version extension,contribute to pre-production
 - update all packages in pre-production
 - invoke compatible tool to upgrade user's data in pre-production

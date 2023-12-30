@@ -51,6 +51,21 @@ gulp.task("bundle_dts", function (done) {
     })
 })
 
+gulp.task("update_versionconfig", function (done) {
+    console.log("更新VersionConfig...")
+
+    let newVersion = JSON.parse(fs.readFileSync("../../lerna.json", "utf-8")).version
+
+    let filePath = "../../platform/frontend/src/external_layer/ui/app/utils/utils/config/VersionConfig.res"
+
+    fs.writeFileSync(
+        filePath,
+        fs.readFileSync(filePath, "utf-8").replace(/"(.+)"/, "\"" + newVersion + "\""),
+        "utf-8"
+    )
+
+    done()
+})
 
 gulp.task("publish_local_env", gulp.series("bundle_dts", function (done) {
     console.log("升级后端数据...")
