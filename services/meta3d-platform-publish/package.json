@@ -9,6 +9,7 @@
     },
     "dependencies": {},
     "devDependencies": {
+        "@cloudbase/manager-node": "^4.2.8",
         "dts-bundle-generator": "^9.0.0",
         "gulp": "^4.0.2",
         "typescript": "^4.2.3"

@@ -1,6 +1,6 @@
 import { historyData, targetVersion } from "./HistoryData"
 import { isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
-import { fromPromise, mergeArray, Stream } from "most";
+import { mergeArray, Stream } from "most";
 
 export let upgradeDatabaseOldData = (
     [initFunc, updateAllDatabaseDataFunc]: [any, any],

@@ -3,22 +3,30 @@ import { just } from "most";
 import * as BackendService from "meta3d-backend-cloudbase";
 import * as CompatibleService from "./compatible/CompatibleService";
 
-export let initLocal = () => {
-	let app: any = tcb.init({
+export let getLocalEnvData = () => {
+	return {
 		secretId: "AKIDdL16e8c2KOWccglputqiU8cO5fMYlhcM",
 		secretKey: "a1GJHNZntyxojls2Galt8FHSp5A1g8Ul",
-		env: "meta3d-local-9gacdhjl439cff76" // 此处填入您的环境ID
-	})
+		env: "meta3d-local-9gacdhjl439cff76" // 此处填入您的环境ID 
+	}
+}
+
+export let getProductionEnvData = () => {
+	return {
+		secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
+		secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
+		env: "meta3d-production-5eol5gce9a6b9c" // 此处填入您的环境ID
+	}
+}
+
+export let initLocal = () => {
+	let app: any = tcb.init(getLocalEnvData())
 
 	return just(app)
 }
 
 export let initProduction = () => {
-	let app: any = tcb.init({
-		secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
-		secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
-		env: "meta3d-production-5eol5gce9a6b9c" // 此处填入您的环境ID
-	})
+	let app: any = tcb.init(getProductionEnvData())
 
 	return just(app)
 }

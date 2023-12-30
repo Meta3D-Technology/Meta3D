@@ -23,8 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.upgradeBackend = void 0;
+exports.updateHostFiles = exports.upgradeBackend = void 0;
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
+const CloudbaseHostService = __importStar(require("./cloudbase-host/CloudbaseHostService"));
+const Host = __importStar(require("./cloudbase-host/Host"));
 const Compatible = __importStar(require("./compatible/Compatible"));
 const most_1 = require("most");
 let _upgradeDatabaseOldData = (env, targetVersion) => {
@@ -74,4 +76,25 @@ let upgradeBackend = (env, targetVersion) => {
     ]).drain();
 };
 exports.upgradeBackend = upgradeBackend;
+let updateHostFiles = (env) => {
+    let funcArr = null;
+    switch (env) {
+        case "local":
+            funcArr = [
+                CloudbaseHostService.initLocal,
+                CloudbaseHostService.updateHostFiles,
+            ];
+            break;
+        case "production":
+            funcArr = [
+                CloudbaseHostService.initProduction,
+                CloudbaseHostService.updateHostFiles,
+            ];
+            break;
+        default:
+            throw new Error("unknown env");
+    }
+    return Host.updateHostFiles(funcArr).drain();
+};
+exports.updateHostFiles = updateHostFiles;
 //# sourceMappingURL=Main.js.map

@@ -3,6 +3,14 @@ var fs = require("fs")
 var process = require("child_process")
 var publish = require("meta3d-platform-publish")
 
+let env = null
+
+gulp.task("set_env_to_local", function (done) {
+    env = "local"
+
+    done()
+})
+
 gulp.task("bundle_dts", function (done) {
     console.log("打包DTS...")
 
@@ -67,12 +75,36 @@ gulp.task("update_versionconfig", function (done) {
     done()
 })
 
-gulp.task("publish_local_env", gulp.series("bundle_dts", function (done) {
+gulp.task("update_platform_code", function (done) {
+    console.log("更新平台代码...")
+
+    process.exec("yarn webpack_pro",
+        {
+            cwd: "../../platform/frontend"
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
+                publish.updateHostFiles(env).then(_ => {
+                    done()
+                })
+            } else {
+                throw error
+            }
+        })
+})
+
+gulp.task("upgrade_backend", function (done) {
     console.log("升级后端数据...")
 
-    publish.upgradeBackend("local", "newest").then(_ => {
+    publish.upgradeBackend(env, "newest").then(_ => {
         done()
     })
+});
+
+
+// TODO use all tasks
+gulp.task("publish_local_env", gulp.series("set_env_to_local", "bundle_dts", "update_platform_code", "upgrade_backend", function (done) {
+    done()
 }));
 
 // gulp.task("publish_pro_env", function (done) {
