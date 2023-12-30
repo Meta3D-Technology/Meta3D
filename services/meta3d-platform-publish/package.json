@@ -1,13 +1,12 @@
 {
     "name": "meta3d-platform-publish",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "./src/Main.js",
     "scripts": {
         "watch": "tsc --watch",
         "platform:publish_dev": "gulp publish_local_env",
         "platform:publish_pro": "gulp publish_pro_env"
     },
-    "dependencies": {},
     "devDependencies": {
         "@cloudbase/manager-node": "^4.2.8",
         "dts-bundle-generator": "^9.0.0",

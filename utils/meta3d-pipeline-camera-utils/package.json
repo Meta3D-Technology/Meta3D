@@ -1,13 +1,13 @@
 {
     "name": "meta3d-pipeline-camera-utils",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-type": "^1.0.0"
+        "meta3d-type": "^1.0.1"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
