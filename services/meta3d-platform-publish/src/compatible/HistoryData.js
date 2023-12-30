@@ -12,26 +12,34 @@ let _removeIdAndKey = (data) => {
 // export const historyData: Record<dataType, typeData> = {
 exports.historyData = {
     "database": {
-        "newest": [{
-                mapFunc: (oldData) => {
-                    return Object.assign(Object.assign({}, _removeIdAndKey(oldData)), { Mbi: 2, score: null });
-                },
-                collectionName: "user"
-            }]
+        "newest": [
+        //     {
+        //     mapFunc: (oldData) => {
+        //         return {
+        //             ..._removeIdAndKey(oldData),
+        //             Mbi: 2,
+        //             score: null
+        //         }
+        //     },
+        //     collectionName: "user"
+        // }
+        ]
     },
     "storage": {
-        "newest": [{
-                mapFunc: (oldFile) => {
-                    // return new ArrayBuffer(10)
-                    console.log("use old File: ", oldFile);
-                    return oldFile;
-                },
-                buildFilePathFunc: (oldData) => {
-                    let fileName = oldData.account + "_" + oldData.appName;
-                    return "apps/" + fileName + ".arraybuffer";
-                },
-                collectionName: "publishedapps"
-            }]
+        "newest": [
+        //     {
+        //     mapFunc: (oldFile) => {
+        //         // return new ArrayBuffer(10)
+        //         console.log("use old File: ", oldFile)
+        //         return oldFile
+        //     },
+        //     buildFilePathFunc: (oldData) => {
+        //         let fileName = oldData.account + "_" + oldData.appName
+        //         return "apps/" + fileName + ".arraybuffer"
+        //     },
+        //     collectionName: "publishedapps"
+        // }
+        ]
     }
 };
 //# sourceMappingURL=HistoryData.js.map

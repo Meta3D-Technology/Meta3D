@@ -38,30 +38,34 @@ export const historyData: {
     "storage": Record<targetVersion, Array<storageData>>,
 } = {
     "database": {
-        "newest": [{
-            mapFunc: (oldData) => {
-                return {
-                    ..._removeIdAndKey(oldData),
-                    Mbi: 2,
-                    score: null
-                }
-            },
-            collectionName: "user"
-        }]
+        "newest": [
+            //     {
+            //     mapFunc: (oldData) => {
+            //         return {
+            //             ..._removeIdAndKey(oldData),
+            //             Mbi: 2,
+            //             score: null
+            //         }
+            //     },
+            //     collectionName: "user"
+            // }
+        ]
     },
     "storage": {
-        "newest": [{
-            mapFunc: (oldFile) => {
-                // return new ArrayBuffer(10)
-                console.log("use old File: ", oldFile)
-                return oldFile
-            },
-            buildFilePathFunc: (oldData) => {
-                let fileName = oldData.account + "_" + oldData.appName
+        "newest": [
+            //     {
+            //     mapFunc: (oldFile) => {
+            //         // return new ArrayBuffer(10)
+            //         console.log("use old File: ", oldFile)
+            //         return oldFile
+            //     },
+            //     buildFilePathFunc: (oldData) => {
+            //         let fileName = oldData.account + "_" + oldData.appName
 
-                return "apps/" + fileName + ".arraybuffer"
-            },
-            collectionName: "publishedapps"
-        }]
+            //         return "apps/" + fileName + ".arraybuffer"
+            //     },
+            //     collectionName: "publishedapps"
+            // }
+        ]
     }
 }

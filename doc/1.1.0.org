@@ -38,7 +38,7 @@ get old buffer
 return new buffer
 
 
-** TODO reset historyData
+** DONE reset historyData
 
 
 * TODO 加入发布版本时自动化执行脚本
