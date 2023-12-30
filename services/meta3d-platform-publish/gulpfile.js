@@ -115,7 +115,7 @@ gulp.task("ci", function (done) {
 gulp.task("lerna_version_patch", function (done) {
     console.log("发布patch版本...")
 
-    process.exec("lerna version patch",
+    process.exec("lerna version patch --yes",
         {
             cwd: _getRootCwd()
         },
@@ -128,6 +128,22 @@ gulp.task("lerna_version_patch", function (done) {
         })
 })
 
+// gulp.task("lerna_version_minor", function (done) {
+//     console.log("发布minor版本...")
+
+//     process.exec("lerna version minor --yes",
+//         {
+//             cwd: _getRootCwd()
+//         },
+//         (error, stdout, stderr) => {
+//             if (!error) {
+//                 done()
+//             } else {
+//                 throw error
+//             }
+//         })
+// })
+
 gulp.task("upgrade_backend", function (done) {
     console.log("升级后端数据...")
 
@@ -138,7 +154,11 @@ gulp.task("upgrade_backend", function (done) {
 
 
 // TODO use all tasks
-gulp.task("publish_local_env", gulp.series("set_env_to_local", "bundle_dts", "update_platform_code", "upgrade_backend", function (done) {
+// gulp.task("publish_local_env", gulp.series("set_env_to_local", "bundle_dts", "update_platform_code", "upgrade_backend", function (done) {
+//     done()
+// }));
+
+gulp.task("publish_local_patch_env", gulp.series("set_env_to_local", "bundle_dts", "ci", "lerna_version_patch", "update_platform_code", "upgrade_backend", function (done) {
     done()
 }));
 

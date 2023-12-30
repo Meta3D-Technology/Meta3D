@@ -48,8 +48,8 @@ return new buffer
 
 - update frontend/static/{dts file} by copy(finish)
 - run ci
-- lerna publish
 - increase VersionConfig(done)
+- lerna publish
 - publish platform's production code to cloud host pre-production
 - publish all new version extension,contribute to pre-production
 - update all packages in pre-production
