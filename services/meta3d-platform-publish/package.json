@@ -4,8 +4,10 @@
     "main": "./src/Main.js",
     "scripts": {
         "watch": "tsc --watch",
-        "platform:publish_dev": "gulp publish_local_env",
-        "platform:publish_pro": "gulp publish_pro_env"
+        "platform:publish_dev_patch": "gulp publish_local_patch_env",
+        "platform:publish_dev_minor": "gulp publish_local_minor_env",
+        "platform:publish_pro_patch": "gulp publish_pro_patch_env",
+        "platform:publish_pro_minor": "gulp publish_pro_minor_env"
     },
     "devDependencies": {
         "@cloudbase/manager-node": "^4.2.8",

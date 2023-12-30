@@ -37,8 +37,10 @@
 		"meta3d:publish_dev_auto": "lerna run meta3d:publish_dev_auto --concurrency 1",
 		"meta3d:publish_dev": "lerna run meta3d:publish_dev --concurrency 1",
 		"meta3d:publish_pro": "lerna run meta3d:publish_pro --concurrency 1",
-		"platform:publish_dev": "lerna run platform:publish_dev --concurrency 1",
-		"platform:publish_pro": "lerna run platform:publish_pro --concurrency 1",
+		"platform:publish_dev_patch": "lerna run platform:publish_dev_patch --concurrency 1",
+		"platform:publish_dev_minor": "lerna run platform:publish_dev_minor --concurrency 1",
+		"platform:publish_pro_patch": "lerna run platform:publish_pro_patch --concurrency 1",
+		"platform:publish_pro_minor": "lerna run platform:publish_pro_minor --concurrency 1",
 		"ci:test": "lerna run test:ci --concurrency 1"
 	},
 	"workspaces": [

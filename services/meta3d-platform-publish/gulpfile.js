@@ -13,6 +13,13 @@ gulp.task("set_env_to_local", function (done) {
     done()
 })
 
+gulp.task("set_env_to_pro", function (done) {
+    env = "production"
+
+    done()
+})
+
+
 gulp.task("bundle_dts", function (done) {
     console.log("打包DTS...")
 
@@ -144,21 +151,21 @@ gulp.task("lerna_version_patch", function (done) {
         })
 })
 
-// gulp.task("lerna_version_minor", function (done) {
-//     console.log("发布minor版本...")
+gulp.task("lerna_version_minor", function (done) {
+    console.log("发布minor版本...")
 
-//     process.exec("lerna version minor --yes",
-//         {
-//             cwd: _getRootCwd()
-//         },
-//         (error, stdout, stderr) => {
-//             if (!error) {
-//                 done()
-//             } else {
-//                 throw error
-//             }
-//         })
-// })
+    process.exec("lerna version minor --yes",
+        {
+            cwd: _getRootCwd()
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
+                done()
+            } else {
+                throw error
+            }
+        })
+})
 
 gulp.task("publish_extension_contribute_protocol", function (done) {
     console.log("发布扩展、贡献、协议...")
@@ -197,17 +204,54 @@ gulp.task("upgrade_backend", function (done) {
 });
 
 
-// TODO use all tasks
-// gulp.task("publish_local_env", gulp.series("set_env_to_local", "bundle_dts", "update_platform_code", "upgrade_backend", function (done) {
-//     done()
-// }));
+// TODO do these tasks before upgrade_backend:
+// - update all packages in production
+// - update all apps in production
 
-gulp.task("publish_local_patch_env", gulp.series("set_env_to_local", "bundle_dts", "ci", "lerna_version_patch", "update_platform_code", "upgrade_backend", function (done) {
-    done()
-}));
+gulp.task("publish_local_patch_env", gulp.series(
+    "set_env_to_local",
+    "bundle_dts",
+    "ci",
+    "update_versionconfig",
+    "lerna_version_patch",
+    "update_platform_code",
+    "publish_extension_contribute_protocol",
+    "upgrade_backend", function (done) {
+        done()
+    }));
 
-// gulp.task("publish_pro_env", function (done) {
-//     publish.publish("production", "newest").then(_ => {
-//         done()
-//     })
-// });
+gulp.task("publish_local_minor_env", gulp.series(
+    "set_env_to_local",
+    "bundle_dts",
+    "ci",
+    "update_versionconfig",
+    "lerna_version_minor",
+    "update_platform_code",
+    "publish_extension_contribute_protocol",
+    "upgrade_backend", function (done) {
+        done()
+    }));
+
+gulp.task("publish_pro_patch_env", gulp.series(
+    "set_env_to_pro",
+    "bundle_dts",
+    "ci",
+    "update_versionconfig",
+    "lerna_version_patch",
+    "update_platform_code",
+    "publish_extension_contribute_protocol",
+    "upgrade_backend", function (done) {
+        done()
+    }));
+
+gulp.task("publish_pro_minor_env", gulp.series(
+    "set_env_to_pro",
+    "bundle_dts",
+    "ci",
+    "update_versionconfig",
+    "lerna_version_minor",
+    "update_platform_code",
+    "publish_extension_contribute_protocol",
+    "upgrade_backend", function (done) {
+        done()
+    }));
