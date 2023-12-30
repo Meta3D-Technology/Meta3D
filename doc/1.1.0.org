@@ -53,6 +53,7 @@ return new buffer
 - publish platform's production code to cloud host pre-production
 - publish all new version extension,contribute to pre-production
 - update all packages in pre-production
+- update all apps in pre-production
 - invoke compatible tool to upgrade user's data in pre-production
 
 
