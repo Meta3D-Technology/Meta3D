@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.historyData = void 0;
+// export type typeData = Record<targetVersion, Array<data>>
 let _removeIdAndKey = (data) => {
     let newData = Object.assign({}, data);
     delete newData._id;
@@ -8,12 +9,29 @@ let _removeIdAndKey = (data) => {
     delete newData.key;
     return newData;
 };
+// export const historyData: Record<dataType, typeData> = {
 exports.historyData = {
-    "newest": [{
-            mapFunc: (data) => {
-                return Object.assign(Object.assign({}, _removeIdAndKey(data)), { Mbi: 0, score: null });
-            },
-            collectionName: "user"
-        }]
+    "database": {
+        "newest": [{
+                mapFunc: (oldData) => {
+                    return Object.assign(Object.assign({}, _removeIdAndKey(oldData)), { Mbi: 2, score: null });
+                },
+                collectionName: "user"
+            }]
+    },
+    "storage": {
+        "newest": [{
+                mapFunc: (oldFile) => {
+                    // return new ArrayBuffer(10)
+                    console.log("use old File: ", oldFile);
+                    return oldFile;
+                },
+                buildFilePathFunc: (oldData) => {
+                    let fileName = oldData.account + "_" + oldData.appName;
+                    return "apps/" + fileName + ".arraybuffer";
+                },
+                collectionName: "publishedapps"
+            }]
+    }
 };
 //# sourceMappingURL=HistoryData.js.map

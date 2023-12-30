@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.publish = void 0;
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
 const Compatible = __importStar(require("./compatible/Compatible"));
+const most_1 = require("most");
 let _upgradeDatabaseOldData = (env, targetVersion) => {
     let funcArr = null;
     switch (env) {
@@ -46,8 +47,31 @@ let _upgradeDatabaseOldData = (env, targetVersion) => {
     }
     return Compatible.upgradeDatabaseOldData(funcArr, targetVersion);
 };
+let _upgradeStorageOldData = (env, targetVersion) => {
+    let funcArr = null;
+    switch (env) {
+        case "local":
+            funcArr = [
+                CloudbaseService.initLocal,
+                CloudbaseService.updateAllStorageData,
+            ];
+            break;
+        case "production":
+            funcArr = [
+                CloudbaseService.initProduction,
+                CloudbaseService.updateAllStorageData,
+            ];
+            break;
+        default:
+            throw new Error("unknown env");
+    }
+    return Compatible.upgradeStorageOldData(funcArr, targetVersion);
+};
 let publish = (env, targetVersion) => {
-    return _upgradeDatabaseOldData(env, targetVersion).drain();
+    return (0, most_1.mergeArray)([
+        _upgradeDatabaseOldData(env, targetVersion),
+        _upgradeStorageOldData(env, targetVersion),
+    ]).drain();
 };
 exports.publish = publish;
 //# sourceMappingURL=Main.js.map

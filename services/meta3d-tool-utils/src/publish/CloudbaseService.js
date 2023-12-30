@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAllDatabaseData = exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.addMarketImplementData = exports.getFileID = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
+exports.updateAllStorageData = exports.updateAllDatabaseData = exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.addMarketImplementData = exports.getFileID = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
@@ -97,4 +97,15 @@ let updateAllDatabaseData = (mapFunc, app, collectionName) => CompatibleService.
     BackendService.updateMarketImplementData
 ], app, collectionName);
 exports.updateAllDatabaseData = updateAllDatabaseData;
+let updateAllStorageData = ([mapFunc, buildFilePathFunc], app, collectionName) => CompatibleService.updateAllStorageData([
+    BackendService.getMarketProtocolCollectionCount,
+    BackendService.getMarketProtocolCollection,
+    exports.parseMarketCollectionDataBodyForNodejs,
+    BackendService.mapMarketImplementCollection,
+    BackendService.downloadFile,
+    mapFunc,
+    BackendService.uploadFile,
+    buildFilePathFunc
+], app, collectionName);
+exports.updateAllStorageData = updateAllStorageData;
 //# sourceMappingURL=CloudbaseService.js.map

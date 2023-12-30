@@ -97,3 +97,22 @@ export let updateAllDatabaseData = (
 	app,
 	collectionName
 )
+
+export let updateAllStorageData = (
+	[mapFunc, buildFilePathFunc]: [any, any, any],
+	app: any,
+	collectionName: string,
+) => CompatibleService.updateAllStorageData(
+	[
+		BackendService.getMarketProtocolCollectionCount,
+		BackendService.getMarketProtocolCollection,
+		parseMarketCollectionDataBodyForNodejs,
+		BackendService.mapMarketImplementCollection,
+		BackendService.downloadFile,
+		mapFunc,
+		BackendService.uploadFile,
+		buildFilePathFunc
+	],
+	app,
+	collectionName
+)

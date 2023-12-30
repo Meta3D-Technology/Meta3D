@@ -30,13 +30,15 @@ test: add Mbi:0 field
 
 
 
-** TODO update publishedapp table and apps storage
+** DONE update publishedapp table and apps storage
 
 TODO apps storage:
 get file id from table
 get old buffer
 return new buffer
 
+
+** TODO reset historyData
 
 
 * TODO 加入发布版本时自动化执行脚本
