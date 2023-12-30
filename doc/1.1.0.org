@@ -1,0 +1,106 @@
+* TODO 解决因升级造成的兼容性问题 
+
+refer to:
+# [说透低代码-17｜兼容性问题：如何有效发现兼容性问题？](https://houbb.github.io/2015/01/01/%E8%AF%B4%E9%80%8F%E4%BD%8E%E4%BB%A3%E7%A0%81-17-%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98-%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E5%8F%91%E7%8E%B0%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98)
+[说透低代码-18｜兼容性问题：如何有效解决兼容性问题？](https://houbb.github.io/2015/01/01/%E8%AF%B4%E9%80%8F%E4%BD%8E%E4%BB%A3%E7%A0%81-18-%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98-%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E8%A7%A3%E5%86%B3%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98)
+https://time.geekbang.org/column/article/564236 -> 评论
+
+
+* TODO 处理后端数据兼容性
+
+TODO 加入数据adapter层？
+
+
+
+
+# 疑问
+
+- if app or package binary change, then only can use if else in default/meta/ code  instead of update them in database!?
+
+answer: no, can still update in database by:
+1.use old default/meta/ code  to get their data(all extensions,contributes,packages,... data)
+2.use new default/meta/ code to write them to a new binary!
+
+
+
+** TODO update user table
+
+
+** TODO update publishedapp table and apps storage
+
+
+
+* TODO 完善ui control
+
+
+
+
+** TODO add more Inspector
+
+Inspector: can edit component;set component's data;
+TODO 加入更多的Component Inspector
+
+*** TODO active basic camera view
+TODO fix import scene* TODO>active
+
+*** TODO add component
+# **** TODO now only add arcball, basiccameraview, perspective component, no other components
+**** TODO now only add arcball, basiccameraview component, no other components
+handle event
+   **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
+   **** TODO publish: bind event when active has arcball
+
+
+** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+
+** TODO add Modal
+publish, export should show Modal
+
+
+Menu add "关于Meta3D":
+show Modal
+
+
+
+
+
+# * TODO Scene View: show direction light, camera(show image)
+
+
+
+** TODO Window: set flags
+e.g. ImGui.WindowFlags.NoTitleBar
+
+
+
+
+
+
+** TODO add Debug
+
+
+
+
+** TODO Message
+e.g. show import progress bar
+
+
+
+
+
+
+* TODO 加入Script
+
+
+
+
+* TODO publish 3D贪吃蛇 editor template
+
+Snake, Scene use gltf model!
+
+
+
+
+
