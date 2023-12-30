@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "authors": "Wonder",
     "scripts": {
-        "bundle_dts": "gulp bundle_dts",
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
         "watch_pro": "gulp changeToProductionEnv &&  rescript clean && rescript build -w",
         "buildAll:ci": "rescript clean && rescript build",
@@ -27,7 +26,6 @@
         "cross-env": "^7.0.3",
         "css-loader": "^3.6.0",
         "cz-customizable": "^5.2.0",
-        "dts-bundle-generator": "^9.0.0",
         "gentype": "^3.48.0",
         "html-webpack-plugin": "^5.5.0",
         "identity-obj-proxy": "^3.0.0",

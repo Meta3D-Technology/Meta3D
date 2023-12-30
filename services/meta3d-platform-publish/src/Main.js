@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publish = void 0;
+exports.upgradeBackend = void 0;
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
 const Compatible = __importStar(require("./compatible/Compatible"));
 const most_1 = require("most");
@@ -67,11 +67,11 @@ let _upgradeStorageOldData = (env, targetVersion) => {
     }
     return Compatible.upgradeStorageOldData(funcArr, targetVersion);
 };
-let publish = (env, targetVersion) => {
+let upgradeBackend = (env, targetVersion) => {
     return (0, most_1.mergeArray)([
         _upgradeDatabaseOldData(env, targetVersion),
         _upgradeStorageOldData(env, targetVersion),
     ]).drain();
 };
-exports.publish = publish;
+exports.upgradeBackend = upgradeBackend;
 //# sourceMappingURL=Main.js.map

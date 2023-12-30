@@ -50,7 +50,7 @@ let _upgradeStorageOldData = (env: env, targetVersion: targetVersion) => {
     return Compatible.upgradeStorageOldData(funcArr, targetVersion)
 }
 
-export let publish = (env: env, targetVersion: targetVersion): Promise<void> => {
+export let upgradeBackend = (env: env, targetVersion: targetVersion): Promise<void> => {
     return mergeArray([
         _upgradeDatabaseOldData(env, targetVersion),
         _upgradeStorageOldData(env, targetVersion),

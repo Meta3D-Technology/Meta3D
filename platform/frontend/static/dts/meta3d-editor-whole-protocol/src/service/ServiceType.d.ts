@@ -731,8 +731,9 @@ declare enum windowFlags {
 	NoTitleBar
 }
 declare enum cond {
-	None,
-	Always
+	// None,
+	Always,
+	Once
 }
 export type uiExtensionProtocolName = extensionProtocolName;
 export type imguiRendererExtensionProtocolName = extensionProtocolName;

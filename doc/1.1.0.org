@@ -6,7 +6,7 @@ refer to:
 https://time.geekbang.org/column/article/564236 -> 评论
 
 
-* TODO 处理后端数据兼容性
+* DONE 处理后端数据兼容性
 
 TODO 加入数据adapter层？
 

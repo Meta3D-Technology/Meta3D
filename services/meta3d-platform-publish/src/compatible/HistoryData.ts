@@ -1,4 +1,4 @@
-export type targetVersion = string
+export type targetVersion = "newest"
 
 type collectionName = "user" | "publishedapps"
 
