@@ -5,6 +5,8 @@ var publish = require("meta3d-platform-publish")
 
 let env = null
 
+let _getRootCwd = () => "../../"
+
 gulp.task("set_env_to_local", function (done) {
     env = "local"
 
@@ -87,6 +89,39 @@ gulp.task("update_platform_code", function (done) {
                 publish.updateHostFiles(env).then(_ => {
                     done()
                 })
+            } else {
+                throw error
+            }
+        })
+})
+
+
+gulp.task("ci", function (done) {
+    console.log("ci...")
+
+    process.exec("yarn ci:test",
+        {
+            cwd: _getRootCwd()
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
+                done()
+            } else {
+                throw error
+            }
+        })
+})
+
+gulp.task("lerna_version_patch", function (done) {
+    console.log("发布patch版本...")
+
+    process.exec("lerna version patch",
+        {
+            cwd: _getRootCwd()
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
+                done()
             } else {
                 throw error
             }
