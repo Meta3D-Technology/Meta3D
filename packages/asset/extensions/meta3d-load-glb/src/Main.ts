@@ -10,6 +10,7 @@ import { MeshoptDecoder } from "./three/meshopt_decoder.module"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { state as meta3dState } from "meta3d-type"
 import type { WebGLRenderer } from "three"
+import { getExtension } from "./extensions/active-camera/Meta3DCameraActive"
 
 let _createRendererOnlyOnce = (meta3dState: meta3dState, api: api, threeAPIService: threeAPIService) => {
     let state = api.getExtensionState<state>(meta3dState, "meta3d-load-glb-protocol")
@@ -55,6 +56,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                 ).setDRACOLoader(dracoLoader)
                     .setMeshoptDecoder(MeshoptDecoder)
                     .setKTX2Loader(ktx2Loader)
+                    .register(getExtension)
                     .parse(
                         glb,
                         "",

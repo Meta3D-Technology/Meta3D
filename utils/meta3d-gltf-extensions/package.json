@@ -1,0 +1,11 @@
+{
+    "name": "meta3d-gltf-extensions",
+    "version": "1.0.1",
+    "scripts": {
+        "watch": "tsc -w -noEmit"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

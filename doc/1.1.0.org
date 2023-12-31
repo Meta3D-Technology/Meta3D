@@ -87,6 +87,75 @@ TODO 加入更多的Component Inspector
 *** TODO active basic camera view
 TODO fix import scene* TODO>active
 
+GLTFExporter:
+
+cameras->current camera(by find name first):
+add extensions:{
+   "Meta3D_camera_active":{
+      "isAction": true
+   }
+}
+
+
+GLTFLoader.js:
+Camera.userData add the same extensions
+
+
+converter:set Camera's userData
+
+_import->Camera: parse userData and active
+
+
+TODO run test:
+editor:export single event-> import event
+# editor:export event-> import event
+
+publish:
+
+
+
+TODO publish:
+scene converter
+export scene
+import scene
+load glb
+load-scene
+
+TODO update packages:
+three
+asset
+editor-whole
+engine-whole
+
+
+*** TODO fix: debug: different packages shouldn't affect each!
+
+
+*** TODO 
+TODO run test:
+editor:export single event-> import event
+# editor:export event-> import event
+
+publish:
+
+
+
+TODO publish:
+scene converter
+export scene
+import scene
+load glb
+load-scene
+
+TODO update packages:
+three
+asset
+editor-whole
+engine-whole
+
+
+*** TODO fix: publish: logo miss
+
 *** TODO add component
 # **** TODO now only add arcball, basiccameraview, perspective component, no other components
 **** TODO now only add arcball, basiccameraview component, no other components
@@ -114,8 +183,8 @@ show Modal
 
 
 
-** TODO Window: set flags
-e.g. ImGui.WindowFlags.NoTitleBar
+# ** TODO Window: set flags
+# e.g. ImGui.WindowFlags.NoTitleBar
 
 
 
@@ -127,8 +196,8 @@ e.g. ImGui.WindowFlags.NoTitleBar
 
 
 
-** TODO Message
-e.g. show import progress bar
+# ** TODO Message
+# e.g. show import progress bar
 
 
 

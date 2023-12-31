@@ -4,7 +4,7 @@ import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D,
 import { service as threeService } from "meta3d-three-protocol/src/service/ServiceType"
 import { dispose } from "meta3d-pipeline-utils/src/DisposeJobUtils"
 import { addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
-import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
+// import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { event } from "meta3d-pipeline-dispose-protocol/src/EventType"
@@ -61,7 +61,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     //     cameraView
                     // )
 
-                    meta3dState = activeFirstBasicCameraView(meta3dState, engineSceneService)
+                    // meta3dState = activeFirstBasicCameraView(meta3dState, engineSceneService)
 
                     let data = addGameObjectsForSceneView(meta3dState, engineSceneService)
                     meta3dState = data[0]

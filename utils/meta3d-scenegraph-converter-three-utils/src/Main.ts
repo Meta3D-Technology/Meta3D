@@ -83,6 +83,7 @@ import {
     getDirectionLightInstanceMap, getGeometryInstanceMap, getMeshInstanceMap, getPhysicalMaterialInstanceMap, getTextureInstanceMap
 } from "./Classes";
 import { setVariables } from "./SetVariables";
+import * as Meta3DCameraActive from "meta3d-gltf-extensions/src/Meta3DCameraActive"
 
 // class Group extends Object3D {
 //     constructor(gameObject: gameObject) {
@@ -244,13 +245,16 @@ let _import = (sceneService: scene,
 
     meta3dState = gameObjectService.addTransform(meta3dState, gameObject, transform)
 
-
     if ((object3D as any as CameraType).isCamera) {
         data = basicCameraViewService.createBasicCameraView(meta3dState)
         meta3dState = data[0]
         let basicCameraView = data[1]
 
         meta3dState = basicCameraViewService.setName(meta3dState, basicCameraView, object3D.name)
+
+        if (!isNullable(object3D.userData[Meta3DCameraActive.getKey()])) {
+            meta3dState = basicCameraViewService.active(meta3dState, basicCameraView)
+        }
 
         meta3dState = gameObjectService.addBasicCameraView(meta3dState, gameObject, basicCameraView)
 

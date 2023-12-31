@@ -6,6 +6,7 @@ import { service as threeService } from "meta3d-three-protocol/src/service/Servi
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils";
 import { buildGetAllGameObjectsFunc } from "meta3d-pipeline-webgl1-three-utils/src/ConvertSceneGraphJobUtils"
 import { state as converterState } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
+import { getExtension } from "./extensions/active-camera/Meta3DCameraActive"
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
@@ -27,14 +28,18 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
 
             setThreeAPI(threeAPIService)
 
-            new GLTFExporter().parse(
-                scene_,
-                onFinishFunc as (gltf: ArrayBuffer | { [key: string]: any }) => void,
-                onErrorFunc,
-                {
-                    binary: true
-                }
-            )
+
+            new GLTFExporter()
+                .register(writer => getExtension(perspectiveCamera.name,
+                    writer))
+                .parse(
+                    scene_,
+                    onFinishFunc as (gltf: ArrayBuffer | { [key: string]: any }) => void,
+                    onErrorFunc,
+                    {
+                        binary: true
+                    }
+                )
         }
     }
 }

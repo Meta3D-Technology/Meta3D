@@ -69,6 +69,8 @@ import {
     globalKeyNameForGeometryInstanceMap,
     globalKeyNameForDirectionLightInstanceMap
 } from "./SetVariables";
+import * as Meta3DCameraActive from "meta3d-gltf-extensions/src/Meta3DCameraActive"
+import { setValueToObject } from "meta3d-structure-utils/src/ObjectUtils"
 
 let _getEmptyGameObject = () => -1
 
@@ -419,6 +421,36 @@ export class Camera extends Object3D {
         return _getMatrix(
             basicCameraView.getGameObjects(meta3dState, this.basicCameraViewComponent)[0]
         )
+    }
+
+    private _userData: Record<string, any> = {}
+    public get userData() {
+        // let meta3dState = getMeta3dState()
+
+        // let { basicCameraView } = getEngineSceneService(meta3dState)
+
+        // let basicCameraViewComponent = this.basicCameraViewComponent
+
+        // let isActive = getWithDefault(
+        //     map(
+        //         activeCameraView => {
+        //             return activeCameraView == basicCameraViewComponent
+        //         },
+        //         basicCameraView.getActiveCameraView(meta3dState, true)
+        //     ),
+        //     false
+        // )
+
+        // if (!isActive) {
+        //     return this.userData
+        // }
+
+        // return setValueToObject(this.userData, Meta3DCameraActive.getKey(), Meta3DCameraActive.getValue())
+
+        return this._userData
+    }
+    public set userData(data) {
+        this._userData = data
     }
 }
 

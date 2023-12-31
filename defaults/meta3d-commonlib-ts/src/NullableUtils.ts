@@ -56,3 +56,13 @@ export let getWithDefault = <T>(nullableValue: nullable<T>, default_: T): T => {
 export let getEmpty = <T>(): nullable<T> => {
     return undefined
 }
+
+export let forEach = <T>(func: (nullableValue: T) => void, nullableValue: nullable<T>): void => {
+    if (isNullable(nullableValue)) {
+        return
+    }
+
+    func(nullableValue as T)
+
+    return
+}
