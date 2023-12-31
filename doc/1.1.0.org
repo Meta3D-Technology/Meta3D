@@ -128,7 +128,11 @@ editor-whole
 engine-whole
 
 
-*** TODO fix: debug: different packages shouldn't affect each!
+*** DONE fix: debug: different packages shouldn't affect each!
+
+TODO switch should use each show debug
+
+TODO different packages shouldn't affect each!
 
 
 *** TODO 

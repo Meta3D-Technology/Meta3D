@@ -32,22 +32,27 @@ module Method = {
   }
 
   let useEffectOnce = (
-    (setInspectorCurrentContribute, setContributeStr),
+    // (setInspectorCurrentContribute, setContributeStr),
+    setInspectorCurrentContribute,
     service,
     (inspectorCurrentContributeId, selectedContributes),
   ) => {
     switch (inspectorCurrentContributeId, selectedContributes)->getInspectorCurrentContribute {
-    | None =>
-      setInspectorCurrentContribute(_ => None)
-      setContributeStr(_ => "")
+    | None => setInspectorCurrentContribute(_ => None)
+    // setContributeStr(_ => "")
     | Some(inspectorCurrentContribute) =>
       setInspectorCurrentContribute(_ => inspectorCurrentContribute->Some)
-      setContributeStr(_ =>
-        service.meta3d.getContributeFuncDataStr(.
-          inspectorCurrentContribute.data.contributeFuncData,
-        )
-      )
+    // setContributeStr(_ =>
+    //   service.meta3d.getContributeFuncDataStr(.
+    //     inspectorCurrentContribute.data.contributeFuncData,
+    //   )
+    // )
     }
+  }
+
+  let resteDebug = (setContributeStr, setIsDebugChange) => {
+    setContributeStr(_ => "")
+    setIsDebugChange(_ => false)
   }
 
   let useSelector = (
@@ -65,22 +70,28 @@ let make = (~service: service) => {
   let (contributeStr, setContributeStr) = service.react.useState(_ => "")
   let (isDebugChange, setIsDebugChange) = service.react.useState(_ => false)
 
-  let (
-    inspectorCurrentContributeId,
-    selectedContributes,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  let (inspectorCurrentContributeId, selectedContributes) = ReduxUtils.ApAssemble.useSelector(
+    service.react.useSelector,
+    Method.useSelector,
+  )
 
   let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   service.react.useEffect1(. () => {
     Method.useEffectOnce(
-      (setInspectorCurrentContribute, setContributeStr),
+      setInspectorCurrentContribute,
       service,
       (inspectorCurrentContributeId, selectedContributes),
     )
 
     None
   }, [inspectorCurrentContributeId, selectedContributes->Obj.magic])
+
+  service.react.useEffect1(. () => {
+    Method.resteDebug(setContributeStr, setIsDebugChange)
+
+    None
+  }, [inspectorCurrentContributeId])
 
   switch inspectorCurrentContribute {
   | None => React.null

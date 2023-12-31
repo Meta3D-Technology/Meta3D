@@ -3,17 +3,11 @@ open Antd
 open AssembleSpaceType
 
 module Method = {
-  let startPackage = (
-    dispatch,
-    inspectorCurrentPackage: ApAssembleStoreType.package,
-  ) => {
+  let startPackage = (dispatch, inspectorCurrentPackage: ApAssembleStoreType.package) => {
     dispatch(ApAssembleStoreType.StartPackage(inspectorCurrentPackage.id))
   }
 
-  let unstartPackage = (
-    dispatch,
-    inspectorCurrentPackage: ApAssembleStoreType.package,
-  ) => {
+  let unstartPackage = (dispatch, inspectorCurrentPackage: ApAssembleStoreType.package) => {
     dispatch(ApAssembleStoreType.UnStartPackage(inspectorCurrentPackage.id))
   }
 
@@ -27,9 +21,7 @@ module Method = {
     inspectorCurrentPackage: ApAssembleStoreType.package,
   ) => {
     // service.app.dispatchStorePackageInApp(. dispatchForAppStore, inspectorCurrentPackage.id)
-    dispatchForApAssembleStore(
-      ApAssembleStoreType.StorePackageInApp(inspectorCurrentPackage.id),
-    )
+    dispatchForApAssembleStore(ApAssembleStoreType.StorePackageInApp(inspectorCurrentPackage.id))
   }
 
   let unstorePackageInApp = (
@@ -38,9 +30,7 @@ module Method = {
     inspectorCurrentPackage: ApAssembleStoreType.package,
   ) => {
     // service.app.dispatchUnStorePackageInApp(. dispatchForAppStore, inspectorCurrentPackage.id)
-    dispatchForApAssembleStore(
-      ApAssembleStoreType.UnStorePackageInApp(inspectorCurrentPackage.id),
-    )
+    dispatchForApAssembleStore(ApAssembleStoreType.UnStorePackageInApp(inspectorCurrentPackage.id))
   }
 
   let getInspectorCurrentPackage = ((
@@ -185,12 +175,13 @@ module Method = {
     setIsShowDebug(_ => true)
   }
 
+  let resteDebug = (setIsDebugChangeMap, setIsShowDebug) => {
+    setIsDebugChangeMap(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
+    setIsShowDebug(_ => false)
+  }
+
   let useSelector = (
-    {
-      inspectorCurrentPackageId,
-      selectedPackages,
-      storedPackageIdsInApp,
-    }: ApAssembleStoreType.state,
+    {inspectorCurrentPackageId, selectedPackages, storedPackageIdsInApp}: ApAssembleStoreType.state,
   ) => {
     (inspectorCurrentPackageId, selectedPackages, storedPackageIdsInApp)
     // (inspectorCurrentPackageId, selectedPackages)
@@ -200,9 +191,7 @@ module Method = {
 @react.component
 let make = (~service: service) => {
   // let dispatchForAppStore = service.app.useDispatch()
-  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(
-    service.react.useDispatch,
-  )
+  let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
   let (inspectorCurrentPackage, setInspectorCurrentPackage) = service.react.useState(_ => None)
   let (extensions, setExtensions) = service.react.useState(_ => [])
@@ -229,6 +218,12 @@ let make = (~service: service) => {
 
     None
   }, [inspectorCurrentPackageId, selectedPackages->Obj.magic])
+
+  service.react.useEffect1(. () => {
+    Method.resteDebug(setIsDebugChangeMap, setIsShowDebug)
+
+    None
+  }, [inspectorCurrentPackageId])
 
   switch inspectorCurrentPackage {
   | None => React.null

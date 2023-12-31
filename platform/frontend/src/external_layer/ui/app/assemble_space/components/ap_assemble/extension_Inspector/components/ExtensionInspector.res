@@ -14,17 +14,11 @@ module Method = {
     )
   }
 
-  let startExtension = (
-    dispatch,
-    inspectorCurrentExtension: ApAssembleStoreType.extension,
-  ) => {
+  let startExtension = (dispatch, inspectorCurrentExtension: ApAssembleStoreType.extension) => {
     dispatch(ApAssembleStoreType.StartExtension(inspectorCurrentExtension.id))
   }
 
-  let unstartExtension = (
-    dispatch,
-    inspectorCurrentExtension: ApAssembleStoreType.extension,
-  ) => {
+  let unstartExtension = (dispatch, inspectorCurrentExtension: ApAssembleStoreType.extension) => {
     dispatch(ApAssembleStoreType.UnStartExtension(inspectorCurrentExtension.id))
   }
 
@@ -72,6 +66,10 @@ module Method = {
     }
   }
 
+  let resteDebug = setExtensionStr => {
+    setExtensionStr(_ => "")
+  }
+
   let useSelector = (
     {inspectorCurrentExtensionId, selectedExtensions}: ApAssembleStoreType.state,
   ) => {
@@ -84,10 +82,10 @@ let make = (~service: service) => {
   let (inspectorCurrentExtension, setInspectorCurrentExtension) = service.react.useState(_ => None)
   let (extensionStr, setExtensionStr) = service.react.useState(_ => "")
 
-  let (
-    inspectorCurrentExtensionId,
-    selectedExtensions,
-  ) = ReduxUtils.ApAssemble.useSelector(service.react.useSelector, Method.useSelector)
+  let (inspectorCurrentExtensionId, selectedExtensions) = ReduxUtils.ApAssemble.useSelector(
+    service.react.useSelector,
+    Method.useSelector,
+  )
 
   let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
 
@@ -100,6 +98,12 @@ let make = (~service: service) => {
 
     None
   }, [inspectorCurrentExtensionId, selectedExtensions->Obj.magic])
+
+  service.react.useEffect1(. () => {
+    Method.resteDebug(setExtensionStr)
+
+    None
+  }, [inspectorCurrentExtensionId])
 
   switch inspectorCurrentExtension {
   | None => React.null
