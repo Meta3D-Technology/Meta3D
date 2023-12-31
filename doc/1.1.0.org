@@ -135,10 +135,8 @@ TODO switch should use each show debug
 TODO different packages shouldn't affect each!
 
 
-*** TODO 
+*** DONE 
 TODO run test:
-editor:export single event-> import event
-# editor:export event-> import event
 
 publish:
 
@@ -168,8 +166,17 @@ handle event
    **** TODO publish: bind event when active has arcball
 
 
+*** TODO add basiccameraview inspector
+
+*** TODO add arcballCameraController inspector
+
+
+
 ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
 
+
+** TODO add "add Component"
+add select button
 
 
 ** TODO add Modal

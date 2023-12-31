@@ -1,6 +1,6 @@
 {
     "name": "meta3d-load-glb",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-load-glb-protocol"
