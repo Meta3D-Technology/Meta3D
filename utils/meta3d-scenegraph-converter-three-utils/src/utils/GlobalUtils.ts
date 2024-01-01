@@ -88,6 +88,7 @@ export let createEmptyDirectionLightInstanceMap = (): void => {
 //     return _getAPI().getExtensionState<engineCoreState>(meta3dState, "meta3d-engine-core-protocol")
 // }
 
+// TODO refactor: use getPackageService
 export let getEngineSceneService = (meta3dState: meta3dState): engineSceneService => {
     return _getAPI().getExtensionService<engineSceneService>(meta3dState, _engineSceneProtocolName)
 }

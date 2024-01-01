@@ -1,6 +1,6 @@
 {
     "name": "meta3d-export-scene",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-export-scene-protocol"
@@ -13,6 +13,7 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
+        "meta3d-editor-sceneview-render-protocol": "^1.0.0",
         "meta3d-engine-scene-protocol": "^1.0.0",
         "meta3d-export-scene-protocol": "^1.0.0",
         "meta3d-three-protocol": "^1.0.0",

@@ -3,7 +3,7 @@ import { state } from "meta3d-import-scene-protocol/src/state/StateType"
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, api } from "meta3d-type"
 import { service as threeService } from "meta3d-three-protocol/src/service/ServiceType"
 import { dispose } from "meta3d-pipeline-utils/src/DisposeJobUtils"
-import { addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
+import { addGameObjectsForSceneView } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
 // import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
@@ -49,19 +49,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     let data1 = api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).import(meta3dState, gltf.scene)
                     meta3dState = data1[0]
 
-
                     let engineSceneService = api.nullable.getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
-
-                    // let data = addDefaultGameObjects(meta3dState, engineSceneService)
-                    // meta3dState = data[0]
-                    // let cameraView = data[1]
-
-                    // meta3dState = engineSceneService.basicCameraView.active(
-                    //     meta3dState,
-                    //     cameraView
-                    // )
-
-                    // meta3dState = activeFirstBasicCameraView(meta3dState, engineSceneService)
 
                     let data = addGameObjectsForSceneView(meta3dState, engineSceneService)
                     meta3dState = data[0]

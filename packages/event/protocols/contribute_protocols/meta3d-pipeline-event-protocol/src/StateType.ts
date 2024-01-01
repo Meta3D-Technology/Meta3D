@@ -2,7 +2,7 @@ import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-proto
 import { mostService } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 
-export const pipelineName = "Editor_Event"
+export const pipelineName = "Event"
 
 export enum pipeline {
 	Init = "init",

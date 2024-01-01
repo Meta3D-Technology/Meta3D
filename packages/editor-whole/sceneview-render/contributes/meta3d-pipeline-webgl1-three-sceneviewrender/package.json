@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-webgl1-three-sceneviewrender",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-pipeline-webgl1-three-sceneviewrender-protocol"

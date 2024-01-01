@@ -10,8 +10,8 @@ import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { skinContribute } from "meta3d-ui-protocol/src/contribute/SkinContributeType"
 import { contributeType } from "meta3d-type/src/contribute/ContributeType"
-import { config as editorEventConfig } from "meta3d-pipeline-editor-event-protocol/src/ConfigType"
-import { state as editorEventState } from "meta3d-pipeline-editor-event-protocol/src/StateType"
+import { config as eventConfig } from "meta3d-pipeline-event-protocol/src/ConfigType"
+import { state as eventState } from "meta3d-pipeline-event-protocol/src/StateType"
 import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { elementState } from "meta3d-ui-protocol/src/state/StateType"
@@ -27,7 +27,7 @@ import { service as assetService } from "meta3d-asset-protocol/src/service/Servi
 import { service as libService } from "meta3d-lib-protocol/src/service/ServiceType"
 
 
-let _registerEditorPipelines = (
+let _registerPipelines = (
 	meta3dState: meta3dState, api: api,
 ) => {
 	let engineCoreService = getExn(api.getPackageService<coreService>(
@@ -38,7 +38,7 @@ let _registerEditorPipelines = (
 
 	let { registerPipeline } = engineCoreService
 
-	meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<editorEventConfig, editorEventState>>(meta3dState, "meta3d-pipeline-editor-event-protocol"),
+	meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<eventConfig, eventState>>(meta3dState, "meta3d-pipeline-event-protocol"),
 		null,
 		[
 			{
@@ -67,7 +67,7 @@ let _prepare = (meta3dState: meta3dState, api: api, isDebug, ecsConfig) => {
 
 
 
-	meta3dState = _registerEditorPipelines(
+	meta3dState = _registerPipelines(
 		meta3dState, api,
 	)
 

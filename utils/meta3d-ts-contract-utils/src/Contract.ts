@@ -30,11 +30,11 @@ export function assertPass() {
     return true;
 }
 
-export function assertTrue(source: true) {
+export function assertTrue(source: boolean) {
     return source === true;
 }
 
-export function assertFalse(source: false) {
+export function assertFalse(source: boolean) {
     return source === false;
 }
 

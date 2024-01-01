@@ -1,7 +1,7 @@
 import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType";
 import { execFunc as execInitEventJob } from "./jobs/init/InitEventJob";
-import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-editor-event-protocol/src/StateType";
-import { config } from "meta3d-pipeline-editor-event-protocol/src/ConfigType";
+import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-event-protocol/src/StateType";
+import { config } from "meta3d-pipeline-event-protocol/src/ConfigType";
 import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"

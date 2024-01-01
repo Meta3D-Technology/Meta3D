@@ -17,8 +17,6 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     meta3dState = data[0]
 
 
-                    // TODO use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
-
                     // meta3dState = activeFirstBasicCameraView(meta3dState, api.getExtensionService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
 
                     return meta3dState

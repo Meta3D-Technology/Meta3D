@@ -1,33 +1,16 @@
-import { getKey, getValue } from "meta3d-gltf-extensions/src/Meta3DCameraActive"
+import { buildKey, buildValue } from "meta3d-gltf-extensions/src/Meta3DCameraActive"
 import { setValueToObject } from "meta3d-structure-utils/src/ObjectUtils"
 import { forEach, isNullable, map, getWithDefault, getExn, getEmpty, return_, bind } from "meta3d-commonlib-ts/src/NullableUtils"
+import { handleNodeNameToAsGLTFLoader, setCameraUserData } from "../utils/CameraUtils"
 
-// let _findActivedCameraName = (json) => {
-//     return map(cameras => {
-//         return map(
-//             camera => {
-//                 return getExn(camera.name)
-//             },
-//             cameras.find(camera => {
-//                 return getWithDefault(
-//                     map(
-//                         extensions => {
-//                             return !isNullable(extensions[getKey()])
-//                         }, camera.extensions
-//                     ),
-//                     false
-//                 )
-//             })
-//         )
-//     }, json.cameras)
-// }
-
-let _findActivedCameraName = (json) => {
+let _findActivedCameraGameObjectName = (json) => {
     return bind(cameras => {
         return bind(cameraIndex => {
             return bind(nodes => {
                 return bind(node => {
-                    return return_(node.name)
+                    return return_(
+                        handleNodeNameToAsGLTFLoader(node.name)
+                    )
                 }, nodes.find(node => {
                     return getWithDefault(
                         map(camera => {
@@ -42,7 +25,7 @@ let _findActivedCameraName = (json) => {
             if (getWithDefault(
                 map(
                     extensions => {
-                        return !isNullable(extensions[getKey()])
+                        return !isNullable(extensions[buildKey()])
                     }, camera.extensions
                 ),
                 false
@@ -55,35 +38,30 @@ let _findActivedCameraName = (json) => {
     }, json.cameras)
 }
 
-let _markCameraActive = (gltf, activedCameraName) => {
-    forEach(activedCameraName => {
-        for (let scene of gltf.scenes) {
-            scene.traverse(object => {
-                if (!object.isCamera || object.name != activedCameraName) {
-                    return
-                }
-
-                object.userData = setValueToObject(object.userData, getKey(), getValue())
-            })
-        }
-    }, activedCameraName)
+let _markCameraActive = (gltf, activedCameraGameObjectName) => {
+    forEach(activedCameraGameObjectName => {
+        setCameraUserData((object3D) => {
+            object3D.userData = setValueToObject(object3D.userData, buildKey(), buildValue())
+        }, gltf, activedCameraGameObjectName)
+    }, activedCameraGameObjectName)
 }
 
 export let getExtension = (parser) => {
     return {
+        name: buildKey(),
         afterRoot(gltf) {
             let json = parser.json
 
             if (getWithDefault(
                 map(extensionsUsed => {
-                    return !extensionsUsed.includes(getKey())
+                    return !extensionsUsed.includes(buildKey())
                 }, json.extensionsUsed),
                 false
             )) {
                 return null
             }
 
-            _markCameraActive(gltf, _findActivedCameraName(json))
+            _markCameraActive(gltf, _findActivedCameraGameObjectName(json))
 
             return Promise.resolve()
         }

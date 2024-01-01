@@ -1,40 +1,8 @@
-import { getKey, getValue } from "meta3d-gltf-extensions/src/Meta3DCameraActive"
-import { setValueToObject } from "meta3d-structure-utils/src/ObjectUtils"
+import { buildKey, buildValue } from "meta3d-gltf-extensions/src/Meta3DCameraActive"
 import { isNullable, map, getWithDefault, bind } from "meta3d-commonlib-ts/src/NullableUtils"
+import { findCameraIndex, setExtension } from "../utils/CameraUtils";
 
-let _setExtension = (node, key, value) => {
-    return {
-        ...node,
-        extensions: getWithDefault(
-            map(extensions => {
-                return setValueToObject(extensions, key, value)
-            }, node.extensions),
-            setValueToObject({}, key, value)
-        )
-    }
-}
-
-let _findActivedCameraIndex = (json, activedCameraName) => {
-    return map(nodes => {
-        return bind(
-            node => {
-                return node.camera
-            },
-            nodes.find(node => {
-                return getWithDefault(
-                    map(
-                        name => {
-                            return name == activedCameraName
-                        }, node.name
-                    ),
-                    false
-                )
-            })
-        )
-    }, json.nodes)
-}
-
-export let getExtension = (activedCameraName, writer) => {
+export let getExtension = (activedCameraGameObjectName, writer) => {
     return {
         afterParse(input) {
             let json = writer.json;
@@ -43,27 +11,11 @@ export let getExtension = (activedCameraName, writer) => {
                 return
             }
 
-            // json.extensions = json.extensions || {}
+            writer.extensionsUsed[buildKey()] = true;
 
-            writer.extensionsUsed[getKey()] = true;
+            let index = findCameraIndex(json, activedCameraGameObjectName)
 
-
-            // json.cameras = json.cameras.map((camera) => {
-            //     if (getWithDefault(
-            //         map((name) => {
-            //             return name == activedCameraName
-            //         }, camera.name),
-            //         false
-            //     )) {
-            //         return _setExtension(camera, getKey(), getValue())
-            //     }
-
-            //     return camera
-            // })
-
-            let index = _findActivedCameraIndex(json, activedCameraName)
-
-            json.cameras[index] = _setExtension(json.cameras[index], getKey(), getValue())
+            json.cameras[index] = setExtension(json.cameras[index], buildKey(), buildValue())
         }
     }
 }

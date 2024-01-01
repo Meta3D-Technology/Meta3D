@@ -1,11 +1,12 @@
 import { allPipelineData as allPipelineDataType } from "meta3d-engine-core-protocol/src/contribute/work/PipelineContributeType"
 import { mostService } from "meta3d-core-protocol/src/service/ServiceType"
+import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { converterService, threeAPIService } from "meta3d-three-protocol/src/service/ServiceType"
 import type { WebGLRenderer } from "three"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 // import { EffectComposer } from "./EffectComposer"
 
-export const pipelineName = "WebGL1_Three_Gameviewrender"
+export const pipelineName = "WebGL1_Three_webrender"
 
 export enum pipeline {
     Init = "init",
@@ -15,6 +16,9 @@ export enum pipeline {
 export enum job {
     ConvertSceneGraph = "convert_scenegraph_three_webrender_meta3d",
     Init = "init_three_webrender_meta3d",
+    InitArcballCameraController = "init_arcballcameracontroller_three_webrender_meta3d",
+    UpdateArcballCameraController = "update_arcballcameracontroller_three_webrender_meta3d",
+    BindEvent = "bind_event_three_webrender_meta3d",
     Render = "render_three_webrender_meta3d",
 }
 
@@ -30,7 +34,14 @@ export const allPipelineData: allPipelineDataType = [
                         "name": job.Init,
                         "type_": "job"
                     },
-
+                    {
+                        "name": job.InitArcballCameraController,
+                        "type_": "job"
+                    },
+                    {
+                        "name": job.BindEvent,
+                        "type_": "job"
+                    },
                 ]
             }
         ],
@@ -43,6 +54,10 @@ export const allPipelineData: allPipelineDataType = [
                 name: "first_three_webrender_meta3d",
                 link: "concat",
                 elements: [
+                    {
+                        "name": job.UpdateArcballCameraController,
+                        "type_": "job"
+                    },
                     {
                         "name": job.ConvertSceneGraph,
                         "type_": "job"
@@ -64,6 +79,7 @@ type renderPass = any
 
 export type state = {
     mostService: mostService,
+    eventService: eventService,
     converterService: converterService,
     threeAPIService: threeAPIService,
 
@@ -71,6 +87,8 @@ export type state = {
     composer: nullable<composer>
     renderPass: nullable<renderPass>
     canvas: HTMLCanvasElement,
+    lastYaw: nullable<number>,
+    lastPitch: nullable<number>,
 }
 
 export type states = {

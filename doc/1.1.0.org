@@ -156,7 +156,7 @@ editor-whole
 engine-whole
 
 
-*** TODO fix: publish: logo miss
+# *** TODO fix: publish: logo miss
 
 *** TODO add component
 # **** TODO now only add arcball, basiccameraview, perspective component, no other components
@@ -165,11 +165,89 @@ handle event
    **** TODO export/import scene/single event: use plugin for GLTFExporter, GLTFLoader to support arcballCameraController
    **** TODO publish: bind event when active has arcball
 
+**** TODO change default camera to arcball camera
 
-*** TODO add basiccameraview inspector
+# **** TODO game view pipeline: add bind event job
+
+
+
+
+TODO add check: name shouldn't the same
+
+
+TODO webview pipeline: add bind, update arcball jobs
+
+
+**** TODO run test
+
+update debug
+
+
+add controller
+
+editor:
+when run, can drag in game view
+   event not work
+export single event->import
+   name wrong
+      # Loader->arcball in game view
+      # import scene->arcball in scene view
+   same camera
+
+export event->import
+
+publish:
+can drag
+
+
+TODO rename name
+
+
+TODO publish:
+game,scene view ->pipeline
+scene converter
+export scene
+# import scene
+load glb
+load-scene
+webrender and p
+event p
+editor whole
+engine whole
+
+
+TODO rename editor-event to event
+TODO engine-whole: add event contribute
+
+TODO update packages:
+three
+asset
+event
+game,scene view render
+editor-whole
+webrender
+engine-whole
+
+TODO run test
+   publish: not event
+
+TODO commit
+
+
+*** TODO write article: architecture
+
+*** TODO write doc: how to develop in pro-code mode：概况
+
+TODO @糖果
+
+*** TODO add basiccameraview inspector:active
+
 
 *** TODO add arcballCameraController inspector
 
+TODO run test:
+editor
+publish
 
 
 ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
@@ -228,3 +306,8 @@ Snake, Scene use gltf model!
 
 
 
+* TODO publish
+
+
+TODO update packages in production
+   TODO rename webview-render to web-render

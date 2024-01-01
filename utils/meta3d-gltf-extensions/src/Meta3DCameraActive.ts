@@ -1,5 +1,5 @@
-export let getKey = () => "Meta3D_camera_active"
+export let buildKey = () => "Meta3D_camera_active"
 
-export let getValue = () => {
+export let buildValue = () => {
     return { "isAction": true }
 }

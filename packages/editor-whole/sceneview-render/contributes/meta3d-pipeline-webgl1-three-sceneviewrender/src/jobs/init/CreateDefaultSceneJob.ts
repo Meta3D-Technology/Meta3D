@@ -13,23 +13,27 @@ let _addDefaultGameObjects = (meta3dState: meta3dState,
 ): [meta3dState, gameObject] => {
     let data = addDefaultGameObjects(meta3dState, engineSceneService)
     meta3dState = data[0]
-    let cameraView = data[1]
+    // let cameraController1 = data[1]
+    let cameraController1GameObject = data[2]
+
 
     meta3dState = engineSceneService.basicCameraView.active(
         meta3dState,
-        cameraView
+        engineSceneService.gameObject.getBasicCameraView(
+            meta3dState,
+            cameraController1GameObject
+        )
     )
 
 
     data = addGameObjectsForSceneView(meta3dState, engineSceneService)
     meta3dState = data[0]
-    let cameraController = data[1]
-    let cameraGameObject = data[2]
+    let cameraController2GameObject = data[2]
 
 
     // meta3dState = activeCamera(meta3dState, engineSceneService, cameraGameObject)
 
-    return [meta3dState, cameraGameObject]
+    return [meta3dState, cameraController2GameObject]
 }
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {

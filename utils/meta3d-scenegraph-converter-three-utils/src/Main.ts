@@ -84,6 +84,7 @@ import {
 } from "./Classes";
 import { setVariables } from "./SetVariables";
 import * as Meta3DCameraActive from "meta3d-gltf-extensions/src/Meta3DCameraActive"
+import * as Meta3DCameraController from "meta3d-gltf-extensions/src/Meta3DCameraController"
 
 // class Group extends Object3D {
 //     constructor(gameObject: gameObject) {
@@ -208,6 +209,46 @@ let _convertTangentFromItemSize4To3 = (tangents: Float32Array) => {
     return new Float32Array(result)
 }
 
+let _addCameraControllerComponent = (
+    sceneService: scene,
+    meta3dState: meta3dState,
+    gameObject,
+    { type, value }: Meta3DCameraController.extensionValue) => {
+    switch (type) {
+        case "none":
+            break
+        case "arcball":
+            let { createArcballCameraController, setDistance, setName, setPhi, setTarget, setTheta, setWheelSpeed } = sceneService.arcballCameraController
+            let data = createArcballCameraController(meta3dState)
+            meta3dState = data[0]
+            let arcballCameraController = data[1]
+
+            let {
+                // name,
+                distance,
+                phi,
+                theta,
+                target,
+                wheelSpeed,
+            } = value as Meta3DCameraController.arcballControllerValue
+
+            meta3dState = setDistance(meta3dState, arcballCameraController, distance)
+            // meta3dState = setName(meta3dState, arcballCameraController, name)
+            meta3dState = setPhi(meta3dState, arcballCameraController, phi)
+            meta3dState = setTarget(meta3dState, arcballCameraController, target)
+            meta3dState = setTheta(meta3dState, arcballCameraController, theta)
+            meta3dState = setWheelSpeed(meta3dState, arcballCameraController, wheelSpeed)
+
+            meta3dState = sceneService.gameObject.addArcballCameraController(meta3dState, gameObject, arcballCameraController)
+
+            break
+        default:
+            throw new Error("error")
+    }
+
+    return meta3dState
+}
+
 let _import = (sceneService: scene,
     meta3dState: meta3dState,
     [standardMaterialMap, bufferGeometryMap, textureMap],
@@ -252,8 +293,16 @@ let _import = (sceneService: scene,
 
         meta3dState = basicCameraViewService.setName(meta3dState, basicCameraView, object3D.name)
 
-        if (!isNullable(object3D.userData[Meta3DCameraActive.getKey()])) {
+        if (!isNullable(object3D.userData[Meta3DCameraActive.buildKey()])) {
             meta3dState = basicCameraViewService.active(meta3dState, basicCameraView)
+        }
+        if (!isNullable(object3D.userData[Meta3DCameraController.buildKey()])) {
+            meta3dState = _addCameraControllerComponent(
+                sceneService,
+                meta3dState,
+                gameObject,
+                getExn(object3D.userData[Meta3DCameraController.buildKey()])
+            )
         }
 
         meta3dState = gameObjectService.addBasicCameraView(meta3dState, gameObject, basicCameraView)

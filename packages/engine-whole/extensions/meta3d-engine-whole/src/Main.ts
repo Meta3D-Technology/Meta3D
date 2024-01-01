@@ -1,15 +1,43 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { initFunc, state } from "meta3d-engine-whole-protocol/src/state/StateType"
 import { service } from "meta3d-engine-whole-protocol/src/service/ServiceType"
-import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
+import { service as coreService, pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
+import { pipelineRootPipeline, pipelineRootJob } from "meta3d-core-protocol/src/state/StateType"
+import { config as eventConfig } from "meta3d-pipeline-event-protocol/src/ConfigType"
+import { state as eventState } from "meta3d-pipeline-event-protocol/src/StateType"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { init, update, render } from "meta3d-whole-utils/src/DirectorAPI"
 import { service as loadSceneService } from "meta3d-load-scene-protocol/src/service/ServiceType"
 
 let _execAllInitFuncs = (meta3dState, initFuncs, canvas) => {
 	return reducePromise<meta3dState, initFunc>(initFuncs.toArray(), (meta3dState, initFunc) => initFunc(meta3dState, canvas), meta3dState)
+}
+
+let _registerPipelines = (
+	meta3dState: meta3dState, api: api,
+) => {
+	let engineCoreService = getExn(api.getPackageService<coreService>(
+		meta3dState,
+		"meta3d-core-protocol"
+	)).engineCore(meta3dState)
+
+
+	let { registerPipeline } = engineCoreService
+
+	meta3dState = registerPipeline(meta3dState, api.getContribute<pipelineContribute<eventConfig, eventState>>(meta3dState, "meta3d-pipeline-event-protocol"),
+		null,
+		[
+			{
+				pipelineName: pipelineRootPipeline.Init,
+				insertElementName: pipelineRootJob.Init,
+				insertAction: "after"
+			}
+		]
+	)
+
+	return meta3dState
 }
 
 export let getExtensionService: getExtensionServiceMeta3D<
@@ -28,6 +56,10 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				"meta3d-engine-scene-protocol"
 			))
 			meta3dState = engineSceneService.prepare(meta3dState, isDebug, ecsConfig)
+
+			meta3dState = _registerPipelines(
+				meta3dState, api,
+			)
 
 			return meta3dState
 		},

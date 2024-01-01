@@ -69,7 +69,7 @@ import {
     globalKeyNameForGeometryInstanceMap,
     globalKeyNameForDirectionLightInstanceMap
 } from "./SetVariables";
-import * as Meta3DCameraActive from "meta3d-gltf-extensions/src/Meta3DCameraActive"
+import * as Meta3DCameraController from "meta3d-gltf-extensions/src/Meta3DCameraController"
 import { setValueToObject } from "meta3d-structure-utils/src/ObjectUtils"
 
 let _getEmptyGameObject = () => -1
@@ -425,29 +425,26 @@ export class Camera extends Object3D {
 
     private _userData: Record<string, any> = {}
     public get userData() {
-        // let meta3dState = getMeta3dState()
+        let data = this._userData[Meta3DCameraController.buildKey()]
 
-        // let { basicCameraView } = getEngineSceneService(meta3dState)
+        if (!isNullable(data)) {
+            return getExn(data)
+        }
 
-        // let basicCameraViewComponent = this.basicCameraViewComponent
+        let meta3dState = getMeta3dState()
 
-        // let isActive = getWithDefault(
-        //     map(
-        //         activeCameraView => {
-        //             return activeCameraView == basicCameraViewComponent
-        //         },
-        //         basicCameraView.getActiveCameraView(meta3dState, true)
-        //     ),
-        //     false
-        // )
+        let engineSceneService = getEngineSceneService(meta3dState)
 
-        // if (!isActive) {
-        //     return this.userData
-        // }
+        if (!engineSceneService.gameObject.hasArcballCameraController(meta3dState, this.gameObject)) {
+            return this._userData
+        }
 
-        // return setValueToObject(this.userData, Meta3DCameraActive.getKey(), Meta3DCameraActive.getValue())
-
-        return this._userData
+        return {
+            ...this._userData,
+            [Meta3DCameraController.buildKey()]: Meta3DCameraController.buildValue("arcball", return_(
+                Meta3DCameraController.getArcballCameraControllerValue(engineSceneService, meta3dState, this.gameObject)
+            ))
+        }
     }
     public set userData(data) {
         this._userData = data

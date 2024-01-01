@@ -1,6 +1,6 @@
 import { execFuncType } from "meta3d-core-protocol/src/service/ServiceType"
 import { getState } from "../Utils"
-import { states } from "meta3d-pipeline-editor-event-protocol/src/StateType"
+import { states } from "meta3d-pipeline-event-protocol/src/StateType"
 
 export let execFunc: execFuncType = (meta3dState, { getStatesFunc, api }) => {
 	let states = getStatesFunc<states>(meta3dState)

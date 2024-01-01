@@ -1,12 +1,12 @@
 export let removeDuplicateItemsWithBuildKeyFunc = (arr: any, buildKeyFunc: any) => {
-    var resultArr = [];
-    // var map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
-    var map: any = {}
-    for (var i = 0, i_finish = arr.length; i < i_finish; ++i) {
-        var item = arr[i];
-        var key = buildKeyFunc(item);
-        // var match = MutableHashMap$Meta3dCommonlib.get(map, key);
-        var match = map[key]
+    let resultArr = [];
+    // let map = MutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined);
+    let map: any = {}
+    for (let i = 0, i_finish = arr.length; i < i_finish; ++i) {
+        let item = arr[i];
+        let key = buildKeyFunc(item);
+        // let match = MutableHashMap$Meta3dCommonlib.get(map, key);
+        let match = map[key]
         if (match !== undefined) {
 
         } else {
@@ -16,11 +16,29 @@ export let removeDuplicateItemsWithBuildKeyFunc = (arr: any, buildKeyFunc: any) 
             map[key] = item
         }
     }
-    return resultArr;
+    return resultArr
 }
 
 export let removeDuplicateItems = (arr: any) => {
     return removeDuplicateItemsWithBuildKeyFunc(arr, (key: number) => key)
+}
+
+
+export let hasDuplicateItems = (arr: any, buildKeyFunc: any): boolean => {
+    let result = false
+    let map: any = {}
+    for (let i = 0, i_finish = arr.length; i < i_finish; ++i) {
+        let item = arr[i];
+        let key = buildKeyFunc(item);
+        let match = map[key]
+        if (match !== undefined) {
+            result = true
+            break
+        }
+
+        map[key] = item
+    }
+    return result
 }
 
 export let intersect = (arr1: any, arr2: any) => arr1.filter((value: any) => arr2.includes(value))

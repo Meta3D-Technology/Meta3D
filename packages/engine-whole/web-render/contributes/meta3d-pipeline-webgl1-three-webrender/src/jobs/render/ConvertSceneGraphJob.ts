@@ -3,7 +3,7 @@ import { getState } from "../Utils"
 import { states } from "meta3d-pipeline-webgl1-three-webrender-protocol/src/StateType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
-import { service as renderService } from "meta3d-engine-web-render-protocol/src/service/ServiceType"
+// import { service as renderService } from "meta3d-engine-web-render-protocol/src/service/ServiceType"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
 	let states = getStatesFunc<states>(meta3dState)
