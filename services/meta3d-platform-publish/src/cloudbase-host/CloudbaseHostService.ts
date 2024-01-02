@@ -20,7 +20,8 @@ export let initProduction = () => {
         secretId,
         secretKey,
         env
-    } = getProductionEnvData()
+        // } = getProductionEnvData()
+    } = getLocalEnvData()
 
     return new CloudBase({
         secretId: secretId,

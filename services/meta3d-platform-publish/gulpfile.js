@@ -48,7 +48,7 @@ gulp.task("bundle_dts", function (done) {
     ]
 
     data.forEach(({ source, target, postHandle }, i) => {
-        process.exec("sudo ./node_modules/.bin/dts-bundle-generator --no-check --project tsconfig.json -o " + target + " " + source, (error, stdout, stderr) => {
+        process.exec("./node_modules/.bin/dts-bundle-generator --no-check --project tsconfig.json -o " + target + " " + source, (error, stdout, stderr) => {
             if (!error) {
                 fs.writeFileSync(
                     target,
@@ -87,7 +87,7 @@ gulp.task("update_versionconfig", function (done) {
 gulp.task("update_platform_code", function (done) {
     console.log("更新平台代码...")
 
-    process.exec("sudo yarn webpack_pro",
+    process.exec("yarn webpack_pro",
         {
             cwd: "../../platform/frontend"
         },
@@ -106,7 +106,7 @@ gulp.task("update_platform_code", function (done) {
 gulp.task("ci", function (done) {
     console.log("ci...")
 
-    process.exec("sudo yarn ci:test",
+    process.exec("yarn ci:test",
         {
             cwd: _getRootCwd()
         },
@@ -190,10 +190,10 @@ gulp.task("publish_extension_contribute_protocol", function (done) {
     let script = null
     switch (env) {
         case "local":
-            script = "sudo yarn meta3d:publish_dev"
+            script = "yarn meta3d:publish_dev"
             break
         case "production":
-            script = "sudo yarn meta3d:publish_pro"
+            script = "yarn meta3d:publish_pro"
             break
         default:
             throw new Error("error")
@@ -225,54 +225,55 @@ gulp.task("upgrade_backend", function (done) {
 // - update all packages in production
 // - update all apps in production
 
-gulp.task("publish_local_patch_env", gulp.series(
-    "set_env_to_local",
-    "bundle_dts",
-    "ci",
-    "commit",
-    "lerna_version_patch",
-    "update_versionconfig",
-    "update_platform_code",
-    "publish_extension_contribute_protocol",
-    "upgrade_backend",
-    "commit", function (done) {
-        done()
-    }));
+// gulp.task("publish_local_patch_env", gulp.series(
+//     "set_env_to_local",
+//     "bundle_dts",
+//     "ci",
+//     "commit",
+//     "lerna_version_patch",
+//     "update_versionconfig",
+//     "update_platform_code",
+//     "publish_extension_contribute_protocol",
+//     "upgrade_backend",
+//     "commit", function (done) {
+//         done()
+//     }));
 
-gulp.task("publish_local_minor_env", gulp.series(
-    "set_env_to_local",
-    "bundle_dts",
-    "ci",
-    "commit",
-    "lerna_version_minor",
-    "update_versionconfig",
-    "update_platform_code",
-    "publish_extension_contribute_protocol",
-    "upgrade_backend",
-    "commit", function (done) {
-        done()
-    }));
+// gulp.task("publish_local_minor_env", gulp.series(
+//     "set_env_to_local",
+//     "bundle_dts",
+//     "ci",
+//     "commit",
+//     "lerna_version_minor",
+//     "update_versionconfig",
+//     "update_platform_code",
+//     "publish_extension_contribute_protocol",
+//     "upgrade_backend",
+//     "commit", function (done) {
+//         done()
+//     }));
 
-gulp.task("publish_pro_patch_env", gulp.series(
-    "set_env_to_pro",
-    "bundle_dts",
-    "ci",
-    "commit",
-    "lerna_version_patch",
-    "update_versionconfig",
-    "update_platform_code",
-    "publish_extension_contribute_protocol",
-    "upgrade_backend",
-    "commit", function (done) {
-        done()
-    }));
+// gulp.task("publish_pro_patch_env", gulp.series(
+//     "set_env_to_pro",
+//     "bundle_dts",
+//     "ci",
+//     "commit",
+//     "lerna_version_patch",
+//     "update_versionconfig",
+//     "update_platform_code",
+//     "publish_extension_contribute_protocol",
+//     "upgrade_backend",
+//     "commit", function (done) {
+//         done()
+//     }));
+
+
 
 gulp.task("publish_pro_minor_env", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
     // "ci",
     "commit",
-    "lerna_version_minor",
     "update_versionconfig",
     "update_platform_code",
     "publish_extension_contribute_protocol",

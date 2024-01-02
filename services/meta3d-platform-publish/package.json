@@ -7,7 +7,7 @@
         "platform:publish_dev_patch": "gulp publish_local_patch_env",
         "platform:publish_dev_minor": "gulp publish_local_minor_env",
         "platform:publish_pro_patch": "gulp publish_pro_patch_env",
-        "platform:publish_pro_minor": "gulp publish_pro_minor_env"
+        "platform:publish_pro_minor": "gulp      lerna_version_minor && sudo gulp publish_pro_minor_env"
     },
     "devDependencies": {
         "@cloudbase/manager-node": "^4.2.8",
