@@ -1,0 +1,34 @@
+* TODO publish and update packages
+
+
+* TODO fix(platform): when release version update, admin user not update selected all ui controls
+
+* TODO perf: optimize editor with default scene
+
+
+* TODO 支持直接搭建Web3D应用
+
+覆盖C端用户（Wonder的用户）
+
+refer to:
+Wonder
+PlayCanvas
+thingjs
+
+
+** TODO provide a defult editor to develop app
+
+** TODO editor add publish to cloud
+TODO Meta3D support host published app from editor
+
+
+** TODO can import app to editor
+** TODO can import the editor which build app and app's event data
+
+
+** TODO add build app flow & guide
+how user to build app in Meta3D?
+  1.prepare editor
+     - use current published editor
+     - or build custom editor
+  2.build app in editor
