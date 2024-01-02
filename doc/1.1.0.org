@@ -280,7 +280,7 @@ editor-whole
 
 
 
-* TODO fix: when       | list{"xxx"} => ()
+* DONE fix: when       | list{"xxx"} => ()
 
 
 * TODO enhance publish tool

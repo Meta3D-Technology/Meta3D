@@ -368,7 +368,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
       switch url.path {
-      | list{"EnterApp"} => ()
+      | list{"EnterApp"}
+      | list{"RunElementVisual"} => ()
       | _ =>
         idleTasks.current = list{
           () => {
