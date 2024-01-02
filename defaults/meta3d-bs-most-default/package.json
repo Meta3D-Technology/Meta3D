@@ -1,12 +1,12 @@
 {
   "name": "meta3d-bs-most-default",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "watch": "rescript clean && rescript build -w",
     "webpack": "webpack --config webpack.config.js"
   },
   "dependencies": {
-    "meta3d-type": "^1.0.0",
+    "meta3d-type": "^1.1.0",
     "most": "1.7.0",
     "most-subject": "^5.3.0",
     "rescript": "^10.0.1"
@@ -19,7 +19,7 @@
     "cz-customizable": "^6.3.0",
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
-    "meta3d-tool-publish": "^1.0.0",
+    "meta3d-tool-publish": "^1.1.0",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }
