@@ -1,26 +1,43 @@
-16 error Error: Command failed with exit code 1: git remote update
-16 error @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-16 error @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
-16 error @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-16 error IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
-16 error Someone could be eavesdropping on you right now (man-in-the-middle attack)!
-16 error It is also possible that a host key has just been changed.
-16 error The fingerprint for the RSA key sent by the remote host is
-16 error SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.
-16 error Please contact your system administrator.
-16 error Add correct host key in /var/root/.ssh/known_hosts to get rid of this message.
-16 error Offending RSA key in /var/root/.ssh/known_hosts:1
-16 error RSA host key for github.com has changed and you have requested strict checking.
-16 error Host key verification failed.
-16 error fatal: Could not read from remote repository.
-16 error
-16 error Please make sure you have the correct access rights
-16 error and the repository exists.
-16 error error: Could not fetch origin
-16 error Fetching origin
-16 error     at makeError (/Users/yang/Github/Meta3D/node_modules/execa/lib/error.js:60:11)
-16 error     at module.exports.sync (/Users/yang/Github/Meta3D/node_modules/execa/index.js:194:17)
-16 error     at Object.execSync (/Users/yang/Github/Meta3D/node_modules/@lerna/child-process/index.js:39:16)
-16 error     at updateRemote (/Users/yang/Github/Meta3D/node_modules/@lerna/version/lib/is-behind-upstream.js:34:16)
-16 error     at isBehindUpstream (/Users/yang/Github/Meta3D/node_modules/@lerna/version/lib/is-behind-upstream.js:16:3)
-16 error     at VersionCommand.initialize (/Users/yang/Github/Meta3D/node_modules/@lerna/version/index.js:153:9)
+0 silly argv {
+0 silly argv   _: [ 'version' ],
+0 silly argv   yes: true,
+0 silly argv   y: true,
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'lerna',
+0 silly argv   bump: 'minor'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath /Users/yang/Github/Meta3D
+3 info current version 1.0.1
+4 silly isAnythingCommitted
+5 verbose isAnythingCommitted 1
+6 silly getCurrentBranch
+7 verbose currentBranch master
+8 silly remoteBranchExists
+9 silly isBehindUpstream
+10 error Error: Command failed with exit code 1: git remote update
+10 error @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+10 error @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+10 error @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+10 error IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+10 error Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+10 error It is also possible that a host key has just been changed.
+10 error The fingerprint for the RSA key sent by the remote host is
+10 error SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s.
+10 error Please contact your system administrator.
+10 error Add correct host key in /var/root/.ssh/known_hosts to get rid of this message.
+10 error Offending RSA key in /var/root/.ssh/known_hosts:1
+10 error RSA host key for github.com has changed and you have requested strict checking.
+10 error Host key verification failed.
+10 error fatal: Could not read from remote repository.
+10 error
+10 error Please make sure you have the correct access rights
+10 error and the repository exists.
+10 error error: Could not fetch origin
+10 error Fetching origin
+10 error     at makeError (/Users/yang/Github/Meta3D/node_modules/execa/lib/error.js:60:11)
+10 error     at module.exports.sync (/Users/yang/Github/Meta3D/node_modules/execa/index.js:194:17)
+10 error     at Object.execSync (/Users/yang/Github/Meta3D/node_modules/@lerna/child-process/index.js:39:16)
+10 error     at updateRemote (/Users/yang/Github/Meta3D/node_modules/@lerna/version/lib/is-behind-upstream.js:34:16)
+10 error     at isBehindUpstream (/Users/yang/Github/Meta3D/node_modules/@lerna/version/lib/is-behind-upstream.js:16:3)
+10 error     at VersionCommand.initialize (/Users/yang/Github/Meta3D/node_modules/@lerna/version/index.js:153:9)
