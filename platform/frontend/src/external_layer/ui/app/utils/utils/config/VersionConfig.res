@@ -1,1 +1,1 @@
-let getPlatformVersion = () => "1.0.2"
+let getPlatformVersion = () => "1.1.0"
