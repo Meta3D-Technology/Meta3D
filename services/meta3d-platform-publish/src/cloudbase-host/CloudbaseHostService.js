@@ -16,7 +16,9 @@ let initLocal = () => {
 };
 exports.initLocal = initLocal;
 let initProduction = () => {
-    let { secretId, secretKey, env } = (0, CloudbaseService_1.getProductionEnvData)();
+    let { secretId, secretKey, env
+    // } = getProductionEnvData()
+     } = (0, CloudbaseService_1.getLocalEnvData)();
     return new manager_node_1.default({
         secretId: secretId,
         secretKey: secretKey,
