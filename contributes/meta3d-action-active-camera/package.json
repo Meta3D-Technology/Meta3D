@@ -1,19 +1,26 @@
 {
-    "name": "meta3d-ui-control-collapsing-protocol",
-    "version": "1.0.3",
-    "displayName": "折叠面板",
+    "name": "meta3d-action-active-camera",
+    "version": "1.0.2",
     "publisher": "meta3d",
-    "author": "Meta3D",
-    "main": "src/Index.ts",
+    "repoLink": "",
+    "protocol": {
+        "name": "meta3d-action-active-camera-protocol"
+    },
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publishConfig_local_env && gulp publish_local_env",
-        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publishConfig_production_env &&gulp publish_production_env"
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env_bundle",
+        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env_bundle"
     },
     "keywords": [],
+    "dependencies": {
+        "meta3d-action-active-camera-protocol": "^1.0.0",
+        "meta3d-action-select-scenetree-node-protocol": "^1.0.0",
+        "meta3d-editor-whole-protocol": "^1.0.1",
+        "meta3d-type": "^1.0.1"
+    },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",

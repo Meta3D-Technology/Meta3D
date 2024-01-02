@@ -1,6 +1,5 @@
 import { state as meta3dState } from "meta3d-type"
 import { func } from "meta3d-input-window-protocol"
-
 import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 

@@ -231,27 +231,26 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineSceneService
     // meta3dState = data[0]
     // let cameraView = data[1]
     // let cameraGameObject = data[2]
-    let data = _createArcballCameraGameObject(meta3dState, engineSceneService,
-        "Arcball Camera",
+    let data1 = _createArcballCameraGameObject(meta3dState, engineSceneService,
+        "Arcball Camera1",
         40
     )
-    meta3dState = data[0]
-    let cameraController = data[1]
-    let cameraGameObject = data[2]
+    meta3dState = data1[0]
+    let cameraController1 = data1[1]
+    let cameraGameObject1 = data1[2]
 
-
-    // let data1 = _createArcballCameraGameObject(meta3dState, engineSceneService,
-    //     // eventService, eventExtensionProtocolName,
-    //     canvasSize,
-    //     40
-    // )
-    // meta3dState = data1[0]
-    // let cameraController = data1[1]
-    // let cameraGameObject = data1[2]
-
-
-    let data2 = createCubeGameObject(meta3dState, engineSceneService, [[-2, 2, 0], [1.0, 0.0, 0.0]])
+    let data2 = _createArcballCameraGameObject(meta3dState, engineSceneService,
+        "Arcball Camera2",
+        20
+    )
     meta3dState = data2[0]
+    // let cameraController2 = data2[1]
+    // let cameraGameObject2 = data2[2]
+
+
+
+    let data3 = createCubeGameObject(meta3dState, engineSceneService, [[-2, 2, 0], [1.0, 0.0, 0.0]])
+    meta3dState = data3[0]
 
 
 
@@ -260,7 +259,7 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineSceneService
 
     meta3dState = _createDirectionLightGameObject(meta3dState, engineSceneService)
 
-    return [meta3dState, cameraController, cameraGameObject]
+    return [meta3dState, cameraController1, cameraGameObject1]
 }
 
 

@@ -234,76 +234,62 @@ TODO run test
 TODO commit
 
 
-*** TODO write article: architecture
+*** DONE write article: architecture
 
-*** TODO write doc: how to develop in pro-code mode：概况
+# *** TODO write doc: how to develop in pro-code mode：概况
 
-TODO @糖果
-
-*** TODO add basiccameraview inspector:active
+# TODO @糖果
 
 
-*** TODO add arcballCameraController inspector
+*** DONE study 支持直接搭建Web3D应用
 
-TODO run test:
-editor
-publish
+
+
+
+*** DONE add basiccameraview inspector:active
+
+TODO default scene:
+add a arcball camera
+
+TODO publish
+
+TODO build ui
+   set debug
+
+TODO run test
+active another one
+   run
+   export single->import
+   publish
+
+
+
+TODO update package
+game,scene view pipeline
+editor-whole
+
+
+# *** TODO add arcballCameraController inspector
+
+# TODO run test:
+# editor
+# publish
 
 
 ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
 
 
-** TODO add "add Component"
-add select button
+
+* TODO fix: when       | list{"xxx"} => ()
 
 
-** TODO add Modal
-publish, export should show Modal
+* TODO enhance publish tool
 
 
-Menu add "关于Meta3D":
-show Modal
-
-
-
-
-
-# * TODO Scene View: show direction light, camera(show image)
-
-
-
-# ** TODO Window: set flags
-# e.g. ImGui.WindowFlags.NoTitleBar
-
-
-
-
-
-
-** TODO add Debug
-
-
-
-
-# ** TODO Message
-# e.g. show import progress bar
-
-
-
-
-
-
-* TODO 加入Script
-
-
-
-
-* TODO publish 3D贪吃蛇 editor template
-
-Snake, Scene use gltf model!
-
-
-
+- update all packages in pre-production
+auto upgrade
+- update all apps in pre-production
+auto upgrade
 
 
 * TODO publish
