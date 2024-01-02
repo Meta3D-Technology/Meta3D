@@ -268,7 +268,7 @@ gulp.task("publish_pro_patch_env", gulp.series(
 gulp.task("publish_pro_minor_env", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
-    "ci",
+    // "ci",
     "update_versionconfig",
     "lerna_version_minor",
     "update_platform_code",
