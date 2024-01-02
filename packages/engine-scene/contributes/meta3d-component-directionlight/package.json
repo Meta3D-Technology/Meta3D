@@ -1,6 +1,6 @@
 {
   "name": "meta3d-component-directionlight",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "meta3d",
   "protocol": {
     "name": "meta3d-component-directionlight-protocol"
@@ -20,7 +20,7 @@
   "keywords": [],
   "dependencies": {
     "meta3d-component-directionlight-protocol": "^1.0.0",
-    "meta3d-type": "^1.1.0",
+    "meta3d-type": "^1.2.0",
     "rescript": "^10.0.1"
   },
   "devDependencies": {
@@ -34,7 +34,7 @@
     "gentype": "^3.48.0",
     "gulp": "^4.0.2",
     "jest": "^25.2.3",
-    "meta3d-tool-publish": "^1.1.0",
+    "meta3d-tool-publish": "^1.2.0",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   }

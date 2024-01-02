@@ -1,6 +1,6 @@
 {
     "name": "frontend",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "gulp changeToLocalEnv &&  rescript clean && rescript build -w",
@@ -46,8 +46,8 @@
         "antd": "^5.12.2",
         "fbemitter": "^3.0.0",
         "localforage": "^1.10.0",
-        "meta3d-bs-most-default": "^1.1.0",
-        "meta3d-editor-whole-protocol": "^1.1.0",
+        "meta3d-bs-most-default": "^1.2.0",
+        "meta3d-editor-whole-protocol": "^1.2.0",
         "meta3d-react-monaco-editor": "^1.0.0",
         "moment": "^2.29.4",
         "remporium": "^0.0.1",
