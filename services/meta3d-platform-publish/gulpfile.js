@@ -201,7 +201,8 @@ gulp.task("publish_extension_contribute_protocol", function (done) {
 
     process.exec(script,
         {
-            cwd: _getRootCwd()
+            cwd: _getRootCwd(),
+            maxBuffer: 1024 * 5000
         },
         (error, stdout, stderr) => {
             if (!error) {
@@ -215,7 +216,7 @@ gulp.task("publish_extension_contribute_protocol", function (done) {
 gulp.task("upgrade_backend", function (done) {
     console.log("升级后端数据...")
 
-    publish.upgradeBackend(env, "newest").then(_ => {
+    publish.upgradeBackend(env == null ? "production" : env, "newest").then(_ => {
         done()
     })
 });
