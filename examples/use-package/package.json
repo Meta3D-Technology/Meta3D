@@ -1,6 +1,6 @@
 {
   "name": "use-package",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "scripts": {
     "watch": "tsc -w -noEmit",
     "webpack_dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",

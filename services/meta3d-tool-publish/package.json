@@ -1,6 +1,6 @@
 {
     "name": "meta3d-tool-publish",
-    "version": "1.2.0",
+    "version": "1.0.0",
     "main": "./src/Main.js",
     "scripts": {
         "watch": "tsc --watch",

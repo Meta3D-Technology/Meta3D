@@ -1,7 +1,7 @@
 {
     "name": "backend-abstract",
     "main": "src/Main.js",
-    "version": "1.2.0",
+    "version": "1.0.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "tsc --watch",
