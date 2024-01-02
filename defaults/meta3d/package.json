@@ -1,6 +1,6 @@
 {
     "name": "meta3d",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "authors": "Wonder",
     "main": "lib/js/src/Main.bs.js",
     "types": "src/Main.d.ts",
