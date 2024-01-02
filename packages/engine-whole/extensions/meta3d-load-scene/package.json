@@ -1,6 +1,6 @@
 {
     "name": "meta3d-load-scene",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-load-scene-protocol"
@@ -13,18 +13,18 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-asset-protocol": "^1.1.0",
+        "meta3d-asset-protocol": "^1.0.0",
         "meta3d-engine-scene-protocol": "^1.0.0",
         "meta3d-load-scene-protocol": "^1.0.0",
         "meta3d-three-protocol": "^1.0.0",
-        "meta3d-type": "^1.1.0"
+        "meta3d-type": "^1.0.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.1.0",
+        "meta3d-tool-publish": "^1.0.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
