@@ -549,7 +549,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"CreateFromScratchGuideBeginInElementAssemble"} => Method.judgeToJumpToLogin(() => {
         <CreateFromScratchGuideBeginInElementAssemble account />
       }, account, service)
-    | list{"meta3d"} =>
+    | list{"Admin"} =>
       LoginUtils.login(dispatch, "meta3d")
 
       React.null

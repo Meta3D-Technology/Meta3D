@@ -93,7 +93,7 @@ gulp.task("update_platform_code", function (done) {
         },
         (error, stdout, stderr) => {
             if (!error) {
-                publish.updateHostFiles(env).then(_ => {
+                publish.updateHostFiles(env == null ? "production" : env).then(_ => {
                     done()
                 })
             } else {
