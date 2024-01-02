@@ -300,7 +300,7 @@ TODO finish meta3d-platform-publish->gulpfile
 TODO fix in local,production: /meta3d not work
 
 
-TODO finish version: rename 1.2.0 to 1.1.0
+TODO finish version: rename 1.2.0 to 1.0.0
 
 
 TODO pass ci
