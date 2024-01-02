@@ -138,13 +138,23 @@ gulp.task("lerna_version_patch", function (done) {
 gulp.task("lerna_version_patch", function (done) {
     console.log("发布patch版本...")
 
-    process.exec("lerna version patch --yes",
+    process.exec("git add -A && git commit -m \"chore: commit\"",
         {
             cwd: _getRootCwd()
         },
         (error, stdout, stderr) => {
             if (!error) {
-                done()
+                process.exec("lerna version patch --yes",
+                    {
+                        cwd: _getRootCwd()
+                    },
+                    (error, stdout, stderr) => {
+                        if (!error) {
+                            done()
+                        } else {
+                            throw error
+                        }
+                    })
             } else {
                 throw error
             }
@@ -154,17 +164,28 @@ gulp.task("lerna_version_patch", function (done) {
 gulp.task("lerna_version_minor", function (done) {
     console.log("发布minor版本...")
 
-    process.exec("lerna version minor --yes",
+    process.exec("git add -A && git commit -m \"chore: commit\"",
         {
             cwd: _getRootCwd()
         },
         (error, stdout, stderr) => {
             if (!error) {
-                done()
+                process.exec("lerna version minor --yes",
+                    {
+                        cwd: _getRootCwd()
+                    },
+                    (error, stdout, stderr) => {
+                        if (!error) {
+                            done()
+                        } else {
+                            throw error
+                        }
+                    })
             } else {
                 throw error
             }
         })
+
 })
 
 gulp.task("publish_extension_contribute_protocol", function (done) {
