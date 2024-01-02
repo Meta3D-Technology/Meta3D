@@ -269,27 +269,20 @@ game,scene view pipeline
 editor-whole
 
 
-# *** TODO add arcballCameraController inspector
-
-# TODO run test:
-# editor
-# publish
-
-
-** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
-
-
 
 * DONE fix: when       | list{"xxx"} => ()
 
 
-* TODO enhance publish tool
+# * TODO enhance publish tool
 
 
-- update all packages in pre-production
-auto upgrade
-- update all apps in pre-production
-auto upgrade
+# - update all packages in pre-production
+# auto upgrade
+
+
+
+# - update all apps in pre-production
+# auto upgrade
 
 
 * TODO publish
