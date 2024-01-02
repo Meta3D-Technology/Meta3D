@@ -612,7 +612,7 @@ export type scene = {
 		getGameObjects: getGameObjects$4;
 	};
 };
-export type service$123 = Merge<scene, {
+export type service = Merge<scene, {
 	prepare: (meta3dState: state, isDebug: boolean, ecsConfig: ecsConfig) => state;
 }>;
 // import type { Map } from "immutable";
@@ -1358,7 +1358,7 @@ export type addToInitFuncs = (meta3dState: state, func: initFunc$1) => state;
 type uiControlContribute$1<inputFunc, specificData, outputData> = uiControlContribute<inputFunc, specificData, outputData>;
 type inputContribute$1<data> = inputContribute<data>;
 type actionContribute$1<uiData, state> = actionContribute<uiData, state>;
-export type engineSceneService = service$123;
+export type engineSceneService = service;
 export type uiService = service$1;
 export type eventService = service$4;
 export type coreService = service$8;
@@ -1390,10 +1390,10 @@ type service$13 = {
 };
 
 export {
-	
-	
+	actionContribute$1 as actionContribute,
+	inputContribute$1 as inputContribute,
 	service$13 as service,
-	
+	uiControlContribute$1 as uiControlContribute,
 };
 
 export {};

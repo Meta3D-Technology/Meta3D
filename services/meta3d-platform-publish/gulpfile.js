@@ -87,7 +87,7 @@ gulp.task("update_versionconfig", function (done) {
 gulp.task("update_platform_code", function (done) {
     console.log("更新平台代码...")
 
-    process.exec("yarn webpack_pro",
+    process.exec("sudo yarn webpack_pro",
         {
             cwd: "../../platform/frontend"
         },
@@ -135,26 +135,33 @@ gulp.task("lerna_version_patch", function (done) {
         })
 })
 
-gulp.task("lerna_version_patch", function (done) {
-    console.log("发布patch版本...")
 
-    process.exec("git add -A && git commit -m \"chore: commit\"",
+gulp.task("commit", function (done) {
+    console.log("commit...")
+
+    process.exec("git add -A && git commit  --allow-empty  -m \"chore: commit\"",
         {
             cwd: _getRootCwd()
         },
         (error, stdout, stderr) => {
             if (!error) {
-                process.exec("lerna version patch --yes",
-                    {
-                        cwd: _getRootCwd()
-                    },
-                    (error, stdout, stderr) => {
-                        if (!error) {
-                            done()
-                        } else {
-                            throw error
-                        }
-                    })
+                done()
+            } else {
+                throw error
+            }
+        })
+})
+
+gulp.task("lerna_version_patch", function (done) {
+    console.log("发布patch版本...")
+
+    process.exec("lerna version patch --yes",
+        {
+            cwd: _getRootCwd()
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
+                done()
             } else {
                 throw error
             }
@@ -164,28 +171,17 @@ gulp.task("lerna_version_patch", function (done) {
 gulp.task("lerna_version_minor", function (done) {
     console.log("发布minor版本...")
 
-    process.exec("git add -A && git commit -m \"chore: commit\"",
+    process.exec("lerna version minor --yes",
         {
             cwd: _getRootCwd()
         },
         (error, stdout, stderr) => {
             if (!error) {
-                process.exec("lerna version minor --yes",
-                    {
-                        cwd: _getRootCwd()
-                    },
-                    (error, stdout, stderr) => {
-                        if (!error) {
-                            done()
-                        } else {
-                            throw error
-                        }
-                    })
+                done()
             } else {
                 throw error
             }
         })
-
 })
 
 gulp.task("publish_extension_contribute_protocol", function (done) {
@@ -233,11 +229,13 @@ gulp.task("publish_local_patch_env", gulp.series(
     "set_env_to_local",
     "bundle_dts",
     "ci",
-    "update_versionconfig",
+    "commit",
     "lerna_version_patch",
+    "update_versionconfig",
     "update_platform_code",
     "publish_extension_contribute_protocol",
-    "upgrade_backend", function (done) {
+    "upgrade_backend",
+    "commit", function (done) {
         done()
     }));
 
@@ -245,11 +243,13 @@ gulp.task("publish_local_minor_env", gulp.series(
     "set_env_to_local",
     "bundle_dts",
     "ci",
-    "update_versionconfig",
+    "commit",
     "lerna_version_minor",
+    "update_versionconfig",
     "update_platform_code",
     "publish_extension_contribute_protocol",
-    "upgrade_backend", function (done) {
+    "upgrade_backend",
+    "commit", function (done) {
         done()
     }));
 
@@ -257,11 +257,13 @@ gulp.task("publish_pro_patch_env", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
     "ci",
-    "update_versionconfig",
+    "commit",
     "lerna_version_patch",
+    "update_versionconfig",
     "update_platform_code",
     "publish_extension_contribute_protocol",
-    "upgrade_backend", function (done) {
+    "upgrade_backend",
+    "commit", function (done) {
         done()
     }));
 
@@ -269,10 +271,12 @@ gulp.task("publish_pro_minor_env", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
     // "ci",
-    "update_versionconfig",
+    "commit",
     "lerna_version_minor",
+    "update_versionconfig",
     "update_platform_code",
     "publish_extension_contribute_protocol",
-    "upgrade_backend", function (done) {
+    "upgrade_backend",
+    "commit", function (done) {
         done()
     }));
