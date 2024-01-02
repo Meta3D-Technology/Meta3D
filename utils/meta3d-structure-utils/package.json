@@ -1,11 +1,11 @@
 {
     "name": "meta3d-structure-utils",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "scripts": {
         "watch": "tsc -w"
     },
     "dependencies": {
-        "meta3d-type": "^1.0.1"
+        "meta3d-type": "^1.1.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"

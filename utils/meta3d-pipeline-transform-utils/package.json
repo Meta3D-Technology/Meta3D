@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-transform-utils",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "license": "",
     "scripts": {
         "watch": "tsc -w -noEmit"
@@ -9,7 +9,7 @@
     "dependencies": {
         "meta3d-core-protocol": "^1.0.0",
         "meta3d-pipeline-transform-protocol": "^1.0.0",
-        "meta3d-type": "^1.0.1"
+        "meta3d-type": "^1.1.0"
     },
     "devDependencies": {
         "typescript": "^4.2.3"
