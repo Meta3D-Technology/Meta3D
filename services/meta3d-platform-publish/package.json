@@ -4,8 +4,8 @@
     "main": "./src/Main.js",
     "scripts": {
         "watch": "tsc --watch",
-        "platform:publish_dev_minor": "gulp      lerna_version_minor && sudo gulp publish_local_minor_env",
-        "platform:publish_pro_minor": "gulp      lerna_version_minor && sudo gulp publish_pro_minor_env"
+        "platform:publish_dev_minor": "sudo gulp ci && sudo gulp commit && gulp lerna_version_minor && sudo gulp publish_local_minor_env",
+        "platform:publish_pro_minor": "sudo gulp ci && sudo gulp commit && gulp lerna_version_minor && sudo gulp publish_pro_minor_env"
     },
     "devDependencies": {
         "@cloudbase/manager-node": "^4.2.8",

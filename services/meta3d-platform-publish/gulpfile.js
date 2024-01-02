@@ -228,7 +228,6 @@ gulp.task("upgrade_backend", function (done) {
 gulp.task("publish_local_minor_env", gulp.series(
     "set_env_to_local",
     "bundle_dts",
-    "ci",
     "commit",
     "update_versionconfig",
     "update_platform_code",
@@ -242,7 +241,6 @@ gulp.task("publish_local_minor_env", gulp.series(
 gulp.task("publish_pro_minor_env", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
-    "ci",
     "commit",
     "update_versionconfig",
     "update_platform_code",
