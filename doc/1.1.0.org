@@ -285,8 +285,23 @@ editor-whole
 # auto upgrade
 
 
+
 * TODO publish
 
+
+TODO update update_platform_code:
+   TODO use sudo for update host files
+   TODO update initProduction
+      use local one
+
+TODO finish meta3d-platform-publish->gulpfile
+
+
+TODO fix in local,production: /meta3d not work
+
+
+
+TODO pass ci
 
 TODO update packages in production
    TODO rename webview-render to web-render
