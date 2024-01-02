@@ -48,7 +48,7 @@ gulp.task("bundle_dts", function (done) {
     ]
 
     data.forEach(({ source, target, postHandle }, i) => {
-        process.exec("./node_modules/.bin/dts-bundle-generator --no-check --project tsconfig.json -o " + target + " " + source, (error, stdout, stderr) => {
+        process.exec("sudo ./node_modules/.bin/dts-bundle-generator --no-check --project tsconfig.json -o " + target + " " + source, (error, stdout, stderr) => {
             if (!error) {
                 fs.writeFileSync(
                     target,
@@ -106,7 +106,7 @@ gulp.task("update_platform_code", function (done) {
 gulp.task("ci", function (done) {
     console.log("ci...")
 
-    process.exec("yarn ci:test",
+    process.exec("sudo yarn ci:test",
         {
             cwd: _getRootCwd()
         },
@@ -194,10 +194,10 @@ gulp.task("publish_extension_contribute_protocol", function (done) {
     let script = null
     switch (env) {
         case "local":
-            script = "yarn meta3d:publish_dev"
+            script = "sudo yarn meta3d:publish_dev"
             break
         case "production":
-            script = "yarn meta3d:publish_pro"
+            script = "sudo yarn meta3d:publish_pro"
             break
         default:
             throw new Error("error")
