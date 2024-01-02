@@ -6,9 +6,9 @@
     },
     "dependencies": {
         "@types/three": "0.158.1",
-        "meta3d-engine-scene-protocol": "^1.0.0",
-        "meta3d-event-protocol": "^1.0.0",
-        "meta3d-three-protocol": "^1.0.0",
+        "meta3d-engine-scene-protocol": "^1.1.0",
+        "meta3d-event-protocol": "^1.1.0",
+        "meta3d-three-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

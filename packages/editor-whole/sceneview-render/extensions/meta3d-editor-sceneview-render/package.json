@@ -13,10 +13,10 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-core-protocol": "^1.0.0",
-        "meta3d-editor-sceneview-render-protocol": "^1.0.0",
+        "meta3d-core-protocol": "^1.1.0",
+        "meta3d-editor-sceneview-render-protocol": "^1.1.0",
         "meta3d-editor-whole-protocol": "^1.1.0",
-        "meta3d-pipeline-webgl1-three-sceneviewrender-protocol": "^1.0.0",
+        "meta3d-pipeline-webgl1-three-sceneviewrender-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

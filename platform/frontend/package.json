@@ -48,7 +48,7 @@
         "localforage": "^1.10.0",
         "meta3d-bs-most-default": "^1.1.0",
         "meta3d-editor-whole-protocol": "^1.1.0",
-        "meta3d-react-monaco-editor": "^1.0.0",
+        "meta3d-react-monaco-editor": "^1.1.0",
         "moment": "^2.29.4",
         "remporium": "^0.0.1",
         "rescript": "^10.0.1",

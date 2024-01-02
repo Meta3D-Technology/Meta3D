@@ -15,12 +15,12 @@
     },
     "dependencies": {
         "@types/three": "0.158.1",
-        "meta3d-core-protocol": "^1.0.0",
-        "meta3d-engine-scene-protocol": "^1.0.0",
-        "meta3d-event-protocol": "^1.0.0",
-        "meta3d-pipeline-dispose-protocol": "^1.0.0",
-        "meta3d-scenegraph-converter-three-protocol": "^1.0.0",
-        "meta3d-three-api-protocol": "^1.0.0",
+        "meta3d-core-protocol": "^1.1.0",
+        "meta3d-engine-scene-protocol": "^1.1.0",
+        "meta3d-event-protocol": "^1.1.0",
+        "meta3d-pipeline-dispose-protocol": "^1.1.0",
+        "meta3d-scenegraph-converter-three-protocol": "^1.1.0",
+        "meta3d-three-api-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

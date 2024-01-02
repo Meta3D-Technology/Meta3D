@@ -16,7 +16,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-input-asset-protocol": "^1.0.0",
+        "meta3d-input-asset-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

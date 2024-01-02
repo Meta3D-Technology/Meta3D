@@ -13,8 +13,8 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-load-glb-protocol": "^1.0.0",
-        "meta3d-three-protocol": "^1.0.0",
+        "meta3d-load-glb-protocol": "^1.1.0",
+        "meta3d-three-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

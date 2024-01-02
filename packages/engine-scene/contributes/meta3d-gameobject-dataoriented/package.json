@@ -19,10 +19,10 @@
   },
   "keywords": [],
   "dependencies": {
-    "meta3d-component-geometry-protocol-common": "^1.0.0",
-    "meta3d-component-pbrmaterial-protocol-common": "^1.0.0",
-    "meta3d-component-transform-protocol-common": "^1.0.0",
-    "meta3d-gameobject-protocol": "^1.0.0",
+    "meta3d-component-geometry-protocol-common": "^1.1.0",
+    "meta3d-component-pbrmaterial-protocol-common": "^1.1.0",
+    "meta3d-component-transform-protocol-common": "^1.1.0",
+    "meta3d-gameobject-protocol": "^1.1.0",
     "meta3d-type": "^1.1.0",
     "rescript": "^10.0.1"
   },

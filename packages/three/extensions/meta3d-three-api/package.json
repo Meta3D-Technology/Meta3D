@@ -15,7 +15,7 @@
     },
     "dependencies": {
         "@types/three": "0.158.1",
-        "meta3d-three-api-protocol": "^1.0.0",
+        "meta3d-three-api-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0",
         "three": "0.158.0"
     },

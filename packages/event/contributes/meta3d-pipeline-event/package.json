@@ -15,8 +15,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-core-protocol": "^1.0.0",
-        "meta3d-event-protocol": "^1.0.0",
+        "meta3d-core-protocol": "^1.1.0",
+        "meta3d-event-protocol": "^1.1.0",
         "meta3d-pipeline-event-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },

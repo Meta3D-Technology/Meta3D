@@ -14,7 +14,7 @@
     },
     "dependencies": {
         "jszip": "^3.10.1",
-        "meta3d-jszip-protocol": "^1.0.0",
+        "meta3d-jszip-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

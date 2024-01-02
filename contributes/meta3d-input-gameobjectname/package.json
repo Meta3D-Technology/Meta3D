@@ -16,9 +16,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-select-scenetree-node-protocol": "^1.0.0",
+        "meta3d-action-select-scenetree-node-protocol": "^1.1.0",
         "meta3d-editor-whole-protocol": "^1.1.0",
-        "meta3d-input-input-text-protocol": "^1.0.0",
+        "meta3d-input-input-text-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

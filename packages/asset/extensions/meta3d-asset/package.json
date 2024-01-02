@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "meta3d-asset-protocol": "^1.1.0",
-        "meta3d-load-glb-protocol": "^1.0.0",
+        "meta3d-load-glb-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0",
         "rescript": "^10.0.1"
     },

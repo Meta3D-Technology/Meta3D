@@ -18,8 +18,8 @@
         "meta3d-engine-whole-protocol": "^0.20.0"
     },
     "dependencies": {
-        "meta3d-action-publish-protocol": "^1.0.0",
-        "meta3d-action-run-protocol": "^1.0.0",
+        "meta3d-action-publish-protocol": "^1.1.0",
+        "meta3d-action-run-protocol": "^1.1.0",
         "meta3d-editor-whole-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },

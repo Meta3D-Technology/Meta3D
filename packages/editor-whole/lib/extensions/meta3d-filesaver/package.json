@@ -15,7 +15,7 @@
     "dependencies": {
         "@types/file-saver": "^2.0.5",
         "file-saver": "^2.0.5",
-        "meta3d-filesaver-protocol": "^1.0.0",
+        "meta3d-filesaver-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

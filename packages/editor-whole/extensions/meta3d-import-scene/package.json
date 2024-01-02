@@ -15,12 +15,12 @@
     },
     "dependencies": {
         "meta3d-asset-protocol": "^1.1.0",
-        "meta3d-core-protocol": "^1.0.0",
-        "meta3d-editor-sceneview-render-protocol": "^1.0.0",
-        "meta3d-engine-scene-protocol": "^1.0.0",
-        "meta3d-event-protocol": "^1.0.0",
-        "meta3d-import-scene-protocol": "^1.0.0",
-        "meta3d-three-protocol": "^1.0.0",
+        "meta3d-core-protocol": "^1.1.0",
+        "meta3d-editor-sceneview-render-protocol": "^1.1.0",
+        "meta3d-engine-scene-protocol": "^1.1.0",
+        "meta3d-event-protocol": "^1.1.0",
+        "meta3d-import-scene-protocol": "^1.1.0",
+        "meta3d-three-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

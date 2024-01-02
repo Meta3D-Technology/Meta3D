@@ -17,7 +17,7 @@
     "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
   },
   "dependencies": {
-    "meta3d-event-data-protocol": "^1.0.0",
+    "meta3d-event-data-protocol": "^1.1.0",
     "meta3d-type": "^1.1.0",
     "rescript": "^10.0.1"
   },
