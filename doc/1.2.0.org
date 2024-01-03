@@ -1,4 +1,4 @@
-* TODO publish and update packages
+* DONE publish and update packages
 
 
 * TODO fix(platform): when release version update, admin user not update selected all ui controls
