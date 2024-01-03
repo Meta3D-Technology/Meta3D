@@ -2,7 +2,10 @@ module FirstEnterUserCenter = {
   let openDocDrawer = dispatch => {
     dispatch(
       AppStoreType.OpenDocDrawer({
-        list{({j`请阅读简介`}, {j`https://meta3d-website.4everland.app/docs/简介/`})}
+        list{
+          ({j`请阅读简介`}, {j`https://meta3d-website.4everland.app/docs/简介/`}),
+          ({j`有问题请先阅读FAQ`}, {j`https://meta3d-website.4everland.app/docs/FAQ/`}),
+        }
       }),
     )
 
