@@ -1,7 +1,44 @@
 * DONE publish and update packages
 
+* DONE add FAQ
+
+* TODO 写个文档，介绍下如何来一起开发Meta3D这个开源项目
+
+开发出对应的贡献和扩展，发布到Meta3D平台
+在Meta3D平台上，将它们组合为引擎包
+在Meta3D平台上，让编辑器改为组合这个新的引擎包，以替代原有的引擎包
+在Meta3D平台上，运行编辑器，即可看到已经替换了引擎
+
+
+
+* DONE add test user to get admin authority
+
 
 * TODO fix(platform): when release version update, admin user not update selected all ui controls
+
+
+* TODO update production
+
+
+
+* TODO 整理适合上手的新手开发任务
+
+platform
+
+editor
+
+engine
+    替换引擎实现
+
+
+
+* TODO update CONTRIBUTING
+
+* TODO deploy website
+* TODO doc: drawer add FAQ when first Login
+
+
+
 
 * TODO perf: optimize editor with default scene
 

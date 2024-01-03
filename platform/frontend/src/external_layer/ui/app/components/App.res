@@ -550,7 +550,13 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
         <CreateFromScratchGuideBeginInElementAssemble account />
       }, account, service)
     | list{"Admin"} =>
-      LoginUtils.login(dispatch, "meta3d")
+      LoginUtils.login(dispatch,UserUtils.buildAdminAccount())
+
+      React.null
+    | list{"TestUser"} =>
+      let key = UrlSearchUtils.get(url.search, "key")
+
+      LoginUtils.login(dispatch, UserUtils.buildTestUserAccount(key))
 
       React.null
     | _ => Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)
