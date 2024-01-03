@@ -11,11 +11,13 @@ lib/bs/
 .bs.js
 .gen.tsx
 lib/js/
+lib/es6_global/
 
 # lib/bs/
 .bs.js
 .gen.tsx
-# lib/js/test/
+# lib/js/
+lib/es6_global/test/
 lib/
 
 coverage

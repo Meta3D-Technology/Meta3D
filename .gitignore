@@ -10,6 +10,8 @@ lib/bs/
 .bs.js
 .gen.tsx
 lib/js/
+lib/es6_global/
+
 ocaml/
 
 dist/

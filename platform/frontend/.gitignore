@@ -12,6 +12,7 @@ lib/bs/
 .bs.js
 .gen.tsx
 lib/js/
+lib/es6_global/
 
 lib/bs/
 .bs.js
@@ -20,7 +21,8 @@ lib/bs/
 lib/ocaml/
 
 lib/es6_global/test/
-lib/js/test/
+lib/js/
+lib/es6_global/test/
 
 coverage
 

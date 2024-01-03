@@ -6,7 +6,8 @@ jest_0/
 lib/bs/
 .bs.js
 .gen.tsx
-lib/js/src/
+lib/js/
+lib/es6_global/src/
 reference/
 node_modules/
 mine/
@@ -15,6 +16,7 @@ lib/bs/
 .bs.js
 .gen.tsx
 lib/js/
+lib/es6_global/
 
 npm-debug
 
