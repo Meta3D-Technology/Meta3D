@@ -14,7 +14,10 @@
 * DONE add test user to get admin authority
 
 
-* TODO fix(platform): when release version update, admin user not update selected all ui controls
+* DONE fix(platform): when release version update, admin user not update selected packages
+
+
+* TODO pass "change default scene" run test
 
 
 * TODO update production

@@ -550,7 +550,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
         <CreateFromScratchGuideBeginInElementAssemble account />
       }, account, service)
     | list{"Admin"} =>
-      LoginUtils.login(dispatch,UserUtils.buildAdminAccount())
+      LoginUtils.login(dispatch, UserUtils.buildAdminAccount())
 
       React.null
     | list{"TestUser"} =>
