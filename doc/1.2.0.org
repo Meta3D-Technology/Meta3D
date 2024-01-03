@@ -52,7 +52,12 @@ engine
 
 
 
-* TODO perf: optimize editor with default scene
+* DONE perf: optimize editor with default scene
+
+GPU cost too much
+
+    # canvas size?
+    imgui
 
 
 * TODO 支持直接搭建Web3D应用
