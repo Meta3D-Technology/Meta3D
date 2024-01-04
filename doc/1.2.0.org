@@ -70,19 +70,123 @@ PlayCanvas
 thingjs
 
 
-** TODO provide a defult editor to develop app
+# ** TODO provide a defult editor to develop app
 
-** TODO editor add publish to cloud
-TODO Meta3D support host published app from editor
-
-
-** TODO can import app to editor
-** TODO can import the editor which build app and app's event data
+# ** TODO editor add publish to cloud
+# TODO Meta3D support host published app from editor
 
 
-** TODO add build app flow & guide
-how user to build app in Meta3D?
-  1.prepare editor
-     - use current published editor
-     - or build custom editor
-  2.build app in editor
+# ** TODO can import app to editor
+# ** TODO can import the editor which build app and app's event data
+
+
+# ** TODO add build app flow & guide
+# how user to build app in Meta3D?
+#   1.prepare editor
+#      - use current published editor
+#      - or build custom editor
+#   2.build app in editor
+
+
+
+
+
+** design
+
+
+publish app to Meta3D in editor
+
+Meta3d add 发布的应用
+
+    can run app
+
+    # can import app to editor and continue to edit?
+    #     import single event
+
+    #     to which editor?
+    #     just related to packages, so check user's editors' packages:
+    #         whether has required packages name and version >=
+        
+    #         now must match
+    #             TODO if not match, ask user to import recommended editors and publish as own editor, then user can import app again
+
+    can import app to editor and continue to edit?
+        download single event
+
+
+
+** TODO add publish to platform action
+
+TODO upload published local zip file
+
+TODO upload single event
+
+
+TODO complete editor: add new publish to menu
+
+
+** TODO platform: rename app/App to editor/Editor
+
+
+** TODO platform: add ShowPublishedApps
+
+TODO support run app
+
+TODO support download single event
+
+
+
+* TODO 完善ui control
+
+** TODO add arcballCameraController inspector
+
+TODO run test:
+editor
+publish
+
+
+** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+** TODO add "add Component"
+add select button
+
+
+** TODO add Modal
+publish, export should show Modal
+
+
+Menu add "关于Meta3D":
+show Modal
+
+
+
+
+
+
+
+
+
+
+
+** TODO add Debug
+
+
+
+
+# ** TODO Message
+# e.g. show import progress bar
+
+
+
+
+
+
+
+* TODO 加入Script
+
+
+
+* TODO 3D贪吃蛇
+
+Snake, Scene use gltf model!
