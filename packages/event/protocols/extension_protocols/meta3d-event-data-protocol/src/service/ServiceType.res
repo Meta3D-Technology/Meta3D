@@ -15,4 +15,5 @@ type eventData = {
 type service = {
   parseEventData: ArrayBuffer.t => array<eventData>,
   exportEventData: array<eventData> => unit,
+  generateEventDataBuffer: array<eventData> => ArrayBuffer.t,
 }

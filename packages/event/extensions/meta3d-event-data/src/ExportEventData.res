@@ -88,3 +88,9 @@ let export = (allEvents: array<Meta3dEventDataProtocol.ServiceType.eventData>) =
         "arraybuffer",
       )
 }
+
+let generateEventDataBuffer = (
+  allEvents: array<Meta3dEventDataProtocol.ServiceType.eventData>,
+): ArrayBuffer.t => {
+  _generateEventDataBuffer(Js.Math.random, allEvents)
+}

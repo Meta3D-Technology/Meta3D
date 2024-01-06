@@ -9,6 +9,7 @@ module Method = {
       "target": "visualRun",
       "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-run-canvas")->Meta3dCommonlib.OptionSt.getExn,
+      "env": EnvUtils.getEnv()
     }->Obj.magic
   }
 

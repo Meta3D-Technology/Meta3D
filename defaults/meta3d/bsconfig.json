@@ -27,6 +27,7 @@
   "bs-dependencies": [
     "meta3d-commonlib",
     "meta3d-commonlib-type",
+    "meta3d-bs-most-default",
     "meta3d-type"
   ],
   "refmt": 3,

@@ -25,7 +25,17 @@ import { service as exportSceneService } from "meta3d-export-scene-protocol/src/
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as libService } from "meta3d-lib-protocol/src/service/ServiceType"
+// import { init as initBackend } from "backend-cloudbase"
 
+let _getBackendEnv = (env: string) => {
+	switch (env) {
+		case "production":
+			return "meta3d-production-5eol5gce9a6b9c"
+		case "local":
+		default:
+			return "meta3d-local-9gacdhjl439cff76"
+	}
+}
 
 let _registerPipelines = (
 	meta3dState: meta3dState, api: api,
@@ -359,6 +369,14 @@ let _loop = (
 	})
 }
 
+let _initBackend = (api: api, meta3dState, env) => {
+	return api.backend.init(
+		_getBackendEnv(env)
+	).then(() => {
+		return meta3dState
+	})
+}
+
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
@@ -392,6 +410,15 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					default:
 						throw new Error("error")
 				}
+			}).then(meta3dState => {
+				let env = initData.env
+
+				// meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol", {
+				// 	...api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol"),
+				// 	env: api.nullable.return(env)
+				// })
+
+				return _initBackend(api, meta3dState, env)
 			}).catch(e => {
 				_handleError(api, meta3dState)
 				throw e
@@ -421,12 +448,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return api.getPackageService(meta3dState, packageProtocolName)
 		},
 		run: (meta3dState: meta3dState, configData) => {
-			let [canvasData, { isDebug }] = configData
+			let [canvasData, { isDebug, env }] = configData
 
 			let canvas = _createAndInsertCanvas(canvasData)
 
 			_execAllInitFuncs(meta3dState, api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol").initFuncs, { isDebug, canvas }).then(meta3dState => {
 				return _initForRun(meta3dState, api, configData, canvas)
+			}).then(meta3dState => {
+				// meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol", {
+				// 	...api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol"),
+				// 	env: api.nullable.return(env)
+				// })
+
+				return _initBackend(api, meta3dState, env)
 			}).catch(e => {
 				_handleError(api, meta3dState)
 				throw e
@@ -445,6 +479,7 @@ export let createExtensionState: createExtensionStateMeta3D<
 	return {
 		initFuncs: api.immutable.createList(),
 		currentAllEvents: api.immutable.createList(),
+		// env: api.nullable.getEmpty()
 	}
 }
 

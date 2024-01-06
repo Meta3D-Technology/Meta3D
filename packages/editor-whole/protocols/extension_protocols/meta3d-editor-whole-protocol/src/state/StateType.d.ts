@@ -6,10 +6,13 @@ import { events } from "meta3d-event-sourcing-protocol/src/state/StateType"
 
 export type target = "visual" | "visualRun"
 
+export type env = "local" | "production"
+
 export type initData = {
     target: target,
     isDebug: boolean,
-    canvas: HTMLCanvasElement
+    canvas: HTMLCanvasElement,
+    env: env
 }
 
 export type updateData = {
@@ -28,5 +31,6 @@ export type initFunc = (meta3dState: meta3dState, initData: initDataForInitFunc)
 
 export type state = {
     initFuncs: List<initFunc>,
-    currentAllEvents: events
+    currentAllEvents: events,
+    // env: nullable<env>
 }

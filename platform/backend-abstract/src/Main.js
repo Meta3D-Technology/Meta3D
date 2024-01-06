@@ -23,10 +23,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.handleLoginForWeb3 = exports.init = void 0;
+exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publishFinalApp = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishImplement = exports.getAllPublishImplementInfo = exports.batchFindPublishProtocolConfigData = exports.getAllPublishProtocolConfigData = exports.getAllPublishProtocolDataCount = exports.batchFindPublishProtocolData = exports.getAllPublishProtocolData = exports.isLoginSuccess = exports.registerUser = exports.checkUserName = exports.handleLoginForWeb3 = exports.init = void 0;
 const MarketService = __importStar(require("./application_layer/market/MarketService"));
 const LoginService = __importStar(require("./application_layer/user/LoginService"));
 const PublishAppService = __importStar(require("./application_layer/publish/PublishAppService"));
+const PublishFinalAppService = __importStar(require("./application_layer/publish/PublishFinalAppService"));
 // import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 // import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
 const PublishPackageService = __importStar(require("./application_layer/publish/PublishPackageService"));
@@ -53,6 +54,11 @@ exports.findPublishApp = PublishAppService.findPublishApp;
 exports.findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByAccount;
 exports.findAllPublishApps = PublishAppService.findAllPublishApps;
 exports.findAllRecommendPublishApps = PublishAppService.findAllRecommendPublishApps;
+exports.publishFinalApp = PublishFinalAppService.publish;
+exports.findPublishFinalApp = PublishFinalAppService.findPublishFinalApp;
+exports.findAllPublishFinalAppsByAccount = PublishFinalAppService.findAllPublishFinalAppsByAccount;
+exports.findAllPublishFinalApps = PublishFinalAppService.findAllPublishFinalApps;
+exports.findAllRecommendPublishFinalApps = PublishFinalAppService.findAllRecommendPublishFinalApps;
 // export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestData
 // export let getElementAssembleData = GetElementDataService.getElementAssembleData
 // export let findAllElementAssembleData = GetElementDataService.findAllElementAssembleData

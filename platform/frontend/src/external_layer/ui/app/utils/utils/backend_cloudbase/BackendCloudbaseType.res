@@ -116,7 +116,7 @@ type implementInfo = {
 
 type implementInfos = array<implementInfo>
 
-type onUploadProgressFunc = int => unit
+type onUploadProgressFunc = Meta3dType.Index.onUploadProgressFunc
 
 type getAllPublishExtensionInfos = (
   . limitCount,
@@ -304,7 +304,7 @@ type entryExtensionProtocolDescription = description
 type entryExtensionName = string
 
 type publishPackage = (
-  . onUploadProgressFunc,
+  .  onUploadProgressFunc,
   Js.Typed_array.ArrayBuffer.t,
   (
     entryExtensionProtocolName,

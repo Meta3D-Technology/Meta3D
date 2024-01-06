@@ -137,11 +137,20 @@ now just replace add duplicate one, but need handle more
     ->Meta3dCommonlib.ListSt.reduce(customs, _mergeCustomAndLocalBundled(getNameFunc))
   }
 
+  let _buildUnEditableData = () => {
+    [
+      ("meta3d-action-publish", "Publish"),
+      ("meta3d-action-publish-to-platform", "PublishToPlatform"),
+    ]
+  }
+
   let convertLocalToCustom = (
     service,
     (customInputs, customActions),
     selectedContributes: AssembleSpaceType.selectedContributesFromMarket,
   ) => {
+    let unEditableData = _buildUnEditableData()
+
     (
       _convert(
         service,
@@ -157,24 +166,17 @@ now just replace add duplicate one, but need handle more
         LocalUtils.isLocalAction,
         CustomUtils.getActionName,
         name => {
-          name == "meta3d-action-publish"
+          unEditableData->Meta3dCommonlib.ArraySt.includesByFunc(((packageName, _)) => {
+            name == packageName
+          })
         },
         name =>
-          name == "meta3d-action-publish"
-            ? "Publish"
-            : Meta3dCommonlib.Exception.throwErr(
-                Meta3dCommonlib.Exception.buildErr(
-                  Meta3dCommonlib.Log.buildErrorMessage(
-                    ~title={j`error`},
-                    ~description={
-                      ""
-                    },
-                    ~reason="",
-                    ~solution=j``,
-                    ~params=j``,
-                  ),
-                ),
-              ),
+          unEditableData
+          ->Meta3dCommonlib.ArraySt.find(((packageName, _)) => {
+            name == packageName
+          })
+          ->Meta3dCommonlib.OptionSt.getExn
+          ->Meta3dCommonlib.Tuple2.getLast,
         selectedContributes,
         customActions,
       ),

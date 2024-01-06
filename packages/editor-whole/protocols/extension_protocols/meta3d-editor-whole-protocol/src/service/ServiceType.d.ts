@@ -8,7 +8,7 @@ import { cleanScene, importScene } from "meta3d-import-scene-protocol/src/servic
 import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { service as assetService_ } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as libService_ } from "meta3d-lib-protocol/src/service/ServiceType"
-import { initData, initFunc, updateData } from "../state/StateType";
+import { initData, initFunc, updateData, env } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { inputContribute as inputContribute_ } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { actionContribute as actionContribute_ } from "meta3d-event-protocol/src/contribute/ActionContributeType"
@@ -16,7 +16,10 @@ import { addGroup } from "meta3d-scenegraph-converter-three-protocol/src/service
 
 export type uiTexture = texture
 
-export type configData = [canvasData, { isDebug: boolean, clearColor: [number, number, number, number], skinName: nullable<string> }]
+export type configData = [canvasData, {
+	isDebug: boolean, clearColor: [number, number, number, number], skinName: nullable<string>
+	env: env
+}]
 
 
 type addToInitFuncs = (meta3dState: meta3dState, func: initFunc) => meta3dState
@@ -64,5 +67,5 @@ export type service = {
 	// addToUpdateFuncs: addToFuncs,
 	// addToRenderFuncs: addToFuncs,
 	getPluggablePackageService: <service> (meta3dState: meta3dState, packageProtocolName: packageProtocolName) => nullable<service>,
-	run: (meta3dState: meta3dState, [canvasData, configData]: configData) => void,
+	run: (meta3dState: meta3dState, configData: configData) => void,
 }

@@ -1,9 +1,11 @@
 
 
+import * as Most from "most";
 import * as Curry from "../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Js_array from "../../../../../node_modules/rescript/lib/es6/js_array.js";
 import * as Js_string from "../../../../../node_modules/rescript/lib/es6/js_string.js";
 import * as Immutable from "immutable";
+import * as BackendCloudbase from "backend-cloudbase";
 import * as Log$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as Tuple2$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
 import * as ArraySt$Meta3dCommonlib from "../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
@@ -159,6 +161,17 @@ function _buildNullableAPI(param) {
         };
 }
 
+function _buildBackendAPI(param) {
+  return {
+          init: (function (env) {
+              return Most.drain(BackendCloudbase.init(env));
+            }),
+          publishFinalApp: (function (onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend) {
+              return Most.drain(BackendCloudbase.publishFinalApp(onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend));
+            })
+        };
+}
+
 function _buildImmutableAPI(param) {
   return {
           createList: (function (prim) {
@@ -294,7 +307,8 @@ function buildAPI(param) {
               })
           },
           action: _buildActionAPI(_buildNullableAPI(undefined), getPackageService),
-          uiControl: _buildUIControlAPI(_buildNullableAPI(undefined), getPackageService)
+          uiControl: _buildUIControlAPI(_buildNullableAPI(undefined), getPackageService),
+          backend: _buildBackendAPI(undefined)
         };
 }
 
@@ -318,6 +332,7 @@ export {
   restore ,
   deepCopy ,
   _buildNullableAPI ,
+  _buildBackendAPI ,
   _buildImmutableAPI ,
   _buildActionAPI ,
   _buildUIControlAPI ,
@@ -325,4 +340,4 @@ export {
   registerContribute ,
   buildAPI ,
 }
-/* immutable Not a pure module */
+/* most Not a pure module */

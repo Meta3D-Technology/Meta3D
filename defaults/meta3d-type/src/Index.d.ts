@@ -1,4 +1,4 @@
-import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 // import { contributeType } from "./contribute/ContributeType"
 import type { List, Map } from "immutable"
 
@@ -34,6 +34,36 @@ export type nullableAPI = {
   getEmpty: <data>() => nullable<data>;
 };
 
+type env = "local" | "production"
+
+type onUploadProgressFunc = (progress: number) => void
+
+type appName = string
+
+type account = string
+
+type description = string
+
+type previewBase64 = string
+
+type isRecommend = boolean
+
+type publishFinalApp = (
+  onUploadProgressFunc: onUploadProgressFunc,
+  contentBinaryFile: ArrayBuffer,
+  singleEventBinaryFile: ArrayBuffer,
+  appName: appName,
+  account: account,
+  description: description,
+  previewBase64: strictNullable<previewBase64>,
+  isRecommend: isRecommend,
+) => Promise<void>
+
+export type backendAPI = {
+  init: (env) => Promise<void>,
+  publishFinalApp: publishFinalApp,
+}
+
 // tslint:disable-next-line:interface-over-type-literal
 export type immutableAPI = {
   createList: <T>() => List<T>;
@@ -64,7 +94,8 @@ export type api = {
   nullable: nullableAPI;
   immutable: immutableAPI;
   action: actionAPI;
-  uiControl: uiControlAPI
+  uiControl: uiControlAPI,
+  backend: backendAPI
 };
 
 // tslint:disable-next-line:interface-over-type-literal

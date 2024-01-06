@@ -2,6 +2,7 @@ import { Stream } from "most";
 import * as MarketService from "./application_layer/market/MarketService"
 import * as LoginService from "./application_layer/user/LoginService"
 import * as PublishAppService from "./application_layer/publish/PublishAppService"
+import * as PublishFinalAppService from "./application_layer/publish/PublishFinalAppService"
 // import * as GetElementDataService from "./application_layer/assemble_space/element_assemble/GetElementDataService"
 // import * as PublishElementContributeService from "./application_layer/assemble_space/element_assemble/PublishElementContributeService"
 import * as PublishPackageService from "./application_layer/publish/PublishPackageService"
@@ -41,6 +42,18 @@ export let findAllPublishAppsByAccount = PublishAppService.findAllPublishAppsByA
 export let findAllPublishApps = PublishAppService.findAllPublishApps
 
 export let findAllRecommendPublishApps = PublishAppService.findAllRecommendPublishApps
+
+
+export let publishFinalApp = PublishFinalAppService.publish
+
+export let findPublishFinalApp = PublishFinalAppService.findPublishFinalApp
+
+export let findAllPublishFinalAppsByAccount = PublishFinalAppService.findAllPublishFinalAppsByAccount
+
+export let findAllPublishFinalApps = PublishFinalAppService.findAllPublishFinalApps
+
+export let findAllRecommendPublishFinalApps = PublishFinalAppService.findAllRecommendPublishFinalApps
+
 
 // export let getAllPublishNewestData = GetElementDataService.getAllPublishNewestData
 

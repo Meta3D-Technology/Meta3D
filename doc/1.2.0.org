@@ -115,25 +115,122 @@ Meta3d add 发布的应用
 
 
 
-** TODO add publish to platform action
+** DONE add publish to platform action
 
 TODO upload published local zip file
+
+    type change to arraybuffer
+    extract utils
+
 
 TODO upload single event
 
 
-TODO complete editor: add new publish to menu
+
+TODO run visual:
+read store to get env, pass to editor-whole extension
+    send to onInit
 
 
-** TODO platform: rename app/App to editor/Editor
+TODO run after publish:
+read file to get env, pass to editor-whole extension
+    send to onStart
 
 
-** TODO platform: add ShowPublishedApps
+extension's state add env
+
+
+
+
+
+
+
+# ** TODO platform: rename app/App to editor/Editor
+
+
+
+
+** DONE platform: mark publish to platform as uneditable action
+
+** DONE complete editor: add new publish to menu
+
+    publish with randowm appName and description
+    two file ID: contentFileID, singleEventFileID
+
+
+
+** DONE pass run test
+
+
+TODO encapulate backend api
+
+
+
+
+TODO run test:
+run visual->publish to platform
+    nullable backend app
+
+publish editor->run editor->publish to platform
+
+
+
+TODO commit
+
+# ** TODO platform: add ShowPublishedApps
+** TODO platform: add ShowPublishedFinalApps as ShowPublishedApps
 
 TODO support run app
 
 TODO support download single event
 
+
+TODO show Recommended, All
+
+
+TODO handle cache
+
+
+** TODO platform: UserCenter add my published final apps
+
+
+
+
+** TODO ui control: add Modal
+
+** TODO editor: publish to platform use Modal
+
+** TODO editor: publish local use Modal
+
+
+** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
+
+
+** TODO publish success should give success message
+
+1.api add message api: throw error with meesage info
+2.run visual, enter app should catch error and parse and use antd message to message
+
+** TODO ui control: add Message to show info
+e.g. show publish progress
+
+
+
+** TODO pass bdd test
+
+
+** TODO pass run test
+
+TODO need publish:
+editor-whole e,p
+event-data e,p
+
+
+
+
+TODO need update packages:
+event
+editor-whole
 
 
 * TODO 完善ui control
@@ -169,7 +266,7 @@ show Modal
 
 
 
-** TODO add Debug
+# ** TODO add Debug
 
 
 
@@ -190,3 +287,10 @@ show Modal
 * TODO 3D贪吃蛇
 
 Snake, Scene use gltf model!
+
+
+
+
+* TODO update production
+
+TODO add publishedfinalApps, finalApps

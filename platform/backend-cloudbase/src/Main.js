@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
+exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publishFinalApp = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("meta3d-fp/src/Curry");
 const BackendService_1 = require("./application_layer/BackendService");
@@ -81,9 +81,30 @@ let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPublishApps(
 exports.findAllPublishApps = findAllPublishApps;
 let findAllRecommendPublishApps = () => Abstract.findAllRecommendPublishApps(BackendService_1.getDataWithWhereData);
 exports.findAllRecommendPublishApps = findAllRecommendPublishApps;
-let _throwError = (msg) => {
-    throw new Error(msg);
-};
+let publishFinalApp = (onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend) => Abstract.publishFinalApp([
+    onUploadProgressFunc,
+    BackendService_1.uploadFile,
+    BackendService_1.deleteFile,
+    BackendService_1.getDataByKey,
+    BackendService_1.addData,
+    BackendService_1.updateData,
+    BackendService_1.getFileID,
+], contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend);
+exports.publishFinalApp = publishFinalApp;
+let findPublishFinalApp = (onDownloadProgressFunc, account, appName, fileType, notUseCacheForFindFinalApp) => Abstract.findPublishFinalApp([
+    BackendService_1.getDataByKey,
+    (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
+], account, appName, fileType, notUseCacheForFindFinalApp);
+exports.findPublishFinalApp = findPublishFinalApp;
+let findAllPublishFinalAppsByAccount = (account) => Abstract.findAllPublishFinalAppsByAccount(BackendService_1.getDataWithWhereData, account);
+exports.findAllPublishFinalAppsByAccount = findAllPublishFinalAppsByAccount;
+let findAllPublishFinalApps = (limitCount, skipCount) => Abstract.findAllPublishFinalApps(BackendService_1.getData, limitCount, skipCount);
+exports.findAllPublishFinalApps = findAllPublishFinalApps;
+let findAllRecommendPublishFinalApps = () => Abstract.findAllRecommendPublishFinalApps(BackendService_1.getDataWithWhereData);
+exports.findAllRecommendPublishFinalApps = findAllRecommendPublishFinalApps;
+// let _throwError = (msg: string): never => {
+//     throw new Error(msg)
+// }
 // export let publishElementContribute = (
 //     onUploadProgressFunc,
 //     account,

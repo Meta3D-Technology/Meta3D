@@ -5,19 +5,19 @@ module.exports = {
 	entry: "./src/Main.ts",
 	mode: process.env.NODE_ENV.trim() == 'production' ? 'production' : 'development',
 	output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'static/js/[name].js',
-        library: {
-            name: 'Extension',
-            type: 'window',
-        },
-    },
+		path: path.resolve(__dirname, 'dist'),
+		filename: 'static/js/[name].js',
+		library: {
+			name: 'Extension',
+			type: 'window',
+		},
+	},
 
 	// Enable sourcemaps for debugging webpack's output.
 	// devtool: "source-map",
 
 	resolve: {
-		extensions: ['.ts', '.tsx', '.Extensionjs', '.jsx', '.scss'],
+		extensions: ['.ts', '.tsx', '.Extensionjs', '.jsx', '.js', '.scss'],
 		modules: ['node_modules']
 	},
 

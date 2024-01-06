@@ -6,8 +6,10 @@ type fileOption = {
     binary: boolean
 }
 
+export type generateOptionType = "blob" | "arraybuffer"
+
 type generateOption = {
-    type: "blob"
+    type: generateOptionType
 }
 
 export type service = {

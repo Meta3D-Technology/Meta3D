@@ -82,6 +82,40 @@ type nullableAPI = {
   getEmpty: 'data. unit => Js.Nullable.t<'data>,
 }
 
+type env = [#local | #production]
+
+type onUploadProgressFunc = int => unit
+
+type appName = string
+
+type account = string
+
+type description = string
+
+type previewBase64 = string
+
+type isRecommend = bool
+
+type init = (. env) => Js.Promise.t<unit>
+
+type publishFinalApp = (
+  . onUploadProgressFunc,
+  Js.Typed_array.ArrayBuffer.t,
+  Js.Typed_array.ArrayBuffer.t,
+  appName,
+  account,
+  description,
+  Js.Nullable.t<previewBase64>,
+  // useCount,
+  isRecommend,
+) => // ) => Meta3dBsMostDefault.Most.stream<unit>
+Js.Promise.t<unit>
+
+type backendAPI = {
+  init: init,
+  publishFinalApp: publishFinalApp,
+}
+
 type list
 
 type arrayData
@@ -148,6 +182,7 @@ type api = {
   immutable: immutableAPI,
   action: actionAPI,
   uiControl: uiControlAPI,
+  backend: backendAPI,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

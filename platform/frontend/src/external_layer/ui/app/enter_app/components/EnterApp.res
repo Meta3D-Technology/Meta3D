@@ -19,6 +19,14 @@ let make = (~service: FrontendType.service) => {
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   let (isDownloadFinish, setIsDownloadFinish) = React.useState(_ => false)
 
+  let _addEnvToStartConfigData = ((meta3dState, startPackageProtocolName, configData)) => {
+    let (canvasData, configData) = configData->Obj.magic
+
+    configData["env"] = EnvUtils.getEnv()
+
+    (meta3dState, startPackageProtocolName, (canvasData, configData))
+  }
+
   React.useEffect1(() => {
     MessageUtils.showCatchedErrorMessage(() => {
       let account = UrlSearchUtils.get(url.search, "account")
@@ -97,6 +105,7 @@ let make = (~service: FrontendType.service) => {
                       },
                       _,
                     )
+                    ->_addEnvToStartConfigData
                     ->Meta3d.Main.startApp
                   }
             },

@@ -6,7 +6,8 @@ import * as ExportEventData$Meta3dEventData from "./ExportEventData.bs.js";
 function getExtensionService(api) {
   return {
           parseEventData: ParseEventData$Meta3dEventData.parse,
-          exportEventData: ExportEventData$Meta3dEventData.$$export
+          exportEventData: ExportEventData$Meta3dEventData.$$export,
+          generateEventDataBuffer: ExportEventData$Meta3dEventData.generateEventDataBuffer
         };
 }
 

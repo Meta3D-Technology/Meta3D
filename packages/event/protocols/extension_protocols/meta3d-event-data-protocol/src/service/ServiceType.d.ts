@@ -4,4 +4,6 @@ export type service = {
     parseEventData: (eventData: ArrayBuffer) => Array<eventData<Array<singleInputData>>>
     // exportEventData: (allEvents: Array<eventData<Array<singleInputData>>>, filename: string, extension: string) => void,
     exportEventData: (allEvents: Array<eventData<Array<singleInputData>>>) => void,
+    generateEventDataBuffer: (allEvents: Array<eventData<Array<singleInputData>>>) => ArrayBuffer,
+
 }

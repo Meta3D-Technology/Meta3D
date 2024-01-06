@@ -178,9 +178,52 @@ export let findAllRecommendPublishApps = (
     getDataWithWhereData
 )
 
-let _throwError = (msg: string): never => {
-    throw new Error(msg)
-}
+
+export let publishFinalApp = (onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description,
+    previewBase64, isRecommend
+) => Abstract.publishFinalApp([
+    onUploadProgressFunc,
+    uploadFile,
+    deleteFile,
+    getDataByKey,
+    addData,
+    updateData,
+    getFileID,
+],
+    contentBinaryFile, singleEventBinaryFile, appName, account,
+    description,
+    previewBase64, isRecommend
+)
+
+export let findPublishFinalApp = (onDownloadProgressFunc, account, appName, fileType, notUseCacheForFindFinalApp) => Abstract.findPublishFinalApp([
+    getDataByKey,
+    curry3_1(downloadFile)(onDownloadProgressFunc)
+],
+    account, appName, fileType, notUseCacheForFindFinalApp
+)
+
+export let findAllPublishFinalAppsByAccount = (account) => Abstract.findAllPublishFinalAppsByAccount(
+    getDataWithWhereData,
+    account
+)
+
+export let findAllPublishFinalApps = (
+    limitCount,
+    skipCount,
+) => Abstract.findAllPublishFinalApps(
+    getData,
+    limitCount,
+    skipCount,
+)
+
+export let findAllRecommendPublishFinalApps = (
+) => Abstract.findAllRecommendPublishFinalApps(
+    getDataWithWhereData
+)
+
+// let _throwError = (msg: string): never => {
+//     throw new Error(msg)
+// }
 
 // export let publishElementContribute = (
 //     onUploadProgressFunc,

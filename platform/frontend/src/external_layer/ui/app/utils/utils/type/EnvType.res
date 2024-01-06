@@ -1,1 +1,1 @@
-type env = [#local | #production]
+type env = Meta3dType.Index.env

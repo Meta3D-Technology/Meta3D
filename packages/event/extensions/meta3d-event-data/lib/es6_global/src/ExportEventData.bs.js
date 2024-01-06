@@ -75,11 +75,18 @@ function $$export(allEvents) {
   }
 }
 
+function generateEventDataBuffer(allEvents) {
+  return _generateEventDataBuffer((function (prim) {
+                return Math.random();
+              }), allEvents);
+}
+
 export {
   _generateId ,
   _isArrayBuffer ,
   _isOutsideImmutableData ,
   _generateEventDataBuffer ,
   $$export ,
+  generateEventDataBuffer ,
 }
 /* No side effect */

@@ -220,6 +220,32 @@ let _buildNullableAPI = (): Meta3dType.Index.nullableAPI => {
   getEmpty: Meta3dCommonlib.NullableSt.getEmpty,
 }
 
+let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
+  init: (. env) => BackendCloudbase.init(. env)->Meta3dBsMostDefault.Most.drain,
+  publishFinalApp: (.
+    onUploadProgressFunc,
+    contentBinaryFile,
+    singleEventBinaryFile,
+    appName,
+    account,
+    description,
+    previewBase64,
+    isRecommend,
+  ) =>
+    BackendCloudbase.publishFinalApp(.
+      onUploadProgressFunc,
+      contentBinaryFile,
+      singleEventBinaryFile,
+      appName,
+      account,
+      description,
+      previewBase64,
+      isRecommend,
+    )->Meta3dBsMostDefault.Most.drain,
+  // init:  BackendCloudbase.init,
+  // publishFinalApp: BackendCloudbase.publishFinalApp,
+}
+
 let _buildImmutableAPI = (): Meta3dType.Index.immutableAPI => {
   // createList: %raw(`
   // function (state){
@@ -411,6 +437,7 @@ and buildAPI = (): api => {
     restore(currentExtensionState, targetExtensionState),
   deepCopy: (. extensionState) => deepCopy(extensionState),
   nullable: _buildNullableAPI(),
+  backend: _buildBackendAPI(),
   immutable: _buildImmutableAPI(),
   action: _buildActionAPI(_buildNullableAPI(), (. state, protocolName) =>
     getPackageService(state, protocolName)->Obj.magic

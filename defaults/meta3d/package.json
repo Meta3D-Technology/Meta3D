@@ -23,6 +23,7 @@
         "immutable": "^4.0.0-rc.12",
         "meta3d-commonlib": "^1.1.0",
         "meta3d-commonlib-type": "^1.1.0",
+        "meta3d-bs-most-default": "^1.1.0",
         "meta3d-type": "^1.1.0",
         "rescript": "^10.0.1",
         "semver": "7.3.7"
