@@ -1,9 +1,3 @@
-export type fileType = "content" | "singleEvent"
+import { publishAppInfo } from "./PublishAppType";
 
-export type publishFinalAppInfo = {
-    account: string,
-    appName: string,
-    description: string,
-    contentFileID: string,
-    singleEventFileID: string,
-}
+export type publishFinalAppInfo = publishAppInfo

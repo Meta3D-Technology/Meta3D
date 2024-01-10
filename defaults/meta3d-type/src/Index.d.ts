@@ -50,8 +50,8 @@ type isRecommend = boolean
 
 type publishFinalApp = (
   onUploadProgressFunc: onUploadProgressFunc,
-  contentBinaryFile: ArrayBuffer,
-  singleEventBinaryFile: ArrayBuffer,
+  sceneGLB: ArrayBuffer,
+  // singleEventBinaryFile: ArrayBuffer,
   appName: appName,
   account: account,
   description: description,

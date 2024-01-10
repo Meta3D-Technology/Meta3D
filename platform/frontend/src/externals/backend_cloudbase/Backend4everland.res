@@ -66,13 +66,27 @@ external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPubl
 external findAllRecommendPublishApps: findAllRecommendPublishApps = "findAllRecommendPublishApps"
 
 // @module("backend-4everland")
+// external publishFinalApp: publishFinalApp = "publishFinalApp"
+
+@module("backend-4everland")
+external findPublishFinalApp: findPublishFinalApp = "findPublishFinalApp"
+
+@module("backend-4everland")
+external findAllPublishFinalApps: findAllPublishFinalApps = "findAllPublishFinalApps"
+
+@module("backend-4everland")
+external findAllPublishFinalAppsByAccount: findAllPublishFinalAppsByAccount =
+  "findAllPublishFinalAppsByAccount"
+
+@module("backend-4everland")
+external findAllRecommendPublishFinalApps: findAllRecommendPublishFinalApps =
+  "findAllRecommendPublishFinalApps"
+
+// @module("backend-4everland")
 // external publishElementContribute: publishElementContribute = "publishElementContribute"
 
 // @module("backend-4everland")
 // external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
-
-@module("backend-4everland")
-external publishApp: publishApp = "publishApp"
 
 // @module("backend-4everland")
 // external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
@@ -133,10 +147,14 @@ let buildFrontendService = (): FrontendType.backendService => {
     findAllPublishApps,
     findAllPublishAppsByAccount,
     findAllRecommendPublishApps,
+    findPublishApp,
+    findAllPublishFinalApps,
+    findAllPublishFinalAppsByAccount,
+    findAllRecommendPublishFinalApps,
+    findPublishFinalApp,
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,
     findPublishPackage,
-    findPublishApp,
     // findAllElementAssembleData,
     findNewestPublishPackage,
     findNewestPublishContribute,

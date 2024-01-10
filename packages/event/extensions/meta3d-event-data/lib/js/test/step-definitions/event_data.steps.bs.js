@@ -7,7 +7,7 @@ var JestCucumber = require("jest-cucumber");
 var FileTool$Meta3dEventData = require("../tool/FileTool.bs.js");
 var Operators$Meta3dBsJestCucumber = require("meta3d-bs-jest-cucumber/lib/js/src/Operators.bs.js");
 var ParseEventData$Meta3dEventData = require("../../src/ParseEventData.bs.js");
-var ExportEventData$Meta3dEventData = require("../../src/ExportEventData.bs.js");
+var ExportEventData$Meta3dEventDataUtils = require("meta3d-event-data-utils/lib/js/src/ExportEventData.bs.js");
 
 var feature = JestCucumber.loadFeature("./test/features/event_data.feature");
 
@@ -52,7 +52,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                 Curry._2(param.and, "generate event data buffer as b1", (function (param) {
                         var randomStub = Sinon.createEmptyStubWithJsObjSandbox(sandbox);
                         Sinon.returns(22, randomStub);
-                        b1.contents = ExportEventData$Meta3dEventData._generateEventDataBuffer(randomStub, allEvents.contents);
+                        b1.contents = ExportEventData$Meta3dEventDataUtils._generateEventDataBuffer(randomStub, allEvents.contents);
                       }));
                 Curry._2(param.when, "parse b1", (function (param) {
                         result.contents = ParseEventData$Meta3dEventData.parse(b1.contents);

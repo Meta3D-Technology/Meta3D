@@ -166,8 +166,8 @@ function _buildBackendAPI(param) {
           init: (function (env) {
               return Most.drain(BackendCloudbase.init(env));
             }),
-          publishFinalApp: (function (onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend) {
-              return Most.drain(BackendCloudbase.publishFinalApp(onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend));
+          publishFinalApp: (function (onUploadProgressFunc, sceneGLB, appName, account, description, previewBase64, isRecommend) {
+              return Most.drain(BackendCloudbase.publishFinalApp(onUploadProgressFunc, sceneGLB, appName, account, description, previewBase64, isRecommend));
             })
         };
 }

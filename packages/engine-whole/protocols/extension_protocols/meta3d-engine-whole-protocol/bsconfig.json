@@ -1,5 +1,5 @@
 {
-    "name": "meta3d-editor-whole-protocol",
+    "name": "meta3d-engine-whole-protocol",
     "sources": [
         {
             "dir": "src",
@@ -12,27 +12,12 @@
     ],
     "bs-dev-dependencies": [],
     "bs-dependencies": [
-        "meta3d-type",
-        "meta3d-commonlib-type",
-        "meta3d-ui-protocol",
-        "meta3d-event-protocol"
+        "meta3d-type"
     ],
     "package-specs": [
         "commonjs",
         "es6-global"
     ],
-    "gentypeconfig": {
-        "language": "typescript",
-        "shims": {
-            "Js": "Js"
-        },
-        "module": "es6",
-        "importPath": "relative",
-        "debug": {
-            "all": false
-        },
-        "exportInterfaces": false
-    },
     "suffix": ".bs.js",
     "namespace": true,
     "warnings": {

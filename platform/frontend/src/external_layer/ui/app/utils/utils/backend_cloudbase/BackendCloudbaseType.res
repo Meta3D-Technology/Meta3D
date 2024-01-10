@@ -189,6 +189,35 @@ type findAllRecommendPublishApps = (
   . unit,
 ) => Meta3dBsMostDefault.Most.stream<array<publishAppInfo>>
 
+
+type publishFinalAppInfo = publishAppInfo
+
+type notUseCacheForFindFinalApp = bool
+
+// type fileType = [#content | #singleEvent]
+
+type findPublishFinalApp = (
+  . onDownloadProgressFunc,
+  account,
+  appName,
+  // fileType,
+  notUseCacheForFindFinalApp,
+) => Meta3dBsMostDefault.Most.stream<Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>>
+
+type findAllPublishFinalApps = (
+  . limitCount,
+  skipCount,
+) => Meta3dBsMostDefault.Most.stream<array<publishFinalAppInfo>>
+
+type findAllPublishFinalAppsByAccount = (
+  . account,
+) => Meta3dBsMostDefault.Most.stream<array<publishFinalAppInfo>>
+
+type findAllRecommendPublishFinalApps = (
+  . unit,
+) => Meta3dBsMostDefault.Most.stream<array<publishFinalAppInfo>>
+
+
 // type publishElementContribute = (
 //   . onUploadProgressFunc,
 //   account,

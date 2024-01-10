@@ -54,7 +54,11 @@ defineFeature(feature, test => {
         let randomStub = createEmptyStubWithJsObjSandbox(sandbox)
         randomStub->returns(id1, _)->ignore
 
-        b1 := ExportEventData._generateEventDataBuffer(randomStub, allEvents.contents)
+        b1 :=
+          Meta3dEventDataUtils.ExportEventData._generateEventDataBuffer(
+            randomStub,
+            allEvents.contents,
+          )
       },
     )
 

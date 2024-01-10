@@ -1,13 +1,13 @@
 
 
+import * as Main$Meta3dEventDataUtils from "../../../../../../../node_modules/meta3d-event-data-utils/lib/es6_global/src/Main.bs.js";
 import * as ParseEventData$Meta3dEventData from "./ParseEventData.bs.js";
-import * as ExportEventData$Meta3dEventData from "./ExportEventData.bs.js";
 
 function getExtensionService(api) {
   return {
           parseEventData: ParseEventData$Meta3dEventData.parse,
-          exportEventData: ExportEventData$Meta3dEventData.$$export,
-          generateEventDataBuffer: ExportEventData$Meta3dEventData.generateEventDataBuffer
+          exportEventData: Main$Meta3dEventDataUtils.exportEventData,
+          generateEventDataBuffer: Main$Meta3dEventDataUtils.generateEventDataBuffer
         };
 }
 

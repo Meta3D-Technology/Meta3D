@@ -115,6 +115,7 @@ let _createState = () => {
   // importedAppIds: list{},
   currentAppName: None,
   notUseCacheForFindApp: false,
+// notUseCacheForFindFinalApp:false,
   isInCreateFromScratchTourPhase1: false,
   // isJumpToCreateFromScratchTourPhase1Guide: false,
   isInCreateFromScratchTourPhase3: false,
@@ -347,6 +348,14 @@ let reducer = (state, action) => {
       ...state,
       notUseCacheForFindApp: false,
     }
+  // | MarkNotUseCacheForFindFinalApp => {
+  //     ...state,
+  //     notUseCacheForFindFinalApp: true,
+  //   }
+  // | MarkUseCacheForFindFinalApp => {
+  //     ...state,
+  //     notUseCacheForFindFinalApp: false,
+  //   }
   }
 }
 

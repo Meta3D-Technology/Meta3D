@@ -78,14 +78,25 @@ external findAllPublishAppsByAccount: findAllPublishAppsByAccount = "findAllPubl
 @module("backend-cloudbase")
 external findAllRecommendPublishApps: findAllRecommendPublishApps = "findAllRecommendPublishApps"
 
+@module("backend-cloudbase")
+external findPublishFinalApp: findPublishFinalApp = "findPublishFinalApp"
+
+@module("backend-cloudbase")
+external findAllPublishFinalApps: findAllPublishFinalApps = "findAllPublishFinalApps"
+
+@module("backend-cloudbase")
+external findAllPublishFinalAppsByAccount: findAllPublishFinalAppsByAccount =
+  "findAllPublishFinalAppsByAccount"
+
+@module("backend-cloudbase")
+external findAllRecommendPublishFinalApps: findAllRecommendPublishFinalApps =
+  "findAllRecommendPublishFinalApps"
+
 // @module("backend-cloudbase")
 // external publishElementContribute: publishElementContribute = "publishElementContribute"
 
 // @module("backend-cloudbase")
 // external publishElementAssembleData: publishElementAssembleData = "publishElementAssembleData"
-
-@module("backend-cloudbase")
-external publishApp: publishApp = "publishApp"
 
 // @module("backend-cloudbase")
 // external getAllPublishNewestExtensions: getAllPublishNewestExtensions =
@@ -147,6 +158,10 @@ let buildFrontendService = (): FrontendType.backendService => {
     findAllPublishAppsByAccount,
     findAllRecommendPublishApps,
     findPublishApp,
+    findAllPublishFinalApps,
+    findAllPublishFinalAppsByAccount,
+    findAllRecommendPublishFinalApps,
+    findPublishFinalApp,
     getAllPublishPackageEntryExtensionProtocols,
     getAllPublishPackageInfos,
     findPublishPackage,

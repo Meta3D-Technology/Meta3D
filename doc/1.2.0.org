@@ -178,7 +178,7 @@ publish editor->run editor->publish to platform
 TODO commit
 
 # ** TODO platform: add ShowPublishedApps
-** TODO platform: add ShowPublishedFinalApps as ShowPublishedApps
+** TODO platform: add ShowPublishedFinalApps as ShowPublishedApps, add EnterFinalApp as EnterApp
 
 TODO support run app
 
@@ -188,10 +188,48 @@ TODO support download single event
 TODO show Recommended, All
 
 
-TODO handle cache
+# TODO handle cache
+TODO use no cache
+
+
+
+TODO contentArrayBuffer is just sceneGLB
+
+TODO remove singleEventArrayBuffer
+
+TODO update final app service!
+
+
+** TODO run test
+
+TODO pass compile
+
+TODO need publish:
+publish to platform action
+
+
+TODO run test:
+run final app
+
+export single event
+
+
+
+
+
+
 
 
 ** TODO platform: UserCenter add my published final apps
+
+
+
+** TODO run test
+
+TODO need publish:
+
+
+TODO run test:
 
 
 
@@ -205,11 +243,15 @@ TODO handle cache
 
 ** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
 
+** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
+
 
 ** TODO publish success should give success message
 
-1.api add message api: throw error with meesage info
-2.run visual, enter app should catch error and parse and use antd message to message
+# 1.api add message api: throw error with meesage info
+# 2.run visual, enter app should catch error and parse and use antd message to message
+
+
 
 ** TODO ui control: add Message to show info
 e.g. show publish progress
@@ -231,6 +273,21 @@ event-data e,p
 TODO need update packages:
 event
 editor-whole
+
+
+TODO run test:
+run visual->publish to platform
+
+publish editor->run editor->publish to platform
+
+
+
+* TODO refactor: remove EnterAppStore?
+
+
+
+* TODO fix cache for app and final app: add version and cache: compare version
+
 
 
 * TODO 完善ui control
@@ -280,13 +337,13 @@ show Modal
 
 
 
-* TODO 加入Script
+# * TODO 加入Script
 
 
 
-* TODO 3D贪吃蛇
+# * TODO 3D贪吃蛇
 
-Snake, Scene use gltf model!
+# Snake, Scene use gltf model!
 
 
 
@@ -294,3 +351,17 @@ Snake, Scene use gltf model!
 * TODO update production
 
 TODO add publishedfinalApps, finalApps
+
+
+
+
+* TODO publish
+
+
+
+
+* TODO update qiji 资料
+
+
+* TODO prepare qiji 面试
+

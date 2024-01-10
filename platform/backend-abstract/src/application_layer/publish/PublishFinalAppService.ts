@@ -1,31 +1,24 @@
 import { empty, fromPromise, just, Stream } from "most"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { fileType, publishFinalAppInfo } from "./PublishFinalAppType"
+import { publishFinalAppInfo } from "./PublishFinalAppType"
 import { handleKeyToLowercase } from "meta3d-backend-cloudbase/src/Main"
 
-let _buildFileName = (finalAppName: string, account: string, type: fileType) => account + "_" + finalAppName + "_" + type
+let _buildFileName = (appName: string, account: string) => account + "_" + appName
 
-export let _buildKey = (finalAppName: string, account: string) => handleKeyToLowercase(
-    finalAppName + "_" + account
-)
+export let _buildKey = (appName: string, account: string) => handleKeyToLowercase(_buildFileName(appName, account))
 
 export let publish = (
     [onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc]: [any, any, any, any, any, any, any],
-    contentBinaryFile: ArrayBuffer,
-    singleEventBinaryFile: ArrayBuffer,
-    finalAppName: string, account: string, description: string, previewBase64: nullable<string>,
+    sceneGLB: ArrayBuffer, appName: string, account: string, description: string, previewBase64: nullable<string>,
     // useCount: number,
     isRecommend: boolean) => {
-    let key = _buildKey(finalAppName, account)
+    let key = _buildKey(appName, account)
 
     return fromPromise(getDataByKeyFunc("publishedfinalapps", key)).concatMap((data: Array<publishFinalAppInfo>) => {
-        let contentFileName = _buildFileName(finalAppName, account, "content")
-        let contentFilePath = "finalapps/" + contentFileName + ".arrayBuffer"
-        let singleEventFileName = _buildFileName(finalAppName, account, "singleEvent")
-        let singleEventFilePath = "finalapps/" + singleEventFileName + ".arrayBuffer"
+        let fileName = _buildFileName(appName, account)
+        let filePath = "finalapps/" + fileName + ".arrayBuffer"
         let isExist = false
-        let stream1 = null
-        let stream2 = null
+        let stream = null
 
         if (data.length > 1) {
             throw new Error("count shouldn't > 1")
@@ -33,41 +26,30 @@ export let publish = (
 
         if (data.length == 1) {
             isExist = true
-            stream1 = deleteFileFunc(data[0].contentFileID)
-            stream2 = deleteFileFunc(data[0].singleEventFileID)
+            stream = deleteFileFunc(data[0].fileID)
         }
         else {
             isExist = false
-            stream1 = just(null)
-            stream2 = just(null)
+            stream = just(null)
         }
 
-        return stream1.concatMap(_ => {
-            return uploadFileFunc(onUploadProgressFunc, contentFilePath, contentBinaryFile, contentFileName)
+        return stream.concatMap(_ => {
+            return uploadFileFunc(onUploadProgressFunc, filePath, sceneGLB, fileName)
         }).concatMap((uploadData) => {
-            let contentFileID = getFileIDFunc(uploadData, contentFilePath)
+            let fileID = getFileIDFunc(uploadData, filePath)
 
-            return stream2.concatMap(_ => {
-                return uploadFileFunc(onUploadProgressFunc, singleEventFilePath, singleEventBinaryFile, singleEventFileName)
-            }).concatMap((uploadData) => {
-                return just([
-                    contentFileID,
-                    getFileIDFunc(uploadData, singleEventFilePath)
-                ])
-            })
-        }).concatMap(([contentFileID, singleEventFileID]) => {
             if (isExist) {
                 return fromPromise(updateDataFunc(
                     "publishedfinalapps",
                     key,
                     {
                         account,
-                        finalAppName,
+                        appName,
                         description,
                         previewBase64,
                         // useCount,
                         isRecommend,
-                        contentFileID, singleEventFileID
+                        fileID
                     }
                 ))
             }
@@ -76,45 +58,32 @@ export let publish = (
                 key,
                 {
                     account,
-                    finalAppName,
+                    appName,
                     description,
                     previewBase64,
                     // useCount,
                     isRecommend,
-                    contentFileID, singleEventFileID
+                    fileID
                 }))
         })
     })
 }
 
-// export let enterFinalApp = (contentBinaryFile: ArrayBuffer) => {
-// 	// TODO open new url with ?account, finalAppName
+// export let enterFinalApp = (sceneGLB: ArrayBuffer) => {
+// 	// TODO open new url with ?account, appName
 
-// 	// let _meta3DState = loadFinalApp(_findFinalAppBinaryFile(account, finalAppName))
-// 	let _meta3DState = loadFinalApp(contentBinaryFile)
+// 	// let _meta3DState = loadFinalApp(_findFinalAppBinaryFile(account, appName))
+// 	let _meta3DState = loadFinalApp(sceneGLB)
 // }
 
 
-export let findPublishFinalApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], account: string, finalAppName: string,
-    fileType: fileType,
-    notUseCacheForFindFinalApp: boolean): Stream<nullable<ArrayBuffer>> => {
-    return fromPromise(getDataByKeyFunc("publishedfinalapps", _buildKey(finalAppName, account))).flatMap((data: Array<publishFinalAppInfo>) => {
+export let findPublishFinalApp = ([getDataByKeyFunc, downloadFileFunc]: [any, any], account: string, appName: string, notUseCacheForFindFinalApp: boolean): Stream<nullable<ArrayBuffer>> => {
+    return fromPromise(getDataByKeyFunc("publishedfinalapps", _buildKey(appName, account))).flatMap((data: any) => {
         if (data.length === 0) {
             return just(null)
         }
 
-        let fileID = null
-
-        switch (fileType) {
-            case "content":
-                fileID = data[0].contentFileID
-                break;
-            case "singleEvent":
-                fileID = data[0].singleEventFileID
-                break;
-        }
-
-        return downloadFileFunc(fileID, notUseCacheForFindFinalApp)
+        return downloadFileFunc(data[0].fileID, notUseCacheForFindFinalApp)
     })
 }
 
@@ -126,10 +95,10 @@ export let findAllPublishFinalAppsByAccount = (
             return just([])
         }
 
-        // return just(data.map(({ account, finalAppName, description }) => {
+        // return just(data.map(({ account, appName, description }) => {
         //     return {
         //         account,
-        //         finalAppName,
+        //         appName,
         //         description
         //     }
         // }))
@@ -147,10 +116,10 @@ export let findAllPublishFinalApps = (
             return just([])
         }
 
-        // return just(data.map(({ account, finalAppName, description }) => {
+        // return just(data.map(({ account, appName, description }) => {
         //     return {
         //         account,
-        //         finalAppName,
+        //         appName,
         //         description
         //     }
         // }))

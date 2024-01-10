@@ -179,7 +179,7 @@ export let findAllRecommendPublishApps = (
 )
 
 
-export let publishFinalApp = (onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description,
+export let publishFinalApp = (onUploadProgressFunc, sceneGLB, appName, account, description,
     previewBase64, isRecommend
 ) => Abstract.publishFinalApp([
     onUploadProgressFunc,
@@ -190,16 +190,16 @@ export let publishFinalApp = (onUploadProgressFunc, contentBinaryFile, singleEve
     updateData,
     getFileID,
 ],
-    contentBinaryFile, singleEventBinaryFile, appName, account,
+    sceneGLB, appName, account,
     description,
     previewBase64, isRecommend
 )
 
-export let findPublishFinalApp = (onDownloadProgressFunc, account, appName, fileType, notUseCacheForFindFinalApp) => Abstract.findPublishFinalApp([
+export let findPublishFinalApp = (onDownloadProgressFunc, account, appName, notUseCacheForFindFinalApp) => Abstract.findPublishFinalApp([
     getDataByKey,
     curry3_1(downloadFile)(onDownloadProgressFunc)
 ],
-    account, appName, fileType, notUseCacheForFindFinalApp
+    account, appName, notUseCacheForFindFinalApp
 )
 
 export let findAllPublishFinalAppsByAccount = (account) => Abstract.findAllPublishFinalAppsByAccount(

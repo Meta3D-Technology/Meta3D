@@ -224,8 +224,7 @@ let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
   init: (. env) => BackendCloudbase.init(. env)->Meta3dBsMostDefault.Most.drain,
   publishFinalApp: (.
     onUploadProgressFunc,
-    contentBinaryFile,
-    singleEventBinaryFile,
+    sceneGLB,
     appName,
     account,
     description,
@@ -234,8 +233,7 @@ let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
   ) =>
     BackendCloudbase.publishFinalApp(.
       onUploadProgressFunc,
-      contentBinaryFile,
-      singleEventBinaryFile,
+      sceneGLB,
       appName,
       account,
       description,

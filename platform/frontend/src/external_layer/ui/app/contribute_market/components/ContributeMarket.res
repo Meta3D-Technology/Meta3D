@@ -87,7 +87,7 @@ let make = (~service: FrontendType.service, ~account) => {
 
   <Layout>
     <Layout.Header>
-      <Nav currentKey="4" account={account} />
+      <Nav currentKey="5" account={account} />
     </Layout.Header>
     <Layout.Content>
       {!isLoaded

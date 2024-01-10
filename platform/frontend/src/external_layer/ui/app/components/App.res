@@ -369,6 +369,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     MessageUtils.showCatchedErrorMessage(() => {
       switch url.path {
       | list{"EnterApp"}
+      | list{"EnterFinalApp"}
       | list{"RunElementVisual"} => ()
       | _ =>
         idleTasks.current = list{
@@ -538,10 +539,14 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"ShowPublishedApps"} => Method.judgeToJumpToLogin(() => {
         <ShowPublishedApps service account />
       }, account, service)
+    | list{"ShowPublishedFinalApps"} => Method.judgeToJumpToLogin(() => {
+        <ShowPublishedFinalApps service account />
+      }, account, service)
 
     // | list{"ShowPublishedElements"} =>
     //   Method.judgeToJumpToLogin(() => <ShowPublishedElements service />, account, service)
     | list{"EnterApp"} => <EnterApp service />
+    | list{"EnterFinalApp"} => <EnterFinalApp service />
     | list{"RunElementVisual"} => <RunElementVisual service={_buildAssembleSpaceService()} />
     | list{"CreateFromScratchGuideBeginInUserCenter"} => Method.judgeToJumpToLogin(() => {
         <CreateFromScratchGuideBeginInUserCenter account />

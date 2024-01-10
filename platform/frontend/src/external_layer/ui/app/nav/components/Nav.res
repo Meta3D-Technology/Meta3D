@@ -25,9 +25,10 @@ let make = (
         onClick={({key}) => {
           switch key {
           | "2" => RescriptReactRouter.push("/ShowPublishedApps")
-          | "3" => RescriptReactRouter.push("/ExtensionMarket")
-          | "4" => RescriptReactRouter.push("/ContributeMarket")
-          | "5" => RescriptReactRouter.push("/PackageMarket")
+          | "3" => RescriptReactRouter.push("/ShowPublishedFinalApps")
+          | "4" => RescriptReactRouter.push("/ExtensionMarket")
+          | "5" => RescriptReactRouter.push("/ContributeMarket")
+          | "6" => RescriptReactRouter.push("/PackageMarket")
           | "1"
           | _ =>
             RescriptReactRouter.push("/")
@@ -45,14 +46,18 @@ let make = (
               },
               {
                 key: "3",
-                label: {React.string(`扩展市场`)},
+                label: {React.string(`发布的应用`)},
               },
               {
                 key: "4",
-                label: {React.string(`贡献市场`)},
+                label: {React.string(`扩展市场`)},
               },
               {
                 key: "5",
+                label: {React.string(`贡献市场`)},
+              },
+              {
+                key: "6",
                 label: {React.string(`包市场`)},
               },
             ]
@@ -64,6 +69,10 @@ let make = (
               {
                 key: "2",
                 label: {React.string(`发布的编辑器`)},
+              },
+              {
+                key: "3",
+                label: {React.string(`发布的应用`)},
               },
             ]}
       />

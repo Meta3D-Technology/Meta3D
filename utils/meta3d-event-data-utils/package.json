@@ -1,0 +1,17 @@
+{
+    "name": "meta3d-event-data-utils",
+    "version": "1.1.0",
+    "license": "MIT",
+    "main": "lib/js/src/Main.bs.js",
+    "types": "src/Main.d.ts",
+    "scripts": {
+        "watch": "rescript clean && rescript build -w"
+    },
+    "keywords": [],
+    "dependencies": {
+        "meta3d-editor-whole-protocol": "^1.1.0",
+        "meta3d-type": "^1.1.0",
+        "rescript": "^10.0.1"
+    },
+    "devDependencies": {}
+}

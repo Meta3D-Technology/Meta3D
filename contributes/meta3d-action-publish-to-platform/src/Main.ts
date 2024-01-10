@@ -4,9 +4,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { uiData, actionName, state } from "meta3d-action-publish-to-platform-protocol"
 import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 import { eventName, inputData } from "meta3d-action-publish-to-platform-protocol/src/EventType"
-import { getContent } from "meta3d-action-publish-utils/src/Main"
-import { getSingleEventAllEvents } from "meta3d-action-export-single-event-utils/src/Main"
-import { publishFinalApp } from "backend-cloudbase"
+// import { getSingleEventAllEvents } from "meta3d-action-export-single-event-utils/src/Main"
 import { strictNullable } from "meta3d-commonlib-ts/src/nullable"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -26,7 +24,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let isRecommend = true
                     // let { env } = api.getExtensionState<editorWholeState>(meta3dState, "meta3d-editor-whole-protocol")
 
-                    let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
+                    // let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
 
                     if (api.nullable.getWithDefault(api.nullable.map(runState => runState.isRun, api.action.getActionState<runState>(meta3dState, runActionName)), false)) {
                         console.warn("can't publish when run")
@@ -36,18 +34,26 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         }))
                     }
 
-                    return getContent(api, meta3dState, "arraybuffer")
-                        .then(contentArrayBuffer => {
-                            return getSingleEventAllEvents(api, meta3dState).then(allEvents => {
-                                let singleEventDataBuffer = editorWholeService.event(meta3dState).eventData(meta3dState).generateEventDataBuffer(allEvents as any)
+                    return (new Promise((resolve, reject) => {
+                        return api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).exportScene([(glb: ArrayBuffer) => {
+                            resolve(glb)
+                        }, (err) => {
+                            throw err
+                        }], meta3dState)
+                    }) as Promise<ArrayBuffer>)
+                        // .then(sceneGLB => {
 
-                                return [contentArrayBuffer, singleEventDataBuffer]
-                            })
-                        }).then(([contentArrayBuffer, singleEventDataBuffer]) => {
+                        //     return getSingleEventAllEvents(api, meta3dState).then(allEvents => {
+                        //         let singleEventDataBuffer = editorWholeService.event(meta3dState).eventData(meta3dState).generateEventDataBuffer(allEvents as any)
+
+                        //         return [sceneGLB, singleEventDataBuffer]
+                        //     })
+                        // })
+                        // .then(([sceneGLB, singleEventDataBuffer]) => {
+                        .then((sceneGLB) => {
                             return api.backend.publishFinalApp(
                                 console.log,
-                                contentArrayBuffer,
-                                singleEventDataBuffer,
+                                sceneGLB,
                                 appName,
                                 account,
                                 description,

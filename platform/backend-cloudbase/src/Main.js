@@ -81,7 +81,7 @@ let findAllPublishApps = (limitCount, skipCount) => Abstract.findAllPublishApps(
 exports.findAllPublishApps = findAllPublishApps;
 let findAllRecommendPublishApps = () => Abstract.findAllRecommendPublishApps(BackendService_1.getDataWithWhereData);
 exports.findAllRecommendPublishApps = findAllRecommendPublishApps;
-let publishFinalApp = (onUploadProgressFunc, contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend) => Abstract.publishFinalApp([
+let publishFinalApp = (onUploadProgressFunc, sceneGLB, appName, account, description, previewBase64, isRecommend) => Abstract.publishFinalApp([
     onUploadProgressFunc,
     BackendService_1.uploadFile,
     BackendService_1.deleteFile,
@@ -89,12 +89,12 @@ let publishFinalApp = (onUploadProgressFunc, contentBinaryFile, singleEventBinar
     BackendService_1.addData,
     BackendService_1.updateData,
     BackendService_1.getFileID,
-], contentBinaryFile, singleEventBinaryFile, appName, account, description, previewBase64, isRecommend);
+], sceneGLB, appName, account, description, previewBase64, isRecommend);
 exports.publishFinalApp = publishFinalApp;
-let findPublishFinalApp = (onDownloadProgressFunc, account, appName, fileType, notUseCacheForFindFinalApp) => Abstract.findPublishFinalApp([
+let findPublishFinalApp = (onDownloadProgressFunc, account, appName, notUseCacheForFindFinalApp) => Abstract.findPublishFinalApp([
     BackendService_1.getDataByKey,
     (0, Curry_1.curry3_1)(BackendService_1.downloadFile)(onDownloadProgressFunc)
-], account, appName, fileType, notUseCacheForFindFinalApp);
+], account, appName, notUseCacheForFindFinalApp);
 exports.findPublishFinalApp = findPublishFinalApp;
 let findAllPublishFinalAppsByAccount = (account) => Abstract.findAllPublishFinalAppsByAccount(BackendService_1.getDataWithWhereData, account);
 exports.findAllPublishFinalAppsByAccount = findAllPublishFinalAppsByAccount;

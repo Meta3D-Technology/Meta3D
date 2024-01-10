@@ -3,91 +3,68 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publish = exports._buildKey = void 0;
 const most_1 = require("most");
 const Main_1 = require("meta3d-backend-cloudbase/src/Main");
-let _buildFileName = (finalAppName, account, type) => account + "_" + finalAppName + "_" + type;
-let _buildKey = (finalAppName, account) => (0, Main_1.handleKeyToLowercase)(finalAppName + "_" + account);
+let _buildFileName = (appName, account) => account + "_" + appName;
+let _buildKey = (appName, account) => (0, Main_1.handleKeyToLowercase)(_buildFileName(appName, account));
 exports._buildKey = _buildKey;
-let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], contentBinaryFile, singleEventBinaryFile, finalAppName, account, description, previewBase64, 
+let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], sceneGLB, appName, account, description, previewBase64, 
 // useCount: number,
 isRecommend) => {
-    let key = (0, exports._buildKey)(finalAppName, account);
+    let key = (0, exports._buildKey)(appName, account);
     return (0, most_1.fromPromise)(getDataByKeyFunc("publishedfinalapps", key)).concatMap((data) => {
-        let contentFileName = _buildFileName(finalAppName, account, "content");
-        let contentFilePath = "finalapps/" + contentFileName + ".arrayBuffer";
-        let singleEventFileName = _buildFileName(finalAppName, account, "singleEvent");
-        let singleEventFilePath = "finalapps/" + singleEventFileName + ".arrayBuffer";
+        let fileName = _buildFileName(appName, account);
+        let filePath = "finalapps/" + fileName + ".arrayBuffer";
         let isExist = false;
-        let stream1 = null;
-        let stream2 = null;
+        let stream = null;
         if (data.length > 1) {
             throw new Error("count shouldn't > 1");
         }
         if (data.length == 1) {
             isExist = true;
-            stream1 = deleteFileFunc(data[0].contentFileID);
-            stream2 = deleteFileFunc(data[0].singleEventFileID);
+            stream = deleteFileFunc(data[0].fileID);
         }
         else {
             isExist = false;
-            stream1 = (0, most_1.just)(null);
-            stream2 = (0, most_1.just)(null);
+            stream = (0, most_1.just)(null);
         }
-        return stream1.concatMap(_ => {
-            return uploadFileFunc(onUploadProgressFunc, contentFilePath, contentBinaryFile, contentFileName);
+        return stream.concatMap(_ => {
+            return uploadFileFunc(onUploadProgressFunc, filePath, sceneGLB, fileName);
         }).concatMap((uploadData) => {
-            let contentFileID = getFileIDFunc(uploadData, contentFilePath);
-            return stream2.concatMap(_ => {
-                return uploadFileFunc(onUploadProgressFunc, singleEventFilePath, singleEventBinaryFile, singleEventFileName);
-            }).concatMap((uploadData) => {
-                return (0, most_1.just)([
-                    contentFileID,
-                    getFileIDFunc(uploadData, singleEventFilePath)
-                ]);
-            });
-        }).concatMap(([contentFileID, singleEventFileID]) => {
+            let fileID = getFileIDFunc(uploadData, filePath);
             if (isExist) {
                 return (0, most_1.fromPromise)(updateDataFunc("publishedfinalapps", key, {
                     account,
-                    finalAppName,
+                    appName,
                     description,
                     previewBase64,
                     // useCount,
                     isRecommend,
-                    contentFileID, singleEventFileID
+                    fileID
                 }));
             }
             return (0, most_1.fromPromise)(addDataFunc("publishedfinalapps", key, {
                 account,
-                finalAppName,
+                appName,
                 description,
                 previewBase64,
                 // useCount,
                 isRecommend,
-                contentFileID, singleEventFileID
+                fileID
             }));
         });
     });
 };
 exports.publish = publish;
-// export let enterFinalApp = (contentBinaryFile: ArrayBuffer) => {
-// 	// TODO open new url with ?account, finalAppName
-// 	// let _meta3DState = loadFinalApp(_findFinalAppBinaryFile(account, finalAppName))
-// 	let _meta3DState = loadFinalApp(contentBinaryFile)
+// export let enterFinalApp = (sceneGLB: ArrayBuffer) => {
+// 	// TODO open new url with ?account, appName
+// 	// let _meta3DState = loadFinalApp(_findFinalAppBinaryFile(account, appName))
+// 	let _meta3DState = loadFinalApp(sceneGLB)
 // }
-let findPublishFinalApp = ([getDataByKeyFunc, downloadFileFunc], account, finalAppName, fileType, notUseCacheForFindFinalApp) => {
-    return (0, most_1.fromPromise)(getDataByKeyFunc("publishedfinalapps", (0, exports._buildKey)(finalAppName, account))).flatMap((data) => {
+let findPublishFinalApp = ([getDataByKeyFunc, downloadFileFunc], account, appName, notUseCacheForFindFinalApp) => {
+    return (0, most_1.fromPromise)(getDataByKeyFunc("publishedfinalapps", (0, exports._buildKey)(appName, account))).flatMap((data) => {
         if (data.length === 0) {
             return (0, most_1.just)(null);
         }
-        let fileID = null;
-        switch (fileType) {
-            case "content":
-                fileID = data[0].contentFileID;
-                break;
-            case "singleEvent":
-                fileID = data[0].singleEventFileID;
-                break;
-        }
-        return downloadFileFunc(fileID, notUseCacheForFindFinalApp);
+        return downloadFileFunc(data[0].fileID, notUseCacheForFindFinalApp);
     });
 };
 exports.findPublishFinalApp = findPublishFinalApp;
@@ -96,10 +73,10 @@ let findAllPublishFinalAppsByAccount = (getDataWithWhereDataFunc, account) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        // return just(data.map(({ account, finalAppName, description }) => {
+        // return just(data.map(({ account, appName, description }) => {
         //     return {
         //         account,
-        //         finalAppName,
+        //         appName,
         //         description
         //     }
         // }))
@@ -112,10 +89,10 @@ let findAllPublishFinalApps = (getDataFunc, limitCount, skipCount) => {
         if (data.length === 0) {
             return (0, most_1.just)([]);
         }
-        // return just(data.map(({ account, finalAppName, description }) => {
+        // return just(data.map(({ account, appName, description }) => {
         //     return {
         //         account,
-        //         finalAppName,
+        //         appName,
         //         description
         //     }
         // }))

@@ -2,8 +2,8 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   Meta3dEventDataProtocol.ServiceType.service,
 > = api => {
   parseEventData: ParseEventData.parse,
-  generateEventDataBuffer: ExportEventData.generateEventDataBuffer,
-  exportEventData: ExportEventData.export,
+  generateEventDataBuffer: Meta3dEventDataUtils.Main.generateEventDataBuffer,
+  exportEventData: Meta3dEventDataUtils.Main.exportEventData,
 }
 
 let createExtensionState: Meta3dType.Index.createExtensionState<

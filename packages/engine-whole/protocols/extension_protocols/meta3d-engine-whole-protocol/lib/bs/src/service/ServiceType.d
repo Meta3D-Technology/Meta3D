@@ -1,1 +1,1 @@
-src/service/ServiceType-Meta3dEditorWholeProtocol.cmj : Meta3dEditorWholeProtocol.cmi
+src/service/ServiceType-Meta3dEngineWholeProtocol.cmj : Meta3dEngineWholeProtocol.cmi

@@ -1,50 +1,30 @@
 {
-  "name": "meta3d-event-data",
+  "name": "meta3d-event-data-utils",
   "sources": [
     {
       "dir": "src",
       "subdirs": true
-    },
-    {
-      "dir": "test",
-      "subdirs": true,
-      "type": "dev"
     }
   ],
   "bsc-flags": [
     "-bs-no-version-header",
     "-bs-super-errors"
   ],
-  "bs-dev-dependencies": [
-    "meta3d-bs-jest-cucumber",
-    "meta3d-bs-jest",
-    "meta3d-bs-sinon"
-  ],
+  "bs-dev-dependencies": [],
+  "refmt": 3,
   "bs-dependencies": [
-    "meta3d-type",
+    "meta3d-editor-whole-protocol",
     "meta3d-event-data-protocol",
+    "meta3d-event-protocol",
     "meta3d-commonlib",
     "meta3d-commonlib-type",
     "meta3d-file-utils",
-    "meta3d-event-data-utils",
     "meta3d"
   ],
   "package-specs": [
     "commonjs",
     "es6-global"
   ],
-  "gentypeconfig": {
-    "language": "typescript",
-    "shims": {
-      "Js": "Js"
-    },
-    "module": "es6",
-    "importPath": "relative",
-    "debug": {
-      "all": false
-    },
-    "exportInterfaces": false
-  },
   "suffix": ".bs.js",
   "namespace": true,
   "warnings": {

@@ -1,20 +1,18 @@
 rescript = 1
 g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml/install.stamp
-g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml/install.stamp
-g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-ui-protocol/lib/ocaml/install.stamp
 rule astj
   command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe  -w a -bs-v 10.1.4 -bs-no-version-header -bs-super-errors -absname -bs-ast -o $out $i
 o src/service/ServiceType.ast : astj ../../src/service/ServiceType.res
 rule deps
-  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsb_helper.exe -hash 488b31d19a59b9bfde0bdcf1bc5cc8ef -bs-ns Meta3dEditorWholeProtocol $in
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsb_helper.exe -hash 488b31d19a59b9bfde0bdcf1bc5cc8ef -bs-ns Meta3dEngineWholeProtocol $in
   restat = 1
 o src/service/ServiceType.d : deps src/service/ServiceType.ast
 rule mij
-  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -bs-ns Meta3dEditorWholeProtocol -I . -I src/state -I src/service -I src -I /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-ui-protocol/lib/ocaml -bs-no-version-header -bs-super-errors  -w a -bs-gentype -bs-package-name meta3d-editor-whole-protocol -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output es6-global:lib/es6_global/$in_d:.bs.js -bs-v $g_finger $i
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -bs-ns Meta3dEngineWholeProtocol -I . -I src/state -I src/service -I src -I /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml -bs-no-version-header -bs-super-errors  -w a -bs-package-name meta3d-engine-whole-protocol -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output es6-global:lib/es6_global/$in_d:.bs.js -bs-v $g_finger $i
   dyndep = 1
   restat = 1
-o src/service/ServiceType-Meta3dEditorWholeProtocol.cmj src/service/ServiceType-Meta3dEditorWholeProtocol.cmi ../es6_global/src/service/ServiceType.bs.js ../js/src/service/ServiceType.bs.js : mij src/service/ServiceType.ast
+o src/service/ServiceType-Meta3dEngineWholeProtocol.cmj src/service/ServiceType-Meta3dEngineWholeProtocol.cmi ../es6_global/src/service/ServiceType.bs.js ../js/src/service/ServiceType.bs.js : mij src/service/ServiceType.ast
 rule build_package
   command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -w -49 -color always -no-alias-deps  $i
   restat = 1
-o Meta3dEditorWholeProtocol.cmi : build_package Meta3dEditorWholeProtocol.mlmap
+o Meta3dEngineWholeProtocol.cmi : build_package Meta3dEngineWholeProtocol.mlmap
