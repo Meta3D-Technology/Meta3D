@@ -34,6 +34,7 @@ let make = (~service: FrontendType.service) => {
 
   let (info, setInfo) = React.useState(_ => None)
   let (allPublishApps, setAllPublishApps) = React.useState(_ => [])
+  let (allPublishFinalApps, setAllPublishFinalApps) = React.useState(_ => [])
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
   // let (
   //   openCreateFromScratchPhase1BeforeTour,
@@ -152,9 +153,23 @@ let make = (~service: FrontendType.service) => {
       setInfo(_ => {j`加载中，请稍候`->Some})
 
       service.backend.findAllPublishAppsByAccount(. account->Meta3dCommonlib.OptionSt.getExn)
-      ->Meta3dBsMostDefault.Most.observe(
+      ->Meta3dBsMostDefault.Most.flatMap(
         allPublishApps => {
+          service.backend.findAllPublishFinalAppsByAccount(.
+            account->Meta3dCommonlib.OptionSt.getExn,
+          )->Meta3dBsMostDefault.Most.flatMap(
+            allPublishFinalApps => {
+              (allPublishApps, allPublishFinalApps)->Meta3dBsMostDefault.Most.just
+            },
+            _,
+          )
+        },
+        _,
+      )
+      ->Meta3dBsMostDefault.Most.observe(
+        ((allPublishApps, allPublishFinalApps)) => {
           setAllPublishApps(_ => allPublishApps)
+          setAllPublishFinalApps(_ => allPublishFinalApps)
           setInfo(_ => None)
         },
         _,
@@ -162,6 +177,7 @@ let make = (~service: FrontendType.service) => {
       ->Js.Promise.catch(
         e => {
           setAllPublishApps(_ => [])
+          setAllPublishFinalApps(_ => [])
           setInfo(_ => None)
 
           MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
@@ -295,6 +311,55 @@ let make = (~service: FrontendType.service) => {
                     </List.Item>}
                 />
               </section>
+              <Typography.Title> {React.string({j`我发布的应用`})} </Typography.Title>
+              <List
+                itemLayout=#horizontal
+                dataSource={allPublishFinalApps}
+                renderItem={(item: BackendCloudbaseType.publishFinalAppInfo) =>
+                  <List.Item>
+                    <List.Item.Meta
+                      key={PublishedFinalAppUtils.buildKey(item.account, item.appName)}
+                      title={<Typography.Title level=3>
+                        {React.string(item.appName)}
+                      </Typography.Title>}
+                      // description={UIDescriptionUtils.buildWithoutRepoLink(
+                      //   item.account,
+                      //   item.description,
+                      // )}
+                    />
+                    <Button
+                      _type=#primary
+                      onClick={_ => {
+                        setInfo(_ => j`${downloadProgress->Js.Int.toString}% 下载中`->Some)
+
+                        PublishedFinalAppUtils.exportSingleEventFile(
+                          service,
+                          (
+                            setDownloadProgress,
+                            () => {
+                              setInfo(_ => None)
+                            },
+                          ),
+                          item,
+                        )
+                      }}>
+                      {React.string(`导出`)}
+                    </Button>
+                    <Button
+                      _type=#default
+                      onClick={_ => {
+                        LinkUtils.openLink(
+                          PublishedFinalAppUtils.buildURL(
+                            item.account,
+                            item.appName,
+                            (release->Meta3dCommonlib.OptionSt.getExn).version,
+                          ),
+                        )
+                      }}>
+                      {React.string(`运行`)}
+                    </Button>
+                  </List.Item>}
+              />
             </Space>
           </Layout.Content>
         </>

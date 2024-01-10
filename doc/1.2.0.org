@@ -220,7 +220,7 @@ export single event
 
 
 
-** TODO platform: UserCenter add my published final apps
+** DONE platform: UserCenter add my published final apps
 
 
 
