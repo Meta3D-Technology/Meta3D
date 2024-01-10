@@ -458,61 +458,132 @@ import { addTexture } from "./init_button";
 
 
 
-let name: string = "Hello"
-let value: number = 1;
-let value2: number = 1;
+// let name: string = "Hello"
+// let value: number = 1;
+// let value2: number = 1;
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time);
+//     ImGui.NewFrame();
+
+
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100));
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(400, 600));
+
+
+//     ImGui.Begin("Inspector", null, ImGui.WindowFlags.NoTitleBar);
+
+//     ImGui.InputText("Name", (_ = name) => name = _, 30);
+
+//     // ImGui.SetNextItemOpen(true, ImGui.Cond.Once);
+//     ImGui.SetNextItemOpen(false, ImGui.Cond.Once);
+//     // ImGui.SetNextItemOpen(true, ImGui.Cond.None);
+//     if (ImGui.CollapsingHeader("Transform")) {
+//         ImGui.PushItemWidth(400/4);
+//         ImGui.PushID(1);
+//         if(ImGui.InputFloat("", (_ = value2) => value2 = _, 0.01, 1.0, "%.5f")){
+// console.log(value2)
+//         }
+//         // console.log(result)
+
+
+//         ImGui.PopID()
+//         ImGui.SameLine()
+
+//         ImGui.PushID(2);
+//         ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
+//         ImGui.PopID()
+
+//         ImGui.SameLine()
+
+//         ImGui.PushID(3);
+//         ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
+//         ImGui.PopID()
+//         ImGui.PopItemWidth();
+
+//         ImGui.SameLine()
+
+//         ImGui.Text("Position");
+//     }
+
+
+
+
+
+//     ImGui.End()
+
+
+
+
+
+//     ImGui.EndFrame();
+//     ImGui.Render();
+
+
+//     // ImGui.StyleColorsDark();
+//     ImGui.StyleColorsClassic();
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1));
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1));
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+let selected_fish = -1
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
 
 
-    ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100));
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(400, 600));
+    if (ImGui.Button("Delete.."))
+        ImGui.OpenPopup("Delete?");
 
 
-    ImGui.Begin("Inspector", null, ImGui.WindowFlags.NoTitleBar);
+    // Always center this window when appearing
+    // const center = (ImGui as any).GetMainViewport().GetCenter();
+    // ImGui.SetNextWindowPos(center, ImGui.Cond.Appearing, new ImGui.Vec2(0.5, 0.5));
 
-    ImGui.InputText("Name", (_ = name) => name = _, 30);
+    // ImGui.ShowMetricsWindow()
 
-    // ImGui.SetNextItemOpen(true, ImGui.Cond.Once);
-    ImGui.SetNextItemOpen(false, ImGui.Cond.Once);
-    // ImGui.SetNextItemOpen(true, ImGui.Cond.None);
-    if (ImGui.CollapsingHeader("Transform")) {
-        ImGui.PushItemWidth(400/4);
-        ImGui.PushID(1);
-        if(ImGui.InputFloat("", (_ = value2) => value2 = _, 0.01, 1.0, "%.5f")){
-console.log(value2)
-        }
-        // console.log(result)
+    const names: string[] = ["Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"];
 
-
-        ImGui.PopID()
-        ImGui.SameLine()
-
-        ImGui.PushID(2);
-        ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
-        ImGui.PopID()
-
-        ImGui.SameLine()
-
-        ImGui.PushID(3);
-        ImGui.InputFloat("", (_ = value) => value = _, 0.01, 1.0, "%.5f");
-        ImGui.PopID()
-        ImGui.PopItemWidth();
-
-        ImGui.SameLine()
-
-        ImGui.Text("Position");
+    if (ImGui.Button("Select.."))
+        ImGui.OpenPopup("my_select_popup");
+    ImGui.SameLine();
+    ImGui.TextUnformatted(selected_fish === -1 ? "<None>" : names[selected_fish]);
+    if (ImGui.BeginPopup("my_select_popup")) {
+        ImGui.Text("Aquarium");
+        ImGui.Separator();
+        for (let i = 0; i < ImGui.ARRAYSIZE(names); i++)
+            if (ImGui.Selectable(names[i]))
+                selected_fish = i;
+        ImGui.EndPopup();
     }
 
 
 
+    if (ImGui.BeginPopupModal("Delete?", null, ImGui.WindowFlags.AlwaysAutoResize)) {
+        ImGui.Text("All those beautiful files will be deleted.\nThis operation cannot be undone!\n\n");
+        ImGui.Separator();
 
 
-    ImGui.End()
+        if (ImGui.Button("OK", new ImGui.Vec2(120, 0))) { ImGui.CloseCurrentPopup(); }
+        ImGui.SetItemDefaultFocus();
+        ImGui.SameLine();
+        if (ImGui.Button("Cancel", new ImGui.Vec2(120, 0))) { ImGui.CloseCurrentPopup(); }
 
-
-
+        ImGui.EndPopup();
+    }
 
 
     ImGui.EndFrame();

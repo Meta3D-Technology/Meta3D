@@ -224,7 +224,7 @@ export single event
 
 
 
-** TODO run test
+** DONE run test
 
 TODO need publish:
 
@@ -232,13 +232,40 @@ TODO need publish:
 TODO run test:
 
 
+** DONE imgui demo
+
+
+TODO finish modal demo
+    upload image
+
+# TODO finish message demo
+
+TODO finish select demo
 
 
 ** TODO ui control: add Modal
 
+
+
+TODO add modal ui control
+
+
+
+
+
 ** TODO editor: publish to platform use Modal
 
 ** TODO editor: publish local use Modal
+
+
+
+** TODO ui control: add Message to show info
+e.g. show publish progress
+
+
+
+
+
 
 
 ** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
@@ -250,12 +277,6 @@ TODO run test:
 
 # 1.api add message api: throw error with meesage info
 # 2.run visual, enter app should catch error and parse and use antd message to message
-
-
-
-** TODO ui control: add Message to show info
-e.g. show publish progress
-
 
 
 ** TODO pass bdd test
