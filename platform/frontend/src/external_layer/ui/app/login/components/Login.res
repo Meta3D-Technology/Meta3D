@@ -33,7 +33,7 @@ let make = (~service: FrontendType.service) => {
             service.backend.handleLoginForWeb3(account)
           }, _)
           ->Meta3dBsMostDefault.Most.tap(_ => {
-            LoginUtils.saveAccount(accountRef.contents)
+            Meta3dUserUtils.Main.saveAccount(accountRef.contents)
 
             dispatch(
               AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(accountRef.contents)),

@@ -185,7 +185,7 @@ let make = (
   })
 
   service.react.useEffectOnce(() => {
-    !UserUtils.isAdmin(account)
+    !Meta3dUserUtils.Main.isAdmin(account)
       ? Method.init(
           dispatchForApAssembleStore,
           selectedContributesFromMarket,
@@ -260,7 +260,7 @@ let make = (
             <Space direction=#horizontal size=#small>
               // <PublishElement service account />
               // <ElementController service />
-              {!UserUtils.isAdmin(account)
+              {!Meta3dUserUtils.Main.isAdmin(account)
                 ? <Publish
                     service
                     account

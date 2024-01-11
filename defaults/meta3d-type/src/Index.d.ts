@@ -60,7 +60,7 @@ type publishFinalApp = (
 ) => Promise<void>
 
 export type backendAPI = {
-  init: (env) => Promise<void>,
+  init: (env: string) => Promise<void>,
   publishFinalApp: publishFinalApp,
 }
 

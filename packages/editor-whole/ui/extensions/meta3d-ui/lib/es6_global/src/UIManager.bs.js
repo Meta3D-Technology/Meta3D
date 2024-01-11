@@ -506,6 +506,13 @@ function imageButton(data, meta3dState, texture, size) {
               }), data);
 }
 
+function image(data, meta3dState, texture, size) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                imguiRendererService.image(texture, size);
+                return imguiRendererState;
+              }), data);
+}
+
 function inputText(data, meta3dState, label, value, maxLength, width) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
@@ -530,6 +537,36 @@ function collapsing(data, meta3dState, label, isOpen, cond) {
                         imguiRendererState,
                         imguiRendererService.collapsing(label, isOpen, cond)
                       ];
+              }), data);
+}
+
+function openModal(data, meta3dState, label) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                imguiRendererService.openModal(label);
+                return imguiRendererState;
+              }), data);
+}
+
+function closeCurrentModal(data, meta3dState) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                Curry._1(imguiRendererService.closeCurrentModal, undefined);
+                return imguiRendererState;
+              }), data);
+}
+
+function beginModal(data, meta3dState, label) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.beginModal(label)
+                      ];
+              }), data);
+}
+
+function endModal(data, meta3dState) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                Curry._1(imguiRendererService.endModal, undefined);
+                return imguiRendererState;
               }), data);
 }
 
@@ -665,9 +702,14 @@ export {
   tree ,
   switchButton ,
   imageButton ,
+  image ,
   inputText ,
   inputFloat3 ,
   collapsing ,
+  openModal ,
+  closeCurrentModal ,
+  beginModal ,
+  endModal ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

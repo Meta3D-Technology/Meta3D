@@ -39,7 +39,8 @@ function init(sandbox, getExtensionService, getPackageServiceOpt, getAllContribu
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ], isInitEvent, isDebug, canvas);
@@ -71,7 +72,8 @@ function clear(sandbox, clearColor, getExtensionService, getPackageServiceOpt, g
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ], clearColor);
@@ -83,7 +85,7 @@ function render(sandbox, getExtensionServiceOpt, getPackageServiceOpt, getAllCon
     getExtensionService = Caml_option.valFromOption(getExtensionServiceOpt);
   } else {
     var __x = Sinon.createEmptyStub(sandbox.contents);
-    getExtensionService = Sinon.returns(ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined), __x);
+    getExtensionService = Sinon.returns(ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined), __x);
   }
   var getPackageService = getPackageServiceOpt !== undefined ? Caml_option.valFromOption(getPackageServiceOpt) : Sinon.createEmptyStub(sandbox.contents);
   var getAllContributesByType = getAllContributesByTypeOpt !== undefined ? Caml_option.valFromOption(getAllContributesByTypeOpt) : Sinon.createEmptyStub(sandbox.contents);
@@ -111,7 +113,8 @@ function render(sandbox, getExtensionServiceOpt, getPackageServiceOpt, getAllCon
               nullable: 1,
               immutable: 1,
               action: 1,
-              uiControl: 1
+              uiControl: 1,
+              backend: 1
             }, meta3dState, [
               uiExtensionProtocolName,
               imguiRendererExtensionProtocolName
@@ -163,7 +166,8 @@ function beginWindow(sandbox, label, getExtensionService, flagsOpt, getPackageSe
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ], label, flags);
@@ -195,7 +199,8 @@ function endWindow(sandbox, getExtensionService, getPackageServiceOpt, getAllCon
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ]);
@@ -227,7 +232,8 @@ function setNextWindowRect(sandbox, rect, getExtensionService, getPackageService
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ], rect);
@@ -269,7 +275,8 @@ function addFBOTexture(sandbox, getExtensionService, texture, rect, getPackageSe
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ], texture, rect);
@@ -301,7 +308,8 @@ function getContext(sandbox, getExtensionService, getPackageServiceOpt, getAllCo
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ]);
@@ -333,7 +341,8 @@ function button(sandbox, label, size, getExtensionService, getPackageServiceOpt,
                 nullable: 1,
                 immutable: 1,
                 action: 1,
-                uiControl: 1
+                uiControl: 1,
+                backend: 1
               },
               imguiRendererExtensionProtocolName
             ], label, size);
@@ -389,7 +398,8 @@ function deepCopy(sandbox, meta3dState, getExtensionService, getPackageServiceOp
               nullable: 1,
               immutable: 1,
               action: 1,
-              uiControl: 1
+              uiControl: 1,
+              backend: 1
             }, meta3dState);
 }
 
@@ -416,7 +426,8 @@ function restore(sandbox, currentMeta3dState, targetMeta3dState, getExtensionSer
               nullable: 1,
               immutable: 1,
               action: 1,
-              uiControl: 1
+              uiControl: 1,
+              backend: 1
             }, currentMeta3dState, targetMeta3dState);
 }
 

@@ -34,7 +34,7 @@ let make = (
             RescriptReactRouter.push("/")
           }
         }}
-        items={UserUtils.isAdmin(account)
+        items={Meta3dUserUtils.Main.isAdmin(account)
           ? [
               {
                 key: "1",

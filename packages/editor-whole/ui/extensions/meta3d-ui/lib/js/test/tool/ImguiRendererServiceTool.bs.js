@@ -3,7 +3,7 @@
 var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat3Opt, collapsingOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat3Opt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -31,6 +31,11 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var inputText = inputTextOpt !== undefined ? inputTextOpt : Sinon.createEmptyStub(sandbox.contents);
   var inputFloat3 = inputFloat3Opt !== undefined ? inputFloat3Opt : Sinon.createEmptyStub(sandbox.contents);
   var collapsing = collapsingOpt !== undefined ? collapsingOpt : Sinon.createEmptyStub(sandbox.contents);
+  var image = imageOpt !== undefined ? imageOpt : Sinon.createEmptyStub(sandbox.contents);
+  var openModal = openModalOpt !== undefined ? openModalOpt : Sinon.createEmptyStub(sandbox.contents);
+  var closeCurrentModal = closeCurrentModalOpt !== undefined ? closeCurrentModalOpt : Sinon.createEmptyStub(sandbox.contents);
+  var beginModal = beginModalOpt !== undefined ? beginModalOpt : Sinon.createEmptyStub(sandbox.contents);
+  var endModal = endModalOpt !== undefined ? endModalOpt : Sinon.createEmptyStub(sandbox.contents);
   return {
           init: init,
           render: render,
@@ -55,9 +60,14 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           inspector: inspector,
           switchButton: switchButton,
           imageButton: imageButton,
+          image: image,
           inputText: inputText,
           inputFloat3: inputFloat3,
           collapsing: collapsing,
+          openModal: openModal,
+          closeCurrentModal: closeCurrentModal,
+          beginModal: beginModal,
+          endModal: endModal,
           getContext: getContext
         };
 }

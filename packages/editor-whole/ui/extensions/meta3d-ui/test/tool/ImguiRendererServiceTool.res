@@ -29,6 +29,11 @@ let buildService = (
   ~inputText=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~inputFloat3=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~collapsing=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~image=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~openModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~closeCurrentModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~beginModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~endModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -58,6 +63,11 @@ let buildService = (
     imageButton,
     inputText,
     inputFloat3,
-    collapsing
+    collapsing,
+    image,
+    openModal,
+    closeCurrentModal,
+    beginModal,
+    endModal,
   }
 }

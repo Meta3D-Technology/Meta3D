@@ -264,6 +264,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return isClick
         },
+        image: (clickTexture, [width, height]) => {
+            ImGui.ImageButton(clickTexture._texture, new ImGui.ImVec2(width, height))
+        },
         inputText: (label, value, maxLength, width) => {
             let newValue: nullable<string> = null
             let valueRef = buildRef(value)
@@ -340,6 +343,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.SetNextItemOpen(isOpen, imguiCond)
 
             return ImGui.CollapsingHeader(label)
+        },
+        openModal: (label) => {
+            ImGui.OpenPopup(label)
+        },
+        closeCurrentModal: () => {
+            ImGui.CloseCurrentPopup()
+        },
+        beginModal: (label) => {
+            return ImGui.BeginPopupModal(label, null, ImGui.WindowFlags.AlwaysAutoResize)
+        },
+        endModal: () => {
+            ImGui.EndPopup()
         },
         getContext: () => {
             return ImGui_Impl.gl

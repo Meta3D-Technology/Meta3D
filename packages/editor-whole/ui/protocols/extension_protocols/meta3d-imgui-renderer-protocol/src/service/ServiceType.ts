@@ -176,6 +176,7 @@ export type service = {
     size: size
   ) => [boolean, boolean];
   readonly imageButton: (_1: imguiImplTexture, _2: size) => boolean;
+  readonly image: (_1: imguiImplTexture, _2: size) => void;
   readonly inputText: (
     label: label,
     value: string,
@@ -194,5 +195,13 @@ export type service = {
     isOpen: boolean,
     cond: cond
   ) => boolean;
+  readonly openModal: (
+    label: label,
+  ) => void;
+  readonly closeCurrentModal: () => void;
+  readonly beginModal: (
+    label: label,
+  ) => boolean;
+  readonly endModal: () => void;
   readonly getContext: () => context
 };

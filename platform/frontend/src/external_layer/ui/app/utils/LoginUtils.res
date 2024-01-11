@@ -5,25 +5,10 @@ let judgeToJumpToLogin = (func, account) => {
   }
 }
 
-let _buildAccountKey = () => "meta3d_account"
-
-let saveAccount = account => {
-  LocalStorageUtils.set(_buildAccountKey(), account)
-}
-
-let readAccount = () => {
-  LocalStorageUtils.get(_buildAccountKey())->Meta3dCommonlib.OptionSt.fromNullable
-}
-
-let logOut = () => {
-  LocalStorageUtils.remove(_buildAccountKey())
-}
-
-
 let login = (dispatch, account) => {
-            saveAccount(account)
+  Meta3dUserUtils.Main.saveAccount(account)
 
-            dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
+  dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
 
-            RescriptReactRouter.push("/")
+  RescriptReactRouter.push("/")
 }

@@ -105,7 +105,7 @@ let _removeOtherSelectedElementOfSameName = (
 }
 
 let _createState = () => {
-  account: LoginUtils.readAccount(),
+  account: Meta3dUserUtils.Main.readAccount()->Meta3dCommonlib.OptionSt.fromNullable,
   release: None,
   selectedExtensions: list{},
   selectedContributes: list{},
@@ -115,7 +115,7 @@ let _createState = () => {
   // importedAppIds: list{},
   currentAppName: None,
   notUseCacheForFindApp: false,
-// notUseCacheForFindFinalApp:false,
+  // notUseCacheForFindFinalApp:false,
   isInCreateFromScratchTourPhase1: false,
   // isJumpToCreateFromScratchTourPhase1Guide: false,
   isInCreateFromScratchTourPhase3: false,

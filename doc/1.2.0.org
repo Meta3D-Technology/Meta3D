@@ -243,25 +243,84 @@ TODO finish modal demo
 TODO finish select demo
 
 
-** TODO ui control: add Modal
+** DONE ui control: add Modal, Image
 
 
+TODO update modal protocol->icon.png
 
-TODO add modal ui control
+TODO add input image
 
-
+TODO pass platform compile
 
 
 
 ** TODO editor: publish to platform use Modal
 
-** TODO editor: publish local use Modal
+
+TODO fix ui control not update
+
+
+TODO refactor: change open modal protocol to open xxx modal protocol
+    TODO update Menu
 
 
 
-** TODO ui control: add Message to show info
-e.g. show publish progress
+TODO need publish:
+event data
+editor whole
+imgui
+ui
 
+
+TODO run test:
+publish
+    open modal error
+run final app
+export single event
+
+run->stop
+
+
+
+
+
+
+
+# ** TODO editor: publish local use Modal
+
+
+
+# ** TODO ui control: add Message to show info
+# e.g. show publish progress
+
+
+
+
+
+
+** TODO pass bdd test
+
+
+** TODO pass run test
+
+TODO need publish:
+editor-whole e,p
+event-data e,p
+ui, imgui e,p
+
+
+
+
+TODO need update packages:
+event
+ui
+editor-whole
+
+
+TODO run test:
+run visual->publish to platform
+
+publish editor->run editor->publish to platform
 
 
 
@@ -273,36 +332,10 @@ e.g. show publish progress
 ** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
 
 
-** TODO publish success should give success message
+# ** TODO publish success should give success message
 
-# 1.api add message api: throw error with meesage info
-# 2.run visual, enter app should catch error and parse and use antd message to message
-
-
-** TODO pass bdd test
-
-
-** TODO pass run test
-
-TODO need publish:
-editor-whole e,p
-event-data e,p
-
-
-
-
-TODO need update packages:
-event
-editor-whole
-
-
-TODO run test:
-run visual->publish to platform
-
-publish editor->run editor->publish to platform
-
-
-
+# # 1.api add message api: throw error with meesage info
+# # 2.run visual, enter app should catch error and parse and use antd message to message
 * TODO refactor: remove EnterAppStore?
 
 

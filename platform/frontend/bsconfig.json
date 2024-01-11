@@ -40,7 +40,9 @@
     "meta3d-engine-whole-protocol",
     "meta3d-ui-protocol",
     "meta3d-event-data-utils",
-    "meta3d-file-utils"
+    "meta3d-file-utils",
+    "meta3d-storage-utils",
+    "meta3d-user-utils"
   ],
   "refmt": 3,
   "namespace": true,

@@ -1,4 +1,4 @@
-export let importFile = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any, oncancelFunc: any) => {
+let _import = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any, oncancelFunc: any, fileType: "file" | "image") => {
     let input = document.createElement('input')
     input.setAttribute('type', "file")
     input.style.visibility = 'hidden'
@@ -24,7 +24,14 @@ export let importFile = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any,
             onerrorFunc(event, file)
         }
 
-        reader.readAsArrayBuffer(file)
+        switch (fileType) {
+            case "file":
+                reader.readAsArrayBuffer(file)
+                break
+            case "image":
+                reader.readAsDataURL(file)
+                break
+        }
     }
 
     input.oncancel = (event) => {
@@ -34,4 +41,12 @@ export let importFile = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any,
     document.body.appendChild(input)
     input.click()
     document.body.removeChild(input)
+}
+
+export let importFile = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any, oncancelFunc: any) => {
+    _import(onloadFunc, onerrorFunc, onprogressFunc, oncancelFunc, "file")
+}
+
+export let importImage = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any, oncancelFunc: any) => {
+    _import(onloadFunc, onerrorFunc, onprogressFunc, oncancelFunc, "image")
 }

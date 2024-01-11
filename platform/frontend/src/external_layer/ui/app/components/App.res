@@ -388,7 +388,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
             true
           },
           () => {
-            UserUtils.isAdmin(account)
+            Meta3dUserUtils.Main.isAdmin(account)
               ? true
               : switch release.current {
                 | None => false
@@ -399,7 +399,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
                 }
           },
           () => {
-            UserUtils.isAdmin(account)
+            Meta3dUserUtils.Main.isAdmin(account)
               ? true
               : switch release.current {
                 | None => false
@@ -555,13 +555,13 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
         <CreateFromScratchGuideBeginInElementAssemble account />
       }, account, service)
     | list{"Admin"} =>
-      LoginUtils.login(dispatch, UserUtils.buildAdminAccount())
+      LoginUtils.login(dispatch, Meta3dUserUtils.Main.buildAdminAccount())
 
       React.null
     | list{"TestUser"} =>
       let key = UrlSearchUtils.get(url.search, "key")
 
-      LoginUtils.login(dispatch, UserUtils.buildTestUserAccount(key))
+      LoginUtils.login(dispatch, Meta3dUserUtils.Main.buildTestUserAccount(key))
 
       React.null
     | _ => Method.judgeToJumpToLogin(() => <UserCenter service />, account, service)

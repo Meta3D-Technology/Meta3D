@@ -181,6 +181,11 @@ type service = {
     Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
     Meta3dImguiRendererProtocol.ServiceType.size,
   ) => (Meta3dType.Index.state, bool),
+  image: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+    Meta3dImguiRendererProtocol.ServiceType.size,
+  ) => Meta3dType.Index.state,
   inputText: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,
@@ -202,6 +207,16 @@ type service = {
     bool,
     Meta3dImguiRendererProtocol.ServiceType.cond,
   ) => (Meta3dType.Index.state, bool),
+  openModal: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+  ) => Meta3dType.Index.state,
+  closeCurrentModal: Meta3dType.Index.state => Meta3dType.Index.state,
+  beginModal: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+  ) => (Meta3dType.Index.state, bool),
+  endModal: Meta3dType.Index.state => Meta3dType.Index.state,
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),

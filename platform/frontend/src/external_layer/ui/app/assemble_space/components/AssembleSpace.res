@@ -428,7 +428,7 @@ let make = (
   // let docDrawerData = service.react.useSelector(. Method.useSelector)
 
   let (currentAssemble, setCurrentAssemble) = service.react.useState(_ =>
-    UserUtils.isAdmin(account) ? Ap : Element
+    Meta3dUserUtils.Main.isAdmin(account) ? Ap : Element
   )
   let (
     handledSelectedContributesFromMarket,
@@ -487,7 +487,7 @@ let make = (
     | Some(handledSelectedContributesFromMarket) =>
       <>
         <Layout>
-          {UserUtils.isAdmin(account)
+          {Meta3dUserUtils.Main.isAdmin(account)
             ? <Layout.Content>
                 <Menu
                   theme=#light

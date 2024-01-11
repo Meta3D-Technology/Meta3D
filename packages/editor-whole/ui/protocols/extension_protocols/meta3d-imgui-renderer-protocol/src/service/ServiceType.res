@@ -150,6 +150,7 @@ type service = {
     size,
   ) => (bool, bool),
   imageButton: (. imguiImplTexture, size) => bool,
+  image: (. imguiImplTexture, size) => unit,
   inputText: (. label, string, int, int) => Js.Nullable.t<string>,
   inputFloat3: (
     . label,
@@ -159,5 +160,9 @@ type service = {
     int,
   ) => Js.Nullable.t<(float, float, float)>,
   collapsing: (. label, bool, cond) => bool,
+  openModal: (. label) => unit,
+  closeCurrentModal: unit => unit,
+  beginModal: (. label) => bool,
+  endModal: unit => unit,
   getContext: unit => context,
 }

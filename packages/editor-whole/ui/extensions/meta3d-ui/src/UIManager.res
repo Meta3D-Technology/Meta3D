@@ -795,6 +795,18 @@ let imageButton = (data, meta3dState, texture, size) => {
   )
 }
 
+let image = (data, meta3dState, texture, size) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.image(. texture, size)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
 let inputText = (data, meta3dState, label, value, maxLength, width) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
@@ -820,6 +832,52 @@ let collapsing = (data, meta3dState, label, isOpen, cond) => {
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
       (imguiRendererState, imguiRendererService.collapsing(. label, isOpen, cond))
+    },
+    data,
+  )
+}
+
+let openModal = (data, meta3dState, label) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.openModal(. label)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let closeCurrentModal = (data, meta3dState) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.closeCurrentModal()
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let beginModal = (data, meta3dState, label) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.beginModal(. label))
+    },
+    data,
+  )
+}
+
+let endModal = (data, meta3dState) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.endModal()
+
+      imguiRendererState
     },
     data,
   )

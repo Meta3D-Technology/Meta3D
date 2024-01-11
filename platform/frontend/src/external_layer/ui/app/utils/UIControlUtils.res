@@ -12,6 +12,8 @@ let _getAllUIControlData = () => {
     ("meta3d-ui-control-switch-button", "meta3d-ui-control-switch-button-protocol"),
     ("meta3d-ui-control-tree", "meta3d-ui-control-tree-protocol"),
     ("meta3d-ui-control-window", "meta3d-ui-control-window-protocol"),
+    ("meta3d-ui-control-image", "meta3d-ui-control-image-protocol"),
+    ("meta3d-ui-control-modal", "meta3d-ui-control-modal-protocol"),
   }
 }
 
@@ -99,11 +101,11 @@ let selectAllUIControls = (service: FrontendType.service, dispatch, release) => 
 
     ()->Js.Promise.resolve
   }, _)
-              // ->Js.Promise.then_(
-              //   () => {
-              //     Js.log("finish")
-              //     ()->Js.Promise.resolve
-              //   },
-              //   _,
-              // )
+  // ->Js.Promise.then_(
+  //   () => {
+  //     Js.log("finish")
+  //     ()->Js.Promise.resolve
+  //   },
+  //   _,
+  // )
 }
