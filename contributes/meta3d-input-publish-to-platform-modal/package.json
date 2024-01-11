@@ -1,6 +1,6 @@
 {
     "name": "meta3d-input-publish-to-platform-modal",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
@@ -16,9 +16,9 @@
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-action-open-publish-to-platform-modal-protocol": "^1.1.0",
         "meta3d-editor-whole-protocol": "^1.1.0",
         "meta3d-input-modal-protocol": "^1.1.0",
-        "meta3d-action-open-publish-to-platform-modal-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"
     },
     "devDependencies": {

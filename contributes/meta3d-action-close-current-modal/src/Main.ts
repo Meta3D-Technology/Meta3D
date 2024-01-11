@@ -12,13 +12,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, meta3dState => {
-                    let { trigger } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+                    let { createCustomEvent, triggerCustomGlobalEvent2 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-                    return trigger(meta3dState, "meta3d-event-protocol", getCloseCurrentModalForwardActionName(), null).then(meta3dState => [meta3dState, null])
+                    return Promise.resolve(triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                        createCustomEvent(getCloseCurrentModalForwardActionName(), null)
+                    ))
                 }, (meta3dState) => {
-                    let { trigger } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+                    let { createCustomEvent, triggerCustomGlobalEvent2 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-                    return trigger(meta3dState, "meta3d-event-protocol", getCloseCurrentModalBackwardActionName(), null).then(meta3dState => [meta3dState, null])
+                    return Promise.resolve(triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                        createCustomEvent(getCloseCurrentModalBackwardActionName(), null)
+                    ))
                 }))
             })
         },

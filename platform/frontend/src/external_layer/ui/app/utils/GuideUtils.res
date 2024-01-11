@@ -26,7 +26,7 @@ let _createDefaultStatus = (): guideStatus => {
 }
 
 let _readGuideStatus = (): guideStatus => {
-  Meta3dStorageUtils.Main.get(_buildKey())
+  LocalStorageUtils.get(_buildKey())
   ->Meta3dCommonlib.OptionSt.fromNullable
   ->Meta3dCommonlib.OptionSt.map(Js.Json.parseExn)
   ->Meta3dCommonlib.OptionSt.getWithDefault(_createDefaultStatus()->Obj.magic)
@@ -38,7 +38,7 @@ let readIsFinishFirstLogin = () => {
 }
 
 let markFinishFirstLogin = () => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -55,7 +55,7 @@ let readIsInCreateFromScratchTour = () => {
 }
 
 // let markBeginCreateFromScratchTour = () => {
-//   Meta3dStorageUtils.Main.set(
+//   LocalStorageUtils.set(
 //     _buildKey(),
 //     {
 //       ..._readGuideStatus(),
@@ -70,7 +70,7 @@ let readIsInCreateFromScratchTour = () => {
 // }
 
 let markFinishCreateFromScratchTour = () => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -82,7 +82,7 @@ let markFinishCreateFromScratchTour = () => {
 }
 
 let _markStartCreateFromScratchTour = () => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -103,7 +103,7 @@ let readIsInFirstEnterUserCenter = () => {
 }
 
 let markIsFinishFirstEnterUserCenter = isFinishFirstEnterUserCenter => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -119,7 +119,7 @@ let readIsFinishFirstAddUIControl = () => {
 }
 
 let markIsFinishFirstAddUIControl = isFinishFirstAddUIControl => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -135,7 +135,7 @@ let readIsFinishFirstRunCompleteEditorTemplate = () => {
 }
 
 let markIsFinishFirstRunCompleteEditorTemplate = isFinishFirstRunCompleteEditorTemplate => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -151,7 +151,7 @@ let readIsFinishFirstImportCompleteEditorTemplate = () => {
 }
 
 let markIsFinishFirstImportCompleteEditorTemplate = isFinishFirstImportCompleteEditorTemplate => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -167,7 +167,7 @@ let readIsFinishInput = () => {
 }
 
 let markIsFinishInput = isFinishInput => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),
@@ -183,7 +183,7 @@ let readIsFinishAction = () => {
 }
 
 let markIsFinishAction = isFinishAction => {
-  Meta3dStorageUtils.Main.set(
+  LocalStorageUtils.set(
     _buildKey(),
     {
       ..._readGuideStatus(),

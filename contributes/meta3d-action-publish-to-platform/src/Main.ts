@@ -5,14 +5,10 @@ import { actionName as runActionName, state as runState } from "meta3d-action-ru
 import { eventName, inputData } from "meta3d-action-publish-to-platform-protocol/src/EventType"
 import { actionName as setAppNameActionName, state as setAppNameActionState } from "meta3d-action-set-appname-protocol"
 import { actionName as loadAppPreviewActionName, state as loadAppPreviewActionState } from "meta3d-action-load-apppreview-protocol"
-import { actionName as closeCurrentModalActionName } from "meta3d-action-close-current-modal-protocol"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { message } from "meta3d-message-utils/src/Main"
-import { readAccount, isAdmin } from "meta3d-user-utils"
-
-let _isRecommend = (account: string) => {
-    return isAdmin(account)
-}
+import { readAccount } from "meta3d-user-utils/src/Main"
+import { getCloseCurrentModalForwardActionName } from "meta3d-action-name-utils/src/Main"
 
 let _checkAndGetValues = (api: api, meta3dState: meta3dState): nullable<[string, string, string, string, boolean]> => {
     let setAppNameActionState = api.nullable.getExn(api.action.getActionState<setAppNameActionState>(meta3dState, setAppNameActionName))
@@ -27,7 +23,7 @@ let _checkAndGetValues = (api: api, meta3dState: meta3dState): nullable<[string,
     let appName = api.nullable.getExn(setAppNameActionState.appName)
     let account = api.nullable.getExn(readAccount())
     let preview: strictNullable<string> = loadAppPreviewActionState.appPreview
-    let isRecommend = _isRecommend(account)
+    let isRecommend = false
 
     // TODO get description from action
     let description = ""
@@ -81,9 +77,11 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             preview,
                             isRecommend
                         ).then(() => {
-                            let { trigger } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+                            let { createCustomEvent, triggerCustomGlobalEvent2 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-                            return trigger(meta3dState, "meta3d-event-protocol", closeCurrentModalActionName, null).then(meta3dState => [meta3dState, null])
+                            return Promise.resolve(triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                                createCustomEvent(getCloseCurrentModalForwardActionName(), null)
+                            ))
                         })
                     })
                 }, (meta3dState) => {

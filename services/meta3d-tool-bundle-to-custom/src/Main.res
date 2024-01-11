@@ -159,7 +159,14 @@ let bundle = (filePath: string, fileSource: string) => {
 
         let depPath =
           moduleSpecifierText->Js.String.startsWith(".", _)
-            ? _getLocalModulePath(~path=moduleSpecifierText, ~from=filePath->Some, ())
+            ? // moduleSpecifierText->Js.String.includes("/node_modules/", _)
+              //     ? {
+              //        _getNpmModulePath(
+              //         moduleSpecifierText->Js.String.replaceByRe(%re("/.+\/node_modules\//g"), "", _),
+              //         filePath,
+              //       ) }
+              // :
+              _getLocalModulePath(~path=moduleSpecifierText, ~from=filePath->Some, ())
             : _getNpmModulePath(moduleSpecifierText, filePath)
 
         // Js.log(("depPath: ", depPath))

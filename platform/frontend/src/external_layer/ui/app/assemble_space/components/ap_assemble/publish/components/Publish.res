@@ -208,7 +208,7 @@ module Method = {
   }
 
   let _isRecommend = account => {
-    Meta3dUserUtils.Main.isAdmin(account->Some)
+    UserUtils.isAdmin(account->Some)
   }
 
   let onFinish = (

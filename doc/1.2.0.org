@@ -271,9 +271,12 @@ editor whole
 imgui
 ui
 
-open, close action,p
-ui control modal i,p
-modal input i,p
+# open, close action,p
+# ui control modal,image i,p
+# modal input i,p
+# actions
+
+# action:publish
 
 
 TODO run test:
@@ -285,10 +288,27 @@ publish
 
     load image error
 
+
+    cancel error
+
+    publish error
+
+        TODO publish to platform action not uneditable
+
+        not close after publish
+
+        # enter final app not found
+
+
+commit
+
 run final app
 export single event
 
 run->stop
+
+
+TODO fix: import error event when cancel modal: not open modal!
 
 
 
@@ -306,6 +326,11 @@ run->stop
 
 
 
+
+
+** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
+
+** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
 
 
 ** TODO pass bdd test
@@ -337,11 +362,6 @@ publish editor->run editor->publish to platform
 
 
 
-** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
-
-** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
-
-
 # ** TODO publish success should give success message
 
 # # 1.api add message api: throw error with meesage info
@@ -350,7 +370,56 @@ publish editor->run editor->publish to platform
 
 
 
+* TODO feat: refactor isRecommend
+
+now set false when publish;
+decide when Show;
+
+TODO update ShowPublishedApps, ShowPublishedFinalApps
+
+
+
 * TODO fix cache for app and final app: add version and cache: compare version
+
+
+
+
+
+
+
+# * TODO 加入Script
+
+
+
+# * TODO 3D贪吃蛇
+
+# Snake, Scene use gltf model!
+
+
+
+
+* TODO update production
+
+TODO add publishedfinalApps, finalApps
+
+
+
+
+* TODO publish
+
+
+
+* TODO @li to test in feishu
+
+
+* TODO update qiji 资料
+
+
+* TODO prepare qiji 面试
+
+
+
+
 
 
 
@@ -394,38 +463,4 @@ show Modal
 
 # ** TODO Message
 # e.g. show import progress bar
-
-
-
-
-
-
-
-# * TODO 加入Script
-
-
-
-# * TODO 3D贪吃蛇
-
-# Snake, Scene use gltf model!
-
-
-
-
-* TODO update production
-
-TODO add publishedfinalApps, finalApps
-
-
-
-
-* TODO publish
-
-
-
-
-* TODO update qiji 资料
-
-
-* TODO prepare qiji 面试
 

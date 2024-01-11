@@ -33,6 +33,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                 let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 
+                let needCloseModal = false
+
                 if (isOpen && !state.isOpen) {
                     meta3dState = openModal(meta3dState, label)
 
@@ -41,7 +43,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     })
                 }
                 else if (!isOpen && state.isOpen) {
-                    meta3dState = closeCurrentModal(meta3dState)
+                    needCloseModal = true
 
                     meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                         isOpen: false,
@@ -55,6 +57,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                 if (isOpen_) {
                     return childrenFunc(meta3dState).then(meta3dState => {
+                        if (needCloseModal) {
+                            meta3dState = closeCurrentModal(meta3dState)
+                        }
+
                         meta3dState = endModal(meta3dState)
 
                         return [meta3dState, null]

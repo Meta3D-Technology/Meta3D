@@ -105,7 +105,7 @@ let _removeOtherSelectedElementOfSameName = (
 }
 
 let _createState = () => {
-  account: Meta3dUserUtils.Main.readAccount()->Meta3dCommonlib.OptionSt.fromNullable,
+  account: UserUtils.readAccount()->Meta3dCommonlib.OptionSt.fromNullable,
   release: None,
   selectedExtensions: list{},
   selectedContributes: list{},

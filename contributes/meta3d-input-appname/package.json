@@ -1,6 +1,6 @@
 {
     "name": "meta3d-input-appname",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
@@ -16,6 +16,7 @@
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-action-set-appname-protocol": "^1.1.0",
         "meta3d-editor-whole-protocol": "^1.1.0",
         "meta3d-input-input-text-protocol": "^1.1.0",
         "meta3d-type": "^1.1.0"

@@ -138,10 +138,7 @@ now just replace add duplicate one, but need handle more
   }
 
   let _buildUnEditableData = () => {
-    [
-      ("meta3d-action-publish", "Publish"),
-      ("meta3d-action-publish-to-platform", "PublishToPlatform"),
-    ]
+    [("meta3d-action-publish", "Publish")]
   }
 
   let convertLocalToCustom = (
@@ -428,7 +425,7 @@ let make = (
   // let docDrawerData = service.react.useSelector(. Method.useSelector)
 
   let (currentAssemble, setCurrentAssemble) = service.react.useState(_ =>
-    Meta3dUserUtils.Main.isAdmin(account) ? Ap : Element
+    UserUtils.isAdmin(account) ? Ap : Element
   )
   let (
     handledSelectedContributesFromMarket,
@@ -487,7 +484,7 @@ let make = (
     | Some(handledSelectedContributesFromMarket) =>
       <>
         <Layout>
-          {Meta3dUserUtils.Main.isAdmin(account)
+          {UserUtils.isAdmin(account)
             ? <Layout.Content>
                 <Menu
                   theme=#light

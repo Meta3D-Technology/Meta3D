@@ -7,11 +7,14 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
     return {
         inputName: "AppPreviewInput",
         func: (meta3dState) => {
-            let {
-                appPreview
-            } = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
-
-            return Promise.resolve(appPreview)
+            return Promise.resolve(
+                api.nullable.getWithDefault(
+                    api.nullable.map(({ appPreview }) => appPreview,
+                        api.action.getActionState<state>(meta3dState, actionName)
+                    ),
+                    null
+                )
+            )
         }
     }
 }

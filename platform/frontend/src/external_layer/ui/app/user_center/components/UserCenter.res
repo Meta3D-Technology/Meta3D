@@ -139,7 +139,7 @@ let make = (~service: FrontendType.service) => {
   }
 
   let _logOut = dispatch => {
-    Meta3dUserUtils.Main.logOut()
+    UserUtils.logOut()
 
     dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.LogOut))
 
@@ -250,7 +250,7 @@ let make = (~service: FrontendType.service) => {
                   }}>
                   {React.string(`从头创建新的编辑器`)}
                 </Button>
-                {Meta3dUserUtils.Main.isAdmin(account)
+                {UserUtils.isAdmin(account)
                   ? <Button
                       _type=#default
                       onClick={_ => {

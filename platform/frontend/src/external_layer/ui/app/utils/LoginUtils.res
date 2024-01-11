@@ -6,7 +6,7 @@ let judgeToJumpToLogin = (func, account) => {
 }
 
 let login = (dispatch, account) => {
-  Meta3dUserUtils.Main.saveAccount(account)
+  UserUtils.saveAccount(account)
 
   dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
 

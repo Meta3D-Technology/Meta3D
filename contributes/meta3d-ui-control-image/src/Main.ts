@@ -74,7 +74,12 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     let { clickTexture } = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 
                     if (!api.nullable.isNullable(clickTexture)) {
-                        return image(meta3dState, api.nullable.getExn(clickTexture), [rect.width, rect.height])
+                        return Promise.resolve(
+                            [
+                                image(meta3dState, api.nullable.getExn(clickTexture), [rect.width, rect.height]),
+                                null
+                            ]
+                        )
                     }
 
                     return Promise.resolve([meta3dState, null])
