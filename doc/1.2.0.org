@@ -271,10 +271,20 @@ editor whole
 imgui
 ui
 
+open, close action,p
+ui control modal i,p
+modal input i,p
+
 
 TODO run test:
 publish
     open modal error
+        label match/not match all error!
+
+    set appname not work
+
+    load image error
+
 run final app
 export single event
 
