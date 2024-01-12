@@ -353,9 +353,9 @@ editor-whole
 
 ** DONE fix: not reset preview
 
-** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
+** DONE refactor: duplicate between PublishAppService, PublishFinalAppService
 
-** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
+# ** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
 
 
 

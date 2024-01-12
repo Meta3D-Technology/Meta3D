@@ -1,3 +1,3 @@
-import { _buildKey } from "../../src/application_layer/publish/PublishFinalAppService";
+import { _buildKey } from "../../src/utils/PublishAppUtils";
 
 export let buildKey = _buildKey

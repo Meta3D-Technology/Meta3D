@@ -1,112 +1,48 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publish = exports._buildKey = void 0;
-const most_1 = require("most");
-const Main_1 = require("meta3d-backend-cloudbase/src/Main");
-let _buildFileName = (appName, account) => account + "_" + appName;
-let _buildKey = (appName, account) => (0, Main_1.handleKeyToLowercase)(_buildFileName(appName, account));
-exports._buildKey = _buildKey;
-let publish = ([onUploadProgressFunc, uploadFileFunc, deleteFileFunc, getDataByKeyFunc, addDataFunc, updateDataFunc, getFileIDFunc], sceneGLB, appName, account, description, previewBase64, 
-// useCount: number,
-isRecommend) => {
-    let key = (0, exports._buildKey)(appName, account);
-    return (0, most_1.fromPromise)(getDataByKeyFunc("publishedfinalapps", key)).concatMap((data) => {
-        let fileName = _buildFileName(appName, account);
-        let filePath = "finalapps/" + fileName + ".arrayBuffer";
-        let isExist = false;
-        let stream = null;
-        if (data.length > 1) {
-            throw new Error("count shouldn't > 1");
-        }
-        if (data.length == 1) {
-            isExist = true;
-            stream = deleteFileFunc(data[0].fileID);
-        }
-        else {
-            isExist = false;
-            stream = (0, most_1.just)(null);
-        }
-        return stream.concatMap(_ => {
-            return uploadFileFunc(onUploadProgressFunc, filePath, sceneGLB, fileName);
-        }).concatMap((uploadData) => {
-            let fileID = getFileIDFunc(uploadData, filePath);
-            if (isExist) {
-                return (0, most_1.fromPromise)(updateDataFunc("publishedfinalapps", key, {
-                    account,
-                    appName,
-                    description,
-                    previewBase64,
-                    // useCount,
-                    isRecommend,
-                    fileID
-                }));
-            }
-            return (0, most_1.fromPromise)(addDataFunc("publishedfinalapps", key, {
-                account,
-                appName,
-                description,
-                previewBase64,
-                // useCount,
-                isRecommend,
-                fileID
-            }));
-        });
-    });
+exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publish = void 0;
+const PublishAppUtils = __importStar(require("../../utils/PublishAppUtils"));
+let publish = (funcs, sceneGLB, appName, account, description, previewBase64, isRecommend) => {
+    return PublishAppUtils.publish(funcs, sceneGLB, appName, account, description, previewBase64, isRecommend, "publishedfinalapps", "finalapps");
 };
 exports.publish = publish;
-// export let enterFinalApp = (sceneGLB: ArrayBuffer) => {
-// 	// TODO open new url with ?account, appName
-// 	// let _meta3DState = loadFinalApp(_findFinalAppBinaryFile(account, appName))
-// 	let _meta3DState = loadFinalApp(sceneGLB)
-// }
-let findPublishFinalApp = ([getDataByKeyFunc, downloadFileFunc], account, appName, notUseCacheForFindFinalApp) => {
-    return (0, most_1.fromPromise)(getDataByKeyFunc("publishedfinalapps", (0, exports._buildKey)(appName, account))).flatMap((data) => {
-        if (data.length === 0) {
-            return (0, most_1.just)(null);
-        }
-        return downloadFileFunc(data[0].fileID, notUseCacheForFindFinalApp);
-    });
+let findPublishFinalApp = (funcs, account, appName, notUseCacheForFindFinalApp) => {
+    return PublishAppUtils.findPublishApp(funcs, account, appName, notUseCacheForFindFinalApp, "publishedfinalapps");
 };
 exports.findPublishFinalApp = findPublishFinalApp;
 let findAllPublishFinalAppsByAccount = (getDataWithWhereDataFunc, account) => {
-    return (0, most_1.fromPromise)(getDataWithWhereDataFunc("publishedfinalapps", { account: account })).flatMap((data) => {
-        if (data.length === 0) {
-            return (0, most_1.just)([]);
-        }
-        // return just(data.map(({ account, appName, description }) => {
-        //     return {
-        //         account,
-        //         appName,
-        //         description
-        //     }
-        // }))
-        return (0, most_1.just)(data);
-    });
+    return PublishAppUtils.findAllPublishAppsByAccount(getDataWithWhereDataFunc, account, "publishedfinalapps");
 };
 exports.findAllPublishFinalAppsByAccount = findAllPublishFinalAppsByAccount;
 let findAllPublishFinalApps = (getDataFunc, limitCount, skipCount) => {
-    return (0, most_1.fromPromise)(getDataFunc("publishedfinalapps", limitCount, skipCount)).flatMap((data) => {
-        if (data.length === 0) {
-            return (0, most_1.just)([]);
-        }
-        // return just(data.map(({ account, appName, description }) => {
-        //     return {
-        //         account,
-        //         appName,
-        //         description
-        //     }
-        // }))
-        return (0, most_1.just)(data);
-    });
+    return PublishAppUtils.findAllPublishApps(getDataFunc, limitCount, skipCount, "publishedfinalapps");
 };
 exports.findAllPublishFinalApps = findAllPublishFinalApps;
 let findAllRecommendPublishFinalApps = (getDataWithWhereDataFunc) => {
-    return (0, most_1.fromPromise)(getDataWithWhereDataFunc("publishedfinalapps", { isRecommend: true })).flatMap((data) => {
-        if (data.length === 0) {
-            return (0, most_1.just)([]);
-        }
-        return (0, most_1.just)(data);
-    });
+    return PublishAppUtils.findAllRecommendPublishApps(getDataWithWhereDataFunc, "publishedfinalapps");
 };
 exports.findAllRecommendPublishFinalApps = findAllRecommendPublishFinalApps;
 //# sourceMappingURL=PublishFinalAppService.js.map
