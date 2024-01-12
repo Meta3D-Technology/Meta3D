@@ -130,7 +130,7 @@ export let findAllRecommendPublishApps = (
     collection: string
 ): Stream<Array<publishAppInfo>> => {
     return fromPromise(
-        getDataWithWhereDataFunc(collection, { isRecommend: true })).flatMap((data: any) => {
+        getDataWithWhereDataFunc(collection, { isRecommend: true })).flatMap((data: Array<publishAppInfo>) => {
             if (data.length === 0) {
                 return just([])
             }

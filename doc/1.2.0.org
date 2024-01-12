@@ -371,12 +371,12 @@ editor-whole
 
 
 
-* TODO feat: refactor isRecommend
+* DONE feat: refactor isRecommend
 
 now set false when publish;
 decide when Show;
 
-TODO update ShowPublishedApps, ShowPublishedFinalApps
+# TODO update ShowPublishedApps, ShowPublishedFinalApps
 
 
 
@@ -412,7 +412,14 @@ publish editor->run editor->publish to platform
 
 * TODO update production
 
-TODO add publishedfinalApps, finalApps
+TODO add publishedfinalApps, finalApps in cloudbase
+
+
+
+TODO update packages
+
+
+TODO publish complete editor app
 
 
 

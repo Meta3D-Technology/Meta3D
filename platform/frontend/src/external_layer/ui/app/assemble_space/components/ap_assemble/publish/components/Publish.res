@@ -207,10 +207,6 @@ module Method = {
     )
   }
 
-  let _isRecommend = account => {
-    UserUtils.isAdmin(account->Some)
-  }
-
   let onFinish = (
     service,
     dispatchForAppStore,
@@ -342,7 +338,7 @@ module Method = {
                 appDescription,
                 previewBase64->Meta3dCommonlib.OptionSt.toStrictNullable,
                 // 0,
-                _isRecommend(account),
+                false,
               )
               ->Meta3dBsMostDefault.Most.drain
               ->Js.Promise.then_(
