@@ -1,6 +1,6 @@
 # Meta3D
 
-Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放互助的Web3D生态
+Meta3D是开源Web3D低代码平台，一条龙可视化搭建Web3D应用、编辑器、引擎，共建开放互助的Web3D生态
 
 [![build](https://github.com/Meta3D-Technology/Meta3D/actions/workflows/ci.yml/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) [![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)](https://github.com/Meta3D-Technology/Meta3D/graphs/commit-activity)
 
@@ -48,7 +48,7 @@ Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放�
 ## 特性
 
 - **一切皆扩展**
-积木式搭建自己的“Web3D编辑器”，完全可扩展
+积木式可视化搭建，完全可扩展
 - **只开发一次**
 一个需求只实现一次，到处复用
 
@@ -57,7 +57,7 @@ Meta3D是开源Web3D低代码平台，快速搭建Web3D编辑器，共建开放�
 
 ## 优势
 
-- 世界首个搭建Web3D编辑器的低代码平台
+- 世界首个搭建Web3D引擎、编辑器的低代码平台
 - 一切皆可扩展，用户可100%自定义    
 目前暂时只开放了“写逻辑代码”的扩展方法，未来将会开放更多的扩展方法
 - 拥抱Web3，完全开源
