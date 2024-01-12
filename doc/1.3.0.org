@@ -1,0 +1,61 @@
+* TODO 完善ui control
+
+** TODO add arcballCameraController inspector
+
+TODO add checkbox ui control
+
+TODO run test:
+editor
+publish
+
+
+** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+** TODO add "add Component"
+add select button
+
+
+# ** TODO add Modal
+# publish, export should show Modal
+
+
+# Menu add "关于Meta3D":
+# show Modal
+
+
+
+
+
+
+
+
+
+
+
+# ** TODO add Debug
+
+
+
+
+# ** TODO Message
+# e.g. show import progress bar
+
+
+
+* TODO 加入Script
+
+
+
+* TODO 3D贪吃蛇
+
+Snake, Scene use gltf model!
+
+
+
+
+
+* TODO fix: editor: run-stop: should reset arcball in gameview when stop
+
+
+
