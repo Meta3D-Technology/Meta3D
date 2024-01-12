@@ -9,6 +9,7 @@ import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
 // import { service as renderService } from "meta3d-editor-sceneview-render-protocol/src/service/ServiceType"
 // import { activeFirstBasicCameraView } from "meta3d-load-scene-utils/src/Main"
 // import { addDefaultGameObjects, addGameObjectsForSceneView } from "meta3d-pipeline-webgl1-three-utils/src/CreateDefaultSceneJobUtils"
+import { message } from "meta3d-message-utils/src/Main"
 
 // let _checkOnlyHasImportEvent = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
 //     requireCheck(() => {
@@ -84,7 +85,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         // _checkOnlyHasImportEvent(eventSourcingService, api, meta3dState)
 
                         if (!_isOnlyHasImportEvent(eventSourcingService, api, meta3dState)) {
-                            return _error(reject, "请刷新后再导入，不要进行任何的其它操作！")
+                            message("请刷新后再导入，不要进行任何的其它操作！")
+
+                            resolve(meta3dState)
+                            return
                         }
 
                         let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))

@@ -325,37 +325,19 @@ TODO fix: import error event when cancel modal: not open modal!
 
 
 
+** DONE fix: import error shouldn't export event
 
+** TODO refactor: api add messageAPI
+
+log, warn, error
+
+TODO update meta3d-action-publish-to-platform
 
 
 ** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
 
 ** TODO refactor: extract startFinalApp in utils .res between EnterFinalApp, index.html
 
-
-** TODO pass bdd test
-
-
-** TODO pass run test
-
-TODO need publish:
-editor-whole e,p
-event-data e,p
-ui, imgui e,p
-
-
-
-
-TODO need update packages:
-event
-ui
-editor-whole
-
-
-TODO run test:
-run visual->publish to platform
-
-publish editor->run editor->publish to platform
 
 
 
@@ -383,6 +365,30 @@ TODO update ShowPublishedApps, ShowPublishedFinalApps
 
 
 
+
+* TODO pass bdd test
+
+
+* TODO pass run test
+
+TODO need publish:
+editor-whole e,p
+event-data e,p
+ui, imgui e,p
+
+
+
+
+TODO need update packages:
+event
+ui
+editor-whole
+
+
+TODO run test:
+run visual->publish to platform
+
+publish editor->run editor->publish to platform
 
 
 
