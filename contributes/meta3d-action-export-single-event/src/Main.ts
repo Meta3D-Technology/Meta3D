@@ -2,7 +2,7 @@ import { state as meta3dState, getContribute as getContributeMeta3D } from "meta
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { uiData, actionName, state } from "meta3d-action-export-single-event-protocol"
 import { eventName, inputData } from "meta3d-action-export-single-event-protocol/src/EventType"
-import { getSingleEventAllEvents } from "meta3d-action-export-single-event-utils"
+import { getSingleEventAllEvents } from "meta3d-event-data-utils"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {

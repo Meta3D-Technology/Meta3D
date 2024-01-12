@@ -23,6 +23,24 @@ export type nullableAPI = {
 	bind: <data1, data2>(func: (data: data1) => nullable<data2>, data: nullable<data1>) => nullable<data2>;
 	getEmpty: <data>() => nullable<data>;
 };
+export type onUploadProgressFunc = (progress: number) => void;
+export type appName = string;
+export type account = string;
+export type description = string;
+export type previewBase64 = string;
+export type isRecommend = boolean;
+export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer, 
+// singleEventBinaryFile: ArrayBuffer,
+appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
+export type backendAPI = {
+	init: (env: string) => Promise<void>;
+	publishFinalApp: publishFinalApp;
+};
+export type messageAPI = {
+	success: (message: string) => void;
+	warn: (message: string) => void;
+	error: (message: string) => void;
+};
 // tslint:disable-next-line:interface-over-type-literal
 export type immutableAPI = {
 	createList: <T>() => List<T>;
@@ -57,6 +75,8 @@ export type api = {
 	immutable: immutableAPI;
 	action: actionAPI;
 	uiControl: uiControlAPI;
+	backend: backendAPI;
+	message: messageAPI;
 };
 export type canvasData = {
 	width: number;
@@ -876,6 +896,7 @@ export type service$1 = {
 		state,
 		boolean
 	];
+	readonly image: (meta3dState: state, clickTexture: imguiImplTexture, size: size) => state;
 	readonly inputText: (meta3dState: state, label: label, value: string, maxLength: number, width: number) => [
 		state,
 		nullable<string>
@@ -896,6 +917,13 @@ export type service$1 = {
 		state,
 		boolean
 	];
+	readonly openModal: (meta3dState: state, label: label) => state;
+	readonly closeCurrentModal: (meta3dState: state) => state;
+	readonly beginModal: (meta3dState: state, label: label) => [
+		state,
+		boolean
+	];
+	readonly endModal: (meta3dState: state) => state;
 	readonly handleDragDropTarget: <data>(meta3dState: state, type: string) => [
 		state,
 		nullable<data>
@@ -980,6 +1008,7 @@ export type service$3 = {
 	parseEventData: (eventData: ArrayBuffer) => Array<eventData<Array<singleInputData>>>;
 	// exportEventData: (allEvents: Array<eventData<Array<singleInputData>>>, filename: string, extension: string) => void,
 	exportEventData: (allEvents: Array<eventData<Array<singleInputData>>>) => void;
+	generateEventDataBuffer: (allEvents: Array<eventData<Array<singleInputData>>>) => ArrayBuffer;
 };
 export type eventExtensionProtocolName = extensionName;
 export type pointEventName = "meta3d_pointdown" | "meta3d_pointup" | "meta3d_pointtap" | "meta3d_pointmove" | "meta3d_pointscale" | "meta3d_pointdragstart" | "meta3d_pointdragover" | "meta3d_pointdragdrop";
@@ -1299,8 +1328,9 @@ export type file = any;
 export type fileOption = {
 	binary: boolean;
 };
+export type generateOptionType = "blob" | "arraybuffer";
 export type generateOption = {
-	type: "blob";
+	type: generateOptionType;
 };
 export type service$10 = {
 	createZip: () => zip;
@@ -1315,10 +1345,12 @@ export type service$12 = {
 	filesave: (meta3dState: state) => service$11;
 };
 export type target$1 = "visual" | "visualRun";
+export type env = "local" | "production";
 export type initData = {
 	target: target$1;
 	isDebug: boolean;
 	canvas: HTMLCanvasElement;
+	env: env;
 };
 export type updateData = {
 	target: target$1;
@@ -1352,6 +1384,7 @@ export type configData = [
 			number
 		];
 		skinName: nullable<string>;
+		env: env;
 	}
 ];
 export type addToInitFuncs = (meta3dState: state, func: initFunc$1) => state;
@@ -1386,7 +1419,7 @@ type service$13 = {
 	// addToUpdateFuncs: addToFuncs,
 	// addToRenderFuncs: addToFuncs,
 	getPluggablePackageService: <service>(meta3dState: state, packageProtocolName: packageProtocolName) => nullable<service>;
-	run: (meta3dState: state, [canvasData, configData]: configData) => void;
+	run: (meta3dState: state, configData: configData) => void;
 };
 
 export {
