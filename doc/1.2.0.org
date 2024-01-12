@@ -367,7 +367,7 @@ editor-whole
 
 # # 1.api add message api: throw error with meesage info
 # # 2.run visual, enter app should catch error and parse and use antd message to message
-* TODO refactor: remove EnterAppStore?
+* DONE refactor: remove EnterAppStore?
 
 
 

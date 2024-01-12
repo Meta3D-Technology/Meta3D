@@ -7,13 +7,8 @@ let make = (~service: FrontendType.service) => {
 
   let url = RescriptReactRouter.useUrl()
 
-  let ((notUseCacheForFindApp, (account, appName)), eventEmitter) = AppStore.useSelector((
-    {userCenterState, enterAppState, eventEmitter}: AppStoreType.state,
-  ) => {
-    let {notUseCacheForFindApp} = userCenterState
-    let {account, appName} = enterAppState
-
-    ((notUseCacheForFindApp, (account, appName)), eventEmitter)
+  let eventEmitter = AppStore.useSelector(({eventEmitter}: AppStoreType.state) => {
+    eventEmitter
   })
 
   let (downloadProgress, setDownloadProgress) = React.useState(_ => 0)
@@ -35,13 +30,15 @@ let make = (~service: FrontendType.service) => {
       // TODO perf: if already init, not init again
       service.backend.init(InitUtils.getBackendEnv(EnvUtils.getEnv()))
       ->Meta3dBsMostDefault.Most.drain
-      ->Js.Promise.then_(
+      ->// notUseCacheForFindApp,
+
+      Js.Promise.then_(
         _ => {
           service.backend.findPublishApp(.
             progress => setDownloadProgress(_ => progress),
             account,
             appName,
-            notUseCacheForFindApp,
+            true,
           )->Meta3dBsMostDefault.Most.observe(
             appBinaryFile => {
               dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.MarkUseCacheForFindApp))
@@ -112,6 +109,8 @@ let make = (~service: FrontendType.service) => {
             _,
           )
         },
+        // notUseCacheForFindApp,
+
         _,
       )
       ->Js.Promise.catch(

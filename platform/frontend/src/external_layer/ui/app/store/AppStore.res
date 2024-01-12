@@ -19,10 +19,6 @@ let reducer = (state, action) => {
       ...state,
       userCenterState: UserCenterStore.reducer(state.userCenterState, action),
     }
-  | EnterAppAction(action) => {
-      ...state,
-      enterAppState: EnterAppStore.reducer(state.enterAppState, action),
-    }
   | AssembleSpaceAction(action) => {
       ...state,
       assembleSpaceState: AssembleSpaceStore.reducer(state.assembleSpaceState, action),
@@ -44,7 +40,6 @@ let reducer = (state, action) => {
 
 let initialState = {
   userCenterState: UserCenterStore.initialState,
-  enterAppState: EnterAppStore.initialState,
   assembleSpaceState: AssembleSpaceStore.initialState,
   eventEmitter: Event.eventEmitter(),
   docDrawerData: None,
