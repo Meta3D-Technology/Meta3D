@@ -1,61 +1,191 @@
-* TODO 完善ui control
+* design
 
-** TODO add arcballCameraController inspector
+for final app developer, want to build final app:
 
-TODO add checkbox ui control
+# - import published final app to editor
+# - import published final app to editor, merge other editors
+- import published final app to arbitrary editor
+- import exported single event to arbitrary editor
 
-TODO run test:
-editor
-publish
-
-
-** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
-
-
-** TODO add "add Component"
-add select button
-
-
-# ** TODO add Modal
-# publish, export should show Modal
-
-
-# Menu add "关于Meta3D":
-# show Modal
+note: arbitrary editor may merge other editors
 
 
 
 
+TODO how to merge multiple editors?
+
+
+
+want to build own editor:
+- import published editor, extend by edit ui control, action, input
+- import arbitrary/base editor, merge other editors as components
+
+
+
+hidden package for user, user only know action, input, editor, final app
+(user can custom engine pipeline)
+# user only know action, input, editor, final app and select packages
+
+# (can build custom package, but need simplify!
+# e.g. support replace engine pipelines
+# )
+
+
+# * use case
 
 
 
 
 
 
-
-# ** TODO add Debug
-
+* TODO 平台：支持 导入 多个编辑器
 
 
+合并导入的多个编辑器：
+对于包，有两种合并策略：
+1、自动合并只是version不同的包，使用最新的version
+2、对于子包不同的包，给出选项，让用户选择使用哪个包
 
-# ** TODO Message
-# e.g. show import progress bar
+对于ui controls，自动合并(add)
+
+对于Element，自动合并(add)
 
 
 
-* TODO 加入Script
+** TODO finish simple example
 
 
 
-* TODO 3D贪吃蛇
+** TODO finish complete editor(simple one)
 
-Snake, Scene use gltf model!
+
+
+** TODO how to handle different packages?
+e.g. different render packages: 
+need draw by mesh instead of triangle
+when click button, switch to this to render
+
+
+
+
+
+* TODO support custom engine pipelines
+
+note: limit package editable range!
+
+
+
+refer to:
+[Unity SRP](https://www.google.com/search?q=unity+%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF&oq=Unity%E5%8F%AF%E7%BC%96%E7%A8%8B&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyBggAEEUYOTIHCAEQABiABNIBCDI5NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8)
+
+** TODO demo
+
+how to implement?
+
+
+** TODO implement simple
+
+
+** TODO update merge multiple editors with different pipelines
+
+
+
+** TODO implement remain
+
+** TODO update project->v1.x - 1
+- 开放市场
+- 支持引擎开发
+- 支持自定义Package（包括Editor、Engine）
+
+TODO limit package editable range!
+
+
+
+
+* TODO continue final app
+
+# ** TODO change export to import
+** TODO add import
+
+TODO directly import the single event to the published editor which publish it
+
+
+
+
+
+
+* TODO 针对Final App developer, Editor developer这两类用户，优化它们的使用场景/流程
 
 
 
 
 
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
+
+
+
+
+
+
+
+
+# * TODO 完善ui control
+
+# ** TODO add arcballCameraController inspector
+
+# TODO add checkbox ui control
+
+# TODO run test:
+# editor
+# publish
+
+
+# ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+# ** TODO add "add Component"
+# add select button
+
+
+# # ** TODO add Modal
+# # publish, export should show Modal
+
+
+# # Menu add "关于Meta3D":
+# # show Modal
+
+
+
+
+
+
+
+
+
+
+
+# # ** TODO add Debug
+
+
+
+
+# # ** TODO Message
+# # e.g. show import progress bar
+
+
+
+# * TODO 加入Script
+
+
+
+# * TODO 3D贪吃蛇
+
+# Snake, Scene use gltf model!
+
+
+
+
+
 
 
 
