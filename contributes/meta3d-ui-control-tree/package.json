@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-tree",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "displayName": "树",
     "publisher": "meta3d",
     "description": "",
@@ -18,17 +18,17 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-editor-whole-protocol": "^1.1.0",
-        "meta3d-imgui-renderer-protocol": "^1.1.0",
-        "meta3d-type": "^1.1.0",
-        "meta3d-ui-control-tree-protocol": "^1.1.0"
+        "meta3d-editor-whole-protocol": "^1.2.0",
+        "meta3d-imgui-renderer-protocol": "^1.2.0",
+        "meta3d-type": "^1.2.0",
+        "meta3d-ui-control-tree-protocol": "^1.2.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.1.0",
+        "meta3d-tool-publish": "^1.2.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

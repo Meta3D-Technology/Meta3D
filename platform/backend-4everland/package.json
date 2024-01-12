@@ -1,7 +1,7 @@
 {
     "name": "backend-4everland",
     "main": "src/Main.js",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "authors": "Wonder",
     "scripts": {
         "watch": "tsc --watch"
@@ -9,7 +9,7 @@
     "dependencies": {
         "@aws-sdk/client-s3": "3.190.0",
         "@aws-sdk/lib-storage": "3.190.0",
-        "meta3d-fp": "^1.1.0",
+        "meta3d-fp": "^1.2.0",
         "most": "^1.9.0",
         "semver": "7.3.7"
     },
