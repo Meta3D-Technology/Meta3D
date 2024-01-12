@@ -30,19 +30,15 @@ let make = (~service: FrontendType.service) => {
       // TODO perf: if already init, not init again
       service.backend.init(InitUtils.getBackendEnv(EnvUtils.getEnv()))
       ->Meta3dBsMostDefault.Most.drain
-      ->// notUseCacheForFindApp,
-
-      Js.Promise.then_(
+      ->Js.Promise.then_(
         _ => {
           service.backend.findPublishApp(.
             progress => setDownloadProgress(_ => progress),
             account,
             appName,
-            true,
+            UserUtils.isDebugUser(UserUtils.readAccount()),
           )->Meta3dBsMostDefault.Most.observe(
             appBinaryFile => {
-              dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.MarkUseCacheForFindApp))
-
               setIsDownloadFinish(_ => true)
 
               Js.Nullable.isNullable(appBinaryFile)
@@ -109,8 +105,6 @@ let make = (~service: FrontendType.service) => {
             _,
           )
         },
-        // notUseCacheForFindApp,
-
         _,
       )
       ->Js.Promise.catch(

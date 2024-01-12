@@ -68,8 +68,8 @@ type action =
   // | EndJumpToCreateFromScratchTourPhase1Guide
   | StartCreateFromScratchTourPhase3
   | EndCreateFromScratchTourPhase3
-  | MarkNotUseCacheForFindApp
-  | MarkUseCacheForFindApp
+  // | MarkNotUseCacheForFindApp
+  // | MarkUseCacheForFindApp
   // | MarkNotUseCacheForFindFinalApp
   // | MarkUseCacheForFindFinalApp
 
@@ -83,7 +83,7 @@ type state = {
   importedPackageIds: list<id>,
   // importedAppIds: list<id>,
   currentAppName: option<appName>,
-  notUseCacheForFindApp: bool,
+  // notUseCacheForFindApp: bool,
   // notUseCacheForFindFinalApp: bool,
   // customInputs: customInputs,
   // customActions: customActions,

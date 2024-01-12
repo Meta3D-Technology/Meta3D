@@ -122,7 +122,7 @@ let make = (~service: FrontendType.service) => {
             progress => setDownloadProgress(_ => progress),
             account,
             appName,
-            true,
+            UserUtils.isDebugUser(UserUtils.readAccount()),
           )->Meta3dBsMostDefault.Most.observe(
             sceneGLB => {
               setIsDownloadFinish(_ => true)

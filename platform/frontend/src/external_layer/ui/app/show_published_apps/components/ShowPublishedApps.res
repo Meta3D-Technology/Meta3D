@@ -19,12 +19,12 @@ let make = (~service: FrontendType.service, ~account) => {
   //   }
   // })
 
-  let ((release, notUseCacheForFindApp), eventEmitter) = AppStore.useSelector((
+  let (release, eventEmitter) = AppStore.useSelector((
     {userCenterState, eventEmitter}: AppStoreType.state,
   ) => {
-    let {release, notUseCacheForFindApp} = userCenterState
+    let {release} = userCenterState
 
-    ((release, notUseCacheForFindApp), eventEmitter)
+    (release, eventEmitter)
   })
   // let {importedAppIds} = AppStore.useSelector(({userCenterState}: AppStoreType.state) =>
   //   userCenterState
@@ -103,7 +103,7 @@ let make = (~service: FrontendType.service, ~account) => {
                     },
                   ),
                   eventEmitter,
-                  notUseCacheForFindApp,
+                  UserUtils.isDebugUser(account),
                   release,
                   item,
                 )

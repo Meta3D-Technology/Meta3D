@@ -349,13 +349,13 @@ module Method = {
 
                   eventEmitter.emit(. EventUtils.getPublishAppEventName(), Obj.magic(1))
 
-                  previousAppName == appName
-                    ? dispatchForAppStore(
-                        AppStoreType.UserCenterAction(
-                          UserCenterStoreType.MarkNotUseCacheForFindApp,
-                        ),
-                      )
-                    : ()
+                  // previousAppName == appName
+                  //   ? dispatchForAppStore(
+                  //       AppStoreType.UserCenterAction(
+                  //         UserCenterStoreType.MarkNotUseCacheForFindApp,
+                  //       ),
+                  //     )
+                  //   : ()
 
                   ()->Js.Promise.resolve
                 },

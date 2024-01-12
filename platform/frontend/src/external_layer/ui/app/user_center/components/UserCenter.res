@@ -13,19 +13,16 @@ let make = (~service: FrontendType.service) => {
   )
 
   let (
-    (
-      (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
-      isInCreateFromScratchTourPhase2,
-    ),
+    ((account, release, isInCreateFromScratchTourPhase1), isInCreateFromScratchTourPhase2),
     eventEmitter,
   ) = AppStore.useSelector((
     {userCenterState, assembleSpaceState, eventEmitter}: AppStoreType.state,
   ) => {
-    let {account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1} = userCenterState
+    let {account, release, isInCreateFromScratchTourPhase1} = userCenterState
 
     (
       (
-        (account, release, notUseCacheForFindApp, isInCreateFromScratchTourPhase1),
+        (account, release, isInCreateFromScratchTourPhase1),
         assembleSpaceState.elementAssembleState.isInCreateFromScratchTourPhase2,
       ),
       eventEmitter,
@@ -294,7 +291,7 @@ let make = (~service: FrontendType.service) => {
                               },
                             ),
                             eventEmitter,
-                            notUseCacheForFindApp,
+                            UserUtils.isDebugUser(account),
                             release,
                             item,
                           )

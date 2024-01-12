@@ -380,8 +380,10 @@ decide when Show;
 
 
 
-* TODO fix cache for app and final app: add version and cache: compare version
+# * TODO fix cache for app and final app: add version and cache: compare version
+* DONE fix cache for app and final app: judge whether is debug user
 
+judge admin, test user
 
 
 

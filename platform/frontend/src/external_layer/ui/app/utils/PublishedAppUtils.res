@@ -25,7 +25,7 @@ let importApp = (
     notUseCacheForFindApp,
   )
   ->Meta3dBsMostDefault.Most.flatMap(file => {
-    dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.MarkUseCacheForFindApp))
+    // dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.MarkUseCacheForFindApp))
 
     Meta3dCommonlib.NullableSt.isNullable(file)
       ? {

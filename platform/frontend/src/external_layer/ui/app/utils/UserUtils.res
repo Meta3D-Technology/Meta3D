@@ -5,8 +5,7 @@ let saveAccount = account => {
 }
 
 let readAccount = () => {
-  // LocalStorageUtils.get(_buildAccountKey())->Meta3dCommonlib.OptionSt.fromNullable
-  LocalStorageUtils.get(_buildAccountKey())
+  LocalStorageUtils.get(_buildAccountKey())->Meta3dCommonlib.OptionSt.fromNullable
 }
 
 let logOut = () => {
@@ -29,3 +28,5 @@ let isAdmin = account => {
   | _ => false
   }
 }
+
+let isDebugUser = isAdmin

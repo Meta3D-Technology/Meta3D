@@ -105,7 +105,7 @@ let _removeOtherSelectedElementOfSameName = (
 }
 
 let _createState = () => {
-  account: UserUtils.readAccount()->Meta3dCommonlib.OptionSt.fromNullable,
+  account: UserUtils.readAccount(),
   release: None,
   selectedExtensions: list{},
   selectedContributes: list{},
@@ -114,7 +114,7 @@ let _createState = () => {
   importedPackageIds: list{},
   // importedAppIds: list{},
   currentAppName: None,
-  notUseCacheForFindApp: false,
+  // notUseCacheForFindApp: false,
   // notUseCacheForFindFinalApp:false,
   isInCreateFromScratchTourPhase1: false,
   // isJumpToCreateFromScratchTourPhase1Guide: false,
@@ -340,14 +340,14 @@ let reducer = (state, action) => {
       ...state,
       isInCreateFromScratchTourPhase3: false,
     }
-  | MarkNotUseCacheForFindApp => {
-      ...state,
-      notUseCacheForFindApp: true,
-    }
-  | MarkUseCacheForFindApp => {
-      ...state,
-      notUseCacheForFindApp: false,
-    }
+  // | MarkNotUseCacheForFindApp => {
+  //     ...state,
+  //     notUseCacheForFindApp: true,
+  //   }
+  // | MarkUseCacheForFindApp => {
+  //     ...state,
+  //     notUseCacheForFindApp: false,
+  //   }
   // | MarkNotUseCacheForFindFinalApp => {
   //     ...state,
   //     notUseCacheForFindFinalApp: true,

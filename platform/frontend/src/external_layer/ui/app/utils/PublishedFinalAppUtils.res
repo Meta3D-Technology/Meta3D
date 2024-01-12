@@ -20,8 +20,7 @@ let exportSingleEventFile = (
     item.account,
     item.appName,
     // #singleEvent,
-    // notUseCacheForFindFinalApp,
-    true,
+    UserUtils.isDebugUser(item.account->Some),
   )
   ->Meta3dBsMostDefault.Most.flatMap(sceneGLB => {
     Meta3dCommonlib.NullableSt.isNullable(sceneGLB)
@@ -58,7 +57,7 @@ let exportSingleEventFile = (
 
     Meta3dBsMostDefault.Most.empty()->Obj.magic
   }, _)
-  -> Meta3dBsMostDefault.Most.drain
+  ->Meta3dBsMostDefault.Most.drain
   ->Js.Promise.then_(() => {
     onFinish()
 
