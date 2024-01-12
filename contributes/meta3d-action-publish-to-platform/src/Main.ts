@@ -6,7 +6,6 @@ import { eventName, inputData } from "meta3d-action-publish-to-platform-protocol
 import { actionName as setAppNameActionName, state as setAppNameActionState } from "meta3d-action-set-appname-protocol"
 import { actionName as loadAppPreviewActionName, state as loadAppPreviewActionState } from "meta3d-action-load-apppreview-protocol"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
-import { message } from "meta3d-message-utils/src/Main"
 import { readAccount } from "meta3d-user-utils/src/Main"
 import { getCloseCurrentModalForwardActionName } from "meta3d-action-name-utils/src/Main"
 
@@ -15,7 +14,7 @@ let _checkAndGetValues = (api: api, meta3dState: meta3dState): nullable<[string,
     let loadAppPreviewActionState = api.nullable.getExn(api.action.getActionState<loadAppPreviewActionState>(meta3dState, loadAppPreviewActionName))
 
     if (api.nullable.isNullable(setAppNameActionState.appName)) {
-        message(`name 不能为空`)
+        api.message.warn(`name 不能为空`)
 
         return api.nullable.getEmpty()
     }

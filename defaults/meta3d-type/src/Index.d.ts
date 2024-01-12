@@ -64,6 +64,13 @@ export type backendAPI = {
   publishFinalApp: publishFinalApp,
 }
 
+export type messageAPI = {
+  success: (message: string) => void,
+  warn: (message: string) => void,
+  error: (message: string) => void,
+}
+
+
 // tslint:disable-next-line:interface-over-type-literal
 export type immutableAPI = {
   createList: <T>() => List<T>;
@@ -95,7 +102,8 @@ export type api = {
   immutable: immutableAPI;
   action: actionAPI;
   uiControl: uiControlAPI,
-  backend: backendAPI
+  backend: backendAPI,
+  message: messageAPI
 };
 
 // tslint:disable-next-line:interface-over-type-literal

@@ -1,6 +1,6 @@
 {
   "name": "meta3d-event-data",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "publisher": "meta3d",
   "protocol": {
     "name": "meta3d-event-data-protocol"

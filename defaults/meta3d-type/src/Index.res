@@ -116,6 +116,20 @@ type backendAPI = {
   publishFinalApp: publishFinalApp,
 }
 
+type message = string
+
+type success = (. message) => unit
+
+type warn = (. message) => unit
+
+type error = (. message) => unit
+
+type messageAPI = {
+  success: success,
+  warn: warn,
+  error: error,
+}
+
 type list
 
 type arrayData
@@ -183,6 +197,7 @@ type api = {
   action: actionAPI,
   uiControl: uiControlAPI,
   backend: backendAPI,
+  message: messageAPI,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

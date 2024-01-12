@@ -331,6 +331,30 @@ let _buildUIControlAPI = (
   `),
 }
 
+let _buildMessageAPI = (): Meta3dType.Index.messageAPI => {
+  success: %raw(`
+  function (message){
+    console.log(message)
+
+    alert("成功：" + message)
+  }
+  `),
+  warn: %raw(`
+  function (message){
+    console.warn(message)
+
+    alert("警告："+message)
+  }
+  `),
+  error: %raw(`
+  function (message){
+    console.error(message)
+
+    alert("错误：" +message)
+  }
+  `),
+}
+
 let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
@@ -443,4 +467,5 @@ and buildAPI = (): api => {
   uiControl: _buildUIControlAPI(_buildNullableAPI(), (. state, protocolName) =>
     getPackageService(state, protocolName)->Obj.magic
   ),
+  message: _buildMessageAPI(),
 }

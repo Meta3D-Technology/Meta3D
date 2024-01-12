@@ -40,7 +40,8 @@ function init(sandbox, getExtensionService, getPackageServiceOpt, getAllContribu
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ], isInitEvent, isDebug, canvas);
@@ -73,7 +74,8 @@ function clear(sandbox, clearColor, getExtensionService, getPackageServiceOpt, g
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ], clearColor);
@@ -114,7 +116,8 @@ function render(sandbox, getExtensionServiceOpt, getPackageServiceOpt, getAllCon
               immutable: 1,
               action: 1,
               uiControl: 1,
-              backend: 1
+              backend: 1,
+              message: 1
             }, meta3dState, [
               uiExtensionProtocolName,
               imguiRendererExtensionProtocolName
@@ -167,7 +170,8 @@ function beginWindow(sandbox, label, getExtensionService, flagsOpt, getPackageSe
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ], label, flags);
@@ -200,7 +204,8 @@ function endWindow(sandbox, getExtensionService, getPackageServiceOpt, getAllCon
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ]);
@@ -233,7 +238,8 @@ function setNextWindowRect(sandbox, rect, getExtensionService, getPackageService
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ], rect);
@@ -276,7 +282,8 @@ function addFBOTexture(sandbox, getExtensionService, texture, rect, getPackageSe
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ], texture, rect);
@@ -309,7 +316,8 @@ function getContext(sandbox, getExtensionService, getPackageServiceOpt, getAllCo
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ]);
@@ -342,7 +350,8 @@ function button(sandbox, label, size, getExtensionService, getPackageServiceOpt,
                 immutable: 1,
                 action: 1,
                 uiControl: 1,
-                backend: 1
+                backend: 1,
+                message: 1
               },
               imguiRendererExtensionProtocolName
             ], label, size);
@@ -399,7 +408,8 @@ function deepCopy(sandbox, meta3dState, getExtensionService, getPackageServiceOp
               immutable: 1,
               action: 1,
               uiControl: 1,
-              backend: 1
+              backend: 1,
+              message: 1
             }, meta3dState);
 }
 
@@ -427,7 +437,8 @@ function restore(sandbox, currentMeta3dState, targetMeta3dState, getExtensionSer
               immutable: 1,
               action: 1,
               uiControl: 1,
-              backend: 1
+              backend: 1,
+              message: 1
             }, currentMeta3dState, targetMeta3dState);
 }
 

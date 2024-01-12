@@ -42,6 +42,7 @@ let init = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -88,6 +89,7 @@ let clear = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -152,6 +154,7 @@ let render = (
         action: Obj.magic(1),
         uiControl: Obj.magic(1),
         backend: Obj.magic(1),
+        message: Obj.magic(1),
       }: Meta3dType.Index.api
     ),
     meta3dState,
@@ -236,6 +239,7 @@ let beginWindow = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -280,6 +284,7 @@ let endWindow = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -323,6 +328,7 @@ let setNextWindowRect = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -376,6 +382,7 @@ let addFBOTexture = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -420,6 +427,7 @@ let getContext = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -464,6 +472,7 @@ let button = (
           action: Obj.magic(1),
           uiControl: Obj.magic(1),
           backend: Obj.magic(1),
+          message: Obj.magic(1),
         }: Meta3dType.Index.api
       ),
       imguiRendererExtensionProtocolName,
@@ -554,6 +563,7 @@ let deepCopy = (
         action: Obj.magic(1),
         uiControl: Obj.magic(1),
         backend: Obj.magic(1),
+        message: Obj.magic(1),
       }: Meta3dType.Index.api
     ),
     meta3dState,
@@ -593,6 +603,7 @@ let restore = (
         action: Obj.magic(1),
         uiControl: Obj.magic(1),
         backend: Obj.magic(1),
+        message: Obj.magic(1),
       }: Meta3dType.Index.api
     ),
     currentMeta3dState,

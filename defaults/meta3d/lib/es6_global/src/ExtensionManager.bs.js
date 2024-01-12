@@ -231,6 +231,26 @@ function _buildUIControlAPI(nullableAPI, getPackageService) {
         };
 }
 
+function _buildMessageAPI(param) {
+  return {
+          success: (function (message){
+    console.log(message)
+
+    alert("成功：" + message)
+  }),
+          warn: (function (message){
+    console.warn(message)
+
+    alert("警告："+message)
+  }),
+          error: (function (message){
+    console.error(message)
+
+    alert("错误：" +message)
+  })
+        };
+}
+
 function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, extensionState) {
   _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.extensionServiceMap, protocolName));
   var state$1 = setExtensionState({
@@ -308,7 +328,8 @@ function buildAPI(param) {
           },
           action: _buildActionAPI(_buildNullableAPI(undefined), getPackageService),
           uiControl: _buildUIControlAPI(_buildNullableAPI(undefined), getPackageService),
-          backend: _buildBackendAPI(undefined)
+          backend: _buildBackendAPI(undefined),
+          message: _buildMessageAPI(undefined)
         };
 }
 
@@ -336,6 +357,7 @@ export {
   _buildImmutableAPI ,
   _buildActionAPI ,
   _buildUIControlAPI ,
+  _buildMessageAPI ,
   registerExtension ,
   registerContribute ,
   buildAPI ,
