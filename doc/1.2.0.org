@@ -351,7 +351,7 @@ editor-whole
 
 
 
-** TODO fix: not reset preview
+** DONE fix: not reset preview
 
 ** TODO refactor: duplicate between PublishAppService, PublishFinalAppService
 
@@ -418,6 +418,10 @@ TODO add publishedfinalApps, finalApps
 
 
 * TODO publish
+
+TODO publish:
+image ui control
+
 
 
 

@@ -54,7 +54,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             }
 
             return inputPromise.then(image => {
-                if (api.nullable.isNullable(api.uiControl.getUIControlState<state>(meta3dState, label))) {
+                if (api.nullable.isNullable(api.uiControl.getUIControlState<state>(meta3dState, label)) || api.nullable.isNullable(image)) {
                     meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                         clickTexture: null,
                         lastClickTextureImageBase64: null,
