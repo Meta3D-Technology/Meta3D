@@ -390,7 +390,7 @@ judge admin, test user
 * DONE pass bdd test
 
 
-* TODO pass run test
+* DONE pass run test
 
 
 TODO run test:
@@ -399,15 +399,6 @@ run visual->publish to platform
 publish editor->run editor->publish to platform
 
 
-
-
-# * TODO 加入Script
-
-
-
-# * TODO 3D贪吃蛇
-
-# Snake, Scene use gltf model!
 
 
 
@@ -489,3 +480,12 @@ show Modal
 # ** TODO Message
 # e.g. show import progress bar
 
+
+
+* TODO 加入Script
+
+
+
+* TODO 3D贪吃蛇
+
+Snake, Scene use gltf model!

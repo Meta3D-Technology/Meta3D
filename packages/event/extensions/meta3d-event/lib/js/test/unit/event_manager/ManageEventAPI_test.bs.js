@@ -72,7 +72,9 @@ Meta3d_jest.describe("ManageEventAPI", (function (param) {
                                   nullable: init.nullable,
                                   immutable: init.immutable,
                                   action: init.action,
-                                  uiControl: init.uiControl
+                                  uiControl: init.uiControl,
+                                  backend: init.backend,
+                                  message: init.message
                                 };
                         };
                         Meta3d_jest.test("test", (function (param) {

@@ -25,6 +25,8 @@ let _buildAPI = (sandbox): Meta3dType.Index.api => {
     immutable: Obj.magic(1),
     action: Obj.magic(1),
     uiControl: Obj.magic(1),
+    backend: Obj.magic(1),
+    message: Obj.magic(1),
   }
 }
 
