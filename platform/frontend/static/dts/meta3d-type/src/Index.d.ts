@@ -3,6 +3,7 @@
 import { List, Map } from 'immutable';
 
 export type nullable<Value extends any> = Value | null | undefined;
+export type strictNullable<Value extends any> = Value | null;
 export type contributeType = any;
 export type extensionName = string;
 export type contributeName = string;
@@ -23,6 +24,25 @@ export type nullableAPI = {
 	map: <data1, data2>(func: (data: data1) => data2, data: nullable<data1>) => nullable<data2>;
 	bind: <data1, data2>(func: (data: data1) => nullable<data2>, data: nullable<data1>) => nullable<data2>;
 	getEmpty: <data>() => nullable<data>;
+};
+export type env = "local" | "production";
+export type onUploadProgressFunc = (progress: number) => void;
+export type appName = string;
+export type account = string;
+export type description = string;
+export type previewBase64 = string;
+export type isRecommend = boolean;
+export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer, 
+// singleEventBinaryFile: ArrayBuffer,
+appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
+export type backendAPI = {
+	init: (env: string) => Promise<void>;
+	publishFinalApp: publishFinalApp;
+};
+export type messageAPI = {
+	success: (message: string) => void;
+	warn: (message: string) => void;
+	error: (message: string) => void;
 };
 // tslint:disable-next-line:interface-over-type-literal
 export type immutableAPI = {
@@ -58,6 +78,8 @@ export type api = {
 	immutable: immutableAPI;
 	action: actionAPI;
 	uiControl: uiControlAPI;
+	backend: backendAPI;
+	message: messageAPI;
 };
 // tslint:disable-next-line:interface-over-type-literal
 export type getExtensionService<extensionService> = (_1: api) => extensionService;
