@@ -258,10 +258,7 @@ defineFeature(feature, test => {
       () => {
         loadAppStub.contents
         ->Obj.magic
-        ->SinonTool.calledWithArg2(
-          matchAny,
-          appBinaryFile,
-        )
+        ->SinonTool.calledWithArg2(matchAny, appBinaryFile)
         ->expect == true
       },
     )
@@ -278,6 +275,7 @@ defineFeature(feature, test => {
             "target": "visualRun",
             "isDebug": isDebug,
             "canvas": canvas,
+            "env": #local,
           },
         )
         ->expect == true

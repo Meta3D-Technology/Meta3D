@@ -387,7 +387,7 @@ judge admin, test user
 
 
 
-* TODO pass bdd test
+* DONE pass bdd test
 
 
 * TODO pass run test
@@ -412,6 +412,12 @@ publish editor->run editor->publish to platform
 
 
 
+* TODO publish
+
+TODO publish:
+image ui control
+
+
 * TODO update production
 
 TODO add publishedfinalApps, finalApps in cloudbase
@@ -424,12 +430,6 @@ TODO update packages
 TODO publish complete editor app
 
 
-
-
-* TODO publish
-
-TODO publish:
-image ui control
 
 
 
