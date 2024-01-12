@@ -27,6 +27,7 @@ module Method = {
       "target": "visual",
       "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-canvas")->Meta3dCommonlib.OptionSt.getExn,
+      "env": EnvUtils.getEnv(),
     }->Obj.magic
   }
 

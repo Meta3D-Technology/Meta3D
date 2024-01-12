@@ -408,6 +408,8 @@ publish editor->run editor->publish to platform
 TODO publish:
 image ui control
 
+TODO merge to master
+add release
 
 * TODO update production
 
@@ -421,6 +423,10 @@ TODO update packages
 TODO publish complete editor app
 
 
+* DONE fix: can't publish app?
+
+now publish to local env!
+use local env??
 
 
 
@@ -436,6 +442,7 @@ TODO publish complete editor app
 
 
 
+* TODO fix: editor: run-stop: should reset arcball in gameview when stop
 
 
 
