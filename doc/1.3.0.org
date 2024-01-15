@@ -1,14 +1,5 @@
 * design
 
-for final app developer, want to build final app:
-
-# - import published final app to editor
-# - import published final app to editor, merge other editors
-- import published final app to arbitrary editor
-- import exported single event to arbitrary editor
-
-note: arbitrary editor may merge other editors
-
 
 
 
@@ -17,13 +8,29 @@ TODO how to merge multiple editors?
 
 
 want to build own editor:
+- create from scratch, add ui control, action, input
 - import published editor, extend by edit ui control, action, input
 - import arbitrary/base editor, merge other editors as components
 
 
 
-hidden package for user, user only know action, input, editor, final app
-(user can custom engine pipeline)
+for final app developer, want to build final app:
+
+# - import published final app to editor
+# - import published final app to editor, merge other editors
+- build editor, create final app based on it
+- import published final app to arbitrary editor
+- import exported single event to arbitrary editor
+
+note: arbitrary editor may merge other editors
+
+
+
+
+
+# hidden package for user, user only know action, input, editor, final app
+# (user can custom engine pipeline)
+
 # user only know action, input, editor, final app and select packages
 
 # (can build custom package, but need simplify!
@@ -42,9 +49,17 @@ hidden package for user, user only know action, input, editor, final app
 
 
 合并导入的多个编辑器：
-对于包，有两种合并策略：
-1、自动合并只是version不同的包，使用最新的version
-2、对于子包不同的包，给出选项，让用户选择使用哪个包
+# # 对于包，有两种合并策略：
+# 对于包，除了pluggable包以外都应该相同（因为用户只能自定义pluggable包）。
+# 对于pluggable包：
+# 1、自动合并只是version不同的包，使用最新的version
+# # 2、对于子包不同的包，给出选项，让用户选择使用哪个包
+# 2、对于子包不同的包，直接add
+# 对于其它包：
+# 1、使用最新的version
+
+
+
 
 对于ui controls，自动合并(add)
 
@@ -55,49 +70,79 @@ hidden package for user, user only know action, input, editor, final app
 ** TODO finish simple example
 
 
-
-** TODO finish complete editor(simple one)
-
-
-
-** TODO how to handle different packages?
-e.g. different render packages: 
-need draw by mesh instead of triangle
-when click button, switch to this to render
+** TODO remove "need Scene,Game view at least" limit
 
 
 
 
+# * TODO support custom engine pipelines
 
-* TODO support custom engine pipelines
-
-note: limit package editable range!
-
-
-
-refer to:
-[Unity SRP](https://www.google.com/search?q=unity+%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF&oq=Unity%E5%8F%AF%E7%BC%96%E7%A8%8B&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyBggAEEUYOTIHCAEQABiABNIBCDI5NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8)
-
-** TODO demo
-
-how to implement?
-
-
-** TODO implement simple
-
-
-** TODO update merge multiple editors with different pipelines
+# note: limit package editable range!
 
 
 
-** TODO implement remain
+# refer to:
+# [Unity SRP](https://www.google.com/search?q=unity+%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF&oq=Unity%E5%8F%AF%E7%BC%96%E7%A8%8B&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyBggAEEUYOTIHCAEQABiABNIBCDI5NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8)
 
-** TODO update project->v1.x - 1
-- 开放市场
-- 支持引擎开发
-- 支持自定义Package（包括Editor、Engine）
+# ** TODO demo
 
-TODO limit package editable range!
+# # how to implement?
+
+
+# - enhance custom render
+# - create new render for new canvas
+
+# hidden engine detail(e.g. not know three.js), extract abstract api
+
+
+
+
+# ** TODO implement simple
+
+
+
+# ** TODO custom shader?
+
+
+# ** TODO update merge multiple editors with different pipelines
+
+
+
+# ** TODO implement remain
+
+# ** TODO update project->v1.x - 1
+# - 开放市场
+# - 支持引擎开发
+# - 支持自定义Package（包括Editor、Engine）
+
+# TODO limit package editable range!
+
+
+
+
+# * TODO 平台：支持 导入 多个编辑器
+
+
+
+
+
+# ** TODO how to handle different packages?
+# e.g. different render packages: 
+# need draw by mesh instead of triangle
+# when click button, switch to this to render
+
+
+
+
+** TODO finish complete editor
+
+
+
+** TODO add Editor Component Market
+
+Publish as Component or Editor
+
+
 
 
 
