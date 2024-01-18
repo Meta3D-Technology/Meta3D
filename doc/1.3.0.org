@@ -1,265 +1,83 @@
-* design
+* TODO 完善ui control
 
+** TODO add arcballCameraController inspector
 
+TODO add checkbox ui control
 
+TODO run test:
+editor
+publish
 
-TODO how to merge multiple editors?
 
+** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
 
 
-want to build own editor:
-- create from scratch, add ui control, action, input
-- import published editor, extend by edit ui control, action, input
-- import arbitrary/base editor, merge other editors as components
+** TODO add "add Component"
+add select button
 
 
+# ** TODO add Modal
+# publish, export should show Modal
 
-for final app developer, want to build final app:
 
-# - import published final app to editor
-# - import published final app to editor, merge other editors
-- build editor, create final app based on it
-- import published final app to arbitrary editor
-- import exported single event to arbitrary editor
+# Menu add "关于Meta3D":
+# show Modal
 
-note: arbitrary editor may merge other editors
 
 
 
 
 
-# hidden package for user, user only know action, input, editor, final app
-# (user can custom engine pipeline)
 
-# user only know action, input, editor, final app and select packages
 
-# (can build custom package, but need simplify!
-# e.g. support replace engine pipelines
-# )
 
 
-# * use case
 
+# ** TODO add Debug
 
 
 
 
-* TODO 平台：支持 导入 多个编辑器
+# ** TODO Message
+# e.g. show import progress bar
 
 
-# 合并导入的多个编辑器：
-# 对于包，有两种合并策略：
-# 对于包，除了pluggable包以外都应该相同（因为用户只能自定义pluggable包）。
-# 对于pluggable包：
-# 1、自动合并只是version不同的包，使用最新的version
-# # 2、对于子包不同的包，给出选项，让用户选择使用哪个包
-# 2、对于子包不同的包，直接add
-# 对于其它包：
-# 1、使用最新的version
 
+* TODO 加入Script
 
 
-对于包，should be the same! if not equal, error
 
-对于ui controls, actions，自动合并(add), remove duplicate ones(if not equal, error)
+* TODO 3D贪吃蛇
 
-对于Element，自动合并(add)
+Snake, Scene use gltf model!
 
 
-** TODO remove "need Scene,Game view at least" limit
 
-** TODO publish as editor component
 
+* TODO engine: add basic 3d UI
+add imgui ui or state ui?
 
-** TODO add Editor Component Market
 
-TODO 选择/导入/运行
+* TODO 引擎：支持碰撞
 
-TODO add "使用选择的编辑器组件，创建新的编辑器" button to the top
 
 
+* TODO 实现第一人称漫游场景
 
 
 
+* TODO 实现基本的数字孪生场景
 
-
-** TODO finish simple example
-
-Menu + Scene View
-
-
-
-
-** TODO fix cache for editor component: judge whether is debug user
-
-judge admin, test user
-
-
-# * TODO support custom engine pipelines
-
-# note: limit package editable range!
-
-
-
-# refer to:
-# [Unity SRP](https://www.google.com/search?q=unity+%E5%8F%AF%E7%BC%96%E7%A8%8B%E6%B8%B2%E6%9F%93%E7%AE%A1%E7%BA%BF&oq=Unity%E5%8F%AF%E7%BC%96%E7%A8%8B&gs_lcrp=EgZjaHJvbWUqBwgBEAAYgAQyBggAEEUYOTIHCAEQABiABNIBCDI5NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8)
-
-# ** TODO demo
-
-# # how to implement?
-
-
-# - enhance custom render
-# - create new render for new canvas
-
-# hidden engine detail(e.g. not know three.js), extract abstract api
-
-
-
-
-# ** TODO implement simple
-
-
-
-# ** TODO custom shader?
-
-
-# ** TODO update merge multiple editors with different pipelines
-
-
-
-# ** TODO implement remain
-
-# ** TODO update project->v1.x - 1
-# - 开放市场
-# - 支持引擎开发
-# - 支持自定义Package（包括Editor、Engine）
-
-# TODO limit package editable range!
-
-
-
-
-# * TODO 平台：支持 导入 多个编辑器
-
-
-
-
-
-# ** TODO how to handle different packages?
-# e.g. different render packages: 
-# need draw by mesh instead of triangle
-# when click button, switch to this to render
-
-
-
-
-** TODO finish complete editor
-
-
-
-
-* TODO continue final app
-
-# ** TODO change export to import
-** TODO add import
-
-TODO directly import the single event to the published editor which publish it
-
-
-
-
-
-
-* TODO 针对Final App developer, Editor developer这两类用户，优化它们的使用场景/流程
-
-
-
-
-* TODO rewrite guide
-
-TODO 重写新人引导 按用户分类 分步骤
-
-v1.0公测时，发现大概只有5%的人完成了新人引导。这估计是新人引导流程太长的缘故
-
-因此，在下面的方向优化：
-
-切割为多个新人引导
-第一个新人引导流程要短
-给出步骤，用户可按步骤完成每个引导
+TODO 支持一个 基本的数字孪生场景：
 refer to:
-https://new.qq.com/rain/a/20211129A09L4H00
+// https://www.hightopo.com/demos/index.html
+http://www.mms3d.cn/html/product/slxm/
 
-TODO two kind guide: for Editor Developer, for Final App Developer
+
+TODO use echart to draw 2d ui
+
+
 
 
 
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
-
-
-
-
-
-
-
-
-# * TODO 完善ui control
-
-# ** TODO add arcballCameraController inspector
-
-# TODO add checkbox ui control
-
-# TODO run test:
-# editor
-# publish
-
-
-# ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
-
-
-# ** TODO add "add Component"
-# add select button
-
-
-# # ** TODO add Modal
-# # publish, export should show Modal
-
-
-# # Menu add "关于Meta3D":
-# # show Modal
-
-
-
-
-
-
-
-
-
-
-
-# # ** TODO add Debug
-
-
-
-
-# # ** TODO Message
-# # e.g. show import progress bar
-
-
-
-# * TODO 加入Script
-
-
-
-# * TODO 3D贪吃蛇
-
-# Snake, Scene use gltf model!
-
-
-
-
-
-
-
-
