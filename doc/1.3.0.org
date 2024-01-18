@@ -1,3 +1,261 @@
+* TODO 实现基本的数字孪生场景
+
+TODO 支持一个 基本的数字孪生场景：
+refer to:
+// https://www.hightopo.com/demos/index.html
+http://www.mms3d.cn/html/product/slxm/
+
+
+TODO use echart to draw 2d ui
+
+
+
+* 整理需求
+
+切换场景
+
+播放一段相机动画，展示快速漫游
+
+点击模型时，播放模型动画
+
+picking
+
+显示轮廓
+
+线框模式:
+绘制线框模式的模型
+
+echart2d图标
+
+3D ui:
+text
+面板
+    面向屏幕
+    面向固定方向
+
+
+
+
+场景：
+使用免费模型来搭建“园区”场景
+大楼+大楼内部
+机器+动画
+
+
+
+* DONE 搭建场景
+
+
+场景1:
+大楼
+
+
+场景2:
+大楼内部
+
+
+# 场景：
+# 使用免费模型来搭建“园区”场景
+# 大楼+大楼内部
+# 机器+动画
+
+
+* TODO 切换场景
+
+# ** TODO add perspective component
+** TODO add camera group inspector
+
+include basiccameraview, perspective
+
+# ** TODO update basiccameraview component
+
+** TODO add checkbox ui control
+
+
+TODO replace current camera
+
+# TODO run test:
+# editor
+# publish
+
+
+** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+** TODO add "add Component"
+add select button
+
+
+
+run test:
+add camera group inspector
+
+
+
+
+** TODO 加入Script
+
+
+** TODO 点击按钮，切换场景
+
+TODO 动态加载 without assetbundle
+
+
+- first load all scenes, only make current scene visiable
+- script to control which scene visiable
+
+
+script:
+control visiable
+bind event to switch scene
+
+
+
+* TODO 播放一段相机动画，展示快速漫游
+
+
+
+
+** TODO 播放一段相机动画，展示快速漫游
+
+TODO 播放完后，切换到主相机(arcball)
+
+
+* TODO 机器动画
+
+TODO 场景1加入机器
+
+TODO 点击按钮时，播放模型动画
+    组装动画/运行动画
+    use 之前的项目（积木 组装动画）？
+
+
+* TODO picking
+
+for scene view
+
+for game view
+
+* TODO 显示轮廓
+# 放到后面，由用户扩展引擎包来加入？
+
+
+for scene view
+
+for game view
+
+
+
+* TODO focus
+
+
+for scene view
+    press f
+
+for game view
+    click model to focus
+
+
+
+* TODO refactor
+
+# TODO 场景1加入机器
+
+TODO 改为点击模型时，播放模型动画
+
+
+
+
+
+
+* TODO 3D ui
+text
+面板
+    面向屏幕
+    面向固定方向
+
+
+TODO 大楼显示面板:面向固定方向
+
+
+TODO 点击室内模型，显示面板：面向屏幕
+
+
+
+
+* TODO 3d ui 数据绑定
+
+refer to:
+https://www.grapecity.com.cn/blogs/digital-twins-and-3d-visualization
+
+
+TODO 上传json数据，用来提供ui的数据
+
+TODO 修改模型名，与之绑定
+
+
+
+
+TODO support status: can change model,ui color to red
+
+
+* TODO echart2d图标
+
+TODO hud，显示一些数据，以及切换按钮
+
+
+
+
+* TODO 2d ui 数据绑定
+
+
+
+* TODO 其它
+
+
+
+# TODO 线框模式: 绘制线框模式的模型
+# 放到后面，由用户扩展引擎包来加入？
+
+# refer to:
+# https://www.hightopo.com/blog/621.html
+
+
+
+
+
+
+* TODO fix: editor: run-stop: should reset arcball in gameview when stop
+
+
+
+
+
+
+* TODO 接活：开发数字孪生场景
+
+refer to:
+https://www.zbj.com/fw/1690942.html
+
+>服务前需客户提供的信息:
+需提供的资料：
+1、CAD图纸：CAD平面布置图。
+2、现场实景照片、设备实景照片、室内实景照片、室外航拍图、项目效果图
+3、项目实际地理位置，可从百度地图定位。
+4、前端页面UI风格、色系风格
+5、原型图：前端图表内容设计资料，具体有哪些图表，需要展示哪些数据
+6、各设备数据接口：接口地址、接口文档
+
+客户不需要提供3D模型，而是去找设计师来建模！
+
+
+
+
+
+
+
+
+
 * TODO 完善ui control
 
 ** TODO add arcballCameraController inspector
@@ -66,18 +324,4 @@ add imgui ui or state ui?
 
 
 
-* TODO 实现基本的数字孪生场景
 
-TODO 支持一个 基本的数字孪生场景：
-refer to:
-// https://www.hightopo.com/demos/index.html
-http://www.mms3d.cn/html/product/slxm/
-
-
-TODO use echart to draw 2d ui
-
-
-
-
-
-* TODO fix: editor: run-stop: should reset arcball in gameview when stop
