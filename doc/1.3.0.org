@@ -44,12 +44,11 @@ note: arbitrary editor may merge other editors
 
 
 
-
 * TODO 平台：支持 导入 多个编辑器
 
 
-合并导入的多个编辑器：
-# # 对于包，有两种合并策略：
+# 合并导入的多个编辑器：
+# 对于包，有两种合并策略：
 # 对于包，除了pluggable包以外都应该相同（因为用户只能自定义pluggable包）。
 # 对于pluggable包：
 # 1、自动合并只是version不同的包，使用最新的version
@@ -60,19 +59,40 @@ note: arbitrary editor may merge other editors
 
 
 
+对于包，should be the same! if not equal, error
 
-对于ui controls，自动合并(add)
+对于ui controls, actions，自动合并(add), remove duplicate ones(if not equal, error)
 
 对于Element，自动合并(add)
+
+
+** TODO remove "need Scene,Game view at least" limit
+
+** TODO publish as editor component
+
+
+** TODO add Editor Component Market
+
+TODO 选择/导入/运行
+
+TODO add "使用选择的编辑器组件，创建新的编辑器" button to the top
+
+
+
+
 
 
 
 ** TODO finish simple example
 
+Menu + Scene View
 
-** TODO remove "need Scene,Game view at least" limit
 
 
+
+** TODO fix cache for editor component: judge whether is debug user
+
+judge admin, test user
 
 
 # * TODO support custom engine pipelines
@@ -138,14 +158,6 @@ note: arbitrary editor may merge other editors
 
 
 
-** TODO add Editor Component Market
-
-Publish as Component or Editor
-
-
-
-
-
 
 * TODO continue final app
 
@@ -162,6 +174,23 @@ TODO directly import the single event to the published editor which publish it
 * TODO 针对Final App developer, Editor developer这两类用户，优化它们的使用场景/流程
 
 
+
+
+* TODO rewrite guide
+
+TODO 重写新人引导 按用户分类 分步骤
+
+v1.0公测时，发现大概只有5%的人完成了新人引导。这估计是新人引导流程太长的缘故
+
+因此，在下面的方向优化：
+
+切割为多个新人引导
+第一个新人引导流程要短
+给出步骤，用户可按步骤完成每个引导
+refer to:
+https://new.qq.com/rain/a/20211129A09L4H00
+
+TODO two kind guide: for Editor Developer, for Final App Developer
 
 
 

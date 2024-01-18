@@ -26,6 +26,7 @@
         "cross-env": "^7.0.3",
         "css-loader": "^3.6.0",
         "cz-customizable": "^5.2.0",
+        "gulp": "^4.0.2",
         "gentype": "^3.48.0",
         "html-webpack-plugin": "^5.5.0",
         "identity-obj-proxy": "^3.0.0",
