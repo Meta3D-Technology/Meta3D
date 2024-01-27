@@ -193,6 +193,14 @@ type service = {
     int,
     int,
   ) => (Meta3dType.Index.state, Js.Nullable.t<string>),
+  inputFloat1: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+    float,
+    float,
+    float,
+    int,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<float>),
   inputFloat3: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,
@@ -201,6 +209,11 @@ type service = {
     float,
     int,
   ) => (Meta3dType.Index.state, Js.Nullable.t<(float, float, float)>),
+  checkbox: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+    bool,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<bool>),
   collapsing: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,

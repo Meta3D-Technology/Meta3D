@@ -3,7 +3,7 @@
 import * as Sinon from "../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat3Opt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat1Opt, inputFloat3Opt, checkboxOpt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -29,7 +29,9 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var switchButton = switchButtonOpt !== undefined ? switchButtonOpt : Sinon.createEmptyStub(sandbox.contents);
   var imageButton = imageButtonOpt !== undefined ? imageButtonOpt : Sinon.createEmptyStub(sandbox.contents);
   var inputText = inputTextOpt !== undefined ? inputTextOpt : Sinon.createEmptyStub(sandbox.contents);
+  var inputFloat1 = inputFloat1Opt !== undefined ? inputFloat1Opt : Sinon.createEmptyStub(sandbox.contents);
   var inputFloat3 = inputFloat3Opt !== undefined ? inputFloat3Opt : Sinon.createEmptyStub(sandbox.contents);
+  var checkbox = checkboxOpt !== undefined ? checkboxOpt : Sinon.createEmptyStub(sandbox.contents);
   var collapsing = collapsingOpt !== undefined ? collapsingOpt : Sinon.createEmptyStub(sandbox.contents);
   var image = imageOpt !== undefined ? imageOpt : Sinon.createEmptyStub(sandbox.contents);
   var openModal = openModalOpt !== undefined ? openModalOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -62,7 +64,9 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           imageButton: imageButton,
           image: image,
           inputText: inputText,
+          inputFloat1: inputFloat1,
           inputFloat3: inputFloat3,
+          checkbox: checkbox,
           collapsing: collapsing,
           openModal: openModal,
           closeCurrentModal: closeCurrentModal,

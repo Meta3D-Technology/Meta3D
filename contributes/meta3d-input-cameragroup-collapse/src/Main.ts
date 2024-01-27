@@ -6,7 +6,7 @@ import { service } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
-        inputName: "BasicCameraViewCollapseInput",
+        inputName: "CameraGroupCollapseInput",
         func: (meta3dState) => {
 
             return Promise.resolve(api.nullable.getWithDefault(
@@ -14,7 +14,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                     gameObject => {
                         let engineSceneService = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).scene(meta3dState)
 
-                        return engineSceneService.gameObject.hasBasicCameraView(meta3dState, gameObject)
+                        return engineSceneService.gameObject.hasBasicCameraView(meta3dState, gameObject) && engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)
                     },
                     api.nullable.bind(selectSceneTreeNodeState => selectSceneTreeNodeState.selectedGameObject, api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName))
                 ),

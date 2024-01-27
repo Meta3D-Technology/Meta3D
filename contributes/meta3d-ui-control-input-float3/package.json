@@ -1,7 +1,7 @@
 {
     "name": "meta3d-ui-control-input-float3",
-    "version": "1.2.0",
-    "displayName": "数字输入框",
+    "version": "1.2.1",
+    "displayName": "数字输入框3",
     "publisher": "meta3d",
     "description": "",
     "protocol": {

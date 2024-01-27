@@ -522,11 +522,29 @@ function inputText(data, meta3dState, label, value, maxLength, width) {
               }), data);
 }
 
+function inputFloat1(data, meta3dState, label, value, step, stepFast, width) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.inputFloat1(label, value, step, stepFast, width)
+                      ];
+              }), data);
+}
+
 function inputFloat3(data, meta3dState, label, value, step, stepFast, width) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
                         imguiRendererState,
                         imguiRendererService.inputFloat3(label, value, step, stepFast, width)
+                      ];
+              }), data);
+}
+
+function checkbox(data, meta3dState, label, value) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.checkbox(label, value)
                       ];
               }), data);
 }
@@ -704,7 +722,9 @@ export {
   imageButton ,
   image ,
   inputText ,
+  inputFloat1 ,
   inputFloat3 ,
+  checkbox ,
   collapsing ,
   openModal ,
   closeCurrentModal ,

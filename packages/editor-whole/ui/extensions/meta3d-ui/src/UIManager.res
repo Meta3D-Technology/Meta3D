@@ -817,11 +817,31 @@ let inputText = (data, meta3dState, label, value, maxLength, width) => {
   )
 }
 
+let inputFloat1 = (data, meta3dState, label, value, step, stepFast, width) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.inputFloat1(. label, value, step, stepFast, width))
+    },
+    data,
+  )
+}
+
 let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
       (imguiRendererState, imguiRendererService.inputFloat3(. label, value, step, stepFast, width))
+    },
+    data,
+  )
+}
+
+let checkbox = (data, meta3dState, label, value) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.checkbox(. label, value))
     },
     data,
   )

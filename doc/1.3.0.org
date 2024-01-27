@@ -63,23 +63,44 @@ text
 * TODO 切换场景
 
 # ** TODO add perspective component
-** TODO add camera group inspector
+** DONE add camera group inspector
 
 include basiccameraview, perspective
 
+TODO add float1 ui control
+
 # ** TODO update basiccameraview component
 
-** TODO add checkbox ui control
+TODO add checkbox ui control
 
 
 TODO replace current camera
 
-# TODO run test:
-# editor
-# publish
 
 
-** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+TODO update:
+# ui
+# editor-whole
+# float1,float3,checkbox ui control i and p
+related inputs, actions
+checkbox i,p
+
+
+
+TODO run test:
+editor
+run-stop
+
+** TODO support not active
+
+TODO implement not active
+
+TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+
+
+
+** TODO fix: if change isActive / far when run,  arcball drag event not work
+
 
 
 ** TODO add "add Component"
@@ -92,11 +113,25 @@ add camera group inspector
 
 
 
+** TODO publish editor
+
+
+TODO publish:
+imgui, ui i,p
+editor-whole
+# float1,float3,checkbox ui control i and p
+# related inputs, actions
+# checkbox i,p
+
+
+TODO update package:
+ui
+editor-whole
 
 ** TODO 加入Script
 
 
-** TODO 点击按钮，切换场景
+** TODO 切换场景
 
 TODO 动态加载 without assetbundle
 
@@ -107,27 +142,7 @@ TODO 动态加载 without assetbundle
 
 script:
 control visiable
-bind event to switch scene
-
-
-
-* TODO 播放一段相机动画，展示快速漫游
-
-
-
-
-** TODO 播放一段相机动画，展示快速漫游
-
-TODO 播放完后，切换到主相机(arcball)
-
-
-* TODO 机器动画
-
-TODO 场景1加入机器
-
-TODO 点击按钮时，播放模型动画
-    组装动画/运行动画
-    use 之前的项目（积木 组装动画）？
+bind keyboard event to switch scene
 
 
 * TODO picking
@@ -157,72 +172,6 @@ for game view
 
 
 
-* TODO refactor
-
-# TODO 场景1加入机器
-
-TODO 改为点击模型时，播放模型动画
-
-
-
-
-
-
-* TODO 3D ui
-text
-面板
-    面向屏幕
-    面向固定方向
-
-
-TODO 大楼显示面板:面向固定方向
-
-
-TODO 点击室内模型，显示面板：面向屏幕
-
-
-
-
-* TODO 3d ui 数据绑定
-
-refer to:
-https://www.grapecity.com.cn/blogs/digital-twins-and-3d-visualization
-
-
-TODO 上传json数据，用来提供ui的数据
-
-TODO 修改模型名，与之绑定
-
-
-
-
-TODO support status: can change model,ui color to red
-
-
-* TODO echart2d图标
-
-TODO hud，显示一些数据，以及切换按钮
-
-
-
-
-* TODO 2d ui 数据绑定
-
-
-
-* TODO 其它
-
-
-
-# TODO 线框模式: 绘制线框模式的模型
-# 放到后面，由用户扩展引擎包来加入？
-
-# refer to:
-# https://www.hightopo.com/blog/621.html
-
-
-
-
 
 
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
@@ -232,21 +181,6 @@ TODO hud，显示一些数据，以及切换按钮
 
 
 
-* TODO 接活：开发数字孪生场景
-
-refer to:
-https://www.zbj.com/fw/1690942.html
-
->服务前需客户提供的信息:
-需提供的资料：
-1、CAD图纸：CAD平面布置图。
-2、现场实景照片、设备实景照片、室内实景照片、室外航拍图、项目效果图
-3、项目实际地理位置，可从百度地图定位。
-4、前端页面UI风格、色系风格
-5、原型图：前端图表内容设计资料，具体有哪些图表，需要展示哪些数据
-6、各设备数据接口：接口地址、接口文档
-
-客户不需要提供3D模型，而是去找设计师来建模！
 
 
 
@@ -255,31 +189,30 @@ https://www.zbj.com/fw/1690942.html
 
 
 
+# * TODO 完善ui control
 
-* TODO 完善ui control
+# ** TODO add arcballCameraController inspector
 
-** TODO add arcballCameraController inspector
+# TODO add checkbox ui control
 
-TODO add checkbox ui control
-
-TODO run test:
-editor
-publish
-
-
-** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+# TODO run test:
+# editor
+# publish
 
 
-** TODO add "add Component"
-add select button
+# ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
 
 
-# ** TODO add Modal
-# publish, export should show Modal
+# ** TODO add "add Component"
+# add select button
 
 
-# Menu add "关于Meta3D":
-# show Modal
+# # ** TODO add Modal
+# # publish, export should show Modal
+
+
+# # Menu add "关于Meta3D":
+# # show Modal
 
 
 
@@ -291,36 +224,36 @@ add select button
 
 
 
-# ** TODO add Debug
+# # ** TODO add Debug
 
 
 
 
-# ** TODO Message
-# e.g. show import progress bar
+# # ** TODO Message
+# # e.g. show import progress bar
 
 
 
-* TODO 加入Script
+# * TODO 加入Script
 
 
 
-* TODO 3D贪吃蛇
+# * TODO 3D贪吃蛇
 
-Snake, Scene use gltf model!
-
-
-
-
-* TODO engine: add basic 3d UI
-add imgui ui or state ui?
-
-
-* TODO 引擎：支持碰撞
+# Snake, Scene use gltf model!
 
 
 
-* TODO 实现第一人称漫游场景
+
+# * TODO engine: add basic 3d UI
+# add imgui ui or state ui?
+
+
+# * TODO 引擎：支持碰撞
+
+
+
+# * TODO 实现第一人称漫游场景
 
 
 

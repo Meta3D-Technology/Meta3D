@@ -12,7 +12,16 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, gameObject) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, isActive, gameObject) => {
+                    if (!isActive) {
+                        console.log("not support")
+
+                        return Promise.resolve(meta3dState)
+                    }
+                    console.log("active")
+
+
+
                     let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
                     let engineSceneService = editorWholeService.scene(meta3dState)
 
@@ -83,7 +92,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
                     inputData: [
-                        api.nullable.getExn(selectedGameObject)
+                        uiData,
+                        api.nullable.getExn(selectedGameObject),
                     ]
                 }))
             })

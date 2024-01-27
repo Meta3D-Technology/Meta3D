@@ -279,6 +279,23 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return newValue
         },
+        inputFloat1: (label, value, step, stepFast, width) => {
+            let valueRef = buildRef(value)
+            let newValue: nullable<number> = null
+
+            ImGui.PushItemWidth(width)
+
+            ImGui.PushID(label + "_x")
+            if (ImGui.InputFloat("", buildBind(valueRef), step, stepFast, "%.3f")) {
+                newValue = valueRef.content
+            }
+            ImGui.PopID()
+            ImGui.SameLine()
+
+            ImGui.Text(label)
+
+            return newValue
+        },
         inputFloat3: (label, [x, y, z], step, stepFast, width) => {
             let valueXRef = buildRef(x)
             let valueYRef = buildRef(y)
@@ -326,6 +343,15 @@ export let getExtensionService: getExtensionServiceMeta3D<
                     }, newValueZ)
                 }, newValueY)
             }, newValueX)
+        },
+        checkbox: (label, isSelect) => {
+            let isSelectRef = buildRef(isSelect)
+
+            if (ImGui.Checkbox(label, buildBind(isSelectRef))) {
+                return isSelectRef.content
+            }
+
+            return null
         },
         collapsing: (label, isOpen, cond_) => {
             let imguiCond = null

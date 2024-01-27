@@ -183,6 +183,13 @@ export type service = {
     maxLength: number,
     width: number
   ) => nullable<string>;
+  readonly inputFloat1: (
+    label: label,
+    value: number,
+    step: number,
+    stepFast: number,
+    width: number
+  ) => nullable<number>;
   readonly inputFloat3: (
     label: label,
     value: [number, number, number],
@@ -190,6 +197,10 @@ export type service = {
     stepFast: number,
     width: number
   ) => nullable<[number, number, number]>;
+  readonly checkbox: (
+    label: label,
+    value: boolean
+  ) => nullable<boolean>;
   readonly collapsing: (
     label: label,
     isOpen: boolean,

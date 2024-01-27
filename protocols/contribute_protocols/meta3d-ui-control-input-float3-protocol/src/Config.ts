@@ -16,7 +16,7 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
     {
         name: "label",
         type_: "string",
-        value: "数字输入框##" + _generateUniqueId()
+        value: "数字输入框3##" + _generateUniqueId()
     },
     {
         name: "step",

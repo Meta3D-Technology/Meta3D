@@ -539,50 +539,82 @@ import { addTexture } from "./init_button";
 
 
 
-let selected_fish = -1
+// let selected_fish = -1
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time);
+//     ImGui.NewFrame();
+
+
+//     if (ImGui.Button("Delete.."))
+//         ImGui.OpenPopup("Delete?");
+
+
+//     // Always center this window when appearing
+//     // const center = (ImGui as any).GetMainViewport().GetCenter();
+//     // ImGui.SetNextWindowPos(center, ImGui.Cond.Appearing, new ImGui.Vec2(0.5, 0.5));
+
+//     // ImGui.ShowMetricsWindow()
+
+//     const names: string[] = ["Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"];
+
+//     if (ImGui.Button("Select.."))
+//         ImGui.OpenPopup("my_select_popup");
+//     ImGui.SameLine();
+//     ImGui.TextUnformatted(selected_fish === -1 ? "<None>" : names[selected_fish]);
+//     if (ImGui.BeginPopup("my_select_popup")) {
+//         ImGui.Text("Aquarium");
+//         ImGui.Separator();
+//         for (let i = 0; i < ImGui.ARRAYSIZE(names); i++)
+//             if (ImGui.Selectable(names[i]))
+//                 selected_fish = i;
+//         ImGui.EndPopup();
+//     }
+
+
+
+//     if (ImGui.BeginPopupModal("Delete?", null, ImGui.WindowFlags.AlwaysAutoResize)) {
+//         ImGui.Text("All those beautiful files will be deleted.\nThis operation cannot be undone!\n\n");
+//         ImGui.Separator();
+
+
+//         if (ImGui.Button("OK", new ImGui.Vec2(120, 0))) { ImGui.CloseCurrentPopup(); }
+//         ImGui.SetItemDefaultFocus();
+//         ImGui.SameLine();
+//         if (ImGui.Button("Cancel", new ImGui.Vec2(120, 0))) { ImGui.CloseCurrentPopup(); }
+
+//         ImGui.EndPopup();
+//     }
+
+
+//     ImGui.EndFrame();
+//     ImGui.Render();
+
+
+//     // ImGui.StyleColorsDark();
+//     ImGui.StyleColorsClassic();
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1));
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1));
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+// }
+
+
+
+let result = false
+let name = "aa"
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
 
 
-    if (ImGui.Button("Delete.."))
-        ImGui.OpenPopup("Delete?");
+    // if (ImGui.Checkbox("aaa", (_ = result) => result = _)) {
+    //     console.log(result)
+    // }
 
-
-    // Always center this window when appearing
-    // const center = (ImGui as any).GetMainViewport().GetCenter();
-    // ImGui.SetNextWindowPos(center, ImGui.Cond.Appearing, new ImGui.Vec2(0.5, 0.5));
-
-    // ImGui.ShowMetricsWindow()
-
-    const names: string[] = ["Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"];
-
-    if (ImGui.Button("Select.."))
-        ImGui.OpenPopup("my_select_popup");
-    ImGui.SameLine();
-    ImGui.TextUnformatted(selected_fish === -1 ? "<None>" : names[selected_fish]);
-    if (ImGui.BeginPopup("my_select_popup")) {
-        ImGui.Text("Aquarium");
-        ImGui.Separator();
-        for (let i = 0; i < ImGui.ARRAYSIZE(names); i++)
-            if (ImGui.Selectable(names[i]))
-                selected_fish = i;
-        ImGui.EndPopup();
-    }
-
-
-
-    if (ImGui.BeginPopupModal("Delete?", null, ImGui.WindowFlags.AlwaysAutoResize)) {
-        ImGui.Text("All those beautiful files will be deleted.\nThis operation cannot be undone!\n\n");
-        ImGui.Separator();
-
-
-        if (ImGui.Button("OK", new ImGui.Vec2(120, 0))) { ImGui.CloseCurrentPopup(); }
-        ImGui.SetItemDefaultFocus();
-        ImGui.SameLine();
-        if (ImGui.Button("Cancel", new ImGui.Vec2(120, 0))) { ImGui.CloseCurrentPopup(); }
-
-        ImGui.EndPopup();
+    if (ImGui.CollapsingHeader("Transform")) {
+        if(ImGui.Checkbox("assadasd", (_ = result) => result = _)){
+        console.log("'aaa")
+        }
     }
 
 

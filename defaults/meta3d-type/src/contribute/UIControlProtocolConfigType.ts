@@ -10,7 +10,7 @@ export type rect = {
 
 export type childrenFunc = (state: state) => state
 
-export type supportedEventName = "button_click" | "run" | "stop" | "click1" | "click2" | "select_asset" | "drop_asset" | "select_tree_node" | "drag_tree_node" | "input_change"
+export type supportedEventName = "button_click" | "run" | "stop" | "click1" | "click2" | "select_asset" | "drop_asset" | "select_tree_node" | "drag_tree_node" | "input_change" | "checkbox_select"
 
 export type actionName = nullable<string>
 

@@ -65,6 +65,14 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$15 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$16 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: (function (meta3dState, elementContribute) {
               return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerElement(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), elementContribute));
@@ -210,23 +218,29 @@ function getExtensionService(api) {
           inputText: (function (param, param$1, param$2, param$3, param$4) {
               return UIManager$Meta3dUi.inputText(partial_arg$8, param, param$1, param$2, param$3, param$4);
             }),
+          inputFloat1: (function (param, param$1, param$2, param$3, param$4, param$5) {
+              return UIManager$Meta3dUi.inputFloat1(partial_arg$9, param, param$1, param$2, param$3, param$4, param$5);
+            }),
           inputFloat3: (function (param, param$1, param$2, param$3, param$4, param$5) {
-              return UIManager$Meta3dUi.inputFloat3(partial_arg$9, param, param$1, param$2, param$3, param$4, param$5);
+              return UIManager$Meta3dUi.inputFloat3(partial_arg$10, param, param$1, param$2, param$3, param$4, param$5);
+            }),
+          checkbox: (function (param, param$1, param$2) {
+              return UIManager$Meta3dUi.checkbox(partial_arg$11, param, param$1, param$2);
             }),
           collapsing: (function (param, param$1, param$2, param$3) {
-              return UIManager$Meta3dUi.collapsing(partial_arg$10, param, param$1, param$2, param$3);
+              return UIManager$Meta3dUi.collapsing(partial_arg$12, param, param$1, param$2, param$3);
             }),
           openModal: (function (param, param$1) {
-              return UIManager$Meta3dUi.openModal(partial_arg$11, param, param$1);
+              return UIManager$Meta3dUi.openModal(partial_arg$13, param, param$1);
             }),
           closeCurrentModal: (function (param) {
-              return UIManager$Meta3dUi.closeCurrentModal(partial_arg$12, param);
+              return UIManager$Meta3dUi.closeCurrentModal(partial_arg$14, param);
             }),
           beginModal: (function (param, param$1) {
-              return UIManager$Meta3dUi.beginModal(partial_arg$13, param, param$1);
+              return UIManager$Meta3dUi.beginModal(partial_arg$15, param, param$1);
             }),
           endModal: (function (param) {
-              return UIManager$Meta3dUi.endModal(partial_arg$14, param);
+              return UIManager$Meta3dUi.endModal(partial_arg$16, param);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

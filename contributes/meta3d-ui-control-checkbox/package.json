@@ -1,25 +1,24 @@
 {
-    "name": "meta3d-input-basiccameraview-collapse",
-    "version": "1.2.0",
+    "name": "meta3d-ui-control-checkbox",
+    "version": "1.2.2",
+    "displayName": "复选框",
     "publisher": "meta3d",
-    "description": "",
     "protocol": {
-        "name": "meta3d-input-collapse-protocol"
+        "name": "meta3d-ui-control-checkbox-protocol"
     },
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env_bundle",
-        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env_bundle"
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-select-scenetree-node-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
-        "meta3d-input-collapse-protocol": "^1.2.0",
-        "meta3d-type": "^1.2.0"
+        "meta3d-type": "^1.2.0",
+        "meta3d-ui-control-checkbox-protocol": "^1.2.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
