@@ -230,6 +230,12 @@ type service = {
     Meta3dImguiRendererProtocol.ServiceType.label,
   ) => (Meta3dType.Index.state, bool),
   endModal: Meta3dType.Index.state => Meta3dType.Index.state,
+  popup: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+    array<string>,
+    string,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
   init: (
     Meta3dType.Index.state,
     (Meta3dType.Index.api, imguiRendererExtensionProtocolName),

@@ -600,8 +600,39 @@ import { addTexture } from "./init_button";
 
 
 
-let result = false
-let name = "aa"
+// let result = false
+// let name = "aa"
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time);
+//     ImGui.NewFrame();
+
+
+//     // if (ImGui.Checkbox("aaa", (_ = result) => result = _)) {
+//     //     console.log(result)
+//     // }
+
+//     if (ImGui.CollapsingHeader("Transform")) {
+//         if(ImGui.Checkbox("assadasd", (_ = result) => result = _)){
+//         console.log("'aaa")
+//         }
+//     }
+
+
+//     ImGui.EndFrame();
+//     ImGui.Render();
+
+
+//     // ImGui.StyleColorsDark();
+//     ImGui.StyleColorsClassic();
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1));
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1));
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData());
+// }
+
+
+let selected_fish = { value: -1 }
+const names: string[] = ["Bream", "Haddock", "Mackerel", "Pollock", "Tilefish"];
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time);
     ImGui.NewFrame();
@@ -611,10 +642,38 @@ export let loop = (time: number) => {
     //     console.log(result)
     // }
 
-    if (ImGui.CollapsingHeader("Transform")) {
-        if(ImGui.Checkbox("assadasd", (_ = result) => result = _)){
-        console.log("'aaa")
-        }
+    // if (ImGui.CollapsingHeader("Transform")) {
+    //     // if(ImGui.Checkbox("assadasd", (_ = result) => result = _)){
+    //     // console.log("'aaa")
+    //     // }
+    // }
+
+    // if (ImGui.Button("Add Component", new ImGui.Vec2(120, 60))) {
+
+    // if (ImGui.TreeNode("Selection State: Single Selection")) {
+    //     for (let n = 0; n < 5; n++) {
+    //         const buf: string = `Object ${n}`;
+    //         if (ImGui.Selectable(buf, selected.value === n))
+    //             selected.value = n;
+    //     }
+
+    //     ImGui.TreePop();
+    // }
+
+    // Simple selection popup (if you want to show the current selection inside the Button itself,
+    // you may want to build a string using the "###" operator to preserve a constant ID with a variable label)
+    // if (ImGui.Button("Select.."), new ImGui.Vec2(120, 60))
+    if (ImGui.Button("Select.."))
+        ImGui.OpenPopup("my_select_popup");
+    // ImGui.SameLine();
+    // ImGui.TextUnformatted(selected_fish.value === -1 ? "<None>" : names[selected_fish.value]);
+    if (ImGui.BeginPopup("my_select_popup")) {
+        ImGui.Text("Aquarium");
+        ImGui.Separator();
+        for (let i = 0; i < ImGui.ARRAYSIZE(names); i++)
+            if (ImGui.Selectable(names[i]))
+                selected_fish.value = i;
+        ImGui.EndPopup();
     }
 
 

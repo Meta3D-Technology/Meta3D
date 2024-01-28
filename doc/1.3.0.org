@@ -95,11 +95,12 @@ run-stop
 ** DONE fix: if change isActive / far when run,  arcball drag event not work
 
 
-** TODO support not active
+# ** TODO support not active
 
-TODO implement not active
+# TODO implement not active
 
-TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+# TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+#     if no active, not render game view
 
 
 
@@ -108,12 +109,31 @@ TODO fix: game view handle no active camera when dispose camera in sceneTree, di
 
 ** TODO add "add Component"
 add select button
+    ui control
+    input
+    action
 
+
+TODO handle duplicate when bundle
 
 
 run test:
-add camera group inspector
+add camera group component
+run-stop
 
+
+
+
+** TODO if already has, not add and warn
+
+
+** TODO add "remove Component"
+
+TODO use button as ui control
+
+
+run test:
+remove camera group component
 
 
 ** TODO publish editor
@@ -121,7 +141,9 @@ add camera group inspector
 
 TODO publish:
 imgui, ui i,p
+engine-scene
 editor-whole
+engine-whole
 # float1,float3,checkbox ui control i and p
 # related inputs, actions
 # checkbox i,p
@@ -146,6 +168,24 @@ TODO 动态加载 without assetbundle
 script:
 control visiable
 bind keyboard event to switch scene
+
+
+* TODO 3d ui 数据绑定
+
+refer to:
+https://www.grapecity.com.cn/blogs/digital-twins-and-3d-visualization
+
+
+TODO 上传json数据，用来提供ui的数据
+TODO 获得后端json数据?
+
+TODO 修改模型名，与之绑定
+
+
+
+
+TODO support status: can change model,ui color to red
+
 
 
 * TODO picking

@@ -214,5 +214,10 @@ export type service = {
     label: label,
   ) => boolean;
   readonly endModal: () => void;
+  readonly popup: (
+    label: label,
+    selectedValues: Array<string>,
+    id: string
+  ) => nullable<number>;
   readonly getContext: () => context
 };

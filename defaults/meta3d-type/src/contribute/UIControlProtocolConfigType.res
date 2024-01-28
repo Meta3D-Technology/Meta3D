@@ -19,6 +19,7 @@ type supportedEventName = [
   | #drag_tree_node
   | #input_change
   | #checkbox_select
+  | #popup_select
 ]
 
 type actionName = Js.Nullable.t<string>

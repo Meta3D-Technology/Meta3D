@@ -382,6 +382,23 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endModal: () => {
             ImGui.EndPopup()
         },
+        popup: (label, selectedValues, id) => {
+            let result = null
+
+            if (ImGui.Button(label)) {
+                ImGui.OpenPopup(id);
+            }
+
+            if (ImGui.BeginPopup(id)) {
+                for (let i = 0; i < ImGui.ARRAYSIZE(selectedValues); i++)
+                    if (ImGui.Selectable(selectedValues[i])) {
+                        result = i
+                    }
+                ImGui.EndPopup();
+            }
+
+            return result
+        },
         getContext: () => {
             return ImGui_Impl.gl
         },

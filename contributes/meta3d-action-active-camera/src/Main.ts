@@ -18,7 +18,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                         return Promise.resolve(meta3dState)
                     }
-                    console.log("active")
 
 
 

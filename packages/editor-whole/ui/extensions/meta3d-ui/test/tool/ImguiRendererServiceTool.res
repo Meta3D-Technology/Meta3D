@@ -36,6 +36,7 @@ let buildService = (
   ~closeCurrentModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~beginModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~endModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~popup=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -73,5 +74,6 @@ let buildService = (
     closeCurrentModal,
     beginModal,
     endModal,
+    popup
   }
 }

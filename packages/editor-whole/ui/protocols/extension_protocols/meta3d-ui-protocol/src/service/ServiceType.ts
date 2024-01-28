@@ -297,6 +297,12 @@ export type service = {
     readonly endModal: (
         meta3dState: meta3dState,
     ) => meta3dState;
+    readonly popup: (
+        meta3dState: meta3dState,
+        label: label,
+        selectedValues: Array<string>,
+        id: string
+    ) => [meta3dState, nullable<number>];
     readonly handleDragDropTarget: <data> (
         meta3dState: meta3dState,
         type: string

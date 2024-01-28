@@ -166,5 +166,6 @@ type service = {
   closeCurrentModal: unit => unit,
   beginModal: (. label) => bool,
   endModal: unit => unit,
+  popup: (. label, array<string>, string) => Js.Nullable.t<int>,
   getContext: unit => context,
 }

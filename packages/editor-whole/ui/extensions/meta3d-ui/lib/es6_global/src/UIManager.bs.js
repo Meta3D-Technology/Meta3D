@@ -588,6 +588,15 @@ function endModal(data, meta3dState) {
               }), data);
 }
 
+function popup(data, meta3dState, label, selectedValues, id) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.popup(label, selectedValues, id)
+                      ];
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -730,6 +739,7 @@ export {
   closeCurrentModal ,
   beginModal ,
   endModal ,
+  popup ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,
