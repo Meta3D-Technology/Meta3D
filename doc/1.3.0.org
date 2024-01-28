@@ -91,6 +91,10 @@ TODO run test:
 editor
 run-stop
 
+
+** DONE fix: if change isActive / far when run,  arcball drag event not work
+
+
 ** TODO support not active
 
 TODO implement not active
@@ -99,7 +103,6 @@ TODO fix: game view handle no active camera when dispose camera in sceneTree, di
 
 
 
-** TODO fix: if change isActive / far when run,  arcball drag event not work
 
 
 
