@@ -54,6 +54,14 @@ export let active = (meta3dState: meta3dState, { unsafeGetUsedComponentContribut
     return setUsedComponentContribute(meta3dState, contribute, componentName)
 }
 
+export let notActive = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, basicCameraView: basicCameraView) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, componentName)
+
+    contribute = setComponentData(contribute, basicCameraView, dataName.isActive, false)
+
+    return setUsedComponentContribute(meta3dState, contribute, componentName)
+}
+
 export let getViewWorldToCameraMatrix = (meta3dState: meta3dState, engineCoreService: engineCoreService, basicCameraView: basicCameraView): nullable<Float32Array> => {
     let { unsafeGetUsedComponentContribute } = engineCoreService
 

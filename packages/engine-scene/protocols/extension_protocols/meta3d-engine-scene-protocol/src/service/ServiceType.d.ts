@@ -7,7 +7,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName,  getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
 } from "./ecs/GameObject"
 import {
 	createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale,
@@ -92,7 +92,7 @@ import {
 	getName as getBasicCameraViewName,
 	setName as setBasicCameraViewName,
 	getGameObjects as getBasicCameraViewGameObjects,
-	active, getActiveCameraView, getViewWorldToCameraMatrix
+	active, notActive, getActiveCameraView, getViewWorldToCameraMatrix
 } from "./ecs/BasicCameraView";
 import {
 	createArcballCameraController,
@@ -293,7 +293,8 @@ export type scene = {
 		setName: setBasicCameraViewName,
 		getViewWorldToCameraMatrix: getViewWorldToCameraMatrix,
 		getActiveCameraView: getActiveCameraView,
-		active: active
+		active: active,
+		notActive: notActive
 	},
 	arcballCameraController: {
 		createArcballCameraController: createArcballCameraController,

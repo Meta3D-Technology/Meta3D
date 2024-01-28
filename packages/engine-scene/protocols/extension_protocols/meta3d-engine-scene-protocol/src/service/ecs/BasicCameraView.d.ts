@@ -9,6 +9,8 @@ export type getGameObjects = (meta3dState: meta3dState, basicCameraView: basicCa
 
 export type active = (meta3dState: meta3dState, basicCameraView: basicCameraView) => meta3dState
 
+export type notActive = (meta3dState: meta3dState, basicCameraView: basicCameraView) => meta3dState
+
 export type getViewWorldToCameraMatrix = (meta3dState: meta3dState, basicCameraView: basicCameraView) => nullable<Float32Array>
 
 export type getActiveCameraView = (meta3dState: meta3dState, isDebug: boolean) => nullable<basicCameraView>

@@ -16,7 +16,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName,  getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
 } from "./GameObjectAPI"
 import {
 	createTransform,
@@ -47,7 +47,7 @@ import {
 	getIndices, getVertices, setIndices, setVertices, getGameObjects as getGeometryGameObjects, getNormals, setNormals, getTexCoords, setTexCoords, getTangents, setTangents
 } from "./GeometryAPI";
 import {
-	createBasicCameraView, active,
+	createBasicCameraView, active, notActive,
 	getName as getBasicCameraViewName,
 	setName as setBasicCameraViewName,
 	getViewWorldToCameraMatrix, getActiveCameraView,
@@ -550,6 +550,9 @@ export let getExtensionServiceUtils = (
 			},
 			active: (meta3dState, basicCameraView) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => active(meta3dState, engineCoreService, basicCameraView), api)
+			},
+			notActive: (meta3dState, basicCameraView) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => notActive(meta3dState, engineCoreService, basicCameraView), api)
 			},
 			getViewWorldToCameraMatrix: (meta3dState, basicCameraView) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getViewWorldToCameraMatrix(meta3dState, engineCoreService, basicCameraView), api)
