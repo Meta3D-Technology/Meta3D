@@ -7,6 +7,10 @@ import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/Game
 import { getComponentType } from "meta3d-component-utils/src/Main"
 import { gameObject } from "meta3d-gameobject-protocol"
 
+let _warn = (api: api) => {
+    api.message.warn("组件已经存在了，不能再次加入")
+}
+
 let _addCameraGroup = (meta3dState: meta3dState, engineSceneService: engineSceneService, gameObject: gameObject) => {
     let data = engineSceneService.basicCameraView.createBasicCameraView(meta3dState)
     meta3dState = data[0]
@@ -45,6 +49,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         case componentType.CameraGroup:
                         default:
                             meta3dState = _addCameraGroup(meta3dState, engineSceneService, gameObject)
+
                             break
                     }
 
@@ -92,12 +97,38 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     selectedGameObject,
                 } = api.nullable.getExn(api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName))
 
+                let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
+                    .scene(meta3dState)
+
+                let gameObject = api.nullable.getExn(selectedGameObject)
+
+                let componentType_ = getComponentType(uiData)
+                let isSuccess = true
+
+                switch (componentType_) {
+                    case componentType.CameraGroup:
+                    default:
+                        if (engineSceneService.gameObject.hasBasicCameraView(meta3dState, gameObject)) {
+                            isSuccess = false
+                        }
+
+                        break
+                }
+
+                if (!isSuccess) {
+                    _warn(api)
+
+                    resolve(meta3dState)
+                    return
+                }
+
+
                 let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
                     inputData: [
-                        api.nullable.getExn(selectedGameObject),
+                        gameObject,
                         uiData
                     ]
                 }))

@@ -8,7 +8,7 @@ export let getAddComponentSelectedValues = () => {
 
 export let getComponentType = (selectedIndex: number): componentType => {
     switch (selectedIndex) {
-        case 1:
+        case 0:
         default:
             return componentType.CameraGroup
     }

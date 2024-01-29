@@ -107,7 +107,7 @@ run-stop
 
 
 
-** TODO add "add Component"
+** DONE add "add Component"
 add select button
     ui control
     input
@@ -124,16 +124,18 @@ run-stop
 
 
 
-** TODO if already has, not add and warn
+** DONE if already has, not add and warn
 
 
-** TODO add "remove Component"
-
-TODO use button as ui control
 
 
-run test:
-remove camera group component
+# ** TODO add "remove Component"
+
+# TODO use button as ui control
+
+
+# run test:
+# remove camera group component
 
 
 ** TODO publish editor
@@ -144,6 +146,7 @@ imgui, ui i,p
 engine-scene
 editor-whole
 engine-whole
+active action
 # float1,float3,checkbox ui control i and p
 # related inputs, actions
 # checkbox i,p
