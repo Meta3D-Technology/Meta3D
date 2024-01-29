@@ -138,14 +138,14 @@ run-stop
 # remove camera group component
 
 
-** TODO publish editor
+** DONE publish editor
 
 
 TODO publish:
 imgui, ui i,p
-engine-scene
+# engine-scene
 editor-whole
-engine-whole
+# engine-whole
 active action
 # float1,float3,checkbox ui control i and p
 # related inputs, actions
