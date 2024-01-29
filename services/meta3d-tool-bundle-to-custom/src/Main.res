@@ -127,6 +127,11 @@ let _removeExportKeyword = depTranspiledText => {
   depTranspiledText->Js.String.replaceByRe(%re("/export\s*/g"), "", _)
 }
 
+let _changeConstToVar = depTranspiledText => {
+  depTranspiledText->Js.String.replaceByRe(%re("/const\s/g"), "var ", _)
+}
+
+
 let _replaceImportClause = (result, transpiledText, pos, end, depTranspiledText, lastEnd) => {
   (result ++ transpiledText->Js.String.slice(~from=lastEnd, ~to_=pos, _) ++ depTranspiledText, end)
 }
@@ -177,6 +182,7 @@ let bundle = (filePath: string, fileSource: string) => {
           ->_renameImportVariables(_getImportVariableRenameMap(importDecl))
           // ->Meta3dCommonlib.Log.printForDebug
           ->_removeExportKeyword
+          -> _changeConstToVar
 
         data
         ->Meta3dCommonlib.ArraySt.push((importDecl["pos"], importDecl["end"], depTranspiledText))
