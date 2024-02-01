@@ -1,0 +1,41 @@
+{
+  "name": "meta3d-component-script",
+  "version": "1.2.0",
+  "publisher": "meta3d",
+  "protocol": {
+    "name": "meta3d-component-script-protocol"
+  },
+  "license": "",
+  "scripts": {
+    "watch": "rescript clean && rescript build -w",
+    "buildAll:ci": "rescript clean && rescript build",
+    "test:watch": "jest --watch --config jest.json",
+    "test:coverage": "jest --maxWorkers=4 --config jest_coverage.json",
+    "test:ci": "yarn buildAll:ci && jest --maxWorkers=4 --config jest_coverage.json",
+    "webpack": "webpack --config webpack.config.js",
+    "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+    "meta3d:publish_dev": "yarn buildAll:ci && cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
+    "meta3d:publish_pro": "yarn buildAll:ci && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
+  },
+  "keywords": [],
+  "dependencies": {
+    "meta3d-component-script-protocol": "^1.2.0",
+    "meta3d-type": "^1.2.0",
+    "rescript": "^10.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-jest": "^26.1.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.2.0",
+    "cz-customizable": "^6.3.0",
+    "gentype": "^3.48.0",
+    "gulp": "^4.0.2",
+    "jest": "^25.2.3",
+    "meta3d-tool-publish": "^1.2.0",
+    "webpack": "^5.62.1",
+    "webpack-cli": "^4.9.1"
+  }
+}

@@ -20,10 +20,14 @@ type dataName = {
   specularColor: int,
   transmission: int,
   ior: int,
-  diffuseMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
-  normalMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
-  roughnessMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
-  metalnessMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
+  // diffuseMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
+  // normalMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
+  // roughnessMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
+  // metalnessMap: Meta3dTextureBasicsourceProtocol.StateType.texture,
+  diffuseMap: int,
+  normalMap: int,
+  roughnessMap: int,
+  metalnessMap: int,
 }
 
 let dataName = {

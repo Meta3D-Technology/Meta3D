@@ -99,7 +99,7 @@ run-stop
 
 # TODO implement not active
 
-# TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+# TODO fix: game view handle no active camera when onDispose camera in sceneTree, onDispose basiccameraview, perspective component
 #     if no active, not render game view
 
 
@@ -158,6 +158,76 @@ editor-whole
 
 ** TODO 加入Script
 
+not need attribute?
+
+onInit
+    can onInit attributes
+onUpdate
+# (the first job in render pipeline)
+# onDispose
+# onStop
+
+# api add scriptAPI:
+engineScene add script component:
+getGameObject
+add/disposeXxx
+createAttribute(name, initialValue)
+getAttribute(name)
+setAttribute(name, value)
+getEventFileStr(name)
+setEventFileStr(name, fileStr)
+# getEventHandle(enum name)
+
+
+job is in script pipeline
+
+
+# add script file str
+onInit, update: (api, meta3dState) => Promise<meta3dState>
+
+
+
+*** DONE add script component
+
+
+TODO clone
+
+
+*** TODO update engine-core service
+
+*** TODO update engineScene service
+
+
+
+*** TODO add update script job in script pipeline
+
+
+
+*** TODO add script asset
+
+TODO use textarea instead of monaco
+
+
+*** TODO update run-stop
+
+TODO exec onInit
+
+TODO exec update in loop
+
+
+# TODO exec onDispose when stop
+
+
+*** TODO pass editor run test
+
+
+
+*** TODO update engine-whole
+
+TODO add onInit, update script job
+
+
+TODO pass publish run test
 
 ** TODO 切换场景
 
@@ -191,32 +261,6 @@ TODO support status: can change model,ui color to red
 
 
 
-* TODO picking
-
-for scene view
-
-for game view
-
-* TODO 显示轮廓
-# 放到后面，由用户扩展引擎包来加入？
-
-
-for scene view
-
-for game view
-
-
-
-* TODO focus
-
-
-for scene view
-    press f
-
-for game view
-    click model to focus
-
-
 
 
 
@@ -246,7 +290,7 @@ for game view
 # publish
 
 
-# ** TODO fix: game view handle no active camera when dispose camera in sceneTree, dispose basiccameraview, perspective component
+# ** TODO fix: game view handle no active camera when onDispose camera in sceneTree, onDispose basiccameraview, perspective component
 
 
 # ** TODO add "add Component"
