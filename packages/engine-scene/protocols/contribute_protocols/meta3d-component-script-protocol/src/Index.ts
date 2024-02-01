@@ -4,8 +4,10 @@ export type state = any
 
 export type config = { readonly isDebug: boolean };
 
+export type attributeValue = any
+
 export const dataName = {
-  name:0,
+  name: 0,
   attribute: 1,
   eventFileStr: 2,
 }

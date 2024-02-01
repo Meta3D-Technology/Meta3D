@@ -60,6 +60,7 @@ function _setGameObjectStateAndAllComponentStatesToState(state, param, param$1) 
   var usedArcballCameraControllerContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[5], param[5]);
   var usedBasicCameraViewContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[6], param[6]);
   var usedPerspectiveCameraProjectionContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[7], param[7]);
+  var usedScriptContribute = ComponentManager$Meta3dEngineCore.setComponentStateToUsedComponentContribute(param$1[8], param[8]);
   return StateUtils$Meta3dEngineCore.setGameObjectStateAndAllUsedComponentContributesToState(state, [
               param[0],
               usedTransformContribute,
@@ -68,7 +69,8 @@ function _setGameObjectStateAndAllComponentStatesToState(state, param, param$1) 
               usedDirectionLightContribute,
               usedArcballCameraControllerContribute,
               usedBasicCameraViewContribute,
-              usedPerspectiveCameraProjectionContribute
+              usedPerspectiveCameraProjectionContribute,
+              usedScriptContribute
             ], param$1[0]);
 }
 
@@ -79,6 +81,7 @@ function getNeedDisposedGameObjects(state) {
 
 function deferDisposeGameObject(state, gameObject) {
   var match = StateUtils$Meta3dEngineCore.getAllUsedContributes(state);
+  var usedScriptContribute = match[8];
   var usedPerspectiveCameraProjectionContribute = match[7];
   var usedBasicCameraViewContribute = match[6];
   var usedArcballCameraControllerContribute = match[5];
@@ -95,7 +98,8 @@ function deferDisposeGameObject(state, gameObject) {
         usedDirectionLightContribute.state,
         usedArcballCameraControllerContribute.state,
         usedBasicCameraViewContribute.state,
-        usedPerspectiveCameraProjectionContribute.state
+        usedPerspectiveCameraProjectionContribute.state,
+        usedScriptContribute.state
       ], [
         [
           usedTransformContribute.getComponentFunc,
@@ -124,6 +128,10 @@ function deferDisposeGameObject(state, gameObject) {
         [
           usedPerspectiveCameraProjectionContribute.getComponentFunc,
           usedPerspectiveCameraProjectionContribute.deferDisposeComponentFunc
+        ],
+        [
+          usedScriptContribute.getComponentFunc,
+          usedScriptContribute.deferDisposeComponentFunc
         ]
       ], gameObject);
   return _setGameObjectStateAndAllComponentStatesToState(state, [
@@ -134,7 +142,8 @@ function deferDisposeGameObject(state, gameObject) {
               usedDirectionLightContribute,
               usedArcballCameraControllerContribute,
               usedBasicCameraViewContribute,
-              usedPerspectiveCameraProjectionContribute
+              usedPerspectiveCameraProjectionContribute,
+              usedScriptContribute
             ], [
               match$1[0],
               match$1[1],
@@ -143,12 +152,14 @@ function deferDisposeGameObject(state, gameObject) {
               match$1[4],
               match$1[5],
               match$1[6],
-              match$1[7]
+              match$1[7],
+              match$1[8]
             ]);
 }
 
 function disposeGameObjects(state, gameObjects) {
   var match = StateUtils$Meta3dEngineCore.getAllUsedContributes(state);
+  var usedScriptContribute = match[8];
   var usedPerspectiveCameraProjectionContribute = match[7];
   var usedBasicCameraViewContribute = match[6];
   var usedArcballCameraControllerContribute = match[5];
@@ -165,7 +176,8 @@ function disposeGameObjects(state, gameObjects) {
         usedDirectionLightContribute.state,
         usedArcballCameraControllerContribute.state,
         usedBasicCameraViewContribute.state,
-        usedPerspectiveCameraProjectionContribute.state
+        usedPerspectiveCameraProjectionContribute.state,
+        usedScriptContribute.state
       ], [
         [
           usedTransformContribute.getComponentFunc,
@@ -194,6 +206,10 @@ function disposeGameObjects(state, gameObjects) {
         [
           usedPerspectiveCameraProjectionContribute.getComponentFunc,
           usedPerspectiveCameraProjectionContribute.disposeComponentsFunc
+        ],
+        [
+          usedScriptContribute.getComponentFunc,
+          usedScriptContribute.disposeComponentsFunc
         ]
       ], gameObjects);
   var match$2 = match$1[1];
@@ -207,7 +223,8 @@ function disposeGameObjects(state, gameObjects) {
                 usedDirectionLightContribute,
                 usedArcballCameraControllerContribute,
                 usedBasicCameraViewContribute,
-                usedPerspectiveCameraProjectionContribute
+                usedPerspectiveCameraProjectionContribute,
+                usedScriptContribute
               ], [
                 match$3[0],
                 match$3[1],
@@ -216,7 +233,8 @@ function disposeGameObjects(state, gameObjects) {
                 match$3[4],
                 match$3[5],
                 match$3[6],
-                match$3[7]
+                match$3[7],
+                match$3[8]
               ]),
           [
             match$2[0],
@@ -226,13 +244,15 @@ function disposeGameObjects(state, gameObjects) {
             match$2[4],
             match$2[5],
             match$2[6],
-            match$2[7]
+            match$2[7],
+            match$2[8]
           ]
         ];
 }
 
 function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
   var match = StateUtils$Meta3dEngineCore.getAllUsedContributes(state);
+  var usedScriptContribute = match[8];
   var usedPerspectiveCameraProjectionContribute = match[7];
   var usedBasicCameraViewContribute = match[6];
   var usedArcballCameraControllerContribute = match[5];
@@ -249,7 +269,8 @@ function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
         usedDirectionLightContribute.state,
         usedArcballCameraControllerContribute.state,
         usedBasicCameraViewContribute.state,
-        usedPerspectiveCameraProjectionContribute.state
+        usedPerspectiveCameraProjectionContribute.state,
+        usedScriptContribute.state
       ], [
         [
           usedTransformContribute.getComponentFunc,
@@ -288,6 +309,11 @@ function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
           usedPerspectiveCameraProjectionContribute.getComponentFunc,
           usedPerspectiveCameraProjectionContribute.cloneComponentFunc,
           usedPerspectiveCameraProjectionContribute.addComponentFunc
+        ],
+        [
+          usedScriptContribute.getComponentFunc,
+          usedScriptContribute.cloneComponentFunc,
+          usedScriptContribute.addComponentFunc
         ]
       ], count, cloneConfig, sourceGameObject);
   var match$2 = match$1[0];
@@ -299,7 +325,8 @@ function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
         usedDirectionLightContribute,
         usedArcballCameraControllerContribute,
         usedBasicCameraViewContribute,
-        usedPerspectiveCameraProjectionContribute
+        usedPerspectiveCameraProjectionContribute,
+        usedScriptContribute
       ], [
         match$2[0],
         match$2[1],
@@ -308,7 +335,8 @@ function cloneGameObject(state, count, cloneConfig, sourceGameObject) {
         match$2[4],
         match$2[5],
         match$2[6],
-        match$2[7]
+        match$2[7],
+        match$2[8]
       ]);
   return [
           state$1,

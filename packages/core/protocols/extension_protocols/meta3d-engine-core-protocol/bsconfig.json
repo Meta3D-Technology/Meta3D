@@ -25,6 +25,7 @@
         "meta3d-component-arcballcameracontroller-protocol",
         "meta3d-component-basiccameraview-protocol",
         "meta3d-component-perspectivecameraprojection-protocol",
+        "meta3d-component-script-protocol",
         "meta3d-commonlib-type"
     ],
     "package-specs": [

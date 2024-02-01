@@ -183,7 +183,7 @@ job is in script pipeline
 
 
 # add script file str
-onInit, update: (api, meta3dState) => Promise<meta3dState>
+onInit, onUpdate: (api, meta3dState) => Promise<meta3dState>
 
 
 
@@ -193,9 +193,9 @@ onInit, update: (api, meta3dState) => Promise<meta3dState>
 TODO clone
 
 
-*** TODO update engine-core service
+*** DONE update engine-core service
 
-*** TODO update engineScene service
+*** DONE update engineScene service
 
 
 
@@ -209,6 +209,11 @@ TODO use textarea instead of monaco
 
 
 *** TODO update run-stop
+
+TODO update:
+engine-scene
+core
+
 
 TODO exec onInit
 

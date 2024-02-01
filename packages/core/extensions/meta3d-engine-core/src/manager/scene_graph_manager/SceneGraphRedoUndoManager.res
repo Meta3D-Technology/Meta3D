@@ -8,6 +8,7 @@ let restore = (currentState, targetState) => {
     currentUsedArcballCameraControllerContribute,
     currentUsedBasicCameraViewContribute,
     currentUsedPerspectiveCameraProjectionContribute,
+    currentUsedScriptContribute,
   ) = StateUtils.getAllUsedContributes(currentState)
 
   let (
@@ -19,6 +20,7 @@ let restore = (currentState, targetState) => {
     targetUsedArcballCameraControllerContribute,
     targetUsedBasicCameraViewContribute,
     targetUsedPerspectiveCameraProjectionContribute,
+    targetUsedScriptContribute,
   ) = StateUtils.getAllUsedContributes(targetState)
 
   let gameObjectState = currentUsedGameObjectContribute.restore(.
@@ -61,6 +63,11 @@ let restore = (currentState, targetState) => {
     targetUsedPerspectiveCameraProjectionContribute,
   )
 
+  let usedScriptContribute = ComponentManager.restore(
+    currentUsedScriptContribute,
+    targetUsedScriptContribute,
+  )
+
   targetState->StateUtils.setGameObjectStateAndAllUsedComponentContributesToState(
     (
       targetUsedGameObjectContribute,
@@ -71,6 +78,7 @@ let restore = (currentState, targetState) => {
       usedArcballCameraControllerContribute,
       usedBasicCameraViewContribute,
       usedPerspectiveCameraProjectionContribute,
+      usedScriptContribute,
     ),
     gameObjectState,
   )
@@ -86,6 +94,7 @@ let deepCopy = state => {
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
+    usedScriptContribute,
   ) = StateUtils.getAllUsedContributes(state)
 
   let gameObjectState = usedGameObjectContribute.deepCopy(. usedGameObjectContribute.state)
@@ -108,6 +117,8 @@ let deepCopy = state => {
     usedPerspectiveCameraProjectionContribute,
   )
 
+  let usedScriptContribute = ComponentManager.deepCopy(usedScriptContribute)
+
   state->StateUtils.setGameObjectStateAndAllUsedComponentContributesToState(
     (
       usedGameObjectContribute,
@@ -118,6 +129,7 @@ let deepCopy = state => {
       usedArcballCameraControllerContribute,
       usedBasicCameraViewContribute,
       usedPerspectiveCameraProjectionContribute,
+      usedScriptContribute,
     ),
     gameObjectState,
   )

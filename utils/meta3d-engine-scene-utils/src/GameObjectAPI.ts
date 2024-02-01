@@ -7,6 +7,7 @@ import { pbrMaterial, componentName as pbrMaterialComponentName } from "meta3d-c
 import { arcballCameraController, componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { basicCameraView, componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { perspectiveCameraProjection, componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol"
+import { script, componentName as scriptComponentName } from "meta3d-component-script-protocol"
 import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils"
 import { directionLight, componentName as directionLightComponentName } from "meta3d-component-directionlight-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
@@ -154,6 +155,24 @@ export let hasPerspectiveCameraProjection = (meta3dState: meta3dState, { unsafeG
     return hasComponent(contribute, gameObject)
 }
 
+export let getScript = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, scriptComponentName)
+
+    return getExn(getComponent<script>(contribute, gameObject))
+}
+
+export let addScript = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, addComponent }: engineCoreService, gameObject: gameObject, script: script) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, scriptComponentName)
+
+    return setUsedComponentContribute(meta3dState, addComponent(contribute, gameObject, script), scriptComponentName)
+}
+
+export let hasScript = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, hasComponent }: engineCoreService, gameObject: gameObject) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, scriptComponentName)
+
+    return hasComponent(contribute, gameObject)
+}
+
 export let getArcballCameraController = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponent }: engineCoreService, gameObject: gameObject) => {
     let contribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
@@ -218,6 +237,12 @@ export let disposeGameObjectPerspectiveCameraProjectionComponent = (meta3dState:
     let contribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
 
     return setUsedComponentContribute(meta3dState, deferDisposeComponent<perspectiveCameraProjection>(contribute, [component, gameObject]), perspectiveCameraProjectionComponentName)
+}
+
+export let disposeGameObjectScriptComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: script) => {
+    let contribute = unsafeGetUsedComponentContribute(meta3dState, scriptComponentName)
+
+    return setUsedComponentContribute(meta3dState, deferDisposeComponent<script>(contribute, [component, gameObject]), scriptComponentName)
 }
 
 export let disposeGameObjectArcballCameraControllerComponent = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, deferDisposeComponent }: engineCoreService, gameObject: gameObject, component: arcballCameraController) => {

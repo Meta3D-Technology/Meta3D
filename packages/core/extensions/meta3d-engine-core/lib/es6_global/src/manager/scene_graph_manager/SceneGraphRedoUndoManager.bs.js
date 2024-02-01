@@ -16,6 +16,7 @@ function restore(currentState, targetState) {
   var usedArcballCameraControllerContribute = ComponentManager$Meta3dEngineCore.restore(match[5], match$1[5]);
   var usedBasicCameraViewContribute = ComponentManager$Meta3dEngineCore.restore(match[6], match$1[6]);
   var usedPerspectiveCameraProjectionContribute = ComponentManager$Meta3dEngineCore.restore(match[7], match$1[7]);
+  var usedScriptContribute = ComponentManager$Meta3dEngineCore.restore(match[8], match$1[8]);
   return StateUtils$Meta3dEngineCore.setGameObjectStateAndAllUsedComponentContributesToState(targetState, [
               targetUsedGameObjectContribute,
               usedTransformContribute,
@@ -24,7 +25,8 @@ function restore(currentState, targetState) {
               usedDirectionLightContribute,
               usedArcballCameraControllerContribute,
               usedBasicCameraViewContribute,
-              usedPerspectiveCameraProjectionContribute
+              usedPerspectiveCameraProjectionContribute,
+              usedScriptContribute
             ], gameObjectState);
 }
 
@@ -39,6 +41,7 @@ function deepCopy(state) {
   var usedArcballCameraControllerContribute = ComponentManager$Meta3dEngineCore.deepCopy(match[5]);
   var usedBasicCameraViewContribute = ComponentManager$Meta3dEngineCore.deepCopy(match[6]);
   var usedPerspectiveCameraProjectionContribute = ComponentManager$Meta3dEngineCore.deepCopy(match[7]);
+  var usedScriptContribute = ComponentManager$Meta3dEngineCore.deepCopy(match[8]);
   return StateUtils$Meta3dEngineCore.setGameObjectStateAndAllUsedComponentContributesToState(state, [
               usedGameObjectContribute,
               usedTransformContribute,
@@ -47,7 +50,8 @@ function deepCopy(state) {
               usedDirectionLightContribute,
               usedArcballCameraControllerContribute,
               usedBasicCameraViewContribute,
-              usedPerspectiveCameraProjectionContribute
+              usedPerspectiveCameraProjectionContribute,
+              usedScriptContribute
             ], gameObjectState);
 }
 

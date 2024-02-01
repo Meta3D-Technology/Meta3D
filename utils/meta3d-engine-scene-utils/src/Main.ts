@@ -16,7 +16,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, getDirectionLight, addDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects, getScript, addScript, hasScript, disposeGameObjectScriptComponent
 } from "./GameObjectAPI"
 import {
 	createTransform,
@@ -64,6 +64,7 @@ import { gameObjectContribute } from "meta3d-engine-core-protocol/src/contribute
 import { state as transformState, config as transformConfig, transform, componentName as transformComponentName } from "meta3d-component-transform-protocol";
 import { state as arcballCameraControllerState, componentName as arcballCameraControllerComponentName, config as arcballCameraControllerConfig, arcballCameraController } from "meta3d-component-arcballcameracontroller-protocol"
 import { state as perspecticeCameraProjectionState, componentName as perspecticeCameraProjectionComponentName, config as perspecticeCameraProjectionConfig, perspectiveCameraProjection } from "meta3d-component-perspectivecameraprojection-protocol"
+import { state as scriptState, componentName as scriptComponentName, config as scriptConfig, script } from "meta3d-component-script-protocol"
 import { state as basicCameraViewState, componentName as basicCameraViewComponentName, config as basicCameraViewConfig, basicCameraView } from "meta3d-component-basiccameraview-protocol"
 import { state as pbrMaterialState, componentName as pbrMaterialComponentName, config as pbrMaterialConfig, pbrMaterial } from "meta3d-component-pbrmaterial-protocol"
 import { state as geometryState, componentName as geometryComponentName, config as geometryConfig, geometry } from "meta3d-component-geometry-protocol"
@@ -83,6 +84,12 @@ import {
 	setName as setDirectionLightName,
 	getColor, getDirection, setDirection, getGameObjects as getDirectionLightGameObjects, getIntensity, setColor, setIntensity
 } from "./DirectionLightAPI"
+import {
+	createScript,
+	getName as getScriptName,
+	setName as setScriptName,
+	getAttribute, getEventFileStr, setAttribute, setEventFileStr
+} from "./ScriptAPI"
 
 let _encapsulateSceneAPIReturnState = (meta3dState: meta3dState, func: (meta3dState: meta3dState, engineCoreService: engineCoreService) => meta3dState, api: api): meta3dState => {
 	let coreService = getExn(api.getPackageService<coreService>(
@@ -239,6 +246,9 @@ export let getExtensionServiceUtils = (
 				registerComponent(meta3dState, api.getContribute<componentContribute<perspecticeCameraProjectionState, perspecticeCameraProjectionConfig, perspectiveCameraProjection>>(meta3dState, "meta3d-component-perspectivecameraprojection-protocol"))
 
 			meta3dState =
+				registerComponent(meta3dState, api.getContribute<componentContribute<scriptState, scriptConfig, script>>(meta3dState, "meta3d-component-script-protocol"))
+
+			meta3dState =
 				registerComponent(meta3dState, api.getContribute<componentContribute<arcballCameraControllerState, arcballCameraControllerConfig, arcballCameraController>>(meta3dState, "meta3d-component-arcballcameracontroller-protocol"))
 
 			meta3dState =
@@ -265,6 +275,9 @@ export let getExtensionServiceUtils = (
 				isDebug
 			})
 			meta3dState = createAndSetComponentState<perspecticeCameraProjectionConfig>(meta3dState, perspecticeCameraProjectionComponentName, {
+				isDebug
+			})
+			meta3dState = createAndSetComponentState<scriptConfig>(meta3dState, scriptComponentName, {
 				isDebug
 			})
 			meta3dState = createAndSetComponentState<arcballCameraControllerConfig>(meta3dState, arcballCameraControllerComponentName, {
@@ -399,6 +412,15 @@ export let getExtensionServiceUtils = (
 			hasPerspectiveCameraProjection: (meta3dState, gameObject) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasPerspectiveCameraProjection(meta3dState, engineCoreService, gameObject), api)
 			},
+			getScript: (meta3dState, gameObject) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getScript(meta3dState, engineCoreService, gameObject), api)
+			},
+			addScript: (meta3dState, gameObject, script) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => addScript(meta3dState, engineCoreService, gameObject, script), api)
+			},
+			hasScript: (meta3dState, gameObject) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => hasScript(meta3dState, engineCoreService, gameObject), api)
+			},
 			getArcballCameraController: (meta3dState, gameObject) => {
 				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getArcballCameraController(meta3dState, engineCoreService, gameObject), api)
 			},
@@ -436,6 +458,9 @@ export let getExtensionServiceUtils = (
 			},
 			disposeGameObjectPerspectiveCameraProjectionComponent: (meta3dState, gameObject, component) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectPerspectiveCameraProjectionComponent(meta3dState, engineCoreService, gameObject, component), api)
+			},
+			disposeGameObjectScriptComponent: (meta3dState, gameObject, component) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectScriptComponent(meta3dState, engineCoreService, gameObject, component), api)
 			},
 			disposeGameObjectArcballCameraControllerComponent: (meta3dState, gameObject, component) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => disposeGameObjectArcballCameraControllerComponent(meta3dState, engineCoreService, gameObject, component), api)
@@ -812,6 +837,29 @@ export let getExtensionServiceUtils = (
 			},
 			setAspect: (meta3dState, perspectiveCameraProjection, aspect) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setAspect(meta3dState, engineCoreService, perspectiveCameraProjection, aspect), api)
+			},
+		},
+		script: {
+			createScript: (meta3dState) => {
+				return _encapsulateSceneAPIReturnStateAndData(meta3dState, createScript, api)
+			},
+			getName: (meta3dState, script) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getScriptName(meta3dState, engineCoreService, script), api)
+			},
+			setName: (meta3dState, script, value) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setScriptName(meta3dState, engineCoreService, script, value), api)
+			},
+			getAttribute: (meta3dState, script) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAttribute(meta3dState, engineCoreService, script), api)
+			},
+			setAttribute: (meta3dState, script, attribute) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setAttribute(meta3dState, engineCoreService, script, attribute), api)
+			},
+			getEventFileStr: (meta3dState, script) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getEventFileStr(meta3dState, engineCoreService, script), api)
+			},
+			setEventFileStr: (meta3dState, script, eventFileStr) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setEventFileStr(meta3dState, engineCoreService, script, eventFileStr), api)
 			},
 		},
 		arcballCameraController: {

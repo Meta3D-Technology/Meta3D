@@ -15,6 +15,8 @@ type basicCameraViewState = state
 
 type perspectiveCameraProjectionState = state
 
+type scriptState = state
+
 // @genType
 type component
 

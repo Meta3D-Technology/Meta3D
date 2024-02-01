@@ -30,6 +30,8 @@ Feature: GameObject
             And create and set basicCameraView state
             And register perspectiveCameraProjection contribute
             And create and set perspectiveCameraProjection state
+            And register script contribute
+            And create and set script state
             And register directionLight contribute
             And create and set directionLight state
             And create a gameObject as g1
@@ -39,6 +41,7 @@ Feature: GameObject
             And create a arcballCameraController as a1
             And create a basicCameraView as b1
             And create a perspectiveCameraProjection as pcp1
+            And create a script as s1
             And create a directionLight as d1
             And add t1 to g1
             And add p1 to g1
@@ -57,6 +60,7 @@ Feature: GameObject
             And mark a1 as need dispose
             And mark b1 as need dispose
             And mark pcp1 as need dispose
+            And mark s1 as need dispose
             And mark d1 as need dispose
 
         Scenario: get need disposed gameObjects
@@ -72,6 +76,7 @@ Feature: GameObject
             And mark a1 as disposed
             And mark b1 as disposed
             And mark pcp1 as disposed
+            And mark s1 as disposed
             And mark d1 as disposed
 
         Scenario: clone gameObject
@@ -83,4 +88,5 @@ Feature: GameObject
             And mark a1 as cloned
             And mark b1 as cloned
             And mark pcp1 as cloned
+            And mark s1 as cloned
             And mark d1 as cloned

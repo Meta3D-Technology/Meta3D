@@ -7,7 +7,7 @@ import {
 	getArcballCameraController,
 	getBasicCameraView, getGeometry, getNeedDisposedGameObjects, getPBRMaterial, getPerspectiveCameraProjection, getTransform,
 	hasArcballCameraController,
-	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects
+	hasBasicCameraView, hasGeometry, hasPBRMaterial, hasPerspectiveCameraProjection, hasTransform, addDirectionLight, disposeGameObjectDirectionLightComponent, getDirectionLight, hasDirectionLight, getGameObjectName, setGameObjectName, getGameObjectAndAllChildren, removeGameObjects, restoreRemovedGameObjects, addScript, disposeGameObjectScriptComponent, getScript, hasScript
 } from "./ecs/GameObject"
 import {
 	createTransform, getGameObjects as getTransformGameObjects, getChildren, getLocalPosition, getParent, lookAt, setLocalPosition, setParent, getLocalToWorldMatrix, getLocalRotation, setLocalRotation, getLocalScale, setLocalScale,
@@ -112,6 +112,12 @@ import {
 	setDirection,
 	setIntensity
 } from "./ecs/DirectionLight";
+import {
+	createScript,
+	getName as getScriptName,
+	setName as setScriptName,
+	getAttribute, getEventFileStr, setAttribute, setEventFileStr
+} from "./ecs/Script";
 
 export type ecsConfig = {
 	float9Array1: Float32Array,
@@ -129,6 +135,7 @@ export type scene = {
 		addGeometry: addGeometry,
 		addPBRMaterial: addPBRMaterial,
 		addPerspectiveCameraProjection: addPerspectiveCameraProjection,
+		addScript: addScript,
 		addTransform: addTransform,
 		addArcballCameraController: addArcballCameraController,
 		cloneGameObject: cloneGameObject,
@@ -142,6 +149,7 @@ export type scene = {
 		disposeGameObjectGeometryComponent: disposeGameObjectGeometryComponent,
 		disposeGameObjectPBRMaterialComponent: disposeGameObjectPBRMaterialComponent,
 		disposeGameObjectPerspectiveCameraProjectionComponent: disposeGameObjectPerspectiveCameraProjectionComponent,
+		disposeGameObjectScriptComponent: disposeGameObjectScriptComponent,
 		disposeGameObjects: disposeGameObjects,
 		disposeGameObjectTransformComponent: disposeGameObjectTransformComponent,
 		getAllGameObjects: getAllGameObjects,
@@ -154,6 +162,7 @@ export type scene = {
 		getNeedDisposedGameObjects: getNeedDisposedGameObjects,
 		getPBRMaterial: getPBRMaterial,
 		getPerspectiveCameraProjection: getPerspectiveCameraProjection,
+		getScript: getScript,
 		getTransform: getTransform,
 
 		hasArcballCameraController: hasArcballCameraController,
@@ -162,6 +171,7 @@ export type scene = {
 		hasGeometry: hasGeometry,
 		hasPBRMaterial: hasPBRMaterial,
 		hasPerspectiveCameraProjection: hasPerspectiveCameraProjection,
+		hasScript: hasScript,
 		hasTransform: hasTransform,
 
 		getGameObjectName: getGameObjectName,
@@ -215,6 +225,15 @@ export type scene = {
 		setFar: setFar,
 		getAspect: getAspect,
 		setAspect: setAspect
+	},
+	script: {
+		createScript: createScript,
+		getName: getScriptName,
+		setName: setScriptName,
+		getAttribute: getAttribute,
+		setAttribute: setAttribute,
+		getEventFileStr: getEventFileStr,
+		setEventFileStr: setEventFileStr,
 	},
 	pbrMaterial: {
 		createPBRMaterial: createPBRMaterial,

@@ -75,6 +75,7 @@ let _setGameObjectStateAndAllComponentStatesToState = (
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
+    usedScriptContribute,
   ),
   (
     gameObjectState,
@@ -85,6 +86,7 @@ let _setGameObjectStateAndAllComponentStatesToState = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
 ) => {
   let usedTransformContribute =
@@ -115,6 +117,8 @@ let _setGameObjectStateAndAllComponentStatesToState = (
     perspectiveCameraProjectionState->ComponentManager.setComponentStateToUsedComponentContribute(
       usedPerspectiveCameraProjectionContribute,
     )
+  let usedScriptContribute =
+    scriptState->ComponentManager.setComponentStateToUsedComponentContribute(usedScriptContribute)
 
   StateUtils.setGameObjectStateAndAllUsedComponentContributesToState(
     state,
@@ -127,6 +131,7 @@ let _setGameObjectStateAndAllComponentStatesToState = (
       usedArcballCameraControllerContribute,
       usedBasicCameraViewContribute,
       usedPerspectiveCameraProjectionContribute,
+      usedScriptContribute,
     ),
     gameObjectState,
   )
@@ -138,10 +143,7 @@ let getNeedDisposedGameObjects = (state: Meta3dEngineCoreProtocol.StateType.stat
   usedGameObjectContribute.getNeedDisposedGameObjectsFunc(. usedGameObjectContribute.state)
 }
 
-let deferDisposeGameObject = (
-  state: Meta3dEngineCoreProtocol.StateType.state,
-  gameObject,
-) => {
+let deferDisposeGameObject = (state: Meta3dEngineCoreProtocol.StateType.state, gameObject) => {
   let (
     usedGameObjectContribute,
     usedTransformContribute,
@@ -151,6 +153,7 @@ let deferDisposeGameObject = (
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
+    usedScriptContribute,
   ) = StateUtils.getAllUsedContributes(state)
 
   let (
@@ -162,6 +165,7 @@ let deferDisposeGameObject = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ) = usedGameObjectContribute.deferDisposeGameObjectFunc(.
     (
       usedGameObjectContribute.state,
@@ -172,6 +176,7 @@ let deferDisposeGameObject = (
       usedArcballCameraControllerContribute.state,
       usedBasicCameraViewContribute.state,
       usedPerspectiveCameraProjectionContribute.state,
+      usedScriptContribute.state,
     ),
     // TODO remove magic
     (
@@ -203,6 +208,10 @@ let deferDisposeGameObject = (
         usedPerspectiveCameraProjectionContribute.getComponentFunc->Obj.magic,
         usedPerspectiveCameraProjectionContribute.deferDisposeComponentFunc->Obj.magic,
       ),
+      (
+        usedScriptContribute.getComponentFunc->Obj.magic,
+        usedScriptContribute.deferDisposeComponentFunc->Obj.magic,
+      ),
     ),
     gameObject,
   )
@@ -217,6 +226,7 @@ let deferDisposeGameObject = (
       usedArcballCameraControllerContribute,
       usedBasicCameraViewContribute,
       usedPerspectiveCameraProjectionContribute,
+      usedScriptContribute,
     ),
     (
       gameObjectState,
@@ -227,6 +237,7 @@ let deferDisposeGameObject = (
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
   )
 }
@@ -241,6 +252,7 @@ let disposeGameObjects = (state, gameObjects) => {
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
+    usedScriptContribute,
   ) = StateUtils.getAllUsedContributes(state)
 
   let (
@@ -253,6 +265,7 @@ let disposeGameObjects = (state, gameObjects) => {
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
     (
       disposedGameObjects,
@@ -263,6 +276,7 @@ let disposeGameObjects = (state, gameObjects) => {
       disposedArcballCameraControllers,
       disposedBasicCameraViews,
       disposedPerspectiveCameraProjections,
+      disposedScripts,
     ),
   ) = usedGameObjectContribute.disposeGameObjectsFunc(.
     (
@@ -274,6 +288,7 @@ let disposeGameObjects = (state, gameObjects) => {
       usedArcballCameraControllerContribute.state,
       usedBasicCameraViewContribute.state,
       usedPerspectiveCameraProjectionContribute.state,
+      usedScriptContribute.state,
     ),
     (
       (
@@ -304,6 +319,10 @@ let disposeGameObjects = (state, gameObjects) => {
         usedPerspectiveCameraProjectionContribute.getComponentFunc->Obj.magic,
         usedPerspectiveCameraProjectionContribute.disposeComponentsFunc->Obj.magic,
       ),
+      (
+        usedScriptContribute.getComponentFunc->Obj.magic,
+        usedScriptContribute.disposeComponentsFunc->Obj.magic,
+      ),
     ),
     gameObjects,
   )
@@ -319,6 +338,7 @@ let disposeGameObjects = (state, gameObjects) => {
         usedArcballCameraControllerContribute,
         usedBasicCameraViewContribute,
         usedPerspectiveCameraProjectionContribute,
+        usedScriptContribute,
       ),
       (
         gameObjectState,
@@ -329,6 +349,7 @@ let disposeGameObjects = (state, gameObjects) => {
         arcballCameraControllerState,
         basicCameraViewState,
         perspectiveCameraProjectionState,
+        scriptState,
       ),
     ),
     (
@@ -340,6 +361,7 @@ let disposeGameObjects = (state, gameObjects) => {
       disposedArcballCameraControllers,
       disposedBasicCameraViews,
       disposedPerspectiveCameraProjections,
+      disposedScripts,
     ),
   )
 }
@@ -354,6 +376,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
+    usedScriptContribute,
   ) = StateUtils.getAllUsedContributes(state)
 
   let (
@@ -366,6 +389,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
     clonedGameObjects,
   ) = usedGameObjectContribute.cloneGameObjectFunc(.
@@ -378,6 +402,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
       usedArcballCameraControllerContribute.state,
       usedBasicCameraViewContribute.state,
       usedPerspectiveCameraProjectionContribute.state,
+      usedScriptContribute.state,
     ),
     (
       (
@@ -418,6 +443,11 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
         usedPerspectiveCameraProjectionContribute.cloneComponentFunc->Obj.magic,
         usedPerspectiveCameraProjectionContribute.addComponentFunc->Obj.magic,
       ),
+      (
+        usedScriptContribute.getComponentFunc->Obj.magic,
+        usedScriptContribute.cloneComponentFunc->Obj.magic,
+        usedScriptContribute.addComponentFunc->Obj.magic,
+      ),
     ),
     count,
     cloneConfig,
@@ -435,6 +465,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
         usedArcballCameraControllerContribute,
         usedBasicCameraViewContribute,
         usedPerspectiveCameraProjectionContribute,
+        usedScriptContribute,
       ),
       (
         gameObjectState,
@@ -445,6 +476,7 @@ let cloneGameObject = (state, count, cloneConfig, sourceGameObject) => {
         arcballCameraControllerState,
         basicCameraViewState,
         perspectiveCameraProjectionState,
+        scriptState,
       ),
     )
 
@@ -465,11 +497,7 @@ let getGameObjectName = (state: Meta3dEngineCoreProtocol.StateType.state, gameOb
   usedGameObjectContribute.getNameFunc(. usedGameObjectContribute.state, gameObject)
 }
 
-let setGameObjectName = (
-  state: Meta3dEngineCoreProtocol.StateType.state,
-  gameObject,
-  name,
-) => {
+let setGameObjectName = (state: Meta3dEngineCoreProtocol.StateType.state, gameObject, name) => {
   let usedGameObjectContribute = state->StateUtils.unsafeGetUsedGameObjectContribute
 
   let gameObjectState = usedGameObjectContribute.setNameFunc(.

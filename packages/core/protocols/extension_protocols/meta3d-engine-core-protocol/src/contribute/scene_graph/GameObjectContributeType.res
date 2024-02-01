@@ -14,6 +14,8 @@ type basicCameraView = Meta3dComponentBasiccameraviewProtocol.Index.basicCameraV
 
 type perspectiveCameraProjection = Meta3dComponentPerspectivecameraprojectionProtocol.Index.perspectiveCameraProjection
 
+type script = Meta3dComponentScriptProtocol.Index.script
+
 type transformState = ComponentType.transformState
 
 type pbrMaterialState = ComponentType.pbrMaterialState
@@ -27,6 +29,8 @@ type arcballCameraControllerState = ComponentType.arcballCameraControllerState
 type basicCameraViewState = ComponentType.basicCameraViewState
 
 type perspectiveCameraProjectionState = ComponentType.perspectiveCameraProjectionState
+
+type scriptState = ComponentType.scriptState
 
 type config = Meta3dGameobjectProtocol.Index.config
 
@@ -61,6 +65,8 @@ type getPerspectiveCameraProjectionFunc = ComponentContributeType.getComponentFu
   perspectiveCameraProjectionState,
   perspectiveCameraProjection,
 >
+
+type getScriptFunc = ComponentContributeType.getComponentFunc<scriptState, script>
 
 type deferDisposeTransformFunc = ComponentContributeType.deferDisposeComponentFunc<
   transformState,
@@ -97,6 +103,8 @@ type deferDisposePerspectiveCameraProjectionFunc = ComponentContributeType.defer
   perspectiveCameraProjection,
 >
 
+type deferDisposeScriptFunc = ComponentContributeType.deferDisposeComponentFunc<scriptState, script>
+
 type deferDisposeGameObjectFunc<'state> = (
   . (
     'state,
@@ -107,6 +115,7 @@ type deferDisposeGameObjectFunc<'state> = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
   (
     (getTransformFunc, deferDisposeTransformFunc),
@@ -116,6 +125,7 @@ type deferDisposeGameObjectFunc<'state> = (
     (getArcballCameraControllerFunc, deferDisposeArcballCameraControllerFunc),
     (getBasicCameraViewFunc, deferDisposeBasicCameraViewFunc),
     (getPerspectiveCameraProjectionFunc, deferDisposePerspectiveCameraProjectionFunc),
+    (getScriptFunc, deferDisposeScriptFunc),
   ),
   gameObject,
 ) => (
@@ -127,6 +137,7 @@ type deferDisposeGameObjectFunc<'state> = (
   arcballCameraControllerState,
   basicCameraViewState,
   perspectiveCameraProjectionState,
+  scriptState,
 )
 
 type disposeTransformsFunc = ComponentContributeType.disposeComponentsFunc<
@@ -171,6 +182,12 @@ type disposePerspectiveCameraProjectionFunc = ComponentContributeType.disposeCom
   perspectiveCameraProjection,
 >
 
+type disposeScriptFunc = ComponentContributeType.disposeComponentsFunc<
+  scriptState,
+  Meta3dComponentScriptProtocol.Index.batchDisposeData,
+  script,
+>
+
 type actuallyDisposedGameObjects = array<gameObject>
 
 type actuallyDisposedComponents<'component> = array<'component>
@@ -185,6 +202,7 @@ type disposeGameObjectsFunc<'state> = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
   (
     (getTransformFunc, disposeTransformsFunc),
@@ -194,6 +212,7 @@ type disposeGameObjectsFunc<'state> = (
     (getArcballCameraControllerFunc, disposeArcballCameraControllerFunc),
     (getBasicCameraViewFunc, disposeBasicCameraViewFunc),
     (getPerspectiveCameraProjectionFunc, disposePerspectiveCameraProjectionFunc),
+    (getScriptFunc, disposeScriptFunc),
   ),
   array<gameObject>,
 ) => (
@@ -206,6 +225,7 @@ type disposeGameObjectsFunc<'state> = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
   (
     actuallyDisposedGameObjects,
@@ -216,6 +236,7 @@ type disposeGameObjectsFunc<'state> = (
     actuallyDisposedComponents<arcballCameraController>,
     actuallyDisposedComponents<basicCameraView>,
     actuallyDisposedComponents<perspectiveCameraProjection>,
+    actuallyDisposedComponents<script>,
   ),
 )
 
@@ -265,6 +286,12 @@ type clonePerspectiveCameraProjectionFunc = ComponentContributeType.cloneCompone
   perspectiveCameraProjection,
 >
 
+type cloneScriptFunc = ComponentContributeType.cloneComponentFunc<
+  scriptState,
+  Meta3dComponentScriptProtocol.Index.cloneConfig,
+  script,
+>
+
 type addTransformFunc = ComponentContributeType.addComponentFunc<transformState, transform>
 
 type getTransformGameObjectsFunc = ComponentContributeType.getGameObjectsFunc<
@@ -300,6 +327,8 @@ type addPerspectiveCameraProjectionFunc = ComponentContributeType.addComponentFu
   perspectiveCameraProjection,
 >
 
+type addScriptFunc = ComponentContributeType.addComponentFunc<scriptState, script>
+
 type cloneGameObjectFunc<'state> = (
   . (
     'state,
@@ -310,6 +339,7 @@ type cloneGameObjectFunc<'state> = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
   (
     (
@@ -334,6 +364,7 @@ type cloneGameObjectFunc<'state> = (
       clonePerspectiveCameraProjectionFunc,
       addPerspectiveCameraProjectionFunc,
     ),
+    (getScriptFunc, cloneScriptFunc, addScriptFunc),
   ),
   cloneCount,
   Meta3dGameobjectProtocol.Index.cloneConfig,
@@ -348,6 +379,7 @@ type cloneGameObjectFunc<'state> = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
   clonedGameObjects,
 )

@@ -28,6 +28,9 @@ let getAllUsedContributes = state => {
     state->ComponentManager.unsafeGetUsedComponentContribute(
       Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
     ),
+    state->ComponentManager.unsafeGetUsedComponentContribute(
+      Meta3dComponentScriptProtocol.Index.componentName,
+    ),
   )
 }
 
@@ -56,6 +59,7 @@ let setGameObjectStateAndAllUsedComponentContributesToState = (
     usedArcballCameraControllerContribute,
     usedBasicCameraViewContribute,
     usedPerspectiveCameraProjectionContribute,
+    usedScriptContribute,
   ),
   gameObjectState,
 ) => {
@@ -88,5 +92,9 @@ let setGameObjectStateAndAllUsedComponentContributesToState = (
   ->ComponentManager.setUsedComponentContribute(
     usedPerspectiveCameraProjectionContribute,
     Meta3dComponentPerspectivecameraprojectionProtocol.Index.componentName,
+  )
+  ->ComponentManager.setUsedComponentContribute(
+    usedScriptContribute,
+    Meta3dComponentScriptProtocol.Index.componentName,
   )
 }

@@ -2,6 +2,7 @@
 
 var OptionSt$Meta3dCommonlib = require("meta3d-commonlib/lib/js/src/structure/OptionSt.bs.js");
 var ComponentManager$Meta3dEngineCore = require("./component/ComponentManager.bs.js");
+var Index$Meta3dComponentScriptProtocol = require("meta3d-component-script-protocol/lib/js/src/Index.bs.js");
 var Index$Meta3dComponentGeometryProtocol = require("meta3d-component-geometry-protocol/lib/js/src/Index.bs.js");
 var Index$Meta3dComponentTransformProtocol = require("meta3d-component-transform-protocol/lib/js/src/Index.bs.js");
 var Index$Meta3dComponentPbrmaterialProtocol = require("meta3d-component-pbrmaterial-protocol/lib/js/src/Index.bs.js");
@@ -23,7 +24,8 @@ function getAllUsedContributes(state) {
           ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentDirectionlightProtocol.componentName),
           ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentArcballcameracontrollerProtocol.componentName),
           ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentBasiccameraviewProtocol.componentName),
-          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName)
+          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName),
+          ComponentManager$Meta3dEngineCore.unsafeGetUsedComponentContribute(state, Index$Meta3dComponentScriptProtocol.componentName)
         ];
 }
 
@@ -45,7 +47,7 @@ function setGameObjectStateToState(state, usedGameObjectContribute, gameObjectSt
 }
 
 function setGameObjectStateAndAllUsedComponentContributesToState(state, param, gameObjectState) {
-  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(setGameObjectStateToState(state, param[0], gameObjectState), param[1], Index$Meta3dComponentTransformProtocol.componentName), param[2], Index$Meta3dComponentPbrmaterialProtocol.componentName), param[3], Index$Meta3dComponentGeometryProtocol.componentName), param[4], Index$Meta3dComponentDirectionlightProtocol.componentName), param[5], Index$Meta3dComponentArcballcameracontrollerProtocol.componentName), param[6], Index$Meta3dComponentBasiccameraviewProtocol.componentName), param[7], Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName);
+  return ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(ComponentManager$Meta3dEngineCore.setUsedComponentContribute(setGameObjectStateToState(state, param[0], gameObjectState), param[1], Index$Meta3dComponentTransformProtocol.componentName), param[2], Index$Meta3dComponentPbrmaterialProtocol.componentName), param[3], Index$Meta3dComponentGeometryProtocol.componentName), param[4], Index$Meta3dComponentDirectionlightProtocol.componentName), param[5], Index$Meta3dComponentArcballcameracontrollerProtocol.componentName), param[6], Index$Meta3dComponentBasiccameraviewProtocol.componentName), param[7], Index$Meta3dComponentPerspectivecameraprojectionProtocol.componentName), param[8], Index$Meta3dComponentScriptProtocol.componentName);
 }
 
 exports.unsafeGetUsedGameObjectContribute = unsafeGetUsedGameObjectContribute;
