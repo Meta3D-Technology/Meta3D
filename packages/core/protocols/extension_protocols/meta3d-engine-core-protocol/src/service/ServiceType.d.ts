@@ -71,6 +71,7 @@ export type service = {
             Array<component>,
             Array<component>,
             Array<component>,
+            Array<component>,
         ],
     ];
     readonly cloneGameObject: (_1: Meta3dType_Index_state, _2: number, _3: cloneConfig, _4: gameObject) => [Meta3dType_Index_state, clonedGameObjects];

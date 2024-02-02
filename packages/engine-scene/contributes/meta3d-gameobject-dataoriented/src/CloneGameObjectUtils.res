@@ -50,6 +50,7 @@ let rec _clone = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   ),
   (
     (
@@ -73,6 +74,11 @@ let rec _clone = (
       getPerspectiveCameraProjectionFunc,
       clonePerspectiveCameraProjectionFunc,
       addPerspectiveCameraProjectionFunc,
+    ),
+    (
+      getScriptFunc,
+      cloneScriptFunc,
+      addScriptFunc,
     ),
   ) as funcs,
   isDebug,
@@ -99,6 +105,7 @@ let rec _clone = (
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
     clonedTransforms,
   ) = CloneGameObjectComponentUtils.clone(
@@ -110,6 +117,7 @@ let rec _clone = (
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
     (
       (cloneTransformFunc, addTransformFunc),
@@ -126,6 +134,11 @@ let rec _clone = (
         getPerspectiveCameraProjectionFunc,
         clonePerspectiveCameraProjectionFunc,
         addPerspectiveCameraProjectionFunc,
+      ),
+      (
+        getScriptFunc,
+        cloneScriptFunc,
+        addScriptFunc,
       ),
     ),
     isDebug,
@@ -174,6 +187,7 @@ let rec _clone = (
           arcballCameraControllerState,
           basicCameraViewState,
           perspectiveCameraProjectionState,
+          scriptState,
         ),
         totalClonedGameObjects,
       ),
@@ -189,6 +203,7 @@ let rec _clone = (
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState
     ),
     totalClonedGameObjects,
   ))
@@ -204,8 +219,9 @@ let clone = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState
   ) as states,
-  ((getTransformFunc, _, _, _, _, _), _, _, _, _, _, _) as funcs,
+  ((getTransformFunc, _, _, _, _, _), _, _, _, _, _, _, _) as funcs,
   isDebug,
   count,
   cloneConfig,

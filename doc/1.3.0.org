@@ -199,14 +199,11 @@ TODO clone
 
 
 
-*** TODO add update script job in script pipeline
+*** DONE add update script job in gameview pipeline
 
 
-
-*** TODO add script asset
-
-TODO use textarea instead of monaco
-
+TODO run test:
+default scene's cube add script
 
 *** TODO update run-stop
 
@@ -223,16 +220,44 @@ TODO exec update in loop
 # TODO exec onDispose when stop
 
 
+TODO run test:
+
+
+*** TODO add script asset
+
+TODO restore default scene
+
+TODO use textarea instead of monaco
+
+
+
 *** TODO pass editor run test
 
 
 
 *** TODO update engine-whole
 
-TODO add onInit, update script job
+# TODO add onInit, update script job
 
 
 TODO pass publish run test
+
+
+TODO publish:
+# engine-core and p;
+# gameview pipeline, extension and p;
+# sceneview
+webview pipeline, extension and p;
+# engine-scene
+
+
+TODO update:
+# engine-core
+# gameview
+# engine-scene
+# editor-whole
+web
+engine-whole
 
 ** TODO 切换场景
 
@@ -264,6 +289,10 @@ TODO 修改模型名，与之绑定
 
 TODO support status: can change model,ui color to red
 
+
+* TODO 2qi
+
+TODO ...
 
 
 

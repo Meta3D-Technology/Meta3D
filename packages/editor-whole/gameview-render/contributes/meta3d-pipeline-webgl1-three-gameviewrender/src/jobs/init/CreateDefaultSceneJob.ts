@@ -30,8 +30,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         }
 
         meta3dState = _addDefaultGameObjects(meta3dState,
-            getExn(
-                getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol")))
+            getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
         )
 
         return meta3dState

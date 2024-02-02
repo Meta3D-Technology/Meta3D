@@ -253,6 +253,30 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineSceneService
     meta3dState = data3[0]
 
 
+    //TODO remove
+    let data4 = engineSceneService.script.createScript(meta3dState)
+    meta3dState = data4[0]
+    let script = data4[1]
+
+    engineSceneService.script.setEventFileStr(meta3dState, script, `{
+        onInit: (api, meta3dState) =>{
+            console.log("onInit")
+            return Promise.resolve(meta3dState)
+        },
+        onUpdate: (api, meta3dState) =>{
+            console.log("onUpdate")
+            return Promise.resolve(meta3dState)
+        },
+    }`)
+
+    meta3dState = engineSceneService.gameObject.addScript(meta3dState, data3[1], script)
+
+
+
+
+
+
+
 
 
     //     meta3dState = scene.transform.setLocalPosition(meta3dState, transform, [-2, 2, 0])

@@ -6,6 +6,7 @@ export enum event {
     DisposeTransformsEventName = "DisposeTransformsEventName",
     DisposeBasicCameraViewsEventName = "DisposeBasicCameraViewsEventName",
     DisposePerspectiveCameraProjectionsEventName = "DisposePerspectiveCameraProjectionsEventName",
+    DisposeScriptEventName = "DisposeScriptEventName",
 
     DisposeTextureEventName = "DisposeTextureEventName",
 }

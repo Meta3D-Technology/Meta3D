@@ -10,7 +10,7 @@ export type setName = (meta3dState: meta3dState, script: script, name: string) =
 
 export type getEventFileStr = (meta3dState: meta3dState, script: script) => nullable<string>
 
-export type setEventFileStr = (meta3dState: meta3dState, script: script, eventFileStr: number) => meta3dState
+export type setEventFileStr = (meta3dState: meta3dState, script: script, eventFileStr: string) => meta3dState
 
 export type getAttribute = (meta3dState: meta3dState, script: script) => nullable<attributeValue>
 

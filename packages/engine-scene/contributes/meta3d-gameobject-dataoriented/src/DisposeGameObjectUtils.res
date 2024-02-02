@@ -12,6 +12,7 @@ let deferDisposeGameObject = (
     arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
     basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
     perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
+    scriptState: Meta3dEngineCoreProtocol.ComponentType.scriptState,
   ),
   (
     (getTransformFunc, deferDisposeTransformFunc),
@@ -21,6 +22,7 @@ let deferDisposeGameObject = (
     (getArcballCameraControllerFunc, deferDisposeArcballCameraControllerFunc),
     (getBasicCameraViewFunc, deferDisposeBasicCameraViewFunc),
     (getPerspectiveCameraProjectionFunc, deferDisposePerspectiveCameraProjectionFunc),
+    (getScriptFunc, deferDisposeScriptFunc),
   ),
   gameObject,
 ) => {
@@ -79,6 +81,17 @@ let deferDisposeGameObject = (
     })
     ->Meta3dCommonlib.NullableSt.getWithDefault(perspectiveCameraProjectionState)
 
+  let scriptState =
+    getScriptFunc(. scriptState, gameObject)
+    ->Meta3dCommonlib.NullableSt.map((. cameraProjection) => {
+      deferDisposeScriptFunc(.
+        scriptState,
+        (cameraProjection, gameObject),
+      )
+    })
+    ->Meta3dCommonlib.NullableSt.getWithDefault(scriptState)
+
+
   let gameObjectState = {
     ...gameObjectState,
     needDisposedGameObjectArray: needDisposedGameObjectArray->Meta3dCommonlib.ArraySt.push(
@@ -95,6 +108,7 @@ let deferDisposeGameObject = (
     arcballCameraControllerState,
     basicCameraViewState,
     perspectiveCameraProjectionState,
+    scriptState,
   )
 }
 
@@ -136,6 +150,7 @@ let disposeGameObjects = (
     arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
     basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
     perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
+    scriptState: Meta3dEngineCoreProtocol.ComponentType.scriptState,
   ),
   (
     (getTransformFunc, disposeTransformsFunc),
@@ -145,6 +160,7 @@ let disposeGameObjects = (
     (getArcballCameraControllerFunc, disposeArcballCameraControllerFunc),
     (getBasicCameraViewFunc, disposeBasicCameraViewFunc),
     (getPerspectiveCameraProjectionFunc, disposePerspectiveCameraProjectionFunc),
+    (getScriptFunc, disposeScriptFunc),
   ),
   gameObjects,
 ) => {
@@ -228,6 +244,19 @@ let disposeGameObjects = (
     ),
   )
 
+  let (
+    scriptState,
+    disposedScripts,
+  ) = disposeScriptFunc(.
+    scriptState,
+    _getNotSharedComponents(
+      scriptState,
+      getScriptFunc,
+      gameObjects,
+    ),
+  )
+
+
   (
     (
       gameObjectState,
@@ -238,6 +267,7 @@ let disposeGameObjects = (
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
     (
       disposedGameObjects,
@@ -248,6 +278,7 @@ let disposeGameObjects = (
       disposedArcballCameraControllers,
       disposedBasicCameraViews,
       disposedPerspectiveCameraProjections,
+      disposedScripts,
     ),
   )
 }

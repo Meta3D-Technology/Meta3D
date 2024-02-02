@@ -93,7 +93,7 @@ defineFeature(feature, test => {
       arg0 => {
         deferDisposeTransformFuncStub := createEmptyStubWithJsObjSandbox(sandbox)
 
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _,_) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -113,7 +113,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -135,7 +135,7 @@ defineFeature(feature, test => {
       () => {
         disposeTransformsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -247,7 +247,7 @@ defineFeature(feature, test => {
         deferDisposePBRMaterialFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -267,7 +267,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -289,7 +289,7 @@ defineFeature(feature, test => {
       () => {
         disposePBRMaterialsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, _, ps, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, _, ps, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -423,7 +423,7 @@ defineFeature(feature, test => {
         deferDisposePBRMaterialFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -443,7 +443,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -463,7 +463,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject3.contents,
@@ -485,7 +485,7 @@ defineFeature(feature, test => {
       () => {
         disposePBRMaterialsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, _, ps, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, _, ps, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents, gameObject3.contents],
@@ -628,7 +628,7 @@ defineFeature(feature, test => {
         deferDisposePBRMaterialFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -648,7 +648,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -670,7 +670,7 @@ defineFeature(feature, test => {
       () => {
         disposePBRMaterialsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, _, ps, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, _, ps, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -788,7 +788,7 @@ defineFeature(feature, test => {
         deferDisposeGeometryFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, _, _, geos, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, _, geos, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -808,7 +808,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, ps, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, ps, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -830,7 +830,7 @@ defineFeature(feature, test => {
       () => {
         disposeGeometrysFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, _, _, geos, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, _, _, geos, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -964,7 +964,7 @@ defineFeature(feature, test => {
         deferDisposeGeometryFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, _, _, geos, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, _, geos, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -984,7 +984,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, _, geos, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, _, geos, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1004,7 +1004,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, _, geos, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, _, geos, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject3.contents,
@@ -1026,7 +1026,7 @@ defineFeature(feature, test => {
       () => {
         disposeGeometrysFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, _, _, geos, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, _, _, geos, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents, gameObject3.contents],
@@ -1169,7 +1169,7 @@ defineFeature(feature, test => {
         deferDisposeGeometryFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, _, _, geos, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, _, geos, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -1189,7 +1189,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, _, _, geos, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, _, _, geos, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1211,7 +1211,7 @@ defineFeature(feature, test => {
       () => {
         disposeGeometrysFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, _, _, geos, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, _, _, geos, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -1322,7 +1322,7 @@ defineFeature(feature, test => {
         deferDisposeDirectionLightFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -1342,7 +1342,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1364,7 +1364,7 @@ defineFeature(feature, test => {
       () => {
         disposeDirectionLightsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -1474,7 +1474,7 @@ defineFeature(feature, test => {
         deferDisposeArcballCameraControllerFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -1494,7 +1494,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1516,7 +1516,7 @@ defineFeature(feature, test => {
       () => {
         disposeArcballCameraControllersFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -1626,7 +1626,7 @@ defineFeature(feature, test => {
         deferDisposeBasicCameraViewFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -1646,7 +1646,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1668,7 +1668,7 @@ defineFeature(feature, test => {
       () => {
         disposeBasicCameraViewsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -1778,7 +1778,7 @@ defineFeature(feature, test => {
         deferDisposePerspectiveCameraProjectionFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
 
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -1798,7 +1798,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1820,7 +1820,7 @@ defineFeature(feature, test => {
       () => {
         disposePerspectiveCameraProjectionsFuncStub :=
           createEmptyStubWithJsObjSandbox(sandbox)->returns((Obj.magic(1), []), _)->Obj.magic
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents, gameObject2.contents],
@@ -1901,7 +1901,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -1921,7 +1921,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -1941,7 +1941,7 @@ defineFeature(feature, test => {
     \"when"(
       "dispose gameObject1",
       () => {
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents],
@@ -2002,7 +2002,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject1.contents,
@@ -2020,7 +2020,7 @@ defineFeature(feature, test => {
     \"and"(
       %re("/^defer dispose gameObject(\d+)$/")->Obj.magic,
       arg0 => {
-        let (gs, ts, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
+        let (gs, ts, _, _, _, _, _, _, _) = DisposeTool.deferDisposeGameObject(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObject=gameObject2.contents,
@@ -2038,7 +2038,7 @@ defineFeature(feature, test => {
     \"when"(
       "dispose gameObject1",
       () => {
-        let ((gs, ts, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
+        let ((gs, ts, _, _, _, _, _, _, _), _) = DisposeTool.disposeGameObjects(
           ~gameObjectState=gameObjectState.contents,
           ~contribute=contribute.contents,
           ~gameObjects=[gameObject1.contents],

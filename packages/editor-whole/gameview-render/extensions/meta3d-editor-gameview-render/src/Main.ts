@@ -28,6 +28,11 @@ let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) =
 				insertAction: "after"
 			},
 			{
+				pipelineName: pipelineRootPipeline.Update,
+				insertElementName: pipelineRootJob.Update,
+				insertAction: "after"
+			},
+			{
 				pipelineName: pipelineSceneViewRenderPipeline.Render,
 				insertElementName: pipelineSceneViewRenderJob.RestoreActivedCamera,
 				insertAction: "after"
@@ -39,6 +44,11 @@ let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) =
 			{
 				pipelineName: pipelineRootPipeline.Init,
 				insertElementName: pipelineRootJob.Init,
+				insertAction: "after"
+			},
+			{
+				pipelineName: pipelineRootPipeline.Update,
+				insertElementName: pipelineRootJob.Update,
 				insertAction: "after"
 			},
 			{

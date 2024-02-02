@@ -1,6 +1,7 @@
 import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType";
 import { execFunc as execInitArcballCameraController } from "./jobs/init/InitArcballCameraControllerJob";
 import { execFunc as execCreateDefaultScene } from "./jobs/init/CreateDefaultSceneJob";
+import { execFunc as execUpdateScript } from "./jobs/update/UpdateScriptJob";
 import { execFunc as execUpdateCameraAspect } from "./jobs/render/UpdateCameraAspectJob"
 import { execFunc as execUpdateArcballCameraController } from "./jobs/render/UpdateArcballCameraControllerJob";
 import { execFunc as execInit } from "./jobs/init/InitJob";
@@ -15,7 +16,7 @@ import { getContribute as getContributeMeta3D } from "meta3d-type"
 import { service as coreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
-import { service as threeService} from "meta3d-three-protocol/src/service/ServiceType"
+import { service as threeService } from "meta3d-three-protocol/src/service/ServiceType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils";
 
 let _getExecFunc = (_pipelineName: string, jobName: string) => {
@@ -30,6 +31,8 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execInitArcballCameraController
 		case job.CreateDefaultScene:
 			return execCreateDefaultScene
+		case job.UpdateScript:
+			return execUpdateScript
 		case job.UpdateCameraAspect:
 			return execUpdateCameraAspect
 		case job.UpdateArcballCameraController:

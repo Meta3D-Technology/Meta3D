@@ -11,6 +11,7 @@ export const pipelineName = "WebGL1_Three_Gameviewrender"
 
 export enum pipeline {
     Init = "init",
+    Update = "update",
     Render = "render",
 }
 
@@ -18,6 +19,8 @@ export enum job {
     ConvertSceneGraph = "convert_scenegraph_three_gameviewrender_meta3d",
     Init = "init_three_gameviewrender_meta3d",
     Render = "render_three_gameviewrender_meta3d",
+
+    UpdateScript="update_three_gameviewrender_meta3d",
 
     InitArcballCameraController = "init_arcballcameracontroller_three_gameviewrender_meta3d",
     CreateDefaultScene = "create_default_scene_three_gameviewrender_meta3d",
@@ -49,6 +52,22 @@ export const allPipelineData: allPipelineDataType = [
                         "type_": "job"
                     },
 
+                ]
+            }
+        ],
+        first_group: "first_three_gameviewrender_meta3d"
+    },
+    {
+        name: pipeline.Update,
+        groups: [
+            {
+                name: "first_three_gameviewrender_meta3d",
+                link: "concat",
+                elements: [
+                    {
+                        "name": job.UpdateScript,
+                        "type_": "job"
+                    },
                 ]
             }
         ],

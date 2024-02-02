@@ -4,6 +4,7 @@ import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { componentName as arcballCameraControllerComponentName } from "meta3d-component-arcballcameracontroller-protocol"
 import { componentName as basicCameraViewComponentName } from "meta3d-component-basiccameraview-protocol"
 import { componentName as perspectiveCameraProjectionComponentName } from "meta3d-component-perspectivecameraprojection-protocol";
+import { componentName as scriptComponentName } from "meta3d-component-script-protocol";
 import { componentName as pbrMaterialComponentName } from "meta3d-component-pbrmaterial-protocol"
 import { componentName as transformComponentName } from "meta3d-component-transform-protocol"
 import { componentName as geometryComponentName } from "meta3d-component-geometry-protocol"
@@ -25,6 +26,7 @@ let _disposeComponents = (meta3dState: meta3dState, { getNeedDisposedComponents,
     let directionLightContribute = unsafeGetUsedComponentContribute(meta3dState, directionLightComponentName)
     let basicCameraViewContribute = unsafeGetUsedComponentContribute(meta3dState, basicCameraViewComponentName)
     let perspectiveCameraProjectionContribute = unsafeGetUsedComponentContribute(meta3dState, perspectiveCameraProjectionComponentName)
+    let scriptContribute = unsafeGetUsedComponentContribute(meta3dState, scriptComponentName)
     let arcballCameraControllerContribute = unsafeGetUsedComponentContribute(meta3dState, arcballCameraControllerComponentName)
 
     let data = disposeComponents(
@@ -83,6 +85,15 @@ let _disposeComponents = (meta3dState: meta3dState, { getNeedDisposedComponents,
     let disposedPerspectiveCameraProjections = data[1]
 
     data = disposeComponents(
+        scriptContribute,
+        getNeedDisposedComponents(
+            scriptContribute,
+        )
+    )
+    scriptContribute = data[0]
+    let disposedScripts = data[1]
+
+    data = disposeComponents(
         arcballCameraControllerContribute,
         getNeedDisposedComponents(
             arcballCameraControllerContribute,
@@ -97,6 +108,7 @@ let _disposeComponents = (meta3dState: meta3dState, { getNeedDisposedComponents,
     meta3dState = setUsedComponentContribute(meta3dState, geometryContribute, geometryComponentName) as meta3dState
     meta3dState = setUsedComponentContribute(meta3dState, basicCameraViewContribute, basicCameraViewComponentName) as meta3dState
     meta3dState = setUsedComponentContribute(meta3dState, perspectiveCameraProjectionContribute, perspectiveCameraProjectionComponentName) as meta3dState
+    meta3dState = setUsedComponentContribute(meta3dState, scriptContribute, scriptComponentName) as meta3dState
     meta3dState = setUsedComponentContribute(meta3dState, arcballCameraControllerContribute, arcballCameraControllerComponentName) as meta3dState
 
 
@@ -108,6 +120,7 @@ let _disposeComponents = (meta3dState: meta3dState, { getNeedDisposedComponents,
             disposedDirectionLights,
             disposedBasicCameraViews,
             disposedPerspectiveCameraProjections,
+            disposedScripts,
             disposedArcballCameraControllers
         ]
     ]
@@ -227,6 +240,7 @@ export let dispose = (api: api, meta3dState: meta3dState,
         DisposeTransformsEventName,
         DisposeBasicCameraViewsEventName,
         DisposePerspectiveCameraProjectionsEventName,
+        DisposeScriptEventName,
         DisposeTextureEventName,
     }: any
 ) => {
@@ -245,6 +259,7 @@ export let dispose = (api: api, meta3dState: meta3dState,
         disposedDirectionLights,
         disposedBasicCameraViews,
         disposedPerspectiveCameraProjections,
+        disposedScripts,
         disposedArcballCameraControllers
     ] = data1[1] as any
 
@@ -258,6 +273,7 @@ export let dispose = (api: api, meta3dState: meta3dState,
         disposedDirectionLightsFromGameObject,
         disposedBasicCameraViewsFromGameObject,
         disposedPerspectiveCameraProjectionsFromGameObject,
+        disposedScriptsFromGameObject,
         disposedArcballCameraControllersFromGameObject
     ] = data2[1]
 
@@ -280,6 +296,7 @@ export let dispose = (api: api, meta3dState: meta3dState,
     let allDisposedDirectionLights = disposedDirectionLights.concat(disposedDirectionLightsFromGameObject)
     let allDisposedBasicCameraViews = disposedBasicCameraViews.concat(disposedBasicCameraViewsFromGameObject)
     let allDisposedPerspectiveCameraProjections = disposedPerspectiveCameraProjections.concat(disposedPerspectiveCameraProjectionsFromGameObject)
+    let allDisposedScripts = disposedScripts.concat(disposedScriptsFromGameObject)
     let allDisposedArcballCameraControllers = disposedArcballCameraControllers.concat(disposedArcballCameraControllersFromGameObject)
 
     let eventService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
@@ -307,6 +324,9 @@ export let dispose = (api: api, meta3dState: meta3dState,
     }
     if (allDisposedPerspectiveCameraProjections.length > 0) {
         meta3dState = eventService.triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", eventService.createCustomEvent(DisposePerspectiveCameraProjectionsEventName, return_(allDisposedPerspectiveCameraProjections)))
+    }
+    if (allDisposedScripts.length > 0) {
+        meta3dState = eventService.triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", eventService.createCustomEvent(DisposeScriptEventName, return_(allDisposedScripts)))
     }
     if (allDisposedArcballCameraControllers.length > 0) {
         meta3dState = eventService.triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", eventService.createCustomEvent(DisposeTransformsEventName, return_(allDisposedArcballCameraControllers)))

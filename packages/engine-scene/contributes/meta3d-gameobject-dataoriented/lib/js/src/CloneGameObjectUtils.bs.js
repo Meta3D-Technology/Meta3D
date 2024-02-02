@@ -41,28 +41,35 @@ function _setParent(transformState, setTransformDataFunc, clonedParentTransforms
 function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2) {
   var sourceGameObject = param$2[0];
   var sourceTransform = param$1[0];
-  var match = funcs[6];
-  var match$1 = funcs[5];
-  var match$2 = funcs[4];
-  var match$3 = funcs[3];
-  var match$4 = funcs[2];
-  var match$5 = funcs[1];
-  var match$6 = funcs[0];
-  var getTransformGameObjectsFunc = match$6[3];
-  var match$7 = _createClonedGameObjects(param[0], countRange, sourceGameObject);
-  var clonedGameObjects = match$7[1];
-  var gameObjectState = match$7[0];
+  var match = funcs[7];
+  var match$1 = funcs[6];
+  var match$2 = funcs[5];
+  var match$3 = funcs[4];
+  var match$4 = funcs[3];
+  var match$5 = funcs[2];
+  var match$6 = funcs[1];
+  var match$7 = funcs[0];
+  var getTransformGameObjectsFunc = match$7[3];
+  var match$8 = _createClonedGameObjects(param[0], countRange, sourceGameObject);
+  var clonedGameObjects = match$8[1];
+  var gameObjectState = match$8[0];
   var totalClonedGameObjects = ListSt$Meta3dCommonlib.push(param$2[1], clonedGameObjects);
-  var match$8 = CloneGameObjectComponentUtils$Meta3dGameobjectDataoriented.clone([
+  var match$9 = CloneGameObjectComponentUtils$Meta3dGameobjectDataoriented.clone([
         param[1],
         param[2],
         param[3],
         param[4],
         param[5],
         param[6],
-        param[7]
+        param[7],
+        param[8]
       ], [
         [
+          match$7[1],
+          match$7[2]
+        ],
+        [
+          match$6[0],
           match$6[1],
           match$6[2]
         ],
@@ -100,16 +107,17 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
         sourceGameObject,
         clonedGameObjects
       ]);
-  var clonedTransforms = match$8[1];
-  var match$9 = match$8[0];
-  var perspectiveCameraProjectionState = match$9[6];
-  var basicCameraViewState = match$9[5];
-  var arcballCameraControllerState = match$9[4];
-  var directionLightState = match$9[3];
-  var geometryState = match$9[2];
-  var pbrMaterialState = match$9[1];
-  var transformState = _setParent(match$9[0], match$6[5], param$1[1], clonedTransforms);
-  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$6[4](transformState, sourceTransform, Index$Meta3dComponentTransformProtocol.dataName.children), (function (children) {
+  var clonedTransforms = match$9[1];
+  var match$10 = match$9[0];
+  var scriptState = match$10[7];
+  var perspectiveCameraProjectionState = match$10[6];
+  var basicCameraViewState = match$10[5];
+  var arcballCameraControllerState = match$10[4];
+  var directionLightState = match$10[3];
+  var geometryState = match$10[2];
+  var pbrMaterialState = match$10[1];
+  var transformState = _setParent(match$10[0], match$7[5], param$1[1], clonedTransforms);
+  return NullableSt$Meta3dCommonlib.getWithDefault(NullableSt$Meta3dCommonlib.map(match$7[4](transformState, sourceTransform, Index$Meta3dComponentTransformProtocol.dataName.children), (function (children) {
                     return ArraySt$Meta3dCommonlib.reduceOneParam(children, (function (param, childTransform) {
                                   return _clone(param[0], funcs, isDebug, countRange, cloneConfig, [
                                               childTransform,
@@ -127,7 +135,8 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
                                   directionLightState,
                                   arcballCameraControllerState,
                                   basicCameraViewState,
-                                  perspectiveCameraProjectionState
+                                  perspectiveCameraProjectionState,
+                                  scriptState
                                 ],
                                 totalClonedGameObjects
                               ]);
@@ -140,7 +149,8 @@ function _clone(param, funcs, isDebug, countRange, cloneConfig, param$1, param$2
                 directionLightState,
                 arcballCameraControllerState,
                 basicCameraViewState,
-                perspectiveCameraProjectionState
+                perspectiveCameraProjectionState,
+                scriptState
               ],
               totalClonedGameObjects
             ]);

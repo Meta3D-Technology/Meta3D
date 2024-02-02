@@ -17,6 +17,7 @@ defineFeature(feature, test => {
   let arcballCameraControllerState = ref(Obj.magic(1))
   let basicCameraViewState = ref(Obj.magic(1))
   let perspectiveCameraProjectionState = ref(Obj.magic(1))
+  let scriptState = ref(Obj.magic(1))
   let clonedGameObjects = ref([])
 
   let gameObject1 = ref(Obj.magic(1))
@@ -60,6 +61,7 @@ defineFeature(feature, test => {
     ~arcballCameraControllerState=Obj.magic(1),
     ~basicCameraViewState=Obj.magic(1),
     ~perspectiveCameraProjectionState=Obj.magic(1),
+    ~scriptState=Obj.magic(1),
     ~getTransformFunc=(. componentState, _) => Obj.magic(1),
     ~cloneTransformFunc=(. componentState, _, _, _) => (componentState, []),
     ~addTransformFunc=(. componentState, _, _) => componentState,
@@ -84,6 +86,9 @@ defineFeature(feature, test => {
     ~getPerspectiveCameraProjectionFunc=(. componentState, _) => Obj.magic(1),
     ~clonePerspectiveCameraProjectionFunc=(. componentState, _, _, _) => (componentState, []),
     ~addPerspectiveCameraProjectionFunc=(. componentState, _, _) => componentState,
+    ~getScriptFunc=(. componentState, _) => Obj.magic(1),
+    ~cloneScriptFunc=(. componentState, _, _, _) => (componentState, []),
+    ~addScriptFunc=(. componentState, _, _) => componentState,
     (),
   ) => {
     contribute.cloneGameObjectFunc(.
@@ -96,6 +101,7 @@ defineFeature(feature, test => {
         arcballCameraControllerState->Obj.magic,
         basicCameraViewState->Obj.magic,
         perspectiveCameraProjectionState->Obj.magic,
+       scriptState->Obj.magic,
       ),
       (
         (
@@ -119,6 +125,11 @@ defineFeature(feature, test => {
           getPerspectiveCameraProjectionFunc,
           clonePerspectiveCameraProjectionFunc,
           addPerspectiveCameraProjectionFunc,
+        ),
+        (
+          getScriptFunc,
+          cloneScriptFunc,
+          addScriptFunc,
         ),
       ),
       count,
@@ -208,7 +219,7 @@ defineFeature(feature, test => {
       ->returns((transformState.contents, [clonedTransform1, clonedTransform2]), _)
       ->ignore
 
-      let ((gs, ts, _, _, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, ts, _, _, _, _, _, _, _), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~transformState=transformState.contents,
         ~contribute=contribute.contents,
@@ -313,7 +324,7 @@ defineFeature(feature, test => {
       ->returns((pbrMaterialState.contents, [clonedPBRMaterial1, clonedPBRMaterial2]), _)
       ->ignore
 
-      let ((gs, _, ps, _, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, _, ps, _, _, _, _, _, _), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~pbrMaterialState=pbrMaterialState.contents,
         ~contribute=contribute.contents,
@@ -419,7 +430,7 @@ defineFeature(feature, test => {
       ->returns((geometryState.contents, [clonedGeometry1, clonedGeometry2]), _)
       ->ignore
 
-      let ((gs, _, _, geos, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, _, _, geos, _, _, _, _, _), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~geometryState=geometryState.contents,
         ~contribute=contribute.contents,
@@ -523,7 +534,7 @@ defineFeature(feature, test => {
       ->returns((directionLightState.contents, [clonedDirectionLight1, clonedDirectionLight2]), _)
       ->ignore
 
-      let ((gs, _, _, geos, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, _, _, geos, _, _, _, _, _), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~directionLightState=directionLightState.contents,
         ~contribute=contribute.contents,
@@ -633,7 +644,7 @@ defineFeature(feature, test => {
       )
       ->ignore
 
-      let ((gs, _, _, geos, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, _, _, geos, _, _, _, _, _), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~arcballCameraControllerState=arcballCameraControllerState.contents,
         ~contribute=contribute.contents,
@@ -740,7 +751,7 @@ defineFeature(feature, test => {
       )
       ->ignore
 
-      let ((gs, _, _, geos, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, _, _, geos, _, _, _, _,_), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~basicCameraViewState=basicCameraViewState.contents,
         ~contribute=contribute.contents,
@@ -850,7 +861,7 @@ defineFeature(feature, test => {
       )
       ->ignore
 
-      let ((gs, _, _, geos, _, _, _, _), _) = _cloneGameObject(
+      let ((gs, _, _, geos, _, _, _, _,_), _) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~perspectiveCameraProjectionState=perspectiveCameraProjectionState.contents,
         ~contribute=contribute.contents,
@@ -977,7 +988,7 @@ defineFeature(feature, test => {
       ->returns((transformState.contents, [gameObject2.contents]), _)
       ->ignore
 
-      let ((gs, ts, _, _, _, _, _, _), c) = _cloneGameObject(
+      let ((gs, ts, _, _, _, _, _, _,_), c) = _cloneGameObject(
         ~gameObjectState=gameObjectState.contents,
         ~transformState=transformState.contents,
         ~contribute=contribute.contents,

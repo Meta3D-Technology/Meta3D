@@ -26,6 +26,7 @@ let getContribute: Meta3dType.Index.getContribute<
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ) as states,
     funcs,
     count,

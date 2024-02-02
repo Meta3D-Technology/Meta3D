@@ -54,6 +54,10 @@ function clone(param, param$1, isDebug, countRange, param$2, sourceTransform, pa
         sourceGameObject,
         clonedGameObjects
       ]);
+  var match$8 = _cloneComponent(param[7], param$1[7], isDebug, countRange, undefined, [
+        sourceGameObject,
+        clonedGameObjects
+      ]);
   return [
           [
             transformState,
@@ -62,7 +66,8 @@ function clone(param, param$1, isDebug, countRange, param$2, sourceTransform, pa
             match$4[0],
             match$5[0],
             match$6[0],
-            match$7[0]
+            match$7[0],
+            match$8[0]
           ],
           clonedTransforms
         ];

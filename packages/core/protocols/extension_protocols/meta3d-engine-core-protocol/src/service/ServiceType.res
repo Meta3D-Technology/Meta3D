@@ -117,6 +117,7 @@ type service = {
       array<ComponentType.component>,
       array<ComponentType.component>,
       array<ComponentType.component>,
+      array<ComponentType.component>,
     ),
   ),
   cloneGameObject: (

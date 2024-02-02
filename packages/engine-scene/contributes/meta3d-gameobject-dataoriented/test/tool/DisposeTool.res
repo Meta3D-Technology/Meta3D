@@ -11,6 +11,7 @@ let deferDisposeGameObject = (
   ~arcballCameraControllerState=Obj.magic(1),
   ~basicCameraViewState=Obj.magic(1),
   ~perspectiveCameraProjectionState=Obj.magic(1),
+  ~scriptState=Obj.magic(1),
   ~transformFuncs=((. componentState, _) => Obj.magic(1), (. componentState, _) => componentState),
   ~pbrMaterialFuncs=(
     (. componentState, _) => Obj.magic(1),
@@ -33,6 +34,10 @@ let deferDisposeGameObject = (
     (. componentState, _) => Obj.magic(1),
     (. componentState, _) => componentState,
   ),
+  ~scriptFuncs=(
+    (. componentState, _) => Obj.magic(1),
+    (. componentState, _) => componentState,
+  ),
   (),
 ) => {
   contribute.deferDisposeGameObjectFunc(.
@@ -45,6 +50,7 @@ let deferDisposeGameObject = (
       arcballCameraControllerState->Obj.magic,
       basicCameraViewState->Obj.magic,
       perspectiveCameraProjectionState->Obj.magic,
+      scriptState->Obj.magic,
     ),
     (
       transformFuncs,
@@ -54,6 +60,7 @@ let deferDisposeGameObject = (
       arcballCameraControllerFuncs,
       basicCameraViewFuncs,
       perspectiveCameraProjectionFuncs,
+      scriptFuncs,
     ),
     gameObject,
   )
@@ -72,6 +79,7 @@ let disposeGameObjects = (
   ~arcballCameraControllerState=Obj.magic(1),
   ~basicCameraViewState=Obj.magic(1),
   ~perspectiveCameraProjectionState=Obj.magic(1),
+  ~scriptState=Obj.magic(1),
   ~transformFuncs=(
     (. componentState, _) => Obj.magic(1),
     (. componentState, _) => (componentState, []),
@@ -100,6 +108,10 @@ let disposeGameObjects = (
     (. componentState, _) => Obj.magic(1),
     (. componentState, _) => (componentState, []),
   ),
+  ~scriptFuncs=(
+    (. componentState, _) => Obj.magic(1),
+    (. componentState, _) => (componentState, []),
+  ),
   (),
 ) => {
   contribute.disposeGameObjectsFunc(.
@@ -112,6 +124,7 @@ let disposeGameObjects = (
       arcballCameraControllerState->Obj.magic,
       basicCameraViewState->Obj.magic,
       perspectiveCameraProjectionState->Obj.magic,
+      scriptState->Obj.magic,
     ),
     (
       transformFuncs,
@@ -121,6 +134,7 @@ let disposeGameObjects = (
       arcballCameraControllerFuncs,
       basicCameraViewFuncs,
       perspectiveCameraProjectionFuncs,
+      scriptFuncs,
     ),
     gameObjects,
   )

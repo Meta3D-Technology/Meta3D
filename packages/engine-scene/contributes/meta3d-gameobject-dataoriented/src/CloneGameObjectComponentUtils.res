@@ -37,6 +37,7 @@ let clone = (
     arcballCameraControllerState: Meta3dEngineCoreProtocol.ComponentType.arcballCameraControllerState,
     basicCameraViewState: Meta3dEngineCoreProtocol.ComponentType.basicCameraViewState,
     perspectiveCameraProjectionState: Meta3dEngineCoreProtocol.ComponentType.perspectiveCameraProjectionState,
+    scriptState: Meta3dEngineCoreProtocol.ComponentType.scriptState,
   ),
   (
     (cloneTransformFunc, addTransformFunc),
@@ -46,6 +47,7 @@ let clone = (
     arcballCameraControllerFuncs,
     basicCameraViewFuncs,
     perspectiveCameraProjectionFuncs,
+    scriptFuncs,
   ),
   isDebug,
   countRange,
@@ -121,6 +123,16 @@ let clone = (
     (sourceGameObject, clonedGameObjects),
   )
 
+  let (scriptState, _) = _cloneComponent(
+    scriptState,
+    scriptFuncs,
+    isDebug,
+    countRange,
+    (),
+    (sourceGameObject, clonedGameObjects),
+  )
+
+
   (
     (
       transformState,
@@ -130,6 +142,7 @@ let clone = (
       arcballCameraControllerState,
       basicCameraViewState,
       perspectiveCameraProjectionState,
+      scriptState,
     ),
     clonedTransforms,
   )

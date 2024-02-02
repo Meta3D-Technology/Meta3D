@@ -57,7 +57,7 @@ export let getEventFileStr = (meta3dState: meta3dState, { unsafeGetUsedComponent
     return getComponentData<script, string>(contribute, script, dataName.eventFileStr)
 }
 
-export let setEventFileStr = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, script: script, eventFileStr: number) => {
+export let setEventFileStr = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, script: script, eventFileStr: string) => {
     let contribute = unsafeGetUsedComponentContribute(meta3dState, componentName)
 
     contribute = setComponentData(contribute, script, dataName.eventFileStr, eventFileStr)
