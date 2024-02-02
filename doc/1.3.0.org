@@ -205,12 +205,13 @@ TODO clone
 TODO run test:
 default scene's cube add script
 
-*** TODO update run-stop
+*** DONE update run-stop
 
-TODO update:
-engine-scene
-core
+# TODO update:
+# engine-scene
+# core
 
+TODO add onStop
 
 TODO exec onInit
 
@@ -273,6 +274,12 @@ control visiable
 bind keyboard event to switch scene
 
 
+
+TODO unbind event when stop
+
+
+
+
 * TODO 3d ui 数据绑定
 
 refer to:
@@ -290,9 +297,9 @@ TODO 修改模型名，与之绑定
 TODO support status: can change model,ui color to red
 
 
-* TODO 2qi
+# * TODO 2qi
 
-TODO ...
+# TODO ...
 
 
 

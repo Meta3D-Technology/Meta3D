@@ -8,6 +8,7 @@ import { service as gameViewRenderService } from "meta3d-editor-gameview-render-
 import { eventName, inputData } from "meta3d-action-run-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 // import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
+import { execEventHandle } from "meta3d-script-utils/src/Main"
 
 let _markIsRun = (meta3dState: meta3dState, api: api, isRun: boolean) => {
     return api.action.setActionState(meta3dState, actionName,
@@ -43,6 +44,21 @@ let _stopGameViewRender = (meta3dState: meta3dState, api: api): meta3dState => {
 
 }
 
+// let _execOnInitOfAllScripts= (meta3dState: meta3dState, api: api):  Promise<meta3dState> => {
+//     let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).scene(meta3dState)
+
+//     let eventFileStrs = engineSceneService.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
+//         return engineSceneService.gameObject.hasScript(meta3dState, gameObject)
+//     }).map(gameObject => {
+//         return engineSceneService.gameObject.getScript(meta3dState, gameObject)
+//     }).filter(script => {
+//         return !api.nullable.isNullable(engineSceneService.script.getEventFileStr(meta3dState, script))
+//     }).map(script => {
+//         return api.nullable.getExn(engineSceneService.script.getEventFileStr(meta3dState, script))
+//     })
+
+// }
+
 // let _copyState = (meta3dState: meta3dState, api: api) => {
 //     // return api.getExtensionService<historyService>(meta3dState, "meta3d-redo-undo-history-protocol").push(meta3dState)
 
@@ -69,7 +85,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = _markIsRun(meta3dState, api, true)
                     meta3dState = _startGameViewRender(meta3dState, api)
 
-                    return Promise.resolve(meta3dState)
+                    return execEventHandle(meta3dState, api, "onInit")
                 }, (meta3dState) => {
                     meta3dState = _markIsRun(meta3dState, api, false)
                     meta3dState = _stopGameViewRender(meta3dState, api)
@@ -83,7 +99,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     // )
 
                     // return runEngineService.loopEngineWhenStop(meta3dState)
-                    return Promise.resolve(meta3dState)
+                    return execEventHandle(meta3dState, api, "onStop")
                 }))
             })
         },

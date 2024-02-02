@@ -267,6 +267,10 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineSceneService
             console.log("onUpdate")
             return Promise.resolve(meta3dState)
         },
+        onStop: (api, meta3dState) =>{
+            console.log("onStop")
+            return Promise.resolve(meta3dState)
+        }
     }`)
 
     meta3dState = engineSceneService.gameObject.addScript(meta3dState, data3[1], script)
