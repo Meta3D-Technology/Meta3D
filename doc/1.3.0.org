@@ -234,11 +234,39 @@ TODO demo
     get editor's value
     defer load
 
-TODO add
+
+
+
+TODO add draft
+
+
+TODO update
+imgui
+ui
+editor-whole
+
+
+
+
+TODO pass run test:
+show codeedit in script inspector
+    TODO add fake action to handle submit event
+    TODO verify: defer load
+
+switch script inspector and gameobject inspector
+    TODO code edit ui control: register event when beforeRender:
+        hidden container
 
 **** TODO add asset
 
-TODO defer load monaco when show script asset
+# TODO defer load monaco when show script asset
+
+TODO add select ui control for add script asset
+
+
+
+# TODO code edit ui control: defer load
+
 
 **** TODO add script component
 

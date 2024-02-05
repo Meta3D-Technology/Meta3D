@@ -399,6 +399,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return result
         },
+        getItemRectMin: () => ImGui.GetItemRectMin(),
+        getWindowPos: () => ImGui.GetWindowPos(),
+        getWindowSize: () => ImGui.GetWindowSize(),
         getContext: () => {
             return ImGui_Impl.gl
         },

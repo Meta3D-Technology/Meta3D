@@ -913,6 +913,36 @@ let popup = (data, meta3dState, label, selectedValues, id) => {
   )
 }
 
+let getItemRectMin = (data, meta3dState) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.getItemRectMin()
+    },
+    data,
+  )
+}
+
+let getWindowPos = (data, meta3dState) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.getItemRectMin()
+    },
+    data,
+  )
+}
+
+let getWindowSize = (data, meta3dState) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.getItemRectMin()
+    },
+    data,
+  )
+}
+
 let clear = (meta3dState, data, clearColor) => {
   _invokeIMGUIRenderFunc(
     meta3dState,

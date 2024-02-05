@@ -90,6 +90,11 @@ type cond =
   | @as(0) None
   | @as(1) Always
 
+type vec2 = {
+  x: int,
+  y: int,
+}
+
 // @genType
 type service = {
   init: (. StateType.state, bool, bool, Dom.htmlCanvasElement) => Js.Promise.t<StateType.state>,
@@ -167,5 +172,8 @@ type service = {
   beginModal: (. label) => bool,
   endModal: unit => unit,
   popup: (. label, array<string>, string) => Js.Nullable.t<int>,
+  getItemRectMin: unit => vec2,
+  getWindowPos: unit => vec2,
+  getWindowSize: unit => vec2,
   getContext: unit => context,
 }

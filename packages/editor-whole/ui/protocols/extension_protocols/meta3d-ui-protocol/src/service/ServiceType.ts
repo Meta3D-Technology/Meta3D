@@ -25,6 +25,11 @@ export type texture = imguiTexture
 
 export type isDebug = boolean
 
+type vec2 = {
+    x: number,
+    y: number
+}
+
 export type service = {
     readonly registerElement: < elementState> (
         meta3dState: meta3dState,
@@ -307,4 +312,7 @@ export type service = {
         meta3dState: meta3dState,
         type: string
     ) => [meta3dState, nullable<data>],
+    readonly getItemRectMin: (meta3dState: meta3dState) => vec2;
+    readonly getWindowPos: (meta3dState: meta3dState) => vec2;
+    readonly getWindowSize: (meta3dState: meta3dState) => vec2;
 };

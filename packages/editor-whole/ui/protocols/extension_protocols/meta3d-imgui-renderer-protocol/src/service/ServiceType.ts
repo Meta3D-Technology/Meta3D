@@ -144,6 +144,11 @@ export enum cond {
 }
 
 
+type vec2 = {
+  x: number,
+  y: number
+}
+
 // tslint:disable-next-line:interface-over-type-literal
 export type service = {
   readonly init: (_1: StateType_state, _2: boolean, _3: boolean, _4: HTMLCanvasElement) => Promise<StateType_state>;
@@ -219,5 +224,8 @@ export type service = {
     selectedValues: Array<string>,
     id: string
   ) => nullable<number>;
+  readonly getItemRectMin: () => vec2;
+  readonly getWindowPos: () => vec2;
+  readonly getWindowSize: () => vec2;
   readonly getContext: () => context
 };
