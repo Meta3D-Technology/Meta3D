@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    // "noImplicitAny": true,
-    "module": "ES6",
-    "target": "ES5",
-    "allowJs": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
+    "allowSyntheticDefaultImports":true,
+		"target": "ES6",
+		"module": "esnext",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"lib": [
+			"DOM",
+			"ESNext",
+		],
     "types": [
       "Node"
     ]
@@ -14,8 +16,5 @@
   "include": [
     "src/**/*.ts",
     "url-loader.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }

@@ -226,10 +226,23 @@ TODO run test:
 
 *** TODO add script asset
 
-TODO restore default scene
+# TODO use textarea instead of monaco
+**** TODO add monaco input ui control
+TODO demo
+    get pos, size
+    show basic editor
+    get editor's value
+    defer load
 
-TODO use textarea instead of monaco
+TODO add
 
+**** TODO add asset
+
+TODO defer load monaco when show script asset
+
+**** TODO add script component
+
+**** TODO restore default scene
 
 
 *** TODO pass editor run test

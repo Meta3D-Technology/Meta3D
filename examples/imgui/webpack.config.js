@@ -2,6 +2,7 @@
 
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -36,6 +37,14 @@ const config = {
                     },
                 ],
             },
+            {
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.ttf$/,
+				type: 'asset/resource'
+			}
 
 
             // Add your rules for custom modules here
@@ -58,6 +67,11 @@ const config = {
         * See `Options and Defaults` for information
         */
         // new CleanWebpackPlugin(),
+        new MonacoWebpackPlugin({
+            // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
+            languages: ['typescript']
+            // languages: ['']
+        }),
     ],
 };
 
