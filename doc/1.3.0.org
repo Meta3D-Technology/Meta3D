@@ -272,6 +272,13 @@ TODO add select ui control for add script asset
 
 **** TODO restore default scene
 
+**** TODO run-stop
+
+TODO deepCopy scene data when run, restore scene data when stop
+
+TODO how to handle render(e.g. init material shader when run)?
+    reinit with retored scene data when stop?
+    # not allow
 
 *** TODO pass editor run test
 
