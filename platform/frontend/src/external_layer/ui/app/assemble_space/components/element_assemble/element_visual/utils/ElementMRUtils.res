@@ -31,10 +31,7 @@ let rec _buildUIControls = (
   selectedUIControlInspectorData,
 ) => {
   selectedUIControls->Meta3dCommonlib.ArraySt.reduceOneParam(
-    (.
-      uiControls,
-      {id, children, protocolConfigStr, data}: ElementAssembleStoreType.uiControl,
-    ) => {
+    (. uiControls, {id, children, protocolConfigStr, data}: ElementAssembleStoreType.uiControl) => {
       let {name, version} = data.contributePackageData.protocol
 
       uiControls->Meta3dCommonlib.ArraySt.push({
@@ -99,10 +96,7 @@ let _handleVariableName = variableName => {
   variableName->Js.String.replaceByRe(%re("/-/g"), "_", _)
 }
 
-let _generateGetUIControlsAndInputsStr = (
-  service: AssembleSpaceType.service,
-  uiControls,
-) => {
+let _generateGetUIControlsAndInputsStr = (service: AssembleSpaceType.service, uiControls) => {
   uiControls
   // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
   //   displayName
@@ -138,11 +132,7 @@ let getActionName = (event: ElementAssembleStoreType.event, eventName) => {
   ->Meta3dCommonlib.OptionSt.toNullable
 }
 
-let _generateHandleUIControlEventStr = (
-  service: AssembleSpaceType.service,
-  configLib,
-  event,
-) => {
+let _generateHandleUIControlEventStr = (service: AssembleSpaceType.service, configLib, event) => {
   service.meta3d.generateHandleUIControlEventStr(.
     configLib,
     service.meta3d.getUIControlSupportedEventNames(.
@@ -206,7 +196,8 @@ let _generateSpecific = (specific: ElementAssembleStoreType.specific): string =>
         | #bool => j`${value->Obj.magic->BoolUtils.boolToString},`
         | #select => j`${SpecificUtils.convertValueToString(value, type_)},`
         | #number => j`${value->NumberUtils.numberToString},`
-        | _ => j`"${SpecificUtils.convertValueToString(value->Obj.magic, type_)}",`
+        | _ => "`" ++ SpecificUtils.convertValueToString(value->Obj.magic, type_) ++ "`,"
+        // | _ => j`"${SpecificUtils.convertValueToString(value->Obj.magic, type_)}",`
         }
 
       // | ElementStateFieldForSpecificDataValue(value) => j`elementState.${value}`
@@ -273,10 +264,9 @@ and _generateAllDrawUIControlAndHandleEventStr = (
           j`null`
         }) ++
         "," ++
-        {j`
+        j`
         ${_generateRect(data.rect)},
-        `}
-        ++
+        ` ++
         j`
                 {
         ...${_generateSpecific(data.specific)},

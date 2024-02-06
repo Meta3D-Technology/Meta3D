@@ -597,6 +597,37 @@ function popup(data, meta3dState, label, selectedValues, id) {
               }), data);
 }
 
+function dummy(data, meta3dState, width, height) {
+  return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                imguiRendererService.dummy(width, height);
+                return imguiRendererState;
+              }), data);
+}
+
+function getItemRectMax(data, meta3dState) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return Curry._1(imguiRendererService.getItemRectMax, undefined);
+              }), data);
+}
+
+function getItemRectSize(data, meta3dState) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return Curry._1(imguiRendererService.getItemRectSize, undefined);
+              }), data);
+}
+
+function getWindowPos(data, meta3dState) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return Curry._1(imguiRendererService.getWindowPos, undefined);
+              }), data);
+}
+
+function getWindowSize(data, meta3dState) {
+  return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return Curry._1(imguiRendererService.getWindowSize, undefined);
+              }), data);
+}
+
 function clear(meta3dState, data, clearColor) {
   return _invokeIMGUIRenderFunc(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 imguiRendererService.clear(clearColor);
@@ -740,6 +771,11 @@ export {
   beginModal ,
   endModal ,
   popup ,
+  dummy ,
+  getItemRectMax ,
+  getItemRectSize ,
+  getWindowPos ,
+  getWindowSize ,
   clear ,
   _getCurrentElementStateOption ,
   getCurrentElementState ,

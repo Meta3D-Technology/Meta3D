@@ -3,7 +3,7 @@
 import * as Sinon from "../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat1Opt, inputFloat3Opt, checkboxOpt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, popupOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat1Opt, inputFloat3Opt, checkboxOpt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, popupOpt, dummyOpt, getItemRectMaxOpt, getItemRectSizeOpt, getWindowPosOpt, getWindowSizeOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -39,6 +39,11 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var beginModal = beginModalOpt !== undefined ? beginModalOpt : Sinon.createEmptyStub(sandbox.contents);
   var endModal = endModalOpt !== undefined ? endModalOpt : Sinon.createEmptyStub(sandbox.contents);
   var popup = popupOpt !== undefined ? popupOpt : Sinon.createEmptyStub(sandbox.contents);
+  var dummy = dummyOpt !== undefined ? dummyOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getItemRectMax = getItemRectMaxOpt !== undefined ? getItemRectMaxOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getItemRectSize = getItemRectSizeOpt !== undefined ? getItemRectSizeOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getWindowPos = getWindowPosOpt !== undefined ? getWindowPosOpt : Sinon.createEmptyStub(sandbox.contents);
+  var getWindowSize = getWindowSizeOpt !== undefined ? getWindowSizeOpt : Sinon.createEmptyStub(sandbox.contents);
   return {
           init: init,
           render: render,
@@ -74,6 +79,11 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           beginModal: beginModal,
           endModal: endModal,
           popup: popup,
+          dummy: dummy,
+          getItemRectMax: getItemRectMax,
+          getItemRectSize: getItemRectSize,
+          getWindowPos: getWindowPos,
+          getWindowSize: getWindowSize,
           getContext: getContext
         };
 }

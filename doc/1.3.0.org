@@ -241,21 +241,43 @@ TODO add draft
 
 
 TODO update
-imgui
-ui
-editor-whole
+imgui p
+ui p
+codeedit ui control p
+# editor-whole
 
 
 
 
 TODO pass run test:
-show codeedit in script inspector
+//show codeedit in script inspector
     TODO add fake action to handle submit event
-    TODO verify: defer load
+    # TODO verify: defer load
+
+//TODO show add component
+
+//TODO minus width
+
+//TODO show button
+
+//TODO add height to specific data
+
+
+//TODO fix: initialCode use textarea type
+    TODO pass:
+    {
+        onInit:() =>{
+            console.log("aaa")
+        }
+    }
+
 
 switch script inspector and gameobject inspector
     TODO code edit ui control: register event when beforeRender:
         hidden container
+
+
+
 
 **** TODO add asset
 
@@ -280,6 +302,13 @@ TODO how to handle render(e.g. init material shader when run)?
     reinit with retored scene data when stop?
     # not allow
 
+
+TODO run test:
+change scene data(e.g. transform) when run
+create and init new material shader when run
+create and init new vbo when run
+
+
 *** TODO pass editor run test
 
 
@@ -298,13 +327,15 @@ TODO publish:
 # sceneview
 webview pipeline, extension and p;
 # engine-scene
+ui
 
 
 TODO update:
 # engine-core
 # gameview
 # engine-scene
-# editor-whole
+ui
+editor-whole
 web
 engine-whole
 
@@ -361,6 +392,10 @@ TODO support status: can change model,ui color to red
 
 
 
+* TODO publish
+
+
+# TODO update pro
 
 
 

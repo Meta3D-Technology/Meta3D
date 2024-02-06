@@ -16,10 +16,7 @@ type texture = Meta3dImguiRendererProtocol.ServiceType.texture
 
 type isDebug = bool
 
-type vec2 = {
-  x: int,
-  y: int,
-}
+type vec2 = Meta3dImguiRendererProtocol.ServiceType.vec2
 
 type service = {
   registerElement: 'elementState. (
@@ -241,7 +238,9 @@ type service = {
     array<string>,
     string,
   ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
-  getItemRectMin: Meta3dType.Index.state => vec2,
+  dummy: (Meta3dType.Index.state, int, int) => Meta3dType.Index.state,
+  getItemRectMax: Meta3dType.Index.state => vec2,
+  getItemRectSize: Meta3dType.Index.state => vec2,
   getWindowPos: Meta3dType.Index.state => vec2,
   getWindowSize: Meta3dType.Index.state => vec2,
   init: (

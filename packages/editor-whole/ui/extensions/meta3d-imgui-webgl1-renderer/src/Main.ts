@@ -399,7 +399,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return result
         },
-        getItemRectMin: () => ImGui.GetItemRectMin(),
+        dummy: (width, height) => {
+            ImGui.Dummy(new ImGui.ImVec2(width, height))
+        },
+        getItemRectMax: () => ImGui.GetItemRectMax(),
+        getItemRectSize: () => ImGui.GetItemRectSize(),
         getWindowPos: () => ImGui.GetWindowPos(),
         getWindowSize: () => ImGui.GetWindowSize(),
         getContext: () => {

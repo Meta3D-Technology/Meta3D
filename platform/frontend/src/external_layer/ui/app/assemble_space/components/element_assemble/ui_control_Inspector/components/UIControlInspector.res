@@ -522,6 +522,29 @@ module Method = {
                     height=40
                   />}
             </Space>
+          | #textarea =>
+            TextareaUtils.isNotShowTextareaForTest()
+              ? React.null
+              : <Space direction=#horizontal>
+                  <Input.TextArea
+                    value={SpecificUtils.getSpecificDataValue(
+                      value,
+                    )->SpecificUtils.convertValueToString(type_)}
+                    onChange={e => {
+                      _setSpecificData(
+                        dispatch,
+                        specific,
+                        id,
+                        i,
+                        e
+                        ->EventUtils.getEventTargetValue
+                        ->SpecificUtils.convertStringToValue(type_)
+                        ->CommonType.SpecicFieldDataValue,
+                        type_,
+                      )
+                    }}
+                  />
+                </Space>
           | #menuItems =>
             TextareaUtils.isNotShowTextareaForTest()
               ? React.null

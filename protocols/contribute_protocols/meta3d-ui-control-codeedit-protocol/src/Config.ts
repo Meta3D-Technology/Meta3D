@@ -15,8 +15,13 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         value: "代码编辑"
     },
     {
+        name: "height",
+        type_: "number",
+        value: 200
+    },
+    {
         name: "initialCode",
-        type_: "string",
+        type_: "textarea",
         value: ""
     }
 ]

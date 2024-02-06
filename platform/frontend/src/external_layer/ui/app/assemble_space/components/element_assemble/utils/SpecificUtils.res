@@ -1,6 +1,7 @@
 let _handleSpecificDataFieldType = (
   (
     handleStringTypeFunc,
+    handleTextareaTypeFunc,
     handleImageBase64TypeFunc,
     handleMenuItemsTypeFunc,
     handleBoolTypeFunc,
@@ -12,6 +13,7 @@ let _handleSpecificDataFieldType = (
 ) => {
   switch type_ {
   | #string => handleStringTypeFunc(value)
+  | #textarea => handleTextareaTypeFunc(value)
   | #imageBase64 => handleImageBase64TypeFunc(value)
   | #menuItems => handleMenuItemsTypeFunc(value)
   | #bool => handleBoolTypeFunc(value)
@@ -27,6 +29,10 @@ let convertValueToString = (
   _handleSpecificDataFieldType(
     (
       value => {
+        value->Obj.magic
+      },
+      value => {
+        // value->Obj.magic->Js.String.replaceByRe(%re("/\"/g"), "\\\"", _)
         value->Obj.magic
       },
       value => {
@@ -81,6 +87,10 @@ let convertStringToValue = (
   _handleSpecificDataFieldType(
     (
       valueStr => {
+        valueStr->Obj.magic
+      },
+      valueStr => {
+        // valueStr->Js.String.replaceByRe(%re("/\\\"/g"), "\"", _)->Obj.magic
         valueStr->Obj.magic
       },
       valueStr => {

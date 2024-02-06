@@ -37,6 +37,11 @@ let buildService = (
   ~beginModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~endModal=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~popup=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~dummy=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getItemRectMax=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getItemRectSize=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getWindowPos=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~getWindowSize=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   (),
 ): Meta3dImguiRendererProtocol.ServiceType.service => {
   {
@@ -74,6 +79,11 @@ let buildService = (
     closeCurrentModal,
     beginModal,
     endModal,
-    popup
+    popup,
+    dummy,
+    getItemRectMax,
+    getItemRectSize,
+    getWindowPos,
+    getWindowSize,
   }
 }

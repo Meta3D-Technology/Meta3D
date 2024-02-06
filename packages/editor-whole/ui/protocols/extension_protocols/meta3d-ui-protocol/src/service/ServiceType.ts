@@ -3,7 +3,7 @@ import { elementContribute, elementName } from "../contribute/ElementContributeT
 import { textureID, elementState } from "../state/StateType"
 import { skinContribute, skinName } from "../contribute/SkinContributeType"
 import { uiControlContribute, uiControlFunc, uiControlName } from "../contribute/UIControlContributeType"
-import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData, windowFlags, cond } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+import { style, label, pos, size, rect, texture as imguiTexture, context, imguiImplTexture, imageSrc, menuAllLabels, menuLabel, treeData, treeNodeLabel, treeIndexData, treeReturnData, windowFlags, cond, vec2 } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { name } from "meta3d-gameobject-protocol"
 import { localEulerAngles, localPosition, localScale } from "meta3d-component-transform-protocol"
@@ -24,11 +24,6 @@ type clearColor = [number, number, number, number]
 export type texture = imguiTexture
 
 export type isDebug = boolean
-
-type vec2 = {
-    x: number,
-    y: number
-}
 
 export type service = {
     readonly registerElement: < elementState> (
@@ -312,7 +307,9 @@ export type service = {
         meta3dState: meta3dState,
         type: string
     ) => [meta3dState, nullable<data>],
-    readonly getItemRectMin: (meta3dState: meta3dState) => vec2;
+    readonly dummy: (meta3dState: meta3dState, width: number, height: number) => meta3dState;
+    readonly getItemRectMax: (meta3dState: meta3dState) => vec2;
+    readonly getItemRectSize: (meta3dState: meta3dState) => vec2;
     readonly getWindowPos: (meta3dState: meta3dState) => vec2;
     readonly getWindowSize: (meta3dState: meta3dState) => vec2;
 };

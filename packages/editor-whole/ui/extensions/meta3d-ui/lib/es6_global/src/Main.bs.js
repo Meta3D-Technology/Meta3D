@@ -77,6 +77,26 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$18 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$19 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$20 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$21 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$22 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: (function (meta3dState, elementContribute) {
               return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerElement(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), elementContribute));
@@ -248,6 +268,21 @@ function getExtensionService(api) {
             }),
           popup: (function (param, param$1, param$2, param$3) {
               return UIManager$Meta3dUi.popup(partial_arg$17, param, param$1, param$2, param$3);
+            }),
+          dummy: (function (param, param$1, param$2) {
+              return UIManager$Meta3dUi.dummy(partial_arg$18, param, param$1, param$2);
+            }),
+          getItemRectMax: (function (param) {
+              return UIManager$Meta3dUi.getItemRectMax(partial_arg$19, param);
+            }),
+          getItemRectSize: (function (param) {
+              return UIManager$Meta3dUi.getItemRectSize(partial_arg$20, param);
+            }),
+          getWindowPos: (function (param) {
+              return UIManager$Meta3dUi.getWindowPos(partial_arg$21, param);
+            }),
+          getWindowSize: (function (param) {
+              return UIManager$Meta3dUi.getWindowSize(partial_arg$22, param);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

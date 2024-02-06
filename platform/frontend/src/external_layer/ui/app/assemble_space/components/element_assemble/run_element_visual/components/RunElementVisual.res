@@ -9,7 +9,7 @@ module Method = {
       "target": "visualRun",
       "isDebug": isDebug,
       "canvas": service.dom.querySelector("#ui-visual-run-canvas")->Meta3dCommonlib.OptionSt.getExn,
-      "env": EnvUtils.getEnv()
+      "env": EnvUtils.getEnv(),
     }->Obj.magic
   }
 
@@ -97,6 +97,24 @@ module Method = {
     }, _)
   }
 
+  let setMonaco = %raw(`
+function (monaco){
+globalThis["meta3d_monaco"] = monaco
+}
+`)
+
+  let deferLoad = %raw(`
+function (){
+return import(
+    /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
+  ).then(value =>{
+setMonaco(value)
+
+return value
+  })
+}
+`)
+
   // let useSelector = (
   //   {apAssembleState, elementAssembleState}: AssembleSpaceStoreType.state,
   // ) => {
@@ -122,6 +140,21 @@ let make = (~service: AssembleSpaceType.service) => {
     service.url.getUrlParam("canvasData")->Obj.magic
   let apInspectorData: ApAssembleStoreType.apInspectorData =
     service.url.getUrlParam("apInspectorData")->Obj.magic
+
+  service.react.useEffect1(. () => {
+    MessageUtils.showCatchedErrorMessage(() => {
+      Method.deferLoad()
+      ->Js.Promise.catch(
+        e => {
+          service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+        },
+        _,
+      )
+      ->ignore
+    }, 5->Some)
+
+    None
+  }, [])
 
   React.useEffect1(() => {
     MessageUtils.showCatchedErrorMessage(() => {

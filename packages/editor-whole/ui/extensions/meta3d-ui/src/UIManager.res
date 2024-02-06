@@ -913,11 +913,33 @@ let popup = (data, meta3dState, label, selectedValues, id) => {
   )
 }
 
-let getItemRectMin = (data, meta3dState) => {
+let dummy = (data, meta3dState, width, height) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.dummy(. width, height)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let getItemRectMax = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      imguiRendererService.getItemRectMin()
+      imguiRendererService.getItemRectMax()
+    },
+    data,
+  )
+}
+
+let getItemRectSize = (data, meta3dState) => {
+  _invokeIMGUIRenderFuncReturnData(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.getItemRectSize()
     },
     data,
   )
@@ -927,7 +949,7 @@ let getWindowPos = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      imguiRendererService.getItemRectMin()
+      imguiRendererService.getWindowPos()
     },
     data,
   )
@@ -937,7 +959,7 @@ let getWindowSize = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      imguiRendererService.getItemRectMin()
+      imguiRendererService.getWindowSize()
     },
     data,
   )

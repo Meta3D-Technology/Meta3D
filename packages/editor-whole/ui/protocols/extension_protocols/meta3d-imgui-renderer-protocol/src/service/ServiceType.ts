@@ -144,7 +144,7 @@ export enum cond {
 }
 
 
-type vec2 = {
+export type vec2 = {
   x: number,
   y: number
 }
@@ -224,7 +224,9 @@ export type service = {
     selectedValues: Array<string>,
     id: string
   ) => nullable<number>;
-  readonly getItemRectMin: () => vec2;
+  readonly dummy: (width: number, height: number) => void;
+  readonly getItemRectMax: () => vec2;
+  readonly getItemRectSize: () => vec2;
   readonly getWindowPos: () => vec2;
   readonly getWindowSize: () => vec2;
   readonly getContext: () => context

@@ -11,6 +11,7 @@ export type inputFunc = null
 
 export type specificData = {
     label: string,
+    height: number,
     initialCode: string
 }
 

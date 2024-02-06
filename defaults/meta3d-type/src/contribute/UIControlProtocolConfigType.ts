@@ -16,7 +16,7 @@ export type actionName = nullable<string>
 
 export type versionRange = string
 
-type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems" | "bool" | "select" | "number"
+type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems" | "bool" | "select" | "number" | "textarea"
 
 type uiControlSpecicFieldValue = any
 

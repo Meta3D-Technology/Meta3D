@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+// const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
 	entry: "./src/Main.ts",
@@ -36,14 +36,14 @@ module.exports = {
 				test: /\.js$/,
 				loader: "source-map-loader"
 			},
-			{
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
-			},
-			{
-				test: /\.ttf$/,
-				type: 'asset/resource'
-			}
+			// {
+			// 	test: /\.css$/,
+			// 	use: ['style-loader', 'css-loader']
+			// },
+			// {
+			// 	test: /\.ttf$/,
+			// 	type: 'asset/resource'
+			// }
 		]
 	},
 	plugins: [
@@ -63,11 +63,11 @@ module.exports = {
 		// 	template: './user.html',
 		// 	filename: 'user.html',
 		// }),
-		new MonacoWebpackPlugin({
-			// available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
-			languages: ['typescript']
-			// languages: ['']
-		}),
+		// new MonacoWebpackPlugin({
+		// 	// available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
+		// 	languages: ['typescript']
+		// 	// languages: ['']
+		// }),
 	],
 	// When importing a module whose path matches one of the following, just
 	// assume a corresponding global variable exists and use that instead.
