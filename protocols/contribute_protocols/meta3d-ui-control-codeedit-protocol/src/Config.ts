@@ -19,11 +19,11 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         type_: "number",
         value: 200
     },
-    {
-        name: "initialCode",
-        type_: "textarea",
-        value: ""
-    }
+    // {
+    //     name: "initialCode",
+    //     type_: "textarea",
+    //     value: ""
+    // }
 ]
 
 export let hasChildren: hasChildrenMeta3D = () => false

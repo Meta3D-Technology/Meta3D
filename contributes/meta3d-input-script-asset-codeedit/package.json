@@ -1,24 +1,24 @@
 {
-    "name": "meta3d-ui-control-codeedit",
-    "version": "1.2.3",
-    "displayName": "代码编辑",
+    "name": "meta3d-input-script-asset-codeedit",
+    "version": "1.2.0",
     "publisher": "meta3d",
+    "description": "",
     "protocol": {
-        "name": "meta3d-ui-control-codeedit-protocol"
+        "name": "meta3d-input-codeedit-protocol"
     },
     "license": "MIT",
     "scripts": {
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env",
-        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env_bundle",
+        "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env_bundle"
     },
     "keywords": [],
     "dependencies": {
         "meta3d-editor-whole-protocol": "^1.2.0",
-        "meta3d-type": "^1.2.0",
-        "meta3d-ui-control-codeedit-protocol": "^1.2.0"
+        "meta3d-input-codeedit-protocol": "^1.2.0",
+        "meta3d-type": "^1.2.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
