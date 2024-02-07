@@ -3,6 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-select-scenetree-node-protocol"
 import { eventName, inputData } from "meta3d-action-select-scenetree-node-protocol/src/EventType"
 import { findSelectedGameObject, getAllTopGameObjects, buildHierachyGameObjects } from "meta3d-scenetree-utils/src/SceneTreeUtils"
+import { eventName as selectInspectorNodeEventName, backwardEventName as selectInspectorNodeBackwardEventName } from "meta3d-action-select-inspector-node-protocol/src/EventType"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -12,32 +13,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, selectedGameObject) => {
-                    let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
+                    let { triggerCustomGlobalEvent2, createCustomEvent } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                        ...state,
-                        allSelectedGameObjects: state.allSelectedGameObjects.push(selectedGameObject),
-                        selectedGameObject: selectedGameObject,
-                    })
-
-                    return Promise.resolve(meta3dState)
+                    return Promise.resolve(triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                        createCustomEvent(selectInspectorNodeEventName, api.nullable.return(["scenetree", selectedGameObject] as any))
+                    ))
                 }, (meta3dState) => {
-                    let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
-                    let {
-                        allSelectedGameObjects
-                    } = state
+                    let { triggerCustomGlobalEvent2, createCustomEvent } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-                    if (api.nullable.isNullable(allSelectedGameObjects.last())) {
-                        return Promise.resolve(meta3dState)
-                    }
-
-                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                        ...state,
-                        allSelectedGameObjects: state.allSelectedGameObjects.pop(),
-                        selectedGameObject: api.nullable.getExn(state.allSelectedGameObjects.last())
-                    })
-
-                    return Promise.resolve(meta3dState)
+                    return Promise.resolve(triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                        createCustomEvent(selectInspectorNodeBackwardEventName, api.nullable.getEmpty())
+                    ))
                 }))
             })
         },
@@ -57,10 +43,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             })
         },
         createState: (meta3dState) => {
-            return {
-                selectedGameObject: null,
-                allSelectedGameObjects: api.immutable.createList(),
-            }
+            return null
         }
     }
 }

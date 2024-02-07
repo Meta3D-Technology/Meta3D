@@ -5,7 +5,8 @@ export const uiControlName = "CodeEdit"
 
 export type state = {
     editor: nullable<any>,
-    container: HTMLElement
+    container: HTMLElement,
+    isRestoreEditorValue: boolean
 }
 
 export type inputFunc = nullable<func>

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-active-camera",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "publisher": "meta3d",
     "repoLink": "",
     "protocol": {
@@ -17,7 +17,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-active-camera-protocol": "^1.2.0",
-        "meta3d-action-select-scenetree-node-protocol": "^1.2.0",
+        "meta3d-action-select-inspector-node-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"
     },

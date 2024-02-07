@@ -2,7 +2,6 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-dispose-gameobject-protocol"
 import { eventName, inputData } from "meta3d-action-dispose-gameobject-protocol/src/EventType"
-import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 // import { state as treeState } from "meta3d-ui-control-tree-protocol"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { removeGameObjectData } from "meta3d-engine-scene-protocol/src/service/ecs/GameObject"
@@ -10,6 +9,7 @@ import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/Game
 // import { nullable } from "meta3d-commonlib-ts/src/nullable"
 // import { treeIndexData } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 // import { assertNullableExist, ensureCheck, test } from "meta3d-ts-contract-utils"
+import { getSelectedGameObject, notSelecteNode, selecteNode } from "meta3d-select-inspector-node-utils/src/Main"
 
 let _dispose = (meta3dState: meta3dState, api: api, selectedGameObject: gameObject) => {
     let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).scene(meta3dState)
@@ -78,14 +78,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         allDisposedGameObjectData: state.allDisposedGameObjectData.push(api.immutable.createListOfData(disposedGameObjectData)),
                     })
 
-                    let selectSceneTreeNodeState = api.nullable.getExn(
-                        api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName)
-                    )
+                    // let { triggerCustomGlobalEvent2, createCustomEvent } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-                    meta3dState = api.action.setActionState(meta3dState, selectSceneTreeNodeActionName, {
-                        ...selectSceneTreeNodeState,
-                        selectedGameObject: null
-                    })
+                    // meta3dState = triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                    //     createCustomEvent(selectInspectorNodeBackwardEventName, api.nullable.getEmpty())
+                    // )
+
+                    meta3dState = notSelecteNode(meta3dState, api)
 
 
                     // // let sceneTreeLabel = _buildSceneTreeLabel()
@@ -129,10 +128,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     let selectedGameObject = api.nullable.getExn(allSelectedGameObjects.last())
 
-                    meta3dState = api.action.setActionState(meta3dState, selectSceneTreeNodeActionName, {
-                        ...api.nullable.getExn(api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName)),
-                        selectedGameObject
-                    })
+
+                    // let { triggerCustomGlobalEvent2, createCustomEvent } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+
+                    // meta3dState = triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
+                    //     createCustomEvent(selectInspectorNodeEventName, api.nullable.return(["scenetree", selectedGameObject] as any))
+                    // )
+                    meta3dState = selecteNode(meta3dState, api, ["scenetree", selectedGameObject])
 
 
                     // let sceneTreeLabel = _buildSceneTreeLabel()
@@ -160,9 +162,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         handler: (meta3dState, uiData) => {
             return new Promise<meta3dState>((resolve, reject) => {
-                let {
-                    selectedGameObject,
-                } = api.nullable.getExn(api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName))
+                let selectedGameObject = getSelectedGameObject(meta3dState, api)
 
                 if (api.nullable.isNullable(selectedGameObject)) {
                     resolve(meta3dState)

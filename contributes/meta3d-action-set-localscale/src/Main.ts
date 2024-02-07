@@ -2,8 +2,8 @@ import { state as meta3dState, api, getContribute as getContributeMeta3D } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-set-localscale-protocol"
 import { eventName, inputData } from "meta3d-action-set-localscale-protocol/src/EventType"
-import { actionName as selectSceneTreeNodeActionName, state as selectSceneTreeNodeState } from "meta3d-action-select-scenetree-node-protocol"
 import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
+import { getSelectedGameObject } from "meta3d-select-inspector-node-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -36,7 +36,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         allLocalScaleData: state.allLocalScaleData.push([gameObject, oldLocalScale]),
                     })
 
-                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState,api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
+                    return Promise.resolve(runGameViewRenderOnlyOnce(meta3dState, api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))))
                 }, (meta3dState) => {
                     let {
                         allLocalScaleData
@@ -70,9 +70,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         handler: (meta3dState, uiData) => {
             return new Promise<meta3dState>((resolve, reject) => {
-                let {
-                    selectedGameObject,
-                } = api.nullable.getExn(api.action.getActionState<selectSceneTreeNodeState>(meta3dState, selectSceneTreeNodeActionName))
+                let selectedGameObject = getSelectedGameObject(meta3dState, api)
 
                 if (api.nullable.isNullable(selectedGameObject)) {
                     resolve(meta3dState)

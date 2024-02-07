@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-select-scenetree-node",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "publisher": "meta3d",
     "repoLink": "",
     "protocol": {
@@ -16,6 +16,7 @@
     },
     "keywords": [],
     "dependencies": {
+        "meta3d-action-select-inspector-node-protocol": "^1.2.0",
         "meta3d-action-select-scenetree-node-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"

@@ -2,8 +2,10 @@ import { getContribute as getContributeMeta3D, state as meta3dState, api } from 
 import { uiControlName, state as uiControlState, inputFunc, specificData, outputData } from "meta3d-ui-control-codeedit-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { getBeforeRenderEventName } from "meta3d-editor-event-utils/src/Main"
+import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { eventName as selectInspectorNodeEventName } from "meta3d-action-select-inspector-node-protocol/src/EventType"
 
-let _bindEvent = (meta3dState: meta3dState, api: api, container: HTMLElement) => {
+let _bindHiddenContainerEvent = (meta3dState: meta3dState, api: api, container: HTMLElement) => {
     let { onCustomGlobalEvent3 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
 
@@ -12,6 +14,24 @@ let _bindEvent = (meta3dState: meta3dState, api: api, container: HTMLElement) =>
             container.style.display = "none"
 
             return Promise.resolve(meta3dState)
+        }
+    ])
+}
+
+let _bindRestoreEditorValueEvent = (meta3dState: meta3dState, api: api, label: string) => {
+    let { onCustomGlobalEvent2 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+
+    return onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        selectInspectorNodeEventName,
+        0,
+        (meta3dState) => {
+            debugger
+            meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
+                ...api.nullable.getExn(api.uiControl.getUIControlState<uiControlState>(meta3dState, label)),
+                isRestoreEditorValue: true
+            })
+
+            return meta3dState
         }
     ])
 }
@@ -32,7 +52,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             let promise = null
 
             if (api.nullable.isNullable(getInputFunc)) {
-                promise = Promise.resolve([meta3dState, ""])
+                promise = Promise.resolve("")
             }
             else {
                 promise = api.nullable.getExn(getInputFunc)(meta3dState)
@@ -47,15 +67,16 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
                         editor: null,
-                        container
+                        container,
+                        isRestoreEditorValue: false
                     })
 
-                    meta3dState = _bindEvent(meta3dState, api, container)
+                    meta3dState = _bindHiddenContainerEvent(meta3dState, api, container)
                 }
 
 
                 let state = api.nullable.getExn(api.uiControl.getUIControlState<uiControlState>(meta3dState, label))
-                let { container, editor } = state
+                let { container, editor, isRestoreEditorValue } = state
 
 
                 let { getItemRectMax, getItemRectSize, getWindowSize, getWindowPos, dummy, button } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
@@ -82,15 +103,29 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 if (api.nullable.isNullable(editor)) {
                     let monaco = (globalThis as any)["meta3d_monaco" as any]
 
-                    let editor = monaco.editor.create(container, {
+                    editor = monaco.editor.create(container, {
                         model: monaco.editor.createModel(code, "typescript"),
                     })
+
+                    debugger
+                    meta3dState = _bindRestoreEditorValueEvent(meta3dState, api, label)
 
                     meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
                         ...state,
                         editor: api.nullable.return(editor)
                     })
                 }
+
+                if (isRestoreEditorValue) {
+                    debugger
+                    editor.setValue(code)
+
+                    meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
+                        ...state,
+                        isRestoreEditorValue: false
+                    })
+                }
+
 
 
                 meta3dState = dummy(meta3dState, containerRect.width, containerRect.height)

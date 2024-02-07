@@ -282,9 +282,35 @@ dispost script inspector
 
 switch
     should update code
+        if selected change, set value
+            TODO add action-select-node
+            TODO update related
+
+            TODO add switch node event
+
+            TODO update all
+                fix:
+                switch
+                dispose
+                remove asset
+                # clone
+
+# TODO update
+# codeedit 
+# dispose
+# remove
+
+
 
 multiple codeedit ui controls
     create self container
+
+
+
+**** TODO fix EnterApp
+
+run test:
+run editor
 
 
 **** TODO add asset
@@ -392,6 +418,8 @@ TODO support status: can change model,ui color to red
 
 
 
+
+* TODO perf(platform): code edit: if change code, not create monaco
 
 
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
