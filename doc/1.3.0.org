@@ -274,11 +274,14 @@ TODO pass run test:
 
 TODO remove initialCode, add input instead
 
-switch script inspector and gameobject inspector
+# switch script inspector and gameobject inspector
+dispost script inspector
     TODO code edit ui control: register event when beforeRender:
         hidden container
-        update initialCode
+        # update initialCode
 
+switch
+    should update code
 
 multiple codeedit ui controls
     create self container
@@ -334,6 +337,7 @@ webview pipeline, extension and p;
 # engine-scene
 imgui p
 ui p
+editor whole
 
 
 TODO update:

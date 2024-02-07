@@ -1,6 +1,20 @@
-import { getContribute as getContributeMeta3D } from "meta3d-type"
+import { getContribute as getContributeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { uiControlName, state as uiControlState, inputFunc, specificData, outputData } from "meta3d-ui-control-codeedit-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { getBeforeRenderEventName } from "meta3d-editor-event-utils/src/Main"
+
+let _bindEvent = (meta3dState: meta3dState, api: api, container: HTMLElement) => {
+    let { onCustomGlobalEvent3 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+
+
+    return onCustomGlobalEvent3(meta3dState, "meta3d-event-protocol", [
+        getBeforeRenderEventName(), 0, (meta3dState, _) => {
+            container.style.display = "none"
+
+            return Promise.resolve(meta3dState)
+        }
+    ])
+}
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
@@ -35,6 +49,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                         editor: null,
                         container
                     })
+
+                    meta3dState = _bindEvent(meta3dState, api, container)
                 }
 
 
@@ -54,6 +70,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     // height: getWindowSize(meta3dState).y - getItemRectMax(meta3dState).y + getWindowPos(meta3dState).y
                     height: height
                 }
+
+                container.style.display = "block"
 
                 container.style.top = containerRect.y + "px"
                 container.style.left = containerRect.x + "px"
@@ -86,6 +104,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 }
 
                 return [meta3dState, null]
+
             })
         },
         init: (meta3dState) => Promise.resolve(meta3dState)

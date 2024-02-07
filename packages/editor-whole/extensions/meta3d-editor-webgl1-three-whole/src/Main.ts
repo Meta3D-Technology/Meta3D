@@ -25,6 +25,7 @@ import { service as exportSceneService } from "meta3d-export-scene-protocol/src/
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as libService } from "meta3d-lib-protocol/src/service/ServiceType"
+import { getBeforeRenderEventName } from "meta3d-editor-event-utils/src/Main"
 // import { init as initBackend } from "backend-cloudbase"
 
 let _getBackendEnv = (env: string) => {
@@ -263,6 +264,7 @@ let _handleError = (api: api, meta3dState: meta3dState) => {
 
 let _updateForVisual = (meta3dState, api: api, { clearColor, time, skinName }) => {
 	let { getSkin, render, clear, setStyle } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
+	let { triggerCustomGlobalEvent3, createCustomEvent } = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
 	if (!isNullable(skinName)) {
 		let skin = getSkin<skin>(meta3dState, getExn(skinName))
@@ -273,15 +275,20 @@ let _updateForVisual = (meta3dState, api: api, { clearColor, time, skinName }) =
 
 	meta3dState = clear(meta3dState, [api, "meta3d-imgui-renderer-protocol"], clearColor)
 
-	return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
-		.catch(e => {
-			_handleError(api, meta3dState)
-			throw e
-		})
+	return triggerCustomGlobalEvent3(meta3dState,
+		"meta3d-event-protocol",
+		createCustomEvent(getBeforeRenderEventName(), api.nullable.getEmpty())
+	).then(meta3dState => {
+		return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
+	}).catch(e => {
+		_handleError(api, meta3dState)
+		throw e
+	})
 }
 
 let _updateForVisualRun = (meta3dState, api: api, { clearColor, time, skinName }) => {
 	let { getSkin, render, clear, setStyle } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
+	let { triggerCustomGlobalEvent3, createCustomEvent } = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
 	if (!isNullable(skinName)) {
 		let skin = getSkin<skin>(meta3dState, getExn(skinName))
@@ -292,16 +299,19 @@ let _updateForVisualRun = (meta3dState, api: api, { clearColor, time, skinName }
 
 	meta3dState = clear(meta3dState, [api, "meta3d-imgui-renderer-protocol"], clearColor)
 
-	return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
-		.then(meta3dState => {
-			return sync(meta3dState, api)
-		})
-		.then(meta3dState => {
-			return _loopEngine(meta3dState, api)
-		}).catch(e => {
-			_handleError(api, meta3dState)
-			throw e
-		})
+	return triggerCustomGlobalEvent3(meta3dState,
+		"meta3d-event-protocol",
+		createCustomEvent(getBeforeRenderEventName(), api.nullable.getEmpty())
+	).then(meta3dState => {
+		return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
+	}).then(meta3dState => {
+		return sync(meta3dState, api)
+	}).then(meta3dState => {
+		return _loopEngine(meta3dState, api)
+	}).catch(e => {
+		_handleError(api, meta3dState)
+		throw e
+	})
 }
 
 let _updateForRun = _updateForVisualRun
