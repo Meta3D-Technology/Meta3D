@@ -307,12 +307,6 @@ multiple codeedit ui controls
 
 
 
-**** TODO fix EnterApp
-
-run test:
-run editor
-
-
 **** TODO add asset
 
 # TODO defer load monaco when show script asset
@@ -344,6 +338,12 @@ create and init new vbo when run
 
 
 *** TODO pass editor run test
+
+
+*** TODO fix EnterApp
+
+run test:
+run editor
 
 
 
@@ -418,6 +418,7 @@ TODO support status: can change model,ui color to red
 
 
 
+* TODO fix(platform): create input->set name to exist name->change name to other name: will create dupliate one
 
 * TODO perf(platform): code edit: if change code, not create monaco
 

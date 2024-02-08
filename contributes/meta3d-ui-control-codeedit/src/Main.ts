@@ -25,7 +25,6 @@ let _bindRestoreEditorValueEvent = (meta3dState: meta3dState, api: api, label: s
         selectInspectorNodeEventName,
         0,
         (meta3dState) => {
-            debugger
             meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
                 ...api.nullable.getExn(api.uiControl.getUIControlState<uiControlState>(meta3dState, label)),
                 isRestoreEditorValue: true
@@ -47,8 +46,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 height,
             }
         ) => {
-            // TODO check: should only has one
-
             let promise = null
 
             if (api.nullable.isNullable(getInputFunc)) {
@@ -107,7 +104,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                         model: monaco.editor.createModel(code, "typescript"),
                     })
 
-                    debugger
                     meta3dState = _bindRestoreEditorValueEvent(meta3dState, api, label)
 
                     meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
@@ -117,7 +113,6 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 }
 
                 if (isRestoreEditorValue) {
-                    debugger
                     editor.setValue(code)
 
                     meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
