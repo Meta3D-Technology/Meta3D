@@ -4,6 +4,7 @@ import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/s
 import { getBeforeRenderEventName } from "meta3d-editor-event-utils/src/Main"
 import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { eventName as selectInspectorNodeEventName } from "meta3d-action-select-inspector-node-protocol/src/EventType"
+import { getRestoreEditorValueEventName } from "meta3d-editor-event-utils/src/Main"
 
 let _bindHiddenContainerEvent = (meta3dState: meta3dState, api: api, container: HTMLElement) => {
     let { onCustomGlobalEvent3 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
@@ -19,10 +20,10 @@ let _bindHiddenContainerEvent = (meta3dState: meta3dState, api: api, container: 
 }
 
 let _bindRestoreEditorValueEvent = (meta3dState: meta3dState, api: api, label: string) => {
-    let { onCustomGlobalEvent2 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+    let { onCustomGlobalEvent2, triggerCustomGlobalEvent2, createCustomEvent } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
-    return onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
-        selectInspectorNodeEventName,
+    meta3dState = onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        getRestoreEditorValueEventName(),
         0,
         (meta3dState) => {
             meta3dState = api.uiControl.setUIControlState<uiControlState>(meta3dState, label, {
@@ -33,6 +34,18 @@ let _bindRestoreEditorValueEvent = (meta3dState: meta3dState, api: api, label: s
             return meta3dState
         }
     ])
+
+
+    meta3dState = onCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", [
+        selectInspectorNodeEventName,
+        0,
+        (meta3dState) => {
+            return triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol", createCustomEvent(getRestoreEditorValueEventName(), api.nullable.getEmpty()))
+        }
+    ])
+
+
+    return meta3dState
 }
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {

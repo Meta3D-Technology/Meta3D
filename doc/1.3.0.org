@@ -307,18 +307,126 @@ multiple codeedit ui controls
 
 
 
-**** TODO add asset
+**** DONE add asset
 
 # TODO defer load monaco when show script asset
 
+TODO add imagePopup
+
 TODO add select ui control for add script asset
+
+TODO merge load-glb to add-asset
+
+TODO select script, glb asset: show different inspector
 
 
 
 # TODO code edit ui control: defer load
 
+TODO update:
+# imgui p
+# ui p
+# editor
+# add-asset
+# image-popup
+# input-asset
+# add-glb 
+# input-glb-asset-inspector
+# input-script-asset-inspector
+# set-script-asset-name p
+# input-codeedit-script-asset p
+
+# set-script-asset-name p
+# meta3d-action-set-script-asset-code p
+# meta3d-input-script-asset-name
+# meta3d-input-script-asset-codeedit p
+
+# meta3d-ui-control-codeedit
+# meta3d-action-set-script-asset-code
+
+
+
+add related action,input
+
+replace input-inspector
+remove load glb ui
+add addasset ui
+add glb inspector
+add script inspector
+
+
+
+TODO pass run test:
+add glb
+add script
+remove glb
+remove script
+drag glb
+select glb
+select script
+switch script
+redo-undo
+
+# export->import
+
+
+
+
+
+TODO update
+# imgui p
+# ui p
+# codeedit ui control p
+# # editor-whole
+
+
+
+**** TODO feat: add export/import asset in menu
+
+TODO pass run test:
+export->import
+
+
+
+
+TODO remove   addGLBAsset: (
+    Meta3dType.Index.state,
+    glb,
+    outsideImmutableDataId,
+    glbName,
+  ) => Meta3dType.Index.state,
+  removeGLBAsset: (Meta3dType.Index.state, outsideImmutableDataId) => Meta3dType.Index.state,
+  getAllGLBAssets: Meta3dType.Index.state => array<(outsideImmutableDataId, glbName, glb)>,
+
+TODO remove allGLBAssets
+
+
+**** TODO feat: rename to export scene in menu; add import scene in menu 
+
+
+
+**** TODO init imgui before init action
+
+TODO update meta3d-action-add-asset
+
+TODO update ui control -> init code
+
+
+
+
+
+
+
+
+
 
 **** TODO add script component
+
+
+
+
+
+
 
 **** TODO restore default scene
 

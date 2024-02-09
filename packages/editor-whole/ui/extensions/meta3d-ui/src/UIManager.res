@@ -697,11 +697,11 @@ let loadImage = (data, meta3dState, imageBase64Src) => {
   )
 }
 
-let asset = (data, meta3dState, fileTexture, files, label, rect) => {
+let asset = (data, meta3dState, files, label, rect) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.asset(. fileTexture, files, label, rect))
+      (imguiRendererState, imguiRendererService.asset(. files, label, rect))
     },
     data,
   )
@@ -908,6 +908,19 @@ let popup = (data, meta3dState, label, selectedValues, id) => {
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
       (imguiRendererState, imguiRendererService.popup(. label, selectedValues, id))
+    },
+    data,
+  )
+}
+
+let imagePopup = (data, meta3dState, clickTexture, size, selectedValues, id) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (
+        imguiRendererState,
+        imguiRendererService.imagePopup(. clickTexture, size, selectedValues, id),
+      )
     },
     data,
   )

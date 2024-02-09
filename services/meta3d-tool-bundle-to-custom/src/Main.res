@@ -22,12 +22,12 @@ let _isFile = (path: string) => Fs.existsSync(. path) && Fs.statSync(. path).isF
 
 let _isDir = (path: string) => Fs.existsSync(. path) && Fs.statSync(. path).isDirectory(.)
 
-let _getLocalModulePath = (~path, ~from=None, ()) => {
+let _getLocalModulePath = (~path, ~from=None, ~extname=".ts", ()) => {
   let absPath = switch from {
   | None => Path.resolve1(path)
   | Some(from) => Path.resolve2(Path.dirname(from), path)
   }
-  let tsPath = absPath->Js.String.endsWith(".ts", _) ? absPath : absPath ++ ".ts"
+  let tsPath = absPath->Js.String.endsWith(extname, _) ? absPath : absPath ++ extname
   // let filePath = absPath
   let indexPath = Path.resolve2(absPath, "index.ts")
 
@@ -93,6 +93,35 @@ let _getNpmModulePath = (pkg: string, from: string): string => {
   _find(Path.dirname(from))
 }
 
+let _getDepPath = (moduleSpecifierText, filePath) => {
+  moduleSpecifierText->Js.String.startsWith(".", _)
+    ? // moduleSpecifierText->Js.String.includes("/node_modules/", _)
+      //     ? {
+      //        _getNpmModulePath(
+      //         moduleSpecifierText->Js.String.replaceByRe(%re("/.+\/node_modules\//g"), "", _),
+      //         filePath,
+      //       ) }
+      // :
+      _getLocalModulePath(~path=moduleSpecifierText, ~from=filePath->Some, ())
+    : _getNpmModulePath(moduleSpecifierText, filePath)
+}
+
+let _readBase64 = (pkg: string, from: string, variableName: string) => {
+  let path = pkg->Js.String.replace("url-loader!", "", _)
+
+  let base64 =
+    "data:image/png;base64," ++
+    Fs.readFileSync(.
+      _getLocalModulePath(~path, ~from=Some(from), ~extname=Path.extname(. path), ()),
+      {"encoding": "base64"}->Obj.magic,
+    )
+
+  {
+    j`var ${variableName} = "${base64}"
+  `
+  }
+}
+
 let _isImportInTranspiledText = (moduleSpecifierText, transpiledText) => {
   transpiledText->Js.String.includes(moduleSpecifierText, _)
 }
@@ -131,7 +160,6 @@ let _changeConstToVar = depTranspiledText => {
   depTranspiledText->Js.String.replaceByRe(%re("/const\s/g"), "var ", _)
 }
 
-
 let _replaceImportClause = (result, transpiledText, pos, end, depTranspiledText, lastEnd) => {
   (result ++ transpiledText->Js.String.slice(~from=lastEnd, ~to_=pos, _) ++ depTranspiledText, end)
 }
@@ -162,27 +190,23 @@ let bundle = (filePath: string, fileSource: string) => {
         let moduleSpecifierText =
           importDecl["moduleSpecifier"]["getText"](. source)->Js.Json.parseExn->Obj.magic
 
-        let depPath =
-          moduleSpecifierText->Js.String.startsWith(".", _)
-            ? // moduleSpecifierText->Js.String.includes("/node_modules/", _)
-              //     ? {
-              //        _getNpmModulePath(
-              //         moduleSpecifierText->Js.String.replaceByRe(%re("/.+\/node_modules\//g"), "", _),
-              //         filePath,
-              //       ) }
-              // :
-              _getLocalModulePath(~path=moduleSpecifierText, ~from=filePath->Some, ())
-            : _getNpmModulePath(moduleSpecifierText, filePath)
-
-        // Js.log(("depPath: ", depPath))
-
         let depTranspiledText =
-          _func(depPath, Fs.readFileSync(. depPath, "utf-8"))
-          // ->Meta3dCommonlib.Log.printForDebug
-          ->_renameImportVariables(_getImportVariableRenameMap(importDecl))
-          // ->Meta3dCommonlib.Log.printForDebug
-          ->_removeExportKeyword
-          -> _changeConstToVar
+          moduleSpecifierText->Js.String.startsWith("url-loader!", _)
+            ? {
+                _readBase64(
+                  moduleSpecifierText,
+                  filePath,
+                  importDecl["importClause"]["name"]["escapedText"],
+                )
+              }
+            : {
+                let depPath = _getDepPath(moduleSpecifierText, filePath)
+
+                _func(depPath, Fs.readFileSync(. depPath, "utf-8"))
+                ->_renameImportVariables(_getImportVariableRenameMap(importDecl))
+                ->_removeExportKeyword
+                ->_changeConstToVar
+              }
 
         data
         ->Meta3dCommonlib.ArraySt.push((importDecl["pos"], importDecl["end"], depTranspiledText))

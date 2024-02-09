@@ -6,7 +6,7 @@ import { dragDropType, dropAssetFileUIData } from "meta3d-ui-control-scene-view-
 import { return_ } from "meta3d-commonlib-ts/src/NullableUtils"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
-export let asset: assetFunc = (fileTexture, files, label, rect) => {
+export let asset: assetFunc = (files, label, rect) => {
     // let headerHeight = 60
 
     // setNextWindowRect({
@@ -49,7 +49,7 @@ export let asset: assetFunc = (fileTexture, files, label, rect) => {
     let sizeX = 32
     let sizeY = sizeX
 
-    let selectedFileId = files.reduce<nullable<string>>((selectedFileId, [fileName, fileId], fileIndex) => {
+    let selectedFileId = files.reduce<nullable<string>>((selectedFileId, [fileName, fileId, fileTexture], fileIndex) => {
         ImGui.PushID(fileIndex)
 
         ImGui.BeginGroup() // Lock X position

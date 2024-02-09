@@ -129,8 +129,7 @@ type service = {
   ) => Js.Promise.t<Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture>,
   asset: (
     Meta3dType.Index.state,
-    Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
-    array<(string, string)>,
+    array<(string, string, Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture)>,
     Meta3dImguiRendererProtocol.ServiceType.label,
     Meta3dImguiRendererProtocol.ServiceType.rect,
   ) => (Meta3dType.Index.state, Js.Nullable.t<string>),
@@ -235,6 +234,13 @@ type service = {
   popup: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,
+    array<string>,
+    string,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
+  imagePopup: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture,
+    Meta3dImguiRendererProtocol.ServiceType.rect,
     array<string>,
     string,
   ) => (Meta3dType.Index.state, Js.Nullable.t<int>),

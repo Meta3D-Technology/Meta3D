@@ -11,3 +11,6 @@ external resolve2: (path, path) => path = "resolve"
 
 @module("path")
 external resolve3: (path, path, path) => path = "resolve"
+
+@module("path")
+external extname: (. string) => string = "extname"

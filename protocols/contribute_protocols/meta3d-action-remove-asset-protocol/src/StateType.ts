@@ -1,14 +1,10 @@
 import type { List } from "immutable"
-import { fileId } from "./EventType"
+import { asset } from "meta3d-action-add-asset-protocol/src/StateType"
 
 export const actionName = "RemoveAsset"
-
-type fileName = string
-
-type file = ArrayBuffer
 
 export type uiData = null
 
 export type state = {
-    allRemoveAssetData: List<[fileId, fileName, file]>,
+    allRemoveAssetData: List<asset>,
 }

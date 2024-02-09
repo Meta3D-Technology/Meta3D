@@ -169,6 +169,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     beginModal: UIManager.beginModal((api, "meta3d-imgui-renderer-protocol")),
     endModal: UIManager.endModal((api, "meta3d-imgui-renderer-protocol")),
     popup: UIManager.popup((api, "meta3d-imgui-renderer-protocol")),
+    imagePopup: UIManager.imagePopup((api, "meta3d-imgui-renderer-protocol")),
     dummy: UIManager.dummy((api, "meta3d-imgui-renderer-protocol")),
     getItemRectMax: UIManager.getItemRectMax((api, "meta3d-imgui-renderer-protocol")),
     getItemRectSize: UIManager.getItemRectSize((api, "meta3d-imgui-renderer-protocol")),

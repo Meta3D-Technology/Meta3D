@@ -20,3 +20,8 @@ Feature: bundle
         Given prepare source
         When bundle
         Then should compile and bundle it
+
+    Scenario: bundle source which has url-loader import
+        Given prepare source
+        When bundle
+        Then should compile and bundle it

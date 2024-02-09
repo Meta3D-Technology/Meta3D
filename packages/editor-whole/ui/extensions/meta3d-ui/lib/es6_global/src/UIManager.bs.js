@@ -452,11 +452,11 @@ function loadImage(data, meta3dState, imageBase64Src) {
               }), data);
 }
 
-function asset(data, meta3dState, fileTexture, files, label, rect) {
+function asset(data, meta3dState, files, label, rect) {
   return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return [
                         imguiRendererState,
-                        imguiRendererService.asset(fileTexture, files, label, rect)
+                        imguiRendererService.asset(files, label, rect)
                       ];
               }), data);
 }
@@ -593,6 +593,15 @@ function popup(data, meta3dState, label, selectedValues, id) {
                 return [
                         imguiRendererState,
                         imguiRendererService.popup(label, selectedValues, id)
+                      ];
+              }), data);
+}
+
+function imagePopup(data, meta3dState, clickTexture, size, selectedValues, id) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.imagePopup(clickTexture, size, selectedValues, id)
                       ];
               }), data);
 }
@@ -771,6 +780,7 @@ export {
   beginModal ,
   endModal ,
   popup ,
+  imagePopup ,
   dummy ,
   getItemRectMax ,
   getItemRectSize ,

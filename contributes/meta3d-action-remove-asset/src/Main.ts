@@ -2,7 +2,7 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-remove-asset-protocol"
 import { eventName, inputData } from "meta3d-action-remove-asset-protocol/src/EventType"
-import { actionName as loadGlbActionName, state as loadGlbState } from "meta3d-action-load-glb-protocol"
+import { actionName as addAssetActionName, state as addAssetState } from "meta3d-action-add-asset-protocol"
 import { getSelectedAsset, notSelecteNode, selecteNode } from "meta3d-select-inspector-node-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -13,22 +13,18 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, selectedAssetFileId) => {
-                    let assetService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).asset(meta3dState)
-                    let removedGlbData = api.nullable.getExn(assetService.getAllGLBAssets(meta3dState).find((data) => data[0] == selectedAssetFileId))
-
-                    meta3dState = assetService.removeGLBAsset(meta3dState, selectedAssetFileId)
+                    let addAssetState = api.nullable.getExn(api.action.getActionState<addAssetState>(meta3dState, addAssetActionName))
+                    let removedAssetData = api.nullable.getExn(addAssetState.allAddedAssets.find((data) => data[1] == selectedAssetFileId))
 
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
-                        allRemoveAssetData:
-                            state.allRemoveAssetData.push(removedGlbData)
+                        allRemoveAssetData: state.allRemoveAssetData.push(removedAssetData)
                     })
 
-                    let loadGlbState = api.nullable.getExn(api.action.getActionState<loadGlbState>(meta3dState, loadGlbActionName))
-                    meta3dState = api.action.setActionState(meta3dState, loadGlbActionName, {
-                        ...loadGlbState,
-                        addedGLBIds: loadGlbState.addedGLBIds.filter((addedGLBId) => addedGLBId != selectedAssetFileId
+                    meta3dState = api.action.setActionState(meta3dState, addAssetActionName, {
+                        ...addAssetState,
+                        allAddedAssets: addAssetState.allAddedAssets.filter(data => data[1] != selectedAssetFileId
                         )
                     })
 
@@ -51,9 +47,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         return Promise.resolve(meta3dState)
                     }
 
-                    let [fileId, fileName, file] = api.nullable.getExn(allRemoveAssetData.last())
-
-                    meta3dState = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).asset(meta3dState).addGLBAsset(meta3dState, file, fileId, fileName)
+                    let asset = api.nullable.getExn(allRemoveAssetData.last())
 
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
@@ -61,10 +55,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         allRemoveAssetData: state.allRemoveAssetData.pop()
                     })
 
-                    let loadGlbState = api.nullable.getExn(api.action.getActionState<loadGlbState>(meta3dState, loadGlbActionName))
-                    meta3dState = api.action.setActionState(meta3dState, loadGlbActionName, {
-                        ...loadGlbState,
-                        addedGLBIds: loadGlbState.addedGLBIds.push(fileId)
+                    let addAssetState = api.nullable.getExn(api.action.getActionState<addAssetState>(meta3dState, addAssetActionName))
+                    meta3dState = api.action.setActionState(meta3dState, addAssetActionName, {
+                        ...addAssetState,
+                        allAddedAssets: addAssetState.allAddedAssets.push(asset)
                     })
 
 
@@ -73,7 +67,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     // meta3dState = triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
                     //     createCustomEvent(selectInspectorNodeEventName, api.nullable.return(["asset", fileId] as any))
                     // )
-                    meta3dState = selecteNode(meta3dState, api, ["asset", fileId])
+                    meta3dState = selecteNode(meta3dState, api, ["asset", asset[1]])
 
 
                     return Promise.resolve(meta3dState)

@@ -84,7 +84,7 @@ export type assetFunc = (
   //   // "meshIconTexture": imguiImplTexture,
   //   // "lightIconTexture": imguiImplTexture,
   // },
-  fileTexture: imguiImplTexture,
+  // fileTexture: imguiImplTexture,
   // files: Array<[fileName, fileId]>,
   files: inputAssetData,
   label: label,
@@ -221,6 +221,12 @@ export type service = {
   readonly endModal: () => void;
   readonly popup: (
     label: label,
+    selectedValues: Array<string>,
+    id: string
+  ) => nullable<number>;
+  readonly imagePopup: (
+    clickTexture: imguiImplTexture,
+    rect:rect,
     selectedValues: Array<string>,
     id: string
   ) => nullable<number>;

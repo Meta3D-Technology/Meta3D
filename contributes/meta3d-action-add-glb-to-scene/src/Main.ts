@@ -17,6 +17,7 @@ import { uiControlName as assetUIControlName } from "meta3d-ui-control-asset-pro
 import { dropAssetFileUIData } from "meta3d-ui-control-scene-view-protocol"
 // // import { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
 import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
+import { actionName as addAssetActionName, state as addAssetState, assetType } from "meta3d-action-add-asset-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<dropAssetFileUIData, state>> = (api) => {
     return {
@@ -33,17 +34,23 @@ export let getContribute: getContributeMeta3D<actionContribute<dropAssetFileUIDa
                     let glbId = data
 
                     let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
-                    let { getAllGLBAssets, loadGlb } = editorWholeService.asset(meta3dState)
+                    let { loadGlb } = editorWholeService.asset(meta3dState)
 
-                    let allGLBAssets = getAllGLBAssets(meta3dState)
+                    let addAssetState = api.nullable.getExn(api.action.getActionState<addAssetState>(meta3dState, addAssetActionName))
 
-                    if (allGLBAssets.length == 0) {
+                    let allAddedAssets = addAssetState.allAddedAssets
+
+                    if (allAddedAssets.count() == 0) {
                         return Promise.resolve(meta3dState)
                     }
 
-                    let [_glbId, _glbName, glb] = api.nullable.getExn(allGLBAssets.find((asset) => {
-                        return asset[0] == glbId
+                    let [assetType_, _glbId, _glbName, _icon, glb] = api.nullable.getExn(allAddedAssets.find((asset) => {
+                        return asset[1] == glbId
                     }))
+
+                    if (assetType_ != assetType.Glb) {
+                        return Promise.resolve(meta3dState)
+                    }
 
                     return loadGlb(meta3dState, glb)
                         .then((gltf) => {
@@ -58,7 +65,7 @@ export let getContribute: getContributeMeta3D<actionContribute<dropAssetFileUIDa
                                     state.importedGameObjects.push(importedGameObject)
                             })
 
-                            return runGameViewRenderOnlyOnce(meta3dState,api, editorWholeService)
+                            return runGameViewRenderOnlyOnce(meta3dState, api, editorWholeService)
                         })
                 }, (meta3dState) => {
                     let {

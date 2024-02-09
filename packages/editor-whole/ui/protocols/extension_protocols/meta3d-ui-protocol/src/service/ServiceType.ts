@@ -173,8 +173,8 @@ export type service = {
     readonly asset: (
         meta3dState: meta3dState,
         // textures: { "loadGlbTexture": imguiImplTexture, "removeAssetTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
-        fileTexture: imguiImplTexture,
-        files: Array<[string, string]>,
+        // fileTexture: imguiImplTexture,
+        files: Array<[string, string, imguiImplTexture]>,
         label: label,
         rect: rect,
     ) => [meta3dState, nullable<string>];
@@ -300,6 +300,13 @@ export type service = {
     readonly popup: (
         meta3dState: meta3dState,
         label: label,
+        selectedValues: Array<string>,
+        id: string
+    ) => [meta3dState, nullable<number>];
+    readonly imagePopup: (
+        meta3dState: meta3dState,
+        clickTexture: imguiImplTexture,
+        rect: rect,
         selectedValues: Array<string>,
         id: string
     ) => [meta3dState, nullable<number>];

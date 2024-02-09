@@ -399,6 +399,28 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return result
         },
+        imagePopup: (clickTexture, rect, selectedValues, id) => {
+            let result = null
+
+
+            ImGui.SetCursorPos(
+                new ImGui.ImVec2(rect.x, rect.y)
+            )
+
+            if (ImGui.ImageButton(clickTexture._texture, new ImGui.ImVec2(rect.width, rect.height))) {
+                ImGui.OpenPopup(id);
+            }
+
+            if (ImGui.BeginPopup(id)) {
+                for (let i = 0; i < ImGui.ARRAYSIZE(selectedValues); i++)
+                    if (ImGui.Selectable(selectedValues[i])) {
+                        result = i
+                    }
+                ImGui.EndPopup();
+            }
+
+            return result
+        },
         dummy: (width, height) => {
             ImGui.Dummy(new ImGui.ImVec2(width, height))
         },
