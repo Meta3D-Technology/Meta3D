@@ -1,15 +1,16 @@
-let _getImportSingleEventEventName = () => "ImportSingleEventEvent"
+let _getImportDataEventName = () => "ImportDataEvent"
 
-// let getSingleEventAllEvents = (editorWholeService: Meta3dEditorWholeProtocol.ServiceType.service , meta3dState, sceneGLB) => {
-let getSingleEventAllEvents = (sceneGLB: Js.Typed_array.ArrayBuffer.t): array<
-  Meta3dEventDataProtocol.ServiceType.eventData,
-> => {
+// let buildAllEventsOnlyHasImportDataEvent = (editorWholeService: Meta3dEditorWholeProtocol.ServiceType.service , meta3dState, sceneGLB) => {
+let buildAllEventsOnlyHasImportDataEvent = (
+  sceneGLB: Js.Typed_array.ArrayBuffer.t,
+  assetData: Js.Nullable.t<Js.Typed_array.ArrayBuffer.t>,
+): array<Meta3dEventDataProtocol.ServiceType.eventData> => {
   // let eventSourcingService = editorWholeService.event( meta3dState).eventSourcing(meta3dState)-> Obj.magic
 
   // eventSourcingService["createAllEvents"](.
   //   [
   //     {
-  //       "name": _getImportSingleEventEventName(),
+  //       "name": _getImportDataEventName(),
   //       "isOnlyRead": false,
   //       "inputData": [sceneGLB],
   //     },
@@ -19,9 +20,9 @@ let getSingleEventAllEvents = (sceneGLB: Js.Typed_array.ArrayBuffer.t): array<
 
   [
     {
-      name: _getImportSingleEventEventName(),
+      name: _getImportDataEventName(),
       isOnlyRead: false->Meta3dCommonlib.NullableSt.return,
-      inputData: [sceneGLB->Obj.magic],
+      inputData: [sceneGLB->Obj.magic, assetData->Obj.magic],
     },
   ]
 }

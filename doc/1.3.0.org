@@ -381,10 +381,17 @@ TODO update
 
 
 
-**** TODO feat: add export/import asset in menu
+**** DONE feat: add export/import asset in menu
 
-TODO pass run test:
-export->import
+
+# TODO add event
+
+
+TODO remove import-single-event p
+
+
+TODO update menu
+
 
 
 
@@ -401,7 +408,9 @@ TODO remove   addGLBAsset: (
 TODO remove allGLBAssets
 
 
-**** TODO feat: rename to export scene in menu; add import scene in menu 
+
+# **** TODO feat: rename to export scene in menu; add import scene in menu 
+**** DONE feat: rename to export data and rename import event to import in menu
 
 
 
@@ -409,15 +418,31 @@ TODO remove allGLBAssets
 
 TODO update meta3d-action-add-asset
 
-TODO update ui control -> init code
+
+
+
+
+TODO update
+asset p
+editor whole extension
+# editor whole
+
+import-data
+export-data
+add-asset p
+
+
+TODO pass run test:
+export->import
+    select asset
+
+export->import->export all events->import all events
 
 
 
 
 
-
-
-
+***** TODO update ui control -> init code
 
 
 **** TODO add script component

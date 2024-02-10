@@ -1,8 +1,9 @@
-import { state as meta3dState, getContribute as getContributeMeta3D } from "meta3d-type"
+import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { uiData, actionName, state } from "meta3d-action-export-single-event-protocol"
-import { eventName, inputData } from "meta3d-action-export-single-event-protocol/src/EventType"
-import { getSingleEventAllEvents } from "meta3d-event-data-utils"
+import { uiData, actionName, state } from "meta3d-action-export-data-protocol"
+import { eventName, inputData } from "meta3d-action-export-data-protocol/src/EventType"
+import { buildAllEventsOnlyHasImportDataEvent } from "meta3d-event-data-ts-utils/src/Main"
+import { convertAllAssetDataForExport } from "meta3d-asset-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -22,7 +23,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             throw err
                         }], meta3dState)
                     }) as Promise<ArrayBuffer>).then(sceneGLB => {
-                        editorWholeService.event(meta3dState).eventData(meta3dState).exportEventData(getSingleEventAllEvents(sceneGLB) as any)
+                        let assetData = editorWholeService.asset(meta3dState).exportAsset(convertAllAssetDataForExport(meta3dState, api))
+
+
+                        editorWholeService.event(meta3dState).eventData(meta3dState).exportEventData(buildAllEventsOnlyHasImportDataEvent(sceneGLB, api.nullable.return(assetData)) as any)
 
                         return meta3dState
                     })

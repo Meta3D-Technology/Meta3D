@@ -136,15 +136,19 @@ let _prepareAndInitEngine = (meta3dState: meta3dState,
 }
 
 
-let _prepareUIControls = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
+let _registerAllUIControls = (meta3dState: meta3dState, api: api): meta3dState => {
 	let { registerUIControl } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
 
 	let uiControlContributes = api.getAllContributesByType<uiControlContribute<any, any, any>>(meta3dState, contributeType.UIControl)
 
-	meta3dState = uiControlContributes.reduce<meta3dState>((meta3dState, contribute) => {
+	return uiControlContributes.reduce<meta3dState>((meta3dState, contribute) => {
 		return registerUIControl(meta3dState, contribute)
 	}, meta3dState)
+}
+
+let _initAllUIControls = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
+	let uiControlContributes = api.getAllContributesByType<uiControlContribute<any, any, any>>(meta3dState, contributeType.UIControl)
 
 	return reducePromise<meta3dState, uiControlContribute<any, any, any>>(uiControlContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
 }
@@ -162,11 +166,22 @@ let _prepareInputs = (meta3dState: meta3dState, api: api): meta3dState => {
 	return meta3dState
 }
 
+let _initUI = (meta3dState: meta3dState, api: api, uiService: uiService, isDebug: boolean, canvas: HTMLCanvasElement) => {
+	return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+		return _registerAllUIControls(meta3dState, api)
+	}).then(meta3dState => {
+		/*! invoke render so that can invoke loadImage after _initUI 
+		* 
+		*/
+		return uiService.render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], 0.)
+	})
+}
+
 let _initForVisual = (meta3dState: meta3dState, api: api, { isDebug, canvas }) => {
 	return _prepareUIForVisual(meta3dState, api).then(meta3dState => {
 		let uiService = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
-		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+		return _initUI(meta3dState, api, uiService, isDebug, canvas).then(meta3dState => {
 			return _prepareForVisual(meta3dState,
 				// uiService.getContext(meta3dState),
 				api,
@@ -175,22 +190,27 @@ let _initForVisual = (meta3dState: meta3dState, api: api, { isDebug, canvas }) =
 		}).then(meta3dState => {
 			meta3dState = _prepareInputs(meta3dState, api)
 
-			return _prepareUIControls(meta3dState, api)
+			return _initAllUIControls(meta3dState, api)
 		})
 	})
 }
 
-let _prepareActions = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
+let _registerAllActions = (meta3dState: meta3dState, api: api): meta3dState => {
 	let { registerAction } = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
 	let actionContributes = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action)
 
-	meta3dState = actionContributes.reduce<meta3dState>((meta3dState, contribute) => {
+	return actionContributes.reduce<meta3dState>((meta3dState, contribute) => {
 		return registerAction(meta3dState, contribute)
 	}, meta3dState)
+}
+
+let _initAllActions = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
+	let actionContributes = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action)
 
 	return reducePromise<meta3dState, actionContribute<any, any>>(actionContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
 }
+
 
 let _prepareUIForVisualRun = (meta3dState: meta3dState, api: api) => {
 	let { registerSkin, registerElement } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
@@ -204,14 +224,18 @@ let _prepareUIForVisualRun = (meta3dState: meta3dState, api: api) => {
 		api.getContribute<elementContribute<elementState>>(meta3dState, "meta3d-element-assemble-element-protocol")
 	)
 
-	return _prepareActions(meta3dState, api)
+	return Promise.resolve(meta3dState)
 }
 
 let _initForVisualRun = (meta3dState: meta3dState, api: api, { isDebug, canvas }) => {
 	return _prepareUIForVisualRun(meta3dState, api).then(meta3dState => {
 		let uiService = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
-		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+		meta3dState = _registerAllActions(meta3dState, api)
+
+		return _initUI(meta3dState, api, uiService, isDebug, canvas).then(meta3dState => {
+			return _initAllActions(meta3dState, api)
+		}).then(meta3dState => {
 			return _prepareAndInitEngine(meta3dState,
 				api,
 				isDebug
@@ -219,7 +243,7 @@ let _initForVisualRun = (meta3dState: meta3dState, api: api, { isDebug, canvas }
 		}).then(meta3dState => {
 			meta3dState = _prepareInputs(meta3dState, api)
 
-			return _prepareUIControls(meta3dState, api)
+			return _initAllUIControls(meta3dState, api)
 		})
 	})
 }
@@ -327,7 +351,7 @@ let _prepareUIForRun = (meta3dState: meta3dState, api: api) => {
 		return registerElement(meta3dState, contribute)
 	}, meta3dState)
 
-	return _prepareActions(meta3dState, api)
+	return Promise.resolve(meta3dState)
 }
 
 let _createAndInsertCanvas = ({ width, height }: canvasData) => {
@@ -348,7 +372,11 @@ let _initForRun = (meta3dState: meta3dState, api: api, [_, { isDebug }]: configD
 	return _prepareUIForRun(meta3dState, api).then(meta3dState => {
 		let uiService = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
-		return uiService.init(meta3dState, [api, "meta3d-imgui-renderer-protocol"], true, isDebug, canvas).then(meta3dState => {
+		meta3dState = _registerAllActions(meta3dState, api)
+
+		return _initUI(meta3dState, api, uiService, isDebug, canvas).then(meta3dState => {
+			return _initAllActions(meta3dState, api)
+		}).then(meta3dState => {
 			return _prepareAndInitEngine(meta3dState,
 				api,
 				isDebug
@@ -356,7 +384,7 @@ let _initForRun = (meta3dState: meta3dState, api: api, [_, { isDebug }]: configD
 		}).then(meta3dState => {
 			meta3dState = _prepareInputs(meta3dState, api)
 
-			return _prepareUIControls(meta3dState, api)
+			return _initAllUIControls(meta3dState, api)
 		})
 	})
 }

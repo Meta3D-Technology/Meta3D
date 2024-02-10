@@ -46,8 +46,9 @@ let exportSingleEventFile = (
       : {
           Meta3dFileUtils.DownloadUtils.createAndDownloadBlobFile(
             Meta3dEventDataUtils.Main.generateEventDataBuffer(
-              Meta3dEventDataUtils.Main.getSingleEventAllEvents(
+              Meta3dEventDataUtils.Main.buildAllEventsOnlyHasImportDataEvent(
                 sceneGLB->Meta3dCommonlib.NullableSt.getExn,
+                Meta3dCommonlib.NullableSt.getEmpty()
               ),
             ),
             "eventData",

@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-action-export-single-event",
-    "version": "1.2.0",
+    "name": "meta3d-action-import",
+    "version": "1.2.1",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-action-export-single-event-protocol"
+        "name": "meta3d-action-import-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -15,8 +15,13 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-export-single-event-protocol": "^1.2.0",
+        "meta3d-action-import-protocol": "^1.2.0",
+        "meta3d-component-arcballcameracontroller-protocol": "^1.2.0",
+        "meta3d-component-basiccameraview-protocol": "^1.2.0",
+        "meta3d-editor-sceneview-render-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
+        "meta3d-engine-scene-protocol": "^1.2.0",
+        "meta3d-gameobject-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"
     },
     "devDependencies": {

@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-action-import-single-event",
-    "version": "1.2.0",
+    "name": "meta3d-action-export-data",
+    "version": "1.2.4",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-action-import-single-event-protocol"
+        "name": "meta3d-action-export-data-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -15,7 +15,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-import-single-event-protocol": "^1.2.0",
+        "meta3d-action-export-data-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"
     },

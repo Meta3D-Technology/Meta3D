@@ -1,12 +1,9 @@
 {
-    "name": "meta3d-action-import-event",
-    "version": "1.2.0",
+    "name": "meta3d-action-import-data",
+    "version": "1.2.5",
     "publisher": "meta3d",
-    "displayName": "meta3d-action-import-event",
-    "repoLink": "",
-    "description": "meta3d-action-import-event",
     "protocol": {
-        "name": "meta3d-action-import-event-protocol"
+        "name": "meta3d-action-import-data-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -18,13 +15,9 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-import-event-protocol": "^1.2.0",
-        "meta3d-component-arcballcameracontroller-protocol": "^1.2.0",
-        "meta3d-component-basiccameraview-protocol": "^1.2.0",
-        "meta3d-editor-sceneview-render-protocol": "^1.2.0",
+        "meta3d-action-add-asset-protocol": "^1.2.0",
+        "meta3d-action-import-data-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
-        "meta3d-engine-scene-protocol": "^1.2.0",
-        "meta3d-gameobject-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"
     },
     "devDependencies": {

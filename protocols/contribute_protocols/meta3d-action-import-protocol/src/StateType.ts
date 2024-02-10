@@ -1,4 +1,4 @@
-export const actionName = "ExportSingleEvent"
+export const actionName = "Import"
 
 export type uiData = null
 

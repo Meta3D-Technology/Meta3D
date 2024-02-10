@@ -1,4 +1,4 @@
-export const eventName = "ImportEventEvent"
+export const eventName = "ImportEvent"
 
 type eventData = ArrayBuffer
 

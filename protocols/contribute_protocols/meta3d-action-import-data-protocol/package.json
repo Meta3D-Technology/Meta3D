@@ -1,6 +1,6 @@
 {
-    "name": "meta3d-action-export-single-event-protocol",
-    "version": "1.2.0",
+    "name": "meta3d-action-import-data-protocol",
+    "version": "1.2.2",
     "description": "",
     "publisher": "meta3d",
     "author": "Meta3D",

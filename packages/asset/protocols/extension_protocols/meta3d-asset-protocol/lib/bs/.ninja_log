@@ -1,14 +1,14 @@
 # ninja log v6
-1	20	1705543410302321814	src/state/StateType.ast	b77cdc3afc8a15dc
-0	22	1705543410302351267	src/service/ServiceType.ast	785165cefc5839bb
-1	24	1705543410302778583	Meta3dAssetProtocol.cmi	3809cb3bf0a1578c
-21	34	1705543410317345690	src/state/StateType.d	e67c05e9db4e307d
-22	36	1705543410318782494	src/service/ServiceType.d	f2d6bc4aa9df18b6
-34	62	1705543410343819982	src/state/StateType-Meta3dAssetProtocol.cmj	dd1749eaa39b776
-34	62	1705543410343819982	src/state/StateType-Meta3dAssetProtocol.cmi	dd1749eaa39b776
-34	62	1705543410343819982	../es6_global/src/state/StateType.bs.js	dd1749eaa39b776
-34	62	1705543410343819982	../js/src/state/StateType.bs.js	dd1749eaa39b776
-62	93	1705543410374910007	src/service/ServiceType-Meta3dAssetProtocol.cmj	88eeee25e87a4cb0
-62	93	1705543410374910007	src/service/ServiceType-Meta3dAssetProtocol.cmi	88eeee25e87a4cb0
-62	93	1705543410374910007	../es6_global/src/service/ServiceType.bs.js	88eeee25e87a4cb0
-62	93	1705543410374910007	../js/src/service/ServiceType.bs.js	88eeee25e87a4cb0
+0	22	1707541423143115360	src/service/ServiceType.ast	e0b601721d17b431
+2	26	1707541423146663384	src/state/StateType.ast	86f86dd89af01a2e
+3	29	1707541423147750267	Meta3dAssetProtocol.cmi	3809cb3bf0a1578c
+22	32	1707541423154223921	src/service/ServiceType.d	f2d6bc4aa9df18b6
+26	36	1707541423157753133	src/state/StateType.d	e67c05e9db4e307d
+36	63	1707541423184550303	src/state/StateType-Meta3dAssetProtocol.cmj	bc6187ee2de21589
+36	63	1707541423184550303	src/state/StateType-Meta3dAssetProtocol.cmi	bc6187ee2de21589
+36	63	1707541423184550303	../es6_global/src/state/StateType.bs.js	bc6187ee2de21589
+36	63	1707541423184550303	../js/src/state/StateType.bs.js	bc6187ee2de21589
+63	85	1707541423205710906	src/service/ServiceType-Meta3dAssetProtocol.cmj	f5621a11cc612e45
+63	85	1707541423205710906	src/service/ServiceType-Meta3dAssetProtocol.cmi	f5621a11cc612e45
+63	85	1707541423205710906	../es6_global/src/service/ServiceType.bs.js	f5621a11cc612e45
+63	85	1707541423205710906	../js/src/service/ServiceType.bs.js	f5621a11cc612e45
