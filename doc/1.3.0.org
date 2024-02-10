@@ -442,18 +442,94 @@ export->import->export all events->import all events
 
 
 
-***** TODO update ui control -> init code
+# ***** TODO update ui control -> init code
+
+# init get label
 
 
 **** TODO add script component
 
+TODO restore default scene
+
+TODO updat addcomponent
+
+TODO support add multiple scripts
+    # # getAllAssetData
+    # getAllAssetNames
+    # addAssetData
+    # removeAssetData
+    # # editAssetData
+    # getAssetEventFileStr
+    # setAssetEventFileStr
+    getAllAssetData
+    setAllAssetData
+
+
+TODO update ScriptAPI
+
+
+
+TODO add list demo
+
+
+
+TODO add modal
 
 
 
 
+TODO add list ui control
+    show script component's all script assets
+
+    <selectable+image button>
+
+    specific:
+        isRemoveable
+
+    event:
+        remove
+        select
+
+# TODO add list ui control
+# TODO add list ui control
+
+    select script asset by name
+
+    # event:
+    #     select
+
+# TODO add text ui control
+#     show script namliste
 
 
-**** TODO restore default scene
+
+TODO api add scriptAPI to operate attribute
+
+
+
+TODO update
+addcomponent p
+
+run 
+meta3d-action-add-asset
+
+gameview render pipeline
+
+script component p
+engine-scene p
+
+    engine-scene package
+    editor-whole package
+
+
+
+
+TODO run test
+run->invoke scipt
+stop->stop script
+hot change when run
+
+
 
 **** TODO run-stop
 

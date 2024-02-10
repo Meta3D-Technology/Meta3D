@@ -1,6 +1,6 @@
 import { engineCoreService } from "meta3d-core-protocol/src/service/ServiceType"
 import { state as meta3dState } from "meta3d-type"
-import { componentName, script, dataName, attributeValue } from "meta3d-component-script-protocol"
+import { componentName, script, dataName, attributeValue, allAssetData } from "meta3d-component-script-protocol"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
 
 export function createScript(meta3dState: meta3dState, { unsafeGetUsedComponentContribute,
@@ -51,16 +51,16 @@ export let setAttribute = (meta3dState: meta3dState, { unsafeGetUsedComponentCon
     return setUsedComponentContribute(meta3dState, contribute, componentName)
 }
 
-export let getEventFileStr = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, script: script): nullable<string> => {
+export let getAllAssetData = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, getComponentData }: engineCoreService, script: script): nullable<allAssetData> => {
     let contribute = unsafeGetUsedComponentContribute(meta3dState, componentName)
 
-    return getComponentData<script, string>(contribute, script, dataName.eventFileStr)
+    return getComponentData<script, allAssetData>(contribute, script, dataName.allAssetData)
 }
 
-export let setEventFileStr = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, script: script, eventFileStr: string) => {
+export let setAllAssetData = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, script: script, allAssetData: allAssetData) => {
     let contribute = unsafeGetUsedComponentContribute(meta3dState, componentName)
 
-    contribute = setComponentData(contribute, script, dataName.eventFileStr, eventFileStr)
+    contribute = setComponentData(contribute, script, dataName.allAssetData, allAssetData)
 
     return setUsedComponentContribute(meta3dState, contribute, componentName)
 }

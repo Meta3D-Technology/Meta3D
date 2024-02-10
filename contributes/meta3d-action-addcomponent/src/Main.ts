@@ -30,6 +30,16 @@ let _addCameraGroup = (meta3dState: meta3dState, engineSceneService: engineScene
     return meta3dState
 }
 
+let _addScript = (meta3dState: meta3dState, engineSceneService: engineSceneService, gameObject: gameObject) => {
+    let data = engineSceneService.script.createScript(meta3dState)
+    meta3dState = data[0]
+    let script = data[1]
+
+    meta3dState = engineSceneService.gameObject.addScript(meta3dState, gameObject, script)
+
+    return meta3dState
+}
+
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
@@ -47,8 +57,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     switch (componentType_) {
                         case componentType.CameraGroup:
-                        default:
                             meta3dState = _addCameraGroup(meta3dState, engineSceneService, gameObject)
+                            break
+
+                        case componentType.Script:
+                        default:
+                            meta3dState = _addScript(meta3dState, engineSceneService, gameObject)
 
                             break
                     }
@@ -75,9 +89,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     switch (componentType_) {
                         case componentType.CameraGroup:
-                        default:
                             meta3dState = engineSceneService.gameObject.disposeGameObjectBasicCameraViewComponent(meta3dState, gameObject, engineSceneService.gameObject.getBasicCameraView(meta3dState, gameObject))
                             meta3dState = engineSceneService.gameObject.disposeGameObjectPerspectiveCameraProjectionComponent(meta3dState, gameObject, engineSceneService.gameObject.getPerspectiveCameraProjection(meta3dState, gameObject))
+                            break
+                        case componentType.Script:
+                        default:
+                            meta3dState = engineSceneService.gameObject.disposeGameObjectScriptComponent(meta3dState, gameObject, engineSceneService.gameObject.getScript(meta3dState, gameObject))
                             break
                     }
 
@@ -105,8 +122,14 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 switch (componentType_) {
                     case componentType.CameraGroup:
-                    default:
                         if (engineSceneService.gameObject.hasBasicCameraView(meta3dState, gameObject)) {
+                            isSuccess = false
+                        }
+
+                        break
+                    case componentType.Script:
+                    default:
+                        if (engineSceneService.gameObject.hasScript(meta3dState, gameObject)) {
                             isSuccess = false
                         }
 

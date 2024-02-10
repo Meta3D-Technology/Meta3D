@@ -4,16 +4,23 @@ type state
 
 type attributeValue
 
+type assetData = {
+  name: string,
+  eventFileStr: string,
+}
+
+type allAssetData = array<assetData>
+
 type dataName = {
   name: int,
   attribute: int,
-  eventFileStr: int,
+  allAssetData: int,
 }
 
 let dataName = {
   name: 0,
   attribute: 1,
-  eventFileStr: 2,
+  allAssetData: 2,
 }
 
 type script = int

@@ -88,7 +88,7 @@ import {
 	createScript,
 	getName as getScriptName,
 	setName as setScriptName,
-	getAttribute, getEventFileStr, setAttribute, setEventFileStr
+	getAttribute, getAllAssetData, setAttribute, setAllAssetData
 } from "./ScriptAPI"
 
 let _encapsulateSceneAPIReturnState = (meta3dState: meta3dState, func: (meta3dState: meta3dState, engineCoreService: engineCoreService) => meta3dState, api: api): meta3dState => {
@@ -855,11 +855,11 @@ export let getExtensionServiceUtils = (
 			setAttribute: (meta3dState, script, attribute) => {
 				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setAttribute(meta3dState, engineCoreService, script, attribute), api)
 			},
-			getEventFileStr: (meta3dState, script) => {
-				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getEventFileStr(meta3dState, engineCoreService, script), api)
+			getAllAssetData: (meta3dState, script) => {
+				return _encapsulateSceneAPIReturnData(meta3dState, (meta3dState, engineCoreService) => getAllAssetData(meta3dState, engineCoreService, script), api)
 			},
-			setEventFileStr: (meta3dState, script, eventFileStr) => {
-				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setEventFileStr(meta3dState, engineCoreService, script, eventFileStr), api)
+			setAllAssetData: (meta3dState, script, allAssetData) => {
+				return _encapsulateSceneAPIReturnState(meta3dState, (meta3dState, engineCoreService) => setAllAssetData(meta3dState, engineCoreService, script, allAssetData), api)
 			},
 		},
 		arcballCameraController: {

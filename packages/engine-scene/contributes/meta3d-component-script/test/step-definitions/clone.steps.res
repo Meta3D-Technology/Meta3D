@@ -44,7 +44,7 @@ defineFeature(feature, test => {
         contribute.contents.setComponentDataFunc(.
           state.contents,
           script.contents,
-          Meta3dComponentScriptProtocol.Index.dataName.eventFileStr,
+          Meta3dComponentScriptProtocol.Index.dataName.allAssetData,
           {j`{}`}->Obj.magic,
         )
     })

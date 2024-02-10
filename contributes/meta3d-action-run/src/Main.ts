@@ -52,9 +52,9 @@ let _stopGameViewRender = (meta3dState: meta3dState, api: api): meta3dState => {
 //     }).map(gameObject => {
 //         return engineSceneService.gameObject.getScript(meta3dState, gameObject)
 //     }).filter(script => {
-//         return !api.nullable.isNullable(engineSceneService.script.getEventFileStr(meta3dState, script))
+//         return !api.nullable.isNullable(engineSceneService.script.getAllAssetData(meta3dState, script))
 //     }).map(script => {
-//         return api.nullable.getExn(engineSceneService.script.getEventFileStr(meta3dState, script))
+//         return api.nullable.getExn(engineSceneService.script.getAllAssetData(meta3dState, script))
 //     })
 
 // }

@@ -13,11 +13,11 @@ let deferDisposeComponent = (
 
 let _disposeSparseMapData = (map, script) => map->Meta3dCommonlib.MutableSparseMap.remove(script)
 
-let _disposeData = ({gameObjectMap, attributeMap, eventFileStrMap, names} as state, script) => {
+let _disposeData = ({gameObjectMap, attributeMap, allAssetDataMap, names} as state, script) => {
   {
     ...state,
     attributeMap: attributeMap->_disposeSparseMapData(script),
-    eventFileStrMap: eventFileStrMap->_disposeSparseMapData(script),
+    allAssetDataMap: allAssetDataMap->_disposeSparseMapData(script),
     gameObjectMap: gameObjectMap->_disposeSparseMapData(script),
     names: names->Meta3dCommonlib.ImmutableSparseMap.remove(script),
   }

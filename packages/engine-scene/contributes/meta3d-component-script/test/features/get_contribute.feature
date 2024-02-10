@@ -97,6 +97,6 @@ Feature: Get Contribute
             When set script's attribute
             Then get script's attribute should return the setted data
 
-        Scenario: operate eventFileStr
-            When set script's eventFileStr
-            Then get script's eventFileStr should return the setted data
+        Scenario: operate allAssetData
+            When set script's allAssetData
+            Then get script's allAssetData should return the setted data

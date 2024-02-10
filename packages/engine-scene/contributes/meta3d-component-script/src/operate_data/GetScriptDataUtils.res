@@ -6,8 +6,8 @@ let getData = (. state, script, dataName: int): Js.Nullable.t<'a> => {
     OperateScriptUtils.getName(state, script)->Obj.magic
   | dataName if dataName == Meta3dComponentScriptProtocol.Index.dataName.attribute =>
     OperateScriptUtils.getAttribute(state, script)->Meta3dCommonlib.OptionSt.toNullable->Obj.magic
-  | dataName if dataName == Meta3dComponentScriptProtocol.Index.dataName.eventFileStr =>
-    OperateScriptUtils.getEventFileStr(state, script)
+  | dataName if dataName == Meta3dComponentScriptProtocol.Index.dataName.allAssetData =>
+    OperateScriptUtils.getAllAssetData(state, script)
     ->Meta3dCommonlib.OptionSt.toNullable
     ->Obj.magic
   | _ =>

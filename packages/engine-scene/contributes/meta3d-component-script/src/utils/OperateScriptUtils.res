@@ -23,14 +23,14 @@ let setAttribute = (state, script, attribute) => {
   }
 }
 
-let getEventFileStr = (state, script) =>
-  state.eventFileStrMap->Meta3dCommonlib.ImmutableSparseMap.get(script)
+let getAllAssetData = (state, script) =>
+  state.allAssetDataMap->Meta3dCommonlib.ImmutableSparseMap.get(script)
 
-let setEventFileStr = (state, script, eventFileStr) => {
-  let {eventFileStrMap} = state
+let setAllAssetData = (state, script, allAssetData) => {
+  let {allAssetDataMap} = state
 
   {
     ...state,
-    eventFileStrMap: eventFileStrMap->Meta3dCommonlib.ImmutableSparseMap.set(script, eventFileStr),
+    allAssetDataMap: allAssetDataMap->Meta3dCommonlib.ImmutableSparseMap.set(script, allAssetData),
   }
 }

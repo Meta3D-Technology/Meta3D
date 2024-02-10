@@ -53,7 +53,7 @@ let getContribute: Meta3dType.Index.getContribute<
   deepCopy: (. state) => {
     let {
       attributeMap,
-      eventFileStrMap,
+      allAssetDataMap,
       gameObjectMap,
       gameObjectScriptMap,
       needDisposedScripts,
@@ -63,7 +63,7 @@ let getContribute: Meta3dType.Index.getContribute<
     {
       ...state,
       attributeMap: attributeMap->Meta3dCommonlib.MutableSparseMap.copy,
-      eventFileStrMap: eventFileStrMap->Meta3dCommonlib.MutableSparseMap.copy,
+      allAssetDataMap: allAssetDataMap->Meta3dCommonlib.MutableSparseMap.copy,
       gameObjectMap: gameObjectMap->Meta3dCommonlib.MutableSparseMap.copy,
       gameObjectScriptMap: gameObjectScriptMap->Meta3dCommonlib.MutableSparseMap.copy,
       needDisposedScripts: needDisposedScripts->Meta3dCommonlib.ArraySt.copy,

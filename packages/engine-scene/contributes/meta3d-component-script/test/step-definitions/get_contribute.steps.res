@@ -560,8 +560,8 @@ defineFeature(feature, test => {
     )
   })
 
-  test(."operate eventFileStr", ({\"when", \"and", then}) => {
-    let eventFileStr = {j`{}`}
+  test(."operate allAssetData", ({\"when", \"and", then}) => {
+    let allAssetData = {j`{}`}
     let script = ref(Obj.magic(1))
 
     \"when"(
@@ -589,26 +589,26 @@ defineFeature(feature, test => {
     )
 
     \"when"(
-      "set script's eventFileStr",
+      "set script's allAssetData",
       () => {
         state :=
           contribute.contents.setComponentDataFunc(.
             state.contents,
             script.contents,
-            Meta3dComponentScriptProtocol.Index.dataName.eventFileStr,
-            eventFileStr->Obj.magic,
+            Meta3dComponentScriptProtocol.Index.dataName.allAssetData,
+            allAssetData->Obj.magic,
           )
       },
     )
 
     then(
-      "get script's eventFileStr should return the setted data",
+      "get script's allAssetData should return the setted data",
       () => {
         contribute.contents.getComponentDataFunc(.
           state.contents,
           script.contents,
-          Meta3dComponentScriptProtocol.Index.dataName.eventFileStr,
-        )->expect == eventFileStr
+          Meta3dComponentScriptProtocol.Index.dataName.allAssetData,
+        )->expect == allAssetData
       },
     )
   })

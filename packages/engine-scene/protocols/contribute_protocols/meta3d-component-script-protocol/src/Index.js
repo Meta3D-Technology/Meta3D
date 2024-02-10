@@ -5,6 +5,6 @@ exports.componentName = "Script";
 exports.dataName = {
     name: 0,
     attribute: 1,
-    eventFileStr: 2,
+    allAssetData: 2,
 };
 //# sourceMappingURL=Index.js.map

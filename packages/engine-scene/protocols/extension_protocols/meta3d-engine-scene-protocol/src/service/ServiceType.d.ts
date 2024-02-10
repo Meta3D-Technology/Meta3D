@@ -116,7 +116,7 @@ import {
 	createScript,
 	getName as getScriptName,
 	setName as setScriptName,
-	getAttribute, getEventFileStr, setAttribute, setEventFileStr
+	getAttribute, getAllAssetData, setAttribute, setAllAssetData
 } from "./ecs/Script";
 
 export type ecsConfig = {
@@ -232,8 +232,8 @@ export type scene = {
 		setName: setScriptName,
 		getAttribute: getAttribute,
 		setAttribute: setAttribute,
-		getEventFileStr: getEventFileStr,
-		setEventFileStr: setEventFileStr,
+		getAllAssetData: getAllAssetData,
+		setAllAssetData: setAllAssetData,
 	},
 	pbrMaterial: {
 		createPBRMaterial: createPBRMaterial,

@@ -7,7 +7,7 @@ let createState = (isDebug: bool) => {
     },
     maxIndex: 0,
     attributeMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
-    eventFileStrMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
+    allAssetDataMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     gameObjectScriptMap: Meta3dCommonlib.ImmutableSparseMap.createEmpty(),
     needDisposedScripts: [],

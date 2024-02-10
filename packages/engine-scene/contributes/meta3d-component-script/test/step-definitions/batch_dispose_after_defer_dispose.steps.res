@@ -30,9 +30,9 @@ defineFeature(feature, test => {
     })
   }
 
-  test(."remove from attributeMap, eventFileStrMap", ({given, \"and", \"when", then}) => {
+  test(."remove from attributeMap, allAssetDataMap", ({given, \"and", \"when", then}) => {
     let script3 = ref(Obj.magic(3))
-    let eventFileStr = {j`{}`}
+    let allAssetData = {j`{}`}
 
     _getContributeAndCreateAState((given, \"and"))
 
@@ -51,7 +51,7 @@ defineFeature(feature, test => {
     )
 
     \"and"(
-      "set script1's attribute, eventFileStr",
+      "set script1's attribute, allAssetData",
       () => {
         state :=
           contribute.contents.setComponentDataFunc(.
@@ -64,8 +64,8 @@ defineFeature(feature, test => {
           contribute.contents.setComponentDataFunc(.
             state.contents,
             script1.contents,
-            Meta3dComponentScriptProtocol.Index.dataName.eventFileStr,
-            eventFileStr->Obj.magic,
+            Meta3dComponentScriptProtocol.Index.dataName.allAssetData,
+            allAssetData->Obj.magic,
           )
       },
     )
@@ -93,13 +93,13 @@ defineFeature(feature, test => {
     )
 
     then(
-      "should remove script1 from attributeMap, eventFileStrMap",
+      "should remove script1 from attributeMap, allAssetDataMap",
       () => {
-        let {attributeMap, eventFileStrMap} = state.contents
+        let {attributeMap, allAssetDataMap} = state.contents
 
         (
           attributeMap->Meta3dCommonlib.MutableSparseMap.has(script1.contents),
-          eventFileStrMap->Meta3dCommonlib.MutableSparseMap.has(script1.contents),
+          allAssetDataMap->Meta3dCommonlib.MutableSparseMap.has(script1.contents),
         )->expect == (false, false)
       },
     )

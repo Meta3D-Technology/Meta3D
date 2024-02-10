@@ -11,8 +11,8 @@ let setData = (.
     OperateScriptUtils.setName(state, script, dataValue->Obj.magic)
   | dataName if dataName == Meta3dComponentScriptProtocol.Index.dataName.attribute =>
     OperateScriptUtils.setAttribute(state, script, dataValue->Obj.magic)
-  | dataName if dataName == Meta3dComponentScriptProtocol.Index.dataName.eventFileStr =>
-    OperateScriptUtils.setEventFileStr(state, script, dataValue->Obj.magic)
+  | dataName if dataName == Meta3dComponentScriptProtocol.Index.dataName.allAssetData =>
+    OperateScriptUtils.setAllAssetData(state, script, dataValue->Obj.magic)
   | _ =>
     Meta3dCommonlib.Exception.throwErr(
       Meta3dCommonlib.Exception.buildErr(

@@ -7,7 +7,8 @@ export const actionName = "AddComponent"
 export type uiData = selectedIndex
 
 export enum componentType {
-    CameraGroup
+    CameraGroup,
+    Script
 }
 
 export type state = {
