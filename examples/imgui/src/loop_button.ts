@@ -695,73 +695,131 @@ import { addTexture } from "./init_button"
 
 
 
-let isCreateMonaco = false
-let isLoad = false
-let monaco = null
-let editor = null
+// let isCreateMonaco = false
+// let isLoad = false
+// let monaco = null
+// let editor = null
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time)
+//     ImGui.NewFrame()
+
+
+
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100))
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 300))
+
+//     ImGui.Begin("Asset Inspector")
+
+//     if (ImGui.CollapsingHeader("Transform")) {
+//     }
+
+//     // if (ImGui.CollapsingHeader("Script")) {
+//     // }
+
+//     ImGui.Text("Script Name")
+//     ImGui.Separator();
+
+
+
+//     // console.log("aaa")
+//     // console.log(ImGui.GetWindowPos())
+
+//     // console.log(ImGui.GetWindowContentRegionMax())
+
+//     // console.log(ImGui.GetItemRectMin())
+//     // console.log(ImGui.GetItemRectMax())
+//     // console.log("bbb")
+
+//     (document.querySelector("#container") as any).style.top = ImGui.GetItemRectMin().y + "px";
+//     (document.querySelector("#container") as any).style.left = ImGui.GetItemRectMin().x + "px";
+//     (document.querySelector("#container") as any).style.width = ImGui.GetWindowSize().x + "px";
+//     (document.querySelector("#container") as any).style.height = ImGui.GetWindowSize().y - ImGui.GetItemRectMin().y + ImGui.GetWindowPos().y + "px";
+
+
+//     if (!isLoad) {
+//         import(
+//     /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
+//         ).then(value => {
+//             monaco = value
+//         })
+
+//         isLoad = true
+//     }
+
+//     if (monaco !== null && !isCreateMonaco) {
+//         let code = `let a = 1`
+//         var model = monaco.editor.createModel(code, "typescript")
+//         editor = monaco.editor.create(document.querySelector("#container"), {
+//             model: model,
+//         })
+
+//         isCreateMonaco = true
+//     }
+
+//     if (editor !== null) {
+//         console.log(editor.getValue())
+//     }
+
+
+//     ImGui.End()
+
+//     ImGui.EndFrame()
+//     ImGui.Render()
+
+
+//     // ImGui.StyleColorsDark()
+//     ImGui.StyleColorsClassic()
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1))
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1))
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
+// }
+
+
+
+
+
+
+
+
+
+let value2
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time)
     ImGui.NewFrame()
 
+    let items = [
+        "l1",
+        "l1",
+        "l1",
+        "l1",
+        // "l2",
+        // "l3",
+    ]
+
+    if (ImGui.ListBoxHeader("listbox 1", new ImGui.ImVec2(300, 100))) {
+        for (let n = 0; n < ImGui.IM_ARRAYSIZE(items); n++) {
+            // const is_selected = (item_current_idx.value === n);
+            // if (ImGui.Selectable(items[n], is_selected))
+            //     item_current_idx.value = n;
+
+            // // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            // if (is_selected)
+            //     ImGui.SetItemDefaultFocus();
 
 
-    ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100))
-    ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 300))
+            // ImGui.ListBox(items[n], (_ = value2) => value2 = _, items, 4)
+            ImGui.Selectable(items[n], false, ImGui.ImGuiSelectableFlags.None, new ImGui.ImVec2(32, 32))
+            ImGui.SameLine()
+            ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))
+            // ImGui.Button("Select..")
+        }
+        // ImGui.EndListBox();
 
-    ImGui.Begin("Asset Inspector")
-
-    if (ImGui.CollapsingHeader("Transform")) {
-    }
-
-    // if (ImGui.CollapsingHeader("Script")) {
-    // }
-
-    ImGui.Text("Script Name")
-    ImGui.Separator();
-
-
-
-    // console.log("aaa")
-    // console.log(ImGui.GetWindowPos())
-
-    // console.log(ImGui.GetWindowContentRegionMax())
-
-    // console.log(ImGui.GetItemRectMin())
-    // console.log(ImGui.GetItemRectMax())
-    // console.log("bbb")
-
-    (document.querySelector("#container") as any).style.top = ImGui.GetItemRectMin().y + "px";
-    (document.querySelector("#container") as any).style.left = ImGui.GetItemRectMin().x + "px";
-    (document.querySelector("#container") as any).style.width = ImGui.GetWindowSize().x + "px";
-    (document.querySelector("#container") as any).style.height = ImGui.GetWindowSize().y - ImGui.GetItemRectMin().y + ImGui.GetWindowPos().y + "px";
-
-
-    if (!isLoad) {
-        import(
-    /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
-        ).then(value => {
-            monaco = value
-        })
-
-        isLoad = true
-    }
-
-    if (monaco !== null && !isCreateMonaco) {
-        let code = `let a = 1`
-        var model = monaco.editor.createModel(code, "typescript")
-        editor = monaco.editor.create(document.querySelector("#container"), {
-            model: model,
-        })
-
-        isCreateMonaco = true
-    }
-
-    if (editor !== null) {
-        console.log(editor.getValue())
+        ImGui.ListBoxFooter()
     }
 
 
-    ImGui.End()
 
     ImGui.EndFrame()
     ImGui.Render()

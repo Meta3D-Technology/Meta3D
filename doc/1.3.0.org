@@ -473,9 +473,6 @@ TODO add list demo
 
 
 
-TODO add modal
-
-
 
 
 TODO add list ui control
@@ -504,6 +501,17 @@ TODO add list ui control
 
 
 TODO api add scriptAPI to operate attribute
+
+
+
+
+TODO add ui
+    add modal
+
+
+
+
+
 
 
 
