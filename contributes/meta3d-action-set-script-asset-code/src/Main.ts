@@ -6,6 +6,27 @@ import { getSelectedAsset } from "meta3d-select-inspector-node-utils/src/Main"
 import { find, update } from "meta3d-asset-utils/src/Main"
 import { id } from "meta3d-action-add-asset-protocol/src/EventType"
 import { getRestoreEditorValueEventName } from "meta3d-editor-event-utils/src/Main"
+import { updateAssetEventFileStr } from "meta3d-script-component-utils/src/Main"
+
+let _findName = (meta3dState: meta3dState, api: api) => {
+    return api.nullable.getExn(
+        find(meta3dState, api, api.nullable.getExn(getSelectedAsset(meta3dState, api)))
+    )[2]
+}
+
+let _updateEventFileStrInScriptComponent = (meta3dState: meta3dState, api: api, code: string) => {
+    let name = _findName(meta3dState, api)
+
+    let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).scene(meta3dState)
+
+    return engineSceneService.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
+        return engineSceneService.gameObject.hasScript(meta3dState, gameObject)
+    }).map(gameObject => {
+        return engineSceneService.gameObject.getScript(meta3dState, gameObject)
+    }).reduce((meta3dState, script) => {
+        return updateAssetEventFileStr(meta3dState, api, script, name, code)
+    }, meta3dState)
+}
 
 let _updateCode = (meta3dState: meta3dState, api: api, id: id, code: string) => {
     return update(meta3dState, asset => {
@@ -31,6 +52,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         find(meta3dState, api, id)
                     )[4]
 
+                    meta3dState = _updateEventFileStrInScriptComponent(meta3dState, api, code)
+
                     meta3dState = _updateCode(meta3dState, api, id, code)
 
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
@@ -50,6 +73,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     }
 
                     let [id, code] = api.nullable.getExn(allScriptAssetCodeData.last())
+
+                    meta3dState = _updateEventFileStrInScriptComponent(meta3dState, api, code)
 
                     meta3dState = _updateCode(meta3dState, api, id, code)
                     meta3dState = _triggerRestoreEditorValueEvent(meta3dState, api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))

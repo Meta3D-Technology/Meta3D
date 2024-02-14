@@ -5,6 +5,19 @@ import { eventName, inputData } from "meta3d-action-set-script-asset-name-protoc
 import { getSelectedAsset } from "meta3d-select-inspector-node-utils/src/Main"
 import { find, update } from "meta3d-asset-utils/src/Main"
 import { id } from "meta3d-action-add-asset-protocol/src/EventType"
+import { updateAssetName } from "meta3d-script-component-utils/src/Main"
+
+let _updateEventFileStrInScriptComponent = (meta3dState: meta3dState, api: api, name: string, newName: string) => {
+    let engineSceneService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).scene(meta3dState)
+
+    return engineSceneService.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
+        return engineSceneService.gameObject.hasScript(meta3dState, gameObject)
+    }).map(gameObject => {
+        return engineSceneService.gameObject.getScript(meta3dState, gameObject)
+    }).reduce((meta3dState, script) => {
+        return updateAssetName(meta3dState, api, script, name, newName)
+    }, meta3dState)
+}
 
 let _updateName = (meta3dState: meta3dState, api: api, id: id, name: string) => {
     return update(meta3dState, asset => {
@@ -24,12 +37,14 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         find(meta3dState, api, id)
                     )[2]
 
+                    meta3dState = _updateEventFileStrInScriptComponent(meta3dState, api, oldName, name)
+
                     meta3dState = _updateName(meta3dState, api, id, name)
 
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
-                        allScriptAssetNameData: state.allScriptAssetNameData.push([id, oldName]),
+                        allScriptAssetNameData: state.allScriptAssetNameData.push([id, oldName, name]),
                     })
 
                     return Promise.resolve(meta3dState)
@@ -42,9 +57,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         return Promise.resolve(meta3dState)
                     }
 
-                    let [id, name] = api.nullable.getExn(allScriptAssetNameData.last())
+                    let [id, oldName, newName] = api.nullable.getExn(allScriptAssetNameData.last())
 
-                    meta3dState = _updateName(meta3dState, api, id, name)
+                    meta3dState = _updateEventFileStrInScriptComponent(meta3dState, api, newName, oldName)
+
+
+                    meta3dState = _updateName(meta3dState, api, id, oldName)
 
 
                     let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))

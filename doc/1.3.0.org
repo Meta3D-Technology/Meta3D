@@ -568,9 +568,9 @@ hot change when run
     update script eventfilestr should update script's data
     update script name should update script's name
 
-publish to platform:test modal
-
 redo-undo
+
+publish to platform:test modal
 
 
 
@@ -578,6 +578,8 @@ redo-undo
 
 
 TODO update
+# meta3d-action-set-script-asset-name p
+# meta3d-action-set-script-asset-code
 # meta3d-action-publish-to-platform
 # meta3d-action-script-component-add-asset
 
