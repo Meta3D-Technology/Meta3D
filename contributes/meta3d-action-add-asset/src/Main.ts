@@ -79,17 +79,17 @@ let _loadGlb = (meta3dState: meta3dState, api: api): Promise<[nullable<glbName>,
 let _createScriptAsset = (id: id, scriptTexture: imguiImplTexture, assetType: assetType): Promise<asset> => {
     return Promise.resolve([assetType, id, "Script Asset", scriptTexture,
         `{
-        onInit:(api, meta3dState) =>{
+        onInit:(meta3dState, api, gameObject) =>{
             console.log("onInit")
 
             return Promise.resolve(meta3dState)
         },
-        onUpdate:(api, meta3dState) =>{
+        onUpdate:(meta3dState, api, gameObject) =>{
             console.log("onUpdate")
 
             return Promise.resolve(meta3dState)
         },
-        onStop:(api, meta3dState) =>{
+        onStop:(meta3dState, api, gameObject) =>{
             console.log("onStop")
 
             return Promise.resolve(meta3dState)

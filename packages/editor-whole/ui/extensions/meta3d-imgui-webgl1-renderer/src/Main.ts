@@ -424,6 +424,37 @@ export let getExtensionService: getExtensionServiceMeta3D<
         dummy: (width, height) => {
             ImGui.Dummy(new ImGui.ImVec2(width, height))
         },
+        list: (label, [width, height], items, [itemWidth, itemHeight], isRemoveable, removeTexture) => {
+            let selectedIndex: nullable<number> = null
+            let selectedValue: nullable<string> = null
+            let isRemove: nullable<boolean> = null
+
+            if (ImGui.ListBoxHeader(label, new ImGui.ImVec2(width, height))) {
+                for (let i = 0; i < ImGui.IM_ARRAYSIZE(items); i++) {
+                    if (ImGui.Selectable(items[i], false, ImGui.ImGuiSelectableFlags.None, new ImGui.ImVec2(itemWidth, itemHeight))) {
+                        selectedIndex = i
+                        selectedValue = items[i]
+                    }
+
+                    if (isRemoveable) {
+                        ImGui.SameLine()
+                        if (ImGui.ImageButton(api.nullable.getExn(removeTexture)._texture, new ImGui.ImVec2(itemHeight, itemHeight))) {
+                            selectedIndex = i
+                            selectedValue = items[i]
+
+                            isRemove = true
+                        }
+                    }
+                }
+                ImGui.ListBoxFooter()
+            }
+
+            return [api.nullable.bind(selectedIndex => {
+                return api.nullable.map(selectedValue => {
+                    return [selectedIndex, selectedValue]
+                }, selectedValue)
+            }, selectedIndex), isRemove]
+        },
         getItemRectMax: () => ImGui.GetItemRectMax(),
         getItemRectSize: () => ImGui.GetItemRectSize(),
         getWindowPos: () => ImGui.GetWindowPos(),

@@ -1,0 +1,19 @@
+{
+    "name": "meta3d-action-operate-select-script-asset-modal-protocol",
+    "version": "1.2.1",
+    "description": "",
+    "publisher": "meta3d",
+    "author": "Meta3D",
+    "main": "src/StateType.ts",
+    "license": "MIT",
+    "scripts": {
+        "watch": "tsc -w -noEmit",
+        "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
+        "meta3d:publish_dev": "gulp publish_local_env",
+        "meta3d:publish_pro": "gulp publish_production_env"
+    },
+    "keywords": [],
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

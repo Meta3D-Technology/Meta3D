@@ -226,11 +226,12 @@ export type service = {
   ) => nullable<number>;
   readonly imagePopup: (
     clickTexture: imguiImplTexture,
-    rect:rect,
+    rect: rect,
     selectedValues: Array<string>,
     id: string
   ) => nullable<number>;
   readonly dummy: (width: number, height: number) => void;
+  readonly list: (label: label, [width, height]: [number, number], items: Array<string>, [itemWidth, itemHeight]: [number, number], isRemoveable: boolean, removeTexture: nullable<imguiImplTexture>) => [nullable<[number, string]>, nullable<boolean>];
   readonly getItemRectMax: () => vec2;
   readonly getItemRectSize: () => vec2;
   readonly getWindowPos: () => vec2;

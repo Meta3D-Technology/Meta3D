@@ -820,7 +820,6 @@ export let loop = (time: number) => {
     }
 
 
-
     ImGui.EndFrame()
     ImGui.Render()
 

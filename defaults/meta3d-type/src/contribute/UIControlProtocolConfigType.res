@@ -21,6 +21,8 @@ type supportedEventName = [
   | #checkbox_select
   | #popup_select
   | #codeedit_submit
+  | #list_select
+  | #list_remove
 ]
 
 type actionName = Js.Nullable.t<string>

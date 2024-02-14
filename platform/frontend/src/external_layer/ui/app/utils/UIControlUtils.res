@@ -19,6 +19,7 @@ let _getAllUIControlData = () => {
     ("meta3d-ui-control-popup", "meta3d-ui-control-popup-protocol"),
     ("meta3d-ui-control-image-popup", "meta3d-ui-control-image-popup-protocol"),
     ("meta3d-ui-control-codeedit", "meta3d-ui-control-codeedit-protocol"),
+    ("meta3d-ui-control-list", "meta3d-ui-control-list-protocol"),
   }
 }
 

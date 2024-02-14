@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-set-script-asset-code-p
 import { eventName, inputData } from "meta3d-action-set-script-asset-code-protocol/src/EventType"
 import { getSelectedAsset } from "meta3d-select-inspector-node-utils/src/Main"
 import { find, update } from "meta3d-asset-utils/src/Main"
-import { id } from "meta3d-action-add-asset-protocol"
+import { id } from "meta3d-action-add-asset-protocol/src/EventType"
 import { getRestoreEditorValueEventName } from "meta3d-editor-event-utils/src/Main"
 
 let _updateCode = (meta3dState: meta3dState, api: api, id: id, code: string) => {

@@ -101,6 +101,10 @@ function getExtensionService(api) {
     api,
     "meta3d-imgui-renderer-protocol"
   ];
+  var partial_arg$24 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
   return {
           registerElement: (function (meta3dState, elementContribute) {
               return api.setExtensionState(meta3dState, "meta3d-ui-protocol", UIManager$Meta3dUi.registerElement(api.getExtensionState(meta3dState, "meta3d-ui-protocol"), elementContribute));
@@ -279,17 +283,20 @@ function getExtensionService(api) {
           dummy: (function (param, param$1, param$2) {
               return UIManager$Meta3dUi.dummy(partial_arg$19, param, param$1, param$2);
             }),
+          list: (function (param, param$1, param$2, param$3, param$4, param$5, param$6) {
+              return UIManager$Meta3dUi.list(partial_arg$20, param, param$1, param$2, param$3, param$4, param$5, param$6);
+            }),
           getItemRectMax: (function (param) {
-              return UIManager$Meta3dUi.getItemRectMax(partial_arg$20, param);
+              return UIManager$Meta3dUi.getItemRectMax(partial_arg$21, param);
             }),
           getItemRectSize: (function (param) {
-              return UIManager$Meta3dUi.getItemRectSize(partial_arg$21, param);
+              return UIManager$Meta3dUi.getItemRectSize(partial_arg$22, param);
             }),
           getWindowPos: (function (param) {
-              return UIManager$Meta3dUi.getWindowPos(partial_arg$22, param);
+              return UIManager$Meta3dUi.getWindowPos(partial_arg$23, param);
             }),
           getWindowSize: (function (param) {
-              return UIManager$Meta3dUi.getWindowSize(partial_arg$23, param);
+              return UIManager$Meta3dUi.getWindowSize(partial_arg$24, param);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

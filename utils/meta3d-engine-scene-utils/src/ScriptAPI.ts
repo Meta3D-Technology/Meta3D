@@ -43,7 +43,7 @@ export let getAttribute = (meta3dState: meta3dState, { unsafeGetUsedComponentCon
     return getComponentData<script, attributeValue>(contribute, script, dataName.attribute)
 }
 
-export let setAttribute = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, script: script, attribute: number) => {
+export let setAttribute = (meta3dState: meta3dState, { unsafeGetUsedComponentContribute, setUsedComponentContribute, setComponentData }: engineCoreService, script: script, attribute: attributeValue) => {
     let contribute = unsafeGetUsedComponentContribute(meta3dState, componentName)
 
     contribute = setComponentData(contribute, script, dataName.attribute, attribute)

@@ -499,16 +499,78 @@ TODO add list ui control
 #     show script namliste
 
 
-
-TODO api add scriptAPI to operate attribute
-
+TODO add remove, add, //select actions
 
 
+TODO add show modal action
+
+
+
+# TODO only has one modal
+#     add size specific data
+#     refactor event
+
+
+
+TODO add modal input
+
+
+TODO add modal select action
+
+
+
+# TODO api add scriptAPI to operate attribute
+
+
+TODO publish all
+
+TODO auto upagrade and publish editor
+
+
+# TODO test add->close modal
+
+TODO fix url-loader
+    not use it!
 
 TODO add ui
+    add list
+    add add button
     add modal
 
 
+TODO button specific add isNotAbsolutePosition
+
+
+//TODO fix(services): meta3d-tool-bundle-to-custom: should only bundle imported variables, remove not imported ones
+e.g. A import a1,a2 file
+a1,a2 both has export eventName
+ut A only need a1's eventName
+
+so bundled one should only has a1's eventName!
+
+
+
+TODO fix: remove script asset in script component not work
+
+TODO add: can only add not added ones
+
+
+
+
+
+TODO run test
+add script
+remove script
+run->invoke scipt
+stop->stop script
+hot change when run
+    handler add param: gameObject
+    update script eventfilestr should update script's data
+    update script name should update script's name
+
+publish to platform:test modal
+
+redo-undo
 
 
 
@@ -516,26 +578,53 @@ TODO add ui
 
 
 TODO update
-addcomponent p
+# meta3d-action-publish-to-platform
+# meta3d-action-script-component-add-asset
 
-run 
-meta3d-action-add-asset
+# meta3d-action-close-select-script-asset-modal p
 
-gameview render pipeline
+# add-asset
 
-script component p
-engine-scene p
+# remove-asset
 
-    engine-scene package
-    editor-whole package
+# meta3d-action-script-component-add-asset
+
+# meta3d-action-publish-to-platform
+
+# addcomponent
+
+# list p
+# input-list p
+
+# run 
+# meta3d-action-add-asset
+
+# gameview render pipeline
+# scene render pipeline
+
+# input-addcomponent
+# input-script-collapse
+
+# meta3d-input-select-script-asset-names
+
+# imgui
+# ui 
+
+# script component p
+# engine-scene p
+
+#     ui,gameview package
+#     engine-scene package
+#     editor-whole package
 
 
 
 
-TODO run test
-run->invoke scipt
-stop->stop script
-hot change when run
+
+
+
+**** TODO update script default code
+
 
 
 
@@ -635,14 +724,27 @@ TODO support status: can change model,ui color to red
 
 
 
+
+
+
+# * TODO 3D贪吃蛇
+
+# Snake, Scene use gltf model!
+
+
+* TODO perf(editor): solve "memory will increase when run editor"
+
+
+* TODO perf(editor): optimize editor loading
+
+
+
 * TODO fix(platform): create input->set name to exist name->change name to other name: will create dupliate one
 
 * TODO perf(platform): code edit: if change code, not create monaco
 
 
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
-
-
 
 
 

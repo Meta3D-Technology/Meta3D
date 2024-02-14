@@ -1,0 +1,13 @@
+{
+    "name": "meta3d-script-component-utils",
+    "version": "1.2.0",
+    "scripts": {
+        "watch": "tsc -w"
+    },
+    "dependencies": {
+        "meta3d-type": "^1.2.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.3"
+    }
+}

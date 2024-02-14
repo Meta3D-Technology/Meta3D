@@ -613,6 +613,15 @@ function dummy(data, meta3dState, width, height) {
               }), data);
 }
 
+function list(data, meta3dState, label, size, items, itemSize, isRemoveable, removeTexture) {
+  return _invokeIMGUIRenderFuncWithParam(meta3dState, (function (imguiRendererState, imguiRendererService) {
+                return [
+                        imguiRendererState,
+                        imguiRendererService.list(label, size, items, itemSize, isRemoveable, removeTexture)
+                      ];
+              }), data);
+}
+
 function getItemRectMax(data, meta3dState) {
   return _invokeIMGUIRenderFuncReturnData(meta3dState, (function (imguiRendererState, imguiRendererService) {
                 return Curry._1(imguiRendererService.getItemRectMax, undefined);
@@ -782,6 +791,7 @@ export {
   popup ,
   imagePopup ,
   dummy ,
+  list ,
   getItemRectMax ,
   getItemRectSize ,
   getWindowPos ,

@@ -6,6 +6,7 @@ export type inputFunc = null
 
 export type specificData = {
     label: string,
+    isNotAbsolutePosition: boolean
 }
 
 type isClick = boolean

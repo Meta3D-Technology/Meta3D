@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-open-publish-to-platform-modal",
-    "version": "1.2.0",
+    "version": "1.2.2",
     "publisher": "meta3d",
     "repoLink": "",
     "protocol": {
@@ -18,6 +18,7 @@
     "dependencies": {
         "meta3d-action-load-apppreview-protocol": "^1.2.0",
         "meta3d-action-open-publish-to-platform-modal-protocol": "^1.2.0",
+        "meta3d-action-operate-publish-to-platform-modal-protocol": "^1.2.0",
         "meta3d-action-set-appname-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"

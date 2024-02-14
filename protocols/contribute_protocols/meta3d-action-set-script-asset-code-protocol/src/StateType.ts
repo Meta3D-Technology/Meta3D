@@ -1,5 +1,5 @@
 import type { List } from "immutable"
-import { id } from "meta3d-action-add-asset-protocol"
+import { id } from "meta3d-action-add-asset-protocol/src/EventType"
 import { code } from "./EventType"
 
 export const actionName = "SetScriptAssetCode"

@@ -2,12 +2,12 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { uiData, actionName, state } from "meta3d-action-publish-to-platform-protocol"
 import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
+import { backwardEventName as closeEventName } from "meta3d-action-operate-publish-to-platform-modal-protocol/src/EventType"
 import { eventName, inputData } from "meta3d-action-publish-to-platform-protocol/src/EventType"
 import { actionName as setAppNameActionName, state as setAppNameActionState } from "meta3d-action-set-appname-protocol"
 import { actionName as loadAppPreviewActionName, state as loadAppPreviewActionState } from "meta3d-action-load-apppreview-protocol"
 import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 import { readAccount } from "meta3d-user-utils/src/Main"
-import { getCloseCurrentModalForwardActionName } from "meta3d-action-name-utils/src/Main"
 
 let _checkAndGetValues = (api: api, meta3dState: meta3dState): nullable<[string, string, string, string, boolean]> => {
     let setAppNameActionState = api.nullable.getExn(api.action.getActionState<setAppNameActionState>(meta3dState, setAppNameActionName))
@@ -79,7 +79,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             let { createCustomEvent, triggerCustomGlobalEvent2 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
 
                             return Promise.resolve(triggerCustomGlobalEvent2(meta3dState, "meta3d-event-protocol",
-                                createCustomEvent(getCloseCurrentModalForwardActionName(), null)
+                                createCustomEvent(closeEventName, null)
                             ))
                         })
                     })

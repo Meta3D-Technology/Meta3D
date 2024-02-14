@@ -1,6 +1,6 @@
 {
     "name": "meta3d-engine-scene",
-    "version": "1.2.2",
+    "version": "1.2.4",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-engine-scene-protocol"
@@ -19,6 +19,7 @@
         "meta3d-component-geometry-protocol": "^1.2.0",
         "meta3d-component-pbrmaterial-protocol": "^1.2.0",
         "meta3d-component-perspectivecameraprojection-protocol": "^1.2.0",
+        "meta3d-component-script-protocol": "^1.2.0",
         "meta3d-component-transform-protocol": "^1.2.0",
         "meta3d-core-protocol": "^1.2.0",
         "meta3d-engine-scene-protocol": "^1.2.0",

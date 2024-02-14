@@ -38,13 +38,13 @@ const config = {
                 ],
             },
             {
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader']
-			},
-			{
-				test: /\.ttf$/,
-				type: 'asset/resource'
-			}
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.ttf$/,
+                type: 'asset/resource'
+            }
 
 
             // Add your rules for custom modules here

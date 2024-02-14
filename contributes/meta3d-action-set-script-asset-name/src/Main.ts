@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-set-script-asset-name-p
 import { eventName, inputData } from "meta3d-action-set-script-asset-name-protocol/src/EventType"
 import { getSelectedAsset } from "meta3d-select-inspector-node-utils/src/Main"
 import { find, update } from "meta3d-asset-utils/src/Main"
-import { id } from "meta3d-action-add-asset-protocol"
+import { id } from "meta3d-action-add-asset-protocol/src/EventType"
 
 let _updateName = (meta3dState: meta3dState, api: api, id: id, name: string) => {
     return update(meta3dState, asset => {

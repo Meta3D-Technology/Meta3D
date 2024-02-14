@@ -9,12 +9,15 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             _,
             rect,
             {
-                label
+                label,
+                isNotAbsolutePosition
             }
         ) => {
             let { button, setCursorPos } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-            meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+            if (!isNotAbsolutePosition) {
+                meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+            }
 
             return new Promise((resolve, reject) => {
                 resolve(button(meta3dState, label, [rect.width, rect.height]))

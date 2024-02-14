@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-publish-to-platform",
-    "version": "1.2.0",
+    "version": "1.2.3",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-publish-to-platform-protocol"
@@ -16,6 +16,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-action-load-apppreview-protocol": "^1.2.0",
+        "meta3d-action-operate-publish-to-platform-modal-protocol": "^1.2.0",
         "meta3d-action-publish-to-platform-protocol": "^1.2.0",
         "meta3d-action-run-protocol": "^1.2.0",
         "meta3d-action-set-appname-protocol": "^1.2.0",
