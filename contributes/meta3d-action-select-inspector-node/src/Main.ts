@@ -70,8 +70,9 @@ export let getContribute: getContributeMeta3D<actionContribute<eventData, state>
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...state,
                         allSelectedNodeData: state.allSelectedNodeData.pop(),
-                        selectedNodeData: api.nullable.getExn(state.allSelectedNodeData.last())
+                        selectedNodeData: state.allSelectedNodeData.pop().last()
                     })
+
 
                     return meta3dState
                 }

@@ -7,6 +7,7 @@ import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/Game
 import { getSelectedGameObject } from "meta3d-select-inspector-node-utils/src/Main"
 import { removeAssetData, addAssetData } from "meta3d-script-component-utils/src/Main"
 import { actionName as addAssetActionName, state as addAssetState, assetType } from "meta3d-action-add-asset-protocol"
+import { actionName as runActionName, state as runState } from "meta3d-action-run-protocol"
 
 let _findAssetEventFileStr = (meta3dState: meta3dState, api: api, name: string) => {
     let { allAddedAssets } = api.nullable.getExn(
@@ -83,6 +84,14 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             })
         },
         handler: (meta3dState, uiData) => {
+            if (api.nullable.getWithDefault(api.nullable.map(runState => runState.isRun, api.action.getActionState<runState>(meta3dState, runActionName)), false)) {
+                api.message.warn("can't add script when run")
+
+                return (new Promise((resolve) => {
+                    resolve(meta3dState)
+                }))
+            }
+
             return new Promise<meta3dState>((resolve, reject) => {
                 let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 

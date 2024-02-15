@@ -32,7 +32,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let editorWholeService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol"))
 
                     if (api.nullable.getWithDefault(api.nullable.map(runState => runState.isRun, api.action.getActionState<runState>(meta3dState, runActionName)), false)) {
-                        console.warn("can't publish when run")
+                        api.message.warn("can't publish when run")
 
                         return (new Promise((resolve) => {
                             resolve(meta3dState)

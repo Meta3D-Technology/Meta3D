@@ -568,7 +568,10 @@ hot change when run
     update script eventfilestr should update script's data
     update script name should update script's name
 
+multiple script assets
 redo-undo
+        warn: can't add asset to script component when run
+    run->add cube->select cube->stop error!
 
 publish to platform:test modal
 
@@ -581,9 +584,11 @@ TODO update
 # meta3d-action-set-script-asset-name p
 # meta3d-action-set-script-asset-code
 # meta3d-action-publish-to-platform
-# meta3d-action-script-component-add-asset
+meta3d-action-script-component-add-asset
+meta3d-action-select-inspector-node
 
 # meta3d-action-close-select-script-asset-modal p
+
 
 # add-asset
 
@@ -598,10 +603,10 @@ TODO update
 # list p
 # input-list p
 
-# run 
+run 
 # meta3d-action-add-asset
 
-# gameview render pipeline
+gameview render pipeline
 # scene render pipeline
 
 # input-addcomponent
@@ -625,7 +630,7 @@ TODO update
 
 
 
-**** TODO update script default code
+**** DONE update script default code
 
 
 
