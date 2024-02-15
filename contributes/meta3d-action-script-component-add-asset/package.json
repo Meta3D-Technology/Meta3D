@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-script-component-add-asset",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-script-component-add-asset-protocol"
@@ -17,8 +17,8 @@
     "dependencies": {
         "meta3d-action-add-asset-protocol": "^1.2.0",
         "meta3d-action-operate-publish-to-platform-modal-protocol": "^1.2.0",
-        "meta3d-action-script-component-add-asset-protocol": "^1.2.0",
         "meta3d-action-run-protocol": "^1.2.0",
+        "meta3d-action-script-component-add-asset-protocol": "^1.2.0",
         "meta3d-editor-whole-protocol": "^1.2.0",
         "meta3d-type": "^1.2.0"
     },

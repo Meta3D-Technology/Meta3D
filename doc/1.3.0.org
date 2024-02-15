@@ -574,6 +574,7 @@ redo-undo
     run->add cube->select cube->stop error!
 
 publish to platform:test modal
+    show modal
 
 
 
@@ -584,9 +585,11 @@ TODO update
 # meta3d-action-set-script-asset-name p
 # meta3d-action-set-script-asset-code
 # meta3d-action-publish-to-platform
-meta3d-action-script-component-add-asset
-meta3d-action-select-inspector-node
+# meta3d-action-script-component-add-asset
+# meta3d-action-select-inspector-node
 
+# meta3d-action-open-publish-to-platform-modal
+# meta3d-action-close-publish-to-platform-modal
 # meta3d-action-close-select-script-asset-modal p
 
 
@@ -603,10 +606,10 @@ meta3d-action-select-inspector-node
 # list p
 # input-list p
 
-run 
+# run 
 # meta3d-action-add-asset
 
-gameview render pipeline
+# gameview render pipeline
 # scene render pipeline
 
 # input-addcomponent
@@ -651,6 +654,11 @@ create and init new vbo when run
 
 
 *** TODO pass editor run test
+
+
+
+
+*** TODO fix Enter Final App: not found
 
 
 *** TODO fix EnterApp
