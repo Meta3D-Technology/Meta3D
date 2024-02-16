@@ -102,30 +102,6 @@ module Method = {
 
     Js.Promise.resolve()
   }
-
-  let getMonaco = %raw(`
-function (){
-return globalThis["meta3d_monaco"]
-}
-`)
-
-  let setMonaco = %raw(`
-function (monaco){
-globalThis["meta3d_monaco"] = monaco
-}
-`)
-
-  let deferLoad = %raw(`
-function (){
-return import(
-    /* webpackPrefetch: true */"monaco-editor/esm/vs/editor/editor.api.js"
-  ).then(value =>{
-setMonaco(value)
-
-return value
-  })
-}
-`)
 }
 
 @react.component
@@ -137,9 +113,9 @@ let make = (~service: service, ~code, ~getNewCodeFunc) => {
 
   service.react.useEffect1(. () => {
     MessageUtils.showCatchedErrorMessage(() => {
-      switch Method.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
+      switch MonaoUtils.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
       | None =>
-        Method.deferLoad()->Js.Promise.then_(
+        MonaoUtils.deferLoad()->Js.Promise.then_(
           value => {
             value->Js.Promise.resolve
           },

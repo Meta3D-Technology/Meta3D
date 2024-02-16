@@ -670,11 +670,16 @@ run p
 *** DONE fix Enter Final App: not found
 
 
-*** TODO fix EnterApp
+*** DONE fix EnterApp
+
+TODO add monaco 
 
 run test:
 run editor
 
+
+
+TODO refactor: deferLoad duplicate
 
 
 *** TODO update engine-whole

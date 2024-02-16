@@ -24,6 +24,21 @@ let make = (~service: FrontendType.service) => {
 
   React.useEffect1(() => {
     MessageUtils.showCatchedErrorMessage(() => {
+      MonaoUtils.deferLoad()
+      ->Js.Promise.catch(
+        e => {
+          service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+        },
+        _,
+      )
+      ->ignore
+    }, 5->Some)
+
+    None
+  }, [])
+
+  React.useEffect1(() => {
+    MessageUtils.showCatchedErrorMessage(() => {
       let account = UrlSearchUtils.get(url.search, "account")
       let appName = UrlSearchUtils.get(url.search, "appName")
 
