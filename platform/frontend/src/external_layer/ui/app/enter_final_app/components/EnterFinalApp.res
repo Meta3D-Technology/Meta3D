@@ -40,10 +40,21 @@ let make = (~service: FrontendType.service) => {
       DomExtend.querySelector(DomExtend.document, "#canvas")->Meta3dCommonlib.OptionSt.getExn
 
     CacheUtils.getPackages(version->Some)
-    ->Meta3dCommonlib.PromiseSt.map(Meta3dCommonlib.NullableSt.getExn)
-    ->Js.Promise.then_(((_, files)) => {
-      let enginePackageBinaryFile = files->Obj.magic->Meta3dCommonlib.ArraySt.getExn(1)
-
+    ->Meta3dCommonlib.PromiseSt.bind(packages =>
+      packages->Meta3dCommonlib.NullableSt.isNullable
+        ? SelectPackageUtils.findEnginePackageData(service)->Meta3dCommonlib.PromiseSt.map(((
+            _,
+            files,
+          )) => {
+            files->Obj.magic->Meta3dCommonlib.ArraySt.getExn(0)
+          })
+        : Js.Promise.resolve(
+            packages->Obj.magic->Meta3dCommonlib.NullableSt.getExn,
+          )->Meta3dCommonlib.PromiseSt.map(((_, files)) => {
+            files->Obj.magic->Meta3dCommonlib.ArraySt.getExn(1)
+          })
+    )
+    ->Js.Promise.then_(enginePackageBinaryFile => {
       let (meta3dState, _, entryExtensionProtocolName) = Meta3d.Main.loadPackage(
         enginePackageBinaryFile,
       )

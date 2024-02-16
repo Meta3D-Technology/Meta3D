@@ -1,3 +1,75 @@
+let _findPackageData = (service: FrontendType.service, packageData) => {
+  packageData
+  ->Meta3dCommonlib.ListSt.traverseReducePromiseM((list{}, list{}), (
+    (jsons, files),
+    (name, entryExtensionName, protocolName),
+  ) => {
+    service.backend.findNewestPublishPackage(. progress => (), protocolName, name)
+    ->Meta3dBsMostDefault.Most.map(data => {
+      data->Meta3dCommonlib.NullableSt.isNullable
+        ? Meta3dCommonlib.Exception.throwErr(
+            Meta3dCommonlib.Exception.buildErr(
+              Meta3dCommonlib.Log.buildErrorMessage(
+                ~title={j`package not exist`},
+                ~description={
+                  j``
+                },
+                ~reason="",
+                ~solution=j``,
+                ~params=j`protocolName: ${protocolName}, name: ${name}`,
+              ),
+            ),
+          )
+        : ()
+
+      let (
+        file,
+        entryExtensionProtocolVersion,
+        packageVersion,
+        entryExtensionProtocolIconBase64,
+        entryExtensionProtocolConfigStr,
+      ) =
+        data->Meta3dCommonlib.NullableSt.getExn
+
+      (
+        (
+          name,
+          entryExtensionName,
+          protocolName,
+          entryExtensionProtocolVersion,
+          packageVersion,
+          entryExtensionProtocolIconBase64,
+          entryExtensionProtocolConfigStr,
+        )
+        ->Obj.magic
+        ->Js.Json.stringify,
+        file,
+      )
+    }, _)
+    ->MostUtils.toPromise
+    ->Js.Promise.then_(((json, file)) => {
+      (
+        jsons->Meta3dCommonlib.ListSt.push(json),
+        files->Meta3dCommonlib.ListSt.push(file),
+      )->Js.Promise.resolve
+    }, _)
+  })
+  ->Js.Promise.then_(((jsons, files)) => {
+    (
+      jsons->Meta3dCommonlib.ListSt.toArray,
+      files->Meta3dCommonlib.ListSt.toArray,
+    )->Js.Promise.resolve
+  }, _)
+}
+
+let findEnginePackageData = (service: FrontendType.service) => {
+  list{
+    InitPackageUtils.getEditorWholeAndEngineWholePackageData()
+    ->Meta3dCommonlib.ListSt.getLast
+    ->Meta3dCommonlib.OptionSt.getExn,
+  }->_findPackageData(service, _)
+}
+
 let selectEditorWholeAndEngineWholePackages = (
   service: FrontendType.service,
   dispatch,
@@ -10,70 +82,8 @@ let selectEditorWholeAndEngineWholePackages = (
     switch data->Meta3dCommonlib.OptionSt.fromNullable {
     | None =>
       InitPackageUtils.getEditorWholeAndEngineWholePackageData()
-      ->Meta3dCommonlib.ListSt.traverseReducePromiseM((list{}, list{}), (
-        (jsons, files),
-        (name, entryExtensionName, protocolName),
-      ) => {
-        service.backend.findNewestPublishPackage(. progress => (), protocolName, name)
-        ->Meta3dBsMostDefault.Most.map(
-          data => {
-            data->Meta3dCommonlib.NullableSt.isNullable
-              ? Meta3dCommonlib.Exception.throwErr(
-                  Meta3dCommonlib.Exception.buildErr(
-                    Meta3dCommonlib.Log.buildErrorMessage(
-                      ~title={j`package not exist`},
-                      ~description={
-                        j``
-                      },
-                      ~reason="",
-                      ~solution=j``,
-                      ~params=j`protocolName: ${protocolName}, name: ${name}`,
-                    ),
-                  ),
-                )
-              : ()
-
-            let (
-              file,
-              entryExtensionProtocolVersion,
-              packageVersion,
-              entryExtensionProtocolIconBase64,
-              entryExtensionProtocolConfigStr,
-            ) =
-              data->Meta3dCommonlib.NullableSt.getExn
-
-            (
-              (
-                name,
-                entryExtensionName,
-                protocolName,
-                entryExtensionProtocolVersion,
-                packageVersion,
-                entryExtensionProtocolIconBase64,
-                entryExtensionProtocolConfigStr,
-              )
-              ->Obj.magic
-              ->Js.Json.stringify,
-              file,
-            )
-          },
-          _,
-        )
-        ->MostUtils.toPromise
-        ->Js.Promise.then_(
-          ((json, file)) => {
-            (
-              jsons->Meta3dCommonlib.ListSt.push(json),
-              files->Meta3dCommonlib.ListSt.push(file),
-            )->Js.Promise.resolve
-          },
-          _,
-        )
-      })
+      ->_findPackageData(service, _)
       ->Js.Promise.then_(((jsons, files)) => {
-        let jsons = jsons->Meta3dCommonlib.ListSt.toArray
-        let files = files->Meta3dCommonlib.ListSt.toArray
-
         CacheUtils.cachePackages(version, jsons, files)->Js.Promise.then_(
           _ => (jsons, files)->Js.Promise.resolve,
           _,
@@ -123,8 +133,8 @@ let selectEditorWholeAndEngineWholePackages = (
 
     ()->Js.Promise.resolve
   }, _)
-//   ->Js.Promise.then_(() => {
-//     Js.log("finish2")
-//     ()->Js.Promise.resolve
-//   }, _)
+  //   ->Js.Promise.then_(() => {
+  //     Js.log("finish2")
+  //     ()->Js.Promise.resolve
+  //   }, _)
 }

@@ -667,7 +667,7 @@ run p
 
 
 
-*** TODO fix Enter Final App: not found
+*** DONE fix Enter Final App: not found
 
 
 *** TODO fix EnterApp
@@ -705,47 +705,6 @@ editor-whole
 web
 engine-whole
 
-** TODO 切换场景
-
-TODO 动态加载 without assetbundle
-
-
-- first load all scenes, only make current scene visiable
-- script to control which scene visiable
-
-
-script:
-control visiable
-bind keyboard event to switch scene
-
-
-
-TODO unbind event when stop
-
-
-
-
-* TODO 3d ui 数据绑定
-
-refer to:
-https://www.grapecity.com.cn/blogs/digital-twins-and-3d-visualization
-
-
-TODO 上传json数据，用来提供ui的数据
-TODO 获得后端json数据?
-
-TODO 修改模型名，与之绑定
-
-
-
-
-TODO support status: can change model,ui color to red
-
-
-# * TODO 2qi
-
-# TODO ...
-
 
 
 
@@ -778,6 +737,19 @@ TODO fix: editor loop will increase
 
 Snake, Scene use gltf model!
 
+
+script:
+control visiable
+bind keyboard event to switch scene
+
+
+
+TODO unbind event when stop
+
+
+** TODO add 2d ui
+
+** TODO ...
 
 
 * TODO publish
