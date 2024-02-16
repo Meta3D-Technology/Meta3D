@@ -447,7 +447,7 @@ export->import->export all events->import all events
 # init get label
 
 
-**** TODO add script component
+**** DONE add script component
 
 TODO restore default scene
 
@@ -638,22 +638,31 @@ TODO update
 
 
 
-**** TODO run-stop
+**** DONE run-stop
 
 TODO deepCopy scene data when run, restore scene data when stop
 
 TODO how to handle render(e.g. init material shader when run)?
-    reinit with retored scene data when stop?
-    # not allow
+    //dispose all and reinit with retored scene data when stop?
+        //only dispose all?
+    do nothing!
 
 
 TODO run test:
 change scene data(e.g. transform) when run
+    change color
 create and init new material shader when run
+    dispose cube
+        //fix: create script(dispose cube)->add script->run error
 create and init new vbo when run
 
 
-*** TODO pass editor run test
+
+TODO update
+run p
+
+
+# *** TODO pass editor run test
 
 
 
@@ -742,12 +751,12 @@ TODO support status: can change model,ui color to red
 
 
 
-# * TODO 3D贪吃蛇
-
-# Snake, Scene use gltf model!
-
 
 * TODO perf(editor): solve "memory will increase when run editor"
+
+TODO fix: run editor will increase
+
+TODO fix: editor loop will increase
 
 
 * TODO perf(editor): optimize editor loading
@@ -762,6 +771,12 @@ TODO support status: can change model,ui color to red
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
 
 
+
+
+
+* TODO 3D贪吃蛇
+
+Snake, Scene use gltf model!
 
 
 
