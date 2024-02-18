@@ -56,6 +56,7 @@ defineFeature(feature, test => {
         dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
 
         CustomInputCodeEditTool.getNewCode(
+          ServiceTool.build(~sandbox, ()),
           dispatchStub.contents,
           CustomUtils.getInputName,
           CodeEditUtils.setCurrentCustomInputNameToGlobal,
@@ -65,6 +66,7 @@ defineFeature(feature, test => {
           inputName.contents,
           newOriginCode.contents,
           newTranspiledCode.contents,
+          list{},
         )
       },
     )
@@ -96,6 +98,66 @@ defineFeature(feature, test => {
             ->NewlineTool.unifyNewlineChar
             ->Some,
           )
+      },
+    )
+  })
+
+  test(."if input name exist, warn and not dispatch", ({given, \"when", \"and", then}) => {
+    let dispatchStub = ref(Obj.magic(1))
+    let warnStub = ref(Obj.magic(1))
+    let inputName = "InputName1"
+    let newInputName = ref(Obj.magic(1))
+    let customInputs = ref(Obj.magic(1))
+    let newOriginCode = ref(Obj.magic(1))
+    let newTranspiledCode = ref(Obj.magic(1))
+
+    _prepare(given)
+
+    given(
+      "add exist input with name as n1",
+      () => {
+        customInputs := list{CustomTool.buildCustomInput(~name=inputName, ())}
+      },
+    )
+
+    \"and"(
+      "build input name as n1 and new code",
+      () => {
+        newInputName := inputName
+        newOriginCode := ""
+        newTranspiledCode := ""
+      },
+    )
+
+    \"when"(
+      "get new code",
+      () => {
+        dispatchStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+        warnStub := createEmptyStub(refJsObjToSandbox(sandbox.contents))
+
+        CustomInputCodeEditTool.getNewCode(
+          ServiceTool.build(~sandbox, ~warn=warnStub.contents, ()),
+          dispatchStub.contents,
+          CustomUtils.getInputName,
+          CodeEditUtils.setCurrentCustomInputNameToGlobal,
+          (name, newName, newOriginCode, newTranspiledCode) => {
+            (name, newName, newOriginCode, newTranspiledCode)
+          },
+          newInputName.contents,
+          newOriginCode.contents,
+          newTranspiledCode.contents,
+          customInputs.contents,
+        )
+      },
+    )
+
+    then(
+      "shouldn't dispatch",
+      () => {
+        (
+          warnStub.contents->Obj.magic->getCallCount,
+          dispatchStub.contents->Obj.magic->getCallCount,
+        )->expect == (1, 0)
       },
     )
   })

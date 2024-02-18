@@ -198,6 +198,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       getNeedConfigData: (. configLib) => Meta3d.Main.getNeedConfigData(configLib),
     },
     console: {
+      warn: (. warnMessage, durationOpt) => MessageUtils.warn(warnMessage, durationOpt),
       error: (. errorMessage, durationOpt) => MessageUtils.error(errorMessage, durationOpt),
       errorWithExn: (. error, durationOpt) => MessageUtils.errorWithExn(error, durationOpt),
     },

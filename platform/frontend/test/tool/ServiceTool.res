@@ -25,6 +25,7 @@ let build = (
   ~useEffect1=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnce=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
   ~useEffectOnceAsync=createEmptyStub(refJsObjToSandbox(sandbox.contents)),
+  ~warn=Js.Console.warn,
   ~error=Js.Console.error,
   ~errorWithExn=Js.Console.error,
   // ~getAllPublishPackageEntryExtensionProtocols=createEmptyStub(
@@ -163,6 +164,7 @@ let build = (
     useEffectOnceAsync,
   },
   console: {
+    warn: warn->Obj.magic,
     error: error->Obj.magic,
     errorWithExn: errorWithExn->Obj.magic,
   },

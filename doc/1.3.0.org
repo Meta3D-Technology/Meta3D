@@ -749,11 +749,11 @@ TODO update:
 # TODO editor loop will increase
 
 
-* TODO perf(editor): optimize editor loading
+# * TODO perf(editor): optimize editor loading
 
 
 
-* TODO fix(platform): create input->set name to exist name->change name to other name: will create dupliate one
+* DONE fix(platform): create input->set name to exist name->change name to other name: will create dupliate one
 
 * TODO perf(platform): code edit: if change code, not create monaco
 

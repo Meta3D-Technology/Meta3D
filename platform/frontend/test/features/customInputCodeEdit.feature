@@ -13,7 +13,13 @@ Feature: CustomInputCodeEdit
             When get new code
             Then should convert new code to umd
             And get new input name from it
-            # dispatch UpdateCustomInputFileStr with converted new code and  generate input name and default file str
+        # dispatch UpdateCustomInputFileStr with converted new code and  generate input name and default file str
+
+        Scenario: if input name exist, warn and not dispatch
+            Given add exist input with name as n1
+            And build input name as n1 and new code
+            When get new code
+            Then shouldn't dispatch
 
 
     Rule: getCode

@@ -3,7 +3,16 @@ open Antd
 open AssembleSpaceType
 
 module Method = {
+  let _isNameExist = (name, customs) => {
+    customs
+    ->Meta3dCommonlib.ListSt.find((custom: CommonType.custom) => {
+      custom.name == name
+    })
+    ->Meta3dCommonlib.OptionSt.isSome
+  }
+
   let getNewCode = (
+    service: service,
     dispatch,
     getNameFunc,
     setCurrentCustomNameToGlobalFunc,
@@ -11,14 +20,19 @@ module Method = {
     name,
     newOriginCode,
     newTranspiledCode,
+    customs,
   ) => {
     let newTranspiledCode = newTranspiledCode->CodeEditUtils.convertTranspliedCodeToUMDCode
 
     let newName = newTranspiledCode->getNameFunc->Meta3dCommonlib.OptionSt.getWithDefault(name)
 
-    setCurrentCustomNameToGlobalFunc(newName)
+    _isNameExist(newName, customs)
+      ? service.console.warn(. {j`name:${newName}已经存在，请换个name`}, None)
+      : {
+          setCurrentCustomNameToGlobalFunc(newName)
 
-    dispatch(buildUpdateActionFunc(name, newName, newOriginCode, newTranspiledCode->Some))
+          dispatch(buildUpdateActionFunc(name, newName, newOriginCode, newTranspiledCode->Some))
+        }
   }
 
   let getCode = (name, customs) => {
@@ -61,6 +75,7 @@ let make = (
         code={code}
         getNewCodeFunc={(newOriginCode, newTranspiledCode) =>
           Method.getNewCode(
+            service,
             dispatch,
             getNameFunc,
             setCurrentCustomNameToGlobalFunc,
@@ -69,6 +84,7 @@ let make = (
             getCurrentCustomNameFromGlobalFunc()->Meta3dCommonlib.NullableSt.getExn,
             newOriginCode,
             newTranspiledCode,
+            customs,
           )}
       />
     }

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PackageExtensionInspector show mark entry button 1`] = `
+<div
+  className="ant-space css-dev-only-do-not-override-p7e5j5 ant-space-vertical ant-space-gap-row-middle ant-space-gap-col-middle"
+  style={Object {}}
+>
+  <div
+    className="ant-space-item"
+  >
+    <button
+      className="ant-btn css-dev-only-do-not-override-p7e5j5 ant-btn-default"
+      disabled={false}
+      onClick={[Function]}
+      style={Object {}}
+      type="button"
+    >
+      <span>
+        设为入口
+      </span>
+      
+    </button>
+  </div>
+</div>
+`;
+
+exports[`PackageExtensionInspector show nothing 1`] = `null`;
+
+exports[`PackageExtensionInspector show unmark entry button 1`] = `
+<div
+  className="ant-space css-dev-only-do-not-override-p7e5j5 ant-space-vertical ant-space-gap-row-middle ant-space-gap-col-middle"
+  style={Object {}}
+>
+  <div
+    className="ant-space-item"
+  >
+    <button
+      className="ant-btn css-dev-only-do-not-override-p7e5j5 ant-btn-default"
+      disabled={false}
+      onClick={[Function]}
+      style={Object {}}
+      type="button"
+    >
+      <span>
+        取消设为入口
+      </span>
+      
+    </button>
+  </div>
+</div>
+`;

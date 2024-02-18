@@ -22,6 +22,8 @@ type useDispatch = unit => dispatch
 
 // type errorFunc = Js.Exn.t => unit
 
+type warn = (. string, option<int>) => unit
+
 // type error = (. Antd__Message.error, errorFunc, Js.Exn.t, option<int>) => unit
 type error = (. string, option<int>) => unit
 
@@ -62,7 +64,7 @@ type reactService = {
   useEffectOnceAsync: (unit => (Js.Promise.t<unit>, option<unit => unit>)) => unit,
 }
 
-type consoleService = {error: error, errorWithExn: errorWithExn}
+type consoleService = {warn: warn, error: error, errorWithExn: errorWithExn}
 
 type convertAllFileDataForApp = (
   . array<Meta3d.ExtensionFileType.contributeFileData>,
