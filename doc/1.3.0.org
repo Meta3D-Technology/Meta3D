@@ -737,11 +737,16 @@ TODO update:
 
 
 
-* TODO perf(editor): solve "memory will increase when run editor"
+# * TODO perf(editor): solve "memory will increase when run editor"
 
-TODO fix: run editor will increase
+# # TODO refresh platform
+# #     TODO components' arrayBuffer
 
-TODO fix: editor loop will increase
+
+
+# TODO run editor will increase
+
+# TODO editor loop will increase
 
 
 * TODO perf(editor): optimize editor loading

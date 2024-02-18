@@ -24,14 +24,18 @@ let make = (~service: FrontendType.service) => {
 
   React.useEffect1(() => {
     MessageUtils.showCatchedErrorMessage(() => {
-      MonaoUtils.deferLoad()
-      ->Js.Promise.catch(
-        e => {
-          service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
-        },
-        _,
-      )
-      ->ignore
+      switch Meta3dMonacoUtils.Main.getMonaco() {
+      | None =>
+        Meta3dMonacoUtils.Main.deferLoad()
+        ->Js.Promise.catch(
+          e => {
+            service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+          },
+          _,
+        )
+        ->ignore
+      | Some(_) => ()
+      }
     }, 5->Some)
 
     None

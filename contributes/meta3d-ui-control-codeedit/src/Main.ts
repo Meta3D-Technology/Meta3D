@@ -5,6 +5,7 @@ import { getBeforeRenderEventName } from "meta3d-editor-event-utils/src/Main"
 import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { eventName as selectInspectorNodeEventName } from "meta3d-action-select-inspector-node-protocol/src/EventType"
 import { getRestoreEditorValueEventName } from "meta3d-editor-event-utils/src/Main"
+import { getMonaco } from "meta3d-monaco-utils"
 
 let _bindHiddenContainerEvent = (meta3dState: meta3dState, api: api, container: HTMLElement) => {
     let { onCustomGlobalEvent3 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
@@ -111,7 +112,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                 if (api.nullable.isNullable(editor)) {
-                    let monaco = (globalThis as any)["meta3d_monaco" as any]
+                    let monaco = getMonaco()
 
                     editor = monaco.editor.create(container, {
                         model: monaco.editor.createModel(code, "typescript"),

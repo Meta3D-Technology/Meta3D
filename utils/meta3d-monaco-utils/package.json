@@ -1,0 +1,22 @@
+{
+  "name": "meta3d-monaco-utils",
+  "version": "1.2.0",
+  "main": "lib/js/src/Main.bs.js",
+  "types": "src/Main.d.ts",
+  "scripts": {
+    "watch": "rescript clean && rescript build -w",
+    "buildAll:ci": "rescript clean && rescript build"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-jest": "^26.1.0",
+    "cz-conventional-changelog": "^3.2.0",
+    "cz-customizable": "^5.2.0",
+    "gentype": "^3.48.0"
+  },
+  "dependencies": {
+    "rescript": "^10.0.1"
+  }
+}

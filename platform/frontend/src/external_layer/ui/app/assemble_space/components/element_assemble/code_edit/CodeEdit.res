@@ -113,9 +113,9 @@ let make = (~service: service, ~code, ~getNewCodeFunc) => {
 
   service.react.useEffect1(. () => {
     MessageUtils.showCatchedErrorMessage(() => {
-      switch MonaoUtils.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
+      switch Meta3dMonacoUtils.Main.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
       | None =>
-        MonaoUtils.deferLoad()->Js.Promise.then_(
+        Meta3dMonacoUtils.Main.deferLoad()->Js.Promise.then_(
           value => {
             value->Js.Promise.resolve
           },
