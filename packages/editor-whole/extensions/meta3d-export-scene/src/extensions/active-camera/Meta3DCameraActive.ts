@@ -1,6 +1,7 @@
 import { buildKey, buildValue } from "meta3d-gltf-extensions/src/Meta3DCameraActive"
 import { isNullable, map, getWithDefault, bind } from "meta3d-commonlib-ts/src/NullableUtils"
-import { findCameraIndex, setExtension } from "../utils/CameraUtils";
+import { findCameraIndex } from "../utils/CameraUtils";
+import { setExtension } from "../utils/ExtensionUtils";
 
 export let getExtension = (activedCameraGameObjectName, writer) => {
     return {

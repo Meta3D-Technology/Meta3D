@@ -2,6 +2,8 @@ import { pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType
 import { execFunc as execInit } from "./jobs/init/InitJob";
 import { execFunc as execInitArcballCameraController } from "./jobs/init/InitArcballCameraControllerJob";
 import { execFunc as execBindEvent } from "./jobs/init/BindEventJob";
+import { execFunc as execInitScript } from "./jobs/init/InitScriptJob";
+import { execFunc as execUpdateScript } from "./jobs/update/UpdateScriptJob";
 import { execFunc as execConvertSceneGraph } from "./jobs/render/ConvertSceneGraphJob";
 import { execFunc as execUpdateArcballCameraController } from "./jobs/render/UpdateArcballCameraControllerJob";
 import { execFunc as execRender } from "./jobs/render/RenderJob";
@@ -25,6 +27,10 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execUpdateArcballCameraController
 		case job.BindEvent:
 			return execBindEvent
+		case job.InitScript:
+			return execInitScript
+		case job.UpdateScript:
+			return execUpdateScript;
 		case job.Render:
 			return execRender;
 		default:

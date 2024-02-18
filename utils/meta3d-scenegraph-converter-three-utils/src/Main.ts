@@ -85,6 +85,7 @@ import {
 import { setVariables } from "./SetVariables";
 import * as Meta3DCameraActive from "meta3d-gltf-extensions/src/Meta3DCameraActive"
 import * as Meta3DCameraController from "meta3d-gltf-extensions/src/Meta3DCameraController"
+import * as Meta3DScript from "meta3d-gltf-extensions/src/Meta3DScript"
 
 // class Group extends Object3D {
 //     constructor(gameObject: gameObject) {
@@ -245,6 +246,33 @@ let _addCameraControllerComponent = (
         default:
             throw new Error("error")
     }
+
+    return meta3dState
+}
+
+let _addScriptComponent = (
+    sceneService: scene,
+    meta3dState: meta3dState,
+    gameObject,
+    value: Meta3DScript.extensionValue) => {
+    let { createScript, setAttribute, setAllAssetData } = sceneService.script
+    let data = createScript(meta3dState)
+    meta3dState = data[0]
+    let script = data[1]
+
+    let {
+        attribute,
+        allAssetData
+    } = value
+
+    if (!isNullable(attribute)) {
+        meta3dState = setAttribute(meta3dState, script, getExn(attribute))
+    }
+    if (!isNullable(allAssetData)) {
+        meta3dState = setAllAssetData(meta3dState, script, getExn(allAssetData))
+    }
+
+    meta3dState = sceneService.gameObject.addScript(meta3dState, gameObject, script)
 
     return meta3dState
 }
@@ -440,6 +468,16 @@ let _import = (sceneService: scene,
         }
         else {
             meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, standardMaterialMap[meshMaterial.uuid])
+        }
+
+
+        if (!isNullable(mesh.userData[Meta3DScript.buildKey()])) {
+            meta3dState = _addScriptComponent(
+                sceneService,
+                meta3dState,
+                gameObject,
+                getExn(mesh.userData[Meta3DScript.buildKey()])
+            )
         }
     }
     else if ((object3D as any as DirectionalLightType).isDirectionalLight) {

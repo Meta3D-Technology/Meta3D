@@ -10,7 +10,9 @@ import { buildGetAllGameObjectsFunc } from "meta3d-pipeline-webgl1-three-utils/s
 import { state as converterState } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
 import * as Meta3DCameraActive from "./extensions/active-camera/Meta3DCameraActive"
 import * as Meta3DCameraController from "./extensions/cameracontroller/Meta3DCameraController"
+import * as Meta3DScript from "./extensions/script/Meta3DScript"
 import * as  Meta3DCameraControllerUtils from "meta3d-gltf-extensions/src/Meta3DCameraController"
+import * as  Meta3DScriptUtils from "meta3d-gltf-extensions/src/Meta3DScript"
 import { assertFalse, ensureCheck, requireCheck, test } from "meta3d-ts-contract-utils"
 import { hasDuplicateItems } from "meta3d-structure-utils/src/ArrayUtils"
 
@@ -61,6 +63,38 @@ let _getPerspectiveCameraProjectionGameObjectName = (api: api, meta3dState: meta
     )
 }
 
+let _buildAllScriptData = (api: api, meta3dState: meta3dState): Meta3DScriptUtils.allScriptData => {
+    let engineSceneService = getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
+
+    return ensureCheck(
+        engineSceneService.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
+            return engineSceneService.gameObject.hasScript(meta3dState, gameObject)
+        }).map(gameObject => {
+            return [
+                engineSceneService.gameObject.getGameObjectName(meta3dState, gameObject),
+                Meta3DScriptUtils.getValue(engineSceneService, meta3dState,
+                    gameObject
+                )
+            ]
+        }), (
+            allScriptData: Meta3DScriptUtils.allScriptData
+        ) => {
+        test("shouldn't has the same script gameObject name", () => {
+            return assertFalse(
+                hasDuplicateItems(
+                    allScriptData,
+                    ([
+                        gameObjectName,
+                        _
+                    ]) => {
+                        return gameObjectName
+                    }
+                )
+            )
+        })
+    }, true)
+}
+
 export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
     return {
         export: ([onFinishFunc, onErrorFunc], meta3dState) => {
@@ -93,6 +127,9 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     //     ["none" as any, null]
                     // ),
                     _buildAllControllerData(api, meta3dState),
+                    writer))
+                .register(writer => Meta3DScript.getExtension(
+                    _buildAllScriptData(api, meta3dState),
                     writer))
                 .parse(
                     scene_,

@@ -682,33 +682,54 @@ run editor
 TODO refactor: deferLoad duplicate
 
 
-*** TODO update engine-whole
+*** DONE update engine-whole
 
-# TODO add onInit, update script job
+TODO add onInit, update script job
 
+TODO export should handle script component
+    GLTF add script extension
+    Mesh.userData add script data?
+
+
+TODO import should handle script component
+    _import read Mesh.userData, then add script component
+
+
+TODO pass export data run test
 
 TODO pass publish run test
+    extract script api: use getEngineSceneService instead of getPackageService
+
+
+
+TODO pass publish to platform run test
 
 
 TODO publish:
+# meta3d-export-scene
 # engine-core and p;
-# gameview pipeline, extension and p;
+# gameview pipeline
 # sceneview
-webview pipeline, extension and p;
+# webview pipeline
 # engine-scene
-imgui p
-ui p
-editor whole
+# imgui p
+# ui p
+# editor whole
 
+# meta3d-scenegraph-converter-three
+# three
+
+# load-glb
+# asset
 
 TODO update:
 # engine-core
 # gameview
 # engine-scene
-ui
-editor-whole
-web
-engine-whole
+# ui
+# editor-whole
+# web
+# engine-whole
 
 
 
@@ -738,23 +759,23 @@ TODO fix: editor loop will increase
 
 
 
-* TODO 3D贪吃蛇
+# * TODO 3D贪吃蛇
 
-Snake, Scene use gltf model!
-
-
-script:
-control visiable
-bind keyboard event to switch scene
+# Snake, Scene use gltf model!
 
 
+# script:
+# control visiable
+# bind keyboard event to switch scene
 
-TODO unbind event when stop
 
 
-** TODO add 2d ui
+# TODO unbind event when stop
 
-** TODO ...
+
+# ** TODO add 2d ui
+
+# ** TODO ...
 
 
 * TODO publish

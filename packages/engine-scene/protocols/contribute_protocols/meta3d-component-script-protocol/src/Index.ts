@@ -7,8 +7,8 @@ export type config = { readonly isDebug: boolean };
 export type attributeValue = any
 
 export type assetData = {
-  name:string,
-  eventFileStr:string
+  name: string,
+  eventFileStr: string
 }
 
 export type allAssetData = Array<assetData>

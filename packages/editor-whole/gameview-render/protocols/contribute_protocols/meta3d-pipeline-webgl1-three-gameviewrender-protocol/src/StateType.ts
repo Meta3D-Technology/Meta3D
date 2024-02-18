@@ -20,7 +20,7 @@ export enum job {
     Init = "init_three_gameviewrender_meta3d",
     Render = "render_three_gameviewrender_meta3d",
 
-    UpdateScript="update_three_gameviewrender_meta3d",
+    UpdateScript="update_script_three_gameviewrender_meta3d",
 
     InitArcballCameraController = "init_arcballcameracontroller_three_gameviewrender_meta3d",
     CreateDefaultScene = "create_default_scene_three_gameviewrender_meta3d",

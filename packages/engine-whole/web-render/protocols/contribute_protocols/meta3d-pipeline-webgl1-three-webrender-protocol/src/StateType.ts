@@ -10,6 +10,7 @@ export const pipelineName = "WebGL1_Three_webrender"
 
 export enum pipeline {
     Init = "init",
+    Update = "update",
     Render = "render",
 }
 
@@ -19,6 +20,12 @@ export enum job {
     InitArcballCameraController = "init_arcballcameracontroller_three_webrender_meta3d",
     UpdateArcballCameraController = "update_arcballcameracontroller_three_webrender_meta3d",
     BindEvent = "bind_event_three_webrender_meta3d",
+
+
+    InitScript = "init_script_three_webrender_meta3d",
+
+    UpdateScript = "update_script_three_webrender_meta3d",
+
     Render = "render_three_webrender_meta3d",
 }
 
@@ -40,6 +47,26 @@ export const allPipelineData: allPipelineDataType = [
                     },
                     {
                         "name": job.BindEvent,
+                        "type_": "job"
+                    },
+                    {
+                        "name": job.InitScript,
+                        "type_": "job"
+                    },
+                ]
+            }
+        ],
+        first_group: "first_three_webrender_meta3d"
+    },
+    {
+        name: pipeline.Update,
+        groups: [
+            {
+                name: "first_three_webrender_meta3d",
+                link: "concat",
+                elements: [
+                    {
+                        "name": job.UpdateScript,
                         "type_": "job"
                     },
                 ]

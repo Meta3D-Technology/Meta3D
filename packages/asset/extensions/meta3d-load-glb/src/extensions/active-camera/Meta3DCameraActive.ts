@@ -1,7 +1,8 @@
 import { buildKey, buildValue } from "meta3d-gltf-extensions/src/Meta3DCameraActive"
 import { setValueToObject } from "meta3d-structure-utils/src/ObjectUtils"
 import { forEach, isNullable, map, getWithDefault, getExn, getEmpty, return_, bind } from "meta3d-commonlib-ts/src/NullableUtils"
-import { handleNodeNameToAsGLTFLoader, setCameraUserData } from "../utils/CameraUtils"
+import { handleNodeNameToAsGLTFLoader } from "../utils/NodeUtils"
+import { setCameraUserData } from "../utils/CameraUtils"
 
 let _findActivedCameraGameObjectName = (json) => {
     return bind(cameras => {

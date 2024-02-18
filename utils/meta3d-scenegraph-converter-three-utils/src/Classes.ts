@@ -70,7 +70,7 @@ import {
     globalKeyNameForDirectionLightInstanceMap
 } from "./SetVariables";
 import * as Meta3DCameraController from "meta3d-gltf-extensions/src/Meta3DCameraController"
-import { setValueToObject } from "meta3d-structure-utils/src/ObjectUtils"
+import * as Meta3DScript from "meta3d-gltf-extensions/src/Meta3DScript"
 
 let _getEmptyGameObject = () => -1
 
@@ -300,8 +300,38 @@ export class Object3D {
         )
     }
 
-    public get userData(): { [key: string]: any } {
-        return {}
+    private _userData: Record<string, any> = {}
+    public get userData() {
+        let meta3dState = getMeta3dState()
+
+        let engineSceneService = getEngineSceneService(meta3dState)
+
+        let userData = null
+
+        if (isNullable(this._userData[Meta3DCameraController.buildKey()]) && engineSceneService.gameObject.hasArcballCameraController(meta3dState, this.gameObject)) {
+            userData = {
+                ...this._userData,
+                [Meta3DCameraController.buildKey()]: Meta3DCameraController.buildValue("arcball", return_(
+                    Meta3DCameraController.getArcballCameraControllerValue(engineSceneService, meta3dState, this.gameObject)
+                ))
+            }
+        }
+        else if (isNullable(this._userData[Meta3DScript.buildKey()]) && engineSceneService.gameObject.hasScript(meta3dState, this.gameObject)) {
+            userData = {
+                ...this._userData,
+                [Meta3DScript.buildKey()]: Meta3DScript.buildValue((
+                    Meta3DScript.getValue(engineSceneService, meta3dState, this.gameObject)
+                ))
+            }
+        }
+        else{
+            userData = this._userData
+        }
+
+        return userData
+    }
+    public set userData(data) {
+        this._userData = data
     }
 
     public get children(): Array<Object3D | Mesh | PerspectiveCamera | DirectionLight> {
@@ -423,32 +453,6 @@ export class Camera extends Object3D {
         )
     }
 
-    private _userData: Record<string, any> = {}
-    public get userData() {
-        let data = this._userData[Meta3DCameraController.buildKey()]
-
-        if (!isNullable(data)) {
-            return getExn(data)
-        }
-
-        let meta3dState = getMeta3dState()
-
-        let engineSceneService = getEngineSceneService(meta3dState)
-
-        if (!engineSceneService.gameObject.hasArcballCameraController(meta3dState, this.gameObject)) {
-            return this._userData
-        }
-
-        return {
-            ...this._userData,
-            [Meta3DCameraController.buildKey()]: Meta3DCameraController.buildValue("arcball", return_(
-                Meta3DCameraController.getArcballCameraControllerValue(engineSceneService, meta3dState, this.gameObject)
-            ))
-        }
-    }
-    public set userData(data) {
-        this._userData = data
-    }
 }
 
 export class PerspectiveCamera extends Camera {
@@ -857,6 +861,8 @@ export class Mesh extends Object3D {
 
         return _getOrCreatePhysicalMaterialInstance(gameObject.getPBRMaterial(meta3dState, this.gameObject))
     }
+
+
 }
 
 let _convertTangentFromItemSize3To4 = (tangents: Float32Array) => {

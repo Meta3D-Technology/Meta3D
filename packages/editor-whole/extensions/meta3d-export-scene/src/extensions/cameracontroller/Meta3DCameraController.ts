@@ -1,6 +1,7 @@
 import { buildKey, buildValue, allControllerData } from "meta3d-gltf-extensions/src/Meta3DCameraController"
 import { forEach, isNullable, map, getWithDefault, getExn, getEmpty, return_, bind } from "meta3d-commonlib-ts/src/NullableUtils"
-import { findCameraIndex, setExtension } from "../utils/CameraUtils";
+import { findCameraIndex } from "../utils/CameraUtils";
+import { setExtension } from "../utils/ExtensionUtils";
 
 export let getExtension = (allControllerData: allControllerData, writer) => {
     return {

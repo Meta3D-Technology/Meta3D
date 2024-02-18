@@ -1,7 +1,7 @@
-export let setCameraUserData = (func, gltf, gameObjectName) => {
+export let setScriptUserData = (func, gltf, gameObjectName) => {
     for (let scene of gltf.scenes) {
         scene.traverse(object => {
-            if (!object.isCamera || object.name != gameObjectName) {
+            if (!object.isMesh || object.name != gameObjectName) {
                 return
             }
 

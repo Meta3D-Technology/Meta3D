@@ -12,6 +12,7 @@ import { state as meta3dState } from "meta3d-type"
 import type { WebGLRenderer } from "three"
 import * as Meta3DCameraActive from "./extensions/active-camera/Meta3DCameraActive"
 import * as Meta3DCameraController from "./extensions/cameracontroller/Meta3DCameraController"
+import * as Meta3DScript from "./extensions/script/Meta3DScript"
 
 let _createRendererOnlyOnce = (meta3dState: meta3dState, api: api, threeAPIService: threeAPIService) => {
     let state = api.getExtensionState<state>(meta3dState, "meta3d-load-glb-protocol")
@@ -59,6 +60,7 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (api) => {
                     .setKTX2Loader(ktx2Loader)
                     .register(Meta3DCameraActive.getExtension)
                     .register(Meta3DCameraController.getExtension)
+                    .register(Meta3DScript.getExtension)
                     .parse(
                         glb,
                         "",

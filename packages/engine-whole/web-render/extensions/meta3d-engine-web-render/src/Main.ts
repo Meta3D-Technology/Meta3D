@@ -29,6 +29,11 @@ let _prepare = (api: api, meta3dState: meta3dState, canvas: HTMLCanvasElement) =
 				insertAction: "after"
 			},
 			{
+				pipelineName: pipelineRootPipeline.Update,
+				insertElementName: pipelineRootJob.Update,
+				insertAction: "after"
+			},
+			{
 				pipelineName: pipelineRootPipeline.Render,
 				insertElementName: pipelineRootJob.Render,
 				insertAction: "after"
