@@ -770,7 +770,7 @@ if not select action/input, not create react.monaco!
 
 
 
-* TODO publish v1.3.0
+* DONE publish v1.3.0
 
 
 
@@ -797,7 +797,7 @@ TODO unbind event when stop
 * TODO publish v1.3.1
 
 
-# TODO update pro
+TODO update pro
 
 
 

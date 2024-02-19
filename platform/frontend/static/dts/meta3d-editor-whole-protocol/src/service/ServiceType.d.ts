@@ -149,6 +149,13 @@ export type fovy = number;
 export type aspect = number;
 export type near = number;
 export type far = number;
+export type attributeValue = any;
+export type assetData = {
+	name: string;
+	eventFileStr: string;
+};
+export type allAssetData = Array<assetData>;
+export type script = number;
 export type gameObject$1 = gameObject;
 // tslint:disable-next-line:interface-over-type-literal
 export type createStateFunc<state> = () => state;
@@ -205,6 +212,9 @@ export type hasBasicCameraView = (meta3dState: state, gameObject: gameObject) =>
 export type getPerspectiveCameraProjection = (meta3dState: state, gameObject: gameObject) => perspectiveCameraProjection;
 export type addPerspectiveCameraProjection = (meta3dState: state, gameObject: gameObject, perspectiveCameraProjection: perspectiveCameraProjection) => state;
 export type hasPerspectiveCameraProjection = (meta3dState: state, gameObject: gameObject) => boolean;
+export type getScript = (meta3dState: state, gameObject: gameObject) => script;
+export type addScript = (meta3dState: state, gameObject: gameObject, script: script) => state;
+export type hasScript = (meta3dState: state, gameObject: gameObject) => boolean;
 export type getArcballCameraController = (meta3dState: state, gameObject: gameObject) => arcballCameraController;
 export type addArcballCameraController = (meta3dState: state, gameObject: gameObject, arcballCameraController: arcballCameraController) => state;
 export type hasArcballCameraController = (meta3dState: state, gameObject: gameObject) => boolean;
@@ -223,6 +233,7 @@ export type disposeGameObjectPBRMaterialComponent = (meta3dState: state, gameObj
 export type disposeGameObjectGeometryComponent = (meta3dState: state, gameObject: gameObject, component: geometry$1) => state;
 export type disposeGameObjectBasicCameraViewComponent = (meta3dState: state, gameObject: gameObject, component: basicCameraView) => state;
 export type disposeGameObjectPerspectiveCameraProjectionComponent = (meta3dState: state, gameObject: gameObject, component: perspectiveCameraProjection) => state;
+export type disposeGameObjectScriptComponent = (meta3dState: state, gameObject: gameObject, component: script) => state;
 export type disposeGameObjectArcballCameraControllerComponent = (meta3dState: state, gameObject: gameObject, component: arcballCameraController) => state;
 export type getGameObjectName = (meta3dState: state, gameObject: gameObject) => nullable<name>;
 export type setGameObjectName = (meta3dState: state, gameObject: gameObject, name: name) => state;
@@ -396,6 +407,7 @@ export type createBasicCameraView = (meta3dState: state) => [
 ];
 export type getGameObjects$3 = (meta3dState: state, basicCameraView: basicCameraView) => Array<gameObject>;
 export type active = (meta3dState: state, basicCameraView: basicCameraView) => state;
+export type notActive = (meta3dState: state, basicCameraView: basicCameraView) => state;
 export type getViewWorldToCameraMatrix = (meta3dState: state, basicCameraView: basicCameraView) => nullable<Float32Array>;
 export type getActiveCameraView = (meta3dState: state, isDebug: boolean) => nullable<basicCameraView>;
 export type getName$5 = (meta3dState: state, basicCameraView: basicCameraView) => nullable<string>;
@@ -439,6 +451,16 @@ export type setDirection = (meta3dState: state, directionLight: directionLight, 
 ]) => state;
 // export type getAllDirectionLights = (meta3dState: meta3dState) => directionLight[]
 export type getGameObjects$5 = (meta3dState: state, directionLight: directionLight) => Array<gameObject>;
+export type createScript = (meta3dState: state) => [
+	state,
+	script
+];
+export type getName$8 = (meta3dState: state, script: script) => nullable<string>;
+export type setName$8 = (meta3dState: state, script: script, name: string) => state;
+export type getAllAssetData = (meta3dState: state, script: script) => nullable<allAssetData>;
+export type setAllAssetData = (meta3dState: state, script: script, allAssetData: allAssetData) => state;
+export type getAttribute = (meta3dState: state, script: script) => nullable<attributeValue>;
+export type setAttribute = (meta3dState: state, script: script, attribute: number) => state;
 export type ecsConfig = {
 	float9Array1: Float32Array;
 	float32Array1: Float32Array;
@@ -454,6 +476,7 @@ export type scene = {
 		addGeometry: addGeometry;
 		addPBRMaterial: addPBRMaterial;
 		addPerspectiveCameraProjection: addPerspectiveCameraProjection;
+		addScript: addScript;
 		addTransform: addTransform;
 		addArcballCameraController: addArcballCameraController;
 		cloneGameObject: cloneGameObject;
@@ -465,6 +488,7 @@ export type scene = {
 		disposeGameObjectGeometryComponent: disposeGameObjectGeometryComponent;
 		disposeGameObjectPBRMaterialComponent: disposeGameObjectPBRMaterialComponent;
 		disposeGameObjectPerspectiveCameraProjectionComponent: disposeGameObjectPerspectiveCameraProjectionComponent;
+		disposeGameObjectScriptComponent: disposeGameObjectScriptComponent;
 		disposeGameObjects: disposeGameObjects;
 		disposeGameObjectTransformComponent: disposeGameObjectTransformComponent;
 		getAllGameObjects: getAllGameObjects;
@@ -475,6 +499,7 @@ export type scene = {
 		getNeedDisposedGameObjects: getNeedDisposedGameObjects;
 		getPBRMaterial: getPBRMaterial;
 		getPerspectiveCameraProjection: getPerspectiveCameraProjection;
+		getScript: getScript;
 		getTransform: getTransform;
 		hasArcballCameraController: hasArcballCameraController;
 		hasBasicCameraView: hasBasicCameraView;
@@ -482,6 +507,7 @@ export type scene = {
 		hasGeometry: hasGeometry;
 		hasPBRMaterial: hasPBRMaterial;
 		hasPerspectiveCameraProjection: hasPerspectiveCameraProjection;
+		hasScript: hasScript;
 		hasTransform: hasTransform;
 		getGameObjectName: getGameObjectName;
 		setGameObjectName: setGameObjectName;
@@ -533,6 +559,15 @@ export type scene = {
 		setFar: setFar;
 		getAspect: getAspect;
 		setAspect: setAspect;
+	};
+	script: {
+		createScript: createScript;
+		getName: getName$8;
+		setName: setName$8;
+		getAttribute: getAttribute;
+		setAttribute: setAttribute;
+		getAllAssetData: getAllAssetData;
+		setAllAssetData: setAllAssetData;
 	};
 	pbrMaterial: {
 		createPBRMaterial: createPBRMaterial;
@@ -612,6 +647,7 @@ export type scene = {
 		getViewWorldToCameraMatrix: getViewWorldToCameraMatrix;
 		getActiveCameraView: getActiveCameraView;
 		active: active;
+		notActive: notActive;
 	};
 	arcballCameraController: {
 		createArcballCameraController: createArcballCameraController;
@@ -755,6 +791,10 @@ declare enum cond {
 	Always,
 	Once
 }
+export type vec2 = {
+	x: number;
+	y: number;
+};
 export type uiExtensionProtocolName = extensionProtocolName;
 export type imguiRendererExtensionProtocolName = extensionProtocolName;
 export type time = number;
@@ -825,9 +865,11 @@ export type service$1 = {
 	readonly loadImage: (meta3dState: state, _1: imageSrc) => Promise<imguiImplTexture>;
 	readonly asset: (meta3dState: state, 
 	// textures: { "loadGlbTexture": imguiImplTexture, "removeAssetTexture": imguiImplTexture, "glbTexture": imguiImplTexture },
-	fileTexture: imguiImplTexture, files: Array<[
+	// fileTexture: imguiImplTexture,
+	files: Array<[
 		string,
-		string
+		string,
+		imguiImplTexture
 	]>, label: label, rect: rect$1) => [
 		state,
 		nullable<string>
@@ -901,6 +943,10 @@ export type service$1 = {
 		state,
 		nullable<string>
 	];
+	readonly inputFloat1: (meta3dState: state, label: label, value: number, step: number, stepFast: number, width: number) => [
+		state,
+		nullable<number>
+	];
 	readonly inputFloat3: (meta3dState: state, label: label, value: [
 		number,
 		number,
@@ -913,6 +959,10 @@ export type service$1 = {
 			number
 		]>
 	];
+	readonly checkbox: (meta3dState: state, label: label, value: boolean) => [
+		state,
+		nullable<boolean>
+	];
 	readonly collapsing: (meta3dState: state, label: label, isOpen: boolean, cond: cond) => [
 		state,
 		boolean
@@ -924,10 +974,39 @@ export type service$1 = {
 		boolean
 	];
 	readonly endModal: (meta3dState: state) => state;
+	readonly popup: (meta3dState: state, label: label, selectedValues: Array<string>, id: string) => [
+		state,
+		nullable<number>
+	];
+	readonly imagePopup: (meta3dState: state, clickTexture: imguiImplTexture, rect: rect$1, selectedValues: Array<string>, id: string) => [
+		state,
+		nullable<number>
+	];
 	readonly handleDragDropTarget: <data>(meta3dState: state, type: string) => [
 		state,
 		nullable<data>
 	];
+	readonly dummy: (meta3dState: state, width: number, height: number) => state;
+	readonly list: (meta3dState: state, label: label, [width, height]: [
+		number,
+		number
+	], items: Array<string>, [itemWidth, itemHeight]: [
+		number,
+		number
+	], isRemoveable: boolean, removeTexture: nullable<imguiImplTexture>) => [
+		state,
+		[
+			nullable<[
+				number,
+				string
+			]>,
+			nullable<boolean>
+		]
+	];
+	readonly getItemRectMax: (meta3dState: state) => vec2;
+	readonly getItemRectSize: (meta3dState: state) => vec2;
+	readonly getWindowPos: (meta3dState: state) => vec2;
+	readonly getWindowSize: (meta3dState: state) => vec2;
 };
 export type actionName = string;
 export type eventHandler<uiData> = (meta3dState: state, uiData: uiData) => Promise<state>;
@@ -1260,6 +1339,7 @@ export type service$6 = {
 			Array<component$1>,
 			Array<component$1>,
 			Array<component$1>,
+			Array<component$1>,
 			Array<component$1>
 		]
 	];
@@ -1308,20 +1388,21 @@ export type exportScene = ([onFinishFunc, onErrorFunc]: [
 // import type { GLTF } from "meta3d-load-scene-utils/src/three/GLTFLoader"
 export type GLTF = any;
 export type loadGlb = (meta3dState: state, glb: ArrayBuffer) => Promise<GLTF>;
-export type glb = ArrayBuffer;
-export type glbName = string;
-export type assetFile = ArrayBuffer;
+export type assetData$1 = ArrayBuffer;
 export type service$9 = {
 	loadGlb: loadGlb;
-	addGLBAsset: (meta3dState: state, glb: glb, glbId: outsideImmutableDataId, glbName: glbName) => state;
-	removeGLBAsset: (meta3dState: state, glbId: outsideImmutableDataId) => state;
-	getAllGLBAssets: (meta3dState: state) => Array<[
-		outsideImmutableDataId,
-		glbName,
-		glb
-	]>;
-	exportAsset: (meta3dState: state) => assetFile;
-	importAsset: (meta3dState: state, assetFile: assetFile) => state;
+	exportAsset: (data: [
+		Uint8Array,
+		Uint8Array,
+		Uint8Array,
+		Array<Uint8Array>
+	]) => assetData$1;
+	parseAsset: (assetData: assetData$1) => [
+		Uint8Array,
+		Uint8Array,
+		Uint8Array,
+		Array<Uint8Array>
+	];
 };
 export type zip = any;
 export type file = any;

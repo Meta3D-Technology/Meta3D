@@ -36,14 +36,14 @@ module.exports = {
 				test: /\.js$/,
 				loader: "source-map-loader"
 			},
-			// {
-			// 	test: /\.css$/,
-			// 	use: ['style-loader', 'css-loader']
-			// },
-			// {
-			// 	test: /\.ttf$/,
-			// 	type: 'asset/resource'
-			// }
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader']
+			},
+			{
+				test: /\.ttf$/,
+				type: 'asset/resource'
+			}
 		]
 	},
 	plugins: [

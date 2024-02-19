@@ -2,14 +2,14 @@ rescript = 1
 g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml/install.stamp
 g_finger := /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml/install.stamp
 rule astj
-  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -w -0-1-2-3-4-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47-48-49-50-51-52-53-54-55-56-57-58-59-60-61-62-K -warn-error +5+6 -bs-v 10.1.4 -bs-no-version-header -bs-super-errors -absname -bs-ast -o $out $i
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe  -w a -bs-v 10.1.4 -bs-no-version-header -bs-super-errors -absname -bs-ast -o $out $i
 o src/service/ServiceType.ast : astj ../../src/service/ServiceType.res
 rule deps
   command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsb_helper.exe -hash 5ad52a53dfc4079fa2cdb27d6756cad1 -bs-ns Meta3dAssetProtocol $in
   restat = 1
 o src/service/ServiceType.d : deps src/service/ServiceType.ast
 rule mij
-  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -bs-ns Meta3dAssetProtocol -I . -I src/state -I src/service -I src -I /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml -bs-no-version-header -bs-super-errors -w -0-1-2-3-4-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28-29-30-31-32-33-34-35-36-37-38-39-40-41-42-43-44-45-46-47-48-49-50-51-52-53-54-55-56-57-58-59-60-61-62-K -warn-error +5+6 -bs-gentype -bs-package-name meta3d-asset-protocol -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output es6-global:lib/es6_global/$in_d:.bs.js -bs-v $g_finger $i
+  command = /Users/yang/Github/Meta3D/node_modules/rescript/darwin/bsc.exe -bs-ns Meta3dAssetProtocol -I . -I src/state -I src/service -I src -I /Users/yang/Github/Meta3D/node_modules/meta3d-type/lib/ocaml -I /Users/yang/Github/Meta3D/node_modules/meta3d-commonlib-type/lib/ocaml -bs-no-version-header -bs-super-errors  -w a -bs-gentype -bs-package-name meta3d-asset-protocol -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output es6-global:lib/es6_global/$in_d:.bs.js -bs-v $g_finger $i
   dyndep = 1
   restat = 1
 o src/service/ServiceType-Meta3dAssetProtocol.cmj src/service/ServiceType-Meta3dAssetProtocol.cmi ../es6_global/src/service/ServiceType.bs.js ../js/src/service/ServiceType.bs.js : mij src/service/ServiceType.ast
