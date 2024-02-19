@@ -11,10 +11,7 @@ module Method = {
 }
 
 @react.component
-let make = (
-  ~service: service,
-  ~currentCustomInputName,
-) => {
+let make = (~service: service, ~currentCustomInputName) => {
   let customInputs = service.react.useSelector(. Method.useSelector)
 
   <CustomCodeEditUtils
@@ -22,18 +19,19 @@ let make = (
     getCurrentCustomNameFromGlobalFunc=CodeEditUtils.getCurrentCustomInputNameFromGlobal
     getNameFunc=CustomUtils.getInputName
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomInputNameToGlobal
-    buildUpdateActionFunc={(
-      name,
-      newName,
-      newOriginCode,
-      newTranspiledCode,
-    ) => ElementAssembleStoreType.UpdateCustomInputFileStr(
-      name,
-      newName,
-      newOriginCode,
-      newTranspiledCode,
-    )}
+    // buildUpdateActionFunc={(
+    //   name,
+    //   newName,
+    //   newOriginCode,
+    //   newTranspiledCode,
+    // ) => ElementAssembleStoreType.UpdateCustomInputFileStr(
+    //   name,
+    //   newName,
+    //   newOriginCode,
+    //   newTranspiledCode,
+    // )}
     currentCustomName=currentCustomInputName
-    customs=customInputs
+    // customs=customInputs
+    type_=CommonType.Input
   />
 }

@@ -97,15 +97,20 @@ module Method = {
     }, _)
   }
 
-  let editorWillUnmount = (editor, monaco) => {
-    // Js.log("unmound")
-
+  let editorWillUnmount = (eventEmitter: Event.eventEmitter, editor, monaco) => {
+    eventEmitter.emit(. EventUtils.getCodeEditUnmountEventName(), Obj.magic(1))
     Js.Promise.resolve()
+  }
+
+  let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
+    eventEmitter
   }
 }
 
 @react.component
 let make = (~service: service, ~code, ~getNewCodeFunc) => {
+  let eventEmitter = service.react.useAllSelector(. Method.useSelector)
+
   let tsProxy = service.react.useRef(None)
   let editor = service.react.useRef(None)
 
@@ -157,7 +162,7 @@ let make = (~service: service, ~code, ~getNewCodeFunc) => {
         value={code}
         onChange={Method.onChange(getNewCodeFunc, (tsProxy, editor))}
         editorDidMount={Method.editorDidMount((tsProxy, editor))}
-        editorWillUnmount={Method.editorWillUnmount}
+        editorWillUnmount={Method.editorWillUnmount(eventEmitter)}
       />
     }
   }

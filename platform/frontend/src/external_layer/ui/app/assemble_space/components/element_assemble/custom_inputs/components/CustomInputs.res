@@ -47,5 +47,6 @@ let make = (~service: service, ~addInputButtonTarget: React.ref<Js.Nullable.t<'a
     currentCustomName=currentCustomInputName
     customs=customInputs
     prefix="Input"
+    type_=CommonType.Input
   />
 }

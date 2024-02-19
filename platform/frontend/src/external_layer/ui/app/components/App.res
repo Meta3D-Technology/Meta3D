@@ -19,6 +19,9 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   Antd.Message.setMessageAPI(messageApi)
 
   let dispatch = AppStore.useDispatch()
+  let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
+    ReactUtils.useDispatchForAssembleSpaceStore,
+  )
 
   let url = RescriptReactRouter.useUrl()
 
@@ -356,6 +359,25 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     }, _)
   }
 
+  let _updateCode = (dispatch, (name, customs)) => {
+    // _updateCustomFileStr(dispatch)
+
+    dispatch(
+      ElementAssembleStoreType.SetCode(
+        switch (
+          customs
+          ->Meta3dCommonlib.ListSt.find((custom: CommonType.custom) => {
+            custom.name == name
+          })
+          ->Meta3dCommonlib.OptionSt.getExn
+        ).originFileStr {
+        | None => ElementAssembleStoreType.UnEditable
+        | Some(code) => ElementAssembleStoreType.Origin(code)
+        },
+      ),
+    )
+  }
+
   //   let _deferLoad = %raw(`
   // function (){
   // return import(
@@ -489,6 +511,22 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
         ? DocGuideUtils.FirstImportCompleteEditorTemplate.openDocDrawer(dispatch)
         : ()
     })
+
+    None
+  })
+  React.useEffect0(() => {
+    // eventEmitter.addListener(.EventUtils.getCodeEditUnmountEventName(), _ => {
+    //   _updateCustomFileStr(dispatchForElementAssembleStore)
+    // })
+    eventEmitter.addListener(.EventUtils.getSelectActionInActionsEventName(), data => {
+      _updateCode(dispatchForElementAssembleStore, data->Obj.magic)
+    })
+    eventEmitter.addListener(.EventUtils.getSelectInputInInputsEventName(), data => {
+      _updateCode(dispatchForElementAssembleStore, data->Obj.magic)
+    })
+    // eventEmitter.addListener(.EventUtils.getRunEventName(), _ => {
+    //   _updateCustomFileStr(dispatchForElementAssembleStore)
+    // })
 
     None
   })

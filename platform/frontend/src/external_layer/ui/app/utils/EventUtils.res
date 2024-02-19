@@ -35,3 +35,5 @@ let getSelectActionInActionsEventName = () => "SelectActionInActionsEventName"
 let getRunAppEventName = () => "RunAppEventName"
 
 let getImportAppEventName = () => "ImportAppEventName"
+
+let getCodeEditUnmountEventName = () => "CodeEditUnmountEventName"

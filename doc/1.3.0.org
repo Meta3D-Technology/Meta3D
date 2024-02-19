@@ -755,7 +755,12 @@ TODO update:
 
 * DONE fix(platform): create input->set name to exist name->change name to other name: will create dupliate one
 
-* TODO perf(platform): code edit: if change code, not create monaco
+* DONE perf(platform): code edit: if change code, not create monaco
+
+# onChange too slow?
+
+if not select action/input, not create react.monaco!
+    if select action/input or didMount, dispatch
 
 
 * TODO fix: editor: run-stop: should reset arcball in gameview when stop
@@ -764,26 +769,32 @@ TODO update:
 
 
 
-# * TODO 3D贪吃蛇
 
-# Snake, Scene use gltf model!
-
-
-# script:
-# control visiable
-# bind keyboard event to switch scene
+* TODO publish v1.3.0
 
 
 
-# TODO unbind event when stop
+
+* TODO 3D贪吃蛇
+
+Snake, Scene use gltf model!
 
 
-# ** TODO add 2d ui
+script:
+control visiable
+bind keyboard event to switch scene
 
-# ** TODO ...
 
 
-* TODO publish
+TODO unbind event when stop
+
+
+** TODO add 2d ui
+
+** TODO ...
+
+
+* TODO publish v1.3.1
 
 
 # TODO update pro

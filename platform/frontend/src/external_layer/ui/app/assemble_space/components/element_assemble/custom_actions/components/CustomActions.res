@@ -68,5 +68,6 @@ let make = (~service: service, ~addActionButtonTarget: React.ref<Js.Nullable.t<'
     currentCustomName=currentCustomActionName
     customs=customActions
     prefix="Action"
+    type_=CommonType.Action
   />
 }

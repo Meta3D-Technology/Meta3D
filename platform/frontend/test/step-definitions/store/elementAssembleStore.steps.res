@@ -595,14 +595,19 @@ defineFeature(feature, test => {
     \"when"(
       "update custom input1's name and file str",
       () => {
+        CodeEditUtils.setChangeCodeDataToGlobal((
+          CommonType.Input,
+          inputName,
+          inputNewName,
+          newOriginFileStr,
+          newTranspiledFileStr,
+        ))
+
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.UpdateCustomInputFileStr(
-              inputName,
-              inputNewName,
-              newOriginFileStr,
-              newTranspiledFileStr,
+            ElementAssembleStoreType.UpdateCustomFileStr(
+                () => ()
             ),
           )
       },

@@ -43,6 +43,8 @@ let _createState = () => {
   customActions: list{},
   currentCustomInputName: None,
   currentCustomActionName: None,
+  currentCode: EmptyCode,
+  // currentChangeCode: EmptyChangeCode,
   isInCreateFromScratchTourPhase2: false,
   // isJumpToCreateFromScratchTourPhase2Guide: false,
 }
@@ -189,6 +191,16 @@ let _reset = state => {
     // customInputs: state.customInputs,
     // customActions: state.customActions,
   }
+}
+
+let _isNameExist = (newName, oldName, customs) => {
+  newName == oldName
+    ? false
+    : customs
+      ->Meta3dCommonlib.ListSt.find((custom: CommonType.custom) => {
+        custom.name == newName
+      })
+      ->Meta3dCommonlib.OptionSt.isSome
 }
 
 let reducer = (state, action) => {
@@ -436,54 +448,93 @@ let reducer = (state, action) => {
         }),
       })
     }
-  | UpdateCustomInputFileStr(oldInputName, newInputName, newOriginCode, newTranspiledCode) => {
-      let state = {
-        ...state,
-        customInputs: state.customInputs->Meta3dCommonlib.ListSt.map(customInput => {
-          customInput.name == oldInputName
-            ? (
-                {
-                  ...customInput,
-                  name: newInputName,
-                  originFileStr: newOriginCode->Some,
-                  transpiledFileStr: newTranspiledCode,
-                }: customInput
-              )
-            : customInput
-        }),
-      }
+  | UpdateCustomFileStr(handleNameExistFunc) =>
+    //   let state = switch state.currentChangeCode {
+    //   | Change(customType, oldName, newName, newOriginCode, newTranspiledCode) =>
+    let state = switch CodeEditUtils.getChangeCodeDataToGlobal()->Meta3dCommonlib.OptionSt.fromNullable {
+    | Some((customType, oldName, newName, newOriginCode, newTranspiledCode)) =>
+      switch customType {
+      | CommonType.Action =>
+        _isNameExist(newName, oldName, state.customActions)
+          ? {
+              handleNameExistFunc()
+              state
+            }
+          : {
+              let state = {
+                ...state,
+                customActions: state.customActions->Meta3dCommonlib.ListSt.map(custom => {
+                  custom.name == oldName
+                    ? (
+                        {
+                          name: newName,
+                          originFileStr: newOriginCode->Some,
+                          transpiledFileStr: newTranspiledCode,
+                        }: customAction
+                      )
+                    : custom
+                }),
+              }
 
-      state->_updateAllUIControlInspectorData(data => {
-        ...data,
-        input: data.input->Meta3dCommonlib.OptionSt.map(({inputName}): input => {
-          inputName: inputName == oldInputName ? newInputName : inputName,
-        }),
-      })
-    }
-  | UpdateCustomActionFileStr(oldActionName, newActionName, newOriginCode, newTranspiledCode) => {
-      let state = {
-        ...state,
-        customActions: state.customActions->Meta3dCommonlib.ListSt.map(customAction => {
-          customAction.name == oldActionName
-            ? (
-                {
-                  name: newActionName,
-                  originFileStr: newOriginCode->Some,
-                  transpiledFileStr: newTranspiledCode,
-                }: customAction
-              )
-            : customAction
-        }),
-      }
+              state->_updateAllUIControlInspectorData(data => {
+                ...data,
+                event: data.event->Meta3dCommonlib.ArraySt.map(action => {
+                  ...action,
+                  actionName: action.actionName == oldName ? newName : action.actionName,
+                }),
+              })
+            }
 
-      state->_updateAllUIControlInspectorData(data => {
-        ...data,
-        event: data.event->Meta3dCommonlib.ArraySt.map(action => {
-          ...action,
-          actionName: action.actionName == oldActionName ? newActionName : action.actionName,
-        }),
-      })
+      | CommonType.Input =>
+        _isNameExist(newName, oldName, state.customActions)
+          ? {
+              handleNameExistFunc()
+              state
+            }
+          : {
+              let state = {
+                ...state,
+                customInputs: state.customInputs->Meta3dCommonlib.ListSt.map(custom => {
+                  custom.name == oldName
+                    ? (
+                        {
+                          ...custom,
+                          name: newName,
+                          originFileStr: newOriginCode->Some,
+                          transpiledFileStr: newTranspiledCode,
+                        }: customInput
+                      )
+                    : custom
+                }),
+              }
+
+              state->_updateAllUIControlInspectorData(data => {
+                ...data,
+                input: data.input->Meta3dCommonlib.OptionSt.map(({inputName}): input => {
+                  inputName: inputName == oldName ? newName : inputName,
+                }),
+              })
+            }
+      }
+    | None => state
     }
+
+    // CodeEditUtils.setChangeCodeDataToGlobal(Meta3dCommonlib.NullableSt.getEmpty())
+
+    // {
+    //   ...state,
+    //   currentCode: EmptyCode,
+    //   // currentChangeCode: EmptyChangeCode,
+    // }
+    state
+  | SetCode(code) => {
+      ...state,
+      currentCode: code,
+    }
+  // | SetChangeCode(code) => {
+  //   ...state,
+  //   currentChangeCode: code,
+  // }
   | SelectCustomInput(inputName) => {
       ...state->_resetCurrent,
       currentCustomInputName: inputName->Some,

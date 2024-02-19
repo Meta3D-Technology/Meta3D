@@ -565,10 +565,7 @@ let make = (
       )
       eventEmitter.addListener(.
         EventUtils.getSelectInputInInputsEventName(),
-        inputName => {
-          // let inputName = inputName->Obj.magic
-
-          // inputName == "Input1" ? setCurrentTourStep(current => current->succ) : ()
+        _ => {
           setCurrentTourStep(current => current->succ)
         },
       )
@@ -594,10 +591,7 @@ let make = (
       )
       eventEmitter.addListener(.
         EventUtils.getSelectActionInActionsEventName(),
-        inputName => {
-          // let inputName = inputName->Obj.magic
-
-          // inputName == "Action1" ? setCurrentTourStep(current => current->succ) : ()
+        _ => {
           setCurrentTourStep(current => current->succ)
         },
       )

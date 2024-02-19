@@ -19,18 +19,19 @@ let make = (~service: service, ~currentCustomActionName) => {
     getCurrentCustomNameFromGlobalFunc=CodeEditUtils.getCurrentCustomActionNameFromGlobal
     getNameFunc=CustomUtils.getActionName
     setCurrentCustomNameToGlobalFunc=CodeEditUtils.setCurrentCustomActionNameToGlobal
-    buildUpdateActionFunc={(
-      name,
-      newName,
-      newOriginCode,
-      newTranspiledCode,
-    ) => ElementAssembleStoreType.UpdateCustomActionFileStr(
-      name,
-      newName,
-      newOriginCode,
-      newTranspiledCode,
-    )}
+    // buildUpdateActionFunc={(
+    //   name,
+    //   newName,
+    //   newOriginCode,
+    //   newTranspiledCode,
+    // ) => ElementAssembleStoreType.UpdateCustomActionFileStr(
+    //   name,
+    //   newName,
+    //   newOriginCode,
+    //   newTranspiledCode,
+    // )}
     currentCustomName=currentCustomActionName
-    customs=customActions
+    // customs=customActions
+    type_=CommonType.Action
   />
 }

@@ -123,6 +123,16 @@ type customAction = AssembleSpaceCommonType.customAction
 
 type customActions = list<customAction>
 
+type code =
+  | EmptyCode
+  | UnEditable
+  | Origin(string)
+// | Change(CommonType.customType, string, string, CommonType.fileStr, option<CommonType.fileStr>)
+
+// type changeCode =
+//   | EmptyChangeCode
+//   | Change(CommonType.customType, string, string, CommonType.fileStr, option<CommonType.fileStr>)
+
 type action =
   | ResetWhenEnter
   | ResetWhenSwitch
@@ -173,24 +183,29 @@ type action =
   | AddCustomAction(customAction)
   | RemoveCustomInput(CommonType.inputName)
   | RemoveCustomAction(CommonType.actionName)
-  | UpdateCustomInputFileStr(
-      CommonType.inputName,
-      CommonType.inputName,
-      CommonType.inputFileStr,
-      option<CommonType.inputFileStr>,
-    )
-  | UpdateCustomActionFileStr(
-      CommonType.actionName,
-      CommonType.actionName,
-      CommonType.actionFileStr,
-      option<CommonType.actionFileStr>,
-    )
+  // | UpdateCustomInputFileStr(
+  //     CommonType.inputName,
+  //     CommonType.inputName,
+  //     CommonType.inputFileStr,
+  //     option<CommonType.inputFileStr>,
+  //   )
+  // | UpdateCustomActionFileStr(
+  //     CommonType.actionName,
+  //     CommonType.actionName,
+  //     CommonType.actionFileStr,
+  //     option<CommonType.actionFileStr>,
+  //   )
+
+  | UpdateCustomFileStr(unit => unit)
+  // | SetCode(CommonType.customType, string)
+  | SetCode(code)
+  // | SetChangeCode(changeCode)
   | SelectCustomInput(CommonType.inputName)
   | SelectCustomAction(CommonType.actionName)
   | SetCustom(customInputs, customActions)
   | StartCreateFromScratchTourPhase2
   | EndCreateFromScratchTourPhase2
-  // | EndJumpToCreateFromScratchTourPhase2Guide
+// | EndJumpToCreateFromScratchTourPhase2Guide
 
 type state = {
   canvasData: canvasData,
@@ -209,6 +224,8 @@ type state = {
   customActions: customActions,
   currentCustomInputName: option<CommonType.inputName>,
   currentCustomActionName: option<CommonType.actionName>,
+  currentCode: code,
+  // currentChangeCode: changeCode,
   isInCreateFromScratchTourPhase2: bool,
   // isJumpToCreateFromScratchTourPhase2Guide: bool,
 }

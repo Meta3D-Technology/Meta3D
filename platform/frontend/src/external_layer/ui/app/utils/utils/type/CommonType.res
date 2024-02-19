@@ -74,6 +74,10 @@ type actionName = string
 
 type fileStr = string
 
+type customType =
+  | Input
+  | Action
+
 type custom = {
   name: string,
   originFileStr: option<fileStr>,

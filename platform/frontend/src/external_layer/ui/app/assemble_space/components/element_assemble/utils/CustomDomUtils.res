@@ -67,12 +67,35 @@ module Method = {
     setCurrentCustomNameToGlobalFunc,
     selectedKeysValue,
     info: Tree.info,
+    // customs,
+    // type_,
   ) => {
+    let currentCustomName = info.node.key
+
     setCurrentCustomNameToGlobalFunc(info.node.key)
 
     setSelectedKeys(_ => selectedKeysValue)
 
-    dispatch(buildSelectActionFunc(info.node.key))
+    dispatch(buildSelectActionFunc(currentCustomName))
+
+    // CodeEditUtils.setCurrentCustomNameToGlobal()
+
+    // dispatch(ElementAssembleStoreType.UpdateCustomFileStr)
+
+    // dispatch(
+    //   ElementAssembleStoreType.SetCode(
+    //     switch (
+    //       customs
+    //       ->Meta3dCommonlib.ListSt.find((custom: CommonType.custom) => {
+    //         custom.name == currentCustomName
+    //       })
+    //       ->Meta3dCommonlib.OptionSt.getExn
+    //     ).originFileStr {
+    //     | None => ElementAssembleStoreType.UnEditable
+    //     | Some(code) => ElementAssembleStoreType.Origin(code)
+    //     },
+    //   ),
+    // )
   }
 
   let useSelector = ({eventEmitter}: AppStoreType.state) => {
@@ -95,6 +118,7 @@ let make = (
   ~currentCustomName,
   ~customs,
   ~prefix,
+  ~type_,
 ) => {
   let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
 
@@ -135,7 +159,8 @@ let make = (
       treeData={customs->Method.convertToTreeData}
       selectedKeys
       onSelect={(selectedKeysValue, info) => {
-        eventEmitter.emit(. selectEventName, info.node.key->Obj.magic)
+        // eventEmitter.emit(. selectEventName, info.node.key->Obj.magic)
+        eventEmitter.emit(. selectEventName, ( info.node.key, customs )->Obj.magic)
 
         Method.onSelect(
           (dispatch, setSelectedKeys),
@@ -143,6 +168,8 @@ let make = (
           setCurrentCustomNameToGlobalFunc,
           selectedKeysValue,
           info,
+          // customs,
+          // type_,
         )
       }}
     />
