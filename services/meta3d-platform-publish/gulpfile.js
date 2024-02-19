@@ -108,7 +108,8 @@ gulp.task("ci", function (done) {
 
     process.exec("yarn ci:test",
         {
-            cwd: _getRootCwd()
+            cwd: _getRootCwd(),
+            maxBuffer: 1024 * 5000
         },
         (error, stdout, stderr) => {
             if (!error) {
