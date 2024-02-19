@@ -1,6 +1,6 @@
 {
     "name": "meta3d-input-localscale",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
@@ -16,17 +16,17 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-select-inspector-node-protocol": "^1.2.0",
-        "meta3d-editor-whole-protocol": "^1.2.0",
+        "meta3d-action-select-inspector-node-protocol": "^1.3.0",
+        "meta3d-editor-whole-protocol": "^1.3.0",
         "meta3d-input-input-float3-protocol": "^1.2.0",
-        "meta3d-type": "^1.2.0"
+        "meta3d-type": "^1.3.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.2.0",
+        "meta3d-tool-publish": "^1.3.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

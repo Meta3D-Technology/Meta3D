@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-gameview-render",
-    "version": "1.2.1",
+    "version": "1.3.0",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-editor-gameview-render-protocol"
@@ -14,17 +14,17 @@
     },
     "dependencies": {
         "meta3d-core-protocol": "^1.2.0",
-        "meta3d-editor-gameview-render-protocol": "^1.2.0",
-        "meta3d-editor-whole-protocol": "^1.2.0",
-        "meta3d-pipeline-webgl1-three-gameviewrender-protocol": "^1.2.0",
-        "meta3d-type": "^1.2.0"
+        "meta3d-editor-gameview-render-protocol": "^1.3.0",
+        "meta3d-editor-whole-protocol": "^1.3.0",
+        "meta3d-pipeline-webgl1-three-gameviewrender-protocol": "^1.3.0",
+        "meta3d-type": "^1.3.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.2.0",
+        "meta3d-tool-publish": "^1.3.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",

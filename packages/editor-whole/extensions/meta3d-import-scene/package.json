@@ -1,6 +1,6 @@
 {
     "name": "meta3d-import-scene",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "publisher": "meta3d",
     "displayName": "meta3d-import-scene",
     "protocol": {
@@ -14,21 +14,21 @@
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"
     },
     "dependencies": {
-        "meta3d-asset-protocol": "^1.2.0",
+        "meta3d-asset-protocol": "^1.3.0",
         "meta3d-core-protocol": "^1.2.0",
         "meta3d-editor-sceneview-render-protocol": "^1.2.0",
-        "meta3d-engine-scene-protocol": "^1.2.0",
-        "meta3d-event-protocol": "^1.2.0",
+        "meta3d-engine-scene-protocol": "^1.3.0",
+        "meta3d-event-protocol": "^1.3.0",
         "meta3d-import-scene-protocol": "^1.2.0",
         "meta3d-three-protocol": "^1.2.0",
-        "meta3d-type": "^1.2.0"
+        "meta3d-type": "^1.3.0"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",
         "cross-env": "^7.0.3",
         "cz-customizable": "^6.3.0",
         "gulp": "^4.0.2",
-        "meta3d-tool-publish": "^1.2.0",
+        "meta3d-tool-publish": "^1.3.0",
         "source-map-loader": "^3.0.0",
         "ts-loader": "^9.2.6",
         "typescript": "^4.2.3",
