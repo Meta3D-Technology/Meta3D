@@ -763,7 +763,7 @@ if not select action/input, not create react.monaco!
     if select action/input or didMount, dispatch
 
 
-* TODO fix: editor: run-stop: should reset arcball in gameview when stop
+# * TODO fix: editor: run-stop: should reset arcball in gameview when stop
 
 
 
