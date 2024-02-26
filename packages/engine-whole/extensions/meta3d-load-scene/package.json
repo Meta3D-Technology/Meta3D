@@ -1,6 +1,6 @@
 {
     "name": "meta3d-load-scene",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-load-scene-protocol"

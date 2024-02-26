@@ -470,15 +470,6 @@ let _import = (sceneService: scene,
             meta3dState = gameObjectService.addPBRMaterial(meta3dState, gameObject, standardMaterialMap[meshMaterial.uuid])
         }
 
-
-        if (!isNullable(mesh.userData[Meta3DScript.buildKey()])) {
-            meta3dState = _addScriptComponent(
-                sceneService,
-                meta3dState,
-                gameObject,
-                getExn(mesh.userData[Meta3DScript.buildKey()])
-            )
-        }
     }
     else if ((object3D as any as DirectionalLightType).isDirectionalLight) {
         // let { color, intensity, matrixWorld } = object3D as any as DirectionalLightType
@@ -514,6 +505,15 @@ let _import = (sceneService: scene,
         let _ = matrix.decompose(direction, new Quaternion(), new Vector3())
 
         meta3dState = directionLightService.setDirection(meta3dState, directionLight, direction.toArray())
+    }
+
+    if (!isNullable(object3D.userData[Meta3DScript.buildKey()])) {
+        meta3dState = _addScriptComponent(
+            sceneService,
+            meta3dState,
+            gameObject,
+            getExn(object3D.userData[Meta3DScript.buildKey()])
+        )
     }
 
     meta3dState = object3D.children.reduce((meta3dState, child) => {

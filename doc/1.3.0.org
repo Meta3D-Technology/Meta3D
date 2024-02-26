@@ -821,23 +821,39 @@ l/r:x
 *** DONE should unbind event when stop->restore
 
 
-** TODO adjust camera
-
-** TODO add food; snake can eat food;
-
-** TODO switch to second level
-
-** TODO ...
+** DONE fix: export data-> import data: should has script component
 
 
-* TODO pass publish run test
+** DONE adjust camera
 
-TODO add event job
+TODO publish all packages
+TODO auto upgrade
+
+
+
+
+** DONE add food; snake can eat food;
+
+** DONE switch to second level
+
+** DONE publish
+
+
+need:
+# load-glb
+# meta3d-scenegraph-converter-three
+
+
+* DONE pass publish run test
+
+# TODO add event job
 
 
 * TODO fix(editor): run->update script eventFileStr->stop: not restore eventFileStr in editor!
 
 * TODO fix(editor): load glb->cancel error
+
+* TODO fix(editor): shouldn't export when run
 
 
 * TODO publish v1.3.1
