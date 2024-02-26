@@ -777,21 +777,67 @@ if not select action/input, not create react.monaco!
 
 * TODO 3D贪吃蛇
 
-Snake, Scene use gltf model!
+# Snake, Scene use gltf model!
+Scene use gltf model!
 
 
-script:
-control visiable
-bind keyboard event to switch scene
+# script:
+# control visiable
+# bind keyboard event to switch scene
 
+
+two levels
 
 
 TODO unbind event when stop
 
+TODO need publish
+# run
 
-** TODO add 2d ui
+
+
+
+# ** TODO add 2d ui
+
+** DONE add background scene
+
+** DONE add snake body, can move and change direction by keyboard event
+f/b:z
+l/r:x
+
+# *** TODO add KeyboardInputAPI to handle keyboard event
+# api: input->keyboard, point
+
+
+# should get and return meta3dState in handler!
+
+# TODO event service add keyboard related api
+
+# TODO add input package to editor-whole package
+
+
+# TODO commit
+
+*** DONE should unbind event when stop->restore
+
+
+** TODO adjust camera
+
+** TODO add food; snake can eat food;
+
+** TODO switch to second level
 
 ** TODO ...
+
+
+* TODO pass publish run test
+
+TODO add event job
+
+
+* TODO fix(editor): run->update script eventFileStr->stop: not restore eventFileStr in editor!
+
+* TODO fix(editor): load glb->cancel error
 
 
 * TODO publish v1.3.1
