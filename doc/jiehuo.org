@@ -1,0 +1,17 @@
+* TODO prepare
+
+
+
+
+
+
+
+
+
+
+
+* TODO fix(editor): run->update script eventFileStr->stop: not restore eventFileStr in editor!
+
+* TODO fix(editor): load glb->cancel error
+
+* TODO fix(editor): shouldn't export when run

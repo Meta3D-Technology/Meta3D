@@ -849,17 +849,10 @@ need:
 # TODO add event job
 
 
-* TODO fix(editor): run->update script eventFileStr->stop: not restore eventFileStr in editor!
 
-* TODO fix(editor): load glb->cancel error
+# * TODO publish v1.3.1
 
-* TODO fix(editor): shouldn't export when run
-
-
-* TODO publish v1.3.1
-
-
-TODO update pro
+# TODO update pro
 
 
 
