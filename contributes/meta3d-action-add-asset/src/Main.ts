@@ -57,21 +57,21 @@ let _loadImages = (meta3dState: meta3dState, api: api) => {
     })
 }
 
-let _loadGlb = (meta3dState: meta3dState, api: api): Promise<[nullable<glbName>, nullable<glbData>]> => {
+let _loadGlb = (api: api): Promise<[boolean, nullable<glbName>, nullable<glbData>]> => {
     return new Promise((resolve, reject) => {
         importFile((file: any, result: any) => {
             if (!file.name.includes(".glb")) {
                 reject(new Error("文件后缀名应该是.glb"))
             }
 
-            resolve([api.nullable.return(file.name.slice(0, -4)), api.nullable.return(result as ArrayBuffer)])
+            resolve([true, api.nullable.return(file.name.slice(0, -4)), api.nullable.return(result as ArrayBuffer)])
         }, (event: Event, file: any) => {
             reject(new Error(`读取${file.name}错误`))
         }, (loaded: number, total: number) => {
             // TODO show progress message
             console.log(`loading ${loaded / total} %`)
         }, () => {
-            resolve(meta3dState)
+            resolve([false, api.nullable.getEmpty(), api.nullable.getEmpty()])
         })
     })
 }
@@ -152,15 +152,19 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             let selectedIndex = uiData
 
-            let promise: Promise<[nullable<glbName>, nullable<glbData>]>
+            let promise: Promise<[boolean, nullable<glbName>, nullable<glbData>]>
             if (_getAssetType(selectedIndex) == assetType.Glb) {
-                promise = _loadGlb(meta3dState, api)
+                promise = _loadGlb(api)
             }
             else {
-                promise = Promise.resolve([api.nullable.getEmpty(), api.nullable.getEmpty()])
+                promise = Promise.resolve([true, api.nullable.getEmpty(), api.nullable.getEmpty()])
             }
 
-            return promise.then(([glbName, glbData]) => {
+            return promise.then(([isSuccess, glbName, glbData]) => {
+                if (!isSuccess) {
+                    return meta3dState
+                }
+
                 return eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
                     inputData: [

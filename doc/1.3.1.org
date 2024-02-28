@@ -47,7 +47,7 @@ if action not implement restore, not;
 not restore ui control state
 
 
-* TODO fix(editor): load glb->cancel error
+* DONE fix(editor): load glb->cancel error
 
 * TODO fix(editor): shouldn't export when run
 
@@ -57,6 +57,8 @@ not restore ui control state
 
 TODO need update
 ui
+
+add-asset
 
 
 TODO update production code
