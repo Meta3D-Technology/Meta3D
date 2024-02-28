@@ -708,7 +708,19 @@ function restore(api, currentMeta3dState, targetMeta3dState) {
                           })), targetElementState);
         }), NullableSt$Meta3dCommonlib.getExn(getElementState(targetUIState, OptionSt$Meta3dCommonlib.getExn(targetUIState.currentElementName))));
   var targetUIState$1 = setCurrentElementState(targetUIState, targetElementState);
-  return api.setExtensionState(targetMeta3dState, uiExtensionProtocolName, targetUIState$1);
+  return api.setExtensionState(targetMeta3dState, uiExtensionProtocolName, {
+              elementFuncMap: targetUIState$1.elementFuncMap,
+              elementStateMap: targetUIState$1.elementStateMap,
+              elementExecOrderMap: targetUIState$1.elementExecOrderMap,
+              isShowMap: targetUIState$1.isShowMap,
+              isStateChangeMap: targetUIState$1.isStateChangeMap,
+              skinContributeMap: targetUIState$1.skinContributeMap,
+              uiControlContributeMap: targetUIState$1.uiControlContributeMap,
+              uiControlStateMap: currentUIState.uiControlStateMap,
+              inputContributeMap: targetUIState$1.inputContributeMap,
+              currentElementName: targetUIState$1.currentElementName,
+              fboTextureMap: targetUIState$1.fboTextureMap
+            });
 }
 
 function deepCopy(api, meta3dState) {

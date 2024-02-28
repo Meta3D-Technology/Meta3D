@@ -1,0 +1,65 @@
+# * TODO prepare
+
+# 参考hightopo的接活思路：https://www.google.com/search?q=hightopo+%E6%8E%A5%E5%A4%96%E5%8C%85&oq=hightopo+%E6%8E%A5%E5%A4%96%E5%8C%85&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBNIBCDM4MzBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#ip=1
+
+# TODO 搭建接活官网，展示项目和能力、联系方式
+# 参考[hightopo](https://www.hightopo.com/demos/index.html)、https://www.3dwawa.com/、https://www.3dzhanting.cn/product3dshow，每个项目给出视频（或者为gif）、介绍和跳转链接
+# 使用公司为主体
+
+# TODO 到猪八戒等平台上开店，搭建店铺
+
+# TODO 到众包平台找对应信息
+# 外包众包接单平台大全
+# https://zhuanlan.zhihu.com/p/517716527
+
+# https://zhuanlan.zhihu.com/p/499616877
+
+
+
+
+
+# * TODO 待定
+
+
+# ** TODO 写几篇文章，分别总结之前做过的项目，并打广告说明在接活中（以公司的名义）
+
+
+# ** TODO 到QQ群、知乎等自有渠道上发布接活信息
+
+
+
+
+
+
+
+
+
+
+
+
+* DONE fix(editor): run->update script eventFileStr->stop: not restore eventFileStr in editor!
+
+
+fix meta3d-ui restore:
+if action not implement restore, not;
+# ui contribute add deepCopy, restore;
+# if ui not implement restore, not;
+not restore ui control state
+
+
+* TODO fix(editor): load glb->cancel error
+
+* TODO fix(editor): shouldn't export when run
+
+* TODO fix(platform): fix "version not match"
+
+* TODO publish
+
+TODO need update
+ui
+
+
+TODO update production code
+
+
+TODO add publish video

@@ -1127,7 +1127,14 @@ let restore = (api: Meta3dType.Index.api, currentMeta3dState, targetMeta3dState)
 
   let targetUIState = setCurrentElementState(targetUIState, targetElementState->Obj.magic)
 
-  api.setExtensionState(. targetMeta3dState, uiExtensionProtocolName, targetUIState)
+  api.setExtensionState(.
+    targetMeta3dState,
+    uiExtensionProtocolName,
+    {
+      ...targetUIState,
+      uiControlStateMap: currentUIState.uiControlStateMap,
+    },
+  )
 }
 
 let deepCopy = (api: Meta3dType.Index.api, meta3dState) => {
