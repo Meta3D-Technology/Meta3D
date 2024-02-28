@@ -49,19 +49,28 @@ not restore ui control state
 
 * DONE fix(editor): load glb->cancel error
 
-* TODO fix(editor): shouldn't export when run
+# * TODO fix(editor): shouldn't export when run
 
-* TODO fix(platform): fix "version not match"
+# * TODO fix(platform): fix "version not match"
 
 * TODO publish
 
 TODO need update
-ui
+# ui
 
-add-asset
+# add-asset
+editor-whole package
+engine-whole package
 
 
 TODO update production code
 
+TODO publish all to prod
 
-TODO add publish video
+TODO update packages in pro
+
+TODO run test in pro:
+import editor
+
+
+# TODO add publish video
