@@ -1,5 +1,6 @@
 @val @scope("console") external consoleTrace: unit => unit = "trace"
 @val @scope("console") external consoleDebug: string => unit = "debug"
+@val @scope("console") external consoleError: string => unit = "error"
 
 let printForDebug = value => {
   value->Obj.magic->Js.Json.stringify->Js.log
@@ -14,6 +15,10 @@ let printStringForDebug = value => {
 let printListForDebug = list => {
   Js.log(list->Belt.List.toArray)
   list
+}
+
+let error = message => {
+  consoleError(message)
 }
 
 let logForDebug = value => {

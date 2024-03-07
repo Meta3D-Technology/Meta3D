@@ -40,39 +40,98 @@ let trigger = (
   }
 }
 
+let _buildHandlerFunc = handleFunc => {
+  (. customEvent, state) => {
+    try {
+      handleFunc(. customEvent)
+
+      (state, customEvent)
+    } catch {
+    | Js.Exn.Error(e) => {
+        Meta3dCommonlib.Log.error(e->Obj.magic)
+
+        (state, customEvent)
+      }
+    }
+  }
+}
+
 let onPointEvent = (
   api: Meta3dType.Index.api,
-  // meta3dState: Meta3dType.Index.state,
+  meta3dState: Meta3dType.Index.state,
   eventExtensionProtocolName,
   (pointEventName, priority, handleFunc),
 ) => {
   // let state: StateType.state =
   //   api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
 
-  let eventManagerState = ContainerManager.getState(eventExtensionProtocolName)
+  // let state = {
+  //   ...state,
+  //   eventManagerState: ManageEventDoService.onCustomGlobalEvent(
+  //     ~eventName=pointEventName->Obj.magic,
+  //     ~handleFunc=(. customEvent, state) => {
+  //       handleFunc(. customEvent)
 
-  let eventManagerState = ManageEventDoService.onCustomGlobalEvent(
-    ~eventName=pointEventName->Obj.magic,
-    ~handleFunc=(. customEvent, state) => {
-      handleFunc(. customEvent)
-
-      (state, customEvent)
-    },
-    ~state=eventManagerState,
-    ~priority,
-    (),
-  )
+  //       (state, customEvent)
+  //     },
+  //     ~state=state.eventManagerState,
+  //     ~priority,
+  //     (),
+  //   ),
+  // }
 
   // api.setExtensionState(.
   //   meta3dState,
   //   eventExtensionProtocolName,
-  //   {
-  //     ...state,
-  //     eventManagerState: eventManagerState,
-  //   }->StateType.stateToProtocolState,
+  //   state->StateType.stateToProtocolState,
   // )
 
-  ContainerManager.setState(eventManagerState, eventExtensionProtocolName)
+  ManageEventDoService.onCustomGlobalEvent(
+    ~eventName=pointEventName->Obj.magic,
+    ~handleFunc=_buildHandlerFunc(handleFunc),
+    ~state=ContainerManager.getState(eventExtensionProtocolName),
+    ~priority,
+    (),
+  )
+  ->ContainerManager.setState(eventExtensionProtocolName)
+  ->ignore
+
+  meta3dState
+}
+
+let offPointEvent = (
+  api: Meta3dType.Index.api,
+  meta3dState: Meta3dType.Index.state,
+  eventExtensionProtocolName,
+  (pointEventName, handleFunc),
+) => {
+  // let state: StateType.state =
+  //   api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
+
+  // let state = {
+  //   ...state,
+  //   eventManagerState: ManageEventDoService.offCustomGlobalEventByHandleFunc(
+  //     ~eventName=pointEventName->Obj.magic,
+  //     ~handleFunc,
+  //     ~state=state.eventManagerState,
+  //   ),
+  // }
+
+  // api.setExtensionState(.
+  //   meta3dState,
+  //   eventExtensionProtocolName,
+  //   state->StateType.stateToProtocolState,
+  // )
+
+  ManageEventDoService.offCustomGlobalEventByHandleFunc(
+    ~eventName=pointEventName->Obj.magic,
+    ~handleFunc,
+    ~state=ContainerManager.getState(eventExtensionProtocolName),
+  )
+  ->ContainerManager.setState(eventExtensionProtocolName)
+  ->ignore
+
+  meta3dState
 }
 
 let _setDomToStateForEventHandler = (eventManagerState, eventExtensionProtocolName) => {

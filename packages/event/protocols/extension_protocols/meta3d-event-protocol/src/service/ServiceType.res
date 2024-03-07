@@ -41,7 +41,16 @@ type service = {
     Meta3dType.Index.state,
     ActionContributeType.actionContribute<'uiData, StateType.state>,
   ) => Meta3dType.Index.state,
-  onPointEvent: (eventExtensionProtocolName, (pointEventName, priority, handleFunc)) => unit,
+  onPointEvent: (
+    Meta3dType.Index.state,
+    eventExtensionProtocolName,
+    (pointEventName, priority, handleFunc),
+  ) => Meta3dType.Index.state,
+  offPointEvent: (
+    Meta3dType.Index.state,
+    eventExtensionProtocolName,
+    (pointEventName, handleFunc),
+  ) => Meta3dType.Index.state,
   onCustomGlobalEvent: (
     eventExtensionProtocolName,
     (customEventName, priority, handleFunc),

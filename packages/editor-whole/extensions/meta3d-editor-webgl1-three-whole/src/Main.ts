@@ -25,6 +25,7 @@ import { service as exportSceneService } from "meta3d-export-scene-protocol/src/
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 import { service as assetService } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as libService } from "meta3d-lib-protocol/src/service/ServiceType"
+import { service as interactService } from "meta3d-interact-protocol/src/service/ServiceType"
 import { getBeforeRenderEventName } from "meta3d-editor-event-utils/src/Main"
 // import { init as initBackend } from "backend-cloudbase"
 
@@ -425,6 +426,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		core: meta3dState => getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")),
 		asset: meta3dState => getExn(api.getPackageService<assetService>(meta3dState, "meta3d-asset-protocol")),
 		lib: meta3dState => getExn(api.getPackageService<libService>(meta3dState, "meta3d-lib-protocol")),
+		interact: meta3dState => getExn(api.getPackageService<interactService>(meta3dState, "meta3d-interact-protocol")),
 
 		addGroup: (meta3dState, scene) => {
 			return api.nullable.getExn(api.getPackageService<threeService>(meta3dState, "meta3d-three-protocol")).converter(meta3dState).addGroup(meta3dState, scene)

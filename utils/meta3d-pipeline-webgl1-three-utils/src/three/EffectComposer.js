@@ -13,6 +13,7 @@ import { ClearMaskPass } from './MaskPass.js';
 
 import { setThreeAPI as setThreeAPIForPass } from './Pass.js';
 import { setThreeAPI as setThreeAPIForRenderPass } from './RenderPass';
+import { setThreeAPI as setThreeAPIForOutlinePass } from './OutlinePass';
 
 let Clock,
 	HalfFloatType,
@@ -31,6 +32,7 @@ export let setThreeAPI = (threeAPIObj) => {
 	setThreeAPIForShaderPass(threeAPIObj)
 	setThreeAPIForPass(threeAPIObj)
 	setThreeAPIForRenderPass(threeAPIObj)
+	setThreeAPIForOutlinePass(threeAPIObj)
 }
 
 

@@ -9,7 +9,7 @@ import { textureID } from "meta3d-ui-control-game-view-protocol"
 
 export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setStatesFunc }) => {
     let states = getStatesFunc<states>(meta3dState)
-    let { mostService, threeAPIService, renderer, composer, renderPass, canvas } = getState(states)
+    let { mostService, threeAPIService, renderer, composer, renderPass, outlinePass, canvas } = getState(states)
 
     return mostService.callFunc(() => {
         if (api.getExtensionService<renderService>(meta3dState, "meta3d-editor-gameview-render-protocol").isPipelineStop(meta3dState)) {
@@ -22,29 +22,33 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         perspectiveCamera = getExn(perspectiveCamera)
         scene = getExn(scene)
 
-        let { getViewRect } = getExn(api.getPackageService<renderService>(meta3dState, "meta3d-editor-gameview-render-protocol"))
+        let { getViewRect, getSelectedObjects } = getExn(api.getPackageService<renderService>(meta3dState, "meta3d-editor-gameview-render-protocol"))
 
         if (isNullable(composer)) {
             let { width, height } = getExn(getViewRect(meta3dState))
 
-            let data = createComposerAndRenderTarget(threeAPIService, getExn(renderer), [width, height])
+            let data = createComposerAndRenderTarget(threeAPIService, getExn(renderer), [width, height], scene, perspectiveCamera)
             composer = data[0]
             renderPass = data[1]
+            outlinePass = data[2]
+
 
             meta3dState = setStatesFunc<states>(
                 meta3dState,
                 setState(states, {
                     ...getState(states),
                     composer,
-                    renderPass
+                    renderPass,
+                    outlinePass
                 })
             )
         }
         else {
             composer = getExn(composer)
             renderPass = getExn(renderPass)
+            outlinePass = getExn(outlinePass)
         }
 
-        return render(meta3dState, getViewRect, api, scene, perspectiveCamera, canvas, getExn(renderer), composer, renderPass, textureID)
+        return render(meta3dState, getViewRect, getSelectedObjects, api, scene, perspectiveCamera, canvas, getExn(renderer), composer, renderPass, outlinePass, textureID)
     })
 }

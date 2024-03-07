@@ -8,6 +8,7 @@ import type {
     Layers as LayersType, Matrix3 as Matrix3Type,
     Matrix4 as Matrix4Type,
     Sphere as SphereType,
+    Box3 as Box3Type,
     Object3D as Object3DType,
     Camera as CameraType,
     PerspectiveCamera as PerspectiveCameraType,
@@ -27,7 +28,7 @@ import type {
     TextureFilter,
     DirectionalLight as DirectionalLightType,
     ColorSpace,
-    Quaternion as QuaternionType
+    Quaternion as QuaternionType,
     // Quaternion,
 } from "three";
 import { getExn, getWithDefault, map, isNullable, bind, return_ } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -71,6 +72,7 @@ import {
 } from "./SetVariables";
 import * as Meta3DCameraController from "meta3d-gltf-extensions/src/Meta3DCameraController"
 import * as Meta3DScript from "meta3d-gltf-extensions/src/Meta3DScript"
+import { computeBoundingSphere } from "./utils/BoundingUtils";
 
 let _getEmptyGameObject = () => -1
 
@@ -324,7 +326,7 @@ export class Object3D {
                 ))
             }
         }
-        else{
+        else {
             userData = this._userData
         }
 
@@ -408,6 +410,10 @@ export class Camera extends Object3D {
         )
     }
 
+    public get projectionMatrixInverse(): Matrix4Type {
+        return new Matrix4().copy(this.projectionMatrix).invert()
+    }
+
     public get matrixWorldInverse(): Matrix4Type {
         // let meta3dState = getMeta3dState()
         // let engineCoreState = getEngineCoreState(meta3dState)
@@ -458,6 +464,14 @@ export class Camera extends Object3D {
 export class PerspectiveCamera extends Camera {
     constructor(basicCameraViewComponent: basicCameraView, perspectiveCameraProjectionComponent: perspectiveCameraProjection, gameObject: gameObject) {
         super(basicCameraViewComponent, perspectiveCameraProjectionComponent, gameObject)
+    }
+
+    public get isPerspectiveCamera(): boolean {
+        return true
+    }
+
+    public get type(): string {
+        return "PerspectiveCamera"
     }
 
     public get name(): string {
@@ -911,6 +925,9 @@ export class BufferGeometry extends EventDispatcher {
 
         this.uuid = generateUUID()
         this.id = generateId()
+
+        // TODO perf: get from collider component
+        this._boundingSphere = computeBoundingSphere(new Sphere(), this._positionAttribute, new Vector3())
     }
 
     private _geometry: geometry
@@ -919,6 +936,7 @@ export class BufferGeometry extends EventDispatcher {
     private _uvAttribute: nullable<BufferAttributeType>
     private _tangentAttribute: nullable<BufferAttributeType>
     private _indexAttribute: BufferAttributeType
+    private _boundingSphere: SphereType
 
     public uuid: string
     public id: number
@@ -933,11 +951,16 @@ export class BufferGeometry extends EventDispatcher {
     }
 
     public get boundingSphere(): nullable<SphereType> {
-        // TODO fix fake data
-        return new Sphere(
-            new Vector3(0, 0, 0),
-            100000
-        )
+        // return new Sphere(
+        //     new Vector3(0, 0, 0),
+        //     100000
+        // )
+
+        return this._boundingSphere
+    }
+
+    public get boundingBox(): nullable<Box3Type> {
+        return null
     }
 
     public get index(): nullable<BufferAttributeType> {

@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-root",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-pipeline-root-protocol"
@@ -16,8 +16,8 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-core-protocol": "^1.2.0",
-        "meta3d-pipeline-root-protocol": "^1.2.0",
+        "meta3d-core-protocol": "^1.3.0",
+        "meta3d-pipeline-root-protocol": "^1.3.0",
         "meta3d-type": "^1.3.0",
         "rescript": "^10.0.1"
     },

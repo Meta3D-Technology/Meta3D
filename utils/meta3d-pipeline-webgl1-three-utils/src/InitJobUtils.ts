@@ -48,7 +48,7 @@ export let initForEngine = (meta3dState: meta3dState, [converterService, threeAP
 
     let viewSize: [number, number] = [canvas.width, canvas.height]
 
-    let [composer, renderPass] = createComposerAndRenderTargetForEngine(threeAPIService, renderer, viewSize)
+    let [composer, renderPass] = createComposerAndRenderTargetForEngine(threeAPIService, renderer, viewSize, null as any, null as any)
 
     setSizeAndViewportForEngine(renderer, composer, viewSize)
 

@@ -1,6 +1,9 @@
 
 
 import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_exn from "../../../../../../../node_modules/rescript/lib/es6/js_exn.js";
+import * as Caml_js_exceptions from "../../../../../../../node_modules/rescript/lib/es6/caml_js_exceptions.js";
+import * as Log$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
 import * as OptionSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BodyDoService$Meta3dEvent from "./event_manager/service/dom/BodyDoService.bs.js";
 import * as CanvasDoService$Meta3dEvent from "./event_manager/service/dom/CanvasDoService.bs.js";
@@ -29,17 +32,37 @@ function trigger(api, meta3dState, eventExtensionProtocolName, actionName, uiDat
   }
 }
 
-function onPointEvent(api, eventExtensionProtocolName, param) {
-  var handleFunc = param[2];
-  var eventManagerState = ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName);
-  var eventManagerState$1 = ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(param[0], (function (customEvent, state) {
-          handleFunc(customEvent);
-          return [
-                  state,
-                  customEvent
-                ];
-        }), eventManagerState, param[1], undefined);
-  ContainerManager$Meta3dEvent.setState(eventManagerState$1, eventExtensionProtocolName);
+function _execHandler(handleFunc) {
+  return function (customEvent, state) {
+    try {
+      handleFunc(customEvent);
+      return [
+              state,
+              customEvent
+            ];
+    }
+    catch (raw_e){
+      var e = Caml_js_exceptions.internalToOCamlException(raw_e);
+      if (e.RE_EXN_ID === Js_exn.$$Error) {
+        Log$Meta3dCommonlib.error(e._1);
+        return [
+                state,
+                customEvent
+              ];
+      }
+      throw e;
+    }
+  };
+}
+
+function onPointEvent(api, meta3dState, eventExtensionProtocolName, param) {
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(param[0], _execHandler(param[2]), ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), param[1], undefined), eventExtensionProtocolName);
+  return meta3dState;
+}
+
+function offPointEvent(api, meta3dState, eventExtensionProtocolName, param) {
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.offCustomGlobalEventByHandleFunc(param[0], param[1], ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName)), eventExtensionProtocolName);
+  return meta3dState;
 }
 
 function _setDomToStateForEventHandler(eventManagerState, eventExtensionProtocolName) {
@@ -131,7 +154,9 @@ var getPointDragDropEventName = NameEventDoService$Meta3dEvent.getPointDragDropE
 export {
   registerAction ,
   trigger ,
+  _execHandler ,
   onPointEvent ,
+  offPointEvent ,
   _setDomToStateForEventHandler ,
   initEvent ,
   _invokeEventManagerSetDomDataFuncWithOneArg ,

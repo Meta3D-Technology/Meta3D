@@ -1,4 +1,5 @@
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import type { Object3D } from "three";
 
 export type viewRect = {
     x: number,
@@ -15,5 +16,6 @@ export enum pipelineStatus {
 
 export type state = {
     viewRect: nullable<viewRect>,
-    pipelineStatus: pipelineStatus
+    pipelineStatus: pipelineStatus,
+    selectedObjects: Array<Object3D>
 }

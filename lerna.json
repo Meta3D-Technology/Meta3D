@@ -51,6 +51,8 @@
 		"packages/core/protocols/contribute_protocols/*",
 		"packages/core/extensions/*",
 		"packages/core/contributes/*",
+		"packages/interact/extensions/*",
+		"packages/interact/protocols/extension_protocols/*",
 		"extensions/*",
 		"contributes/*",
 		"defaults/*",

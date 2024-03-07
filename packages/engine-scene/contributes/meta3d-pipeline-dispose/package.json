@@ -22,7 +22,7 @@
         "meta3d-component-pbrmaterial-protocol": "^1.3.0",
         "meta3d-component-perspectivecameraprojection-protocol": "^1.3.0",
         "meta3d-component-transform-protocol": "^1.3.0",
-        "meta3d-core-protocol": "^1.2.0",
+        "meta3d-core-protocol": "^1.3.0",
         "meta3d-event-protocol": "^1.3.0",
         "meta3d-pipeline-dispose-protocol": "^1.3.0",
         "meta3d-pipeline-utils": "^1.3.0",

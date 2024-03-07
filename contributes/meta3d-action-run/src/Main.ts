@@ -8,7 +8,7 @@ import { service as gameViewRenderService } from "meta3d-editor-gameview-render-
 import { eventName, inputData } from "meta3d-action-run-protocol/src/EventType"
 // import { service as eventSourcingService } from "meta3d-event-sourcing-protocol/src/service/ServiceType"
 // import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
-import { execEventHandle } from "meta3d-script-utils/src/Main"
+import { execEventHandle, getViewServiceForEditor } from "meta3d-script-utils/src/Main"
 import { runGameViewRenderOnlyOnce } from "meta3d-gameview-render-utils/src/GameViewRenderUtils"
 
 let _markIsRun = (meta3dState: meta3dState, api: api, isRun: boolean) => {
@@ -85,7 +85,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = _markIsRun(meta3dState, api, true)
                     meta3dState = _startGameViewRender(meta3dState, api)
 
-                    return execEventHandle(meta3dState, api, "onInit")
+                    return execEventHandle(meta3dState, api, "onInit", getViewServiceForEditor(meta3dState, api))
                 }, (meta3dState) => {
                     meta3dState = _markIsRun(meta3dState, api, false)
                     meta3dState = _stopGameViewRender(meta3dState, api)
@@ -93,7 +93,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = api.restore(meta3dState, api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)).meta3dStateBeforeRun)
 
 
-                    return execEventHandle(meta3dState, api, "onStop").then(meta3dState => {
+                    return execEventHandle(meta3dState, api, "onStop", getViewServiceForEditor(meta3dState, api)).then(meta3dState => {
                         return runGameViewRenderOnlyOnce(meta3dState, api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))
                     })
                 }))

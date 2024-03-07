@@ -1,6 +1,6 @@
 {
     "name": "meta3d-core",
-    "version": "1.3.1",
+    "version": "1.3.2",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-core-protocol"
@@ -15,8 +15,8 @@
     },
     "dependencies": {
         "meta3d-bs-most-protocol": "^1.3.0",
-        "meta3d-core-protocol": "^1.2.0",
-        "meta3d-engine-basic-protocol": "^1.2.0",
+        "meta3d-core-protocol": "^1.3.0",
+        "meta3d-engine-basic-protocol": "^1.3.0",
         "meta3d-engine-core-protocol": "^1.3.0",
         "meta3d-type": "^1.3.0",
         "rescript": "^10.0.1"

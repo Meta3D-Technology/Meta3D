@@ -119,6 +119,8 @@ type composer = any
 
 type renderPass = any
 
+type outlinePass = any
+
 export type state = {
     mostService: mostService,
     eventService: eventService,
@@ -129,6 +131,7 @@ export type state = {
     renderer: nullable<WebGLRenderer>,
     composer: nullable<composer>
     renderPass: nullable<renderPass>
+    outlinePass: nullable<outlinePass>
     canvas: HTMLCanvasElement,
     lastYaw: nullable<number>,
     lastPitch: nullable<number>,

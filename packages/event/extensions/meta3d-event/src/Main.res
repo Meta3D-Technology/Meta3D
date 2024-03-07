@@ -15,6 +15,7 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
     )->api.setExtensionState(. meta3dState, "meta3d-event-protocol", _)
   },
   onPointEvent: EventManager.onPointEvent(api),
+  offPointEvent: EventManager.offPointEvent(api),
   onCustomGlobalEvent: ManageEventAPIForSrc.onCustomGlobalEvent,
   offCustomGlobalEventByHandleFunc: ManageEventAPIForSrc.offCustomGlobalEventByHandleFunc,
   onCustomGlobalEvent2: ManageEventAPIForSrc.onCustomGlobalEvent2(api)->Obj.magic,
@@ -41,7 +42,10 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
   getAllActionContributes: EventManager.getAllActionContributes->Obj.magic,
 }
 
-let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = (. meta3dState, api) => {
+let createExtensionState: Meta3dType.Index.createExtensionState<StateType.state> = (.
+  meta3dState,
+  api,
+) => {
   EventManager.createExtensionState(. meta3dState, api)
 }
 

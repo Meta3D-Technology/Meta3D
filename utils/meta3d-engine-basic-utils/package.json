@@ -5,9 +5,9 @@
         "watch": "tsc -w -noEmit"
     },
     "dependencies": {
-        "meta3d-core-protocol": "^1.2.0",
-        "meta3d-engine-basic-protocol": "^1.2.0",
-        "meta3d-pipeline-root-protocol": "^1.2.0",
+        "meta3d-core-protocol": "^1.3.0",
+        "meta3d-engine-basic-protocol": "^1.3.0",
+        "meta3d-pipeline-root-protocol": "^1.3.0",
         "meta3d-type": "^1.3.0"
     },
     "devDependencies": {

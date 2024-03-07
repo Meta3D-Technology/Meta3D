@@ -1,0 +1,81 @@
+* TODO add interact package
+
+TODO add Input, Picking
+
+
+* TODO update scenegraph
+
+
+* TODO gameview-render add OutlinePass 
+
+* TODO gameview-render add related api
+
+
+
+
+* TODO update scenegraph
+
+
+
+* TODO script interact api 
+
+
+* DONE publish and update 
+
+
+* TODO run test
+
+
+** TODO picking to print
+
+TODO add getViewRect, setSelectionObjects to script api
+
+
+** TODO show outline
+
+
+** TODO pass publish engine
+
+
+* TODO need update
+
+
+TODO e,c,p:
+gameview-render c and p
+# meta3d-action-run
+interact p
+scenegraph
+event
+run
+
+
+
+TODO packages:
+# gameview-render
+# editor
+
+
+
+
+* TODO future
+
+
+** TODO add Collider component
+
+maintain boundingSphere, boundingBox
+
+
+
+
+** TODO sceneview add picking
+
+
+
+** TODO sceneview add outline
+
+
+
+
+
+# ** TODO add MeshRender component
+

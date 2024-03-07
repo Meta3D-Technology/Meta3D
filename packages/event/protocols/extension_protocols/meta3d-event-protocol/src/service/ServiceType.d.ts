@@ -50,9 +50,15 @@ export type service = {
         actionContribute: actionContribute<uiData, any>
     ) => meta3dState;
     onPointEvent(
+        meta3dState: meta3dState,
         eventExtensionProtocolName: eventExtensionProtocolName,
         [pointEventName, priority, handleFunc]: [pointEventName, priority, handleFunc]
-    ): void;
+    ): meta3dState;
+    offPointEvent(
+        meta3dState: meta3dState,
+        eventExtensionProtocolName: eventExtensionProtocolName,
+        [pointEventName, handleFunc]: [pointEventName, handleFunc]
+    ): meta3dState;
     onCustomGlobalEvent(
         eventExtensionProtocolName: eventExtensionProtocolName,
         [customEventName, priority, handleFunc]: [customEventName, priority, handleFunc]

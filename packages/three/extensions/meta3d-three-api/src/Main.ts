@@ -112,7 +112,12 @@ import {
     RGBA_PVRTC_4BPPV1_Format,
     RGBA_S3TC_DXT5_Format,
     RGFormat,
-    UnsignedByteType
+    UnsignedByteType,
+
+    Raycaster,
+    RGBADepthPacking,
+    MeshDepthMaterial,
+    AdditiveBlending
 } from "three";
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
@@ -233,7 +238,12 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
         RGBA_PVRTC_4BPPV1_Format,
         RGBA_S3TC_DXT5_Format,
         RGFormat,
-        UnsignedByteType
+        UnsignedByteType,
+
+        Raycaster,
+        RGBADepthPacking,
+        MeshDepthMaterial,
+        AdditiveBlending
     }
 }
 

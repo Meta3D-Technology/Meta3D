@@ -21,7 +21,7 @@
         "meta3d-component-perspectivecameraprojection-protocol": "^1.3.0",
         "meta3d-component-script-protocol": "^1.3.0",
         "meta3d-component-transform-protocol": "^1.3.0",
-        "meta3d-core-protocol": "^1.2.0",
+        "meta3d-core-protocol": "^1.3.0",
         "meta3d-engine-scene-protocol": "^1.3.0",
         "meta3d-engine-scene-utils": "^1.3.0",
         "meta3d-gameobject-protocol": "^1.3.0",

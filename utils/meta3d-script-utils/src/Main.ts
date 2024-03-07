@@ -1,8 +1,10 @@
 import { api, state as meta3dState } from "meta3d-type"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
+import { service as interactService } from "meta3d-interact-protocol/src/service/ServiceType"
 import { flatten } from "meta3d-structure-utils/src/ArrayUtils"
 import { gameObject } from "meta3d-gameobject-protocol"
-import { api as scriptAPI } from "./type/APIType"
+import { api as scriptAPI, viewService } from "./type/APIType"
+import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
 
 let _eval = (value: string) => {
     return eval('(' + value + ')')
@@ -24,17 +26,21 @@ let _exec = (meta3dState: meta3dState, api: scriptAPI, eventFileStrData: Array<[
     return _func(meta3dState, 0)
 }
 
-let _buildScriptAPI = (api: api): scriptAPI => {
+let _buildScriptAPI = (api: api, viewService: viewService): scriptAPI => {
     return {
         getEngineSceneService: (meta3dState) => {
             return api.nullable.getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
         },
+        getInteractService: (meta3dState) => {
+            return api.nullable.getExn(api.getPackageService<interactService>(meta3dState, "meta3d-interact-protocol"))
+        },
+        view: viewService,
         nullable: api.nullable,
         immutable: api.immutable
     }
 }
 
-export let execEventHandle = (meta3dState: meta3dState, api: api, eventHandleName: string) => {
+export let execEventHandle = (meta3dState: meta3dState, api: api, eventHandleName: string, viewService: viewService) => {
     let engineSceneService = api.nullable.getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol"))
 
     let eventFileStrData = flatten(engineSceneService.gameObject.getAllGameObjects(meta3dState).filter(gameObject => {
@@ -49,5 +55,11 @@ export let execEventHandle = (meta3dState: meta3dState, api: api, eventHandleNam
         })
     }))
 
-    return _exec(meta3dState, _buildScriptAPI(api), eventFileStrData, eventHandleName)
+    return _exec(meta3dState, _buildScriptAPI(api, viewService), eventFileStrData, eventHandleName)
+}
+
+export let getViewServiceForEditor = (meta3dState: meta3dState, api: api): viewService => {
+    let { getViewRect, setSelectedObjects } = api.nullable.getExn(api.getPackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol"))
+
+    return { getViewRect, setSelectedObjects }
 }

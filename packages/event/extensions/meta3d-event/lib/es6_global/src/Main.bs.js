@@ -20,8 +20,11 @@ function getExtensionService(api) {
               var __x = EventManager$Meta3dEvent.registerAction(api.getExtensionState(meta3dState, "meta3d-event-protocol"), actionContribute);
               return api.setExtensionState(meta3dState, "meta3d-event-protocol", __x);
             }),
-          onPointEvent: (function (param, param$1) {
-              return EventManager$Meta3dEvent.onPointEvent(api, param, param$1);
+          onPointEvent: (function (param, param$1, param$2) {
+              return EventManager$Meta3dEvent.onPointEvent(api, param, param$1, param$2);
+            }),
+          offPointEvent: (function (param, param$1, param$2) {
+              return EventManager$Meta3dEvent.offPointEvent(api, param, param$1, param$2);
             }),
           onCustomGlobalEvent: ManageEventAPIForSrc$Meta3dEvent.onCustomGlobalEvent,
           offCustomGlobalEventByHandleFunc: ManageEventAPIForSrc$Meta3dEvent.offCustomGlobalEventByHandleFunc,

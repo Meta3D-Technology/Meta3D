@@ -106,7 +106,12 @@ import type {
 	RGBA_PVRTC_4BPPV1_Format,
 	RGBA_S3TC_DXT5_Format,
 	RGFormat,
-	UnsignedByteType
+	UnsignedByteType,
+
+	Raycaster,
+	RGBADepthPacking,
+	MeshDepthMaterial,
+	AdditiveBlending
 } from "three";
 
 export type service = {
@@ -217,5 +222,10 @@ export type service = {
 	RGBA_PVRTC_4BPPV1_Format: typeof RGBA_PVRTC_4BPPV1_Format,
 	RGBA_S3TC_DXT5_Format: typeof RGBA_S3TC_DXT5_Format,
 	RGFormat: typeof RGFormat,
-	UnsignedByteType: typeof UnsignedByteType
+	UnsignedByteType: typeof UnsignedByteType,
+
+	Raycaster: typeof Raycaster,
+	RGBADepthPacking: typeof RGBADepthPacking,
+	MeshDepthMaterial: typeof MeshDepthMaterial,
+	AdditiveBlending: typeof AdditiveBlending,
 }

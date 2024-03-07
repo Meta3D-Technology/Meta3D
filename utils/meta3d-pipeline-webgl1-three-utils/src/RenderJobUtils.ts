@@ -3,15 +3,16 @@ import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 import { setSizeAndViewport, setSizeAndViewportForEngine } from "./SetSizeAndViewportUtils"
 // import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 // import { state as uiState } from "meta3d-ui-protocol/src/state/StateType"
-import type { WebGLRenderer, PerspectiveCamera, Scene } from "three"
+import type { Camera, WebGLRenderer, PerspectiveCamera, Scene } from "three"
 import { EffectComposer, setThreeAPI } from "./three/EffectComposer"
 import { RenderPass } from "./three/RenderPass"
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { ShaderPass } from "./three/ShaderPass"
 import { GammaCorrectionShader } from "./three/GammaCorrectionShader"
 import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { OutlinePass } from "./three/OutlinePass"
 
-let _createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer: WebGLRenderer, [viewWidth, viewHeight]: [number, number], renderToScreen: boolean): [EffectComposer, RenderPass] => {
+let _createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer: WebGLRenderer, [viewWidth, viewHeight]: [number, number], renderToScreen: boolean, scene: Scene, camera: Camera): [EffectComposer, RenderPass, OutlinePass] => {
     /*! "colorSpace: threeAPIService.SRGBColorSpace" not work! it equal NoColorSpace, so use the latter directly here
     
     let renderTarget = new threeAPIService.WebGLRenderTarget(viewWidth, viewHeight, { type: threeAPIService.HalfFloatType, depthTexture: new (threeAPIService.DepthTexture as any)(), colorSpace: threeAPIService.SRGBColorSpace });
@@ -22,7 +23,8 @@ let _createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer
 
     let composer = new EffectComposer(renderer, renderTarget);
 
-    let renderModel = new RenderPass(null as any, null as any);
+    // let renderModel = new RenderPass(null as any, null as any);
+    let renderModel = new RenderPass(scene, camera);
 
     composer.renderToScreen = renderToScreen
 
@@ -31,11 +33,18 @@ let _createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer
 
     composer.addPass(renderModel)
 
-    return [composer, renderModel]
+
+
+    let outlinePass = new OutlinePass(new threeAPIService.Vector2(viewWidth, viewHeight), scene, camera);
+
+    composer.addPass(outlinePass)
+
+
+    return [composer, renderModel, outlinePass]
 }
 
-export let createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number]) => {
-    let [composer, renderModel] = _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, false)
+export let createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number], scene: Scene, camera: Camera) => {
+    let [composer, renderModel, outlinePass] = _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, false, scene, camera)
 
     /*! because set renderTarget->colorSpace not work, so need use gamma correction here
     */
@@ -47,23 +56,25 @@ export let createComposerAndRenderTarget = (threeAPIService: threeAPIService, re
     /*! clear color after gamma is increased! should restore it correctly */
     renderModel.clearColor = new threeAPIService.Color(0x595959)
 
-    return [composer, renderModel]
+    return [composer, renderModel, outlinePass]
 }
 
-export let createComposerAndRenderTargetForEngine = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number]) => {
-    return _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, true)
+export let createComposerAndRenderTargetForEngine = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number], scene: Scene, camera: Camera) => {
+    return _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, true, scene, camera)
 }
 
 export let render = (
     meta3dState: meta3dState,
     getViewRect: any,
+    getSelectedObjects: any,
     api: api,
     scene: Scene,
     perspectiveCamera: PerspectiveCamera,
     canvas: HTMLCanvasElement,
     renderer: WebGLRenderer,
     composer: any,
-    renderPass: any,
+    renderPass: RenderPass,
+    outlinePass: OutlinePass,
     textureID: string
 ) => {
     // let uiService = api.getExtensionService<uiService>(meta3dState, "meta3d-ui-protocol")
@@ -82,6 +93,14 @@ export let render = (
 
     renderPass.scene = scene
     renderPass.camera = perspectiveCamera
+
+
+
+    outlinePass.selectedObjects = getSelectedObjects(meta3dState)
+    outlinePass.renderScene = scene
+    outlinePass.renderCamera = perspectiveCamera
+
+
 
     composer.render()
 
@@ -107,15 +126,23 @@ export let render = (
 
 export let renderForEngine = (
     meta3dState: meta3dState,
+    getSelectedObjects: any,
     scene: Scene,
     perspectiveCamera: PerspectiveCamera,
     composer: any,
-    renderPass: any,
+    renderPass: RenderPass,
+    outlinePass: OutlinePass
 ) => {
     // renderer.autoClear = false;
 
     renderPass.scene = scene
     renderPass.camera = perspectiveCamera
+
+
+    outlinePass.selectedObjects = getSelectedObjects(meta3dState)
+    outlinePass.renderScene = scene
+    outlinePass.renderCamera = perspectiveCamera
+
 
     composer.render()
 
