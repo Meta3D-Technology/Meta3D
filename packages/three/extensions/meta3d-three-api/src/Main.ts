@@ -115,9 +115,11 @@ import {
     UnsignedByteType,
 
     Raycaster,
+    Ray,
     RGBADepthPacking,
     MeshDepthMaterial,
-    AdditiveBlending
+    AdditiveBlending,
+    Triangle,
 } from "three";
 
 export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
@@ -241,9 +243,11 @@ export let getExtensionService: getExtensionServiceMeta3D<service> = (_api) => {
         UnsignedByteType,
 
         Raycaster,
+        Ray,
         RGBADepthPacking,
         MeshDepthMaterial,
-        AdditiveBlending
+        AdditiveBlending,
+        Triangle,
     }
 }
 

@@ -26,7 +26,7 @@ TODO add Input, Picking
 * TODO run test
 
 
-** TODO picking to print
+** DONE picking to print
 
 TODO add getViewRect, setSelectionObjects to script api
 
@@ -46,6 +46,7 @@ gameview-render c and p
 interact p
 scenegraph
 event
+three-api p
 run
 
 
@@ -64,7 +65,19 @@ TODO packages:
 
 maintain boundingSphere, boundingBox
 
+TODO computeBounding in update job
 
+
+** TODO add Picking component
+
+maintain ray, camera
+
+TODO rewrite setFromCurrentCamera
+
+TODO update intersectScene
+    update picking component's data
+
+TODO remove RayCaster
 
 
 ** TODO sceneview add picking

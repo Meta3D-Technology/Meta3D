@@ -111,7 +111,9 @@ import type {
 	Raycaster,
 	RGBADepthPacking,
 	MeshDepthMaterial,
-	AdditiveBlending
+	AdditiveBlending,
+	Ray,
+	Triangle
 } from "three";
 
 export type service = {
@@ -225,7 +227,9 @@ export type service = {
 	UnsignedByteType: typeof UnsignedByteType,
 
 	Raycaster: typeof Raycaster,
+	Ray: typeof Ray,
 	RGBADepthPacking: typeof RGBADepthPacking,
 	MeshDepthMaterial: typeof MeshDepthMaterial,
 	AdditiveBlending: typeof AdditiveBlending,
+	Triangle: typeof Triangle,
 }
