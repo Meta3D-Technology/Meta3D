@@ -213,7 +213,11 @@ let _getOrCreateDirectionLightInstance = (directionLight: directionLight, gameOb
 export class Object3D {
     constructor(gameObject: gameObject) {
         this.gameObject = gameObject
+
+        this._visible = true
     }
+
+    private _visible: boolean
 
     protected gameObject: gameObject
 
@@ -234,7 +238,10 @@ export class Object3D {
     }
 
     public get visible(): boolean {
-        return true
+        return this._visible
+    }
+    public set visible(value: boolean) {
+        this._visible = value
     }
 
     public get layers(): LayersType {
@@ -342,6 +349,19 @@ export class Object3D {
         let engineSceneService = getEngineSceneService(meta3dState)
 
         return this.getChildren((gameObject: gameObject) => _createInstance(engineSceneService, meta3dState, gameObject))
+    }
+
+
+    public traverse(callback) {
+        callback(this);
+
+        const children = this.children;
+
+        for (let i = 0, l = children.length; i < l; i++) {
+
+            children[i].traverse(callback);
+
+        }
     }
 
     public onBeforeRender(scene: Scene, camera: Camera, geometry: BufferGeometry, material: MeshPhysicalMaterial, group: any) {
@@ -805,9 +825,13 @@ export class Scene extends Object3D {
     public get background(): nullable<ColorType | TextureType | CubeTexture> {
         return null
     }
+    public set background(value: nullable<ColorType | TextureType | CubeTexture>) {
+    }
 
     public get overrideMaterial(): nullable<Material> {
         return null
+    }
+    public set overrideMaterial(value: nullable<Material>) {
     }
 
     public get matrixWorld(): Matrix4Type {

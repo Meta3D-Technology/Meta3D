@@ -33,6 +33,13 @@ TODO add getViewRect, setSelectionObjects to script api
 
 ** TODO show outline
 
+TODO fix:
+add cube when run->event not work
+
+select one but select all
+
+
+
 
 ** TODO pass publish engine
 
@@ -90,5 +97,7 @@ TODO remove RayCaster
 
 
 
-# ** TODO add MeshRender component
+** TODO add MeshRender component
+
+maintain visible
 
