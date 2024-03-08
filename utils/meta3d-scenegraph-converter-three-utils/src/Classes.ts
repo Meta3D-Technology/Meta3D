@@ -47,7 +47,7 @@ import { EventDispatcher } from "./three/EventDispatcher";
 import { filter, htmlImageElement, texture, wrap } from "meta3d-texture-basicsource-protocol/src/state/StateType";
 import { color, directionLight } from "meta3d-component-directionlight-protocol";
 import {
-    BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Vector3, Quaternion, Source,
+    BufferAttribute, Color, FrontSide, Layers, Matrix3, Matrix4, NoBlending, Sphere, Box3, Vector3, Quaternion, Source,
     ClampToEdgeWrapping,
     RepeatWrapping,
     MirroredRepeatWrapping,
@@ -72,7 +72,7 @@ import {
 } from "./SetVariables";
 import * as Meta3DCameraController from "meta3d-gltf-extensions/src/Meta3DCameraController"
 import * as Meta3DScript from "meta3d-gltf-extensions/src/Meta3DScript"
-import { computeBoundingSphere } from "./utils/BoundingUtils";
+import { computeBoundingBox, computeBoundingSphere } from "./utils/BoundingUtils";
 
 let _getEmptyGameObject = () => -1
 
@@ -961,6 +961,7 @@ export class BufferGeometry extends EventDispatcher {
 
         // TODO perf: get from collider component
         this._boundingSphere = computeBoundingSphere(new Sphere(), this._positionAttribute, new Vector3())
+        this._boundingBox = computeBoundingBox(new Box3(), this._positionAttribute)
     }
 
     private _geometry: geometry
@@ -970,6 +971,7 @@ export class BufferGeometry extends EventDispatcher {
     private _tangentAttribute: nullable<BufferAttributeType>
     private _indexAttribute: BufferAttributeType
     private _boundingSphere: SphereType
+    private _boundingBox: Box3Type
 
     public uuid: string
     public id: number
@@ -993,7 +995,7 @@ export class BufferGeometry extends EventDispatcher {
     }
 
     public get boundingBox(): nullable<Box3Type> {
-        return null
+        return this._boundingBox
     }
 
     public get index(): nullable<BufferAttributeType> {

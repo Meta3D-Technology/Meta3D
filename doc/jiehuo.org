@@ -1,23 +1,23 @@
-* TODO add interact package
+* DONE add interact package
 
 TODO add Input, Picking
 
 
-* TODO update scenegraph
+* DONE update scenegraph
 
 
-* TODO gameview-render add OutlinePass 
+* DONE gameview-render add OutlinePass 
 
-* TODO gameview-render add related api
-
-
-
-
-* TODO update scenegraph
+* DONE gameview-render add related api
 
 
 
-* TODO script interact api 
+
+* DONE update scenegraph
+
+
+
+* DONE script interact api 
 
 
 * DONE publish and update 
@@ -31,7 +31,7 @@ TODO add Input, Picking
 TODO add getViewRect, setSelectionObjects to script api
 
 
-** TODO show outline
+** DONE show outline
 
 TODO fix:
 select one but select all
@@ -42,7 +42,7 @@ select one but select all
 
 children gameObject can't be select
 
-add cube when run->event not work
+add cube when run->event not work in gameview
 
 
 
@@ -50,7 +50,21 @@ add cube when run->event not work
 TODO test glb model
 
 
+** DONE too slow
+
+TODO optimize:
+should first check bounding
+
+get geometry
+
+check only when trigger event
+
+
 ** TODO pass publish engine
+
+* TODO fix: cancel load glb
+* TODO fix: when stop, script asset->event file str not restore immdiatlly
+
 
 
 * TODO need update

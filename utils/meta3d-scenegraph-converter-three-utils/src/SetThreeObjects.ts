@@ -1,7 +1,7 @@
 import { service as threeAPIService } from "meta3d-three-api-protocol/src/service/ServiceType"
 import { state as meta3dState, getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, extensionLife, api } from "meta3d-type"
 
-export let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any, Matrix4: any, NoBlending: any, Sphere: any, Vector3: any, Quaternion: any, Source: any,
+export let BufferAttribute: any, Color: any, FrontSide: any, Layers: any, Matrix3: any, Matrix4: any, NoBlending: any, Sphere: any, Box3: any, Vector3: any, Quaternion: any, Source: any,
     ClampToEdgeWrapping: any,
     RepeatWrapping: any,
     MirroredRepeatWrapping: any,
@@ -28,6 +28,7 @@ export let setThreeObjects = (api: api, meta3dState: meta3dState) => {
     Matrix4 = threeAPIService.Matrix4
     NoBlending = threeAPIService.NoBlending
     Sphere = threeAPIService.Sphere
+    Box3 = threeAPIService.Box3
     Vector3 = threeAPIService.Vector3
     Quaternion = threeAPIService.Quaternion
     Source = threeAPIService.Source

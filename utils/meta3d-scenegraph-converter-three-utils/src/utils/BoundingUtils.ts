@@ -1,5 +1,6 @@
 import type {
     Sphere,
+    Box3,
     Vector3,
     BufferAttribute
 } from "three";
@@ -8,9 +9,9 @@ export let computeBoundingSphere = (boundingSphere: Sphere, position: BufferAttr
     // const _vector = /*@__PURE__*/ new Vector3();
 
     if (position && position.isGLBufferAttribute) {
-        // console.error( 'THREE.BufferGeometry.computeBoundingSphere(): GLBufferAttribute requires a manual bounding sphere. Alternatively set "mesh.frustumCulled" to "false".', this );
+        // console.error( 'THREE.BufferGeometry.computeBoundingSphere(): GLBufferAttribute requires a manual bounding sphere. Alternatively set "mesh.frustumCulled" to "false".', ;
 
-        // this.boundingSphere.set( new Vector3(), Infinity );
+        // boundingSphere.set( new Vector3(), Infinity );
 
         // return;
 
@@ -35,7 +36,7 @@ export let computeBoundingSphere = (boundingSphere: Sphere, position: BufferAttr
         //         const morphAttribute = morphAttributesPosition[i];
         //         _boxMorphTargets.setFromBufferAttribute(morphAttribute);
 
-        //         if (this.morphTargetsRelative) {
+        //         if (morphTargetsRelative) {
 
         //             _vector.addVectors(_box.min, _boxMorphTargets.min);
         //             _box.expandByPoint(_vector);
@@ -77,7 +78,7 @@ export let computeBoundingSphere = (boundingSphere: Sphere, position: BufferAttr
         //     for (let i = 0, il = morphAttributesPosition.length; i < il; i++) {
 
         //         const morphAttribute = morphAttributesPosition[i];
-        //         const morphTargetsRelative = this.morphTargetsRelative;
+        //         const morphTargetsRelative = morphTargetsRelative;
 
         //         for (let j = 0, jl = morphAttribute.count; j < jl; j++) {
 
@@ -102,7 +103,7 @@ export let computeBoundingSphere = (boundingSphere: Sphere, position: BufferAttr
 
         if (isNaN(boundingSphere.radius)) {
 
-            console.error('THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.', this);
+            console.error('THREE.BufferGeometry.computeBoundingSphere(): Computed radius is NaN. The "position" attribute is likely to have NaN values.');
 
         }
 
@@ -110,4 +111,69 @@ export let computeBoundingSphere = (boundingSphere: Sphere, position: BufferAttr
 
 
     return boundingSphere
+}
+
+export let computeBoundingBox = (boundingBox: Box3, position: BufferAttribute | any) => {
+    // const position = attributes.position;
+    // const morphAttributesPosition = morphAttributes.position;
+
+    if (position && position.isGLBufferAttribute) {
+
+        // console.error('THREE.BufferGeometry.computeBoundingBox(): GLBufferAttribute requires a manual bounding box. Alternatively set "mesh.frustumCulled" to "false"');
+
+        // boundingBox.set(
+        //     new Vector3(- Infinity, - Infinity, - Infinity),
+        //     new Vector3(+ Infinity, + Infinity, + Infinity)
+        // );
+
+        // return;
+        throw new Error('THREE.BufferGeometry.computeBoundingBox(): GLBufferAttribute requires a manual bounding box. Alternatively set "mesh.frustumCulled" to "false"');
+
+    }
+
+    if (position !== undefined) {
+
+        boundingBox.setFromBufferAttribute(position);
+
+        // process morph attributes if present
+
+        // if (morphAttributesPosition) {
+
+        //     for (let i = 0, il = morphAttributesPosition.length; i < il; i++) {
+
+        //         const morphAttribute = morphAttributesPosition[i];
+        //         _box.setFromBufferAttribute(morphAttribute);
+
+        //         if (morphTargetsRelative) {
+
+        //             _vector.addVectors(boundingBox.min, _box.min);
+        //             boundingBox.expandByPoint(_vector);
+
+        //             _vector.addVectors(boundingBox.max, _box.max);
+        //             boundingBox.expandByPoint(_vector);
+
+        //         } else {
+
+        //             boundingBox.expandByPoint(_box.min);
+        //             boundingBox.expandByPoint(_box.max);
+
+        //         }
+
+        //     }
+
+        // }
+
+    } else {
+
+        boundingBox.makeEmpty();
+
+    }
+
+    if (isNaN(boundingBox.min.x) || isNaN(boundingBox.min.y) || isNaN(boundingBox.min.z)) {
+
+        console.error('THREE.BufferGeometry.computeBoundingBox(): Computed min/max have NaN values. The "position" attribute is likely to have NaN values.');
+
+    }
+
+    return boundingBox
 }
