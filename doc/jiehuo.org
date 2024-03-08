@@ -34,11 +34,20 @@ TODO add getViewRect, setSelectionObjects to script api
 ** TODO show outline
 
 TODO fix:
+select one but select all
+    # visible?
+    # overrideMaterial?
+    id
+
+
+children gameObject can't be select
+
 add cube when run->event not work
 
-select one but select all
 
 
+
+TODO test glb model
 
 
 ** TODO pass publish engine
@@ -48,7 +57,7 @@ select one but select all
 
 
 TODO e,c,p:
-gameview-render c and p
+gameview-render e, c and p
 # meta3d-action-run
 interact p
 scenegraph
@@ -94,6 +103,13 @@ TODO remove RayCaster
 ** TODO sceneview add outline
 
 
+
+
+
+
+** TODO perf: if run many times, memory take much more!
+
+TODO share allocate ECS ArrayBuffers when each run(visual, run)
 
 
 

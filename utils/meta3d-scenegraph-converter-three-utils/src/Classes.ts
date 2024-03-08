@@ -214,12 +214,18 @@ export class Object3D {
     constructor(gameObject: gameObject) {
         this.gameObject = gameObject
 
+        this.uuid = generateUUID()
+        this.id = generateId()
+
         this._visible = true
     }
 
     private _visible: boolean
 
     protected gameObject: gameObject
+
+    public uuid: string
+    public id: number
 
     public get isObject3D(): boolean {
         return true
@@ -867,7 +873,10 @@ export class Mesh extends Object3D {
     }
 
     public get parent(): nullable<Mesh> {
-        return _getOrCreateMeshInstance(getExn(this.getParent()))
+        return map(
+            _getOrCreateMeshInstance,
+            this.getParent()
+        )
     }
 
     // public get children(): Array<Mesh> {
