@@ -32,7 +32,7 @@ function trigger(api, meta3dState, eventExtensionProtocolName, actionName, uiDat
   }
 }
 
-function _execHandler(handleFunc) {
+function _buildHandlerFunc(handleFunc) {
   return function (customEvent, state) {
     try {
       handleFunc(customEvent);
@@ -56,7 +56,7 @@ function _execHandler(handleFunc) {
 }
 
 function onPointEvent(api, meta3dState, eventExtensionProtocolName, param) {
-  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(param[0], _execHandler(param[2]), ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), param[1], undefined), eventExtensionProtocolName);
+  ContainerManager$Meta3dEvent.setState(ManageEventDoService$Meta3dEvent.onCustomGlobalEvent(param[0], _buildHandlerFunc(param[2]), ContainerManager$Meta3dEvent.getState(eventExtensionProtocolName), param[1], undefined), eventExtensionProtocolName);
   return meta3dState;
 }
 
@@ -154,7 +154,7 @@ var getPointDragDropEventName = NameEventDoService$Meta3dEvent.getPointDragDropE
 export {
   registerAction ,
   trigger ,
-  _execHandler ,
+  _buildHandlerFunc ,
   onPointEvent ,
   offPointEvent ,
   _setDomToStateForEventHandler ,

@@ -57,6 +57,15 @@ export let getExtensionService: getExtensionServiceMeta3D<
 				viewRect
 			})
 		},
+		getSelectedObjects: (meta3dState) => {
+			return api.getExtensionState<state>(meta3dState, "meta3d-engine-web-render-protocol").selectedObjects
+		},
+		setSelectedObjects: (meta3dState, selectedObjects) => {
+			return api.setExtensionState<state>(meta3dState, "meta3d-engine-web-render-protocol", {
+				...api.getExtensionState<state>(meta3dState, "meta3d-engine-web-render-protocol"),
+				selectedObjects
+			})
+		},
 	}
 }
 
@@ -65,6 +74,7 @@ export let createExtensionState: createExtensionStateMeta3D<
 > = () => {
 	return {
 		viewRect: null,
+		selectedObjects: []
 	}
 }
 

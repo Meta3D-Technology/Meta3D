@@ -60,30 +60,71 @@ get geometry
 check only when trigger event
 
 
-** TODO pass publish engine
 
-* TODO fix: cancel load glb
-* TODO fix: when stop, script asset->event file str not restore immdiatlly
+# * TODO fix: cancel load glb
+# TODO make add-asset update work!
+# * TODO fix: when stop, script asset->event file str not restore immdiatlly
 
 
 
-* TODO need update
+
+* DONE pass publish engine
+
+TODO web render:
+add api
+render job:add outline
+
+
+TODO run test:
+publish local
+publish to platform
+
+
+* DONE need update
 
 
 TODO e,c,p:
-gameview-render e, c and p
-# meta3d-action-run
-interact p
-scenegraph
-event
-three-api p
-run
+# gameview-render e, c and p
+# # meta3d-action-run
+# interact p
+# scenegraph
+# event
+# three-api p
+# ui
+# editor e, p
+# webview e,c,p
+# engine-whole e, p
+# web-render
+
+# run
+# add asset
+# add cube
 
 
 
 TODO packages:
 # gameview-render
 # editor
+
+
+
+
+
+
+
+* TODO 优化: 错误 打印
+
+use error instead of throw
+
+
+
+TODO RunElementVisual:
+if error, show error message and continue(loop)
+
+
+
+
+
 
 
 
@@ -124,6 +165,12 @@ TODO remove RayCaster
 ** TODO perf: if run many times, memory take much more!
 
 TODO share allocate ECS ArrayBuffers when each run(visual, run)
+
+
+
+** TODO add output ui control
+
+show log, error(e.g. error by script->handler)
 
 
 

@@ -19,6 +19,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         let renderer = data[1] as WebGLRenderer
         let composer = data[2] as any
         let renderPass = data[3] as any
+        let outlinePass = data[4] as any
 
         return setStatesFunc<states>(
             meta3dState,
@@ -26,7 +27,8 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
                 ...getState(states),
                 renderer,
                 composer,
-                renderPass
+                renderPass,
+                outlinePass
             })
         )
     })

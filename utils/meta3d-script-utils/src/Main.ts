@@ -5,6 +5,7 @@ import { flatten } from "meta3d-structure-utils/src/ArrayUtils"
 import { gameObject } from "meta3d-gameobject-protocol"
 import { api as scriptAPI, viewService } from "./type/APIType"
 import { service as gameViewRenderService } from "meta3d-editor-gameview-render-protocol/src/service/ServiceType"
+import { service as webRenderService } from "meta3d-engine-web-render-protocol/src/service/ServiceType"
 
 let _eval = (value: string) => {
     return eval('(' + value + ')')
@@ -60,6 +61,12 @@ export let execEventHandle = (meta3dState: meta3dState, api: api, eventHandleNam
 
 export let getViewServiceForEditor = (meta3dState: meta3dState, api: api): viewService => {
     let { getViewRect, setSelectedObjects } = api.nullable.getExn(api.getPackageService<gameViewRenderService>(meta3dState, "meta3d-editor-gameview-render-protocol"))
+
+    return { getViewRect, setSelectedObjects }
+}
+
+export let getViewServiceForEngine = (meta3dState: meta3dState, api: api): viewService => {
+    let { getViewRect, setSelectedObjects } = api.nullable.getExn(api.getPackageService<webRenderService>(meta3dState, "meta3d-engine-web-render-protocol"))
 
     return { getViewRect, setSelectedObjects }
 }

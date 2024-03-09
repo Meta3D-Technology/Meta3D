@@ -54,6 +54,7 @@ export let getContribute: getContributeMeta3D<pipelineContribute<config, state>>
 				renderer: null,
 				composer: null,
 				renderPass: null,
+				outlinePass: null,
 				canvas,
 				lastYaw: null,
 				lastPitch: null,

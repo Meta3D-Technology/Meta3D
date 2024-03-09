@@ -8,7 +8,7 @@ import { cleanScene, importScene } from "meta3d-import-scene-protocol/src/servic
 import { exportScene } from "meta3d-export-scene-protocol/src/service/ServiceType"
 import { service as assetService_ } from "meta3d-asset-protocol/src/service/ServiceType"
 import { service as libService_ } from "meta3d-lib-protocol/src/service/ServiceType"
-import { service as interactService_ } from "meta3d-interact-protocol/src/service/ServiceType"
+// import { service as interactService_ } from "meta3d-interact-protocol/src/service/ServiceType"
 import { initData, initFunc, updateData, env } from "../state/StateType";
 import { uiControlContribute as uiControlContribute_ } from "meta3d-ui-protocol/src/contribute/UIControlContributeType"
 import { inputContribute as inputContribute_ } from "meta3d-ui-protocol/src/contribute/InputContributeType"
@@ -45,7 +45,7 @@ export type assetService = assetService_
 
 export type libService = libService_
 
-export type interactService = interactService_
+// export type interactService = interactService_
 
 export type service = {
 	scene: (meta3dState: meta3dState) => engineSceneService,
@@ -54,7 +54,7 @@ export type service = {
 	core: (meta3dState: meta3dState) => coreService,
 	asset: (meta3dState: meta3dState) => assetService,
 	lib: (meta3dState: meta3dState) => libService,
-	interact: (meta3dState: meta3dState) => interactService,
+	// interact: (meta3dState: meta3dState) => interactService,
 
 	addGroup: addGroup,
 	cleanScene: cleanScene,
