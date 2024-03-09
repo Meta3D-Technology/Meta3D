@@ -20,5 +20,5 @@
 	},
 	"include": [
 		"./src"
-	]
+, "../../../extensions/meta3d-interact/src/animation/tween.module.d.ts"	]
 }

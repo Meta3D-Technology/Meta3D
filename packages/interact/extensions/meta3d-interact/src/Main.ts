@@ -1,11 +1,12 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api } from "meta3d-type"
 import { state } from "meta3d-interact-protocol/src/state/StateType"
-import { service } from "meta3d-interact-protocol/src/service/ServiceType"
+import { service, tweenId } from "meta3d-interact-protocol/src/service/ServiceType"
 import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as threeService } from "meta3d-three-protocol/src/service/ServiceType"
 import { state as converterState } from "meta3d-scenegraph-converter-three-protocol/src/state/StateType"
 import { getExn } from "meta3d-commonlib-ts/src/NullableUtils"
 import { getVertexPosition } from "./PositionUtils"
+import TWEEN from "./animation/tween.module"
 
 let _checkIntersection = (
 	threeAPIService,
@@ -348,6 +349,31 @@ let _ascSort = (a, b) => {
 
 }
 
+
+let _getMeta3dStateForAnimation = (api: api) => {
+	return api.nullable.getExn(globalThis["meta3d_animation_meta3dState"])
+}
+
+let _setMeta3dStateForAnimation = (meta3dState: meta3dState) => {
+	globalThis["meta3d_animation_meta3dState"] = meta3dState
+}
+
+let _getTween = (meta3dState: meta3dState, api: api, id: tweenId) => {
+	return api.nullable.getExn(api.getExtensionState<state>(meta3dState, "meta3d-interact-protocol").animation.tweens.get(id))
+}
+
+let _setTween = (meta3dState: meta3dState, api: api, id: tweenId, tween: any) => {
+	let state = api.getExtensionState<state>(meta3dState, "meta3d-interact-protocol")
+
+	return api.setExtensionState<state>(meta3dState,
+		"meta3d-interact-protocol", {
+		...state,
+		animation: {
+			tweens: state.animation.tweens.set(id, tween)
+		}
+	})
+}
+
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
 > = (api) => {
@@ -439,6 +465,97 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				return intersects;
 			},
+		},
+		animation: {
+			add: (meta3dState, id, object, {
+				onStart = (meta3dState, object) => meta3dState,
+				onUpdate = (meta3dState, object, elapsed) => meta3dState,
+				onRepeat = (meta3dState, object) => meta3dState,
+				onComplete = (meta3dState, object) => meta3dState,
+				onStop = (meta3dState, object) => meta3dState
+			}) => {
+				let state = api.getExtensionState<state>(meta3dState,
+					"meta3d-interact-protocol")
+
+				return api.setExtensionState<state>(meta3dState,
+					"meta3d-interact-protocol", {
+					...state,
+					animation: {
+						// tweens: state.animation.tweens.set(id, new TWEEN.Tween(object).onStart(onStart).onUpdate(onUpdate).onRepeat(onRepeat).onComplete(onComplete).onStop(onStop)
+						tweens: state.animation.tweens.set(id, new TWEEN.Tween(object).onStart((object) => {
+							_setMeta3dStateForAnimation(onStart(_getMeta3dStateForAnimation(api), object))
+						}).onUpdate((object, elapsed) => {
+							_setMeta3dStateForAnimation(onUpdate(_getMeta3dStateForAnimation(api), object, elapsed))
+						}).onRepeat((object) => {
+							_setMeta3dStateForAnimation(onRepeat(_getMeta3dStateForAnimation(api), object))
+						}).onComplete((object) => {
+							_setMeta3dStateForAnimation(onComplete(_getMeta3dStateForAnimation(api), object))
+						}).onStop((object) => {
+							_setMeta3dStateForAnimation(onStop(_getMeta3dStateForAnimation(api), object))
+						})
+						)
+					}
+				})
+			},
+			remove: (meta3dState, id) => {
+				TWEEN.remove(_getTween(meta3dState, api, id))
+
+				return meta3dState
+			},
+			to: (meta3dState, id, target, duration) => {
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).to(target, duration))
+			},
+			start: (meta3dState, id, time) => {
+				_setMeta3dStateForAnimation(meta3dState)
+
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).start(time))
+			},
+			stop: (meta3dState, id) => {
+				_setMeta3dStateForAnimation(meta3dState)
+
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).stop())
+			},
+			end: (meta3dState, id) => {
+				_setMeta3dStateForAnimation(meta3dState)
+
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).end())
+			},
+			pause: (meta3dState, id, time) => {
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).pause(time))
+			},
+			resume: (meta3dState, id, time) => {
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).resume(time))
+			},
+			repeat: (meta3dState, id, times) => {
+				_setMeta3dStateForAnimation(meta3dState)
+
+				return _setTween(meta3dState, api, id, _getTween(meta3dState, api, id).repeat(times))
+			},
+			isPlaying: (meta3dState, id) => {
+				return _getTween(meta3dState, api, id).isPlaying()
+			},
+			isPaused: (meta3dState, id) => {
+				return _getTween(meta3dState, api, id).isPaused()
+			},
+			update: (meta3dState, id, time) => {
+				let tween = _getTween(meta3dState, api, id)
+
+				_setMeta3dStateForAnimation(meta3dState)
+
+				let result = tween.update(time)
+
+				return [_setTween(meta3dState, api, id, tween), result]
+			},
+			updateAll: (meta3dState, time) => {
+				_setMeta3dStateForAnimation(meta3dState)
+
+				return [meta3dState, TWEEN.update(time)]
+			},
+			removeAll: (meta3dState) => {
+				TWEEN.removeAll()
+
+				return meta3dState
+			},
 		}
 	}
 }
@@ -446,7 +563,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = (meta3dState, api) => {
-	return null
+	return {
+		animation: {
+			tweens: api.immutable.createMap()
+		}
+	}
 }
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {

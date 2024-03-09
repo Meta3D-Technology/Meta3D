@@ -134,9 +134,95 @@ gameview c
 run
 
 
+* DONE learn three.js with keyframe animation
+
+TODO demo
+
+
+* DONE implement cube keyframe animation
+
+# ** TODO build data
+
+
+# ** TODO implement
+
+TODO use Tween to move cube
+
+TODO provide animation api
+
+
+
+* DONE implement camera keyframe animation to focus cube
+
+
+
+TODO compute new target, new distance
+    TODO use fake distance
+
+TODO use Tween to these new ones
+
+TODO provide animation api
+
+
+* TODO fix: if onStop error, recurse throw!
+
+
+* TODO fix: change action->immdiatlly run: action not work
+
+
+
+
+* TODO update engine
+
+* TODO publish and update
+
+TODO :
+interact e, p
+
+run
+
+
+* TODO add 2d ui(page)
+
+TODO page box
+
+TODO text
+
+TODO link
+
+
+
+* TODO add data binding
+
+TODO scene data:
+parent-child cubes
+ids
+description
+
+
+
+* TODO add 3d ui(billboard or face to one direction)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 * TODO future
+
+** TODO picking should return gameObjects instead of objects
+** TODO setSelectedObjects should use gameObjects instead of objects
+** TODO refactor: rename setSelectedObjects to setSelectedGameObjects
 
 
 ** TODO add Collider component
@@ -144,6 +230,9 @@ run
 maintain boundingSphere, boundingBox
 
 TODO computeBounding in update job
+
+
+TODO update camera focus->new distance
 
 
 ** TODO add Picking component
@@ -166,6 +255,14 @@ TODO remove RayCaster
 
 
 
+** TODO sceneview add focus when press "f"
+
+*** TODO add hotkey
+
+*** TODO implement focus
+
+
+
 
 
 
@@ -178,6 +275,12 @@ TODO share allocate ECS ArrayBuffers when each run(visual, run)
 ** TODO add output ui control
 
 show log, error(e.g. error by script->handler)
+
+
+** TODO GameObjectAPI: add findGameObjectByName
+
+
+** TODO refactor: move "animation" out of interact package to be animation package
 
 
 

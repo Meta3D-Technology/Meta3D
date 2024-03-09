@@ -90,10 +90,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = _markIsRun(meta3dState, api, false)
                     meta3dState = _stopGameViewRender(meta3dState, api)
 
-                    meta3dState = api.restore(meta3dState, api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)).meta3dStateBeforeRun)
-
 
                     return execEventHandle(meta3dState, api, "onStop", getViewServiceForEditor(meta3dState, api)).then(meta3dState => {
+                        meta3dState = api.restore(meta3dState, api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)).meta3dStateBeforeRun)
+
                         return runGameViewRenderOnlyOnce(meta3dState, api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))
                     })
                 }))
