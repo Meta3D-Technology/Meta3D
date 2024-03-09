@@ -19,9 +19,17 @@ let _exec = (meta3dState: meta3dState, api: scriptAPI, eventFileStrData: Array<[
 
         let [gameObject, eventFileStr] = eventFileStrData[index]
 
-        return _eval(eventFileStr)[eventHandleName](meta3dState, api, gameObject).then((meta3dState: meta3dState) => {
-            return _func(meta3dState, index + 1)
-        })
+        try {
+            return _eval(eventFileStr)[eventHandleName](meta3dState, api, gameObject).then((meta3dState: meta3dState) => {
+                return _func(meta3dState, index + 1)
+            })
+        } catch (e: any) {
+            e.errorType = "script"
+
+            return new Promise((resolve, reject) => {
+                reject(e)
+            })
+        }
     }
 
     return _func(meta3dState, 0)

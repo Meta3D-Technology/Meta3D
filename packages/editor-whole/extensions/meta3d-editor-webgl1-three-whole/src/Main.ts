@@ -277,7 +277,11 @@ let _exportEventDataForDebug = (meta3dState: meta3dState, eventSourcingService: 
 	)
 }
 
-let _handleError = (api: api, meta3dState: meta3dState) => {
+let _handleError = (api: api, e: Error, meta3dState: meta3dState) => {
+	if ((e as any).errorType === "script") {
+		return
+	}
+
 	let eventService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
 	_exportEventDataForDebug(
@@ -306,7 +310,7 @@ let _updateForVisual = (meta3dState, api: api, { clearColor, time, skinName }) =
 	).then(meta3dState => {
 		return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
 	}).catch(e => {
-		_handleError(api, meta3dState)
+		_handleError(api, e, meta3dState)
 		throw e
 	})
 }
@@ -334,7 +338,7 @@ let _updateForVisualRun = (meta3dState, api: api, { clearColor, time, skinName }
 	}).then(meta3dState => {
 		return _loopEngine(meta3dState, api)
 	}).catch(e => {
-		_handleError(api, meta3dState)
+		_handleError(api, e, meta3dState)
 		throw e
 	})
 }
@@ -460,7 +464,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				return _initBackend(api, meta3dState, env)
 			}).catch(e => {
-				_handleError(api, meta3dState)
+				_handleError(api, e, meta3dState)
 				throw e
 			})
 		},
@@ -502,7 +506,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				return _initBackend(api, meta3dState, env)
 			}).catch(e => {
-				_handleError(api, meta3dState)
+				_handleError(api, e, meta3dState)
 				throw e
 			}).then((meta3dState: meta3dState) => {
 				_loop(api, meta3dState,

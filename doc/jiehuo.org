@@ -112,9 +112,9 @@ TODO packages:
 
 
 
-* TODO 优化: 错误 打印
+* DONE 优化: 错误 打印
 
-use error instead of throw
+# use error instead of throw
 
 
 
@@ -122,9 +122,16 @@ TODO RunElementVisual:
 if error, show error message and continue(loop)
 
 
+TODO fix:
+continue from event data: recursive
 
 
 
+TODO e,c,p:
+editor-whole
+gameview c
+
+run
 
 
 

@@ -52,6 +52,17 @@ module Method = {
     }, _)
     ->Js.Promise.catch(e => {
       service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+
+      (e->Obj.magic)["errorType"] === "script"
+        ? {
+            loopFrameID.current =
+              service.other.requestAnimationOtherFrame(time => {
+                _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+              })->Some
+
+            ()->Js.Promise.resolve
+          }
+        : e->Js.Exn.anyToExnInternal->Js.Promise.reject
     }, _)
     ->ignore
   }

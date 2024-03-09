@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-webgl1-three-whole",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-editor-whole-protocol"
