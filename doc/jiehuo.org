@@ -180,9 +180,12 @@ TODO onStop not unbind event(because already restore)
 
 
 
-* TODO update engine
+* DONE update engine
 
-* TODO publish and update
+TODO fix:animation cube without pick
+
+
+* DONE publish and update
 
 TODO :
 # interact e, p
@@ -190,6 +193,8 @@ TODO :
 # editor e
 
 # web-render c
+
+interact
 
 run
 stop

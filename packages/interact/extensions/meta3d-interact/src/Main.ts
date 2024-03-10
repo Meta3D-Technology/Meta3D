@@ -542,14 +542,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
 				_setMeta3dStateForAnimation(meta3dState)
 
-				let result = tween.update(time)
+				let result = tween.update(time, false)
 
 				return [_setTween(meta3dState, api, id, tween), result]
 			},
 			updateAll: (meta3dState, time) => {
 				_setMeta3dStateForAnimation(meta3dState)
 
-				return [meta3dState, TWEEN.update(time)]
+				return [meta3dState, TWEEN.update(time, true)]
 			},
 			removeAll: (meta3dState) => {
 				TWEEN.removeAll()
