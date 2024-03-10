@@ -347,10 +347,10 @@ let _buildMessageAPI = (): Meta3dType.Index.messageAPI => {
   }
   `),
   error: %raw(`
-  function (message){
-    console.error(message)
+  function (error){
+    console.error(error)
 
-    alert("错误：" +message)
+    alert("错误：" +error.message)
   }
   `),
 }

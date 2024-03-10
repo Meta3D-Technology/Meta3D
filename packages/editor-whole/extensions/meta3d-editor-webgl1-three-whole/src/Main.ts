@@ -278,9 +278,9 @@ let _exportEventDataForDebug = (meta3dState: meta3dState, eventSourcingService: 
 }
 
 let _handleError = (api: api, e: Error, meta3dState: meta3dState) => {
-	if ((e as any).errorType === "script") {
-		return
-	}
+	// if ((e as any).errorType === "script") {
+	// 	return
+	// }
 
 	let eventService = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 

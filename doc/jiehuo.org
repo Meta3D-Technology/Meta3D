@@ -164,11 +164,19 @@ TODO use Tween to these new ones
 TODO provide animation api
 
 
-* TODO fix: if onStop error, recurse throw!
+* DONE fix: if onStop error, recurse throw!
+
+    # TODO fix: if onUpdate error
 
 
-* TODO fix: change action->immdiatlly run: action not work
+* DONE fix: onStop ->restore
 
+TODO restore before
+
+TODO onStop not unbind event(because already restore)
+
+
+* DONE fix: change action->immdiatlly run: action not work
 
 
 
@@ -177,9 +185,14 @@ TODO provide animation api
 * TODO publish and update
 
 TODO :
-interact e, p
+# interact e, p
+# gameview c
+# editor e
+
+# web-render c
 
 run
+stop
 
 
 * TODO add 2d ui(page)
@@ -281,6 +294,20 @@ show log, error(e.g. error by script->handler)
 
 
 ** TODO refactor: move "animation" out of interact package to be animation package
+
+
+** TODO Script格式优化，像custom一样，支持自定义函数等
+将{onInit:xxx} 优化成export let xxx = xxx?
+
+can add util functions!
+
+
+
+
+
+
+
+** TODO sceneview add transform gizmo
 
 
 

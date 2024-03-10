@@ -1,4 +1,5 @@
 import { state as meta3dState, immutableAPI, nullableAPI } from "meta3d-type";
+import { service as eventService } from "meta3d-event-protocol/src/service/ServiceType"
 import { service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
 import { service as interactService } from "meta3d-interact-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
@@ -12,6 +13,7 @@ export type viewService = {
 
 export type api = {
     getEngineSceneService: (meta3dState: meta3dState) => engineSceneService,
+    getEventService: (meta3dState: meta3dState) => eventService,
     getInteractService: (meta3dState: meta3dState) => interactService,
 
     view: viewService,

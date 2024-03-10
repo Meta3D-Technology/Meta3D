@@ -6,6 +6,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { eventSourcingService, events } from "meta3d-event-protocol/src/service/ServiceType"
 // import { actionName as runActionName, evenam } from "meta3d-action-run-protocol"
 import { eventName as runEventName } from "meta3d-action-run-protocol/src/EventType"
+import { getErrorEventName } from "meta3d-script-utils/src/Main"
 
 let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api, meta3dState: meta3dState) => {
     let allEvents = eventSourcingService.getAllEvents(meta3dState)
@@ -35,26 +36,45 @@ let _getLastEventsToRun = (eventSourcingService: eventSourcingService, api: api,
 //     return eventSourcingService.replaceAllEvents(meta3dState, allEvents.slice(allEvents.count() - lastEventsToRun.count()))
 // }
 
+
+let _handleStop = (meta3dState: meta3dState, eventSourcingService: eventSourcingService, api: api) => {
+    let lastEventsToRun = _getLastEventsToRun(eventSourcingService, api, meta3dState)
+
+    return new Promise((resolve, reject) => {
+        resolve(eventSourcingService.setNeedBackwardEvents(meta3dState, lastEventsToRun))
+    })
+}
+
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
+            let { onCustomGlobalEvent3 } = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState)
+
+            meta3dState = onCustomGlobalEvent3(meta3dState, "meta3d-event-protocol", [
+                getErrorEventName(),
+                0,
+                (meta3dState, customEvent) => {
+                    let [e, eventHandleName] = api.nullable.getExn(customEvent.userData) as any as [Error, string]
+
+                    api.message.error(e)
+
+                    if (eventHandleName == "onStop") {
+                        return new Promise((resolve, reject) => {
+                            resolve(meta3dState)
+                        })
+                    }
+
+                    return _handleStop(meta3dState, eventSourcingService, api)
+                }
+            ])
+
+
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    let lastEventsToRun = _getLastEventsToRun(eventSourcingService, api, meta3dState)
-
-                    // return eventSourcingService.backwardView(
-                    //     meta3dState,
-                    //     lastEventsToRun
-                    // ).then(meta3dState => {
-                    //     return _backwardEventsBeforeRun(meta3dState, eventSourcingService, lastEventsToRun)
-                    // })
-
-                    return new Promise((resolve, reject) => {
-                        resolve(eventSourcingService.setNeedBackwardEvents(meta3dState, lastEventsToRun))
-                    })
+                    return _handleStop(meta3dState, eventSourcingService, api)
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
                 }))

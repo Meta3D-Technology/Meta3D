@@ -243,10 +243,10 @@ function _buildMessageAPI(param) {
 
     alert("警告："+message)
   }),
-          error: (function (message){
-    console.error(message)
+          error: (function (error){
+    console.error(error)
 
-    alert("错误：" +message)
+    alert("错误：" +error.message)
   })
         };
 }

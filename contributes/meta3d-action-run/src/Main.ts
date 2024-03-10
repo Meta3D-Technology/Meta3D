@@ -77,8 +77,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         init: (meta3dState) => {
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
-            // meta3dState = runGameViewRenderOnlyOnce(meta3dState,api, api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")))
-
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
                     meta3dState = _copyState(meta3dState, api)
@@ -89,6 +87,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 }, (meta3dState) => {
                     meta3dState = _markIsRun(meta3dState, api, false)
                     meta3dState = _stopGameViewRender(meta3dState, api)
+
 
 
                     return execEventHandle(meta3dState, api, "onStop", getViewServiceForEditor(meta3dState, api)).then(meta3dState => {

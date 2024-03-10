@@ -1,12 +1,12 @@
 import { state as meta3dState, packageProtocolName } from "meta3d-type"
 import { ecsConfig, service as engineSceneService } from "meta3d-engine-scene-protocol/src/service/ServiceType"
-import { nullable } from "meta3d-commonlib-ts/src/nullable";
-import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
+// import { nullable } from "meta3d-commonlib-ts/src/nullable";
+// import { service as eventService_ } from "meta3d-event-protocol/src/service/ServiceType"
 import { initFunc } from "../state/StateType";
 
 type addToInitFuncs = (meta3dState: meta3dState, func: initFunc) => meta3dState
 
-export type eventService = eventService_
+// export type eventService = eventService_
 
 export type service = {
 	scene: (meta3dState: meta3dState) => engineSceneService,

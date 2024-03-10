@@ -1,6 +1,6 @@
 {
     "name": "meta3d-pipeline-webgl1-three-webrender",
-    "version": "1.3.3",
+    "version": "1.3.6",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-pipeline-webgl1-three-webrender-protocol"
