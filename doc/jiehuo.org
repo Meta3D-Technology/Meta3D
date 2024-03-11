@@ -200,13 +200,132 @@ run
 stop
 
 
-* TODO add 2d ui(page)
 
-TODO page box
 
-TODO text
+* DONE learn ui
 
-TODO link
+TODO use imgui? or ui toolkit?
+
+TODO use echarts to draw table, circle...
+
+TODO use dom?
+
+
+
+
+TODO hud
+
+TODO 3d ui
+
+
+
+
+# * TODO add hud: 2d ui(page) demo
+
+
+# # TODO use echarts to draw on Sprite
+# TODO use echarts to draw on canvas
+
+# # TODO add common 2d ui(e.g. button, text, image, table)
+
+# TODO add event
+
+
+
+* DONE 2d ui demo
+
+TODO get template code
+
+TODO use jquery, jquery ui + bootstrap/layui to create page:
+Button, Text, Link, echarts
+
+
+
+TODO run layui
+
+TODO run echarts
+
+TODO use layui+echarts to render in left panel
+
+TODO use layui to render Modal
+
+TODO Modal add Table, Button, Echart
+
+TODO add event:
+add close event
+
+
+TODO encapulate api:
+dom api
+event api
+
+
+
+
+
+
+TODO run ant design + ant desing charts
+
+
+TODO run in two root divs
+
+
+TODO render Modal, Modal add Table, image, link, Button, Echart
+
+
+TODO add event:
+add close event
+
+
+
+# * TODO add 3d ui(billboard or face to one direction) demo
+
+# # TODO page box
+
+# TODO text
+
+# TODO link
+
+
+
+# TODO show 3d text on the cube by three.js ui
+
+
+# TODO add event by raycaster
+
+
+
+# TODO show 3d text on the cube
+
+
+# * TODO add 3d board with echarts demo
+
+
+
+
+# * TODO interact add ui api
+
+# TODO merge echarts and 2d ui(echarts's canvas can create in div)
+
+
+# * TODO pass run test: when click cube1, show echart hud, echart 3d board, page(image, text, link) by 3d ui
+* TODO pass run test: when click cube1, show page Modal(image, text, link)
+
+
+TODO create ui in index.html(publish action)
+
+TODO operate ui in script
+
+
+
+
+
+* TODO update engine
+
+
+* TODO publish and update
+
+
 
 
 
@@ -218,8 +337,6 @@ ids
 description
 
 
-
-* TODO add 3d ui(billboard or face to one direction)
 
 
 
@@ -241,6 +358,62 @@ description
 ** TODO picking should return gameObjects instead of objects
 ** TODO setSelectedObjects should use gameObjects instead of objects
 ** TODO refactor: rename setSelectedObjects to setSelectedGameObjects
+
+
+
+# ** TODO can edit 2d ui in gameview by script
+
+# debug work flow:
+# build 2d ui script;
+# run;
+# debug 2d ui by edit script;
+# save script to temp;
+# stop;
+# update script;
+
+** TODO can edit 2d ui in a new Editor
+
+refer to:
+https://www.thingjs.com/guide/chartBuilder/
+https://www.hightopo.com/blog/3869.html -> 图表操作
+
+
+try use Ant Design Charts + Ant Design to build ui(based on react):
+https://ant-design-charts.antgroup.com/manual/getting-started
+https://ant.design/components/input
+
+
+how to extend by react? refer to:
+Wonder-Editor->Extend ui(use react)
+
+
+
+
+TODO build new Editor as e1
+
+TODO integrage e1 to current 3d editor:
+use iframe to host 3d view?
+    https://blog.csdn.net/qq_39816410/article/details/95927232
+
+learn how to integrate?refer to thingjs, integrate https://bbs.huaweicloud.com/blogs/401997#H19 and https://bbs.huaweicloud.com/blogs/401997#H112 :
+https://bbs.huaweicloud.com/blogs/401997
+
+** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs
+
+
+
+** TODO can edit 3d ui in gameview visually
+
+use [ three-mesh-ui ](https://github.com/felixmariotto/three-mesh-ui)
+
+TODO add 3d ui related components
+
+refer to Unity->UGUI:
+https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
+
+
+
+
 
 
 ** TODO add Collider component
@@ -301,10 +474,23 @@ show log, error(e.g. error by script->handler)
 ** TODO refactor: move "animation" out of interact package to be animation package
 
 
+
+
+
+
+
+
+# ** TODO can edit 3d ui with echarts in gameview visually
+
+
+
 ** TODO Script格式优化，像custom一样，支持自定义函数等
 将{onInit:xxx} 优化成export let xxx = xxx?
 
 can add util functions!
+
+
+
 
 
 

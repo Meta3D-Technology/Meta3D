@@ -66,7 +66,7 @@
 	"npmClient": "yarn",
 	"command": {
 		"bootstrap": {
-			"registry": "https://registry.npm.taobao.org"
+			"registry": "https://registry.npmmirror.com"
 		},
 		"publish": {
 			"registry": "https://registry.npmjs.org/"
