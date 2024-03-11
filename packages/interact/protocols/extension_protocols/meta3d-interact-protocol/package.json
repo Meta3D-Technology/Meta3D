@@ -11,7 +11,8 @@
         "meta3d:publish_pro": "gulp publish_production_env"
     },
     "keywords": [],
-    "dependencies": {},
+    "dependencies": {
+    },
     "devDependencies": {
         "typescript": "^4.2.3"
     }

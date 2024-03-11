@@ -75,5 +75,5 @@ type animation = tween
 export type service = {
     input: input,
     picking: picking,
-    animation: animation
+    animation: animation,
 }

@@ -36,7 +36,7 @@ module.exports = {
 				loader: "source-map-loader"
 			},
 			{
-				test: /index.html|meta3d.js|basis_transcoder.js|draco_decoder.js|draco_encoder.js/,
+				test: /index.html|main.js|basis_transcoder.js|draco_decoder.js|draco_encoder.js/,
 				type: 'asset/inline',
 				generator: {
 					dataUrl: content => {
@@ -44,6 +44,7 @@ module.exports = {
 					}
 				}
 			},
+
 			// {
 			// 	test: /meta3d.js/,
 			// 	type: 'asset/inline',

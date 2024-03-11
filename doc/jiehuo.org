@@ -309,7 +309,8 @@ add close event
 
 
 # * TODO pass run test: when click cube1, show echart hud, echart 3d board, page(image, text, link) by 3d ui
-* TODO pass run test: when click cube1, show page Modal(image, text, link)
+
+* DONE pass run test: when cube1 anim finish, show page Modal(image, text, link); when close Modal, show camera anim
 
 
 TODO create ui in index.html(publish action)
@@ -317,24 +318,29 @@ TODO create ui in index.html(publish action)
 TODO operate ui in script
 
 
+TODO compress file
 
 
-
-* TODO update engine
-
-
-* TODO publish and update
-
+TODO run test:
+publish local
+# publish to platform
 
 
 
 
-* TODO add data binding
+* DONE publish and update
 
-TODO scene data:
-parent-child cubes
-ids
-description
+TODO
+# publish
+
+
+
+# * TODO add data binding
+
+# TODO scene data:
+# parent-child cubes
+# ids
+# description
 
 
 
@@ -397,6 +403,14 @@ use iframe to host 3d view?
 
 learn how to integrate?refer to thingjs, integrate https://bbs.huaweicloud.com/blogs/401997#H19 and https://bbs.huaweicloud.com/blogs/401997#H112 :
 https://bbs.huaweicloud.com/blogs/401997
+
+
+
+
+TODO pass run test:
+publish local
+publish to platform
+
 
 ** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs
 
