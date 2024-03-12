@@ -211,8 +211,8 @@ let _createArcballCameraGameObject = (meta3dState: meta3dState, scene: engineSce
 
     meta3dState = scene.perspectiveCameraProjection.setFovy(meta3dState, cameraProjection, 30)
     // meta3dState = scene.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, canvasSize[0] / canvasSize[1])
-    meta3dState = scene.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 1)
-    meta3dState = scene.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 100)
+    meta3dState = scene.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 0.1)
+    meta3dState = scene.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 10000)
     meta3dState = scene.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
 
 

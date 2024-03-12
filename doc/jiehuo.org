@@ -343,10 +343,26 @@ TODO
 # description
 
 
+* TODO finish demo
+
+
+TODO publish and update
+addcomponent
+sceneview c
+gameview c
 
 
 
 
+
+# * TODO fix: camera group can set arcball's data
+* TODO feat: add arcball component
+
+* TODO default scene remove Arcball_Camera1, Arcball_Camera2
+
+
+
+# * TODO fix: add cube->add camera group->active, should be arcball!
 
 
 
@@ -407,9 +423,14 @@ https://bbs.huaweicloud.com/blogs/401997
 
 
 
-TODO pass run test:
-publish local
-publish to platform
+
+TODO handle publish:
+e1 editor's output should be a arraybuffer like Scene.arraybuffer!
+
+
+    TODO pass run test:
+    publish local
+    publish to platform
 
 
 ** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs

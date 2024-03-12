@@ -23,8 +23,8 @@ let _addCameraGroup = (meta3dState: meta3dState, engineSceneService: engineScene
     let cameraProjection = data[1]
 
     meta3dState = engineSceneService.perspectiveCameraProjection.setFovy(meta3dState, cameraProjection, 30)
-    meta3dState = engineSceneService.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 1)
-    meta3dState = engineSceneService.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 100)
+    meta3dState = engineSceneService.perspectiveCameraProjection.setNear(meta3dState, cameraProjection, 0.1)
+    meta3dState = engineSceneService.perspectiveCameraProjection.setFar(meta3dState, cameraProjection, 10000)
     meta3dState = engineSceneService.gameObject.addPerspectiveCameraProjection(meta3dState, gameObject, cameraProjection)
 
     return meta3dState

@@ -25,7 +25,7 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
         if (isNullable(composer)) {
             let { width, height } = getExn(getViewRect(meta3dState))
 
-            let data = createComposerAndRenderTarget(threeAPIService, getExn(renderer), [width, height])
+            let data = createComposerAndRenderTarget(threeAPIService, getExn(renderer), [width, height], scene, perspectiveCamera)
             composer = data[0]
             renderPass = data[1]
 
@@ -43,6 +43,6 @@ export let execFunc: execFuncType = (meta3dState, { api, getStatesFunc, setState
             renderPass = getExn(renderPass)
         }
 
-        return render(meta3dState, getViewRect, api, scene, perspectiveCamera, canvas, getExn(renderer), composer, renderPass, textureID)
+        return render(meta3dState, getViewRect, (meta3dState: any) => [], api, scene, perspectiveCamera, canvas, getExn(renderer), composer, renderPass, {} as any, textureID)
     })
 }
