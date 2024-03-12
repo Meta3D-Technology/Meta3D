@@ -43,9 +43,7 @@ let _createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer
     return [composer, renderModel, outlinePass]
 }
 
-export let createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number], scene: Scene, camera: Camera) => {
-    let [composer, renderModel, outlinePass] = _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, false, scene, camera)
-
+let _addGammaPass = (threeAPIService: threeAPIService, composer: EffectComposer, renderModel: RenderPass): [EffectComposer, RenderPass] => {
     /*! because set renderTarget->colorSpace not work, so need use gamma correction here
     */
     let gammaCorrection = new ShaderPass(GammaCorrectionShader)
@@ -56,11 +54,27 @@ export let createComposerAndRenderTarget = (threeAPIService: threeAPIService, re
     /*! clear color after gamma is increased! should restore it correctly */
     renderModel.clearColor = new threeAPIService.Color(0x595959)
 
+    return [composer, renderModel]
+}
+
+export let createComposerAndRenderTarget = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number], scene: Scene, camera: Camera) => {
+    let [composer, renderModel, outlinePass] = _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, false, scene, camera)
+
+    let data = _addGammaPass(threeAPIService, composer, renderModel)
+    composer = data[0]
+    renderModel = data[1]
+
     return [composer, renderModel, outlinePass]
 }
 
 export let createComposerAndRenderTargetForEngine = (threeAPIService: threeAPIService, renderer: WebGLRenderer, viewSize: [number, number], scene: Scene, camera: Camera) => {
-    return _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, true, scene, camera)
+    let [composer, renderModel, outlinePass] = _createComposerAndRenderTarget(threeAPIService, renderer, viewSize, true, scene, camera)
+
+    let data = _addGammaPass(threeAPIService, composer, renderModel)
+    composer = data[0]
+    renderModel = data[1]
+
+    return [composer, renderModel, outlinePass]
 }
 
 export let render = (

@@ -361,6 +361,8 @@ addcomponent
 sceneview c
 gameview c
 
+webrender c
+
 imgui
 
 component-script
@@ -370,14 +372,14 @@ component-script
 
 * DONE fix: clone gameObject with script component error
 
-* TODO fix: sometimes "can't find editor" error
+# * TODO fix: sometimes "can't find editor" error
 
-* TODO perf: switch to element assemble too slow
+# * TODO perf: switch to element assemble too slow
 
-TODO publish action?
+# TODO publish action?
 
 
-* TODO fix: engine show dark
+* DONE fix: engine show dark
 
 fix gamma pass
 
