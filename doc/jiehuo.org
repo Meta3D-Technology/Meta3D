@@ -356,7 +356,7 @@ start position error
 
 
 
-* TODO publish and update
+* DONE publish and update
 addcomponent
 sceneview c
 gameview c
@@ -372,7 +372,9 @@ component-script
 
 * DONE fix: clone gameObject with script component error
 
-# * TODO fix: sometimes "can't find editor" error
+* DONE fix: sometimes "can't find editor" error
+
+monaco.editor?
 
 # * TODO perf: switch to element assemble too slow
 
@@ -388,12 +390,7 @@ fix gamma pass
 * DONE default scene remove Arcball_Camera2
 
 
-* TODO fix: active arcball_forsceneview->publish error
 
-
-* TODO fix: camera group can set near, far
-
-* TODO feat: add arcball component
 
 
 
@@ -571,3 +568,18 @@ can add util functions!
 
 maintain visible
 
+
+
+
+
+
+
+* TODO small improvement
+
+** TODO fix: camera group can set near, far
+
+** TODO feat: add arcball component; can set distance, phi, theta, target,
+
+** TODO fix: active arcball_forsceneview->publish error
+
+TODO hidden Arcball Camera For Scene View in sceneTree?

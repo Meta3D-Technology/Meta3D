@@ -114,6 +114,14 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 if (api.nullable.isNullable(editor)) {
                     let monaco = getMonaco()
 
+                    console.log("empty monaco")
+
+                    if (api.nullable.isNullable(monaco)) {
+                        return [meta3dState, null]
+                    }
+
+                    monaco = api.nullable.getExn(monaco)
+
                     editor = monaco.editor.create(container, {
                         model: monaco.editor.createModel(code, "typescript"),
                     })

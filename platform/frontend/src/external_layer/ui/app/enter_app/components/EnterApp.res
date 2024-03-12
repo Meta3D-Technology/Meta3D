@@ -24,7 +24,7 @@ let make = (~service: FrontendType.service) => {
 
   React.useEffect1(() => {
     MessageUtils.showCatchedErrorMessage(() => {
-      switch Meta3dMonacoUtils.Main.getMonaco() {
+      switch Meta3dMonacoUtils.Main.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
       | None =>
         Meta3dMonacoUtils.Main.deferLoad()
         ->Js.Promise.catch(

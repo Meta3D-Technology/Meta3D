@@ -50,9 +50,10 @@ module Method = {
 
       ()->Js.Promise.resolve
     }, _)
-    ->Js.Promise.catch(e => {
-      service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
-
+    ->Js.Promise.catch(
+      e => {
+        service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+      },
       // (e->Obj.magic)["errorType"] === "script"
       //   ? {
       //       loopFrameID.current =
@@ -62,8 +63,9 @@ module Method = {
 
       //       ()->Js.Promise.resolve
       //     }
-        // : e->Js.Exn.anyToExnInternal->Js.Promise.reject
-    }, _)
+      // : e->Js.Exn.anyToExnInternal->Js.Promise.reject
+      _,
+    )
     ->ignore
   }
 
@@ -136,7 +138,7 @@ let make = (~service: AssembleSpaceType.service) => {
 
   service.react.useEffect1(. () => {
     MessageUtils.showCatchedErrorMessage(() => {
-      switch Meta3dMonacoUtils.Main.getMonaco() {
+      switch Meta3dMonacoUtils.Main.getMonaco()->Meta3dCommonlib.OptionSt.fromNullable {
       | None =>
         Meta3dMonacoUtils.Main.deferLoad()
         ->Js.Promise.catch(
