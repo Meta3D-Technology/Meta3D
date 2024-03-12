@@ -811,13 +811,28 @@ export let loop = (time: number) => {
             // ImGui.ListBox(items[n], (_ = value2) => value2 = _, items, 4)
             ImGui.Selectable(items[n], false, ImGui.ImGuiSelectableFlags.None, new ImGui.ImVec2(32, 32))
             ImGui.SameLine()
-            ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))
+            ImGui.PushID("aaa" + n);
+            if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
+                console.log("aaa")
+            }
+            ImGui.PopID()
             // ImGui.Button("Select..")
         }
         // ImGui.EndListBox();
 
         ImGui.ListBoxFooter()
     }
+
+    // ImGui.PushID(0);
+    // if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
+    //     console.log("aaa")
+    // }
+    // ImGui.PopID();
+    // ImGui.PushID(1);
+    // if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
+    //     console.log("bbb")
+    // }
+    // ImGui.PopID();
 
 
     ImGui.EndFrame()

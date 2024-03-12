@@ -343,7 +343,7 @@ TODO
 # description
 
 
-* TODO finish demo
+* DONE finish demo
 
 TODO fix:
 not show
@@ -356,10 +356,33 @@ start position error
 
 
 
+* TODO publish and update
+addcomponent
+sceneview c
+gameview c
 
-* TODO fix: remove script from component not work
+imgui
 
-# * TODO fix: camera group can set arcball's data
+
+* DONE fix: remove second script from component not work
+
+* TODO fix: clone gameObject with script component error
+
+* TODO fix: sometimes "can't find editor" error
+
+* TODO perf: switch to element assemble too slow
+
+TODO publish action?
+
+
+* TODO fix: engine show dark
+
+fix gamma pass
+
+
+
+* TODO fix: camera group can set near, far
+
 * TODO feat: add arcball component
 
 * TODO default scene remove Arcball_Camera1, Arcball_Camera2
@@ -367,16 +390,6 @@ start position error
 
 * TODO fix: active arcball_forsceneview->publish error
 
-
-* TODO fix: clone gameObject with script component error
-
-
-# * TODO fix: add cube->add camera group->active, should be arcball!
-
-* TODO publish and update
-addcomponent
-sceneview c
-gameview c
 
 
 

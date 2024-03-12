@@ -438,12 +438,14 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
                     if (isRemoveable) {
                         ImGui.SameLine()
+                        ImGui.PushID(label + i.toString())
                         if (ImGui.ImageButton(api.nullable.getExn(removeTexture)._texture, new ImGui.ImVec2(itemHeight, itemHeight))) {
                             selectedIndex = i
                             selectedValue = items[i]
 
                             isRemove = true
                         }
+                        ImGui.PopID()
                     }
                 }
                 ImGui.ListBoxFooter()
