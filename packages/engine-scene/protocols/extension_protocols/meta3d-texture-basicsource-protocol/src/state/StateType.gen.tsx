@@ -2,7 +2,7 @@
 /* eslint-disable import/first */
 
 
-import type {ImmutableSparseMapType_t as Meta3dCommonlibType_ImmutableSparseMapType_t} from './Meta3dCommonlibType.gen';
+import type {ImmutableSparseMapType_t as Meta3dCommonlibType_ImmutableSparseMapType_t} from 'meta3d-commonlib-type/Meta3dCommonlibType.gen';
 
 import type {htmlImageElement as Dom_htmlImageElement} from './Dom.gen';
 

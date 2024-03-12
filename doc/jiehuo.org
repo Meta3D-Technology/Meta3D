@@ -363,10 +363,12 @@ gameview c
 
 imgui
 
+component-script
+
 
 * DONE fix: remove second script from component not work
 
-* TODO fix: clone gameObject with script component error
+* DONE fix: clone gameObject with script component error
 
 * TODO fix: sometimes "can't find editor" error
 

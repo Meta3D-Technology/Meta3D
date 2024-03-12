@@ -3,8 +3,7 @@ open StateType
 let clone = (state, countRange, sourceScript) => {
   let nameOpt =
     OperateScriptUtils.getName(state, sourceScript)->Meta3dCommonlib.OptionSt.fromNullable
-  let attribute =
-    OperateScriptUtils.getAttribute(state, sourceScript)->Meta3dCommonlib.OptionSt.getExn
+  let attributeOpt = OperateScriptUtils.getAttribute(state, sourceScript)
   let allAssetData =
     OperateScriptUtils.getAllAssetData(state, sourceScript)->Meta3dCommonlib.OptionSt.getExn
 
@@ -16,10 +15,12 @@ let clone = (state, countRange, sourceScript) => {
     | None => state
     }
 
-    let state =
-      state
-      ->OperateScriptUtils.setAttribute(clonedScript, attribute->Obj.magic)
-      ->OperateScriptUtils.setAllAssetData(clonedScript, allAssetData->Obj.magic)
+    let state = switch attributeOpt {
+    | Some(attribute) => OperateScriptUtils.setAttribute(state, clonedScript, attribute->Obj.magic)
+    | None => state
+    }
+
+    let state = state->OperateScriptUtils.setAllAssetData(clonedScript, allAssetData->Obj.magic)
 
     (state, clonedScripts->Meta3dCommonlib.ArraySt.push(clonedScript))
   }, (state, []))
