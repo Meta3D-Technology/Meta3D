@@ -239,13 +239,13 @@ export let addDefaultGameObjects = (meta3dState: meta3dState, engineSceneService
     let cameraController1 = data1[1]
     let cameraGameObject1 = data1[2]
 
-    let data2 = _createArcballCameraGameObject(meta3dState, engineSceneService,
-        "Arcball Camera2",
-        20
-    )
-    meta3dState = data2[0]
-    // let cameraController2 = data2[1]
-    // let cameraGameObject2 = data2[2]
+    // let data2 = _createArcballCameraGameObject(meta3dState, engineSceneService,
+    //     "Arcball Camera2",
+    //     20
+    // )
+    // meta3dState = data2[0]
+    // // let cameraController2 = data2[1]
+    // // let cameraGameObject2 = data2[2]
 
 
 

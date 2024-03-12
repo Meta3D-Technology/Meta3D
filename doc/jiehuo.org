@@ -385,14 +385,15 @@ fix gamma pass
 
 
 
-* TODO fix: camera group can set near, far
-
-* TODO feat: add arcball component
-
-* TODO default scene remove Arcball_Camera1, Arcball_Camera2
+* DONE default scene remove Arcball_Camera2
 
 
 * TODO fix: active arcball_forsceneview->publish error
+
+
+* TODO fix: camera group can set near, far
+
+* TODO feat: add arcball component
 
 
 
@@ -405,10 +406,6 @@ fix gamma pass
 
 
 * TODO future
-
-** TODO picking should return gameObjects instead of objects
-** TODO setSelectedObjects should use gameObjects instead of objects
-** TODO refactor: rename setSelectedObjects to setSelectedGameObjects
 
 
 
@@ -476,6 +473,10 @@ refer to Unity->UGUI:
 https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
 
 
+
+** TODO picking should return gameObjects instead of objects
+** TODO setSelectedObjects should use gameObjects instead of objects
+** TODO refactor: rename setSelectedObjects to setSelectedGameObjects
 
 
 
