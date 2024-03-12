@@ -345,15 +345,19 @@ TODO
 
 * TODO finish demo
 
+TODO fix:
+not show
+add close button
+background
+close position error
+start position error
 
-TODO publish and update
-addcomponent
-sceneview c
-gameview c
 
 
 
 
+
+* TODO fix: remove script from component not work
 
 # * TODO fix: camera group can set arcball's data
 * TODO feat: add arcball component
@@ -361,10 +365,18 @@ gameview c
 * TODO default scene remove Arcball_Camera1, Arcball_Camera2
 
 
+* TODO fix: active arcball_forsceneview->publish error
+
+
+* TODO fix: clone gameObject with script component error
+
 
 # * TODO fix: add cube->add camera group->active, should be arcball!
 
-
+* TODO publish and update
+addcomponent
+sceneview c
+gameview c
 
 
 
