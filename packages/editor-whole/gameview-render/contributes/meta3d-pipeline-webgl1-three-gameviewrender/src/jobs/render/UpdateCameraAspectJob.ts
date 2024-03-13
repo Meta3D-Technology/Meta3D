@@ -10,7 +10,7 @@ import { service as renderService } from "meta3d-editor-gameview-render-protocol
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { gameObject } from "meta3d-gameobject-protocol";
 
-let _getAllPerspectiveCameraProjections = (meta3dState: meta3dState,
+let _getAllPerspectiveCameraProjectionsExceptOneInSceneView = (meta3dState: meta3dState,
     scene: engineSceneService,
     arcballCameraControllerGameObjectInSceneView: nullable<gameObject>
 ) => {
@@ -34,7 +34,7 @@ let _updateAllCameraAspect = (meta3dState: meta3dState,
 ) => {
     let aspect = width / height
 
-    return _getAllPerspectiveCameraProjections(meta3dState, engineSceneService, arcballCameraControllerGameObjectInSceneView).reduce((meta3dState, cameraProjection) => {
+    return _getAllPerspectiveCameraProjectionsExceptOneInSceneView(meta3dState, engineSceneService, arcballCameraControllerGameObjectInSceneView).reduce((meta3dState, cameraProjection) => {
         return engineSceneService.perspectiveCameraProjection.setAspect(meta3dState, cameraProjection, aspect)
     }, meta3dState)
 }

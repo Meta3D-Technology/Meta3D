@@ -19,6 +19,7 @@ export enum job {
     Init = "init_three_webrender_meta3d",
     InitArcballCameraController = "init_arcballcameracontroller_three_webrender_meta3d",
     UpdateArcballCameraController = "update_arcballcameracontroller_three_webrender_meta3d",
+    UpdateCameraAspect = "update_camera_aspect_three_webrender_meta3d",
     BindEvent = "bind_event_three_webrender_meta3d",
 
 
@@ -81,6 +82,10 @@ export const allPipelineData: allPipelineDataType = [
                 name: "first_three_webrender_meta3d",
                 link: "concat",
                 elements: [
+                    {
+                        "name": job.UpdateCameraAspect,
+                        "type_": "job"
+                    },
                     {
                         "name": job.UpdateArcballCameraController,
                         "type_": "job"

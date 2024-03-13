@@ -399,7 +399,7 @@ publish local
 
 
 
-* TODO make canvas's size to be 100%
+* DONE make canvas's size to be 100%
 
 TODO fix:
 ui size
@@ -409,6 +409,8 @@ scene bianxing
 TODO update demo
 
 
+TODO publish and update
+web-render c
 
 
 

@@ -6,6 +6,7 @@ import { execFunc as execInitScript } from "./jobs/init/InitScriptJob";
 import { execFunc as execUpdateScript } from "./jobs/update/UpdateScriptJob";
 import { execFunc as execConvertSceneGraph } from "./jobs/render/ConvertSceneGraphJob";
 import { execFunc as execUpdateArcballCameraController } from "./jobs/render/UpdateArcballCameraControllerJob";
+import { execFunc as execUpdateCameraAspectJob } from "./jobs/render/UpdateCameraAspectJob";
 import { execFunc as execRender } from "./jobs/render/RenderJob";
 import { state, states, pipelineName, allPipelineData, job } from "meta3d-pipeline-webgl1-three-webrender-protocol/src/StateType";
 import { config } from "meta3d-pipeline-webgl1-three-webrender-protocol/src/ConfigType";
@@ -23,6 +24,8 @@ let _getExecFunc = (_pipelineName: string, jobName: string) => {
 			return execInit;
 		case job.InitArcballCameraController:
 			return execInitArcballCameraController
+		case job.UpdateCameraAspect:
+			return execUpdateCameraAspectJob
 		case job.UpdateArcballCameraController:
 			return execUpdateArcballCameraController
 		case job.BindEvent:

@@ -66,8 +66,9 @@ let Page: React.FC = () => {
   return (
     <Layout id="ui_page" style={
       {
-        "position": "absolute", "top": "200px", "left": "200px", "zIndex": "100", "display": "none", "width": "400px",
-        "height": "400px"
+        "position": "absolute", "top": "200px", "left": "200px", "zIndex": "100", "display": "none", 
+        "width": "400px"
+        // "height": "400px"
       }
     }>
 
