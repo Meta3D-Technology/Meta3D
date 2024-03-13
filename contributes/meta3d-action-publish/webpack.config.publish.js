@@ -66,14 +66,18 @@ module.exports = {
             inject: true,
             // favicon: path.resolve('favicon.ico'),//favicon路径
         }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: 'publish_source/three/',
-                    to: 'three/'
-                }
-            ],
-        }),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					from: 'publish_source/three/',
+					to: 'three/'
+				},
+				{
+					from: 'publish_source/image/',
+					to: 'image/'
+				}
+			],
+		}),
 
 	],
 	// When importing a module whose path matches one of the following, just

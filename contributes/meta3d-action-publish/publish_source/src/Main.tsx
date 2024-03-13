@@ -30,52 +30,16 @@ import { Layout } from 'antd';
 
 // import { Bar } from '@ant-design/plots';
 import Page from './Page';
-import { startLoop } from './Loop';
+// import { startLoop } from './Loop';
+import Scene from './Scene';
 
-const DemoBar = () => {
-    // const data = [
-    //     {
-    //         year: '1951 年',
-    //         value: 38,
-    //     },
-    //     {
-    //         year: '1952 年',
-    //         value: 52,
-    //     },
-    //     {
-    //         year: '1956 年',
-    //         value: 61,
-    //     },
-    //     {
-    //         year: '1957 年',
-    //         value: 145,
-    //     },
-    //     {
-    //         year: '1958 年',
-    //         value: 48,
-    //     },
-    // ];
-    // const config = {
-    //     data,
-    //     xField: 'value',
-    //     yField: 'year',
-    //     seriesField: 'year',
-    //     legend: {
-    //         position: 'top-left',
-    //     },
-    // } as any;
-
+let App = () => {
     return <Layout>
-        {/* <Bar {...config} /> */}
-        <Layout.Content>
+        < Layout.Content >
+            <Scene />
             <Page />
-        </Layout.Content>
-    </Layout>
+        </Layout.Content >
+    </Layout >
 };
 
-
-
-(ReactDOM as any).render(<DemoBar />, document.getElementById('root_page'));
-
-
-startLoop()
+(ReactDOM as any).render(<App />, document.getElementById('ui_root'));

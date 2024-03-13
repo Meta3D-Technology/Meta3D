@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Modal, List } from 'antd';
+import { Button, Layout, List } from 'antd';
 import { Bar } from '@ant-design/plots';
 
-const Page: React.FC = () => {
+let Page: React.FC = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [isModalOpen, setIsModalOpen] = useState(true);
 
@@ -64,7 +64,13 @@ const Page: React.FC = () => {
 
 
   return (
-    <>
+    <Layout id="ui_page" style={
+      {
+        "position": "absolute", "top": "200px", "left": "200px", "zIndex": "100", "display": "none", "width": "400px",
+        "height": "400px"
+      }
+    }>
+
       {/* <Button type="primary" onClick={showModal}>
         Open Modal
       </Button> */}
@@ -87,7 +93,7 @@ const Page: React.FC = () => {
       <Button type="primary" onClick={handleClose}>
         关闭
       </Button>
-    </>
+    </Layout >
   );
 };
 

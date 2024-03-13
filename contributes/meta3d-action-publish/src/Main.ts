@@ -5,6 +5,8 @@ import { actionName as runActionName, state as runState } from "meta3d-action-ru
 import { eventName, inputData } from "meta3d-action-publish-protocol/src/EventType"
 import indexHtml from "../publish/index.html"
 import mainJs from "../publish/static/js/main.js"
+import logo from "url-loader!../publish/image/png/logo.png"
+import loading from "url-loader!../publish/image/gif/loading.gif"
 import basis_transcoderJs from "../publish/three/basis/basis_transcoder.js"
 import draco_decoderJs from "../publish/three/draco/gltf/draco_decoder.js"
 import draco_encoderJs from "../publish/three/draco/gltf/draco_encoder.js"
@@ -15,6 +17,11 @@ let _loadAndWriteIndexHtmlData = (jszipService: any, zip: any) => {
 
 let _loadAndWriteMainJsData = (jszipService: any, zip: any) => {
     jszipService.file(zip, "static/js/main.js", mainJs)
+}
+
+let _loadAndWriteImageData = (jszipService: any, zip: any) => {
+    jszipService.file(zip, "image/png/logo.png", logo.replace("data:image/png;base64,", ""), { base64: true })
+    jszipService.file(zip, "image/gif/loading.gif", loading.replace("data:image/gif;base64,", ""), { base64: true })
 }
 
 let _loadAndWriteThreeJsData = (jszipService: any, zip: any, folderPath: string, name: string, jsFile: any) => {
@@ -50,6 +57,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     _loadAndWriteIndexHtmlData(jszipService, zip)
                     _loadAndWriteMainJsData(jszipService, zip)
+
+                    _loadAndWriteImageData(jszipService, zip)
 
                     _loadAndWriteThreeJsData(jszipService, zip, "basis/", "basis_transcoder", basis_transcoderJs)
                     _loadAndWriteThreeJsData(jszipService, zip, "draco/gltf/", "draco_decoder", draco_decoderJs)

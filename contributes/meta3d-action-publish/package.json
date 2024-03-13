@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-publish",
-    "version": "1.3.17",
+    "version": "1.3.34",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-publish-protocol"
@@ -10,6 +10,7 @@
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "webpack_publish": "webpack --config webpack.config.publish.js",
+        "webpack_publish:dev": "cross-env NODE_ENV=development npm run webpack_publish",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
         "meta3d:publish_dev": "cross-env NODE_ENV=production npm run webpack_publish && cross-env NODE_ENV=production npm run webpack && gulp publish_local_env",
         "meta3d:publish_pro": "cross-env NODE_ENV=production npm run webpack_publish && cross-env NODE_ENV=production npm run webpack && gulp publish_production_env"

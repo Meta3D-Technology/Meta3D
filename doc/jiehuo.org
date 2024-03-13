@@ -390,6 +390,84 @@ fix gamma pass
 * DONE default scene remove Arcball_Camera2
 
 
+* DONE add loading percent, logo
+
+TODO run test:
+publish local
+# publish to platform
+
+
+
+
+* TODO make canvas's size to be 100%
+
+TODO fix:
+ui size
+scene bianxing
+
+
+TODO update demo
+
+
+
+
+
+* TODO add hud as primary(two panel), put canvas in to bottom
+
+
+
+* TODO make demo run in mobile
+
+
+** TODO handle mobile event for arcball
+
+
+
+
+* TODO add 3d ui(billboard or face to one direction) demo
+
+# TODO page box
+
+TODO text
+
+TODO link
+
+
+
+
+TODO add event by raycaster
+
+
+
+
+* TODO add 3d ui API
+
+TODO add api to interact package
+
+
+
+TODO run test:
+show 3d text on the cube by three.js ui
+
+
+
+TODO add to demo
+
+
+
+* TODO make camera animation on the line
+
+refer to:
+https://www.sohu.com/a/739950864_120719430
+
+
+
+TODO add to demo:
+add a button as hud;
+click button, play camera animation;
+
+
+
 
 
 
@@ -453,7 +531,10 @@ e1 editor's output should be a arraybuffer like Scene.arraybuffer!
 
     TODO pass run test:
     publish local
-    publish to platform
+    # publish to platform
+
+
+** TODO update publish to platform refer to publish local
 
 
 ** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs
