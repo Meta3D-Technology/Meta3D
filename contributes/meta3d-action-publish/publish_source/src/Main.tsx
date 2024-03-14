@@ -27,6 +27,7 @@ import '@ant-design/flowchart/dist/index.css'
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Layout } from 'antd';
+import VConsole from 'vconsole';
 
 // import { Bar } from '@ant-design/plots';
 import Page from './Page';
@@ -34,6 +35,11 @@ import Page from './Page';
 import Scene from './Scene';
 
 let App = () => {
+    useEffect(() => {
+        let _ = new VConsole()
+    }, []);
+
+
     return <Layout>
         < Layout.Content >
             <Scene />

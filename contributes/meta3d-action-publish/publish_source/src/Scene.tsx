@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Loading } from './Loading';
 import { load, startLoop } from './Loop';
-
-let _getWidth = () => {
-    return window.innerWidth + "px"
-}
-
-let _getHeight = () => {
-    return window.innerHeight + "px"
-}
-
+import { getHeight, getWidth } from './ViewUtils';
 
 let Scene: React.FC = () => {
     let [isLoading, setIsLoading] = useState(true)
@@ -31,7 +23,7 @@ let Scene: React.FC = () => {
                 <Loading percent={percent} />
                 : null
         }
-        <canvas id="canvas" width={_getWidth()} height={_getHeight()} style={{ "width": _getWidth(), "height": _getHeight() }}></canvas>
+        <canvas id="canvas" width={getWidth() + "px"} height={getHeight() + "px"} style={{ "width": getWidth() + "px", "height": getHeight() + "px" }}></canvas>
     </>
 };
 

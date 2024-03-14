@@ -413,21 +413,26 @@ TODO publish and update
 web-render c
 
 
-* TODO make demo run in mobile
+* DONE make demo run in mobile
 
 TODO update
 pipeline event
+
+webrender c
 
 
 
 ** DONE handle mobile event for arcball
 
-** TODO add meta
+** DONE add meta
 
-** TODO add vConsole
+** DONE handle canvas size
 
-** TODO handle canvas size
+** DONE add vConsole
 
+** DONE ui position and size should match mobile
+
+** DONE host demo to tencent cloud
 
 TODO demo in mobile run test:
 show scene
@@ -436,8 +441,12 @@ click
 show ui
 
 
+TODO
+# can't orbit camera
+view aspect error
 
-* TODO improve model
+
+* DONE improve model
 
 TODO 墙就用白色就可以了，地面就是普通的水泥颜色:
     clone multiple 白墙

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Layout, List } from 'antd';
 import { Bar } from '@ant-design/plots';
+import { getWidth } from './ViewUtils';
 
 let Page: React.FC = () => {
   // const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,27 +16,27 @@ let Page: React.FC = () => {
       year: '1951 年',
       value: 38,
     },
-    {
-      year: '1952 年',
-      value: 52,
-    },
-    {
-      year: '1956 年',
-      value: 61,
-    },
-    {
-      year: '1957 年',
-      value: 145,
-    },
-    {
-      year: '1958 年',
-      value: 48,
-    },
+    // {
+    //   year: '1952 年',
+    //   value: 52,
+    // },
+    // {
+    //   year: '1956 年',
+    //   value: 61,
+    // },
+    // {
+    //   year: '1957 年',
+    //   value: 145,
+    // },
+    // {
+    //   year: '1958 年',
+    //   value: 48,
+    // },
   ];
   const config = {
     data: data1,
     // width: 800,
-    // height: 300,
+    height: 100,
     xField: 'value',
     yField: 'year',
     seriesField: 'year',
@@ -46,7 +47,7 @@ let Page: React.FC = () => {
 
   const data2 = [
     '描述1',
-    '描述2',
+    // '描述2',
   ];
 
   // const handleOk = () => {
@@ -66,8 +67,8 @@ let Page: React.FC = () => {
   return (
     <Layout id="ui_page" style={
       {
-        "position": "absolute", "top": "200px", "left": "200px", "zIndex": "100", "display": "none", 
-        "width": "400px"
+        "position": "absolute", "top": "150px", "left": getWidth() * 0.1 + "px", "zIndex": "100", "display": "none",
+        "width": getWidth() * 0.8 + "px"
         // "height": "400px"
       }
     }>
