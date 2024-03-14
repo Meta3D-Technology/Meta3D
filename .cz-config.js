@@ -18,6 +18,7 @@ module.exports = {
     { name: "editor" },
     { name: "engine" },
     { name: "extension" },
+    { name: "contribute" },
     { name: "platform" },
     { name: "services" },
     { name: "templates" },

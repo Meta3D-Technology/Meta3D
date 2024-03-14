@@ -413,15 +413,46 @@ TODO publish and update
 web-render c
 
 
+* TODO make demo run in mobile
+
+TODO update
+pipeline event
+
+
+
+** DONE handle mobile event for arcball
+
+** TODO add meta
+
+** TODO add vConsole
+
+** TODO handle canvas size
+
+
+TODO demo in mobile run test:
+show scene
+orbit camera
+click
+show ui
+
+
+
+* TODO improve model
+
+TODO 墙就用白色就可以了，地面就是普通的水泥颜色:
+    clone multiple 白墙
+    水泥地面平板
+
+
+
+
+
+
+
 
 * TODO add hud as primary(two panel), put canvas in to bottom
 
 
-
-* TODO make demo run in mobile
-
-
-** TODO handle mobile event for arcball
 
 
 
