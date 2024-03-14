@@ -731,6 +731,43 @@ export class DirectionLight extends Light {
     }
 }
 
+export class AmbientLight extends Light {
+    constructor(gameObject: gameObject) {
+        super(gameObject)
+
+        // this._light = light
+    }
+
+    // private _light: directionLight
+
+    public get isAmbientLight(): boolean {
+        return true
+    }
+
+    public get type(): string {
+        return "AmbientLight"
+    }
+
+
+    public get children() {
+        return []
+    }
+
+    public get color(): ColorType {
+        // return _getExnDirectionLightValue("getColor", this._light, (v) => new Color(...v))
+        return getWithDefault(globalThis["ambientLight_color"], new Color(1, 1, 1))
+    }
+
+    public get intensity(): number {
+        // return _getExnDirectionLightValue("getIntensity", this._light)
+        return getWithDefault(globalThis["ambientLight_intensity"], 0.0)
+    }
+
+    public dispose() {
+        // this.shadow.dispose();
+    }
+}
+
 let _createInstance = (engineSceneService, meta3dState, gameObject) => {
     if (engineSceneService.gameObject.hasPerspectiveCameraProjection(meta3dState, gameObject)) {
         return new PerspectiveCamera(
@@ -790,7 +827,13 @@ export class Scene extends Object3D {
 
         return allGameObjects.filter(gameObject => {
             return isNullable(engineSceneService.transform.getParent(meta3dState, engineSceneService.gameObject.getTransform(meta3dState, gameObject)))
-        }).map(gameObject => _createInstance(engineSceneService, meta3dState, gameObject))
+        }).map(gameObject => _createInstance(engineSceneService, meta3dState, gameObject)).concat([
+            // TODO fix AmbientLight
+
+            new AmbientLight(allGameObjects.filter(gameObject => {
+                return isNullable(engineSceneService.transform.getParent(meta3dState, engineSceneService.gameObject.getTransform(meta3dState, gameObject)))
+            })[0])
+        ])
 
         // return (
         //     allGameObjects.filter(gameObject => {

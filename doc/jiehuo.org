@@ -453,7 +453,44 @@ TODO 墙就用白色就可以了，地面就是普通的水泥颜色:
     水泥地面平板
 
 
+* TODO update
 
+scenegraph
+
+
+
+* DONE add ambient
+
+
+
+* TODO add 第三人称 走路 漫游
+
+fly camera controller?
+
+
+* TODO expand warehouse scale
+
+
+
+* TODO make camera animation on the line
+
+refer to:
+https://www.sohu.com/a/739950864_120719430
+
+
+
+TODO add to demo:
+add a button as hud;
+click button, play camera animation;
+
+
+
+* TODO @ma: give needed materials to models
+
+
+need get picture, size?
+
+* TODO need test: models
 
 
 
@@ -496,17 +533,6 @@ show 3d text on the cube by three.js ui
 TODO add to demo
 
 
-
-* TODO make camera animation on the line
-
-refer to:
-https://www.sohu.com/a/739950864_120719430
-
-
-
-TODO add to demo:
-add a button as hud;
-click button, play camera animation;
 
 
 
@@ -660,7 +686,13 @@ show log, error(e.g. error by script->handler)
 
 
 
+** TODO feat(editor): add ambient by ui control instead of by hard coding
 
+TODO add AmbientLight component
+
+TODO update three render
+
+TODO update Classes->fix AmbientLight
 
 
 
