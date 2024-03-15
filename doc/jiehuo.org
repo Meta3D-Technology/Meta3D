@@ -453,35 +453,140 @@ TODO 墙就用白色就可以了，地面就是普通的水泥颜色:
     水泥地面平板
 
 
-* TODO update
-
-scenegraph
-
 
 
 * DONE add ambient
 
 
-
-* TODO add 第三人称 走路 漫游
-
-fly camera controller?
-
-
-* TODO expand warehouse scale
-
-
-
-* TODO make camera animation on the line
+* DONE learn code
 
 refer to:
-https://www.sohu.com/a/739950864_120719430
+https://www.webglstudy.com/product/200108.html
+
+https://www.grapecity.com.cn/blogs/wyn-3dmodel-bi-analize-data-visualization-solution
+
+[Threejs项目实战](https://juejin.cn/column/7085715244747587591)
+
+
+* DONE fix in it even though run in pc
 
 
 
-TODO add to demo:
-add a button as hud;
-click button, play camera animation;
+* TODO generate model
+
+
+# ** TODO use CSG to generate wall with window
+
+# refer to:
+# https://github.com/samalexander/three-csg-ts
+
+
+
+# ** TODO open face cull
+# not draw the wall towards camera
+
+
+** TODO feat: add empty gameObject to scenetree
+
+** TODO fix Cube's normal
+
+
+** TODO generate wall models(white)
+
+TODO use Cube as wall
+
+
+** TODO update ground
+
+use gray color on one plane(cube)
+
+
+** TODO try create guizi model by a picture by ai
+
+TODO prehandle image(e.g. transparent background, only remain single object in image)
+
+TODO refer to:
+https://mmmnote.com/article/7e7/14/article-f3c1080187c93fcd.shtml
+https://app.meshy.ai/zh/discover
+
+
+** TODO try generate guizi model
+
+
+
+** TODO try find guizi model
+
+https://www.dhzn3d.com/?cat=&s=%E6%9F%9C
+
+
+
+
+
+# ** TODO auto generate model by json config
+
+# https://www.cnblogs.com/yeyunfei/p/17756557.html
+
+
+
+
+
+
+
+# * TODO expand warehouse scale
+
+
+
+
+
+
+
+* TODO update page position: use screen coordinate
+
+
+
+* TODO update
+
+scenegraph
+
+event
+
+
+
+
+* TODO update demmo
+
+
+TODO run test in wechat pc
+
+TODO run test in mobile
+
+
+* TODO @ma to check
+
+
+
+* TODO add 第一人称 走路 漫游
+
+TODO use FirstPersonControl
+
+TODO add gravity
+
+
+TODO update mobile:
+    TODO add virtural gamepad
+    TODO add virtural button
+
+
+
+TODO update demmo
+
+
+* TODO perf: add instance optimize to draw multiple cabinets
+
+
+
+
+
 
 
 
@@ -489,6 +594,11 @@ click button, play camera animation;
 
 
 need get picture, size?
+
+
+refer to:
+https://www.tuguan.net/doc/scene-editor/createmodel/modeling/
+
 
 * TODO need test: models
 
@@ -500,6 +610,10 @@ need get picture, size?
 
 
 
+* TODO add Sprite(billboard) demo
+
+refer to:
+https://juejin.cn/post/7107223446999793695
 
 
 
@@ -530,14 +644,36 @@ show 3d text on the cube by three.js ui
 
 
 
-TODO add to demo
+# TODO add to demo
 
 
 
+* TODO make camera animation on the line
+
+refer to:
+https://www.sohu.com/a/739950864_120719430
 
 
 
+TODO add to demo:
+add a button as hud;
+click button, play camera animation;
 
+
+
+* TODO write two articles
+
+题目：
+《数字孪生实战（一）：开篇介绍》
+《数字孪生实战（二）：搭建3D仓库》
+
+refer to:
+https://www.cnblogs.com/yeyunfei/p/7899613.html
+https://www.cnblogs.com/xhload3d/p/3475672.html
+
+
+
+TODO add jiehuo link!
 
 
 
@@ -562,7 +698,78 @@ TODO add to demo
 # stop;
 # update script;
 
-** TODO can edit 2d ui in a new Editor
+
+** TODO add small editors, one integrated big editor
+
+small editors:
+model editor(to build a single model)
+2D UI editor(to build 2d ui)
+
+data binding editor?
+
+
+
+big editor:
+integrate small ones!
+
+
+*** TODO demo
+
+TODO build simple small editors
+
+TODO integrate to big editor
+
+
+
+
+*** TODO add model editor
+
+support procedure texture
+
+support procedural by json config(refer to https://www.cnblogs.com/yeyunfei/p/7899613.html -> b、开始搭建建筑 -> 先创建地板)
+
+support csg(e.g. can generate a wall with hole which can be window, specific shape ground)
+    refer to:
+        https://www.youtube.com/watch?v=xy2oPBRw-Wc
+        https://github.com/samalexander/three-csg-ts
+        https://www.hightopo.com/blog/350.html
+
+support procedural model(e.g. [procedural house three.js]( https://www.google.com/search?q=procedural+house+three.js&newwindow=1&sca_esv=e654bb68a3eaa292&sxsrf=ACQVn09Aeh7xlA2fLZN7xqv_cJG5AbJEDQ%3A1710455417987&ei=eXrzZf_sO4bBjuMP0_Wi0AM&ved=0ahUKEwi_jd_85vSEAxWGoGMGHdO6CDoQ4dUDCBA&uact=5&oq=procedural+house+three.js&gs_lp=Egxnd3Mtd2l6LXNlcnAiGXByb2NlZHVyYWwgaG91c2UgdGhyZWUuanMyBRAhGKABSKELUABYngpwAHgAkAEAmAHDAaABwAqqAQMwLji4AQPIAQD4AQGYAgigAtUKwgIHEAAYgAQYE8ICBhAAGB4YE8ICCBAAGAgYHhgTwgIIEAAYBRgeGBPCAgYQABgIGB7CAgcQIRgKGKABmAMAkgcDMC44oAe9EA&sclient=gws-wiz-serp ))
+
+can edit material,texture props(e.g. texture's wrapS/T, material's color)
+
+add export/import single model
+# add export/import single model json config
+#     this is useful(optimize: improve loading speed; can use instance to draw;) to a whole scene model!
+#     refer to: https://www.cnblogs.com/yeyunfei/p/17756557.html -> json配置
+
+
+
+
+integrate 2d to 3d ai model(or just give link)
+
+
+
+TODO prepare many units(by load or procedura), then select some and build to one model
+
+
+
+TODO run test:
+build wall
+build ground
+build warehouse(wall + ground)
+
+build body
+build drawer
+build cabinet(body + drawer)
+
+# scene editor(to build a asset bundle for one scene)(add in the future when support AssetBundle!)
+#     support mark instance to draw(add instance component)
+
+
+*** TODO add 2d ui editor
+
+TODO add export/import 2d ui
 
 refer to:
 https://www.thingjs.com/guide/chartBuilder/
@@ -580,7 +787,7 @@ Wonder-Editor->Extend ui(use react)
 
 
 
-TODO build new Editor as e1
+TODO build new 2D UI Editor as e1
 
 TODO integrage e1 to current 3d editor:
 use iframe to host 3d view?
@@ -588,6 +795,8 @@ use iframe to host 3d view?
 
 learn how to integrate?refer to thingjs, integrate https://bbs.huaweicloud.com/blogs/401997#H19 and https://bbs.huaweicloud.com/blogs/401997#H112 :
 https://bbs.huaweicloud.com/blogs/401997
+
+
 
 
 
@@ -602,21 +811,15 @@ e1 editor's output should be a arraybuffer like Scene.arraybuffer!
     # publish to platform
 
 
-** TODO update publish to platform refer to publish local
+**** TODO update publish to platform refer to publish local
 
 
-** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs
+**** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs
 
 
+*** TODO add data binding editor
 
-** TODO can edit 3d ui in gameview visually
 
-use [ three-mesh-ui ](https://github.com/felixmariotto/three-mesh-ui)
-
-TODO add 3d ui related components
-
-refer to Unity->UGUI:
-https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
 
 
 
@@ -654,6 +857,12 @@ TODO remove RayCaster
 
 
 ** TODO sceneview add outline
+
+
+
+** TODO add MeshRender component
+
+maintain visible
 
 
 
@@ -696,6 +905,17 @@ TODO update Classes->fix AmbientLight
 
 
 
+** TODO feat: rewrite FirstPersonControl
+
+TODO refer to flyCameraController but add gravity
+
+
+
+** TODO update instance optimize
+
+TODO add instance componenet
+
+
 
 # ** TODO can edit 3d ui with echarts in gameview visually
 
@@ -707,6 +927,10 @@ TODO update Classes->fix AmbientLight
 can add util functions!
 
 
+** TODO add transform gizmo
+
+
+** TODO add AssetBundle
 
 
 
@@ -715,15 +939,29 @@ can add util functions!
 
 
 
-** TODO sceneview add transform gizmo
 
 
 
-** TODO add MeshRender component
-
-maintain visible
 
 
+
+** TODO add keyframe animation editor
+
+
+
+** TODO can edit 3d ui in gameview visually
+
+use [ three-mesh-ui ](https://github.com/felixmariotto/three-mesh-ui)
+
+TODO add 3d ui related components
+
+refer to Unity->UGUI:
+https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
+
+
+
+
+** TODO add Stream Load
 
 
 

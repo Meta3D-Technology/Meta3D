@@ -35,11 +35,11 @@ let _convertMouseEventToPointEvent = (
   {location, locationInView, button, wheel, movementDelta, event}: mouseEvent,
 ) => {
   name: eventName,
-  location: location,
-  locationInView: locationInView,
+  location,
+  locationInView,
   button: Some(button),
   wheel: Some(wheel),
-  movementDelta: movementDelta,
+  movementDelta,
   event: event->mouseDomEventToPointDomEvent,
 }
 
@@ -77,11 +77,11 @@ let _convertTouchEventToPointEvent = (
   {location, locationInView, touchData, movementDelta, event}: touchEvent,
 ) => {
   name: eventName,
-  location: location,
-  locationInView: locationInView,
+  location,
+  locationInView,
   button: None,
   wheel: None,
-  movementDelta: movementDelta,
+  movementDelta,
   event: event->touchDomEventToPointDomEvent,
 }
 
@@ -341,10 +341,11 @@ let _execKeyboardEventHandle = (keyboardEventName, event, eventExtensionProtocol
 }
 
 let _fromPCDomEventArr = (state, eventExtensionProtocolName) => [
-  Meta3dBsMostDefault.Most.fromEvent("contextmenu", _getBody(state), false)->Meta3dBsMostDefault.Most.tap(
-    event => _preventContextMenuEvent(event),
-    _,
-  ),
+  Meta3dBsMostDefault.Most.fromEvent(
+    "contextmenu",
+    _getBody(state),
+    false,
+  )->Meta3dBsMostDefault.Most.tap(event => _preventContextMenuEvent(event), _),
   _fromPointDomEvent("click", state)->Meta3dBsMostDefault.Most.tap(
     event => _execMouseEventHandle(Click, event, eventExtensionProtocolName),
     _,
@@ -367,7 +368,10 @@ let _fromPCDomEventArr = (state, eventExtensionProtocolName) => [
     _,
   ),
   _fromPointDomEvent("mousedown", state)
-  ->Meta3dBsMostDefault.Most.tap(event => _execMouseDragStartEventHandle(event, eventExtensionProtocolName), _)
+  ->Meta3dBsMostDefault.Most.tap(
+    event => _execMouseDragStartEventHandle(event, eventExtensionProtocolName),
+    _,
+  )
   ->Meta3dBsMostDefault.Most.flatMap(
     event =>
       _fromPointDomEvent("mousemove", state)
@@ -407,7 +411,10 @@ let _fromPCDomEventArr = (state, eventExtensionProtocolName) => [
 let _fromMobileDomEventArr = (state, eventExtensionProtocolName) => [
   _fromMobilePointDomEvent("touchend", state)
   ->Meta3dBsMostDefault.Most.since(_fromMobilePointDomEvent("touchstart", state), _)
-  ->Meta3dBsMostDefault.Most.tap(event => _execTouchEventHandle(TouchTap, event, eventExtensionProtocolName), _),
+  ->Meta3dBsMostDefault.Most.tap(
+    event => _execTouchEventHandle(TouchTap, event, eventExtensionProtocolName),
+    _,
+  ),
   _fromMobilePointDomEvent("touchend", state)->Meta3dBsMostDefault.Most.tap(
     event => _execTouchEventHandle(TouchEnd, event, eventExtensionProtocolName),
     _,
@@ -421,7 +428,10 @@ let _fromMobileDomEventArr = (state, eventExtensionProtocolName) => [
     _,
   ),
   _fromMobilePointDomEvent("touchstart", state)
-  ->Meta3dBsMostDefault.Most.tap(event => _execTouchDragStartEventHandle(event, eventExtensionProtocolName), _)
+  ->Meta3dBsMostDefault.Most.tap(
+    event => _execTouchDragStartEventHandle(event, eventExtensionProtocolName),
+    _,
+  )
   ->Meta3dBsMostDefault.Most.flatMap(
     event =>
       _fromTouchMoveDomEventAndPreventnDefault(state)->Meta3dBsMostDefault.Most.until(
@@ -442,12 +452,13 @@ let _fromMobileDomEventArr = (state, eventExtensionProtocolName) => [
 let fromDomEvent = (state, eventExtensionProtocolName) =>
   Meta3dBsMostDefault.Most.mergeArray(
     switch BrowserDoService.getBrowser(state) {
-    | Chrome
-    | Firefox =>
-      _fromPCDomEventArr(state, eventExtensionProtocolName)
     | Android
     | IOS =>
       _fromMobileDomEventArr(state, eventExtensionProtocolName)
+    | Chrome
+    | Firefox
+    | Unknown =>
+      _fromPCDomEventArr(state, eventExtensionProtocolName)
     // | browser =>
     //   Meta3dLog.Log.fatal(
     //     Meta3dLog.Log.buildFatalMessage(
