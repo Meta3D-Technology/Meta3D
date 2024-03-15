@@ -109,7 +109,7 @@ function createState(isDebug, pbrMaterialCount) {
         1.0,
         defaultSpecularColor,
         1.0,
-        1.0,
+        0.0,
         0.0,
         1.5
       ]);
@@ -122,7 +122,7 @@ function createState(isDebug, pbrMaterialCount) {
               1.0,
               defaultSpecularColor,
               1.0,
-              1.0,
+              0.0,
               0.0,
               1.5
             ], {

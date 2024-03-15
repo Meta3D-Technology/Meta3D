@@ -98,7 +98,8 @@ let bindDomEventToTriggerPointEvent = (
 ) =>
   switch browser {
   | Chrome
-  | Firefox =>
+  | Firefox
+  | Unknown =>
     stateForEventHandler
     ->_bindMouseEventToTriggerPointEvent(Click, NameEventDoService.getPointTapEventName(), PointTap)
     ->_bindMouseEventToTriggerPointEvent(MouseUp, NameEventDoService.getPointUpEventName(), PointUp)

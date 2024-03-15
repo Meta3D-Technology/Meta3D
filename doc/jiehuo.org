@@ -471,8 +471,7 @@ https://www.grapecity.com.cn/blogs/wyn-3dmodel-bi-analize-data-visualization-sol
 * DONE fix in it even though run in pc
 
 
-
-* TODO generate model
+* DONE generate model
 
 
 # ** TODO use CSG to generate wall with window
@@ -488,15 +487,16 @@ https://www.grapecity.com.cn/blogs/wyn-3dmodel-bi-analize-data-visualization-sol
 
 ** DONE feat: add empty gameObject to scenetree
 
-** TODO fix Cube's normal
+# ** TODO fix Cube's normal
+** DONE fix Cube not affect by ambient
 
 
-** TODO generate wall models(white)
+** DONE generate wall models(white)
 
 TODO use Cube as wall
 
 
-** TODO update ground
+** DONE update ground
 
 use gray color on one plane(cube)
 
@@ -536,19 +536,45 @@ https://www.dhzn3d.com/?cat=&s=%E6%9F%9C
 
 
 
+* TODO move all scripts, ui to published project; only use meta3d editor to build scene!
 
+TODO move Page out
+
+TODO scene only has one script:
+invoke script func implemented in published project
+
+
+TODO update publish action
+
+
+TODO script api add get scene, perspectiveCamera and three api
 
 
 
 * TODO update page position: use screen coordinate
 
 
+* TODO add Sprite(billboard) demo
+
+refer to:
+https://juejin.cn/post/7107223446999793695
+
+
+
 
 * TODO update
 
-scenegraph
+# component-pbrmaterial
 
-event
+# event
+
+# publish action
+
+# actions
+
+# scenegraph
+
+# event
 
 
 
@@ -563,6 +589,9 @@ TODO run test in mobile
 
 * TODO @ma to check
 
+
+
+* TODO arcball add pointer lock
 
 
 * TODO add 第一人称 走路 漫游
@@ -595,6 +624,8 @@ TODO update demmo
 
 need get picture, size?
 
+TODO get picture in front, side, back
+
 
 refer to:
 https://www.tuguan.net/doc/scene-editor/createmodel/modeling/
@@ -609,11 +640,6 @@ https://www.tuguan.net/doc/scene-editor/createmodel/modeling/
 * TODO add hud as primary(two panel), put canvas in to bottom
 
 
-
-* TODO add Sprite(billboard) demo
-
-refer to:
-https://juejin.cn/post/7107223446999793695
 
 
 
@@ -927,22 +953,22 @@ TODO add instance componenet
 can add util functions!
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 ** TODO add transform gizmo
 
 
 ** TODO add AssetBundle
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ** TODO add keyframe animation editor
@@ -962,6 +988,9 @@ https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
 
 
 ** TODO add Stream Load
+
+
+** TODO improve model editor, 2d ui editor, data binding editor
 
 
 

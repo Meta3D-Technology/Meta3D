@@ -294,24 +294,7 @@ function _fromMobileDomEventArr(state, eventExtensionProtocolName) {
 
 function fromDomEvent(state, eventExtensionProtocolName) {
   var match = BrowserDoService$Meta3dEvent.getBrowser(state);
-  var tmp;
-  if (match >= 2) {
-    if (match >= 4) {
-      throw {
-            RE_EXN_ID: "Match_failure",
-            _1: [
-              "InitEventDoService.res",
-              444,
-              4
-            ],
-            Error: new Error()
-          };
-    }
-    tmp = _fromMobileDomEventArr(state, eventExtensionProtocolName);
-  } else {
-    tmp = _fromPCDomEventArr(state, eventExtensionProtocolName);
-  }
-  return Most.mergeArray(tmp);
+  return Most.mergeArray(match === 3 || match === 2 ? _fromMobileDomEventArr(state, eventExtensionProtocolName) : _fromPCDomEventArr(state, eventExtensionProtocolName));
 }
 
 var handleDomEventStreamError = Log$Meta3dCommonlib.logForDebug;

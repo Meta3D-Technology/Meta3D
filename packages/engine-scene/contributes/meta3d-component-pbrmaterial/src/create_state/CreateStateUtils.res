@@ -100,7 +100,7 @@ let createState = (isDebug: bool, pbrMaterialCount: int) => {
   let defaultSpecular = 1.0
   let defaultSpecularColor = (1., 1., 1.)
   let defaultRoughness = 1.0
-  let defaultMetalness = 1.0
+  let defaultMetalness = 0.0
   let defaultTransmission = 0.0
   let defaultIOR = 1.5
 
