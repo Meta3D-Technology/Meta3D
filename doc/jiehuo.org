@@ -536,104 +536,22 @@ https://www.dhzn3d.com/?cat=&s=%E6%9F%9C
 
 
 
-* TODO move all scripts, ui to published project; only use meta3d editor to build scene!
+# * TODO move all scripts, ui to published project; only use meta3d editor to build scene!
 
-TODO move Page out
+# TODO move Page out
 
-TODO scene only has one script:
-invoke script func implemented in published project
-
-
-TODO update publish action
+# TODO scene only has one script:
+# invoke script func implemented in published project
 
 
-TODO script api add get scene, perspectiveCamera and three api
+# TODO update publish action
 
 
-
-* TODO update page position: use screen coordinate
-
-
-* TODO add Sprite(billboard) demo
-
-refer to:
-https://juejin.cn/post/7107223446999793695
+# TODO script api add get scene, perspectiveCamera and three api
 
 
 
-
-* TODO update
-
-# component-pbrmaterial
-
-# event
-
-# publish action
-
-# actions
-
-# scenegraph
-
-# event
-
-
-
-
-* TODO update demmo
-
-
-TODO run test in wechat pc
-
-TODO run test in mobile
-
-
-* TODO @ma to check
-
-
-
-* TODO arcball add pointer lock
-
-
-* TODO add 第一人称 走路 漫游
-
-TODO use FirstPersonControl
-
-TODO add gravity
-
-
-TODO update mobile:
-    TODO add virtural gamepad
-    TODO add virtural button
-
-
-
-TODO update demmo
-
-
-* TODO perf: add instance optimize to draw multiple cabinets
-
-
-
-
-
-
-
-
-* TODO @ma: give needed materials to models
-
-
-need get picture, size?
-
-TODO get picture in front, side, back
-
-
-refer to:
-https://www.tuguan.net/doc/scene-editor/createmodel/modeling/
-
-
-* TODO need test: models
-
-
+* TODO add export scene
 
 
 
@@ -689,9 +607,11 @@ click button, play camera animation;
 
 * TODO write two articles
 
+开源代码！
+
 题目：
 《数字孪生实战（一）：开篇介绍》
-《数字孪生实战（二）：搭建3D仓库》
+《数字孪生实战（二）：使用three.js实现3D仓库（代码开源）》
 
 refer to:
 https://www.cnblogs.com/yeyunfei/p/7899613.html
@@ -700,6 +620,9 @@ https://www.cnblogs.com/xhload3d/p/3475672.html
 
 
 TODO add jiehuo link!
+
+
+
 
 
 
@@ -800,6 +723,9 @@ TODO add export/import 2d ui
 refer to:
 https://www.thingjs.com/guide/chartBuilder/
 https://www.hightopo.com/blog/3869.html -> 图表操作
+https://gitee.com/dromara/go-view
+https://juejin.cn/post/6937257727106220040
+https://juejin.cn/s/react%20%E5%A4%A7%E5%B1%8F%E5%8F%AF%E8%A7%86%E5%8C%96
 
 
 try use Ant Design Charts + Ant Design to build ui(based on react):
@@ -848,6 +774,9 @@ e1 editor's output should be a arraybuffer like Scene.arraybuffer!
 
 
 
+** TODO refactor: refactor dom event: change handle to (meta3dState, event)
+
+refer to jiehuo->Event.ts
 
 ** TODO picking should return gameObjects instead of objects
 ** TODO setSelectedObjects should use gameObjects instead of objects
@@ -990,13 +919,15 @@ https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/index.html
 ** TODO add Stream Load
 
 
-** TODO improve model editor, 2d ui editor, data binding editor
+** TODO improve small editors
 
 
 
 
 
 * TODO small improvement
+
+** TODO upgrade three.js version
 
 ** TODO fix: camera group can set near, far
 
