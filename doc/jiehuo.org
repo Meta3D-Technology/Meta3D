@@ -605,17 +605,23 @@ click button, play camera animation;
 
 
 
-* TODO write two articles
+* TODO write 系列文章
 
 开源代码！
 
 题目：
-《数字孪生实战（一）：开篇介绍》
-《数字孪生实战（二）：使用three.js实现3D仓库（代码开源）》
+# 《数字孪生实战（一）：开篇介绍》
+# 《数字孪生实战（二）：使用three.js实现3D仓库（代码开源）》
+
+
+《three.js数字孪生实战（一）：开始实现3D仓库（代码开源）》
+《three.js数字孪生实战（二）：...》
 
 refer to:
 https://www.cnblogs.com/yeyunfei/p/7899613.html
 https://www.cnblogs.com/xhload3d/p/3475672.html
+https://blog.csdn.net/qq_39503511/article/details/112707047
+https://juejin.cn/column/7085715244747587591
 
 
 
@@ -672,6 +678,31 @@ TODO integrate to big editor
 
 
 *** TODO add model editor
+refer to:
+https://www.zhihu.com/question/532065029
+https://www.zhihu.com/question/445151365
+https://www.zhihu.com/question/536865713
+
+
+
+借助场景编辑器的能力，通过自由的模型管理、海量的数字资产以及灵活的三维编辑能力，能实现低成本且高质量地搭建数字孪生项目
+
+自由的模型管理：支持多种格式，卫星遥感影像、倾斜摄影、高程数据、BIM、精细化手工模型数据，另外，城市级模型自动生成，元件几何体拼接，材质贴图管理；海量的数字资产：上千个模型、材质、贴图，上百个场景模版，实现快速构建复用；灵活的三维编辑：沿用市面上成熟通用的三维编辑操作逻辑，涵盖模型吸附、参考线、四格视图.....等三维编辑能力，灵活便捷的工具栏，有效降低用户上手的学习成本，实现快捷编辑。
+
+作者：EasyV数字孪生可视化
+链接：https://www.zhihu.com/question/536865713/answer/2763865376
+来源：知乎
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+
+
+perf: if use basic geometrys(e.g. cube, plane), exported glb not has no vertices!
+
+
+
+
+
 
 support procedure texture
 
