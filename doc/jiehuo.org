@@ -667,6 +667,17 @@ data binding editor?
 big editor:
 integrate small ones!
 
+refer to:
+https://www.bilibili.com/video/BV1x2421M7TY/?spm_id_from=trigger_reload&vd_source=9fcdb7c5d92e95429d4dd9af0380937b
+
+https://www.sovitjs.com/index.html
+
+https://www.bilibili.com/video/BV1e24y1t7sH/?spm_id_from=333.788&vd_source=9fcdb7c5d92e95429d4dd9af0380937b
+
+https://www.bilibili.com/video/BV1EK411r7Hx/?vd_source=9fcdb7c5d92e95429d4dd9af0380937b
+
+https://space.bilibili.com/630417024
+
 
 *** TODO demo
 
@@ -704,7 +715,7 @@ perf: if use basic geometrys(e.g. cube, plane), exported glb not has no vertices
 
 
 
-support procedure texture
+# support procedure texture
 
 support procedural by json config(refer to https://www.cnblogs.com/yeyunfei/p/7899613.html -> b、开始搭建建筑 -> 先创建地板)
 
@@ -745,6 +756,31 @@ build cabinet(body + drawer)
 
 # scene editor(to build a asset bundle for one scene)(add in the future when support AssetBundle!)
 #     support mark instance to draw(add instance component)
+
+
+
+*** TODO add data binding editor
+
+
+
+
+*** TODO add material editor
+TODO support procedure texture
+
+TODO 建材质库
+e.g. includes metal、wood...
+
+refer to:
+https://zhuanlan.zhihu.com/p/46686345
+https://www.google.com/search?q=%E6%9D%90%E8%B4%A8%E7%BC%96%E8%BE%91%E5%99%A8&oq=%E6%9D%90%E8%B4%A8%E7%BC%96%E8%BE%91%E5%99%A8&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDE3NDlqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8#ip=1
+https://search.bilibili.com/all?keyword=%E5%88%9B%E5%BB%BA%E7%A8%8B%E5%BA%8F%E5%8C%96%E6%9D%90%E8%B4%A8
+
+http://www.archcollege.com/archcollege/2019/07/45050.html
+
+https://www.google.com/search?q=pbr%E6%9D%90%E8%B4%A8+%E6%B5%81%E7%A8%8B&oq=pbr%E6%9D%90%E8%B4%A8+%E6%B5%81%E7%A8%8B&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIKCAIQABiABBiiBDIKCAMQABiABBiiBNIBCDE0MjNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8
+
+
+
 
 
 *** TODO add 2d ui editor
@@ -800,11 +836,6 @@ e1 editor's output should be a arraybuffer like Scene.arraybuffer!
 **** TODO refactor: update platform: use @ant-design/charts instead of @ant-design/graphs
 
 
-*** TODO add data binding editor
-
-
-
-
 ** TODO refactor: refactor dom event: change handle to (meta3dState, event)
 
 refer to jiehuo->Event.ts
@@ -814,6 +845,14 @@ refer to jiehuo->Event.ts
 ** TODO refactor: rename setSelectedObjects to setSelectedGameObjects
 
 
+
+
+** TODO add transform gizmo
+
+use three.js->transform controls
+
+refer to:
+http://localhost:8092/mine/three.js-dev/examples/misc_controls_transform.html
 
 
 ** TODO add Collider component
@@ -923,9 +962,6 @@ can add util functions!
 
 
 
-
-
-** TODO add transform gizmo
 
 
 ** TODO add AssetBundle
