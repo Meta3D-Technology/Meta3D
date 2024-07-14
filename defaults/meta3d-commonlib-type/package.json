@@ -11,6 +11,6 @@
         "rescript": "^10.0.1"
     },
     "devDependencies": {
-        "gentype": "^4.4.0"
+        "gentype": "^3.48.0"
     }
 }
