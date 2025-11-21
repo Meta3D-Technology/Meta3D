@@ -25,7 +25,8 @@ module.exports = {
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
-        symlinks: false,
+        // symlinks: false,
+        symlinks: true,
         modules: ['node_modules'],
         fallback: { "crypto": false }
     },
@@ -60,8 +61,8 @@ module.exports = {
         */
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-        	template: './index.html',
-        	filename: 'index.html',
+            template: './index.html',
+            filename: 'index.html',
         }),
     ],
     // When importing a module whose path matches one of the following, just

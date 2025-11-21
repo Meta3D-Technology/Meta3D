@@ -1,19 +1,19 @@
 
 
-import * as Curry from "../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../../rescript/lib/es6/curry.js";
 import * as Semver from "semver";
-import * as Js_array from "../../../../../../node_modules/rescript/lib/es6/js_array.js";
-import * as Caml_option from "../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Js_array from "./../../../../../rescript/lib/es6/js_array.js";
+import * as Caml_option from "./../../../../../rescript/lib/es6/caml_option.js";
 import * as LibUtils$Meta3d from "../file/LibUtils.bs.js";
 import * as FileUtils$Meta3d from "../FileUtils.bs.js";
 import * as TextDecoder$Meta3d from "../file/TextDecoder.bs.js";
 import * as TextEncoder$Meta3d from "../file/TextEncoder.bs.js";
-import * as Log$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as Log$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
 import * as ExtensionManager$Meta3d from "../ExtensionManager.bs.js";
 import * as BinaryFileOperator$Meta3d from "../file/BinaryFileOperator.bs.js";
-import * as Exception$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as Exception$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function generate(param) {
   var encoder = new TextEncoder();
@@ -325,7 +325,7 @@ function _checkVersion(protocolVersion, dependentProtocolVersion, dependentProto
   if (Semver.gte(Semver.minVersion(protocolVersion), Semver.minVersion(dependentProtocolVersion))) {
     return ;
   } else {
-    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
+    return Exception$Meta3dCommonlib.throwErr(Exception$Meta3dCommonlib.buildErr(Log$Meta3dCommonlib.buildErrorMessage("version not match", "" + dependentProtocolName + "\r\n              " + protocolVersion + " not match dependentProtocolVersion: " + dependentProtocolVersion + "", "", "", "")));
   }
 }
 

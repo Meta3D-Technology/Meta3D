@@ -1,13 +1,13 @@
 rescript = 1
 rule cp
-  command = cp $i $out
+  command = cmd.exe /C copy /Y $i $out >NUL
 rule touch
- command = touch $out
-o ServiceType-Meta3dEngineWholeProtocol.cmi : cp ../bs/src/service/ServiceType-Meta3dEngineWholeProtocol.cmi
-o ServiceType-Meta3dEngineWholeProtocol.cmj : cp ../bs/src/service/ServiceType-Meta3dEngineWholeProtocol.cmj
-o ServiceType-Meta3dEngineWholeProtocol.cmt : cp ../bs/src/service/ServiceType-Meta3dEngineWholeProtocol.cmt
-o ServiceType.res : cp ../../src/service/ServiceType.res
-o Meta3dEngineWholeProtocol.cmi : cp ../bs/Meta3dEngineWholeProtocol.cmi
-o Meta3dEngineWholeProtocol.cmj : cp ../bs/Meta3dEngineWholeProtocol.cmj
-o Meta3dEngineWholeProtocol.cmt : cp ../bs/Meta3dEngineWholeProtocol.cmt
+ command = cmd.exe /C type nul >>$out & copy $out+,, >NUL
+o ServiceType-Meta3dEngineWholeProtocol.cmi : cp ..\bs\src\service\ServiceType-Meta3dEngineWholeProtocol.cmi
+o ServiceType-Meta3dEngineWholeProtocol.cmj : cp ..\bs\src\service\ServiceType-Meta3dEngineWholeProtocol.cmj
+o ServiceType-Meta3dEngineWholeProtocol.cmt : cp ..\bs\src\service\ServiceType-Meta3dEngineWholeProtocol.cmt
+o ServiceType.res : cp ..\..\src\service\ServiceType.res
+o Meta3dEngineWholeProtocol.cmi : cp ..\bs\Meta3dEngineWholeProtocol.cmi
+o Meta3dEngineWholeProtocol.cmj : cp ..\bs\Meta3dEngineWholeProtocol.cmj
+o Meta3dEngineWholeProtocol.cmt : cp ..\bs\Meta3dEngineWholeProtocol.cmt
 build install.stamp : touch ServiceType-Meta3dEngineWholeProtocol.cmi ServiceType-Meta3dEngineWholeProtocol.cmj Meta3dEngineWholeProtocol.cmi Meta3dEngineWholeProtocol.cmj

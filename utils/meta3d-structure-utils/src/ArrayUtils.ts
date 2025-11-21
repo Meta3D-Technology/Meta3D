@@ -84,4 +84,7 @@ export let flatten = <T>(arr: Array<Array<T>>): Array<T> => {
     }, [])
 }
 
-export let zip = <T>(...arr: Array<Array<T>>): Array<T> => Array.from({ length: Math.max(...arr.map(a => a.length)) }, (_, i) => arr.map(a => a[i])) as Array<T>
+// export let zip = <T>(...arr: Array<Array<T>>): Array<T> => 
+export let zip = <T>(...arr: Array<Array<T>>): any =>
+    // Array.from({ length: Math.max(...arr.map(a => a.length)) }, (_, i) => arr.map(a => a[i])) as Array<T>
+    Array.from({ length: Math.max(...arr.map(a => a.length)) }, (_, i) => arr.map(a => a[i])) 
