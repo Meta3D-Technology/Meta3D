@@ -25,7 +25,7 @@ picking
 线框模式:
 绘制线框模式的模型
 
-echart2d图标
+# echart2d图标
 
 3D ui:
 text
