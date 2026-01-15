@@ -1,6 +1,7 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api, canvasData } from "meta3d-type"
 import { state } from "meta3d-editor-whole-protocol/src/state/StateType"
 import { configData, service } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { service as coreService, pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService, eventSourcingService, eventDataService } from "meta3d-event-protocol/src/service/ServiceType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -431,7 +432,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		// scene: meta3dState => getExn(api.getPackageService<engineSceneService>(meta3dState, "meta3d-engine-scene-protocol")),
 		ui: meta3dState => getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol")),
 		event: meta3dState => getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol")),
-		// core: meta3dState => getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")),
+		core: meta3dState => getExn(api.getPackageService<coreService>(meta3dState, "meta3d-core-protocol")),
 		// asset: meta3dState => getExn(api.getPackageService<assetService>(meta3dState, "meta3d-asset-protocol")),
 		// lib: meta3dState => getExn(api.getPackageService<libService>(meta3dState, "meta3d-lib-protocol")),
 		// // interact: meta3dState => getExn(api.getPackageService<interactService>(meta3dState, "meta3d-interact-protocol")),
