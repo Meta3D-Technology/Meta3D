@@ -1,6 +1,6 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api, canvasData } from "meta3d-type"
-import { state } from "meta3d-editor-careermod-protocol/src/state/StateType"
-import { configData, service } from "meta3d-editor-careermod-protocol/src/service/ServiceType"
+import { state } from "meta3d-editor-whole-protocol/src/state/StateType"
+import { configData, service } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
 import { service as eventService, eventSourcingService, eventDataService } from "meta3d-event-protocol/src/service/ServiceType"
 import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
@@ -491,19 +491,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
 					throw new Error("error")
 			}
 		},
-		// addToInitFuncs: (meta3dState, func) => {
-		// 	let state = api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol")
+		addToInitFuncs: (meta3dState, func) => {
+			let state = api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol")
 
-		// 	return api.setExtensionState(meta3dState, "meta3d-editor-whole-protocol", {
-		// 		...state,
-		// 		initFuncs: state.initFuncs.push(func)
-		// 	})
-		// },
-		// getPluggablePackageService: (meta3dState, packageProtocolName) => {
-		// 	// TODO check packageProtocolName shouldn't be ui, engine-scene, core, ...
+			return api.setExtensionState(meta3dState, "meta3d-editor-whole-protocol", {
+				...state,
+				initFuncs: state.initFuncs.push(func)
+			})
+		},
+		getPluggablePackageService: (meta3dState, packageProtocolName) => {
+			// TODO check packageProtocolName shouldn't be ui, engine-scene, core, ...
 
-		// 	return api.getPackageService(meta3dState, packageProtocolName)
-		// },
+			return api.getPackageService(meta3dState, packageProtocolName)
+		},
 		run: (meta3dState: meta3dState, configData) => {
 			let [canvasData, { isDebug, env }] = configData
 
@@ -535,12 +535,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 export let createExtensionState: createExtensionStateMeta3D<
 	state
 > = (meta3dState, api) => {
-	// return {
-	// 	initFuncs: api.immutable.createList(),
-	// 	currentAllEvents: api.immutable.createList(),
-	// 	// env: api.nullable.getEmpty()
-	// }
-	return null
+	return {
+		initFuncs: api.immutable.createList(),
+		currentAllEvents: api.immutable.createList(),
+		// env: api.nullable.getEmpty()
+	}
 }
 
 export let getExtensionLife: getLifeMeta3D<service> = (api, extensionProtocolName) => {
