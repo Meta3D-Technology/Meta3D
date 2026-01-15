@@ -58,57 +58,106 @@ module Method = {
     (account, selectedUIControls, selectedUIControlInspectorData),
     (customInputs, customActions),
   ) => {
-    _checkShouldHasSceneViewAndGameView(selectedUIControls)->Meta3dCommonlib.Result.either(() => {
-      ElementVisualUtils.generateApp(
-        service,
-        (
-          AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
-          selectedExtensions->Meta3dCommonlib.ListSt.toArray,
-          ElementVisualUtils.addGeneratedCustoms(
-            service,
-            selectedContributes,
-            account,
-            customInputs,
-            customActions,
-          )
-          // ->ElementUtils.addGeneratedInputContributesForElementAssemble(
-          //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
-          //   _,
-          //   account,
-          //   selectedUIControlInspectorData,
-          // )
-          // ->ElementUtils.addGeneratedActionContributesForElementAssemble(
-          //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
-          //   _,
-          //   account,
-          //   selectedUIControlInspectorData,
-          // )
-          ->Meta3dCommonlib.ListSt.toArray,
-        ),
-        list{},
-        // (list{}, list{}),
-        elementContribute,
-      )
-      ->_saveToLocalStorage(service, _)
-      ->Meta3dBsMostDefault.Most.tap(
-        _ => {
-          _openLink(
-            service,
-            _buildURL(
-              canvasData->Obj.magic->Js.Json.stringify,
-              apInspectorData->Obj.magic->Js.Json.stringify,
-            ),
-          )
-        },
-        // RescriptReactRouter.push("/RunElementVisual")
-        _,
-      )
-      ->Meta3dBsMostDefault.Most.drain
-      ->Js.Promise.catch(e => {
-        service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
-      }, _)
-      ->ignore
-    }, MessageUtils.warn(_, None))
+    // _checkShouldHasSceneViewAndGameView(selectedUIControls)->Meta3dCommonlib.Result.either(() => {
+    //   ElementVisualUtils.generateApp(
+    //     service,
+    //     (
+    //       AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
+    //       selectedExtensions->Meta3dCommonlib.ListSt.toArray,
+    //       ElementVisualUtils.addGeneratedCustoms(
+    //         service,
+    //         selectedContributes,
+    //         account,
+    //         customInputs,
+    //         customActions,
+    //       )
+    //       // ->ElementUtils.addGeneratedInputContributesForElementAssemble(
+    //       //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+    //       //   _,
+    //       //   account,
+    //       //   selectedUIControlInspectorData,
+    //       // )
+    //       // ->ElementUtils.addGeneratedActionContributesForElementAssemble(
+    //       //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+    //       //   _,
+    //       //   account,
+    //       //   selectedUIControlInspectorData,
+    //       // )
+    //       ->Meta3dCommonlib.ListSt.toArray,
+    //     ),
+    //     list{},
+    //     // (list{}, list{}),
+    //     elementContribute,
+    //   )
+    //   ->_saveToLocalStorage(service, _)
+    //   ->Meta3dBsMostDefault.Most.tap(
+    //     _ => {
+    //       _openLink(
+    //         service,
+    //         _buildURL(
+    //           canvasData->Obj.magic->Js.Json.stringify,
+    //           apInspectorData->Obj.magic->Js.Json.stringify,
+    //         ),
+    //       )
+    //     },
+    //     // RescriptReactRouter.push("/RunElementVisual")
+    //     _,
+    //   )
+    //   ->Meta3dBsMostDefault.Most.drain
+    //   ->Js.Promise.catch(e => {
+    //     service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+    //   }, _)
+    //   ->ignore
+    // }, MessageUtils.warn(_, None))
+    ElementVisualUtils.generateApp(
+      service,
+      (
+        AppUtils.splitPackages(selectedPackages, storedPackageIdsInApp),
+        selectedExtensions->Meta3dCommonlib.ListSt.toArray,
+        ElementVisualUtils.addGeneratedCustoms(
+          service,
+          selectedContributes,
+          account,
+          customInputs,
+          customActions,
+        )
+        // ->ElementUtils.addGeneratedInputContributesForElementAssemble(
+        //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+        //   _,
+        //   account,
+        //   selectedUIControlInspectorData,
+        // )
+        // ->ElementUtils.addGeneratedActionContributesForElementAssemble(
+        //   (service.meta3d.generateContribute, service.meta3d.loadContribute),
+        //   _,
+        //   account,
+        //   selectedUIControlInspectorData,
+        // )
+        ->Meta3dCommonlib.ListSt.toArray,
+      ),
+      list{},
+      // (list{}, list{}),
+      elementContribute,
+    )
+    ->_saveToLocalStorage(service, _)
+    ->Meta3dBsMostDefault.Most.tap(
+      _ => {
+        _openLink(
+          service,
+          _buildURL(
+            canvasData->Obj.magic->Js.Json.stringify,
+            apInspectorData->Obj.magic->Js.Json.stringify,
+          ),
+        )
+      },
+      // RescriptReactRouter.push("/RunElementVisual")
+      _,
+    )
+    ->Meta3dBsMostDefault.Most.drain
+    ->Js.Promise.catch(e => {
+      service.console.errorWithExn(. e->Error.promiseErrorToExn, None)->Obj.magic
+    }, _)
+    ->ignore
   }
 
   let useSelector = ({assembleSpaceState, eventEmitter}: AppStoreType.state) => {
