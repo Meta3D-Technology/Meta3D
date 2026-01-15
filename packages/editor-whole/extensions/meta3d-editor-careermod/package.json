@@ -1,6 +1,6 @@
 {
     "name": "meta3d-editor-careermod",
-    "version": "1.3.4",
+    "version": "1.3.5",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-editor-whole-protocol"

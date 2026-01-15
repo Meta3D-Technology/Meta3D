@@ -1,5 +1,5 @@
 import { getExtensionService as getExtensionServiceMeta3D, createExtensionState as createExtensionStateMeta3D, getExtensionLife as getLifeMeta3D, state as meta3dState, api, canvasData } from "meta3d-type"
-import { state } from "meta3d-editor-whole-protocol/src/state/StateType"
+import { initFunc, state } from "meta3d-editor-whole-protocol/src/state/StateType"
 import { configData, service } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { service as coreService, pipelineContribute } from "meta3d-core-protocol/src/service/ServiceType"
 import { service as uiService } from "meta3d-ui-protocol/src/service/ServiceType"
@@ -16,15 +16,15 @@ import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementCont
 import { skin } from "meta3d-skin-protocol"
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
 
-// let _getBackendEnv = (env: string) => {
-// 	switch (env) {
-// 		case "production":
-// 			return "meta3d-production-5eol5gce9a6b9c"
-// 		case "local":
-// 		default:
-// 			return "meta3d-local-9gacdhjl439cff76"
-// 	}
-// }
+let _getBackendEnv = (env: string) => {
+	switch (env) {
+		case "production":
+			return "meta3d-production-5eol5gce9a6b9c"
+		case "local":
+		default:
+			return "meta3d-local-9gacdhjl439cff76"
+	}
+}
 
 // let _registerPipelines = (
 // 	meta3dState: meta3dState, api: api,
@@ -241,23 +241,23 @@ let _initForVisualRun = (meta3dState: meta3dState, api: api, { isDebug, canvas }
 	})
 }
 
-// let _execAllInitFuncs = (meta3dState, initFuncs, initData) => {
-// 	// let _func = (meta3dState, index) => {
-// 	// 	if (index < 0) {
-// 	// 		return Promise.resolve(meta3dState)
-// 	// 	}
+let _execAllInitFuncs = (meta3dState, initFuncs, initData) => {
+	// let _func = (meta3dState, index) => {
+	// 	if (index < 0) {
+	// 		return Promise.resolve(meta3dState)
+	// 	}
 
-// 	// 	let initFunc = getExn(initFuncs.get(index))
+	// 	let initFunc = getExn(initFuncs.get(index))
 
-// 	// 	return initFunc(meta3dState, initData).then(meta3dState => {
-// 	// 		return _func(meta3dState, index - 1)
-// 	// 	})
-// 	// }
+	// 	return initFunc(meta3dState, initData).then(meta3dState => {
+	// 		return _func(meta3dState, index - 1)
+	// 	})
+	// }
 
-// 	// return _func(meta3dState, initFuncs.count() - 1)
+	// return _func(meta3dState, initFuncs.count() - 1)
 
-// 	return reducePromise<meta3dState, initFunc>(initFuncs.toArray(), (meta3dState, initFunc) => initFunc(meta3dState, initData), meta3dState)
-// }
+	return reducePromise<meta3dState, initFunc>(initFuncs.toArray(), (meta3dState, initFunc) => initFunc(meta3dState, initData), meta3dState)
+}
 
 // let _loopEngine = (meta3dState: meta3dState, api: api) => {
 // 	return update(api, meta3dState).then(meta3dState => render(api, meta3dState))
@@ -345,7 +345,7 @@ let _updateForVisualRun = (meta3dState, api: api, { clearColor, time, skinName }
 		})
 }
 
-// let _updateForRun = _updateForVisualRun
+let _updateForRun = _updateForVisualRun
 
 let _prepareUIForRun = (meta3dState: meta3dState, api: api) => {
 	let { registerSkin, registerElement } = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
@@ -399,31 +399,31 @@ let _initForRun = (meta3dState: meta3dState, api: api, [_, { isDebug }]: configD
 	})
 }
 
-// let _loop = (
-// 	api: api, meta3dState: meta3dState,
-// 	time: number,
-// 	configData: configData
-// ) => {
-// 	let [_, { skinName, clearColor }] = configData
+let _loop = (
+	api: api, meta3dState: meta3dState,
+	time: number,
+	configData: configData
+) => {
+	let [_, { skinName, clearColor }] = configData
 
-// 	return _updateForRun(meta3dState, api, { clearColor, time, skinName }).then(meta3dState => {
-// 		requestAnimationFrame(
-// 			(time) => {
-// 				_loop(api, meta3dState,
-// 					time,
-// 					configData)
-// 			}
-// 		)
-// 	})
-// }
+	return _updateForRun(meta3dState, api, { clearColor, time, skinName }).then(meta3dState => {
+		requestAnimationFrame(
+			(time) => {
+				_loop(api, meta3dState,
+					time,
+					configData)
+			}
+		)
+	})
+}
 
-// let _initBackend = (api: api, meta3dState, env) => {
-// 	return api.backend.init(
-// 		_getBackendEnv(env)
-// 	).then(() => {
-// 		return meta3dState
-// 	})
-// }
+let _initBackend = (api: api, meta3dState, env) => {
+	return api.backend.init(
+		_getBackendEnv(env)
+	).then(() => {
+		return meta3dState
+	})
+}
 
 export let getExtensionService: getExtensionServiceMeta3D<
 	service
@@ -506,29 +506,34 @@ export let getExtensionService: getExtensionServiceMeta3D<
 			return api.getPackageService(meta3dState, packageProtocolName)
 		},
 		run: (meta3dState: meta3dState, configData) => {
+			// let [canvasData, { isDebug, env }] = configData
+
+			// let canvas = _createAndInsertCanvas(canvasData)
+
+			// return _initForRun(meta3dState, api, configData, canvas)
+
 			let [canvasData, { isDebug, env }] = configData
 
 			let canvas = _createAndInsertCanvas(canvasData)
 
-			return _initForRun(meta3dState, api, configData, canvas)
+			_execAllInitFuncs(meta3dState, api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol").initFuncs, { isDebug, canvas }).then(meta3dState => {
+				return _initForRun(meta3dState, api, configData, canvas)
+			}).then(meta3dState => {
+				// meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol", {
+				// 	...api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol"),
+				// 	env: api.nullable.return(env)
+				// })
 
-			// _execAllInitFuncs(meta3dState, api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol").initFuncs, { isDebug, canvas }).then(meta3dState => {
-			// 	return _initForRun(meta3dState, api, configData, canvas)
-			// }).then(meta3dState => {
-			// 	// meta3dState = api.setExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol", {
-			// 	// 	...api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol"),
-			// 	// 	env: api.nullable.return(env)
-			// 	// })
+				return _initBackend(api, meta3dState, env)
+			}).catch(e => {
+				_handleError(api, e, meta3dState)
+				throw e
+			}).then((meta3dState: meta3dState) => {
+				_loop(api, meta3dState,
+					0,
+					configData)
+			})
 
-			// 	return _initBackend(api, meta3dState, env)
-			// }).catch(e => {
-			// 	_handleError(api, e, meta3dState)
-			// 	throw e
-			// }).then((meta3dState: meta3dState) => {
-			// 	_loop(api, meta3dState,
-			// 		0,
-			// 		configData)
-			// })
 		},
 	}
 }
