@@ -24,7 +24,7 @@ export let checkUserName = (account) => BackendService.checkUserName(getBackend(
 
 export let handleLoginForWeb3 = (account) => BackendService.handleLoginForWeb3(getBackend(), account)
 
-export let registerUser = (account) => BackendService.registerUser(getBackend(), account)
+export let registerUser = (account) => BackendService.registerUser(getBackend(), account, "")
 
 export let hasAccount = (collectionName, account) => BackendService.hasAccount(getBackend(), collectionName, account)
 

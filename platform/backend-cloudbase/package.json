@@ -10,6 +10,7 @@
         "@cloudbase/js-sdk": "^1.7.2",
         "meta3d-fp": "^1.2.0",
         "most": "^1.9.0",
+        "moment": "^2.30.1",
         "semver": "7.3.7"
     },
     "devDependencies": {
@@ -21,6 +22,6 @@
         "jest": "^25.2.7",
         "jest-cucumber": "^3.0.1",
         "ts-jest": "^26.1.4",
-        "typescript": "^4.2.3"
+        "typescript": "^5.1.0"
     }
 }

@@ -17,14 +17,77 @@ module Method = {
     mergedCustoms
     ->Js.Array.concat(customs, _)
     ->/* ! TODO should handle same name:
+
+
+
+
+
+
+
 now just remove duplicate one, but need handle more:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 compare equal(first length, then all)?{
+
+
+
+
+
+
+
 use local input
+
+
+
+
+
+
+
 } :{
+
+
+
+
+
+
+
 remain one custom input;
+
+
+
+
+
+
+
 rename another custom input's name to add post fix:"_copy";
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
  */
     Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {name}: CommonType.custom) => {
       name
@@ -54,7 +117,21 @@ rename another custom input's name to add post fix:"_copy";
 
   let _mergeCustomAndUnEditableLocal = (customs, (name, localSource)) => {
     /* ! TODO should handle same name more:
+
+
+
+
+
+
+
 now just replace add duplicate one, but need handle more
+
+
+
+
+
+
+
 */
     customs
     ->Meta3dCommonlib.ListSt.filter((custom: CommonType.custom) => {
@@ -75,7 +152,21 @@ now just replace add duplicate one, but need handle more
     let name = localBundledSource->getNameFunc->Meta3dCommonlib.OptionSt.getExn
 
     /* ! TODO should handle same name more:
+
+
+
+
+
+
+
 now just replace add duplicate one, but need handle more
+
+
+
+
+
+
+
 */
     customs
     ->Meta3dCommonlib.ListSt.filter((custom: CommonType.custom) => {
@@ -138,8 +229,11 @@ now just replace add duplicate one, but need handle more
   }
 
   let _buildUnEditableData = () => {
-    [("meta3d-action-publish", "Publish")]
+    [("meta3d-action-publish", "Publish"), ("meta3d-action-mod", "Mod")]
   }
+  // let _buildUnEditableData = () => {
+  //   ["meta3d-action-publish", "meta3d-action-mod"]
+  // }
 
   let convertLocalToCustom = (
     service,
@@ -164,16 +258,19 @@ now just replace add duplicate one, but need handle more
         CustomUtils.getActionName,
         name => {
           unEditableData->Meta3dCommonlib.ArraySt.includesByFunc(((packageName, _)) => {
-            name == packageName
+            name->Js.String.includes(packageName, _)
           })
         },
         name =>
-          unEditableData
-          ->Meta3dCommonlib.ArraySt.find(((packageName, _)) => {
-            name == packageName
-          })
-          ->Meta3dCommonlib.OptionSt.getExn
-          ->Meta3dCommonlib.Tuple2.getLast,
+          // unEditableData
+          // ->Meta3dCommonlib.ArraySt.find(( ( packageName, _ ) ) => {
+          //   name->Js.String.includes(packageName, _)
+          // })
+          // ->Meta3dCommonlib.OptionSt.getExn
+          // ->Meta3dCommonlib.Tuple2.getLast,
+          name,
+        // _ => true,
+        // _ => "",
         selectedContributes,
         customActions,
       ),

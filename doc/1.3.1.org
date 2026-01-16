@@ -74,3 +74,155 @@ import editor
 
 
 # TODO add publish video
+
+
+
+
+* TODO add career mod editor 
+隐藏block state，可以直接用get/setLevelData代替
+
+
+发布到游戏
+
+
+
+职业
+只调用默认的职业特性
+
+调用发布的所有职业特性
+
+职业特性：设定值的类型、范围
+
+
+** DONE learn meta3d
+
+** DONE demo
+
+build new editor whole package
+    without engine, render, three.js
+
+    add new extension
+      editor-careermod
+        only with ui, event package
+
+
+    publish
+      protocol
+      extension
+
+
+    assemble package
+
+
+show editor
+  # title: 职业编辑器
+
+    assemble empty editor with package
+      TODO fix:
+        ui control dependent on  "meta3d-editor-whole-protocol"
+
+        run element: shouldn't must has scene view, game view ui control!
+
+        add meta3d-core-protocol
+
+        publish: no title
+          not invoke onInit, onUpdate except onStart
+
+
+  # one input: input value for feature1
+  menu ui
+    # publish
+    #   modal:
+    #       name
+
+    #       publish button
+    #       not publish button
+
+
+    publish: 
+      add action
+        # compiled code
+        bundle
+
+        publish
+          add tool
+
+          update backend
+          update default/meta3d/
+
+          # add to api
+
+
+          get content instead of files
+
+        move publish mod to cloudbase backend
+
+        publish action
+
+        fix: platform error:run
+          should be stream instead of promise
+
+
+        add action to button
+          fix: action not found
+            bundle: can't read actionName
+
+            TODO not bundle action
+              not bundle
+
+              action: not show script
+
+
+            # TODO restore actionName:, eventName: 
+
+            # Action not show
+
+            button_click not work
+
+            no icon
+
+            replace icon
+
+
+
+
+
+
+      generate hard code
+
+      publish hard code
+
+
+  game:
+    register published mod
+
+
+** DONE refactor: remove meta3d-tool-mod-publish
+
+
+** TODO try bundle again
+
+
+** TODO build main.js instead
+use dev webpack
+
+
+** TODO deploy editor to online
+deploy meta3d to online
+
+visit EnterApp?
+
+
+** TODO publish video
+
+
+
+** TODO fix: edit editor: shouldn't import all ui controls
+
+
+
+** TODO 只调用默认的职业特性
+
+** TODO 调用发布的所有职业特性
+
+** TODO 职业特性：设定值的类型、范围

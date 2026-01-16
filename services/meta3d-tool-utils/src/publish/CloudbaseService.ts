@@ -11,22 +11,8 @@ export let getLocalEnvData = () => {
 	}
 }
 
-export let getProductionEnvData = () => {
-	return {
-		secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
-		secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
-		env: "meta3d-production-5eol5gce9a6b9c" // 此处填入您的环境ID
-	}
-}
-
 export let initLocal = () => {
 	let app: any = tcb.init(getLocalEnvData())
-
-	return just(app)
-}
-
-export let initProduction = () => {
-	let app: any = tcb.init(getProductionEnvData())
 
 	return just(app)
 }
@@ -124,3 +110,7 @@ export let updateAllStorageData = (
 	app,
 	collectionName
 )
+
+export let getData = BackendService.getData
+
+export let setData = BackendService.setData

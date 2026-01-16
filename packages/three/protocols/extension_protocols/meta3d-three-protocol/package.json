@@ -15,6 +15,6 @@
         "@types/three": "0.158.1"
     },
     "devDependencies": {
-        "typescript": "^4.2.3"
+        "typescript": "^5.1.0"
     }
 }

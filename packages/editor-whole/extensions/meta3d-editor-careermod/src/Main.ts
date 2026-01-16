@@ -11,10 +11,11 @@ import { uiControlContribute } from "meta3d-ui-protocol/src/contribute/UIControl
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { elementState } from "meta3d-ui-protocol/src/state/StateType"
 import { elementContribute } from "meta3d-ui-protocol/src/contribute/ElementContributeType"
-// import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
+import { actionContribute } from "meta3d-event-protocol/src/contribute/ActionContributeType"
 // import { init, update, render } from "meta3d-whole-utils/src/DirectorAPI"
 import { skin } from "meta3d-skin-protocol"
 import { inputContribute } from "meta3d-ui-protocol/src/contribute/InputContributeType"
+import { sync } from "./SyncUtils"
 
 let _getBackendEnv = (env: string) => {
 	switch (env) {
@@ -185,21 +186,21 @@ let _initForVisual = (meta3dState: meta3dState, api: api, { isDebug, canvas }) =
 	})
 }
 
-// let _registerAllActions = (meta3dState: meta3dState, api: api): meta3dState => {
-// 	let { registerAction } = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
+let _registerAllActions = (meta3dState: meta3dState, api: api): meta3dState => {
+	let { registerAction } = getExn(api.getPackageService<eventService>(meta3dState, "meta3d-event-protocol"))
 
-// 	let actionContributes = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action)
+	let actionContributes = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action)
 
-// 	return actionContributes.reduce<meta3dState>((meta3dState, contribute) => {
-// 		return registerAction(meta3dState, contribute)
-// 	}, meta3dState)
-// }
+	return actionContributes.reduce<meta3dState>((meta3dState, contribute) => {
+		return registerAction(meta3dState, contribute)
+	}, meta3dState)
+}
 
-// let _initAllActions = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
-// 	let actionContributes = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action)
+let _initAllActions = (meta3dState: meta3dState, api: api): Promise<meta3dState> => {
+	let actionContributes = api.getAllContributesByType<actionContribute<any, any>>(meta3dState, contributeType.Action)
 
-// 	return reducePromise<meta3dState, actionContribute<any, any>>(actionContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
-// }
+	return reducePromise<meta3dState, actionContribute<any, any>>(actionContributes, (meta3dState, { init },) => init(meta3dState), meta3dState)
+}
 
 
 let _prepareUIForVisualRun = (meta3dState: meta3dState, api: api) => {
@@ -221,12 +222,12 @@ let _initForVisualRun = (meta3dState: meta3dState, api: api, { isDebug, canvas }
 	return _prepareUIForVisualRun(meta3dState, api).then(meta3dState => {
 		let uiService = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
-		// meta3dState = _registerAllActions(meta3dState, api)
+		meta3dState = _registerAllActions(meta3dState, api)
 
 		return _initUI(meta3dState, api, uiService, isDebug, canvas)
-			// .then(meta3dState => {
-			// 	return _initAllActions(meta3dState, api)
-			// })
+			.then(meta3dState => {
+				return _initAllActions(meta3dState, api)
+			})
 			// .then(meta3dState => {
 			// 	return _prepareAndInitEngine(meta3dState,
 			// 		api,
@@ -330,15 +331,15 @@ let _updateForVisualRun = (meta3dState, api: api, { clearColor, time, skinName }
 	// 	createCustomEvent(getBeforeRenderEventName(), api.nullable.getEmpty())
 	// ).then(meta3dState => {
 	// 	return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
-	// }).then(meta3dState => {
-	// 	return sync(meta3dState, api)
-	// }).then(meta3dState => {
-	// 	return _loopEngine(meta3dState, api)
-	// }).catch(e => {
-	// 	_handleError(api, e, meta3dState)
-	// 	throw e
 	// })
+
 	return render(meta3dState, ["meta3d-ui-protocol", "meta3d-imgui-renderer-protocol"], time)
+		.then(meta3dState => {
+			return sync(meta3dState, api)
+		})
+		// .then(meta3dState => {
+		// 	return _loopEngine(meta3dState, api)
+		// })
 		.catch(e => {
 			_handleError(api, e, meta3dState)
 			throw e
@@ -379,12 +380,12 @@ let _initForRun = (meta3dState: meta3dState, api: api, [_, { isDebug }]: configD
 	return _prepareUIForRun(meta3dState, api).then(meta3dState => {
 		let uiService = getExn(api.getPackageService<uiService>(meta3dState, "meta3d-ui-protocol"))
 
-		// meta3dState = _registerAllActions(meta3dState, api)
+		meta3dState = _registerAllActions(meta3dState, api)
 
 		return _initUI(meta3dState, api, uiService, isDebug, canvas)
-			// .then(meta3dState => {
-			// 	return _initAllActions(meta3dState, api)
-			// })
+			.then(meta3dState => {
+				return _initAllActions(meta3dState, api)
+			})
 			// .then(meta3dState => {
 			// 	return _prepareAndInitEngine(meta3dState,
 			// 		api,

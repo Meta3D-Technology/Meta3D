@@ -1,0 +1,1 @@
+src\math\Quaternion-Meta3dCommonlib.cmj : Meta3dCommonlib.cmi src\math\Angle-Meta3dCommonlib.cmj src\math\Angle-Meta3dCommonlib.cmi src\math\Vector3-Meta3dCommonlib.cmj src\math\Vector3-Meta3dCommonlib.cmi

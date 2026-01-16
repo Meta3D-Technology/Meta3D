@@ -1,0 +1,183 @@
+rescript = 1
+g_finger := D:\Github\Meta3D\node_modules\meta3d-commonlib-type\lib\ocaml\install.stamp
+rule astj
+  command = "D:\Github\Meta3D\node_modules\rescript\win32\bsc.exe"  -w a -bs-v 10.1.4 -bs-no-version-header -bs-super-errors -absname -bs-ast -o $out $i
+o src\Main.ast : astj ..\..\src\Main.res
+rule deps
+  command = "D:\Github\Meta3D\node_modules\rescript\win32\bsb_helper.exe" -hash 5353f082d67ba01c1b28644c203246d1 -bs-ns Meta3dCommonlib $in
+  restat = 1
+o src\Main.d : deps src\Main.ast
+rule mij
+  command = "D:\Github\Meta3D\node_modules\rescript\win32\bsc.exe" -bs-ns Meta3dCommonlib -I . -I "src\contract" -I "src\copy" -I "src\log" -I "src\math" -I "src\scene_graph\component\test" -I "src\scene_graph\component" -I "src\scene_graph" -I "src\structure\hash_map" -I "src\structure\sparse_map" -I "src\structure\tuple" -I "src\structure\utils" -I "src\structure" -I "src\test\bdd" -I "src\test" -I src -I "D:\Github\Meta3D\node_modules\meta3d-commonlib-type\lib\ocaml" -bs-no-version-header -bs-super-errors  -w a -bs-package-name meta3d-commonlib -bs-package-output commonjs:lib\js\$in_d:.bs.js -bs-package-output es6-global:lib\es6_global\$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src\Main-Meta3dCommonlib.cmj src\Main-Meta3dCommonlib.cmi ..\es6_global\src\Main.bs.js ..\js\src\Main.bs.js : mij src\Main.ast
+o src\test\ArrayTool.ast : astj ..\..\src\test\ArrayTool.res
+o src\test\ArrayTool.d : deps src\test\ArrayTool.ast
+o src\test\ArrayTool-Meta3dCommonlib.cmj src\test\ArrayTool-Meta3dCommonlib.cmi ..\es6_global\src\test\ArrayTool.bs.js ..\js\src\test\ArrayTool.bs.js : mij src\test\ArrayTool.ast
+o src\test\CloneTool.ast : astj ..\..\src\test\CloneTool.res
+o src\test\CloneTool.d : deps src\test\CloneTool.ast
+o src\test\CloneTool-Meta3dCommonlib.cmj src\test\CloneTool-Meta3dCommonlib.cmi ..\es6_global\src\test\CloneTool.bs.js ..\js\src\test\CloneTool.bs.js : mij src\test\CloneTool.ast
+o src\test\EqualTool.ast : astj ..\..\src\test\EqualTool.res
+o src\test\EqualTool.d : deps src\test\EqualTool.ast
+o src\test\EqualTool-Meta3dCommonlib.cmj src\test\EqualTool-Meta3dCommonlib.cmi ..\es6_global\src\test\EqualTool.bs.js ..\js\src\test\EqualTool.bs.js : mij src\test\EqualTool.ast
+o src\test\FloatTool.ast : astj ..\..\src\test\FloatTool.res
+o src\test\FloatTool.d : deps src\test\FloatTool.ast
+o src\test\FloatTool-Meta3dCommonlib.cmj src\test\FloatTool-Meta3dCommonlib.cmi ..\es6_global\src\test\FloatTool.bs.js ..\js\src\test\FloatTool.bs.js : mij src\test\FloatTool.ast
+o src\test\JudgeTool.ast : astj ..\..\src\test\JudgeTool.res
+o src\test\JudgeTool.d : deps src\test\JudgeTool.ast
+o src\test\JudgeTool-Meta3dCommonlib.cmj src\test\JudgeTool-Meta3dCommonlib.cmi ..\es6_global\src\test\JudgeTool.bs.js ..\js\src\test\JudgeTool.bs.js : mij src\test\JudgeTool.ast
+o src\test\Vector3Tool.ast : astj ..\..\src\test\Vector3Tool.res
+o src\test\Vector3Tool.d : deps src\test\Vector3Tool.ast
+o src\test\Vector3Tool-Meta3dCommonlib.cmj src\test\Vector3Tool-Meta3dCommonlib.cmi ..\es6_global\src\test\Vector3Tool.bs.js ..\js\src\test\Vector3Tool.bs.js : mij src\test\Vector3Tool.ast
+o src\test\BatchDisposeTool.ast : astj ..\..\src\test\BatchDisposeTool.res
+o src\test\BatchDisposeTool.d : deps src\test\BatchDisposeTool.ast
+o src\test\BatchDisposeTool-Meta3dCommonlib.cmj src\test\BatchDisposeTool-Meta3dCommonlib.cmi ..\es6_global\src\test\BatchDisposeTool.bs.js ..\js\src\test\BatchDisposeTool.bs.js : mij src\test\BatchDisposeTool.ast
+o src\test\DeferDisposeTool.ast : astj ..\..\src\test\DeferDisposeTool.res
+o src\test\DeferDisposeTool.d : deps src\test\DeferDisposeTool.ast
+o src\test\DeferDisposeTool-Meta3dCommonlib.cmj src\test\DeferDisposeTool-Meta3dCommonlib.cmi ..\es6_global\src\test\DeferDisposeTool.bs.js ..\js\src\test\DeferDisposeTool.bs.js : mij src\test\DeferDisposeTool.ast
+o src\test\bdd\NumberTool.ast : astj ..\..\src\test\bdd\NumberTool.res
+o src\test\bdd\NumberTool.d : deps src\test\bdd\NumberTool.ast
+o src\test\bdd\NumberTool-Meta3dCommonlib.cmj src\test\bdd\NumberTool-Meta3dCommonlib.cmi ..\es6_global\src\test\bdd\NumberTool.bs.js ..\js\src\test\bdd\NumberTool.bs.js : mij src\test\bdd\NumberTool.ast
+o src\test\bdd\ArgumentsTool.ast : astj ..\..\src\test\bdd\ArgumentsTool.res
+o src\test\bdd\ArgumentsTool.d : deps src\test\bdd\ArgumentsTool.ast
+o src\test\bdd\ArgumentsTool-Meta3dCommonlib.cmj src\test\bdd\ArgumentsTool-Meta3dCommonlib.cmi ..\es6_global\src\test\bdd\ArgumentsTool.bs.js ..\js\src\test\bdd\ArgumentsTool.bs.js : mij src\test\bdd\ArgumentsTool.ast
+o src\structure\ListSt.ast : astj ..\..\src\structure\ListSt.res
+o src\structure\ListSt.d : deps src\structure\ListSt.ast
+o src\structure\ListSt-Meta3dCommonlib.cmj src\structure\ListSt-Meta3dCommonlib.cmi ..\es6_global\src\structure\ListSt.bs.js ..\js\src\structure\ListSt.bs.js : mij src\structure\ListSt.ast
+o src\structure\Result.ast : astj ..\..\src\structure\Result.res
+o src\structure\Result.d : deps src\structure\Result.ast
+o src\structure\Result-Meta3dCommonlib.cmj src\structure\Result-Meta3dCommonlib.cmi ..\es6_global\src\structure\Result.bs.js ..\js\src\structure\Result.bs.js : mij src\structure\Result.ast
+o src\structure\ArraySt.ast : astj ..\..\src\structure\ArraySt.res
+o src\structure\ArraySt.d : deps src\structure\ArraySt.ast
+o src\structure\ArraySt-Meta3dCommonlib.cmj src\structure\ArraySt-Meta3dCommonlib.cmi ..\es6_global\src\structure\ArraySt.bs.js ..\js\src\structure\ArraySt.bs.js : mij src\structure\ArraySt.ast
+o src\structure\OptionSt.ast : astj ..\..\src\structure\OptionSt.res
+o src\structure\OptionSt.d : deps src\structure\OptionSt.ast
+o src\structure\OptionSt-Meta3dCommonlib.cmj src\structure\OptionSt-Meta3dCommonlib.cmi ..\es6_global\src\structure\OptionSt.bs.js ..\js\src\structure\OptionSt.bs.js : mij src\structure\OptionSt.ast
+o src\structure\Exception.ast : astj ..\..\src\structure\Exception.res
+o src\structure\Exception.d : deps src\structure\Exception.ast
+o src\structure\Exception-Meta3dCommonlib.cmj src\structure\Exception-Meta3dCommonlib.cmi ..\es6_global\src\structure\Exception.bs.js ..\js\src\structure\Exception.bs.js : mij src\structure\Exception.ast
+o src\structure\PromiseSt.ast : astj ..\..\src\structure\PromiseSt.res
+o src\structure\PromiseSt.d : deps src\structure\PromiseSt.ast
+o src\structure\PromiseSt-Meta3dCommonlib.cmj src\structure\PromiseSt-Meta3dCommonlib.cmi ..\es6_global\src\structure\PromiseSt.bs.js ..\js\src\structure\PromiseSt.bs.js : mij src\structure\PromiseSt.ast
+o src\structure\ListResult.ast : astj ..\..\src\structure\ListResult.res
+o src\structure\ListResult.d : deps src\structure\ListResult.ast
+o src\structure\ListResult-Meta3dCommonlib.cmj src\structure\ListResult-Meta3dCommonlib.cmi ..\es6_global\src\structure\ListResult.bs.js ..\js\src\structure\ListResult.bs.js : mij src\structure\ListResult.ast
+o src\structure\NullableSt.ast : astj ..\..\src\structure\NullableSt.res
+o src\structure\NullableSt.d : deps src\structure\NullableSt.ast
+o src\structure\NullableSt-Meta3dCommonlib.cmj src\structure\NullableSt-Meta3dCommonlib.cmi ..\es6_global\src\structure\NullableSt.bs.js ..\js\src\structure\NullableSt.bs.js : mij src\structure\NullableSt.ast
+o src\structure\utils\NullUtils.ast : astj ..\..\src\structure\utils\NullUtils.res
+o src\structure\utils\NullUtils.d : deps src\structure\utils\NullUtils.ast
+o src\structure\utils\NullUtils-Meta3dCommonlib.cmj src\structure\utils\NullUtils-Meta3dCommonlib.cmi ..\es6_global\src\structure\utils\NullUtils.bs.js ..\js\src\structure\utils\NullUtils.bs.js : mij src\structure\utils\NullUtils.ast
+o src\structure\tuple\Tuple2.ast : astj ..\..\src\structure\tuple\Tuple2.res
+o src\structure\tuple\Tuple2.d : deps src\structure\tuple\Tuple2.ast
+o src\structure\tuple\Tuple2-Meta3dCommonlib.cmj src\structure\tuple\Tuple2-Meta3dCommonlib.cmi ..\es6_global\src\structure\tuple\Tuple2.bs.js ..\js\src\structure\tuple\Tuple2.bs.js : mij src\structure\tuple\Tuple2.ast
+o src\structure\tuple\Tuple3.ast : astj ..\..\src\structure\tuple\Tuple3.res
+o src\structure\tuple\Tuple3.d : deps src\structure\tuple\Tuple3.ast
+o src\structure\tuple\Tuple3-Meta3dCommonlib.cmj src\structure\tuple\Tuple3-Meta3dCommonlib.cmi ..\es6_global\src\structure\tuple\Tuple3.bs.js ..\js\src\structure\tuple\Tuple3.bs.js : mij src\structure\tuple\Tuple3.ast
+o src\structure\tuple\Tuple4.ast : astj ..\..\src\structure\tuple\Tuple4.res
+o src\structure\tuple\Tuple4.d : deps src\structure\tuple\Tuple4.ast
+o src\structure\tuple\Tuple4-Meta3dCommonlib.cmj src\structure\tuple\Tuple4-Meta3dCommonlib.cmi ..\es6_global\src\structure\tuple\Tuple4.bs.js ..\js\src\structure\tuple\Tuple4.bs.js : mij src\structure\tuple\Tuple4.ast
+o src\structure\tuple\Tuple5.ast : astj ..\..\src\structure\tuple\Tuple5.res
+o src\structure\tuple\Tuple5.d : deps src\structure\tuple\Tuple5.ast
+o src\structure\tuple\Tuple5-Meta3dCommonlib.cmj src\structure\tuple\Tuple5-Meta3dCommonlib.cmi ..\es6_global\src\structure\tuple\Tuple5.bs.js ..\js\src\structure\tuple\Tuple5.bs.js : mij src\structure\tuple\Tuple5.ast
+o src\structure\tuple\Tuple6.ast : astj ..\..\src\structure\tuple\Tuple6.res
+o src\structure\tuple\Tuple6.d : deps src\structure\tuple\Tuple6.ast
+o src\structure\tuple\Tuple6-Meta3dCommonlib.cmj src\structure\tuple\Tuple6-Meta3dCommonlib.cmi ..\es6_global\src\structure\tuple\Tuple6.bs.js ..\js\src\structure\tuple\Tuple6.bs.js : mij src\structure\tuple\Tuple6.ast
+o src\structure\tuple\Tuple7.ast : astj ..\..\src\structure\tuple\Tuple7.res
+o src\structure\tuple\Tuple7.d : deps src\structure\tuple\Tuple7.ast
+o src\structure\tuple\Tuple7-Meta3dCommonlib.cmj src\structure\tuple\Tuple7-Meta3dCommonlib.cmi ..\es6_global\src\structure\tuple\Tuple7.bs.js ..\js\src\structure\tuple\Tuple7.bs.js : mij src\structure\tuple\Tuple7.ast
+o src\structure\sparse_map\SparseMap.ast : astj ..\..\src\structure\sparse_map\SparseMap.res
+o src\structure\sparse_map\SparseMap.d : deps src\structure\sparse_map\SparseMap.ast
+o src\structure\sparse_map\SparseMap-Meta3dCommonlib.cmj src\structure\sparse_map\SparseMap-Meta3dCommonlib.cmi ..\es6_global\src\structure\sparse_map\SparseMap.bs.js ..\js\src\structure\sparse_map\SparseMap.bs.js : mij src\structure\sparse_map\SparseMap.ast
+o src\structure\sparse_map\MutableSparseMap.ast : astj ..\..\src\structure\sparse_map\MutableSparseMap.res
+o src\structure\sparse_map\MutableSparseMap.d : deps src\structure\sparse_map\MutableSparseMap.ast
+o src\structure\sparse_map\MutableSparseMap-Meta3dCommonlib.cmj src\structure\sparse_map\MutableSparseMap-Meta3dCommonlib.cmi ..\es6_global\src\structure\sparse_map\MutableSparseMap.bs.js ..\js\src\structure\sparse_map\MutableSparseMap.bs.js : mij src\structure\sparse_map\MutableSparseMap.ast
+o src\structure\sparse_map\ImmutableSparseMap.ast : astj ..\..\src\structure\sparse_map\ImmutableSparseMap.res
+o src\structure\sparse_map\ImmutableSparseMap.d : deps src\structure\sparse_map\ImmutableSparseMap.ast
+o src\structure\sparse_map\ImmutableSparseMap-Meta3dCommonlib.cmj src\structure\sparse_map\ImmutableSparseMap-Meta3dCommonlib.cmi ..\es6_global\src\structure\sparse_map\ImmutableSparseMap.bs.js ..\js\src\structure\sparse_map\ImmutableSparseMap.bs.js : mij src\structure\sparse_map\ImmutableSparseMap.ast
+o src\structure\hash_map\HashMap.ast : astj ..\..\src\structure\hash_map\HashMap.res
+o src\structure\hash_map\HashMap.d : deps src\structure\hash_map\HashMap.ast
+o src\structure\hash_map\HashMap-Meta3dCommonlib.cmj src\structure\hash_map\HashMap-Meta3dCommonlib.cmi ..\es6_global\src\structure\hash_map\HashMap.bs.js ..\js\src\structure\hash_map\HashMap.bs.js : mij src\structure\hash_map\HashMap.ast
+o src\structure\hash_map\MutableHashMap.ast : astj ..\..\src\structure\hash_map\MutableHashMap.res
+o src\structure\hash_map\MutableHashMap.d : deps src\structure\hash_map\MutableHashMap.ast
+o src\structure\hash_map\MutableHashMap-Meta3dCommonlib.cmj src\structure\hash_map\MutableHashMap-Meta3dCommonlib.cmi ..\es6_global\src\structure\hash_map\MutableHashMap.bs.js ..\js\src\structure\hash_map\MutableHashMap.bs.js : mij src\structure\hash_map\MutableHashMap.ast
+o src\structure\hash_map\ImmutableHashMap.ast : astj ..\..\src\structure\hash_map\ImmutableHashMap.res
+o src\structure\hash_map\ImmutableHashMap.d : deps src\structure\hash_map\ImmutableHashMap.ast
+o src\structure\hash_map\ImmutableHashMap-Meta3dCommonlib.cmj src\structure\hash_map\ImmutableHashMap-Meta3dCommonlib.cmi ..\es6_global\src\structure\hash_map\ImmutableHashMap.bs.js ..\js\src\structure\hash_map\ImmutableHashMap.bs.js : mij src\structure\hash_map\ImmutableHashMap.ast
+o src\scene_graph\DisposeUtils.ast : astj ..\..\src\scene_graph\DisposeUtils.res
+o src\scene_graph\DisposeUtils.d : deps src\scene_graph\DisposeUtils.ast
+o src\scene_graph\DisposeUtils-Meta3dCommonlib.cmj src\scene_graph\DisposeUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\DisposeUtils.bs.js ..\js\src\scene_graph\DisposeUtils.bs.js : mij src\scene_graph\DisposeUtils.ast
+o src\scene_graph\DisposeComponentUtils.ast : astj ..\..\src\scene_graph\DisposeComponentUtils.res
+o src\scene_graph\DisposeComponentUtils.d : deps src\scene_graph\DisposeComponentUtils.ast
+o src\scene_graph\DisposeComponentUtils-Meta3dCommonlib.cmj src\scene_graph\DisposeComponentUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\DisposeComponentUtils.bs.js ..\js\src\scene_graph\DisposeComponentUtils.bs.js : mij src\scene_graph\DisposeComponentUtils.ast
+o src\scene_graph\BatchAddComponentUtils.ast : astj ..\..\src\scene_graph\BatchAddComponentUtils.res
+o src\scene_graph\BatchAddComponentUtils.d : deps src\scene_graph\BatchAddComponentUtils.ast
+o src\scene_graph\BatchAddComponentUtils-Meta3dCommonlib.cmj src\scene_graph\BatchAddComponentUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\BatchAddComponentUtils.bs.js ..\js\src\scene_graph\BatchAddComponentUtils.bs.js : mij src\scene_graph\BatchAddComponentUtils.ast
+o src\scene_graph\DisposeSharedComponentUtils.ast : astj ..\..\src\scene_graph\DisposeSharedComponentUtils.res
+o src\scene_graph\DisposeSharedComponentUtils.d : deps src\scene_graph\DisposeSharedComponentUtils.ast
+o src\scene_graph\DisposeSharedComponentUtils-Meta3dCommonlib.cmj src\scene_graph\DisposeSharedComponentUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\DisposeSharedComponentUtils.bs.js ..\js\src\scene_graph\DisposeSharedComponentUtils.bs.js : mij src\scene_graph\DisposeSharedComponentUtils.ast
+o src\scene_graph\component\CloneUtils.ast : astj ..\..\src\scene_graph\component\CloneUtils.res
+o src\scene_graph\component\CloneUtils.d : deps src\scene_graph\component\CloneUtils.ast
+o src\scene_graph\component\CloneUtils-Meta3dCommonlib.cmj src\scene_graph\component\CloneUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\CloneUtils.bs.js ..\js\src\scene_graph\component\CloneUtils.bs.js : mij src\scene_graph\component\CloneUtils.ast
+o src\scene_graph\component\NumberUtils.ast : astj ..\..\src\scene_graph\component\NumberUtils.res
+o src\scene_graph\component\NumberUtils.d : deps src\scene_graph\component\NumberUtils.ast
+o src\scene_graph\component\NumberUtils-Meta3dCommonlib.cmj src\scene_graph\component\NumberUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\NumberUtils.bs.js ..\js\src\scene_graph\component\NumberUtils.bs.js : mij src\scene_graph\component\NumberUtils.ast
+o src\scene_graph\component\ArrayMapUtils.ast : astj ..\..\src\scene_graph\component\ArrayMapUtils.res
+o src\scene_graph\component\ArrayMapUtils.d : deps src\scene_graph\component\ArrayMapUtils.ast
+o src\scene_graph\component\ArrayMapUtils-Meta3dCommonlib.cmj src\scene_graph\component\ArrayMapUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\ArrayMapUtils.bs.js ..\js\src\scene_graph\component\ArrayMapUtils.bs.js : mij src\scene_graph\component\ArrayMapUtils.ast
+o src\scene_graph\component\TypeArrayUtils.ast : astj ..\..\src\scene_graph\component\TypeArrayUtils.res
+o src\scene_graph\component\TypeArrayUtils.d : deps src\scene_graph\component\TypeArrayUtils.ast
+o src\scene_graph\component\TypeArrayUtils-Meta3dCommonlib.cmj src\scene_graph\component\TypeArrayUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\TypeArrayUtils.bs.js ..\js\src\scene_graph\component\TypeArrayUtils.bs.js : mij src\scene_graph\component\TypeArrayUtils.ast
+o src\scene_graph\component\ArrayBufferUtils.ast : astj ..\..\src\scene_graph\component\ArrayBufferUtils.res
+o src\scene_graph\component\ArrayBufferUtils.d : deps src\scene_graph\component\ArrayBufferUtils.ast
+o src\scene_graph\component\ArrayBufferUtils-Meta3dCommonlib.cmj src\scene_graph\component\ArrayBufferUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\ArrayBufferUtils.bs.js ..\js\src\scene_graph\component\ArrayBufferUtils.bs.js : mij src\scene_graph\component\ArrayBufferUtils.ast
+o src\scene_graph\component\IndexComponentUtils.ast : astj ..\..\src\scene_graph\component\IndexComponentUtils.res
+o src\scene_graph\component\IndexComponentUtils.d : deps src\scene_graph\component\IndexComponentUtils.ast
+o src\scene_graph\component\IndexComponentUtils-Meta3dCommonlib.cmj src\scene_graph\component\IndexComponentUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\IndexComponentUtils.bs.js ..\js\src\scene_graph\component\IndexComponentUtils.bs.js : mij src\scene_graph\component\IndexComponentUtils.ast
+o src\scene_graph\component\BufferComponentUtils.ast : astj ..\..\src\scene_graph\component\BufferComponentUtils.res
+o src\scene_graph\component\BufferComponentUtils.d : deps src\scene_graph\component\BufferComponentUtils.ast
+o src\scene_graph\component\BufferComponentUtils-Meta3dCommonlib.cmj src\scene_graph\component\BufferComponentUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\BufferComponentUtils.bs.js ..\js\src\scene_graph\component\BufferComponentUtils.bs.js : mij src\scene_graph\component\BufferComponentUtils.ast
+o src\scene_graph\component\DisposeTypeArrayUtils.ast : astj ..\..\src\scene_graph\component\DisposeTypeArrayUtils.res
+o src\scene_graph\component\DisposeTypeArrayUtils.d : deps src\scene_graph\component\DisposeTypeArrayUtils.ast
+o src\scene_graph\component\DisposeTypeArrayUtils-Meta3dCommonlib.cmj src\scene_graph\component\DisposeTypeArrayUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\DisposeTypeArrayUtils.bs.js ..\js\src\scene_graph\component\DisposeTypeArrayUtils.bs.js : mij src\scene_graph\component\DisposeTypeArrayUtils.ast
+o src\scene_graph\component\SharedArrayBufferUtils.ast : astj ..\..\src\scene_graph\component\SharedArrayBufferUtils.res
+o src\scene_graph\component\SharedArrayBufferUtils.d : deps src\scene_graph\component\SharedArrayBufferUtils.ast
+o src\scene_graph\component\SharedArrayBufferUtils-Meta3dCommonlib.cmj src\scene_graph\component\SharedArrayBufferUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\SharedArrayBufferUtils.bs.js ..\js\src\scene_graph\component\SharedArrayBufferUtils.bs.js : mij src\scene_graph\component\SharedArrayBufferUtils.ast
+o src\scene_graph\component\CreateMapComponentUtils.ast : astj ..\..\src\scene_graph\component\CreateMapComponentUtils.res
+o src\scene_graph\component\CreateMapComponentUtils.d : deps src\scene_graph\component\CreateMapComponentUtils.ast
+o src\scene_graph\component\CreateMapComponentUtils-Meta3dCommonlib.cmj src\scene_graph\component\CreateMapComponentUtils-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\CreateMapComponentUtils.bs.js ..\js\src\scene_graph\component\CreateMapComponentUtils.bs.js : mij src\scene_graph\component\CreateMapComponentUtils.ast
+o src\scene_graph\component\test\NullableTool.ast : astj ..\..\src\scene_graph\component\test\NullableTool.res
+o src\scene_graph\component\test\NullableTool.d : deps src\scene_graph\component\test\NullableTool.ast
+o src\scene_graph\component\test\NullableTool-Meta3dCommonlib.cmj src\scene_graph\component\test\NullableTool-Meta3dCommonlib.cmi ..\es6_global\src\scene_graph\component\test\NullableTool.bs.js ..\js\src\scene_graph\component\test\NullableTool.bs.js : mij src\scene_graph\component\test\NullableTool.ast
+o src\math\Angle.ast : astj ..\..\src\math\Angle.res
+o src\math\Angle.d : deps src\math\Angle.ast
+o src\math\Angle-Meta3dCommonlib.cmj src\math\Angle-Meta3dCommonlib.cmi ..\es6_global\src\math\Angle.bs.js ..\js\src\math\Angle.bs.js : mij src\math\Angle.ast
+o src\math\Matrix3.ast : astj ..\..\src\math\Matrix3.res
+o src\math\Matrix3.d : deps src\math\Matrix3.ast
+o src\math\Matrix3-Meta3dCommonlib.cmj src\math\Matrix3-Meta3dCommonlib.cmi ..\es6_global\src\math\Matrix3.bs.js ..\js\src\math\Matrix3.bs.js : mij src\math\Matrix3.ast
+o src\math\Matrix4.ast : astj ..\..\src\math\Matrix4.res
+o src\math\Matrix4.d : deps src\math\Matrix4.ast
+o src\math\Matrix4-Meta3dCommonlib.cmj src\math\Matrix4-Meta3dCommonlib.cmi ..\es6_global\src\math\Matrix4.bs.js ..\js\src\math\Matrix4.bs.js : mij src\math\Matrix4.ast
+o src\math\Vector3.ast : astj ..\..\src\math\Vector3.res
+o src\math\Vector3.d : deps src\math\Vector3.ast
+o src\math\Vector3-Meta3dCommonlib.cmj src\math\Vector3-Meta3dCommonlib.cmi ..\es6_global\src\math\Vector3.bs.js ..\js\src\math\Vector3.bs.js : mij src\math\Vector3.ast
+o src\math\Quaternion.ast : astj ..\..\src\math\Quaternion.res
+o src\math\Quaternion.d : deps src\math\Quaternion.ast
+o src\math\Quaternion-Meta3dCommonlib.cmj src\math\Quaternion-Meta3dCommonlib.cmi ..\es6_global\src\math\Quaternion.bs.js ..\js\src\math\Quaternion.bs.js : mij src\math\Quaternion.ast
+o src\log\Log.ast : astj ..\..\src\log\Log.res
+o src\log\Log.d : deps src\log\Log.ast
+o src\log\Log-Meta3dCommonlib.cmj src\log\Log-Meta3dCommonlib.cmi ..\es6_global\src\log\Log.bs.js ..\js\src\log\Log.bs.js : mij src\log\Log.ast
+o src\copy\CopyTypeArrayService.ast : astj ..\..\src\copy\CopyTypeArrayService.res
+o src\copy\CopyTypeArrayService.d : deps src\copy\CopyTypeArrayService.ast
+o src\copy\CopyTypeArrayService-Meta3dCommonlib.cmj src\copy\CopyTypeArrayService-Meta3dCommonlib.cmi ..\es6_global\src\copy\CopyTypeArrayService.bs.js ..\js\src\copy\CopyTypeArrayService.bs.js : mij src\copy\CopyTypeArrayService.ast
+o src\contract\Contract.ast : astj ..\..\src\contract\Contract.res
+o src\contract\Contract.d : deps src\contract\Contract.ast
+o src\contract\Contract-Meta3dCommonlib.cmj src\contract\Contract-Meta3dCommonlib.cmi ..\es6_global\src\contract\Contract.bs.js ..\js\src\contract\Contract.bs.js : mij src\contract\Contract.ast
+o src\contract\ContractResult.ast : astj ..\..\src\contract\ContractResult.res
+o src\contract\ContractResult.d : deps src\contract\ContractResult.ast
+o src\contract\ContractResult-Meta3dCommonlib.cmj src\contract\ContractResult-Meta3dCommonlib.cmi ..\es6_global\src\contract\ContractResult.bs.js ..\js\src\contract\ContractResult.bs.js : mij src\contract\ContractResult.ast
+rule build_package
+  command = "D:\Github\Meta3D\node_modules\rescript\win32\bsc.exe" -w -49 -color always -no-alias-deps  $i
+  restat = 1
+o Meta3dCommonlib.cmi : build_package Meta3dCommonlib.mlmap

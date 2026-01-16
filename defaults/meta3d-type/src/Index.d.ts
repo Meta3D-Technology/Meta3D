@@ -59,9 +59,18 @@ type publishFinalApp = (
   isRecommend: isRecommend,
 ) => Promise<void>
 
+type publishMod = (
+  packageJson: string,
+  readmeContent: string,
+  distFileContent: string,
+  assetFileData: Array<[string, Uint8Array]>,
+  iconBase64: nullable<string>,
+) => Promise<void>
+
 export type backendAPI = {
   init: (env: string) => Promise<void>,
   publishFinalApp: publishFinalApp,
+  publishMod: publishMod,
 }
 
 export type messageAPI = {

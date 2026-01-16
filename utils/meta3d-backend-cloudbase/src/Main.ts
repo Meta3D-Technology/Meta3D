@@ -60,6 +60,9 @@ export let checkUserName = (app: any, account: account) => {
     return _notHasData(app, "user", { key: account })
 }
 
+export let checkPassword = (app: any, account, password) => {
+    return _notHasData(app, "user", { key: account, password: password })
+}
 
 export let handleLoginForWeb3 = (app: any, account: account) => {
     return checkUserName(app, account).flatMap((isNotHasData: boolean) => {
@@ -86,10 +89,18 @@ export let handleLoginForWeb3 = (app: any, account: account) => {
     })
 }
 
-export let registerUser = (app: any, account: account) => {
+export let registerUser = (app: any, account: account, password) => {
     return fromPromise(
-        addDataToUserCollection(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {})
+        addDataToUserCollection(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {
+            password: password
+        })
     )
+    // .concat(fromPromise(
+    //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "talent", account, _buildEmptyCollectionData(), {
+    //         data: []
+    //     })
+    // ))
+
     // .concat(fromPromise(
     //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
     //         fileData: []
@@ -105,6 +116,93 @@ export let registerUser = (app: any, account: account) => {
     // ))
 
 }
+
+let _getFirstData = (res, key) => {
+    /*! fix "may has two data with same key but diff _id(caused by setData)"
+    * 
+    */
+    let result = res.data.filter(d => d._id == key)
+    if (result.length > 0) {
+        return result[0]
+    }
+
+    return res.data[0]
+}
+
+export let getData = (app: any, collectionName, key) => {
+    return _getDatabase(app).collection(collectionName)
+        // .where({ key: handleKeyToLowercase(key) })
+        .where({ key: key })
+        .get()
+        // .then(res => res.data[0])
+        .then(res => {
+            console.log(collectionName, key)
+
+            return _getFirstData(res, key)
+        })
+}
+
+export let setData = (app: any, collectionName, key, data) => {
+    // return _getDatabase(app).collection(collectionName)
+    //     // .where({ key: handleKeyToLowercase(key) })
+    //     .where({ key: key })
+    //     .remove()
+    //     .then(res => {
+    //         return _getDatabase(app).collection(collectionName)
+    //             .add(
+    //                 {
+    //                     ...data,
+    //                     // key: handleKeyToLowercase(key)
+    //                     key: key
+    //                 }
+    //             )
+    //     })
+    // // .doc(handleKeyToLowercase(key))
+    // // .update(data)
+    // // .set(data)
+
+
+    return _getDatabase(app).collection(collectionName)
+        .doc(key)
+        .set({
+            ...data,
+            key: key
+        })
+}
+
+export let findDataOrderBy = (app: any, collectionName, orderFieldName) => {
+    return _getDatabase(app).collection(collectionName)
+        // .where({ key: key })
+        .orderBy(orderFieldName, "desc")
+        .get()
+        .then(res => {
+            // console.log(collectionName, key)
+
+            return res.data
+        })
+}
+
+export let findProtocolDataOrderBy = (app: any, collectionName, protocolName, orderFieldName) => {
+    return _getDatabase(app).collection(collectionName)
+        .where({
+            // key: key,
+            protocolName: protocolName,
+        })
+        .orderBy(orderFieldName, "desc")
+        .get()
+        .then(res => {
+            // console.log(collectionName, key)
+
+            return res.data
+        })
+}
+
+export let updateData = (app: any, updateFunc, collectionName, key) => {
+    return _getDatabase(app).collection(collectionName)
+        .doc(key)
+        .update(updateFunc(_getDatabase(app).command))
+}
+
 
 export let handleKeyToLowercase = (key: string) => {
     return key.toLowerCase()
@@ -131,11 +229,13 @@ let _hasData = (app: any, collectionName: string, key: string) => {
 }
 
 export let hasAccount = (app: any, collectionName: string, account: account) => {
-    return _hasData(app, collectionName, handleKeyToLowercase(account))
+    // return _hasData(app, collectionName, handleKeyToLowercase(account))
+    return _hasData(app, collectionName, account)
 }
 
 export let hasData = (app: any, collectionName: string, key: string) => {
-    return _hasData(app, collectionName, handleKeyToLowercase(key))
+    // return _hasData(app, collectionName, handleKeyToLowercase(key))
+    return _hasData(app, collectionName, key)
 }
 
 export let getDataFromMarketProtocolCollection = (allCollectionData: allCollectionData): dataFromMarketProtocolCollectionData => {
@@ -254,7 +354,8 @@ export let getMarketImplementAccountData = (app: any, _parseMarketCollectionData
 
 export let updateMarketImplementData = (app: any, collectionName: string, key: string, updateData: marketImplementAccountData, _oldMarketImplementCollectionData: marketImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: handleKeyToLowercase(key) })
+        // .where({ key: handleKeyToLowercase(key) })
+        .where({ key: key })
         .update(updateData)
 }
 
@@ -300,6 +401,18 @@ export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: stri
     })
 }
 
+// export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string, notUseCache: boolean) => {
+//     return app.getTempFileURL({
+//         fileList: [fileID]
+//     }).then(({ fileList }: any) => {
+//         // return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
+
+//         let tempFileURL = notUseCache ? fileList[0].tempFileURL + "?cachebust=" + Math.floor(Math.random() * 1000000) : fileList[0].tempFileURL
+
+//         return fetch(tempFileURL).then(response => response.arrayBuffer())
+//     })
+// }
+
 export let deleteFile = (app: any, fileID: string) => {
     return fromPromise(app.deleteFile({
         fileList: [fileID]
@@ -311,3 +424,7 @@ export let parseMarketCollectionDataBodyForNodejs = null
 export let getKey = (data: collectionData) => {
     return data.key
 }
+
+
+
+

@@ -8,7 +8,7 @@
         "buildAll:ci": "rescript clean && rescript build"
     },
     "dependencies": {
-        "rescript": "^10.0.1"
+        "rescript": "^10.0.0"
     },
     "devDependencies": {
         "gentype": "^3.48.0"

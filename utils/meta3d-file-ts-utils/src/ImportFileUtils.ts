@@ -34,7 +34,7 @@ let _import = (onloadFunc: any, onerrorFunc: any, onprogressFunc: any, oncancelF
         }
     }
 
-    input.oncancel = (event) => {
+    (input as any).oncancel = (event: any) => {
         oncancelFunc()
     }
 

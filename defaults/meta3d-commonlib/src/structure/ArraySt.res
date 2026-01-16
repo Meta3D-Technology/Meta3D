@@ -65,6 +65,32 @@ let rec traverseReducePromiseM = (
       }
 }
 
+let rec _traverseReducePromiseIM = (
+  arr: array<'a>,
+  func: (. 'b, 'a, int) => Js.Promise.t<'b>,
+  param: 'b,
+  index: int,
+): Js.Promise.t<'b> => {
+  // define the monadic functions
+  let \">>=" = PromiseSt.bind
+
+  length(arr) == 0
+    ? Js.Promise.resolve(param)
+    : {
+        \">>="(func(. param, arr[0], index), h =>
+          _traverseReducePromiseIM(sliceFrom(arr, 1), func, h, index->succ)
+        )
+      }
+}
+
+let traverseReducePromiseIM = (
+  arr: array<'a>,
+  func: (. 'b, 'a, int) => Js.Promise.t<'b>,
+  param: 'b,
+): Js.Promise.t<'b> => {
+  _traverseReducePromiseIM(arr, func, param, 0)
+}
+
 let rec traverseReduceResultM = (
   arr: array<'a>,
   func: (. 'b, 'a) => Result.t2<'b>,
@@ -85,6 +111,8 @@ let rec traverseReduceResultM = (
 let unsafeGetFirst = arr => Array.unsafe_get(arr, 0)
 
 let getFirst = arr => arr->length >= 1 ? arr[0]->Some : None
+
+let getLast = arr => arr->length >= 1 ? arr[arr->length - 1]->Some : None
 
 let push = (arr, value) => {
   Js.Array.push(value, arr)->ignore

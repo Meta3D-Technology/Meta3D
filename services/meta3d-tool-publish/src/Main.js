@@ -30,6 +30,7 @@ exports.publishBundledContribute = exports.publishContribute = exports.publishEx
 const fs_1 = __importDefault(require("fs"));
 const meta3d_1 = require("meta3d");
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
+// import * as _4everlandService from "meta3d-tool-utils/src/publish/4everlandService";
 const PublishUtils_1 = require("meta3d-tool-utils/src/publish/PublishUtils");
 const Publish_1 = require("./Publish");
 // let _getFuncArrForExtension = (env: env, packageFilePath: string): [any, any, any, any, any, any, any, any, any, any, any] => {
@@ -85,26 +86,26 @@ let publishExtension = (env, packageFilePath, distFilePath) => {
                 CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
-        case "production":
-            funcArr = [
-                fs_1.default.readFileSync,
-                console.log,
-                console.error,
-                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                meta3d_1.generateExtension,
-                CloudbaseService.initProduction,
-                CloudbaseService.hasAccount,
-                CloudbaseService.uploadFile,
-                CloudbaseService.getMarketImplementAccountData,
-                CloudbaseService.addMarketImplementData,
-                // CloudbaseService.getDataFromMarketImplementAccountData,
-                // CloudbaseService.isContain,
-                // CloudbaseService.buildMarketImplementAccountData,
-                // CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-                CloudbaseService.getFileID,
-                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
-            ];
-            break;
+        // case "production":
+        // 	funcArr = [
+        // 		fs.readFileSync,
+        // 		console.log,
+        // 		console.error,
+        // 		buildReadJsonFunc(packageFilePath),
+        // 		generateExtension,
+        // 		CloudbaseService.initProduction,
+        // 		CloudbaseService.hasAccount,
+        // 		CloudbaseService.uploadFile,
+        // 		CloudbaseService.getMarketImplementAccountData,
+        // 		CloudbaseService.addMarketImplementData,
+        // 		// CloudbaseService.getDataFromMarketImplementAccountData,
+        // 		// CloudbaseService.isContain,
+        // 		// CloudbaseService.buildMarketImplementAccountData,
+        // 		// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+        // 		CloudbaseService.getFileID,
+        // 		CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+        // 	]
+        // 	break;
         default:
             throw new Error("unknown env");
     }
@@ -130,22 +131,22 @@ let publishContribute = (env, packageFilePath, distFilePath) => {
                 CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
-        case "production":
-            funcArr = [
-                fs_1.default.readFileSync,
-                console.log,
-                console.error,
-                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                meta3d_1.generateContribute,
-                CloudbaseService.initProduction,
-                CloudbaseService.hasAccount,
-                CloudbaseService.uploadFile,
-                CloudbaseService.getMarketImplementAccountData,
-                CloudbaseService.addMarketImplementData,
-                CloudbaseService.getFileID,
-                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
-            ];
-            break;
+        // case "production":
+        // 	funcArr = [
+        // 		fs.readFileSync,
+        // 		console.log,
+        // 		console.error,
+        // 		buildReadJsonFunc(packageFilePath),
+        // 		generateContribute,
+        // 		CloudbaseService.initProduction,
+        // 		CloudbaseService.hasAccount,
+        // 		CloudbaseService.uploadFile,
+        // 		CloudbaseService.getMarketImplementAccountData,
+        // 		CloudbaseService.addMarketImplementData,
+        // 		CloudbaseService.getFileID,
+        // 		CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+        // 	]
+        // 	break;
         default:
             throw new Error("unknown env");
     }
@@ -170,21 +171,21 @@ let publishBundledContribute = (env, packageFilePath, bundledSource) => {
                 CloudbaseService.parseMarketCollectionDataBodyForNodejs,
             ];
             break;
-        case "production":
-            funcArr = [
-                console.log,
-                console.error,
-                (0, PublishUtils_1.buildReadJsonFunc)(packageFilePath),
-                meta3d_1.generateContribute,
-                CloudbaseService.initProduction,
-                CloudbaseService.hasAccount,
-                CloudbaseService.uploadFile,
-                CloudbaseService.getMarketImplementAccountData,
-                CloudbaseService.addMarketImplementData,
-                CloudbaseService.getFileID,
-                CloudbaseService.parseMarketCollectionDataBodyForNodejs,
-            ];
-            break;
+        // case "production":
+        // 	funcArr = [
+        // 		console.log,
+        // 		console.error,
+        // 		buildReadJsonFunc(packageFilePath),
+        // 		generateContribute,
+        // 		CloudbaseService.initProduction,
+        // 		CloudbaseService.hasAccount,
+        // 		CloudbaseService.uploadFile,
+        // 		CloudbaseService.getMarketImplementAccountData,
+        // 		CloudbaseService.addMarketImplementData,
+        // 		CloudbaseService.getFileID,
+        // 		CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+        // 	]
+        // break;
         default:
             throw new Error("unknown env");
     }

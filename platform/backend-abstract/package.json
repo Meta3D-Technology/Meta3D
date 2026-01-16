@@ -22,6 +22,6 @@
         "jest": "^25.2.7",
         "jest-cucumber": "^3.0.1",
         "ts-jest": "^26.1.4",
-        "typescript": "^4.2.3"
+        "typescript": "^5.1.0"
     }
 }

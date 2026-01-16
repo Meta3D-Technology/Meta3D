@@ -2,6 +2,7 @@
 
 import * as AppManager$Meta3d from "./app_and_package/AppManager.bs.js";
 import * as ManagerUtils$Meta3d from "./app_and_package/ManagerUtils.bs.js";
+import * as ModFileManager$Meta3d from "./file/ModFileManager.bs.js";
 import * as PackageManager$Meta3d from "./app_and_package/PackageManager.bs.js";
 import * as ExtensionManager$Meta3d from "./ExtensionManager.bs.js";
 import * as ExtensionFileManager$Meta3d from "./file/ExtensionFileManager.bs.js";
@@ -86,6 +87,12 @@ var deepCopy = ExtensionManager$Meta3d.deepCopy;
 
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
+var generateMod = ModFileManager$Meta3d.generateMod;
+
+var loadMod = ModFileManager$Meta3d.loadMod;
+
+var parseMod = ModFileManager$Meta3d.parse;
+
 export {
   registerExtension ,
   initExtension ,
@@ -126,5 +133,8 @@ export {
   restore ,
   deepCopy ,
   buildAPI ,
+  generateMod ,
+  loadMod ,
+  parseMod ,
 }
 /* AppManager-Meta3d Not a pure module */

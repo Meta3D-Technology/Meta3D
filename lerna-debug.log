@@ -1,0 +1,11 @@
+0 silly argv {
+0 silly argv   _: [ 'bootstrap' ],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'node_modules\\lerna\\cli.js'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath D:\Github\Meta3D
+3 error JSONError: Unexpected end of JSON input while parsing empty string in examples\use-package\package.json
+3 error     at parseJson (D:\Github\Meta3D\node_modules\parse-json\index.js:29:21)
+3 error     at parse (D:\Github\Meta3D\node_modules\load-json-file\index.js:15:9)
+3 error     at module.exports (D:\Github\Meta3D\node_modules\load-json-file\index.js:18:47)

@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
+		"target": "ESNext",
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"sourceMap": true,
@@ -19,7 +19,12 @@
 		// "strict": true
 	},
 
-	"include": [
+	   "exclude": [
+        "node_modules",
+        "dist",
+        "build"
+      ],
+"include": [
 		"./src"
 	]
 }

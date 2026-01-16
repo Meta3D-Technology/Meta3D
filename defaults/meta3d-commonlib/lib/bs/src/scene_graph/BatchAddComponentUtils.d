@@ -1,0 +1,1 @@
+src\scene_graph\BatchAddComponentUtils-Meta3dCommonlib.cmj : Meta3dCommonlib.cmi src\structure\ArraySt-Meta3dCommonlib.cmj src\structure\ArraySt-Meta3dCommonlib.cmi src\contract\Contract-Meta3dCommonlib.cmj src\contract\Contract-Meta3dCommonlib.cmi src\log\Log-Meta3dCommonlib.cmj src\log\Log-Meta3dCommonlib.cmi

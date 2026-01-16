@@ -1,0 +1,21 @@
+10.1.4
+D:\Github\Meta3D\node_modules\meta3d-commonlib
+1 -bs-package-output commonjs:lib\js:.bs.js -bs-package-output es6-global:lib\es6_global:.bs.js
+bsconfig.json	0x1.a4b55126aafc7p+30
+src	0x1.a5a64897ece75p+30
+src\test	0x1.a5a64898068c1p+30
+src\test\bdd	0x1.a5a64898078e4p+30
+src\structure	0x1.a5a64897eadc1p+30
+src\structure\utils	0x1.a5a64897ebe1bp+30
+src\structure\tuple	0x1.a5a64897eadc1p+30
+src\structure\sparse_map	0x1.a5a64897e4b79p+30
+src\structure\hash_map	0x1.a5a64897e1a56p+30
+src\scene_graph	0x1.a5a64897cd2d8p+30
+src\scene_graph\component	0x1.a5a64897d76a2p+30
+src\scene_graph\component\test	0x1.a5a64897d76a2p+30
+src\math	0x1.a5a64897c80fdp+30
+src\log	0x1.a5a64897c2f18p+30
+src\copy	0x1.a5a64897c0e59p+30
+src\contract	0x1.a5a64897bfdf9p+30
+===
+D:\Github\Meta3D\node_modules\rescript\win32\rescript.exe	0x1.a5a7ff2bcf74fp+30

@@ -14,6 +14,6 @@
     },
     "keywords": [],
     "devDependencies": {
-        "typescript": "^4.2.3"
+        "typescript": "^5.1.0"
     }
 }

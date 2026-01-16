@@ -111,9 +111,19 @@ type publishFinalApp = (
 ) => // ) => Meta3dBsMostDefault.Most.stream<unit>
 Js.Promise.t<unit>
 
+type publishMod = (
+  .  string,
+     string,
+     string,
+     array<( string, Js.Typed_array.Uint8Array.t )>,
+  Js.Nullable.t<string>,
+) =>
+Js.Promise.t<unit>
+
 type backendAPI = {
   init: init,
   publishFinalApp: publishFinalApp,
+  publishMod:publishMod,
 }
 
 type message = string

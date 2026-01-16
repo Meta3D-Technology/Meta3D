@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateAllStorageData = exports.updateAllDatabaseData = exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.addMarketImplementData = exports.getFileID = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.initProduction = exports.initLocal = exports.getProductionEnvData = exports.getLocalEnvData = void 0;
+exports.setData = exports.getData = exports.updateAllStorageData = exports.updateAllDatabaseData = exports.parseMarketCollectionDataBodyForNodejs = exports.uploadFile = exports.addMarketImplementData = exports.getFileID = exports.getDataFromMarketProtocolCollection = exports.getMarketImplementAccountData = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = exports.addDataToMarketProtocolCollection = exports.getMarketProtocolCollection = exports.hasAccount = exports.initLocal = exports.getLocalEnvData = void 0;
 const node_sdk_1 = __importDefault(require("@cloudbase/node-sdk"));
 const most_1 = require("most");
 const BackendService = __importStar(require("meta3d-backend-cloudbase"));
@@ -39,27 +39,14 @@ let getLocalEnvData = () => {
     };
 };
 exports.getLocalEnvData = getLocalEnvData;
-let getProductionEnvData = () => {
-    return {
-        secretId: "AKIDnQnwrXx6yZtwiDSQbVGkxtZ0C8nBI8i2",
-        secretKey: "4rNcbJkvpSnrgFXYJn0wax3rPhiSu5zb",
-        env: "meta3d-production-5eol5gce9a6b9c" // 此处填入您的环境ID
-    };
-};
-exports.getProductionEnvData = getProductionEnvData;
 let initLocal = () => {
     let app = node_sdk_1.default.init((0, exports.getLocalEnvData)());
     return (0, most_1.just)(app);
 };
 exports.initLocal = initLocal;
-let initProduction = () => {
-    let app = node_sdk_1.default.init((0, exports.getProductionEnvData)());
-    return (0, most_1.just)(app);
+let _getDatabase = (app) => {
+    return app.database();
 };
-exports.initProduction = initProduction;
-// let _getDatabase = (app: any) => {
-// 	return app.database()
-// }
 exports.hasAccount = BackendService.hasAccount;
 // export let notHasData = (app: any, collectionName: string, data: object) => {
 // 	return fromPromise(_getDatabase(app).collection(collectionName)
@@ -116,4 +103,6 @@ let updateAllStorageData = ([mapFunc, buildFilePathFunc], app, collectionName) =
     buildFilePathFunc
 ], app, collectionName);
 exports.updateAllStorageData = updateAllStorageData;
+exports.getData = BackendService.getData;
+exports.setData = BackendService.setData;
 //# sourceMappingURL=CloudbaseService.js.map

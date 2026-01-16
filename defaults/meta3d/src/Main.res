@@ -75,3 +75,11 @@ let restore = ExtensionManager.restore
 let deepCopy = ExtensionManager.deepCopy
 
 let buildAPI = ExtensionManager.buildAPI
+
+
+
+let generateMod = ModFileManager.generateMod
+
+let loadMod = ModFileManager.loadMod
+
+let parseMod = ModFileManager.parse

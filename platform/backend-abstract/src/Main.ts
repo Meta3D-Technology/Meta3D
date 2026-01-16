@@ -15,7 +15,7 @@ export let handleLoginForWeb3 = (handleLoginForWeb3: (account: string) => Stream
 
 export let checkUserName = (checkUserName: (account: string) => Stream<unknown>, account: string) => checkUserName(account)
 
-export let registerUser = (registerUser: (account: string) => Stream<unknown>, account: string) => registerUser(account)
+export let registerUser = (registerUser: (account: string, _) => Stream<unknown>, account: string) => registerUser(account, "")
 
 export let isLoginSuccess = LoginService.isLoginSuccess
 

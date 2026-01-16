@@ -8,9 +8,7 @@ let _assert = (result: bool, message) => result
 
 let test = (message, func) =>
   // func() ? () : _throw(message);
-  func()
-    ? ()
-    : Js.Exn.raiseError(message)
+  func() ? () : Js.Exn.raiseError(message)
 
 let requireCheck = // (f: unit => (string, bool), isTest: bool): Result.t2(unit) =>
 (f: unit => unit, isTest: bool): Result.t2<unit> =>
@@ -64,10 +62,14 @@ let assertJsFalse = (source: bool) =>
 let assertIsBool = (source: bool) =>
   _assert(source == true || source == false, "expect to be bool, but actual not")
 
-let _isNullableExist = %bs.raw(`
+let _isNullableExist = %raw(`
+
 function(source) {
+
     return source !== undefined && source !== null;
+
 }
+
 `)
 
 let assertNullableExist = (source: 'a) =>

@@ -23,7 +23,7 @@ let checkUserName = (account) => BackendService.checkUserName((0, Repo_1.getBack
 exports.checkUserName = checkUserName;
 let handleLoginForWeb3 = (account) => BackendService.handleLoginForWeb3((0, Repo_1.getBackend)(), account);
 exports.handleLoginForWeb3 = handleLoginForWeb3;
-let registerUser = (account) => BackendService.registerUser((0, Repo_1.getBackend)(), account);
+let registerUser = (account) => BackendService.registerUser((0, Repo_1.getBackend)(), account, "");
 exports.registerUser = registerUser;
 let hasAccount = (collectionName, account) => BackendService.hasAccount((0, Repo_1.getBackend)(), collectionName, account);
 exports.hasAccount = hasAccount;

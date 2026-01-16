@@ -168,7 +168,7 @@ let getUint32_1 = (index: int, typeArray: Uint32Array.t) => Uint32Array.unsafe_g
 
 let getFloat1 = (index: int, typeArray: Float32Array.t) => Float32Array.unsafe_get(typeArray, index)
 
-let getFloat32Array = (typeArray: Float32Array.t, startIndex: int, endIndex: int) =>
+let getFloat32ArrayAndReset = (typeArray: Float32Array.t, startIndex: int, endIndex: int) =>
   Float32Array.slice(~start=startIndex, ~end_=endIndex, typeArray)
 
 let getUint32Array = (typeArray: Uint32Array.t, startIndex: int, endIndex: int) =>

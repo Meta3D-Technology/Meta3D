@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getKey = exports.parseMarketCollectionDataBodyForNodejs = exports.deleteFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.addMarketImplementData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketImplementAccountDataWithWhereData = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
+exports.getKey = exports.parseMarketCollectionDataBodyForNodejs = exports.deleteFile = exports.downloadFile = exports.getAccountFromMarketImplementCollectionData = exports.filterMarketImplementCollection = exports.mapMarketImplementCollection = exports.getMarketImplementCollection = exports.addMarketImplementData = exports.updateMarketImplementData = exports.getMarketImplementAccountData = exports.getMarketImplementAccountDataWithWhereData = exports.getMarketProtocolCollectionCount = exports.batchFindMarketProtocolCollection = exports.getMarketProtocolCollection = exports.uploadFile = exports.getFileID = exports.notHasData = exports.getDataFromMarketProtocolCollection = exports.hasData = exports.hasAccount = exports.addDataToUserCollection = exports.addDataToMarketImplementCollection = exports.addDataToMarketProtocolCollection = exports.handleKeyToLowercase = exports.updateData = exports.findProtocolDataOrderBy = exports.findDataOrderBy = exports.setData = exports.getData = exports.registerUser = exports.handleLoginForWeb3 = exports.checkPassword = exports.checkUserName = exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = void 0;
 const most_1 = require("most");
 let _getDatabase = (app) => {
     return app.database();
@@ -28,6 +28,10 @@ let checkUserName = (app, account) => {
     return _notHasData(app, "user", { key: account });
 };
 exports.checkUserName = checkUserName;
+let checkPassword = (app, account, password) => {
+    return _notHasData(app, "user", { key: account, password: password });
+};
+exports.checkPassword = checkPassword;
 let handleLoginForWeb3 = (app, account) => {
     return (0, exports.checkUserName)(app, account).flatMap((isNotHasData) => {
         if (isNotHasData) {
@@ -50,8 +54,15 @@ let handleLoginForWeb3 = (app, account) => {
     });
 };
 exports.handleLoginForWeb3 = handleLoginForWeb3;
-let registerUser = (app, account) => {
-    return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {}));
+let registerUser = (app, account, password) => {
+    return (0, most_1.fromPromise)((0, exports.addDataToUserCollection)(app, _buildFirstAddDataToBodyFunc(), "user", account, _buildEmptyCollectionData(), {
+        password: password
+    }));
+    // .concat(fromPromise(
+    //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "talent", account, _buildEmptyCollectionData(), {
+    //         data: []
+    //     })
+    // ))
     // .concat(fromPromise(
     //     addDataToMarketImplementCollection(app, _buildFirstAddDataToBodyFunc(), "publishedextensions", account, _buildEmptyCollectionData(), {
     //         fileData: []
@@ -67,6 +78,82 @@ let registerUser = (app, account) => {
     // ))
 };
 exports.registerUser = registerUser;
+let _getFirstData = (res, key) => {
+    /*! fix "may has two data with same key but diff _id(caused by setData)"
+    *
+    */
+    let result = res.data.filter(d => d._id == key);
+    if (result.length > 0) {
+        return result[0];
+    }
+    return res.data[0];
+};
+let getData = (app, collectionName, key) => {
+    return _getDatabase(app).collection(collectionName)
+        // .where({ key: handleKeyToLowercase(key) })
+        .where({ key: key })
+        .get()
+        // .then(res => res.data[0])
+        .then(res => {
+        console.log(collectionName, key);
+        return _getFirstData(res, key);
+    });
+};
+exports.getData = getData;
+let setData = (app, collectionName, key, data) => {
+    // return _getDatabase(app).collection(collectionName)
+    //     // .where({ key: handleKeyToLowercase(key) })
+    //     .where({ key: key })
+    //     .remove()
+    //     .then(res => {
+    //         return _getDatabase(app).collection(collectionName)
+    //             .add(
+    //                 {
+    //                     ...data,
+    //                     // key: handleKeyToLowercase(key)
+    //                     key: key
+    //                 }
+    //             )
+    //     })
+    // // .doc(handleKeyToLowercase(key))
+    // // .update(data)
+    // // .set(data)
+    return _getDatabase(app).collection(collectionName)
+        .doc(key)
+        .set(Object.assign(Object.assign({}, data), { key: key }));
+};
+exports.setData = setData;
+let findDataOrderBy = (app, collectionName, orderFieldName) => {
+    return _getDatabase(app).collection(collectionName)
+        // .where({ key: key })
+        .orderBy(orderFieldName, "desc")
+        .get()
+        .then(res => {
+        // console.log(collectionName, key)
+        return res.data;
+    });
+};
+exports.findDataOrderBy = findDataOrderBy;
+let findProtocolDataOrderBy = (app, collectionName, protocolName, orderFieldName) => {
+    return _getDatabase(app).collection(collectionName)
+        .where({
+        // key: key,
+        protocolName: protocolName,
+    })
+        .orderBy(orderFieldName, "desc")
+        .get()
+        .then(res => {
+        // console.log(collectionName, key)
+        return res.data;
+    });
+};
+exports.findProtocolDataOrderBy = findProtocolDataOrderBy;
+let updateData = (app, updateFunc, collectionName, key) => {
+    return _getDatabase(app).collection(collectionName)
+        .doc(key)
+        .update(updateFunc(_getDatabase(app).command));
+};
+exports.updateData = updateData;
 let handleKeyToLowercase = (key) => {
     return key.toLowerCase();
 };
@@ -87,11 +174,13 @@ let _hasData = (app, collectionName, key) => {
         .then(res => res.data.length > 0));
 };
 let hasAccount = (app, collectionName, account) => {
-    return _hasData(app, collectionName, (0, exports.handleKeyToLowercase)(account));
+    // return _hasData(app, collectionName, handleKeyToLowercase(account))
+    return _hasData(app, collectionName, account);
 };
 exports.hasAccount = hasAccount;
 let hasData = (app, collectionName, key) => {
-    return _hasData(app, collectionName, (0, exports.handleKeyToLowercase)(key));
+    // return _hasData(app, collectionName, handleKeyToLowercase(key))
+    return _hasData(app, collectionName, key);
 };
 exports.hasData = hasData;
 let getDataFromMarketProtocolCollection = (allCollectionData) => {
@@ -199,7 +288,8 @@ exports.getMarketImplementAccountData = getMarketImplementAccountData;
 // }
 let updateMarketImplementData = (app, collectionName, key, updateData, _oldMarketImplementCollectionData) => {
     return _getDatabase(app).collection(collectionName)
-        .where({ key: (0, exports.handleKeyToLowercase)(key) })
+        // .where({ key: handleKeyToLowercase(key) })
+        .where({ key: key })
         .update(updateData);
 };
 exports.updateMarketImplementData = updateMarketImplementData;
@@ -237,6 +327,15 @@ let downloadFile = (app, parseMarketCollectionDataBody, fileID, notUseCache) => 
     });
 };
 exports.downloadFile = downloadFile;
+// export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string, notUseCache: boolean) => {
+//     return app.getTempFileURL({
+//         fileList: [fileID]
+//     }).then(({ fileList }: any) => {
+//         // return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
+//         let tempFileURL = notUseCache ? fileList[0].tempFileURL + "?cachebust=" + Math.floor(Math.random() * 1000000) : fileList[0].tempFileURL
+//         return fetch(tempFileURL).then(response => response.arrayBuffer())
+//     })
+// }
 let deleteFile = (app, fileID) => {
     return (0, most_1.fromPromise)(app.deleteFile({
         fileList: [fileID]

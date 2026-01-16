@@ -1,7 +1,7 @@
 import fs from "fs"
 import { generateContribute, generateExtension } from "meta3d";
 import * as CloudbaseService from "meta3d-tool-utils/src/publish/CloudbaseService";
-import * as _4everlandService from "meta3d-tool-utils/src/publish/4everlandService";
+// import * as _4everlandService from "meta3d-tool-utils/src/publish/4everlandService";
 import { buildReadJsonFunc } from "meta3d-tool-utils/src/publish/PublishUtils"
 import { env } from "meta3d-tool-utils/src/publish/PublishType"
 import { publish } from "./Publish";
@@ -61,26 +61,26 @@ export let publishExtension = (env: env, packageFilePath: string, distFilePath: 
 				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
-		case "production":
-			funcArr = [
-				fs.readFileSync,
-				console.log,
-				console.error,
-				buildReadJsonFunc(packageFilePath),
-				generateExtension,
-				CloudbaseService.initProduction,
-				CloudbaseService.hasAccount,
-				CloudbaseService.uploadFile,
-				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.addMarketImplementData,
-				// CloudbaseService.getDataFromMarketImplementAccountData,
-				// CloudbaseService.isContain,
-				// CloudbaseService.buildMarketImplementAccountData,
-				// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
-				CloudbaseService.getFileID,
-				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
-			]
-			break;
+		// case "production":
+		// 	funcArr = [
+		// 		fs.readFileSync,
+		// 		console.log,
+		// 		console.error,
+		// 		buildReadJsonFunc(packageFilePath),
+		// 		generateExtension,
+		// 		CloudbaseService.initProduction,
+		// 		CloudbaseService.hasAccount,
+		// 		CloudbaseService.uploadFile,
+		// 		CloudbaseService.getMarketImplementAccountData,
+		// 		CloudbaseService.addMarketImplementData,
+		// 		// CloudbaseService.getDataFromMarketImplementAccountData,
+		// 		// CloudbaseService.isContain,
+		// 		// CloudbaseService.buildMarketImplementAccountData,
+		// 		// CloudbaseService.addMarketImplementDataToDataFromMarketImplementCollectionData,
+		// 		CloudbaseService.getFileID,
+		// 		CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+		// 	]
+		// 	break;
 		default:
 			throw new Error("unknown env")
 	}
@@ -108,22 +108,22 @@ export let publishContribute = (env: env, packageFilePath: string, distFilePath:
 				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
-		case "production":
-			funcArr = [
-				fs.readFileSync,
-				console.log,
-				console.error,
-				buildReadJsonFunc(packageFilePath),
-				generateContribute,
-				CloudbaseService.initProduction,
-				CloudbaseService.hasAccount,
-				CloudbaseService.uploadFile,
-				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.addMarketImplementData,
-				CloudbaseService.getFileID,
-				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
-			]
-			break;
+		// case "production":
+		// 	funcArr = [
+		// 		fs.readFileSync,
+		// 		console.log,
+		// 		console.error,
+		// 		buildReadJsonFunc(packageFilePath),
+		// 		generateContribute,
+		// 		CloudbaseService.initProduction,
+		// 		CloudbaseService.hasAccount,
+		// 		CloudbaseService.uploadFile,
+		// 		CloudbaseService.getMarketImplementAccountData,
+		// 		CloudbaseService.addMarketImplementData,
+		// 		CloudbaseService.getFileID,
+		// 		CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+		// 	]
+		// 	break;
 		default:
 			throw new Error("unknown env")
 	}
@@ -150,22 +150,22 @@ export let publishBundledContribute = (env: env, packageFilePath: string, bundle
 				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 			]
 			break;
-		case "production":
-			funcArr = [
-				console.log,
-				console.error,
-				buildReadJsonFunc(packageFilePath),
-				generateContribute,
-				CloudbaseService.initProduction,
-				CloudbaseService.hasAccount,
-				CloudbaseService.uploadFile,
-				CloudbaseService.getMarketImplementAccountData,
-				CloudbaseService.addMarketImplementData,
-				CloudbaseService.getFileID,
-				CloudbaseService.parseMarketCollectionDataBodyForNodejs,
+		// case "production":
+		// 	funcArr = [
+		// 		console.log,
+		// 		console.error,
+		// 		buildReadJsonFunc(packageFilePath),
+		// 		generateContribute,
+		// 		CloudbaseService.initProduction,
+		// 		CloudbaseService.hasAccount,
+		// 		CloudbaseService.uploadFile,
+		// 		CloudbaseService.getMarketImplementAccountData,
+		// 		CloudbaseService.addMarketImplementData,
+		// 		CloudbaseService.getFileID,
+		// 		CloudbaseService.parseMarketCollectionDataBodyForNodejs,
 
-			]
-			break;
+		// 	]
+			// break;
 		default:
 			throw new Error("unknown env")
 	}
