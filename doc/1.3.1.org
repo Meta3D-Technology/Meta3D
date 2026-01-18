@@ -205,11 +205,16 @@ show editor
 TODO pass test
 
 
-** TODO build main.js instead
-use dev webpack
+** DONE build main.js instead
 
 
 
+** TODO update action->backendAPI
+
+
+** TODO editor assemble: show action, input in Contribute
+
+** TODO editor assemble: auto upgrade can upgrade action's, input's version
 
 
 ** TODO 只调用默认的职业特性
