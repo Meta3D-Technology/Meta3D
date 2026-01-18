@@ -4,11 +4,11 @@ bower_components/
 test/bower_components/
 mine/
 dist/
-# lib/bs/
+lib/bs/
 .bs.js
 .gen.tsx
-# lib/js/
-# lib/es6_global/
-# lib/bs/
+lib/js/
+lib/es6_global/
+lib/bs/
 .bs.js
 .gen.tsx

@@ -209,12 +209,20 @@ TODO pass test
 
 
 
+# ** TODO editor assemble: show action, input in Contribute
+
+# ** TODO editor assemble: action, input in Contribute can set debug
+
+** DONE clip bundedContent
+
+
+** TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+
 ** TODO update action->backendAPI
 
 
-** TODO editor assemble: show action, input in Contribute
 
-** TODO editor assemble: auto upgrade can upgrade action's, input's version
 
 
 ** TODO 只调用默认的职业特性

@@ -36,10 +36,10 @@ let _buildDistFileContent = () => {
     let _getTextData = () => {
         return {
             "Chinese": {
-                "Title": "测试1" 
+                "Title": "测试2" 
             },
             "English": {
-                "Title": "Test1"
+                "Title": "Test2"
             }
         };
     };
