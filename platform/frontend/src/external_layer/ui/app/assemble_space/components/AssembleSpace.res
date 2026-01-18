@@ -229,7 +229,8 @@ now just replace add duplicate one, but need handle more
   }
 
   let _buildUnEditableData = () => {
-    [("meta3d-action-publish", "Publish"), ("meta3d-action-mod", "Mod")]
+    // [("meta3d-action-publish", "Publish"), ("meta3d-action-mod", "Mod")]
+    [("meta3d-action-publish", "Publish")]
   }
   // let _buildUnEditableData = () => {
   //   ["meta3d-action-publish", "meta3d-action-mod"]

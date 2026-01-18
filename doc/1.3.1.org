@@ -200,24 +200,15 @@ show editor
 ** DONE refactor: remove meta3d-tool-mod-publish
 
 
-** TODO try bundle again
+** DONE try bundle again
+
+TODO pass test
 
 
 ** TODO build main.js instead
 use dev webpack
 
 
-** TODO deploy editor to online
-deploy meta3d to online
-
-visit EnterApp?
-
-
-** TODO publish video
-
-
-
-** TODO fix: edit editor: shouldn't import all ui controls
 
 
 
@@ -226,3 +217,14 @@ visit EnterApp?
 ** TODO 调用发布的所有职业特性
 
 ** TODO 职业特性：设定值的类型、范围
+
+
+
+
+** TODO deploy editor to online
+deploy meta3d to online
+
+visit EnterApp?
+
+
+** TODO fix: edit editor: shouldn't import all ui controls

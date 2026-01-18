@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-mod-career-publish-to-game",
-    "version": "1.3.13",
+    "version": "1.3.16",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-mod-career-publish-to-game-protocol"
@@ -10,7 +10,7 @@
         "watch": "tsc -w -noEmit",
         "webpack": "webpack --config webpack.config.js",
         "meta3d:publish_dev_auto": "yarn version --patch --no-git-tag-version && yarn meta3d:publish_dev",
-        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env"
+        "meta3d:publish_dev": "cross-env NODE_ENV=development npm run webpack && gulp publish_local_env_bundle"
     },
     "keywords": [],
     "dependencies": {

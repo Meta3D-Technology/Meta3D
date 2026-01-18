@@ -42,8 +42,7 @@ defineFeature(feature, test => {
       () => {
         result.contents->NewlineTool.unifyNewlineChar->NewlineTool.removeBlankChar->expect ==
           {
-            j`// import { state as meta3dState } from "meta3d-type"
-    // import { nullable } from "meta3d-commonlib-ts/src/nullable"
+            j`
     var runActionName = "Run";
     
     export let getContribute = (api) => {
@@ -94,8 +93,7 @@ defineFeature(feature, test => {
         ->NewlineTool.removeBlankChar
         ->expect ==
           {
-            j`// import { state as meta3dState } from "meta3d-type"
-    // import { nullable } from "meta3d-commonlib-ts/src/nullable"
+            j`
     var runActionName = "Run";
     let func1Utils2 = () => {
         return 1;

@@ -185,7 +185,8 @@ let bundle = (filePath: string, fileSource: string) => {
 
     source.forEachChild(.(node: Typescript.node) => {
       switch node.kind {
-      | 269 =>
+      // | 269 =>
+      | 261 =>
         let importDecl = node->Obj.magic
         let moduleSpecifierText =
           importDecl["moduleSpecifier"]["getText"](. source)->Js.Json.parseExn->Obj.magic
