@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"jsx": "react",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		// "noEmit": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"lib": [
+			"DOM",
+			"ESNext",
+		],
+		"types": [
+			"jest"
+		],
+		"strict": false
+	},
+	"include": [
+		"./src"
+	]
+}

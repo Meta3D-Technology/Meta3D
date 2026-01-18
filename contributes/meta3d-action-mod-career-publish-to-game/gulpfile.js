@@ -15,9 +15,16 @@ gulp.task("publish_local_env_bundle", function (done) {
         fs.readFileSync(filePath, "utf-8")
     )
 
+    let clipedBundleContent = `import { api } from "meta3d-type"
+import { service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+    ` + bundleContent
+    clipedBundleContent = clipedBundleContent.replace(/getContribute\s\=\s\(api\)/g, "getContribute = (api:api)")
+
     clipboard.default.writeSync(
-        bundleContent
+        clipedBundleContent
     )
+
+
 
     publish.publishBundledContribute(
         "local",

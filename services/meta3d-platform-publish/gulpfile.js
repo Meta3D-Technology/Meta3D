@@ -2,6 +2,7 @@ var gulp = require("gulp");
 var fs = require("fs")
 var process = require("child_process")
 var publish = require("meta3d-platform-publish")
+const { exec } = require('child_process');
 
 let env = null
 
@@ -24,20 +25,23 @@ gulp.task("bundle_dts", function (done) {
     console.log("打包DTS...")
 
     let data = [
-        {
-            /*! use node_modules dir will output wrong content: miss service type
-            // source: "../../node_modules/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
-            */
-            source: "../../packages/editor-whole/protocols/extension_protocols/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
-            target: "../../platform/frontend/static/dts/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
-            postHandle: (content) => {
-                return content.replace("actionContribute$1 as actionContribute,", "")
-                    .replace("inputContribute$1 as inputContribute,", "")
-                    .replace("uiControlContribute$1 as uiControlContribute,", "")
-                    .replace("export type service = Merge<scene,", "export type service$123 = Merge<scene,")
-                    .replace("export type engineSceneService = service", "export type engineSceneService = service$123")
-            }
-        },
+        // TODO restore
+        // {
+        //     /*! use node_modules dir will output wrong content: miss service type
+        //     // source: "../../node_modules/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
+        //     */
+        //     source: "../../packages/editor-whole/protocols/extension_protocols/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
+        //     target: "../../platform/frontend/static/dts/meta3d-editor-whole-protocol/src/service/ServiceType.d.ts",
+        //     postHandle: (content) => {
+        //         return content.replace("actionContribute$1 as actionContribute,", "")
+        //             .replace("inputContribute$1 as inputContribute,", "")
+        //             .replace("uiControlContribute$1 as uiControlContribute,", "")
+        //             .replace("export type service = Merge<scene,", "export type service$123 = Merge<scene,")
+        //             .replace("export type engineSceneService = service", "export type engineSceneService = service$123")
+        //     }
+        // },
+
+
         {
             source: "../../defaults/meta3d-type/src/Index.d.ts",
             target: "../../platform/frontend/static/dts/meta3d-type/src/Index.d.ts",
@@ -47,8 +51,12 @@ gulp.task("bundle_dts", function (done) {
         }
     ]
 
+    /*!
+     * need use "npm install -g dts-bundle-generator" to install
+     */
     data.forEach(({ source, target, postHandle }, i) => {
-        process.exec("./node_modules/.bin/dts-bundle-generator --no-check --project tsconfig.json -o " + target + " " + source, (error, stdout, stderr) => {
+        // exec("./node_modules/.bin/dts-bundle-generator -o " + target + " " + source, (error, stdout, stderr) => {
+        exec("dts-bundle-generator -o " + target + " " + source, (error, stdout, stderr) => {
             if (!error) {
                 fs.writeFileSync(
                     target,
@@ -235,7 +243,8 @@ gulp.task("publish_local_minor_env", gulp.series(
     "update_platform_code",
     "publish_extension_contribute_protocol",
     "upgrade_backend",
-    "commit", function (done) {
+    "commit",
+    function (done) {
         done()
     }));
 

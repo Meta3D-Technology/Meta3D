@@ -216,10 +216,10 @@ TODO pass test
 ** DONE clip bundedContent
 
 
-** TODO editor assemble: auto upgrade can upgrade action's, input's version
+# ** TODO editor assemble: auto upgrade can upgrade action's, input's version
 
 
-** TODO update action->backendAPI
+** DONE update action->backendAPI
 
 
 

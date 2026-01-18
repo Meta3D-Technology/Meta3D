@@ -1,5 +1,6 @@
 var gulp = require("gulp")
 var fs = require("fs")
+const { exec } = require('child_process');
 
 let _changeToEnv = (env) => {
     let mainFilePath = "./src/external_layer/ui/app/utils/EnvUtils.res"
