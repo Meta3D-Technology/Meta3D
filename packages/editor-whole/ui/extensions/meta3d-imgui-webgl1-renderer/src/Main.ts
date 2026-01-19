@@ -457,6 +457,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }, selectedValue)
             }, selectedIndex), isRemove]
         },
+        text: (text) => {
+            ImGui.Text(text)
+        },
         getItemRectMax: () => ImGui.GetItemRectMax(),
         getItemRectSize: () => ImGui.GetItemRectSize(),
         getWindowPos: () => ImGui.GetWindowPos(),

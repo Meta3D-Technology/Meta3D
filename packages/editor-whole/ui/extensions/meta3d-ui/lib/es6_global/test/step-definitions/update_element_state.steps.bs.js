@@ -1,13 +1,13 @@
 
 
-import * as Curry from "../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as Sinon from "sinon";
-import * as Caml_array from "../../../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
-import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_array from "./../../../../../../../../../node_modules/rescript/lib/es6/caml_array.js";
+import * as Caml_option from "./../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as JestCucumber from "jest-cucumber";
 import * as MainTool$Meta3dUi from "../tool/MainTool.bs.js";
-import * as NumberTool$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/test/bdd/NumberTool.bs.js";
-import * as Operators$Meta3dBsJestCucumber from "../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
+import * as NumberTool$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/test/bdd/NumberTool.bs.js";
+import * as Operators$Meta3dBsJestCucumber from "./../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
 
 var feature = JestCucumber.loadFeature("./test/features/update_element_state.feature");
 

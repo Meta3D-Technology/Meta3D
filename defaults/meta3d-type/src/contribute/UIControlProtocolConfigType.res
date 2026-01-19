@@ -23,6 +23,7 @@ type supportedEventName = [
   | #codeedit_submit
   | #list_select
   | #list_remove
+  | #value_change
 ]
 
 type actionName = Js.Nullable.t<string>

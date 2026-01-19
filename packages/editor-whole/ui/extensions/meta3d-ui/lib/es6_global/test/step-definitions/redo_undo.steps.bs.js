@@ -1,15 +1,15 @@
 
 
-import * as Curry from "../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Sinon from "../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
+import * as Curry from "./../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Sinon from "./../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Sinon$1 from "sinon";
-import * as Caml_option from "../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_option from "./../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
 import * as JestCucumber from "jest-cucumber";
 import * as MainTool$Meta3dUi from "../tool/MainTool.bs.js";
-import * as ArraySt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as Operators$Meta3dBsJestCucumber from "../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as ArraySt$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/ArraySt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as Operators$Meta3dBsJestCucumber from "./../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 var feature = JestCucumber.loadFeature("./test/features/redo_undo.feature");
 

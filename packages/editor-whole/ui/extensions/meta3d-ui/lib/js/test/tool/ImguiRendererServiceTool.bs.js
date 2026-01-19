@@ -3,7 +3,7 @@
 var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 
-function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat1Opt, inputFloat3Opt, checkboxOpt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, popupOpt, imagePopupOpt, dummyOpt, listOpt, getItemRectMaxOpt, getItemRectSizeOpt, getWindowPosOpt, getWindowSizeOpt, param) {
+function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afterExecOpt, setStyleOpt, beginWindowOpt, endWindowOpt, beginChildOpt, endChildOpt, setNextWindowRectOpt, addFBOTextureOpt, getWindowBarHeightOpt, getContextOpt, buttonOpt, setCursorPosOpt, loadImageOpt, assetOpt, handleDragDropTargetOpt, menuOpt, treeOpt, inspectorOpt, switchButtonOpt, imageButtonOpt, inputTextOpt, inputFloat1Opt, inputFloat3Opt, checkboxOpt, collapsingOpt, imageOpt, openModalOpt, closeCurrentModalOpt, beginModalOpt, endModalOpt, popupOpt, imagePopupOpt, dummyOpt, listOpt, textOpt, getItemRectMaxOpt, getItemRectSizeOpt, getWindowPosOpt, getWindowSizeOpt, param) {
   var init = initOpt !== undefined ? initOpt : Sinon.createEmptyStub(sandbox.contents);
   var clear = clearOpt !== undefined ? clearOpt : Sinon.createEmptyStub(sandbox.contents);
   var render = renderOpt !== undefined ? renderOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -42,6 +42,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
   var imagePopup = imagePopupOpt !== undefined ? imagePopupOpt : Sinon.createEmptyStub(sandbox.contents);
   var dummy = dummyOpt !== undefined ? dummyOpt : Sinon.createEmptyStub(sandbox.contents);
   var list = listOpt !== undefined ? listOpt : Sinon.createEmptyStub(sandbox.contents);
+  var text = textOpt !== undefined ? textOpt : Sinon.createEmptyStub(sandbox.contents);
   var getItemRectMax = getItemRectMaxOpt !== undefined ? getItemRectMaxOpt : Sinon.createEmptyStub(sandbox.contents);
   var getItemRectSize = getItemRectSizeOpt !== undefined ? getItemRectSizeOpt : Sinon.createEmptyStub(sandbox.contents);
   var getWindowPos = getWindowPosOpt !== undefined ? getWindowPosOpt : Sinon.createEmptyStub(sandbox.contents);
@@ -84,6 +85,7 @@ function buildService(sandbox, initOpt, clearOpt, renderOpt, beforeExecOpt, afte
           imagePopup: imagePopup,
           dummy: dummy,
           list: list,
+          text: text,
           getItemRectMax: getItemRectMax,
           getItemRectSize: getItemRectSize,
           getWindowPos: getWindowPos,

@@ -951,6 +951,18 @@ let list = (data, meta3dState, label, size, items, itemSize, isRemoveable, remov
   )
 }
 
+let text = (data, meta3dState, text) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.text(. text)
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
 let getItemRectMax = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,

@@ -1,11 +1,11 @@
 
 
-import * as Curry from "../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Curry from "./../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
 import * as JestCucumber from "jest-cucumber";
 import * as MainTool$Meta3dUi from "../tool/MainTool.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as Operators$Meta3dBsJestCucumber from "../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as Operators$Meta3dBsJestCucumber from "./../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 var feature = JestCucumber.loadFeature("./test/features/custom_control.feature");
 

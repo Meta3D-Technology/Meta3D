@@ -1,8 +1,8 @@
 
 
 import * as UIManager$Meta3dUi from "./UIManager.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 
 function getExtensionService(api) {
   var partial_arg = [
@@ -102,6 +102,10 @@ function getExtensionService(api) {
     "meta3d-imgui-renderer-protocol"
   ];
   var partial_arg$24 = [
+    api,
+    "meta3d-imgui-renderer-protocol"
+  ];
+  var partial_arg$25 = [
     api,
     "meta3d-imgui-renderer-protocol"
   ];
@@ -286,17 +290,20 @@ function getExtensionService(api) {
           list: (function (param, param$1, param$2, param$3, param$4, param$5, param$6) {
               return UIManager$Meta3dUi.list(partial_arg$20, param, param$1, param$2, param$3, param$4, param$5, param$6);
             }),
+          text: (function (param, param$1) {
+              return UIManager$Meta3dUi.text(partial_arg$21, param, param$1);
+            }),
           getItemRectMax: (function (param) {
-              return UIManager$Meta3dUi.getItemRectMax(partial_arg$21, param);
+              return UIManager$Meta3dUi.getItemRectMax(partial_arg$22, param);
             }),
           getItemRectSize: (function (param) {
-              return UIManager$Meta3dUi.getItemRectSize(partial_arg$22, param);
+              return UIManager$Meta3dUi.getItemRectSize(partial_arg$23, param);
             }),
           getWindowPos: (function (param) {
-              return UIManager$Meta3dUi.getWindowPos(partial_arg$23, param);
+              return UIManager$Meta3dUi.getWindowPos(partial_arg$24, param);
             }),
           getWindowSize: (function (param) {
-              return UIManager$Meta3dUi.getWindowSize(partial_arg$24, param);
+              return UIManager$Meta3dUi.getWindowSize(partial_arg$25, param);
             }),
           init: UIManager$Meta3dUi.init,
           clear: UIManager$Meta3dUi.clear,

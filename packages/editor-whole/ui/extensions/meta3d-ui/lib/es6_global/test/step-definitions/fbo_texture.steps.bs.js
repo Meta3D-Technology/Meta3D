@@ -1,13 +1,13 @@
 
 
-import * as Curry from "../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Sinon from "../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
+import * as Curry from "./../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Sinon from "./../../../../../../../../../node_modules/meta3d-bs-sinon/lib/es6_global/src/sinon.bs.js";
 import * as Sinon$1 from "sinon";
 import * as JestCucumber from "jest-cucumber";
 import * as MainTool$Meta3dUi from "../tool/MainTool.bs.js";
 import * as SinonTool$Meta3dUi from "../tool/SinonTool.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
-import * as Operators$Meta3dBsJestCucumber from "../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as Operators$Meta3dBsJestCucumber from "./../../../../../../../../../node_modules/meta3d-bs-jest-cucumber/lib/es6_global/src/Operators.bs.js";
 import * as ImguiRendererServiceTool$Meta3dUi from "../tool/ImguiRendererServiceTool.bs.js";
 
 var feature = JestCucumber.loadFeature("./test/features/fbo_texture.feature");
@@ -63,7 +63,7 @@ JestCucumber.defineFeature(feature, (function (test) {
                       }));
                 Curry._2(and, "prepare imgui renderer service", (function (param) {
                         addFBOTextureStub.contents = Sinon.createEmptyStub(sandbox.contents);
-                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, addFBOTextureStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+                        imguiRendererService.contents = ImguiRendererServiceTool$Meta3dUi.buildService(sandbox, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, addFBOTextureStub.contents, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
                       }));
                 Curry._2(and, "prepare api", (function (param) {
                         var __x = Sinon.createEmptyStub(sandbox.contents);

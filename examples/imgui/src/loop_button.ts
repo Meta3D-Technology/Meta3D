@@ -783,56 +783,77 @@ import { addTexture } from "./init_button"
 
 
 
-let value2
+// let value2
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time)
+//     ImGui.NewFrame()
+
+//     let items = [
+//         "l1",
+//         "l1",
+//         "l1",
+//         "l1",
+//         // "l2",
+//         // "l3",
+//     ]
+
+//     if (ImGui.ListBoxHeader("listbox 1", new ImGui.ImVec2(300, 100))) {
+//         for (let n = 0; n < ImGui.IM_ARRAYSIZE(items); n++) {
+//             // const is_selected = (item_current_idx.value === n);
+//             // if (ImGui.Selectable(items[n], is_selected))
+//             //     item_current_idx.value = n;
+
+//             // // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+//             // if (is_selected)
+//             //     ImGui.SetItemDefaultFocus();
+
+
+//             // ImGui.ListBox(items[n], (_ = value2) => value2 = _, items, 4)
+//             ImGui.Selectable(items[n], false, ImGui.ImGuiSelectableFlags.None, new ImGui.ImVec2(32, 32))
+//             ImGui.SameLine()
+//             ImGui.PushID("aaa" + n);
+//             if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
+//                 console.log("aaa")
+//             }
+//             ImGui.PopID()
+//             // ImGui.Button("Select..")
+//         }
+//         // ImGui.EndListBox();
+
+//         ImGui.ListBoxFooter()
+//     }
+
+//     // ImGui.PushID(0);
+//     // if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
+//     //     console.log("aaa")
+//     // }
+//     // ImGui.PopID();
+//     // ImGui.PushID(1);
+//     // if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
+//     //     console.log("bbb")
+//     // }
+//     // ImGui.PopID();
+
+
+//     ImGui.EndFrame()
+//     ImGui.Render()
+
+
+//     // ImGui.StyleColorsDark()
+//     ImGui.StyleColorsClassic()
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1))
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1))
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
+// }
+
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time)
     ImGui.NewFrame()
 
-    let items = [
-        "l1",
-        "l1",
-        "l1",
-        "l1",
-        // "l2",
-        // "l3",
-    ]
 
-    if (ImGui.ListBoxHeader("listbox 1", new ImGui.ImVec2(300, 100))) {
-        for (let n = 0; n < ImGui.IM_ARRAYSIZE(items); n++) {
-            // const is_selected = (item_current_idx.value === n);
-            // if (ImGui.Selectable(items[n], is_selected))
-            //     item_current_idx.value = n;
-
-            // // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-            // if (is_selected)
-            //     ImGui.SetItemDefaultFocus();
-
-
-            // ImGui.ListBox(items[n], (_ = value2) => value2 = _, items, 4)
-            ImGui.Selectable(items[n], false, ImGui.ImGuiSelectableFlags.None, new ImGui.ImVec2(32, 32))
-            ImGui.SameLine()
-            ImGui.PushID("aaa" + n);
-            if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
-                console.log("aaa")
-            }
-            ImGui.PopID()
-            // ImGui.Button("Select..")
-        }
-        // ImGui.EndListBox();
-
-        ImGui.ListBoxFooter()
-    }
-
-    // ImGui.PushID(0);
-    // if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
-    //     console.log("aaa")
-    // }
-    // ImGui.PopID();
-    // ImGui.PushID(1);
-    // if (ImGui.ImageButton(addTexture._texture, new ImGui.ImVec2(32, 32))) {
-    //     console.log("bbb")
-    // }
-    // ImGui.PopID();
+    ImGui.Text("text,你好")
+    ImGui.Text("text,你好")
 
 
     ImGui.EndFrame()

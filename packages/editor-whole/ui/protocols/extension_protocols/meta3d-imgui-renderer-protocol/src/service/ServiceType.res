@@ -186,6 +186,7 @@ type service = {
     bool,
     Js.Nullable.t< imguiImplTexture>,
   ) => (Js.Nullable.t<(int, string)>, Js.Nullable.t<bool>),
+  text: (. string) => unit,
   getItemRectMax: unit => vec2,
   getItemRectSize: unit => vec2,
   getWindowPos: unit => vec2,

@@ -227,11 +227,194 @@ TODO pass test
 
 ** TODO 只调用默认的职业特性
 
+Add Item:
+  key: career feature name
+  value: value
+
+
+
+  # show Modal->List<name: description(value:0)>
+  show Modal->List<description(value:0)>
+
+  InputNumber*n + Text(description(value:x))
+    read generateRandomValueFunc to decide n
+
+
+
+
+
+  TODO new ui control: dynamic feature
+  # TODO build dynamic ui control:
+    # input: selected feature names + getDescriptionFuncs + generateRandomValueFuncs
+    input: selected feature names + getDescriptionFuncs + inputNumber's count
+
+    window(title: feature name)
+      Text(description(value:x))
+      InputNumber*n
+
+
+    need return:
+      selected feature names
+      values
+
+    Event:
+      trigger action with returned data
+
+
+  TODO new ui: text
+
+
+
+  new action: 
+    set fake career feature data in Action->init
+          change getDescriptionFunc: (state, value)  to getDescriptionFunc: (language, value)
+
+    # handler: mark is show
+    handler: set can selected ones
+
+
+  new action: update value for change
+
+
+  finish new input
+
+
+  TODO publish ui controls
+
+  TODO publish meta3d-imgui-webgl1-renderer
+
+
+
+  TODO publish inputs
+
+  TODO publish actions
+
+
+
+  TODO update ui package
+
+  TODO import inputs, actions
+
+  TODO fix:
+    actions: no updatevalue action
+    select event: no addcareer event
+      solution:
+        import { actionName as addCareerFeatureActionName, state as addCareerFeatureState } from "meta3d-action-mod-career-add-careerfeature-protocol" should after: import { actionName, state, uiData } from "meta3d-action-mod-career-updatevalue-protocol"
+
+
+
+  TODO update editor ui
+
+  TODO pass run test
+    # values should in same line
+
+    NaN
+
+    has 2 value
+
+
+  # TODO new ui control:
+  #   Text(get text by input)
+
+
+  # TODO dynamic window add: Text(description(value:x))
+
+  TODO update publish to game action
+
+  TODO publish all except protocols:
+
+
+
+TODO pass run test: publish to game
+
+
+
+TODO add show features modal
+
+  new input: get can selected career feature data for show Modal
+
+  new action: after select, store selected career feature data
+
+
+
+
+
+
+
+
+Selector: characterType
+Giantess
+LittleMan
+# GiantessOrLittleMan
+
+
+
+upload icon
+
+
+
+Menu
+  Publish button
+    isPublic
+
+    mod icon
+
+    readme
+
+
+    publish button
+    cancel button
+
+
+
+
+
+
+
+
+
+
+TODO add remove feature button
+
+
+
+
+TODO update:
+new ui control->icon
+
+
+TODO refactor:
+extract utils for duplicate code
+
+
+TODO api add array
+
+
+
+# TODO show feature name + description(by value)
+
+
+
+
+** TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+
+
 ** TODO 调用发布的所有职业特性
 
-** TODO 职业特性：设定值的类型、范围
+# ** TODO 职业特性：设定值的类型、范围
 
 
+
+** TODO complete full career feature data
+
+use Trae to generate
+
+
+
+
+
+** TODO refactor: remove mod_files
 
 
 ** TODO deploy editor to online

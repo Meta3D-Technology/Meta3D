@@ -254,6 +254,7 @@ type service = {
     bool,
    Js.Nullable.t< Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture>,
   ) => (Meta3dType.Index.state, (Js.Nullable.t<(int, string)>, Js.Nullable.t<bool>)),
+  text: (Meta3dType.Index.state,string) => Meta3dType.Index.state,
   getItemRectMax: Meta3dType.Index.state => vec2,
   getItemRectSize: Meta3dType.Index.state => vec2,
   getWindowPos: Meta3dType.Index.state => vec2,

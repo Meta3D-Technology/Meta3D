@@ -17,14 +17,14 @@
 			"ESNext",
 		],
 		"types": [],
-		"strict": true
+		// "strict": true
 	},
-	   "exclude": [
-        "node_modules",
-        "dist",
-        "build"
-      ],
-"include": [
+	"exclude": [
+		"node_modules",
+		"dist",
+		"build"
+	],
+	"include": [
 		"./src"
 	]
 }
