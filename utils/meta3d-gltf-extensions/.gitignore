@@ -1,5 +1,13 @@
 .DS_Store
 .merlin
+.log
+.ninja_log
+.cmi
+.ast
+.cmt
+.bsdeps
+.compiler.log
+
 .idea/
 .vscode/
 jest_0/

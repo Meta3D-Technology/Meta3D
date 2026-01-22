@@ -1,0 +1,49 @@
+rescript = 1
+rule cp
+  command = cmd.exe /C copy /Y $i $out >NUL
+rule touch
+ command = cmd.exe /C type nul >>$out & copy $out+,, >NUL
+o SparseMapType-Meta3dCommonlibType.cmi : cp ..\bs\src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmi
+o SparseMapType-Meta3dCommonlibType.cmj : cp ..\bs\src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmj
+o SparseMapType-Meta3dCommonlibType.cmt : cp ..\bs\src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmt
+o SparseMapType.res : cp ..\..\src\structure\sparse_map\SparseMapType.res
+o MutableSparseMapType-Meta3dCommonlibType.cmi : cp ..\bs\src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmi
+o MutableSparseMapType-Meta3dCommonlibType.cmj : cp ..\bs\src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmj
+o MutableSparseMapType-Meta3dCommonlibType.cmt : cp ..\bs\src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmt
+o MutableSparseMapType.res : cp ..\..\src\structure\sparse_map\MutableSparseMapType.res
+o ImmutableSparseMapType-Meta3dCommonlibType.cmi : cp ..\bs\src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmi
+o ImmutableSparseMapType-Meta3dCommonlibType.cmj : cp ..\bs\src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmj
+o ImmutableSparseMapType-Meta3dCommonlibType.cmt : cp ..\bs\src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmt
+o ImmutableSparseMapType.res : cp ..\..\src\structure\sparse_map\ImmutableSparseMapType.res
+o HashMapType-Meta3dCommonlibType.cmi : cp ..\bs\src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmi
+o HashMapType-Meta3dCommonlibType.cmj : cp ..\bs\src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmj
+o HashMapType-Meta3dCommonlibType.cmt : cp ..\bs\src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmt
+o HashMapType.res : cp ..\..\src\structure\hash_map\HashMapType.res
+o MutableHashMapType-Meta3dCommonlibType.cmi : cp ..\bs\src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmi
+o MutableHashMapType-Meta3dCommonlibType.cmj : cp ..\bs\src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmj
+o MutableHashMapType-Meta3dCommonlibType.cmt : cp ..\bs\src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmt
+o MutableHashMapType.res : cp ..\..\src\structure\hash_map\MutableHashMapType.res
+o ImmutableHashMapType-Meta3dCommonlibType.cmi : cp ..\bs\src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmi
+o ImmutableHashMapType-Meta3dCommonlibType.cmj : cp ..\bs\src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmj
+o ImmutableHashMapType-Meta3dCommonlibType.cmt : cp ..\bs\src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmt
+o ImmutableHashMapType.res : cp ..\..\src\structure\hash_map\ImmutableHashMapType.res
+o VectorType-Meta3dCommonlibType.cmi : cp ..\bs\src\component\VectorType-Meta3dCommonlibType.cmi
+o VectorType-Meta3dCommonlibType.cmj : cp ..\bs\src\component\VectorType-Meta3dCommonlibType.cmj
+o VectorType-Meta3dCommonlibType.cmt : cp ..\bs\src\component\VectorType-Meta3dCommonlibType.cmt
+o VectorType.res : cp ..\..\src\component\VectorType.res
+o Matrix4Type-Meta3dCommonlibType.cmi : cp ..\bs\src\component\Matrix4Type-Meta3dCommonlibType.cmi
+o Matrix4Type-Meta3dCommonlibType.cmj : cp ..\bs\src\component\Matrix4Type-Meta3dCommonlibType.cmj
+o Matrix4Type-Meta3dCommonlibType.cmt : cp ..\bs\src\component\Matrix4Type-Meta3dCommonlibType.cmt
+o Matrix4Type.res : cp ..\..\src\component\Matrix4Type.res
+o ComponentType-Meta3dCommonlibType.cmi : cp ..\bs\src\component\ComponentType-Meta3dCommonlibType.cmi
+o ComponentType-Meta3dCommonlibType.cmj : cp ..\bs\src\component\ComponentType-Meta3dCommonlibType.cmj
+o ComponentType-Meta3dCommonlibType.cmt : cp ..\bs\src\component\ComponentType-Meta3dCommonlibType.cmt
+o ComponentType.res : cp ..\..\src\component\ComponentType.res
+o SharedArrayBufferType-Meta3dCommonlibType.cmi : cp ..\bs\src\component\SharedArrayBufferType-Meta3dCommonlibType.cmi
+o SharedArrayBufferType-Meta3dCommonlibType.cmj : cp ..\bs\src\component\SharedArrayBufferType-Meta3dCommonlibType.cmj
+o SharedArrayBufferType-Meta3dCommonlibType.cmt : cp ..\bs\src\component\SharedArrayBufferType-Meta3dCommonlibType.cmt
+o SharedArrayBufferType.res : cp ..\..\src\component\SharedArrayBufferType.res
+o Meta3dCommonlibType.cmi : cp ..\bs\Meta3dCommonlibType.cmi
+o Meta3dCommonlibType.cmj : cp ..\bs\Meta3dCommonlibType.cmj
+o Meta3dCommonlibType.cmt : cp ..\bs\Meta3dCommonlibType.cmt
+build install.stamp : touch SparseMapType-Meta3dCommonlibType.cmi SparseMapType-Meta3dCommonlibType.cmj MutableSparseMapType-Meta3dCommonlibType.cmi MutableSparseMapType-Meta3dCommonlibType.cmj ImmutableSparseMapType-Meta3dCommonlibType.cmi ImmutableSparseMapType-Meta3dCommonlibType.cmj HashMapType-Meta3dCommonlibType.cmi HashMapType-Meta3dCommonlibType.cmj MutableHashMapType-Meta3dCommonlibType.cmi MutableHashMapType-Meta3dCommonlibType.cmj ImmutableHashMapType-Meta3dCommonlibType.cmi ImmutableHashMapType-Meta3dCommonlibType.cmj VectorType-Meta3dCommonlibType.cmi VectorType-Meta3dCommonlibType.cmj Matrix4Type-Meta3dCommonlibType.cmi Matrix4Type-Meta3dCommonlibType.cmj ComponentType-Meta3dCommonlibType.cmi ComponentType-Meta3dCommonlibType.cmj SharedArrayBufferType-Meta3dCommonlibType.cmi SharedArrayBufferType-Meta3dCommonlibType.cmj Meta3dCommonlibType.cmi Meta3dCommonlibType.cmj

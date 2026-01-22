@@ -1,6 +1,14 @@
 .DS_Store
 yarn.lock
 .merlin
+.log
+.ninja_log
+.cmi
+.ast
+.cmt
+.bsdeps
+.compiler.log
+
 .idea/
 .vscode/
 lib/bs/

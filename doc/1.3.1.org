@@ -419,7 +419,7 @@ commit
 commit
 
 
-
+TODO remove input protocols
 
 
 TODO add selector ui control
@@ -516,17 +516,21 @@ use Trae to generate
 ** TODO refactor: remove mod_files
 
 
-** TODO
-TODO editor assemble: auto upgrade can upgrade action's, input's version
+** TODO editor assemble: auto upgrade can upgrade action's, input's version
 
 
-TODO editor: enter contribute market, all contribute(except ui control) not select!?
+# TODO editor: enter contribute market, all contribute(except ui control) not select!?
 
 
 ** TODO fix: edit editor: shouldn't import all ui controls
 
 
 ** TODO Inputs, Actions: sort by first char
+
+
+** TODO Market: sort by publish time
+
+** TODO Market: add remove protocol, remove detail button
 
 
 ** TODO deploy editor to online
