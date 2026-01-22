@@ -332,11 +332,6 @@ Add Item:
 
 
 
-TODO editor assemble: auto upgrade can upgrade action's, input's version
-
-
-TODO editor: enter contribute market, all contribute(except ui control) not select!?
-
 
 
 
@@ -348,8 +343,48 @@ TODO add show features modal
   TODO add one more default feature
 
   new input: get can selected career feature data for show Modal
+    # name + description
+    name
 
   new action: after select, store selected career feature data
+
+
+  close show modal
+    new action
+
+
+  TODO change allSelectedCareerFeatureData, ... to List
+  TODO remove ArrayUtils
+
+
+  TODO publish all
+
+  TODO update editor
+
+  TODO run test
+    no close button
+
+    can't found
+
+
+    new feature's height not right
+
+    dynamic height
+
+    # window should always open
+
+
+    reduce feature->second input not work
+
+    # TODO inputFloatX: remove text
+
+
+  TODO need publish
+    action select
+    action update
+    ui control
+
+
 
 
 
@@ -364,17 +399,24 @@ LittleMan
 
 
 
-upload icon
+upload career icon
+
+upload mod icon
 
 
 
 Menu
   Publish button
+    # mod icon
+    displayName(cn)
+
+    displayName(en)
+
+    readme(cn)
+
+    readme(en)
+
     isPublic
-
-    mod icon
-
-    readme
 
 
     publish button
@@ -426,6 +468,13 @@ use Trae to generate
 
 
 ** TODO refactor: remove mod_files
+
+
+** TODO
+TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+
+TODO editor: enter contribute market, all contribute(except ui control) not select!?
 
 
 ** TODO fix: edit editor: shouldn't import all ui controls

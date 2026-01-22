@@ -29,11 +29,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                     return {
                                         ...data,
                                         values: values.map((value, i) => {
-                                            if (list.has(i)) {
-                                                return api.nullable.getExn(list.get(i))
-                                            }
-
-                                            return value
+                                            return api.nullable.getWithDefault(
+                                                list.get(i),
+                                                value
+                                            )
                                         })
                                     }
                                 }

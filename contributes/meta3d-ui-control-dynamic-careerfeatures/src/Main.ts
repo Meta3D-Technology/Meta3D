@@ -1,7 +1,7 @@
 import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputFunc, specificData, outputData, uiControlName, state, map } from "meta3d-ui-control-dynamic-careerfeatures-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { data } from "meta3d-input-dynamic-careerfeatures-protocol"
+import { data } from "meta3d-input-mod-dynamic-careerfeatures-protocol"
 import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
@@ -32,18 +32,21 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             return inputPromise.then(features => {
                 let { beginWindow, endWindow, setNextWindowRect, text, inputFloat1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-                // let windowRect = {
-                //     ...rect,
-                //     height: 50
-                // }
                 let windowRect = rect
-                // console.log(windowRect)
-
+                let lastHeight = 0
                 return features.reduce<[meta3dState, [map, boolean]]>(([meta3dState, data], [
                     careerFeatureName,
                     description,
                     values
-                ]) => {
+                ], i) => {
+                    let newHeight = 40 + values.length * 40
+                    windowRect = {
+                        ...windowRect,
+                        height: newHeight,
+                        y: windowRect.y + lastHeight
+                    }
+                    lastHeight = newHeight
+
                     let [map, isValueUpdate] = data
 
                     meta3dState = setNextWindowRect(meta3dState, windowRect)
@@ -54,7 +57,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     let newValue
                     [meta3dState, map, isValueUpdate] = values.reduce(([meta3dState, map, isValueUpdate], value, i) => {
-                        [meta3dState, newValue] = inputFloat1(meta3dState, "", value, 0.01, 0.1, 100)
+                        [meta3dState, newValue] = inputFloat1(meta3dState, `${careerFeatureName}_${i}`, value, 0.01, 0.1, 100)
 
                         if (!api.nullable.isNullable(newValue)) {
                             map = map.set(careerFeatureName,

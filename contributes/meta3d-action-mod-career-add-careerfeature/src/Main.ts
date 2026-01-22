@@ -3,27 +3,12 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, characterType, state, uiData } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-add-careerfeature-protocol/src/EventType"
 import { careerFeatureName, getData } from "./CareerFeatureData"
-import { push, range } from "./ArrayUtils"
-
-//TODO duplicate
-let _findCareerFeature = (api: api, allDefaultCareerFeatures, name: careerFeatureName, characterType_: characterType) => {
-    return api.nullable.getExn(allDefaultCareerFeatures.find(d => {
-        return d.name == name &&
-            (
-                d.characterType == characterType.GiantessOrLittleMan ? true : (
-                    d.characterType == characterType_
-                )
-            )
-    }))
-}
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
-            let allDefaultCareerFeatures = getData()
-
-            // console.log("init")
+            let allDefaultCareerFeatures = api.immutable.createListOfData(getData())
 
             meta3dState = api.action.setActionState(meta3dState, actionName, {
                 ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
@@ -37,34 +22,33 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    // TODO restore for show modal
+                    meta3dState = api.action.setActionState(meta3dState, actionName, {
+                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                        isShowModal: true,
+                    })
+
+
+                    // const name = careerFeatureName.IncreaseFullHp
+                    // const characterType_ = characterType.LittleMan
+
+                    // let defaultValues = range(0,
+                    //     _findCareerFeature(api, allDefaultCareerFeatures, name, characterType_).valueCount - 1
+                    // ).map(_ => 0)
+
+
+                    // let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
+
                     // meta3dState = api.action.setActionState(meta3dState, actionName, {
                     //     ...state,
-                    //     isShowModal: true,
+                    //     allSelectedCareerFeatureData: push(
+                    //         state.allSelectedCareerFeatureData,
+                    //         {
+                    //             name: name,
+                    //             characterType: characterType_,
+                    //             values: defaultValues,
+                    //         }
+                    //     ),
                     // })
-
-
-                    const name = careerFeatureName.IncreaseFullHp
-                    const characterType_ = characterType.LittleMan
-
-                    let defaultValues = range(0,
-                        _findCareerFeature(api, allDefaultCareerFeatures, name, characterType_).valueCount - 1
-                    ).map(_ => 0)
-
-
-                    let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
-
-                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                        ...state,
-                        allSelectedCareerFeatureData: push(
-                            state.allSelectedCareerFeatureData,
-                            {
-                                name: name,
-                                characterType: characterType_,
-                                values: defaultValues,
-                            }
-                        ),
-                    })
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
@@ -85,8 +69,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: () => {
             return {
-                allDefaultCareerFeatures: [],
-                allSelectedCareerFeatureData: [],
+                allDefaultCareerFeatures: api.immutable.createList(),
+                allSelectedCareerFeatureData: api.immutable.createList(),
                 isShowModal: false,
             }
         }

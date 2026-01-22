@@ -6,6 +6,17 @@ import { eventName, inputData } from "meta3d-action-mod-career-publish-to-game-p
 // import { readAccount } from "meta3d-user-utils/src/Main"
 import { actionName as addCareerFeatureActionName, characterType, state as addCareerFeatureState } from "meta3d-action-mod-career-add-careerfeature-protocol"
 
+//TODO duplicate
+let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
+    if (characterType1 == characterType.GiantessOrLittleMan
+        || characterType2 == characterType.GiantessOrLittleMan
+    ) {
+        return true
+    }
+
+    return characterType1 == characterType2
+}
+
 // let _base64ToUint8Array = (base64String) => {
 //     // 移除 data URL 前缀
 //     const base64 = base64String.replace(/^data:image\/\w+;base64,/, '');
@@ -33,7 +44,7 @@ let _base64ToUint8Array = (base64String) => {
 
 let _buildFeatures = (features) => {
     return JSON.stringify(features.reduce((object, { name, values }) => {
-        object[name] = values.length == 1 ? values[0] : values
+        object[name] = values.count() == 1 ? values.first() : values.toArray()
 
         return object
     }, {}))
@@ -85,7 +96,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
                     const characterType_ = characterType.LittleMan
                     let features = api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName).allSelectedCareerFeatureData.filter(d => {
-                        return d.characterType == characterType_
+                        return _isCharacterTypeEqual(d.characterType, characterType_)
                     })
 
 

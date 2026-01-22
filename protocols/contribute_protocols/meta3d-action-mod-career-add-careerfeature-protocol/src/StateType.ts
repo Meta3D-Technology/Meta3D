@@ -1,3 +1,5 @@
+import type { List } from "immutable"
+
 export const actionName = "CareerModAddCareerFeature"
 
 export type uiData = null
@@ -24,7 +26,7 @@ type careerFeatureName = string
 
 type value = number
 
-// type getDescriptionFunc = (language: language, values: number | Array<number>) => string
+// type getDescriptionFunc = (language: language, name: careerFeatureName, values: number | Array<number>) => string
 type getDescriptionFunc = (language: language, name: careerFeatureName, values: number & Array<number>) => string
 
 export type careerFeature = {
@@ -36,13 +38,13 @@ export type careerFeature = {
 }
 
 export type state = {
-    allDefaultCareerFeatures: Array<careerFeature>,
+    allDefaultCareerFeatures: List<careerFeature>,
 
-    allSelectedCareerFeatureData: Array<
+    allSelectedCareerFeatureData: List<
         {
             name: careerFeatureName,
             characterType: characterType,
-            values: Array<value>,
+            values: List<value>,
         }>,
 
     isShowModal: boolean,
