@@ -324,17 +324,32 @@ Add Item:
   TODO publish all except protocols:
 
 
+  TODO pass run test: publish to game
 
-TODO pass run test: publish to game
+
+  TODO publish:
+  publish game
+
+
+
+TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+
+TODO editor: enter contribute market, all contribute(except ui control) not select!?
+
+
+
+
 
 
 
 TODO add show features modal
 
+  TODO add one more default feature
+
   new input: get can selected career feature data for show Modal
 
   new action: after select, store selected career feature data
-
 
 
 
@@ -396,10 +411,6 @@ TODO api add array
 
 
 
-** TODO editor assemble: auto upgrade can upgrade action's, input's version
-
-
-
 ** TODO 调用发布的所有职业特性
 
 # ** TODO 职业特性：设定值的类型、范围
@@ -417,10 +428,13 @@ use Trae to generate
 ** TODO refactor: remove mod_files
 
 
+** TODO fix: edit editor: shouldn't import all ui controls
+
+
+
 ** TODO deploy editor to online
 deploy meta3d to online
 
 visit EnterApp?
 
 
-** TODO fix: edit editor: shouldn't import all ui controls
