@@ -33,3 +33,6 @@ yarn.lock
 .ninja_log
 .cmi
 .ast
+.cmt
+.bsdeps
+.compiler.log

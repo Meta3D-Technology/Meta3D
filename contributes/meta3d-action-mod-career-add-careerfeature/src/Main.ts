@@ -27,29 +27,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         isShowModal: true,
                     })
 
-
-                    // const name = careerFeatureName.IncreaseFullHp
-                    // const characterType_ = characterType.LittleMan
-
-                    // let defaultValues = range(0,
-                    //     _findCareerFeature(api, allDefaultCareerFeatures, name, characterType_).valueCount - 1
-                    // ).map(_ => 0)
-
-
-                    // let state = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
-
-                    // meta3dState = api.action.setActionState(meta3dState, actionName, {
-                    //     ...state,
-                    //     allSelectedCareerFeatureData: push(
-                    //         state.allSelectedCareerFeatureData,
-                    //         {
-                    //             name: name,
-                    //             characterType: characterType_,
-                    //             values: defaultValues,
-                    //         }
-                    //     ),
-                    // })
-
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)

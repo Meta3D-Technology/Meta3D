@@ -2,6 +2,7 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { data } from "meta3d-input-mod-select-careerfeatures-names-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName as addCareerFeatureActionName, state as addCareerFeatureState, characterType, language } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { actionName as selectCharacterTypeActionName, state as selectCharacterTypeState } from "meta3d-action-mod-career-selectcharactertype-protocol"
 
 //TODO duplicate
 let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
@@ -18,7 +19,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
     return {
         inputName: "ModSelectCareerFeaturesNamesInput",
         func: (meta3dState) => {
-            const characterType_ = characterType.LittleMan
+            let characterType_ = api.action.getActionState<selectCharacterTypeState>(meta3dState, selectCharacterTypeActionName).characterType
             // const language_ = language.Chinese
 
             return Promise.resolve(

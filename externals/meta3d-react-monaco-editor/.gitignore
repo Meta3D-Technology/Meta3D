@@ -26,8 +26,11 @@ npm-debug
 yarn.lock
 
 
-
 .log
 .ninja_log
 .cmi
 .ast
+.cmt
+.bsdeps
+.compiler.log
+

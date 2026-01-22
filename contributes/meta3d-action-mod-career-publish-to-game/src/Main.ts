@@ -5,6 +5,7 @@ import { eventName, inputData } from "meta3d-action-mod-career-publish-to-game-p
 // import { nullable, strictNullable } from "meta3d-commonlib-ts/src/nullable"
 // import { readAccount } from "meta3d-user-utils/src/Main"
 import { actionName as addCareerFeatureActionName, characterType, state as addCareerFeatureState } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { actionName as selectCharacterTypeActionName, state as selectCharacterTypeState } from "meta3d-action-mod-career-selectcharactertype-protocol"
 
 //TODO duplicate
 let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
@@ -93,8 +94,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    const characterType_ = characterType.LittleMan
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                    let characterType_ = api.action.getActionState<selectCharacterTypeState>(meta3dState, selectCharacterTypeActionName).characterType
                     let features = api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName).allSelectedCareerFeatureData.filter(d => {
                         return _isCharacterTypeEqual(d.characterType, characterType_)
                     })

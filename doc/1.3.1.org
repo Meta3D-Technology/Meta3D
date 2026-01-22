@@ -397,6 +397,47 @@ Giantess
 LittleMan
 # GiantessOrLittleMan
 
+new input
+
+new action
+
+
+update characterType
+
+publish
+
+
+pass run test
+  if change characterType, should clear selected ones
+
+  # selected should affect valid can-select ones
+
+commit
+
+.gitignore: add lib files
+
+commit
+
+
+
+
+
+TODO add selector ui control
+
+TODO use it instead
+
+
+
+TODO need publish
+
+
+
+# TODO refactor:
+# input, ui control: add mod-career prefix
+
+
+
+
 
 
 upload career icon
@@ -408,6 +449,8 @@ upload mod icon
 Menu
   Publish button
     # mod icon
+    author
+
     displayName(cn)
 
     displayName(en)
@@ -432,6 +475,9 @@ Menu
 
 
 TODO add remove feature button
+
+
+TODO use color text for description to show positive/negative
 
 
 
@@ -479,6 +525,8 @@ TODO editor: enter contribute market, all contribute(except ui control) not sele
 
 ** TODO fix: edit editor: shouldn't import all ui controls
 
+
+** TODO Inputs, Actions: sort by first char
 
 
 ** TODO deploy editor to online

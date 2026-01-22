@@ -3,6 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-career-select-careerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-select-careerfeature-protocol/src/EventType"
 import { actionName as addCareerFeatureActionName, state as addCareerFeatureState, characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { actionName as selectCharacterTypeActionName, state as selectCharacterTypeState } from "meta3d-action-mod-career-selectcharactertype-protocol"
 
 
 //TODO duplicate
@@ -31,7 +32,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, careerFeatureName) => {
-                    const characterType_ = characterType.LittleMan
+                    let characterType_ = api.action.getActionState<selectCharacterTypeState>(meta3dState, selectCharacterTypeActionName).characterType
 
                     let state = api.nullable.getExn(api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName))
 
