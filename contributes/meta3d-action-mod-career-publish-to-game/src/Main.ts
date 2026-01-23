@@ -32,6 +32,10 @@ let _isCharacterTypeEqual = (characterType1: characterType, characterType2: char
 //     return encoder.encode(binaryString);
 // }
 let _base64ToUint8Array = (base64String) => {
+    if (base64String.length == 0) {
+        return Promise.resolve(new Uint8Array())
+    }
+
     // 获取 Base64 数据（移除前缀）
     const base64Data = base64String.split(',')[1] || base64String;
 
@@ -53,19 +57,19 @@ let _buildFeatures = (features) => {
     }, {}))
 }
 
-let _buildDistFileContent = (characterType, features) => {
+let _buildDistFileContent = (state, characterType, features) => {
     return `
     (() => { 
-    let _getTextData = () => {
-        return {
-            "Chinese": {
-                "Title": "测试2" 
-            },
-            "English": {
-                "Title": "Test2"
-            }
-        };
-    };
+    // let _getTextData = () => {
+    //     return {
+    //         "Chinese": {
+    //             "Title": "测试2" 
+    //         },
+    //         "English": {
+    //             "Title": "Test2"
+    //         }
+    //     };
+    // };
 
     window.Mod = {
         createBlockState: (api) => {
@@ -75,8 +79,9 @@ let _buildDistFileContent = (characterType, features) => {
             return {
                 getCareerData: (api, state) => {
                     return {
-                        title: api.getLanguageDataByData(state, _getTextData(), "Title"),
-                        iconId: "career_test1_icon",
+                        // title: api.getLanguageDataByData(state, _getTextData(), "Title"),
+                        title: "${state.displayName_cn}",
+                        iconId: "${_buildIconId(state)}",
                         needGem: 2000,
                         getCareerFeatureData: (state) => api.MutableRecordUtils.createFromObject(${_buildFeatures(features)}),
                     };
@@ -87,6 +92,15 @@ let _buildDistFileContent = (characterType, features) => {
     };
 })();
     `
+}
+
+let _buildUniqueName = (state: state) => {
+    // return `${state.author}_${state.displayName_cn}_${state.displayName_en}`
+    return `${state.author}_${state.displayName_cn}`
+}
+
+let _buildIconId = (state: state) => {
+    return `${_buildUniqueName(state)}_icon`
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -105,36 +119,44 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let assetIconBase64 = api.action.getActionState<loadModPreviewState>(meta3dState, loadModPreviewActionName).preview
                     let careerIconBase64 = api.action.getActionState<loadCareerPreviewState>(meta3dState, loadCareerPreviewActionName).preview
 
+                    let state = api.action.getActionState<state>(meta3dState, actionName)
+
                     console.log("publish mod")
 
                     return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
                         return api.backend.publishMod(
                             // "local",
                             ` {
-    "name": "career-test2",
-    "version": "0.0.7",
+    "name": "${_buildUniqueName(state)}",
+    "version": "${state.version}",
     "mod": {
         "protocolName": "career-protocol",
-        "author": "Official",
-        "displayName_cn": "职业（测试2-1）",
-        "displayName_en": "Career(Test 2-1)",
-        "repoLink": "",
-        "isPublic": false,
+        "author": "${state.author}",
+        "displayName_cn": "${state.displayName_cn}",
+        "displayName_en": "${state.displayName_en}",
+        "repoLink": "${state.repoLink}",
+        "isPublic": ${state.isPublic},
         "dependentMods": [
         ]
     }
                         }`,
-                            `readme`,
-                            _buildDistFileContent(characterType_, features),
+                            `${state.readme}`,
+                            _buildDistFileContent(state, characterType_, features),
                             [
                                 [
-                                    "./career_test1_icon.jpg",
+                                    `./${_buildIconId(state)}.png`,
                                     uint8Array
                                 ],
                             ],
                             careerIconBase64
                         ).then(_ => {
                             console.log("publish success")
+
+                            // meta3dState = api.action.setActionState<state>(meta3dState, actionName, {
+                            //     ...state,
+                            //     version: state.version + 1
+                            // })
+
                             return meta3dState
                         })
                     })
@@ -154,6 +176,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 }))
             })
         },
-        createState: () => null
+        createState: () => {
+            return {
+                isShowModal: false,
+                displayName_cn: "",
+                displayName_en: "",
+                repoLink: "",
+                isPublic: false,
+                author: "",
+                readme: "",
+                version: "0.0.1",
+            }
+        }
     }
 }

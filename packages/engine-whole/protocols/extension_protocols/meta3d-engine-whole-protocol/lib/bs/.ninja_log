@@ -1,8 +1,8 @@
 # ninja log v6
-1	11	14299210317009802	src/service/ServiceType.ast	404cbeb6aba53757
-2	13	14299210317009802	Meta3dEngineWholeProtocol.cmi	a033777366182f97
-11	18	14299210317089753	src/service/ServiceType.d	6cbe2ee94d403c1c
-18	36	14299210317269651	src/service/ServiceType-Meta3dEngineWholeProtocol.cmj	5d12a61c52133a05
-18	36	14299210317269651	src/service/ServiceType-Meta3dEngineWholeProtocol.cmi	5d12a61c52133a05
-18	36	14299210317269651	../es6_global/src/service/ServiceType.bs.js	5d12a61c52133a05
-18	36	14299210317269651	../js/src/service/ServiceType.bs.js	5d12a61c52133a05
+0	12	14299992684537846	src/service/ServiceType.ast	404cbeb6aba53757
+12	17	14299992684597900	src/service/ServiceType.d	6cbe2ee94d403c1c
+3	60	14299992684537846	Meta3dEngineWholeProtocol.cmi	a033777366182f97
+60	137	14299992685783527	src/service/ServiceType-Meta3dEngineWholeProtocol.cmj	c01600da60e60786
+60	137	14299992685783527	src/service/ServiceType-Meta3dEngineWholeProtocol.cmi	c01600da60e60786
+60	137	14299992685783527	../es6_global/src/service/ServiceType.bs.js	c01600da60e60786
+60	137	14299992685783527	../js/src/service/ServiceType.bs.js	c01600da60e60786

@@ -99,9 +99,9 @@ let importApp = (
 
     _,
   )
-  ->Js.Promise.then_(() => {
-    UIControlUtils.selectAllUIControls(service, dispatch, release)
-  }, _)
+  // ->Js.Promise.then_(() => {
+  //   UIControlUtils.selectAllUIControls(service, dispatch, release)
+  // }, _)
   ->Js.Promise.then_(() => {
     onFinish()
 

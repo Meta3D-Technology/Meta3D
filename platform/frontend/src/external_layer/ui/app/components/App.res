@@ -416,7 +416,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
               : switch release.current {
                 | None => false
                 | Some(release) =>
-                  UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
+                  // UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
 
                   true
                 }

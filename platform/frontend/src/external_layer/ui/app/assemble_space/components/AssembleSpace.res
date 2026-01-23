@@ -304,7 +304,8 @@ now just replace add duplicate one, but need handle more
         {protocol, displayName, children}: BackendCloudbaseType.uiControl,
       ) => {
         switch selectedUIControls->Meta3dCommonlib.ArraySt.find(((selectedUIControl, _)) => {
-          selectedUIControl.data.contributePackageData.protocol.name == protocol.name &&
+          selectedUIControl.data.contributePackageData.protocol.name == protocol.name 
+          &&
             Meta3d.Semver.gte(
               Meta3d.Semver.minVersion(
                 selectedUIControl.data.contributePackageData.protocol.version,

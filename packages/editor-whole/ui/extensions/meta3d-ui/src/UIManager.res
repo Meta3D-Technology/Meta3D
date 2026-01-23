@@ -963,6 +963,17 @@ let text = (data, meta3dState, text) => {
   )
 }
 
+let inputTextarea = (data, meta3dState, label, ( width, height ), maxLength, text) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.inputTextarea(. label, ( width, height ), maxLength, text))
+    },
+    data,
+  )
+}
+
+
 let getItemRectMax = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,

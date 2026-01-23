@@ -1,6 +1,28 @@
 import imgui, * as ImGui from "./imgui"
 import * as ImGui_Impl from "./imgui_impl_button"
 import { addTexture } from "./init_button"
+import { getValueFunc, rect, ref, setValueFunc } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
+
+export let buildRef = <T>(value: T): ref<T> => {
+    return {
+        content: value
+    }
+}
+
+let _buildBindFunc = <T>(getValueFunc: getValueFunc<T>, setValueFunc: setValueFunc<T>): ImGui.Bind.ImAccess<T> => {
+    return (_ = getValueFunc()) => {
+        setValueFunc(_)
+
+        return _
+    }
+}
+
+export let buildBind = <T>(ref: ref<T>): ImGui.Bind.ImAccess<T> => {
+    return _buildBindFunc(() => ref.content, (_) => {
+        ref.content = _
+    })
+}
+
 // import * as monaco from "monaco-editor/esm/vs/editor/editor.api.js"
 
 // let first = true
@@ -847,13 +869,44 @@ import { addTexture } from "./init_button"
 //     ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
 // }
 
+let text = "" as any
+let valueRef = buildRef(text)
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time)
     ImGui.NewFrame()
 
+    // let text = new ImGui.StringBuffer(1024 * 16,
+    // let text = new ImGui.StringBuffer(1024 * 12 * 16,
+    //     "/*\n" +
+    //     " The Pentium F00F bug, shorthand for F0 0F C7 C8,\n" +
+    //     " the hexadecimal encoding of one offending instruction,\n" +
+    //     " more formally, the invalid operand with locked CMPXCHG8B\n" +
+    //     " instruction bug, is a design flaw in the majority of\n" +
+    //     " Intel Pentium, Pentium MMX, and Pentium OverDrive\n" +
+    //     " processors (all in the P5 microarchitecture).\n" +
+    //     "*/\n\n" +
+    //     "label:\n" +
+    //     "\tlock cmpxchg8b eax\n")
 
-    ImGui.Text("text,你好")
-    ImGui.Text("text,你好")
+    const FLT_MIN = 1.175494e-38;
+
+    // let isInputing = ImGui.InputText("hhh", buildBind(valueRef), 30)
+    // let isInputing = ImGui.InputTextMultiline("hhh", buildBind(valueRef), ImGui.ARRAYSIZE(text), new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput)
+    let isInputing = ImGui.InputTextMultiline("hhh", buildBind(valueRef), 100, new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput)
+
+    // console.log(
+    //     // ImGui.InputTextMultiline("hhh", buildBind(valueRef), ImGui.ARRAYSIZE(text), new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput),
+    //     isInputing,
+    //     valueRef
+    // );
+
+    console.log(
+        isInputing
+    )
+
+    if (isInputing) {
+        console.log(valueRef)
+    }
 
 
     ImGui.EndFrame()

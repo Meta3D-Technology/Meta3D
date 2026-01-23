@@ -477,28 +477,113 @@ TODO run test
 
 # Menu
 Publish Modal:
+  input
+
   Publish button
     # mod icon
     author
+      input
+      action
 
     displayName(cn)
 
     displayName(en)
 
-    readme(cn)
+    # readme(cn)
 
-    readme(en)
+    # readme(en)
+    readme(contain cn, en)
+
+    repoLink
 
     isPublic
 
 
     publish button
+
     cancel button
+      action
+  
+
+  update publish action
+    Title
+    iconId
+    name
+    version
+
+    ...
+
+
+
+
+  publish all
+
+  add ui
+    # TODO fix: element shouldn't restore when back to market
+    TODO fix: publish editor: popup ui control not publish to newest version?
+
+    TODO fix: edit editor: shouldn't import all ui controls
+
+
+    TODO finish ui
+      # add code edit ui
+      add ispublic input
+
+      add text area ui
+        # add related input, action
+        TODO update ui package
+          # TODO fix: can't upgrade ui package after auto upgrade->publish
+
+        TODO update careermod  package
+
+        TODO update text area ui
+
+
+      add publish button
+      add cancel button
+
+
+
+
+
+
+
+  pass run test
+  version should input
+
+  名称:author1_editor test1_editor test1
+
+  icon id wrong?
+
+
+
+
+
+TODO modal can set width, height
+
+TODO description add max length
+
+TODO adjust version input's position
+
+
+
+TODO refactor:rename input-mod to input-mod-career
+
+
+
+
+add:
+  NeedGem:InputNumber
+
+
 
 
 add Menu
 
 
+
+TODO check value when publish to game
+  version should be zhengshu
 
 
 
@@ -509,9 +594,32 @@ TODO add remove feature button
 
 
 TODO use color text for description to show positive/negative
+  in dynamic
+
+
+  in list
 
 
 TODO select feature list: show name + description(colored)
+
+TODO feat: feature list: group by positive, sort by name
+
+
+
+TODO when publish, should show info
+TODO After publish success, should close modal
+
+
+
+TODO run test:
+no mod icon
+
+no career icon
+
+
+is public
+
+
 
 
 
@@ -524,11 +632,7 @@ TODO refactor:
 extract utils for duplicate code
 
 
-TODO api add array
-
-
-
-# TODO show feature name + description(by value)
+# TODO api add array
 
 
 
@@ -545,24 +649,41 @@ use Trae to generate
 
 
 
-
-
 ** TODO refactor: remove mod_files
 
+** TODO deploy editor to online
+deploy meta3d to online
 
-** TODO editor assemble: auto upgrade can upgrade action's, input's version
+visit EnterApp?
 
+
+
+
+
+
+
+
+
+
+* TODO update Meta3D->platform
+
+# ** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
+** TODO Element Inspector: add upgrade button to upgrade inserted ui control
+e.g. ui-control-popup add specific field
+
+
+** TODO editor assemble: for uneditable ones
+*** TODO treat like ui control
+
+*** TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+*** TODO can debug
 
 # TODO editor: enter contribute market, all contribute(except ui control) not select!?
 
 
-** TODO fix: edit editor: shouldn't import all ui controls
 
-
-
-** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
-e.g. ui-control-popup add specific field
-
+** TODO Element: add move up, move down button for inserted ui control
 
 
 ** TODO Inputs, Actions: sort by first char
@@ -573,12 +694,10 @@ e.g. ui-control-popup add specific field
 ** TODO Market: add remove protocol, remove detail button
 
 
-** TODO publish all to 1.4.10
+** TODO UserCenter: show my published inputs, actions
 
 
-** TODO deploy editor to online
-deploy meta3d to online
+** TODO update platform version to 1.4
+publish all to 1.4.10
 
-visit EnterApp?
-
-
+update VersionConfig.res

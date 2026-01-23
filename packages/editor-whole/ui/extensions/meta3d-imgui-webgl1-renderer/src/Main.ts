@@ -466,6 +466,23 @@ export let getExtensionService: getExtensionServiceMeta3D<
         text: (text) => {
             ImGui.Text(text)
         },
+        inputTextarea: (label, [width, height], maxLength, value) => {
+            // let buff = new ImGui.StringBuffer(1024 * 16 * Math.ceil(text.length / 1024), text)
+
+            // ImGui.InputTextMultiline(label, buff, ImGui.ARRAYSIZE(buff), new ImGui.Vec2(width, height), ImGui.InputTextFlags.AllowTabInput);
+
+            let newValue: nullable<string> = null
+            let valueRef = buildRef(value)
+
+            // ImGui.PushItemWidth(width)
+
+            if (ImGui.InputTextMultiline(label, buildBind(valueRef), maxLength, new ImGui.Vec2(width, height), ImGui.InputTextFlags.AllowTabInput)) {
+                newValue = valueRef.content
+            }
+
+            return newValue
+
+        },
         getItemRectMax: () => ImGui.GetItemRectMax(),
         getItemRectSize: () => ImGui.GetItemRectSize(),
         getWindowPos: () => ImGui.GetWindowPos(),
