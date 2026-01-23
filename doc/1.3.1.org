@@ -457,8 +457,21 @@ ui control popup
 
 
 upload career icon
+convert to uint8array
+
+# TODO set image size
+
 
 upload mod icon
+
+
+
+
+TODO run test
+
+
+
+
 
 
 
@@ -558,6 +571,9 @@ e.g. ui-control-popup add specific field
 ** TODO Market: sort by publish time
 
 ** TODO Market: add remove protocol, remove detail button
+
+
+** TODO publish all to 1.4.10
 
 
 ** TODO deploy editor to online
