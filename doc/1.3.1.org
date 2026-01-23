@@ -427,8 +427,24 @@ TODO add selector ui control
 TODO use it instead
 
 
+TODO run test
+  why no text field?
+    version should be 1.4.x
+
+  # old popup not update 
+    # ElementMR should update protocolConfigStr
+
+  not show text
+
+  specific shouldn't show selectedItem
+
 
 TODO need publish
+imgui
+ui
+(package)
+
+ui control popup
 
 
 
@@ -446,7 +462,8 @@ upload mod icon
 
 
 
-Menu
+# Menu
+Publish Modal:
   Publish button
     # mod icon
     author
@@ -466,6 +483,7 @@ Menu
     cancel button
 
 
+add Menu
 
 
 
@@ -478,6 +496,9 @@ TODO add remove feature button
 
 
 TODO use color text for description to show positive/negative
+
+
+TODO select feature list: show name + description(colored)
 
 
 
@@ -523,6 +544,12 @@ use Trae to generate
 
 
 ** TODO fix: edit editor: shouldn't import all ui controls
+
+
+
+** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
+e.g. ui-control-popup add specific field
+
 
 
 ** TODO Inputs, Actions: sort by first char

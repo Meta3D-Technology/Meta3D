@@ -903,11 +903,11 @@ let endModal = (data, meta3dState) => {
   )
 }
 
-let popup = (data, meta3dState, label, selectedValues, id) => {
+let popup = (data, meta3dState, label, selectedValues, id, text) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.popup(. label, selectedValues, id))
+      (imguiRendererState, imguiRendererService.popup(. label, selectedValues, id, text))
     },
     data,
   )

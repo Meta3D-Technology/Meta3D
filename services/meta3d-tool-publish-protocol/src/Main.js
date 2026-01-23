@@ -15,18 +15,30 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishExtensionProtocolConfig = exports.publishContributeProtocolConfig = exports.publishContributeProtocol = exports.publishExtensionProtocol = void 0;
+exports.publishExtensionProtocolConfig = exports.publishContributeProtocolConfig = void 0;
+exports.publishExtensionProtocol = publishExtensionProtocol;
+exports.publishContributeProtocol = publishContributeProtocol;
 const fs_1 = __importDefault(require("fs"));
 // import path from "path"
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
@@ -69,11 +81,9 @@ let _getFuncArr = (env, packageFilePath) => {
 function publishExtensionProtocol(env, packageFilePath, iconPath) {
     return (0, Publish_1.publish)(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "extension");
 }
-exports.publishExtensionProtocol = publishExtensionProtocol;
 function publishContributeProtocol(env, packageFilePath, iconPath) {
     return (0, Publish_1.publish)(_getFuncArr(env, packageFilePath), packageFilePath, iconPath, "contribute");
 }
-exports.publishContributeProtocol = publishContributeProtocol;
 let publishContributeProtocolConfig = (env, packageFilePath, distFilePath) => {
     return (0, Publish_1.publishConfig)(_getFuncArr(env, packageFilePath), packageFilePath, distFilePath, "contribute");
 };

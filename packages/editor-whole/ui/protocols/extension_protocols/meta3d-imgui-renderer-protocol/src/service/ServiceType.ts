@@ -222,7 +222,8 @@ export type service = {
   readonly popup: (
     label: label,
     selectedValues: Array<string>,
-    id: string
+    id: string,
+    text: nullable<string>,
   ) => nullable<number>;
   readonly imagePopup: (
     clickTexture: imguiImplTexture,

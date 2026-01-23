@@ -8,6 +8,7 @@ import { buildBind, buildRef, setNextWindowRect } from "./Utils"
 import { tree } from "./Tree"
 import { asset } from "./Asset"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { inspector } from "./Inspector"
 
 // let _generateUniqueId = () => {
@@ -382,11 +383,16 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endModal: () => {
             ImGui.EndPopup()
         },
-        popup: (label, selectedValues, id) => {
+        popup: (label, selectedValues, id, text) => {
             let result = null
 
             if (ImGui.Button(label)) {
                 ImGui.OpenPopup(id);
+            }
+
+            if (!isNullable(text)) {
+                ImGui.SameLine();
+                ImGui.TextUnformatted(getExn(text));
             }
 
             if (ImGui.BeginPopup(id)) {

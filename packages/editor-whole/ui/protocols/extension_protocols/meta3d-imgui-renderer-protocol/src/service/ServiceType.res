@@ -175,7 +175,7 @@ type service = {
   closeCurrentModal: unit => unit,
   beginModal: (. label) => bool,
   endModal: unit => unit,
-  popup: (. label, array<string>, string) => Js.Nullable.t<int>,
+  popup: (. label, array<string>, string, Js.Nullable.t<string>) => Js.Nullable.t<int>,
   imagePopup: (. imguiImplTexture, rect, array<string>, string) => Js.Nullable.t<int>,
   dummy: (. int, int) => unit,
   list: (

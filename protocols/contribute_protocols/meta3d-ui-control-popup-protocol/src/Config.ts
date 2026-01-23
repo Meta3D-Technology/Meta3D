@@ -23,6 +23,11 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         type_: "string",
         value: "弹出框id##" + _generateUniqueId()
     },
+    {
+        name: "isShowSelectedItem",
+        type_: "bool",
+        value: false
+    },
 ]
 
 export let hasChildren: hasChildrenMeta3D = () => false

@@ -301,7 +301,8 @@ export type service = {
         meta3dState: meta3dState,
         label: label,
         selectedValues: Array<string>,
-        id: string
+        id: string,
+        text: nullable<string>,
     ) => [meta3dState, nullable<number>];
     readonly imagePopup: (
         meta3dState: meta3dState,
