@@ -8,12 +8,21 @@ import { buildBind, buildRef, setNextWindowRect } from "./Utils"
 import { tree } from "./Tree"
 import { asset } from "./Asset"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { getExn, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, getWithDefault, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { inspector } from "./Inspector"
 
-// let _generateUniqueId = () => {
-//     return Math.floor(Math.random() * 1000000.0).toString()
-// }
+let _generateUniqueId = () => {
+    return Math.floor(Math.random() * 1000000.0).toString()
+}
+
+let _extractId = (value: string) => {
+    return "##" + getWithDefault(value.split("##")[1], _generateUniqueId())
+}
+
+let _extractTextFromWithId = (value: string) => {
+    return getWithDefault(value.split("##")[0], "")
+}
+
 
 let _initCanvas = (canvas: HTMLCanvasElement) => {
     // ImGui_Impl.window_on_resize()
@@ -274,9 +283,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             ImGui.PushItemWidth(width)
 
-            if (ImGui.InputText(label, buildBind(valueRef), maxLength)) {
+            if (ImGui.InputText(_extractId(label), buildBind(valueRef), maxLength)) {
                 newValue = valueRef.content
             }
+            ImGui.SameLine()
+            ImGui.Text(_extractTextFromWithId(label))
 
             return newValue
         },
@@ -476,9 +487,11 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             // ImGui.PushItemWidth(width)
 
-            if (ImGui.InputTextMultiline(label, buildBind(valueRef), maxLength, new ImGui.Vec2(width, height), ImGui.InputTextFlags.AllowTabInput)) {
+            if (ImGui.InputTextMultiline(_extractId(label), buildBind(valueRef), maxLength, new ImGui.Vec2(width, height), ImGui.InputTextFlags.AllowTabInput)) {
                 newValue = valueRef.content
             }
+            ImGui.SameLine()
+            ImGui.Text(_extractTextFromWithId(label))
 
             return newValue
 

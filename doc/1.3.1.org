@@ -671,6 +671,10 @@ extract utils for duplicate code
 
 
 
+TODO update package
+ui
+editor-careermod
+
 
 
 ** TODO refactor: remove mod_files
@@ -683,11 +687,6 @@ visit EnterApp?
 
 
 
-
-
-** TODO give doc
-
-编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
 
 
 
@@ -728,3 +727,10 @@ e.g. ui-control-popup add specific field
 publish all to 1.4.10
 
 update VersionConfig.res
+
+
+
+
+* TODO give doc
+
+编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
