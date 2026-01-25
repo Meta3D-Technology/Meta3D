@@ -3,7 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, characterType, state, uiData } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-add-careerfeature-protocol/src/EventType"
 import { careerFeatureName, getData } from "./CareerFeatureData"
-import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent } from "./NumberUtils"
+import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 
 let _buildFakeModAPI = () => {
     return {
@@ -11,7 +11,8 @@ let _buildFakeModAPI = () => {
             getRandomFloat,
             getRandomInteger,
             randomSelect,
-            convertDecimalToPercent
+            convertDecimalToPercent,
+            getDecimal,
         },
         // getLanguageDataByData: (state, data, key) => {
         getLanguageDataByData: (language, data, key) => {

@@ -569,7 +569,7 @@ TODO run test
 
 
 
-** TODO complete full career feature data
+** DONE complete full career feature data
 
 use Trae to generate
 

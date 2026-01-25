@@ -183,10 +183,10 @@ export let randomSelect = (arr) => {
 // }
 
 
-// export let getDecimal = (value, digit) => {
-// 	// return Math.floor(value * Math.pow(10, digit)) / Math.pow(10, digit)
-// 	return Math.round(value * Math.pow(10, digit)) / Math.pow(10, digit)
-// }
+export let getDecimal = (value, digit) => {
+	// return Math.floor(value * Math.pow(10, digit)) / Math.pow(10, digit)
+	return Math.round(value * Math.pow(10, digit)) / Math.pow(10, digit)
+}
 
 // export let isInteger = (value) => {
 // 	return Math.floor(value) == value
