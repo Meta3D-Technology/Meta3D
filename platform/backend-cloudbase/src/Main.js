@@ -354,6 +354,33 @@ let _getLocalEnvData = () => {
         env: "meta3d-local-9gacdhjl439cff76" // 此处填入您的环境ID 
     };
 };
+let _setModData = (app, collectionName, key, data) => {
+    const db = (0, BackendService_1.getDatabase)();
+    return db.collection(collectionName)
+        .doc(key)
+        .get()
+        .then(res => {
+        let currentVersion = "0.0.1";
+        if (res.data && res.data.length > 0) {
+            currentVersion = res.data[0].version;
+        }
+        // 简单递增：直接分割、递增、重组
+        const [major, minor, patch] = currentVersion.split('.').map(Number);
+        const newVersion = `${major}.${minor}.${patch + 1}`;
+        return db.collection(collectionName)
+            .doc(key)
+            .set(Object.assign(Object.assign({}, data), { key: key, version: newVersion }));
+    })
+        .catch((err) => {
+        // 如果文档不存在，创建新文档
+        if (err.code === 'DATABASE_DOC_NOT_EXIST') {
+            return db.collection(collectionName)
+                .doc(key)
+                .set(Object.assign(Object.assign({}, data), { key: key, version: "0.0.1" }));
+        }
+        throw err;
+    });
+};
 let publishMod = (
 // [logFunc, errorFunc, generateFunc, initFunc, uploadFileFunc,
 //     getModDataFunc,
@@ -372,7 +399,8 @@ packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
         // BackendService.uploadFile,
         BackendService_1.uploadFile,
         BackendService.getData,
-        BackendService.setData,
+        // BackendService.setData,
+        _setModData,
         BackendService.getFileID,
     ];
     // return readJsonFunc(packageFilePath)
@@ -397,7 +425,7 @@ packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
                 // protocolName: packageData.protocol.name,
                 // protocolVersion: packageData.protocol.version,
                 name: packageJson.name,
-                version: packageJson.version,
+                // version: packageJson.version,
                 protocolName: modJson.protocolName,
                 // protocolVersion: modJson.protocolVersion,
                 author: modJson.author,

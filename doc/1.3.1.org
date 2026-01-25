@@ -574,11 +574,61 @@ TODO run test
 use Trae to generate
 
 
+
+
 ** TODO update
 
 
 TODO Multi Text/Text set Font alone
 
+
+
+  
+TODO auto update version when publish(Inc field)
+然后，自动更新算了，就是在发布mode的时候自动更新该字段，不需要查询。自动更新，直接更新。
+  TODO update backend
+
+  TODO update ui
+
+
+
+TODO refactor:rename input-mod to input-mod-career
+
+
+
+# ** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
+** TODO Element Inspector: add upgrade button to upgrade inserted ui control
+e.g. ui-control-popup add specific field
+
+
+** TODO editor assemble: for uneditable ones
+*** TODO treat like ui control
+
+*** TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+*** TODO can debug
+
+# TODO editor: enter contribute market, all contribute(except ui control) not select!?
+
+
+
+** TODO Element: add move up, move down button for inserted ui control
+
+
+** TODO Inputs, Actions: sort by first char
+
+
+** TODO Market: sort by publish time
+
+** TODO Market: add remove protocol, remove detail button
+
+
+** TODO UserCenter: show my published inputs, actions
+
+
+
+
+** TODO update
 
 
 
@@ -587,14 +637,6 @@ TODO Multi Text/Text set Font alone
 TODO description add max length
 
 # TODO adjust version input's position
-
-  
-TODO auto update version when publish(Inc field)
-然后，自动更新算了，就是在发布mode的时候自动更新该字段，不需要查询。自动更新，直接更新。
-
-
-
-TODO refactor:rename input-mod to input-mod-career
 
 
 
@@ -611,6 +653,18 @@ add Menu
   TODO 编辑器的menu中加进入游戏，分别有进入游戏正式版和进入游戏内测版内测啊测试模式。
 
   TODO add doc link
+
+
+
+
+
+
+TODO run test
+version should auto update
+
+TODO remove input, action related to version 
+
+
 
 
 
@@ -692,36 +746,6 @@ visit EnterApp?
 
 
 * TODO update Meta3D->platform
-
-# ** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
-** TODO Element Inspector: add upgrade button to upgrade inserted ui control
-e.g. ui-control-popup add specific field
-
-
-** TODO editor assemble: for uneditable ones
-*** TODO treat like ui control
-
-*** TODO editor assemble: auto upgrade can upgrade action's, input's version
-
-*** TODO can debug
-
-# TODO editor: enter contribute market, all contribute(except ui control) not select!?
-
-
-
-** TODO Element: add move up, move down button for inserted ui control
-
-
-** TODO Inputs, Actions: sort by first char
-
-
-** TODO Market: sort by publish time
-
-** TODO Market: add remove protocol, remove detail button
-
-
-** TODO UserCenter: show my published inputs, actions
-
 
 ** TODO update platform version to 1.4
 publish all to 1.4.10

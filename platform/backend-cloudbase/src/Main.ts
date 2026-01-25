@@ -555,6 +555,46 @@ let _getLocalEnvData = () => {
 }
 
 
+let _setModData = (app: any, collectionName, key, data) => {
+    const db = getDatabase()
+
+    return db.collection(collectionName)
+        .doc(key)
+        .get()
+        .then(res => {
+            let currentVersion = "0.0.1";
+
+            if (res.data && res.data.length > 0) {
+                currentVersion = res.data[0].version;
+            }
+
+            // 简单递增：直接分割、递增、重组
+            const [major, minor, patch] = currentVersion.split('.').map(Number);
+            const newVersion = `${major}.${minor}.${patch + 1}`;
+
+            return db.collection(collectionName)
+                .doc(key)
+                .set({
+                    ...data,
+                    key: key,
+                    version: newVersion
+                });
+        })
+        .catch((err) => {
+            // 如果文档不存在，创建新文档
+            if (err.code === 'DATABASE_DOC_NOT_EXIST') {
+                return db.collection(collectionName)
+                    .doc(key)
+                    .set({
+                        ...data,
+                        key: key,
+                        version: "0.0.1", // 初始版本
+                    });
+            }
+            throw err;
+        });
+}
+
 export let publishMod = (
     // [logFunc, errorFunc, generateFunc, initFunc, uploadFileFunc,
     //     getModDataFunc,
@@ -586,7 +626,8 @@ export let publishMod = (
             uploadFile,
 
             BackendService.getData,
-            BackendService.setData,
+            // BackendService.setData,
+            _setModData,
 
             BackendService.getFileID,
         ]
@@ -631,7 +672,7 @@ export let publishMod = (
                     // protocolName: packageData.protocol.name,
                     // protocolVersion: packageData.protocol.version,
                     name: packageJson.name,
-                    version: packageJson.version,
+                    // version: packageJson.version,
 
                     protocolName: modJson.protocolName,
                     // protocolVersion: modJson.protocolVersion,

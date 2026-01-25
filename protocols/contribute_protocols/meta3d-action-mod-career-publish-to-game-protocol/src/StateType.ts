@@ -10,7 +10,7 @@ export type state = {
     isPublic: boolean,
     author: string,
     readme: string,
-    version: string,
+    // version: string,
 }
 
 

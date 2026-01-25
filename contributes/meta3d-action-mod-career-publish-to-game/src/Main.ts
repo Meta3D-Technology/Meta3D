@@ -128,7 +128,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             // "local",
                             ` {
     "name": "${_buildUniqueName(state)}",
-    "version": "${state.version}",
     "mod": {
         "protocolName": "career-protocol",
         "author": "${state.author}",
@@ -185,7 +184,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isPublic: false,
                 author: "",
                 readme: "",
-                version: "0.0.1",
+                // version: "0.0.1",
             }
         }
     }
