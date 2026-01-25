@@ -28,3 +28,6 @@ external publishFinalApp: publishFinalApp = "publishFinalApp"
 
 @module("backend-cloudbase")
 external publishMod: publishMod = "publishMod"
+
+@module("backend-cloudbase")
+external findModsByProtocol: findModsByProtocol = "findModsByProtocol"

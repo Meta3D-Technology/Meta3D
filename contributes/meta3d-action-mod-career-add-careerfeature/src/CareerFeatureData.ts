@@ -1,12 +1,5 @@
 import { language, careerFeature, characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
-
-export let convertDecimalToPercent = (value: number, digit = 3) => {
-    if (digit < 2) {
-        throw new Error("error")
-    }
-
-    return Math.round(value * Math.pow(10, digit)) / Math.pow(10, digit - 2)
-}
+// import { convertDecimalToPercent } from "./NumberUtils"
 
 export enum careerFeatureName {
     IncreaseFullHp = "IncreaseFullHp2",
@@ -26,21 +19,21 @@ export let getTextDataByVariable = () => {
     }
 }
 
-export let getData = (): Array<careerFeature> => {
+export let getData = (api): Array<careerFeature> => {
     return [
         {
             name: careerFeatureName.IncreaseFullHp,
-            characterType: characterType.GiantessOrLittleMan,
+            characterType: characterType.Giantess,
             valueCount: 1,
 
             getDescriptionFunc: (language, name, value) => {
                 // return api.getLanguageDataByData(state, getTextDataByVariable(), languageVariableKey.IncreaseFullHp)(NumberUtils.convertDecimalToPercent(value, 3))
-                return getTextDataByVariable()[language][name](convertDecimalToPercent(value, 3))
+                return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(value, 3))
             },
         },
         {
             name: careerFeatureName.ReduceDamageButIncreaseWhenSingleDamage,
-            characterType: characterType.GiantessOrLittleMan,
+            characterType: characterType.Giantess,
             valueCount: 3,
 
             getDescriptionFunc: (language, name, [v1, v2, v3]) => {

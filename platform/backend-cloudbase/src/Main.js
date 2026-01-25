@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.publishMod = exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publishFinalApp = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
+exports.findModsByProtocol = exports.publishMod = exports.findNewestPublishContribute = exports.findNewestPublishExtension = exports.findNewestPublishPackage = exports.findPublishPackage = exports.getAllPublishPackageInfos = exports.getAllPublishPackageEntryExtensionProtocols = exports.publishPackage = exports.findAllRecommendPublishFinalApps = exports.findAllPublishFinalApps = exports.findAllPublishFinalAppsByAccount = exports.findPublishFinalApp = exports.publishFinalApp = exports.findAllRecommendPublishApps = exports.findAllPublishApps = exports.findAllPublishAppsByAccount = exports.findPublishApp = exports.publishApp = exports.findPublishContribute = exports.findPublishExtension = exports.getAllPublishContributeInfos = exports.getAllPublishExtensionInfos = exports.batchFindPublishContributeProtocolConfigs = exports.batchFindPublishExtensionProtocolConfigs = exports.getAllPublishContributeProtocolConfigs = exports.getAllPublishExtensionProtocolConfigs = exports.batchFindPublishContributeProtocols = exports.batchFindPublishExtensionProtocols = exports.getAllPublishContributeProtocols = exports.getAllPublishExtensionProtocols = exports.getAllPublishExtensionProtocolsCount = exports.isLoginSuccess = exports.registerUser = exports.handleLoginForWeb3 = exports.checkUserName = exports.init = void 0;
 const Abstract = require("backend-abstract");
 const Curry_1 = require("meta3d-fp/src/Curry");
+// import { fileJson } from "meta3d";
 const most_1 = require("most");
 const meta3d_backend_cloudbase_1 = require("meta3d-backend-cloudbase");
 const moment = require("moment");
@@ -16,6 +17,7 @@ const BackendService_1 = require("./application_layer/BackendService");
 const FindNewestService_1 = require("./application_layer/FindNewestService");
 const meta3d_backend_cloudbase_2 = require("meta3d-backend-cloudbase");
 const Repo_1 = require("./domain_layer/repo/Repo");
+const ArrayUtils_1 = require("meta3d-structure-utils/src/ArrayUtils");
 // export let error = ErrorService.error
 let init = (env) => Abstract.init(BackendService_1.init, env);
 exports.init = init;
@@ -448,3 +450,32 @@ packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
     // })
 };
 exports.publishMod = publishMod;
+let _setImageBase64Resource = (state, resourceId, base64) => {
+    return Promise.resolve(state);
+};
+let _setAudioBlobResourceFunc = _setImageBase64Resource;
+let _setArrayBufferResourceFunc = _setImageBase64Resource;
+let findModsByProtocol = (protocolName) => {
+    let collectionName = "publishedmods";
+    return (0, BackendService_1.getDatabase)().collection(collectionName)
+        .where({
+        protocolName: protocolName,
+    })
+        .get()
+        .then(res => res.data)
+        .then(data => {
+        // TODO use concatArray?
+        return (0, ArrayUtils_1.reducePromise)(data, (result, d) => {
+            return (0, BackendService_1.downloadFile)(_ => { }, d.fileID, true).flatMap(file => {
+                let [modFuncData, assetFileJsonData, assetFilesData] = (0, meta3d_1.loadMod)(file);
+                let state = null;
+                return (0, most_1.fromPromise)((0, meta3d_1.parseMod)([_setImageBase64Resource, _setAudioBlobResourceFunc, _setArrayBufferResourceFunc], state, modFuncData, assetFileJsonData, assetFilesData));
+            })
+                .forEach(([state, assetFileJson, [getBlockService, createBlockState, _getBlockInfo]]) => {
+                result = (0, ArrayUtils_1.push)(result, [d, getBlockService]);
+            })
+                .then(_ => result);
+        }, []);
+    });
+};
+exports.findModsByProtocol = findModsByProtocol;

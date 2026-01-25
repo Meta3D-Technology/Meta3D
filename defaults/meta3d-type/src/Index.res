@@ -120,10 +120,31 @@ type publishMod = (
 ) =>
 Js.Promise.t<unit>
 
+type blockName = string
+type blockService
+
+type userMod = {
+  displayName_cn: string,
+  displayName_en: string,
+  name: blockName,
+  icon: string,
+  protocolName: string,
+  version: string,
+  isUse: bool,
+  isPublic: bool,
+}
+
+type modAPI
+
+type getBlockService = (modAPI) => blockService
+
+type findModsByProtocol = (. string) => Js.Promise.t<array<(userMod, getBlockService)>>
+
 type backendAPI = {
   init: init,
   publishFinalApp: publishFinalApp,
   publishMod:publishMod,
+  findModsByProtocol:findModsByProtocol,
 }
 
 type message = string

@@ -171,6 +171,9 @@ function _buildBackendAPI(param) {
             }),
           publishMod: (function (packageJson, readmeContent, distFileContent, assetFileData, iconBase64) {
               return Most.drain(BackendCloudbase.publishMod(packageJson, readmeContent, distFileContent, assetFileData, iconBase64));
+            }),
+          findModsByProtocol: (function (protocolName) {
+              return BackendCloudbase.findModsByProtocol(protocolName);
             })
         };
 }

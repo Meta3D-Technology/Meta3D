@@ -67,10 +67,32 @@ type publishMod = (
   iconBase64: nullable<string>,
 ) => Promise<void>
 
+
+type blockName = string
+type blockService = any
+// type blockState = any
+
+export type userMod = {
+  displayName_cn: string,
+  displayName_en: string,
+  name: blockName,
+  icon: string,
+  protocolName: string,
+  version: string,
+
+  isUse: boolean,
+  isPublic: boolean,
+}
+
+export type getBlockService = (api) => blockService
+type findModsByProtocol = (protocolName: string) => Promise<Array<[userMod, getBlockService]>>
+
+
 export type backendAPI = {
   init: (env: string) => Promise<void>,
   publishFinalApp: publishFinalApp,
   publishMod: publishMod,
+  findModsByProtocol: findModsByProtocol,
 }
 
 export type messageAPI = {

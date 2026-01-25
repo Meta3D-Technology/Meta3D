@@ -3,35 +3,85 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, characterType, state, uiData } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-add-careerfeature-protocol/src/EventType"
 import { careerFeatureName, getData } from "./CareerFeatureData"
+import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent } from "./NumberUtils"
+
+let _buildFakeModAPI = () => {
+    return {
+        NumberUtils: {
+            getRandomFloat,
+            getRandomInteger,
+            randomSelect,
+            convertDecimalToPercent
+        },
+        // getLanguageDataByData: (state, data, key) => {
+        getLanguageDataByData: (language, data, key) => {
+            return data[language][key]
+        }
+    }
+}
+
+let _buildAllDefaultCareerFeatures = (api: api) => {
+    let modAPI = _buildFakeModAPI()
+
+    return api.backend.findModsByProtocol("career-feature-protocol").then(data => {
+        return data.map(([_, getBlockService]) => {
+            let { name, characterType, getDescriptionFunc, generateRandomValueFunc } = getBlockService(modAPI).getFeatureData(modAPI, null)
+
+            let randomValue = generateRandomValueFunc()
+            let valueCount
+            if (Array.isArray(randomValue)) {
+                valueCount = randomValue.length
+            }
+            else {
+                valueCount = 1
+            }
+
+            return {
+                name,
+                valueCount,
+                characterType,
+                getDescriptionFunc: (language, name, value) => {
+                    // return getDescriptionFunc(null, value)
+                    return getDescriptionFunc(language, value)
+                },
+            }
+        })
+    })
+        .then(publishedCareerFeatures => {
+            return getData(modAPI).concat(
+                publishedCareerFeatures
+            )
+        })
+}
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
         init: (meta3dState) => {
-            let allDefaultCareerFeatures = api.immutable.createListOfData(getData())
+            return _buildAllDefaultCareerFeatures(api).then(data => {
+                let allDefaultCareerFeatures = api.immutable.createListOfData(data)
 
-            meta3dState = api.action.setActionState(meta3dState, actionName, {
-                ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                allDefaultCareerFeatures: allDefaultCareerFeatures,
+                return api.action.setActionState(meta3dState, actionName, {
+                    ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                    allDefaultCareerFeatures: allDefaultCareerFeatures,
+                })
             })
+                .then(meta3dState => {
+                    let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
+                    return new Promise((resolve, reject) => {
+                        resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
+                            meta3dState = api.action.setActionState(meta3dState, actionName, {
+                                ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                                isShowModal: true,
+                            })
 
-
-
-            let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
-
-            return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                        isShowModal: true,
+                            return Promise.resolve(meta3dState)
+                        }, (meta3dState) => {
+                            return Promise.resolve(meta3dState)
+                        }))
                     })
-
-                    return Promise.resolve(meta3dState)
-                }, (meta3dState) => {
-                    return Promise.resolve(meta3dState)
-                }))
-            })
+                })
         },
         handler: (meta3dState, uiData) => {
             return new Promise<meta3dState>((resolve, reject) => {

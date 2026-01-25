@@ -1,12 +1,12 @@
 import * as Abstract from "backend-abstract";
 import { curry3_1 } from "meta3d-fp/src/Curry";
-import { fileJson } from "meta3d";
+// import { fileJson } from "meta3d";
 import { fromPromise, just } from "most";
 import { handleKeyToLowercase } from "meta3d-backend-cloudbase";
 import * as moment from "moment";
 import { getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils";
 // import { nullable } from "meta3d-commonlib-ts/src/nullable";
-import { generateMod } from "meta3d";
+import { generateMod, loadMod, parseMod } from "meta3d";
 // import * as CloudbaseService from "meta3d-tool-utils/src/publish/Ba";
 import * as BackendService from "meta3d-backend-cloudbase";
 import tcb from "@cloudbase/js-sdk"
@@ -44,7 +44,8 @@ import {
     batchFindMarketProtocolCollection,
     getMarketImplementAccountDataWithWhereData,
     deleteFile,
-    getDataWithWhereData
+    getDataWithWhereData,
+    getDatabase
 } from "./application_layer/BackendService";
 import {
     findNewestPublishPackage as findNewestPublishPackageFind,
@@ -55,6 +56,7 @@ import {
 import { filterMarketImplementCollection, getKey } from "meta3d-backend-cloudbase";
 import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { setBackend } from "./domain_layer/repo/Repo";
+import { push, reducePromise } from "meta3d-structure-utils/src/ArrayUtils";
 
 
 // export let error = ErrorService.error
@@ -699,3 +701,64 @@ export let publishMod = (
     //     errorFunc("error message: ", e)
     // })
 }
+
+
+
+
+type blockName = string
+type blockService = any
+// type blockState = any
+
+export type userMod = {
+    displayName_cn: string,
+    displayName_en: string,
+    name: blockName,
+    icon: string,
+    protocolName: string,
+    version: string,
+
+    isUse: boolean,
+    isPublic: boolean,
+}
+
+export type getBlockService = (api) => blockService
+
+
+let _setImageBase64Resource = (state, resourceId, base64: string) => {
+    return Promise.resolve(state)
+}
+
+let _setAudioBlobResourceFunc = _setImageBase64Resource
+
+let _setArrayBufferResourceFunc = _setImageBase64Resource
+
+export let findModsByProtocol = (
+    protocolName: string,
+): Promise<Array<[userMod, getBlockService]>> => {
+    let collectionName = "publishedmods"
+
+    return getDatabase().collection(collectionName)
+        .where({
+            protocolName: protocolName,
+        })
+        .get()
+        .then(res => res.data)
+        .then(data => {
+            // TODO use concatArray?
+            return reducePromise(data, (result, d: any) => {
+                return downloadFile(_ => { }, d.fileID, true).flatMap(file => {
+                    let [modFuncData, assetFileJsonData, assetFilesData] = loadMod(file)
+
+                    let state = null
+
+                    return fromPromise(parseMod([_setImageBase64Resource, _setAudioBlobResourceFunc, _setArrayBufferResourceFunc], state, modFuncData, assetFileJsonData, assetFilesData))
+                })
+                    .forEach(([state, assetFileJson, [getBlockService, createBlockState, _getBlockInfo]]) => {
+                        result = push(result, [d, getBlockService])
+                    })
+                    .then(_ => result)
+            }, [])
+        })
+}
+
+

@@ -32,17 +32,38 @@ export type account = string;
 export type description = string;
 export type previewBase64 = string;
 export type isRecommend = boolean;
-export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer, 
-// singleEventBinaryFile: ArrayBuffer,
-appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
+export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer,
+	// singleEventBinaryFile: ArrayBuffer,
+	appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
 export type publishMod = (packageJson: string, readmeContent: string, distFileContent: string, assetFileData: Array<[
 	string,
 	Uint8Array
 ]>, iconBase64: nullable<string>) => Promise<void>;
+
+type blockName = string
+type blockService = any
+// type blockState = any
+
+export type userMod = {
+	displayName_cn: string,
+	displayName_en: string,
+	name: blockName,
+	icon: string,
+	protocolName: string,
+	version: string,
+
+	isUse: boolean,
+	isPublic: boolean,
+}
+
+export type getBlockService = (api) => blockService
+export type findModsByProtocol = (protocolName: string) => Promise<Array<[userMod, getBlockService]>>
+
 export type backendAPI = {
 	init: (env: string) => Promise<void>;
 	publishFinalApp: publishFinalApp;
 	publishMod: publishMod;
+	findModsByProtocol: findModsByProtocol,
 };
 export type messageAPI = {
 	success: (message: string) => void;
@@ -113,4 +134,4 @@ export type extensionLife<extensionService> = {
 };
 export type getExtensionLife<extensionService> = (_1: api, extensionProtocolName: extensionProtocolName) => extensionLife<extensionService>;
 
-export {};
+export { };

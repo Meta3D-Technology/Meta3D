@@ -240,20 +240,15 @@ let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
       previewBase64,
       isRecommend,
     )->Meta3dBsMostDefault.Most.drain,
-  publishMod: (.
-    packageJson,
-    readmeContent,
-    distFileContent,
-    assetFileData,
-    iconBase64,
-  ) =>
+  publishMod: (. packageJson, readmeContent, distFileContent, assetFileData, iconBase64) =>
     BackendCloudbase.publishMod(.
-    packageJson,
-    readmeContent,
-    distFileContent,
-    assetFileData,
-    iconBase64,
+      packageJson,
+      readmeContent,
+      distFileContent,
+      assetFileData,
+      iconBase64,
     )->Meta3dBsMostDefault.Most.drain,
+  findModsByProtocol: (. protocolName) => BackendCloudbase.findModsByProtocol(. protocolName),
   // init:  BackendCloudbase.init,
   // publishFinalApp: BackendCloudbase.publishFinalApp,
 }

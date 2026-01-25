@@ -558,12 +558,39 @@ Publish Modal:
 
 
 
+** DONE 调用发布的所有职业特性
 
-TODO modal can set width, height
+TODO run test
+  select feature error
+
+
+
+# ** TODO 职业特性：设定值的类型、范围
+
+
+
+** TODO complete full career feature data
+
+use Trae to generate
+
+
+** TODO update
+
+
+TODO Multi Text/Text set Font alone
+
+
+
+
+# TODO modal can set width, height
 
 TODO description add max length
 
-TODO adjust version input's position
+# TODO adjust version input's position
+
+  
+TODO auto update version when publish(Inc field)
+然后，自动更新算了，就是在发布mode的时候自动更新该字段，不需要查询。自动更新，直接更新。
 
 
 
@@ -579,6 +606,11 @@ add:
 
 
 add Menu
+  TODO add publish
+
+  TODO 编辑器的menu中加进入游戏，分别有进入游戏正式版和进入游戏内测版内测啊测试模式。
+
+  TODO add doc link
 
 
 
@@ -606,7 +638,10 @@ TODO feat: feature list: group by positive, sort by name
 
 
 
-TODO when publish, should show info
+
+TODO add Message ui control
+  TODO when initing(add career feature action), publish/success/fail, should show info
+
 TODO After publish success, should close modal
 
 
@@ -637,17 +672,6 @@ extract utils for duplicate code
 
 
 
-** TODO 调用发布的所有职业特性
-
-# ** TODO 职业特性：设定值的类型、范围
-
-
-
-** TODO complete full career feature data
-
-use Trae to generate
-
-
 
 ** TODO refactor: remove mod_files
 
@@ -661,6 +685,9 @@ visit EnterApp?
 
 
 
+** TODO give doc
+
+编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
 
 
 
