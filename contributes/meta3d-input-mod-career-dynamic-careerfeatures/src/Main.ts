@@ -1,5 +1,5 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
-import { data, careerFeatureName } from "meta3d-input-mod-dynamic-careerfeatures-protocol"
+import { data, careerFeatureName } from "meta3d-input-mod-career-dynamic-careerfeatures-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName as addCareerFeatureActionName, state as addCareerFeatureState, characterType, language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 

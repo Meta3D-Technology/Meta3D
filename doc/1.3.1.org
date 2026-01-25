@@ -576,7 +576,7 @@ use Trae to generate
 
 
 
-** TODO update
+** DONE update
 
 
 TODO Multi Text/Text set Font alone
@@ -599,6 +599,9 @@ TODO refactor:rename input-mod to input-mod-career
 # ** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
 ** TODO Element Inspector: add upgrade button to upgrade inserted ui control
 e.g. ui-control-popup add specific field
+
+
+TODO rebuild test1 editor
 
 
 ** TODO editor assemble: for uneditable ones

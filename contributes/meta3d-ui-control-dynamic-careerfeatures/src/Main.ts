@@ -1,7 +1,7 @@
 import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputFunc, specificData, outputData, uiControlName, state, map } from "meta3d-ui-control-dynamic-careerfeatures-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { data } from "meta3d-input-mod-dynamic-careerfeatures-protocol"
+import { data } from "meta3d-input-mod-career-dynamic-careerfeatures-protocol"
 import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
