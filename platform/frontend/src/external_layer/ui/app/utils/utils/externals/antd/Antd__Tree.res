@@ -17,6 +17,7 @@ type keys = array<key>
 type node = {
   key: key,
   title: string,
+  pos: string,
 }
 
 type selectedNode = {
@@ -28,6 +29,9 @@ type info = {
   event: string,
   selected: bool,
   node: node,
+  dragNode:node,
+  dropPosition:int,
+dropToGap:bool,
   selectedNodes: array<selectedNode>,
 }
 
@@ -41,5 +45,8 @@ external make: (
   ~autoExpandParent: bool=?,
   ~onExpand: keys => unit=?,
   ~onSelect: (keys, info) => unit=?,
+  ~onDragEnter: (info) => unit=?,
+  ~onDrop: (info) => unit=?,
   ~showIcon: bool=?,
+  ~draggable: bool=?,
 ) => React.element = "Tree"

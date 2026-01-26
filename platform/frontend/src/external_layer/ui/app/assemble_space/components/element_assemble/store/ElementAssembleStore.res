@@ -203,10 +203,36 @@ let _isNameExist = (newName, oldName, customs) => {
       ->Meta3dCommonlib.OptionSt.isSome
 }
 
-let _findSelectUIControlById = (state:state, id) => {
-  state.selectedUIControls->Meta3dCommonlib.ListSt.find(data => {
-    data.id == id
-  })
+let _findSelectUIControlById = (state: state, id) => {
+  // state.selectedUIControls->Meta3dCommonlib.ListSt.find(data => {
+  //   data.id == id
+  // })
+
+  HierachyUtils.findSelectedUIControlData(
+    None,
+    (
+      (data: ElementAssembleStoreType.uiControl) => data.id,
+      (data: ElementAssembleStoreType.uiControl) => data.children,
+    ),
+    state.selectedUIControls,
+    id,
+  )
+}
+
+let _findSelectedUIControlInspectorDataById = (state: state, id) => {
+  // state.selectedUIControlInspectorData->Meta3dCommonlib.ListSt.find(data => {
+  //   data.id == id
+  // })
+
+  HierachyUtils.findSelectedUIControlData(
+    None,
+    (
+      (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+      (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+    ),
+    state.selectedUIControlInspectorData,
+    id,
+  )
 }
 
 let reducer = (state, action) => {
@@ -291,6 +317,137 @@ let reducer = (state, action) => {
         id,
       ),
     }
+  | DropSelectUIControl(
+      (hasChildren, serializeUIControlProtocolConfigLib),
+      dropToGap,
+      dragId,
+      dropId,
+      dropPosition,
+    ) => !dropToGap &&
+    !hasChildren(.
+      serializeUIControlProtocolConfigLib(.
+        (
+          _findSelectUIControlById(state, dropId)->Meta3dCommonlib.OptionSt.getExn
+        ).protocolConfigStr,
+      ),
+    )
+      ? {
+          state
+        }
+      : {
+          let dragUIControl =
+            _findSelectUIControlById(state, dragId)->Meta3dCommonlib.OptionSt.getExn
+          let dragUIControlInspector =
+            _findSelectedUIControlInspectorDataById(state, dragId)->Meta3dCommonlib.OptionSt.getExn
+
+          let state = {
+            ...state,
+            selectedUIControls: HierachyUtils.removeUIControlData(
+              (
+                (data: ElementAssembleStoreType.uiControl) => data.id,
+                (data: ElementAssembleStoreType.uiControl) => data.children,
+                (data: ElementAssembleStoreType.uiControl, children) => {
+                  ...data,
+                  children,
+                },
+              ),
+              state.selectedUIControls,
+              dragId,
+            ),
+            selectedUIControlInspectorData: HierachyUtils.removeUIControlData(
+              (
+                (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                  ...data,
+                  children,
+                },
+              ),
+              state.selectedUIControlInspectorData,
+              dragId,
+            ),
+          }
+
+          !dropToGap
+            ? {
+                let parentId = dropId->Some
+
+                {
+                  ...state,
+                  selectedUIControls: HierachyUtils.addChildUIControlData(
+                    (
+                      (data: ElementAssembleStoreType.uiControl) => data.id,
+                      (data: ElementAssembleStoreType.uiControl) => data.children,
+                      (data: ElementAssembleStoreType.uiControl, children) => {
+                        ...data,
+                        children,
+                      },
+                    ),
+                    state.selectedUIControls,
+                    {
+                      ...dragUIControl,
+                      parentId,
+                    },
+                    parentId,
+                  ),
+                  selectedUIControlInspectorData: HierachyUtils.addChildUIControlData(
+                    (
+                      (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                      (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                      (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                        ...data,
+                        children,
+                      },
+                    ),
+                    state.selectedUIControlInspectorData,
+                    dragUIControlInspector,
+                    parentId,
+                  ),
+                }
+              }
+            : {
+                let {parentId} =
+                  _findSelectUIControlById(state, dropId)->Meta3dCommonlib.OptionSt.getExn
+                let isTop = dropPosition == -1
+
+                {
+                  ...state,
+                  selectedUIControls: HierachyUtils.insertUIControlData(
+                    (
+                      (data: ElementAssembleStoreType.uiControl) => data.id,
+                      (data: ElementAssembleStoreType.uiControl) => data.children,
+                      (data: ElementAssembleStoreType.uiControl, children) => {
+                        ...data,
+                        children,
+                      },
+                    ),
+                    state.selectedUIControls,
+                    {
+                      ...dragUIControl,
+                      parentId,
+                    },
+                    dropId,
+                    parentId,
+                    isTop,
+                  ),
+                  selectedUIControlInspectorData: HierachyUtils.insertUIControlData(
+                    (
+                      (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                      (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                      (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                        ...data,
+                        children,
+                      },
+                    ),
+                    state.selectedUIControlInspectorData,
+                    dragUIControlInspector,
+                    dropId,
+                    parentId,
+                    isTop,
+                  ),
+                }
+              }
+        }
   | SetSpecificData(id, specific) =>
     _setUIControlInspectorData(
       state,

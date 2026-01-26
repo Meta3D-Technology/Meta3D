@@ -636,7 +636,21 @@ TODO run test
 
 
 
-** TODO Element: add move up, move down button for inserted ui control
+# ** TODO Element: add move up, move down button for inserted ui control
+** DONE Element: support drag
+
+# TODO Drop on the content 
+
+# TODO Drop on the top of the drop node
+
+# TODO Drop on the bottome of the drop node
+
+TODO run test:
+  if has no children
+
+
+
+# TODO drag to be children
 
 
 
@@ -653,6 +667,8 @@ TODO run test
 
 ** TODO UserCenter: show my published inputs, actions
 
+
+** TODO ci: not check test
 
 
 
@@ -780,6 +796,8 @@ publish all to 1.4.10
 
 update VersionConfig.res
 
+
+** TODO update online link
 
 
 

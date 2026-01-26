@@ -166,3 +166,10 @@ let includes = (list, value) => list->Belt.List.has(value, _eq)
 let includesByFunc = (list, func) => {
   list->find(func)->OptionSt.isSome
 }
+
+let insert = (list, value, index) => {
+  switch(list->Belt.List.splitAt(index)){
+    | None => list->push(value)
+    | Some(before, after) => before->Belt.List.concat(list{value})->Belt.List.concat(after)
+  }
+}

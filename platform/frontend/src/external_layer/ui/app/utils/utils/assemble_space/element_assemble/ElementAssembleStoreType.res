@@ -146,6 +146,16 @@ type action =
       specific,
     )
   | UnSelectUIControlAndChildren(id)
+  | DropSelectUIControl(
+      (
+        Meta3dServiceCommonType.hasChildren,
+        Meta3dServiceCommonType.serializeUIControlProtocolConfigLib,
+      ),
+      bool,
+      id,
+      id,
+      int,
+    )
   | SelectRootUIControl
   | SelectSelectedUIControl(
       (

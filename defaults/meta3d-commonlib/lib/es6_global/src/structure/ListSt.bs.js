@@ -144,6 +144,18 @@ function includesByFunc(list, func) {
   return OptionSt$Meta3dCommonlib.isSome(Belt_List.head(Belt_List.filter(list, func)));
 }
 
+function insert(list, value, index) {
+  var match = Belt_List.splitAt(list, index);
+  if (match !== undefined) {
+    return Belt_List.concat(Belt_List.concat(match[0], {
+                    hd: value,
+                    tl: /* [] */0
+                  }), match[1]);
+  } else {
+    return push(list, value);
+  }
+}
+
 var getBy = Belt_List.getBy;
 
 var reduce = Belt_List.reduce;
@@ -216,5 +228,6 @@ export {
   find ,
   includes ,
   includesByFunc ,
+  insert ,
 }
 /* No side effect */

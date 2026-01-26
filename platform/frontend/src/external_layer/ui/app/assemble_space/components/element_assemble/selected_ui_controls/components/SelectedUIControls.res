@@ -157,6 +157,21 @@ module Method = {
         }
   }
 
+  let onDrop = (service, dispatch, info: Tree.info) => {
+    let dropKey = info.node.key
+    let dragKey = info.dragNode.key
+    let dropPos = info.node.pos->Js.String.split("-", _)
+    let dropPosition =
+      info.dropPosition -
+      NumberUtils.stringToNumber(
+        Meta3dCommonlib.ArraySt.getExn(dropPos, dropPos->Meta3dCommonlib.ArraySt.length - 1),
+      ) // the drop position relative to the drop node, inside 0, top -1, bottom 1
+
+    dispatch(ElementAssembleStoreType.DropSelectUIControl(
+      (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
+       info.dropToGap, dragKey, dropKey,dropPosition))
+  }
+
   // let upgradeSelectUIControl = (dispatch, isDebug, selectedKeys) => {
   //   selectedKeys->Meta3dCommonlib.ArraySt.length == 0
   //     ? ()
@@ -300,15 +315,10 @@ let make = (
             Method.unselectUIControl(dispatch, isDebug, selectedKeys)
           }}
         />
-        // <Button
-        //   icon={<Icon.RiseOutlined />}
-        //   onClick={_ => {
-        //     Method.upgradeSelectUIControl(dispatch, isDebug, selectedKeys)
-        //   }}
-        // />
       </Space>
       <section ref={selectedUIControlTarget->Obj.magic}>
         <Tree
+          draggable=true
           autoExpandParent=true
           showIcon=true
           treeData={selectedUIControls
@@ -331,6 +341,9 @@ let make = (
                 selectedUIControlInspectorData,
               )->Obj.magic,
             )
+          }}
+          onDrop={(info: Tree.info) => {
+            Method.onDrop(service, dispatch, info)
           }}
         />
       </section>

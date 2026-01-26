@@ -101,3 +101,49 @@ let rec removeUIControlData = ((getId, getChildren, setChildren), allSelectedUIC
     setChildren(data, removeUIControlData((getId, getChildren, setChildren), getChildren(data), id))
   )
 }
+
+let _insert = (getId, allSelectedUIControlData, uiControlData, id, isTop) => {
+  let index = ref(0)
+
+  allSelectedUIControlData->Meta3dCommonlib.ListSt.forEachi((i, data) =>
+    getId(data) === id
+      ? {
+          index := i
+        }
+      : ()
+  )
+
+  allSelectedUIControlData->Meta3dCommonlib.ListSt.insert(
+    uiControlData,
+    isTop ? index.contents : index.contents + 1,
+  )
+}
+
+let rec insertUIControlData = (
+  (getId, getChildren, setChildren),
+  allSelectedUIControlData,
+  uiControlData,
+  targetId,
+  targetParentId,
+  isTop,
+) => {
+  switch targetParentId {
+  | None => _insert(getId, allSelectedUIControlData, uiControlData, targetId, isTop)
+  | Some(targetParentId) =>
+    allSelectedUIControlData->Meta3dCommonlib.ListSt.map(data => {
+      getId(data) === targetParentId
+        ? setChildren(data, _insert(getId, getChildren(data), uiControlData, targetId, isTop))
+        : setChildren(
+            data,
+            insertUIControlData(
+              (getId, getChildren, setChildren),
+              getChildren(data),
+              uiControlData,
+              targetId,
+              targetParentId->Some,
+              isTop,
+            ),
+          )
+    })
+  }
+}
