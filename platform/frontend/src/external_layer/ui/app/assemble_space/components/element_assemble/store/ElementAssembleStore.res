@@ -203,6 +203,12 @@ let _isNameExist = (newName, oldName, customs) => {
       ->Meta3dCommonlib.OptionSt.isSome
 }
 
+let _findSelectUIControlById = (state:state, id) => {
+  state.selectedUIControls->Meta3dCommonlib.ListSt.find(data => {
+    data.id == id
+  })
+}
+
 let reducer = (state, action) => {
   switch action {
   | ResetWhenEnter => state->_reset
@@ -561,6 +567,32 @@ let reducer = (state, action) => {
       ...state,
       isInCreateFromScratchTourPhase2: false,
       // isJumpToCreateFromScratchTourPhase2Guide: false,
+    }
+  | UpdateSelectedUIControls(func, selectedContributes) => {
+      let selectedUIControls = selectedContributes->Meta3dCommonlib.ListSt.filter(({data}) => {
+        data.contributePackageData.protocol.name->ContributeTypeUtils.isUIControl
+      })
+
+      state->_updateAllUIControlInspectorData(data => {
+        let name = (
+          _findSelectUIControlById(state, data.id)->Meta3dCommonlib.OptionSt.getExn
+        ).data.contributePackageData.name
+
+        switch selectedUIControls->Meta3dCommonlib.ListSt.find(({data}) => {
+          data.contributePackageData.name == name
+        }) {
+        | Some({protocolConfigStr}) => {
+            ...data,
+            // specific: service.meta3d.getUIControlSpecificDataFields(.
+            //   service.meta3d.serializeUIControlProtocolConfigLib(.
+            //     protocolConfigStr->Meta3dCommonlib.OptionSt.getExn,
+            //   ),
+            // )->_convertSpecificType,
+            specific: func(protocolConfigStr->Meta3dCommonlib.OptionSt.getExn),
+          }
+        | None => data
+        }
+      })
     }
   }
 }

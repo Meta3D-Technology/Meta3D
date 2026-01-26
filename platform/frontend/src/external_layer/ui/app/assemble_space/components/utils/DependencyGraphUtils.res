@@ -188,6 +188,34 @@ module Method = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     `
   }
 
@@ -227,6 +255,34 @@ module Method = {
       | Some(oldItem) =>
         let title =
           j`协议名：${key}有重复的实现，它们分别是：
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -726,11 +782,34 @@ module Method = {
     )
   }
 
+  let convertSpecificType = (
+    specific: Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
+  ): ElementAssembleStoreType.specific => {
+    specific->Meta3dCommonlib.ArraySt.map(({
+      value,
+      name,
+      type_,
+    }): ElementAssembleStoreType.specificData => {
+      {
+        name,
+        type_,
+        value: value->CommonType.SpecicFieldDataValue,
+      }
+    })
+  }
+
+  let _generateSpecific = (service, protocolConfigStr) => {
+    service.meta3d.getUIControlSpecificDataFields(.
+      service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
+    )->convertSpecificType
+  }
+
   let autoUpgradeVersion = (
     service: service,
     setOperateInfo,
     dispatchForAppStore,
     dispatchForApAssembleStore,
+    dispatchForElementAssembleStore,
     dispatchForPackageAssembleStore,
     selectedPackages,
     selectedExtensions,
@@ -909,6 +988,7 @@ module Method = {
         service.app.dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction(.
           dispatchForAppStore,
           dispatchForApAssembleStore,
+          dispatchForElementAssembleStore,
           dispatchForPackageAssembleStore,
           (
             selectedPackagesForAppStore,
@@ -922,6 +1002,7 @@ module Method = {
             selectedExtensionsForApAssembleStore,
             selectedContributesForApAssembleStore,
           ),
+          (_generateSpecific(service), selectedContributesForApAssembleStore),
           _convertSelectedDataFromForApAssembleStoreToForPackageAssembleStore(
             selectedPackagesForApAssembleStore,
             selectedExtensionsForAppStoreEdit,
@@ -1015,6 +1096,8 @@ module Method = {
   // let buildOperateInfoDefault = () => ""
 }
 
+
+
 // TODO refactor: split for ap assemble and package assemble
 @react.component
 let make = (
@@ -1029,6 +1112,9 @@ let make = (
 
   let dispatchForAppStore = service.app.useDispatch()
   let dispatchForApAssembleStore = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
+    service.react.useDispatch,
+  )
   let dispatchForPackageAssembleStore = ReduxUtils.PackageAssemble.useDispatch(
     service.react.useDispatch,
   )
@@ -1082,6 +1168,7 @@ let make = (
                     setOperateInfo,
                     dispatchForAppStore,
                     dispatchForApAssembleStore,
+                    dispatchForElementAssembleStore,
                     dispatchForPackageAssembleStore,
                     selectedPackages,
                     selectedExtensions,

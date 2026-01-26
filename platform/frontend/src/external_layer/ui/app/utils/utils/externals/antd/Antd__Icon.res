@@ -22,6 +22,16 @@ module InfoCircleOutlined = {
   external make: (~height: 'a=?, ~width: 'b=?) => React.element = "InfoCircleOutlined"
 }
 
+module RiseOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "RiseOutlined"
+}
+
+module PlusCircleOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "PlusCircleOutlined"
+}
+
 module MinusCircleOutlined = {
   @react.component @module("@ant-design/icons")
   external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "MinusCircleOutlined"

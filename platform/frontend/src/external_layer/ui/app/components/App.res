@@ -260,6 +260,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       dispatchUpdateSelectedPackagesAndExtensionsAndContributesAction: (.
         dispatchForAppStore,
         dispatchForApAssembleStore,
+        dispatchForElementAssembleStore,
         dispatchForPackageAssembleStore,
         (
           selectedPackagesForAppStore,
@@ -272,6 +273,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
           selectedExtensionsForApAssembleStore,
           selectedContributesForApAssembleStore,
         ),
+        (generateSpeficiFunc, selectedContributesForApAssembleStore ),
         (
           selectedPackagesForPackageAssembleStore,
           selectedExtensionsForPackageAssembleStore,
@@ -294,6 +296,12 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
             selectedExtensionsForApAssembleStore,
             selectedContributesForApAssembleStore,
           ),
+        )
+        dispatchForElementAssembleStore(
+          ElementAssembleStoreType.UpdateSelectedUIControls((
+            generateSpeficiFunc,
+            selectedContributesForApAssembleStore,
+          )),
         )
         dispatchForPackageAssembleStore(
           PackageAssembleStoreType.UpdateSelectedPackagesAndExtensionsAndContributes(
@@ -415,8 +423,9 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
               ? true
               : switch release.current {
                 | None => false
-                | Some(release) =>
-                  // UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
+                | Some(
+                    release,
+                  ) => // UIControlUtils.selectAllUIControls(service, dispatch, release->Some)->ignore
 
                   true
                 }
@@ -524,6 +533,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     eventEmitter.addListener(.EventUtils.getSelectInputInInputsEventName(), data => {
       _updateCode(dispatchForElementAssembleStore, data->Obj.magic)
     })
+
     // eventEmitter.addListener(.EventUtils.getRunEventName(), _ => {
     //   _updateCustomFileStr(dispatchForElementAssembleStore)
     // })

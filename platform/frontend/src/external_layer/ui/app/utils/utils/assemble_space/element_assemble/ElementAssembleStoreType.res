@@ -205,7 +205,9 @@ type action =
   | SetCustom(customInputs, customActions)
   | StartCreateFromScratchTourPhase2
   | EndCreateFromScratchTourPhase2
-// | EndJumpToCreateFromScratchTourPhase2Guide
+  // | EndJumpToCreateFromScratchTourPhase2Guide
+  // | UpdateSelectedUIControls(AssembleSpaceType.service, ApAssembleStoreType.selectedContributes)
+  | UpdateSelectedUIControls(string => specific, ApAssembleStoreType.selectedContributes)
 
 type state = {
   canvasData: canvasData,

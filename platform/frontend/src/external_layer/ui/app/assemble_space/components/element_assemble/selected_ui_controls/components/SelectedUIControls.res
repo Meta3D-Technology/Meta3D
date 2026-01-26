@@ -157,6 +157,20 @@ module Method = {
         }
   }
 
+  // let upgradeSelectUIControl = (dispatch, isDebug, selectedKeys) => {
+  //   selectedKeys->Meta3dCommonlib.ArraySt.length == 0
+  //     ? ()
+  //     : {
+  //         dispatch(
+  //           ElementAssembleStoreType.UnSelectUIControlAndChildren(
+  //             selectedKeys->Meta3dCommonlib.ArraySt.getExn(0),
+  //           ),
+  //         )
+
+  //         dispatch(ElementAssembleStoreType.SelectRootUIControl)
+  //       }
+  // }
+
   // let getUIControls = SelectedContributesForElementUtils.getUIControls
 
   // let _convertSpecificType = (
@@ -286,6 +300,12 @@ let make = (
             Method.unselectUIControl(dispatch, isDebug, selectedKeys)
           }}
         />
+        // <Button
+        //   icon={<Icon.RiseOutlined />}
+        //   onClick={_ => {
+        //     Method.upgradeSelectUIControl(dispatch, isDebug, selectedKeys)
+        //   }}
+        // />
       </Space>
       <section ref={selectedUIControlTarget->Obj.magic}>
         <Tree

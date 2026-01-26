@@ -597,25 +597,50 @@ TODO refactor:rename input-mod to input-mod-career
 
 
 # ** TODO ElementMR should update protocolConfigStr if ui control protocol is updated
-** TODO Element Inspector: add upgrade button to upgrade inserted ui control
+** DONE Element Inspector: add upgrade button to upgrade inserted ui control
 e.g. ui-control-popup add specific field
 
 
-TODO rebuild test1 editor
+# TODO add operate button
+
+# TODO upgrade
+#   only update uiControlInspectorData from selectedUIControls store data
 
 
-** TODO editor assemble: for uneditable ones
-*** TODO treat like ui control
+TODO should auto upgrade
 
-*** TODO editor assemble: auto upgrade can upgrade action's, input's version
+TODO run test
+  test
+    protocolConfigStr is old one!
 
-*** TODO can debug
+    old one not update
+
+
+  TODO test publish editor
+
+# TODO restore
+
+
+
+# TODO rebuild test1 editor
+
+
+# ** TODO editor assemble: for uneditable ones
+# *** TODO treat like ui control
+
+# *** TODO editor assemble: auto upgrade can upgrade action's, input's version
+
+# *** TODO can debug
 
 # TODO editor: enter contribute market, all contribute(except ui control) not select!?
 
 
 
 ** TODO Element: add move up, move down button for inserted ui control
+
+
+
+** TODO Element: after select ui control, should show buttons in fixed position
 
 
 ** TODO Inputs, Actions: sort by first char

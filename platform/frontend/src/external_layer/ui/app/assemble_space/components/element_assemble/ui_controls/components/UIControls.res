@@ -5,21 +5,21 @@ open AssembleSpaceType
 module Method = {
   let getUIControls = SelectedContributesForElementUtils.getUIControls
 
-  let _convertSpecificType = (
-    specific: Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
-  ): ElementAssembleStoreType.specific => {
-    specific->Meta3dCommonlib.ArraySt.map(({
-      value,
-      name,
-      type_,
-    }): ElementAssembleStoreType.specificData => {
-      {
-        name,
-        type_,
-        value: value->CommonType.SpecicFieldDataValue,
-      }
-    })
-  }
+  // let _convertSpecificType = (
+  //   specific: Meta3dType.UIControlProtocolConfigType.uiControlSpecificDataFields,
+  // ): ElementAssembleStoreType.specific => {
+  //   specific->Meta3dCommonlib.ArraySt.map(({
+  //     value,
+  //     name,
+  //     type_,
+  //   }): ElementAssembleStoreType.specificData => {
+  //     {
+  //       name,
+  //       type_,
+  //       value: value->CommonType.SpecicFieldDataValue,
+  //     }
+  //   })
+  // }
 
   let _getScenViewUIControlProtocolName = () => "meta3d-ui-control-scene-view-protocol"
 
@@ -73,7 +73,7 @@ module Method = {
           parentUIControlId,
           service.meta3d.getUIControlSpecificDataFields(.
             service.meta3d.serializeUIControlProtocolConfigLib(. protocolConfigStr),
-          )->_convertSpecificType,
+          )->DependencyGraphUtils.Method.convertSpecificType,
         ),
       )
       dispatch(
