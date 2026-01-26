@@ -167,9 +167,15 @@ module Method = {
         Meta3dCommonlib.ArraySt.getExn(dropPos, dropPos->Meta3dCommonlib.ArraySt.length - 1),
       ) // the drop position relative to the drop node, inside 0, top -1, bottom 1
 
-    dispatch(ElementAssembleStoreType.DropSelectUIControl(
-      (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
-       info.dropToGap, dragKey, dropKey,dropPosition))
+    dispatch(
+      ElementAssembleStoreType.DropSelectUIControl(
+        (service.meta3d.hasChildren, service.meta3d.serializeUIControlProtocolConfigLib),
+        info.dropToGap,
+        dragKey,
+        dropKey,
+        dropPosition,
+      ),
+    )
   }
 
   // let upgradeSelectUIControl = (dispatch, isDebug, selectedKeys) => {
@@ -298,56 +304,58 @@ let make = (
   ) = service.react.useAllSelector(. Method.useSelector)
 
   <>
-    <Space direction=#vertical size=#middle>
-      <Space direction=#horizontal wrap=true>
-        <Button
-          ref={addUIControlButtonTarget}
-          icon={<Icon.FileAddOutlined />}
-          onClick={_ => {
-            setIsShowUIControls(_ => true)
+    // <Space direction=#vertical size=#middle>
+    <section style={ReactDOM.Style.make(~position="sticky", ~top="0", ~zIndex="100", ())}>
+      // <Space direction=#horizontal wrap=true>
+      <Button
+        ref={addUIControlButtonTarget}
+        icon={<Icon.FileAddOutlined />}
+        onClick={_ => {
+          setIsShowUIControls(_ => true)
 
-            eventEmitter.emit(. EventUtils.getAddUIControlsEventName(), Obj.magic(1))
-          }}
-        />
-        <Button
-          icon={<Icon.DeleteOutlined />}
-          onClick={_ => {
-            Method.unselectUIControl(dispatch, isDebug, selectedKeys)
-          }}
-        />
-      </Space>
-      <section ref={selectedUIControlTarget->Obj.magic}>
-        <Tree
-          draggable=true
-          autoExpandParent=true
-          showIcon=true
-          treeData={selectedUIControls
-          ->Method.convertToTreeData(service, _, selectedUIControlInspectorData)
-          ->Method.addRootTreeNode}
-          expandedKeys={Method.getAllKeys(selectedUIControls)}
-          // onExpand={expandedKeysValue =>
-          //   Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
-          selectedKeys
-          onSelect={(selectedKeysValue, info: Tree.info) => {
-            Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)
+          eventEmitter.emit(. EventUtils.getAddUIControlsEventName(), Obj.magic(1))
+        }}
+      />
+      <Button
+        icon={<Icon.DeleteOutlined />}
+        onClick={_ => {
+          Method.unselectUIControl(dispatch, isDebug, selectedKeys)
+        }}
+      />
+      // </Space>
+    </section>
+    <section ref={selectedUIControlTarget->Obj.magic}>
+      <Tree
+        draggable=true
+        autoExpandParent=true
+        showIcon=true
+        treeData={selectedUIControls
+        ->Method.convertToTreeData(service, _, selectedUIControlInspectorData)
+        ->Method.addRootTreeNode}
+        expandedKeys={Method.getAllKeys(selectedUIControls)}
+        // onExpand={expandedKeysValue =>
+        //   Method.onExpand((setExpandedKeys, setAutoExpandParent), expandedKeysValue)}
+        selectedKeys
+        onSelect={(selectedKeysValue, info: Tree.info) => {
+          Method.onSelect(service, (dispatch, setSelectedKeys), selectedKeysValue, info)
 
-            // handleWhenSelectTreeNodeFunc(info.node.title)
-            eventEmitter.emit(.
-              EventUtils.getSelectTreeNodeEventName(),
-              Method.findTitle(
-                info.node.key,
-                info.node.title,
-                selectedUIControls,
-                selectedUIControlInspectorData,
-              )->Obj.magic,
-            )
-          }}
-          onDrop={(info: Tree.info) => {
-            Method.onDrop(service, dispatch, info)
-          }}
-        />
-      </section>
-    </Space>
+          // handleWhenSelectTreeNodeFunc(info.node.title)
+          eventEmitter.emit(.
+            EventUtils.getSelectTreeNodeEventName(),
+            Method.findTitle(
+              info.node.key,
+              info.node.title,
+              selectedUIControls,
+              selectedUIControlInspectorData,
+            )->Obj.magic,
+          )
+        }}
+        onDrop={(info: Tree.info) => {
+          Method.onDrop(service, dispatch, info)
+        }}
+      />
+    </section>
+    // </Space>
     <Modal
       title={`UI Controls`}
       visible={isShowUIControls}

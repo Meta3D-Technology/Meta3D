@@ -128,8 +128,10 @@ let make = (
 
   // TODO check: no duplicate name
 
-  <Space direction=#vertical size=#middle>
-    <Space direction=#horizontal wrap=true>
+  // <Space direction=#vertical size=#middle>
+  //   <Space direction=#horizontal wrap=true>
+  <>
+    <section style={ReactDOM.Style.make(~position="sticky", ~top="0", ~zIndex="100", ())}>
       <Button
         ref={addButtonTarget}
         icon={<Icon.FileAddOutlined />}
@@ -152,7 +154,8 @@ let make = (
           Method.removeCustom(dispatch, buildRemoveActionFunc, currentCustomName)
         }}
       />
-    </Space>
+    // </Space>
+    </section>
     <Tree
       showIcon=false
       autoExpandParent=false
@@ -173,5 +176,6 @@ let make = (
         )
       }}
     />
-  </Space>
+  // </Space>
+  </>
 }

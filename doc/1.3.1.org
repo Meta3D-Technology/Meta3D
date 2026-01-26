@@ -654,7 +654,8 @@ TODO run test:
 
 
 
-** TODO Element: after select ui control, should show buttons in fixed position
+# ** TODO Element: after select ui control, should show buttons in fixed position
+** DONE Element: show buttons in fixed position
 
 
 ** TODO Inputs, Actions: sort by first char
