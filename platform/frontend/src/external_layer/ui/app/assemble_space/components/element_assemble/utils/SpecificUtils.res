@@ -6,6 +6,7 @@ let _handleSpecificDataFieldType = (
     handleMenuItemsTypeFunc,
     handleBoolTypeFunc,
     handleSelectTypeFunc,
+    handleRGBATypeFunc,
     // handleNumberTypeFunc,
   ),
   type_: CommonType.specificDataType,
@@ -18,6 +19,7 @@ let _handleSpecificDataFieldType = (
   | #menuItems => handleMenuItemsTypeFunc(value)
   | #bool => handleBoolTypeFunc(value)
   | #select => handleSelectTypeFunc(value)
+  | #rgba => handleRGBATypeFunc(value)
   // | #number => handleNumberTypeFunc(value)
   }
 }
@@ -74,6 +76,9 @@ let convertValueToString = (
             )
           : value->Obj.magic->Js.Json.stringify
       },
+      value => {
+        value->Obj.magic->Js.Json.stringify
+      },
     ),
     type_,
     value,
@@ -104,6 +109,9 @@ let convertStringToValue = (
       },
       valueStr => {
         valueStr->Obj.magic->IntUtils.stringToInt->Obj.magic
+      },
+      valueStr => {
+        valueStr->Obj.magic->Js.Json.parseExn->Obj.magic
       },
     ),
     type_,

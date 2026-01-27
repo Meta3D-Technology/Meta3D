@@ -172,8 +172,12 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
             let elementFunc = elementFuncMap->Meta3dCommonlib.ImmutableHashMap.getExn(elementName)
 
             /* !
+
               TODO should judge is state change in elementFunc:
+
              if state not change, not update geometry buffer, but should render if isShow!!! 
+
+
 
  */
 
@@ -837,6 +841,16 @@ let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width) => {
   )
 }
 
+let inputInt1 = (data, meta3dState, label, value, step, stepFast, width) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.inputInt1(. label, value, step, stepFast, width))
+    },
+    data,
+  )
+}
+
 let checkbox = (data, meta3dState, label, value) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
@@ -963,16 +977,30 @@ let text = (data, meta3dState, text) => {
   )
 }
 
-let inputTextarea = (data, meta3dState, label, ( width, height ), maxLength, text) => {
-  _invokeIMGUIRenderFuncWithParam(
+let textColored = (data, meta3dState, color, text) => {
+  _invokeIMGUIRenderFunc(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputTextarea(. label, ( width, height ), maxLength, text))
+      imguiRendererService.textColored(. color, text)
+
+      imguiRendererState
     },
     data,
   )
 }
 
+let inputTextarea = (data, meta3dState, label, (width, height), maxLength, text) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (
+        imguiRendererState,
+        imguiRendererService.inputTextarea(. label, (width, height), maxLength, text),
+      )
+    },
+    data,
+  )
+}
 
 let getItemRectMax = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(

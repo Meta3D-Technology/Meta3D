@@ -196,6 +196,13 @@ let _generateSpecific = (specific: ElementAssembleStoreType.specific): string =>
         | #bool => j`${value->Obj.magic->BoolUtils.boolToString},`
         | #select => j`${SpecificUtils.convertValueToString(value, type_)},`
         | #number => j`${value->NumberUtils.numberToString},`
+        | #rgba => 
+        // j`[
+        //   ${(value->Obj.magic)[0]->NumberUtils.numberToString},
+        // ${(value->Obj.magic)[1]->NumberUtils.numberToString},
+        // ${(value->Obj.magic)[2]->NumberUtils.numberToString}
+        // ],`
+j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
         | _ => "`" ++ SpecificUtils.convertValueToString(value->Obj.magic, type_) ++ "`,"
         // | _ => j`"${SpecificUtils.convertValueToString(value->Obj.magic, type_)}",`
         }

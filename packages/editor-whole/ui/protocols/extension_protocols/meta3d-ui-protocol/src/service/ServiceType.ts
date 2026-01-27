@@ -272,6 +272,14 @@ export type service = {
         stepFast: number,
         width: number
     ) => [meta3dState, nullable<[number, number, number]>];
+    readonly inputInt1: (
+        meta3dState: meta3dState,
+        label: label,
+        value: number,
+        step: number,
+        stepFast: number,
+        width: number
+    ) => [meta3dState, nullable<number>];
     readonly checkbox: (
         meta3dState: meta3dState,
         label: label,
@@ -318,6 +326,7 @@ export type service = {
     readonly dummy: (meta3dState: meta3dState, width: number, height: number) => meta3dState;
     readonly list: (meta3dState: meta3dState, label: label, [width, height]: [number, number], items: Array<string>, [itemWidth, itemHeight]: [number, number], isRemoveable: boolean, removeTexture: nullable<imguiImplTexture>) => [meta3dState, [nullable<[number, string]>, nullable<boolean>]];
     readonly text: (meta3dState: meta3dState, text: string) => meta3dState;
+    readonly textColored: (meta3dState: meta3dState, color: [number, number, number, number], text: string) => meta3dState;
     readonly inputTextarea: (meta3dState: meta3dState, label: label, [width, height]: [number, number], maxLength: number, value: string) => [meta3dState, nullable<string>];
     readonly getItemRectMax: (meta3dState: meta3dState) => vec2;
     readonly getItemRectSize: (meta3dState: meta3dState) => vec2;

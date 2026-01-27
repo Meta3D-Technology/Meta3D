@@ -690,14 +690,35 @@ Third
 ** TODO update
 
 
+# TODO add Message ui control
+TODO add Text ui control
+    show modal + text
 
-# TODO modal can set width, height
+TODO add InputInt ui control
 
-TODO description add max length
-
-# TODO adjust version input's position
+TODO add Text color ui control
 
 
+TODO handle uiControlSpecicFieldType
+
+
+TODO update ui,careermod package
+
+TODO run test
+  TODO add Text color ui control
+    why to text?
+
+  TODO add Text ui control
+      show modal + text
+
+  TODO add InputInt ui control
+    extract id
+
+
+TODO fix: after auto upgrade, color change back
+
+
+TODO handle all bookmarks
 
 
 add:
@@ -709,11 +730,17 @@ add:
 add Menu
   TODO add publish
 
-  TODO 编辑器的menu中加进入游戏，分别有进入游戏正式版和进入游戏内测版内测啊测试模式。
+  TODO 编辑器的menu中加进入游戏，分别有进入游戏正式版和进入游戏内测版/测试模式
 
   TODO add doc link
 
 
+
+# TODO modal can set width, height
+
+TODO description add max length
+
+# TODO adjust version input's position
 
 
 
@@ -727,11 +754,18 @@ TODO remove input, action related to version
 
 
 
+
+
+TODO when initing(add career feature action), publish/success/fail, should show info
+  show modal + text
+
+TODO when publishing/After publish success, should close modal
+
+
+
+
 TODO check value when publish to game
   version should be zhengshu
-
-
-
 
 
 
@@ -752,17 +786,14 @@ TODO feat: feature list: group by positive, sort by name
 
 
 
-TODO add Message ui control
-  TODO when initing(add career feature action), publish/success/fail, should show info
-
-TODO After publish success, should close modal
-
 
 
 TODO run test:
 no mod icon
 
 no career icon
+
+no displayName_en
 
 
 is public
@@ -810,6 +841,9 @@ visit EnterApp?
 publish all to 1.4.10
 
 update VersionConfig.res
+
+
+** TODO update X天前更新
 
 
 ** TODO update online link

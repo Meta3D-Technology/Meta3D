@@ -30,7 +30,7 @@ type actionName = Js.Nullable.t<string>
 
 type versionRange = string
 
-type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems | #bool | #select | #number | #textarea]
+type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems | #bool | #select | #number | #textarea |#rgba]
 
 type uiControlSpecicFieldValue
 

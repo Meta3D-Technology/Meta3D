@@ -202,6 +202,13 @@ export type service = {
     stepFast: number,
     width: number
   ) => nullable<[number, number, number]>;
+  readonly inputInt1: (
+    label: label,
+    value: number,
+    step: number,
+    stepFast: number,
+    width: number
+  ) => nullable<number>;
   readonly checkbox: (
     label: label,
     value: boolean
@@ -234,6 +241,7 @@ export type service = {
   readonly dummy: (width: number, height: number) => void;
   readonly list: (label: label, [width, height]: [number, number], items: Array<string>, [itemWidth, itemHeight]: [number, number], isRemoveable: boolean, removeTexture: nullable<imguiImplTexture>) => [nullable<[number, string]>, nullable<boolean>];
   readonly text: (text: string) => void;
+  readonly textColored: (color: [number, number, number, number], text: string) => void;
   readonly inputTextarea: (label: label, [width, height]: [number, number], maxLength: number, value: string) => nullable<string>;
   readonly getItemRectMax: () => vec2;
   readonly getItemRectSize: () => vec2;
