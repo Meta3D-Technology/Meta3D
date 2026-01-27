@@ -408,8 +408,12 @@ let _loop = (
 	let [_, { skinName, clearColor }] = configData
 
 	return _updateForRun(meta3dState, api, { clearColor, time, skinName }).then(meta3dState => {
+		api.writeState(meta3dState)
+
 		requestAnimationFrame(
 			(time) => {
+				meta3dState = api.readState()
+
 				_loop(api, meta3dState,
 					time,
 					configData)

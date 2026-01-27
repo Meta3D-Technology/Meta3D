@@ -85,6 +85,8 @@ type addGeneratedContributeFunc = (
 ) => array<Meta3d.AppAndPackageFileType.contributeFileData>
 
 type meta3dService = {
+  readState: unit => Meta3dType.Index.state,
+  writeState: (. Meta3dType.Index.state) => unit,
   getPackageService: 'packageService. (. Meta3dType.Index.state, string) => 'packageService,
   generateContribute: (
     . Meta3d.ExtensionFileType.contributePackageData,

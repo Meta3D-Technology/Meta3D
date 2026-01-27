@@ -194,6 +194,8 @@ type uiControlAPI = {
 }
 
 type api = {
+  readState: unit => state,
+  writeState: (. state) => unit,
   /* ! rank2 polymorphism */
   registerExtension: 'getExtensionServiceFunc 'getLifeFunc 'extensionState. (
     . state,

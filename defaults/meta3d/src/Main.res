@@ -76,6 +76,10 @@ let deepCopy = ExtensionManager.deepCopy
 
 let buildAPI = ExtensionManager.buildAPI
 
+let readState = ExtensionManager.readState
+
+let writeState = ExtensionManager.writeState
+
 
 
 let generateMod = ModFileManager.generateMod

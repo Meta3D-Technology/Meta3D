@@ -118,6 +118,8 @@ export type uiControlAPI = { getUIControlState: <uiControlState> (state: state, 
 
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
+  readState(): state,
+  writeState(state: state): void,
   registerExtension<getExtensionServiceFunc, getLifeFunc, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, extensionState: extensionState): state,
   getExtensionService<extensionService>(state: state, extensionProtocolName: extensionProtocolName): extensionService,
   getExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName): extensionState,

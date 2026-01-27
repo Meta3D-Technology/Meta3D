@@ -364,6 +364,21 @@ let _buildMessageAPI = (): Meta3dType.Index.messageAPI => {
   `),
 }
 
+
+let readState = %raw(`
+() => {
+    return globalThis.meta3dState
+}
+
+`)
+
+let writeState = %raw(`
+(meta3dState) => {
+    globalThis.meta3dState = meta3dState
+}
+
+`)
+
 let rec registerExtension = (
   state,
   protocolName: extensionProtocolName,
@@ -433,6 +448,8 @@ and registerContribute = (
   }
 }
 and buildAPI = (): api => {
+  readState: readState,
+  writeState: writeState,
   registerExtension: (
     (. state, extensionProtocolName, getExtensionService, getExtensionLife, extensionState) =>
       registerExtension(

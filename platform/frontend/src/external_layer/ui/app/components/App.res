@@ -74,6 +74,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   // let monacoEditor = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
+
   let _buildAssembleSpaceService = (): AssembleSpaceType.service => {
     ui: {
       buildTitle: (. ~level, ~children, ()) => {
@@ -126,6 +127,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       BackendCloudbase.buildAssembleSpaceService()
     },
     meta3d: {
+      readState: Meta3d.Main.readState,
+      writeState: Meta3d.Main.writeState,
       getPackageService: (. meta3dState, packageProtocolName) =>
         Meta3d.Main.getPackageService->Obj.magic(meta3dState, packageProtocolName),
       generateContribute: (. packageData, fileStr) =>
@@ -273,7 +276,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
           selectedExtensionsForApAssembleStore,
           selectedContributesForApAssembleStore,
         ),
-        (generateSpeficiFunc, selectedContributesForApAssembleStore ),
+        (generateSpeficiFunc, selectedContributesForApAssembleStore),
         (
           selectedPackagesForPackageAssembleStore,
           selectedExtensionsForPackageAssembleStore,

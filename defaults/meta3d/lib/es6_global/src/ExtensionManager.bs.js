@@ -257,6 +257,14 @@ function _buildMessageAPI(param) {
         };
 }
 
+var readState = (() => {
+    return globalThis.meta3dState
+});
+
+var writeState = ((meta3dState) => {
+    globalThis.meta3dState = meta3dState
+});
+
 function registerExtension(state, protocolName, getServiceFunc, getLifeFunc, extensionState) {
   _checkIsRegister(protocolName, ImmutableHashMap$Meta3dCommonlib.has(state.extensionServiceMap, protocolName));
   var state$1 = setExtensionState({
@@ -300,6 +308,8 @@ function registerContribute(state, protocolName, getContributeFunc) {
 
 function buildAPI(param) {
   return {
+          readState: readState,
+          writeState: writeState,
           registerExtension: registerExtension,
           getExtensionService: (function (state, protocolName) {
               return ImmutableHashMap$Meta3dCommonlib.getExn(state.extensionServiceMap, protocolName);
@@ -364,6 +374,8 @@ export {
   _buildActionAPI ,
   _buildUIControlAPI ,
   _buildMessageAPI ,
+  readState ,
+  writeState ,
   registerExtension ,
   registerContribute ,
   buildAPI ,

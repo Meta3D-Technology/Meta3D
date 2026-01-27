@@ -43,9 +43,11 @@ module Method = {
       _getUpdateData(clearColor, skinName, time),
     )
     ->Js.Promise.then_(meta3dState => {
+      service.meta3d.writeState(. meta3dState)
+
       loopFrameID.current =
         service.other.requestAnimationOtherFrame(time => {
-          _loop(service, loopFrameID, apInspectorData, time, meta3dState)
+          _loop(service, loopFrameID, apInspectorData, time, service.meta3d.readState())
         })->Some
 
       ()->Js.Promise.resolve

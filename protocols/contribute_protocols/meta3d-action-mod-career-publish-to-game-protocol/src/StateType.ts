@@ -10,6 +10,7 @@ export type state = {
     isPublic: boolean,
     author: string,
     readme: string,
+    needGem: number,
     // version: string,
 }
 

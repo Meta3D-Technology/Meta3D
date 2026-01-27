@@ -722,9 +722,6 @@ TODO fix: after auto upgrade, specific shouldn't be reset if protocol version no
 TODO handle all bookmarks
 
 
-add:
-  NeedGem:InputNumber
-
 
 
 
@@ -733,7 +730,57 @@ add Menu
 
   TODO 编辑器的menu中加进入游戏，分别有进入游戏正式版和进入游戏内测版/测试模式
 
-  TODO add doc link
+
+
+
+add:
+  NeedGem:InputNumber
+
+
+TODO add actions
+jump to game debug
+jump to game 
+set need gem
+set info
+
+# remove feature
+
+
+
+TODO add inputs
+need gem
+info for text
+info for modal
+
+
+TODO update publish to game action
+
+
+TODO build ui
+info modal
+  info
+    TODO show initing
+      use setTimeout
+      read/write meta3dState
+
+      add Flow
+
+      update api
+
+
+TODO update editor package
+
+
+
+menu
+select charactertype
+upload icon1   upload icon2
+set needgem
+add feature button
+dynamic
+
+publish modal
+
 
 
 
@@ -760,6 +807,10 @@ TODO remove input, action related to version
 TODO when initing(add career feature action), publish/success/fail, should show info
   show modal + text
 
+
+
+
+
 TODO when publishing/After publish success, should close modal
 
 
@@ -770,7 +821,7 @@ TODO check value when publish to game
 
 
 
-TODO add remove feature button
+# TODO add remove feature button
 
 
 TODO use color text for description to show positive/negative
@@ -822,6 +873,8 @@ editor-careermod
 
 
 
+** TODO css: Actions,Inputs->name->max zIndex
+
 ** TODO refactor: remove mod_files
 
 ** TODO deploy editor to online
@@ -831,12 +884,14 @@ visit EnterApp?
 
 
 
-
-
+# * TODO add en editor
 
 
 
 * TODO update Meta3D->platform
+
+** TODO update X天前更新
+
 
 ** TODO update platform version to 1.4
 publish all to 1.4.10
@@ -844,13 +899,24 @@ publish all to 1.4.10
 update VersionConfig.res
 
 
-** TODO update X天前更新
-
 
 ** TODO update online link
+
+
+
+
+
+* TODO update game
+
+
+
 
 
 
 * TODO give doc
 
 编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
+
+
+add Menu
+  TODO add doc link

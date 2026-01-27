@@ -82,7 +82,7 @@ let _buildDistFileContent = (state, characterType, features) => {
                         // title: api.getLanguageDataByData(state, _getTextData(), "Title"),
                         title: "${state.displayName_cn}",
                         iconId: "${_buildIconId(state)}",
-                        needGem: 2000,
+                        needGem: ${state.needGem},
                         getCareerFeatureData: (state) => api.MutableRecordUtils.createFromObject(${_buildFeatures(features)}),
                     };
                 },
@@ -185,6 +185,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 author: "",
                 readme: "",
                 // version: "0.0.1",
+                needGem: 2000,
             }
         }
     }

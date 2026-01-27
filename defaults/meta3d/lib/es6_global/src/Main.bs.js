@@ -87,6 +87,10 @@ var deepCopy = ExtensionManager$Meta3d.deepCopy;
 
 var buildAPI = ExtensionManager$Meta3d.buildAPI;
 
+var readState = ExtensionManager$Meta3d.readState;
+
+var writeState = ExtensionManager$Meta3d.writeState;
+
 var generateMod = ModFileManager$Meta3d.generateMod;
 
 var loadMod = ModFileManager$Meta3d.loadMod;
@@ -133,6 +137,8 @@ export {
   restore ,
   deepCopy ,
   buildAPI ,
+  readState ,
+  writeState ,
   generateMod ,
   loadMod ,
   parseMod ,

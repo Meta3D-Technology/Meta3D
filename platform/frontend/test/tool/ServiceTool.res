@@ -85,6 +85,8 @@ let build = (
   ~findNewestPublishElementAssembleData=createEmptyStub(refJsObjToSandbox(sandbox.contents))
   ->returns(Meta3dBsMostDefault.Most.empty(), _)
   ->Obj.magic,
+  ~readState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
+  ~writeState=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~generateContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~getPackageService=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
   ~loadContribute=createEmptyStub(refJsObjToSandbox(sandbox.contents))->Obj.magic,
@@ -191,6 +193,8 @@ let build = (
     // findNewestPublishElementAssembleData,
   },
   meta3d: {
+    readState,
+    writeState,
     generateContribute,
     getPackageService: getPackageService->Obj.magic,
     loadContribute,
