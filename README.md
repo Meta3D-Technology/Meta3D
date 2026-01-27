@@ -2,7 +2,8 @@
 
 Meta3D是开源Web3D低代码平台，一条龙可视化搭建Web3D应用、编辑器、引擎，共建开放互助的Web3D生态
 
-[![build](https://github.com/Meta3D-Technology/Meta3D/actions/workflows/ci.yml/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) [![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)](https://github.com/Meta3D-Technology/Meta3D/graphs/commit-activity)
+<!-- [![build](https://github.com/Meta3D-Technology/Meta3D/actions/workflows/ci.yml/badge.svg)](https://github.com/Wonder-Technology/Meta3D/actions) [![test](https://codecov.io/github/Wonder-Technology/Meta3D/coverage.svg?branch=master)](https://codecov.io/github/Wonder-Technology/Meta3D?branch=master) -->
+ [![GitHub release](https://img.shields.io/github/release/Wonder-Technology/Meta3D.svg)](https://github.com/Wonder-Technology/Meta3D/releases) [![commit activity](https://img.shields.io/github/commit-activity/m/Wonder-Technology/Meta3D?color=00FF0)](https://github.com/Meta3D-Technology/Meta3D/graphs/commit-activity)
 
 
 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B) • [搭建的编辑器Demo](https://meta3d-production-5eol5gce9a6b9c-1302358347.tcloudbaseapp.com/EnterApp?account=meta3d&appName=%E5%AE%8C%E6%95%B4%E7%9A%84%E7%BC%96%E8%BE%91%E5%99%A8) • [进入平台](https://meta3d-local-9gacdhjl439cff76-1302358347.tcloudbaseapp.com/)
