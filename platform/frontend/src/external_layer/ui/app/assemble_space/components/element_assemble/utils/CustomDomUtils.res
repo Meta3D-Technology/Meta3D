@@ -50,7 +50,11 @@ module Method = {
 
   let convertToTreeData = customs => {
     customs
-    ->Meta3dCommonlib.ListSt.map(({name}: CommonType.custom): Tree.treeData => {
+    ->Meta3dCommonlib.ListSt.toArray
+    ->Meta3dCommonlib.ArraySt.sort((a: CommonType.custom, b: CommonType.custom) => {
+      Js.String.localeCompare(b.name, a.name)->Obj.magic
+    })
+    ->Meta3dCommonlib.ArraySt.map(({name}: CommonType.custom): Tree.treeData => {
       {
         title: {React.string(name)},
         key: name,
@@ -58,7 +62,6 @@ module Method = {
         children: [],
       }
     })
-    ->Meta3dCommonlib.ListSt.toArray
   }
 
   let onSelect = (
@@ -67,9 +70,10 @@ module Method = {
     setCurrentCustomNameToGlobalFunc,
     selectedKeysValue,
     info: Tree.info,
+  ) => {
     // customs,
     // type_,
-  ) => {
+
     let currentCustomName = info.node.key
 
     setCurrentCustomNameToGlobalFunc(info.node.key)
@@ -154,7 +158,7 @@ let make = (
           Method.removeCustom(dispatch, buildRemoveActionFunc, currentCustomName)
         }}
       />
-    // </Space>
+      // </Space>
     </section>
     <Tree
       showIcon=false
@@ -163,7 +167,7 @@ let make = (
       selectedKeys
       onSelect={(selectedKeysValue, info) => {
         // eventEmitter.emit(. selectEventName, info.node.key->Obj.magic)
-        eventEmitter.emit(. selectEventName, ( info.node.key, customs )->Obj.magic)
+        eventEmitter.emit(. selectEventName, (info.node.key, customs)->Obj.magic)
 
         Method.onSelect(
           (dispatch, setSelectedKeys),
@@ -176,6 +180,6 @@ let make = (
         )
       }}
     />
-  // </Space>
+    // </Space>
   </>
 }

@@ -658,15 +658,15 @@ TODO run test:
 ** DONE Element: show buttons in fixed position
 
 
-** TODO Inputs, Actions: sort by first char
+** DONE Inputs, Actions: sort by first char
 
 
 ** TODO Market: sort by publish time
 
-** TODO Market: add remove protocol, remove detail button
+# ** TODO Market: add remove protocol, remove detail button
 
 
-** TODO UserCenter: show my published inputs, actions
+# ** TODO UserCenter: show my published inputs, actions
 
 
 ** TODO ci: not check test
