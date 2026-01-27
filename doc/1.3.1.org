@@ -715,7 +715,8 @@ TODO run test
     extract id
 
 
-TODO fix: after auto upgrade, color change back
+# TODO fix: after auto upgrade, specific shouldn't be reset if not change
+TODO fix: after auto upgrade, specific shouldn't be reset if protocol version not change
 
 
 TODO handle all bookmarks

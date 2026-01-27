@@ -323,7 +323,8 @@ let reducer = (state, action) => {
       dragId,
       dropId,
       dropPosition,
-    ) => !dropToGap &&
+    ) =>
+    !dropToGap &&
     !hasChildren(.
       serializeUIControlProtocolConfigLib(.
         (
@@ -448,6 +449,7 @@ let reducer = (state, action) => {
                 }
               }
         }
+
   | SetSpecificData(id, specific) =>
     _setUIControlInspectorData(
       state,
@@ -731,12 +733,17 @@ let reducer = (state, action) => {
       })
 
       state->_updateAllUIControlInspectorData(data => {
-        let name = (
+        let selectedUIControlData =
           _findSelectUIControlById(state, data.id)->Meta3dCommonlib.OptionSt.getExn
-        ).data.contributePackageData.name
+        let name = selectedUIControlData.data.contributePackageData.name
+        let protocolVersion = selectedUIControlData.data.contributePackageData.protocol.version
 
         switch selectedUIControls->Meta3dCommonlib.ListSt.find(({data}) => {
-          data.contributePackageData.name == name
+          data.contributePackageData.name == name &&
+            Meta3d.Semver.gt(
+              Meta3d.Semver.minVersion(data.contributePackageData.protocol.version),
+              Meta3d.Semver.minVersion(protocolVersion),
+            )
         }) {
         | Some({protocolConfigStr}) => {
             ...data,
