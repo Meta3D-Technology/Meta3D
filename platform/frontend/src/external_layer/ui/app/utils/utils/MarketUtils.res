@@ -26,6 +26,7 @@ let groupAllPublishProtocols = (allPublishProtocols: array<BackendCloudbaseType.
   array<BackendCloudbaseType.protocol>,
 > => {
   allPublishProtocols
+  ->Meta3dCommonlib.ArraySt.reverse
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, {name} as protocol) => {
     map->Meta3dCommonlib.ImmutableHashMap.set(
       name,
@@ -47,6 +48,7 @@ let groupAllPublishProtocols = (allPublishProtocols: array<BackendCloudbaseType.
 
 let groupAllPublishItems = ((getName, getVersion), allPublishItems) => {
   allPublishItems
+  ->Meta3dCommonlib.ArraySt.reverse
   ->Meta3dCommonlib.ArraySt.reduceOneParam((. map, item) => {
     map->Meta3dCommonlib.ImmutableHashMap.set(
       // info.name,
