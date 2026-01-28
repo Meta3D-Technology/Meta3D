@@ -112,13 +112,12 @@ type publishFinalApp = (
 Js.Promise.t<unit>
 
 type publishMod = (
-  .  string,
-     string,
-     string,
-     array<( string, Js.Typed_array.Uint8Array.t )>,
+  . string,
+  string,
+  string,
+  array<(string, Js.Typed_array.Uint8Array.t)>,
   Js.Nullable.t<string>,
-) =>
-Js.Promise.t<unit>
+) => Js.Promise.t<unit>
 
 type blockName = string
 type blockService
@@ -136,15 +135,15 @@ type userMod = {
 
 type modAPI
 
-type getBlockService = (modAPI) => blockService
+type getBlockService = modAPI => blockService
 
 type findModsByProtocol = (. string) => Js.Promise.t<array<(userMod, getBlockService)>>
 
 type backendAPI = {
   init: init,
   publishFinalApp: publishFinalApp,
-  publishMod:publishMod,
-  findModsByProtocol:findModsByProtocol,
+  publishMod: publishMod,
+  findModsByProtocol: findModsByProtocol,
 }
 
 type message = string
@@ -193,6 +192,8 @@ type uiControlAPI = {
   setUIControlState: 'uiControlState. (. state, uiControlName, 'uiControlState) => state,
 }
 
+type flowAPI = {deferExec: (. state => Js.Promise.t<state>, Js.Nullable.t<int>) => unit}
+
 type api = {
   readState: unit => state,
   writeState: (. state) => unit,
@@ -231,6 +232,7 @@ type api = {
   uiControl: uiControlAPI,
   backend: backendAPI,
   message: messageAPI,
+  flow: flowAPI,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

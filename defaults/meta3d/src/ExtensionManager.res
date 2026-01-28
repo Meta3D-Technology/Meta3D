@@ -364,6 +364,18 @@ let _buildMessageAPI = (): Meta3dType.Index.messageAPI => {
   `),
 }
 
+let _buildFlowAPI = (): Meta3dType.Index.flowAPI => {
+  deferExec: %raw(`
+(func, time=500) => {
+    setTimeout(() =>{
+      func(globalThis.meta3dState).then(meta3dState =>{
+      globalThis.meta3dState = meta3dState
+    })
+}, time)
+}
+`),
+}
+
 
 let readState = %raw(`
 () => {
@@ -378,6 +390,7 @@ let writeState = %raw(`
 }
 
 `)
+
 
 let rec registerExtension = (
   state,
@@ -494,4 +507,5 @@ and buildAPI = (): api => {
     getPackageService(state, protocolName)->Obj.magic
   ),
   message: _buildMessageAPI(),
+  flow: _buildFlowAPI(),
 }

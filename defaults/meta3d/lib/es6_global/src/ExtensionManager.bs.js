@@ -257,6 +257,18 @@ function _buildMessageAPI(param) {
         };
 }
 
+function _buildFlowAPI(param) {
+  return {
+          deferExec: ((func, time=500) => {
+    setTimeout(() =>{
+      func(globalThis.meta3dState).then(meta3dState =>{
+      globalThis.meta3dState = meta3dState
+    })
+}, time)
+})
+        };
+}
+
 var readState = (() => {
     return globalThis.meta3dState
 });
@@ -345,7 +357,8 @@ function buildAPI(param) {
           action: _buildActionAPI(_buildNullableAPI(undefined), getPackageService),
           uiControl: _buildUIControlAPI(_buildNullableAPI(undefined), getPackageService),
           backend: _buildBackendAPI(undefined),
-          message: _buildMessageAPI(undefined)
+          message: _buildMessageAPI(undefined),
+          flow: _buildFlowAPI(undefined)
         };
 }
 
@@ -374,6 +387,7 @@ export {
   _buildActionAPI ,
   _buildUIControlAPI ,
   _buildMessageAPI ,
+  _buildFlowAPI ,
   readState ,
   writeState ,
   registerExtension ,

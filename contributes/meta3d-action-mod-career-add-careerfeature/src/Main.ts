@@ -65,10 +65,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 info: api.nullable.return("加载中...")
             })
 
-            setTimeout(() => {
-                let meta3dState = api.readState()
-
-                _buildAllDefaultCareerFeatures(api).then(data => {
+            api.flow.deferExec((meta3dState) => {
+                return _buildAllDefaultCareerFeatures(api).then(data => {
                     let allDefaultCareerFeatures = api.immutable.createListOfData(data)
 
                     return api.action.setActionState(meta3dState, actionName, {
@@ -82,8 +80,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             info: api.nullable.getEmpty()
                         })
                     })
-                    .then(api.writeState)
-            }, 0)
+            })
 
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 

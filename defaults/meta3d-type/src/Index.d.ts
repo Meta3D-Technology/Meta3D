@@ -116,6 +116,10 @@ export type actionAPI = { getActionState: <actionState> (state: state, actionNam
 // tslint:disable-next-line:interface-over-type-literal
 export type uiControlAPI = { getUIControlState: <uiControlState> (state: state, uiControlName: string) => uiControlState; setUIControlState: <uiControlState> (state: state, uiControlName: string, uiControlState: uiControlState) => state };
 
+export type flowAPI = {
+  deferExec: (func: (state: state) => Promise<state>, time?: number) => void
+};
+
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
   readState(): state,
@@ -136,7 +140,8 @@ export type api = {
   action: actionAPI;
   uiControl: uiControlAPI,
   backend: backendAPI,
-  message: messageAPI
+  message: messageAPI,
+  flow: flowAPI,
 };
 
 // tslint:disable-next-line:interface-over-type-literal

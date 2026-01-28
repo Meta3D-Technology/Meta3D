@@ -8,6 +8,7 @@ import { actionName as addCareerFeatureActionName, characterType, state as addCa
 import { actionName as selectCharacterTypeActionName, state as selectCharacterTypeState } from "meta3d-action-mod-career-selectcharactertype-protocol"
 import { actionName as loadModPreviewActionName, state as loadModPreviewState } from "meta3d-action-mod-career-load-modpreview-protocol"
 import { actionName as loadCareerPreviewActionName, state as loadCareerPreviewState } from "meta3d-action-mod-career-load-careerpreview-protocol"
+import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 
 //TODO duplicate
 let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
@@ -116,17 +117,33 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         return _isCharacterTypeEqual(d.characterType, characterType_)
                     })
 
-                    let assetIconBase64 = api.action.getActionState<loadModPreviewState>(meta3dState, loadModPreviewActionName).preview
-                    let careerIconBase64 = api.action.getActionState<loadCareerPreviewState>(meta3dState, loadCareerPreviewActionName).preview
-
-                    let state = api.action.getActionState<state>(meta3dState, actionName)
+                    let assetIconBase64 = api.nullable.getWithDefault(
+                        api.action.getActionState<loadModPreviewState>(meta3dState, loadModPreviewActionName).preview,
+                        ""
+                    )
+                    let careerIconBase64 = api.nullable.getWithDefault(
+                        api.action.getActionState<loadCareerPreviewState>(meta3dState, loadCareerPreviewActionName).preview,
+                        ""
+                    )
 
                     console.log("publish mod")
 
-                    return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
-                        return api.backend.publishMod(
-                            // "local",
-                            ` {
+
+                    meta3dState = api.action.setActionState<state>(meta3dState, actionName, {
+                        ...api.action.getActionState<state>(meta3dState, actionName),
+                        isShowModal: false
+                    })
+                    meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
+                        ...api.action.getActionState<infoState>(meta3dState, infoActionName),
+                        info: api.nullable.return("正在发布中...")
+                    })
+
+                    api.flow.deferExec((meta3dState) => {
+                        return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
+                            let state = api.action.getActionState<state>(meta3dState, actionName)
+
+                            return api.backend.publishMod(
+                                ` {
     "name": "${_buildUniqueName(state)}",
     "mod": {
         "protocolName": "career-protocol",
@@ -139,26 +156,31 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         ]
     }
                         }`,
-                            `${state.readme}`,
-                            _buildDistFileContent(state, characterType_, features),
-                            [
+                                `${state.readme}`,
+                                _buildDistFileContent(state, characterType_, features),
                                 [
-                                    `./${_buildIconId(state)}.png`,
-                                    uint8Array
+                                    [
+                                        `./${_buildIconId(state)}.png`,
+                                        uint8Array
+                                    ],
                                 ],
-                            ],
-                            careerIconBase64
-                        ).then(_ => {
-                            console.log("publish success")
+                                careerIconBase64
+                            )
+                                .then(() => {
+                                    meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
+                                        ...api.action.getActionState<infoState>(meta3dState, infoActionName),
+                                        info: api.nullable.getEmpty()
+                                    })
 
-                            // meta3dState = api.action.setActionState<state>(meta3dState, actionName, {
-                            //     ...state,
-                            //     version: state.version + 1
-                            // })
-
-                            return meta3dState
+                                    return meta3dState
+                                })
                         })
+                            .catch(e => {
+                                api.message.error(e)
+                            })
                     })
+
+                    return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
                 }))

@@ -87,8 +87,17 @@ export type uiControlAPI = {
 	getUIControlState: <uiControlState>(state: state, uiControlName: string) => uiControlState;
 	setUIControlState: <uiControlState>(state: state, uiControlName: string, uiControlState: uiControlState) => state;
 };
+
+
+export type flowAPI = {
+	deferExec: (func: (state: state) => Promise<state>, time?: number) => void
+};
+
+
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
+	readState(): state,
+	writeState(state: state): void,
 	registerExtension<getExtensionServiceFunc, getLifeFunc, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, extensionState: extensionState): state;
 	getExtensionService<extensionService>(state: state, extensionProtocolName: extensionProtocolName): extensionService;
 	getExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName): extensionState;
@@ -106,6 +115,7 @@ export type api = {
 	uiControl: uiControlAPI;
 	backend: backendAPI;
 	message: messageAPI;
+	flow: flowAPI,
 };
 // tslint:disable-next-line:interface-over-type-literal
 export type getExtensionService<extensionService> = (_1: api) => extensionService;

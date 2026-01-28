@@ -817,20 +817,28 @@ version should auto update
 
 
 
-TODO when initing(add career feature action), publish/success/fail, should show info
+TODO when initing(add career feature action), publish/success, should show info
   show modal + text
-
-
-
-
 
 TODO when publishing/After publish success, should close modal
 
 
+TODO when publish fail, give message
 
 
-TODO check value when publish to game
-  version should be zhengshu
+TODO run test:
+  # not close modal
+  not show info
+  can't open publish modal again
+
+  api: add deferExec func
+
+
+
+  test: when publish fail, give message
+
+
+
 
 
 
@@ -857,6 +865,11 @@ TODO select feature list: show name + description(colored)
 
 TODO feat: feature list: group by positive, sort by name
 
+
+
+
+TODO check value when publish to game
+  version should be zhengshu
 
 
 
