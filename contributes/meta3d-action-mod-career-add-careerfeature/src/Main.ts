@@ -34,6 +34,10 @@ let _buildAllDefaultCareerFeatures = (api: api) => {
             if (Array.isArray(randomValue)) {
                 valueCount = randomValue.length
             }
+
+            else if (!isFinite(randomValue)) {
+                valueCount = 0
+            }
             else {
                 valueCount = 1
             }

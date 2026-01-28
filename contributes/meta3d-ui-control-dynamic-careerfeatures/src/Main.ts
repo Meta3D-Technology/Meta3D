@@ -39,8 +39,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     description,
                     values
                 ], i) => {
-                    // let newHeight = 40 + values.length * 40
-                    let newHeight = 40 + 1 * 40
+                    let newHeight = 50 + Math.min(values.length, 1) * 30
                     windowRect = {
                         ...windowRect,
                         height: newHeight,
@@ -63,7 +62,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                             meta3dState = sameLine(meta3dState)
                         }
 
-                        if (!api.nullable.isNullable(newValue)) {
+                        if (
+                            !api.nullable.isNullable(newValue)
+                            && newValue > 0
+                        ) {
                             map = map.set(careerFeatureName,
                                 api.nullable.getWithDefault(
                                     map.get(careerFeatureName), api.immutable.createList()

@@ -186,12 +186,6 @@ export let getTextDataByVariable = () => {
             [careerFeatureName.ConvertedFriendUnitCauseIncreaseScale]: (value) => `每存在一个转换为友方阵营的单位，你的身高增加${value}米`,
             [careerFeatureName.ConvertedFriendHpConsumeHp]: (value) => `转换的友方单位每隔5秒会消耗你相当于该单位最大生命值的${value}%的血量`,
 
-
-
-
-
-
-
         },
         [language.English]: {
             [careerFeatureName.Empty]: (value) => `Empty`,
@@ -289,7 +283,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.Empty,
             characterType: characterType.GiantessOrLittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -569,7 +563,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.RemainScaleByEat,
             characterType: characterType.Giantess,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -577,7 +571,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.UseFullHpReplaceCoin,
             characterType: characterType.GiantessOrLittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -601,7 +595,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.EnhenceGiantessAfterBeat,
             characterType: characterType.GiantessOrLittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -609,7 +603,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.EnhenceArmyAfterBeat,
             characterType: characterType.GiantessOrLittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -649,7 +643,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.Duelist,
             characterType: characterType.GiantessOrLittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -657,7 +651,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.BulletSpeedMax,
             characterType: characterType.LittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -665,7 +659,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.ConvertToFriendCampByFreeUB,
             characterType: characterType.Giantess,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -673,7 +667,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.ControlledUnitCanAttack,
             characterType: characterType.Giantess,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -697,7 +691,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.DamagedSprayMilk,
             characterType: characterType.Giantess,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -745,7 +739,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.PassengerCanAttack,
             characterType: characterType.LittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
@@ -833,7 +827,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.FriendUnitCanDamagePlayerOrFriend,
             characterType: characterType.LittleMan,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }

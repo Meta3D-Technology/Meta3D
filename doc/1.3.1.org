@@ -845,6 +845,10 @@ TODO run test:
 # TODO add remove feature button
 
 
+TODO valueCount:0
+TODO value should >= 0
+
+
 
 TODO dynamic features: 
 move to right top
