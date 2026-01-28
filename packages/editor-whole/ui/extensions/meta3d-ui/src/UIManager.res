@@ -821,31 +821,31 @@ let inputText = (data, meta3dState, label, value, maxLength, width) => {
   )
 }
 
-let inputFloat1 = (data, meta3dState, label, value, step, stepFast, width) => {
+let inputFloat1 = (data, meta3dState, label, value, step, stepFast, width, text) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputFloat1(. label, value, step, stepFast, width))
+      (imguiRendererState, imguiRendererService.inputFloat1(. label, value, step, stepFast, width, text))
     },
     data,
   )
 }
 
-let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width) => {
+let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width, text) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputFloat3(. label, value, step, stepFast, width))
+      (imguiRendererState, imguiRendererService.inputFloat3(. label, value, step, stepFast, width, text))
     },
     data,
   )
 }
 
-let inputInt1 = (data, meta3dState, label, value, step, stepFast, width) => {
+let inputInt1 = (data, meta3dState, label, value, step, stepFast, width, text) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputInt1(. label, value, step, stepFast, width))
+      (imguiRendererState, imguiRendererService.inputInt1(. label, value, step, stepFast, width, text))
     },
     data,
   )
@@ -951,6 +951,19 @@ let dummy = (data, meta3dState, width, height) => {
     data,
   )
 }
+
+let sameLine = (data, meta3dState) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.sameLine()
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
 
 let list = (data, meta3dState, label, size, items, itemSize, isRemoveable, removeTexture) => {
   _invokeIMGUIRenderFuncWithParam(

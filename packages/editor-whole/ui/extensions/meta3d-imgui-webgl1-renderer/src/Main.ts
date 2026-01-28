@@ -291,24 +291,24 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return newValue
         },
-        inputFloat1: (label, value, step, stepFast, width) => {
+        inputFloat1: (label, value, step, stepFast, width, text) => {
             let valueRef = buildRef(value)
             let newValue: nullable<number> = null
 
             ImGui.PushItemWidth(width)
 
-            ImGui.PushID(_extractId(label + "_x"))
+            ImGui.PushID(label + "_x")
             if (ImGui.InputFloat("", buildBind(valueRef), step, stepFast, "%.3f")) {
                 newValue = valueRef.content
             }
             ImGui.PopID()
             ImGui.SameLine()
 
-            ImGui.Text(_extractTextFromWithId(label))
+            ImGui.Text(text)
 
             return newValue
         },
-        inputFloat3: (label, [x, y, z], step, stepFast, width) => {
+        inputFloat3: (label, [x, y, z], step, stepFast, width, text) => {
             let valueXRef = buildRef(x)
             let valueYRef = buildRef(y)
             let valueZRef = buildRef(z)
@@ -318,8 +318,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             ImGui.PushItemWidth(width)
 
-            // ImGui.PushID(_generateUniqueId())
-            ImGui.PushID(_extractId(label + "_x"))
+            ImGui.PushID(label + "_x")
             if (ImGui.InputFloat("", buildBind(valueXRef), step, stepFast, "%.3f")) {
                 newValueX = valueXRef.content
                 newValueY = api.nullable.return(y)
@@ -328,7 +327,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.PopID()
             ImGui.SameLine()
 
-            ImGui.PushID(_extractId(label + "_y"))
+            ImGui.PushID(label + "_y")
             if (ImGui.InputFloat("", buildBind(valueYRef), step, stepFast, "%.3f")) {
                 newValueY = valueYRef.content
                 newValueX = api.nullable.return(x)
@@ -337,7 +336,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.PopID()
             ImGui.SameLine()
 
-            ImGui.PushID(_extractId(label + "_z"))
+            ImGui.PushID(label + "_z")
             if (ImGui.InputFloat("", buildBind(valueZRef), step, stepFast, "%.3f")) {
                 newValueZ = valueZRef.content
                 newValueX = api.nullable.return(x)
@@ -346,7 +345,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.PopID()
             ImGui.SameLine()
 
-            ImGui.Text(_extractTextFromWithId(label))
+            ImGui.Text(text)
 
             return api.nullable.bind(newValueX => {
                 return api.nullable.bind(newValueY => {
@@ -356,20 +355,20 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }, newValueY)
             }, newValueX)
         },
-        inputInt1: (label, value, step, stepFast, width) => {
+        inputInt1: (label, value, step, stepFast, width, text) => {
             let valueRef = buildRef(value)
             let newValue: nullable<number> = null
 
             ImGui.PushItemWidth(width)
 
-            ImGui.PushID(_extractId(label + "_x"))
+            ImGui.PushID(label + "_x")
             if (ImGui.InputInt("", buildBind(valueRef), step, stepFast)) {
                 newValue = valueRef.content
             }
             ImGui.PopID()
             ImGui.SameLine()
 
-            ImGui.Text(_extractTextFromWithId(label))
+            ImGui.Text(text)
 
             return newValue
         },
@@ -457,6 +456,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
         },
         dummy: (width, height) => {
             ImGui.Dummy(new ImGui.ImVec2(width, height))
+        },
+        sameLine: () => {
+            ImGui.SameLine()
         },
         list: (label, [width, height], items, [itemWidth, itemHeight], isRemoveable, removeTexture) => {
             let selectedIndex: nullable<number> = null

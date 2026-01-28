@@ -763,7 +763,7 @@ info modal
       use setTimeout
       read/write meta3dState
 
-      add Flow
+      # add Flow
 
       update api
 
@@ -778,10 +778,23 @@ upload icon1   upload icon2
 set needgem
 add feature button
 dynamic
+  TODO run test
+    no close button
+    can't update value
+    # exceed page not see
+    TODO dynamic features: inputs should in same line
+    TODO dynamic features: inputs should has no label
+
+
+
+
 
 publish modal
 
 
+TODO publish ui related, ui controls
+
+TODO update ui, editor package
 
 
 # TODO modal can set width, height
@@ -794,9 +807,9 @@ TODO description add max length
 
 
 TODO run test
+publish
 version should auto update
-
-TODO remove input, action related to version 
+  should be 0.0.1 for first
 
 
 
@@ -822,6 +835,15 @@ TODO check value when publish to game
 
 
 # TODO add remove feature button
+
+
+
+TODO dynamic features: 
+move to right top
+
+limit max count to 6
+
+
 
 
 TODO use color text for description to show positive/negative
@@ -873,9 +895,24 @@ editor-careermod
 
 
 
+
+** TODO fix: InputInt->step, stepFast: unit should >= 1
+
+** TODO select Events: sort by chara
+
 ** TODO css: Actions,Inputs->name->max zIndex
 
-** TODO refactor: remove mod_files
+** TODO refactor:
+
+TODO remove mod_files
+
+TODO remove input, action related to version 
+
+
+** TODO add en editor
+
+
+
 
 ** TODO deploy editor to online
 deploy meta3d to online
@@ -884,23 +921,8 @@ visit EnterApp?
 
 
 
-# * TODO add en editor
 
 
-
-* TODO update Meta3D->platform
-
-** TODO update X天前更新
-
-
-** TODO update platform version to 1.4
-publish all to 1.4.10
-
-update VersionConfig.res
-
-
-
-** TODO update online link
 
 
 
@@ -920,3 +942,21 @@ update VersionConfig.res
 
 add Menu
   TODO add doc link
+
+
+
+
+
+* TODO update Meta3D->platform
+
+** TODO update X天前更新
+
+
+** TODO update platform version to 1.4
+publish all to 1.4.10
+
+update VersionConfig.res
+
+
+
+** TODO update online link

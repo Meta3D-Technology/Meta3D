@@ -161,15 +161,16 @@ type service = {
   imageButton: (. imguiImplTexture, size) => bool,
   image: (. imguiImplTexture, size) => unit,
   inputText: (. label, string, int, int) => Js.Nullable.t<string>,
-  inputFloat1: (. label, float, float, float, int) => Js.Nullable.t<float>,
+  inputFloat1: (. label, float, float, float, int, string) => Js.Nullable.t<float>,
   inputFloat3: (
     . label,
     (float, float, float),
     float,
     float,
     int,
+    string
   ) => Js.Nullable.t<(float, float, float)>,
-  inputInt1: (. label, int, int, int, int) => Js.Nullable.t<int>,
+  inputInt1: (. label, int, int, int, int, string) => Js.Nullable.t<int>,
   checkbox: (. label, bool) => Js.Nullable.t<bool>,
   collapsing: (. label, bool, cond) => bool,
   openModal: (. label) => unit,
@@ -179,6 +180,7 @@ type service = {
   popup: (. label, array<string>, string, Js.Nullable.t<string>) => Js.Nullable.t<int>,
   imagePopup: (. imguiImplTexture, rect, array<string>, string) => Js.Nullable.t<int>,
   dummy: (. int, int) => unit,
+  sameLine: () => unit,
   list: (
     . label,
     (int, int),

@@ -26,6 +26,8 @@ let init = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -73,6 +75,8 @@ let clear = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -138,6 +142,8 @@ let render = (
   UIManager.render(
     (
       {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
         registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
         getAllContributesByType: getAllContributesByType->Obj.magic,
         getExtensionService: getExtensionService->Obj.magic,
@@ -223,6 +229,8 @@ let beginWindow = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -268,6 +276,8 @@ let endWindow = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -312,6 +322,8 @@ let setNextWindowRect = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -366,6 +378,8 @@ let addFBOTexture = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -411,6 +425,8 @@ let getContext = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -456,6 +472,8 @@ let button = (
     (
       (
         {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
           registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
           getAllContributesByType: getAllContributesByType->Obj.magic,
           getExtensionService: getExtensionService->Obj.magic,
@@ -547,6 +565,8 @@ let deepCopy = (
   UIManager.deepCopy(
     (
       {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
         registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
         getAllContributesByType: getAllContributesByType->Obj.magic,
         getExtensionService: getExtensionService->Obj.magic,
@@ -587,6 +607,8 @@ let restore = (
   UIManager.restore(
     (
       {
+          readState: Obj.magic(1),
+          writeState: Obj.magic(1),
         registerExtension: createEmptyStubWithJsObjSandbox(sandbox),
         getAllContributesByType: getAllContributesByType->Obj.magic,
         getExtensionService: getExtensionService->Obj.magic,

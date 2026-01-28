@@ -30,7 +30,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             }
 
             return inputPromise.then(features => {
-                let { beginWindow, endWindow, setNextWindowRect, text, inputFloat1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+                let { beginWindow, endWindow, setNextWindowRect, text, inputFloat1, sameLine } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
                 let windowRect = rect
                 let lastHeight = 0
@@ -39,7 +39,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     description,
                     values
                 ], i) => {
-                    let newHeight = 40 + values.length * 40
+                    // let newHeight = 40 + values.length * 40
+                    let newHeight = 40 + 1 * 40
                     windowRect = {
                         ...windowRect,
                         height: newHeight,
@@ -57,7 +58,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     let newValue
                     [meta3dState, map, isValueUpdate] = values.reduce(([meta3dState, map, isValueUpdate], value, i) => {
-                        [meta3dState, newValue] = inputFloat1(meta3dState, `${careerFeatureName}_${i}`, value, 0.01, 0.1, 100)
+                        [meta3dState, newValue] = inputFloat1(meta3dState, `${careerFeatureName}_${i}`, value, 0.01, 0.1, 100, "")
+                        if (i < values.length - 1) {
+                            meta3dState = sameLine(meta3dState)
+                        }
 
                         if (!api.nullable.isNullable(newValue)) {
                             map = map.set(careerFeatureName,

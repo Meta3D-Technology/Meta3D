@@ -360,7 +360,7 @@ let _setModData = (app, collectionName, key, data) => {
         .doc(key)
         .get()
         .then(res => {
-        let currentVersion = "0.0.1";
+        let currentVersion = "0.0.0";
         if (res.data && res.data.length > 0) {
             currentVersion = res.data[0].version;
         }

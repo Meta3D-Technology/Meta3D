@@ -6,7 +6,7 @@ import { handleKeyToLowercase } from "meta3d-backend-cloudbase";
 import * as moment from "moment";
 import { getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils";
 // import { nullable } from "meta3d-commonlib-ts/src/nullable";
-import { generateMod, loadMod, parseMod } from "meta3d";
+import { fileJson, generateMod, loadMod, parseMod } from "meta3d";
 // import * as CloudbaseService from "meta3d-tool-utils/src/publish/Ba";
 import * as BackendService from "meta3d-backend-cloudbase";
 import tcb from "@cloudbase/js-sdk"
@@ -562,7 +562,7 @@ let _setModData = (app: any, collectionName, key, data) => {
         .doc(key)
         .get()
         .then(res => {
-            let currentVersion = "0.0.1";
+            let currentVersion = "0.0.0";
 
             if (res.data && res.data.length > 0) {
                 currentVersion = res.data[0].version;
