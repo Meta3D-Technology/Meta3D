@@ -90,6 +90,14 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
+                    let { allSelectedCareerFeatureData } = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
+
+                    if (allSelectedCareerFeatureData.count() >= 6) {
+                        api.message.warn("最多只能选择6个职业特征")
+
+                        return Promise.resolve(meta3dState)
+                    }
+
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
                         isShowModal: true,
