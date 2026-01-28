@@ -104,6 +104,38 @@ let _buildIconId = (state: state) => {
     return `${_buildUniqueName(state)}_icon`
 }
 
+let _check = (api: api, state: state, features) => {
+    let {
+        displayName_cn,
+        // displayName_en,
+        // repoLink,
+        author,
+        readme,
+    } = state
+
+    let message = api.nullable.getEmpty<string>()
+    if (author.length <= 0) {
+        message = api.nullable.return("请输入作者")
+    }
+    else if (displayName_cn.length <= 0) {
+        message = api.nullable.return("请输入职业名（中文）")
+    }
+    else if (readme.length <= 0) {
+        message = api.nullable.return("请输入描述")
+    }
+    else if (features.count() <= 0) {
+        message = api.nullable.return("请选择职业特性")
+    }
+
+    return api.nullable.getWithDefault(
+        api.nullable.map((message) => {
+            api.message.warn(message)
+            return true
+        }, message),
+        false
+    )
+}
+
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
@@ -125,6 +157,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         api.action.getActionState<loadCareerPreviewState>(meta3dState, loadCareerPreviewActionName).preview,
                         ""
                     )
+
+                    if (_check(api, api.action.getActionState<state>(meta3dState, actionName), features)) {
+                        return Promise.resolve(meta3dState)
+                    }
 
                     console.log("publish mod")
 

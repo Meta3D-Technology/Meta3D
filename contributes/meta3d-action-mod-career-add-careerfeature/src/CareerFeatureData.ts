@@ -2,7 +2,7 @@ import { language, careerFeature, characterType } from "meta3d-action-mod-career
 // import { convertDecimalToPercent } from "./NumberUtils"
 
 export enum careerFeatureName {
-    Empty = "Empty",
+    // Empty = "Empty",
     IncreaseLuck = "IncreaseLuck",
     DecreaseLuck = "DecreaseLuck",
     IncreaseMoveSpeed = "IncreaseMoveSpeed",
@@ -97,7 +97,7 @@ export enum careerFeatureName {
 export let getTextDataByVariable = () => {
     return {
         [language.Chinese]: {
-            [careerFeatureName.Empty]: (value) => `无`,
+            // [careerFeatureName.Empty]: (value) => `无`,
             [careerFeatureName.IncreaseLuck]: (value) => `增加${value}运气`,
             [careerFeatureName.DecreaseLuck]: (value) => `减少${value}运气`,
             [careerFeatureName.IncreaseMoveSpeed]: (value) => `移动速度增加${value}%`,
@@ -188,7 +188,7 @@ export let getTextDataByVariable = () => {
 
         },
         [language.English]: {
-            [careerFeatureName.Empty]: (value) => `Empty`,
+            // [careerFeatureName.Empty]: (value) => `Empty`,
             [careerFeatureName.IncreaseLuck]: (value) => `Increase ${value} luck`,
             [careerFeatureName.DecreaseLuck]: (value) => `Decrease ${value} luck`,
             [careerFeatureName.IncreaseMoveSpeed]: (value) => `Move speed increase ${value}%`,
@@ -280,15 +280,15 @@ export let getTextDataByVariable = () => {
 
 export let getData = (api): Array<careerFeature> => {
     return [
-        {
-            name: careerFeatureName.Empty,
-            positive: true,
-            characterType: characterType.GiantessOrLittleMan,
-            valueCount: 0,
-            getDescriptionFunc: (language, name) => {
-                return getTextDataByVariable()[language][name]()
-            }
-        },
+        // {
+        //     name: careerFeatureName.Empty,
+        //     positive: true,
+        //     characterType: characterType.GiantessOrLittleMan,
+        //     valueCount: 0,
+        //     getDescriptionFunc: (language, name) => {
+        //         return getTextDataByVariable()[language][name]()
+        //     }
+        // },
         {
             name: careerFeatureName.IncreaseLuck,
             positive: true,
