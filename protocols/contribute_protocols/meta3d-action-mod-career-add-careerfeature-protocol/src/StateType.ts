@@ -33,6 +33,7 @@ export type careerFeature = {
     name: careerFeatureName,
     characterType: characterType,
     valueCount: number,
+    positive: boolean,
 
     getDescriptionFunc: getDescriptionFunc,
 }
@@ -44,6 +45,7 @@ export type state = {
         {
             name: careerFeatureName,
             characterType: characterType,
+            positive: boolean,
             values: List<value>,
         }>,
 

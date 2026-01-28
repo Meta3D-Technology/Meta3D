@@ -18,6 +18,7 @@ export type data = Array<
     [
         careerFeatureName,
         // getDescriptionFunc,
+        boolean,
         description,
         values
     ]

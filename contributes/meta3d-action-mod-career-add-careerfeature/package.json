@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-mod-career-add-careerfeature",
-    "version": "1.3.20",
+    "version": "1.3.21",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-mod-career-add-careerfeature-protocol"

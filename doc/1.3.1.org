@@ -862,9 +862,6 @@ TODO use color text for description to show positive/negative
   in dynamic
 
 
-  in list
-
-
 TODO select feature list: show name + description(colored)
 
 TODO feat: feature list: group by positive, sort by name

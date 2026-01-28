@@ -27,7 +27,7 @@ let _buildAllDefaultCareerFeatures = (api: api) => {
 
     return api.backend.findModsByProtocol("career-feature-protocol").then(data => {
         return data.map(([_, getBlockService]) => {
-            let { name, characterType, getDescriptionFunc, generateRandomValueFunc } = getBlockService(modAPI).getFeatureData(modAPI, null)
+            let { name, characterType, positive, getDescriptionFunc, generateRandomValueFunc } = getBlockService(modAPI).getFeatureData(modAPI, null)
 
             let randomValue = generateRandomValueFunc()
             let valueCount
@@ -46,6 +46,7 @@ let _buildAllDefaultCareerFeatures = (api: api) => {
                 name,
                 valueCount,
                 characterType,
+                positive,
                 getDescriptionFunc: (language, name, value) => {
                     // return getDescriptionFunc(null, value)
                     return getDescriptionFunc(language, value)

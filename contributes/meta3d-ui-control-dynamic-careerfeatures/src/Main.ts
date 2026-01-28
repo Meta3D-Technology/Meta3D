@@ -30,12 +30,13 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             }
 
             return inputPromise.then(features => {
-                let { beginWindow, endWindow, setNextWindowRect, text, inputFloat1, sameLine } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+                let { beginWindow, endWindow, setNextWindowRect, textColored, inputFloat1, sameLine } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
                 let windowRect = rect
                 let lastHeight = 0
                 return features.reduce<[meta3dState, [map, boolean]]>(([meta3dState, data], [
                     careerFeatureName,
+                    positive,
                     description,
                     values
                 ], i) => {
@@ -53,7 +54,14 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     meta3dState = beginWindow(meta3dState, careerFeatureName, windowFlags.None)
 
-                    meta3dState = text(meta3dState, description)
+                    let color
+                    if (positive) {
+                        color = [0, 1, 0, 1]
+                    }
+                    else {
+                        color = [1, 0, 0, 1]
+                    }
+                    meta3dState = textColored(meta3dState, color, description)
 
                     let newValue
                     [meta3dState, map, isValueUpdate] = values.reduce(([meta3dState, map, isValueUpdate], value, i) => {

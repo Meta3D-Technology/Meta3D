@@ -31,11 +31,12 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                     api.nullable.map(({ allSelectedCareerFeatureData, allDefaultCareerFeatures }) => {
                         const language_ = language.Chinese
 
-                        return allSelectedCareerFeatureData.map(({ name, characterType, values }) => {
+                        return allSelectedCareerFeatureData.map(({ name, positive, characterType, values }) => {
                             let { getDescriptionFunc } = _findCareerFeature(api, allDefaultCareerFeatures, name, characterType)
 
                             return [
                                 name,
+                                positive,
                                 getDescriptionFunc(language_, name,
                                     values.count() == 1 ? values.first() : values.toArray()
                                 ),

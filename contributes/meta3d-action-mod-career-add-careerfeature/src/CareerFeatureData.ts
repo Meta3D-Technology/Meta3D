@@ -282,6 +282,7 @@ export let getData = (api): Array<careerFeature> => {
     return [
         {
             name: careerFeatureName.Empty,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -290,6 +291,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseLuck,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -298,6 +300,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseLuck,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -306,6 +309,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseMoveSpeed,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -314,6 +318,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseMoveSpeed,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -322,6 +327,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseArmorStrength,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -330,6 +336,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ReduceDamage,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -338,6 +345,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseFullHp,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -346,6 +354,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseRestoreHpStrength,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -354,6 +363,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseRestoreHpStrength,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -362,6 +372,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseStubRate,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -370,6 +381,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseItemPrice,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -378,6 +390,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseItemPrice,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -386,6 +399,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseGetCoin,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -394,6 +408,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseRewardPropCount,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -402,6 +417,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseTradeVariety,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -410,6 +426,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseUpgradeWeaponCost,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -418,6 +435,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.EnhenceByFreeUB,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -426,6 +444,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.EnhenceByFreeShoe,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -434,6 +453,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseUBCapacity,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -442,6 +462,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseTrigoneAndButtDamage,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -450,6 +471,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.EnhenceByCarry,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -458,6 +480,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseGiantessDamaged,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -466,6 +489,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseExp,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -474,6 +498,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseGiantessDefense,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -482,6 +507,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseAttack,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -490,6 +516,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AfterMissionComplete_AliveOneEnemy_GetReward,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -498,6 +525,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseMeleeDamageByMoveSpeed,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -506,6 +534,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseDefenseWhenNotMove,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -514,6 +543,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ReduceDamageButIncreaseWhenDamaged,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 3,
             getDescriptionFunc: (language, name, [v1, v2, v3]) => {
@@ -522,6 +552,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ReduceDamageButIncreaseWhenSingleDamage,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 3,
             getDescriptionFunc: (language, name, [v1, v2, v3]) => {
@@ -530,6 +561,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ReduceGiantessDamage,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -538,6 +570,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseDamageMMDGiantessWeakness,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -546,6 +579,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseAttackWhenStubExcitementClimax,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -555,6 +589,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.IncreaseFullHpByEat,
             characterType: characterType.Giantess,
+            positive: true,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](v1)
@@ -563,6 +598,7 @@ export let getData = (api): Array<careerFeature> => {
         {
             name: careerFeatureName.RemainScaleByEat,
             characterType: characterType.Giantess,
+            positive: true,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
@@ -570,6 +606,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.UseFullHpReplaceCoin,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -578,6 +615,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AfterMissionComplete_ConvertCoinToFullHp,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -586,6 +624,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.GetGoodsEveryMinute,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -594,6 +633,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.EnhenceGiantessAfterBeat,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -602,6 +642,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.EnhenceArmyAfterBeat,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -610,6 +651,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseDamageByCoin,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -618,6 +660,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseGetCoinEveryMimute,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -626,6 +669,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseGetCoinWithMaxHp,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -634,6 +678,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseCoinAfterBuyTrade,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -642,6 +687,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.Duelist,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -650,6 +696,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.BulletSpeedMax,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -658,6 +705,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertToFriendCampByFreeUB,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -666,6 +714,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ControlledUnitCanAttack,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -674,6 +723,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DamageControlledUnit,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -682,6 +732,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AbsorbDeathControlledUnit,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -690,6 +741,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DamagedSprayMilk,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -698,6 +750,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.BreastFeeding,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -706,6 +759,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.CharmNearFoot,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -714,6 +768,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertToFriendCampForPutToShoe,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name) => {
@@ -722,6 +777,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertToFriendCampByDamage,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 2,
             getDescriptionFunc: (language, name, [v1, v2]) => {
@@ -730,6 +786,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertToFriendCampByDamage,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 2,
             getDescriptionFunc: (language, name, [v1, v2]) => {
@@ -738,6 +795,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.PassengerCanAttack,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -746,6 +804,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.PassengerRestoreHp,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -754,6 +813,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DamagePassenger,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -762,6 +822,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseMoveSpeedWhenMove,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -770,6 +831,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DamageWhenMoveCollision,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -778,6 +840,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseEmitSpeedWhenShoot,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -786,6 +849,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseGetBulletCount,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -794,6 +858,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseMoveSpeedWhenShoot,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -802,6 +867,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseNonPlayerGiantessFriendUnitDamage,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -810,6 +876,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreaseNonPlayerGiantessFriendUnitDamage,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -818,6 +885,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.IncreasePlayerGiantessDamage,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -826,6 +894,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.FriendUnitCanDamagePlayerOrFriend,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
@@ -834,6 +903,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.FriendUnitCanDamagePlayerOrFriend,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name) => {
@@ -842,6 +912,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.FriendUnitCanGetReward,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -850,6 +921,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.FriendUnitCanGetReward,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -858,6 +930,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AbsorbFriendUnitDamaged,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -866,6 +939,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AbsorbFriendUnitDamaged,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -874,6 +948,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.EnhenceCarryRandomAttribute,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -882,6 +957,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.HealNearbyFriendUnit,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -890,6 +966,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.DecreaseDamageControlledUnit,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -898,6 +975,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.NearbyFriendHpConsumeGiantessHp,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -906,6 +984,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AddHpByBeat,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -914,6 +993,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AddHpByBeat,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -922,6 +1002,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertLostHpToEmitSpeed,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -930,6 +1011,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertLostHpToEmitSpeed,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -938,6 +1020,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ContinueSubHp,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -946,6 +1029,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ContinueSubHp,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -954,6 +1038,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertedFriendUnitCauseReduceDamage,
+            positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -962,6 +1047,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertedFriendUnitCauseIncreaseScale,
+            positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -970,6 +1056,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertedFriendHpConsumeHp,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -978,6 +1065,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ConvertedFriendHpConsumeHp,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {

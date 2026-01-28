@@ -37,7 +37,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let state = api.nullable.getExn(api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName))
 
 
-                    let valueCount = _findCareerFeature(api, state.allDefaultCareerFeatures, careerFeatureName, characterType_).valueCount
+                    let { positive, valueCount } = _findCareerFeature(api, state.allDefaultCareerFeatures, careerFeatureName, characterType_)
                     let defaultValues = api.immutable.createList<number>()
                     for (let i = 0; i < valueCount; i++) {
                         defaultValues = defaultValues.push(0)
@@ -49,6 +49,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             state.allSelectedCareerFeatureData.push(
                                 {
                                     name: careerFeatureName,
+                                    positive,
                                     characterType: characterType_,
                                     values: defaultValues,
                                 }
