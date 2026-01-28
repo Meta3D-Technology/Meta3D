@@ -336,7 +336,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ReduceDamage,
-            positive: false,
+            positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {

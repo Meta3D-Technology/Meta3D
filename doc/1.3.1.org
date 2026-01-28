@@ -862,15 +862,19 @@ TODO use color text for description to show positive/negative
   in dynamic
 
 
-TODO select feature list: show name + description(colored)
+# TODO select feature list: show name + description(colored)
+TODO select feature list: show name + description
 
-TODO feat: feature list: group by positive, sort by name
+TODO split to two buttons
+
+# TODO feat: feature list: group by positive, sort by name
+TODO feat: feature list: sort by name
 
 
 
 
 TODO check value when publish to game
-  version should be zhengshu
+  # version should be zhengshu
 
 
 
@@ -921,6 +925,8 @@ editor-careermod
 TODO remove mod_files
 
 TODO remove input, action related to version 
+
+
 
 
 ** TODO add en editor

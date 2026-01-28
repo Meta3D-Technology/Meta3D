@@ -31,11 +31,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, careerFeatureName) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, name) => {
                     let characterType_ = api.action.getActionState<selectCharacterTypeState>(meta3dState, selectCharacterTypeActionName).characterType
 
                     let state = api.nullable.getExn(api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName))
 
+                    let careerFeatureName = name.split(":")[0]
 
                     let { positive, valueCount } = _findCareerFeature(api, state.allDefaultCareerFeatures, careerFeatureName, characterType_)
                     let defaultValues = api.immutable.createList<number>()

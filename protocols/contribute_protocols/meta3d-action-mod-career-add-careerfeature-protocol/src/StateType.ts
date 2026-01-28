@@ -50,6 +50,7 @@ export type state = {
         }>,
 
     isShowModal: boolean,
+    isSelectPositiveCareerFeature: boolean,
 }
 
 

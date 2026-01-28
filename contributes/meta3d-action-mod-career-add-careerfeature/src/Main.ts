@@ -3,7 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, characterType, state, uiData } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-add-careerfeature-protocol/src/EventType"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
-import { careerFeatureName, getData } from "./CareerFeatureData"
+import { getData } from "./CareerFeatureData"
 import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 
 let _buildFakeModAPI = () => {
@@ -91,19 +91,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    let { allSelectedCareerFeatureData } = api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName))
-
-                    if (allSelectedCareerFeatureData.count() >= 6) {
-                        api.message.warn("最多只能选择6个职业特征")
-
-                        return Promise.resolve(meta3dState)
-                    }
-
-                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                        isShowModal: true,
-                    })
-
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
@@ -127,6 +114,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allDefaultCareerFeatures: api.immutable.createList(),
                 allSelectedCareerFeatureData: api.immutable.createList(),
                 isShowModal: false,
+                isSelectPositiveCareerFeature: true,
             }
         }
     }
