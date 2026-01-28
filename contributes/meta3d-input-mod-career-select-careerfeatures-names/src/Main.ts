@@ -44,7 +44,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                             // return d.name
                         }).toArray()
                             .sort((a, b) => {
-                                return b.localeCompare(a)
+                                return a.localeCompare(b)
                             })
                     },
                         api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName)

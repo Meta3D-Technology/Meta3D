@@ -873,6 +873,14 @@ TODO feat: feature list: sort by name
 
 
 
+
+TODO feat: reverse: feature list: sort by name
+
+TODO InputInt: label shouldn't has ##
+
+TODO add button: reset select career feature
+
+
 TODO check value when publish to game
   # version should be zhengshu
 
