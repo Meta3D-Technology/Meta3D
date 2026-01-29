@@ -938,7 +938,7 @@ TODO remove input, action related to version
 
 
 
-** TODO add en editor
+** DONE add en editor
 TODO add action to hold language state
 
 TODO add set action to set language state
@@ -969,10 +969,23 @@ TODO run test
 
 
 TODO add en editor ui
+  upload icon in next line
+
+  description is chinese!
 
 
 TODO pass en
 
+
+
+TODO update cn editor
+  upload icon in next line
+
+  is Public
+
+  input selectcharacter type
+
+  meta3d-input-mod-career-dynamic-careerfeatures
 
 TODO pass cn
 
