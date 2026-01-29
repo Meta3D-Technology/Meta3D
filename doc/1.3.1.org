@@ -927,7 +927,7 @@ new ui control->icon
 
 ** DONE select Events: sort by chara
 
-** TODO css: Actions,Inputs->name->max zIndex
+** DONE css: Actions,Inputs->name->max zIndex
 
 ** TODO refactor:
 

@@ -49,4 +49,5 @@ external make: (
   ~onDrop: (info) => unit=?,
   ~showIcon: bool=?,
   ~draggable: bool=?,
+  ~style: ReactDOM.Style.t=?,
 ) => React.element = "Tree"
