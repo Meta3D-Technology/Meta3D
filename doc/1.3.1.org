@@ -897,7 +897,7 @@ no career icon
 no displayName_en
 
 
-is public
+# is public
 
 
 
@@ -908,17 +908,17 @@ TODO update:
 new ui control->icon
 
 
-TODO refactor:
-extract utils for duplicate code
+# TODO refactor:
+# extract utils for duplicate code
 
 
 # TODO api add array
 
 
 
-TODO update package
-ui
-editor-careermod
+# TODO update package
+# ui
+# editor-careermod
 
 
 
@@ -989,3 +989,20 @@ update VersionConfig.res
 
 
 ** TODO update online link
+
+
+
+* TODO run test
+
+test:
+is public
+
+
+
+* TODO 更新模组仓库->type, imported type
+
+
+* TODO 清理Mod模式的测试模组
+
+
+* TODO 发布
