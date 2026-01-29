@@ -991,14 +991,7 @@ TODO pass cn
 
 
 
-** TODO update zIndex
-
-
-** TODO deploy editor to online
-deploy meta3d to online
-
-visit EnterApp?
-
+** DONE update zIndex
 
 
 
@@ -1012,6 +1005,13 @@ visit EnterApp?
 
 
 
+
+
+
+* TODO deploy editor to online
+deploy meta3d to online
+
+visit EnterApp?
 
 
 
