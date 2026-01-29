@@ -923,9 +923,9 @@ new ui control->icon
 
 
 
-** TODO fix: InputInt->step, stepFast: unit should >= 1
+# ** TODO fix: InputInt->step, stepFast: unit should >= 1
 
-** TODO select Events: sort by chara
+** DONE select Events: sort by chara
 
 ** TODO css: Actions,Inputs->name->max zIndex
 

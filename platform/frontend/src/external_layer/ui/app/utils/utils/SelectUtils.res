@@ -1,7 +1,11 @@
 let _isNotShowSelectForTest = %raw(`
+
 function (){
+
 return globalThis.isNotShowSelectForTest == true
+
 }
+
 `)
 
 let buildEmptySelectOptionValue = () => "empty"
@@ -25,6 +29,9 @@ let buildSelect = (onChange, defaultValue, values) => {
             {React.string({buildEmptySelectOptionValue()})}
           </Select.Option>
           {values
+          ->Meta3dCommonlib.ArraySt.sort((a, b) => {
+            Js.String.localeCompare(b, a)->Obj.magic
+          })
           ->Meta3dCommonlib.ArraySt.map(value => {
             <Select.Option key={value} value={value}> {React.string({value})} </Select.Option>
           })

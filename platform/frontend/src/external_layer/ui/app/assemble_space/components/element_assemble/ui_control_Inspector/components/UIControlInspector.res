@@ -624,92 +624,96 @@ module Method = {
               }}
             />
           | #rgba =>
-          <>
-            <InputNumber
-              key={name}
-              value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0]->Obj.magic}
-              step="0.001"
-              onChange={v => {
-                _setSpecificData(
-                  dispatch,
-                  specific,
-                  id,
-                  i,
-                  (
-                    v, 
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1],
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2],
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3],
+            <>
+              <InputNumber
+                key={name}
+                value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0]->Obj.magic}
+                step="0.001"
+                onChange={v => {
+                  _setSpecificData(
+                    dispatch,
+                    specific,
+                    id,
+                    i,
+                    (
+                      v,
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1],
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2],
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3],
+                    )
+                    ->Obj.magic
+                    ->CommonType.SpecicFieldDataValue,
+                    type_,
                   )
-                  ->Obj.magic->CommonType.SpecicFieldDataValue,
-                  type_,
-                )
-              }}
-            />
-            <InputNumber
-              key={name}
-              value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1]->Obj.magic}
-              step="0.001"
-              onChange={v => {
-                _setSpecificData(
-                  dispatch,
-                  specific,
-                  id,
-                  i,
-                  (
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0],
-                    v, 
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2],
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3],
+                }}
+              />
+              <InputNumber
+                key={name}
+                value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1]->Obj.magic}
+                step="0.001"
+                onChange={v => {
+                  _setSpecificData(
+                    dispatch,
+                    specific,
+                    id,
+                    i,
+                    (
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0],
+                      v,
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2],
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3],
+                    )
+                    ->Obj.magic
+                    ->CommonType.SpecicFieldDataValue,
+                    type_,
                   )
-                  ->Obj.magic->CommonType.SpecicFieldDataValue,
-                  type_,
-                )
-              }}
-            />
-            <InputNumber
-              key={name}
-              value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2]->Obj.magic}
-              step="0.001"
-              onChange={v => {
-                _setSpecificData(
-                  dispatch,
-                  specific,
-                  id,
-                  i,
-                  (
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0],
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1],
-                    v, 
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3],
+                }}
+              />
+              <InputNumber
+                key={name}
+                value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2]->Obj.magic}
+                step="0.001"
+                onChange={v => {
+                  _setSpecificData(
+                    dispatch,
+                    specific,
+                    id,
+                    i,
+                    (
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0],
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1],
+                      v,
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3],
+                    )
+                    ->Obj.magic
+                    ->CommonType.SpecicFieldDataValue,
+                    type_,
                   )
-                  ->Obj.magic->CommonType.SpecicFieldDataValue,
-                  type_,
-                )
-              }}
-            />
-            <InputNumber
-              key={name}
-              value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3]->Obj.magic}
-              step="0.001"
-              onChange={v => {
-                _setSpecificData(
-                  dispatch,
-                  specific,
-                  id,
-                  i,
-                  (
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0],
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1],
-                    (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2],
-                    v, 
+                }}
+              />
+              <InputNumber
+                key={name}
+                value={(SpecificUtils.getSpecificDataValue(value)->Obj.magic)[3]->Obj.magic}
+                step="0.001"
+                onChange={v => {
+                  _setSpecificData(
+                    dispatch,
+                    specific,
+                    id,
+                    i,
+                    (
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[0],
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[1],
+                      (SpecificUtils.getSpecificDataValue(value)->Obj.magic)[2],
+                      v,
+                    )
+                    ->Obj.magic
+                    ->CommonType.SpecicFieldDataValue,
+                    type_,
                   )
-                  ->Obj.magic->CommonType.SpecicFieldDataValue,
-                  type_,
-                )
-              }}
-            />
-          </>
+                }}
+              />
+            </>
           }}
         </Card>
       })
@@ -875,7 +879,11 @@ let make = (
       )}
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Event`)}, ())}
       <List
-        dataSource={service.meta3d.getUIControlSupportedEventNames(. uiControlConfigLib)}
+        dataSource={service.meta3d.getUIControlSupportedEventNames(.
+          uiControlConfigLib,
+        )->Meta3dCommonlib.ArraySt.sort((a, b) => {
+          Js.String.localeCompare(b->Obj.magic, a->Obj.magic)->Obj.magic
+        })}
         renderItem={eventName => {
           let value =
             ElementMRUtils.getActionName(
