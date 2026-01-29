@@ -7,17 +7,13 @@ let getInputName = inputFileStr => {
 }
 
 let getActionName = actionFileStr => {
-  actionFileStr->Js.String.includes("actionName: actionName", _)
-    ? actionFileStr
-      ->Js.String.match_(%re("/actionName\s\=\s\"(.+)\"/im"), _)
-      ->Meta3dCommonlib.OptionSt.bind(result => {
-        result[1]
-      })
-    : actionFileStr
-      ->Js.String.match_(%re("/actionName\:\s*\"(.+)\",/im"), _)
-      ->Meta3dCommonlib.OptionSt.bind(result => {
-        result[1]
-      })
+  (
+    actionFileStr->Js.String.includes("actionName: actionName", _)
+      ? actionFileStr->StringUtils.matchAll(%re("/actionName\s\=\s\"(.+)\"/g"))
+      : actionFileStr->StringUtils.matchAll(%re("/actionName\:\s*\"(.+)\",/g"))
+  )->Meta3dCommonlib.OptionSt.bind(result => {
+    result[result->Meta3dCommonlib.ArraySt.length - 1][1]
+  })
 }
 
 // let _buildSplitor = () => "-meta3d-custom-fileStr-split-"

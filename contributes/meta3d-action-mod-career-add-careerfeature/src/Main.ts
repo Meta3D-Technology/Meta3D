@@ -1,10 +1,12 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
+import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, characterType, state, uiData } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-add-careerfeature-protocol/src/EventType"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { getData } from "./CareerFeatureData"
 import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
+import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 
 let _buildFakeModAPI = () => {
     return {
@@ -65,9 +67,11 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
     return {
         actionName: actionName,
         init: (meta3dState) => {
+            let isChinese = api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese
+
             meta3dState = api.action.setActionState(meta3dState, infoActionName, {
                 ...api.nullable.getExn(api.action.getActionState<infoState>(meta3dState, infoActionName)),
-                info: api.nullable.return("加载中...")
+                info: isChinese ? api.nullable.return("加载中...") : api.nullable.return("Loading...")
             })
 
             api.flow.deferExec((meta3dState) => {

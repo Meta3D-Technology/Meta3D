@@ -2,6 +2,7 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { data, careerFeatureName } from "meta3d-input-mod-career-dynamic-careerfeatures-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName as addCareerFeatureActionName, state as addCareerFeatureState, characterType, language } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 
 //TODO duplicate
 let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
@@ -29,7 +30,8 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
             return Promise.resolve(
                 api.nullable.getWithDefault(
                     api.nullable.map(({ allSelectedCareerFeatureData, allDefaultCareerFeatures }) => {
-                        const language_ = language.Chinese
+                        let language_ = api.action.getActionState<languageState>(meta3dState, languageActionName).language
+
 
                         return allSelectedCareerFeatureData.map(({ name, positive, characterType, values }) => {
                             let { getDescriptionFunc } = _findCareerFeature(api, allDefaultCareerFeatures, name, characterType)

@@ -1,8 +1,10 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
+import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-career-add-negativecareerfeature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-add-negativecareerfeature-protocol/src/EventType"
 import { actionName as addCareerFeatureActionName, state as addCareerFeatureState } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -15,7 +17,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let { allSelectedCareerFeatureData } = api.nullable.getExn(api.action.getActionState<addCareerFeatureState>(meta3dState, addCareerFeatureActionName))
 
                     if (allSelectedCareerFeatureData.filter(d => !d.positive).count() >= 3) {
-                        api.message.warn("最多只能选择3个负面职业特征")
+                        api.message.warn(api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese ? "最多只能选择3个负面职业特征" : "You can only select up to 3 negative career features")
+
 
                         return Promise.resolve(meta3dState)
                     }

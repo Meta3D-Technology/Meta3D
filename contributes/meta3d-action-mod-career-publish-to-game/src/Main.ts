@@ -1,4 +1,5 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
+import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-career-publish-to-game-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-publish-to-game-protocol/src/EventType"
@@ -9,6 +10,7 @@ import { actionName as selectCharacterTypeActionName, state as selectCharacterTy
 import { actionName as loadModPreviewActionName, state as loadModPreviewState } from "meta3d-action-mod-career-load-modpreview-protocol"
 import { actionName as loadCareerPreviewActionName, state as loadCareerPreviewState } from "meta3d-action-mod-career-load-careerpreview-protocol"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
+import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 
 //TODO duplicate
 let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
@@ -58,7 +60,7 @@ let _buildFeatures = (features) => {
     }, {}))
 }
 
-let _buildDistFileContent = (state, characterType, features) => {
+let _buildDistFileContent = (state, characterType, features, isChinese) => {
     return `
     (() => { 
     // let _getTextData = () => {
@@ -81,8 +83,8 @@ let _buildDistFileContent = (state, characterType, features) => {
                 getCareerData: (api, state) => {
                     return {
                         // title: api.getLanguageDataByData(state, _getTextData(), "Title"),
-                        title: "${state.displayName_cn}",
-                        iconId: "${_buildIconId(state)}",
+                        title: "${_getDisplayName(state, isChinese)}",
+                        iconId: "${_buildIconId(state, isChinese)}",
                         needGem: ${state.needGem},
                         getCareerFeatureData: (state) => api.MutableRecordUtils.createFromObject(${_buildFeatures(features)}),
                     };
@@ -94,20 +96,22 @@ let _buildDistFileContent = (state, characterType, features) => {
 })();
     `
 }
-
-let _buildUniqueName = (state: state) => {
-    // return `${state.author}_${state.displayName_cn}_${state.displayName_en}`
-    return `${state.author}_${state.displayName_cn}`
+let _getDisplayName = (state: state, isChinese) => {
+    return isChinese ? state.displayName_cn : state.displayName_en
 }
 
-let _buildIconId = (state: state) => {
-    return `${_buildUniqueName(state)}_icon`
+let _buildUniqueName = (state: state, isChinese) => {
+    return `${state.author}_${_getDisplayName(state, isChinese)}`
 }
 
-let _check = (api: api, state: state, features) => {
+let _buildIconId = (state: state, isChinese) => {
+    return `${_buildUniqueName(state, isChinese)}_icon`
+}
+
+let _check = (api: api, state: state, isChinese, features) => {
     let {
         displayName_cn,
-        // displayName_en,
+        displayName_en,
         // repoLink,
         author,
         readme,
@@ -115,16 +119,20 @@ let _check = (api: api, state: state, features) => {
 
     let message = api.nullable.getEmpty<string>()
     if (author.length <= 0) {
-        message = api.nullable.return("请输入作者")
+        message = api.nullable.return(isChinese ? "请输入作者" : "Please enter the author")
+
     }
-    else if (displayName_cn.length <= 0) {
+    else if (isChinese && displayName_cn.length <= 0) {
         message = api.nullable.return("请输入职业名（中文）")
     }
+    else if (!isChinese && displayName_en.length <= 0) {
+        message = api.nullable.return("Please enter the career name (English)")
+    }
     else if (readme.length <= 0) {
-        message = api.nullable.return("请输入描述")
+        message = api.nullable.return(isChinese ? "请输入描述" : "Please enter the description")
     }
     else if (features.count() <= 0) {
-        message = api.nullable.return("请选择职业特性")
+        message = api.nullable.return(isChinese ? "请选择职业特性" : "Please select the career features")
     }
 
     return api.nullable.getWithDefault(
@@ -158,7 +166,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         ""
                     )
 
-                    if (_check(api, api.action.getActionState<state>(meta3dState, actionName), features)) {
+                    let isChinese = api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese
+
+                    if (_check(api, api.action.getActionState<state>(meta3dState, actionName), isChinese, features)) {
                         return Promise.resolve(meta3dState)
                     }
 
@@ -171,7 +181,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     })
                     meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
                         ...api.action.getActionState<infoState>(meta3dState, infoActionName),
-                        info: api.nullable.return("正在发布中...")
+                        info: isChinese ? api.nullable.return("正在发布中...") : api.nullable.return("Publishing...")
                     })
 
                     api.flow.deferExec((meta3dState) => {
@@ -180,7 +190,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                             return api.backend.publishMod(
                                 ` {
-    "name": "${_buildUniqueName(state)}",
+    "name": "${_buildUniqueName(state, isChinese)}",
     "mod": {
         "protocolName": "career-protocol",
         "author": "${state.author}",
@@ -193,10 +203,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
     }
                         }`,
                                 `${state.readme}`,
-                                _buildDistFileContent(state, characterType_, features),
+                                _buildDistFileContent(state, characterType_, features, isChinese),
                                 [
                                     [
-                                        `./${_buildIconId(state)}.png`,
+                                        `./${_buildIconId(state, isChinese)}.png`,
                                         uint8Array
                                     ],
                                 ],

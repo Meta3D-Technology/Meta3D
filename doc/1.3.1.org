@@ -939,6 +939,39 @@ TODO remove input, action related to version
 
 
 ** TODO add en editor
+TODO add action to hold language state
+
+TODO add set action to set language state
+
+TODO update actions
+  language
+  message text
+
+TODO publish all and update ui
+  negative
+    TODO fix get action name: should find last actionName
+  ...
+
+TODO add fake button to use it
+  move all fake ones to one fake window
+
+
+TODO fix: get is chinese from utils
+
+TODO run test
+  # no info
+
+
+
+
+TODO add en editor ui
+
+
+TODO pass en
+
+
+TODO pass cn
+
 
 
 
