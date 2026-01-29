@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES6",
-		"module": "ES6",
+		"module": "commonjs",
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"resolveJsonModule": true,
@@ -10,14 +10,15 @@
 		// "noEmit": true,
 		// "noUnusedLocals": true,
 		// "noUnusedParameters": true,
-		"noImplicitReturns": true,
+		// "noImplicitReturns": true,
 		"lib": [
 			"DOM",
 			"ESNext",
 		],
 		"types": [],
-		"strict": true
+		// "strict": true
 	},
+
 	"include": [
 		"./src"
 	]

@@ -3,6 +3,7 @@ import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { actionName, state } from "meta3d-action-mod-language-protocol"
 import { eventName, inputData } from "meta3d-action-mod-language-protocol/src/EventType"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { isChinese } from "meta3d-mod-career-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (api) => {
     return {
@@ -32,7 +33,7 @@ export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (
         },
         createState: () => {
             return {
-                language: language.Chinese,
+                language: isChinese() ? language.Chinese : language.English
             }
         }
     }

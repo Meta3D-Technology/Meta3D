@@ -958,6 +958,10 @@ TODO add fake button to use it
 
 TODO fix: get is chinese from utils
 
+TODO remove fake buttons
+
+TODO remove related actions
+
 TODO run test
   # no info
 
@@ -974,6 +978,7 @@ TODO pass cn
 
 
 
+** TODO update zIndex
 
 
 ** TODO deploy editor to online
