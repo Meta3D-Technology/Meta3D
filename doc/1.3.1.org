@@ -929,7 +929,7 @@ new ui control->icon
 
 ** DONE css: Actions,Inputs->name->max zIndex
 
-** TODO refactor:
+** DONE refactor:
 
 TODO remove mod_files
 
