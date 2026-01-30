@@ -1019,6 +1019,50 @@ TODO remove *
 
 
 
+* DONE give doc
+
+编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
+
+
+# add Menu
+#   TODO add doc link
+
+TODO generate doc
+  cn
+
+  en
+
+# TODO add 帮助 button to show doc panel
+TODO update menu
+
+http://localhost:3000/website/chinese/docs/%E8%81%8C%E4%B8%9A%E6%A8%A1%E7%BB%84%E7%BC%96%E8%BE%91%E5%99%A8
+
+cn
+
+en
+
+
+* DONE build whole editor
+
+ui
+  cn
+
+  en
+
+
+actions:
+jump link
+language
+set language cn/en
+
+
+
+* TODO run test
+
+test editor:
+is public
+
+
 
 * TODO deploy editor to online
 deploy meta3d to online
@@ -1030,18 +1074,10 @@ cn
 
 en
 
+* TODO update website->editor url
 
 
-
-* TODO give doc
-
-编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
-
-
-# add Menu
-#   TODO add doc link
-
-TODO add 帮助 button to show doc panel
+* TODO update game Mod to use Editor
 
 
 
@@ -1059,28 +1095,3 @@ TODO add 帮助 button to show doc panel
 
 
 # ** TODO update online link
-
-
-* TODO update game Mod to use Editor
-
-
-* TODO run test
-
-test:
-is public
-
-
-
-* TODO hide old mod develop doc, repo
-
-
-
-# * TODO 更新模组仓库->type, imported type
-
-
-* TODO 清理Mod模式的测试模组
-
-
-* TODO 发布
-
-update storage->diff, mod
