@@ -1,5 +1,5 @@
 import CloudBase from "@cloudbase/manager-node"
-import { getLocalEnvData, getProductionEnvData } from "meta3d-tool-utils/src/publish/CloudbaseService"
+import { getLocalEnvData } from "meta3d-tool-utils/src/publish/CloudbaseService"
 
 export let initLocal = () => {
     let {

@@ -11,17 +11,18 @@ let _upgradeDatabaseOldData = (env: env, targetVersion: targetVersion) => {
 
     switch (env) {
         case "local":
+        case "production":
             funcArr = [
                 CloudbaseService.initLocal,
                 CloudbaseService.updateAllDatabaseData,
             ]
             break;
-        case "production":
-            funcArr = [
-                CloudbaseService.initProduction,
-                CloudbaseService.updateAllDatabaseData,
-            ]
-            break;
+        // case "production":
+            // funcArr = [
+            //     CloudbaseService.initProduction,
+            //     CloudbaseService.updateAllDatabaseData,
+            // ]
+            // break;
         default:
             throw new Error("unknown env")
     }
@@ -34,17 +35,18 @@ let _upgradeStorageOldData = (env: env, targetVersion: targetVersion) => {
 
     switch (env) {
         case "local":
+        case "production":
             funcArr = [
                 CloudbaseService.initLocal,
                 CloudbaseService.updateAllStorageData,
             ]
             break;
-        case "production":
-            funcArr = [
-                CloudbaseService.initProduction,
-                CloudbaseService.updateAllStorageData,
-            ]
-            break;
+        // case "production":
+        //     funcArr = [
+        //         CloudbaseService.initProduction,
+        //         CloudbaseService.updateAllStorageData,
+        //     ]
+        //     break;
         default:
             throw new Error("unknown env")
     }
@@ -65,17 +67,18 @@ export let updateHostFiles = (env: env): Promise<void> => {
 
     switch (env) {
         case "local":
+        case "production":
             funcArr = [
                 CloudbaseHostService.initLocal,
                 CloudbaseHostService.updateHostFiles,
             ]
             break;
-        case "production":
-            funcArr = [
-                CloudbaseHostService.initProduction,
-                CloudbaseHostService.updateHostFiles,
-            ]
-            break;
+        // case "production":
+        //     funcArr = [
+        //         CloudbaseHostService.initProduction,
+        //         CloudbaseHostService.updateHostFiles,
+        //     ]
+        //     break;
         default:
             throw new Error("unknown env")
     }

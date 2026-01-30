@@ -32,38 +32,36 @@ export type account = string;
 export type description = string;
 export type previewBase64 = string;
 export type isRecommend = boolean;
-export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer,
-	// singleEventBinaryFile: ArrayBuffer,
-	appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
+export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer, 
+// singleEventBinaryFile: ArrayBuffer,
+appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
 export type publishMod = (packageJson: string, readmeContent: string, distFileContent: string, assetFileData: Array<[
 	string,
 	Uint8Array
 ]>, iconBase64: nullable<string>) => Promise<void>;
-
-type blockName = string
-type blockService = any
+export type blockName = string;
+export type blockService = any;
 // type blockState = any
-
 export type userMod = {
-	displayName_cn: string,
-	displayName_en: string,
-	name: blockName,
-	icon: string,
-	protocolName: string,
-	version: string,
-
-	isUse: boolean,
-	isPublic: boolean,
-}
-
-export type getBlockService = (api) => blockService
-export type findModsByProtocol = (protocolName: string) => Promise<Array<[userMod, getBlockService]>>
-
+	displayName_cn: string;
+	displayName_en: string;
+	name: blockName;
+	icon: string;
+	protocolName: string;
+	version: string;
+	isUse: boolean;
+	isPublic: boolean;
+};
+export type getBlockService = (api) => blockService;
+export type findModsByProtocol = (protocolName: string) => Promise<Array<[
+	userMod,
+	getBlockService
+]>>;
 export type backendAPI = {
 	init: (env: string) => Promise<void>;
 	publishFinalApp: publishFinalApp;
 	publishMod: publishMod;
-	findModsByProtocol: findModsByProtocol,
+	findModsByProtocol: findModsByProtocol;
 };
 export type messageAPI = {
 	success: (message: string) => void;
@@ -87,17 +85,13 @@ export type uiControlAPI = {
 	getUIControlState: <uiControlState>(state: state, uiControlName: string) => uiControlState;
 	setUIControlState: <uiControlState>(state: state, uiControlName: string, uiControlState: uiControlState) => state;
 };
-
-
 export type flowAPI = {
-	deferExec: (func: (state: state) => Promise<state>, time?: number) => void
+	deferExec: (func: (state: state) => Promise<state>, time?: number) => void;
 };
-
-
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
-	readState(): state,
-	writeState(state: state): void,
+	readState(): state;
+	writeState(state: state): void;
 	registerExtension<getExtensionServiceFunc, getLifeFunc, extensionState>(state: state, extensionProtocolName: extensionProtocolName, getExtensionServiceFunc: getExtensionServiceFunc, getLifeFunc: getLifeFunc, extensionState: extensionState): state;
 	getExtensionService<extensionService>(state: state, extensionProtocolName: extensionProtocolName): extensionService;
 	getExtensionState<extensionState>(state: state, extensionProtocolName: extensionProtocolName): extensionState;
@@ -115,7 +109,7 @@ export type api = {
 	uiControl: uiControlAPI;
 	backend: backendAPI;
 	message: messageAPI;
-	flow: flowAPI,
+	flow: flowAPI;
 };
 // tslint:disable-next-line:interface-over-type-literal
 export type getExtensionService<extensionService> = (_1: api) => extensionService;
@@ -144,4 +138,4 @@ export type extensionLife<extensionService> = {
 };
 export type getExtensionLife<extensionService> = (_1: api, extensionProtocolName: extensionProtocolName) => extensionLife<extensionService>;
 
-export { };
+export {};

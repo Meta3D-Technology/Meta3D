@@ -1068,10 +1068,10 @@ is public
 
 
 
-* TODO handle cloudbase
+* DONE handle cloudbase
 
 
-* TODO 电脑清理
+* DONE 电脑清理
 
 
 
@@ -1084,6 +1084,10 @@ visit EnterApp?
 cn
 
 en
+
+
+TODO update jump to editor action->url
+
 
 * TODO update website->editor url
 

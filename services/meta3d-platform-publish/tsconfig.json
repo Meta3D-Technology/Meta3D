@@ -7,6 +7,7 @@
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
 		"jsx": "react",
+		"skipLibCheck": true,
 		// "noEmit": true,
 		// "noUnusedLocals": true,
 		// "noUnusedParameters": true,
@@ -21,6 +22,6 @@
 		// "strict": true
 	},
 	"include": [
-		"./src"
+		"./src",
 	]
 }

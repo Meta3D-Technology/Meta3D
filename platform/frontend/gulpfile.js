@@ -19,7 +19,8 @@ gulp.task("changeToLocalEnv", function (done) {
 })
 
 gulp.task("changeToProductionEnv", function (done) {
-    _changeToEnv("#production")
+    // _changeToEnv("#production")
+    _changeToEnv("#local")
 
     done()
 })

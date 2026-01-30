@@ -15,7 +15,8 @@ gulp.task("set_env_to_local", function (done) {
 })
 
 gulp.task("set_env_to_pro", function (done) {
-    env = "production"
+    // env = "production"
+    env = "local"
 
     done()
 })
@@ -95,19 +96,22 @@ gulp.task("update_versionconfig", function (done) {
 gulp.task("update_platform_code", function (done) {
     console.log("更新平台代码...")
 
-    process.exec("yarn webpack_pro",
-        {
-            cwd: "../../platform/frontend"
-        },
-        (error, stdout, stderr) => {
-            if (!error) {
+    // process.exec("yarn webpack_pro",
+    //     {
+    //         cwd: "../../platform/frontend"
+    //     },
+    //     (error, stdout, stderr) => {
+    //         if (!error) {
+    //             publish.updateHostFiles(env == null ? "production" : env).then(_ => {
+    //                 done()
+    //             })
+    //         } else {
+    //             throw error
+    //         }
+    //     })
                 publish.updateHostFiles(env == null ? "production" : env).then(_ => {
                     done()
                 })
-            } else {
-                throw error
-            }
-        })
 })
 
 
@@ -249,14 +253,25 @@ gulp.task("publish_local_minor_env", gulp.series(
     }));
 
 
+// gulp.task("publish_pro_minor_env", gulp.series(
+//     "set_env_to_pro",
+//     "bundle_dts",
+//     "commit",
+//     "update_versionconfig",
+//     "update_platform_code",
+//     "publish_extension_contribute_protocol",
+//     "upgrade_backend",
+//     "commit", function (done) {
+//         done()
+//     }));
 gulp.task("publish_pro_minor_env", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
     "commit",
-    "update_versionconfig",
+    // "update_versionconfig",
     "update_platform_code",
-    "publish_extension_contribute_protocol",
-    "upgrade_backend",
-    "commit", function (done) {
+    // "publish_extension_contribute_protocol",
+    // "upgrade_backend",
+    function (done) {
         done()
     }));
