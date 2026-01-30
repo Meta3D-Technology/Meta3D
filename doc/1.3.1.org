@@ -1013,7 +1013,7 @@ en
 
 
 
-* TODO platform:publish: if empty name, should publish to old name
+* DONE platform:publish: if empty name, should publish to old name
 
 TODO remove *
 

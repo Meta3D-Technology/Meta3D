@@ -231,8 +231,16 @@ module Method = {
     previewBase64,
     values,
   ): Js.Promise.t<unit> => {
-    let appName = values["appName"]
+    let appName =
+      values["appName"]
+      ->Obj.magic
+      ->Meta3dCommonlib.OptionSt.fromNullable
+      ->Meta3dCommonlib.OptionSt.getWithDefault(previousAppName)
+
     let appDescription = values["appDescription"]
+      ->Obj.magic
+      ->Meta3dCommonlib.OptionSt.fromNullable
+      ->Meta3dCommonlib.OptionSt.getWithDefault("Empty")
 
     let account = account->Meta3dCommonlib.OptionSt.getExn
 
@@ -535,7 +543,7 @@ let make = (
                     rules={[
                       {
                         _type: Meta3dCommonlib.NullableSt.getEmpty(),
-                        required: true,
+                        required: false,
                         message: `输入编辑器名`,
                       },
                     ]}>
@@ -571,7 +579,7 @@ let make = (
                     rules={[
                       {
                         _type: Meta3dCommonlib.NullableSt.getEmpty(),
-                        required: true,
+                        required: false,
                         message: `输入介绍`,
                       },
                     ]}>
