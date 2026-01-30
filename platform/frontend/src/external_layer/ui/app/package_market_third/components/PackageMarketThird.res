@@ -316,7 +316,7 @@ let make = (
                                   UserCenterStoreType.SetCurrentAppName(""),
                                 ),
                               )
-                              RescriptReactRouter.push("/AssembleSpace")
+                              RouterUtils.pushUrl("/AssembleSpace")
 
                               ()->Js.Promise.resolve
                             }, _)

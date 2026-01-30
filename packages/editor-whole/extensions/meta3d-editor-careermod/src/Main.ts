@@ -20,7 +20,7 @@ import { sync } from "./SyncUtils"
 let _getBackendEnv = (env: string) => {
 	switch (env) {
 		case "production":
-			return "meta3d-production-5eol5gce9a6b9c"
+			// return "meta3d-production-5eol5gce9a6b9c"
 		case "local":
 		default:
 			return "meta3d-local-9gacdhjl439cff76"

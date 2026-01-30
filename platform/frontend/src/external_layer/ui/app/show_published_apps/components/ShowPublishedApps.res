@@ -134,7 +134,7 @@ let make = (~service: FrontendType.service, ~account) => {
   }
 
   RescriptReactRouter.watchUrl(url => {
-    switch url.path {
+    switch RouterUtils.getUrlPath(url.path) {
     | list{"ShowPublishedApps"} =>
       setAllPublishApps(_ => [])
       setIsLoaded(_ => false)

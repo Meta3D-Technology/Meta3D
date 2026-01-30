@@ -6,7 +6,7 @@ module Method = {
     switch account {
     | Some(_) => buildUI()
     | None =>
-      RescriptReactRouter.push("/Login")
+      RouterUtils.pushUrl("/Login")
       <Login service />
     }
   }
@@ -401,7 +401,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
-      switch url.path {
+      switch RouterUtils.getUrlPath(url.path) {
       | list{"EnterApp"}
       | list{"EnterFinalApp"}
       | list{"RunElementVisual"} => ()
@@ -546,7 +546,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
   <>
     {contextHolder}
-    {switch url.path {
+    {
+      switch RouterUtils.getUrlPath(url.path) {
     | list{"Login"} => <Login service />
     | list{"Register"} => <Register service />
     | list{"ExtensionMarket"} =>
@@ -560,7 +561,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() => {
         switch currentAppName {
         | None =>
-          RescriptReactRouter.push("/UserCenter")
+          RouterUtils.pushUrl("/UserCenter")
           React.null
         | Some(currentAppName) =>
           <Layout>

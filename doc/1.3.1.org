@@ -1075,10 +1075,27 @@ is public
 
 
 
-* TODO deploy editor to online
+* DONE deploy editor to online
 deploy meta3d to online
 
 visit EnterApp?
+
+
+TODO run test:
+Admin wrong
+element run error
+  main.js path wrong
+run editor run error
+
+api type wrong
+  path wrong
+
+
+
+
+
+TODO update editor whole package
+  TODO publish meta3d-editor-careermod extension
 
 
 cn
@@ -1086,13 +1103,13 @@ cn
 en
 
 
-TODO update jump to editor action->url
+* DONE update jump to editor action->url
 
 
-* TODO update website->editor url
+* DONE update website->editor url
 
 
-* TODO update game Mod to use Editor
+# * TODO update game Mod to use Editor
 
 
 

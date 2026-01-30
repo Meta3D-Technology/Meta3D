@@ -39,7 +39,7 @@ let make = (~service: FrontendType.service) => {
               AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(accountRef.contents)),
             )
 
-            RescriptReactRouter.push("/")
+            RouterUtils.pushUrl("/")
           }, _)
           ->Meta3dBsMostDefault.Most.drain
           ->Js.Promise.then_(_ => {
@@ -85,7 +85,7 @@ let make = (~service: FrontendType.service) => {
 
   let _finishGuide = () => {
     GuideUtils.markFinishFirstLogin()
-    RescriptReactRouter.push("/Login")
+    RouterUtils.pushUrl("/Login")
   }
 
   let _afterChange = currentSlide => {
@@ -151,7 +151,7 @@ let make = (~service: FrontendType.service) => {
                     <Button _type=#primary htmlType="submit"> {React.string(`登录`)} </Button>
                     <Button
                       onClick={_ => {
-                        RescriptReactRouter.push("/Register")
+                        RouterUtils.pushUrl("/Register")
                       }}>
                       {React.string(`快速注册`)}
                     </Button>

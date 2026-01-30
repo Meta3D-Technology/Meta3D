@@ -45,11 +45,11 @@ let make = (
               }
             : ()
 
-          RescriptReactRouter.push("/UserCenter")
+          RouterUtils.pushUrl("/UserCenter")
 
         | "2"
         | _ =>
-          RescriptReactRouter.push("/AssembleSpace")
+          RouterUtils.pushUrl("/AssembleSpace")
         }
       }}
       items=[

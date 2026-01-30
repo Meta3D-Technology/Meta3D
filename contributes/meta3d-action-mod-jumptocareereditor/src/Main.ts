@@ -15,7 +15,7 @@ export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
                     let isChinese = api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese
 
-                    window.open(`https://meta3d-local-9gacdhjl439cff76-1302358347.tcloudbaseapp.com/meta3d/editor/career/${isChinese ? "cn" : "en"}/dist/index.html`, "_blank")
+                    window.open(`https://meta3d-local-9gacdhjl439cff76-1302358347.tcloudbaseapp.com/EnterApp?account=meta3d&appName=模组${isChinese ? "cn" : "en"}`, "_blank")
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

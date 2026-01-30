@@ -21,7 +21,7 @@ let make = (~service: FrontendType.service) => {
             service.backend.registerUser(account)->Meta3dBsMostDefault.Most.tap(_ => {
               dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.SetAccount(account)))
 
-              RescriptReactRouter.push("/")
+              RouterUtils.pushUrl("/")
             }, _)
           }
     }, _)->Meta3dBsMostDefault.Most.drain->Js.Promise.catch(e => {

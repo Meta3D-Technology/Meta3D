@@ -96,22 +96,19 @@ gulp.task("update_versionconfig", function (done) {
 gulp.task("update_platform_code", function (done) {
     console.log("更新平台代码...")
 
-    // process.exec("yarn webpack_pro",
-    //     {
-    //         cwd: "../../platform/frontend"
-    //     },
-    //     (error, stdout, stderr) => {
-    //         if (!error) {
-    //             publish.updateHostFiles(env == null ? "production" : env).then(_ => {
-    //                 done()
-    //             })
-    //         } else {
-    //             throw error
-    //         }
-    //     })
+    process.exec("yarn webpack_pro",
+        {
+            cwd: "../../platform/frontend"
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
                 publish.updateHostFiles(env == null ? "production" : env).then(_ => {
                     done()
                 })
+            } else {
+                throw error
+            }
+        })
 })
 
 

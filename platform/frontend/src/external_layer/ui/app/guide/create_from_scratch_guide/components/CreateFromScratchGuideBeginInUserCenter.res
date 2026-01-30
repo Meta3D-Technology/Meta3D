@@ -22,7 +22,7 @@ let make = (~account) => {
             //     UserCenterStoreType.EndJumpToCreateFromScratchTourPhase1Guide,
             //   ),
             // )
-            RescriptReactRouter.push("/UserCenter")
+            RouterUtils.pushUrl("/UserCenter")
           }
         )->Some,
         0,

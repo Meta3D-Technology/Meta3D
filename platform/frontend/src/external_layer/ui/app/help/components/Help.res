@@ -37,7 +37,7 @@ let make = (
 
               GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
 
-              RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
+              RouterUtils.pushUrl("/CreateFromScratchGuideBeginInUserCenter")
             }}>
             {React.string(`打开新人引导`)}
           </Button>

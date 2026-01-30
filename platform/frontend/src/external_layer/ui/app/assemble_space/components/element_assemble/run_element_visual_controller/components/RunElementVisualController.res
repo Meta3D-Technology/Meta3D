@@ -100,7 +100,7 @@ module Method = {
     //         ),
     //       )
     //     },
-    //     // RescriptReactRouter.push("/RunElementVisual")
+    //     // RouterUtils.pushUrl("/RunElementVisual")
     //     _,
     //   )
     //   ->Meta3dBsMostDefault.Most.drain
@@ -150,7 +150,7 @@ module Method = {
           ),
         )
       },
-      // RescriptReactRouter.push("/RunElementVisual")
+      // RouterUtils.pushUrl("/RunElementVisual")
       _,
     )
     ->Meta3dBsMostDefault.Most.drain

@@ -12,7 +12,7 @@ let make = (
       // level=3
       _type=#text
       onClick={_ => {
-        RescriptReactRouter.push("/")
+        RouterUtils.pushUrl("/")
       }}>
       <Typography.Title level=3> {React.string({j`Meta3D`})} </Typography.Title>
     </Button>
@@ -24,14 +24,14 @@ let make = (
         selectedKeys={[currentKey]}
         onClick={({key}) => {
           switch key {
-          | "2" => RescriptReactRouter.push("/ShowPublishedApps")
-          | "3" => RescriptReactRouter.push("/ShowPublishedFinalApps")
-          | "4" => RescriptReactRouter.push("/ExtensionMarket")
-          | "5" => RescriptReactRouter.push("/ContributeMarket")
-          | "6" => RescriptReactRouter.push("/PackageMarket")
+          | "2" => RouterUtils.pushUrl("/ShowPublishedApps")
+          | "3" => RouterUtils.pushUrl("/ShowPublishedFinalApps")
+          | "4" => RouterUtils.pushUrl("/ExtensionMarket")
+          | "5" => RouterUtils.pushUrl("/ContributeMarket")
+          | "6" => RouterUtils.pushUrl("/PackageMarket")
           | "1"
           | _ =>
-            RescriptReactRouter.push("/")
+            RouterUtils.pushUrl("/")
           }
         }}
         items={UserUtils.isAdmin(account)

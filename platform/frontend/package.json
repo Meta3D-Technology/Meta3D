@@ -9,7 +9,7 @@
         "buildAll:dev": "gulp changeToLocalEnv && rescript clean && rescript build && gulp restoreEnv",
         "buildAll:pro": "gulp changeToProductionEnv && rescript clean && rescript build && gulp restoreEnv",
         "webpack_dev": "yarn buildAll:dev && cross-env NODE_ENV=development webpack --config webpack.config.js",
-        "webpack_pro": "yarn buildAll:pro && cross-env NODE_ENV=production webpack --config webpack.config.js",
+        "webpack_pro": "yarn buildAll:pro && cross-env NODE_ENV=development webpack --config webpack.config.js",
         "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.devserver.js",
         "test:watch": "jest --maxWorkers=4 --watch --config jest.json",
         "test:update": "jest --maxWorkers=4 -u --config jest.json",

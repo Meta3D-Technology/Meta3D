@@ -15,7 +15,7 @@ export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
                     let isChinese = api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese
 
-                    window.open(`https://www.gts-play.cn/website/${isChinese ? "chinese" : "english"}/docs/${isChinese? "职业模组编辑器" : "Career%20Mod%20Editor"}`, "_blank")
+                    window.open(`https://www.gts-play.cn/website/${isChinese ? "chinese" : "english"}/docs/${isChinese? "简介" : "Introduction"}`, "_blank")
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

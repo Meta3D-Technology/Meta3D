@@ -32,12 +32,13 @@ export let initProduction = () => {
 
 export let updateHostFiles = (hosting: any) => {
     return hosting.deleteFiles({
-        cloudPath: '/',
+        // cloudPath: '/',
+        cloudPath: '/meta3d/dist/',
         isDir: true
     }).then(() => {
         return hosting.uploadFiles({
             localPath: '../../platform/frontend/dist/',
-            cloudPath: '/',
+            cloudPath: '/meta3d/',
             ignore: ['**/ignore.*'],
             onFileFinish: (err, data) => {
                 if (!!err) {

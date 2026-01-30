@@ -30,7 +30,7 @@ let make = (~service: FrontendType.service, ~account) => {
   }
 
   RescriptReactRouter.watchUrl(url => {
-    switch url.path {
+      switch RouterUtils.getUrlPath(url.path) {
     | list{"ContributeMarket"} =>
       setSelectPublishContributeProtocol(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())
       // setSelectPublishContribute(_ => Meta3dCommonlib.ImmutableHashMap.createEmpty())

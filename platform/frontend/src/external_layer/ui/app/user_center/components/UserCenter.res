@@ -64,7 +64,7 @@ let make = (~service: FrontendType.service) => {
   //   }
 
   // let _jumptToAssembleSpace = () => {
-  //   RescriptReactRouter.push("/AssembleSpace")
+  //   RouterUtils.pushUrl("/AssembleSpace")
   // }
 
   let _buildCurrentAppName = () => {j`未命名的编辑器`}
@@ -77,8 +77,8 @@ let make = (~service: FrontendType.service) => {
     setInfo(_ => None)
 
     isInCreateFromScratchTourPhase2
-      ? RescriptReactRouter.push("/CreateFromScratchGuideBeginInElementAssemble")
-      : RescriptReactRouter.push("/AssembleSpace")
+      ? RouterUtils.pushUrl("/CreateFromScratchGuideBeginInElementAssemble")
+      : RouterUtils.pushUrl("/AssembleSpace")
   }
 
   let _createFromScratch = (service, dispatch) => {
@@ -92,11 +92,11 @@ let make = (~service: FrontendType.service) => {
           // //   AppStoreType.UserCenterAction(UserCenterStoreType.StartCreateFromScratchTourPhase3),
           // // )
 
-          // RescriptReactRouter.push("/UserCenter")
+          // RouterUtils.pushUrl("/UserCenter")
 
           GuideUtils.startCreateFromScratchTour(dispatch, dispatchForElementAssembleStore)
 
-          RescriptReactRouter.push("/CreateFromScratchGuideBeginInUserCenter")
+          RouterUtils.pushUrl("/CreateFromScratchGuideBeginInUserCenter")
         }
       : {
           setInfo(_ => {j`加载中，请稍候`}->Some)
@@ -135,7 +135,7 @@ let make = (~service: FrontendType.service) => {
   }
 
   let _createFromTemplate = () => {
-    RescriptReactRouter.push("/ShowPublishedApps")
+    RouterUtils.pushUrl("/ShowPublishedApps")
   }
 
   let _logOut = dispatch => {
@@ -143,7 +143,7 @@ let make = (~service: FrontendType.service) => {
 
     dispatch(AppStoreType.UserCenterAction(UserCenterStoreType.LogOut))
 
-    RescriptReactRouter.push("/Login")
+    RouterUtils.pushUrl("/Login")
   }
 
   React.useEffect0(() => {

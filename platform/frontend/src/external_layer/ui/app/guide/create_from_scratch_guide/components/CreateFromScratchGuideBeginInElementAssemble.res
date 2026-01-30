@@ -22,7 +22,7 @@ let make = (~account) => {
             // dispatchForElementAssembleStore(
             //   ElementAssembleStoreType.EndJumpToCreateFromScratchTourPhase2Guide,
             // )
-            RescriptReactRouter.push("/AssembleSpace")
+            RouterUtils.pushUrl("/AssembleSpace")
           }
         )->Some,
         1,
