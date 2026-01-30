@@ -76,7 +76,7 @@ export enum careerFeatureName {
     DecreaseMoveSpeedWhenShoot = "DecreaseMoveSpeedWhenShoot",
     IncreaseNonPlayerGiantessFriendUnitDamage = "IncreaseNonPlayerGiantessFriendUnitDamage",
     IncreasePlayerGiantessDamage = "IncreasePlayerGiantessDamage",
-    FriendUnitCanDamagePlayerOrFriend = "FriendUnitCanDamagePlayerOrFriend",
+    FriendUnitCanDamagePlayer = "FriendUnitCanDamagePlayer",
     FriendUnitCanGetReward = "FriendUnitCanGetReward",
     AbsorbFriendUnitDamaged = "AbsorbFriendUnitDamaged",
     EnhenceCarryRandomAttribute = "EnhenceCarryRandomAttribute",
@@ -172,7 +172,7 @@ export let getTextDataByVariable = () => {
             [careerFeatureName.DecreaseMoveSpeedWhenShoot]: (value) => `射击时，移动速度会减少${value}%`,
             [careerFeatureName.IncreaseNonPlayerGiantessFriendUnitDamage]: (value) => `非玩家巨大娘的友方单位的伤害增加${value}%`,
             [careerFeatureName.IncreasePlayerGiantessDamage]: (value) => `玩家巨大娘的伤害增加${value}%`,
-            [careerFeatureName.FriendUnitCanDamagePlayerOrFriend]: () => `友方单位能够伤害玩家或者友方单位`,
+            [careerFeatureName.FriendUnitCanDamagePlayer]: () => `友方单位能够伤害玩家`,
             [careerFeatureName.FriendUnitCanGetReward]: (value) => `在友方单位击败单位后获得${value}%奖励`,
             [careerFeatureName.AbsorbFriendUnitDamaged]: (value) => `承受友方单位受到的${value}%伤害`,
             [careerFeatureName.EnhenceCarryRandomAttribute]: (value) => `携带的单位每隔5秒会提升随机的一个属性（攻击/攻速/防御/最大生命值）${value}%`,
@@ -260,7 +260,7 @@ export let getTextDataByVariable = () => {
             [careerFeatureName.DecreaseMoveSpeedWhenShoot]: (value) => `Move speed decrease level ${value} when shoot`,
             [careerFeatureName.IncreaseNonPlayerGiantessFriendUnitDamage]: (value) => `Increase the damage of non player giantess friendly units by ${value}%`,
             [careerFeatureName.IncreasePlayerGiantessDamage]: (value) => `Increase the damage of player giantess by ${value}%`,
-            [careerFeatureName.FriendUnitCanDamagePlayerOrFriend]: () => `Friend units can damage player or friend`,
+            [careerFeatureName.FriendUnitCanDamagePlayer]: () => `Friend units can damage player`,
             [careerFeatureName.FriendUnitCanGetReward]: (value) => `can get ${value}% reward after friend units beat unit`,
             [careerFeatureName.AbsorbFriendUnitDamaged]: (value) => `Absorb ${value}% of the damage received by friendly units`,
             [careerFeatureName.EnhenceCarryRandomAttribute]: (value) => `Carried unit random attribute(attack/emit speed/defense/maxium hp) increase ${value}%`,
@@ -893,7 +893,7 @@ export let getData = (api): Array<careerFeature> => {
             }
         },
         {
-            name: careerFeatureName.FriendUnitCanDamagePlayerOrFriend,
+            name: careerFeatureName.FriendUnitCanDamagePlayer,
             positive: false,
             characterType: characterType.LittleMan,
             valueCount: 0,
@@ -902,7 +902,7 @@ export let getData = (api): Array<careerFeature> => {
             }
         },
         {
-            name: careerFeatureName.FriendUnitCanDamagePlayerOrFriend,
+            name: careerFeatureName.FriendUnitCanDamagePlayer,
             positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,

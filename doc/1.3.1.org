@@ -1001,9 +1001,21 @@ TODO pass cn
 
 
 
-* TODO update game
+* DONE update game
 
 
+
+* DONE update add career feature action
+* DONE Is Public add more description
+cn
+
+en
+
+
+
+* TODO platform:publish: if empty name, should publish to old name
+
+TODO remove *
 
 
 
@@ -1014,33 +1026,42 @@ deploy meta3d to online
 visit EnterApp?
 
 
+cn
+
+en
+
+
+
 
 * TODO give doc
 
 编辑器文档只是说明重要的部分，比如发布的这个is public和那个描述，//要给出中英文及那个版本号。
 
 
-add Menu
-  TODO add doc link
+# add Menu
+#   TODO add doc link
+
+TODO add 帮助 button to show doc panel
 
 
 
 
+# * TODO update Meta3D->platform
 
-* TODO update Meta3D->platform
-
-** TODO update X天前更新
-
-
-** TODO update platform version to 1.4
-publish all to 1.4.10
-
-update VersionConfig.res
+# ** TODO update X天前更新
 
 
+# ** TODO update platform version to 1.4
+# publish all to 1.4.10
 
-** TODO update online link
+# update VersionConfig.res
 
+
+
+# ** TODO update online link
+
+
+* TODO update game Mod to use Editor
 
 
 * TODO run test
@@ -1050,10 +1071,16 @@ is public
 
 
 
-* TODO 更新模组仓库->type, imported type
+* TODO hide old mod develop doc, repo
+
+
+
+# * TODO 更新模组仓库->type, imported type
 
 
 * TODO 清理Mod模式的测试模组
 
 
 * TODO 发布
+
+update storage->diff, mod
