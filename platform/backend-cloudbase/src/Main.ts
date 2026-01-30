@@ -4,7 +4,7 @@ import { curry3_1 } from "meta3d-fp/src/Curry";
 import { fromPromise, just } from "most";
 import { handleKeyToLowercase } from "meta3d-backend-cloudbase";
 import * as moment from "moment";
-import { getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils";
+import { getExn, getWithDefault, isNullable, map } from "meta3d-commonlib-ts/src/NullableUtils";
 // import { nullable } from "meta3d-commonlib-ts/src/nullable";
 import { fileJson, generateMod, loadMod, parseMod } from "meta3d";
 // import * as CloudbaseService from "meta3d-tool-utils/src/publish/Ba";
@@ -555,30 +555,54 @@ let _getLocalEnvData = () => {
 }
 
 
-let _setModData = (app: any, collectionName, key, data) => {
+// let _setModData = (app: any, collectionName, key, data) => {
+//     const db = getDatabase()
+
+//     return db.collection(collectionName)
+//         .doc(key)
+//         .get()
+//         .then(res => {
+//             let currentVersion = "0.0.0";
+
+//             if (res.data && res.data.length > 0) {
+//                 currentVersion = res.data[0].version;
+//             }
+
+//             // 简单递增：直接分割、递增、重组
+//             const [major, minor, patch] = currentVersion.split('.').map(Number);
+//             const newVersion = `${major}.${minor}.${patch + 1}`;
+
+//             return db.collection(collectionName)
+//                 .doc(key)
+//                 .set({
+//                     ...data,
+//                     key: key,
+//                     version: newVersion
+//                 });
+//         })
+//         .catch((err) => {
+//             // 如果文档不存在，创建新文档
+//             if (err.code === 'DATABASE_DOC_NOT_EXIST') {
+//                 return db.collection(collectionName)
+//                     .doc(key)
+//                     .set({
+//                         ...data,
+//                         key: key,
+//                         version: "0.0.1", // 初始版本
+//                     });
+//             }
+//             throw err;
+//         });
+// }
+let _setModData = (collectionName, key, data, version) => {
     const db = getDatabase()
 
     return db.collection(collectionName)
         .doc(key)
-        .get()
-        .then(res => {
-            let currentVersion = "0.0.0";
-
-            if (res.data && res.data.length > 0) {
-                currentVersion = res.data[0].version;
-            }
-
-            // 简单递增：直接分割、递增、重组
-            const [major, minor, patch] = currentVersion.split('.').map(Number);
-            const newVersion = `${major}.${minor}.${patch + 1}`;
-
-            return db.collection(collectionName)
-                .doc(key)
-                .set({
-                    ...data,
-                    key: key,
-                    version: newVersion
-                });
+        .set({
+            ...data,
+            key: key,
+            version: version
         })
         .catch((err) => {
             // 如果文档不存在，创建新文档
@@ -638,102 +662,112 @@ export let publishMod = (
 
     //         return initFunc().map(backendInstance => [backendInstance, packageJson, readmeContent])
     //     })
+
+
+
     return initFunc().map(backendInstance => [backendInstance, JSON.parse(packageJson), readmeContent])
         .flatMap(([backendInstance, packageJson, readmeContent]) => {
-            // _defineWindow()
+            let key = handleKeyToLowercase(packageJson.name)
+            const collectionName = "publishedmods"
 
-            let modJson = packageJson.mod
+            return fromPromise(getModDataFunc(backendInstance, collectionName, key))
+                .flatMap((currentData: any) => {
+                    let currentVersion = "0.0.0";
 
-            let fileName = packageJson.name + "_" + packageJson.version
-
-            let filePath =
-                _getFileDirname() + "/" + fileName + ".arrayBuffer"
-
-            let [assetFileJson, imageFiles, soundFiles, glbFiles] = _readAllAssets(assetFileData, modJson.protocolName, packageJson.name)
-
-            return uploadFileFunc(
-                _ => { },
-                // backendInstance,
-                filePath,
-                generateFunc(
-                    distFileContent,
-                    assetFileJson,
-                    imageFiles.concat(soundFiles).concat(glbFiles),
-                ),
-                fileName
-            ).flatMap((uploadData: any) => {
-                let fileID = getFileIDFunc(uploadData, filePath)
-
-                // let packageData = _convertToExtensionOrContributePackageData(packageJson, account)
-
-                let key = handleKeyToLowercase(packageJson.name)
-
-                let data = {
-                    // protocolName: packageData.protocol.name,
-                    // protocolVersion: packageData.protocol.version,
-                    name: packageJson.name,
-                    // version: packageJson.version,
-
-                    protocolName: modJson.protocolName,
-                    // protocolVersion: modJson.protocolVersion,
-                    author: modJson.author,
-                    // category: modJson.category,
-                    displayName_cn: getWithDefault(modJson.displayName_cn, modJson.displayName_en),
-                    displayName_en: getWithDefault(modJson.displayName_en, modJson.displayName_cn),
-                    repoLink: modJson.repoLink,
-                    // description_cn: getWithDefault(modJson.description_cn, modJson.description_en),
-                    // description_en: getWithDefault(modJson.description_en, modJson.description_cn),
-                    description: readmeContent,
-                    // icon: map(icon => {
-                    //     return _readBase64(icon)
-                    // }, modJson.icon),
-                    icon: iconBase64,
-
-                    lastPublishTime: moment.now(),
-
-                    isPublic: modJson.isPublic,
-
-                    dependentMods: getWithDefault(modJson.dependentMods, []),
-
-                    fileID,
-                    // key: handleKeyToLowercase(account)
-                    key,
-                }
-
-                // return fromPromise(
-                //     addModDataFunc(
-                //         backendInstance,
-                //         // _getPublishedCollectionName(fileType),
-                //         "publishedmods",
-                //         data
-                //     )
-                // )
-                let collectionName = "publishedmods"
-
-                return fromPromise(getModDataFunc(backendInstance, collectionName, key).then(currentData => {
-                    if (isNullable(currentData)) {
-                        data = {
-                            ...data,
-                            subscribe: 0,
-                            visit: 0
-                        } as any
-                    }
-                    else {
-                        data = {
-                            ...currentData,
-                            ...data,
-                        } as any
-
-                        delete (data as any)._id
-                        delete (data as any)._openid
+                    if (!isNullable(currentData)) {
+                        currentVersion = getExn(currentData).version;
                     }
 
-                    return setModDataFunc(backendInstance, collectionName, key, data)
-                }))
-            }
-            )
+                    const [major, minor, patch] = currentVersion.split('.').map(Number);
+                    let packageVersion = `${major}.${minor}.${patch + 1}`;
 
+
+
+
+                    // _defineWindow()
+
+                    let modJson = packageJson.mod
+
+                    // let fileName = packageJson.name + "_" + packageJson.version
+                    let fileName = packageJson.name + "_" + packageVersion
+
+                    let filePath =
+                        _getFileDirname() + "/" + fileName + ".arrayBuffer"
+
+                    let [assetFileJson, imageFiles, soundFiles, glbFiles] = _readAllAssets(assetFileData, modJson.protocolName, packageJson.name)
+
+                    return uploadFileFunc(
+                        _ => { },
+                        // backendInstance,
+                        filePath,
+                        generateFunc(
+                            distFileContent,
+                            assetFileJson,
+                            imageFiles.concat(soundFiles).concat(glbFiles),
+                        ),
+                        fileName
+                    ).flatMap((uploadData: any) => {
+                        let fileID = getFileIDFunc(uploadData, filePath)
+
+                        // let packageData = _convertToExtensionOrContributePackageData(packageJson, account)
+
+
+                        let data = {
+                            // protocolName: packageData.protocol.name,
+                            // protocolVersion: packageData.protocol.version,
+                            name: packageJson.name,
+                            // version: packageJson.version,
+
+                            protocolName: modJson.protocolName,
+                            // protocolVersion: modJson.protocolVersion,
+                            author: modJson.author,
+                            // category: modJson.category,
+                            displayName_cn: getWithDefault(modJson.displayName_cn, modJson.displayName_en),
+                            displayName_en: getWithDefault(modJson.displayName_en, modJson.displayName_cn),
+                            repoLink: modJson.repoLink,
+                            // description_cn: getWithDefault(modJson.description_cn, modJson.description_en),
+                            // description_en: getWithDefault(modJson.description_en, modJson.description_cn),
+                            description: readmeContent,
+                            // icon: map(icon => {
+                            //     return _readBase64(icon)
+                            // }, modJson.icon),
+                            icon: iconBase64,
+
+                            lastPublishTime: moment.now(),
+
+                            isPublic: modJson.isPublic,
+
+                            dependentMods: getWithDefault(modJson.dependentMods, []),
+
+                            fileID,
+                            // key: handleKeyToLowercase(account)
+                            key,
+                        }
+
+                        if (isNullable(currentData)) {
+                            data = {
+                                ...data,
+                                subscribe: 0,
+                                visit: 0
+                            } as any
+                        }
+                        else {
+                            data = {
+                                ...currentData,
+                                ...data,
+                            } as any
+
+                            delete (data as any)._id
+                            delete (data as any)._openid
+                        }
+
+                        return fromPromise(setModDataFunc(collectionName, key, data, packageVersion))
+                    }
+                    )
+                })
         })
+    // .flatMap(([backendInstance, packageJson, readmeContent]) => {
+    // })
     // .drain()
     // .then(_ => {
     //     logFunc("publish success")

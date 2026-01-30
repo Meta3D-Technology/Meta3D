@@ -1057,10 +1057,21 @@ set language cn/en
 
 
 
-* TODO run test
+* DONE run test
 
 test editor:
+version is undefined?
+
+test en editor
+
 is public
+
+
+
+* TODO handle cloudbase
+
+
+* TODO 电脑清理
 
 
 

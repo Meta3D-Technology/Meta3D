@@ -354,23 +354,46 @@ let _getLocalEnvData = () => {
         env: "meta3d-local-9gacdhjl439cff76" // 此处填入您的环境ID 
     };
 };
-let _setModData = (app, collectionName, key, data) => {
+// let _setModData = (app: any, collectionName, key, data) => {
+//     const db = getDatabase()
+//     return db.collection(collectionName)
+//         .doc(key)
+//         .get()
+//         .then(res => {
+//             let currentVersion = "0.0.0";
+//             if (res.data && res.data.length > 0) {
+//                 currentVersion = res.data[0].version;
+//             }
+//             // 简单递增：直接分割、递增、重组
+//             const [major, minor, patch] = currentVersion.split('.').map(Number);
+//             const newVersion = `${major}.${minor}.${patch + 1}`;
+//             return db.collection(collectionName)
+//                 .doc(key)
+//                 .set({
+//                     ...data,
+//                     key: key,
+//                     version: newVersion
+//                 });
+//         })
+//         .catch((err) => {
+//             // 如果文档不存在，创建新文档
+//             if (err.code === 'DATABASE_DOC_NOT_EXIST') {
+//                 return db.collection(collectionName)
+//                     .doc(key)
+//                     .set({
+//                         ...data,
+//                         key: key,
+//                         version: "0.0.1", // 初始版本
+//                     });
+//             }
+//             throw err;
+//         });
+// }
+let _setModData = (collectionName, key, data, version) => {
     const db = (0, BackendService_1.getDatabase)();
     return db.collection(collectionName)
         .doc(key)
-        .get()
-        .then(res => {
-        let currentVersion = "0.0.0";
-        if (res.data && res.data.length > 0) {
-            currentVersion = res.data[0].version;
-        }
-        // 简单递增：直接分割、递增、重组
-        const [major, minor, patch] = currentVersion.split('.').map(Number);
-        const newVersion = `${major}.${minor}.${patch + 1}`;
-        return db.collection(collectionName)
-            .doc(key)
-            .set(Object.assign(Object.assign({}, data), { key: key, version: newVersion }));
-    })
+        .set(Object.assign(Object.assign({}, data), { key: key, version: version }))
         .catch((err) => {
         // 如果文档不存在，创建新文档
         if (err.code === 'DATABASE_DOC_NOT_EXIST') {
@@ -410,53 +433,53 @@ packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
     //     })
     return initFunc().map(backendInstance => [backendInstance, JSON.parse(packageJson), readmeContent])
         .flatMap(([backendInstance, packageJson, readmeContent]) => {
-        // _defineWindow()
-        let modJson = packageJson.mod;
-        let fileName = packageJson.name + "_" + packageJson.version;
-        let filePath = _getFileDirname() + "/" + fileName + ".arrayBuffer";
-        let [assetFileJson, imageFiles, soundFiles, glbFiles] = _readAllAssets(assetFileData, modJson.protocolName, packageJson.name);
-        return uploadFileFunc(_ => { }, 
-        // backendInstance,
-        filePath, generateFunc(distFileContent, assetFileJson, imageFiles.concat(soundFiles).concat(glbFiles)), fileName).flatMap((uploadData) => {
-            let fileID = getFileIDFunc(uploadData, filePath);
-            // let packageData = _convertToExtensionOrContributePackageData(packageJson, account)
-            let key = (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(packageJson.name);
-            let data = {
-                // protocolName: packageData.protocol.name,
-                // protocolVersion: packageData.protocol.version,
-                name: packageJson.name,
-                // version: packageJson.version,
-                protocolName: modJson.protocolName,
-                // protocolVersion: modJson.protocolVersion,
-                author: modJson.author,
-                // category: modJson.category,
-                displayName_cn: (0, NullableUtils_1.getWithDefault)(modJson.displayName_cn, modJson.displayName_en),
-                displayName_en: (0, NullableUtils_1.getWithDefault)(modJson.displayName_en, modJson.displayName_cn),
-                repoLink: modJson.repoLink,
-                // description_cn: getWithDefault(modJson.description_cn, modJson.description_en),
-                // description_en: getWithDefault(modJson.description_en, modJson.description_cn),
-                description: readmeContent,
-                // icon: map(icon => {
-                //     return _readBase64(icon)
-                // }, modJson.icon),
-                icon: iconBase64,
-                lastPublishTime: moment.now(),
-                isPublic: modJson.isPublic,
-                dependentMods: (0, NullableUtils_1.getWithDefault)(modJson.dependentMods, []),
-                fileID,
-                // key: handleKeyToLowercase(account)
-                key,
-            };
-            // return fromPromise(
-            //     addModDataFunc(
-            //         backendInstance,
-            //         // _getPublishedCollectionName(fileType),
-            //         "publishedmods",
-            //         data
-            //     )
-            // )
-            let collectionName = "publishedmods";
-            return (0, most_1.fromPromise)(getModDataFunc(backendInstance, collectionName, key).then(currentData => {
+        let key = (0, meta3d_backend_cloudbase_1.handleKeyToLowercase)(packageJson.name);
+        const collectionName = "publishedmods";
+        return (0, most_1.fromPromise)(getModDataFunc(backendInstance, collectionName, key))
+            .flatMap((currentData) => {
+            let currentVersion = "0.0.0";
+            if (!(0, NullableUtils_1.isNullable)(currentData)) {
+                currentVersion = (0, NullableUtils_1.getExn)(currentData).version;
+            }
+            const [major, minor, patch] = currentVersion.split('.').map(Number);
+            let packageVersion = `${major}.${minor}.${patch + 1}`;
+            // _defineWindow()
+            let modJson = packageJson.mod;
+            // let fileName = packageJson.name + "_" + packageJson.version
+            let fileName = packageJson.name + "_" + packageVersion;
+            let filePath = _getFileDirname() + "/" + fileName + ".arrayBuffer";
+            let [assetFileJson, imageFiles, soundFiles, glbFiles] = _readAllAssets(assetFileData, modJson.protocolName, packageJson.name);
+            return uploadFileFunc(_ => { }, 
+            // backendInstance,
+            filePath, generateFunc(distFileContent, assetFileJson, imageFiles.concat(soundFiles).concat(glbFiles)), fileName).flatMap((uploadData) => {
+                let fileID = getFileIDFunc(uploadData, filePath);
+                // let packageData = _convertToExtensionOrContributePackageData(packageJson, account)
+                let data = {
+                    // protocolName: packageData.protocol.name,
+                    // protocolVersion: packageData.protocol.version,
+                    name: packageJson.name,
+                    // version: packageJson.version,
+                    protocolName: modJson.protocolName,
+                    // protocolVersion: modJson.protocolVersion,
+                    author: modJson.author,
+                    // category: modJson.category,
+                    displayName_cn: (0, NullableUtils_1.getWithDefault)(modJson.displayName_cn, modJson.displayName_en),
+                    displayName_en: (0, NullableUtils_1.getWithDefault)(modJson.displayName_en, modJson.displayName_cn),
+                    repoLink: modJson.repoLink,
+                    // description_cn: getWithDefault(modJson.description_cn, modJson.description_en),
+                    // description_en: getWithDefault(modJson.description_en, modJson.description_cn),
+                    description: readmeContent,
+                    // icon: map(icon => {
+                    //     return _readBase64(icon)
+                    // }, modJson.icon),
+                    icon: iconBase64,
+                    lastPublishTime: moment.now(),
+                    isPublic: modJson.isPublic,
+                    dependentMods: (0, NullableUtils_1.getWithDefault)(modJson.dependentMods, []),
+                    fileID,
+                    // key: handleKeyToLowercase(account)
+                    key,
+                };
                 if ((0, NullableUtils_1.isNullable)(currentData)) {
                     data = Object.assign(Object.assign({}, data), { subscribe: 0, visit: 0 });
                 }
@@ -465,10 +488,12 @@ packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
                     delete data._id;
                     delete data._openid;
                 }
-                return setModDataFunc(backendInstance, collectionName, key, data);
-            }));
+                return (0, most_1.fromPromise)(setModDataFunc(collectionName, key, data, packageVersion));
+            });
         });
     });
+    // .flatMap(([backendInstance, packageJson, readmeContent]) => {
+    // })
     // .drain()
     // .then(_ => {
     //     logFunc("publish success")
