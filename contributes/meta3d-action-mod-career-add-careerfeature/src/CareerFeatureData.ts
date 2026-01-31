@@ -714,7 +714,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ControlledUnitCanAttack,
-            positive: true,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 0,
             getDescriptionFunc: (language, name) => {
