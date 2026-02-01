@@ -195,6 +195,8 @@ export type service = {
     stepFast: number,
     width: number,
     text: string,
+    minValue: nullable<number>,
+    maxValue: nullable<number>,
   ) => nullable<number>;
   readonly inputFloat3: (
     label: label,
@@ -211,6 +213,8 @@ export type service = {
     stepFast: number,
     width: number,
     text: string,
+    minValue: nullable<number>,
+    maxValue: nullable<number>,
   ) => nullable<number>;
   readonly checkbox: (
     label: label,

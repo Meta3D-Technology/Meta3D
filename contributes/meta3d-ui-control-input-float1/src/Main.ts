@@ -11,7 +11,9 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             {
                 label,
                 step,
-                stepFast
+                stepFast,
+                minValue,
+                maxValue,
             }
         ) => {
             if (api.nullable.isNullable(getInputFunc)) {
@@ -27,7 +29,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                 let { inputFloat1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-                return inputFloat1(meta3dState, label, value, step, stepFast, rect.width, label)
+                return inputFloat1(meta3dState, label, value, step, stepFast, rect.width, label, minValue, maxValue)
             })
         },
         init: (meta3dState) => {

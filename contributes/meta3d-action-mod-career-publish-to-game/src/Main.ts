@@ -32,6 +32,10 @@ let _getLoginedUserName = () => {
     return urlParams.get("username")
 }
 
+let _isDebugEnv = () => {
+    return globalThis.location.href.includes("localhost")
+}
+
 let _initAuthor = (api: api, meta3dState) => {
     // let store = api.storage.createInstance({ name: "store_backend_temp" })
 
@@ -39,10 +43,16 @@ let _initAuthor = (api: api, meta3dState) => {
     let userName = _getLoginedUserName()
 
     if (api.nullable.isNullable(userName)) {
-        alert("请从游戏中进入(Please Enter from Game)")
+        // alert("请从游戏中进入(Please Enter from Game)")
 
-        globalThis.location.href = "https://gts-play.cn"
-        return meta3dState
+        // globalThis.location.href = "https://gts-play.cn"
+        // return meta3dState
+
+        if (!_isDebugEnv()) {
+            alert("无法获得作者名，使用默认的作者名(Can't get author name, use default one instead)")
+        }
+
+        userName = api.nullable.return("Unknown")
     }
 
     return api.action.setActionState<state>(meta3dState, actionName, {

@@ -201,7 +201,9 @@ type service = {
     float,
     float,
     int,
-    string
+    string,
+    Js.Nullable.t<float>,
+    Js.Nullable.t<float>,
   ) => (Meta3dType.Index.state, Js.Nullable.t<float>),
   inputFloat3: (
     Meta3dType.Index.state,
@@ -219,7 +221,9 @@ type service = {
     int,
     int,
     int,
-    string
+    string,
+    Js.Nullable.t<int>,
+    Js.Nullable.t<int>,
   ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
   checkbox: (
     Meta3dType.Index.state,

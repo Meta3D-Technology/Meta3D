@@ -38,7 +38,9 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     careerFeatureName,
                     positive,
                     description,
-                    values
+                    values,
+                    minValue,
+                    maxValue
                 ], i) => {
                     let newHeight = 50 + Math.min(values.length, 1) * 30
                     windowRect = {
@@ -65,7 +67,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     let newValue
                     [meta3dState, map, isValueUpdate] = values.reduce(([meta3dState, map, isValueUpdate], value, i) => {
-                        [meta3dState, newValue] = inputFloat1(meta3dState, `${careerFeatureName}_${i}`, value, 0.01, 0.1, 100, "")
+                        [meta3dState, newValue] = inputFloat1(meta3dState, `${careerFeatureName}_${i}`, value, 0.01, 0.1, 100, "", minValue, maxValue)
+
                         if (i < values.length - 1) {
                             meta3dState = sameLine(meta3dState)
                         }

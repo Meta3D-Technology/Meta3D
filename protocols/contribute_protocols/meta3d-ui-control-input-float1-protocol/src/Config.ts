@@ -1,5 +1,5 @@
 import {
-    
+
     getUIControlSpecificDataFields as getUIControlSpecificDataFieldsMeta3D,
     hasChildren as hasChildrenMeta3D,
     getUIControlSupportedEventNames as getUIControlSupportedEventNamesMeta3D, generateHandleUIControlEventStr as generateHandleUIControlEventStrMeta3D
@@ -27,7 +27,17 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         name: "stepFast",
         type_: "number",
         value: 1.0
-    }
+    },
+    {
+        name: "minValue",
+        type_: "nullableNumber",
+        value: null
+    },
+    {
+        name: "maxValue",
+        type_: "nullableNumber",
+        value: null
+    },
 ]
 
 export let hasChildren: hasChildrenMeta3D = () => false

@@ -24,6 +24,8 @@ export enum characterType {
 
 type careerFeatureName = string
 
+type careerFeatureValue = number | [number, number] | [number, number, number] | any
+
 type value = number
 
 // type getDescriptionFunc = (language: language, name: careerFeatureName, values: number | Array<number>) => string
@@ -34,6 +36,8 @@ export type careerFeature = {
     characterType: characterType,
     valueCount: number,
     positive: boolean,
+    minValue?: careerFeatureValue,
+    maxValue?: careerFeatureValue,
 
     getDescriptionFunc: getDescriptionFunc,
 }
@@ -47,6 +51,8 @@ export type state = {
             characterType: characterType,
             positive: boolean,
             values: List<value>,
+            minValue?: careerFeatureValue,
+            maxValue?: careerFeatureValue,
         }>,
 
     isShowModal: boolean,

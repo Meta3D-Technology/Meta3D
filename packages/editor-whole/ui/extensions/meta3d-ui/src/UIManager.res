@@ -821,11 +821,11 @@ let inputText = (data, meta3dState, label, value, maxLength, width) => {
   )
 }
 
-let inputFloat1 = (data, meta3dState, label, value, step, stepFast, width, text) => {
+let inputFloat1 = (data, meta3dState, label, value, step, stepFast, width, text, minValue, maxValue) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputFloat1(. label, value, step, stepFast, width, text))
+      (imguiRendererState, imguiRendererService.inputFloat1(. label, value, step, stepFast, width, text, minValue, maxValue))
     },
     data,
   )
@@ -841,11 +841,11 @@ let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width, text)
   )
 }
 
-let inputInt1 = (data, meta3dState, label, value, step, stepFast, width, text) => {
+let inputInt1 = (data, meta3dState, label, value, step, stepFast, width, text, minValue, maxValue) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputInt1(. label, value, step, stepFast, width, text))
+      (imguiRendererState, imguiRendererService.inputInt1(. label, value, step, stepFast, width, text, minValue, maxValue))
     },
     data,
   )

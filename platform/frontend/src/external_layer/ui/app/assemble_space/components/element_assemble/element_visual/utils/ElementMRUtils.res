@@ -196,6 +196,10 @@ let _generateSpecific = (specific: ElementAssembleStoreType.specific): string =>
         | #bool => j`${value->Obj.magic->BoolUtils.boolToString},`
         | #select => j`${SpecificUtils.convertValueToString(value, type_)},`
         | #number => j`${value->NumberUtils.numberToString},`
+        | #nullableNumber =>
+          value->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
+            ? {j`null,`}
+            : j`${value->Obj.magic->NumberUtils.numberToString},`
         | #rgba => 
         // j`[
         //   ${(value->Obj.magic)[0]->NumberUtils.numberToString},

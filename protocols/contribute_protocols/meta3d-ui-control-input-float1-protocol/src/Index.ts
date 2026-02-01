@@ -11,7 +11,9 @@ export type inputFunc = nullable<func>
 export type specificData = {
     label: string,
     step: number,
-    stepFast: number
+    stepFast: number,
+    minValue: nullable<number>,
+    maxValue: nullable<number>,
 }
 
 export type float1 = number

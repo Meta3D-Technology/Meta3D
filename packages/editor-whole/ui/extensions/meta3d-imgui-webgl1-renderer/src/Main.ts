@@ -8,7 +8,7 @@ import { buildBind, buildRef, setNextWindowRect } from "./Utils"
 import { tree } from "./Tree"
 import { asset } from "./Asset"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
-import { getExn, getWithDefault, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
+import { getExn, map, getWithDefault, isNullable } from "meta3d-commonlib-ts/src/NullableUtils"
 // import { inspector } from "./Inspector"
 
 let _generateUniqueId = () => {
@@ -291,7 +291,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
 
             return newValue
         },
-        inputFloat1: (label, value, step, stepFast, width, text) => {
+        inputFloat1: (label, value, step, stepFast, width, text, minValue, maxValue) => {
             let valueRef = buildRef(value)
             let newValue: nullable<number> = null
 
@@ -300,6 +300,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.PushID(label + "_x")
             if (ImGui.InputFloat("", buildBind(valueRef), step, stepFast, "%.3f")) {
                 newValue = valueRef.content
+
+                newValue = getWithDefault(
+                    map(minValue => {
+                        return Math.max(newValue, minValue)
+                    }, minValue),
+                    newValue
+                )
+                newValue = getWithDefault(
+                    map(maxValue => {
+                        return Math.min(newValue, maxValue)
+                    }, maxValue),
+                    newValue
+                )
             }
             ImGui.PopID()
             ImGui.SameLine()
@@ -355,7 +368,7 @@ export let getExtensionService: getExtensionServiceMeta3D<
                 }, newValueY)
             }, newValueX)
         },
-        inputInt1: (label, value, step, stepFast, width, text) => {
+        inputInt1: (label, value, step, stepFast, width, text, minValue, maxValue) => {
             let valueRef = buildRef(value)
             let newValue: nullable<number> = null
 
@@ -364,6 +377,19 @@ export let getExtensionService: getExtensionServiceMeta3D<
             ImGui.PushID(label + "_x")
             if (ImGui.InputInt("", buildBind(valueRef), step, stepFast)) {
                 newValue = valueRef.content
+
+                newValue = getWithDefault(
+                    map(minValue => {
+                        return Math.max(newValue, minValue)
+                    }, minValue),
+                    newValue
+                )
+                newValue = getWithDefault(
+                    map(maxValue => {
+                        return Math.min(newValue, maxValue)
+                    }, maxValue),
+                    newValue
+                )
             }
             ImGui.PopID()
             ImGui.SameLine()

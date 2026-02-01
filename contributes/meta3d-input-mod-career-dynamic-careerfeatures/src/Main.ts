@@ -33,7 +33,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                         let language_ = api.action.getActionState<languageState>(meta3dState, languageActionName).language
 
 
-                        return allSelectedCareerFeatureData.map(({ name, positive, characterType, values }) => {
+                        return allSelectedCareerFeatureData.map(({ name, positive, characterType, minValue, maxValue, values }) => {
                             let { getDescriptionFunc } = _findCareerFeature(api, allDefaultCareerFeatures, name, characterType)
 
                             return [
@@ -42,7 +42,9 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                                 getDescriptionFunc(language_, name,
                                     values.count() == 1 ? values.first() : values.toArray()
                                 ),
-                                values.toArray()
+                                values.toArray(),
+                                minValue,
+                                maxValue
                             ]
                         }).toArray() as any
                     },

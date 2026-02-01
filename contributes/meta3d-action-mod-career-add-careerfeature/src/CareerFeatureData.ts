@@ -294,6 +294,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 2,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.getDecimal(v1, 1))
             }
@@ -303,6 +305,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.getDecimal(v1, 1))
             }
@@ -393,6 +397,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 0.5,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -402,6 +408,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -411,6 +419,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.2,
+            maxValue: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -420,6 +430,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -429,6 +441,7 @@ export let getData = (api): Array<careerFeature> => {
             positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
+            minValue: 0.1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -492,6 +505,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.2,
+            maxValue: 2,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](Math.round(v1 * 100))
             }
@@ -519,6 +534,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -618,6 +635,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 1,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -627,6 +646,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 1,
+            maxValue: 3,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](v1)
             }
@@ -663,6 +684,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.02,
+            maxValue: 0.08,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -672,6 +695,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
+            minValue: 0.003,
+            maxValue: 0.01,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -915,6 +940,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.LittleMan,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 0.5,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }
@@ -924,6 +951,8 @@ export let getData = (api): Array<careerFeature> => {
             positive: true,
             characterType: characterType.Giantess,
             valueCount: 1,
+            minValue: 0.1,
+            maxValue: 0.5,
             getDescriptionFunc: (language, name, v1) => {
                 return getTextDataByVariable()[language][name](api.NumberUtils.convertDecimalToPercent(v1, 3))
             }

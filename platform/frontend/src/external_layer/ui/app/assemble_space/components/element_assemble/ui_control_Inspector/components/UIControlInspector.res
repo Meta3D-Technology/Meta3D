@@ -607,10 +607,16 @@ module Method = {
             ), (
               SpecificUtils.getSpecificDataValue(value)->Obj.magic
             )["data"]->Meta3dCommonlib.ArraySt.map(valueData => valueData["value"]))
-          | #number =>
+          | #number 
+          | #nullableNumber =>
             <InputNumber
               key={name}
-              value={SpecificUtils.getSpecificDataValue(value)->Obj.magic}
+              value={SpecificUtils.getSpecificDataValue(value)
+              ->Obj.magic
+              ->Meta3dCommonlib.NullableSt.isNullable
+                ? 100000
+              ->Obj.magic
+                : SpecificUtils.getSpecificDataValue(value)->Obj.magic}
               step="0.0001"
               onChange={value => {
                 _setSpecificData(

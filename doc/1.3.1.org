@@ -1160,15 +1160,74 @@ TODO update game
 
 
 部分特性 设置值的范围
-以及类型?
+# 以及类型?
 
-发布时检查范围
+# 发布时检查范围
+  TODO update CD
 
+  TODO add limit
+    action
+
+    input
+
+    ui control
+      dynamic
+
+      inputFloat1,Int add min, max
+
+
+  TODO publish all
+
+  TODO update editor
+    upgrade
+    ui
+    imgui
+
+    inputs
+    actions
+
+
+  TODO run test
+    use nullableNumber type
+
+    # if env is local, not jump
+    #   add env api
+
+    limit not work
+
+    default value should be minValue
+
+
+
+  TODO update ui, editor package
+
+
+
+
+TODO add limit trade
 
 
 
 
 TODO update cn
 
-
 TODO update en
+
+
+
+
+
+
+* TODO update
+
+
+TODO solve warning: index.js:556 [webpack-dev-server] WARNING in ../../node_modules/localForage/dist/localforage.js
+
+
+
+TODO fix: auto upgrade->ui control inspector: label shouldn't rest
+
+
+
+
+TODO publish in package assemble: name, description should can be empty

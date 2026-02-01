@@ -263,7 +263,9 @@ export type service = {
         step: number,
         stepFast: number,
         width: number,
-        text: string
+        text: string,
+        minValue: nullable<number>,
+        maxValue: nullable<number>,
     ) => [meta3dState, nullable<number>];
     readonly inputFloat3: (
         meta3dState: meta3dState,
@@ -281,7 +283,9 @@ export type service = {
         step: number,
         stepFast: number,
         width: number,
-        text: string
+        text: string,
+        minValue: nullable<number>,
+        maxValue: nullable<number>,
     ) => [meta3dState, nullable<number>];
     readonly checkbox: (
         meta3dState: meta3dState,

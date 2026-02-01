@@ -38,7 +38,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     let careerFeatureName = name.split(":")[0]
 
-                    let { positive, valueCount } = _findCareerFeature(api, state.allDefaultCareerFeatures, careerFeatureName, characterType_)
+                    let { positive, valueCount, minValue, maxValue } = _findCareerFeature(api, state.allDefaultCareerFeatures, careerFeatureName, characterType_)
+
                     let defaultValues = api.immutable.createList<number>()
                     for (let i = 0; i < valueCount; i++) {
                         defaultValues = defaultValues.push(0)
@@ -53,6 +54,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                     positive,
                                     characterType: characterType_,
                                     values: defaultValues,
+                                    minValue,
+                                    maxValue,
                                 }
                             ),
                         isShowModal: false
