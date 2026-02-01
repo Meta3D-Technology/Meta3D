@@ -11,7 +11,6 @@ import { actionName as loadModPreviewActionName, state as loadModPreviewState } 
 import { actionName as loadCareerPreviewActionName, state as loadCareerPreviewState } from "meta3d-action-mod-career-load-careerpreview-protocol"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
-import { deserializeData } from "./SerializeUtils"
 
 
 // let _deserializeData = (api: api, value) => {

@@ -1,9 +1,16 @@
-import { state as meta3dState, getContribute as getContributeMeta3D } from "meta3d-type"
+import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { actionName, state } from "meta3d-action-mod-jumptocareereditor-protocol"
 import { eventName, inputData } from "meta3d-action-mod-jumptocareereditor-protocol/src/EventType"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
+
+let _getLoginedUserName = (api: api) => {
+    // 获取当前URL的参数
+    const urlParams = new URLSearchParams(window.location.href);
+
+    return api.nullable.getWithDefault(urlParams.get("username"), "Unknown")
+}
 
 export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (api) => {
     return {
@@ -15,7 +22,7 @@ export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
                     let isChinese = api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese
 
-                    window.open(`https://meta3d-local-9gacdhjl439cff76-1302358347.tcloudbaseapp.com/EnterApp?account=meta3d&appName=模组${isChinese ? "cn" : "en"}`, "_blank")
+                    window.open(`https://meta3d-local-9gacdhjl439cff76-1302358347.tcloudbaseapp.com/EnterApp?account=meta3d&appName=模组${isChinese ? "cn" : "en"}&username=${_getLoginedUserName(api)}`, "_blank")
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

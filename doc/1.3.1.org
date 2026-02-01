@@ -1131,7 +1131,7 @@ en
 
 # ** TODO update online link
 
-* TODO update
+* DONE update
 
 编辑器 需要登录
 
@@ -1216,6 +1216,10 @@ TODO update en
 
 
 
+TODO need gem should limit
+
+
+TODO whole->jump miss username
 
 
 * TODO update
@@ -1231,3 +1235,16 @@ TODO fix: auto upgrade->ui control inspector: label shouldn't rest
 
 
 TODO publish in package assemble: name, description should can be empty
+
+
+
+第一个问题：
+在电脑端创建职业模组时，可编辑数值的职业预设特性在进行手动输入时，最终值会默认在后面增加两个0（例如设定值为100，最终值会变为10000）。并且会导致模组无法发布
+
+
+
+
+
+
+还有，在发布模组时，总是出现这个:
+发布失败
