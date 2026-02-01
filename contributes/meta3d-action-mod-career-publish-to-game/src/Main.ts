@@ -158,12 +158,54 @@ let _buildIconId = (state: state, isChinese) => {
     return `${_buildUniqueName(state, isChinese)}_icon`
 }
 
+let _unifyCareerFeatureValueToArray = (value) => {
+    if (Array.isArray(value)) {
+        return value
+    }
+
+    return [value]
+}
+
+let _range = (a, b) => {
+    let res = []
+    for (let i = a; i <= b; i++) {
+        res.push(i)
+    }
+
+    return res
+}
+
+let _isFeaturesInRange = (api: api, features) => {
+    return features.reduce((result, { values, minValue, maxValue }) => {
+        if (!result) {
+            return result
+        }
+
+        let valueCount = values.count()
+
+        minValue = api.nullable.getWithDefault(
+            api.nullable.map(_unifyCareerFeatureValueToArray, minValue),
+            _range(0, valueCount - 1).map(_ => -Infinity)
+        )
+        maxValue = api.nullable.getWithDefault(
+            api.nullable.map(_unifyCareerFeatureValueToArray, maxValue),
+            _range(0, valueCount - 1).map(_ => Infinity)
+        )
+
+        return values.reduce((result, value, i) => {
+            if (!result) {
+                return result
+            }
+
+            return value >= minValue[i] && value <= maxValue[i]
+        }, result)
+    }, true)
+}
+
 let _check = (api: api, state: state, isChinese, features) => {
     let {
         displayName_cn,
         displayName_en,
-        // repoLink,
-        author,
         readme,
     } = state
 
@@ -183,6 +225,9 @@ let _check = (api: api, state: state, isChinese, features) => {
     }
     else if (features.count() <= 0) {
         message = api.nullable.return(isChinese ? "请选择职业特性" : "Please select the career features")
+    }
+    else if (!_isFeaturesInRange(api, features)) {
+        message = api.nullable.return(isChinese ? "职业特性值超出范围" : "Career feature's value exceed the specified range")
     }
 
     return api.nullable.getWithDefault(
