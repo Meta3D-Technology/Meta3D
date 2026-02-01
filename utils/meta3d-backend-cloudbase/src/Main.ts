@@ -117,13 +117,26 @@ export let registerUser = (app: any, account: account, password) => {
 
 }
 
+/*! fix "may has two data with same key but diff _id(caused by setData)"
+* 
+*/
 let _getFirstData = (res, key) => {
-    /*! fix "may has two data with same key but diff _id(caused by setData)"
-    * 
-    */
+    let firstData
     let result = res.data.filter(d => d._id == key)
+
     if (result.length > 0) {
-        return result[0]
+        firstData = result[0]
+        if (firstData._id == firstData.key) {
+            return firstData
+        }
+
+
+        result = res.data.filter(d => {
+            return d.key == key
+        })
+        if (result.length > 0) {
+            return result[0]
+        }
     }
 
     return res.data[0]

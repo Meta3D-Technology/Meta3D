@@ -376,6 +376,19 @@ let _buildFlowAPI = (): Meta3dType.Index.flowAPI => {
 `),
 }
 
+let _buildStorageAPI = (): Meta3dType.Index.storageAPI => {
+  createInstance: LocalForage.createInstance,
+  getItem:%raw(`
+(store, key) => {
+  return store.getItem(key)
+}
+`),
+  setItem:%raw(`
+(store, key, value) => {
+  return store.setItem(key, value)
+}
+`)
+}
 
 let readState = %raw(`
 () => {
@@ -390,7 +403,6 @@ let writeState = %raw(`
 }
 
 `)
-
 
 let rec registerExtension = (
   state,
@@ -461,8 +473,8 @@ and registerContribute = (
   }
 }
 and buildAPI = (): api => {
-  readState: readState,
-  writeState: writeState,
+  readState,
+  writeState,
   registerExtension: (
     (. state, extensionProtocolName, getExtensionService, getExtensionLife, extensionState) =>
       registerExtension(
@@ -508,4 +520,5 @@ and buildAPI = (): api => {
   ),
   message: _buildMessageAPI(),
   flow: _buildFlowAPI(),
+  storage:_buildStorageAPI(),
 }

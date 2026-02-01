@@ -194,6 +194,21 @@ type uiControlAPI = {
 
 type flowAPI = {deferExec: (. state => Js.Promise.t<state>, Js.Nullable.t<int>) => unit}
 
+
+type store
+
+type option = {name:string}
+
+type key = string
+
+type value
+
+type storageAPI = {
+  createInstance: (option) => store,
+  getItem: (store, key) => Js.Promise.t<value>,
+  setItem: (store, key, value) => Js.Promise.t<value>,
+}
+
 type api = {
   readState: unit => state,
   writeState: (. state) => unit,
@@ -233,6 +248,7 @@ type api = {
   backend: backendAPI,
   message: messageAPI,
   flow: flowAPI,
+  storage: storageAPI,
 }
 
 type getExtensionService<'extensionService> = api => 'extensionService

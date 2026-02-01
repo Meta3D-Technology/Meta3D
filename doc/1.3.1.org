@@ -1130,3 +1130,45 @@ en
 
 
 # ** TODO update online link
+
+* TODO update
+
+编辑器 需要登录
+
+TODO read from localStorage
+
+TODO if not find, direct to game login
+
+# TODO 从游戏进入的无需登录，直接从url中获得
+
+TODO update author
+  add api
+
+  can't get
+    get from url
+
+TODO update ui
+
+# TODO remove set-author action?
+
+
+TODO update game
+
+# TODO update website->打开编辑器
+
+
+
+
+部分特性 设置值的范围
+以及类型?
+
+发布时检查范围
+
+
+
+
+
+TODO update cn
+
+
+TODO update en

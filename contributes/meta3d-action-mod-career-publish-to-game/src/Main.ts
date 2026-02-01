@@ -11,6 +11,47 @@ import { actionName as loadModPreviewActionName, state as loadModPreviewState } 
 import { actionName as loadCareerPreviewActionName, state as loadCareerPreviewState } from "meta3d-action-mod-career-load-careerpreview-protocol"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
+import { deserializeData } from "./SerializeUtils"
+
+
+// let _deserializeData = (api: api, value) => {
+//     return api.nullable.map(
+//         deserializeData,
+//         value
+//     )
+// }
+
+// let _getLoginedUserName = <T>(api: api, store) => {
+//     return api.storage.getItem(store, "LoginedUserName").then(value => _deserializeData(api, value))
+// }
+
+let _getLoginedUserName = () => {
+    // 获取当前URL的参数
+    const urlParams = new URLSearchParams(window.location.href);
+
+    return urlParams.get("username")
+}
+
+let _initAuthor = (api: api, meta3dState) => {
+    // let store = api.storage.createInstance({ name: "store_backend_temp" })
+
+
+    let userName = _getLoginedUserName()
+
+    if (api.nullable.isNullable(userName)) {
+        alert("请从游戏中进入(Please Enter from Game)")
+
+        globalThis.location.href = "https://gts-play.cn"
+        return meta3dState
+    }
+
+    return api.action.setActionState<state>(meta3dState, actionName, {
+        ...api.action.getActionState<state>(meta3dState, actionName),
+        author: api.nullable.getExn(userName)
+    })
+}
+
+
 
 //TODO duplicate
 let _isCharacterTypeEqual = (characterType1: characterType, characterType2: characterType) => {
@@ -118,11 +159,11 @@ let _check = (api: api, state: state, isChinese, features) => {
     } = state
 
     let message = api.nullable.getEmpty<string>()
-    if (author.length <= 0) {
-        message = api.nullable.return(isChinese ? "请输入作者" : "Please enter the author")
+    // if (author.length <= 0) {
+    //     message = api.nullable.return(isChinese ? "请输入作者" : "Please enter the author")
 
-    }
-    else if (isChinese && displayName_cn.length <= 0) {
+    // }
+    if (isChinese && displayName_cn.length <= 0) {
         message = api.nullable.return("请输入职业名（中文）")
     }
     else if (!isChinese && displayName_en.length <= 0) {
@@ -148,6 +189,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
     return {
         actionName: actionName,
         init: (meta3dState) => {
+            // return _initAuthor(api, meta3dState).then(meta3dState => {
+            meta3dState = _initAuthor(api, meta3dState)
+
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {

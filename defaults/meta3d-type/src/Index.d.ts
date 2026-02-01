@@ -120,6 +120,22 @@ export type flowAPI = {
   deferExec: (func: (state: state) => Promise<state>, time?: number) => void
 };
 
+
+type store = any
+
+type option = { name: string }
+
+type key = string
+
+type value = any
+
+export type storageAPI = {
+  createInstance: (option: option) => store,
+  getItem: (store: store, key: key) => Promise<value>,
+  setItem: (store: store, key: key, value: value) => Promise<value>,
+};
+
+
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
   readState(): state,
@@ -142,6 +158,7 @@ export type api = {
   backend: backendAPI,
   message: messageAPI,
   flow: flowAPI,
+  storage: storageAPI,
 };
 
 // tslint:disable-next-line:interface-over-type-literal
