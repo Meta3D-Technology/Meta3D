@@ -240,13 +240,21 @@ let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
       previewBase64,
       isRecommend,
     )->Meta3dBsMostDefault.Most.drain,
-  publishMod: (. packageJson, readmeContent, distFileContent, assetFileData, iconBase64) =>
+  publishMod: (.
+    packageJson,
+    readmeContent,
+    distFileContent,
+    assetFileData,
+    iconBase64,
+    characterType,
+  ) =>
     BackendCloudbase.publishMod(.
       packageJson,
       readmeContent,
       distFileContent,
       assetFileData,
       iconBase64,
+      characterType,
     )->Meta3dBsMostDefault.Most.drain,
   findModsByProtocol: (. protocolName) => BackendCloudbase.findModsByProtocol(. protocolName),
   // init:  BackendCloudbase.init,
@@ -378,16 +386,16 @@ let _buildFlowAPI = (): Meta3dType.Index.flowAPI => {
 
 let _buildStorageAPI = (): Meta3dType.Index.storageAPI => {
   createInstance: LocalForage.createInstance,
-  getItem:%raw(`
+  getItem: %raw(`
 (store, key) => {
   return store.getItem(key)
 }
 `),
-  setItem:%raw(`
+  setItem: %raw(`
 (store, key, value) => {
   return store.setItem(key, value)
 }
-`)
+`),
 }
 
 let readState = %raw(`
@@ -520,5 +528,5 @@ and buildAPI = (): api => {
   ),
   message: _buildMessageAPI(),
   flow: _buildFlowAPI(),
-  storage:_buildStorageAPI(),
+  storage: _buildStorageAPI(),
 }

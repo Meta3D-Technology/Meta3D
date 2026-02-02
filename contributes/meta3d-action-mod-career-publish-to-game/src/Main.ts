@@ -308,7 +308,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                         uint8Array
                                     ],
                                 ],
-                                careerIconBase64
+                                careerIconBase64,
+                                characterType_
                             )
                                 .then(() => {
                                     meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {

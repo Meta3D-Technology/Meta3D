@@ -18,6 +18,7 @@ type publishMod = (
   string,
   array<(string, Js.Typed_array.Uint8Array.t)>,
   Js.Nullable.t<string>,
+  Js.Nullable.t<int>,
 ) => Meta3dBsMostDefault.Most.stream<unit>
 
 @module("backend-cloudbase")

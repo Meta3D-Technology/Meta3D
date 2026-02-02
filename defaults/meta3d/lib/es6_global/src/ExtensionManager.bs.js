@@ -170,8 +170,8 @@ function _buildBackendAPI(param) {
           publishFinalApp: (function (onUploadProgressFunc, sceneGLB, appName, account, description, previewBase64, isRecommend) {
               return Most.drain(BackendCloudbase.publishFinalApp(onUploadProgressFunc, sceneGLB, appName, account, description, previewBase64, isRecommend));
             }),
-          publishMod: (function (packageJson, readmeContent, distFileContent, assetFileData, iconBase64) {
-              return Most.drain(BackendCloudbase.publishMod(packageJson, readmeContent, distFileContent, assetFileData, iconBase64));
+          publishMod: (function (packageJson, readmeContent, distFileContent, assetFileData, iconBase64, characterType) {
+              return Most.drain(BackendCloudbase.publishMod(packageJson, readmeContent, distFileContent, assetFileData, iconBase64, characterType));
             }),
           findModsByProtocol: (function (protocolName) {
               return BackendCloudbase.findModsByProtocol(protocolName);

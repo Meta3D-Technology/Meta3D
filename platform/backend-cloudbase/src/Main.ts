@@ -630,6 +630,7 @@ export let publishMod = (
     distFileContent: string,
     assetFileData: Array<[string, Uint8Array]>,
     iconBase64: nullable<string>,
+    characterType: nullable<number>,
 ) => {
     let [logFunc, errorFunc, generateFunc, initFunc, uploadFileFunc,
         getModDataFunc,
@@ -732,6 +733,8 @@ export let publishMod = (
                             //     return _readBase64(icon)
                             // }, modJson.icon),
                             icon: iconBase64,
+
+                            characterType: characterType,
 
                             lastPublishTime: moment.now(),
 

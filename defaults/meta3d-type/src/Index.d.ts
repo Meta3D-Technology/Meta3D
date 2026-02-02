@@ -65,6 +65,7 @@ type publishMod = (
   distFileContent: string,
   assetFileData: Array<[string, Uint8Array]>,
   iconBase64: nullable<string>,
+  characterType: nullable<number>,
 ) => Promise<void>
 
 

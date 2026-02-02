@@ -117,6 +117,7 @@ type publishMod = (
   string,
   array<(string, Js.Typed_array.Uint8Array.t)>,
   Js.Nullable.t<string>,
+  Js.Nullable.t<int>,
 ) => Js.Promise.t<unit>
 
 type blockName = string
@@ -194,17 +195,16 @@ type uiControlAPI = {
 
 type flowAPI = {deferExec: (. state => Js.Promise.t<state>, Js.Nullable.t<int>) => unit}
 
-
 type store
 
-type option = {name:string}
+type option = {name: string}
 
 type key = string
 
 type value
 
 type storageAPI = {
-  createInstance: (option) => store,
+  createInstance: option => store,
   getItem: (store, key) => Js.Promise.t<value>,
   setItem: (store, key, value) => Js.Promise.t<value>,
 }

@@ -409,7 +409,7 @@ let publishMod = (
 //     getModDataFunc,
 //     setModDataFunc,
 //     getFileIDFunc]: any,
-packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
+packageJson, readmeContent, distFileContent, assetFileData, iconBase64, characterType) => {
     let [logFunc, errorFunc, generateFunc, initFunc, uploadFileFunc, getModDataFunc, setModDataFunc, getFileIDFunc] = [
         console.log,
         console.error,
@@ -473,6 +473,7 @@ packageJson, readmeContent, distFileContent, assetFileData, iconBase64) => {
                     //     return _readBase64(icon)
                     // }, modJson.icon),
                     icon: iconBase64,
+                    characterType: characterType,
                     lastPublishTime: moment.now(),
                     isPublic: modJson.isPublic,
                     dependentMods: (0, NullableUtils_1.getWithDefault)(modJson.dependentMods, []),

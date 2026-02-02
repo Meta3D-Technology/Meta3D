@@ -38,7 +38,7 @@ export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, scene
 export type publishMod = (packageJson: string, readmeContent: string, distFileContent: string, assetFileData: Array<[
 	string,
 	Uint8Array
-]>, iconBase64: nullable<string>) => Promise<void>;
+]>, iconBase64: nullable<string>, characterType: nullable<number>) => Promise<void>;
 export type blockName = string;
 export type blockService = any;
 // type blockState = any
