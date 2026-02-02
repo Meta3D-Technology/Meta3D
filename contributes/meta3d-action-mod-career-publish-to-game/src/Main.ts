@@ -284,10 +284,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     api.flow.deferExec((meta3dState) => {
                         return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
-                            let state = api.action.getActionState<state>(meta3dState, actionName)
+                            api.writeState(meta3dState)
 
-                            return api.backend.publishMod(
-                                ` {
+                            return api.backend.handleNetworkRequest(api, meta3dState => {
+                                let state = api.action.getActionState<state>(meta3dState, actionName)
+
+                                return api.backend.publishMod(
+                                    ` {
     "name": "${_buildUniqueName(state, isChinese)}",
     "mod": {
         "protocolName": "career-protocol",
@@ -300,25 +303,59 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         ]
     }
                         }`,
-                                `${state.readme}`,
-                                _buildDistFileContent(state, characterType_, features, isChinese),
-                                [
+                                    `${state.readme}`,
+                                    _buildDistFileContent(state, characterType_, features, isChinese),
                                     [
-                                        `./${_buildIconId(state, isChinese)}.png`,
-                                        uint8Array
+                                        [
+                                            `./${_buildIconId(state, isChinese)}.png`,
+                                            uint8Array
+                                        ],
                                     ],
-                                ],
-                                careerIconBase64,
-                                characterType_
-                            )
-                                .then(() => {
-                                    meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
-                                        ...api.action.getActionState<infoState>(meta3dState, infoActionName),
-                                        info: api.nullable.getEmpty()
-                                    })
-
-                                    return meta3dState
+                                    careerIconBase64,
+                                    characterType_
+                                )
+                            }, meta3dState => {
+                                meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
+                                    ...api.action.getActionState<infoState>(meta3dState, infoActionName),
+                                    info: api.nullable.getEmpty()
                                 })
+
+                                return meta3dState
+                            }, meta3dState => Promise.resolve(meta3dState), 3)
+
+                            //                         return api.backend.publishMod(
+                            //                             ` {
+                            // "name": "${_buildUniqueName(state, isChinese)}",
+                            // "mod": {
+                            //     "protocolName": "career-protocol",
+                            //     "author": "${state.author}",
+                            //     "displayName_cn": "${state.displayName_cn}",
+                            //     "displayName_en": "${state.displayName_en}",
+                            //     "repoLink": "${state.repoLink}",
+                            //     "isPublic": ${state.isPublic},
+                            //     "dependentMods": [
+                            //     ]
+                            // }
+                            //                     }`,
+                            //                             `${state.readme}`,
+                            //                             _buildDistFileContent(state, characterType_, features, isChinese),
+                            //                             [
+                            //                                 [
+                            //                                     `./${_buildIconId(state, isChinese)}.png`,
+                            //                                     uint8Array
+                            //                                 ],
+                            //                             ],
+                            //                             careerIconBase64,
+                            //                             characterType_
+                            //                         )
+                            // .then(() => {
+                            //     meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
+                            //         ...api.action.getActionState<infoState>(meta3dState, infoActionName),
+                            //         info: api.nullable.getEmpty()
+                            //     })
+
+                            //     return meta3dState
+                            // })
                         })
                             .catch(e => {
                                 api.message.error(e)

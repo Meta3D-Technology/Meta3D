@@ -96,6 +96,7 @@ type previewBase64 = string
 
 type isRecommend = bool
 
+type handleNetworkRequest 
 type init = (. env) => Js.Promise.t<unit>
 
 type publishFinalApp = (
@@ -141,6 +142,7 @@ type getBlockService = modAPI => blockService
 type findModsByProtocol = (. string) => Js.Promise.t<array<(userMod, getBlockService)>>
 
 type backendAPI = {
+  handleNetworkRequest: handleNetworkRequest,
   init: init,
   publishFinalApp: publishFinalApp,
   publishMod: publishMod,

@@ -164,6 +164,29 @@ function _buildNullableAPI(param) {
 
 function _buildBackendAPI(param) {
   return {
+          handleNetworkRequest: (function (api, func, afterFunc, restoreFunc = state => Promise.resolve(state), autoRetryTimes = 3) {
+        return func(api.readState())
+            .then(_ => {
+                return afterFunc(api.readState())
+            })
+            .catch(e => {
+                if (!e.message.includes("network request error")
+                    && !e.message.includes("网络出错了")) {
+                    throw e
+                }
+
+                return restoreFunc(api.readState()).then(_ => {
+                    if (autoRetryTimes > 0) {
+                        console.log("retry backend request", autoRetryTimes)
+
+                        return api.backend.handleNetworkRequest(api, func, afterFunc, restoreFunc, autoRetryTimes - 1)
+                    }
+
+                    throw e
+                })
+            })
+
+}),
           init: (function (env) {
               return Most.drain(BackendCloudbase.init(env));
             }),

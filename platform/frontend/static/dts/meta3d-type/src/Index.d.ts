@@ -58,6 +58,7 @@ export type findModsByProtocol = (protocolName: string) => Promise<Array<[
 	getBlockService
 ]>>;
 export type backendAPI = {
+	handleNetworkRequest: (api, func, afterFunc, restoreFunc?, autoRetryTimes?: number) => Promise<void>,
 	init: (env: string) => Promise<void>;
 	publishFinalApp: publishFinalApp;
 	publishMod: publishMod;

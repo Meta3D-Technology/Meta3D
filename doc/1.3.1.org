@@ -1243,7 +1243,7 @@ TODO update en
 
 
 
-* TODO update
+* DONE update
 
 TODO add characterType to publishedmods
 
@@ -1260,6 +1260,13 @@ TODO add characterType to publishedmods
     rewrite error message
 
 
+  TODO run test
+    test succ
+
+    test fail
+
+
+
 
 TODO update cn
 
@@ -1267,6 +1274,13 @@ TODO update cn
 TODO update en
 
 
+TODO publish online
+
+
+* TODO update
+
+
+TODO check need gem when publish
 
 
 
@@ -1280,3 +1294,10 @@ TODO fix: auto upgrade->ui control inspector: label shouldn't rest
 
 
 TODO publish in package assemble: name, description should can be empty
+
+
+
+
+TODO fix and pass publish gulp task
+  note: shouldn't delete whole / files!
+    not delete, directly upload?

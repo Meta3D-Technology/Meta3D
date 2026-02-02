@@ -221,6 +221,31 @@ let _buildNullableAPI = (): Meta3dType.Index.nullableAPI => {
 }
 
 let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
+ handleNetworkRequest:%raw(`
+  function (api, func, afterFunc, restoreFunc = state => Promise.resolve(state), autoRetryTimes = 3) {
+        return func(api.readState())
+            .then(_ => {
+                return afterFunc(api.readState())
+            })
+            .catch(e => {
+                if (!e.message.includes("network request error")
+                    && !e.message.includes("网络出错了")) {
+                    throw e
+                }
+
+                return restoreFunc(api.readState()).then(_ => {
+                    if (autoRetryTimes > 0) {
+                        console.log("retry backend request", autoRetryTimes)
+
+                        return api.backend.handleNetworkRequest(api, func, afterFunc, restoreFunc, autoRetryTimes - 1)
+                    }
+
+                    throw e
+                })
+            })
+
+}
+  `),
   init: (. env) => BackendCloudbase.init(. env)->Meta3dBsMostDefault.Most.drain,
   publishFinalApp: (.
     onUploadProgressFunc,
