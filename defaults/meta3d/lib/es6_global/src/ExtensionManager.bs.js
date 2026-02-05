@@ -276,7 +276,8 @@ function _buildMessageAPI(param) {
           error: (function (error){
     console.error(error)
 
-    alert("错误：" +error.message)
+    // alert("错误：" +error.message)
+    alert("错误：" +error.message+"\n"+error.stack)
   })
         };
 }

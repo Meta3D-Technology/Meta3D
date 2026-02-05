@@ -221,7 +221,7 @@ let _buildNullableAPI = (): Meta3dType.Index.nullableAPI => {
 }
 
 let _buildBackendAPI = (): Meta3dType.Index.backendAPI => {
- handleNetworkRequest:%raw(`
+  handleNetworkRequest: %raw(`
   function (api, func, afterFunc, restoreFunc = state => Promise.resolve(state), autoRetryTimes = 3) {
         return func(api.readState())
             .then(_ => {
@@ -392,7 +392,8 @@ let _buildMessageAPI = (): Meta3dType.Index.messageAPI => {
   function (error){
     console.error(error)
 
-    alert("错误：" +error.message)
+    // alert("错误：" +error.message)
+    alert("错误：" +error.message+"\n"+error.stack)
   }
   `),
 }

@@ -6,6 +6,7 @@
 		"sourceMap": true,
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
+		"skipLibCheck": true,
 		"jsx": "react",
 		// "noEmit": true,
 		// "noUnusedLocals": true,
@@ -20,12 +21,12 @@
 		],
 		// "strict": true
 	},
-	   "exclude": [
-        "node_modules",
-        "dist",
-        "build"
-      ],
-"include": [
+	"exclude": [
+		"node_modules",
+		"dist",
+		"build"
+	],
+	"include": [
 		"./src"
 	]
 }

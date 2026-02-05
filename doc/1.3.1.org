@@ -1280,7 +1280,38 @@ TODO publish online
 * TODO update
 
 
-TODO check need gem when publish
+TODO can't publish
+alert stack
+
+
+
+TODO fix: publish mod may stuck
+> stuck on this screen
+
+
+
+
+# TODO check need gem when publish
+
+
+TODO limit image size: <500K
+
+
+
+TODO fix and pass publish gulp task
+  TODO note: shouldn't delete whole / files!
+    not delete, directly upload?
+
+  TODO index.html->main.js should add hash code for avoid cache!
+
+
+
+TODO publish
+
+
+
+* TODO update
+
 
 
 
@@ -1296,8 +1327,3 @@ TODO fix: auto upgrade->ui control inspector: label shouldn't rest
 TODO publish in package assemble: name, description should can be empty
 
 
-
-
-TODO fix and pass publish gulp task
-  note: shouldn't delete whole / files!
-    not delete, directly upload?
