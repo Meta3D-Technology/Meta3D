@@ -76,7 +76,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 info: isChinese ? api.nullable.return("加载中...") : api.nullable.return("Loading...")
             })
 
-            api.flow.deferExec((meta3dState) => {
+            api.flow.deferExec(api, (meta3dState) => {
                 return _buildAllDefaultCareerFeatures(api).then(data => {
                     let allDefaultCareerFeatures = api.immutable.createListOfData(data)
 

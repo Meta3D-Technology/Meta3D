@@ -119,7 +119,7 @@ export type actionAPI = { getActionState: <actionState> (state: state, actionNam
 export type uiControlAPI = { getUIControlState: <uiControlState> (state: state, uiControlName: string) => uiControlState; setUIControlState: <uiControlState> (state: state, uiControlName: string, uiControlState: uiControlState) => state };
 
 export type flowAPI = {
-  deferExec: (func: (state: state) => Promise<state>, time?: number) => void
+  deferExec: (api: api, func: (state: state) => Promise<state>, time?: number) => void
 };
 
 

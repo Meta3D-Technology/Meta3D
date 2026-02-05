@@ -195,7 +195,9 @@ type uiControlAPI = {
   setUIControlState: 'uiControlState. (. state, uiControlName, 'uiControlState) => state,
 }
 
-type flowAPI = {deferExec: (. state => Js.Promise.t<state>, Js.Nullable.t<int>) => unit}
+type deferExec
+// type flowAPI = {deferExec: (. api, state => Js.Promise.t<state>, Js.Nullable.t<int>) => unit}
+type flowAPI = {deferExec: deferExec}
 
 type store
 

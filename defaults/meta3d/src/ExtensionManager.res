@@ -400,8 +400,13 @@ let _buildMessageAPI = (): Meta3dType.Index.messageAPI => {
 
 let _buildFlowAPI = (): Meta3dType.Index.flowAPI => {
   deferExec: %raw(`
-(func, time=500) => {
+(api, func, time=500) => {
     setTimeout(() =>{
+      if(!globalThis.meta3dState){
+        api.flow.deferExec(api, func, time)
+        return
+      }
+
       func(globalThis.meta3dState).then(meta3dState =>{
       globalThis.meta3dState = meta3dState
     })

@@ -87,7 +87,7 @@ export type uiControlAPI = {
 	setUIControlState: <uiControlState>(state: state, uiControlName: string, uiControlState: uiControlState) => state;
 };
 export type flowAPI = {
-	deferExec: (func: (state: state) => Promise<state>, time?: number) => void;
+	deferExec: (api: api, func: (state: state) => Promise<state>, time?: number) => void;
 };
 
 type store = any

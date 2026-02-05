@@ -284,8 +284,13 @@ function _buildMessageAPI(param) {
 
 function _buildFlowAPI(param) {
   return {
-          deferExec: ((func, time=500) => {
+          deferExec: ((api, func, time=500) => {
     setTimeout(() =>{
+      if(!globalThis.meta3dState){
+        api.flow.deferExec(api, func, time)
+        return
+      }
+
       func(globalThis.meta3dState).then(meta3dState =>{
       globalThis.meta3dState = meta3dState
     })

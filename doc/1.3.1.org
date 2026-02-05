@@ -1299,6 +1299,15 @@ TODO limit image size: <500K
 TODO fix: publish mod may stuck
 > stuck on this screen
 
+
+
+
+function _buildActionAPI(nullableAPI, getPackageService) {
+  return {
+          getActionState: (function (state, actionName){
+    let { getCurrentElementState } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
+
+
 Font UpdateTexture end
 Main.bs.js:59 init backend success
 ExtensionManager.bs.js:150 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'extensionServiceMap')
@@ -1309,11 +1318,9 @@ VM84245:9 加载中...
 
   error before log info:加载中...
 
+  CareerModAddCareerFeature
+     api.flow.deferExec(
 
-function _buildActionAPI(nullableAPI, getPackageService) {
-  return {
-          getActionState: (function (state, actionName){
-    let { getCurrentElementState } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
 
 
 

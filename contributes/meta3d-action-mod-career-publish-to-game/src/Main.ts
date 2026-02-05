@@ -281,8 +281,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         ...api.action.getActionState<infoState>(meta3dState, infoActionName),
                         info: isChinese ? api.nullable.return("正在发布中...") : api.nullable.return("Publishing...")
                     })
-
-                    api.flow.deferExec((meta3dState) => {
+                    api.flow.deferExec(api, (meta3dState) => {
                         return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
                             api.writeState(meta3dState)
 
