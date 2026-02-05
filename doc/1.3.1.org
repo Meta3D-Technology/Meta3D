@@ -1285,10 +1285,6 @@ alert stack
 
 
 
-TODO fix: publish mod may stuck
-> stuck on this screen
-
-
 
 
 # TODO check need gem when publish
@@ -1298,11 +1294,32 @@ TODO limit image size: <500K
 
 
 
-TODO fix and pass publish gulp task
-  TODO note: shouldn't delete whole / files!
-    not delete, directly upload?
 
-  TODO index.html->main.js should add hash code for avoid cache!
+
+TODO fix: publish mod may stuck
+> stuck on this screen
+
+Font UpdateTexture end
+Main.bs.js:59 init backend success
+ExtensionManager.bs.js:150 Uncaught (in promise) TypeError: Cannot read properties of undefined (reading 'extensionServiceMap')
+    at getPackageService (ExtensionManager.bs.js:150:231)
+    at Object.getActionState (ExtensionManager.bs.js:274:57)
+    at eval (eval at serializeLib (LibUtils.bs.js:1:1), <anonymous>:1453:142)
+VM84245:9 加载中...
+
+  error before log info:加载中...
+
+
+function _buildActionAPI(nullableAPI, getPackageService) {
+  return {
+          getActionState: (function (state, actionName){
+    let { getCurrentElementState } = nullableAPI.getExn(getPackageService(state, "meta3d-editor-whole-protocol")).ui(state)
+
+
+
+
+TODO update cn
+TODO update en
 
 
 
@@ -1327,3 +1344,12 @@ TODO fix: auto upgrade->ui control inspector: label shouldn't rest
 TODO publish in package assemble: name, description should can be empty
 
 
+
+
+
+
+TODO fix and pass publish gulp task
+  TODO note: shouldn't delete whole / files!
+    not delete, directly upload?
+
+  TODO index.html->main.js should add hash code for avoid cache!

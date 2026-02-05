@@ -38,8 +38,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         isOnlyRead: true,
                         inputData: [result as imageBase64]
                     }))
-                }, (event: Event, image: any) => {
-                    reject(new Error(`读取${image.name}错误`))
+                }, (event: any, image: any) => {
+                    reject(new Error(`读取${image.name}错误：${event.target?.error.message}`))
                 }, (loaded: number, total: number) => {
                     // TODO show progress message
                     console.log(`loading ${loaded / total} %`)
