@@ -20,7 +20,7 @@ import { sync } from "./SyncUtils"
 let _getBackendEnv = (env: string) => {
 	switch (env) {
 		case "production":
-			// return "meta3d-production-5eol5gce9a6b9c"
+		// return "meta3d-production-5eol5gce9a6b9c"
 		case "local":
 		default:
 			return "meta3d-local-9gacdhjl439cff76"
@@ -282,6 +282,8 @@ let _handleError = (api: api, e: Error, meta3dState: meta3dState) => {
 	// 	eventService.eventSourcing(meta3dState),
 	// 	eventService.eventData(meta3dState),
 	// )
+
+	api.message.error(e)
 }
 
 let _updateForVisual = (meta3dState, api: api, { clearColor, time, skinName }) => {
@@ -455,14 +457,23 @@ export let getExtensionService: getExtensionServiceMeta3D<
 		// 	return api.getExtensionService<exportSceneService>(meta3dState, "meta3d-export-scene-protocol").export([onFinishFunc, onErrorFunc], meta3dState)
 		// },
 		init: (meta3dState, initData) => {
+			let promise
 			switch (initData.target) {
 				case "visual":
-					return _initForVisual(meta3dState, api, initData)
+					promise = _initForVisual(meta3dState, api, initData)
+					break
 				case "visualRun":
-					return _initForVisualRun(meta3dState, api, initData)
+					promise = _initForVisualRun(meta3dState, api, initData)
+					break
 				default:
 					throw new Error("error")
 			}
+			
+			return promise.catch(e => {
+				_handleError(api, e, meta3dState)
+				throw e
+			})
+
 
 			// return _execAllInitFuncs(meta3dState, api.getExtensionState<state>(meta3dState, "meta3d-editor-whole-protocol").initFuncs, initData).then(meta3dState => {
 			// 	switch (initData.target) {
