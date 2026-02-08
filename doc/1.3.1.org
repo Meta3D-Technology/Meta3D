@@ -1369,15 +1369,19 @@ TODO fix and pass publish gulp task
 
 
 
-
-TODO solve warning: index.js:556 [webpack-dev-server] WARNING in ../../node_modules/localForage/dist/localforage.js
-
-
-
-
 TODO update publish action
 
 
 TODO update cn
 
 TODO update en
+
+
+
+
+* TODO update
+
+
+TODO solve warning: index.js:556 [webpack-dev-server] WARNING in ../../node_modules/localForage/dist/localforage.js
+
+

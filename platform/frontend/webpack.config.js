@@ -100,9 +100,12 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './index.html',
+            hash: true, // cache busting
+            cache: false,
+            // timestamp: timestamp,
             filename: 'index.html',
             inject: true,
-            favicon: path.resolve('favicon.ico'),//favicon路径
+            favicon: path.resolve('favicon.ico'),
         }),
         new CopyWebpackPlugin({
             patterns: [

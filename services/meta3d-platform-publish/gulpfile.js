@@ -94,7 +94,7 @@ gulp.task("update_versionconfig", function (done) {
 })
 
 gulp.task("update_platform_code", function (done) {
-    console.log("更新平台代码...")
+    console.log("打包平台...")
 
     process.exec("yarn webpack_pro",
         {
@@ -102,6 +102,8 @@ gulp.task("update_platform_code", function (done) {
         },
         (error, stdout, stderr) => {
             if (!error) {
+                console.log("发布平台...")
+
                 publish.updateHostFiles(env == null ? "production" : env).then(_ => {
                     done()
                 })
@@ -269,6 +271,16 @@ gulp.task("publish_pro_minor_env", gulp.series(
     "update_platform_code",
     // "publish_extension_contribute_protocol",
     // "upgrade_backend",
+    function (done) {
+        done()
+    }));
+
+
+gulp.task("publish_platform", gulp.series(
+    "set_env_to_pro",
+    "bundle_dts",
+    "commit",
+    "update_platform_code",
     function (done) {
         done()
     }));

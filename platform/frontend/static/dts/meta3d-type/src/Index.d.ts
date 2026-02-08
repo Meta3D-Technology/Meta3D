@@ -32,9 +32,9 @@ export type account = string;
 export type description = string;
 export type previewBase64 = string;
 export type isRecommend = boolean;
-export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer,
-	// singleEventBinaryFile: ArrayBuffer,
-	appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
+export type publishFinalApp = (onUploadProgressFunc: onUploadProgressFunc, sceneGLB: ArrayBuffer, 
+// singleEventBinaryFile: ArrayBuffer,
+appName: appName, account: account, description: description, previewBase64: strictNullable<previewBase64>, isRecommend: isRecommend) => Promise<void>;
 export type publishMod = (packageJson: string, readmeContent: string, distFileContent: string, assetFileData: Array<[
 	string,
 	Uint8Array
@@ -58,7 +58,7 @@ export type findModsByProtocol = (protocolName: string) => Promise<Array<[
 	getBlockService
 ]>>;
 export type backendAPI = {
-	handleNetworkRequest: (api, func, afterFunc, restoreFunc?, autoRetryTimes?: number) => Promise<void>,
+	handleNetworkRequest: (api, func, afterFunc, restoreFunc?, autoRetryTimes?: number) => Promise<void>;
 	init: (env: string) => Promise<void>;
 	publishFinalApp: publishFinalApp;
 	publishMod: publishMod;
@@ -89,22 +89,17 @@ export type uiControlAPI = {
 export type flowAPI = {
 	deferExec: (api: api, func: (state: state) => Promise<state>, time?: number) => void;
 };
-
-type store = any
-
-type option = { name: string }
-
-type key = string
-
-type value = any
-
-export type storageAPI = {
-	createInstance: (option: option) => store,
-	getItem: (store: store, key: key) => Promise<value>,
-	setItem: (store: store, key: key, value: value) => Promise<value>,
+export type store = any;
+export type option = {
+	name: string;
 };
-
-
+export type key = string;
+export type value = any;
+export type storageAPI = {
+	createInstance: (option: option) => store;
+	getItem: (store: store, key: key) => Promise<value>;
+	setItem: (store: store, key: key, value: value) => Promise<value>;
+};
 // tslint:disable-next-line:interface-over-type-literal
 export type api = {
 	readState(): state;
@@ -127,7 +122,7 @@ export type api = {
 	backend: backendAPI;
 	message: messageAPI;
 	flow: flowAPI;
-	storage: storageAPI,
+	storage: storageAPI;
 };
 // tslint:disable-next-line:interface-over-type-literal
 export type getExtensionService<extensionService> = (_1: api) => extensionService;
@@ -156,4 +151,4 @@ export type extensionLife<extensionService> = {
 };
 export type getExtensionLife<extensionService> = (_1: api, extensionProtocolName: extensionProtocolName) => extensionLife<extensionService>;
 
-export { };
+export {};

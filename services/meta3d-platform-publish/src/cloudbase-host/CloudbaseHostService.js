@@ -27,21 +27,31 @@ let initProduction = () => {
 };
 exports.initProduction = initProduction;
 let updateHostFiles = (hosting) => {
-    return hosting.deleteFiles({
-        // cloudPath: '/',
-        cloudPath: '/meta3d/dist/',
-        isDir: true
-    }).then(() => {
-        return hosting.uploadFiles({
-            localPath: '../../platform/frontend/dist/',
-            cloudPath: '/meta3d/',
-            ignore: ['**/ignore.*'],
-            onFileFinish: (err, data) => {
-                if (!!err) {
-                    throw err;
-                }
+    // return hosting.deleteFiles({
+    //     // cloudPath: '/',
+    //     cloudPath: '/meta3d/dist/',
+    //     isDir: true
+    // }).then(() => {
+    //     return hosting.uploadFiles({
+    //         localPath: '../../platform/frontend/dist/',
+    //         cloudPath: '/meta3d/',
+    //         ignore: ['**/ignore.*'],
+    //         onFileFinish: (err, data) => {
+    //             if (!!err) {
+    //                 throw err
+    //             }
+    //         }
+    //     })
+    // })
+    return hosting.uploadFiles({
+        localPath: '../../platform/frontend/dist/',
+        cloudPath: '/',
+        ignore: ['**/ignore.*'],
+        onFileFinish: (err, data) => {
+            if (!!err) {
+                throw err;
             }
-        });
+        }
     });
 };
 exports.updateHostFiles = updateHostFiles;
