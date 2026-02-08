@@ -1277,7 +1277,7 @@ TODO update en
 TODO publish online
 
 
-* TODO update
+* DONE update
 
 
 TODO can't publish
@@ -1338,6 +1338,12 @@ TODO publish
 
 
 * TODO update
+
+
+
+TODO editor extension, RunElement: not throw error when handle error
+
+  TODO run test: load big image
 
 
 

@@ -102,9 +102,16 @@ let _base64ToUint8Array = (base64String) => {
     return fetch(`data:image/jpeg;base64,${base64Data}`).then(response => response.arrayBuffer()).then(arrayBuffer => new Uint8Array(arrayBuffer))
 }
 
-let _buildFeatures = (features) => {
+let _buildFeatures = (api: api, features) => {
     return JSON.stringify(features.reduce((object, { name, values }) => {
-        object[name] = values.count() == 1 ? values.first() : values.toArray()
+        let value = values.count() == 1 ? values.first() : values.toArray()
+
+        /*! AddHpByBeat, IncreaseUBCapacity's value may be null!(why?) so need fixed here!
+        * 
+        */
+        if (!api.nullable.isNullable(value)) {
+            object[name] = value
+        }
 
         return object
     }, {}))
@@ -136,7 +143,7 @@ let _buildDistFileContent = (state, characterType, features, isChinese) => {
                         title: "${_getDisplayName(state, isChinese)}",
                         iconId: "${_buildIconId(state, isChinese)}",
                         needGem: ${state.needGem},
-                        getCareerFeatureData: (state) => api.MutableRecordUtils.createFromObject(${_buildFeatures(features)}),
+                        getCareerFeatureData: (state) => api.MutableRecordUtils.createFromObject(${_buildFeatures(api, features)}),
                     };
                 },
                 getCharacterType: () => ${characterType}
