@@ -7,6 +7,7 @@ let _createState = () => {
     selectedContributes: list{},
     inspectorCurrentExtensionId: None,
     inspectorCurrentContributeId: None,
+    currentPackageName: None,
     // canvasData: {
     //   width: 0,
     //   height: 0,
@@ -42,9 +43,16 @@ let _unmarkEntryAllSelectedExtensions = selectedExtensions => {
   })
 }
 
+let _reset = state => {
+  {
+    ..._createState(),
+    currentPackageName: state.currentPackageName,
+  }
+}
+
 let reducer = (state, action) => {
   switch action {
-  | ResetWhenEnter => _createState()
+  | ResetWhenEnter => _reset(state)
   | ResetWhenSwitch => state->_resetInspector
   // | SelectPackage(package) => {
   //     ...state,
@@ -150,6 +158,10 @@ let reducer = (state, action) => {
       selectedPackages,
       selectedExtensions,
       selectedContributes,
+    }
+  | SetCurrentPackageName(packageName) => {
+      ...state,
+      currentPackageName: packageName->Some,
     }
   // | SetContributeNewName(id, newName) => {
   //     ...state,

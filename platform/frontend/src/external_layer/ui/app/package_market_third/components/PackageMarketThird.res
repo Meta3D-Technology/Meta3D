@@ -11,6 +11,9 @@ let make = (
   ~packageEntryExtensionProtocolItem: BackendCloudbaseType.protocol,
 ) => {
   let dispatch = AppStore.useDispatch()
+  let dispatchForPackageAssembleStore = ReduxUtils.PackageAssemble.useDispatch(
+    ReactUtils.useDispatchForAssembleSpaceStore
+  )
   let {selectedPackages, importedPackageIds} = AppStore.useSelector((
     {userCenterState}: AppStoreType.state,
   ) => userCenterState)
@@ -295,7 +298,7 @@ let make = (
                                     setIsDownloadBegin(_ => false)
                                     setCurrentImportingKey(_ => None)
                                   },
-                                  (selectedExtensions, selectedContributes, selectedPackages) =>
+                                  (selectedExtensions, selectedContributes, selectedPackages) => {
                                     dispatch(
                                       AppStoreType.UserCenterAction(
                                         UserCenterStoreType.ImportPackage(
@@ -305,7 +308,11 @@ let make = (
                                           selectedPackages,
                                         ),
                                       ),
-                                    ),
+                                    )
+                                    dispatchForPackageAssembleStore(
+                                      PackageAssembleStoreType.SetCurrentPackageName(item.name),
+                                    )
+                                  },
                                 ),
                               ),
                               _,

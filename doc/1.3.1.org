@@ -1341,18 +1341,15 @@ TODO publish
 
 
 
-TODO editor extension, RunElement: not throw error when handle error
+# TODO editor extension, RunElement: not throw error when handle error
 
-  TODO run test: load big image
-
-
-
-
-TODO solve warning: index.js:556 [webpack-dev-server] WARNING in ../../node_modules/localForage/dist/localforage.js
+#   TODO run test: load big image
 
 
 
-TODO fix: auto upgrade->ui control inspector: label shouldn't rest
+
+
+# TODO fix: auto upgrade->ui control inspector: label shouldn't rest
 
 
 
@@ -1369,3 +1366,18 @@ TODO fix and pass publish gulp task
     not delete, directly upload?
 
   TODO index.html->main.js should add hash code for avoid cache!
+
+
+
+
+TODO solve warning: index.js:556 [webpack-dev-server] WARNING in ../../node_modules/localForage/dist/localforage.js
+
+
+
+
+TODO update publish action
+
+
+TODO update cn
+
+TODO update en

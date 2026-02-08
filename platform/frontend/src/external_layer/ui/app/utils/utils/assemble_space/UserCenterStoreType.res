@@ -68,10 +68,10 @@ type action =
   // | EndJumpToCreateFromScratchTourPhase1Guide
   | StartCreateFromScratchTourPhase3
   | EndCreateFromScratchTourPhase3
-  // | MarkNotUseCacheForFindApp
-  // | MarkUseCacheForFindApp
-  // | MarkNotUseCacheForFindFinalApp
-  // | MarkUseCacheForFindFinalApp
+// | MarkNotUseCacheForFindApp
+// | MarkUseCacheForFindApp
+// | MarkNotUseCacheForFindFinalApp
+// | MarkUseCacheForFindFinalApp
 
 type state = {
   account: option<string>,

@@ -27,12 +27,22 @@ module Method = {
   let onFinish = (
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, selectedPackages, selectedExtensions, selectedContributes),
+    (account, selectedPackages, selectedExtensions, selectedContributes, previousPackageName),
     values,
   ): Js.Promise.t<unit> => {
-    let packageName = values["packageName"]
+    let packageName =
+      switch(values["packageName"]
+      ->Obj.magic
+      ->Meta3dCommonlib.OptionSt.fromNullable){
+        | Some(packageName) => packageName
+        | None => previousPackageName -> Meta3dCommonlib.OptionSt.getExn
+      }
     // let packageVersion = values["packageVersion"]
-    let packageDescription = values["packageDescription"]
+    let packageDescription =
+      values["packageDescription"]
+      ->Obj.magic
+      ->Meta3dCommonlib.OptionSt.fromNullable
+      ->Meta3dCommonlib.OptionSt.getWithDefault("Empty")
 
     let selectedPackages = selectedPackages->Meta3dCommonlib.ListSt.toArray
     let selectedExtensions = selectedExtensions->Meta3dCommonlib.ListSt.toArray
@@ -131,9 +141,14 @@ module Method = {
   // }
 
   let useSelector = (
-    {selectedPackages, selectedExtensions, selectedContributes}: PackageAssembleStoreType.state,
+    {
+      selectedPackages,
+      selectedExtensions,
+      selectedContributes,
+      currentPackageName,
+    }: PackageAssembleStoreType.state,
   ) => {
-    (selectedPackages, selectedExtensions, selectedContributes)
+    (selectedPackages, selectedExtensions, selectedContributes, currentPackageName)
   }
 }
 
@@ -143,6 +158,7 @@ let make = (~service: service, ~account: option<string>) => {
     selectedPackages,
     selectedExtensions,
     selectedContributes,
+    currentPackageName,
   ) = ReduxUtils.PackageAssemble.useSelector(service.react.useSelector, Method.useSelector)
 
   let (visible, setVisible) = service.react.useState(_ => false)
@@ -189,6 +205,7 @@ let make = (~service: service, ~account: option<string>) => {
                         selectedPackages,
                         selectedExtensions,
                         selectedContributes,
+                        currentPackageName,
                         // canvasData,
                         // apInspectorData,
                       ),
@@ -203,7 +220,7 @@ let make = (~service: service, ~account: option<string>) => {
                   rules={[
                     {
                       _type: Meta3dCommonlib.NullableSt.getEmpty(),
-                      required: true,
+                      required:!Meta3dCommonlib.OptionSt.isSome(currentPackageName),
                       message: `输入包名`,
                     },
                   ]}>
@@ -226,7 +243,7 @@ let make = (~service: service, ~account: option<string>) => {
                   rules={[
                     {
                       _type: Meta3dCommonlib.NullableSt.getEmpty(),
-                      required: true,
+                      required:!Meta3dCommonlib.OptionSt.isSome(currentPackageName),
                       message: `输入包介绍`,
                     },
                   ]}>

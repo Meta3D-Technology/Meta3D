@@ -44,6 +44,8 @@ type selectedContributes = list<contribute>
 
 type package = AssembleSpaceCommonType.packageData
 
+type packageName = string
+
 type selectedPackages = list<package>
 
 type action =
@@ -74,6 +76,7 @@ type action =
       selectedExtensions,
       selectedContributes,
     )
+  | SetCurrentPackageName(packageName)
 
 type state = {
   selectedPackages: selectedPackages,
@@ -81,4 +84,5 @@ type state = {
   selectedContributes: selectedContributes,
   inspectorCurrentExtensionId: option<id>,
   inspectorCurrentContributeId: option<id>,
+  currentPackageName:option<packageName>,
 }

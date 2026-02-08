@@ -24,7 +24,7 @@ let publish = (
   PublishPackage.Method.onFinish(
     service,
     (setUploadProgress, setIsUploadBegin, setVisible),
-    (account, selectedPackages, selectedExtensions, selectedContributes),
+    (account, selectedPackages, selectedExtensions, selectedContributes, None),
     values,
   )
 }
