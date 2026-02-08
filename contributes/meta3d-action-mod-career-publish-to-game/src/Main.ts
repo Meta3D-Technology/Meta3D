@@ -117,7 +117,7 @@ let _buildFeatures = (api: api, features) => {
     }, {}))
 }
 
-let _buildDistFileContent = (state, characterType, features, isChinese) => {
+let _buildDistFileContent = (api, state, characterType, features, isChinese) => {
     return `
     (() => { 
     // let _getTextData = () => {
@@ -310,7 +310,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
     }
                         }`,
                                     `${state.readme}`,
-                                    _buildDistFileContent(state, characterType_, features, isChinese),
+                                    _buildDistFileContent(api, state, characterType_, features, isChinese),
                                     [
                                         [
                                             `./${_buildIconId(state, isChinese)}.png`,
