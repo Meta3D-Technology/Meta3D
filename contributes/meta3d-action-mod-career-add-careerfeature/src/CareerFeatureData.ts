@@ -795,7 +795,7 @@ export let getData = (api): Array<careerFeature> => {
             name: careerFeatureName.ConvertToFriendCampForPutToShoe,
             positive: true,
             characterType: characterType.Giantess,
-            valueCount: 1,
+            valueCount: 0,
             getDescriptionFunc: (language, name) => {
                 return getTextDataByVariable()[language][name]()
             }
