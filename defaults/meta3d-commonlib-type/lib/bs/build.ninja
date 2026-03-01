@@ -7,37 +7,37 @@ rule deps
   restat = 1
 o src\structure\sparse_map\SparseMapType.d : deps src\structure\sparse_map\SparseMapType.ast
 rule mij
-  command = "D:\Github\Meta3D\node_modules\rescript\win32\bsc.exe" -bs-ns Meta3dCommonlibType -I . -I "src\component" -I "src\shims" -I "src\structure\hash_map" -I "src\structure\sparse_map" -I "src\structure" -I src -bs-no-version-header -bs-super-errors  -w a -bs-gentype -bs-package-name meta3d-commonlib-type -bs-package-output commonjs:lib\js\$in_d:.bs.js -bs-package-output es6-global:lib\es6_global\$in_d:.bs.js $i
+  command = "D:\Github\Meta3D\node_modules\rescript\win32\bsc.exe" -bs-ns Meta3dCommonlibType -I . -I "src\component" -I "src\shims" -I "src\structure\hash_map" -I "src\structure\sparse_map" -I "src\structure" -I src -bs-no-version-header -bs-super-errors  -w a -bs-gentype -bs-package-name meta3d-commonlib-type -bs-package-output commonjs:lib\js\$in_d:.bs.js $i
   dyndep = 1
   restat = 1
-o src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmj src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmi ..\es6_global\src\structure\sparse_map\SparseMapType.bs.js ..\js\src\structure\sparse_map\SparseMapType.bs.js : mij src\structure\sparse_map\SparseMapType.ast
+o src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmj src\structure\sparse_map\SparseMapType-Meta3dCommonlibType.cmi ..\js\src\structure\sparse_map\SparseMapType.bs.js : mij src\structure\sparse_map\SparseMapType.ast
 o src\structure\sparse_map\MutableSparseMapType.ast : astj ..\..\src\structure\sparse_map\MutableSparseMapType.res
 o src\structure\sparse_map\MutableSparseMapType.d : deps src\structure\sparse_map\MutableSparseMapType.ast
-o src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmj src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmi ..\es6_global\src\structure\sparse_map\MutableSparseMapType.bs.js ..\js\src\structure\sparse_map\MutableSparseMapType.bs.js : mij src\structure\sparse_map\MutableSparseMapType.ast
+o src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmj src\structure\sparse_map\MutableSparseMapType-Meta3dCommonlibType.cmi ..\js\src\structure\sparse_map\MutableSparseMapType.bs.js : mij src\structure\sparse_map\MutableSparseMapType.ast
 o src\structure\sparse_map\ImmutableSparseMapType.ast : astj ..\..\src\structure\sparse_map\ImmutableSparseMapType.res
 o src\structure\sparse_map\ImmutableSparseMapType.d : deps src\structure\sparse_map\ImmutableSparseMapType.ast
-o src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmj src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmi ..\es6_global\src\structure\sparse_map\ImmutableSparseMapType.bs.js ..\js\src\structure\sparse_map\ImmutableSparseMapType.bs.js : mij src\structure\sparse_map\ImmutableSparseMapType.ast
+o src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmj src\structure\sparse_map\ImmutableSparseMapType-Meta3dCommonlibType.cmi ..\js\src\structure\sparse_map\ImmutableSparseMapType.bs.js : mij src\structure\sparse_map\ImmutableSparseMapType.ast
 o src\structure\hash_map\HashMapType.ast : astj ..\..\src\structure\hash_map\HashMapType.res
 o src\structure\hash_map\HashMapType.d : deps src\structure\hash_map\HashMapType.ast
-o src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmj src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmi ..\es6_global\src\structure\hash_map\HashMapType.bs.js ..\js\src\structure\hash_map\HashMapType.bs.js : mij src\structure\hash_map\HashMapType.ast
+o src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmj src\structure\hash_map\HashMapType-Meta3dCommonlibType.cmi ..\js\src\structure\hash_map\HashMapType.bs.js : mij src\structure\hash_map\HashMapType.ast
 o src\structure\hash_map\MutableHashMapType.ast : astj ..\..\src\structure\hash_map\MutableHashMapType.res
 o src\structure\hash_map\MutableHashMapType.d : deps src\structure\hash_map\MutableHashMapType.ast
-o src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmj src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmi ..\es6_global\src\structure\hash_map\MutableHashMapType.bs.js ..\js\src\structure\hash_map\MutableHashMapType.bs.js : mij src\structure\hash_map\MutableHashMapType.ast
+o src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmj src\structure\hash_map\MutableHashMapType-Meta3dCommonlibType.cmi ..\js\src\structure\hash_map\MutableHashMapType.bs.js : mij src\structure\hash_map\MutableHashMapType.ast
 o src\structure\hash_map\ImmutableHashMapType.ast : astj ..\..\src\structure\hash_map\ImmutableHashMapType.res
 o src\structure\hash_map\ImmutableHashMapType.d : deps src\structure\hash_map\ImmutableHashMapType.ast
-o src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmj src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmi ..\es6_global\src\structure\hash_map\ImmutableHashMapType.bs.js ..\js\src\structure\hash_map\ImmutableHashMapType.bs.js : mij src\structure\hash_map\ImmutableHashMapType.ast
+o src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmj src\structure\hash_map\ImmutableHashMapType-Meta3dCommonlibType.cmi ..\js\src\structure\hash_map\ImmutableHashMapType.bs.js : mij src\structure\hash_map\ImmutableHashMapType.ast
 o src\component\VectorType.ast : astj ..\..\src\component\VectorType.res
 o src\component\VectorType.d : deps src\component\VectorType.ast
-o src\component\VectorType-Meta3dCommonlibType.cmj src\component\VectorType-Meta3dCommonlibType.cmi ..\es6_global\src\component\VectorType.bs.js ..\js\src\component\VectorType.bs.js : mij src\component\VectorType.ast
+o src\component\VectorType-Meta3dCommonlibType.cmj src\component\VectorType-Meta3dCommonlibType.cmi ..\js\src\component\VectorType.bs.js : mij src\component\VectorType.ast
 o src\component\Matrix4Type.ast : astj ..\..\src\component\Matrix4Type.res
 o src\component\Matrix4Type.d : deps src\component\Matrix4Type.ast
-o src\component\Matrix4Type-Meta3dCommonlibType.cmj src\component\Matrix4Type-Meta3dCommonlibType.cmi ..\es6_global\src\component\Matrix4Type.bs.js ..\js\src\component\Matrix4Type.bs.js : mij src\component\Matrix4Type.ast
+o src\component\Matrix4Type-Meta3dCommonlibType.cmj src\component\Matrix4Type-Meta3dCommonlibType.cmi ..\js\src\component\Matrix4Type.bs.js : mij src\component\Matrix4Type.ast
 o src\component\ComponentType.ast : astj ..\..\src\component\ComponentType.res
 o src\component\ComponentType.d : deps src\component\ComponentType.ast
-o src\component\ComponentType-Meta3dCommonlibType.cmj src\component\ComponentType-Meta3dCommonlibType.cmi ..\es6_global\src\component\ComponentType.bs.js ..\js\src\component\ComponentType.bs.js : mij src\component\ComponentType.ast
+o src\component\ComponentType-Meta3dCommonlibType.cmj src\component\ComponentType-Meta3dCommonlibType.cmi ..\js\src\component\ComponentType.bs.js : mij src\component\ComponentType.ast
 o src\component\SharedArrayBufferType.ast : astj ..\..\src\component\SharedArrayBufferType.res
 o src\component\SharedArrayBufferType.d : deps src\component\SharedArrayBufferType.ast
-o src\component\SharedArrayBufferType-Meta3dCommonlibType.cmj src\component\SharedArrayBufferType-Meta3dCommonlibType.cmi ..\es6_global\src\component\SharedArrayBufferType.bs.js ..\js\src\component\SharedArrayBufferType.bs.js : mij src\component\SharedArrayBufferType.ast
+o src\component\SharedArrayBufferType-Meta3dCommonlibType.cmj src\component\SharedArrayBufferType-Meta3dCommonlibType.cmi ..\js\src\component\SharedArrayBufferType.bs.js : mij src\component\SharedArrayBufferType.ast
 rule build_package
   command = "D:\Github\Meta3D\node_modules\rescript\win32\bsc.exe" -w -49 -color always -no-alias-deps  $i
   restat = 1

@@ -1,6 +1,5 @@
 {
 	"packages": [
-		"asset-lib/*",
 		"externals/*",
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",

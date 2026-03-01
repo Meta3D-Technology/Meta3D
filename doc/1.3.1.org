@@ -1382,10 +1382,7 @@ TODO update en
 * TODO update
 
 
-** TODO basic editor
-
-
-TODO design
+** DONE design
 menu
 tab
   base
@@ -1475,13 +1472,87 @@ tab
 
 
 
+** TODO generate all values by read asset libs
 
-# need copy 素材库 to Meta3D repo
 TODO need add new 素材库 to Meta3D repo
 
 
-TODO generate value by read asset libs
+TODO set category
+  TODO get all categories
 
+  TODO store asset lib data to init action
+
+TODO finish related
+
+TODO run test
+  add ui
+
+  not set data
+
+
+
+
+
+
+TODO set model
+  TODO get all modesl
+
+TODO finish related
+  TODO Modal: grid ui 
+
+  # TODO show icon+text(refer to asset)
+  TODO show image, text
+
+TODO run test
+
+
+
+
+
+TODO set value
+  TODO judge getCategory when by editor to invoke update api
+
+  # TODO new form ui?
+  TODO common set action, input
+    actionName
+    fieldName
+
+    TODO UIInspector->Input, Action:
+      TODO add + button to add new input
+      TODO pass inputs as params
+
+
+    TODO add common get field input
+
+    TODO add common set field action
+
+
+
+TODO refactor: set model related action, input use common one instead
+
+
+
+TODO publish: get value from read action state
+
+
+
+
+
+TODO tab
+
+
+
+TODO skill
+
+
+...
+
+
+
+
+** TODO add UI
+
+*** TODO add new ui controls
 
 TODO add tab
 
@@ -1492,6 +1563,7 @@ grid? instead of list
   查看模型、动作
 
 
+*** TODO add editor ui
 
 
 * TODO update

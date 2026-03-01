@@ -40,7 +40,6 @@
 		"ci:test": "lerna run test:ci --concurrency 1"
 	},
 	"workspaces": [
-		"asset-lib/*",
 		"externals/*",
 		"protocols/extension_protocols/*",
 		"protocols/contribute_protocols/*",
