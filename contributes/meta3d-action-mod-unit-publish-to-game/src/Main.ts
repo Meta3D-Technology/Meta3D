@@ -128,16 +128,16 @@ let _buildDistFileContent = (api, state) => {
         },
         getBlockService: (api) => {
             return {
-        getName: () => "精英近战巨大娘1",
+        getName: () => "精英近战巨大娘1_1",
         getDisplayName: () => {
             return {
-                displayNameCN: "精英近战巨大娘1",
-                displayNameEN: "Elite Giantess Melee 1",
+                displayNameCN: "精英近战巨大娘1_1",
+                displayNameEN: "Elite Giantess Melee 1_1",
             }
         },
-        getModel: () => ${model.Melee1},
-        getCategory: () => ${category.EliteGiantess},
-        getValue: (api: api, state) => {
+        getModel: () => "${model.Melee1}",
+        getCategory: () => "${category.EliteGiantess}",
+        getValue: (api, state) => {
             // TODO judge getCategory when by editor
 
             return api.updateEliteGiantessValue(state, ${JSON.stringify({
@@ -185,12 +185,13 @@ let _buildDistFileContent = (api, state) => {
 
         emitPrecision: emitPrecision.Level0,
 
-        // scale: scale.Level5,
-        scale: scale.Level10,
+        // scale: scale.Level10,
+        scale: scale.Level0,
 
     })})
         },
-        getSkillData: () => ${JSON.stringify({
+        getSkillData: () => {
+            return ${JSON.stringify({
         [skillObject.Small]: {
             action: action.StompLight,
             value: {
@@ -254,8 +255,10 @@ let _buildDistFileContent = (api, state) => {
                 },
             },
         },
-    })},
-        getGenerateData: () => ${JSON.stringify({
+    })}
+ },
+        getGenerateData: () => {
+            return ${JSON.stringify({
         [sceneChapter.AttackCity]: {
             [player.LittleMan]: [
                 {
@@ -286,44 +289,23 @@ let _buildDistFileContent = (api, state) => {
             rate: 0.5,
             countFactor: countFactor.Level10,
         },
-    })},
-        getRewardData: () => {
-            return ${JSON.stringify({
-        gem: state => gem.Middle3,
-        coin: state => coin.VeryHigh,
-        prop: [
-            {
-                // name: propName.AddHp2,
-                name: "AddHp2",
-
-                getCountFunc: state => count.VeryLow,
-                getRateFunc: state => rate.Low,
-            },
-
-            // {
-            //     // name: propName.BiggerBullet,
-            //     name: api.block.getBlockService<service>(state, getPropBulletProtocolName(), getPropBulletBiggerBlockName()).getWeaponName(),
-
-            //     getCountFunc: state => count.VeryLow,
-            //     getRateFunc: state => rate.VeryLow,
-            // },
-            // {
-            //     // name: propName.SmallerToLastBiggerCount,
-            //     name: api.block.getBlockService<service>(state, getPropBulletProtocolName(), getPropBulletSmallerBlockName()).getWeaponName(),
-
-            //     getCountFunc: state => count.VeryLow,
-            //     getRateFunc: state => rate.VeryLow2,
-            // },
-
-            // {
-            //     name: api.block.getBlockService<propOtherService>(state, getPropOtherProtocolName(), getPropStrongBiggerBlockName()).getName(),
-
-            //     getCountFunc: state => count.VeryLow,
-            //     getRateFunc: state => rate.Low,
-            // },
-        ],
-        experienceValue: experienceValue.VeryHigh,
     })}
+ },
+        getRewardData: () => {
+            return {
+                gem: state => ${gem.Middle3},
+                coin: state => ${coin.VeryHigh},
+                prop: [
+                    {
+                        // name: propName.AddHp2,
+                        name: "AddHp2",
+
+                        getCountFunc: state => ${count.VeryLow},
+                        getRateFunc: state => ${rate.Low},
+                    }
+                ],
+                experienceValue: ${experienceValue.VeryHigh},
+            }
         },
     };
         }
