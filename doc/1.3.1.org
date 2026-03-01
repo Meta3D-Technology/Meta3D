@@ -1382,6 +1382,115 @@ TODO update en
 * TODO update
 
 
+** TODO basic editor
+
+
+TODO design
+menu
+tab
+  base
+    name
+    displayName
+      cn
+      en
+    selector: select category
+    button: select model
+      Modal: grid ui
+
+    button: set value
+      Modal: value inputs
+      # getValue(show window?modal?)
+
+  skill
+    # vs small
+
+    # vs big
+
+    #   select action
+    #   set action value
+
+    #   select effect
+    #   set effect value
+    select button
+    (vs small, vs big)
+    (add collapse, refer to Add Component)
+
+    collapse:
+      button:select action
+        Modal: grid ui
+      button:set action value
+        Modal: value inputs
+
+      button:select effect
+        Modal: grid ui
+      button:set effect value
+        Modal: value inputs
+
+
+  generate
+    select button
+    (sceneChapters)
+    (add collapse, refer to Add Component)
+    
+    for AttackCity:
+      text: For LittleMan
+
+      text: For Giantess
+
+        button: add
+        button: clear
+
+        dynamic ui
+        (refer to dynamic careerfeatures)
+        (no title)
+      
+      for Other:
+        rate: input
+        countFactor: input
+
+
+  reward
+        gem: input
+        coin: input
+        experienceValue: input
+
+        text: Prop
+        # button: add prop
+        # dynamic ui(refer to dynamic careerfeatures)
+        #   button: select
+        #     Modal:props
+        #       grid ui
+
+        #   count:input
+        #   rate:input
+        button: add prop + remove button
+          Modal: 
+            count: input
+            rate: input
+
+        list: icon+text(refer to asset)
+
+# show window
+
+
+
+
+
+# need copy 素材库 to Meta3D repo
+TODO need add new 素材库 to Meta3D repo
+
+
+TODO generate value by read asset libs
+
+
+TODO add tab
+
+
+TODO add new ui control:
+grid? instead of list
+  # 查看模型、//动作(//click play button to play gif by html?)
+  查看模型、动作
+
 
 
 
