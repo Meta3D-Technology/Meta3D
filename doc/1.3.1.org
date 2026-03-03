@@ -1499,9 +1499,21 @@ TODO set model
 
 TODO finish related
   TODO Modal: grid ui 
+    # table + vertical scroll
 
   # TODO show icon+text(refer to asset)
-  TODO show image, text
+
+  TODO continue
+    TODO close modal
+    TODO get grid input 
+      sort by name
+    TODO select model action
+    TODO show image
+    TODO show name
+
+  TODO add new ones
+
+  TODO add ui
 
 TODO run test
 
@@ -1528,7 +1540,10 @@ TODO set value
 
 
 
-TODO refactor: set model related action, input use common one instead
+TODO refactor: set value related action, input use common one instead
+
+TODO refactor: modal related action, input use common one instead
+
 
 
 
@@ -1547,6 +1562,14 @@ TODO skill
 
 ...
 
+
+
+** TODO update package
+ui
+
+editor-whole 
+
+** TODO update ui control icons
 
 
 

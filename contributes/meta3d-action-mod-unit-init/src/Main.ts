@@ -4,10 +4,12 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 // import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-unit-info-protocol"
-import { getAllModelData } from "./asset-lib/unit-model/Main"
+import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
+import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
+import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -89,7 +91,39 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    return Promise.resolve(meta3dState)
+                    return reducePromise(
+                        Array.from(api.immutable.createMapOfData(getAllModelData()).entries()),
+                        (result, [category, models]) => {
+                            return reducePromise(
+                                models,
+                                (result, modelData) => {
+                                    return new Promise((resolve, reject) => {
+                                        imageSrcToBase64(
+                                            resolve,
+                                            reject,
+                                            getModelSnapshotPath(category, modelData.model)
+                                        )
+                                    }).then((imageBase64) => {
+                                        return result.concat({
+                                            ...modelData,
+                                            snapshotImageBase64: imageBase64,
+                                        })
+                                    })
+                                },
+                                []
+                            ).then(newModels => {
+                                return result.set(category, newModels)
+                            })
+                        },
+                        api.immutable.createMap()
+                    ).then(newAllModelData => {
+                        meta3dState = api.action.setActionState(meta3dState, actionName, {
+                            ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                            allModelData: newAllModelData
+                        })
+
+                        return meta3dState
+                    })
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
                 }))
@@ -109,7 +143,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: () => {
             return {
-                allModelData: api.immutable.createMapOfData(getAllModelData()),
+                // allModelData: api.immutable.createMapOfData(getAllModelData()),
+                allModelData: api.immutable.createMap(),
+                selectedModelIndex: api.nullable.getEmpty(),
+                isShowModelModal: false,
             }
         }
     }

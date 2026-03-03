@@ -210,6 +210,7 @@ type service = {
   text: (. string) => unit,
   textColored: (.  (float,float,float,float), string) => unit,
   inputTextarea: (. label, (int, int), int, string) => Js.Nullable.t<string>,
+  grid: (. array<{ "texture": imguiImplTexture, "name": string }>, int, int, int) => Js.Nullable.t<int>,
   getItemRectMax: unit => vec2,
   getItemRectSize: unit => vec2,
   getWindowPos: unit => vec2,

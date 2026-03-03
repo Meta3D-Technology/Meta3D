@@ -1015,6 +1015,19 @@ let inputTextarea = (data, meta3dState, label, (width, height), maxLength, text)
   )
 }
 
+let grid = (data, meta3dState, items, columnCount, cellWidth, totalHeight) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (
+        imguiRendererState,
+        imguiRendererService.grid(. items, columnCount, cellWidth, totalHeight),
+      )
+    },
+    data,
+  )
+}
+
 let getItemRectMax = (data, meta3dState) => {
   _invokeIMGUIRenderFuncReturnData(
     meta3dState,

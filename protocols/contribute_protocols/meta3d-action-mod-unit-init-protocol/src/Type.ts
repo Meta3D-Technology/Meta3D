@@ -13,6 +13,8 @@ export type modelData = {
     // putToShoeTransformRotation?: [number, number, number],
 
     // updateBoxFunc: (box: box3) => box3,
+
+    snapshotImageBase64: string,
 }
 
 // export type models = {

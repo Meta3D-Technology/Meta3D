@@ -544,6 +544,53 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return newValue
 
         },
+        grid: (items, columnCount, cellWidth, totalHeight) => {
+            let selectedIndex: nullable<number> = null
+
+            let id = _generateUniqueId()
+
+            // 1. 创建一个可滚动的子窗口，大小可以根据需要调整（例如窗口剩余区域）
+            ImGui.BeginChild(id, new ImGui.ImVec2(0, totalHeight), false);
+            // 参数：子窗口名称，大小（0表示占满剩余宽度，300像素高度），边框标志
+
+            // 2. 遍历所有项目
+            for (let i = 0; i < items.length; ++i) {
+                ImGui.PushID(id + i.toString());  // 保证每个单元格的控件ID唯一
+
+                // 开始一个组，将图片和文字组合在一起
+                ImGui.BeginGroup();
+
+
+                // 显示图片按钮（可点击）
+                if (ImGui.ImageButton(items[i].texture._texture, new ImGui.ImVec2(cellWidth, cellWidth))) {
+                    selectedIndex = i
+                }
+
+                // 在图片下方显示文字（尝试居中对齐）
+                let text_width = ImGui.CalcTextSize(items[i].name).x;
+                if (text_width < cellWidth) {
+                    // 简单居中：调整光标X位置
+                    ImGui.SetCursorPosX(ImGui.GetCursorPosX() + (cellWidth - text_width) * 0.5);
+                }
+                ImGui.Text(items[i].name);
+
+
+
+                ImGui.EndGroup();
+
+                // 3. 处理换行逻辑：如果不是本行最后一个元素，则放在同一行
+                if ((i + 1) % columnCount != 0) {
+                    ImGui.SameLine();
+                }
+                // 如果是最后一个元素，自动换行（不调用SameLine）
+
+                ImGui.PopID();
+            }
+
+            ImGui.EndChild(); // 结束滚动区域
+
+            return selectedIndex
+        },
         getItemRectMax: () => ImGui.GetItemRectMax(),
         getItemRectSize: () => ImGui.GetItemRectSize(),
         getWindowPos: () => ImGui.GetWindowPos(),

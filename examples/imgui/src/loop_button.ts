@@ -869,44 +869,164 @@ export let buildBind = <T>(ref: ref<T>): ImGui.Bind.ImAccess<T> => {
 //     ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
 // }
 
-let text = "" as any
-let valueRef = buildRef(text)
+// let text = "" as any
+// let valueRef = buildRef(text)
+// export let loop = (time: number) => {
+//     ImGui_Impl.NewFrame(time)
+//     ImGui.NewFrame()
+
+//     // let text = new ImGui.StringBuffer(1024 * 16,
+//     // let text = new ImGui.StringBuffer(1024 * 12 * 16,
+//     //     "/*\n" +
+//     //     " The Pentium F00F bug, shorthand for F0 0F C7 C8,\n" +
+//     //     " the hexadecimal encoding of one offending instruction,\n" +
+//     //     " more formally, the invalid operand with locked CMPXCHG8B\n" +
+//     //     " instruction bug, is a design flaw in the majority of\n" +
+//     //     " Intel Pentium, Pentium MMX, and Pentium OverDrive\n" +
+//     //     " processors (all in the P5 microarchitecture).\n" +
+//     //     "*/\n\n" +
+//     //     "label:\n" +
+//     //     "\tlock cmpxchg8b eax\n")
+
+//     const FLT_MIN = 1.175494e-38;
+
+//     // let isInputing = ImGui.InputText("hhh", buildBind(valueRef), 30)
+//     // let isInputing = ImGui.InputTextMultiline("hhh", buildBind(valueRef), ImGui.ARRAYSIZE(text), new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput)
+//     let isInputing = ImGui.InputTextMultiline("hhh", buildBind(valueRef), 100, new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput)
+
+//     // console.log(
+//     //     // ImGui.InputTextMultiline("hhh", buildBind(valueRef), ImGui.ARRAYSIZE(text), new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput),
+//     //     isInputing,
+//     //     valueRef
+//     // );
+
+//     console.log(
+//         isInputing
+//     )
+
+//     if (isInputing) {
+//         console.log(valueRef)
+//     }
+
+
+//     ImGui.EndFrame()
+//     ImGui.Render()
+
+
+//     // ImGui.StyleColorsDark()
+//     ImGui.StyleColorsClassic()
+
+//     // ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.25, 0.25, 0.25, 1))
+//     ImGui_Impl.ClearBuffer(new ImGui.ImVec4(0.0, 0.0, 0.0, 1))
+//     ImGui_Impl.RenderDrawData(ImGui.GetDrawData())
+// }
+
+
+
+
+// let text = "" as any
+// let valueRef = buildRef(text)
 export let loop = (time: number) => {
     ImGui_Impl.NewFrame(time)
     ImGui.NewFrame()
 
-    // let text = new ImGui.StringBuffer(1024 * 16,
-    // let text = new ImGui.StringBuffer(1024 * 12 * 16,
-    //     "/*\n" +
-    //     " The Pentium F00F bug, shorthand for F0 0F C7 C8,\n" +
-    //     " the hexadecimal encoding of one offending instruction,\n" +
-    //     " more formally, the invalid operand with locked CMPXCHG8B\n" +
-    //     " instruction bug, is a design flaw in the majority of\n" +
-    //     " Intel Pentium, Pentium MMX, and Pentium OverDrive\n" +
-    //     " processors (all in the P5 microarchitecture).\n" +
-    //     "*/\n\n" +
-    //     "label:\n" +
-    //     "\tlock cmpxchg8b eax\n")
 
-    const FLT_MIN = 1.175494e-38;
 
-    // let isInputing = ImGui.InputText("hhh", buildBind(valueRef), 30)
-    // let isInputing = ImGui.InputTextMultiline("hhh", buildBind(valueRef), ImGui.ARRAYSIZE(text), new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput)
-    let isInputing = ImGui.InputTextMultiline("hhh", buildBind(valueRef), 100, new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput)
 
-    // console.log(
-    //     // ImGui.InputTextMultiline("hhh", buildBind(valueRef), ImGui.ARRAYSIZE(text), new ImGui.Vec2(100, 100), ImGui.InputTextFlags.AllowTabInput),
-    //     isInputing,
-    //     valueRef
-    // );
+    // 网格参数
+    let columns = 4;                // 每行显示几个
+    let image_size = 80.0;        // 图片尺寸
+    // let cell_width = 120.0;      // 每个单元格的宽度（用于对齐）
+    let cell_width = image_size;      // 每个单元格的宽度（用于对齐）
+    let cell_height = 140.0;      // 每个单元格的高度（可根据图片+文字高度调整）
 
-    console.log(
-        isInputing
-    )
 
-    if (isInputing) {
-        console.log(valueRef)
+    let my_items: any = [
+        {
+            texture_id: addTexture._texture,
+            name: "Item 1"
+        },
+        {
+            texture_id: addTexture._texture,
+            name: "Item 2"
+        },
+        {
+            texture_id: addTexture._texture,
+            name: "Item 3"
+        },
+        {
+            texture_id: addTexture._texture,
+            name: "Item 4"
+        },
+
+        {
+            texture_id: addTexture._texture,
+            name: "Item 5"
+        },
+        {
+            texture_id: addTexture._texture,
+            name: "Item 6"
+        },
+
+    ]
+
+    // 1. 创建一个可滚动的子窗口，大小可以根据需要调整（例如窗口剩余区域）
+    ImGui.BeginChild("", new ImGui.ImVec2(0, 300), false, );
+//     ImGui.SetNextWindowPos(new ImGui.ImVec2(100, 100))
+//     ImGui.SetNextWindowSize(new ImGui.ImVec2(300, 300))
+    // 参数：子窗口名称，大小（0表示占满剩余宽度，300像素高度），边框标志
+
+    // 2. 遍历所有项目
+    for (let i = 0; i < my_items.length; ++i) {
+        ImGui.PushID(i);  // 保证每个单元格的控件ID唯一
+
+        // 开始一个组，将图片和文字组合在一起
+        ImGui.BeginGroup();
+
+
+        // 显示图片按钮（可点击）
+        if (ImGui.ImageButton(my_items[i].texture_id, new ImGui.ImVec2(image_size, image_size))) {
+            // 处理点击事件（例如选中该项）
+            console.log(i)
+        }
+
+        // // 在图片下方显示文字（尝试居中对齐）
+        // let text_width = ImGui.CalcTextSize(my_items[i].name).x;
+        // console.log(text_width, cell_width)
+        // if (text_width < cell_width) {
+        //     // 简单居中：调整光标X位置
+        //     ImGui.SetCursorPosX(ImGui.GetCursorPosX() + (cell_width - text_width) * 0.5);
+        // }
+        // ImGui.Text(my_items[i].name);
+
+        let text_width = ImGui.CalcTextSize(my_items[i].name).x;
+        if (text_width < cell_width) {
+            // 计算文字宽度
+            // 计算水平居中偏移量（基于保存的起始 X 和单元格宽度）
+            let text_offset_x = (cell_width - text_width) * 0.5;
+            // 将光标 X 设置为居中位置
+            ImGui.SetCursorPosX(ImGui.GetCursorPosX() + text_offset_x);
+        }
+        ImGui.Text(my_items[i].name);
+
+
+
+
+        ImGui.EndGroup();
+
+        // 3. 处理换行逻辑：如果不是本行最后一个元素，则放在同一行
+        if ((i + 1) % columns != 0) {
+            ImGui.SameLine();
+        }
+        // 如果是最后一个元素，自动换行（不调用SameLine）
+
+        ImGui.PopID();
     }
+
+    ImGui.EndChild(); // 结束滚动区域
+
+
+
 
 
     ImGui.EndFrame()

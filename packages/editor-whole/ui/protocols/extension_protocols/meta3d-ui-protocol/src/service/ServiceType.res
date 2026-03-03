@@ -212,7 +212,7 @@ type service = {
     float,
     float,
     int,
-    string
+    string,
   ) => (Meta3dType.Index.state, Js.Nullable.t<(float, float, float)>),
   inputInt1: (
     Meta3dType.Index.state,
@@ -261,7 +261,7 @@ type service = {
     string,
   ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
   dummy: (Meta3dType.Index.state, int, int) => Meta3dType.Index.state,
-  sameLine: (Meta3dType.Index.state) => Meta3dType.Index.state,
+  sameLine: Meta3dType.Index.state => Meta3dType.Index.state,
   list: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,
@@ -284,6 +284,13 @@ type service = {
     int,
     string,
   ) => (Meta3dType.Index.state, Js.Nullable.t<string>),
+  grid: (
+    Meta3dType.Index.state,
+    array<{"texture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture, "name": string}>,
+    int,
+    int,
+    int,
+  ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
   getItemRectMax: Meta3dType.Index.state => vec2,
   getItemRectSize: Meta3dType.Index.state => vec2,
   getWindowPos: Meta3dType.Index.state => vec2,

@@ -7,3 +7,11 @@ export let getAllModelData = () => {
         }]
     }
 }
+
+let _getPathPrefix = (category_: category) => `./unit-model/src/asset/${category_.toLowerCase()}`
+
+export let getModelSnapshotPath = (category: category, model: model) => {
+    let model_ = model.toLowerCase()
+
+    return `${_getPathPrefix(category)}/snapshot_${model_}.png`
+}

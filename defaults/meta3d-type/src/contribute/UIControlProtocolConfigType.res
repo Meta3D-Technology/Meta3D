@@ -24,6 +24,7 @@ type supportedEventName = [
   | #list_select
   | #list_remove
   | #value_change
+  | #grid_select
 ]
 
 type actionName = Js.Nullable.t<string>
