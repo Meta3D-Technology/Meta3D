@@ -91,6 +91,7 @@ type customAction = custom
 type eventData = {
   eventName: Meta3dType.ContributeProtocolConfigType.eventName,
   actionName: actionName,
+  actionParams:array<string>
 }
 
 // type event = array<eventData>

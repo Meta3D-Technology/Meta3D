@@ -85,7 +85,7 @@ let _updateAllUIControlInspectorData = (state, setFunc) => {
   }
 }
 
-let _setActionData = (state, id, eventName, actionNameOpt) => {
+let _setActionData = (state, id, eventName, actionNameOpt, actionParams) => {
   _setUIControlInspectorData(
     state,
     data => {
@@ -97,6 +97,7 @@ let _setActionData = (state, id, eventName, actionNameOpt) => {
           {
             eventName,
             actionName: actionNameOpt->Meta3dCommonlib.OptionSt.getExn,
+            actionParams,
           },
         ]
       | _ =>
@@ -116,6 +117,7 @@ let _setActionData = (state, id, eventName, actionNameOpt) => {
                         {
                           eventName,
                           actionName,
+                          actionParams,
                         }: eventData
                       )
                     }
@@ -127,6 +129,7 @@ let _setActionData = (state, id, eventName, actionNameOpt) => {
                     {
                       eventName,
                       actionName,
+                      actionParams,
                     }: eventData
                   ),
                 ],
@@ -500,7 +503,8 @@ let reducer = (state, action) => {
   //     },
   //     id,
   //   )
-  | SetAction(id, (eventName, actionNameOpt)) => _setActionData(state, id, eventName, actionNameOpt)
+  | SetAction(id, (eventName, actionNameOpt, params)) =>
+    _setActionData(state, id, eventName, actionNameOpt, params)
   // | SetActionFileStr(id, eventName, actionName, actionFileStr) =>
   //   _setActionData(state, id, eventName, actionName->Some, actionFileStr->Some)
   | SelectRootUIControl => {

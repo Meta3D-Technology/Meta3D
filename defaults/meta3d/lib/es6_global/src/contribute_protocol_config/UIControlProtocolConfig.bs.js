@@ -19,8 +19,8 @@ function getUIControlSupportedEventNames(configLib) {
   return LibUtils$Meta3d.getFuncFromLib(configLib, "getUIControlSupportedEventNames")();
 }
 
-function generateHandleUIControlEventStr(configLib, actionNames) {
-  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateHandleUIControlEventStr")(actionNames);
+function generateHandleUIControlEventStr(configLib, actionNames, actionParams) {
+  return LibUtils$Meta3d.getFuncFromLib(configLib, "generateHandleUIControlEventStr")(actionNames, actionParams);
 }
 
 export {

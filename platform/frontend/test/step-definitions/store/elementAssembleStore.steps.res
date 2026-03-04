@@ -170,7 +170,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SetAction(id1.contents, (eventName, actionName->Some)),
+            ElementAssembleStoreType.SetAction(id1.contents, (eventName, actionName->Some, [])),
           )
       },
     )
@@ -208,7 +208,7 @@ defineFeature(feature, test => {
             store.contents,
             ElementAssembleStoreType.SetAction(
               id1.contents,
-              (eventName1->Obj.magic, actionName1->Some),
+              (eventName1->Obj.magic, actionName1->Some, []),
             ),
           )
       },
@@ -222,7 +222,7 @@ defineFeature(feature, test => {
             store.contents,
             ElementAssembleStoreType.SetAction(
               id1.contents,
-              (eventName2->Obj.magic, actionName2->Some),
+              (eventName2->Obj.magic, actionName2->Some, []),
             ),
           )
       },
@@ -267,7 +267,7 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SetAction(id1.contents, (eventName, "a1"->Some)),
+            ElementAssembleStoreType.SetAction(id1.contents, (eventName, "a1"->Some, [])),
           )
       },
     )
@@ -278,7 +278,8 @@ defineFeature(feature, test => {
         store :=
           ElementAssembleStore.reducer(
             store.contents,
-            ElementAssembleStoreType.SetAction(id1.contents, (eventName, None)),
+            ElementAssembleStoreType.SetAction(id1.contents, (eventName, None, [])),
+
           )
       },
     )

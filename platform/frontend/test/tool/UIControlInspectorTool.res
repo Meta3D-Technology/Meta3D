@@ -26,9 +26,15 @@ let buildInput = (~inputName, ()): ElementAssembleStoreType.input => {
   inputName: inputName,
 }
 
-let buildEventData = (~eventName, ~actionName, ()): ElementAssembleStoreType.eventData => {
+let buildEventData = (
+  ~eventName,
+  ~actionName,
+  ~actionParams=[],
+  (),
+): ElementAssembleStoreType.eventData => {
   eventName,
   actionName,
+  actionParams,
 }
 
 let buildSpecific = (

@@ -170,7 +170,7 @@ type action =
   // | SetAction(id, (eventName, option<actionName>))
   | SetInput(id, option<inputName>)
   // | SetInputFileStr(id, inputName, CommonType.inputFileStr)
-  | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>))
+  | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>, array<string>))
   // | SetActionFileStr(
   //     id,
   //     Meta3dType.ContributeProtocolConfigType.eventName,

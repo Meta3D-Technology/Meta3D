@@ -52,4 +52,6 @@ type hasChildren = unit => bool
 type getUIControlSupportedEventNames = unit => array<supportedEventName>
 // type getUIControlSupportedEventNames = unit => array<(eventName, actionProtocolName)>
 
-type generateHandleUIControlEventStr = array<actionName> => string
+type actionParam
+
+type generateHandleUIControlEventStr = ( array<actionName>, array<array<actionParam>>  )=> string

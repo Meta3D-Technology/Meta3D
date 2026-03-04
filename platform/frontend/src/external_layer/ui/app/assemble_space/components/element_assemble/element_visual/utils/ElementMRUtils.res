@@ -108,7 +108,21 @@ let _generateGetUIControlsAndInputsStr = (service: AssembleSpaceType.service, ui
     (str->Js.String.includes({j`getUIControlFunc(meta3dState,"${displayName}")`}, _)
       ? ""
       : j`
+
+
+
+
+
+
+
     let ${displayName->_handleVariableName} = getUIControlFunc(meta3dState,"${displayName}")
+
+
+
+
+
+
+
     `) ++
     switch inputName {
     | None => ""
@@ -116,7 +130,21 @@ let _generateGetUIControlsAndInputsStr = (service: AssembleSpaceType.service, ui
       str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}")`}, _)
         ? ""
         : j`
+
+
+
+
+
+
+
     let ${inputName->_handleVariableName} = getInputFunc(meta3dState,"${inputName}")
+
+
+
+
+
+
+
     `
     }
   }, "")
@@ -132,14 +160,63 @@ let getActionName = (event: ElementAssembleStoreType.event, eventName) => {
   ->Meta3dCommonlib.OptionSt.toNullable
 }
 
+let getActionParam = (event: ElementAssembleStoreType.event, eventName) => {
+  event
+  ->Meta3dCommonlib.ArraySt.find(eventData => {
+    eventData.eventName === eventName
+  })
+  ->Meta3dCommonlib.OptionSt.map(({actionParams}) =>
+    Meta3dCommonlib.NullableSt.getWithDefault(actionParams->Obj.magic, [])
+  )
+  ->Meta3dCommonlib.OptionSt.toNullable
+}
+
+let _convertActionParamType = actionParam => {
+  actionParam
+  ->Meta3dCommonlib.NullableSt.map((. value) => {
+    value->Meta3dCommonlib.ArraySt.map(str => {
+      // 去除首尾空格，用于判断
+      let trimmed = Js.String.trim(str)
+
+      // 1. 判断布尔值（不区分大小写）
+      switch Js.String.toLowerCase(trimmed) {
+      | "true" => true->Obj.magic
+      | "false" => false->Obj.magic
+      | _ =>
+        // 2. 判断数字格式（正则匹配）
+        // 正则：可选符号，至少一位数字，可选小数部分，可选指数部分
+        let numRegex = %re("/^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/")
+        switch Js.String.match_(numRegex, trimmed) {
+        | Some(_) =>
+          // 匹配数字格式，使用 float 转换（此时必定成功）
+          let num = Js.Float.fromString(trimmed)
+
+          // 判断是否为整数（不包含小数点且指数部分为整数）
+          if IntUtils.isInteger(num->Obj.magic) {
+            int_of_float(num)->Obj.magic
+          } else {
+            num->Obj.magic
+          }
+        | None => str // 不是数字也不是布尔，返回原字符串
+        }
+      }
+    })
+  })
+}
+
 let _generateHandleUIControlEventStr = (service: AssembleSpaceType.service, configLib, event) => {
   service.meta3d.generateHandleUIControlEventStr(.
     configLib,
     service.meta3d.getUIControlSupportedEventNames(.
       configLib,
-      // )->Meta3dCommonlib.ArraySt.map(((  eventName, _  )) => {
     )->Meta3dCommonlib.ArraySt.map(eventName => {
       getActionName(event, eventName)
+    }),
+    service.meta3d.getUIControlSupportedEventNames(.
+      configLib,
+    )->Meta3dCommonlib.ArraySt.map(eventName => {
+      getActionParam(event, eventName)
+      -> _convertActionParamType
     }),
   )
 }
@@ -155,10 +232,45 @@ let _generateRect = (rect: ElementAssembleStoreType.rect): string => {
   let {x, y, width, height} = rect
 
   j`{
+
+
+
+
+
+
+
     x: ${_generateRectField(x)},
+
+
+
+
+
+
+
     y: ${_generateRectField(y)},
+
+
+
+
+
+
+
     width: ${_generateRectField(width)},
+
+
+
+
+
+
+
     height: ${_generateRectField(height)}
+
+
+
+
+
+
+
     }`
 }
 
@@ -200,13 +312,13 @@ let _generateSpecific = (specific: ElementAssembleStoreType.specific): string =>
           value->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
             ? {j`null,`}
             : j`${value->Obj.magic->NumberUtils.numberToString},`
-        | #rgba => 
-        // j`[
-        //   ${(value->Obj.magic)[0]->NumberUtils.numberToString},
-        // ${(value->Obj.magic)[1]->NumberUtils.numberToString},
-        // ${(value->Obj.magic)[2]->NumberUtils.numberToString}
-        // ],`
-j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
+        | #rgba =>
+          // j`[
+          //   ${(value->Obj.magic)[0]->NumberUtils.numberToString},
+          // ${(value->Obj.magic)[1]->NumberUtils.numberToString},
+          // ${(value->Obj.magic)[2]->NumberUtils.numberToString}
+          // ],`
+          j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
         | _ => "`" ++ SpecificUtils.convertValueToString(value->Obj.magic, type_) ++ "`,"
         // | _ => j`"${SpecificUtils.convertValueToString(value->Obj.magic, type_)}",`
         }
@@ -242,6 +354,13 @@ let rec _generateChildren = (service, children: array<uiControl>): string => {
     ? {j`childrenFunc:(meta3dState) => new Promise((resolve, reject) => resolve(meta3dState))`}
     : {
         let str = j`childrenFunc: (meta3dState) =>{
+
+
+
+
+
+
+
     `
         let str = str ++ _generateGetUIControlsAndInputsStr(service, children)
 
@@ -249,7 +368,21 @@ let rec _generateChildren = (service, children: array<uiControl>): string => {
           str ++
           _generateAllDrawUIControlAndHandleEventStr(service, children) ++ {
             j`
+
+
+
+
+
+
+
         return new Promise((resolve, reject) => resolve(meta3dState))
+
+
+
+
+
+
+
         `
           }
 
@@ -266,7 +399,21 @@ and _generateAllDrawUIControlAndHandleEventStr = (
         str ++
         _generateIsDrawIfBegin(data.isDraw) ++
         j`
+
+
+
+
+
+
+
                  return ${displayName->_handleVariableName}(meta3dState,
+
+
+
+
+
+
+
         ` ++
         data
         ->_getInputName
@@ -276,15 +423,78 @@ and _generateAllDrawUIControlAndHandleEventStr = (
         }) ++
         "," ++
         j`
+
+
+
+
+
+
+
         ${_generateRect(data.rect)},
+
+
+
+
+
+
+
         ` ++
         j`
+
+
+
+
+
+
+
                 {
+
+
+
+
+
+
+
         ...${_generateSpecific(data.specific)},
+
+
+
+
+
+
+
       ${_generateChildren(service, children)}
+
+
+
+
+
+
+
                 }
+
+
+
+
+
+
+
                     ).then(data =>{
+
+
+
+
+
+
+
                 meta3dState = data[0]
+
+
+
+
+
+
+
 ` ++
         _generateHandleUIControlEventStr(service, protocol.configLib, data.event),
         endCount->succ,
@@ -292,7 +502,21 @@ and _generateAllDrawUIControlAndHandleEventStr = (
     },
     (
       `
+
+
+
+
+
+
+
                 let data = null
+
+
+
+
+
+
+
   `,
       0,
     ),
@@ -300,9 +524,37 @@ and _generateAllDrawUIControlAndHandleEventStr = (
 
   let str =
     str ++ `
+
+
+
+
+
+
+
   return new Promise((resolve) => {
+
+
+
+
+
+
+
                     resolve(meta3dState)
+
+
+
+
+
+
+
                 })
+
+
+
+
+
+
+
                 `
 
   Meta3dCommonlib.ArraySt.range(0, endCount - 1)->Meta3dCommonlib.ArraySt.reduceOneParam(
@@ -358,16 +610,93 @@ let generateElementContributeFileStr = (service, mr: elementMR): string => {
 
   let str = {
     j`
+
+
+
+
+
+
+
 window.Contribute = {
+
+
+
+
+
+
+
     getContribute: (api) => {
+
+
+
+
+
+
+
         return {
+
+
+
+
+
+
+
             elementName:"${elementName}",
+
+
+
+
+
+
+
             execOrder: ${execOrder->Js.Int.toString},
+
+
+
+
+
+
+
             elementState: {},
+
+
+
+
+
+
+
             elementFunc: (meta3dState, elementState) => {
+
+
+
+
+
+
+
                 let ui = api.getPackageService(meta3dState, "meta3d-editor-whole-protocol").ui(meta3dState)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 let { getUIControlFunc, getInputFunc } = ui
+
+
+
+
+
+
+
 `
   }
 
@@ -377,17 +706,80 @@ window.Contribute = {
 
   let str =
     str ++ `
+
+
+
+
+
+
+
   return new Promise((resolve) => {
+
+
+
+
+
+
+
                     resolve(meta3dState)
+
+
+
+
+
+
+
                 })
+
+
+
+
+
+
+
   `
 
   let str =
     str ++ `
+
+
+
+
+
+
+
             }
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
   `
 
   str

@@ -1536,10 +1536,56 @@ TODO platform:common set action, input
     actionName
     fieldName
 
-    TODO UIInspector->Input, Action:
+    TODO UIInspector->Action:
       TODO add + button to add new input
       TODO pass inputs as params
+        TODO judge value type:
+          if is number string, change to number
+          if is boolean string, change to boolean
+          else, keep string
 
+      TODO run test
+        not directly refresh
+        switch not clear
+        set input not work
+
+        update event
+        update button 
+          config not update
+            remove all 1.4.1  
+            # where a?
+
+            unitmod not newest
+                remove all 1.4.1  
+
+            fix action param
+
+        # why after update debug, button config not update?
+        after publish ap->import it, button config not update
+          check import
+
+        select model error
+          update meta3d-event extension
+
+        restore close modal button
+
+      commit --amend
+
+      TODO add - button
+
+
+    TODO UIInspector->Input
+
+
+  TODO add more common Inputs, Actions
+
+
+TODO Image, Text, ... config add isNotAbsolutePosition
+
+
+# TODO css: increase UIInspector width
+TODO css: defaulty hidden middle zone
+TODO css: add button to show it
 
 
 
@@ -1569,6 +1615,14 @@ TODO refactor: modal related action, input use common one instead
 
 
 
+# TODO update package
+# event
+# ui
+# editor-whole 
+
+
+
+
 TODO publish: get value from read action state
 
 
@@ -1587,6 +1641,12 @@ TODO 选择：近战或远程
 
 ...
 
+
+** TODO update packages
+
+event
+
+unitmod
 
 
 ** TODO update ui control icons

@@ -6,6 +6,7 @@ external make: (
   ~_type: string=?,
   ~value: string=?,
   ~onChange: ReactEvent.Form.t => unit=?,
+  // ~onFocus: ReactEvent.Form.t => unit=?,
   ~onBlur: ReactEvent.Form.t => unit=?,
   ~defaultValue: string=?,
   ~placeholder: string=?,
@@ -19,6 +20,7 @@ external make: (
   ~prefix: React.element=?,
   ~size: size=?,
   ~suffix: React.element=?,
+  ~style: ReactDOM.Style.t=?,
   // ~onBlur: ReactEvent.Form.t => unit=?,
   ~onPressEnter: ReactEvent.Form.t => unit=?,
 ) => React.element = "Input"

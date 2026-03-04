@@ -14,6 +14,7 @@ let getUIControlSupportedEventNames = configLib => {
   (LibUtils.getFuncFromLib(configLib, "getUIControlSupportedEventNames")->Obj.magic)(.)
 }
 
-let generateHandleUIControlEventStr = (configLib, actionNames) => {
-  (LibUtils.getFuncFromLib(configLib, "generateHandleUIControlEventStr")->Obj.magic)(. actionNames)
+let generateHandleUIControlEventStr = (configLib, actionNames, actionParams) => {
+  // (LibUtils.getFuncFromLib(configLib, "generateHandleUIControlEventStr")->Obj.magic)(. actionNames, actionParams->Obj.magic->Js.Json.stringify)
+  (LibUtils.getFuncFromLib(configLib, "generateHandleUIControlEventStr")->Obj.magic)(. actionNames, actionParams)
 }

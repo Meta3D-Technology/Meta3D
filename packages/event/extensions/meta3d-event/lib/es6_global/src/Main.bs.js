@@ -1,7 +1,7 @@
 
 
 import * as EventManager$Meta3dEvent from "./EventManager.bs.js";
-import * as NullableSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
+import * as NullableSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/NullableSt.bs.js";
 import * as ManageEventAPIForSrc$Meta3dEvent from "./event_manager/api/ManageEventAPIForSrc.bs.js";
 import * as CreateEventManagerState$Meta3dEvent from "./event_manager/data/CreateEventManagerState.bs.js";
 
@@ -13,8 +13,8 @@ function getExtensionService(api) {
           eventSourcing: (function (meta3dState) {
               return api.getExtensionService(meta3dState, "meta3d-event-sourcing-protocol");
             }),
-          trigger: (function (param, param$1, param$2, param$3) {
-              return EventManager$Meta3dEvent.trigger(api, param, param$1, param$2, param$3);
+          trigger: (function (param, param$1, param$2, param$3, param$4) {
+              return EventManager$Meta3dEvent.trigger(api, param, param$1, param$2, param$3, param$4);
             }),
           registerAction: (function (meta3dState, actionContribute) {
               var __x = EventManager$Meta3dEvent.registerAction(api.getExtensionState(meta3dState, "meta3d-event-protocol"), actionContribute);

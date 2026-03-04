@@ -1030,6 +1030,7 @@ defineFeature(feature, test => {
           id,
           eventName,
           actionName,
+          []
         )
       },
     )
@@ -1038,7 +1039,7 @@ defineFeature(feature, test => {
       "should dispatch SetAction action",
       () => {
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-          ElementAssembleStoreType.SetAction(id, (eventName, actionName->Some))
+          ElementAssembleStoreType.SetAction(id, (eventName, actionName->Some, []))
       },
     )
   })
@@ -1061,6 +1062,7 @@ defineFeature(feature, test => {
           id,
           eventName,
           actionName,
+          []
         )
       },
     )
@@ -1069,7 +1071,7 @@ defineFeature(feature, test => {
       "should dispatch SetAction action",
       () => {
         dispatchStub.contents->SinonTool.getFirstArg(~callIndex=0, ~stub=_, ())->expect ==
-          ElementAssembleStoreType.SetAction(id, (eventName, None))
+          ElementAssembleStoreType.SetAction(id, (eventName, None, []))
       },
     )
   })

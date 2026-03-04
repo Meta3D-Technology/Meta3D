@@ -4,7 +4,8 @@ export type actionName = string;
 
 export type eventHandler<uiData> = (
     meta3dState: meta3dState,
-    uiData: uiData
+    uiData: uiData,
+    actionParam: Array<any>,
 ) => Promise<meta3dState>;
 
 export type createState<state> = (meta3dState: meta3dState) => state

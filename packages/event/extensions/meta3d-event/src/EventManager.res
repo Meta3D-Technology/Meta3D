@@ -24,6 +24,7 @@ let trigger = (
   eventExtensionProtocolName,
   actionName,
   uiData: Meta3dEventProtocol.StateType.uiData,
+  actionParams,
 ) => {
   let state: StateType.state =
     api.getExtensionState(. meta3dState, eventExtensionProtocolName)->StateType.protocolStateToState
@@ -36,7 +37,7 @@ let trigger = (
         Meta3dEventProtocol.StateType.actionState,
       >,
     ) =>
-    actionContribute.handler(meta3dState, uiData)
+    actionContribute.handler(. meta3dState, uiData,  actionParams)
   }
 }
 

@@ -1,17 +1,17 @@
 
 
-import * as Curry from "../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Js_exn from "../../../../../../../node_modules/rescript/lib/es6/js_exn.js";
-import * as Caml_js_exceptions from "../../../../../../../node_modules/rescript/lib/es6/caml_js_exceptions.js";
-import * as Log$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as OptionSt$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
+import * as Curry from "./../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Js_exn from "./../../../../../../../node_modules/rescript/lib/es6/js_exn.js";
+import * as Caml_js_exceptions from "./../../../../../../../node_modules/rescript/lib/es6/caml_js_exceptions.js";
+import * as Log$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as OptionSt$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/OptionSt.bs.js";
 import * as BodyDoService$Meta3dEvent from "./event_manager/service/dom/BodyDoService.bs.js";
 import * as CanvasDoService$Meta3dEvent from "./event_manager/service/dom/CanvasDoService.bs.js";
 import * as BrowserDoService$Meta3dEvent from "./event_manager/service/browser/BrowserDoService.bs.js";
 import * as ContainerManager$Meta3dEvent from "./event_manager/data/ContainerManager.bs.js";
 import * as InitEventDoService$Meta3dEvent from "./event_manager/service/init_event/InitEventDoService.bs.js";
 import * as NameEventDoService$Meta3dEvent from "./event_manager/service/event/NameEventDoService.bs.js";
-import * as ImmutableHashMap$Meta3dCommonlib from "../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
+import * as ImmutableHashMap$Meta3dCommonlib from "./../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/hash_map/ImmutableHashMap.bs.js";
 import * as ManageEventDoService$Meta3dEvent from "./event_manager/service/event/ManageEventDoService.bs.js";
 import * as CreateEventManagerState$Meta3dEvent from "./event_manager/data/CreateEventManagerState.bs.js";
 
@@ -22,11 +22,11 @@ function registerAction(state, actionContribute) {
         };
 }
 
-function trigger(api, meta3dState, eventExtensionProtocolName, actionName, uiData) {
+function trigger(api, meta3dState, eventExtensionProtocolName, actionName, uiData, actionParams) {
   var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
   var actionContribute = ImmutableHashMap$Meta3dCommonlib.get(state.actionContributeMap, actionName);
   if (actionContribute !== undefined) {
-    return Curry._2(actionContribute.handler, meta3dState, uiData);
+    return actionContribute.handler(meta3dState, uiData, actionParams);
   } else {
     return Promise.resolve(meta3dState);
   }

@@ -1,8 +1,11 @@
 type actionName = string
 
+type actionParam
+
 type eventHandler<'uiData> = (
-  Meta3dType.Index.state,
+  . Meta3dType.Index.state,
   'uiData,
+  actionParam,
 ) => Js.Promise.t<Meta3dType.Index.state>
 
 type createState<'state> = Meta3dType.Index.state => 'state

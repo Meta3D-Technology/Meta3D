@@ -1,10 +1,10 @@
 
 
 import * as Most from "most";
-import * as Curry from "../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
-import * as Caml_option from "../../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
-import * as Log$Meta3dCommonlib from "../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
-import * as Most$Meta3dBsMostDefault from "../../../../../../../../../../node_modules/meta3d-bs-most-default/lib/es6_global/src/most.bs.js";
+import * as Curry from "./../../../../../../../../../../node_modules/rescript/lib/es6/curry.js";
+import * as Caml_option from "./../../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Log$Meta3dCommonlib from "./../../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/log/Log.bs.js";
+import * as Most$Meta3dBsMostDefault from "./../../../../../../../../../../node_modules/meta3d-bs-most-default/lib/es6_global/src/most.bs.js";
 import * as BodyDoService$Meta3dEvent from "../dom/BodyDoService.bs.js";
 import * as BrowserDoService$Meta3dEvent from "../browser/BrowserDoService.bs.js";
 import * as ContainerManager$Meta3dEvent from "../../data/ContainerManager.bs.js";
@@ -123,21 +123,11 @@ function _bindTouchEventToTriggerPointEvent(state, touchEventName, customEventNa
 }
 
 function bindDomEventToTriggerPointEvent(stateForEventHandler, browser) {
-  if (browser < 2) {
+  if (browser === 3 || browser === 2) {
+    return _bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(stateForEventHandler, /* TouchTap */12, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* TouchEnd */13, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* TouchStart */15, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* TouchMove */14, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* TouchDragStart */16, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* TouchDragOver */17, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* TouchDragDrop */18, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
+  } else {
     return _bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(_bindMouseEventToTriggerPointEvent(stateForEventHandler, /* Click */1, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* MouseUp */3, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* MouseDown */2, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* MouseWheel */5, NameEventDoService$Meta3dEvent.getPointScaleEventName(undefined), /* PointScale */4), /* MouseMove */4, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* MouseDragStart */6, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* MouseDragOver */7, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* MouseDragDrop */8, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
   }
-  if (browser >= 4) {
-    throw {
-          RE_EXN_ID: "Match_failure",
-          _1: [
-            "InitEventDoService.res",
-            99,
-            2
-          ],
-          Error: new Error()
-        };
-  }
-  return _bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(_bindTouchEventToTriggerPointEvent(stateForEventHandler, /* TouchTap */12, NameEventDoService$Meta3dEvent.getPointTapEventName(undefined), /* PointTap */0), /* TouchEnd */13, NameEventDoService$Meta3dEvent.getPointUpEventName(undefined), /* PointUp */2), /* TouchStart */15, NameEventDoService$Meta3dEvent.getPointDownEventName(undefined), /* PointDown */1), /* TouchMove */14, NameEventDoService$Meta3dEvent.getPointMoveEventName(undefined), /* PointMove */3), /* TouchDragStart */16, NameEventDoService$Meta3dEvent.getPointDragStartEventName(undefined), /* PointDragStart */5), /* TouchDragOver */17, NameEventDoService$Meta3dEvent.getPointDragOverEventName(undefined), /* PointDragOver */6), /* TouchDragDrop */18, NameEventDoService$Meta3dEvent.getPointDragDropEventName(undefined), /* PointDragDrop */7);
 }
 
 function _preventContextMenuEvent($$event) {

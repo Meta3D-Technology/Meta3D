@@ -33,7 +33,7 @@ export type eventData<inputData> = {
 
 // type handleFunc<inputData extends Array<singleInputData>, outputData extends Array<any>> = (meta3dState: meta3dState, ...inputData: inputData) =>
 //     getOuptputData<outputData>
-type handleFunc<inputData extends Array<singleInputData>> = (meta3dState: meta3dState, ...inputData: inputData) => Promise<meta3dState>
+type handleFunc<inputData extends Array<singleInputData>> = (meta3dState: meta3dState, inputData: inputData) => Promise<meta3dState>
 
 export type service = {
     init: (meta3dState: meta3dState) => meta3dState,

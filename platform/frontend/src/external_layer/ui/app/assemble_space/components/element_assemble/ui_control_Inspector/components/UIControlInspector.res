@@ -152,11 +152,16 @@ module Method = {
     id,
     eventName: Meta3dType.UIControlProtocolConfigType.supportedEventName,
     actionName: string,
+    actionParams,
   ) => {
     dispatch(
       ElementAssembleStoreType.SetAction(
         id,
-        (eventName, SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName)),
+        (
+          eventName,
+          SelectUtils.isEmptySelectOptionValue(actionName) ? None : Some(actionName),
+          actionParams,
+        ),
       ),
     )
   }
@@ -607,15 +612,14 @@ module Method = {
             ), (
               SpecificUtils.getSpecificDataValue(value)->Obj.magic
             )["data"]->Meta3dCommonlib.ArraySt.map(valueData => valueData["value"]))
-          | #number 
+          | #number
           | #nullableNumber =>
             <InputNumber
               key={name}
               value={SpecificUtils.getSpecificDataValue(value)
               ->Obj.magic
               ->Meta3dCommonlib.NullableSt.isNullable
-                ? 100000
-              ->Obj.magic
+                ? 100000->Obj.magic
                 : SpecificUtils.getSpecificDataValue(value)->Obj.magic}
               step="0.0001"
               onChange={value => {
@@ -896,6 +900,11 @@ let make = (
               event,
               eventName,
             )->Meta3dCommonlib.NullableSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue())
+          let params =
+            ElementMRUtils.getActionParam(
+              event,
+              eventName,
+            )->Meta3dCommonlib.NullableSt.getWithDefault([])
 
           <List.Item key={eventName->Obj.magic}>
             <Space direction=#vertical size=#middle>
@@ -904,7 +913,7 @@ let make = (
                 <section ref={actionSelectTarget->Obj.magic}>
                   {SelectUtils.buildSelect(
                     value => {
-                      Method.setAction(dispatch, id, eventName, value)
+                      Method.setAction(dispatch, id, eventName, value, params)
                       eventEmitter.emit(.
                         EventUtils.getSelectActionInUIControlInspectorEventName(),
                         value->Obj.magic,
@@ -922,6 +931,40 @@ let make = (
                     actionNameSelectValues,
                   )}
                 </section>
+                <Button
+                  icon={<Icon.PlusCircleOutlined />}
+                  onClick={_ => {
+                    // setActionParams(params =>
+                    //   params->Meta3dCommonlib.ArraySt.copy->Meta3dCommonlib.ArraySt.push("")
+                    // )
+                    Method.setAction(
+                      dispatch,
+                      id,
+                      eventName,
+                      value,
+                      params->Meta3dCommonlib.ArraySt.copy->Meta3dCommonlib.ArraySt.push(""),
+                    )
+                  }}>
+                  // {React.string(`+`)}
+                </Button>
+                {<>
+                  {React.array(
+                    params->Meta3dCommonlib.ArraySt.mapi((param, i) => {
+                      <Input
+                        // key={KeyUtils.generateUniqueKey(Js.Math.random)}
+                        key={`actionParam: ${i ->Obj.magic}`}
+                        value={param}
+                        style={ReactDOM.Style.make(~width="100px", ())}
+                        onChange={e => {
+                          let params = params->Meta3dCommonlib.ArraySt.copy
+                          params[i] = e->EventUtils.getEventTargetValue
+
+                          Method.setAction(dispatch, id, eventName, value, params)
+                        }}
+                      />
+                    }),
+                  )}
+                </>}
               </Space>}
               // {TextareaUtils.isNotShowTextareaForTest()
               //   ? React.null

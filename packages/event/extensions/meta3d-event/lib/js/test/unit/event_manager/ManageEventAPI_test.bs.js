@@ -3,6 +3,7 @@
 var Curry = require("rescript/lib/js/curry.js");
 var Sinon = require("meta3d-bs-sinon/lib/js/src/sinon.bs.js");
 var Sinon$1 = require("sinon");
+var Caml_obj = require("rescript/lib/js/caml_obj.js");
 var Main$Meta3d = require("meta3d/lib/js/src/Main.bs.js");
 var Meta3d_jest = require("meta3d-bs-jest/lib/js/src/meta3d_jest.bs.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
@@ -49,33 +50,17 @@ Meta3d_jest.describe("ManageEventAPI", (function (param) {
                       }));
                 Meta3d_jest.describe("test custom global event2", (function (param) {
                         var _buildAPI = function (param) {
-                          var init = Main$Meta3d.buildAPI(undefined);
-                          return {
-                                  registerExtension: init.registerExtension,
-                                  getExtensionService: init.getExtensionService,
-                                  getExtensionState: (function (meta3dState, extensionProtocolName) {
-                                      return {
-                                              actionContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
-                                              eventManagerState: ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))
-                                            };
-                                    }),
-                                  setExtensionState: (function (meta3dState, extensionProtocolName, extensionState) {
-                                      return meta3dState;
-                                    }),
-                                  getPackageService: init.getPackageService,
-                                  registerContribute: init.registerContribute,
-                                  getContribute: init.getContribute,
-                                  getAllContributesByType: init.getAllContributesByType,
-                                  getPackage: init.getPackage,
-                                  restore: init.restore,
-                                  deepCopy: init.deepCopy,
-                                  nullable: init.nullable,
-                                  immutable: init.immutable,
-                                  action: init.action,
-                                  uiControl: init.uiControl,
-                                  backend: init.backend,
-                                  message: init.message
-                                };
+                          var newrecord = Caml_obj.obj_dup(Main$Meta3d.buildAPI(undefined));
+                          newrecord.setExtensionState = (function (meta3dState, extensionProtocolName, extensionState) {
+                              return meta3dState;
+                            });
+                          newrecord.getExtensionState = (function (meta3dState, extensionProtocolName) {
+                              return {
+                                      actionContributeMap: ImmutableHashMap$Meta3dCommonlib.createEmpty(undefined, undefined),
+                                      eventManagerState: ContainerManager$Meta3dEvent.getState(EventExtensionTool$Meta3dEvent.buildEventExtentsionProtocolName(undefined))
+                                    };
+                            });
+                          return newrecord;
                         };
                         Meta3d_jest.test("test", (function (param) {
                                 var value = {

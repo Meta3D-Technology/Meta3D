@@ -194,8 +194,8 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       hasChildren: (. configLib) => Meta3d.Main.hasChildren(configLib),
       getUIControlSupportedEventNames: (. configLib) =>
         Meta3d.Main.getUIControlSupportedEventNames(configLib),
-      generateHandleUIControlEventStr: (. configLib, actionNames) =>
-        Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames),
+      generateHandleUIControlEventStr: (. configLib, actionNames,actionParams) =>
+        Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames, actionParams),
       // serializeActionProtocolConfigLib: (. protocolConfigStr) =>
       //   Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
       // getActions: (. configLib) => Meta3d.Main.getActions(configLib),

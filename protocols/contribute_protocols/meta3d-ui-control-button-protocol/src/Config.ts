@@ -30,13 +30,13 @@ export let hasChildren: hasChildrenMeta3D = () => false
 export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["button_click"]
 // export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => [["click", "meta3d-action-button-click-protocol"]]
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([clickActionName]) => {
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([clickActionName], [clickActionParams]) => {
     if (!isNullable(clickActionName)) {
         return `
                 if (data[1]) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${clickActionName}", null)
+                    return trigger(meta3dState, "meta3d-event-protocol", "${clickActionName}", null, JSON.parse('${JSON.stringify(clickActionParams)}'))
                 }
                 `
     }
