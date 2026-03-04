@@ -52,6 +52,10 @@ import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
 //     //     })
 // }
 
+let _getPathPrefix = () => {
+    return "/unit-mod/asset-lib/unit-model/asset"
+}
+
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
         actionName: actionName,
@@ -63,67 +67,48 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             //     info: isChinese ? api.nullable.return("加载中...") : api.nullable.return("Loading...")
             // })
 
-            // api.flow.deferExec(api, (meta3dState) => {
-            //     // return _buildAllDefaultCareerFeatures(api).then(data => {
-            //     //     let allDefaultCareerFeatures = api.immutable.createListOfData(data)
+            api.flow.deferExec(api, (meta3dState) => {
+                return reducePromise(
+                    Array.from(api.immutable.createMapOfData(getAllModelData()).entries()),
+                    (result, [category, models]) => {
+                        return reducePromise(
+                            models,
+                            (result, modelData) => {
+                                return new Promise((resolve, reject) => {
+                                    imageSrcToBase64(
+                                        resolve,
+                                        reject,
+                                        getModelSnapshotPath(_getPathPrefix(), category, modelData.model)
 
-            //     //     return api.action.setActionState(meta3dState, actionName, {
-            //     //         ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-            //     //         allDefaultCareerFeatures: allDefaultCareerFeatures,
-            //     //     })
-            //     // })
-            //     //     .then(meta3dState => {
-            //     //         return api.action.setActionState(meta3dState, infoActionName, {
-            //     //             ...api.nullable.getExn(api.action.getActionState<infoState>(meta3dState, infoActionName)),
-            //     //             info: api.nullable.getEmpty()
-            //     //         })
-            //     //     })
-            //     // let allDefaultCareerFeatures = api.immutable.createListOfData(data)
+                                    )
+                                }).then((imageBase64) => {
+                                    return result.concat({
+                                        ...modelData,
+                                        snapshotImageBase64: imageBase64,
+                                    })
+                                })
+                            },
+                            []
+                        ).then(newModels => {
+                            return result.set(category, newModels)
+                        })
+                    },
+                    api.immutable.createMap()
+                ).then(newAllModelData => {
+                    meta3dState = api.action.setActionState(meta3dState, actionName, {
+                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                        allModelData: newAllModelData
+                    })
 
-            //     return api.action.setActionState(meta3dState, actionName, {
-            //         ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-            //         allModelData: getAllModelData(),
-            //     })
-
-            // })
+                    return meta3dState
+                })
+            })
 
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    return reducePromise(
-                        Array.from(api.immutable.createMapOfData(getAllModelData()).entries()),
-                        (result, [category, models]) => {
-                            return reducePromise(
-                                models,
-                                (result, modelData) => {
-                                    return new Promise((resolve, reject) => {
-                                        imageSrcToBase64(
-                                            resolve,
-                                            reject,
-                                            getModelSnapshotPath(category, modelData.model)
-                                        )
-                                    }).then((imageBase64) => {
-                                        return result.concat({
-                                            ...modelData,
-                                            snapshotImageBase64: imageBase64,
-                                        })
-                                    })
-                                },
-                                []
-                            ).then(newModels => {
-                                return result.set(category, newModels)
-                            })
-                        },
-                        api.immutable.createMap()
-                    ).then(newAllModelData => {
-                        meta3dState = api.action.setActionState(meta3dState, actionName, {
-                            ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                            allModelData: newAllModelData
-                        })
-
-                        return meta3dState
-                    })
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
+                    return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
                     return Promise.resolve(meta3dState)
                 }))

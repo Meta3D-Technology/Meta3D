@@ -8,10 +8,8 @@ export let getAllModelData = () => {
     }
 }
 
-let _getPathPrefix = (category_: category) => `./unit-model/src/asset/${category_.toLowerCase()}`
-
-export let getModelSnapshotPath = (category: category, model: model) => {
+export let getModelSnapshotPath = (pathPrefix, category: category, model: model) => {
     let model_ = model.toLowerCase()
 
-    return `${_getPathPrefix(category)}/snapshot_${model_}.png`
+    return `${pathPrefix}/${category.toLowerCase()}/snapshot_${model_}.png`
 }

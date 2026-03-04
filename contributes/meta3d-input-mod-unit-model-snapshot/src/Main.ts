@@ -13,11 +13,11 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                     api.nullable.bind(({ allModelData, selectedModelIndex }) => {
                         let category = api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)).category
 
-                        let modelData = api.nullable.getExn(allModelData.get(category))
-
-                        return api.nullable.map(selectedModelIndex => {
-                            return modelData[selectedModelIndex].snapshotImageBase64
-                        }, selectedModelIndex)
+                        return api.nullable.bind(modelData => {
+                            return api.nullable.bind(selectedModelIndex => {
+                                return modelData[selectedModelIndex].snapshotImageBase64
+                            }, selectedModelIndex)
+                        }, allModelData.get(category))
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)
                     ),

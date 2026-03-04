@@ -21,12 +21,15 @@ let _loadImages = (
             return loadImage(meta3dState, itemWithImageBase64.imageBase64).then((texture: any) => {
                 meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                     ...state,
-                    gridTextures: [...state.gridTextures, texture],
+                    gridTextures: [...state.gridTextures, {
+                        texture,
+                        name: itemWithImageBase64.name,
+                    }],
                 })
 
                 return meta3dState
             })
-        }, Promise.resolve(meta3dState))
+        }, meta3dState)
     }
     else {
         promise = Promise.resolve(meta3dState)
@@ -75,7 +78,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                     if (gridTextures.length > 0) {
-                        let data = grid(meta3dState, gridTextures, columnCount, cellWidth, totalHeight)
+                        let data = grid(meta3dState, label, gridTextures, columnCount, cellWidth, totalHeight)
                         meta3dState = data[0]
                         let selectedIndex = data[1]
 

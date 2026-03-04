@@ -544,18 +544,17 @@ export let getExtensionService: getExtensionServiceMeta3D<
             return newValue
 
         },
-        grid: (items, columnCount, cellWidth, totalHeight) => {
+        grid: (label, items, columnCount, cellWidth, totalHeight) => {
             let selectedIndex: nullable<number> = null
 
-            let id = _generateUniqueId()
-
             // 1. 创建一个可滚动的子窗口，大小可以根据需要调整（例如窗口剩余区域）
-            ImGui.BeginChild(id, new ImGui.ImVec2(0, totalHeight), false);
+            // ImGui.BeginChild(id, new ImGui.ImVec2(0, totalHeight), false);
+            ImGui.BeginChild(label, new ImGui.ImVec2(cellWidth * columnCount, totalHeight), false);
             // 参数：子窗口名称，大小（0表示占满剩余宽度，300像素高度），边框标志
 
             // 2. 遍历所有项目
             for (let i = 0; i < items.length; ++i) {
-                ImGui.PushID(id + i.toString());  // 保证每个单元格的控件ID唯一
+                ImGui.PushID(label + i.toString());  // 保证每个单元格的控件ID唯一
 
                 // 开始一个组，将图片和文字组合在一起
                 ImGui.BeginGroup();

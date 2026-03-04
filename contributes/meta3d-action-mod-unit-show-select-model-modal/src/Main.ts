@@ -13,7 +13,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
                     meta3dState = api.action.setActionState(meta3dState, initActionName, {
-                        ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, actionName)),
+                        ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
                         isShowModelModal: true,
                     })
 

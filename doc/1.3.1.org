@@ -1519,13 +1519,20 @@ TODO run test
 
 
 
+TODO update package
+ui
+
+editor-whole 
 
 
-TODO set value
-  TODO judge getCategory when by editor to invoke update api
 
-  # TODO new form ui?
-  TODO common set action, input
+
+
+TODO platform: should allow "publish editor assemble with edit package debug"
+
+
+
+TODO platform:common set action, input
     actionName
     fieldName
 
@@ -1534,9 +1541,24 @@ TODO set value
       TODO pass inputs as params
 
 
+
+
+
+TODO set value
+  # TODO new form ui?
+  TODO common set action, input
+
     TODO add common get field input
 
     TODO add common set field action
+
+
+  TODO judge getCategory when by editor to invoke update api
+
+  TODO 默认值为通用值
+
+  TODO 可能没上限
+
 
 
 
@@ -1553,21 +1575,19 @@ TODO publish: get value from read action state
 
 
 
-TODO tab
+# TODO tab
 
 
 
 TODO skill
 
+TODO 选择：近战或远程
+
+
 
 ...
 
 
-
-** TODO update package
-ui
-
-editor-whole 
 
 ** TODO update ui control icons
 

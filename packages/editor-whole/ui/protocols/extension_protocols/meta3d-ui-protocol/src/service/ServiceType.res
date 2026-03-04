@@ -286,6 +286,7 @@ type service = {
   ) => (Meta3dType.Index.state, Js.Nullable.t<string>),
   grid: (
     Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
     array<{"texture": Meta3dImguiRendererProtocol.ServiceType.imguiImplTexture, "name": string}>,
     int,
     int,

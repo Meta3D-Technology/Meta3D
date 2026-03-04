@@ -1015,13 +1015,13 @@ let inputTextarea = (data, meta3dState, label, (width, height), maxLength, text)
   )
 }
 
-let grid = (data, meta3dState, items, columnCount, cellWidth, totalHeight) => {
+let grid = (data, meta3dState,label, items, columnCount, cellWidth, totalHeight) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
       (
         imguiRendererState,
-        imguiRendererService.grid(. items, columnCount, cellWidth, totalHeight),
+        imguiRendererService.grid(. label, items, columnCount, cellWidth, totalHeight),
       )
     },
     data,

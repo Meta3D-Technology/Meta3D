@@ -120,7 +120,11 @@ module.exports = {
                 {
                     from: 'static/',
                     to: 'static/'
-                }
+                },
+                {
+                    from: 'unit-mod/',
+                    to: 'unit-mod/'
+                },
             ],
         }),
         new MonacoWebpackPlugin({
