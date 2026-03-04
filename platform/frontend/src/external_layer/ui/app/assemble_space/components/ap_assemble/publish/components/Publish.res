@@ -237,7 +237,8 @@ module Method = {
       ->Meta3dCommonlib.OptionSt.fromNullable
       ->Meta3dCommonlib.OptionSt.getWithDefault(previousAppName)
 
-    let appDescription = values["appDescription"]
+    let appDescription =
+      values["appDescription"]
       ->Obj.magic
       ->Meta3dCommonlib.OptionSt.fromNullable
       ->Meta3dCommonlib.OptionSt.getWithDefault("Empty")
@@ -261,16 +262,15 @@ module Method = {
 
           ()->Js.Promise.resolve
         }
-      : isChangeSelectedPackagesByDebug
-      ? {
-        service.console.error(.
-          {j`Debug时修改了selectedPackages数据，请将对应的包更新为最新版本`},
-          None,
-        )
-
-        ()->Js.Promise.resolve
-      }
       : {
+          if isChangeSelectedPackagesByDebug {
+            service.console.warn(.
+              {
+                j`Debug时修改了selectedPackages数据，请将对应的包更新为最新版本`
+              },
+              None,
+            )
+          }
           //  selectedElementsFromMarket->Meta3dCommonlib.ListSt.length > 1
           // ? {
           //   service.console.error(.
@@ -357,16 +357,16 @@ module Method = {
 
                   eventEmitter.emit(. EventUtils.getPublishAppEventName(), Obj.magic(1))
 
-                  // previousAppName == appName
-                  //   ? dispatchForAppStore(
-                  //       AppStoreType.UserCenterAction(
-                  //         UserCenterStoreType.MarkNotUseCacheForFindApp,
-                  //       ),
-                  //     )
-                  //   : ()
-
                   ()->Js.Promise.resolve
                 },
+                // previousAppName == appName
+                //   ? dispatchForAppStore(
+                //       AppStoreType.UserCenterAction(
+                //         UserCenterStoreType.MarkNotUseCacheForFindApp,
+                //       ),
+                //     )
+                //   : ()
+
                 // handleWhenPublishFunc()
 
                 _,
