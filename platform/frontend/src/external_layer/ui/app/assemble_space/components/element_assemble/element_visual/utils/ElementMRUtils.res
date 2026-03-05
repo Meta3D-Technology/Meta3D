@@ -147,16 +147,17 @@ let _generateGetUIControlsAndInputsStr = (service: AssembleSpaceType.service, ui
       ? ""
       : j`
     let ${displayName->_handleVariableName} = getUIControlFunc(meta3dState,"${displayName}")
-    `) ++
-    switch inputName {
-    | None => ""
-    | Some(inputName) =>
-      str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}")`}, _)
-        ? ""
-        : j`
-    let ${inputName->_handleVariableName} = getInputFunc(meta3dState,"${inputName}", JSON.parse('${Js.Json.stringify(inputParams->Obj.magic)}'))
-    `
-    }
+    `)
+    //  ++
+    // switch inputName {
+    // | None => ""
+    // | Some(inputName) =>
+    //   str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}"`}, _)
+    //     ? ""
+    //     : j`
+    // let ${inputName->_handleVariableName} = getInputFunc(meta3dState,"${inputName}", JSON.parse('${Js.Json.stringify(inputParams->Obj.magic)}'))
+    // `
+    // }
   }, "")
   // ->Meta3dCommonlib.Log.printForDebug
 }
@@ -373,32 +374,34 @@ and _generateAllDrawUIControlAndHandleEventStr = (
 ) => {
   let (str, endCount) = uiControls->Meta3dCommonlib.ArraySt.reduceOneParam(
     (. (str, endCount), {displayName, protocol, data, children}) => {
+    let inputName = data->getInputName
+    let inputParams = data->getInputParam -> Meta3dCommonlib.OptionSt.toNullable-> _convertParamType -> Meta3dCommonlib.NullableSt.getWithDefault([])
+
       (
         str ++
         _generateIsDrawIfBegin(data.isDraw) ++
         j`
-
-
-
-
-
-
-
                  return ${displayName->_handleVariableName}(meta3dState,
-
-
-
-
-
-
-
         ` ++
-        data
-        ->getInputName
-        ->Meta3dCommonlib.OptionSt.map(_handleVariableName)
-        ->Meta3dCommonlib.OptionSt.getWithDefault({
+        // data
+        // ->getInputName
+        // ->Meta3dCommonlib.OptionSt.map(_handleVariableName)
+        // ->Meta3dCommonlib.OptionSt.getWithDefault({
+        //   j`null`
+        // })
+    switch inputName {
+    | None => {
           j`null`
-        }) ++
+        }
+    | Some(inputName) =>
+      // str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}"`}, _)
+      //   ? ""
+      //   : 
+        j`
+    getInputFunc(meta3dState,"${inputName}", JSON.parse('${Js.Json.stringify(inputParams->Obj.magic)}'))
+    `
+    }
+         ++
         "," ++
         j`
 
