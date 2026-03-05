@@ -19,6 +19,11 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         value: "图片弹出框##" + _generateUniqueId()
     },
     {
+        name: "isNotAbsolutePosition",
+        type_: "bool",
+        value: false
+    },
+    {
         name: "image",
         type_: "imageBase64",
         value: null

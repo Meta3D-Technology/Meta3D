@@ -9,6 +9,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             getInputFunc,
             rect,
             {
+                isNotAbsolutePosition
             }
         ) => {
             if (api.nullable.isNullable(getInputFunc)) {
@@ -21,8 +22,11 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 }
 
                 text_ = api.nullable.getExn(text_)
+                let { text, setCursorPos } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-                let { text } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+                if (!isNotAbsolutePosition) {
+                    meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+                }
 
                 return [text(meta3dState, text_), null]
             })

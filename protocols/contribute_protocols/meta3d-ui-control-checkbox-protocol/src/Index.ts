@@ -9,6 +9,7 @@ export type inputFunc = nullable<func>
 
 export type specificData = {
     label: string,
+    isNotAbsolutePosition: boolean
     isSelect: boolean,
 }
 

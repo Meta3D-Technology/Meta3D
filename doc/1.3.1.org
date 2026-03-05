@@ -1588,6 +1588,8 @@ TODO css: add button to show it
 TODO Image, Text, ... config add isNotAbsolutePosition
 
 
+# TODO fix: handle duplicate Input(e.g. Image)
+
 
 
 TODO set value

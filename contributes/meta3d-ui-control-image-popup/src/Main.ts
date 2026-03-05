@@ -42,6 +42,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             rect,
             {
                 label,
+                isNotAbsolutePosition,
                 image,
                 id
             }
@@ -68,7 +69,11 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     label,
                     image,
                 ).then(meta3dState => {
-                    let { imagePopup } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+                    let { imagePopup, setCursorPos } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+
+                    if (!isNotAbsolutePosition) {
+                        meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+                    }
 
                     let { clickTexture } = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 

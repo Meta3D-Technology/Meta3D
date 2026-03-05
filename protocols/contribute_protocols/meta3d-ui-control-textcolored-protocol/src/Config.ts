@@ -7,6 +7,11 @@ import {
 
 export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D = () => [
     {
+        name: "isNotAbsolutePosition",
+        type_: "bool",
+        value: false
+    },
+    {
         name: "color",
         type_: "rgba",
         value: [1.0, 1.0, 1.0, 1.0]

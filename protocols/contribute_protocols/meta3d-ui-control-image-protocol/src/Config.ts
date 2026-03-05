@@ -16,7 +16,12 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         name: "label",
         type_: "string",
         value: "图片##" + _generateUniqueId()
-    }
+    },
+    {
+        name: "isNotAbsolutePosition",
+        type_: "bool",
+        value: false
+    },
 ]
 
 export let hasChildren: hasChildrenMeta3D = () => false

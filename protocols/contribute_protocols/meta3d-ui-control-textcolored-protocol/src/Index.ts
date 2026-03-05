@@ -9,6 +9,7 @@ export type state = null
 export type inputFunc = nullable<func>
 
 export type specificData = {
+    isNotAbsolutePosition: boolean,
     color: [number, number, number, number]
 }
 

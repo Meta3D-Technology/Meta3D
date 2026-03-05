@@ -8,9 +8,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
         uiControlName: uiControlName,
         func: (meta3dState,
             getInputFunc,
-            _,
+            rect,
             {
                 label,
+                isNotAbsolutePosition,
                 isSelect
             }
         ) => {
@@ -23,7 +24,11 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             }
 
             return inputPromise.then(isSelect => {
-                let { checkbox } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+                let { checkbox, setCursorPos } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+
+                if (!isNotAbsolutePosition) {
+                    meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+                }
 
                 let data = checkbox(meta3dState, label, isSelect)
                 meta3dState = data[0]

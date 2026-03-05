@@ -14,6 +14,7 @@ export type inputFunc = null
 
 export type specificData = {
     label: string,
+    isNotAbsolutePosition: boolean
     image: nullable<imageBase64>,
 }
 

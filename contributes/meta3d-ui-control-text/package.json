@@ -1,6 +1,6 @@
 {
     "name": "meta3d-ui-control-text",
-    "version": "1.3.2",
+    "version": "1.3.3",
     "displayName": "文字",
     "publisher": "meta3d",
     "description": "",
@@ -19,7 +19,7 @@
     "dependencies": {
         "meta3d-editor-whole-protocol": "^1.3.0",
         "meta3d-type": "^1.3.0",
-        "meta3d-ui-control-text-protocol": "^1.3.0"
+        "meta3d-ui-control-text-protocol": "^1.3.6"
     },
     "devDependencies": {
         "clean-webpack-plugin": "^4.0.0",

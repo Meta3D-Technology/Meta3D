@@ -1,4 +1,4 @@
-import { state as meta3dState,  api, getContribute as getContributeMeta3D } from "meta3d-type"
+import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputFunc, specificData, outputData, uiControlName, state, imageBase64 } from "meta3d-ui-control-image-button-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { nullable } from "meta3d-commonlib-ts/src/nullable"
@@ -41,6 +41,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             rect,
             {
                 label,
+                isNotAbsolutePosition,
                 image,
             }
         ) => {
@@ -59,7 +60,9 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             ).then(meta3dState => {
                 let { imageButton, setCursorPos } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-                meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+                if (!isNotAbsolutePosition) {
+                    meta3dState = setCursorPos(meta3dState, [rect.x, rect.y])
+                }
 
                 let { clickTexture } = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
 

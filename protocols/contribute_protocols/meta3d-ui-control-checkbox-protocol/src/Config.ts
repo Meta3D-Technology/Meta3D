@@ -19,6 +19,11 @@ export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D 
         value: "复选框##" + _generateUniqueId()
     },
     {
+        name: "isNotAbsolutePosition",
+        type_: "bool",
+        value: false
+    },
+    {
         name: "isSelect",
         type_: "bool",
         value: false

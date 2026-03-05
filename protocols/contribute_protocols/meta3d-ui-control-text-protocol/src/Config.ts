@@ -5,7 +5,13 @@ import {
     getUIControlSupportedEventNames as getUIControlSupportedEventNamesMeta3D, generateHandleUIControlEventStr as generateHandleUIControlEventStrMeta3D
 } from "meta3d-type/src/contribute/UIControlProtocolConfigType"
 
-export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D = () => []
+export let getUIControlSpecificDataFields: getUIControlSpecificDataFieldsMeta3D = () => [
+    {
+        name: "isNotAbsolutePosition",
+        type_: "bool",
+        value: false
+    },
+]
 
 export let hasChildren: hasChildrenMeta3D = () => false
 
