@@ -947,6 +947,18 @@ let make = (
                   }}>
                   // {React.string(`+`)}
                 </Button>
+                <Button
+                  icon={<Icon.DeleteOutlined />}
+                  onClick={_ => {
+                    Method.setAction(
+                      dispatch,
+                      id,
+                      eventName,
+                      value,
+                      []
+                    )
+                  }}>
+                </Button>
                 {<>
                   {React.array(
                     params->Meta3dCommonlib.ArraySt.mapi((param, i) => {
