@@ -88,91 +88,20 @@ elementMR => {
   }
 }
 
-let _getInputName = (data: ElementAssembleStoreType.uiControlInspectorData) => {
+let getInputName = (data: ElementAssembleStoreType.uiControlInspectorData) => {
   data.input->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+}
+
+let getInputParam = (data: ElementAssembleStoreType.uiControlInspectorData) => {
+  data.input->Meta3dCommonlib.OptionSt.map(input => input.inputParams)
 }
 
 let _handleVariableName = variableName => {
   variableName->Js.String.replaceByRe(%re("/-/g"), "_", _)
 }
 
-let _generateGetUIControlsAndInputsStr = (service: AssembleSpaceType.service, uiControls) => {
-  uiControls
-  // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
-  //   displayName
-  // })
-  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, data}) => {
-    let inputName = data->_getInputName
-
-    str ++
-    (str->Js.String.includes({j`getUIControlFunc(meta3dState,"${displayName}")`}, _)
-      ? ""
-      : j`
-
-
-
-
-
-
-
-    let ${displayName->_handleVariableName} = getUIControlFunc(meta3dState,"${displayName}")
-
-
-
-
-
-
-
-    `) ++
-    switch inputName {
-    | None => ""
-    | Some(inputName) =>
-      str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}")`}, _)
-        ? ""
-        : j`
-
-
-
-
-
-
-
-    let ${inputName->_handleVariableName} = getInputFunc(meta3dState,"${inputName}")
-
-
-
-
-
-
-
-    `
-    }
-  }, "")
-  // ->Meta3dCommonlib.Log.printForDebug
-}
-
-let getActionName = (event: ElementAssembleStoreType.event, eventName) => {
-  event
-  ->Meta3dCommonlib.ArraySt.find(eventData => {
-    eventData.eventName === eventName
-  })
-  ->Meta3dCommonlib.OptionSt.map(({actionName}) => actionName)
-  ->Meta3dCommonlib.OptionSt.toNullable
-}
-
-let getActionParam = (event: ElementAssembleStoreType.event, eventName) => {
-  event
-  ->Meta3dCommonlib.ArraySt.find(eventData => {
-    eventData.eventName === eventName
-  })
-  ->Meta3dCommonlib.OptionSt.map(({actionParams}) =>
-    Meta3dCommonlib.NullableSt.getWithDefault(actionParams->Obj.magic, [])
-  )
-  ->Meta3dCommonlib.OptionSt.toNullable
-}
-
-let _convertActionParamType = actionParam => {
-  actionParam
+let _convertParamType = param => {
+  param
   ->Meta3dCommonlib.NullableSt.map((. value) => {
     value->Meta3dCommonlib.ArraySt.map(str => {
       // 去除首尾空格，用于判断
@@ -204,6 +133,55 @@ let _convertActionParamType = actionParam => {
   })
 }
 
+let _generateGetUIControlsAndInputsStr = (service: AssembleSpaceType.service, uiControls) => {
+  uiControls
+  // ->Meta3dCommonlib.ArraySt.removeDuplicateItemsWithBuildKeyFunc((. {displayName}) => {
+  //   displayName
+  // })
+  ->Meta3dCommonlib.ArraySt.reduceOneParam((. str, {displayName, data}) => {
+    let inputName = data->getInputName
+    let inputParams = data->getInputParam -> Meta3dCommonlib.OptionSt.toNullable-> _convertParamType -> Meta3dCommonlib.NullableSt.getWithDefault([])
+
+    str ++
+    (str->Js.String.includes({j`getUIControlFunc(meta3dState,"${displayName}")`}, _)
+      ? ""
+      : j`
+    let ${displayName->_handleVariableName} = getUIControlFunc(meta3dState,"${displayName}")
+    `) ++
+    switch inputName {
+    | None => ""
+    | Some(inputName) =>
+      str->Js.String.includes({j`getInputFunc(meta3dState,"${inputName}")`}, _)
+        ? ""
+        : j`
+    let ${inputName->_handleVariableName} = getInputFunc(meta3dState,"${inputName}", JSON.parse('${Js.Json.stringify(inputParams->Obj.magic)}'))
+    `
+    }
+  }, "")
+  // ->Meta3dCommonlib.Log.printForDebug
+}
+
+let getActionName = (event: ElementAssembleStoreType.event, eventName) => {
+  event
+  ->Meta3dCommonlib.ArraySt.find(eventData => {
+    eventData.eventName === eventName
+  })
+  ->Meta3dCommonlib.OptionSt.map(({actionName}) => actionName)
+  ->Meta3dCommonlib.OptionSt.toNullable
+}
+
+let getActionParam = (event: ElementAssembleStoreType.event, eventName) => {
+  event
+  ->Meta3dCommonlib.ArraySt.find(eventData => {
+    eventData.eventName === eventName
+  })
+  ->Meta3dCommonlib.OptionSt.map(({actionParams}) =>
+    Meta3dCommonlib.NullableSt.getWithDefault(actionParams->Obj.magic, [])
+  )
+  ->Meta3dCommonlib.OptionSt.toNullable
+}
+
+
 let _generateHandleUIControlEventStr = (service: AssembleSpaceType.service, configLib, event) => {
   service.meta3d.generateHandleUIControlEventStr(.
     configLib,
@@ -216,7 +194,7 @@ let _generateHandleUIControlEventStr = (service: AssembleSpaceType.service, conf
       configLib,
     )->Meta3dCommonlib.ArraySt.map(eventName => {
       getActionParam(event, eventName)
-      -> _convertActionParamType
+      -> _convertParamType
     }),
   )
 }
@@ -416,7 +394,7 @@ and _generateAllDrawUIControlAndHandleEventStr = (
 
         ` ++
         data
-        ->_getInputName
+        ->getInputName
         ->Meta3dCommonlib.OptionSt.map(_handleVariableName)
         ->Meta3dCommonlib.OptionSt.getWithDefault({
           j`null`

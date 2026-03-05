@@ -1,6 +1,8 @@
 type inputName = string
 
-type inputFunc<'data> = (. Meta3dType.Index.state) => Js.Promise.t<'data>
+type inputParam
+
+type inputFunc<'data> = (. Meta3dType.Index.state, array<inputParam>) => Js.Promise.t<'data>
 
 type inputContribute<'data> = {
   inputName: inputName,

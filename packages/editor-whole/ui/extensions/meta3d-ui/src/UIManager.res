@@ -173,9 +173,65 @@ let _exec = (meta3dState, state: Meta3dUiProtocol.StateType.state) => {
 
             /* !
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               TODO should judge is state change in elementFunc:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
              if state not change, not update geometry buffer, but should render if isShow!!! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -426,10 +482,13 @@ let getUIControlFuncExn = (state: Meta3dUiProtocol.StateType.state, uiControlNam
   _getUIControlExn(state, uiControlName).func
 }
 
-let getInputFunc = (state: Meta3dUiProtocol.StateType.state, inputName) => {
+let getInputFunc = (state: Meta3dUiProtocol.StateType.state, inputName, inputParams) => {
   state.inputContributeMap
   ->Meta3dCommonlib.ImmutableHashMap.getNullable(inputName)
-  ->Meta3dCommonlib.NullableSt.map((. {func}) => func)
+  // ->Meta3dCommonlib.NullableSt.map((. {func}) => {meta3dState => func(meta3dState, inputParams)})
+  ->Meta3dCommonlib.NullableSt.map((. {func}) => {
+    (. meta3dState) => func(. meta3dState, inputParams)
+  })
 }
 
 // let updateUIControlName = (
@@ -821,11 +880,34 @@ let inputText = (data, meta3dState, label, value, maxLength, width) => {
   )
 }
 
-let inputFloat1 = (data, meta3dState, label, value, step, stepFast, width, text, minValue, maxValue) => {
+let inputFloat1 = (
+  data,
+  meta3dState,
+  label,
+  value,
+  step,
+  stepFast,
+  width,
+  text,
+  minValue,
+  maxValue,
+) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputFloat1(. label, value, step, stepFast, width, text, minValue, maxValue))
+      (
+        imguiRendererState,
+        imguiRendererService.inputFloat1(.
+          label,
+          value,
+          step,
+          stepFast,
+          width,
+          text,
+          minValue,
+          maxValue,
+        ),
+      )
     },
     data,
   )
@@ -835,17 +917,43 @@ let inputFloat3 = (data, meta3dState, label, value, step, stepFast, width, text)
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputFloat3(. label, value, step, stepFast, width, text))
+      (
+        imguiRendererState,
+        imguiRendererService.inputFloat3(. label, value, step, stepFast, width, text),
+      )
     },
     data,
   )
 }
 
-let inputInt1 = (data, meta3dState, label, value, step, stepFast, width, text, minValue, maxValue) => {
+let inputInt1 = (
+  data,
+  meta3dState,
+  label,
+  value,
+  step,
+  stepFast,
+  width,
+  text,
+  minValue,
+  maxValue,
+) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {
-      (imguiRendererState, imguiRendererService.inputInt1(. label, value, step, stepFast, width, text, minValue, maxValue))
+      (
+        imguiRendererState,
+        imguiRendererService.inputInt1(.
+          label,
+          value,
+          step,
+          stepFast,
+          width,
+          text,
+          minValue,
+          maxValue,
+        ),
+      )
     },
     data,
   )
@@ -964,7 +1072,6 @@ let sameLine = (data, meta3dState) => {
   )
 }
 
-
 let list = (data, meta3dState, label, size, items, itemSize, isRemoveable, removeTexture) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
@@ -1015,7 +1122,7 @@ let inputTextarea = (data, meta3dState, label, (width, height), maxLength, text)
   )
 }
 
-let grid = (data, meta3dState,label, items, columnCount, cellWidth, totalHeight) => {
+let grid = (data, meta3dState, label, items, columnCount, cellWidth, totalHeight) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,
     (. imguiRendererState, imguiRendererService) => {

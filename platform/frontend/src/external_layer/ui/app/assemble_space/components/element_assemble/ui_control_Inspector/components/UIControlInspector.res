@@ -101,13 +101,14 @@ module Method = {
     // }
   }
 
-  let setInput = (dispatch, id, inputName: string) => {
+  let setInput = (dispatch, id, inputName: string, params) => {
     // setInputFileStr(_ => None)
 
     dispatch(
       ElementAssembleStoreType.SetInput(
         id,
         SelectUtils.isEmptySelectOptionValue(inputName) ? None : Some(inputName),
+        params,
       ),
     )
   }
@@ -832,52 +833,99 @@ let make = (
     // {Method.buildIsDraw(dispatch, id, isDraw)}
     <Space direction=#vertical size=#middle>
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Input`)}, ())}
-      {<>
-        <section ref={inputSelectTarget->Obj.magic}>
-          {SelectUtils.buildSelect(
-            value => {
-              Method.setInput(dispatch, id, value)
-              eventEmitter.emit(.
-                EventUtils.getSelectInputInUIControlInspectorEventName(),
-                value->Obj.magic,
-              )
-            },
-            input
-            ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
-            ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
-            // Method.buildInputNameSelectValues(
-            //   service,
-            //   selectedContributes,
-            //   uiControlProtocolName,
-            //   // input,
-            // ),
-            inputNameSelectValues,
-          )}
-        </section>
-        // {TextareaUtils.isNotShowTextareaForTest()
-        //   ? React.null
-        //   : <Input.TextArea
-        //       value={inputFileStr->Meta3dCommonlib.OptionSt.getWithDefault(
-        //         Method.buildDefaultInputFileStr(Js.Math.random, uiControlProtocolName),
-        //       )}
-        //       onChange={e => {
-        //         setInputFileStr(_ => e->EventUtils.getEventTargetValue->Some)
-        //       }}
-        //     />}
-        // <Button
-        //   onClick={_ => {
-        //     MessageUtils.showCatchedErrorMessage(() => {
-        //       Method.setInputFileStrData(
-        //         dispatch,
-        //         id,
-        //         Method.getInputName(inputFileStr),
-        //         inputFileStr,
-        //       )
-        //     }, 5->Some)
-        //   }}>
-        //   {React.string(`提交`)}
-        // </Button>
-      </>}
+      {
+        let value =
+          input
+          ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+          ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue())
+        let params =
+          input
+          ->Meta3dCommonlib.OptionSt.map(input =>
+            input.inputParams->Obj.magic->Meta3dCommonlib.NullableSt.getWithDefault([])
+          )
+          ->Meta3dCommonlib.OptionSt.getWithDefault([])
+
+        <>
+          <section ref={inputSelectTarget->Obj.magic}>
+            {SelectUtils.buildSelect(
+              value => {
+                Method.setInput(dispatch, id, value, params)
+                eventEmitter.emit(.
+                  EventUtils.getSelectInputInUIControlInspectorEventName(),
+                  value->Obj.magic,
+                )
+              },
+              input
+              ->Meta3dCommonlib.OptionSt.map(input => input.inputName)
+              ->Meta3dCommonlib.OptionSt.getWithDefault(SelectUtils.buildEmptySelectOptionValue()),
+              // Method.buildInputNameSelectValues(
+              //   service,
+              //   selectedContributes,
+              //   uiControlProtocolName,
+              //   // input,
+              // ),
+              inputNameSelectValues,
+            )}
+            <Button
+              icon={<Icon.PlusCircleOutlined />}
+              onClick={_ => {
+                Method.setInput(
+                  dispatch,
+                  id,
+                  value,
+                  params->Meta3dCommonlib.ArraySt.copy->Meta3dCommonlib.ArraySt.push(""),
+                )
+              }}
+            />
+            <Button
+              icon={<Icon.DeleteOutlined />}
+              onClick={_ => {
+                Method.setInput(dispatch, id, value, [])
+              }}
+            />
+            {<>
+              {React.array(
+                params->Meta3dCommonlib.ArraySt.mapi((param, i) => {
+                  <Input
+                    key={`inputParam: ${i->Obj.magic}`}
+                    value={param}
+                    style={ReactDOM.Style.make(~width="100px", ())}
+                    onChange={e => {
+                      let params = params->Meta3dCommonlib.ArraySt.copy
+                      params[i] = e->EventUtils.getEventTargetValue
+
+                      Method.setInput(dispatch, id, value, params)
+                    }}
+                  />
+                }),
+              )}
+            </>}
+          </section>
+          // {TextareaUtils.isNotShowTextareaForTest()
+          //   ? React.null
+          //   : <Input.TextArea
+          //       value={inputFileStr->Meta3dCommonlib.OptionSt.getWithDefault(
+          //         Method.buildDefaultInputFileStr(Js.Math.random, uiControlProtocolName),
+          //       )}
+          //       onChange={e => {
+          //         setInputFileStr(_ => e->EventUtils.getEventTargetValue->Some)
+          //       }}
+          //     />}
+          // <Button
+          //   onClick={_ => {
+          //     MessageUtils.showCatchedErrorMessage(() => {
+          //       Method.setInputFileStrData(
+          //         dispatch,
+          //         id,
+          //         Method.getInputName(inputFileStr),
+          //         inputFileStr,
+          //       )
+          //     }, 5->Some)
+          //   }}>
+          //   {React.string(`提交`)}
+          // </Button>
+        </>
+      }
       {service.ui.buildTitle(. ~level=2, ~children={React.string(`Specific`)}, ())}
       {Method.buildSpecific(
         service,
@@ -950,21 +998,15 @@ let make = (
                 <Button
                   icon={<Icon.DeleteOutlined />}
                   onClick={_ => {
-                    Method.setAction(
-                      dispatch,
-                      id,
-                      eventName,
-                      value,
-                      []
-                    )
-                  }}>
-                </Button>
+                    Method.setAction(dispatch, id, eventName, value, [])
+                  }}
+                />
                 {<>
                   {React.array(
                     params->Meta3dCommonlib.ArraySt.mapi((param, i) => {
                       <Input
                         // key={KeyUtils.generateUniqueKey(Js.Math.random)}
-                        key={`actionParam: ${i ->Obj.magic}`}
+                        key={`actionParam: ${i->Obj.magic}`}
                         value={param}
                         style={ReactDOM.Style.make(~width="100px", ())}
                         onChange={e => {

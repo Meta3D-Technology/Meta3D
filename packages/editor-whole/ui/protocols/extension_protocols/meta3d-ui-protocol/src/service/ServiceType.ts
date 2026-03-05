@@ -52,7 +52,8 @@ export type service = {
     ) => uiControlFunc<inputData, specificData, outputData>;
     readonly getInputFunc: <data> (
         meta3dState: meta3dState,
-        inputName: inputName
+        inputName: inputName,
+        inputParams: Array<any>
     ) => nullable<inputFunc<data>>;
     // readonly updateUIControlName: (
     //     meta3dState: meta3dState,

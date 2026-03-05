@@ -71,10 +71,11 @@ let getExtensionService: Meta3dType.Index.getExtensionService<
         ),
       )
     },
-    getInputFunc: (meta3dState, inputName) => {
+    getInputFunc: (meta3dState, inputName, inputParams) => {
       (UIManager.getInputFunc->Obj.magic)(
         api.getExtensionState(. meta3dState, "meta3d-ui-protocol"),
         inputName,
+        inputParams,
       )
     },
     hide: (meta3dState, elementName) => {

@@ -168,7 +168,7 @@ type action =
   | SetRect(id, rect)
   | SetIsDraw(id, isDraw)
   // | SetAction(id, (eventName, option<actionName>))
-  | SetInput(id, option<inputName>)
+  | SetInput(id, option<inputName>, array<string>)
   // | SetInputFileStr(id, inputName, CommonType.inputFileStr)
   | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>, array<string>))
   // | SetActionFileStr(

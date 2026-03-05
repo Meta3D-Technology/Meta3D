@@ -71,6 +71,7 @@ type service = {
   getInputFunc: 'data. (
     Meta3dType.Index.state,
     InputContributeType.inputName,
+    array<InputContributeType.inputParam>
   ) => Js.Nullable.t<InputContributeType.inputFunc<'data>>,
   // updateUIControlName: (
   //   Meta3dType.Index.state,

@@ -480,13 +480,14 @@ let reducer = (state, action) => {
       },
       id,
     )
-  | SetInput(id, inputNameOpt) =>
+  | SetInput(id, inputNameOpt, params) =>
     _setUIControlInspectorData(
       state,
       data => {
         ...data,
         input: inputNameOpt->Meta3dCommonlib.OptionSt.map((inputName): input => {
           inputName: inputName,
+          inputParams: params,
         }),
       },
       id,
@@ -679,8 +680,9 @@ let reducer = (state, action) => {
 
               state->_updateAllUIControlInspectorData(data => {
                 ...data,
-                input: data.input->Meta3dCommonlib.OptionSt.map(({inputName}): input => {
-                  inputName: inputName == oldName ? newName : inputName,
+                input: data.input->Meta3dCommonlib.OptionSt.map((data): input => {
+                  ...data,
+                  inputName: data.inputName == oldName ? newName : data.inputName,
                 }),
               })
             }

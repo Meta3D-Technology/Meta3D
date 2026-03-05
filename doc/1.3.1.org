@@ -1580,12 +1580,12 @@ TODO platform:common set action, input
   TODO add more common Inputs, Actions
 
 
-TODO Image, Text, ... config add isNotAbsolutePosition
-
-
 # TODO css: increase UIInspector width
 TODO css: defaulty hidden middle zone
 TODO css: add button to show it
+
+
+TODO Image, Text, ... config add isNotAbsolutePosition
 
 
 
@@ -1643,6 +1643,7 @@ TODO 选择：近战或远程
 
 
 ** TODO update packages
+ui
 
 event
 

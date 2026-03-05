@@ -24,6 +24,7 @@ let buildRect = (
 
 let buildInput = (~inputName, ()): ElementAssembleStoreType.input => {
   inputName: inputName,
+  inputParams:[]
 }
 
 let buildEventData = (

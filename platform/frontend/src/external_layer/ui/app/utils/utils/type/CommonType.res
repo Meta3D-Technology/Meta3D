@@ -64,7 +64,10 @@ type isDraw = BoolForIsDraw(bool)
 
 type inputName = string
 
-type input = {inputName: inputName}
+type input = {
+  inputName: inputName,
+  inputParams:array<string>
+}
 
 type inputFileStr = string
 

@@ -575,7 +575,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SetInput(id1.contents, inputName->Some),
+          ElementAssembleStoreType.SetInput(id1.contents, inputName->Some, []),
         )
     })
   }
