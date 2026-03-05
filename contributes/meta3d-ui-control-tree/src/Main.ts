@@ -152,7 +152,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 return Promise.resolve([meta3dState, [null, null]])
             }
 
-            return api.nullable.getExn(getInputFunc)(meta3dState).then((treeData) => {
+            return api.nullable.getExn(getInputFunc)(meta3dState, []).then((treeData) => {
                 if (api.nullable.isNullable(api.uiControl.getUIControlState<state>(meta3dState, label))) {
                     meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                         id: "Tree Window##" + _generateUniqueId(),

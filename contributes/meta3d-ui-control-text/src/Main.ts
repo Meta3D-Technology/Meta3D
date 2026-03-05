@@ -15,7 +15,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 return Promise.resolve([meta3dState, null])
             }
 
-            return api.nullable.getExn(getInputFunc)(meta3dState).then((text_) => {
+            return api.nullable.getExn(getInputFunc)(meta3dState, []).then((text_) => {
                 if (api.nullable.isNullable(text_)) {
                     return [meta3dState, null]
                 }

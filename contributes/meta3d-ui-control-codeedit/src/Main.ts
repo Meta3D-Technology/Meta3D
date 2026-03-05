@@ -66,7 +66,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 promise = Promise.resolve("")
             }
             else {
-                promise = api.nullable.getExn(getInputFunc)(meta3dState)
+                promise = api.nullable.getExn(getInputFunc)(meta3dState, [])
             }
 
             return promise.then(code => {

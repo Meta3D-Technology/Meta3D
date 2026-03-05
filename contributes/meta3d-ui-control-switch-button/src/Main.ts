@@ -94,7 +94,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 return Promise.resolve([meta3dState, [false, false]])
             }
 
-            return api.nullable.getExn(getInputFunc)(meta3dState).then(isClick1 => {
+            return api.nullable.getExn(getInputFunc)(meta3dState, []).then(isClick1 => {
                 if (api.nullable.isNullable(api.uiControl.getUIControlState<state>(meta3dState, label))) {
                     meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                         click1Texture: null,

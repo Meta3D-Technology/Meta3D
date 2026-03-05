@@ -16,7 +16,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 return Promise.resolve([meta3dState, null])
             }
 
-            return api.nullable.getExn(getInputFunc)(meta3dState).then((allAssetFiles) => {
+            return api.nullable.getExn(getInputFunc)(meta3dState, []).then((allAssetFiles) => {
                 let { asset } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
                 return asset(meta3dState, allAssetFiles, label, rect)
