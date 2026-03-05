@@ -116,6 +116,10 @@ module Method = {
       eventEmitter,
     )
   }
+
+  let handleShowElementVisual = (setIsShowElementVisualFunc, isShowElementVisual) => {
+    setIsShowElementVisualFunc(_ => isShowElementVisual)
+  }
 }
 
 @react.component
@@ -152,6 +156,7 @@ let make = (
   // let (currentStep, setCurrentStep) = service.react.useState(_ => 1)
   // let (currentTourStep, setCurrentTourStep) = service.react.useState(_ => 0)
   // let (openTour, setOpenTour) = service.react.useState(_ => false)
+  let (isShowElementVisual, setIsShowElementVisual) = service.react.useState(_ => true)
 
   // let beginGuideTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   let canvasWidthInputTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
@@ -284,6 +289,7 @@ let make = (
                 runButtonTarget
               />
               <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
+              <Switch defaultChecked={isShowElementVisual} onChange={Method.handleShowElementVisual(setIsShowElementVisual)} />
             </Space>
           </Layout.Content>
           <Layout>
@@ -388,9 +394,11 @@ let make = (
                 </Layout.Content>
               | _ =>
                 <Layout>
-                  <Layout.Content>
-                    <ElementVisual service account selectedContributes />
-                  </Layout.Content>
+                  {isShowElementVisual
+                    ? <Layout.Content>
+                        <ElementVisual service account selectedContributes />
+                      </Layout.Content>
+                    : <> </>}
                   <Layout.Sider theme=#light>
                     <ElementInspector
                       service

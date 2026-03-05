@@ -37,3 +37,5 @@ module Drawer = Antd__Drawer
 module ConfigProvider = Antd__ConfigProvider
 
 module Carousel = Antd__Carousel
+
+module Switch = Antd__Switch
