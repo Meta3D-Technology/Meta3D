@@ -289,7 +289,10 @@ let make = (
                 runButtonTarget
               />
               <CanvasController service canvasWidthInputTarget canvasHeightInputTarget />
-              <Switch defaultChecked={isShowElementVisual} onChange={Method.handleShowElementVisual(setIsShowElementVisual)} />
+              <Switch
+                defaultChecked={isShowElementVisual}
+                onChange={Method.handleShowElementVisual(setIsShowElementVisual)}
+              />
             </Space>
           </Layout.Content>
           <Layout>
@@ -394,11 +397,13 @@ let make = (
                 </Layout.Content>
               | _ =>
                 <Layout>
-                  {isShowElementVisual
-                    ? <Layout.Content>
-                        <ElementVisual service account selectedContributes />
-                      </Layout.Content>
-                    : <> </>}
+                  {<Layout.Content
+                    style={ReactDOM.Style.make(
+                      ~maxWidth={j`${isShowElementVisual ? "100%" : "0px"}`},
+                      (),
+                    )}>
+                    <ElementVisual service account selectedContributes />
+                  </Layout.Content>}
                   <Layout.Sider theme=#light>
                     <ElementInspector
                       service
