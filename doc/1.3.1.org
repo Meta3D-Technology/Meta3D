@@ -1588,31 +1588,40 @@ TODO css: add button to show it
 TODO Image, Text, ... config add isNotAbsolutePosition
 
 
-# TODO fix: handle duplicate Input(e.g. Image)
-
-
+TODO fix: handle duplicate Input(e.g. Modal)
+TODO fix: not refresh children!
+  refresh after show ElementVisual
 
 TODO set value
   # TODO new form ui?
   TODO common set action, input
-
     TODO add common get field input
 
     TODO add common set field action
 
 
-  TODO judge getCategory when by editor to invoke update api
-
   TODO 默认值为通用值
 
   TODO 可能没上限
 
+  TODO add into Modal
+
+  TODO finish
+    excitement
+      params error
+
+    TODO fix: update ui control debug: not update Config
+
+    TODO fix: change action->run: should make new action work
+
+    ...
 
 
 
-TODO refactor: set value related action, input use common one instead
 
-TODO refactor: modal related action, input use common one instead
+# TODO refactor: set value related action, input use common one instead
+
+# TODO refactor: modal related action, input use common one instead
 
 
 
@@ -1623,9 +1632,6 @@ TODO refactor: modal related action, input use common one instead
 # editor-whole 
 
 
-
-
-TODO publish: get value from read action state
 
 
 
@@ -1642,6 +1648,15 @@ TODO 选择：近战或远程
 
 
 ...
+
+
+
+** TODO publish: get value from read action state
+
+  TODO judge getCategory when by editor to invoke update api
+
+
+
 
 
 ** TODO update packages

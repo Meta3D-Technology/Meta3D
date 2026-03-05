@@ -9,7 +9,11 @@ export type state = {
     allModelData: models,
 
     selectedModelIndex: nullable<number>,
+
     isShowModelModal: boolean,
+    isShowUnitValueModal: boolean,
+
+    excitement: number,
 }
 
 
