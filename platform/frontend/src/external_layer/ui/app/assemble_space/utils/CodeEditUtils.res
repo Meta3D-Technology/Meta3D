@@ -98,7 +98,8 @@ function (updateFunc){
       updateFunc()
 
       globalThis.elementAssembleStore_updateCustomFileStrTimer = false
-    }, 2000)
+    // }, 2000)
+    }, 100)
   }
 }
 `)
