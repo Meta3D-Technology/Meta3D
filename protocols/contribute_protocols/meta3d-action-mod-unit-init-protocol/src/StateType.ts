@@ -1,4 +1,4 @@
-import { nullable } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, nullable } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { models } from "./Type"
 
 export const actionName = "UnitModInit"
@@ -14,6 +14,19 @@ export type state = {
     isShowUnitValueModal: boolean,
 
     excitement: number,
+
+    skillType: nullable<string>,
+
+    hasSmallSkillObject: boolean,
+    hasBigSkillObject: boolean,
+
+    s_action: action,
+    s_emitSpeed: number,
+    s_emitterSpeed: number,
+
+    b_action: action,
+    b_emitSpeed: number,
+    b_emitterSpeed: number,
 }
 
 

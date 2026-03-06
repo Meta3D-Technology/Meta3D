@@ -1413,6 +1413,8 @@ tab
     (add collapse, refer to Add Component)
 
     collapse:
+      button:remove
+
       button:select action
         Modal: grid ui
       button:set action value
@@ -1613,7 +1615,7 @@ TODO set value
     TODO fix: change action->run: should make new action work
       if not work, make run button disabled?
 
-    TODO fix: update ui control debug: should update Config
+    # TODO fix: update ui control debug: should update Config
 
 
 
@@ -1638,16 +1640,48 @@ TODO set value
 
 
 TODO skill
+  add text ui
 
-TODO 选择：近战或远程
+TODO skill data
+    select button(popup)
+    (vs small, vs big)
+    (add collapse, refer to Add Component)
+
+    collapse:
+      button:remove
+
+      # TODO skill type：近战或远程
+
+      commit
+
+      update action data
+        add icon to asset-lib
+
+      button:select action
+        Modal: grid ui
 
 
+      button:set action value
+        Modal: value inputs
+          # new ui control: decide by 攻击类型
+        should has two buttons, show decide by 攻击类型
 
-...
 
+      button:select effect
+        Modal: grid ui
+      button:set effect value
+        Modal: value inputs
+          # new ui control: decide by 攻击类型
 
 
 TODO tab
+
+
+TODO generate
+
+
+TODO reward
+
 
 
 
@@ -1672,20 +1706,20 @@ unitmod
 
 
 
-** TODO add UI
+# ** TODO add UI
 
-*** TODO add new ui controls
+# *** TODO add new ui controls
 
-TODO add tab
-
-
-TODO add new ui control:
-grid? instead of list
-  # 查看模型、//动作(//click play button to play gif by html?)
-  查看模型、动作
+# TODO add tab
 
 
-*** TODO add editor ui
+# TODO add new ui control:
+# grid? instead of list
+#   # 查看模型、//动作(//click play button to play gif by html?)
+#   查看模型、动作
+
+
+# *** TODO add editor ui
 
 
 * TODO update

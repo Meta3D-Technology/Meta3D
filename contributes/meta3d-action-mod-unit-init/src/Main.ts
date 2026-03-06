@@ -10,7 +10,7 @@ import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Ma
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -136,6 +136,20 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowUnitValueModal: false,
 
                 excitement: excitement.Level5,
+
+
+                skillType: api.nullable.getEmpty(),
+
+                hasSmallSkillObject: false,
+                hasBigSkillObject: false,
+
+                s_action: action.StompLight,
+                s_emitSpeed: emitSpeed.Level5,
+                s_emitterSpeed: emitterSpeed.Level5,
+
+                b_action: action.StompLight,
+                b_emitSpeed: emitSpeed.Level5,
+                b_emitterSpeed: emitterSpeed.Level5,
             }
         }
     }
