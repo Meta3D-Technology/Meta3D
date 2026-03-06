@@ -1,5 +1,5 @@
 import { action, nullable } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { models } from "./Type"
+import { actions, models } from "./Type"
 
 export const actionName = "UnitModInit"
 
@@ -7,6 +7,7 @@ export type uiData = null
 
 export type state = {
     allModelData: models,
+    allActionData: actions,
 
     selectedModelIndex: nullable<number>,
 

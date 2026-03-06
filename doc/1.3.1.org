@@ -1655,10 +1655,14 @@ TODO skill data
       commit
 
       update action data
-        add icon to asset-lib
+        # add icon to asset-lib
+
+        add Main
+
 
       button:select action
         Modal: grid ui
+          no image
 
 
       button:set action value

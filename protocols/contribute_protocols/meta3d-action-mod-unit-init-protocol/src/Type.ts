@@ -1,6 +1,6 @@
 // import { box3, damageType, euler, nullable, vector3 } from "type-api/src/ImportedTypes"
 // import { api } from "type-api/src/Type"
-import { category, model } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, meleeRange, model, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { Map } from "immutable"
 
 export type modelData = {
@@ -21,3 +21,10 @@ export type modelData = {
 //     [category.EliteGiantess]: Array<modelData>
 // }
 export type models = Map<category, Array<modelData>>
+
+export type actionData = {
+    skillType: skillType,
+    meleeRange?: meleeRange,
+}
+
+export type actions = Map<category, Map<action, actionData>>

@@ -679,6 +679,11 @@ export type generateData = {
 export type unitUniqueName = string
 
 
+export enum skillType {
+    Melee,
+    Ranged,
+}
+
 // export enum modPropName {
 
 // }

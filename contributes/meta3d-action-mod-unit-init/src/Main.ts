@@ -5,6 +5,7 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 // import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-unit-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
+import { getActions } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
@@ -96,9 +97,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     },
                     api.immutable.createMap()
                 ).then(newAllModelData => {
+                    let newAllActionData = api.immutable.createMapOfData(getActions()).map(value => api.immutable.createMapOfData(value))
+
                     meta3dState = api.action.setActionState(meta3dState, actionName, {
                         ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                        allModelData: newAllModelData
+                        allModelData: newAllModelData,
+                        allActionData: newAllActionData,
                     })
 
                     return meta3dState
@@ -131,6 +135,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             return {
                 // allModelData: api.immutable.createMapOfData(getAllModelData()),
                 allModelData: api.immutable.createMap(),
+                allActionData: api.immutable.createMap(),
+
                 selectedModelIndex: api.nullable.getEmpty(),
                 isShowModelModal: false,
                 isShowUnitValueModal: false,
