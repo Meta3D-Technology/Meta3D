@@ -25,6 +25,7 @@ export type models = Map<category, Array<modelData>>
 export type actionData = {
     skillType: skillType,
     meleeRange?: meleeRange,
+    snapshotImageBase64: string,
 }
 
 export type actions = Map<category, Map<action, actionData>>

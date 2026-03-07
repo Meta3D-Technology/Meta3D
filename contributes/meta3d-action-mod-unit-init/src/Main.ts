@@ -5,7 +5,7 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 // import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-unit-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
@@ -54,8 +54,8 @@ import { action, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-u
 //     //     })
 // }
 
-let _getPathPrefix = () => {
-    return "/unit-mod/asset-lib/unit-model/asset"
+let _getPathPrefix = (unit) => {
+    return `/unit-mod/asset-lib/${unit}/asset`
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -80,7 +80,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                     imageSrcToBase64(
                                         resolve,
                                         reject,
-                                        getModelSnapshotPath(_getPathPrefix(), category, modelData.model)
+                                        getModelSnapshotPath(_getPathPrefix("unit-model"), category, modelData.model)
 
                                     )
                                 }).then((imageBase64) => {
@@ -97,15 +97,40 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     },
                     api.immutable.createMap()
                 ).then(newAllModelData => {
-                    let newAllActionData = api.immutable.createMapOfData(getActions()).map(value => api.immutable.createMapOfData(value))
+                    return reducePromise(
+                        Array.from(api.immutable.createMapOfData(getActions()).entries()),
+                        (result, [category, actions]) => {
+                            return reducePromise(
+                                Array.from(api.immutable.createMapOfData(actions).entries()),
+                                (result, [action, actionData]) => {
+                                    return new Promise((resolve, reject) => {
+                                        imageSrcToBase64(
+                                            resolve,
+                                            reject,
+                                            getActionSnapshotPath(_getPathPrefix("unit-action"), category, action)
+                                        )
+                                    }).then((imageBase64) => {
+                                        return result.set(action, {
+                                            ...actionData,
+                                            snapshotImageBase64: imageBase64,
+                                        })
+                                    })
+                                },
+                                api.immutable.createMap()
+                            ).then(map => {
+                                return result.set(category, map)
+                            })
+                        },
+                        api.immutable.createMap()
+                    ).then(newAllActionData => {
+                        meta3dState = api.action.setActionState(meta3dState, actionName, {
+                            ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                            allModelData: newAllModelData,
+                            allActionData: newAllActionData,
+                        })
 
-                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                        allModelData: newAllModelData,
-                        allActionData: newAllActionData,
+                        return meta3dState
                     })
-
-                    return meta3dState
                 })
             })
 
@@ -138,8 +163,11 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allActionData: api.immutable.createMap(),
 
                 selectedModelIndex: api.nullable.getEmpty(),
+                selectedActionIndex: api.nullable.getEmpty(),
+
                 isShowModelModal: false,
                 isShowUnitValueModal: false,
+                isShowActionModal: false,
 
                 excitement: excitement.Level5,
 

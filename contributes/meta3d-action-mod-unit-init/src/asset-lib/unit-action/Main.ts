@@ -11,3 +11,7 @@ export let getActions = () => {
         }
     }
 }
+
+export let getActionSnapshotPath = (pathPrefix, category: category, action: action) => {
+    return `${pathPrefix}/${category.toLowerCase()}/icon_action/${action}.png`
+}

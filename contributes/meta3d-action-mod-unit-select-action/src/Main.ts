@@ -1,7 +1,7 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { actionName, state, uiData } from "meta3d-action-mod-unit-show-select-model-modal-protocol"
-import { eventName, inputData } from "meta3d-action-mod-unit-show-select-model-modal-protocol/src/EventType"
+import { actionName, state, uiData } from "meta3d-action-mod-unit-select-action-protocol"
+import { eventName, inputData } from "meta3d-action-mod-unit-select-action-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -11,10 +11,11 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState,) => {
-                    meta3dState = api.action.setActionState(meta3dState, initActionName, {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index) => {
+                    meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
-                        isShowModelModal: true,
+                        selectedActionIndex: index,
+                        isShowActionModal: false
                     })
 
                     return Promise.resolve(meta3dState)
@@ -22,7 +23,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     return Promise.resolve(meta3dState)
                 }))
             })
-
         },
         handler: (meta3dState, uiData) => {
             return new Promise<meta3dState>((resolve, reject) => {
@@ -31,7 +31,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
                     name: eventName,
                     isOnlyRead: true,
-                    inputData: []
+                    inputData: [uiData]
                 }))
             })
         },

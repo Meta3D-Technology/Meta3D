@@ -1655,27 +1655,34 @@ TODO skill data
       commit
 
       update action data
-        # add icon to asset-lib
-
         add Main
 
+        add icon to asset-lib
 
       button:select action
         Modal: grid ui
-          no image
-
+          # support no image
 
       button:set action value
         Modal: value inputs
           # new ui control: decide by 攻击类型
         should has two buttons, show decide by 攻击类型
 
+        add action, input
+          # store in actionValues(Map)
+          store in s/b_value
 
-      button:select effect
-        Modal: grid ui
-      button:set effect value
-        Modal: value inputs
-          # new ui control: decide by 攻击类型
+
+
+      # button:select effect
+      #   Modal: grid ui
+      # button:set effect value
+      #   Modal: value inputs
+      #     # new ui control: decide by 攻击类型
+      #   add action, input
+      #     //store in actionEffectValues(Map->key:action+effect)
+          # store in s/b_value
+
 
 
 TODO tab
@@ -1692,8 +1699,12 @@ TODO reward
 
 ** TODO publish: get value from read action state
 
-  TODO judge getCategory when by editor to invoke update api
+TODO judge getCategory when by editor to invoke update api
 
+
+
+
+** TODO ...
 
 
 
