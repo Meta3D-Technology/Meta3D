@@ -6,18 +6,18 @@ import { service, inputContribute } from "meta3d-editor-whole-protocol/src/servi
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
-        inputName: "ModUnitSelectActionNameInput",
-        func: (meta3dState) => {
+        inputName: "ModUnitActionNameInput",
+        func: (meta3dState, [fieldName]) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
-                    api.nullable.bind(({ allActionData, selectedActionIndex }) => {
+                    api.nullable.bind((data) => {
                         let category = api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)).category
 
                         return api.nullable.bind(actionData => {
                             return api.nullable.bind(selectedActionIndex => {
                                 return Array.from(actionData.keys())[selectedActionIndex]
-                            }, selectedActionIndex)
-                        }, allActionData.get(category))
+                            }, data[fieldName])
+                        }, data.allActionData.get(category))
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)
                     ),

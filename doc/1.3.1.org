@@ -1667,6 +1667,7 @@ TODO skill data
         Modal: value inputs
           # new ui control: decide by 攻击类型
         should has two buttons, show decide by 攻击类型
+          fix: show sub modal
 
         add action, input
           # store in actionValues(Map)
@@ -1682,6 +1683,11 @@ TODO skill data
       #   add action, input
       #     //store in actionEffectValues(Map->key:action+effect)
           # store in s/b_value
+
+
+TODO not error alert
+
+TODO fix: ui miss?
 
 
 

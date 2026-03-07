@@ -10,11 +10,14 @@ export type state = {
     allActionData: actions,
 
     selectedModelIndex: nullable<number>,
-    selectedActionIndex: nullable<number>,
+    selectedSmallSkillObjectActionIndex: nullable<number>,
+    selectedBigSkillObjectActionIndex: nullable<number>,
 
     isShowModelModal: boolean,
     isShowUnitValueModal: boolean,
     isShowActionModal: boolean,
+    isShowSmallSkillObjectActionValueModal: boolean,
+    isShowBigSkillObjectActionValueModal: boolean,
 
     excitement: number,
 

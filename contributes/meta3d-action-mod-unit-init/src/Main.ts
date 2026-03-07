@@ -163,11 +163,15 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allActionData: api.immutable.createMap(),
 
                 selectedModelIndex: api.nullable.getEmpty(),
-                selectedActionIndex: api.nullable.getEmpty(),
+                selectedSmallSkillObjectActionIndex: api.nullable.getEmpty(),
+                selectedBigSkillObjectActionIndex: api.nullable.getEmpty(),
+
 
                 isShowModelModal: false,
                 isShowUnitValueModal: false,
                 isShowActionModal: false,
+                isShowSmallSkillObjectActionValueModal: false,
+                isShowBigSkillObjectActionValueModal: false,
 
                 excitement: excitement.Level5,
 

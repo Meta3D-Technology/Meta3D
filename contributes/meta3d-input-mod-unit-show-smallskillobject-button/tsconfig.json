@@ -15,8 +15,8 @@
 			"DOM",
 			"ESNext",
 		],
-		"types": []
-		// "strict": true
+		"types": [],
+		"strict": true
 	},
 	"include": [
 		"./src"
