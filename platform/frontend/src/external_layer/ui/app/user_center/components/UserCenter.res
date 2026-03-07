@@ -81,6 +81,12 @@ let make = (~service: FrontendType.service) => {
       : RouterUtils.pushUrl("/AssembleSpace")
   }
 
+  let _jumptToAssembleSpace = dispatch => {
+    setInfo(_ => None)
+
+    RouterUtils.pushUrl("/EnterAssembleSpace")
+  }
+
   let _createFromScratch = (service, dispatch) => {
     !isInCreateFromScratchTourPhase1 && GuideUtils.readIsInCreateFromScratchTour()
       ? {
@@ -114,17 +120,19 @@ let make = (~service: FrontendType.service) => {
           //   : ()
 
           // UIControlUtils.selectAllUIControls(service, dispatch, release)
-          
+
           // ->Js.Promise.then_(() => {
-            SelectPackageUtils.selectEditorWholeAndEngineWholePackages(service, dispatch, release)
+          SelectPackageUtils.selectEditorWholeAndEngineWholePackages(service, dispatch, release)
           // }, _)
           ->Js.Promise.then_(() => {
             _jumptToAssembleSpaceToCreateEmptyApp(dispatch, isInCreateFromScratchTourPhase2)
 
             ()->Js.Promise.resolve
-          }, _)->Js.Promise.catch(e => {
+          }, _)
+          ->Js.Promise.catch(e => {
             MessageUtils.errorWithExn(e->Error.promiseErrorToExn, None)->Obj.magic
-          }, _)->ignore
+          }, _)
+          ->ignore
         }
 
     // dispatch(
@@ -148,7 +156,7 @@ let make = (~service: FrontendType.service) => {
 
   React.useEffect0(() => {
     MessageUtils.showCatchedErrorMessage(() => {
-      AssembleSpaceUtils.resetWhenLeave(dispatchForElementAssembleStore)
+      // AssembleSpaceUtils.resetWhenLeave(dispatchForElementAssembleStore)
 
       setInfo(_ => {j`加载中，请稍候`->Some})
 
@@ -254,10 +262,7 @@ let make = (~service: FrontendType.service) => {
                   ? <Button
                       _type=#default
                       onClick={_ => {
-                        _jumptToAssembleSpaceToCreateEmptyApp(
-                          dispatch,
-                          isInCreateFromScratchTourPhase2,
-                        )
+                        _jumptToAssembleSpace(dispatch)
                       }}>
                       {React.string(`进入装配空间`)}
                     </Button>

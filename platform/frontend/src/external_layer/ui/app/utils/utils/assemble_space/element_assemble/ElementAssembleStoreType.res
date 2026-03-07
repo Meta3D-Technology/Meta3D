@@ -186,7 +186,7 @@ type action =
   // | SetRole(option<string>)
   // | SetHandlers(handlers)
   // | Import(selectedUIControls, selectedUIControlInspectorData, elementInspectorData)
-  | Import(selectedUIControls, selectedUIControlInspectorData)
+  | ImportWhenEmpty(selectedUIControls, selectedUIControlInspectorData)
   // | ImportElementCustom(customInputs)
   | SetCanvasData(canvasData)
   | AddCustomInput(customInput)

@@ -105,7 +105,7 @@ let importApp = (
   ->Js.Promise.then_(() => {
     onFinish()
 
-    RouterUtils.pushUrl("/AssembleSpace")
+    RouterUtils.pushUrl("/EditAssembleSpace")
 
     ()->Js.Promise.resolve
   }, _)

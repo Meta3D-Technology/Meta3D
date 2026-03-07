@@ -74,7 +74,6 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
   let assembleSpaceNavTarget = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
   // let monacoEditor = React.useRef(Meta3dCommonlib.NullableSt.getEmpty())
 
-
   let _buildAssembleSpaceService = (): AssembleSpaceType.service => {
     ui: {
       buildTitle: (. ~level, ~children, ()) => {
@@ -194,7 +193,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
       hasChildren: (. configLib) => Meta3d.Main.hasChildren(configLib),
       getUIControlSupportedEventNames: (. configLib) =>
         Meta3d.Main.getUIControlSupportedEventNames(configLib),
-      generateHandleUIControlEventStr: (. configLib, actionNames,actionParams) =>
+      generateHandleUIControlEventStr: (. configLib, actionNames, actionParams) =>
         Meta3d.Main.generateHandleUIControlEventStr(configLib, actionNames, actionParams),
       // serializeActionProtocolConfigLib: (. protocolConfigStr) =>
       //   Meta3d.Main.serializeActionProtocolConfigLib(protocolConfigStr),
@@ -389,6 +388,42 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     )
   }
 
+  let _enterAssembleSpace = (isFromEnter, isFromEdit) => {
+    Method.judgeToJumpToLogin(() => {
+      switch currentAppName {
+      | None =>
+        RouterUtils.pushUrl("/UserCenter")
+        React.null
+      | Some(currentAppName) =>
+        <Layout>
+          <Layout.Header>
+            <AssembleSpaceNav
+              service={_buildAssembleSpaceService()}
+              currentKey="2"
+              appName={currentAppName}
+              assembleSpaceNavTarget
+            />
+          </Layout.Header>
+          <Layout.Content>
+            <AssembleSpace
+              service={_buildAssembleSpaceService()}
+              account
+              selectedExtensionsFromMarket=selectedExtensions
+              selectedContributesFromMarket=selectedContributes
+              selectedPackagesFromMarket=selectedPackages
+              selectedElementsFromMarket=selectedElements
+              // customInputsFromMarket=customInputs
+              // customActionsFromMarket=customActions
+              assembleSpaceNavTarget
+              isFromEnter
+              isFromEdit
+            />
+          </Layout.Content>
+        </Layout>
+      }
+    }, account, service)
+  }
+
   //   let _deferLoad = %raw(`
   // function (){
   // return import(
@@ -546,8 +581,7 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
 
   <>
     {contextHolder}
-    {
-      switch RouterUtils.getUrlPath(url.path) {
+    {switch RouterUtils.getUrlPath(url.path) {
     | list{"Login"} => <Login service />
     | list{"Register"} => <Register service />
     | list{"ExtensionMarket"} =>
@@ -558,37 +592,9 @@ let make = (~service: FrontendType.service, ~env: EnvType.env) => {
     | list{"PackageMarket"} =>
       Method.judgeToJumpToLogin(() => <PackageMarket service account />, account, service)
 
-    | list{"AssembleSpace"} => Method.judgeToJumpToLogin(() => {
-        switch currentAppName {
-        | None =>
-          RouterUtils.pushUrl("/UserCenter")
-          React.null
-        | Some(currentAppName) =>
-          <Layout>
-            <Layout.Header>
-              <AssembleSpaceNav
-                service={_buildAssembleSpaceService()}
-                currentKey="2"
-                appName={currentAppName}
-                assembleSpaceNavTarget
-              />
-            </Layout.Header>
-            <Layout.Content>
-              <AssembleSpace
-                service={_buildAssembleSpaceService()}
-                account
-                selectedExtensionsFromMarket=selectedExtensions
-                selectedContributesFromMarket=selectedContributes
-                selectedPackagesFromMarket=selectedPackages
-                selectedElementsFromMarket=selectedElements
-                // customInputsFromMarket=customInputs
-                // customActionsFromMarket=customActions
-                assembleSpaceNavTarget
-              />
-            </Layout.Content>
-          </Layout>
-        }
-      }, account, service)
+    | list{"AssembleSpace"} => _enterAssembleSpace (false, false)
+    | list{"EnterAssembleSpace"} => _enterAssembleSpace (true, false)
+    | list{"EditAssembleSpace"} => _enterAssembleSpace (false, true)
     | list{"ShowPublishedApps"} => Method.judgeToJumpToLogin(() => {
         <ShowPublishedApps service account />
       }, account, service)

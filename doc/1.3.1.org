@@ -1685,9 +1685,14 @@ TODO skill data
           # store in s/b_value
 
 
-TODO not error alert
-
-TODO fix: ui miss?
+# TODO feat: add continue assemble button
+# TODO fix button handler: enter assemble 
+TODO fix back to UserCenter
+  TODO fix: canvas size miss
+  TODO fix: ui reset
+  TODO fix: new ui control should update
+    should reset all except element store
+  TODO fix: should keep app name
 
 
 
@@ -1741,6 +1746,9 @@ unitmod
 
 
 # *** TODO add editor ui
+
+* TODO run element: not error alert while already show error message
+
 
 
 * TODO update

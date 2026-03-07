@@ -461,7 +461,7 @@ defineFeature(feature, test => {
         dispatchStub.contents
         ->Obj.magic
         ->SinonTool.calledWith(
-          ElementAssembleStoreType.Import(
+          ElementAssembleStoreType.ImportWhenEmpty(
             list{
               SelectedUIControlsTool.buildSelectedUIControl(
                 ~id=id1,

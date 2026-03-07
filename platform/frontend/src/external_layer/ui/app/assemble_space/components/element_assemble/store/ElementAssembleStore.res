@@ -486,7 +486,7 @@ let reducer = (state, action) => {
       data => {
         ...data,
         input: inputNameOpt->Meta3dCommonlib.OptionSt.map((inputName): input => {
-          inputName: inputName,
+          inputName,
           inputParams: params,
         }),
       },
@@ -565,12 +565,19 @@ let reducer = (state, action) => {
   //       },
   //     },
   //   }
-  | Import(selectedUIControls, selectedUIControlInspectorData) => {
-      ...state,
+  | ImportWhenEmpty(
       selectedUIControls,
       selectedUIControlInspectorData,
-      // isImportElement: true,
-    }
+    ) => state.selectedUIControls->Meta3dCommonlib.ListSt.length > 0
+      ? {
+          state
+        }
+      : {
+          ...state,
+          selectedUIControls,
+          selectedUIControlInspectorData,
+          // isImportElement: true, }
+        }
   // | ImportElementCustom(customInputs) => {
   //     ...state,
   //     customInputs,

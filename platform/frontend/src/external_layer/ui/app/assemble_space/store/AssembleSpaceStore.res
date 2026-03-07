@@ -17,6 +17,17 @@ let reducer = (state, action) => {
         PackageAssembleStoreType.ResetWhenEnter,
       ),
     }
+  | ResetWhenEnterFromEnter => {
+      ...state,
+      apAssembleState: ApAssembleStore.reducer(
+        state.apAssembleState,
+        ApAssembleStoreType.ResetWhenEnter,
+      ),
+      packageAssembleState: PackageAssembleStore.reducer(
+        state.packageAssembleState,
+        PackageAssembleStoreType.ResetWhenEnter,
+      ),
+    }
   | ResetWhenSwitch => {
       ...state,
       apAssembleState: ApAssembleStore.reducer(

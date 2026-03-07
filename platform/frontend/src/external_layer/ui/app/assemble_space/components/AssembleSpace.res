@@ -9,14 +9,29 @@ type view =
   | Package
 
 module Method = {
-  let resetWhenEnter = dispatch => {
-    dispatch(AssembleSpaceStoreType.ResetWhenEnter)
+  let resetWhenEnter = ( dispatch,dispatchForElementAssembleStore, isFromEnter, isFromEdit ) => {
+    ( isFromEnter || isFromEdit ) ? 
+    dispatch(AssembleSpaceStoreType.ResetWhenEnterFromEnter)
+    :
+    { dispatch(AssembleSpaceStoreType.ResetWhenEnter) 
+  dispatchForElementAssembleStore(
+    ElementAssembleStoreType.SetCanvasData(({width: 0, height: 0}: Meta3dType.Index.canvasData)),
+  )
+    }
   }
 
   let _merge = (mergedCustoms, customs) => {
     mergedCustoms
     ->Js.Array.concat(customs, _)
     ->/* ! TODO should handle same name:
+
+
+
+
+
+
+
+
 
 
 
@@ -40,7 +55,31 @@ now just remove duplicate one, but need handle more:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 compare equal(first length, then all)?{
+
+
+
+
+
+
+
+
 
 
 
@@ -56,7 +95,23 @@ use local input
 
 
 
+
+
+
+
+
+
+
+
 } :{
+
+
+
+
+
+
+
+
 
 
 
@@ -72,6 +127,14 @@ remain one custom input;
 
 
 
+
+
+
+
+
+
+
+
 rename another custom input's name to add post fix:"_copy";
 
 
@@ -80,7 +143,23 @@ rename another custom input's name to add post fix:"_copy";
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -124,7 +203,23 @@ rename another custom input's name to add post fix:"_copy";
 
 
 
+
+
+
+
+
+
+
+
 now just replace add duplicate one, but need handle more
+
+
+
+
+
+
+
+
 
 
 
@@ -159,7 +254,23 @@ now just replace add duplicate one, but need handle more
 
 
 
+
+
+
+
+
+
+
+
 now just replace add duplicate one, but need handle more
+
+
+
+
+
+
+
+
 
 
 
@@ -304,8 +415,7 @@ now just replace add duplicate one, but need handle more
         {protocol, displayName, children}: BackendCloudbaseType.uiControl,
       ) => {
         switch selectedUIControls->Meta3dCommonlib.ArraySt.find(((selectedUIControl, _)) => {
-          selectedUIControl.data.contributePackageData.protocol.name == protocol.name 
-          &&
+          selectedUIControl.data.contributePackageData.protocol.name == protocol.name &&
             Meta3d.Semver.gte(
               Meta3d.Semver.minVersion(
                 selectedUIControl.data.contributePackageData.protocol.version,
@@ -483,7 +593,7 @@ now just replace add duplicate one, but need handle more
     // let mergedCustomInputs = _mergeCustoms(selectedElementsFromMarket)
 
     dispatchForElementAssembleStore(
-      ElementAssembleStoreType.Import(
+      ElementAssembleStoreType.ImportWhenEmpty(
         selectedUIControls,
         _generateSelectedUIControlInspectorData(mergedUIControls, selectedUIControls),
         // mergedCustomInputs,
@@ -513,6 +623,8 @@ let make = (
   ~selectedContributesFromMarket: selectedContributesFromMarket,
   ~selectedElementsFromMarket: selectedElementsFromMarket,
   ~assembleSpaceNavTarget: React.ref<Js.Nullable.t<'a>>,
+  ~isFromEnter: bool,
+  ~isFromEdit: bool,
 ) => {
   let dispatch = service.react.useDispatch()
   let dispatchForAppStore = service.app.useDispatch()
@@ -533,7 +645,7 @@ let make = (
   let (openHelpDrawer, setOpenHelpDrawer) = service.react.useState(_ => false)
 
   service.react.useEffectOnce(() => {
-    Method.resetWhenEnter(dispatch)
+    Method.resetWhenEnter(dispatch, dispatchForElementAssembleStore, isFromEnter, isFromEdit)
 
     MessageUtils.showCatchedErrorMessage(() => {
       let (customInputs, customActions) =

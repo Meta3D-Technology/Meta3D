@@ -1,5 +1,5 @@
 let resetWhenEnter = (~dispatch) => {
-  AssembleSpace.Method.resetWhenEnter(dispatch)
+  AssembleSpace.Method.resetWhenEnter(dispatch->Obj.magic, dispatch->Obj.magic, false)->Obj.magic
 }
 
 let getImportedElementCustom = AssembleSpace.Method.getImportedElementCustom
