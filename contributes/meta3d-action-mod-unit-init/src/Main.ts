@@ -11,7 +11,7 @@ import { getActions, getActionSnapshotPath } from "./asset-lib/unit-action/Main"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { action, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, countFactor, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -191,6 +191,20 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 b_action: action.StompLight,
                 b_emitSpeed: emitSpeed.Level5,
                 b_emitterSpeed: emitterSpeed.Level5,
+
+
+                hasAttackCitySceneChapterGenerateData: false,
+                hasProtectCitySceneChapterGenerateData: false,
+                hasBossSceneChapterGenerateData: false,
+
+                ac_l_sceneData: [],
+                ac_g_sceneData: [],
+
+                pc_sceneData_rate: 0,
+                pc_sceneData_countFactor: countFactor.Level5,
+
+                bo_sceneData_rate: 0,
+                bo_sceneData_countFactor: countFactor.Level5,
             }
         }
     }

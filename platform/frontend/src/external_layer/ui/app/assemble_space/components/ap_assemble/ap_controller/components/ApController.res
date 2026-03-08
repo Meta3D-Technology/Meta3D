@@ -25,6 +25,11 @@ module Method = {
     //     ),
     //   )
     // })
+
+      dispatch(
+        ApAssembleStoreType.UnSelectAll,
+      )
+
     selectedContributesFromMarket->Meta3dCommonlib.ListSt.forEach(((
       contribute,
       protocolConfigOpt,
@@ -39,6 +44,28 @@ module Method = {
     })
     selectedPackagesFromMarket->Meta3dCommonlib.ListSt.forEach(package => {
       dispatch(ApAssembleStoreType.SelectPackage(package))
+    })
+  }
+
+  let selectAllContributes = (
+    dispatch,
+    selectedContributesFromMarket: selectedContributesFromMarket,
+  ) => {
+      dispatch(
+        ApAssembleStoreType.UnSelectAllContributes,
+      )
+
+    selectedContributesFromMarket->Meta3dCommonlib.ListSt.forEach(((
+      contribute,
+      protocolConfigOpt,
+    )) => {
+      dispatch(
+        ApAssembleStoreType.SelectContribute(
+          contribute.protocolIconBase64,
+          protocolConfigOpt->ExtensionsContributesUtils.getProtocolConfigStr,
+          contribute,
+        ),
+      )
     })
   }
 }
@@ -69,6 +96,15 @@ let make = (
         )
       }}>
       {React.string({j`选择所有`})}
+    </Button>
+    <Button
+      onClick={_ => {
+        Method.selectAllContributes(
+          dispatch,
+          selectedContributesFromMarket,
+        )
+      }}>
+      {React.string({j`选择所有贡献`})}
     </Button>
   </>
 }

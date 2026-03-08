@@ -1,9 +1,22 @@
-import { action, nullable } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, countFactor, nullable } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actions, models } from "./Type"
+import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 
 export const actionName = "UnitModInit"
 
 export type uiData = null
+
+export type attackCitySingleSceneData = {
+    difficulty: autoDifficulty,
+    countFactor: countFactor,
+}
+
+// type protectCitySceneData = {
+//     rate: number,
+//     countFactor: countFactor,
+// }
+
+// type bossSceneData = protectCitySceneData
 
 export type state = {
     allModelData: models,
@@ -37,6 +50,22 @@ export type state = {
     b_action: action,
     b_emitSpeed: number,
     b_emitterSpeed: number,
+
+
+    hasAttackCitySceneChapterGenerateData: boolean,
+    hasProtectCitySceneChapterGenerateData: boolean,
+    hasBossSceneChapterGenerateData: boolean,
+
+    ac_l_sceneData: Array<attackCitySingleSceneData>,
+    ac_g_sceneData: Array<attackCitySingleSceneData>,
+
+    // pc_sceneData: protectCitySceneData,
+    pc_sceneData_rate: number,
+    pc_sceneData_countFactor: number,
+
+    // bo_sceneData: bossSceneData,
+    bo_sceneData_rate: number,
+    bo_sceneData_countFactor: number,
 }
 
 

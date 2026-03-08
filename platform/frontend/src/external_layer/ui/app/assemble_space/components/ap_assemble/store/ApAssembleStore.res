@@ -67,6 +67,15 @@ let reducer = (state, action) => {
   switch action {
   | ResetWhenEnter => state->_reset
   | ResetWhenSwitch => state->_resetInspector
+  | UnSelectAllContributes => {
+      ...state,
+      selectedContributes: list{},
+    }
+  | UnSelectAll => {
+      ...state,
+      selectedPackages: list{},
+      selectedContributes: list{},
+    }
   | SelectPackage(package) => {
       ...state,
       selectedPackages: state.selectedPackages->Meta3dCommonlib.ListSt.push(

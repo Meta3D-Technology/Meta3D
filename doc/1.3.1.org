@@ -1711,6 +1711,53 @@ package->debug should keep
 
 
 TODO generate
+    select button
+    (sceneChapters)
+    (add collapse, refer to Add Component)
+    
+    for AttackCity:
+      remove button
+
+      text: For LittleMan
+
+      text: For Giantess
+
+        button: add
+        button: clear
+
+        dynamic ui
+        (refer to dynamic careerfeatures)
+        (no title)
+
+      TODO add ui
+        fix: no selected ui control!?
+          should reset selected ones except package
+            select all:
+              deselect all->select all
+
+            add select all contributes
+
+            # add select all except debug changed ones
+            #   contribute
+            #   package
+
+
+        height wrong
+        inner height wrong
+
+        # add for giantess
+        
+      
+
+
+
+    for Other:
+      remove button
+
+      rate: input
+      countFactor: input
+
+
 
 
 TODO reward
