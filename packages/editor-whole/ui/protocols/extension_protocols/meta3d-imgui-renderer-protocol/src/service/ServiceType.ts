@@ -233,6 +233,14 @@ export type service = {
     label: label,
   ) => boolean;
   readonly endModal: () => void;
+  readonly beginTabBar: (
+    label: label,
+  ) => boolean;
+  readonly endTabBar: () => void;
+  readonly beginTabItem: (
+    label: label,
+  ) => boolean;
+  readonly endTabItem: () => void;
   readonly popup: (
     label: label,
     selectedValues: Array<string>,

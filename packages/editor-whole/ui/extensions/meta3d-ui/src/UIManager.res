@@ -1025,6 +1025,50 @@ let endModal = (data, meta3dState) => {
   )
 }
 
+let beginTabBar = (data, meta3dState, label) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.beginTabBar(. label))
+    },
+    data,
+  )
+}
+
+let endTabBar = (data, meta3dState) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.endTabBar()
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
+let beginTabItem = (data, meta3dState, label) => {
+  _invokeIMGUIRenderFuncWithParam(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      (imguiRendererState, imguiRendererService.beginTabItem(. label))
+    },
+    data,
+  )
+}
+
+let endTabItem = (data, meta3dState) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.endTabItem()
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
 let popup = (data, meta3dState, label, selectedValues, id, text) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,

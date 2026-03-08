@@ -166,6 +166,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 selectedSmallSkillObjectActionIndex: api.nullable.getEmpty(),
                 selectedBigSkillObjectActionIndex: api.nullable.getEmpty(),
 
+                // isShowModelWindow: false,
+                // isShowSkillWindow: false,
+                currentTabKey: "Model",
 
                 isShowModelModal: false,
                 isShowUnitValueModal: false,

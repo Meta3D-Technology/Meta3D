@@ -551,7 +551,8 @@ module Method = {
                     }}
                   />
                 </Space>
-          | #menuItems =>
+          | #menuItems 
+          | #tabItems =>
             TextareaUtils.isNotShowTextareaForTest()
               ? React.null
               : <Space direction=#horizontal>

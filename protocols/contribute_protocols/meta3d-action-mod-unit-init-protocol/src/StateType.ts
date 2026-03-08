@@ -13,6 +13,10 @@ export type state = {
     selectedSmallSkillObjectActionIndex: nullable<number>,
     selectedBigSkillObjectActionIndex: nullable<number>,
 
+    // isShowModelWindow: boolean,
+    // isShowSkillWindow: boolean,
+    currentTabKey: string,
+
     isShowModelModal: boolean,
     isShowUnitValueModal: boolean,
     isShowActionModal: boolean,

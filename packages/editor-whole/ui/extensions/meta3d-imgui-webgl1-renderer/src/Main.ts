@@ -436,6 +436,18 @@ export let getExtensionService: getExtensionServiceMeta3D<
         endModal: () => {
             ImGui.EndPopup()
         },
+        beginTabBar: (label) => {
+            return ImGui.BeginTabBar(label)
+        },
+        endTabBar: () => {
+            ImGui.EndTabBar()
+        },
+        beginTabItem: (label) => {
+            return ImGui.BeginTabItem(_extractTextFromWithId(label))
+        },
+        endTabItem: () => {
+            ImGui.EndTabItem()
+        },
         popup: (label, selectedValues, id, text) => {
             let result = null
 

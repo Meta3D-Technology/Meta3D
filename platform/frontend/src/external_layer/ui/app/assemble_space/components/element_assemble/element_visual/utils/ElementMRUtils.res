@@ -283,7 +283,9 @@ let _generateSpecific = (specific: ElementAssembleStoreType.specific): string =>
           value->Obj.magic->Meta3dCommonlib.NullableSt.isNullable
             ? {j`null,`}
             : j`"${value->Obj.magic}",`
-        | #menuItems => j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
+        | #menuItems
+        | #tabItems
+         => j`${value->Obj.magic->Js.Json.stringify->Obj.magic},`
         | #bool => j`${value->Obj.magic->BoolUtils.boolToString},`
         | #select => j`${SpecificUtils.convertValueToString(value, type_)},`
         | #number => j`${value->NumberUtils.numberToString},`

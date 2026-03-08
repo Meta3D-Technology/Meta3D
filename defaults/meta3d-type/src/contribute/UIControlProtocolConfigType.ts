@@ -10,13 +10,13 @@ export type rect = {
 
 export type childrenFunc = (state: state) => state
 
-export type supportedEventName = "button_click" | "run" | "stop" | "click1" | "click2" | "select_asset" | "drop_asset" | "select_tree_node" | "drag_tree_node" | "input_change" | "checkbox_select" | "popup_select" | "codeedit_submit" | "list_select" | "list_remove" | "value_change" | "grid_select"
+export type supportedEventName = "button_click" | "run" | "stop" | "click1" | "click2" | "select_asset" | "drop_asset" | "select_tree_node" | "drag_tree_node" | "input_change" | "checkbox_select" | "popup_select" | "codeedit_submit" | "list_select" | "list_remove" | "value_change" | "grid_select" | "tab_select"
 
 export type actionName = nullable<string>
 
 export type versionRange = string
 
-type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems" | "bool" | "select" | "number" | "nullableNumber" | "textarea" | "rgba"
+type uiControlSpecicFieldType = "string" | "imageBase64" | "menuItems" | "bool" | "select" | "number" | "nullableNumber" | "textarea" | "rgba" | "tabItems"
 
 type uiControlSpecicFieldValue = any
 

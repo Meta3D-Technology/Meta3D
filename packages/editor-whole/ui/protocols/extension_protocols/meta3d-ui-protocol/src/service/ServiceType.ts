@@ -313,6 +313,20 @@ export type service = {
     readonly endModal: (
         meta3dState: meta3dState,
     ) => meta3dState;
+    readonly beginTabBar: (
+        meta3dState: meta3dState,
+        label: label,
+    ) => [meta3dState, boolean];
+    readonly endTabBar: (
+        meta3dState: meta3dState,
+    ) => meta3dState;
+    readonly beginTabItem: (
+        meta3dState: meta3dState,
+        label: label,
+    ) => [meta3dState, boolean];
+    readonly endTabItem: (
+        meta3dState: meta3dState,
+    ) => meta3dState;
     readonly popup: (
         meta3dState: meta3dState,
         label: label,

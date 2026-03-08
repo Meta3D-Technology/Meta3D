@@ -25,13 +25,14 @@ type supportedEventName = [
   | #list_remove
   | #value_change
   | #grid_select
+  | #tab_select
 ]
 
 type actionName = Js.Nullable.t<string>
 
 type versionRange = string
 
-type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems | #bool | #select | #number | #nullableNumber | #textarea |#rgba]
+type uiControlSpecicFieldType = [#string | #imageBase64 | #menuItems | #bool | #select | #number | #nullableNumber | #textarea |#rgba | #tabItems]
 
 type uiControlSpecicFieldValue
 

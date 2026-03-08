@@ -247,6 +247,16 @@ type service = {
     Meta3dImguiRendererProtocol.ServiceType.label,
   ) => (Meta3dType.Index.state, bool),
   endModal: Meta3dType.Index.state => Meta3dType.Index.state,
+  beginTabBar: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+  ) => (Meta3dType.Index.state, bool),
+  endTabBar: Meta3dType.Index.state => Meta3dType.Index.state,
+  beginTabItem: (
+    Meta3dType.Index.state,
+    Meta3dImguiRendererProtocol.ServiceType.label,
+  ) => (Meta3dType.Index.state, bool),
+  endTabItem: Meta3dType.Index.state => Meta3dType.Index.state,
   popup: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,

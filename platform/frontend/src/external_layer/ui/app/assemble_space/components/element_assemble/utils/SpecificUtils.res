@@ -7,6 +7,7 @@ let _handleSpecificDataFieldType = (
     handleBoolTypeFunc,
     handleSelectTypeFunc,
     handleRGBATypeFunc,
+    // handleTabItemsTypeFunc,
     // handleNumberTypeFunc,
   ),
   type_: CommonType.specificDataType,
@@ -16,7 +17,9 @@ let _handleSpecificDataFieldType = (
   | #string => handleStringTypeFunc(value)
   | #textarea => handleTextareaTypeFunc(value)
   | #imageBase64 => handleImageBase64TypeFunc(value)
-  | #menuItems => handleMenuItemsTypeFunc(value)
+  | #menuItems
+  | #tabItems
+   => handleMenuItemsTypeFunc(value)
   | #bool => handleBoolTypeFunc(value)
   | #select => handleSelectTypeFunc(value)
   | #rgba => handleRGBATypeFunc(value)

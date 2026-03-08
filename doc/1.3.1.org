@@ -1697,6 +1697,17 @@ TODO fix back to UserCenter
 
 
 TODO tab
+  TODO add ui control
+
+  TODO add action
+
+  TODO update ui
+
+
+
+TODO fix: back to UserCenter:
+package->debug should keep
+Custom Input and Action should keep
 
 
 TODO generate
