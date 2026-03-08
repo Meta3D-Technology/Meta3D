@@ -17,7 +17,7 @@ let reducer = (state, action) => {
         PackageAssembleStoreType.ResetWhenEnter,
       ),
     }
-  | ResetWhenEnterFromEnter => {
+  | ResetWhenEnterFromEdit => {
       ...state,
       apAssembleState: ApAssembleStore.reducer(
         state.apAssembleState,

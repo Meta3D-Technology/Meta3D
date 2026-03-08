@@ -3,7 +3,7 @@ type action = ..
 
 type action +=
   | ResetWhenEnter
-  | ResetWhenEnterFromEnter
+  | ResetWhenEnterFromEdit
   | ResetWhenSwitch
   | ApAssembleAction(ApAssembleStoreType.action)
   | ElementAssembleAction(ElementAssembleStoreType.action)

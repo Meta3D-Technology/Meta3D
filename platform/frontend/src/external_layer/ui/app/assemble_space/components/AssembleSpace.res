@@ -9,21 +9,41 @@ type view =
   | Package
 
 module Method = {
-  let resetWhenEnter = ( dispatch,dispatchForElementAssembleStore, isFromEnter, isFromEdit ) => {
-    ( isFromEnter || isFromEdit ) ? 
-    dispatch(AssembleSpaceStoreType.ResetWhenEnterFromEnter)
-    :
-    { dispatch(AssembleSpaceStoreType.ResetWhenEnter) 
-  dispatchForElementAssembleStore(
-    ElementAssembleStoreType.SetCanvasData(({width: 0, height: 0}: Meta3dType.Index.canvasData)),
-  )
-    }
+  let resetWhenEnter = (dispatch, dispatchForElementAssembleStore, isFromEnter, isFromEdit) => {
+    isFromEdit
+      ? dispatch(AssembleSpaceStoreType.ResetWhenEnterFromEdit)
+      : isFromEnter
+      ? ()
+      : {
+          dispatch(AssembleSpaceStoreType.ResetWhenEnter)
+          dispatchForElementAssembleStore(
+            ElementAssembleStoreType.SetCanvasData(
+              ({width: 0, height: 0}: Meta3dType.Index.canvasData),
+            ),
+          )
+        }
   }
 
   let _merge = (mergedCustoms, customs) => {
     mergedCustoms
     ->Js.Array.concat(customs, _)
     ->/* ! TODO should handle same name:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -71,7 +91,55 @@ now just remove duplicate one, but need handle more:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 compare equal(first length, then all)?{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -103,7 +171,39 @@ use local input
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 } :{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -135,6 +235,22 @@ remain one custom input;
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 rename another custom input's name to add post fix:"_copy";
 
 
@@ -151,7 +267,39 @@ rename another custom input's name to add post fix:"_copy";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -211,7 +359,39 @@ rename another custom input's name to add post fix:"_copy";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 now just replace add duplicate one, but need handle more
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -262,7 +442,39 @@ now just replace add duplicate one, but need handle more
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 now just replace add duplicate one, but need handle more
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -673,7 +885,7 @@ let make = (
       // )
 
       dispatchForElementAssembleStore(
-        ElementAssembleStoreType.SetCustom(customInputs, customActions),
+        ElementAssembleStoreType.SetCustomWhenEmpty(customInputs, customActions),
       )
 
       setHandledSelectedContributesFromMarket(_ => selectedContributesFromMarket->Some)

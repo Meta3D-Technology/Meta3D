@@ -537,7 +537,7 @@ defineFeature(feature, test => {
       store :=
         ElementAssembleStore.reducer(
           store.contents,
-          ElementAssembleStoreType.SetCustom(
+          ElementAssembleStoreType.SetCustomWhenEmpty(
             list{
               CustomTool.buildCustomInput(~name=inputName, ~originFileStr, ~transpiledFileStr, ()),
             },

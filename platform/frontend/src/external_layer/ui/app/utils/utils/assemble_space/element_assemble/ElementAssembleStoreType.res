@@ -212,7 +212,7 @@ type action =
   // | SetChangeCode(changeCode)
   | SelectCustomInput(CommonType.inputName)
   | SelectCustomAction(CommonType.actionName)
-  | SetCustom(customInputs, customActions)
+  | SetCustomWhenEmpty(customInputs, customActions)
   | StartCreateFromScratchTourPhase2
   | EndCreateFromScratchTourPhase2
   // | EndJumpToCreateFromScratchTourPhase2Guide

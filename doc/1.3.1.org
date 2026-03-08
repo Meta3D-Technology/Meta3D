@@ -1706,8 +1706,8 @@ TODO tab
 
 
 TODO fix: back to UserCenter:
-package->debug should keep
 Custom Input and Action should keep
+package->debug should keep
 
 
 TODO generate

@@ -565,10 +565,8 @@ let reducer = (state, action) => {
   //       },
   //     },
   //   }
-  | ImportWhenEmpty(
-      selectedUIControls,
-      selectedUIControlInspectorData,
-    ) => state.selectedUIControls->Meta3dCommonlib.ListSt.length > 0
+  | ImportWhenEmpty(selectedUIControls, selectedUIControlInspectorData) =>
+    state.selectedUIControls->Meta3dCommonlib.ListSt.length > 0
       ? {
           state
         }
@@ -721,11 +719,14 @@ let reducer = (state, action) => {
       ...state->_resetCurrent,
       currentCustomActionName: actionName->Some,
     }
-  | SetCustom(customInputs, customActions) => {
-      ...state,
+  | SetCustomWhenEmpty(
       customInputs,
       customActions,
-    }
+    ) => {
+          ...state,
+          customInputs: state.customInputs->Meta3dCommonlib.ListSt.length > 0 ?state.customInputs : customInputs ,
+          customActions: state.customActions->Meta3dCommonlib.ListSt.length > 0 ?state.customActions : customActions ,
+        }
   | StartCreateFromScratchTourPhase2 => {
       ...state,
       isInCreateFromScratchTourPhase2: true,
