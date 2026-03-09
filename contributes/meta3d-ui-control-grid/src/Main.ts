@@ -19,6 +19,8 @@ let _loadImages = (
     if (state.gridTextures.length == 0) {
         promise = reducePromise(itemsWithImageBase64, (meta3dState, itemWithImageBase64) => {
             return loadImage(meta3dState, itemWithImageBase64.imageBase64).then((texture: any) => {
+                let state = api.nullable.getExn(api.uiControl.getUIControlState<state>(meta3dState, label))
+
                 meta3dState = api.uiControl.setUIControlState<state>(meta3dState, label, {
                     ...state,
                     gridTextures: [...state.gridTextures, {

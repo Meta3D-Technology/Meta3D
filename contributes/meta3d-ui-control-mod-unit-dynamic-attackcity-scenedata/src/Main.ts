@@ -29,36 +29,33 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             return inputPromise.then(data => {
                 let { beginWindow, endWindow, setNextWindowRect, inputInt1, inputFloat1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-                // const interval = 10
-                // let windowRect = rect
-                // let lastHeight = 0
-                return data.reduce<[meta3dState, Array<attackCitySingleSceneData>]>(([meta3dState, data], d, i) => {
-                    // // let newHeight = 50 + Math.min(values.length, 1) * 30
-                    // let newHeight = interval + 2 * 30
-                    // windowRect = {
-                    //     ...windowRect,
-                    //     height: newHeight,
-                    //     y: windowRect.y + lastHeight
-                    // }
-                    // lastHeight = newHeight
-
-                    // meta3dState = setNextWindowRect(meta3dState, windowRect)
-
-                    // meta3dState = beginWindow(meta3dState, `${label}_window_i`, windowFlags.None)
+                return data.reduce<[meta3dState, [Array<attackCitySingleSceneData>, boolean]]>(([meta3dState, data], d, i) => {
+                    let [newData, isValueUpdate] = data
 
                     let newDifficulty
                     [meta3dState, newDifficulty] = inputInt1(meta3dState, `${label}_ad_${i}`, d.difficulty, 1, 1, 100, "难度", autoDifficulty.VeryEasy + 1, autoDifficulty.VeryHard5 + 1)
+                    if (!api.nullable.isNullable(newDifficulty)) {
+                        isValueUpdate = true
+                    }
+                    else {
+                        newDifficulty = d.difficulty
+                    }
 
                     let newCountFactor
                     [meta3dState, newCountFactor] = inputFloat1(meta3dState, `${label}_cf_${i}`, d.countFactor, 0.1, 1, 100, "数量系数", countFactor.Level0, countFactor.Level10)
+                    if (!api.nullable.isNullable(newCountFactor)) {
+                        isValueUpdate = true
+                    }
+                    else {
+                        newCountFactor = d.countFactor
+                    }
 
-                    // meta3dState = endWindow(meta3dState)
-
-                    return [meta3dState, [...data, {
+                    return [meta3dState, [[...newData, {
+                        ...d,
                         difficulty: api.nullable.getWithDefault(newDifficulty, d.difficulty),
                         countFactor: api.nullable.getWithDefault(newCountFactor, d.countFactor),
-                    }]]
-                }, [meta3dState, []])
+                    }], isValueUpdate]]
+                }, [meta3dState, [[], false]])
             })
         },
         init: (meta3dState) => {

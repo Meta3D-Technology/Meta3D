@@ -1761,8 +1761,67 @@ TODO generate
 
 
 TODO reward
+  reward
+        gem: input
+        coin: input
+        experienceValue: input
+
+        text: Prop
+        # button: add prop
+        # dynamic ui(refer to dynamic careerfeatures)
+        #   button: select
+        #     Modal:props
+        #       grid ui
+
+        #   count:input
+        #   rate:input
+        button: add prop + remove button
+          Modal: 
+            count: input
+            rate: input
+          dynamic ui
+
+        grid: icon+text
+  
+  TODO update asset lib
+
+  TODO add dynamic ui control
+    text, input int, input float
 
 
+  test:Reward
+  button: add
+    show grid modal
+
+  button: clear
+
+  dynamic ui
+  (refer to dynamic careerfeatures)
+  (no title)
+
+
+  TODO add ui
+
+  TODO fix:
+    select props should has two
+
+    can't set prop
+      why ModSetValue add to events twice(tab, grid change)?
+
+  TODO fix: dynamic prop
+    shouldn't trigger always
+
+  TODO fix: dynamic scenedata
+    shouldn't trigger always
+
+  # TODO fix: tab
+  #   shouldn't trigger always
+
+
+
+  TODO refactor:
+    # remove selected props
+    remove addprop action
 
 
 
@@ -1771,6 +1830,10 @@ TODO reward
 TODO judge getCategory when by editor to invoke update api
 
 
+
+TODO add publish button
+
+TODO run test
 
 
 ** TODO ...

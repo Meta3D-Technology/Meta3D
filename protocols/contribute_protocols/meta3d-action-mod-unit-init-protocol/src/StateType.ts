@@ -1,5 +1,5 @@
-import { action, countFactor, nullable } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { actions, models } from "./Type"
+import { action, countFactor, nullable, propName } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { actions, models, props } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 
 export const actionName = "UnitModInit"
@@ -18,13 +18,21 @@ export type attackCitySingleSceneData = {
 
 // type bossSceneData = protectCitySceneData
 
+export type propData = {
+    name: propName,
+    count: number,
+    rate: number
+}
+
 export type state = {
     allModelData: models,
     allActionData: actions,
+    allPropData: props,
 
     selectedModelIndex: nullable<number>,
     selectedSmallSkillObjectActionIndex: nullable<number>,
     selectedBigSkillObjectActionIndex: nullable<number>,
+    // selectedPropIndex: nullable<number>,
 
     // isShowModelWindow: boolean,
     // isShowSkillWindow: boolean,
@@ -35,6 +43,7 @@ export type state = {
     isShowActionModal: boolean,
     isShowSmallSkillObjectActionValueModal: boolean,
     isShowBigSkillObjectActionValueModal: boolean,
+    isShowPropModal: boolean,
 
     excitement: number,
 
@@ -66,6 +75,9 @@ export type state = {
     // bo_sceneData: bossSceneData,
     bo_sceneData_rate: number,
     bo_sceneData_countFactor: number,
+
+
+    prop: Array<propData>,
 }
 
 

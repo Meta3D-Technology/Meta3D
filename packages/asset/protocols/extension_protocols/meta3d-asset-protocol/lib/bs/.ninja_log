@@ -1,14 +1,14 @@
 # ninja log v6
-0	15	1709091847594615597	src/service/ServiceType.ast	785165cefc5839bb
-1	16	1709091847594567789	src/state/StateType.ast	b77cdc3afc8a15dc
-1	16	1709091847594913213	Meta3dAssetProtocol.cmi	3809cb3bf0a1578c
-15	22	1709091847602213334	src/service/ServiceType.d	f2d6bc4aa9df18b6
-16	22	1709091847602311501	src/state/StateType.d	e67c05e9db4e307d
-22	41	1709091847620628647	src/state/StateType-Meta3dAssetProtocol.cmj	41f4f8cdb2729823
-22	41	1709091847620628647	src/state/StateType-Meta3dAssetProtocol.cmi	41f4f8cdb2729823
-22	41	1709091847620628647	../es6_global/src/state/StateType.bs.js	41f4f8cdb2729823
-22	41	1709091847620628647	../js/src/state/StateType.bs.js	41f4f8cdb2729823
-41	62	1709091847641039767	src/service/ServiceType-Meta3dAssetProtocol.cmj	755cf5e80e523cf6
-41	62	1709091847641039767	src/service/ServiceType-Meta3dAssetProtocol.cmi	755cf5e80e523cf6
-41	62	1709091847641039767	../es6_global/src/service/ServiceType.bs.js	755cf5e80e523cf6
-41	62	1709091847641039767	../js/src/service/ServiceType.bs.js	755cf5e80e523cf6
+3	14	14338383699729397	src/state/StateType.ast	83229788b42a3684
+2	15	14338383699739386	src/service/ServiceType.ast	f03ae938d6ad955c
+1	17	14338383699719398	Meta3dAssetProtocol.cmi	d640b5ab77e15185
+14	20	14338383699819359	src/state/StateType.d	35e5ca15f711caf
+16	22	14338383699829331	src/service/ServiceType.d	a6f6f4507906848c
+21	39	14338383699979245	src/state/StateType-Meta3dAssetProtocol.cmj	9d110fb02616917
+21	39	14338383699979245	src/state/StateType-Meta3dAssetProtocol.cmi	9d110fb02616917
+21	39	14338383699979245	../es6_global/src/state/StateType.bs.js	9d110fb02616917
+21	39	14338383699979245	../js/src/state/StateType.bs.js	9d110fb02616917
+39	58	14338383700174319	src/service/ServiceType-Meta3dAssetProtocol.cmj	42711cf3300c1d7
+39	58	14338383700174319	src/service/ServiceType-Meta3dAssetProtocol.cmi	42711cf3300c1d7
+39	58	14338383700174319	../es6_global/src/service/ServiceType.bs.js	42711cf3300c1d7
+39	58	14338383700174319	../js/src/service/ServiceType.bs.js	42711cf3300c1d7

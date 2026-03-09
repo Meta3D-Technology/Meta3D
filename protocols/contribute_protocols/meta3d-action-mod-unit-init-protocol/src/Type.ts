@@ -1,7 +1,7 @@
 // import { box3, damageType, euler, nullable, vector3 } from "type-api/src/ImportedTypes"
 // import { api } from "type-api/src/Type"
-import { action, category, meleeRange, model, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { Map } from "immutable"
+import { action, category, meleeRange, model, propName, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { Map, List } from "immutable"
 
 export type modelData = {
     model: model,
@@ -29,3 +29,11 @@ export type actionData = {
 }
 
 export type actions = Map<category, Map<action, actionData>>
+
+
+export type propData = {
+    name: propName,
+    snapshotImageBase64: string,
+}
+
+export type props = List<propData>

@@ -12,6 +12,8 @@ import { getActions, getActionSnapshotPath } from "./asset-lib/unit-action/Main"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
 import { action, countFactor, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
+import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -123,13 +125,33 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         },
                         api.immutable.createMap()
                     ).then(newAllActionData => {
-                        meta3dState = api.action.setActionState(meta3dState, actionName, {
-                            ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                            allModelData: newAllModelData,
-                            allActionData: newAllActionData,
-                        })
+                        return reducePromise(
+                            getAllPropData(),
+                            (result, data) => {
+                                return new Promise((resolve, reject) => {
+                                    imageSrcToBase64(
+                                        resolve,
+                                        reject,
+                                        getPropSnapshotPath(_getPathPrefix("prop"), data.name)
+                                    )
+                                }).then((imageBase64) => {
+                                    return result.push({
+                                        ...data,
+                                        snapshotImageBase64: imageBase64,
+                                    })
+                                })
+                            },
+                            api.immutable.createList()
+                        ).then(newProps => {
+                            meta3dState = api.action.setActionState(meta3dState, actionName, {
+                                ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                                allModelData: newAllModelData,
+                                allActionData: newAllActionData,
+                                allPropData: newProps,
+                            })
 
-                        return meta3dState
+                            return meta3dState
+                        })
                     })
                 })
             })
@@ -161,10 +183,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 // allModelData: api.immutable.createMapOfData(getAllModelData()),
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),
+                allPropData: api.immutable.createList(),
 
                 selectedModelIndex: api.nullable.getEmpty(),
                 selectedSmallSkillObjectActionIndex: api.nullable.getEmpty(),
                 selectedBigSkillObjectActionIndex: api.nullable.getEmpty(),
+                // selectedPropIndex: api.nullable.getEmpty(),
 
                 // isShowModelWindow: false,
                 // isShowSkillWindow: false,
@@ -175,6 +199,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowActionModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
                 isShowBigSkillObjectActionValueModal: false,
+                isShowPropModal: false,
 
                 excitement: excitement.Level5,
 
@@ -205,6 +230,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 bo_sceneData_rate: 0,
                 bo_sceneData_countFactor: countFactor.Level5,
+
+
+                prop: [],
             }
         }
     }

@@ -689,3 +689,17 @@ export enum skillType {
 // }
 
 // export type propName = bulletPropName | waterPropName | assistantPropName 
+
+
+
+
+export enum propName {
+    AddHp1 = "AddHp1",
+    AddHp2 = "AddHp2",
+}
+
+export type propData = {
+    name:propName
+}
+
+export type props = Array<propData>

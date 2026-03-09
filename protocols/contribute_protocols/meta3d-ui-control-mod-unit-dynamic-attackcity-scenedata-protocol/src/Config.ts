@@ -25,13 +25,23 @@ export let hasChildren: hasChildrenMeta3D = () => false
 export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["value_change"]
 
 export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([valueChangeActionName], [valueChangeActionParams]) => {
+    if (isNullable(valueChangeActionName)) {
+        return ""
+    }
+
+    let result = `
+let [newData, isValueUpdate] = data[1]
+    `
     if (!isNullable(valueChangeActionName)) {
-        return `
+        result = result + `
+                if (isValueUpdate) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${valueChangeActionName}", data[1], JSON.parse('${JSON.stringify(valueChangeActionParams)}'))
+                    return trigger(meta3dState, "meta3d-event-protocol", "${valueChangeActionName}", newData, JSON.parse('${JSON.stringify(valueChangeActionParams)}'))
+                }
                 `
     }
 
-    return ""
+    return result
+
 }

@@ -15,4 +15,4 @@ export type specificData = {
     label: string,
 }
 
-export type outputData = Array<attackCitySingleSceneData>
+export type outputData = [Array<attackCitySingleSceneData>, boolean]
