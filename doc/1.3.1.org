@@ -1825,15 +1825,31 @@ TODO reward
 
 
 
-** TODO publish: get value from read action state
+** DONE publish: get value from read action state
+
+TODO read value
 
 TODO judge getCategory when by editor to invoke update api
 
-
-
-TODO add publish button
+TODO add menu->quick publish
 
 TODO run test
+  publish empty
+
+  publish full
+    # difficulty should - 1
+    difficulty use popup
+
+** TODO add Quick Test
+快速测试
+跳转到游戏 带参数 进入单位测试模式
+
+
+TODO add menu ui
+
+
+
+
 
 
 ** TODO ...

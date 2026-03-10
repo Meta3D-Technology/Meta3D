@@ -27,15 +27,44 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
             }
 
             return inputPromise.then(data => {
-                let { beginWindow, endWindow, setNextWindowRect, inputInt1, inputFloat1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+                let { beginWindow, endWindow, setNextWindowRect, popup, inputFloat1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
+
+                const difficultyMap = {
+                    // [autoDifficulty.VeryEasy]: "非常简单",
+                    // [autoDifficulty.Easy]: "简单",
+                    // [autoDifficulty.Middle]: "中等",
+                    // [autoDifficulty.Hard]: "困难",
+                    // [autoDifficulty.VeryHard]: "非常困难",
+                    // [autoDifficulty.VeryHard1]: "非常困难1",
+                    // [autoDifficulty.VeryHard2]: "非常困难2",
+                    // [autoDifficulty.VeryHard3]: "非常困难3",
+                    // [autoDifficulty.VeryHard4]: "非常困难4",
+                    // [autoDifficulty.VeryHard5]: "非常困难5",
+                    [autoDifficulty.VeryEasy]: "1",
+                    [autoDifficulty.Easy]: "2",
+                    [autoDifficulty.Middle]: "3",
+                    [autoDifficulty.Hard]: "4",
+                    [autoDifficulty.VeryHard]: "5",
+                    [autoDifficulty.VeryHard1]: "6",
+                    [autoDifficulty.VeryHard2]: "7",
+                    [autoDifficulty.VeryHard3]: "8",
+                    [autoDifficulty.VeryHard4]: "9",
+                    [autoDifficulty.VeryHard5]: "10",
+                }
+
 
                 return data.reduce<[meta3dState, [Array<attackCitySingleSceneData>, boolean]]>(([meta3dState, data], d, i) => {
                     let [newData, isValueUpdate] = data
 
-                    let newDifficulty
-                    [meta3dState, newDifficulty] = inputInt1(meta3dState, `${label}_ad_${i}`, d.difficulty, 1, 1, 100, "难度", autoDifficulty.VeryEasy + 1, autoDifficulty.VeryHard5 + 1)
-                    if (!api.nullable.isNullable(newDifficulty)) {
+                    let newDifficulty, newDifficultyIndex
+                    // [meta3dState, newDifficulty] = inputInt1(meta3dState, `${label}_ad_${i}`, d.difficulty, 1, 1, 100, "难度", autoDifficulty.VeryEasy + 1, autoDifficulty.VeryHard5 + 1)
+                    [meta3dState, newDifficultyIndex] = popup(meta3dState, `难度##${label}_ad_${i}`, Object.values(difficultyMap), `${label}_ad_${i}`, difficultyMap[d.difficulty])
+
+                    if (!api.nullable.isNullable(newDifficultyIndex)) {
                         isValueUpdate = true
+
+                        // newDifficulty = Number(Object.keys(difficultyMap)[Object.values(difficultyMap).indexOf(api.nullable.getExn(newDifficultyValue))])
+                        newDifficulty = Number(Object.keys(difficultyMap)[api.nullable.getExn(newDifficultyIndex)])
                     }
                     else {
                         newDifficulty = d.difficulty
@@ -52,8 +81,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                     return [meta3dState, [[...newData, {
                         ...d,
-                        difficulty: api.nullable.getWithDefault(newDifficulty, d.difficulty),
-                        countFactor: api.nullable.getWithDefault(newCountFactor, d.countFactor),
+                        difficulty: newDifficulty,
+                        countFactor: newCountFactor,
                     }], isValueUpdate]]
                 }, [meta3dState, [[], false]])
             })
