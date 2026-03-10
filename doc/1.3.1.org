@@ -1840,15 +1840,23 @@ TODO run test
     # difficulty should - 1
     difficulty use popup
 
-** TODO add Quick Test
+** DONE add Quick Test
 快速测试
 跳转到游戏 带参数 进入单位测试模式
 
 
-TODO add menu ui
+publish with specific data
+  name: temp_ + author + xxx
+  isPublic: false
+
+add ?quicktest + //name + //skilltype
 
 
 
+
+
+
+** TODO publish video
 
 
 
