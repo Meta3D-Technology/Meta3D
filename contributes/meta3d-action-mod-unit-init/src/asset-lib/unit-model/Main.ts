@@ -3,7 +3,7 @@ import { category, model } from "meta3d-action-mod-unit-publish-to-game-protocol
 export let getAllModelData = () => {
     return {
         [category.EliteGiantess]: [{
-            model: model.Melee1,
+            model: model.EliteGiantessMelee1,
         }]
     }
 }

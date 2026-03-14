@@ -2,8 +2,7 @@ import { autoDifficulty } from "./Type";
 
 
 export enum model {
-    Melee1 = "Melee1",
-    // Magic1="Magic1",
+    EliteGiantessMelee1 = "EliteGiantessMelee1",
 }
 
 

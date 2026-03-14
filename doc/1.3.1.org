@@ -1885,23 +1885,79 @@ unitmod
 
 
 
+
+** TODO fast add remain ui
+
+TODO design
+Menu
+Tab
+  Model, Skill, Feature, Reward, Generate
+
+
+
+TODO add Model related ui
+  select category
+    language
+
+  select model
+
+  commit
+
+
+TODO add Feature related ui
+  TODO update asset lib: add unit-feature
+
+  TODO limit max feature count: 3
+
+  TODO update publish data
+
+  TODO run test: feature data should be correct
+
+
+
+...
+
+
+
 ** TODO consider language
-  change model, action, effect to language data
+change model, action, effect to language data
 
-  change reward->prop dynamic data to language data
+change reward->prop dynamic data to language data
+
+
+TODO add language utils to hold all language data
 
 
 
-** TODO 组合单位特性
+
+** TODO limit value
+
+reward->prop count: 5
 
 limit max feature count: 3
 
-  TODO update asset lib: add unit-feature
+generate attack count: 10
 
 
-** TODO add remain ui
-  remain value fields
-  ...
+** TODO publish
+
+TODO publish unit mod to publishmods: check name should be unique
+
+
+TODO add publish ui
+
+
+TODO need mod icon
+
+TODO need unit icon
+  if no, use model snapshot instead
+
+
+
+
+
+** TODO add info
+
 
 
 ** TODO update value
@@ -1928,6 +1984,7 @@ use 1 / emitSpeed * emitSpeed.Level0
 
 
 
+
 # TODO 选择行为模式
 
 
@@ -1942,31 +1999,26 @@ use 1 / emitSpeed * emitSpeed.Level0
 
 
 
-TODO need mod icon
-
-TODO need unit icon
-  if no, use model snapshot instead
-
-
-
-
-TODO limit value
-
-
 TODO check valid data
   skill should has to small, big data both
   
 
 
-TODO publish unit mod to publishmods: check name should be unique
-
-
-TODO add info
-
+** TODO platform: SelectedUIControls: support open/close Window, Modal, Collapse
 
 
 
 ** TODO update ui control icons
+
+
+* TODO update game repo
+
+
+* TODO complete editor
+
+** TODO add remain uis
+e.g. more value fields
+
 
 
 
