@@ -40,7 +40,7 @@ export type state = {
 
     isShowModelModal: boolean,
     isShowUnitValueModal: boolean,
-    isShowActionModal: boolean,
+    isShowSkillModal: boolean,
     isShowSmallSkillObjectActionValueModal: boolean,
     isShowBigSkillObjectActionValueModal: boolean,
     isShowPropModal: boolean,

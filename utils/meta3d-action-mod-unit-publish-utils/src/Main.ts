@@ -59,17 +59,19 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     let skillObj = {}
     if (hasSmallSkillObject) {
         skillObj[skillObject.Small] = {
-            action: s_action,
-            value: {
-                emitSpeed: s_emitSpeed,
+            action: {
+                name: s_action,
+                value: {
+                    emitSpeed: s_emitSpeed,
 
-                meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
+                    meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
 
-                emitterSpeed: s_emitterSpeed,
-                emitterLife: emitterLife.Level0,
-                emitterSize: emitterSize.Level0,
-                emitterCollisionSize: emitterCollisionSize.Level0,
-                emitterCount: emitterCount.Level0,
+                    emitterSpeed: s_emitterSpeed,
+                    emitterLife: emitterLife.Level0,
+                    emitterSize: emitterSize.Level0,
+                    emitterCollisionSize: emitterCollisionSize.Level0,
+                    emitterCount: emitterCount.Level0,
+                },
             },
             effect: {
                 name: effect.Stomp,
@@ -89,17 +91,19 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     }
     if (hasBigSkillObject) {
         skillObj[skillObject.Big] = {
-            action: b_action,
-            value: {
-                emitSpeed: b_emitSpeed,
+            action: {
+                name: b_action,
+                value: {
+                    emitSpeed: b_emitSpeed,
 
-                meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
+                    meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
 
-                emitterSpeed: b_emitterSpeed,
-                emitterLife: emitterLife.Level0,
-                emitterSize: emitterSize.Level0,
-                emitterCollisionSize: emitterCollisionSize.Level0,
-                emitterCount: emitterCount.Level0,
+                    emitterSpeed: b_emitterSpeed,
+                    emitterLife: emitterLife.Level0,
+                    emitterSize: emitterSize.Level0,
+                    emitterCollisionSize: emitterCollisionSize.Level0,
+                    emitterCount: emitterCount.Level0,
+                },
             },
             effect: {
                 name: effect.Stomp,
@@ -238,6 +242,9 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     ],
                 experienceValue: ${experienceValue.VeryHigh},
             }
+        },
+        getFeatureData: () => {
+            return []
         },
     };
         }

@@ -196,7 +196,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 isShowModelModal: false,
                 isShowUnitValueModal: false,
-                isShowActionModal: false,
+                isShowSkillModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
                 isShowBigSkillObjectActionValueModal: false,
                 isShowPropModal: false,

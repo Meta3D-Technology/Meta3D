@@ -1856,7 +1856,7 @@ add ?quicktest + //name + //skilltype
 
 
 
-** TODO publish video
+** DONE publish video
 
 
 
@@ -1871,6 +1871,99 @@ ui
 event
 
 unitmod
+
+
+
+
+
+** DONE refactor: rename isShowSkillModal to isShowSkillModal
+
+** DONE update skill data type, add empty feature data
+
+
+** DONE pass run test
+
+
+
+** TODO consider language
+  change model, action, effect to language data
+
+  change reward->prop dynamic data to language data
+
+
+
+** TODO 组合单位特性
+
+limit max feature count: 3
+
+  TODO update asset lib: add unit-feature
+
+
+** TODO add remain ui
+  remain value fields
+  ...
+
+
+** TODO update value
+*** TODO 将反比的参数改为正比
+
+e.g. emitSpeed:
+use 1 / emitSpeed * emitSpeed.Level0
+
+
+*** TODO valid value should related to unit, action type
+
+
+*** TODO update value
+
+*** TODO fix moveSpeed
+
+*** TODO fix forceSize
+
+*** TODO fix meleeRange
+
+
+** TODO other
+
+
+
+
+# TODO 选择行为模式
+
+
+
+# ** TODO 选择渲染设置
+
+
+
+
+# TODO scenedata->autoDifficulty: use popup instead of inputInt1
+
+
+
+
+TODO need mod icon
+
+TODO need unit icon
+  if no, use model snapshot instead
+
+
+
+
+TODO limit value
+
+
+TODO check valid data
+  skill should has to small, big data both
+  
+
+
+TODO publish unit mod to publishmods: check name should be unique
+
+
+TODO add info
+
+
 
 
 ** TODO update ui control icons

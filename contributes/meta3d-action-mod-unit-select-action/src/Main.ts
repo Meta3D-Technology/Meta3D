@@ -15,7 +15,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
                         [fieldName]: index,
-                        isShowActionModal: false
+                        isShowSkillModal: false
                     })
 
                     return Promise.resolve(meta3dState)
