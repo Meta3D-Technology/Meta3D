@@ -6,6 +6,8 @@ import { attackCitySingleSceneData } from "meta3d-action-mod-unit-init-protocol/
 import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { countFactor } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { getLanguageTextData } from "meta3d-language-utils/src/Main"
+import { languageKey } from "meta3d-language-utils/src/Type"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     api.nullable
@@ -57,8 +59,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     let [newData, isValueUpdate] = data
 
                     let newDifficulty, newDifficultyIndex
-                    // [meta3dState, newDifficulty] = inputInt1(meta3dState, `${label}_ad_${i}`, d.difficulty, 1, 1, 100, "难度", autoDifficulty.VeryEasy + 1, autoDifficulty.VeryHard5 + 1)
-                    [meta3dState, newDifficultyIndex] = popup(meta3dState, `难度##${label}_ad_${i}`, Object.values(difficultyMap), `${label}_ad_${i}`, difficultyMap[d.difficulty])
+                    // [meta3dState, newDifficulty] = inputInt1(meta3dState, `${label}_ad_${i}`, d.difficulty, 1, 1, 100, getLanguageTextData(api, meta3dState, languageKey.Difficulty), autoDifficulty.VeryEasy + 1, autoDifficulty.VeryHard5 + 1)
+                    [meta3dState, newDifficultyIndex] = popup(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.Difficulty)}##${label}_ad_${i}`, Object.values(difficultyMap), `${label}_ad_${i}`, difficultyMap[d.difficulty])
 
                     if (!api.nullable.isNullable(newDifficultyIndex)) {
                         isValueUpdate = true
@@ -71,7 +73,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     }
 
                     let newCountFactor
-                    [meta3dState, newCountFactor] = inputFloat1(meta3dState, `${label}_cf_${i}`, d.countFactor, 0.1, 1, 100, "数量系数", countFactor.Level0, countFactor.Level10)
+                    [meta3dState, newCountFactor] = inputFloat1(meta3dState, `${label}_cf_${i}`, d.countFactor, 0.1, 1, 100, getLanguageTextData(api, meta3dState, languageKey.CountFactor), countFactor.Level0, countFactor.Level10)
                     if (!api.nullable.isNullable(newCountFactor)) {
                         isValueUpdate = true
                     }

@@ -5,6 +5,8 @@ import { eventName, inputData } from "meta3d-action-mod-unit-attackcity-scenedat
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { countFactor } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
+import { languageVariableKey } from "meta3d-language-utils/src/Type"
 
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -16,6 +18,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, [fieldName]) => {
                     let state = api.action.getActionState<initState>(meta3dState, initActionName)
+
+                    if (state[fieldName].length >= 10) {
+                        api.message.warn(getLanguageTextVariableData(api, meta3dState, languageVariableKey.LimitMaxCount)(10))
+
+                        return Promise.resolve(meta3dState)
+                    }
+
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,
                         [fieldName]: [

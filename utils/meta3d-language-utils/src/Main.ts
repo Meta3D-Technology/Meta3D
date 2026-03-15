@@ -10,7 +10,12 @@ export let getTextData = (): data => {
         [language.Chinese]: {
             [languageKey.Level]: "级别",
             [languageKey.Count]: "数量",
+            [languageKey.CountFactor]: "数量系数",
             [languageKey.DropRate]: "爆率",
+            [languageKey.Difficulty]: "难度",
+            [languageKey.AddGenerateDataInAttackCityStage]: "攻击城市关卡增加生成数据",
+            [languageKey.AddGenerateDataInProtectCityStage]: "防卫城市关卡增加生成数据",
+            [languageKey.AddGenerateDataInBossStage]: "boss关卡增加生成数据",
 
             [category.EliteGiantess]: "精英巨大娘",
             [model.EliteGiantessMelee1]: "精英巨大娘近战1",
@@ -21,7 +26,12 @@ export let getTextData = (): data => {
         [language.English]: {
             [languageKey.Level]: "Level",
             [languageKey.Count]: "Count",
+            [languageKey.CountFactor]: "Count Factor",
             [languageKey.DropRate]: "Drop Rate",
+            [languageKey.Difficulty]: "Difficulty",
+            [languageKey.AddGenerateDataInAttackCityStage]: "Add generate data in attack city stage",
+            [languageKey.AddGenerateDataInProtectCityStage]: "Add generate data in protect city stage",
+            [languageKey.AddGenerateDataInBossStage]: "Add generate data in boss stage",
 
             [category.EliteGiantess]: "Elite Giantess",
             [model.EliteGiantessMelee1]: "Elite Giantess Melee 1",

@@ -7,7 +7,13 @@ export enum language {
 export enum languageKey {
     Level,
     Count,
+    CountFactor,
     DropRate,
+    Difficulty,
+
+    AddGenerateDataInAttackCityStage,
+    AddGenerateDataInProtectCityStage,
+    AddGenerateDataInBossStage,
 }
 
 export enum languageVariableKey {
