@@ -4,6 +4,8 @@ import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/s
 import { data } from "meta3d-input-mod-unit-dynamic-reward-prop-protocol"
 import { propData } from "meta3d-action-mod-unit-init-protocol"
 import { count, rate } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
+import { getLanguageTextData } from "meta3d-language-utils/src/Main"
+import { languageKey } from "meta3d-language-utils/src/Type"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     api.nullable
@@ -30,11 +32,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 return data.reduce<[meta3dState, [Array<propData>, boolean]]>(([meta3dState, data], d, i) => {
                     let [newData, isValueUpdate] = data
 
-                    // TODO get language data
-                    meta3dState = text(meta3dState, d.name)
+                    meta3dState = text(meta3dState, getLanguageTextData(api, meta3dState, d.name))
 
                     let newCount
-                    [meta3dState, newCount] = inputInt1(meta3dState, `${label}_count_${i}`, d.count, 1, 1, 100, "数量", count.Zero, count.VeryHigh)
+                    [meta3dState, newCount] = inputInt1(meta3dState, `${label}_count_${i}`, d.count, 1, 1, 100, getLanguageTextData(api, meta3dState, languageKey.Count), 1, +Infinity)
                     if (!api.nullable.isNullable(newCount)) {
                         isValueUpdate = true
                     }
@@ -43,7 +44,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     }
 
                     let newRate
-                    [meta3dState, newRate] = inputFloat1(meta3dState, `${label}_rate_${i}`, d.rate, 0.1, 1, 100, "爆率", rate.Zero, rate.Must)
+                    [meta3dState, newRate] = inputFloat1(meta3dState, `${label}_rate_${i}`, d.rate, 0.1, 1, 100, getLanguageTextData(api, meta3dState, languageKey.DropRate), rate.Zero, rate.Must)
                     if (!api.nullable.isNullable(newRate)) {
                         isValueUpdate = true
                     }

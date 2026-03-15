@@ -1,5 +1,5 @@
 import { state as meta3dState, api } from "meta3d-type"
-import { category, feature, model } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { category, feature, model, propName } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { language, languageKey, languageVariableKey } from "./Type"
 
@@ -9,16 +9,24 @@ export let getTextData = (): data => {
     return {
         [language.Chinese]: {
             [languageKey.Level]: "级别",
+            [languageKey.Count]: "数量",
+            [languageKey.DropRate]: "爆率",
 
             [category.EliteGiantess]: "精英巨大娘",
             [model.EliteGiantessMelee1]: "精英巨大娘近战1",
+            [propName.AddHp1]: "加血（小）",
+            [propName.AddHp2]: "加血（中）",
             [feature.DamageBigger]: "受击变大",
         },
         [language.English]: {
             [languageKey.Level]: "Level",
+            [languageKey.Count]: "Count",
+            [languageKey.DropRate]: "Drop Rate",
 
             [category.EliteGiantess]: "Elite Giantess",
             [model.EliteGiantessMelee1]: "Elite Giantess Melee 1",
+            [propName.AddHp1]: "Add hp（small）",
+            [propName.AddHp2]: "Add hp（medium）",
             [feature.DamageBigger]: "Damage Bigger",
         },
     }
@@ -27,10 +35,10 @@ export let getTextData = (): data => {
 export let getTextDataByVariable = () => {
     return {
         [language.Chinese]: {
-            [languageVariableKey.LimitMaxCount]: (value) => `最多选择${value}个`,
+            [languageVariableKey.LimitMaxCount]: (value: number) => `最多选择${value}个`,
         },
         [language.English]: {
-            [languageVariableKey.LimitMaxCount]: (value) => `Can select ${value} at most`,
+            [languageVariableKey.LimitMaxCount]: (value: number) => `Can select ${value} at most`,
         },
     }
 }

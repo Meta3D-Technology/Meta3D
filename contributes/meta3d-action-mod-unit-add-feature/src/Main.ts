@@ -27,7 +27,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         return Promise.resolve(meta3dState)
                     }
 
-                    let featureData = api.nullable.getExn(state.allFeatureData.get(selectedIndex))
+                    let featureData = api.nullable.getExn(state.allFeatureData.filter(d => {
+                        return state.features.filter(f => f.name == d.name).length == 0
+                    }).get(selectedIndex))
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,

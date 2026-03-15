@@ -4,6 +4,8 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-select-prop-pr
 import { eventName, inputData } from "meta3d-action-mod-unit-select-prop-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { count, rate } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
+import { getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
+import { languageVariableKey } from "meta3d-language-utils/src/Type"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -15,7 +17,15 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index) => {
                     let state = api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName))
 
-                    let prop = api.nullable.getExn(state.allPropData.get(index))
+                    if (state.prop.length >= 5) {
+                        api.message.warn(getLanguageTextVariableData(api, meta3dState, languageVariableKey.LimitMaxCount)(5))
+
+                        return Promise.resolve(meta3dState)
+                    }
+
+                    let prop = api.nullable.getExn(state.allPropData.filter(d => {
+                        return state.prop.filter(p => p.name == d.name).length == 0
+                    }).get(index))
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,

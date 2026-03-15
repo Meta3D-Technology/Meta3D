@@ -6,6 +6,8 @@ export enum language {
 
 export enum languageKey {
     Level,
+    Count,
+    DropRate,
 }
 
 export enum languageVariableKey {

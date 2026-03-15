@@ -1956,17 +1956,31 @@ TODO add Feature related ui
 TODO add Reward related ui
   move to another tab
 
+  language:
+    title
+
+  TODO should exclude selected ones
+
   limit count
 
-  limit max prop count(get from asset lib data)
+  add close ui
+
+  # add remain ui
+
+  # limit max prop count(get from asset lib data)
+
+  run test:
+    filter not work
+
+    fix feature filter
 
 
-TODO add Skill related ui
+TODO update Generate related ui
 
 
 
+TODO update Skill related ui
 
-TODO add Generate related ui
 
 
 
@@ -2058,7 +2072,7 @@ TODO check valid data
   
 
 
-** TODO platform: SelectedUIControls: add 上移、下移 按钮
+** TODO platform: SelectedUIControls: add 上移、下移、父级 按钮
 
 ** TODO platform: SelectedUIControls: add Run button as fixed positions when scroll
 
@@ -2067,7 +2081,7 @@ TODO check valid data
 
 TODO support
 
-TODO default is open
+TODO default is close
 
 
 
