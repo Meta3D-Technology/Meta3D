@@ -1,5 +1,5 @@
 import { state as meta3dState, api } from "meta3d-type"
-import { category, feature, model, propName } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, feature, model, propName } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { language, languageKey, languageVariableKey } from "./Type"
 
@@ -16,9 +16,14 @@ export let getTextData = (): data => {
             [languageKey.AddGenerateDataInAttackCityStage]: "攻击城市关卡增加生成数据",
             [languageKey.AddGenerateDataInProtectCityStage]: "防卫城市关卡增加生成数据",
             [languageKey.AddGenerateDataInBossStage]: "boss关卡增加生成数据",
+            [languageKey.ForSmallUnit]: "针对小型单位",
+            [languageKey.ForBigUnit]: "针对大型单位",
 
             [category.EliteGiantess]: "精英巨大娘",
             [model.EliteGiantessMelee1]: "精英巨大娘近战1",
+            [action.StompLight]: "轻踩",
+            [action.KickLight]: "轻踢",
+            [action.Cast]: "施法",
             [propName.AddHp1]: "加血（小）",
             [propName.AddHp2]: "加血（中）",
             [feature.DamageBigger]: "受击变大",
@@ -32,9 +37,14 @@ export let getTextData = (): data => {
             [languageKey.AddGenerateDataInAttackCityStage]: "Add generate data in attack city stage",
             [languageKey.AddGenerateDataInProtectCityStage]: "Add generate data in protect city stage",
             [languageKey.AddGenerateDataInBossStage]: "Add generate data in boss stage",
+            [languageKey.ForSmallUnit]: "For small unit",
+            [languageKey.ForBigUnit]: "For big unit",
 
             [category.EliteGiantess]: "Elite Giantess",
             [model.EliteGiantessMelee1]: "Elite Giantess Melee 1",
+            [action.StompLight]: "Stomp Light",
+            [action.KickLight]: "Kick Light",
+            [action.Cast]: "Cast",
             [propName.AddHp1]: "Add hp（small）",
             [propName.AddHp2]: "Add hp（medium）",
             [feature.DamageBigger]: "Damage Bigger",

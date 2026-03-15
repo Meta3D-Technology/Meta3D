@@ -1980,6 +1980,10 @@ TODO update Generate related ui
 
 
 TODO update Skill related ui
+  update
+
+  fix
+
 
 
 

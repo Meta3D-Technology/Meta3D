@@ -3,6 +3,7 @@ import { data } from "meta3d-input-grid-protocol"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
@@ -16,7 +17,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                         category
                     )).entries()).map(([action, actionData]) => {
                         return {
-                            name: action,
+                            name: getLanguageTextData(api, meta3dState, action),
                             imageBase64: actionData.snapshotImageBase64
                         }
                     }).sort((a, b) => {
