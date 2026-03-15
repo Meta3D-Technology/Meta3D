@@ -1,5 +1,5 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
-import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { language} from "meta3d-language-utils/src/Type"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-career-publish-to-game-protocol"
 import { eventName, inputData } from "meta3d-action-mod-career-publish-to-game-protocol/src/EventType"

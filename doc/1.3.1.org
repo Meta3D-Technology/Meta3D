@@ -1909,13 +1909,67 @@ TODO add Feature related ui
 
   TODO limit max feature count: 3
 
-  TODO update publish data
+  TODO handle language
 
-  TODO run test: feature data should be correct
+  TODO add ui:
+    clear button
+    # popup selector
+    #   get all feature names(language)
+    add button
+      show modal
+        modal:
+        get all feature name:description
+
+    dynamic ui control
+      collapse: name
+      description
+      inputInt1: level
+
+  TODO update state
+
+  TODO add input, dynamic ui control, action
+
+  TODO sort input
+
+  # TODO update publish data
+
+  TODO run test
+    TODO update error msg
+
+    change level error
+    # can't change level
+
+    can't add more feature
+      can't show modal again
+        should contain in parent window
+        should always be top
+
+        not use window
+
+
+    TODO should exclude selected ones
+
+    TODO alert message(language: variable)
 
 
 
-...
+TODO add Reward related ui
+  move to another tab
+
+  limit count
+
+  limit max prop count(get from asset lib data)
+
+
+TODO add Skill related ui
+
+
+
+
+TODO add Generate related ui
+
+
+
 
 
 
@@ -2004,11 +2058,18 @@ TODO check valid data
   
 
 
+** TODO platform: SelectedUIControls: add 上移、下移 按钮
+
+** TODO platform: SelectedUIControls: add Run button as fixed positions when scroll
+
+
 ** TODO platform: SelectedUIControls: support open/close Window, Modal, Collapse
 
+TODO support
+
+TODO default is open
 
 
-** TODO update ui control icons
 
 
 * TODO update game repo
@@ -2019,6 +2080,10 @@ TODO check valid data
 ** TODO add remain uis
 e.g. more value fields
 
+** TODO update label
+
+
+** TODO update ui control icons
 
 
 

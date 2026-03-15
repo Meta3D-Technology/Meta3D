@@ -1,4 +1,4 @@
-import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { language} from "meta3d-language-utils/src/Type"
 
 export const actionName = "ModLanguage"
 

@@ -1,14 +1,10 @@
+import { language} from "meta3d-language-utils/src/Type"
 import type { List } from "immutable"
 
 export const actionName = "CareerModAddCareerFeature"
 
 export type uiData = null
 
-
-export enum language {
-    Chinese = "Chinese",
-    English = "English"
-}
 
 export enum characterType {
     Giantess,

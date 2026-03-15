@@ -1,7 +1,10 @@
 
 
+import * as Js_exn from "./../../../../../../../../../node_modules/rescript/lib/es6/js_exn.js";
 import * as Caml_option from "./../../../../../../../../../node_modules/rescript/lib/es6/caml_option.js";
+import * as Caml_js_exceptions from "./../../../../../../../../../node_modules/rescript/lib/es6/caml_js_exceptions.js";
 import * as Tuple2$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/tuple/Tuple2.bs.js";
+import * as Exception$Meta3dCommonlib from "./../../../../../../../../../node_modules/meta3d-commonlib/lib/es6_global/src/structure/Exception.bs.js";
 import * as ContainerManager$Meta3dEvent from "../data/ContainerManager.bs.js";
 import * as ManageEventDoService$Meta3dEvent from "../service/event/ManageEventDoService.bs.js";
 import * as CreateCustomEventDoService$Meta3dEvent from "../service/event/event/CreateCustomEventDoService.bs.js";
@@ -48,7 +51,17 @@ function onCustomGlobalEvent3(api, meta3dState, eventExtensionProtocolName, para
   var state = api.getExtensionState(meta3dState, eventExtensionProtocolName);
   var state_actionContributeMap = state.actionContributeMap;
   var state_eventManagerState = ManageEventDoService$Meta3dEvent.onCustomGlobalEvent3(param[0], (function (meta3dState, customEvent) {
-          return handleFunc(meta3dState, customEvent);
+          try {
+            return handleFunc(meta3dState, customEvent);
+          }
+          catch (raw_err){
+            var err = Caml_js_exceptions.internalToOCamlException(raw_err);
+            if (err.RE_EXN_ID === Js_exn.$$Error) {
+              console.error("customEvent: " + JSON.stringify(customEvent) + "");
+              return Exception$Meta3dCommonlib.throwErr(err._1);
+            }
+            throw err;
+          }
         }), state.eventManagerState, param[1], undefined);
   var state$1 = {
     actionContributeMap: state_actionContributeMap,

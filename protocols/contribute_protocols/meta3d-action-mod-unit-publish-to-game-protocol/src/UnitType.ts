@@ -1,8 +1,8 @@
 import { autoDifficulty } from "./Type";
 
-
 export enum model {
     EliteGiantessMelee1 = "EliteGiantessMelee1",
+    // Magic1 = "Magic1",
 }
 
 
@@ -18,23 +18,32 @@ export enum action {
 
     StompLight = "StompLight",
     // StompHeavy,
-    // EmitFireball,
     KickLight = "KickLight",
+    // EmitFireball = "EmitFireball",
+    // EmitMissile = "EmitMissile",
+    Cast = "Cast",
 }
 
 export enum actionType {
     Body,
+    Ranged,
 }
 
 export enum effect {
     DamageBody,
-    Stomp,
+    LightStomp,
+    HeavyStomp,
+    HitFireball,
 }
 
 // export enum particleType {
-export enum renderEffect {
+export enum subEffect {
     StompDust,
     FootDamageDecal,
+
+    ShellExplode,
+
+    HitFireball,
 }
 
 
@@ -587,9 +596,35 @@ export type effectData = {
     }
 }
 
+export enum emitterType {
+    Particle,
+    Instance,
+}
+
+export enum particleImage {
+    Fireball = "Fireball",
+}
+
+export enum instance {
+    Missile1 = "Missile1",
+}
+
+
+export type emitter = {
+    type: emitterType,
+    particleImage?: particleImage,
+    instance?: instance,
+    subEffects: Array<subEffect>,
+}
+
+export type actionData = {
+    name: action,
+    value: skillValue
+}
+
 export type skill = {
-    action: action,
-    value: skillValue,
+    action: actionData,
+    emitter?: emitter,
     effect: effectData,
 }
 
@@ -690,8 +725,6 @@ export enum skillType {
 // export type propName = bulletPropName | waterPropName | assistantPropName 
 
 
-
-
 export enum propName {
     AddHp1 = "AddHp1",
     AddHp2 = "AddHp2",
@@ -702,3 +735,16 @@ export type propData = {
 }
 
 export type props = Array<propData>
+
+
+
+export enum feature {
+    DamageBigger = "DamageBigger",
+}
+
+export type singleFeatureData = {
+    name: feature,
+    level: number,
+}
+
+export type featureData = Array<singleFeatureData>

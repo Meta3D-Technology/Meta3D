@@ -85,7 +85,21 @@ let onCustomGlobalEvent3 = (
     eventManagerState: ManageEventDoService.onCustomGlobalEvent3(
       ~eventName,
       ~handleFunc=(. meta3dState, customEvent) => {
-        handleFunc(. meta3dState, customEvent)
+        try{
+handleFunc(. meta3dState, customEvent)
+        }
+        catch{
+  | Js.Exn.Error(err) => 
+  Js.Console.error(`customEvent: ${customEvent->Obj.magic->Js.Json.stringify}`)
+
+Meta3dCommonlib.Exception.throwErr(err)
+        }
+        
+//     ->Js.Promise.catch(e => {
+//   Js.Console.error(`eventName: ${eventName}`)
+
+// Meta3dCommonlib.Exception.throwErr(e)
+//     }, _)
       },
       ~state=state.eventManagerState,
       ~priority,

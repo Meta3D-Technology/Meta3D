@@ -1,5 +1,4 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
-// import { language } from "meta3d-action-mod-career-add-careerfeature-protocol"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
@@ -14,6 +13,7 @@ import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
 import { action, countFactor, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
 import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
+import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -125,6 +125,16 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         },
                         api.immutable.createMap()
                     ).then(newAllActionData => {
+                        let newAlLFeatureData = Array.from(api.immutable.createMapOfData(getAllFeatureData()).entries()).reduce(
+                            (result, [feature, featureData]) => {
+                                return result.push({
+                                    name: feature,
+                                    maxLevel: featureData.maxLevel
+                                })
+                            },
+                            api.immutable.createList()
+                        )
+
                         return reducePromise(
                             getAllPropData(),
                             (result, data) => {
@@ -147,6 +157,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                 ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
                                 allModelData: newAllModelData,
                                 allActionData: newAllActionData,
+                                allFeatureData: newAlLFeatureData,
                                 allPropData: newProps,
                             })
 
@@ -183,6 +194,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 // allModelData: api.immutable.createMapOfData(getAllModelData()),
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),
+                allFeatureData: api.immutable.createList(),
                 allPropData: api.immutable.createList(),
 
                 selectedModelIndex: api.nullable.getEmpty(),
@@ -197,6 +209,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowModelModal: false,
                 isShowUnitValueModal: false,
                 isShowSkillModal: false,
+                isShowFeatureModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
                 isShowBigSkillObjectActionValueModal: false,
                 isShowPropModal: false,
@@ -216,6 +229,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 b_action: action.StompLight,
                 b_emitSpeed: emitSpeed.Level5,
                 b_emitterSpeed: emitterSpeed.Level5,
+
+
+                features: [],
 
 
                 hasAttackCitySceneChapterGenerateData: false,
