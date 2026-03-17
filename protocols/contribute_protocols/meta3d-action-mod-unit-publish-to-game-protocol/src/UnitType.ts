@@ -24,26 +24,25 @@ export enum action {
     Cast = "Cast",
 }
 
-export enum actionType {
-    Body,
-    Ranged,
-}
+// export enum actionType {
+//     Body,
+//     Ranged,
+// }
 
-export enum effect {
-    DamageBody,
-    LightStomp,
-    HeavyStomp,
-    HitFireball,
-}
+// export enum effect {
+//     DamageBody,
+//     LightStomp,
+//     HeavyStomp,
+//     HitFireball,
+// }
 
 // export enum particleType {
 export enum subEffect {
-    StompDust,
-    FootDamageDecal,
+    StompDust = "StompDust",
+    FootDamageDecal = "FootDamageDecal",
 
-    ShellExplode,
-
-    HitFireball,
+    ShellExplode = "ShellExplode",
+    HitFireball = "HitFireball",
 }
 
 
@@ -561,40 +560,42 @@ export type skillValue = {
     // critRatio: critRatio,
     // explodeRange: explodeRange,
 
-    emitterSpeed: emitterSpeed,
-    emitterLife: emitterLife,
-    emitterSize: emitterSize,
-    emitterCollisionSize: emitterCollisionSize,
-    // emitterVolume: emitterVolume,
-    emitterCount: emitterCount,
+    // emitterSpeed: emitterSpeed,
+    // emitterLife: emitterLife,
+    // emitterSize: emitterSize,
+    // emitterCollisionSize: emitterCollisionSize,
+    // // emitterVolume: emitterVolume,
+    // emitterCount: emitterCount,
 
-    meleeRange: nullable<meleeRange>,
+    // meleeRange: nullable<meleeRange>,
+
+    volume: emitterVolume,
 }
 
-export type effectData = {
-    name: effect,
-    value: {
-        force: forceSize,
-        armorPiercingForceRatio: armorPiercingForceRatio,
+// export type effectData = {
+//     name: effect,
+//     value: {
+//         force: forceSize,
+//         armorPiercingForceRatio: armorPiercingForceRatio,
 
 
-        type: weaponType,
+//         type: weaponType,
 
-        // emitSpeed: emitSpeed,
-        critRatio: critRatio,
-        explodeRange: explodeRange,
+//         // emitSpeed: emitSpeed,
+//         critRatio: critRatio,
+//         explodeRange: explodeRange,
 
-        // emitterSpeed: emitterSpeed,
-        // emitterLife: emitterLife,
-        // emitterSize: emitterSize,
-        // emitterCollisionSize: emitterCollisionSize,
-        emitterVolume: emitterVolume,
-        // emitterCount: emitterCount,
+//         // emitterSpeed: emitterSpeed,
+//         // emitterLife: emitterLife,
+//         // emitterSize: emitterSize,
+//         // emitterCollisionSize: emitterCollisionSize,
+//         emitterVolume: emitterVolume,
+//         // emitterCount: emitterCount,
 
-        // meleeRange: nullable<meleeRange>,
+//         // meleeRange: nullable<meleeRange>,
 
-    }
-}
+//     }
+// }
 
 export enum emitterType {
     Particle,
@@ -610,10 +611,20 @@ export enum instance {
 }
 
 
+export type emitterValue = {
+    emitterSpeed: emitterSpeed,
+    emitterLife: emitterLife,
+    emitterSize: emitterSize,
+    emitterCollisionSize: emitterCollisionSize,
+    emitterCount: emitterCount,
+    explodeRange: explodeRange,
+}
+
 export type emitter = {
     type: emitterType,
     particleImage?: particleImage,
     instance?: instance,
+    value: emitterValue,
     subEffects: Array<subEffect>,
 }
 
@@ -622,10 +633,27 @@ export type actionData = {
     value: skillValue
 }
 
+export type damage = {
+    type: meleeDamageEffectType | rangedDamageEffectType,
+    value: {
+        force: number,
+        armorPiercingForceRatio: number,
+        critRatio: number,
+        // explodeRange?: number
+    },
+}
+
+export type hit = {
+    // damage: Array<singleDamage>,
+    damage: damage,
+    subEffects: Array<subEffect>,
+}
+
+
 export type skill = {
     action: actionData,
     emitter?: emitter,
-    effect: effectData,
+    hit: hit,
 }
 
 // export type skillData = Record<
@@ -731,7 +759,7 @@ export enum propName {
 }
 
 export type propData = {
-    name:propName
+    name: propName
 }
 
 export type props = Array<propData>
@@ -748,3 +776,21 @@ export type singleFeatureData = {
 }
 
 export type featureData = Array<singleFeatureData>
+
+
+// export enum damageEffectType {
+//     BodyDamage = "BodyDamage",
+//     BodyDirectAndRangeDamage = "BodyDirectAndRangeDamage",
+
+//     MagicDamage = "MagicDamage",
+// }
+export enum meleeDamageEffectType {
+    BodyDamage = "BodyDamage",
+    BodyDirectAndRangeDamage = "BodyDirectAndRangeDamage",
+}
+
+export enum rangedDamageEffectType {
+    MagicDamage = "MagicDamage",
+}
+
+export type damageEffectType = meleeDamageEffectType | rangedDamageEffectType

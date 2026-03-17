@@ -1,6 +1,6 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 // import { language } from "meta3d-action-mod-unit-add-careerfeature-protocol"
-import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, effect, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, meleeDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
@@ -64,28 +64,31 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
                 value: {
                     emitSpeed: s_emitSpeed,
 
-                    meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
+                    // meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
 
-                    emitterSpeed: s_emitterSpeed,
-                    emitterLife: emitterLife.Level0,
-                    emitterSize: emitterSize.Level0,
-                    emitterCollisionSize: emitterCollisionSize.Level0,
-                    emitterCount: emitterCount.Level0,
+                    // emitterSpeed: s_emitterSpeed,
+                    // emitterLife: emitterLife.Level0,
+                    // emitterSize: emitterSize.Level0,
+                    // emitterCollisionSize: emitterCollisionSize.Level0,
+                    // emitterCount: emitterCount.Level0,
+
+                    volume: emitterVolume.Level6,
                 },
             },
-            effect: {
-                name: effect.Stomp,
+            hit: {
+                damage: {
+                    type: meleeDamageEffectType.BodyDirectAndRangeDamage,
+                    value: {
+                        // force: forceSize.VeryLow4 * 0.4,
+                        force: forceSize.Level1 * 3 / 8 * 0.4,
+                        armorPiercingForceRatio: armorPiercingForceRatio.Level4,
+                        // type: weaponType.Body,
 
-                value: {
-                    // force: forceSize.VeryLow4 * 0.4,
-                    force: forceSize.Level1 * 3 / 8 * 0.4,
-                    armorPiercingForceRatio: armorPiercingForceRatio.Level4,
-                    type: weaponType.Body,
-
-                    critRatio: critRatio.Level0,
-                    explodeRange: explodeRange.Level0,
-                    emitterVolume: emitterVolume.Level6,
+                        critRatio: critRatio.Level0,
+                        // explodeRange: explodeRange.Level0,
+                    },
                 },
+                subEffects: [subEffect.StompDust, subEffect.FootDamageDecal]
             },
         }
     }
@@ -105,19 +108,20 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
                     emitterCount: emitterCount.Level0,
                 },
             },
-            effect: {
-                name: effect.Stomp,
+            hit: {
+                damage: {
+                    type: meleeDamageEffectType.BodyDirectAndRangeDamage,
+                    value: {
+                        // force: forceSize.VeryLow4 * 0.4,
+                        force: forceSize.Level1 * 3 / 8 * 0.4,
+                        armorPiercingForceRatio: armorPiercingForceRatio.Level4,
+                        // type: weaponType.Body,
 
-                value: {
-                    // force: forceSize.VeryLow4 * 0.4,
-                    force: forceSize.Level1 * 3 / 8 * 0.4,
-                    armorPiercingForceRatio: armorPiercingForceRatio.Level4,
-                    type: weaponType.Body,
-
-                    critRatio: critRatio.Level0,
-                    explodeRange: explodeRange.Level0,
-                    emitterVolume: emitterVolume.Level6,
+                        critRatio: critRatio.Level0,
+                        // explodeRange: explodeRange.Level0,
+                    },
                 },
+                subEffects: [subEffect.StompDust, subEffect.FootDamageDecal]
             },
         }
     }

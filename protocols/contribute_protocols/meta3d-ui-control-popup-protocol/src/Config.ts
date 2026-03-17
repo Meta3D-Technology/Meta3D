@@ -34,13 +34,13 @@ export let hasChildren: hasChildrenMeta3D = () => false
 
 export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["popup_select"]
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([selectActionName]) => {
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([selectActionName], [selectActionParams]) => {
     if (!isNullable(selectActionName)) {
         return `
                 if (!api.nullable.isNullable(data[1])) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${selectActionName}", api.nullable.getExn(data[1]))
+                    return trigger(meta3dState, "meta3d-event-protocol", "${selectActionName}", api.nullable.getExn(data[1]), JSON.parse('${JSON.stringify(selectActionParams)}'))
                 }
                 `
     }

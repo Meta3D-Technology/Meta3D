@@ -4,13 +4,13 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 // import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-unit-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions, getActionSnapshotPath } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath, getSubEffects } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { action, countFactor, emitSpeed, emitterSpeed, excitement } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, countFactor, emitSpeed, emitterSpeed, emitterType, excitement, forceSize, instance, meleeDamageEffectType, particleImage } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
 import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
@@ -194,6 +194,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 // allModelData: api.immutable.createMapOfData(getAllModelData()),
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),
+                allSubEffects: api.immutable.createListOfData(getSubEffects()),
                 allFeatureData: api.immutable.createList(),
                 allPropData: api.immutable.createList(),
 
@@ -212,24 +213,48 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowFeatureModal: false,
                 isShowRewardModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
-                isShowBigSkillObjectActionValueModal: false,
+                isShowSmallSkillObjectDamageValueModal: false,
+                isShowSmallSkillObjectDamageSubEffectModal: false,
+                isShowSmallSkillObjectEmitterValueModal: false,
+                isShowSmallSkillObjectEmitterSubEffectModal: false,
+                // isShowBigSkillObjectActionValueModal: false,
                 isShowPropModal: false,
 
                 excitement: excitement.Level5,
 
 
-                skillType: api.nullable.getEmpty(),
+                // skillType: api.nullable.getEmpty(),
 
                 hasSmallSkillObject: false,
                 hasBigSkillObject: false,
 
                 s_action: action.StompLight,
                 s_emitSpeed: emitSpeed.Level5,
+
+                s_damageType: meleeDamageEffectType.BodyDamage,
+
+                s_force: forceSize.Level1,
+
+                s_hit_subEffects: [],
+
+
+                s_emitterType: emitterType.Particle,
+                s_emitterInstance: instance.Missile1,
+                s_emitterParticleImage: particleImage.Fireball,
+
                 s_emitterSpeed: emitterSpeed.Level5,
 
+                s_emitter_subEffects: [],
+
+
+
+                // TODO update
                 b_action: action.StompLight,
                 b_emitSpeed: emitSpeed.Level5,
-                b_emitterSpeed: emitterSpeed.Level5,
+                b_emitterSpeed: emitterSpeed.Level0,
+
+
+
 
 
                 features: [],

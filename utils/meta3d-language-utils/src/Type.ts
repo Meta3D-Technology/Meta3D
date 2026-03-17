@@ -15,6 +15,7 @@ export enum languageKey {
     AddGenerateDataInBossStage,
     ForSmallUnit,
     ForBigUnit,
+
 }
 
 export enum languageVariableKey {

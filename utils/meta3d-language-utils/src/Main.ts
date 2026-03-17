@@ -1,5 +1,5 @@
 import { state as meta3dState, api } from "meta3d-type"
-import { action, category, feature, model, propName } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, feature, meleeDamageEffectType, model, propName, rangedDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { language, languageKey, languageVariableKey } from "./Type"
 
@@ -19,6 +19,7 @@ export let getTextData = (): data => {
             [languageKey.ForSmallUnit]: "针对小型单位",
             [languageKey.ForBigUnit]: "针对大型单位",
 
+
             [category.EliteGiantess]: "精英巨大娘",
             [model.EliteGiantessMelee1]: "精英巨大娘近战1",
             [action.StompLight]: "轻踩",
@@ -27,6 +28,13 @@ export let getTextData = (): data => {
             [propName.AddHp1]: "加血（小）",
             [propName.AddHp2]: "加血（中）",
             [feature.DamageBigger]: "受击变大",
+            [meleeDamageEffectType.BodyDamage]: "身体伤害",
+            [meleeDamageEffectType.BodyDirectAndRangeDamage]: "身体直接伤害和范围伤害",
+            [rangedDamageEffectType.MagicDamage]: "魔法伤害",
+            [subEffect.FootDamageDecal]: "地裂贴花",
+            [subEffect.HitFireball]: "击中火球",
+            [subEffect.ShellExplode]: "炮弹爆炸",
+            [subEffect.StompDust]: "踩踏灰尘",
         },
         [language.English]: {
             [languageKey.Level]: "Level",
@@ -48,6 +56,13 @@ export let getTextData = (): data => {
             [propName.AddHp1]: "Add hp（small）",
             [propName.AddHp2]: "Add hp（medium）",
             [feature.DamageBigger]: "Damage Bigger",
+            [meleeDamageEffectType.BodyDamage]: "Body damage",
+            [meleeDamageEffectType.BodyDirectAndRangeDamage]: "Body direct and range damage",
+            [rangedDamageEffectType.MagicDamage]: "Magic damage",
+            [subEffect.FootDamageDecal]: "Foot damage decal",
+            [subEffect.HitFireball]: "Hit fireball",
+            [subEffect.ShellExplode]: "Shell explode",
+            [subEffect.StompDust]: "Stomp dust",
         },
     }
 }

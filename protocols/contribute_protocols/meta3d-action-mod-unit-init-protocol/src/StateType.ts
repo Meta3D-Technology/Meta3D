@@ -1,5 +1,5 @@
-import { action, countFactor, feature, nullable, propName } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { actions, features, models, props } from "./Type"
+import { action, countFactor, damageEffectType, emitterType, feature, instance, meleeDamageEffectType, nullable, particleImage, propName, rangedDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { actions, features, models, props, subEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 
 export const actionName = "UnitModInit"
@@ -34,6 +34,7 @@ export type propData = {
 export type state = {
     allModelData: models,
     allActionData: actions,
+    allSubEffects: subEffects,
     allFeatureData: features,
     allPropData: props,
 
@@ -52,19 +53,37 @@ export type state = {
     isShowFeatureModal: boolean,
     isShowRewardModal: boolean,
     isShowSmallSkillObjectActionValueModal: boolean,
-    isShowBigSkillObjectActionValueModal: boolean,
+    isShowSmallSkillObjectDamageValueModal: boolean,
+    isShowSmallSkillObjectDamageSubEffectModal: boolean,
+    isShowSmallSkillObjectEmitterValueModal: boolean,
+    isShowSmallSkillObjectEmitterSubEffectModal: boolean,
+    // isShowBigSkillObjectActionValueModal: boolean,
     isShowPropModal: boolean,
 
     excitement: number,
 
-    skillType: nullable<string>,
+    // skillType: nullable<string>,
 
     hasSmallSkillObject: boolean,
     hasBigSkillObject: boolean,
 
     s_action: action,
     s_emitSpeed: number,
+    // s_emitterSpeed: number,
+
+    s_damageType: damageEffectType,
+    s_force: number,
+
+    s_hit_subEffects: Array<subEffect>,
+
+    s_emitterType: emitterType,
+    s_emitterInstance: instance,
+    s_emitterParticleImage: particleImage,
+
     s_emitterSpeed: number,
+
+    s_emitter_subEffects: Array<subEffect>,
+
 
     b_action: action,
     b_emitSpeed: number,

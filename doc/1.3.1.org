@@ -2011,19 +2011,185 @@ limit max feature count: 3
 generate attack count: 10
 
 
-** TODO publish
+** TODO update skill ui
+
+重构effect，改为选择:
+
+伤害
+多个d type, value
+
+渲染效果
+多个
+
+
+加入新的伤害效果类型，如
+身体伤害
+范围伤害
+冲击伤害
+魔法伤害
+范围硬直
+
+
+伤害效果类型, value根据a  t,s  t过滤
+
+
+一个类型对应一个value
+
+范围硬直没有value
+
+
+use hit instead of effect field
+
+伤害效果类型决定了伤害次数，d t,w  t
+
+
+范围伤害只对近战有效
+
+
+
+TODO move emitterVolume to action value; rename it to volume
+
+TODO remove actionType
+
+TODO MagicDamage use explodeRange
+
+# TODO action->value decide by skillType
+TODO move emitterXxx value to emitter
+
+*** TODO add emitter
+
+*** DONE update ui
+Text: Action
+
+...
+
+
+
+Text: Damage
+
+popup: select type(filter)
+
+button:set damage value
+Modal
+  close
+  values
+
+
+button:clear subEffects
+  use common action
+# popup: add subEffect
+button: show subEffect List
+list
+  language:title
+
+  input
+    filter selected
+    # filter by type
+
+  add action
+
+
+dynamic subEffect
+  title
+  # description
+
+  # limit count: 5
+
+  Same Line
+
+  input
+
+  # action
+
+
+TODO add ui
+
+
+*** DONE pass run test
+
+*** TODO update ui
+
+Collapse: Emitter
+  is skillType is Ranged, show
+
+  no title
+
+# Text: Emitter
+popup: select emitterType
+
+# popup: select instance
+#   show judge by emitterType  
+
+#   TODO popup: if inputs is empty arr, not show
+
+update asset lib
+
+button: show grid
+  show judge by emitterType  
+grid: select instance
+  show judge by emitterType  
+Image+Text
+
+# popup: select particleImage
+
+button: show grid
+  show judge by emitterType  
+grid: select particleImage
+  show judge by emitterType  
+Image+Text
+
+
+button:set value
+Modal
+  close
+  values
+
+button:clear subEffects
+button: show subEffect List
+list
+  language:title
+  filter selected
+
+dynamic subEffect
+
+*** TODO update init action state
+
+*** TODO pass run test
+
+
+
+** TODO attack city generate data: add rate
+
+** TODO protect city, boss generate data: use the same data(difficulty)
+
+
+** TODO update publish value
+
+emitter: should judge skillType
+
+instance, particleImage: should judge emitter type
+
+
+** TODO update feature's publish data
+
+** TODO pass run test: quick test
+
+
+
+
+** TODO add publish ui
+
+TODO add common publish ui control
+# TODO add publish ui
+  specific: pass publish actionName
+
+  TODO need mod icon
+
+  TODO need unit icon
+    # if no, use model snapshot instead
+
 
 TODO publish unit mod to publishmods: check name should be unique
-
-
-TODO add publish ui
-
-
-TODO need mod icon
-
-TODO need unit icon
-  if no, use model snapshot instead
-
 
 
 
@@ -2076,9 +2242,20 @@ TODO check valid data
   
 
 
+
+
+* TODO update game repo
+
+
+
+* TODO update platform
+
+** TODO platform: when scroll in ElementAssemble, the content and the ui control inspector, acton edit/input edit should be fixed
+
+** TODO platform: SelectedUIControls: make Run button's row as fixed positions when scroll
+
 ** TODO platform: SelectedUIControls: add 上移、下移、父级 按钮
 
-** TODO platform: SelectedUIControls: add Run button as fixed positions when scroll
 
 
 ** TODO platform: SelectedUIControls: support open/close Window, Modal, Collapse
@@ -2087,10 +2264,6 @@ TODO support
 
 TODO default is close
 
-
-
-
-* TODO update game repo
 
 
 * TODO complete editor
@@ -2119,6 +2292,12 @@ e.g. more value fields
 
 
 # *** TODO add editor ui
+
+
+
+
+
+
 
 * TODO run element: not error alert while already show error message
 
