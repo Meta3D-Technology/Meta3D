@@ -1,5 +1,5 @@
 import { state as meta3dState, api } from "meta3d-type"
-import { action, category, feature, meleeDamageEffectType, model, propName, rangedDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, emitterType, feature, instance, meleeDamageEffectType, model, particleImage, propName, rangedDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { language, languageKey, languageVariableKey } from "./Type"
 
@@ -35,6 +35,10 @@ export let getTextData = (): data => {
             [subEffect.HitFireball]: "击中火球",
             [subEffect.ShellExplode]: "炮弹爆炸",
             [subEffect.StompDust]: "踩踏灰尘",
+            [emitterType.Particle]: "粒子",
+            [emitterType.Instance]: "实例",
+            [particleImage.Fireball1]: "火球1",
+            [instance.Missile1]: "导弹1",
         },
         [language.English]: {
             [languageKey.Level]: "Level",
@@ -63,6 +67,10 @@ export let getTextData = (): data => {
             [subEffect.HitFireball]: "Hit fireball",
             [subEffect.ShellExplode]: "Shell explode",
             [subEffect.StompDust]: "Stomp dust",
+            [emitterType.Particle]: "Particle",
+            [emitterType.Instance]: "Instance",
+            [particleImage.Fireball1]: "Fireball1 1",
+            [instance.Missile1]: "Missile 1",
         },
     }
 }

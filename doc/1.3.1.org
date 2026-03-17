@@ -2107,15 +2107,31 @@ TODO add ui
 
 *** DONE pass run test
 
-*** TODO update ui
+*** DONE update ui
 
-Collapse: Emitter
+# Collapse: Emitter
+Window: Emitter
   is skillType is Ranged, show
 
   no title
 
 # Text: Emitter
 popup: select emitterType
+
+TODO run test
+  not show window
+    need update:
+      action
+        init
+        # select action
+        meta3d-action-mod-unit-set-damagetype
+
+      input
+        meta3d-input-mod-unit-show-emitter-window
+        meta3d-input-mod-unit-select-damagetype
+    
+  can't select action again
+
 
 # popup: select instance
 #   show judge by emitterType  
@@ -2126,17 +2142,32 @@ update asset lib
 
 button: show grid
   show judge by emitterType  
-grid: select instance
-  show judge by emitterType  
+Modal
+  grid: select particleImage
+    show judge by emitterType  
 Image+Text
 
-# popup: select particleImage
+
+TODO run test
+  press button wrong
+  # isShowSmallSkillObjectEmitterParticleImageModal
+
+  select emitter type wrong
+
+  when switch emitter type:
+    image, text should be reset
+    button visible wrong
+
 
 button: show grid
   show judge by emitterType  
-grid: select particleImage
-  show judge by emitterType  
+Modal
+  grid: select instance
+    show judge by emitterType  
 Image+Text
+
+
+TODO run test
 
 
 button:set value
@@ -2152,10 +2183,23 @@ list
 
 dynamic subEffect
 
-*** TODO update init action state
 
-*** TODO pass run test
 
+TODO run test
+  s shouldn't not show
+
+  window height need bigger
+
+
+
+
+
+
+
+*** DONE update init action state
+
+*** DONE pass run test
+all input value not show
 
 
 ** TODO attack city generate data: add rate
@@ -2174,6 +2218,9 @@ instance, particleImage: should judge emitter type
 
 ** TODO pass run test: quick test
 
+TODO cast fireball to littleman
+
+TODO cast missive to littleman
 
 
 

@@ -598,12 +598,12 @@ export type skillValue = {
 // }
 
 export enum emitterType {
-    Particle,
-    Instance,
+    Particle="Particle",
+    Instance="Instance",
 }
 
 export enum particleImage {
-    Fireball = "Fireball",
+    Fireball1 = "Fireball1",
 }
 
 export enum instance {

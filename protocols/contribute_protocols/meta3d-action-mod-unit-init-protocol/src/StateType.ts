@@ -1,5 +1,5 @@
 import { action, countFactor, damageEffectType, emitterType, feature, instance, meleeDamageEffectType, nullable, particleImage, propName, rangedDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { actions, features, models, props, subEffects } from "./Type"
+import { actions, emitterInstances, emitterParticleImages, emitterTypes, features, models, props, subEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 
 export const actionName = "UnitModInit"
@@ -35,12 +35,17 @@ export type state = {
     allModelData: models,
     allActionData: actions,
     allSubEffects: subEffects,
+    allEmitterTypes: emitterTypes,
+    allEmitterParticleImages: emitterParticleImages,
+    allEmitterInstances: emitterInstances,
     allFeatureData: features,
     allPropData: props,
 
-    selectedModelIndex: nullable<number>,
-    selectedSmallSkillObjectActionIndex: nullable<number>,
-    selectedBigSkillObjectActionIndex: nullable<number>,
+    selectedModelIndex: number,
+    selectedSmallSkillObjectActionIndex: number,
+    selectedSmallSkillObjectEmitterParticleImageIndex: nullable<number>,
+    selectedSmallSkillObjectEmitterInstanceIndex: nullable<number>,
+    // selectedBigSkillObjectActionIndex: nullable<number>,
     // selectedPropIndex: nullable<number>,
 
     // isShowModelWindow: boolean,
@@ -55,6 +60,8 @@ export type state = {
     isShowSmallSkillObjectActionValueModal: boolean,
     isShowSmallSkillObjectDamageValueModal: boolean,
     isShowSmallSkillObjectDamageSubEffectModal: boolean,
+    isShowSmallSkillObjectEmitterParticleImageModal: boolean,
+    isShowSmallSkillObjectEmitterInstanceModal: boolean,
     isShowSmallSkillObjectEmitterValueModal: boolean,
     isShowSmallSkillObjectEmitterSubEffectModal: boolean,
     // isShowBigSkillObjectActionValueModal: boolean,
@@ -67,7 +74,7 @@ export type state = {
     hasSmallSkillObject: boolean,
     hasBigSkillObject: boolean,
 
-    s_action: action,
+    // s_action: action,
     s_emitSpeed: number,
     // s_emitterSpeed: number,
 
@@ -77,15 +84,15 @@ export type state = {
     s_hit_subEffects: Array<subEffect>,
 
     s_emitterType: emitterType,
-    s_emitterInstance: instance,
-    s_emitterParticleImage: particleImage,
+    // s_emitterInstance: instance,
+    // s_emitterParticleImage: particleImage,
 
     s_emitterSpeed: number,
 
     s_emitter_subEffects: Array<subEffect>,
 
 
-    b_action: action,
+    // b_action: action,
     b_emitSpeed: number,
     b_emitterSpeed: number,
 

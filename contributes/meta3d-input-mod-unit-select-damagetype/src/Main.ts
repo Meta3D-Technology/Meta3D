@@ -6,9 +6,9 @@ import { getDamageEffectTypesBySkillType } from "meta3d-action-mod-unit-skill-ut
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
-        inputName: "ModUnitDamageTypeInput",
-        func: (meta3dState, [actionFieldName]) => {
-            let data = getDamageEffectTypesBySkillType(api, meta3dState, actionFieldName)
+        inputName: "ModUnitSelectDamageTypeInput",
+        func: (meta3dState, [selectedActionIndexFieldName]) => {
+            let data = getDamageEffectTypesBySkillType(api, meta3dState, selectedActionIndexFieldName)
 
             return Promise.resolve(
                 data.map(d => getLanguageTextData(api, meta3dState, d))

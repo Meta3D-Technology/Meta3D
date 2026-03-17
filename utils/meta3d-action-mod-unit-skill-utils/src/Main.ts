@@ -1,19 +1,29 @@
 import { state as meta3dState, api } from "meta3d-type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
-import { meleeDamageEffectType, rangedDamageEffectType, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, meleeDamageEffectType, rangedDamageEffectType, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
-export let getDamageEffectTypesBySkillType = (api: api, meta3dState: meta3dState, actionFieldName: string) => {
-    let skillType_ = api.nullable.getWithDefault(
+export let getAction = (api: api, state: initState, selectedActionIndexFieldName: keyof initState, category: category): action => {
+    return Array.from(api.nullable.getExn(state.allActionData.get(
+        category
+    )).keys())[state[selectedActionIndexFieldName] as number]
+}
+
+export let getSkillType = (api: api, meta3dState: meta3dState, selectedActionIndexFieldName: keyof initState) => {
+    return api.nullable.getWithDefault(
         api.nullable.map((state: any) => {
             let category = api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)).category
 
             return api.nullable.getExn(api.nullable.getExn(state.allActionData.get(
                 category
-            )).get(state[actionFieldName])).skillType
+            )).get(getAction(api, state, selectedActionIndexFieldName, category))).skillType
         }, api.action.getActionState<initState>(meta3dState, initActionName)),
         skillType.Melee
     )
+}
+
+export let getDamageEffectTypesBySkillType = (api: api, meta3dState: meta3dState, selectedActionIndexFieldName: keyof initState) => {
+    let skillType_ = getSkillType(api, meta3dState, selectedActionIndexFieldName)
 
     let data
     switch (skillType_) {

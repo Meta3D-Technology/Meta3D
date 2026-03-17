@@ -1,18 +1,22 @@
-import { action, category, meleeRange, model, skillType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, emitterType, instance, meleeRange, model, particleImage, skillType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 export let getActions = () => {
     return {
         [category.EliteGiantess]: {
             [action.StompLight]: {
                 skillType: skillType.Melee,
-                meleeRange: meleeRange.Level6 * 1.5 * 1.1 / 22,
+                // meleeRange: meleeRange.Level6 * 1.5 * 1.1 / 22,
+            },
+            [action.KickLight]: {
+                skillType: skillType.Melee,
+                // meleeRange: meleeRange.Level6 * 1.5 * 1.1 / 22,
+            },
+            [action.Cast]: {
+                skillType: skillType.Ranged,
+                // workFrameIndex: 20,
             },
         }
     }
-}
-
-export let getActionSnapshotPath = (pathPrefix, category: category, action: action) => {
-    return `${pathPrefix}/${category.toLowerCase()}/icon_action/${action}.png`
 }
 
 export let getSubEffects = () => {
@@ -23,4 +27,35 @@ export let getSubEffects = () => {
         subEffect.HitFireball,
         subEffect.ShellExplode,
     ]
+}
+
+export let getEmitterTypes = () => {
+    return [
+        emitterType.Particle,
+        emitterType.Instance,
+    ]
+}
+
+export let getEmitterParticleImages = () => {
+    return [
+        particleImage.Fireball1
+    ]
+}
+
+export let getEmitterInstances = () => {
+    return [
+        instance.Missile1
+    ]
+}
+
+export let getEmitterParticleImageSnapshotPath = (pathPrefix, name) => {
+    return `${pathPrefix}/icon_particleimage/${name}.png`
+}
+
+export let getEmitterInstanceSnapshotPath = (pathPrefix, name) => {
+    return `${pathPrefix}/icon_instance/${name}.png`
+}
+
+export let getActionSnapshotPath = (pathPrefix, category: category, action: action) => {
+    return `${pathPrefix}/${category.toLowerCase()}/icon_action/${action}.png`
 }

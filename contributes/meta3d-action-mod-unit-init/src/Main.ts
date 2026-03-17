@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 // import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-unit-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions, getActionSnapshotPath, getSubEffects } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterTypes, getSubEffects } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
@@ -153,15 +153,55 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             },
                             api.immutable.createList()
                         ).then(newProps => {
-                            meta3dState = api.action.setActionState(meta3dState, actionName, {
-                                ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                                allModelData: newAllModelData,
-                                allActionData: newAllActionData,
-                                allFeatureData: newAlLFeatureData,
-                                allPropData: newProps,
-                            })
+                            return reducePromise(
+                                getEmitterParticleImages(),
+                                (result, data) => {
+                                    return new Promise((resolve, reject) => {
+                                        imageSrcToBase64(
+                                            resolve,
+                                            reject,
+                                            getEmitterParticleImageSnapshotPath(_getPathPrefix("unit-action"), data)
+                                        )
+                                    }).then((imageBase64) => {
+                                        return result.push({
+                                            name: data,
+                                            snapshotImageBase64: imageBase64,
+                                        })
+                                    })
+                                },
+                                api.immutable.createList()
+                            ).then(newEmitterParticleImages => {
+                                return reducePromise(
+                                    getEmitterInstances(),
+                                    (result, data) => {
+                                        return new Promise((resolve, reject) => {
+                                            imageSrcToBase64(
+                                                resolve,
+                                                reject,
+                                                getEmitterInstanceSnapshotPath(_getPathPrefix("unit-action"), data)
+                                            )
+                                        }).then((imageBase64) => {
+                                            return result.push({
+                                                name: data,
+                                                snapshotImageBase64: imageBase64,
+                                            })
+                                        })
+                                    },
+                                    api.immutable.createList()
+                                ).then(newEmitterInstances => {
+                                    meta3dState = api.action.setActionState(meta3dState, actionName, {
+                                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                                        allModelData: newAllModelData,
+                                        allActionData: newAllActionData,
+                                        allEmitterParticleImages: newEmitterParticleImages,
+                                        allEmitterInstances: newEmitterInstances,
+                                        allFeatureData: newAlLFeatureData,
+                                        allPropData: newProps,
+                                    })
 
-                            return meta3dState
+                                    return meta3dState
+                                })
+                            })
                         })
                     })
                 })
@@ -195,13 +235,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),
                 allSubEffects: api.immutable.createListOfData(getSubEffects()),
+                allEmitterTypes: api.immutable.createListOfData(getEmitterTypes()),
+                allEmitterParticleImages: api.immutable.createList(),
+                allEmitterInstances: api.immutable.createList(),
                 allFeatureData: api.immutable.createList(),
                 allPropData: api.immutable.createList(),
 
-                selectedModelIndex: api.nullable.getEmpty(),
-                selectedSmallSkillObjectActionIndex: api.nullable.getEmpty(),
-                selectedBigSkillObjectActionIndex: api.nullable.getEmpty(),
-                // selectedPropIndex: api.nullable.getEmpty(),
+                selectedModelIndex: 0,
+                selectedSmallSkillObjectActionIndex: 0,
+                selectedSmallSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
+                selectedSmallSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
+                // selectedBigSkillObjectActionIndex: api.nullable.getEmpty(),
 
                 // isShowModelWindow: false,
                 // isShowSkillWindow: false,
@@ -215,6 +259,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowSmallSkillObjectActionValueModal: false,
                 isShowSmallSkillObjectDamageValueModal: false,
                 isShowSmallSkillObjectDamageSubEffectModal: false,
+                isShowSmallSkillObjectEmitterParticleImageModal: false,
+                isShowSmallSkillObjectEmitterInstanceModal: false,
                 isShowSmallSkillObjectEmitterValueModal: false,
                 isShowSmallSkillObjectEmitterSubEffectModal: false,
                 // isShowBigSkillObjectActionValueModal: false,
@@ -228,7 +274,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 hasSmallSkillObject: false,
                 hasBigSkillObject: false,
 
-                s_action: action.StompLight,
+                // s_action: action.StompLight,
                 s_emitSpeed: emitSpeed.Level5,
 
                 s_damageType: meleeDamageEffectType.BodyDamage,
@@ -239,8 +285,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
 
                 s_emitterType: emitterType.Particle,
-                s_emitterInstance: instance.Missile1,
-                s_emitterParticleImage: particleImage.Fireball,
+                // s_emitterInstance: instance.Missile1,
+                // s_emitterParticleImage: particleImage.Fireball1,
 
                 s_emitterSpeed: emitterSpeed.Level5,
 
@@ -249,7 +295,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
 
                 // TODO update
-                b_action: action.StompLight,
                 b_emitSpeed: emitSpeed.Level5,
                 b_emitterSpeed: emitterSpeed.Level0,
 
