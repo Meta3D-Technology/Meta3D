@@ -1,4 +1,4 @@
-import { action, countFactor, damageEffectType, emitterType, feature, instance, meleeDamageEffectType, nullable, particleImage, propName, rangedDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { countFactor, damageEffectType, emitterType, feature, nullable, propName, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actions, emitterInstances, emitterParticleImages, emitterTypes, features, models, props, subEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 
@@ -6,8 +6,9 @@ export const actionName = "UnitModInit"
 
 export type uiData = null
 
-export type attackCitySingleSceneData = {
+export type singleSceneData = {
     difficulty: autoDifficulty,
+    weight: number,
     countFactor: countFactor,
 }
 
@@ -104,16 +105,16 @@ export type state = {
     hasProtectCitySceneChapterGenerateData: boolean,
     hasBossSceneChapterGenerateData: boolean,
 
-    ac_l_sceneData: Array<attackCitySingleSceneData>,
-    ac_g_sceneData: Array<attackCitySingleSceneData>,
+    ac_l_sceneData: Array<singleSceneData>,
+    ac_g_sceneData: Array<singleSceneData>,
 
-    // pc_sceneData: protectCitySceneData,
-    pc_sceneData_rate: number,
-    pc_sceneData_countFactor: number,
+    // // pc_sceneData: protectCitySceneData,
+    // pc_sceneData_rate: number,
+    // pc_sceneData_countFactor: number,
 
-    // bo_sceneData: bossSceneData,
-    bo_sceneData_rate: number,
-    bo_sceneData_countFactor: number,
+    // // bo_sceneData: bossSceneData,
+    // bo_sceneData_rate: number,
+    // bo_sceneData_countFactor: number,
 
 
     prop: Array<propData>,

@@ -10,6 +10,7 @@ export enum languageKey {
     CountFactor,
     DropRate,
     Difficulty,
+    Weight,
     AddGenerateDataInAttackCityStage,
     AddGenerateDataInProtectCityStage,
     AddGenerateDataInBossStage,

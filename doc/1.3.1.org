@@ -2202,9 +2202,22 @@ TODO run test
 all input value not show
 
 
-** TODO attack city generate data: add rate
+** DONE update generate
 
-** TODO protect city, boss generate data: use the same data(difficulty)
+TODO update UnitType
+
+TODO attack city generate data: add weight
+
+TODO protect city, boss generate data: use the same data
+
+# TODO update asset lib
+# add getAllSceneChapters
+
+
+TODO inputFloat1 text: rename rate to weight
+
+
+TODO refactor: move old ui control
 
 
 ** TODO update publish value

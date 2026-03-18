@@ -598,8 +598,8 @@ export type skillValue = {
 // }
 
 export enum emitterType {
-    Particle="Particle",
-    Instance="Instance",
+    Particle = "Particle",
+    Instance = "Instance",
 }
 
 export enum particleImage {
@@ -676,9 +676,9 @@ export type displayName = {
 
 
 export enum sceneChapter {
-    AttackCity,
-    ProtectCity,
-    Boss,
+    AttackCity = "AttackCity",
+    ProtectCity = "ProtectCity",
+    Boss = "Boss",
 }
 
 export enum player {
@@ -707,23 +707,23 @@ export enum countFactor {
 //         countFactor: countFactor
 //     }>
 // >
-export type attackCityGenerateData = {
-    [player.LittleMan]?: Array<{
-        difficulty: autoDifficulty,
-        countFactor: countFactor
-    }>,
-    [player.Giantess]?: Array<{
-        difficulty: autoDifficulty,
-        countFactor: countFactor
-    }>,
-}
 
-export type protectCityGenerateData = {
-    rate: number,
+export type singleGenerateDataForPlayer = {
+    difficulty: autoDifficulty,
+    weight: number,
     countFactor: countFactor
 }
 
-export type bossGenerateData = protectCityGenerateData
+export type generateDataForPlayer = Array<singleGenerateDataForPlayer>
+
+export type commonGenerateData = {
+    [player.LittleMan]?: generateDataForPlayer,
+    [player.Giantess]?: generateDataForPlayer,
+}
+
+// export type protectCityGenerateData = commonGenerateData
+
+// export type bossGenerateData = commonGenerateData
 
 
 // export type generateData = Record<
@@ -731,11 +731,16 @@ export type bossGenerateData = protectCityGenerateData
 //     attackCityGenerateData | protectCityGenerateData
 // >
 
-export type generateData = {
-    [sceneChapter.AttackCity]?: attackCityGenerateData,
-    [sceneChapter.ProtectCity]?: protectCityGenerateData,
-    [sceneChapter.Boss]?: bossGenerateData,
-}
+// export type generateData = {
+//     [sceneChapter.AttackCity]?: commonGenerateData,
+//     [sceneChapter.ProtectCity]?: commonGenerateData,
+//     [sceneChapter.Boss]?: commonGenerateData,
+// }
+
+export type generateData = Array<{
+    sceneChapter: sceneChapter,
+    data: commonGenerateData,
+}>
 
 
 export type unitUniqueName = string

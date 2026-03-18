@@ -1,6 +1,6 @@
 // import { box3, damageType, euler, nullable, vector3 } from "type-api/src/ImportedTypes"
 // import { api } from "type-api/src/Type"
-import { action, category, emitterType, feature, instance, meleeRange, model, particleImage, propName, skillType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, emitterType, feature, instance, model, particleImage, propName, skillType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { Map, List } from "immutable"
 
 export type modelData = {
