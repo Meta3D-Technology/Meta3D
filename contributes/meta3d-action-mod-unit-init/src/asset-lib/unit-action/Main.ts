@@ -57,5 +57,6 @@ export let getEmitterInstanceSnapshotPath = (pathPrefix, name) => {
 }
 
 export let getActionSnapshotPath = (pathPrefix, category: category, action: action) => {
-    return `${pathPrefix}/${category.toLowerCase()}/icon_action/${action}.png`
+    // return `${pathPrefix}/${category.toLowerCase()}/icon_action/${action}.png`
+    return `${pathPrefix}/icon_action/${action}.png`
 }
