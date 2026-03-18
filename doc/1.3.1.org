@@ -2220,16 +2220,18 @@ TODO inputFloat1 text: rename rate to weight
 TODO refactor: move old ui control
 
 
-** TODO update publish value
+** DONE update publish value
 
 emitter: should judge skillType
 
 instance, particleImage: should judge emitter type
 
 
-** TODO update feature's publish data
+** DONE update feature's publish data
 
-** TODO pass run test: quick test
+** DONE pass run test: quick test
+TODO fix button
+isShowSmallSkillObjectActionValueModal
 
 TODO cast fireball to littleman
 

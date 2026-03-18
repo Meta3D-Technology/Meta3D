@@ -1,28 +1,60 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 // import { language } from "meta3d-action-mod-unit-add-careerfeature-protocol"
-import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, meleeDamageEffectType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, meleeDamageEffectType, subEffect, skillType, emitterType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
+import { getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
 
 let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
     let {
         allModelData,
+        allActionData,
+        allSubEffects,
+        allEmitterTypes,
+        allEmitterParticleImages,
+        allEmitterInstances,
+        // allFeatureData,
+        // allPropData,
+
         selectedModelIndex,
+
+        selectedSmallSkillObjectActionIndex,
+        selectedSmallSkillObjectEmitterParticleImageIndex,
+        selectedSmallSkillObjectEmitterInstanceIndex,
+
+
+
 
         excitement,
 
         hasSmallSkillObject,
         hasBigSkillObject,
 
-        s_action,
+        // s_action,
         s_emitSpeed,
+
+        s_damageType,
+
+        s_force,
+
+        s_hit_subEffects,
+
+        s_emitterType,
+
         s_emitterSpeed,
 
-        b_action,
-        b_emitSpeed,
-        b_emitterSpeed,
+        s_emitter_subEffects,
+
+        // b_action,
+        // b_emitSpeed,
+        // b_emitterSpeed,
+
+
+
+
+        features,
 
 
         hasAttackCitySceneChapterGenerateData,
@@ -32,11 +64,6 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
         ac_l_sceneData,
         ac_g_sceneData,
 
-        pc_sceneData_rate,
-        pc_sceneData_countFactor,
-
-        bo_sceneData_rate,
-        bo_sceneData_countFactor,
 
 
         prop,
@@ -58,9 +85,36 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
 
     let skillObj = {}
     if (hasSmallSkillObject) {
+        let emitter
+        if (getSkillType(api, meta3dState, "selectedSmallSkillObjectActionIndex") == skillType.Ranged) {
+            emitter = {
+                type: s_emitterType,
+                value: {
+                    emitterSpeed: s_emitterSpeed,
+                    emitterLife: emitterLife.Level6,
+                    emitterSize: emitterSize.Level10,
+                    emitterCollisionSize: emitterCollisionSize.Level10,
+                    emitterCount: emitterCount.Level1,
+
+                    explodeRange: explodeRange.Level5,
+                },
+                subEffects: s_emitter_subEffects,
+            }
+
+            if (s_emitterType == emitterType.Particle) {
+                emitter.particleImage = allEmitterParticleImages.get(api.nullable.getExn(selectedSmallSkillObjectEmitterParticleImageIndex)).name
+            }
+            else {
+                emitter.instance = allEmitterInstances.get(api.nullable.getExn(selectedSmallSkillObjectEmitterInstanceIndex)).name
+            }
+        }
+        else {
+            emitter = undefined
+        }
+
         skillObj[skillObject.Small] = {
             action: {
-                name: s_action,
+                name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedSmallSkillObjectActionIndex)],
                 value: {
                     emitSpeed: s_emitSpeed,
 
@@ -75,56 +129,54 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
                     volume: emitterVolume.Level6,
                 },
             },
+            emitter,
             hit: {
                 damage: {
-                    type: meleeDamageEffectType.BodyDirectAndRangeDamage,
+                    type: s_damageType,
                     value: {
-                        // force: forceSize.VeryLow4 * 0.4,
-                        force: forceSize.Level1 * 3 / 8 * 0.4,
+                        force: s_force,
                         armorPiercingForceRatio: armorPiercingForceRatio.Level4,
-                        // type: weaponType.Body,
 
                         critRatio: critRatio.Level0,
-                        // explodeRange: explodeRange.Level0,
                     },
                 },
-                subEffects: [subEffect.StompDust, subEffect.FootDamageDecal]
+                subEffects: s_hit_subEffects
             },
         }
     }
-    if (hasBigSkillObject) {
-        skillObj[skillObject.Big] = {
-            action: {
-                name: b_action,
-                value: {
-                    emitSpeed: b_emitSpeed,
+    // if (hasBigSkillObject) {
+    //     skillObj[skillObject.Big] = {
+    //         action: {
+    //             name: b_action,
+    //             value: {
+    //                 emitSpeed: b_emitSpeed,
 
-                    meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
+    //                 meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
 
-                    emitterSpeed: b_emitterSpeed,
-                    emitterLife: emitterLife.Level0,
-                    emitterSize: emitterSize.Level0,
-                    emitterCollisionSize: emitterCollisionSize.Level0,
-                    emitterCount: emitterCount.Level0,
-                },
-            },
-            hit: {
-                damage: {
-                    type: meleeDamageEffectType.BodyDirectAndRangeDamage,
-                    value: {
-                        // force: forceSize.VeryLow4 * 0.4,
-                        force: forceSize.Level1 * 3 / 8 * 0.4,
-                        armorPiercingForceRatio: armorPiercingForceRatio.Level4,
-                        // type: weaponType.Body,
+    //                 emitterSpeed: b_emitterSpeed,
+    //                 emitterLife: emitterLife.Level0,
+    //                 emitterSize: emitterSize.Level0,
+    //                 emitterCollisionSize: emitterCollisionSize.Level0,
+    //                 emitterCount: emitterCount.Level0,
+    //             },
+    //         },
+    //         hit: {
+    //             damage: {
+    //                 type: meleeDamageEffectType.BodyDirectAndRangeDamage,
+    //                 value: {
+    //                     // force: forceSize.VeryLow4 * 0.4,
+    //                     force: forceSize.Level1 * 3 / 8 * 0.4,
+    //                     armorPiercingForceRatio: armorPiercingForceRatio.Level4,
+    //                     // type: weaponType.Body,
 
-                        critRatio: critRatio.Level0,
-                        // explodeRange: explodeRange.Level0,
-                    },
-                },
-                subEffects: [subEffect.StompDust, subEffect.FootDamageDecal]
-            },
-        }
-    }
+    //                     critRatio: critRatio.Level0,
+    //                     // explodeRange: explodeRange.Level0,
+    //                 },
+    //             },
+    //             subEffects: [subEffect.StompDust, subEffect.FootDamageDecal]
+    //         },
+    //     }
+    // }
 
 
     let generateData = {}
@@ -139,18 +191,18 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
 
         generateData[sceneChapter.AttackCity] = playerGenerateData
     }
-    if (hasProtectCitySceneChapterGenerateData) {
-        generateData[sceneChapter.ProtectCity] = {
-            rate: pc_sceneData_rate,
-            countFactor: pc_sceneData_countFactor,
-        }
-    }
-    if (hasBossSceneChapterGenerateData) {
-        generateData[sceneChapter.Boss] = {
-            rate: bo_sceneData_rate,
-            countFactor: bo_sceneData_countFactor,
-        }
-    }
+    // if (hasProtectCitySceneChapterGenerateData) {
+    //     generateData[sceneChapter.ProtectCity] = {
+    //         rate: pc_sceneData_rate,
+    //         countFactor: pc_sceneData_countFactor,
+    //     }
+    // }
+    // if (hasBossSceneChapterGenerateData) {
+    //     generateData[sceneChapter.Boss] = {
+    //         rate: bo_sceneData_rate,
+    //         countFactor: bo_sceneData_countFactor,
+    //     }
+    // }
 
 
 
@@ -248,7 +300,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
             }
         },
         getFeatureData: () => {
-            return []
+            return ${JSON.stringify(features)}
         },
     };
         }
