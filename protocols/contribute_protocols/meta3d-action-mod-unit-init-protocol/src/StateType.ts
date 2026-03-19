@@ -118,6 +118,18 @@ export type state = {
 
 
     prop: Array<propData>,
+
+
+
+    isShowPublishModal: boolean,
+
+    displayNameCN: string,
+    displayNameEN: string,
+    modIconBase64: nullable<string>,
+    modIconTexture: nullable<any>,
+    isPublic: boolean,
+    description: string,
+
 }
 
 

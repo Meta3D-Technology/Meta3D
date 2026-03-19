@@ -320,6 +320,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
 
                 prop: [],
+
+
+
+                isShowPublishModal: false,
+
+                displayNameCN: "",
+                displayNameEN: "",
+                modIconBase64: api.nullable.getEmpty(),
+                modIconTexture: api.nullable.getEmpty(),
+                isPublic: false,
+                description: "",
             }
         }
     }

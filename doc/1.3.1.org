@@ -2245,19 +2245,47 @@ TODO add common publish ui control
 # TODO add publish ui
   specific: pass publish actionName
 
+  ui:
+    Modal
+      ...
+
+      Upload Image
+      Image
+
+
+  if value change, return new value
+
   TODO need mod icon
 
-  TODO need unit icon
+  # TODO need unit icon
     # if no, use model snapshot instead
 
+  TODO run test
+    test input1 + upload + publish button
+      image
+      can't set
 
-TODO publish unit mod to publishmods: check name should be unique
+    TODO get author
+
+    add remain
+
+    publish unit mod to publishmods: check valid
+
+    update name
+
+    run test
+      description
+      isPublic
+      ...
+
+    TODO update ui control by import
+
+# TODO publish unit mod to publishmods: check name should be unique
 
 
 
 
-** TODO add info
-
+TODO update quick test
 
 
 ** TODO update value
@@ -2277,6 +2305,16 @@ use 1 / emitSpeed * emitSpeed.Level0
 *** TODO fix forceSize
 
 *** TODO fix meleeRange
+
+
+** TODO add info
+
+TODO for init
+
+TODO for publish
+
+TODO for quick test
+
 
 
 ** TODO other
@@ -2314,6 +2352,9 @@ TODO check valid data
 
 ** TODO platform: when scroll in ElementAssemble, the content and the ui control inspector, acton edit/input edit should be fixed
 
+** TODO platform: when scroll in ApAssemble, the inspector should be fixed
+
+
 ** TODO platform: SelectedUIControls: make Run button's row as fixed positions when scroll
 
 ** TODO platform: SelectedUIControls: add 上移、下移、父级 按钮
@@ -2334,6 +2375,12 @@ TODO default is close
 e.g. more value fields
 
 ** TODO update label
+
+** TODO update publish
+
+** TODO update quicktest
+
+** TODO update publish check
 
 
 ** TODO update ui control icons

@@ -5,6 +5,9 @@ import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
+// import { characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
+// import { getLanguageTextData } from "meta3d-language-utils/src/Main"
+// import { languageKey } from "meta3d-language-utils/src/Type"
 
 let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
@@ -179,7 +182,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     // }
 
 
-    let generateData = {}
+    let generateData = []
     if (hasAttackCitySceneChapterGenerateData) {
         let playerGenerateData = {}
         if (ac_l_sceneData.length > 0) {
@@ -189,20 +192,14 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
             playerGenerateData[player.Giantess] = ac_g_sceneData
         }
 
-        generateData[sceneChapter.AttackCity] = playerGenerateData
+        generateData = [
+            ...generateData,
+            {
+                sceneChapter: sceneChapter.AttackCity,
+                data: playerGenerateData
+            }
+        ]
     }
-    // if (hasProtectCitySceneChapterGenerateData) {
-    //     generateData[sceneChapter.ProtectCity] = {
-    //         rate: pc_sceneData_rate,
-    //         countFactor: pc_sceneData_countFactor,
-    //     }
-    // }
-    // if (hasBossSceneChapterGenerateData) {
-    //     generateData[sceneChapter.Boss] = {
-    //         rate: bo_sceneData_rate,
-    //         countFactor: bo_sceneData_countFactor,
-    //     }
-    // }
 
 
 
@@ -309,7 +306,55 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     `
 }
 
-export let publish = (api: api, meta3dState: meta3dState, name, author) => {
+export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dState: meta3dState,
+    {
+        hasSmallSkillObject,
+        hasBigSkillObject,
+
+        hasAttackCitySceneChapterGenerateData,
+        hasProtectCitySceneChapterGenerateData,
+        hasBossSceneChapterGenerateData,
+
+        selectedSmallSkillObjectEmitterParticleImageIndex,
+        selectedSmallSkillObjectEmitterInstanceIndex,
+
+    }: initState) => {
+    let message = api.nullable.getEmpty<string>()
+
+    if (!hasSmallSkillObject || !hasBigSkillObject) {
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedAllSkillObject))
+    }
+    else if (
+        !hasAttackCitySceneChapterGenerateData &&
+        !hasProtectCitySceneChapterGenerateData &&
+        !hasBossSceneChapterGenerateData
+    ) {
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedAtLeastOneGenerateData))
+    }
+    else if (getSkillType(api, meta3dState, "selectedSmallSkillObjectActionIndex") == skillType.Ranged
+        && (
+            api.nullable.isNullable(
+                selectedSmallSkillObjectEmitterParticleImageIndex
+            )
+            && api.nullable.isNullable(
+                selectedSmallSkillObjectEmitterInstanceIndex
+            )
+        )
+    ) {
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedSmallSkillObjectEmitterData))
+    }
+
+
+    return api.nullable.getWithDefault(
+        api.nullable.map((message) => {
+            api.message.warn(message)
+            return true
+        }, message),
+        false
+    )
+}
+
+export let publish = (api: api, meta3dState: meta3dState, name, author, displayNameCN, displayNameEN, description, isPublic, modIconBase64: string) => {
     // return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
     api.writeState(meta3dState)
 
@@ -322,16 +367,16 @@ export let publish = (api: api, meta3dState: meta3dState, name, author) => {
     "mod": {
         "protocolName": "unit-protocol",
         "author": "${author}",
-        "displayName_cn": "Test1",
-        "displayName_en": "Test1",
+        "displayName_cn": "${displayNameCN}",
+        "displayName_en": "${displayNameEN}",
         "repoLink": "",
-        "isPublic": false,
+        "isPublic": ${isPublic},
         "dependentMods": [
         ]
     }
                         }`,
             // `${state.readme}`,
-            "ReadMe",
+            `${description}`,
             // _buildDistFileContent(api, state, characterType_, features, isChinese),
             _buildDistFileContent(api, meta3dState),
             [
@@ -342,9 +387,8 @@ export let publish = (api: api, meta3dState: meta3dState, name, author) => {
                 //     new Uint8Array()
                 // ],
             ],
-            // careerIconBase64,
-            "",
-            // characterType_
+            modIconBase64,
+            // characterType.GiantessOrLittleMan
             2
         )
     }, meta3dState => {
@@ -359,4 +403,45 @@ export let publish = (api: api, meta3dState: meta3dState, name, author) => {
         .catch(e => {
             api.message.error(e)
         })
+}
+
+let _getLoginedUserName = () => {
+    // 获取当前URL的参数
+    const urlParams = new URLSearchParams(window.location.href);
+
+    return urlParams.get("username")
+}
+
+let _isDebugEnv = () => {
+    return globalThis.location.href.includes("localhost")
+}
+
+export let getUserName = (api: api) => {
+    // let store = api.storage.createInstance({ name: "store_backend_temp" })
+
+
+    let userName = _getLoginedUserName()
+
+    if (api.nullable.isNullable(userName)) {
+        // alert("请从游戏中进入(Please Enter from Game)")
+
+        // globalThis.location.href = "https://gts-play.cn"
+        // return meta3dState
+
+        if (!_isDebugEnv()) {
+            alert("无法获得作者名，使用默认的作者名(Can't get author name, use default one instead)")
+        }
+
+        userName = api.nullable.return("Unknown")
+    }
+
+    return userName
+}
+
+let _getDisplayName = (displayNameCN, displayNameEN, isChinese) => {
+    return isChinese ? displayNameCN : displayNameEN
+}
+
+export let buildUniqueName = (author, displayNameCN, displayNameEN, isChinese) => {
+    return `${author}_${_getDisplayName(displayNameCN, displayNameEN, isChinese)}`
 }

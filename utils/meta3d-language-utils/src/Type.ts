@@ -17,6 +17,24 @@ export enum languageKey {
     ForSmallUnit,
     ForBigUnit,
 
+    DisplayNameCN,
+    DisplayNameEN,
+    IsPublic,
+    UploadModIcon,
+    Description,
+    PublishToGame,
+    Cancel,
+
+    NeedDisplayNameCN,
+    NeedDisplayNameEN,
+    NeedDescription,
+    NeedModIcon,
+    NeedAllSkillObject,
+    NeedAtLeastOneGenerateData,
+    NeedSmallSkillObjectEmitterData,
+    NeedBigSkillObjectEmitterData,
+
+
 }
 
 export enum languageVariableKey {

@@ -19,6 +19,22 @@ export let getTextData = (): data => {
             [languageKey.AddGenerateDataInBossStage]: "boss关卡增加生成数据",
             [languageKey.ForSmallUnit]: "针对小型单位",
             [languageKey.ForBigUnit]: "针对大型单位",
+            [languageKey.DisplayNameCN]: "模组名称（中文）",
+            [languageKey.DisplayNameEN]: "模组名称（英文）",
+            [languageKey.UploadModIcon]: "上传模组图标",
+            [languageKey.IsPublic]: "是否公开（如果不公开，则仅可在调试模式中订阅该模组）",
+            [languageKey.Description]: "描述（包含中文、英文）（支持Markdown）",
+            [languageKey.PublishToGame]: "发布到游戏",
+            [languageKey.Cancel]: "取消",
+
+            [languageKey.NeedDisplayNameCN]: "需要输入模组名称（中文）",
+            [languageKey.NeedDisplayNameEN]: "需要输入模组名称（英文）",
+            [languageKey.NeedDescription]: "需要输入描述",
+            [languageKey.NeedModIcon]: "需要上传模组图标",
+            [languageKey.NeedAllSkillObject]: "需要加入针对小型单位和大型单位的技能",
+            [languageKey.NeedAtLeastOneGenerateData]: "需要为至少一个关卡加入生成数据",
+            [languageKey.NeedSmallSkillObjectEmitterData]: "需要加入针对小型单位的技能->弹药数据",
+            [languageKey.NeedBigSkillObjectEmitterData]: "需要加入针对大型单位的技能->弹药数据",
 
 
             [category.EliteGiantess]: "精英巨大娘",
@@ -53,6 +69,22 @@ export let getTextData = (): data => {
             [languageKey.AddGenerateDataInBossStage]: "Add generate data in boss stage",
             [languageKey.ForSmallUnit]: "For small unit",
             [languageKey.ForBigUnit]: "For big unit",
+            [languageKey.DisplayNameCN]: "Mod name（Chinese）",
+            [languageKey.DisplayNameEN]: "Mod name（English）",
+            [languageKey.UploadModIcon]: "Upload mod icon",
+            [languageKey.IsPublic]: "Whether to make it public (if not, the module can only be subscribed in debug mode)",
+            [languageKey.Description]: "Description (including Chinese and English) (Markdown supported)",
+            [languageKey.PublishToGame]: "Publish to game",
+            [languageKey.Cancel]: "Cancel",
+
+            [languageKey.NeedDisplayNameCN]: "The mod name (in Chinese) needs to be entered",
+            [languageKey.NeedDisplayNameEN]: "The mod name (in English) needs to be entered",
+            [languageKey.NeedDescription]: "Description required",
+            [languageKey.NeedModIcon]: "A mod icon needs to be uploaded",
+            [languageKey.NeedAllSkillObject]: "Need to add skills for both small and large units",
+            [languageKey.NeedAtLeastOneGenerateData]: "You need to add generated data for at least one level",
+            [languageKey.NeedSmallSkillObjectEmitterData]: "Need to add skill->for small unit->ammunition data ",
+            [languageKey.NeedBigSkillObjectEmitterData]: "Need to add skill->for big unit->ammunition data ",
 
             [category.EliteGiantess]: "Elite Giantess",
             [model.EliteGiantessMelee1]: "Elite Giantess Melee 1",
@@ -115,4 +147,14 @@ export let getLanguageTextVariableData = (api: api, meta3dState: meta3dState, ke
     )
 
     return _getLanguageDataByData(getTextDataByVariable(), key, language_)
+}
+
+export let isChinese = (api: api, meta3dState: meta3dState) => {
+    return api.nullable.getWithDefault(
+        api.nullable.map(
+            (languageState) => languageState.language == language.Chinese,
+            api.action.getActionState<languageState>(meta3dState, languageActionName),
+        ),
+        true
+    )
 }
