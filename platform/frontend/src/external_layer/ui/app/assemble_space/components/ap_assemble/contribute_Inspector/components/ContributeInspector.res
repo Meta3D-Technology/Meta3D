@@ -101,7 +101,7 @@ let make = (~service: service) => {
     //   {}
     // </Collapse>
 
-    <Space direction=#vertical size=#middle>
+    <Space direction=#vertical size=#middle style={ReactDOM.Style.make(~position="sticky", ~top="0px", ~zIndex="100", ())}>
       {ExtensionsContributesUtils.buildBasicInfoUI(
         service,
         inspectorCurrentContribute.data.contributePackageData.protocol.name,

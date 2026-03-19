@@ -2339,7 +2339,7 @@ TODO for publish
 
 ** DONE platform: when scroll in ElementAssemble, the content and the ui control inspector, //acton edit/input edit should be fixed
 
-** TODO platform: when scroll in ApAssemble, the inspector should be fixed
+** DONE platform: when scroll in ApAssemble, the inspector should be fixed
 
 
 ** TODO platform: SelectedUIControls: make Run button's row as fixed positions when scroll

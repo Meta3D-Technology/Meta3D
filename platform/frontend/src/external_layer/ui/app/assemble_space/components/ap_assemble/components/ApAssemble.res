@@ -25,8 +25,10 @@ let make = (
   })
 
   <Layout>
-    <Layout.Content>
-      <Space direction=#horizontal size=#small>
+    <Layout.Content >
+      <Space
+        direction=#horizontal
+        size=#small >
         <Publish
           service
           account

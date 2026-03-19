@@ -908,7 +908,7 @@ let make = (
       <>
         <Layout>
           {UserUtils.isAdmin(account)
-            ? <Layout.Content>
+            ? <Layout.Content style={ReactDOM.Style.make(~position="sticky", ~top="0px", ~zIndex="100", ())}>
                 <Menu
                   theme=#light
                   mode=#horizontal
