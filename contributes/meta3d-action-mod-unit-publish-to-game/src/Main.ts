@@ -3,6 +3,7 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-unit-publish-to-game-protocol"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-publish-to-game-protocol/src/EventType"
 import { publish, getUserName, checkModData, buildUniqueName } from "meta3d-action-mod-unit-publish-utils/src/Main"
 import { getLanguageTextData, isChinese } from "meta3d-language-utils/src/Main"
@@ -51,9 +52,18 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         return Promise.resolve(meta3dState)
                     }
 
+                    meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
+                        ...api.action.getActionState<infoState>(meta3dState, infoActionName),
+                        info: api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.Publishing))
+                    })
+
                     api.flow.deferExec(api, (meta3dState) => {
                         let initState = api.action.getActionState<initState>(meta3dState, initActionName)
 
+                        meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                            ...api.action.getActionState<initState>(meta3dState, initActionName),
+                            isShowPublishModal: false
+                        })
 
                         let author = getUserName(api)
                         return publish(api,
@@ -66,10 +76,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             initState.isPublic,
                             api.nullable.getExn(initState.modIconBase64)
                         ).then(meta3dState => {
-                            meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
-                                ...api.action.getActionState<initState>(meta3dState, initActionName),
-                                isShowPublishModal: false
+                            meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
+                                ...api.action.getActionState<infoState>(meta3dState, infoActionName),
+                                info: api.nullable.getEmpty()
                             })
+
+                            api.message.success(getLanguageTextData(api, meta3dState, languageKey.Success))
 
                             return meta3dState
                         })

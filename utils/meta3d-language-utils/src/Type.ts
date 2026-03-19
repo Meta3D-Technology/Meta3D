@@ -16,6 +16,10 @@ export enum languageKey {
     AddGenerateDataInBossStage,
     ForSmallUnit,
     ForBigUnit,
+    Loading,
+    Publishing,
+    Success,
+    Fail,
 
     DisplayNameCN,
     DisplayNameEN,

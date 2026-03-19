@@ -2239,7 +2239,7 @@ TODO cast missive to littleman
 
 
 
-** TODO add publish ui
+** DONE add publish ui
 
 TODO add common publish ui control
 # TODO add publish ui
@@ -2288,6 +2288,17 @@ TODO add common publish ui control
 TODO update quick test
 
 
+
+** DONE add info
+
+TODO for init
+
+TODO for publish
+
+# TODO for quick test
+
+
+
 ** TODO update value
 *** TODO 将反比的参数改为正比
 
@@ -2307,38 +2318,29 @@ use 1 / emitSpeed * emitSpeed.Level0
 *** TODO fix meleeRange
 
 
-** TODO add info
 
-TODO for init
-
-TODO for publish
-
-TODO for quick test
-
-
-
-** TODO other
+# ** TODO other
 
 
 
 
 
-# TODO 选择行为模式
+# # TODO 选择行为模式
 
 
 
-# ** TODO 选择渲染设置
-
-
-
-
-# TODO scenedata->autoDifficulty: use popup instead of inputInt1
+# # ** TODO 选择渲染设置
 
 
 
 
-TODO check valid data
-  skill should has to small, big data both
+# # TODO scenedata->autoDifficulty: use popup instead of inputInt1
+
+
+
+
+# TODO check valid data
+#   skill should has to small, big data both
   
 
 

@@ -2,7 +2,7 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
-// import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-unit-info-protocol"
+import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
 import { getActions, getActionSnapshotPath, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterTypes, getSubEffects } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
@@ -14,6 +14,8 @@ import { action, countFactor, emitSpeed, emitterSpeed, emitterType, excitement, 
 import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
 import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
+import { getLanguageTextData } from "meta3d-language-utils/src/Main"
+import { languageKey } from "meta3d-language-utils/src/Type"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -64,12 +66,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
     return {
         actionName: actionName,
         init: (meta3dState) => {
-            // let isChinese = api.action.getActionState<languageState>(meta3dState, languageActionName).language == language.Chinese
-
-            // meta3dState = api.action.setActionState(meta3dState, infoActionName, {
-            //     ...api.nullable.getExn(api.action.getActionState<infoState>(meta3dState, infoActionName)),
-            //     info: isChinese ? api.nullable.return("加载中...") : api.nullable.return("Loading...")
-            // })
+            meta3dState = api.action.setActionState(meta3dState, infoActionName, {
+                ...api.nullable.getExn(api.action.getActionState<infoState>(meta3dState, infoActionName)),
+                info: api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.Loading))
+            })
 
             api.flow.deferExec(api, (meta3dState) => {
                 return reducePromise(
@@ -205,6 +205,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         })
                     })
                 })
+                    .then(meta3dState => {
+                        return api.action.setActionState(meta3dState, infoActionName, {
+                            ...api.nullable.getExn(api.action.getActionState<infoState>(meta3dState, infoActionName)),
+                            info: api.nullable.getEmpty()
+                        })
+                    })
             })
 
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)

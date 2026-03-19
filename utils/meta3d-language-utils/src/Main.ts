@@ -26,6 +26,10 @@ export let getTextData = (): data => {
             [languageKey.Description]: "描述（包含中文、英文）（支持Markdown）",
             [languageKey.PublishToGame]: "发布到游戏",
             [languageKey.Cancel]: "取消",
+            [languageKey.Loading]: "加载中......",
+            [languageKey.Publishing]: "正在发布中...",
+            [languageKey.Success]: "成功",
+            [languageKey.Fail]: "失败",
 
             [languageKey.NeedDisplayNameCN]: "需要输入模组名称（中文）",
             [languageKey.NeedDisplayNameEN]: "需要输入模组名称（英文）",
@@ -76,6 +80,10 @@ export let getTextData = (): data => {
             [languageKey.Description]: "Description (including Chinese and English) (Markdown supported)",
             [languageKey.PublishToGame]: "Publish to game",
             [languageKey.Cancel]: "Cancel",
+            [languageKey.Loading]: "Loading...",
+            [languageKey.Publishing]: "Publishing...",
+            [languageKey.Success]: "Success",
+            [languageKey.Fail]: "Fail",
 
             [languageKey.NeedDisplayNameCN]: "The mod name (in Chinese) needs to be entered",
             [languageKey.NeedDisplayNameEN]: "The mod name (in English) needs to be entered",
