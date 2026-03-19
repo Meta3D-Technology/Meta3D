@@ -305,7 +305,7 @@ let make = (
 
   <>
     // <Space direction=#vertical size=#middle>
-    <section style={ReactDOM.Style.make(~position="sticky", ~top="0", ~zIndex="100", ())}>
+    <section style={ReactDOM.Style.make(~position="sticky", ~top="30px", ~zIndex="100", ())}>
       // <Space direction=#horizontal wrap=true>
       <Button
         ref={addUIControlButtonTarget}

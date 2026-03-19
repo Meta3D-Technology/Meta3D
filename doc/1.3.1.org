@@ -2299,24 +2299,14 @@ TODO for publish
 
 
 
-** TODO update value
-*** TODO 将反比的参数改为正比
-
-e.g. emitSpeed:
-use 1 / emitSpeed * emitSpeed.Level0
+# ** TODO update value
 
 
-*** TODO valid value should related to unit, action type
+
+# *** TODO valid value should related to unit, action type
 
 
-*** TODO update value
-
-*** TODO fix moveSpeed
-
-*** TODO fix forceSize
-
-*** TODO fix meleeRange
-
+# *** TODO update value
 
 
 # ** TODO other
@@ -2345,14 +2335,9 @@ use 1 / emitSpeed * emitSpeed.Level0
 
 
 
-
-* TODO update game repo
-
-
-
 * TODO update platform
 
-** TODO platform: when scroll in ElementAssemble, the content and the ui control inspector, acton edit/input edit should be fixed
+** DONE platform: when scroll in ElementAssemble, the content and the ui control inspector, //acton edit/input edit should be fixed
 
 ** TODO platform: when scroll in ApAssemble, the inspector should be fixed
 
@@ -2371,10 +2356,24 @@ TODO default is close
 
 
 
+
+
+* TODO update game repo
+
+
 * TODO complete editor
 
 ** TODO add remain uis
 e.g. more value fields
+
+
+** TODO update value
+
+*** TODO 将反比的参数改为正比
+
+e.g. emitSpeedFactor, emitSpeed, emitPrecision:
+use 1 / emitSpeed * emitSpeed.Level0
+
 
 ** TODO update label
 

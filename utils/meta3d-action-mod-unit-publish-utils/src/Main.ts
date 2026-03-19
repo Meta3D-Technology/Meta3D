@@ -262,7 +262,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
 
         // moveSpeed: speed.High2,
         // moveSpeed: speed.VeryHigh,
-        moveSpeed: speed.Level8 / 22,
+        // moveSpeed: speed.Level8 / 22,
+        moveSpeed: speed.Level2,
 
         emitPrecision: emitPrecision.Level0,
 

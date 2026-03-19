@@ -234,7 +234,7 @@ let make = (
     !isInit
       ? {React.string(`初始化...`)}
       : <Layout>
-          <Layout.Content>
+          <Layout.Content style={ReactDOM.Style.make(~position="sticky", ~top="0", ~zIndex="101", ~paddingLeft="200px", ())}>
             <CreateFromScratchGuideInElementAssemble
               service
               canvasWidthInputTarget
@@ -396,7 +396,7 @@ let make = (
                   <CustomActionCodeEdit service currentCustomActionName />
                 </Layout.Content>
               | _ =>
-                <Layout>
+                <Layout style={ReactDOM.Style.make(~position="sticky", ~top="0px", ~zIndex="100", ())}>
                   {<Layout.Content
                     style={ReactDOM.Style.make(
                       ~maxWidth={j`${isShowElementVisual ? "100%" : "0px"}`},
