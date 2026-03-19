@@ -551,7 +551,7 @@ module Method = {
                     }}
                   />
                 </Space>
-          | #menuItems 
+          | #menuItems
           | #tabItems =>
             TextareaUtils.isNotShowTextareaForTest()
               ? React.null
@@ -798,7 +798,10 @@ let make = (
     None
   }, [selectedContributes])
 
-  <Space direction=#vertical size=#middle>
+  <Space
+    direction=#vertical
+    size=#middle
+    style={ReactDOM.Style.make(~height="70%", ~overflow="scroll", ())}>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
     <Space direction=#vertical>
       {Method.buildRectField(dispatch, Method.setRectX, id, "X", rect, x, rectXInputTarget)}
