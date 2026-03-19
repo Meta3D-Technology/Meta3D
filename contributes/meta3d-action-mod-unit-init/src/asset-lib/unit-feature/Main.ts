@@ -4,6 +4,12 @@ export let getAllFeatureData = () => {
     return {
         [feature.DamageBigger]: {
             maxLevel: 1
-        }
+        },
+        [feature.PassiveBigger]: {
+            maxLevel: 1
+        },
+        [feature.PoisonSingle]: {
+            maxLevel: 3
+        },
     }
 }

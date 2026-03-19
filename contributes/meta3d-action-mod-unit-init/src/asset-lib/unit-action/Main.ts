@@ -5,15 +5,15 @@ export let getActions = () => {
         [category.EliteGiantess]: {
             [action.StompLight]: {
                 skillType: skillType.Melee,
-                // meleeRange: meleeRange.Level6 * 1.5 * 1.1 / 22,
+            },
+            [action.StompHeavy]: {
+                skillType: skillType.Melee,
             },
             [action.KickLight]: {
                 skillType: skillType.Melee,
-                // meleeRange: meleeRange.Level6 * 1.5 * 1.1 / 22,
             },
             [action.Cast]: {
                 skillType: skillType.Ranged,
-                // workFrameIndex: 20,
             },
         }
     }

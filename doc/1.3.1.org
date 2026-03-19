@@ -2364,10 +2364,14 @@ TODO for publish
 * DONE update game repo
 
 
-* TODO update asset
+* DONE update asset
 
 
 * TODO complete editor
+
+** TODO update init action
+
+** TODO pass run test
 
 ** TODO add remain uis
 e.g. more value fields

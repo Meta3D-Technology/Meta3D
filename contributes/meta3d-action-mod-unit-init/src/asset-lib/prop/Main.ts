@@ -8,6 +8,9 @@ export let getAllPropData = (): props => {
         {
             name: propName.AddHp2,
         },
+        {
+            name: propName.LaserBullet,
+        },
     ]
 }
 

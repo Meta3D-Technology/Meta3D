@@ -2,7 +2,7 @@ import { autoDifficulty } from "./Type";
 
 export enum model {
     EliteGiantessMelee1 = "EliteGiantessMelee1",
-    // Magic1 = "Magic1",
+    EliteGiantessMagic1 = "EliteGiantessMagic1",
 }
 
 
@@ -17,10 +17,8 @@ export enum action {
     Walk = "Walk",
 
     StompLight = "StompLight",
-    // StompHeavy,
+    StompHeavy = "StompHeavy",
     KickLight = "KickLight",
-    // EmitFireball = "EmitFireball",
-    // EmitMissile = "EmitMissile",
     Cast = "Cast",
 }
 
@@ -334,19 +332,32 @@ export enum scale {
 // }
 
 export type unitValue = {
-    excitement: excitement;
-    defenseFactor: defenseFactor;
-    armorType: armorType;
-    armorRatio: armorRatio;
-    armorStrength: armorStrength;
-    attackFactor: attackFactor;
-    moveSpeed: speed;
-    emitSpeedFactor: emitSpeedFactor;
-    critRatioFactor: critRatioFactor;
-    hp: hp;
-    emitPrecision: emitPrecision;
+    // excitement: excitement;
+    // defenseFactor: defenseFactor;
+    // armorType: armorType;
+    // armorRatio: armorRatio;
+    // armorStrength: armorStrength;
+    // attackFactor: attackFactor;
+    // moveSpeed: speed;
+    // emitSpeedFactor: emitSpeedFactor;
+    // critRatioFactor: critRatioFactor;
+    // hp: hp;
+    // emitPrecision: emitPrecision;
 
-    scale: scale;
+    // scale: scale;
+    excitement: number;
+    defenseFactor: number;
+    armorType: armorType;
+    armorRatio: number;
+    armorStrength: number;
+    attackFactor: number;
+    moveSpeed: number;
+    emitSpeedFactor: number;
+    critRatioFactor: number;
+    hp: number;
+    emitPrecision: number;
+
+    scale: number;
 }
 
 
@@ -761,6 +772,8 @@ export enum skillType {
 export enum propName {
     AddHp1 = "AddHp1",
     AddHp2 = "AddHp2",
+
+    LaserBullet = "LaserBullet",
 }
 
 export type propData = {
@@ -773,6 +786,8 @@ export type props = Array<propData>
 
 export enum feature {
     DamageBigger = "DamageBigger",
+    PassiveBigger = "PassiveBigger",
+    PoisonSingle = "PoisonSingle",
 }
 
 export type singleFeatureData = {

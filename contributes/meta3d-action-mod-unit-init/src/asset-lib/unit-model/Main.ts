@@ -2,14 +2,17 @@ import { category, model } from "meta3d-action-mod-unit-publish-to-game-protocol
 
 export let getAllModelData = () => {
     return {
-        [category.EliteGiantess]: [{
-            model: model.EliteGiantessMelee1,
-        }]
+        [category.EliteGiantess]: [
+            {
+                model: model.EliteGiantessMelee1,
+            },
+            {
+                model: model.EliteGiantessMagic1,
+            },
+        ]
     }
 }
 
 export let getModelSnapshotPath = (pathPrefix, category: category, model: model) => {
-    let model_ = model.toLowerCase()
-
-    return `${pathPrefix}/${category.toLowerCase()}/snapshot_${model_}.png`
+    return `${pathPrefix}/${category.toLowerCase()}/snapshot_${model}.png`
 }
