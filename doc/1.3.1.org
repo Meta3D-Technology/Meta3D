@@ -2361,7 +2361,10 @@ TODO for publish
 
 
 
-* TODO update game repo
+* DONE update game repo
+
+
+* TODO update asset
 
 
 * TODO complete editor
