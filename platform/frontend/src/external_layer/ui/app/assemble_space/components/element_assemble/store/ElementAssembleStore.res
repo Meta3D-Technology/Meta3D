@@ -452,6 +452,300 @@ let reducer = (state, action) => {
                 }
               }
         }
+| MoveUpUIControl(id) =>
+    let nodeOpt = _findSelectUIControlById(state, id)
+    let nodeInspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+    switch (nodeOpt, nodeInspectorOpt) {
+    | (Some(node), Some(nodeInspector)) =>
+      let parentId = node.parentId
+      
+      // 获取当前节点所在层级的列表
+      let (currentLevelList, currentLevelListInspector) = switch parentId {
+      | Some(pid) =>
+        // 有父节点，从父节点的children中获取列表
+        let parentOpt = _findSelectUIControlById(state, pid)
+        let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+        switch (parentOpt, parentInspectorOpt) {
+        | (Some(parent), Some(parentInspector)) =>
+          (parent.children, parentInspector.children)
+        | _ => (list{}, list{})
+        }
+      | None =>
+        // 顶层节点，直接从根节点获取列表
+        (state.selectedUIControls, state.selectedUIControlInspectorData)
+      }
+
+      // 在当前层级列表中查找当前节点的索引
+      let index = currentLevelList->Meta3dCommonlib. ListSt.findIndex(child => child.id == id)
+      
+      switch(index) {
+        | Some(index) =>
+        // 获取前一个兄弟节点的id
+        let prevId =( currentLevelList->Meta3dCommonlib.ListSt.nth(index - 1) -> Meta3dCommonlib.OptionSt.getExn).id
+
+        // 1. 先移除当前节点
+        let newUIControls = HierachyUtils.removeUIControlData(
+          (
+            (data: ElementAssembleStoreType.uiControl) => data.id,
+            (data: ElementAssembleStoreType.uiControl) => data.children,
+            (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+          ),
+          state.selectedUIControls,
+          id,
+        )
+        let newInspectorData = HierachyUtils.removeUIControlData(
+          (
+            (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+            (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+            (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+          ),
+          state.selectedUIControlInspectorData,
+          id,
+        )
+
+        // 2. 将节点插入到前一个兄弟之前
+        let finalUIControls = HierachyUtils.insertUIControlData(
+          (
+            (data: ElementAssembleStoreType.uiControl) => data.id,
+            (data: ElementAssembleStoreType.uiControl) => data.children,
+            (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+          ),
+          newUIControls,
+          {...node, parentId},  // 保持 parentId 不变
+          prevId,
+          parentId,
+          true,  // isTop = true 表示插入到 prevId 之前
+        )
+        let finalInspectorData = HierachyUtils.insertUIControlData(
+          (
+            (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+            (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+            (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+          ),
+          newInspectorData,
+          nodeInspector,
+          prevId,
+          parentId,
+          true,
+        )
+
+        {
+          ...state,
+          selectedUIControls: finalUIControls,
+          selectedUIControlInspectorData: finalInspectorData,
+        }
+      | None =>
+        state  // 已经是第一个，不移动
+      }
+    | _ => state  // 节点不存在
+    }
+
+// 下移功能
+| MoveDownUIControl(id) =>
+    let nodeOpt = _findSelectUIControlById(state, id)
+    let nodeInspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+    switch (nodeOpt, nodeInspectorOpt) {
+    | (Some(node), Some(nodeInspector)) =>
+      let parentId = node.parentId
+      
+      // 获取当前节点所在层级的列表
+      let (currentLevelList, currentLevelListInspector) = switch parentId {
+      | Some(pid) =>
+        let parentOpt = _findSelectUIControlById(state, pid)
+        let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+        switch (parentOpt, parentInspectorOpt) {
+        | (Some(parent), Some(parentInspector)) =>
+          (parent.children, parentInspector.children)
+        | _ => (list{}, list{})
+        }
+      | None =>
+        (state.selectedUIControls, state.selectedUIControlInspectorData)
+      }
+
+      // 在当前层级列表中查找当前节点的索引
+      let index = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+      
+      switch(index) {
+        | Some(index) =>
+          // 获取当前层级的长度，判断是否是最后一个
+          let listLength = currentLevelList->Meta3dCommonlib.ListSt.length
+          if index < listLength - 1 {
+            // 获取后一个兄弟节点的id
+            let nextId = (currentLevelList->Meta3dCommonlib.ListSt.nth(index + 1) 
+              -> Meta3dCommonlib.OptionSt.getExn).id
+
+            // 1. 先移除当前节点
+            let newUIControls = HierachyUtils.removeUIControlData(
+              (
+                (data: ElementAssembleStoreType.uiControl) => data.id,
+                (data: ElementAssembleStoreType.uiControl) => data.children,
+                (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+              ),
+              state.selectedUIControls,
+              id,
+            )
+            let newInspectorData = HierachyUtils.removeUIControlData(
+              (
+                (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+              ),
+              state.selectedUIControlInspectorData,
+              id,
+            )
+
+            // 2. 将节点插入到后一个兄弟之后
+            // 注意：插入到 nextId 之后，需要先插入到 nextId 之前，然后实际效果是放在 nextId 后面
+            // 但 insertUIControlData 的 isTop=true 是插入到目标之前
+            // 要实现插入到目标之后，需要插入到目标的下一个位置
+            // 这里我们使用 isTop=false 插入到 nextId 之后
+            let finalUIControls = HierachyUtils.insertUIControlData(
+              (
+                (data: ElementAssembleStoreType.uiControl) => data.id,
+                (data: ElementAssembleStoreType.uiControl) => data.children,
+                (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+              ),
+              newUIControls,
+              {...node, parentId},
+              nextId,
+              parentId,
+              false,  // isTop = false 表示插入到 nextId 之后
+            )
+            let finalInspectorData = HierachyUtils.insertUIControlData(
+              (
+                (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+              ),
+              newInspectorData,
+              nodeInspector,
+              nextId,
+              parentId,
+              false,
+            )
+
+            {
+              ...state,
+              selectedUIControls: finalUIControls,
+              selectedUIControlInspectorData: finalInspectorData,
+            }
+          } else {
+            state  // 已经是最后一个，不移动
+          }
+        | None => state  // 节点不存在或索引无效
+      }
+    | _ => state
+    }
+
+
+// 移到上一级功能
+| MoveToParentLevelUIControl(id) =>
+    let nodeOpt = _findSelectUIControlById(state, id)
+    let nodeInspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+    switch (nodeOpt, nodeInspectorOpt) {
+    | (Some(node), Some(nodeInspector)) =>
+      let parentId = node.parentId
+      
+      switch parentId {
+      | Some(grandParentId) =>
+        // 获取父节点和祖父节点
+        let parentOpt = _findSelectUIControlById(state, grandParentId)
+        let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, grandParentId)
+        
+        switch (parentOpt, parentInspectorOpt) {
+        | (Some(parent), Some(parentInspector)) =>
+          // 获取祖父节点的父级（即新位置的父级）
+          let newParentId = parent.parentId
+          
+          // 在祖父节点的同级列表中查找父节点的位置
+          let (grandParentLevelList, grandParentLevelListInspector) = switch parent.parentId {
+          | Some(gpId) =>
+            let grandParentOpt = _findSelectUIControlById(state, gpId)
+            let grandParentInspectorOpt = _findSelectedUIControlInspectorDataById(state, gpId)
+            switch (grandParentOpt, grandParentInspectorOpt) {
+            | (Some(gp), Some(gpInspector)) =>
+              (gp.children, gpInspector.children)
+            | _ => (list{}, list{})
+            }
+          | None =>
+            (state.selectedUIControls, state.selectedUIControlInspectorData)
+          }
+          
+          // 找到父节点在祖父节点同级列表中的位置
+          let parentIndex = grandParentLevelList
+            ->Meta3dCommonlib.ListSt.findIndex(child => child.id == grandParentId)
+          
+          switch parentIndex {
+          | Some(pIndex) =>
+            // 获取父节点的前一个兄弟节点（作为插入目标）
+            if pIndex > 0 {
+              let targetId = (grandParentLevelList
+                ->Meta3dCommonlib.ListSt.nth(pIndex - 1)
+                ->Meta3dCommonlib.OptionSt.getExn).id
+              
+              // 1. 先移除当前节点
+              let newUIControls = HierachyUtils.removeUIControlData(
+                (
+                  (data: ElementAssembleStoreType.uiControl) => data.id,
+                  (data: ElementAssembleStoreType.uiControl) => data.children,
+                  (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+                ),
+                state.selectedUIControls,
+                id,
+              )
+              let newInspectorData = HierachyUtils.removeUIControlData(
+                (
+                  (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                  (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                  (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+                ),
+                state.selectedUIControlInspectorData,
+                id,
+              )
+
+              // 2. 将节点插入到祖父节点列表中，放在父节点的前一个兄弟之后
+              let finalUIControls = HierachyUtils.insertUIControlData(
+                (
+                  (data: ElementAssembleStoreType.uiControl) => data.id,
+                  (data: ElementAssembleStoreType.uiControl) => data.children,
+                  (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+                ),
+                newUIControls,
+                {...node, parentId: newParentId},
+                targetId,
+                newParentId,
+                false,  // 插入到目标之后
+              )
+              let finalInspectorData = HierachyUtils.insertUIControlData(
+                (
+                  (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+                  (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+                  (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+                ),
+                newInspectorData,
+                nodeInspector,
+                targetId,
+                newParentId,
+                false,
+              )
+
+              {
+                ...state,
+                selectedUIControls: finalUIControls,
+                selectedUIControlInspectorData: finalInspectorData,
+              }
+            } else {
+              state  // 父节点是第一个，无法移到上一级
+            }
+          | None => state
+          }
+        | _ => state
+        }
+      | None => state  // 已经是顶层节点，无法移到上一级
+      }
+    | _ => state
+    }
+
 
   | SetSpecificData(id, specific) =>
     _setUIControlInspectorData(

@@ -27,6 +27,16 @@ module RiseOutlined = {
   external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "RiseOutlined"
 }
 
+module FallOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "FallOutlined"
+}
+
+module VerticalLeftOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "VerticalLeftOutlined"
+}
+
 module PlusCircleOutlined = {
   @react.component @module("@ant-design/icons")
   external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "PlusCircleOutlined"

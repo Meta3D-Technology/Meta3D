@@ -136,6 +136,24 @@ function find(list, func) {
   return Belt_List.head(Belt_List.filter(list, func));
 }
 
+function findIndex(list, predicate) {
+  var _i = 0;
+  var _rest = list;
+  while(true) {
+    var rest = _rest;
+    var i = _i;
+    if (!rest) {
+      return ;
+    }
+    if (Curry._1(predicate, rest.hd)) {
+      return i;
+    }
+    _rest = rest.tl;
+    _i = i + 1 | 0;
+    continue ;
+  };
+}
+
 function includes(list, value) {
   return Belt_List.has(list, value, _eq);
 }
@@ -225,6 +243,7 @@ exports.zipBy = zipBy;
 exports.splitAt = splitAt;
 exports.addInReduce = addInReduce;
 exports.find = find;
+exports.findIndex = findIndex;
 exports.includes = includes;
 exports.includesByFunc = includesByFunc;
 exports.insert = insert;

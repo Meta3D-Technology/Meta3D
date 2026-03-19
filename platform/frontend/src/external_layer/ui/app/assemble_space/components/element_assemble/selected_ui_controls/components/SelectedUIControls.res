@@ -157,6 +157,39 @@ module Method = {
         }
   }
 
+  let moveUpUIControl = (dispatch, selectedKeys) => {
+    selectedKeys->Meta3dCommonlib.ArraySt.length == 0
+      ? ()
+      : {
+          let id = selectedKeys->Meta3dCommonlib.ArraySt.getExn(0)
+          if id !== getRootKey() {
+            dispatch(ElementAssembleStoreType.MoveUpUIControl(id))
+          }
+        }
+  }
+
+  let moveDownUIControl = (dispatch, selectedKeys) => {
+    selectedKeys->Meta3dCommonlib.ArraySt.length == 0
+      ? ()
+      : {
+          let id = selectedKeys->Meta3dCommonlib.ArraySt.getExn(0)
+          if id !== getRootKey() {
+            dispatch(ElementAssembleStoreType.MoveDownUIControl(id))
+          }
+        }
+  }
+
+  let moveToParentLevelUIControl = (dispatch, selectedKeys) => {
+    selectedKeys->Meta3dCommonlib.ArraySt.length == 0
+      ? ()
+      : {
+          let id = selectedKeys->Meta3dCommonlib.ArraySt.getExn(0)
+          if id !== getRootKey() {
+            dispatch(ElementAssembleStoreType.MoveToParentLevelUIControl(id))
+          }
+        }
+  }
+
   let onDrop = (service, dispatch, info: Tree.info) => {
     let dropKey = info.node.key
     let dragKey = info.dragNode.key
@@ -320,6 +353,24 @@ let make = (
         icon={<Icon.DeleteOutlined />}
         onClick={_ => {
           Method.unselectUIControl(dispatch, isDebug, selectedKeys)
+        }}
+      />
+      <Button
+        icon={<Icon.RiseOutlined />}
+        onClick={_ => {
+          Method.moveUpUIControl(dispatch, selectedKeys)
+        }}
+      />
+      <Button
+        icon={<Icon.FallOutlined />} // 需要导入 DownOutlined
+        onClick={_ => {
+          Method.moveDownUIControl(dispatch, selectedKeys)
+        }}
+      />
+      <Button
+        icon={<Icon.VerticalLeftOutlined />} // 需要导入 ArrowUpOutlined，代表移到上一级
+        onClick={_ => {
+          Method.moveToParentLevelUIControl(dispatch, selectedKeys)
         }}
       />
       // </Space>

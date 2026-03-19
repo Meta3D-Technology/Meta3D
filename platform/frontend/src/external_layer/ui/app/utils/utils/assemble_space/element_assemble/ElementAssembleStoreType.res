@@ -156,6 +156,9 @@ type action =
       id,
       int,
     )
+  | MoveUpUIControl(id)
+  | MoveDownUIControl(id)
+  | MoveToParentLevelUIControl(id)
   | SelectRootUIControl
   | SelectSelectedUIControl(
       (
@@ -170,7 +173,10 @@ type action =
   // | SetAction(id, (eventName, option<actionName>))
   | SetInput(id, option<inputName>, array<string>)
   // | SetInputFileStr(id, inputName, CommonType.inputFileStr)
-  | SetAction(id, (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>, array<string>))
+  | SetAction(
+      id,
+      (Meta3dType.ContributeProtocolConfigType.eventName, option<actionName>, array<string>),
+    )
   // | SetActionFileStr(
   //     id,
   //     Meta3dType.ContributeProtocolConfigType.eventName,

@@ -161,6 +161,15 @@ let find = (list, func) => {
   list->filter(func)->head
 }
 
+let findIndex = (list, predicate) => {
+  let rec aux = (i, rest) =>
+    switch rest {
+    | list{} => None
+    | list{head, ...tail} => predicate(head) ? Some(i) : aux(i+1, tail)
+    }
+  aux(0, list)
+}
+
 let includes = (list, value) => list->Belt.List.has(value, _eq)
 
 let includesByFunc = (list, func) => {
