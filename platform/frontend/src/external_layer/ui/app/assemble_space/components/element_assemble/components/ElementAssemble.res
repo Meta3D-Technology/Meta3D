@@ -296,7 +296,7 @@ let make = (
             </Space>
           </Layout.Content>
           <Layout>
-            <Layout.Sider theme=#light>
+            <Layout.Sider theme=#light width={450}>
               <Collapse
                 onChange={key => {
                   isInCreateFromScratchTourPhase2
