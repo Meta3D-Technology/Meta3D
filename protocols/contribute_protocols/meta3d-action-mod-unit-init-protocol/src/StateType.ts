@@ -75,6 +75,17 @@ export type state = {
     isShowPropModal: boolean,
 
     excitement: number,
+    defenseFactor: number
+    // armorType: armorType.Giantess,
+    armorRatio: number,
+    armorStrength: number,
+    attackFactor: number,
+    emitSpeedFactor: number,
+    critRatioFactor: number,
+    hp: number,
+    moveSpeed: number,
+    emitPrecision: number,
+    scale: number,
 
     // skillType: nullable<string>,
 

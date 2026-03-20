@@ -1,5 +1,5 @@
 import {
-    
+
     getUIControlSpecificDataFields as getUIControlSpecificDataFieldsMeta3D,
     hasChildren as hasChildrenMeta3D,
     getUIControlSupportedEventNames as getUIControlSupportedEventNamesMeta3D, generateHandleUIControlEventStr as generateHandleUIControlEventStrMeta3D
@@ -34,13 +34,13 @@ export let hasChildren: hasChildrenMeta3D = () => false
 
 export let getUIControlSupportedEventNames: getUIControlSupportedEventNamesMeta3D = () => ["input_change"]
 
-export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([changeActionName]) => {
+export let generateHandleUIControlEventStr: generateHandleUIControlEventStrMeta3D = ([changeActionName], [changeActionNameParams]) => {
     if (!isNullable(changeActionName)) {
         return `
                 if (!api.nullable.isNullable(data[1])) {
                     let { trigger } = api.getExtensionService(meta3dState, "meta3d-event-protocol")
 
-                    return trigger(meta3dState, "meta3d-event-protocol", "${changeActionName}", api.nullable.getExn(data[1]))
+                    return trigger(meta3dState, "meta3d-event-protocol", "${changeActionName}", api.nullable.getExn(data[1]), JSON.parse('${JSON.stringify(changeActionNameParams)}'))
                 }
                 `
     }

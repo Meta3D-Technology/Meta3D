@@ -2,6 +2,10 @@ import { api, getContribute as getContributeMeta3D } from "meta3d-type"
 import { inputFunc, specificData, outputData, uiControlName } from "meta3d-ui-control-input-int1-protocol"
 import { service, uiControlContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 
+let _extractText = (label: string) => {
+    return label.split("##")[0]
+}
+
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     return {
         uiControlName: uiControlName,
@@ -29,7 +33,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
                 let { inputInt1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
-                return inputInt1(meta3dState, label, value, step, stepFast, rect.width, label, minValue, maxValue)
+                return inputInt1(meta3dState, label, value, step, stepFast, rect.width, _extractText(label), minValue, maxValue)
             })
         },
         init: (meta3dState) => {

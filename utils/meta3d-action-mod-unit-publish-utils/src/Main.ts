@@ -9,6 +9,15 @@ import { getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
 // import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 // import { languageKey } from "meta3d-language-utils/src/Type"
 
+let _getArmorType = (category_: category) => {
+    switch (category_) {
+        case category.EliteGiantess:
+            return armorType.Giantess
+        default:
+            throw new Error("error")
+    }
+}
+
 let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
     let {
@@ -31,6 +40,17 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
 
 
         excitement,
+        defenseFactor,
+        armorRatio,
+        armorStrength,
+        attackFactor,
+        emitSpeedFactor,
+        critRatioFactor,
+        hp,
+        moveSpeed,
+        emitPrecision,
+        scale,
+
 
         hasSmallSkillObject,
         hasBigSkillObject,
@@ -203,7 +223,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
 
 
 
-    return `
+    let result = `
     (() => { 
     window.Mod = {
         createBlockState: (api) => {
@@ -222,55 +242,18 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
         getCategory: () => "${category_}",
         getValue: (api, state) => {
             return api.${updateFuncStr}(state, ${JSON.stringify({
-        // excitement: excitement.MostHigh,
-
-        // defenseFactor: defenseFactor.Low,
-        // armorType: armorType.Giantess,
-        // armorRatio: armorRatio.Light2,
-        // armorStrength: armorStrength.Low * 1.5,
-        // // attackFactor: attackFactor.Low,
-        // attackFactor: attackFactor.VeryLow,
-        // // emitSpeedFactor: emitSpeedFactor.Low,
-        // emitSpeedFactor: emitSpeedFactor.VeryLow2,
-        // critRatioFactor: critRatioFactor.VeryLow,
-        // //missRatio: missRatio.VeryLow,
-
-        // hp: hp.VeryHigh2,
-
-        // // moveSpeed: speed.High2,
-        // // moveSpeed: speed.VeryHigh,
-        // moveSpeed: speed.VeryHigh / 22,
-
-        // emitPrecision: emitPrecision.Low,
-
-        // scale: scale.High,
-
         excitement: excitement,
-
-        defenseFactor: defenseFactor.Level4,
-        armorType: armorType.Giantess,
-        armorRatio: armorRatio.Level2,
-        armorStrength: armorStrength.Level4 * 1.5,
-        // attackFactor: attackFactor.Low,
-        attackFactor: attackFactor.Level5,
-        // emitSpeedFactor: emitSpeedFactor.Low,
-        emitSpeedFactor: emitSpeedFactor.Level0,
-        critRatioFactor: critRatioFactor.Level1,
-        //missRatio: missRatio.VeryLow,
-
-        hp: hp.Level9,
-
-        // moveSpeed: speed.High2,
-        // moveSpeed: speed.VeryHigh,
-        // moveSpeed: speed.Level8 / 22,
-        moveSpeed: speed.Level2,
-
-        emitPrecision: emitPrecision.Level0,
-
-        // scale: scale.Level10,
-        // scale: scale.Level0,
-        scale: scale.Level5,
-
+        defenseFactor: defenseFactor,
+        armorType: _getArmorType(category_),
+        armorRatio: armorRatio,
+        armorStrength: armorStrength,
+        attackFactor: attackFactor,
+        emitSpeedFactor: emitSpeedFactor,
+        critRatioFactor: critRatioFactor,
+        hp: hp,
+        moveSpeed,
+        emitPrecision: emitPrecision,
+        scale,
     })})
         },
         getSkillData: () => {
@@ -305,6 +288,10 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
     };
 })();
     `
+
+    console.log(result)
+
+    return result
 }
 
 export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dState: meta3dState,

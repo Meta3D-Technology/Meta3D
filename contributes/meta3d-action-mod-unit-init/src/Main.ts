@@ -10,7 +10,7 @@ import { getActions, getActionSnapshotPath, getEmitterInstances, getEmitterInsta
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { action, countFactor, emitSpeed, emitterSpeed, emitterType, excitement, forceSize, instance, meleeDamageEffectType, particleImage } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, instance, meleeDamageEffectType, particleImage, speed } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
 import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
@@ -278,6 +278,16 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowPropModal: false,
 
                 excitement: excitement.Level5,
+                defenseFactor: defenseFactor.Level5,
+                armorRatio: armorRatio.Level5,
+                armorStrength: armorStrength.Level5,
+                attackFactor: attackFactor.Level5,
+                emitSpeedFactor: emitSpeedFactor.Level5,
+                critRatioFactor: critRatioFactor.Level5,
+                hp: hp.Level5,
+                moveSpeed: speed.Level5,
+                emitPrecision: emitPrecision.Level5,
+                scale: scale.Level5,
 
 
                 // skillType: api.nullable.getEmpty(),

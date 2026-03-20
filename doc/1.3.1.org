@@ -2392,10 +2392,25 @@ f, m
 e.g. more value fields
 
 
+TODO update width, height
+
 TODO Model
-  update
+  grid size
 
   add values
+    emitSpeedFactor
+                    1=2.6
+                    1/10*2.6 = 0.26
+                    0.5/10*2.6=0.1
+
+                    1-26
+
+  # TODO get i/value: need return default Value
+
+TODO run test
+ammorType
+
+
 
 TODO Skill
 
@@ -2412,8 +2427,8 @@ TODO Generate
 e.g. emitSpeedFactor, emitSpeed, emitPrecision:
 use 1 / emitSpeed * emitSpeed.Level0
 
-
 ** TODO update label
+
 
 ** TODO update publish
 
