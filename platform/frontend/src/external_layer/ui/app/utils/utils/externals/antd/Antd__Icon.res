@@ -61,3 +61,8 @@ module CloseOutlined = {
   @react.component @module("@ant-design/icons")
   external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "CloseOutlined"
 }
+
+module CopyOutlined = {
+  @react.component @module("@ant-design/icons")
+  external make: (~onClick: ReactEvent.Mouse.t => unit=?) => React.element = "CopyOutlined"
+}

@@ -2421,8 +2421,14 @@ TODO Skill
     values
 
   TODO add copy selected ui button
+    test1
 
-  add big ui
+    need update label->id
+
+  TODO update label and size
+
+
+  add big ui by copy and update field name
 
   run test:quick test
 

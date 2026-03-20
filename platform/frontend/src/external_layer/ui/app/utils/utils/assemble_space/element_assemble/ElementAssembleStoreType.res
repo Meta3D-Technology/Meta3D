@@ -136,6 +136,7 @@ type code =
 type action =
   | ResetWhenEnter
   | ResetWhenSwitch
+  | CopyUIControl(id)
   | SelectUIControl(
       id,
       protocolIconBase64,

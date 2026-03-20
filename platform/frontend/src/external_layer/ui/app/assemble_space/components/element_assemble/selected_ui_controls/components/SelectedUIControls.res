@@ -190,6 +190,24 @@ module Method = {
         }
   }
 
+  let copyUIControl = (dispatch, selectedKeys) => {
+    selectedKeys->Meta3dCommonlib.ArraySt.length == 0
+      ? ()
+      : {
+          // let id = selectedKeys->Meta3dCommonlib.ArraySt.getExn(0)
+          // if id !== getRootKey() {
+          //   dispatch(ElementAssembleStoreType.MoveToParentLevelUIControl(id))
+          // }
+
+          dispatch(
+            ElementAssembleStoreType.CopyUIControl(
+              selectedKeys->Meta3dCommonlib.ArraySt.getExn(0),
+            ),
+          )
+
+        }
+  }
+
   let onDrop = (service, dispatch, info: Tree.info) => {
     let dropKey = info.node.key
     let dragKey = info.dragNode.key
@@ -371,6 +389,12 @@ let make = (
         icon={<Icon.VerticalLeftOutlined />} // 需要导入 ArrowUpOutlined，代表移到上一级
         onClick={_ => {
           Method.moveToParentLevelUIControl(dispatch, selectedKeys)
+        }}
+      />
+      <Button
+        icon={<Icon.CopyOutlined />} 
+        onClick={_ => {
+          Method.copyUIControl(dispatch, selectedKeys)
         }}
       />
       // </Space>

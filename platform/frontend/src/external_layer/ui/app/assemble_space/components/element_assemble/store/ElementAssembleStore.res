@@ -238,10 +238,398 @@ let _findSelectedUIControlInspectorDataById = (state: state, id) => {
   )
 }
 
+// let rec _copyUIControl = ( control: ElementAssembleStoreType.uiControl ) => {
+//   // let newId = generateId(control.id)
+//   let newId = IdUtils.generateId(Js.Math.random)
+
+//   {
+//     ...control,
+//     id: newId,
+//     children: control.children->Belt.List.map(child => _copyUIControl(child)),
+//   }
+// }
+
+// let rec _copyInspectorData = ( inspector: ElementAssembleStoreType.uiControlInspectorData ) => {
+//   let newId = IdUtils.generateId(Js.Math.random)
+//   {
+//     ...inspector,
+//     id: newId,
+//     children: inspector.children->Belt.List.map(child => _copyInspectorData(child)),
+//   }
+// }
+
+// let rec _copyNodeWithInspector = (control: uiControl, inspector: uiControlInspectorData) => {
+//   let newId = IdUtils.generateId(Js.Math.random)
+
+//   let (childrenControls, childrenInspectors) = 
+//     Belt.List.zip(control.children, inspector.children)
+//     ->Belt.List.map(((childControl, childInspector)) => 
+//         _copyNodeWithInspector(childControl, childInspector)
+//       )
+//     ->Belt.List.unzip
+//   (
+//     {
+//       ...control,
+//       id: newId,
+//       children: childrenControls,
+//     },
+//     {
+//       ...inspector,
+//       id: newId,
+//       children: childrenInspectors,
+//     }
+//   )
+// }
+
+
+let _updateSpecificLabel = (specific:specific, newId) => {
+  specific->Meta3dCommonlib.ArraySt.map(item => {
+    if item.name == "label" && item.type_ == #string {
+      let oldStr:string = switch item.value {
+      | SpecicFieldDataValue(str) => str   ->Obj.magic
+      }
+      // 替换 "##" 后的数字部分
+let newStr =oldStr -> Js.String.replaceByRe(%re("/\#\#\d+$/g"),"##" ++ newId, _)
+//       let newStr = Js.Re.replace_(
+//   ~regexp=Js.Re.fromString("##\\d+$"),
+//   ~by="##" ++ newId,
+//   oldStr,
+// )
+      {...item, value: {SpecicFieldDataValue(newStr->Obj.magic)}}
+    } else {
+      item
+    }
+  })
+}
+
+let rec _copyNodeWithInspector = (control: uiControl, inspector: uiControlInspectorData) => {
+  let newId = IdUtils.generateId(Js.Math.random)
+
+  let (childrenControls, childrenInspectors) = 
+    Belt.List.zip(control.children, inspector.children)
+    ->Belt.List.map(((childControl, childInspector)) => 
+        _copyNodeWithInspector(childControl, childInspector)
+      )
+    ->Belt.List.unzip
+
+  let updatedInspector = {
+    ...inspector,
+    id: newId,
+    children: childrenInspectors,
+    specific: _updateSpecificLabel(inspector.specific, newId),
+  }
+
+  (
+    {
+      ...control,
+      id: newId,
+      children: childrenControls,
+    },
+    updatedInspector
+  )
+}
+
+
 let reducer = (state, action) => {
   switch action {
   | ResetWhenEnter => state->_reset
   | ResetWhenSwitch => state->_resetInspector
+  // | CopyUIControl(id) =>
+  //   let nodeOpt = _findSelectUIControlById(state, id)
+  //   let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+  //   switch (nodeOpt, inspectorOpt) {
+  //   | (Some(node), Some(inspector)) =>
+  //     let copiedNode = _copyUIControl(node)
+  //     let copiedInspector = _copyInspectorData(inspector)
+
+  //     let parentId = node.parentId
+  //     let (currentLevelList, currentLevelInspectorList) = switch parentId {
+  //     | Some(pid) =>
+  //       // 获取父节点
+  //       let parentOpt = _findSelectUIControlById(state, pid)
+  //       let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+  //       switch (parentOpt, parentInspectorOpt) {
+  //       | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
+  //       | _ => (list{}, list{})
+  //       }
+  //     | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
+  //     }
+
+  //     // 找到原节点在列表中的位置
+  //   let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+
+  //     switch indexOpt {
+  //     | Some(index) =>
+  //       let insertIndex = index + 1
+  //       // 将新节点插入到原节点之后
+  //       // let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex)
+  //       let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex) -> Meta3dCommonlib.OptionSt.getExn
+  //       let newLevelList = leftList->Belt.List.concat(list{ copiedNode })->Belt.List.concat(rightList)
+  //       let (leftInspectorList, rightInspectorList) =
+  //         currentLevelInspectorList->Belt.List.splitAt(insertIndex) -> Meta3dCommonlib.OptionSt.getExn
+  //       let newLevelInspectorList =
+  //         leftInspectorList
+  //         ->Belt.List.concat(list{ copiedInspector })
+  //         ->Belt.List.concat(rightInspectorList)
+
+  //       // 根据 parentId 更新 state
+  //       switch parentId {
+  //       | Some(pid) =>
+  //         // 更新父节点的 children
+  //         let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
+  //           data => data.id == pid ? {...data, children: newLevelList} : data,
+  //           (
+  //             (data: ElementAssembleStoreType.uiControl) => data.id,
+  //             (data: ElementAssembleStoreType.uiControl) => data.children,
+  //             (data, children) => {...data, children},
+  //           ),
+  //           state.selectedUIControls,
+  //           pid,
+  //         )
+  //         let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
+  //           data => data.id == pid ? {...data, children: newLevelInspectorList} : data,
+  //           (
+  //             (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+  //             (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+  //             (data, children) => {...data, children},
+  //           ),
+  //           state.selectedUIControlInspectorData,
+  //           pid,
+  //         )
+  //         {
+  //           ...state,
+  //           selectedUIControls: updatedUIControls,
+  //           selectedUIControlInspectorData: updatedInspectorData,
+  //         }
+  //       | None => // 根节点列表直接替换
+  //         {
+  //           ...state,
+  //           selectedUIControls: newLevelList,
+  //           selectedUIControlInspectorData: newLevelInspectorList,
+  //         }
+  //       }
+  //     | None => state
+  //     }
+  //   | _ => state
+  //   }
+  // | CopyUIControl(id) =>
+  // let nodeOpt = _findSelectUIControlById(state, id)
+  // let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+  // switch (nodeOpt, inspectorOpt) {
+  // | (Some(node), Some(inspector)) =>
+  //   let copiedNode = _copyUIControl(node)
+  //   let copiedInspector = _copyInspectorData(inspector)
+
+  //   let parentId = node.parentId
+  //   let (currentLevelList, currentLevelInspectorList) = switch parentId {
+  //   | Some(pid) =>
+  //     let parentOpt = _findSelectUIControlById(state, pid)
+  //     let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+  //     switch (parentOpt, parentInspectorOpt) {
+  //     | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
+  //     | _ => (list{}, list{})
+  //     }
+  //   | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
+  //   }
+
+  //   let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+
+  //   switch indexOpt {
+  //   | Some(index) =>
+  //     let insertIndex = index + 1
+  //     let (leftList, rightList) =
+  //       currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+  //     let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
+
+  //     let (leftInspectorList, rightInspectorList) =
+  //       currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+  //     let newLevelInspectorList =
+  //       leftInspectorList->Belt.List.concat(list{copiedInspector})->Belt.List.concat(rightInspectorList)
+
+  //     switch parentId {
+  //     | Some(pid) =>
+  //       // 更新父节点的 children
+  //       let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
+  //         (data: ElementAssembleStoreType.uiControl) =>
+  //           data.id == pid ? {...data, children: newLevelList} : data,
+  //         (
+  //           (data: ElementAssembleStoreType.uiControl) => data.id,
+  //           (data: ElementAssembleStoreType.uiControl) => data.children,
+  //           (data: ElementAssembleStoreType.uiControl, children: list<ElementAssembleStoreType.uiControl>) =>
+  //             {...data, children},
+  //         ),
+  //         state.selectedUIControls,
+  //         pid,
+  //       )
+
+  //       let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
+  //         (data: ElementAssembleStoreType.uiControlInspectorData) =>
+  //           data.id == pid ? {...data, children: newLevelInspectorList} : data,
+  //         (
+  //           (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+  //           (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+  //           (
+  //             data: ElementAssembleStoreType.uiControlInspectorData,
+  //             children: list<ElementAssembleStoreType.uiControlInspectorData>,
+  //           ) => {...data, children},
+  //         ),
+  //         state.selectedUIControlInspectorData,
+  //         pid,
+  //       )
+
+  //       {
+  //         ...state,
+  //         selectedUIControls: updatedUIControls,
+  //         selectedUIControlInspectorData: updatedInspectorData,
+  //       }
+
+  //     | None =>
+  //       {
+  //         ...state,
+  //         selectedUIControls: newLevelList,
+  //         selectedUIControlInspectorData: newLevelInspectorList,
+  //       }
+  //     }
+
+  //   | None => state
+  //   }
+
+  // | _ => state
+  // }
+//   | CopyUIControl(id) =>
+//   let nodeOpt = _findSelectUIControlById(state, id)
+//   let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+//   switch (nodeOpt, inspectorOpt) {
+//   | (Some(node), Some(inspector)) =>
+//  let (copiedNode, copiedInspector) = _copyNodeWithInspector(node, inspector)
+
+//     let parentId = node.parentId
+//     let (currentLevelList, currentLevelInspectorList) = switch parentId {
+//     | Some(pid) =>
+//       let parentOpt = _findSelectUIControlById(state, pid)
+//       let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+//       switch (parentOpt, parentInspectorOpt) {
+//       | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
+//       | _ => (list{}, list{})
+//       }
+//     | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
+//     }
+
+//     let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+//     switch indexOpt {
+//     | Some(index) =>
+//       let insertIndex = index + 1
+//       let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+//       let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
+//       let (leftInspectorList, rightInspectorList) = currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+//       let newLevelInspectorList = leftInspectorList->Belt.List.concat(list{copiedInspector})->Belt.List.concat(rightInspectorList)
+
+//       switch parentId {
+//       | Some(pid) =>
+//         // 更新父节点的 children
+//         let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
+//           (data: ElementAssembleStoreType.uiControl) => data.id == pid ? {...data, children: newLevelList} : data,
+//           (
+//             (data: ElementAssembleStoreType.uiControl) => data.id,
+//             (data: ElementAssembleStoreType.uiControl) => data.children,
+//             (data: ElementAssembleStoreType.uiControl, children: list<ElementAssembleStoreType.uiControl>) => {...data, children},
+//           ),
+//           state.selectedUIControls,
+//           pid,
+//         )
+//         let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
+//           (data: ElementAssembleStoreType.uiControlInspectorData) => data.id == pid ? {...data, children: newLevelInspectorList} : data,
+//           (
+//             (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+//             (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+//             (data: ElementAssembleStoreType.uiControlInspectorData, children: list<ElementAssembleStoreType.uiControlInspectorData>) => {...data, children},
+//           ),
+//           state.selectedUIControlInspectorData,
+//           pid,
+//         )
+//         {
+//           ...state,
+//           selectedUIControls: updatedUIControls,
+//           selectedUIControlInspectorData: updatedInspectorData,
+//         }
+
+//       | None =>
+//         {
+//           ...state,
+//           selectedUIControls: newLevelList,
+//           selectedUIControlInspectorData: newLevelInspectorList,
+//         }
+//       }
+
+//     | None => state
+//     }
+
+//   | _ => state
+//   }
+
+
+| CopyUIControl(id) =>
+  let nodeOpt = _findSelectUIControlById(state, id)
+  let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+  switch (nodeOpt, inspectorOpt) {
+  | (Some(node), Some(inspector)) =>
+    let (copiedNode, copiedInspector) = _copyNodeWithInspector(node, inspector)
+
+    // 获取原节点所在层级列表
+    let parentId = node.parentId
+    let (currentLevelList, currentLevelInspectorList) = switch parentId {
+    | Some(pid) =>
+      let parentOpt = _findSelectUIControlById(state, pid)
+      let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+      switch (parentOpt, parentInspectorOpt) {
+      | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
+      | _ => (list{}, list{})
+      }
+    | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
+    }
+
+    let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+    switch indexOpt {
+    | Some(index) =>
+      let insertIndex = index + 1
+      // 分割列表，插入新节点
+      let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+      let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
+      let (leftInspectorList, rightInspectorList) = currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+      let newLevelInspectorList = leftInspectorList->Belt.List.concat(list{copiedInspector})->Belt.List.concat(rightInspectorList)
+
+      // 更新状态
+      switch parentId {
+      | Some(pid) =>
+        let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
+          (data: ElementAssembleStoreType.uiControl) => data.id == pid ? {...data, children: newLevelList} : data,
+          (
+            (data: ElementAssembleStoreType.uiControl) => data.id,
+            (data: ElementAssembleStoreType.uiControl) => data.children,
+            (data, children: list<uiControl>) => {...data, children}
+          ),
+          state.selectedUIControls,
+          pid,
+        )
+        let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
+          (data: ElementAssembleStoreType.uiControlInspectorData) => data.id == pid ? {...data, children: newLevelInspectorList} : data,
+          (
+            (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+            (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+            (data, children: list<uiControlInspectorData>) => {...data, children}
+          ),
+          state.selectedUIControlInspectorData,
+          pid,
+        )
+        {...state, selectedUIControls: updatedUIControls, selectedUIControlInspectorData: updatedInspectorData}
+      | None =>
+        {...state, selectedUIControls: newLevelList, selectedUIControlInspectorData: newLevelInspectorList}
+      }
+    | None => state
+    }
+  | _ => state
+  }
+
   | SelectUIControl(
       id,
       protocolIconBase64,
@@ -452,13 +840,14 @@ let reducer = (state, action) => {
                 }
               }
         }
-| MoveUpUIControl(id) =>
+
+  | MoveUpUIControl(id) =>
     let nodeOpt = _findSelectUIControlById(state, id)
     let nodeInspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
     switch (nodeOpt, nodeInspectorOpt) {
     | (Some(node), Some(nodeInspector)) =>
       let parentId = node.parentId
-      
+
       // 获取当前节点所在层级的列表
       let (currentLevelList, currentLevelListInspector) = switch parentId {
       | Some(pid) =>
@@ -466,22 +855,22 @@ let reducer = (state, action) => {
         let parentOpt = _findSelectUIControlById(state, pid)
         let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
         switch (parentOpt, parentInspectorOpt) {
-        | (Some(parent), Some(parentInspector)) =>
-          (parent.children, parentInspector.children)
+        | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
         | _ => (list{}, list{})
         }
-      | None =>
-        // 顶层节点，直接从根节点获取列表
+      | None => // 顶层节点，直接从根节点获取列表
         (state.selectedUIControls, state.selectedUIControlInspectorData)
       }
 
       // 在当前层级列表中查找当前节点的索引
-      let index = currentLevelList->Meta3dCommonlib. ListSt.findIndex(child => child.id == id)
-      
-      switch(index) {
-        | Some(index) =>
+      let index = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+
+      switch index {
+      | Some(index) =>
         // 获取前一个兄弟节点的id
-        let prevId =( currentLevelList->Meta3dCommonlib.ListSt.nth(index - 1) -> Meta3dCommonlib.OptionSt.getExn).id
+        let prevId = (
+          currentLevelList->Meta3dCommonlib.ListSt.nth(index - 1)->Meta3dCommonlib.OptionSt.getExn
+        ).id
 
         // 1. 先移除当前节点
         let newUIControls = HierachyUtils.removeUIControlData(
@@ -497,7 +886,10 @@ let reducer = (state, action) => {
           (
             (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
             (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-            (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+            (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+              ...data,
+              children,
+            },
           ),
           state.selectedUIControlInspectorData,
           id,
@@ -511,16 +903,19 @@ let reducer = (state, action) => {
             (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
           ),
           newUIControls,
-          {...node, parentId},  // 保持 parentId 不变
+          {...node, parentId}, // 保持 parentId 不变
           prevId,
           parentId,
-          true,  // isTop = true 表示插入到 prevId 之前
+          true, // isTop = true 表示插入到 prevId 之前
         )
         let finalInspectorData = HierachyUtils.insertUIControlData(
           (
             (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
             (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-            (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+            (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+              ...data,
+              children,
+            },
           ),
           newInspectorData,
           nodeInspector,
@@ -534,155 +929,160 @@ let reducer = (state, action) => {
           selectedUIControls: finalUIControls,
           selectedUIControlInspectorData: finalInspectorData,
         }
-      | None =>
-        state  // 已经是第一个，不移动
+      | None => state // 已经是第一个，不移动
       }
-    | _ => state  // 节点不存在
+    | _ => state // 节点不存在
     }
 
-// 下移功能
-| MoveDownUIControl(id) =>
+  // 下移功能
+  | MoveDownUIControl(id) =>
     let nodeOpt = _findSelectUIControlById(state, id)
     let nodeInspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
     switch (nodeOpt, nodeInspectorOpt) {
     | (Some(node), Some(nodeInspector)) =>
       let parentId = node.parentId
-      
+
       // 获取当前节点所在层级的列表
       let (currentLevelList, currentLevelListInspector) = switch parentId {
       | Some(pid) =>
         let parentOpt = _findSelectUIControlById(state, pid)
         let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
         switch (parentOpt, parentInspectorOpt) {
-        | (Some(parent), Some(parentInspector)) =>
-          (parent.children, parentInspector.children)
+        | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
         | _ => (list{}, list{})
         }
-      | None =>
-        (state.selectedUIControls, state.selectedUIControlInspectorData)
+      | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
       }
 
       // 在当前层级列表中查找当前节点的索引
       let index = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
-      
-      switch(index) {
-        | Some(index) =>
-          // 获取当前层级的长度，判断是否是最后一个
-          let listLength = currentLevelList->Meta3dCommonlib.ListSt.length
-          if index < listLength - 1 {
-            // 获取后一个兄弟节点的id
-            let nextId = (currentLevelList->Meta3dCommonlib.ListSt.nth(index + 1) 
-              -> Meta3dCommonlib.OptionSt.getExn).id
 
-            // 1. 先移除当前节点
-            let newUIControls = HierachyUtils.removeUIControlData(
-              (
-                (data: ElementAssembleStoreType.uiControl) => data.id,
-                (data: ElementAssembleStoreType.uiControl) => data.children,
-                (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
-              ),
-              state.selectedUIControls,
-              id,
-            )
-            let newInspectorData = HierachyUtils.removeUIControlData(
-              (
-                (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
-                (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-                (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
-              ),
-              state.selectedUIControlInspectorData,
-              id,
-            )
+      switch index {
+      | Some(index) =>
+        // 获取当前层级的长度，判断是否是最后一个
+        let listLength = currentLevelList->Meta3dCommonlib.ListSt.length
+        if index < listLength - 1 {
+          // 获取后一个兄弟节点的id
+          let nextId = (
+            currentLevelList->Meta3dCommonlib.ListSt.nth(index + 1)->Meta3dCommonlib.OptionSt.getExn
+          ).id
 
-            // 2. 将节点插入到后一个兄弟之后
-            // 注意：插入到 nextId 之后，需要先插入到 nextId 之前，然后实际效果是放在 nextId 后面
-            // 但 insertUIControlData 的 isTop=true 是插入到目标之前
-            // 要实现插入到目标之后，需要插入到目标的下一个位置
-            // 这里我们使用 isTop=false 插入到 nextId 之后
-            let finalUIControls = HierachyUtils.insertUIControlData(
-              (
-                (data: ElementAssembleStoreType.uiControl) => data.id,
-                (data: ElementAssembleStoreType.uiControl) => data.children,
-                (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
-              ),
-              newUIControls,
-              {...node, parentId},
-              nextId,
-              parentId,
-              false,  // isTop = false 表示插入到 nextId 之后
-            )
-            let finalInspectorData = HierachyUtils.insertUIControlData(
-              (
-                (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
-                (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-                (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
-              ),
-              newInspectorData,
-              nodeInspector,
-              nextId,
-              parentId,
-              false,
-            )
+          // 1. 先移除当前节点
+          let newUIControls = HierachyUtils.removeUIControlData(
+            (
+              (data: ElementAssembleStoreType.uiControl) => data.id,
+              (data: ElementAssembleStoreType.uiControl) => data.children,
+              (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+            ),
+            state.selectedUIControls,
+            id,
+          )
+          let newInspectorData = HierachyUtils.removeUIControlData(
+            (
+              (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+              (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+              (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                ...data,
+                children,
+              },
+            ),
+            state.selectedUIControlInspectorData,
+            id,
+          )
 
-            {
-              ...state,
-              selectedUIControls: finalUIControls,
-              selectedUIControlInspectorData: finalInspectorData,
-            }
-          } else {
-            state  // 已经是最后一个，不移动
+          // 2. 将节点插入到后一个兄弟之后
+          // 注意：插入到 nextId 之后，需要先插入到 nextId 之前，然后实际效果是放在 nextId 后面
+          // 但 insertUIControlData 的 isTop=true 是插入到目标之前
+          // 要实现插入到目标之后，需要插入到目标的下一个位置
+          // 这里我们使用 isTop=false 插入到 nextId 之后
+          let finalUIControls = HierachyUtils.insertUIControlData(
+            (
+              (data: ElementAssembleStoreType.uiControl) => data.id,
+              (data: ElementAssembleStoreType.uiControl) => data.children,
+              (data: ElementAssembleStoreType.uiControl, children) => {...data, children},
+            ),
+            newUIControls,
+            {...node, parentId},
+            nextId,
+            parentId,
+            false, // isTop = false 表示插入到 nextId 之后
+          )
+          let finalInspectorData = HierachyUtils.insertUIControlData(
+            (
+              (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+              (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+              (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                ...data,
+                children,
+              },
+            ),
+            newInspectorData,
+            nodeInspector,
+            nextId,
+            parentId,
+            false,
+          )
+
+          {
+            ...state,
+            selectedUIControls: finalUIControls,
+            selectedUIControlInspectorData: finalInspectorData,
           }
-        | None => state  // 节点不存在或索引无效
+        } else {
+          state // 已经是最后一个，不移动
+        }
+      | None => state // 节点不存在或索引无效
       }
     | _ => state
     }
 
-
-// 移到上一级功能
-| MoveToParentLevelUIControl(id) =>
+  // 移到上一级功能
+  | MoveToParentLevelUIControl(id) =>
     let nodeOpt = _findSelectUIControlById(state, id)
     let nodeInspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
     switch (nodeOpt, nodeInspectorOpt) {
     | (Some(node), Some(nodeInspector)) =>
       let parentId = node.parentId
-      
+
       switch parentId {
       | Some(grandParentId) =>
         // 获取父节点和祖父节点
         let parentOpt = _findSelectUIControlById(state, grandParentId)
         let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, grandParentId)
-        
+
         switch (parentOpt, parentInspectorOpt) {
         | (Some(parent), Some(parentInspector)) =>
           // 获取祖父节点的父级（即新位置的父级）
           let newParentId = parent.parentId
-          
+
           // 在祖父节点的同级列表中查找父节点的位置
           let (grandParentLevelList, grandParentLevelListInspector) = switch parent.parentId {
           | Some(gpId) =>
             let grandParentOpt = _findSelectUIControlById(state, gpId)
             let grandParentInspectorOpt = _findSelectedUIControlInspectorDataById(state, gpId)
             switch (grandParentOpt, grandParentInspectorOpt) {
-            | (Some(gp), Some(gpInspector)) =>
-              (gp.children, gpInspector.children)
+            | (Some(gp), Some(gpInspector)) => (gp.children, gpInspector.children)
             | _ => (list{}, list{})
             }
-          | None =>
-            (state.selectedUIControls, state.selectedUIControlInspectorData)
+          | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
           }
-          
+
           // 找到父节点在祖父节点同级列表中的位置
-          let parentIndex = grandParentLevelList
-            ->Meta3dCommonlib.ListSt.findIndex(child => child.id == grandParentId)
-          
+          let parentIndex =
+            grandParentLevelList->Meta3dCommonlib.ListSt.findIndex(child =>
+              child.id == grandParentId
+            )
+
           switch parentIndex {
           | Some(pIndex) =>
             // 获取父节点的前一个兄弟节点（作为插入目标）
             if pIndex > 0 {
-              let targetId = (grandParentLevelList
+              let targetId = (
+                grandParentLevelList
                 ->Meta3dCommonlib.ListSt.nth(pIndex - 1)
-                ->Meta3dCommonlib.OptionSt.getExn).id
-              
+                ->Meta3dCommonlib.OptionSt.getExn
+              ).id
+
               // 1. 先移除当前节点
               let newUIControls = HierachyUtils.removeUIControlData(
                 (
@@ -697,7 +1097,10 @@ let reducer = (state, action) => {
                 (
                   (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
                   (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-                  (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+                  (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                    ...data,
+                    children,
+                  },
                 ),
                 state.selectedUIControlInspectorData,
                 id,
@@ -714,13 +1117,16 @@ let reducer = (state, action) => {
                 {...node, parentId: newParentId},
                 targetId,
                 newParentId,
-                false,  // 插入到目标之后
+                false, // 插入到目标之后
               )
               let finalInspectorData = HierachyUtils.insertUIControlData(
                 (
                   (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
                   (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-                  (data: ElementAssembleStoreType.uiControlInspectorData, children) => {...data, children},
+                  (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+                    ...data,
+                    children,
+                  },
                 ),
                 newInspectorData,
                 nodeInspector,
@@ -735,17 +1141,16 @@ let reducer = (state, action) => {
                 selectedUIControlInspectorData: finalInspectorData,
               }
             } else {
-              state  // 父节点是第一个，无法移到上一级
+              state // 父节点是第一个，无法移到上一级
             }
           | None => state
           }
         | _ => state
         }
-      | None => state  // 已经是顶层节点，无法移到上一级
+      | None => state // 已经是顶层节点，无法移到上一级
       }
     | _ => state
     }
-
 
   | SetSpecificData(id, specific) =>
     _setUIControlInspectorData(
@@ -1013,14 +1418,15 @@ let reducer = (state, action) => {
       ...state->_resetCurrent,
       currentCustomActionName: actionName->Some,
     }
-  | SetCustomWhenEmpty(
-      customInputs,
-      customActions,
-    ) => {
-          ...state,
-          customInputs: state.customInputs->Meta3dCommonlib.ListSt.length > 0 ?state.customInputs : customInputs ,
-          customActions: state.customActions->Meta3dCommonlib.ListSt.length > 0 ?state.customActions : customActions ,
-        }
+  | SetCustomWhenEmpty(customInputs, customActions) => {
+      ...state,
+      customInputs: state.customInputs->Meta3dCommonlib.ListSt.length > 0
+        ? state.customInputs
+        : customInputs,
+      customActions: state.customActions->Meta3dCommonlib.ListSt.length > 0
+        ? state.customActions
+        : customActions,
+    }
   | StartCreateFromScratchTourPhase2 => {
       ...state,
       isInCreateFromScratchTourPhase2: true,
