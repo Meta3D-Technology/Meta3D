@@ -498,6 +498,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
         sameLine: () => {
             ImGui.SameLine()
         },
+        newLine: () => {
+            ImGui.NewLine()
+        },
         list: (label, [width, height], items, [itemWidth, itemHeight], isRemoveable, removeTexture) => {
             let selectedIndex: nullable<number> = null
             let selectedValue: nullable<string> = null

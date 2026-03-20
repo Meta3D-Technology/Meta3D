@@ -1116,6 +1116,18 @@ let sameLine = (data, meta3dState) => {
   )
 }
 
+let newLine = (data, meta3dState) => {
+  _invokeIMGUIRenderFunc(
+    meta3dState,
+    (. imguiRendererState, imguiRendererService) => {
+      imguiRendererService.newLine()
+
+      imguiRendererState
+    },
+    data,
+  )
+}
+
 let list = (data, meta3dState, label, size, items, itemSize, isRemoveable, removeTexture) => {
   _invokeIMGUIRenderFuncWithParam(
     meta3dState,

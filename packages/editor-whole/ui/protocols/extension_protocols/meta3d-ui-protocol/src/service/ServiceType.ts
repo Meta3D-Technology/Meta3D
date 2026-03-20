@@ -347,6 +347,7 @@ export type service = {
     ) => [meta3dState, nullable<data>],
     readonly dummy: (meta3dState: meta3dState, width: number, height: number) => meta3dState;
     readonly sameLine: (meta3dState: meta3dState) => meta3dState;
+    readonly newLine: (meta3dState: meta3dState) => meta3dState;
     readonly list: (meta3dState: meta3dState, label: label, [width, height]: [number, number], items: Array<string>, [itemWidth, itemHeight]: [number, number], isRemoveable: boolean, removeTexture: nullable<imguiImplTexture>) => [meta3dState, [nullable<[number, string]>, nullable<boolean>]];
     readonly text: (meta3dState: meta3dState, text: string) => meta3dState;
     readonly textColored: (meta3dState: meta3dState, color: [number, number, number, number], text: string) => meta3dState;

@@ -273,6 +273,7 @@ type service = {
   ) => (Meta3dType.Index.state, Js.Nullable.t<int>),
   dummy: (Meta3dType.Index.state, int, int) => Meta3dType.Index.state,
   sameLine: Meta3dType.Index.state => Meta3dType.Index.state,
+  newLine: Meta3dType.Index.state => Meta3dType.Index.state,
   list: (
     Meta3dType.Index.state,
     Meta3dImguiRendererProtocol.ServiceType.label,

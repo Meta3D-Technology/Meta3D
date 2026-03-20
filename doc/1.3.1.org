@@ -2413,12 +2413,24 @@ ammorType
 
 
 TODO Skill
+  remove remove buttom
+
+  add draft big ui
+
+  add remain ui
+    values
+
+  TODO add copy selected ui button
+
+  add big ui
+
+  run test:quick test
+
+TODO Generate
 
 TODO Feature
 
 TODO Reward
-
-TODO Generate
 
 ** TODO update value
 

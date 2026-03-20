@@ -92,27 +92,54 @@ export type state = {
     hasSmallSkillObject: boolean,
     hasBigSkillObject: boolean,
 
-    // s_action: action,
     s_emitSpeed: number,
-    // s_emitterSpeed: number,
+    s_volume:number,
 
     s_damageType: damageEffectType,
+
     s_force: number,
+    s_armorPiercingForceRatio: number,
+    s_critRatio: number,
 
     s_hit_subEffects: Array<subEffect>,
 
     s_emitterType: emitterType,
-    // s_emitterInstance: instance,
-    // s_emitterParticleImage: particleImage,
 
     s_emitterSpeed: number,
+    s_emitterLife: number,
+    s_emitterSize: number,
+    s_emitterCollisionSize: number,
+    s_emitterCount: number,
+    s_explodeRange: number,
 
     s_emitter_subEffects: Array<subEffect>,
 
 
-    // b_action: action,
+
     b_emitSpeed: number,
+    b_volume:number,
+
+    b_damageType: damageEffectType,
+
+    b_force: number,
+    b_armorPiercingForceRatio: number,
+    b_critRatio: number,
+
+    b_hit_subEffects: Array<subEffect>,
+
+    b_emitterType: emitterType,
+
     b_emitterSpeed: number,
+    b_emitterLife: number,
+    b_emitterSize: number,
+    b_emitterCollisionSize: number,
+    b_emitterCount: number,
+    b_explodeRange: number,
+
+    b_emitter_subEffects: Array<subEffect>,
+
+
+
 
 
     features: Array<singleFeatureData>,

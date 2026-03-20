@@ -10,7 +10,7 @@ import { getActions, getActionSnapshotPath, getEmitterInstances, getEmitterInsta
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, instance, meleeDamageEffectType, particleImage, speed } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, instance, meleeDamageEffectType, particleImage, speed, emitterVolume, critRatio, emitterLife, emitterSize, emitterCollisionSize, emitterCount, explodeRange, armorPiercingForceRatio } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
 import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
@@ -290,34 +290,63 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 scale: scale.Level5,
 
 
-                // skillType: api.nullable.getEmpty(),
 
                 hasSmallSkillObject: false,
                 hasBigSkillObject: false,
 
-                // s_action: action.StompLight,
                 s_emitSpeed: emitSpeed.Level5,
+                s_volume: emitterVolume.Level5,
 
                 s_damageType: meleeDamageEffectType.BodyDamage,
 
                 s_force: forceSize.Level1,
+                s_armorPiercingForceRatio: armorPiercingForceRatio.Level5,
+                s_critRatio: critRatio.Level5,
+
+
 
                 s_hit_subEffects: [],
 
 
                 s_emitterType: emitterType.Particle,
-                // s_emitterInstance: instance.Missile1,
-                // s_emitterParticleImage: particleImage.Fireball1,
 
                 s_emitterSpeed: emitterSpeed.Level5,
+                s_emitterLife: emitterLife.Level5,
+                s_emitterSize: emitterSize.Level5,
+                s_emitterCollisionSize: emitterCollisionSize.Level5,
+                s_emitterCount: emitterCount.Level1,
+                s_explodeRange: explodeRange.Level5,
+
 
                 s_emitter_subEffects: [],
 
 
 
-                // TODO update
                 b_emitSpeed: emitSpeed.Level5,
-                b_emitterSpeed: emitterSpeed.Level0,
+                b_volume: emitterVolume.Level5,
+
+                b_damageType: meleeDamageEffectType.BodyDamage,
+
+                b_force: forceSize.Level1,
+                b_armorPiercingForceRatio: armorPiercingForceRatio.Level5,
+                b_critRatio: critRatio.Level5,
+
+
+
+                b_hit_subEffects: [],
+
+
+                b_emitterType: emitterType.Particle,
+
+                b_emitterSpeed: emitterSpeed.Level5,
+                b_emitterLife: emitterLife.Level5,
+                b_emitterSize: emitterSize.Level5,
+                b_emitterCollisionSize: emitterCollisionSize.Level5,
+                b_emitterCount: emitterCount.Level1,
+                b_explodeRange: explodeRange.Level5,
+
+
+                b_emitter_subEffects: [],
 
 
 

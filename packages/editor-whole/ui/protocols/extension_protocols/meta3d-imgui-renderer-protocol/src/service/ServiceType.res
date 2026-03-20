@@ -203,6 +203,7 @@ type service = {
   imagePopup: (. imguiImplTexture, rect, array<string>, string) => Js.Nullable.t<int>,
   dummy: (. int, int) => unit,
   sameLine: () => unit,
+  newLine: () => unit,
   list: (
     . label,
     (int, int),
