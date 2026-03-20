@@ -309,6 +309,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
 
 export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dState: meta3dState,
     {
+        languageTextData,
+
         hasSmallSkillObject,
         hasBigSkillObject,
 
@@ -323,14 +325,14 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
     let message = api.nullable.getEmpty<string>()
 
     if (!hasSmallSkillObject || !hasBigSkillObject) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedAllSkillObject))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAllSkillObject))
     }
     else if (
         !hasAttackCitySceneChapterGenerateData &&
         !hasProtectCitySceneChapterGenerateData &&
         !hasBossSceneChapterGenerateData
     ) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedAtLeastOneGenerateData))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAtLeastOneGenerateData))
     }
     else if (getSkillType(api, meta3dState, "selectedSmallSkillObjectActionIndex") == skillType.Ranged
         && (
@@ -342,7 +344,7 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
             )
         )
     ) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedSmallSkillObjectEmitterData))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedSmallSkillObjectEmitterData))
     }
 
 

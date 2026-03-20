@@ -5,6 +5,7 @@ import { data } from "meta3d-input-mod-unit-dynamic-feature-protocol"
 import { windowFlags } from "meta3d-imgui-renderer-protocol/src/service/ServiceType"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 import { languageKey } from "meta3d-language-utils/src/Type"
+import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 
 export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, specificData, outputData>> = (api) => {
     api.nullable
@@ -83,6 +84,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 //     return [meta3dState, [arr, isValueUpdate]]
                 // }, [meta3dState, [[], false]])
 
+                let initState = api.action.getActionState<initState>(meta3dState, initActionName)
+
                 let { text, inputInt1 } = api.nullable.getExn(api.getPackageService<service>(meta3dState, "meta3d-editor-whole-protocol")).ui(meta3dState)
 
                 return data.reduce<[meta3dState, [arr, boolean]]>(([meta3dState, data], [
@@ -96,7 +99,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     meta3dState = text(meta3dState, `${name}:${description}`)
 
                     let newLevel
-                    [meta3dState, newLevel] = inputInt1(meta3dState, `${label}_level_${i}`, level, 1, 1, 100, getLanguageTextData(api, meta3dState, languageKey.Level), 1, maxLevel)
+                    [meta3dState, newLevel] = inputInt1(meta3dState, `${label}_level_${i}`, level, 1, 1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Level), 1, maxLevel)
                     if (!api.nullable.isNullable(newLevel)) {
                         isValueUpdate = true
                     }

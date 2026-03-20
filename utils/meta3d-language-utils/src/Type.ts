@@ -44,3 +44,8 @@ export enum languageKey {
 export enum languageVariableKey {
     LimitMaxCount,
 }
+
+export type languageTextData = Record<language, Record<any, string>>
+
+export type languageTextDataByVariable = Record<language, Record<any, (...args: any[]) => string>>
+

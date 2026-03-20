@@ -80,7 +80,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 let id = _extractId(label)
 
                 let newDisplayNameCn
-                [meta3dState, newDisplayNameCn] = inputText(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.DisplayNameCN)}##${id}_displayNameCN`, initActionState[displayNameCNFieldName], 50, 200)
+                [meta3dState, newDisplayNameCn] = inputText(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.DisplayNameCN)}##${id}_displayNameCN`, initActionState[displayNameCNFieldName], 50, 200)
                 if (!api.nullable.isNullable(newDisplayNameCn)) {
                     meta3dState = api.action.setActionState<any>(meta3dState, initActionName, {
                         ...api.action.getActionState<any>(meta3dState, initActionName),
@@ -89,7 +89,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 }
 
                 let newDisplayNameEn
-                [meta3dState, newDisplayNameEn] = inputText(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.DisplayNameEN)}##${id}_displayNameEN`, initActionState[displayNameENFieldName], 50, 200)
+                [meta3dState, newDisplayNameEn] = inputText(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.DisplayNameEN)}##${id}_displayNameEN`, initActionState[displayNameENFieldName], 50, 200)
                 if (!api.nullable.isNullable(newDisplayNameEn)) {
                     meta3dState = api.action.setActionState<any>(meta3dState, initActionName, {
                         ...api.action.getActionState<any>(meta3dState, initActionName),
@@ -99,7 +99,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                 let newIsPlublic
-                [meta3dState, newIsPlublic] = checkbox(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.IsPublic)}##${id}_isPublic`, initActionState[isPublicFieldName])
+                [meta3dState, newIsPlublic] = checkbox(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.IsPublic)}##${id}_isPublic`, initActionState[isPublicFieldName])
                 if (!api.nullable.isNullable(newIsPlublic)) {
                     meta3dState = api.action.setActionState<any>(meta3dState, initActionName, {
                         ...api.action.getActionState<any>(meta3dState, initActionName),
@@ -110,7 +110,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                 let isUpload
-                [meta3dState, isUpload] = button(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.UploadModIcon)}##${id}_uploadModIcon`, [100, 20])
+                [meta3dState, isUpload] = button(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.UploadModIcon)}##${id}_uploadModIcon`, [100, 20])
 
                 let promise
                 if (isUpload) {
@@ -146,7 +146,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                     let newDescription
-                    [meta3dState, newDescription] = inputTextarea(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.Description)}##${id}_description`, [500, 300], 10000, initActionState[descriptionFieldName])
+                    [meta3dState, newDescription] = inputTextarea(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.Description)}##${id}_description`, [500, 300], 10000, initActionState[descriptionFieldName])
                     if (!api.nullable.isNullable(newDescription)) {
                         meta3dState = api.action.setActionState<any>(meta3dState, initActionName, {
                             ...api.action.getActionState<any>(meta3dState, initActionName),
@@ -157,7 +157,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                     let isPublish
-                    [meta3dState, isPublish] = button(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.PublishToGame)}##${id}_publishToGame`, [100, 20])
+                    [meta3dState, isPublish] = button(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.PublishToGame)}##${id}_publishToGame`, [100, 20])
 
                     if (isPublish) {
                         return trigger(meta3dState, "meta3d-event-protocol", publishActionName, api.nullable.getEmpty())
@@ -165,7 +165,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
 
 
                     let isCancel
-                    [meta3dState, isCancel] = button(meta3dState, `${getLanguageTextData(api, meta3dState, languageKey.Cancel)}##${id}_cancel`, [100, 20])
+                    [meta3dState, isCancel] = button(meta3dState, `${getLanguageTextData(api, meta3dState, initActionState.languageTextData, languageKey.Cancel)}##${id}_cancel`, [100, 20])
 
                     if (isCancel) {
                         meta3dState = api.action.setActionState<any>(meta3dState, initActionName, {

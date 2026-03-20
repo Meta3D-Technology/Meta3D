@@ -17,12 +17,13 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                         category
                     )).entries()).map(([action, actionData]) => {
                         return {
-                            name: getLanguageTextData(api, meta3dState, action),
+                            name: getLanguageTextData(api, meta3dState, state.languageTextData, action),
                             imageBase64: actionData.snapshotImageBase64
                         }
-                    }).sort((a, b) => {
-                        return a.name.localeCompare(b.name)
                     })
+                    // .sort((a, b) => {
+                    //     return a.name.localeCompare(b.name)
+                    // })
                 }, api.action.getActionState<initState>(meta3dState, initActionName)),
                 []
             )

@@ -12,7 +12,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                 api.nullable.getWithDefault(
                     api.nullable.map((data) => {
                         return data[subEffectsFieldName].map(d => {
-                            return getLanguageTextData(api, meta3dState, d)
+                            return getLanguageTextData(api, meta3dState, data.languageTextData, d)
                         })
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)

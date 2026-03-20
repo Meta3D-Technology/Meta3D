@@ -9,7 +9,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
         inputName: "ModUnitCategoryInput",
         func: (meta3dState) => {
             let allModelData = api.nullable.getWithDefault(
-                api.nullable.map(state => Array.from(state.allModelData.keys()).map((model) => getLanguageTextData(api, meta3dState, model)), api.action.getActionState<state>(meta3dState, actionName)),
+                api.nullable.map(state => Array.from(state.allModelData.keys()).map((model) => getLanguageTextData(api, meta3dState, state.languageTextData, model)), api.action.getActionState<state>(meta3dState, actionName)),
                 []
             )
 

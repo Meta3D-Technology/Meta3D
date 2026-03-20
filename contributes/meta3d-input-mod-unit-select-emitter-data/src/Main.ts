@@ -13,12 +13,13 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                 api.nullable.map(state => {
                     return api.nullable.getExn(state[allEmitterFieldName]).toArray().map((data: any) => {
                         return {
-                            name: getLanguageTextData(api, meta3dState, data.name),
+                            name: getLanguageTextData(api, meta3dState, state.languageTextData, data.name),
                             imageBase64: data.snapshotImageBase64
                         }
-                    }).sort((a: any, b: any) => {
-                        return a.name.localeCompare(b.name)
                     })
+                    // .sort((a: any, b: any) => {
+                    //     return a.name.localeCompare(b.name)
+                    // })
                 }, api.action.getActionState<any>(meta3dState, initActionName)),
                 []
             )

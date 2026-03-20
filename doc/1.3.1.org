@@ -2369,13 +2369,39 @@ TODO for publish
 
 * TODO complete editor
 
-** TODO update init action
+** DONE update init, publish, quicktest action
 
-** TODO pass run test
+** DONE store language data to init action
 
-** TODO add remain uis
+** DONE update current ui
+
+TODO skill wrong
+TODO prop wrong
+
+TODO ...
+isShowSmallSkillObjectEmitterParticleImageModal
+
+** TODO update asset
+f, m
+
+
+
+** TODO add remain ui
 e.g. more value fields
 
+
+TODO Model
+  update
+
+  add values
+
+TODO Skill
+
+TODO Feature
+
+TODO Reward
+
+TODO Generate
 
 ** TODO update value
 
@@ -2398,20 +2424,7 @@ use 1 / emitSpeed * emitSpeed.Level0
 
 
 
-# ** TODO add UI
 
-# *** TODO add new ui controls
-
-# TODO add tab
-
-
-# TODO add new ui control:
-# grid? instead of list
-#   # 查看模型、//动作(//click play button to play gif by html?)
-#   查看模型、动作
-
-
-# *** TODO add editor ui
 
 
 

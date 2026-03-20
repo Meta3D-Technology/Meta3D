@@ -10,7 +10,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
         func: (meta3dState) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
-                    api.nullable.map(state => state.allEmitterTypes.map(d => getLanguageTextData(api, meta3dState, d)).toArray(), api.action.getActionState<state>(meta3dState, actionName)),
+                    api.nullable.map(state => state.allEmitterTypes.map(d => getLanguageTextData(api, meta3dState, state.languageTextData, d)).toArray(), api.action.getActionState<state>(meta3dState, actionName)),
                     []
                 )
             )

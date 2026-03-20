@@ -15,6 +15,7 @@ import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
 import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
+import { getTextData, getTextDataByVariable } from "meta3d-language-utils/src/Data"
 import { languageKey } from "meta3d-language-utils/src/Type"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
@@ -68,7 +69,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         init: (meta3dState) => {
             meta3dState = api.action.setActionState(meta3dState, infoActionName, {
                 ...api.nullable.getExn(api.action.getActionState<infoState>(meta3dState, infoActionName)),
-                info: api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.Loading))
+                info: api.nullable.return(getLanguageTextData(api, meta3dState, api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)).languageTextData, languageKey.Loading))
             })
 
             api.flow.deferExec(api, (meta3dState) => {
@@ -237,6 +238,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
         },
         createState: () => {
             return {
+                languageTextData: getTextData(),
+                languageTextDataByVariable: getTextDataByVariable(),
+
+
                 // allModelData: api.immutable.createMapOfData(getAllModelData()),
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),

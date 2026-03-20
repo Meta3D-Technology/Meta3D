@@ -14,12 +14,13 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                         return state.prop.filter(p => p.name == d.name).length == 0
                     }).map((prop) => {
                         return {
-                            name: getLanguageTextData(api, meta3dState, prop.name),
+                            name: getLanguageTextData(api, meta3dState, state.languageTextData, prop.name),
                             imageBase64: prop.snapshotImageBase64
                         }
-                    }).sort((a, b) => {
-                        return a.name.localeCompare(b.name)
                     })
+                    // .sort((a, b) => {
+                    //     return a.name.localeCompare(b.name)
+                    // })
                 }, api.action.getActionState<initState>(meta3dState, initActionName)),
                 []
             )

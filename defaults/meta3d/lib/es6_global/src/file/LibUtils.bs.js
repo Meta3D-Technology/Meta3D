@@ -3,6 +3,9 @@
 
 var serializeLib = (function(fileStr, libraryName){
         try{
+            console.log("libraryName: ", libraryName)
+            console.log("fileStr: ", fileStr)
+
   eval('(' + "(function(){" + fileStr + "}())" + ')')
 
   return window[libraryName]
@@ -12,7 +15,6 @@ var serializeLib = (function(fileStr, libraryName){
             console.error("fileStr: ", fileStr)
             throw new Error (e)
         }
-
     });
 
 var getFuncFromLib = (function(lib, funcName){

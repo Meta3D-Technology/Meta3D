@@ -11,12 +11,12 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
         func: (meta3dState) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
-                    api.nullable.bind(({ allModelData, selectedModelIndex }) => {
+                    api.nullable.bind(({ languageTextData, allModelData, selectedModelIndex }) => {
                         let category = api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)).category
 
                         return api.nullable.bind(modelData => {
                             return api.nullable.bind(selectedModelIndex => {
-                                return getLanguageTextData(api, meta3dState, modelData[selectedModelIndex].model)
+                                return getLanguageTextData(api, meta3dState, languageTextData, modelData[selectedModelIndex].model)
                             }, selectedModelIndex)
                         }, allModelData.get(category))
                     },

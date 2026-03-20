@@ -10,14 +10,15 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
         func: (meta3dState) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
-                    api.nullable.map(({ allFeatureData, features }) => {
+                    api.nullable.map(({ languageTextData, allFeatureData, features }) => {
                         return allFeatureData.filter(d => {
                             return features.filter(f => f.name == d.name).length == 0
                         }).map(d => {
-                            return `${d.name}:${getLanguageTextData(api, meta3dState, d.name)}`
-                        }).toArray().sort((a, b) => {
-                            return a.localeCompare(b)
-                        })
+                            return `${d.name}:${getLanguageTextData(api, meta3dState, languageTextData, d.name)}`
+                        }).toArray()
+                        // .sort((a, b) => {
+                        //     return a.localeCompare(b)
+                        // })
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)
                     ),

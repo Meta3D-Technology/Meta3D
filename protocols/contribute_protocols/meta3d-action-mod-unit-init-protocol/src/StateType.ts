@@ -1,6 +1,8 @@
 import { countFactor, damageEffectType, emitterType, feature, nullable, propName, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actions, emitterInstances, emitterParticleImages, emitterTypes, features, models, props, subEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
+import { languageTextData, languageTextDataByVariable } from "meta3d-language-utils/src/Type"
+
 
 export const actionName = "UnitModInit"
 
@@ -32,7 +34,11 @@ export type propData = {
     rate: number
 }
 
+
 export type state = {
+    languageTextData: languageTextData,
+    languageTextDataByVariable: languageTextDataByVariable,
+
     allModelData: models,
     allActionData: actions,
     allSubEffects: subEffects,

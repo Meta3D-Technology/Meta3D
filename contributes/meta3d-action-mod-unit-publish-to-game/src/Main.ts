@@ -9,20 +9,20 @@ import { publish, getUserName, checkModData, buildUniqueName } from "meta3d-acti
 import { getLanguageTextData, isChinese } from "meta3d-language-utils/src/Main"
 import { languageKey } from "meta3d-language-utils/src/Type"
 
-let _checkPublishData = (api: api, meta3dState: meta3dState, { displayNameCN, displayNameEN, description, modIconBase64 }: initState, isChinese: boolean) => {
+let _checkPublishData = (api: api, meta3dState: meta3dState, { languageTextData, displayNameCN, displayNameEN, description, modIconBase64 }: initState, isChinese: boolean) => {
     let message = api.nullable.getEmpty<string>()
 
     if (isChinese && displayNameCN.length <= 0) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedDisplayNameCN))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedDisplayNameCN))
     }
     else if (!isChinese && displayNameEN.length <= 0) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedDisplayNameEN))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedDisplayNameEN))
     }
     else if (description.length <= 0) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedDescription))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedDescription))
     }
     else if (api.nullable.isNullable(modIconBase64)) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.NeedModIcon))
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedModIcon))
     }
 
     return api.nullable.getWithDefault(
@@ -54,7 +54,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
                         ...api.action.getActionState<infoState>(meta3dState, infoActionName),
-                        info: api.nullable.return(getLanguageTextData(api, meta3dState, languageKey.Publishing))
+                        info: api.nullable.return(getLanguageTextData(api, meta3dState, api.action.getActionState<initState>(meta3dState, initActionName).languageTextData, languageKey.Publishing))
                     })
 
                     api.flow.deferExec(api, (meta3dState) => {
@@ -81,7 +81,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                 info: api.nullable.getEmpty()
                             })
 
-                            api.message.success(getLanguageTextData(api, meta3dState, languageKey.Success))
+                            api.message.success(getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Success))
 
                             return meta3dState
                         })

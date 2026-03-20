@@ -12,7 +12,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                 api.nullable.getWithDefault(
                     api.nullable.bind((state) => {
                         return api.nullable.bind(selectedIndex => {
-                            return getLanguageTextData(api, meta3dState, state[allFieldName].get(selectedIndex).name)
+                            return getLanguageTextData(api, meta3dState, state.languageTextData, state[allFieldName].get(selectedIndex).name)
                         }, state[selectedIndexFieldName])
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)

@@ -18,7 +18,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
 
                             return [
                                 feature.name,
-                                getLanguageTextData(api, meta3dState, feature.name),
+                                getLanguageTextData(api, meta3dState, data.languageTextData, feature.name),
                                 feature.level,
                                 featureData.maxLevel
                             ]
