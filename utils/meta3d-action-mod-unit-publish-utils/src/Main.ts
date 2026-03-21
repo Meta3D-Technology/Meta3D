@@ -18,6 +18,25 @@ let _getArmorType = (category_: category) => {
     }
 }
 
+let _addGenerateData = (result, sceneChapter, l_sceneData, g_sceneData) => {
+    let playerGenerateData = {}
+    if (l_sceneData.length > 0) {
+        playerGenerateData[player.LittleMan] = l_sceneData
+    }
+    if (g_sceneData.length > 0) {
+        playerGenerateData[player.Giantess] = g_sceneData
+    }
+
+    return [
+        ...result,
+        {
+            sceneChapter,
+            data: playerGenerateData
+        }
+    ]
+
+}
+
 let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNameCN, displayNameEN) => {
     let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
     let {
@@ -119,9 +138,19 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         ac_l_sceneData,
         ac_g_sceneData,
 
+        pc_l_sceneData,
+        pc_g_sceneData,
+
+        bo_l_sceneData,
+        bo_g_sceneData,
+
+
 
 
         prop,
+        gem,
+        coin,
+        experienceValue,
     } = api.action.getActionState<initState>(meta3dState, initActionName)
 
 
@@ -247,23 +276,9 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
 
     let generateData = []
-    if (hasAttackCitySceneChapterGenerateData) {
-        let playerGenerateData = {}
-        if (ac_l_sceneData.length > 0) {
-            playerGenerateData[player.LittleMan] = ac_l_sceneData
-        }
-        if (ac_g_sceneData.length > 0) {
-            playerGenerateData[player.Giantess] = ac_g_sceneData
-        }
-
-        generateData = [
-            ...generateData,
-            {
-                sceneChapter: sceneChapter.AttackCity,
-                data: playerGenerateData
-            }
-        ]
-    }
+    generateData = _addGenerateData(generateData, sceneChapter.AttackCity, ac_l_sceneData, ac_g_sceneData)
+    generateData = _addGenerateData(generateData, sceneChapter.ProtectCity, pc_l_sceneData, pc_g_sceneData)
+    generateData = _addGenerateData(generateData, sceneChapter.Boss, bo_l_sceneData, bo_g_sceneData)
 
 
 
@@ -308,8 +323,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
  },
         getRewardData: () => {
             return {
-                gem: state => ${gem.Middle3},
-                coin: state => ${coin.VeryHigh},
+                gem: state => ${gem},
+                coin: state => ${coin},
                 prop: [${prop.map(item => {
         // 使用 JSON.stringify 安全处理 name 字符串（自动转义引号等）
         const safeName = JSON.stringify(item.name);
@@ -321,7 +336,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
     }).join(',\n')
         }
     ],
-                experienceValue: ${experienceValue.VeryHigh},
+                experienceValue: state => ${experienceValue},
             }
         },
         getFeatureData: () => {

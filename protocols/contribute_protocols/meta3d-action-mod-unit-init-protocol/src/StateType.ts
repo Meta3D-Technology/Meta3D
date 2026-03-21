@@ -101,7 +101,7 @@ export type state = {
     hasBigSkillObject: boolean,
 
     s_emitSpeed: number,
-    s_volume:number,
+    s_volume: number,
 
     s_damageType: damageEffectType,
 
@@ -117,7 +117,7 @@ export type state = {
     s_emitterLife: number,
     s_emitterSize: number,
     s_emitterCollisionSize: number,
-    // s_emitterCount: number,
+    // s_mitterCount: number,
     s_explodeRange: number,
 
     s_emitter_subEffects: Array<subEffect>,
@@ -125,7 +125,7 @@ export type state = {
 
 
     b_emitSpeed: number,
-    b_volume:number,
+    b_volume: number,
 
     b_damageType: damageEffectType,
 
@@ -160,16 +160,17 @@ export type state = {
     ac_l_sceneData: Array<singleSceneData>,
     ac_g_sceneData: Array<singleSceneData>,
 
-    // // pc_sceneData: protectCitySceneData,
-    // pc_sceneData_rate: number,
-    // pc_sceneData_countFactor: number,
+    pc_l_sceneData: Array<singleSceneData>,
+    pc_g_sceneData: Array<singleSceneData>,
 
-    // // bo_sceneData: bossSceneData,
-    // bo_sceneData_rate: number,
-    // bo_sceneData_countFactor: number,
+    bo_l_sceneData: Array<singleSceneData>,
+    bo_g_sceneData: Array<singleSceneData>,
 
 
     prop: Array<propData>,
+    gem: number,
+    coin: number,
+    experienceValue: number,
 
 
 

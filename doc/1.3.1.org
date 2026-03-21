@@ -2388,7 +2388,7 @@ f, m
 
 
 
-** TODO add remain ui
+** DONE add remain ui
 e.g. more value fields
 
 
@@ -2446,9 +2446,14 @@ TODO Skill
 
 TODO Generate
 
-TODO Feature
+# TODO Feature
 
 TODO Reward
+  add gem,coin,exp
+
+TODO update q, p
+
+TODO run test
 
 ** TODO update value
 
@@ -2468,7 +2473,6 @@ use 1 / emitSpeed * emitSpeed.Level0
 
 
 ** TODO update ui control icons
-
 
 
 

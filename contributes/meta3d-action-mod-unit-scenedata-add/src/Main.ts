@@ -20,7 +20,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     let state = api.action.getActionState<initState>(meta3dState, initActionName)
 
                     if (state[fieldName].length >= 10) {
-                        api.message.warn(getLanguageTextVariableData(api, meta3dState, languageVariableKey.LimitMaxCount)(10))
+                        api.message.warn(getLanguageTextVariableData(api, meta3dState, state.languageTextDataByVariable, languageVariableKey.LimitMaxCount)(10))
 
                         return Promise.resolve(meta3dState)
                     }

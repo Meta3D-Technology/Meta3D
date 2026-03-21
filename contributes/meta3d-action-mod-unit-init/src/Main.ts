@@ -371,14 +371,18 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 ac_l_sceneData: [],
                 ac_g_sceneData: [],
 
-                // pc_sceneData_rate: 0,
-                // pc_sceneData_countFactor: countFactor.Level5,
+                pc_l_sceneData: [],
+                pc_g_sceneData: [],
 
-                // bo_sceneData_rate: 0,
-                // bo_sceneData_countFactor: countFactor.Level5,
+                bo_l_sceneData: [],
+                bo_g_sceneData: [],
+
 
 
                 prop: [],
+                gem: 0,
+                coin: 0,
+                experienceValue: 0,
 
 
 
