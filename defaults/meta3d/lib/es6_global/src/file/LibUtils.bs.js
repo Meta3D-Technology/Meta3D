@@ -3,8 +3,8 @@
 
 var serializeLib = (function(fileStr, libraryName){
         try{
-            console.log("libraryName: ", libraryName)
-            console.log("fileStr: ", fileStr)
+            // console.log("libraryName: ", libraryName)
+            // console.log("fileStr: ", fileStr)
 
   eval('(' + "(function(){" + fileStr + "}())" + ')')
 

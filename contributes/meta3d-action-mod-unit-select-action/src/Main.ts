@@ -11,11 +11,11 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index, [fieldName]) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index, [fieldName, isShowSkillModalFieldName]) => {
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
                         [fieldName]: index,
-                        isShowSkillModal: false
+                        [isShowSkillModalFieldName]: false
                     })
 
                     return Promise.resolve(meta3dState)

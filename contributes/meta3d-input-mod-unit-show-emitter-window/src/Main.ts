@@ -7,24 +7,24 @@ import { actionName as initActionName, state as initState } from "meta3d-action-
 
 let _isNotShowAnySkillModalExceptEmitter = (api: api, meta3dState: meta3dState) => {
     let {
-        isShowSkillModal,
+        isShowSmallSkillModal,
+        isShowBigSkillModal,
         isShowSmallSkillObjectActionValueModal,
         isShowSmallSkillObjectDamageValueModal,
         isShowSmallSkillObjectDamageSubEffectModal,
-        // isShowSmallSkillObjectEmitterParticleImageModal,
-        // isShowSmallSkillObjectEmitterInstanceModal,
-        // isShowSmallSkillObjectEmitterValueModal,
-        // isShowSmallSkillObjectEmitterSubEffectModal,
+        isShowBigSkillObjectActionValueModal,
+        isShowBigSkillObjectDamageValueModal,
+        isShowBigSkillObjectDamageSubEffectModal,
     } = api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName))
 
-    return !isShowSkillModal
+    return !isShowSmallSkillModal
+        && !isShowBigSkillModal
         && !isShowSmallSkillObjectActionValueModal
         && !isShowSmallSkillObjectDamageValueModal
         && !isShowSmallSkillObjectDamageSubEffectModal
-        // && !isShowSmallSkillObjectEmitterParticleImageModal
-        // && !isShowSmallSkillObjectEmitterInstanceModal
-        // && !isShowSmallSkillObjectEmitterValueModal
-        // && !isShowSmallSkillObjectEmitterSubEffectModal
+        && !isShowBigSkillObjectActionValueModal
+        && !isShowBigSkillObjectDamageValueModal
+        && !isShowBigSkillObjectDamageSubEffectModal
 }
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {

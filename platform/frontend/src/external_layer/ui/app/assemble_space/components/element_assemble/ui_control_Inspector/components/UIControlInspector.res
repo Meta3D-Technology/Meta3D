@@ -801,7 +801,7 @@ let make = (
   <Space
     direction=#vertical
     size=#middle
-    style={ReactDOM.Style.make(~height="60%", ~overflow="scroll", ())}>
+    style={ReactDOM.Style.make(~height="64%", ~overflow="scroll", ())}>
     {service.ui.buildTitle(. ~level=2, ~children={React.string(`Rect`)}, ())}
     <Space direction=#vertical>
       {Method.buildRectField(dispatch, Method.setRectX, id, "X", rect, x, rectXInputTarget)}

@@ -11,13 +11,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index: number, [emitterTypeFieldName]) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index: number, [emitterTypeFieldName, selectedSkillObjectEmitterParticleImageIndexFieldName, selectedSkillObjectEmitterInstanceIndexFieldName]) => {
                     let state = api.nullable.getExn(api.action.getActionState<any>(meta3dState, initActionName))
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,
-                        selectedSmallSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
-                        selectedSmallSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
+                        [selectedSkillObjectEmitterParticleImageIndexFieldName]: api.nullable.getEmpty(),
+                        [selectedSkillObjectEmitterInstanceIndexFieldName]: api.nullable.getEmpty(),
                         [emitterTypeFieldName]: state.allEmitterTypes.get(index)
                     })
 

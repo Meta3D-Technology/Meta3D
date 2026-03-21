@@ -2429,8 +2429,20 @@ TODO Skill
 
 
   add big ui by copy and update field name
+    fix Select damage type:
+      popup
+        fix unique id
+    
+    select action conflict
+      isShowSkillModal
 
-  run test:quick test
+    select emitter wrong
+
+
+  run test: quick test
+    # model wrong
+    fix name, displayName
+
 
 TODO Generate
 

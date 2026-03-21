@@ -256,7 +256,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 selectedSmallSkillObjectActionIndex: 0,
                 selectedSmallSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
                 selectedSmallSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
-                // selectedBigSkillObjectActionIndex: api.nullable.getEmpty(),
+                selectedBigSkillObjectActionIndex: 0,
+                selectedBigSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
+                selectedBigSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
 
                 // isShowModelWindow: false,
                 // isShowSkillWindow: false,
@@ -264,7 +266,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 isShowModelModal: false,
                 isShowUnitValueModal: false,
-                isShowSkillModal: false,
+                isShowSmallSkillModal: false,
+                isShowBigSkillModal: false,
                 isShowFeatureModal: false,
                 isShowRewardModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
@@ -274,7 +277,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowSmallSkillObjectEmitterInstanceModal: false,
                 isShowSmallSkillObjectEmitterValueModal: false,
                 isShowSmallSkillObjectEmitterSubEffectModal: false,
-                // isShowBigSkillObjectActionValueModal: false,
+                isShowBigSkillObjectActionValueModal: false,
+                isShowBigSkillObjectDamageValueModal: false,
+                isShowBigSkillObjectDamageSubEffectModal: false,
+                isShowBigSkillObjectEmitterParticleImageModal: false,
+                isShowBigSkillObjectEmitterInstanceModal: false,
+                isShowBigSkillObjectEmitterValueModal: false,
+                isShowBigSkillObjectEmitterSubEffectModal: false,
                 isShowPropModal: false,
 
                 excitement: excitement.Level5,
@@ -314,7 +323,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 s_emitterLife: emitterLife.Level5,
                 s_emitterSize: emitterSize.Level5,
                 s_emitterCollisionSize: emitterCollisionSize.Level5,
-                s_emitterCount: emitterCount.Level1,
+                // s_emitterCount: emitterCount.Level1,
                 s_explodeRange: explodeRange.Level5,
 
 
@@ -342,7 +351,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 b_emitterLife: emitterLife.Level5,
                 b_emitterSize: emitterSize.Level5,
                 b_emitterCollisionSize: emitterCollisionSize.Level5,
-                b_emitterCount: emitterCount.Level1,
+                // b_emitterCount: emitterCount.Level1,
                 b_explodeRange: explodeRange.Level5,
 
 

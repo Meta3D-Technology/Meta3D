@@ -18,7 +18,7 @@ let _getArmorType = (category_: category) => {
     }
 }
 
-let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
+let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNameCN, displayNameEN) => {
     let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
     let {
         allModelData,
@@ -36,6 +36,9 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
         selectedSmallSkillObjectEmitterParticleImageIndex,
         selectedSmallSkillObjectEmitterInstanceIndex,
 
+        selectedBigSkillObjectActionIndex,
+        selectedBigSkillObjectEmitterParticleImageIndex,
+        selectedBigSkillObjectEmitterInstanceIndex,
 
 
 
@@ -55,24 +58,53 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
         hasSmallSkillObject,
         hasBigSkillObject,
 
-        // s_action,
         s_emitSpeed,
+        s_volume,
 
         s_damageType,
 
         s_force,
+        s_armorPiercingForceRatio,
+        s_critRatio,
 
         s_hit_subEffects,
 
         s_emitterType,
 
         s_emitterSpeed,
+        s_emitterLife,
+        s_emitterSize,
+        s_emitterCollisionSize,
+        // s_emitterCount,
+        s_explodeRange,
 
         s_emitter_subEffects,
 
-        // b_action,
-        // b_emitSpeed,
-        // b_emitterSpeed,
+
+
+        b_emitSpeed,
+        b_volume,
+
+        b_damageType,
+
+        b_force,
+        b_armorPiercingForceRatio,
+        b_critRatio,
+
+        b_hit_subEffects,
+
+        b_emitterType,
+
+        b_emitterSpeed,
+        b_emitterLife,
+        b_emitterSize,
+        b_emitterCollisionSize,
+        // b_emitterCount,
+        b_explodeRange,
+
+        b_emitter_subEffects,
+
+
 
 
 
@@ -114,12 +146,13 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
                 type: s_emitterType,
                 value: {
                     emitterSpeed: s_emitterSpeed,
-                    emitterLife: emitterLife.Level6,
-                    emitterSize: emitterSize.Level10,
-                    emitterCollisionSize: emitterCollisionSize.Level10,
-                    emitterCount: emitterCount.Level1,
+                    emitterLife: s_emitterLife,
+                    emitterSize: s_emitterSize,
+                    emitterCollisionSize: s_emitterCollisionSize,
+                    // emitterCount: s_emitterCount,
+                    emitterCount: 1,
 
-                    explodeRange: explodeRange.Level5,
+                    explodeRange: s_explodeRange,
                 },
                 subEffects: s_emitter_subEffects,
             }
@@ -141,15 +174,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
                 value: {
                     emitSpeed: s_emitSpeed,
 
-                    // meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
-
-                    // emitterSpeed: s_emitterSpeed,
-                    // emitterLife: emitterLife.Level0,
-                    // emitterSize: emitterSize.Level0,
-                    // emitterCollisionSize: emitterCollisionSize.Level0,
-                    // emitterCount: emitterCount.Level0,
-
-                    volume: emitterVolume.Level6,
+                    volume: s_volume,
                 },
             },
             emitter,
@@ -158,48 +183,67 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
                     type: s_damageType,
                     value: {
                         force: s_force,
-                        armorPiercingForceRatio: armorPiercingForceRatio.Level4,
+                        armorPiercingForceRatio: s_armorPiercingForceRatio,
 
-                        critRatio: critRatio.Level0,
+                        critRatio: s_critRatio,
                     },
                 },
                 subEffects: s_hit_subEffects
             },
         }
     }
-    // if (hasBigSkillObject) {
-    //     skillObj[skillObject.Big] = {
-    //         action: {
-    //             name: b_action,
-    //             value: {
-    //                 emitSpeed: b_emitSpeed,
+    if (hasBigSkillObject) {
+        let emitter
+        if (getSkillType(api, meta3dState, "selectedBigSkillObjectActionIndex") == skillType.Ranged) {
+            emitter = {
+                type: b_emitterType,
+                value: {
+                    emitterSpeed: b_emitterSpeed,
+                    emitterLife: b_emitterLife,
+                    emitterSize: b_emitterSize,
+                    emitterCollisionSize: b_emitterCollisionSize,
+                    emitterCount: 1,
 
-    //                 meleeRange: api.nullable.return(meleeRange.Level4 * 1.5 * 1.1 / 22),
+                    explodeRange: b_explodeRange,
+                },
+                subEffects: b_emitter_subEffects,
+            }
 
-    //                 emitterSpeed: b_emitterSpeed,
-    //                 emitterLife: emitterLife.Level0,
-    //                 emitterSize: emitterSize.Level0,
-    //                 emitterCollisionSize: emitterCollisionSize.Level0,
-    //                 emitterCount: emitterCount.Level0,
-    //             },
-    //         },
-    //         hit: {
-    //             damage: {
-    //                 type: meleeDamageEffectType.BodyDirectAndRangeDamage,
-    //                 value: {
-    //                     // force: forceSize.VeryLow4 * 0.4,
-    //                     force: forceSize.Level1 * 3 / 8 * 0.4,
-    //                     armorPiercingForceRatio: armorPiercingForceRatio.Level4,
-    //                     // type: weaponType.Body,
+            if (b_emitterType == emitterType.Particle) {
+                emitter.particleImage = allEmitterParticleImages.get(api.nullable.getExn(selectedBigSkillObjectEmitterParticleImageIndex)).name
+            }
+            else {
+                emitter.instance = allEmitterInstances.get(api.nullable.getExn(selectedBigSkillObjectEmitterInstanceIndex)).name
+            }
+        }
+        else {
+            emitter = undefined
+        }
 
-    //                     critRatio: critRatio.Level0,
-    //                     // explodeRange: explodeRange.Level0,
-    //                 },
-    //             },
-    //             subEffects: [subEffect.StompDust, subEffect.FootDamageDecal]
-    //         },
-    //     }
-    // }
+        skillObj[skillObject.Big] = {
+            action: {
+                name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedBigSkillObjectActionIndex)],
+                value: {
+                    emitSpeed: b_emitSpeed,
+
+                    volume: b_volume,
+                },
+            },
+            emitter,
+            hit: {
+                damage: {
+                    type: b_damageType,
+                    value: {
+                        force: b_force,
+                        armorPiercingForceRatio: b_armorPiercingForceRatio,
+
+                        critRatio: b_critRatio,
+                    },
+                },
+                subEffects: b_hit_subEffects
+            },
+        }
+    }
 
 
     let generateData = []
@@ -231,11 +275,11 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState) => {
         },
         getBlockService: (api) => {
             return {
-        getName: () => "精英近战巨大娘1_1",
+        getName: () => "${name}",
         getDisplayName: () => {
             return {
-                displayNameCN: "精英近战巨大娘1_1",
-                displayNameEN: "Elite Giantess Melee 1_1",
+                displayNameCN: "${displayNameCN}",
+                displayNameEN: "${displayNameEN}",
             }
         },
         getModel: () => "${model}",
@@ -368,7 +412,7 @@ export let publish = (api: api, meta3dState: meta3dState, name, author, displayN
             // `${state.readme}`,
             `${description}`,
             // _buildDistFileContent(api, state, characterType_, features, isChinese),
-            _buildDistFileContent(api, meta3dState),
+            _buildDistFileContent(api, meta3dState, name, displayNameCN, displayNameEN),
             [
                 // [
                 //     // `./${_buildIconId(state, isChinese)}.png`,
