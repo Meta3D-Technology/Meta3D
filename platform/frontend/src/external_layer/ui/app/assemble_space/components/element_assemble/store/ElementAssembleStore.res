@@ -261,9 +261,9 @@ let _findSelectedUIControlInspectorDataById = (state: state, id) => {
 // let rec _copyNodeWithInspector = (control: uiControl, inspector: uiControlInspectorData) => {
 //   let newId = IdUtils.generateId(Js.Math.random)
 
-//   let (childrenControls, childrenInspectors) = 
+//   let (childrenControls, childrenInspectors) =
 //     Belt.List.zip(control.children, inspector.children)
-//     ->Belt.List.map(((childControl, childInspector)) => 
+//     ->Belt.List.map(((childControl, childInspector)) =>
 //         _copyNodeWithInspector(childControl, childInspector)
 //       )
 //     ->Belt.List.unzip
@@ -281,20 +281,19 @@ let _findSelectedUIControlInspectorDataById = (state: state, id) => {
 //   )
 // }
 
-
-let _updateSpecificLabel = (specific:specific, newId) => {
+let _updateSpecificLabelAndId = (specific: specific, newId) => {
   specific->Meta3dCommonlib.ArraySt.map(item => {
-    if item.name == "label" && item.type_ == #string {
-      let oldStr:string = switch item.value {
-      | SpecicFieldDataValue(str) => str   ->Obj.magic
+    if (item.name == "label" || item.name == "id") && item.type_ == #string {
+      let oldStr: string = switch item.value {
+      | SpecicFieldDataValue(str) => str->Obj.magic
       }
       // 替换 "##" 后的数字部分
-let newStr =oldStr -> Js.String.replaceByRe(%re("/\#\#\d+$/g"),"##" ++ newId, _)
-//       let newStr = Js.Re.replace_(
-//   ~regexp=Js.Re.fromString("##\\d+$"),
-//   ~by="##" ++ newId,
-//   oldStr,
-// )
+      let newStr = oldStr->Js.String.replaceByRe(%re("/\#\#\d+$/g"), "##" ++ newId, _)
+      //       let newStr = Js.Re.replace_(
+      //   ~regexp=Js.Re.fromString("##\\d+$"),
+      //   ~by="##" ++ newId,
+      //   oldStr,
+      // )
       {...item, value: {SpecicFieldDataValue(newStr->Obj.magic)}}
     } else {
       item
@@ -305,18 +304,18 @@ let newStr =oldStr -> Js.String.replaceByRe(%re("/\#\#\d+$/g"),"##" ++ newId, _)
 let rec _copyNodeWithInspector = (control: uiControl, inspector: uiControlInspectorData) => {
   let newId = IdUtils.generateId(Js.Math.random)
 
-  let (childrenControls, childrenInspectors) = 
+  let (childrenControls, childrenInspectors) =
     Belt.List.zip(control.children, inspector.children)
-    ->Belt.List.map(((childControl, childInspector)) => 
-        _copyNodeWithInspector(childControl, childInspector)
-      )
+    ->Belt.List.map(((childControl, childInspector)) =>
+      _copyNodeWithInspector(childControl, childInspector)
+    )
     ->Belt.List.unzip
 
   let updatedInspector = {
     ...inspector,
     id: newId,
     children: childrenInspectors,
-    specific: _updateSpecificLabel(inspector.specific, newId),
+    specific: _updateSpecificLabelAndId(inspector.specific, newId),
   }
 
   (
@@ -325,10 +324,9 @@ let rec _copyNodeWithInspector = (control: uiControl, inspector: uiControlInspec
       id: newId,
       children: childrenControls,
     },
-    updatedInspector
+    updatedInspector,
   )
 }
-
 
 let reducer = (state, action) => {
   switch action {
@@ -496,139 +494,152 @@ let reducer = (state, action) => {
 
   // | _ => state
   // }
-//   | CopyUIControl(id) =>
-//   let nodeOpt = _findSelectUIControlById(state, id)
-//   let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
-//   switch (nodeOpt, inspectorOpt) {
-//   | (Some(node), Some(inspector)) =>
-//  let (copiedNode, copiedInspector) = _copyNodeWithInspector(node, inspector)
+  //   | CopyUIControl(id) =>
+  //   let nodeOpt = _findSelectUIControlById(state, id)
+  //   let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+  //   switch (nodeOpt, inspectorOpt) {
+  //   | (Some(node), Some(inspector)) =>
+  //  let (copiedNode, copiedInspector) = _copyNodeWithInspector(node, inspector)
 
-//     let parentId = node.parentId
-//     let (currentLevelList, currentLevelInspectorList) = switch parentId {
-//     | Some(pid) =>
-//       let parentOpt = _findSelectUIControlById(state, pid)
-//       let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
-//       switch (parentOpt, parentInspectorOpt) {
-//       | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
-//       | _ => (list{}, list{})
-//       }
-//     | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
-//     }
+  //     let parentId = node.parentId
+  //     let (currentLevelList, currentLevelInspectorList) = switch parentId {
+  //     | Some(pid) =>
+  //       let parentOpt = _findSelectUIControlById(state, pid)
+  //       let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+  //       switch (parentOpt, parentInspectorOpt) {
+  //       | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
+  //       | _ => (list{}, list{})
+  //       }
+  //     | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
+  //     }
 
-//     let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
-//     switch indexOpt {
-//     | Some(index) =>
-//       let insertIndex = index + 1
-//       let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
-//       let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
-//       let (leftInspectorList, rightInspectorList) = currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
-//       let newLevelInspectorList = leftInspectorList->Belt.List.concat(list{copiedInspector})->Belt.List.concat(rightInspectorList)
+  //     let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+  //     switch indexOpt {
+  //     | Some(index) =>
+  //       let insertIndex = index + 1
+  //       let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+  //       let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
+  //       let (leftInspectorList, rightInspectorList) = currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+  //       let newLevelInspectorList = leftInspectorList->Belt.List.concat(list{copiedInspector})->Belt.List.concat(rightInspectorList)
 
-//       switch parentId {
-//       | Some(pid) =>
-//         // 更新父节点的 children
-//         let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
-//           (data: ElementAssembleStoreType.uiControl) => data.id == pid ? {...data, children: newLevelList} : data,
-//           (
-//             (data: ElementAssembleStoreType.uiControl) => data.id,
-//             (data: ElementAssembleStoreType.uiControl) => data.children,
-//             (data: ElementAssembleStoreType.uiControl, children: list<ElementAssembleStoreType.uiControl>) => {...data, children},
-//           ),
-//           state.selectedUIControls,
-//           pid,
-//         )
-//         let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
-//           (data: ElementAssembleStoreType.uiControlInspectorData) => data.id == pid ? {...data, children: newLevelInspectorList} : data,
-//           (
-//             (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
-//             (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-//             (data: ElementAssembleStoreType.uiControlInspectorData, children: list<ElementAssembleStoreType.uiControlInspectorData>) => {...data, children},
-//           ),
-//           state.selectedUIControlInspectorData,
-//           pid,
-//         )
-//         {
-//           ...state,
-//           selectedUIControls: updatedUIControls,
-//           selectedUIControlInspectorData: updatedInspectorData,
-//         }
+  //       switch parentId {
+  //       | Some(pid) =>
+  //         // 更新父节点的 children
+  //         let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
+  //           (data: ElementAssembleStoreType.uiControl) => data.id == pid ? {...data, children: newLevelList} : data,
+  //           (
+  //             (data: ElementAssembleStoreType.uiControl) => data.id,
+  //             (data: ElementAssembleStoreType.uiControl) => data.children,
+  //             (data: ElementAssembleStoreType.uiControl, children: list<ElementAssembleStoreType.uiControl>) => {...data, children},
+  //           ),
+  //           state.selectedUIControls,
+  //           pid,
+  //         )
+  //         let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
+  //           (data: ElementAssembleStoreType.uiControlInspectorData) => data.id == pid ? {...data, children: newLevelInspectorList} : data,
+  //           (
+  //             (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+  //             (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+  //             (data: ElementAssembleStoreType.uiControlInspectorData, children: list<ElementAssembleStoreType.uiControlInspectorData>) => {...data, children},
+  //           ),
+  //           state.selectedUIControlInspectorData,
+  //           pid,
+  //         )
+  //         {
+  //           ...state,
+  //           selectedUIControls: updatedUIControls,
+  //           selectedUIControlInspectorData: updatedInspectorData,
+  //         }
 
-//       | None =>
-//         {
-//           ...state,
-//           selectedUIControls: newLevelList,
-//           selectedUIControlInspectorData: newLevelInspectorList,
-//         }
-//       }
+  //       | None =>
+  //         {
+  //           ...state,
+  //           selectedUIControls: newLevelList,
+  //           selectedUIControlInspectorData: newLevelInspectorList,
+  //         }
+  //       }
 
-//     | None => state
-//     }
+  //     | None => state
+  //     }
 
-//   | _ => state
-//   }
+  //   | _ => state
+  //   }
 
+  | CopyUIControl(id) =>
+    let nodeOpt = _findSelectUIControlById(state, id)
+    let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
+    switch (nodeOpt, inspectorOpt) {
+    | (Some(node), Some(inspector)) =>
+      let (copiedNode, copiedInspector) = _copyNodeWithInspector(node, inspector)
 
-| CopyUIControl(id) =>
-  let nodeOpt = _findSelectUIControlById(state, id)
-  let inspectorOpt = _findSelectedUIControlInspectorDataById(state, id)
-  switch (nodeOpt, inspectorOpt) {
-  | (Some(node), Some(inspector)) =>
-    let (copiedNode, copiedInspector) = _copyNodeWithInspector(node, inspector)
-
-    // 获取原节点所在层级列表
-    let parentId = node.parentId
-    let (currentLevelList, currentLevelInspectorList) = switch parentId {
-    | Some(pid) =>
-      let parentOpt = _findSelectUIControlById(state, pid)
-      let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
-      switch (parentOpt, parentInspectorOpt) {
-      | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
-      | _ => (list{}, list{})
-      }
-    | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
-    }
-
-    let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
-    switch indexOpt {
-    | Some(index) =>
-      let insertIndex = index + 1
-      // 分割列表，插入新节点
-      let (leftList, rightList) = currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
-      let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
-      let (leftInspectorList, rightInspectorList) = currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
-      let newLevelInspectorList = leftInspectorList->Belt.List.concat(list{copiedInspector})->Belt.List.concat(rightInspectorList)
-
-      // 更新状态
-      switch parentId {
+      // 获取原节点所在层级列表
+      let parentId = node.parentId
+      let (currentLevelList, currentLevelInspectorList) = switch parentId {
       | Some(pid) =>
-        let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
-          (data: ElementAssembleStoreType.uiControl) => data.id == pid ? {...data, children: newLevelList} : data,
-          (
-            (data: ElementAssembleStoreType.uiControl) => data.id,
-            (data: ElementAssembleStoreType.uiControl) => data.children,
-            (data, children: list<uiControl>) => {...data, children}
-          ),
-          state.selectedUIControls,
-          pid,
-        )
-        let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
-          (data: ElementAssembleStoreType.uiControlInspectorData) => data.id == pid ? {...data, children: newLevelInspectorList} : data,
-          (
-            (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
-            (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
-            (data, children: list<uiControlInspectorData>) => {...data, children}
-          ),
-          state.selectedUIControlInspectorData,
-          pid,
-        )
-        {...state, selectedUIControls: updatedUIControls, selectedUIControlInspectorData: updatedInspectorData}
-      | None =>
-        {...state, selectedUIControls: newLevelList, selectedUIControlInspectorData: newLevelInspectorList}
+        let parentOpt = _findSelectUIControlById(state, pid)
+        let parentInspectorOpt = _findSelectedUIControlInspectorDataById(state, pid)
+        switch (parentOpt, parentInspectorOpt) {
+        | (Some(parent), Some(parentInspector)) => (parent.children, parentInspector.children)
+        | _ => (list{}, list{})
+        }
+      | None => (state.selectedUIControls, state.selectedUIControlInspectorData)
       }
-    | None => state
+
+      let indexOpt = currentLevelList->Meta3dCommonlib.ListSt.findIndex(child => child.id == id)
+      switch indexOpt {
+      | Some(index) =>
+        let insertIndex = index + 1
+        // 分割列表，插入新节点
+        let (leftList, rightList) =
+          currentLevelList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+        let newLevelList = leftList->Belt.List.concat(list{copiedNode})->Belt.List.concat(rightList)
+        let (leftInspectorList, rightInspectorList) =
+          currentLevelInspectorList->Belt.List.splitAt(insertIndex)->Meta3dCommonlib.OptionSt.getExn
+        let newLevelInspectorList =
+          leftInspectorList
+          ->Belt.List.concat(list{copiedInspector})
+          ->Belt.List.concat(rightInspectorList)
+
+        // 更新状态
+        switch parentId {
+        | Some(pid) =>
+          let updatedUIControls = HierachyUtils.mapSelectedUIControlData(
+            (data: ElementAssembleStoreType.uiControl) =>
+              data.id == pid ? {...data, children: newLevelList} : data,
+            (
+              (data: ElementAssembleStoreType.uiControl) => data.id,
+              (data: ElementAssembleStoreType.uiControl) => data.children,
+              (data, children: list<uiControl>) => {...data, children},
+            ),
+            state.selectedUIControls,
+            pid,
+          )
+          let updatedInspectorData = HierachyUtils.mapSelectedUIControlData(
+            (data: ElementAssembleStoreType.uiControlInspectorData) =>
+              data.id == pid ? {...data, children: newLevelInspectorList} : data,
+            (
+              (data: ElementAssembleStoreType.uiControlInspectorData) => data.id,
+              (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+              (data, children: list<uiControlInspectorData>) => {...data, children},
+            ),
+            state.selectedUIControlInspectorData,
+            pid,
+          )
+          {
+            ...state,
+            selectedUIControls: updatedUIControls,
+            selectedUIControlInspectorData: updatedInspectorData,
+          }
+        | None => {
+            ...state,
+            selectedUIControls: newLevelList,
+            selectedUIControlInspectorData: newLevelInspectorList,
+          }
+        }
+      | None => state
+      }
+    | _ => state
     }
-  | _ => state
-  }
 
   | SelectUIControl(
       id,
