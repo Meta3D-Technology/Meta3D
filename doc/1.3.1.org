@@ -2482,18 +2482,31 @@ use 1 / emitSpeed * emitSpeed.Level0
 
 
 
-* TODO update ui control icons
+# * TODO update ui control icons
 
 
 
-* TODO update packages
+* DONE update packages
 event
 ui
 imgui
 
 
-* TODO add english editor
 
+* DONE add english editor
+add language action
+
+update label
+
+[["发布",{"发布到游戏":"UnitModShowPublishModal"}],["测试",{"快速测试":"UnitModQuickTest","进入游戏（调试模式）":"ModJumpToGameDebug","进入游戏":"ModJumpToGame"}]]
+
+[["Publish",{"Publish To Game":"UnitModShowPublishModal"}],["Test",{"Quick Test":"UnitModQuickTest","Enter Game (Debug Mode)":"ModJumpToGameDebug","Enter Game":"ModJumpToGame"}]]
+
+[["Model","Model"],["Skill","Skill"],["Feature","Feature"],["Reward","Reward"],["Generate","Generate"]]
+
+run test
+
+  # fix Loading info
 
 
 
