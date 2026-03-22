@@ -69,7 +69,7 @@ Meta3D是开源Web3D低代码平台，一条龙可视化搭建Web3D应用、编�
 
 - 💬 [点这里](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=r1Z4Z5uToIO1dISsXvdJvQOtFr3IoPJx&authKey=Ft1KpywYZrlO4yUGQj5jCliI4DaVf4hkM5jiiZtm195Ei4bSNiwo1SHEogLcrc%2Fp&noverify=0&group_code=568338939)加QQ群，与我们交流
 - 📄 [文档](https://meta3d-website.4everland.app/docs/%E7%AE%80%E4%BB%8B)中找到解决方案
-- ⚠️ [Github](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)上提Issue
+- ⚠️ [GitHub](https://github.com/Meta3D-Technology/Meta3D/issues/new/choose)上提Issue
 - 👾 [论坛](https://github.com/Meta3D-Technology/Meta3D/discussions)上寻求帮助
 <!-- - 💡 [案例]()作为学习资料 -->
 
@@ -87,7 +87,6 @@ Meta3D是开源Web3D低代码平台，一条龙可视化搭建Web3D应用、编�
 
 <!-- TODO
 refer to [README.MD 中生成贡献者名单](https://www.jianshu.com/p/495bb77eb672) -->
-
 
 
 
