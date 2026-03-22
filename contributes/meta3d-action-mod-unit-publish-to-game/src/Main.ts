@@ -21,9 +21,9 @@ let _checkPublishData = (api: api, meta3dState: meta3dState, { languageTextData,
     else if (description.length <= 0) {
         message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedDescription))
     }
-    else if (api.nullable.isNullable(modIconBase64)) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedModIcon))
-    }
+    // else if (api.nullable.isNullable(modIconBase64)) {
+    //     message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedModIcon))
+    // }
 
     return api.nullable.getWithDefault(
         api.nullable.map((message) => {
@@ -74,7 +74,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             initState.displayNameEN,
                             initState.description,
                             initState.isPublic,
-                            api.nullable.getExn(initState.modIconBase64)
+                            api.nullable.getWithDefault(initState.modIconBase64, "")
                         ).then(meta3dState => {
                             meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
                                 ...api.action.getActionState<infoState>(meta3dState, infoActionName),

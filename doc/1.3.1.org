@@ -2478,11 +2478,25 @@ use 1 / emitSpeed * emitSpeed.Level0
 * DONE fix: quick test: use self username instead of shared one to avoid conflict
 
 
-* TODO allow no mod icon
+* DONE allow no mod icon
 
 
 
 * TODO update ui control icons
+
+
+
+* TODO update packages
+event
+ui
+imgui
+
+
+* TODO add english editor
+
+
+
+
 
 
 
