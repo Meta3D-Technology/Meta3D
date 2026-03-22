@@ -336,7 +336,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
     }).join(',\n')
         }
     ],
-                experienceValue: state => ${experienceValue},
+                experienceValue: ${experienceValue},
             }
         },
         getFeatureData: () => {
