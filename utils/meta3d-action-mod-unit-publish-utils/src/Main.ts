@@ -366,6 +366,8 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
 
         selectedSmallSkillObjectEmitterParticleImageIndex,
         selectedSmallSkillObjectEmitterInstanceIndex,
+        selectedBigSkillObjectEmitterParticleImageIndex,
+        selectedBigSkillObjectEmitterInstanceIndex,
 
     }: initState) => {
     let message = api.nullable.getEmpty<string>()
@@ -391,6 +393,18 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
         )
     ) {
         message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedSmallSkillObjectEmitterData))
+    }
+    else if (getSkillType(api, meta3dState, "selectedBigSkillObjectActionIndex") == skillType.Ranged
+        && (
+            api.nullable.isNullable(
+                selectedBigSkillObjectEmitterParticleImageIndex
+            )
+            && api.nullable.isNullable(
+                selectedBigSkillObjectEmitterInstanceIndex
+            )
+        )
+    ) {
+        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedBigSkillObjectEmitterData))
     }
 
 

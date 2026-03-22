@@ -2455,24 +2455,29 @@ TODO update q, p
 
 TODO run test
 
-** TODO update value
+** DONE update value
 
-*** TODO 将反比的参数改为正比
+*** DONE 将反比的参数改为正比
 
 e.g. emitSpeedFactor, emitSpeed, emitPrecision:
 use 1 / emitSpeed * emitSpeed.Level0
 
-** TODO update label
+** DONE update label, size
 
 
-** TODO update publish
+** DONE update publish
 
-** TODO update quicktest
+** DONE update quicktest
 
-** TODO update publish check
+** DONE update mod check
 
 
-** TODO update ui control icons
+** DONE add enter game, enter game(mode) to menu
+
+
+
+
+* TODO update ui control icons
 
 
 
