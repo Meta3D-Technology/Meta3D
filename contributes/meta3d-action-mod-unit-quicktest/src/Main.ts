@@ -4,7 +4,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-quicktest-protocol"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-quicktest-protocol/src/EventType"
-import { publish, checkModData } from "meta3d-action-mod-unit-publish-utils/src/Main"
+import { publish, checkModData, getUserName } from "meta3d-action-mod-unit-publish-utils/src/Main"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 import { languageKey } from "meta3d-language-utils/src/Type"
 
@@ -22,8 +22,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     }
 
                     api.flow.deferExec(api, (meta3dState) => {
-                        let author = "tempUser"
-                        let name = `temp_unit`
+                        // let author = "tempUser"
+                        let author = getUserName(api)
+                        // let name = `temp_unit`
+                        let name = `temp_unit_${author}`
                         return publish(api, meta3dState, name, author,
                             "test1",
                             "test1",
@@ -33,7 +35,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         ).then(meta3dState => {
                             // TODO restore
                             // window.open("https://www.gts-play.cn?quicktest", "_blank")
-                            window.open("http://localhost:8093/?quicktest", "_blank")
+                            window.open(`http://localhost:8093/?quicktest&name=${name}`, "_blank")
 
                             return meta3dState
                         })

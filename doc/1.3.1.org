@@ -2475,6 +2475,11 @@ use 1 / emitSpeed * emitSpeed.Level0
 ** DONE add enter game, enter game(mode) to menu
 
 
+* DONE fix: quick test: use self username instead of shared one to avoid conflict
+
+
+* TODO allow no mod icon
+
 
 
 * TODO update ui control icons
