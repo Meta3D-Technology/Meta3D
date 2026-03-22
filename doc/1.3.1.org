@@ -2516,6 +2516,21 @@ run test
 
 
 
+* TODO 编辑器自动翻译
+不需要手动复制一个英文版的编辑器了！
+
+增加一个按钮：翻译为英文，则会自动复制并发布一个英文版的编辑器：
+翻译ui control's label
+
+
+
+* TODO 自动翻译
+翻译displayName、description
+
+
+
+
+
 
 
 

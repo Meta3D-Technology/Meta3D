@@ -4,7 +4,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-quicktest-protocol"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-quicktest-protocol/src/EventType"
-import { publish, checkModData, getUserName } from "meta3d-action-mod-unit-publish-utils/src/Main"
+import { publish, checkModData, getUserName, isDebugEnv } from "meta3d-action-mod-unit-publish-utils/src/Main"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 import { languageKey } from "meta3d-language-utils/src/Type"
 
@@ -33,9 +33,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             false,
                             ""
                         ).then(meta3dState => {
-                            // TODO restore
-                            // window.open("https://www.gts-play.cn?quicktest", "_blank")
-                            window.open(`http://localhost:8093/?quicktest&name=${name}`, "_blank")
+                            if (isDebugEnv()) {
+                                window.open(`http://localhost:8093/?quicktest&name=${name}`, "_blank")
+                            }
+                            else {
+                                window.open(`https://www.gts-play.cn?quicktest&name=${name}`, "_blank")
+                            }
 
                             return meta3dState
                         })

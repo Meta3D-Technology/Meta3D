@@ -475,7 +475,7 @@ let _getLoginedUserName = () => {
     return urlParams.get("username")
 }
 
-let _isDebugEnv = () => {
+export let isDebugEnv = () => {
     return globalThis.location.href.includes("localhost")
 }
 
@@ -491,7 +491,7 @@ export let getUserName = (api: api) => {
         // globalThis.location.href = "https://gts-play.cn"
         // return meta3dState
 
-        if (!_isDebugEnv()) {
+        if (!isDebugEnv()) {
             alert("无法获得作者名，使用默认的作者名(Can't get author name, use default one instead)")
         }
 
