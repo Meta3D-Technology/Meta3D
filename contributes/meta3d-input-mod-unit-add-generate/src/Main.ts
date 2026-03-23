@@ -15,9 +15,9 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                 api.nullable.getWithDefault(
                     api.nullable.map((data) => {
                         return [
-                            getLanguageTextData(api, meta3dState, data.languageTextData, languageKey.AddGenerateDataInAttackCityStage),
-                            getLanguageTextData(api, meta3dState, data.languageTextData, languageKey.AddGenerateDataInProtectCityStage),
-                            getLanguageTextData(api, meta3dState, data.languageTextData, languageKey.AddGenerateDataInBossStage),
+                            getLanguageTextData(api, meta3dState, data.languageTextData, languageKey.AddGenerateDataInAttackCityLevel),
+                            getLanguageTextData(api, meta3dState, data.languageTextData, languageKey.AddGenerateDataInProtectCityLevel),
+                            getLanguageTextData(api, meta3dState, data.languageTextData, languageKey.AddGenerateDataInBossLevel),
                         ]
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)

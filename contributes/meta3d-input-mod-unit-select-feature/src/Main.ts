@@ -14,7 +14,8 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                         return allFeatureData.filter(d => {
                             return features.filter(f => f.name == d.name).length == 0
                         }).map(d => {
-                            return `${d.name}:${getLanguageTextData(api, meta3dState, languageTextData, d.name)}`
+                            // return `${d.name}:${getLanguageTextData(api, meta3dState, languageTextData, d.name)}`
+                            return getLanguageTextData(api, meta3dState, languageTextData, d.name)
                         }).toArray()
                         // .sort((a, b) => {
                         //     return a.localeCompare(b)

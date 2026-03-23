@@ -73,13 +73,13 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                         newDifficulty = d.difficulty
                     }
 
-                    let newWeight
-                    [meta3dState, newWeight] = inputFloat1(meta3dState, `${label}_w_${i}`, d.weight, 0.01, 0.1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Weight), 0, 1)
-                    if (!api.nullable.isNullable(newWeight)) {
+                    let newGenerateRate
+                    [meta3dState, newGenerateRate] = inputFloat1(meta3dState, `${label}_w_${i}`, d.weight, 0.01, 0.1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.GenerateRate), 0, 1)
+                    if (!api.nullable.isNullable(newGenerateRate)) {
                         isValueUpdate = true
                     }
                     else {
-                        newWeight = d.weight
+                        newGenerateRate = d.weight
                     }
 
 
@@ -95,7 +95,7 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     return [meta3dState, [[...newData, {
                         ...d,
                         difficulty: newDifficulty,
-                        weight: newWeight,
+                        weight: newGenerateRate,
                         countFactor: newCountFactor,
                     }], isValueUpdate]]
                 }, [meta3dState, [[], false]])

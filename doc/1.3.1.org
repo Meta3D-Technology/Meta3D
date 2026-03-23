@@ -2512,6 +2512,34 @@ run test
 
 
 
+* DONE update
+
+# TODO set default value by category instead of all use Level5
+
+
+TODO editor->select feature list: remove name
+
+
+TODO 权重 rename to 出现的概率
+
+
+
+TODO editor: Generate: default diff should be 1
+
+
+
+# TODO quicktest should can get reward
+
+
+
+
+
+# TODO update english  text:
+# quicktest
+# for small/big unit
+
+
+
 
 
 

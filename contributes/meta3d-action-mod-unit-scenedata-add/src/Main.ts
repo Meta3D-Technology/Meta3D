@@ -30,7 +30,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         [fieldName]: [
                             ...state[fieldName],
                             {
-                                difficulty: autoDifficulty.Middle,
+                                // difficulty: autoDifficulty.Middle,
+                                difficulty: autoDifficulty.VeryEasy,
                                 weight: 0.1,
                                 countFactor: countFactor.Level5,
                             }

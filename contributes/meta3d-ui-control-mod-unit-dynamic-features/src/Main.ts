@@ -96,7 +96,8 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                 ], i) => {
                     let [arr, isValueUpdate] = data
 
-                    meta3dState = text(meta3dState, `${name}:${description}`)
+                    // meta3dState = text(meta3dState, `${name}:${description}`)
+                    meta3dState = text(meta3dState, description)
 
                     let newLevel
                     [meta3dState, newLevel] = inputInt1(meta3dState, `${label}_level_${i}`, level, 1, 1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Level), 1, maxLevel)
