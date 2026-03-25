@@ -24,12 +24,17 @@ exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = addMarketP
 //         resolve(allCollectionData.concat([data]))
 //     })
 // }
+let _buildKeyWhereData = (app, key) => {
+    const _ = _getDatabase(app).command; // 这是关键！command就是操作符对象
+    return { key: _.in([key, (0, exports.handleKeyToLowercase)(key)]) };
+};
 let checkUserName = (app, account) => {
-    return _notHasData(app, "user", { key: account });
+    const _ = _getDatabase(app).command; // 这是关键！command就是操作符对象
+    return _notHasData(app, "user", _buildKeyWhereData(app, account));
 };
 exports.checkUserName = checkUserName;
 let checkPassword = (app, account, password) => {
-    return _notHasData(app, "user", { key: account, password: password });
+    return _notHasData(app, "user", Object.assign(Object.assign({}, _buildKeyWhereData(app, account)), { password: password }));
 };
 exports.checkPassword = checkPassword;
 let handleLoginForWeb3 = (app, account) => {
@@ -82,34 +87,54 @@ exports.registerUser = registerUser;
 *
 */
 let _getFirstData = (res, key) => {
-    let firstData;
-    let result = res.data.filter(d => d._id == key);
+    // let firstData
+    // let result = res.data.filter(d => d._id == key)
+    let result = res.data.filter(d => (0, exports.handleKeyToLowercase)(d._id) == (0, exports.handleKeyToLowercase)(key));
     if (result.length > 0) {
-        firstData = result[0];
-        if (firstData._id == firstData.key) {
-            return firstData;
-        }
-        result = res.data.filter(d => {
-            return d.key == key;
-        });
-        if (result.length > 0) {
-            return result[0];
-        }
+        return result[0];
+        // firstData = result[0]
+        // if (firstData._id == firstData.key) {
+        //     return firstData
+        // }
+        // result = res.data.filter(d => {
+        //     return d.key == key
+        // })
+        // if (result.length > 0) {
+        //     return result[0]
+        // }
     }
     return res.data[0];
 };
+let _getMaxCount = () => 200;
+let _isNullable = (value) => {
+    return value == undefined;
+};
 let getData = (app, collectionName, key) => {
+    const _ = _getDatabase(app).command; // 这是关键！command就是操作符对象
     return _getDatabase(app).collection(collectionName)
-        // .where({ key: handleKeyToLowercase(key) })
-        .where({ key: key })
+        .where(_buildKeyWhereData(app, key))
+        .limit(_getMaxCount())
+        // .where({ key: key })
         .get()
         // .then(res => res.data[0])
         .then(res => {
         console.log(collectionName, key);
+        if (_isNullable(res.data)) {
+            throw new Error("获取数据为空(get data return nullable)");
+        }
+        // // TODO should remove
+        // let r = res.data.filter(d => d.key == handleKeyToLowercase(key))
+        // if (r.length > 0) {
+        //     return r[0]
+        // }
         return _getFirstData(res, key);
     });
 };
 exports.getData = getData;
+let _isValidDocId = (key) => {
+    // return typeof key == "string" || typeof key == "number"
+    return typeof key == "string";
+};
 let setData = (app, collectionName, key, data) => {
     // return _getDatabase(app).collection(collectionName)
     //     // .where({ key: handleKeyToLowercase(key) })
@@ -128,9 +153,13 @@ let setData = (app, collectionName, key, data) => {
     // // .doc(handleKeyToLowercase(key))
     // // .update(data)
     // // .set(data)
+    if (!_isValidDocId(key)) {
+        console.error("key is not valid", key, collectionName, data);
+        return Promise.resolve(null);
+    }
     return _getDatabase(app).collection(collectionName)
         .doc(key)
-        .set(Object.assign(Object.assign({}, data), { key: key }));
+        .set(Object.assign(Object.assign({}, data), { key: (0, exports.handleKeyToLowercase)(key) }));
 };
 exports.setData = setData;
 let findDataOrderBy = (app, collectionName, orderFieldName) => {
@@ -159,6 +188,10 @@ let findProtocolDataOrderBy = (app, collectionName, protocolName, orderFieldName
 };
 exports.findProtocolDataOrderBy = findProtocolDataOrderBy;
 let updateData = (app, updateFunc, collectionName, key) => {
+    if (!_isValidDocId(key)) {
+        console.error("key is not valid", key, collectionName);
+        return Promise.resolve(null);
+    }
     return _getDatabase(app).collection(collectionName)
         .doc(key)
         .update(updateFunc(_getDatabase(app).command));

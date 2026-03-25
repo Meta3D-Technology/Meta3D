@@ -56,12 +56,24 @@ export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCol
 //     })
 // }
 
+let _buildKeyWhereData = (app, key) => {
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
+    return { key: _.in([key, handleKeyToLowercase(key)]) }
+}
+
 export let checkUserName = (app: any, account: account) => {
-    return _notHasData(app, "user", { key: account })
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
+
+    return _notHasData(app, "user", _buildKeyWhereData(app, account))
 }
 
 export let checkPassword = (app: any, account, password) => {
-    return _notHasData(app, "user", { key: account, password: password })
+    return _notHasData(app, "user", {
+        ..._buildKeyWhereData(app, account),
+        password: password
+    })
 }
 
 export let handleLoginForWeb3 = (app: any, account: account) => {
@@ -121,38 +133,65 @@ export let registerUser = (app: any, account: account, password) => {
 * 
 */
 let _getFirstData = (res, key) => {
-    let firstData
-    let result = res.data.filter(d => d._id == key)
+    // let firstData
+    // let result = res.data.filter(d => d._id == key)
+    let result = res.data.filter(d => handleKeyToLowercase(d._id) == handleKeyToLowercase(key))
 
     if (result.length > 0) {
-        firstData = result[0]
-        if (firstData._id == firstData.key) {
-            return firstData
-        }
+        return result[0]
+
+        // firstData = result[0]
+        // if (firstData._id == firstData.key) {
+        //     return firstData
+        // }
 
 
-        result = res.data.filter(d => {
-            return d.key == key
-        })
-        if (result.length > 0) {
-            return result[0]
-        }
+        // result = res.data.filter(d => {
+        //     return d.key == key
+        // })
+        // if (result.length > 0) {
+        //     return result[0]
+        // }
     }
 
     return res.data[0]
 }
 
+let _getMaxCount = () => 200
+
+let _isNullable = (value) => {
+    return value == undefined
+}
+
 export let getData = (app: any, collectionName, key) => {
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
     return _getDatabase(app).collection(collectionName)
-        // .where({ key: handleKeyToLowercase(key) })
-        .where({ key: key })
+        .where(_buildKeyWhereData(app, key))
+        .limit(_getMaxCount())
+        // .where({ key: key })
         .get()
         // .then(res => res.data[0])
         .then(res => {
             console.log(collectionName, key)
 
+            if (_isNullable(res.data)) {
+                throw new Error("获取数据为空(get data return nullable)")
+            }
+
+            // // TODO should remove
+            // let r = res.data.filter(d => d.key == handleKeyToLowercase(key))
+            // if (r.length > 0) {
+            //     return r[0]
+            // }
+
             return _getFirstData(res, key)
         })
+}
+
+let _isValidDocId = (key: string) => {
+    // return typeof key == "string" || typeof key == "number"
+    return typeof key == "string"
 }
 
 export let setData = (app: any, collectionName, key, data) => {
@@ -174,12 +213,17 @@ export let setData = (app: any, collectionName, key, data) => {
     // // .update(data)
     // // .set(data)
 
+    if (!_isValidDocId(key)) {
+        console.error("key is not valid", key, collectionName, data)
+
+        return Promise.resolve(null)
+    }
 
     return _getDatabase(app).collection(collectionName)
         .doc(key)
         .set({
             ...data,
-            key: key
+            key: handleKeyToLowercase(key)
         })
 }
 
@@ -211,6 +255,12 @@ export let findProtocolDataOrderBy = (app: any, collectionName, protocolName, or
 }
 
 export let updateData = (app: any, updateFunc, collectionName, key) => {
+    if (!_isValidDocId(key)) {
+        console.error("key is not valid", key, collectionName)
+
+        return Promise.resolve(null)
+    }
+
     return _getDatabase(app).collection(collectionName)
         .doc(key)
         .update(updateFunc(_getDatabase(app).command))
