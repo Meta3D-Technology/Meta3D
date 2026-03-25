@@ -56,12 +56,24 @@ export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCol
 //     })
 // }
 
+let _buildKeyWhereData = (app, key) => {
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
+    return { key: _.in([key, handleKeyToLowercase(key)]) }
+}
+
 export let checkUserName = (app: any, account: account) => {
-    return _notHasData(app, "user", { key: account })
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
+
+    return _notHasData(app, "user", _buildKeyWhereData(app, account))
 }
 
 export let checkPassword = (app: any, account, password) => {
-    return _notHasData(app, "user", { key: account, password: password })
+    return _notHasData(app, "user", {
+        ..._buildKeyWhereData(app, account),
+        password: password
+    })
 }
 
 export let handleLoginForWeb3 = (app: any, account: account) => {
@@ -121,38 +133,65 @@ export let registerUser = (app: any, account: account, password) => {
 * 
 */
 let _getFirstData = (res, key) => {
-    let firstData
-    let result = res.data.filter(d => d._id == key)
+    // let firstData
+    // let result = res.data.filter(d => d._id == key)
+    let result = res.data.filter(d => handleKeyToLowercase(d._id) == handleKeyToLowercase(key))
 
     if (result.length > 0) {
-        firstData = result[0]
-        if (firstData._id == firstData.key) {
-            return firstData
-        }
+        return result[0]
+
+        // firstData = result[0]
+        // if (firstData._id == firstData.key) {
+        //     return firstData
+        // }
 
 
-        result = res.data.filter(d => {
-            return d.key == key
-        })
-        if (result.length > 0) {
-            return result[0]
-        }
+        // result = res.data.filter(d => {
+        //     return d.key == key
+        // })
+        // if (result.length > 0) {
+        //     return result[0]
+        // }
     }
 
     return res.data[0]
 }
 
+let _getMaxCount = () => 200
+
+let _isNullable = (value) => {
+    return value == undefined
+}
+
 export let getData = (app: any, collectionName, key) => {
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
     return _getDatabase(app).collection(collectionName)
-        // .where({ key: handleKeyToLowercase(key) })
-        .where({ key: key })
+        .where(_buildKeyWhereData(app, key))
+        .limit(_getMaxCount())
+        // .where({ key: key })
         .get()
         // .then(res => res.data[0])
         .then(res => {
             console.log(collectionName, key)
 
+            if (_isNullable(res.data)) {
+                throw new Error("获取数据为空(get data return nullable)")
+            }
+
+            // // TODO should remove
+            // let r = res.data.filter(d => d.key == handleKeyToLowercase(key))
+            // if (r.length > 0) {
+            //     return r[0]
+            // }
+
             return _getFirstData(res, key)
         })
+}
+
+let _isValidDocId = (key: string) => {
+    // return typeof key == "string" || typeof key == "number"
+    return typeof key == "string"
 }
 
 export let setData = (app: any, collectionName, key, data) => {
@@ -174,12 +213,17 @@ export let setData = (app: any, collectionName, key, data) => {
     // // .update(data)
     // // .set(data)
 
+    if (!_isValidDocId(key)) {
+        console.error("key is not valid", key, collectionName, data)
+
+        return Promise.resolve(null)
+    }
 
     return _getDatabase(app).collection(collectionName)
         .doc(key)
         .set({
             ...data,
-            key: key
+            key: handleKeyToLowercase(key)
         })
 }
 
@@ -210,7 +254,27 @@ export let findProtocolDataOrderBy = (app: any, collectionName, protocolName, or
         })
 }
 
+export let findDataOrderByWithPage = (app: any, collectionName, whereFunc, orderFieldName, skipCount, limitCount) => {
+    return _getDatabase(app).collection(collectionName)
+        .where(whereFunc(_getDatabase(app).command, _getDatabase(app)))
+        .orderBy(orderFieldName, "desc")
+        .skip(skipCount)
+        .limit(limitCount)
+        .get()
+        .then(res => {
+            // console.log(collectionName, key)
+
+            return res.data
+        })
+}
+
 export let updateData = (app: any, updateFunc, collectionName, key) => {
+    if (!_isValidDocId(key)) {
+        console.error("key is not valid", key, collectionName)
+
+        return Promise.resolve(null)
+    }
+
     return _getDatabase(app).collection(collectionName)
         .doc(key)
         .update(updateFunc(_getDatabase(app).command))
@@ -225,8 +289,8 @@ export let addDataToMarketProtocolCollection = (app: any, addMarketProtocolDataT
     return _getDatabase(app).collection(collectionName)
         .add({
             ...data,
-            // key: handleKeyToLowercase(key)
-            key: key
+            key: handleKeyToLowercase(key)
+            // key: key
         })
 }
 
@@ -235,8 +299,10 @@ export let addDataToMarketImplementCollection = addDataToMarketProtocolCollectio
 export let addDataToUserCollection = addDataToMarketProtocolCollection
 
 let _hasData = (app: any, collectionName: string, key: string) => {
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
     return fromPromise(_getDatabase(app).collection(collectionName)
-        .where({ key: key })
+        .where(_buildKeyWhereData(app, key))
         .get()
         .then(res => res.data.length > 0))
 }
@@ -288,7 +354,7 @@ export let getFileID = ({ fileID }, filePath: string) => {
     return fileID
 }
 
-let _arrayBufferToBuffer = (arrayBuffer: ArrayBuffer): Buffer => {
+let _arrayBufferToBuffer = (arrayBuffer: ArrayBuffer): any => {
     return Buffer.from(arrayBuffer)
 }
 
@@ -338,27 +404,27 @@ export let getMarketImplementAccountDataWithWhereData = (app: any, _parseMarketC
         .then(res => res.data)
 }
 
-export let getMarketImplementAccountData = (app: any, _parseMarketCollectionDataBody, collectionName: string, account: account, name, version, protocolName = null): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
-    let whereData = null
+// export let getMarketImplementAccountData = (app: any, _parseMarketCollectionDataBody, collectionName: string, account: account, name, version, protocolName = null): Promise<[marketImplementAccountData, marketImplementCollectionData]> => {
+//     let whereData = null
 
-    if (protocolName !== null) {
-        whereData = {
-            key: handleKeyToLowercase(account),
-            name: name,
-            version: version,
-            protocolName: protocolName
-        }
-    }
-    else {
-        whereData = {
-            key: handleKeyToLowercase(account),
-            name: name,
-            version: version,
-        }
-    }
+//     if (protocolName !== null) {
+//         whereData = {
+//             key: handleKeyToLowercase(account),
+//             name: name,
+//             version: version,
+//             protocolName: protocolName
+//         }
+//     }
+//     else {
+//         whereData = {
+//             key: handleKeyToLowercase(account),
+//             name: name,
+//             version: version,
+//         }
+//     }
 
-    return getMarketImplementAccountDataWithWhereData(app, _parseMarketCollectionDataBody, collectionName, whereData)
-}
+//     return getMarketImplementAccountDataWithWhereData(app, _parseMarketCollectionDataBody, collectionName, whereData)
+// }
 
 // export let updateCollection = (app: any, collectionName: string, updateData: any) => {
 //     return _getDatabase(app).collection(collectionName)
@@ -366,9 +432,12 @@ export let getMarketImplementAccountData = (app: any, _parseMarketCollectionData
 // }
 
 export let updateMarketImplementData = (app: any, collectionName: string, key: string, updateData: marketImplementAccountData, _oldMarketImplementCollectionData: marketImplementCollectionData) => {
+    const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
+
     return _getDatabase(app).collection(collectionName)
-        // .where({ key: handleKeyToLowercase(key) })
-        .where({ key: key })
+        .where(_buildKeyWhereData(app, key))
+
+        // .where({ key: key })
         .update(updateData)
 }
 
@@ -402,29 +471,29 @@ export let getAccountFromMarketImplementCollectionData = (data: collectionData) 
 //     return data.fileData
 // }
 
-export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string, notUseCache: boolean) => {
-    return fromPromise(app.getTempFileURL({
-        fileList: [fileID]
-    })).flatMap(({ fileList }: any) => {
-        // return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
-
-        let tempFileURL = notUseCache ? fileList[0].tempFileURL + "?cachebust=" + Math.floor(Math.random() * 1000000) : fileList[0].tempFileURL
-
-        return fromPromise(fetch(tempFileURL).then(response => response.arrayBuffer()))
-    })
-}
-
 // export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string, notUseCache: boolean) => {
-//     return app.getTempFileURL({
+//     return fromPromise(app.getTempFileURL({
 //         fileList: [fileID]
-//     }).then(({ fileList }: any) => {
+//     })).flatMap(({ fileList }: any) => {
 //         // return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
 
 //         let tempFileURL = notUseCache ? fileList[0].tempFileURL + "?cachebust=" + Math.floor(Math.random() * 1000000) : fileList[0].tempFileURL
 
-//         return fetch(tempFileURL).then(response => response.arrayBuffer())
+//         return fromPromise(fetch(tempFileURL).then(response => response.arrayBuffer()))
 //     })
 // }
+
+export let downloadFile = (app: any, parseMarketCollectionDataBody, fileID: string, notUseCache: boolean) => {
+    return app.getTempFileURL({
+        fileList: [fileID]
+    }).then(({ fileList }: any) => {
+        // return fromPromise(fetch(fileList[0].tempFileURL).then(response => response.arrayBuffer()))
+
+        let tempFileURL = notUseCache ? fileList[0].tempFileURL + "?cachebust=" + Math.floor(Math.random() * 1000000) : fileList[0].tempFileURL
+
+        return fetch(tempFileURL).then(response => response.arrayBuffer())
+    })
+}
 
 export let deleteFile = (app: any, fileID: string) => {
     return fromPromise(app.deleteFile({
