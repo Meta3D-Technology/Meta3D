@@ -2540,6 +2540,16 @@ TODO editor: Generate: default diff should be 1
 
 
 
+* DONE fix
+
+TODO fix: publish ui: wrong text
+
+TODO fix: publish alert: cancel?
+
+
+TODO quicktest: not check is upload mod icon
+
+
 
 
 
