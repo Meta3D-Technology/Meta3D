@@ -2,9 +2,12 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const WriteFilePlugin = require('write-file-webpack-plugin')
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
+const isProduction = !isDevelopment;
 
 module.exports = {
     entry: "./lib/es6_global/src/Main.bs.js",
@@ -20,10 +23,39 @@ module.exports = {
         historyApiFallback: true,
         port: 8090,
         open: true,
-        devMiddleware: {
-            writeToDisk: true,
+        // devMiddleware: {
+        //     writeToDisk: true,
+        // },
+
+
+        static: [
+            { directory: path.resolve(__dirname, 'static/'), publicPath: '/static', watch: false },
+            { directory: path.resolve(__dirname, 'unit-mod/'), publicPath: '/unit-mod', watch: false },
+        ],
+    },
+
+    // // 将 cache 改为 memory 或删除
+    // cache: {
+    //     type: 'memory',   // 改为 memory，或者直接删除整个 cache 对象
+    //     // 如果使用 memory 不需要 buildDependencies
+    // },
+
+    // 1. 启用持久化缓存（webpack 5）
+    cache: {
+        type: 'filesystem',
+        buildDependencies: {
+            config: [__filename], // 配置变更时缓存失效
         },
     },
+
+
+    // 确保 watchOptions 拼写正确
+    watchOptions: {
+        ignored: ['**/node_modules', '**/dist', '**/.git', '**/System Volume Information'],
+        aggregateTimeout: 300,
+        poll: false,
+    },
+
 
     // Enable sourcemaps for debugging webpack's output.
     // devtool: "source-map",
@@ -39,101 +71,68 @@ module.exports = {
 
     module: {
         rules: [
-            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            // {
-            //     test: /\.tsx?$/,
-            //     // exclude: /node_modules/,
-            //     use: "awesome-typescript-loader"
-            // },
-            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            // {
-            //     enforce: 'pre',
-            //     test: /\.js$/,
-            //     loader: "source-map-loader"
-            // },
-            // {
-            //     test: /\.module\.s(a|c)ss$/,
-            //     exclude: /node_modules/,
-            //     loader: [
-            //         isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-            //         {
-            //             loader: 'css-loader',
-            //             options: {
-            //                 modules: true,
-            //                 sourceMap: isDevelopment
-            //             }
-            //         },
-            //         {
-            //             loader: 'sass-loader',
-            //             options: {
-            //                 sourceMap: isDevelopment
-            //             }
-            //         }
-            //     ]
-            // },
-            // {
-            //     test: /\.s(a|c)ss$/,
-            //     exclude: /\.module.(s(a|c)ss)$/,
-            //     loader: [
-            //         isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
-            //         'css-loader',
-            //         {
-            //             loader: 'sass-loader',
-            //             options: {
-            //                 sourceMap: isDevelopment
-            //             }
-            //         }
-            //     ]
-            // },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'] //在Webpack中，loader的执行顺序是从右向左执行的，webpack先将所有css模块依赖解析完得到计算结果再创建style标签。因此把style-loader放在css-loader的前面。
+                // 开发环境不抽离 CSS，用 style-loader 热更新更快
+                use: [
+                    isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                ],
             },
             {
                 test: /\.ttf$/,
-                type: 'asset/resource'
-            }
-        ]
+                type: 'asset/resource',
+            },
+            // 如果项目中有图片、字体等资源，可以添加：
+            // {
+            //     test: /\.(png|svg|jpg|jpeg|gif)$/i,
+            //     type: 'asset/resource',
+            // },
+        ],
     },
     plugins: [
-        /**
-        * All files inside webpack's output.path directory will be removed once, but the
-        * directory itself will not be. If using webpack 4+'s default configuration,
-        * everything under <PROJECT_DIR>/dist/ will be removed.
-        * Use cleanOnceBeforeBuildPatterns to override this behavior.
-        *
-        * During rebuilds, all webpack assets that are not used anymore
-        * will be removed automatically.
-        *
-        * See `Options and Defaults` for information
-        */
         new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin({
-            filename: 'static/css/[name].[hash].css',
-        }),
+        // 生产环境才抽离 CSS
+        ...(isProduction ? [
+            new MiniCssExtractPlugin({
+                filename: 'static/css/[name].[contenthash].css',
+            }),
+        ] : []),
         new HtmlWebpackPlugin({
             template: './index.html',
-            filename: 'index.html'
+            filename: 'index.html',
+            // 生产环境压缩 HTML
+            ...(isProduction && { minify: { collapseWhitespace: true } }),
         }),
-        new CopyWebpackPlugin({
-            patterns: [
-                {
-                    from: 'static/',
-                    to: 'static/'
-                },
-                {
-                    from: 'unit-mod/',
-                    to: 'unit-mod/'
-                },
-            ],
-        }),
+        // 4. 限制 Monaco 语言包（只加载 TypeScript）
         new MonacoWebpackPlugin({
-            // available options are documented at https://github.com/microsoft/monaco-editor/blob/main/webpack-plugin/README.md#options
-            languages: ['typescript']
-            // languages: ['']
+            languages: ['typescript'],
+            // 可选：排除某些模块减小体积
+            // features: ['!gotoSymbol', '!suggest'],
         }),
-        // new WriteFilePlugin(),
     ],
+
+    // 5. 优化分块策略（减少重复打包）
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                monaco: {
+                    test: /[\\/]node_modules[\\/]monaco-editor[\\/]/,
+                    name: 'monaco',
+                    chunks: 'all',
+                },
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                    priority: -10,
+                },
+            },
+        },
+        // 生产环境开启代码压缩
+        minimize: isProduction,
+    },
     // // When importing a module whose path matches one of the following, just
     // // assume a corresponding global variable exists and use that instead.
     // // This is important because it allows us to avoid bundling all of our

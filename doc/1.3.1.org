@@ -2543,6 +2543,56 @@ TODO editor: Generate: default diff should be 1
 
 
 
+* TODO update editor
+
+# TODO limit behaviourData:
+# e.g.
+# Charge only for melee
+# KeepDistance only for remote
+
+
+TODO update particle->instance: show images
+
+
+TODO update action icons
+use snapshot from mixamo
+
+
+TODO update: damage-> type, damageEffects
+  # now use damage->damageEffects
+  #   default by empty arr: BodyDamage
+
+
+TODO update subEffects: diff subEffects(emit, melee hit, ranged hit)
+
+
+TODO update subEffects: show corresponding image
+  TODO each subEffect may has one image(e.g. fireball hit particle png)
+  TODO show name and image(if has)
+
+
+TODO update prop: remove images
+
+
+
+TODO add new ui
+
+
+
+
+TODO limit key
+e.g. DamageInterval, SpeedFactor only work for Charge
+
+
+# TODO limit damageEffects,feature->level: 1-10 levels
+TODO limit damageEffects,feature->level: 1-5 levels
+
+
+TODO 降低宝石最大值
+
+
+
+
 
 * TODO 编辑器自动翻译
 # 不需要手动复制一个英文版的编辑器了！
