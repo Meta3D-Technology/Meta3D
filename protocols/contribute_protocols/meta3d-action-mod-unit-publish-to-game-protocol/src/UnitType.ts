@@ -1,8 +1,16 @@
 import { autoDifficulty } from "./Type";
 
 export enum model {
-    EliteGiantessMelee1 = "EliteGiantessMelee1",
-    EliteGiantessMagic1 = "EliteGiantessMagic1",
+    EliteGiantess1 = "EliteGiantess1",
+    EliteGiantess2 = "EliteGiantess2",
+    EliteGiantess3 = "EliteGiantess3",
+    EliteGiantess4 = "EliteGiantess4",
+    EliteGiantess5 = "EliteGiantess5",
+    EliteGiantess6 = "EliteGiantess6",
+    EliteGiantess7 = "EliteGiantess7",
+    EliteGiantess8 = "EliteGiantess8",
+    EliteGiantess9 = "EliteGiantess9",
+    EliteGiantess10 = "EliteGiantess10",
 }
 
 
@@ -15,10 +23,27 @@ export enum action {
     Shake = "Shake",
     StandupFromLie = "StandupFromLie",
     Walk = "Walk",
+    Run = "Run",
+    Sprint = "Sprint",
+    JumpForward = "JumpForward",
 
     StompLight = "StompLight",
     StompHeavy = "StompHeavy",
-    KickLight = "KickLight",
+    Kick1 = "Kick1",
+    Kick2 = "Kick2",
+    TwistRub = "TwistRub",
+    ChickenDance = "ChickenDance",
+    RumbaDance = "RumbaDance",
+    JumpHeavy = "JumpHeavy",
+    JumpLight = "JumpLight",
+    CrossJumps = "CrossJumps",
+    LegSweep = "LegSweep",
+    Punch = "Punch",
+    Boxing = "Boxing",
+    Bencao = "Bencao",
+    Speedbag = "Speedbag",
+    PunchCombo = "PunchCombo",
+    KickTwice = "KickTwice",
     Cast = "Cast",
 }
 
@@ -31,18 +56,23 @@ export enum action {
 //     DamageBody,
 //     LightStomp,
 //     HeavyStomp,
-//     HitFireball,
+//     FireballHit,
 // }
 
 // export enum particleType {
-export enum subEffect {
-    StompDust = "StompDust",
-    FootDamageDecal = "FootDamageDecal",
-
-    ShellExplode = "ShellExplode",
-    HitFireball = "HitFireball",
+export enum emitterSubEffect {
+    ShellEmit = "ShellEmit",
 }
 
+export enum meleeSubEffect {
+    StompDust = "StompDust",
+    FootDamageDecal = "FootDamageDecal",
+}
+
+export enum rangedSubEffect {
+    FireballHit = "FireballHit",
+    ShellExplode = "ShellExplode",
+}
 
 
 
@@ -614,11 +644,33 @@ export enum emitterType {
 }
 
 export enum particleImage {
-    Fireball1 = "Fireball1",
+    // Fireball1 = "Fireball1",
+    I1 = "1",
+    I2 = "2",
+    I3 = "3",
+    I4 = "4",
+    I5 = "5",
+    I6 = "6",
+    I7 = "7",
+    I8 = "8",
+    I9 = "9",
+    I10 = "10",
+    I11 = "11",
+    I12 = "12",
+    I13 = "13",
+    I14 = "14",
+    I15 = "15",
+    I16 = "16",
+    I17 = "17",
+    I18 = "18",
+    I19 = "19",
 }
 
 export enum instance {
+    Arrow1 = "Arrow1",
+
     Missile1 = "Missile1",
+    Missile2 = "Missile2",
 }
 
 
@@ -636,7 +688,7 @@ export type emitter = {
     particleImage?: particleImage,
     instance?: instance,
     value: emitterValue,
-    subEffects: Array<subEffect>,
+    subEffects: Array<emitterSubEffect>,
 }
 
 export type actionData = {
@@ -645,7 +697,9 @@ export type actionData = {
 }
 
 export type damage = {
-    type: meleeDamageEffectType | rangedDamageEffectType,
+    // type: meleeDamageEffectType | rangedDamageEffectType,
+    type: weaponType,
+    damageEffects: damageEffectData,
     value: {
         force: number,
         armorPiercingForceRatio: number,
@@ -657,7 +711,7 @@ export type damage = {
 export type hit = {
     // damage: Array<singleDamage>,
     damage: damage,
-    subEffects: Array<subEffect>,
+    subEffects: Array<meleeSubEffect | rangedSubEffect>,
 }
 
 
@@ -772,8 +826,18 @@ export enum skillType {
 export enum propName {
     AddHp1 = "AddHp1",
     AddHp2 = "AddHp2",
+    AddHp3 = "AddHp3",
+    AddHp4 = "AddHp4",
+    AddExcitement1 = "AddExcitement1",
+    AddExcitement2 = "AddExcitement2",
+    AddExcitement3 = "AddExcitement3",
+    AddExcitement4 = "AddExcitement4",
 
     LaserBullet = "LaserBullet",
+    RocketBullet = "RocketBullet",
+
+    // CallGiantess = "CallGiantess",
+    // ClearHatred = "ClearHatred",
 }
 
 export type propData = {
@@ -788,6 +852,17 @@ export enum feature {
     DamageBigger = "DamageBigger",
     PassiveBigger = "PassiveBigger",
     PoisonSingle = "PoisonSingle",
+    IceSingle = "IceSingle",
+    StressProtect = "StressProtect",
+    FragileGrowth = "FragileGrowth",
+    DoorShield = "DoorShield",
+    DecreaseScale = "DecreaseScale",
+    Pull = "Pull",
+    DefenseIncreaseDefense = "DefenseIncreaseDefense",
+    HpRatioDirect = "HpRatioDirect",
+    HpRatioInverse = "HpRatioInverse",
+    ShootDistanceDirect = "ShootDistanceDirect",
+    ShootDistanceInverse = "ShootDistanceInverse",
 }
 
 export type singleFeatureData = {
@@ -804,13 +879,125 @@ export type featureData = Array<singleFeatureData>
 
 //     MagicDamage = "MagicDamage",
 // }
-export enum meleeDamageEffectType {
-    BodyDamage = "BodyDamage",
-    BodyDirectAndRangeDamage = "BodyDirectAndRangeDamage",
+// export enum meleeDamageEffectType {
+//     BodyDamage = "BodyDamage",
+//     BodyDirectAndRangeDamage = "BodyDirectAndRangeDamage",
+// }
+
+// export enum rangedDamageEffectType {
+//     MagicDamage = "MagicDamage",
+// }
+
+// export type damageEffectType = meleeDamageEffectType | rangedDamageEffectType
+
+export enum damageEffect {
+    // BodyDamage = "BodyDamage",
+    // MagicDamage = "MagicDamage",
+
+    RangeDamage = "RangeDamage",
+    Repel = "Repel",
 }
 
-export enum rangedDamageEffectType {
-    MagicDamage = "MagicDamage",
+export type singleDamageEffectData = {
+    name: damageEffect,
+    level?: number,
 }
 
-export type damageEffectType = meleeDamageEffectType | rangedDamageEffectType
+export type damageEffectData = Array<singleDamageEffectData>
+
+
+
+
+
+
+export enum behaviourMode {
+    FindEnemy = "FindEnemy",
+    // Wait = "Wait",
+    EscapeWhenEnemeyNear = "EscapeWhenEnemeyNear",
+    // Wander = "Wander",
+}
+
+export enum idleMode {
+    WaitInPlace = "WaitInPlace",
+    // WonderInPlace = "WonderInPlace",
+    RoamAndWander = "RoamAndWander",
+}
+
+export enum nearAttackTargetMode {
+    None = "None",
+    Charge = "Charge",
+    JumpForward = "JumpForward",
+}
+
+export enum attackMode {
+    None = "None",
+    KeepDistance = "KeepDistance",
+    SideShift = "SideShift",
+}
+
+export enum remoteAttackMode {
+    None = "None",
+    ShootAroundObstacles = "ShootAroundObstacles",
+}
+
+
+
+export enum behaviourModeKey {
+    FindEnemyDistanceFactor = "FindEnemyDistanceFactor",
+    NearDistanceFactor = "NearDistanceFactor",
+    EscapeDistanceFactor = "EscapeDistanceFactor",
+}
+
+export enum idleModeKey {
+    // WonderInPlaceRadius = "WonderInPlaceRadius",
+    RoamAndWanderDistanceFactor = "RoamAndWanderDistanceFactor",
+}
+
+export enum nearAttackTargetModeKey {
+    ForceFactor = "ForceFactor",
+    DamageInterval = "DamageInterval",
+    CD = "CD",
+    SpeedFactor = "SpeedFactor",
+    DistanceFactor = "DistanceFactor",
+}
+
+export enum attackModeKey {
+}
+
+export enum remoteAttackModeKey {
+}
+
+
+export type behaviourModeData = {
+    mode: behaviourMode,
+    values?: Partial<Record<behaviourModeKey, number>>,
+}
+
+export type idleModeData = {
+    mode: idleMode,
+    values?: Partial<Record<idleModeKey, number>>,
+}
+
+
+export type nearAttackTargetModeData = {
+    mode: nearAttackTargetMode,
+    values?: Partial<Record<nearAttackTargetModeKey, number>>,
+}
+
+export type attackModeData = {
+    mode: attackMode,
+    values?: Partial<Record<attackModeKey, number>>,
+}
+
+export type remoteAttackModeData = {
+    mode: remoteAttackMode,
+    values?: Partial<Record<remoteAttackModeKey, number>>,
+}
+
+export type behaviourData = {
+    behaviourMode: behaviourModeData,
+    idleMode: idleModeData,
+    nearAttackTargetMode: nearAttackTargetModeData,
+    attackMode: attackModeData,
+    remoteAttackMode: remoteAttackModeData,
+}

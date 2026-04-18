@@ -1,4 +1,4 @@
-import { action, category, emitterType, instance, meleeRange, model, particleImage, skillType, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, emitterType, instance, meleeRange, model, particleImage, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 export let getActions = () => {
     return {

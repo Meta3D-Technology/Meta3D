@@ -2550,6 +2550,16 @@ TODO editor: Generate: default diff should be 1
 # Charge only for melee
 # KeepDistance only for remote
 
+TODO update UnitType
+
+TODO update asset lib->Main
+
+TODO update asset lib->asset
+
+TODO pass meta3d-action-mod-unit-init-protocol->Type
+
+TODO update select model
+
 
 TODO update particle->instance: show images
 
@@ -2575,7 +2585,9 @@ TODO update prop: remove images
 
 
 
-TODO add new ui
+
+
+TODO add behaviour ui
 
 
 
