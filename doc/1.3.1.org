@@ -2588,13 +2588,51 @@ TODO update: damage-> type, damageEffects
   # now use damage->damageEffects
   #   default by empty arr: BodyDamage
 
-
 TODO update subEffects: diff subEffects(emit, melee hit, ranged hit)
 
 
 TODO update subEffects: show corresponding image
   TODO each subEffect may has one image(e.g. fireball hit particle png)
   TODO show name and image(if has)
+
+
+TODO update ui
+  TODO update small object
+
+  TODO update action-name, action-snapshot
+
+  TODO update add hit subeffect
+    not duplicate
+
+
+  TODO fix: when switch action from melee action to cast
+
+  TODO damageEffects only work for melee action
+
+  TODO remove set-damageeffect action
+
+
+
+
+TODO update emitter data
+
+
+TODO update particle->instance: show images
+
+
+
+TODO update ui
+  TODO update big object
+
+
+
+
+
+# TODO update xxxSubEffect: show images
+
+TODO update prop: remove images
+
+
 
 
 TODO update action quicktest
@@ -2604,13 +2642,6 @@ TODO update action publish
 
 
 
-
-
-TODO update particle->instance: show images
-
-# TODO update xxxSubEffect: show images
-
-TODO update prop: remove images
 
 
 

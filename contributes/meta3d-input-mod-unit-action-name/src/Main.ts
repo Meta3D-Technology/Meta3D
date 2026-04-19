@@ -5,27 +5,29 @@ import { actionName as setCategoryActionName, state as setCategoryState } from "
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 import { skillObject } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { getActionData } from "meta3d-action-mod-unit-skill-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
         inputName: "ModUnitActionNameInput",
-        func: (meta3dState, [fieldName, isSmallSkill]) => {
+        func: (meta3dState, [fieldName]) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
                     api.nullable.bind((data) => {
                         let category = api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)).category
 
-                        return api.nullable.bind(actionData => {
-                            return api.nullable.bind(selectedActionIndex => {
-                                return getLanguageTextData(api, meta3dState, data.languageTextData, Array.from(actionData.filter((actionData) => {
-                                    return actionData.skillObject == skillObject.All
-                                        || (
-                                            isSmallSkill ? actionData.skillObject == skillObject.Small : actionData.skillObject == skillObject.Big
-                                        )
-                                }).keys())[selectedActionIndex])
+                        // return api.nullable.bind(actionData => {
+                        //     return api.nullable.bind(selectedActionIndex => {
+                        //         return getLanguageTextData(api, meta3dState, data.languageTextData, Array.from(actionData.filter((actionData) => {
+                        //             return actionData.skillObject == skillObject.All
+                        //                 || (
+                        //                     isSmallSkill ? actionData.skillObject == skillObject.Small : actionData.skillObject == skillObject.Big
+                        //                 )
+                        //         }).keys())[selectedActionIndex])
 
-                            }, data[fieldName])
-                        }, data.allActionData.get(category))
+                        //     }, data[fieldName])
+                        // }, data.allActionData.get(category))
+                        return getLanguageTextData(api, meta3dState, data.languageTextData, getActionData(api, data, fieldName, category)[0])
                     },
                         api.action.getActionState<initState>(meta3dState, initActionName)
                     ),

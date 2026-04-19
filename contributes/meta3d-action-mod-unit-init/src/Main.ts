@@ -338,14 +338,16 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowRewardModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
                 isShowSmallSkillObjectDamageValueModal: false,
-                isShowSmallSkillObjectDamageSubEffectModal: false,
+                isShowSmallSkillObjectDamageEffectModal: false,
+                isShowSmallSkillObjectSubEffectModal: false,
                 isShowSmallSkillObjectEmitterParticleImageModal: false,
                 isShowSmallSkillObjectEmitterInstanceModal: false,
                 isShowSmallSkillObjectEmitterValueModal: false,
                 isShowSmallSkillObjectEmitterSubEffectModal: false,
                 isShowBigSkillObjectActionValueModal: false,
                 isShowBigSkillObjectDamageValueModal: false,
-                isShowBigSkillObjectDamageSubEffectModal: false,
+                isShowBigSkillObjectDamageEffectModal: false,
+                isShowBigSkillObjectSubEffectModal: false,
                 isShowBigSkillObjectEmitterParticleImageModal: false,
                 isShowBigSkillObjectEmitterInstanceModal: false,
                 isShowBigSkillObjectEmitterValueModal: false,
@@ -374,6 +376,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 // s_damageType: meleeDamageEffectType.BodyDamage,
                 s_damageType: weaponType.Body,
+                s_damageEffects: [],
 
                 s_force: forceSize.Level1,
                 s_armorPiercingForceRatio: armorPiercingForceRatio.Level5,
@@ -402,6 +405,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 b_volume: emitterVolume.Level5,
 
                 b_damageType: weaponType.Body,
+                b_damageEffects: [],
 
                 b_force: forceSize.Level1,
                 b_armorPiercingForceRatio: armorPiercingForceRatio.Level5,

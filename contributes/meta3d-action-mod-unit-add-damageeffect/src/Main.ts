@@ -1,9 +1,11 @@
-import { state as meta3dState, api, getContribute as getContributeMeta3D } from "meta3d-type"
+import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
-import { actionName, state, uiData } from "meta3d-action-mod-unit-set-damagetype-protocol"
-import { eventName, inputData } from "meta3d-action-mod-unit-set-damagetype-protocol/src/EventType"
+import { actionName, state, uiData } from "meta3d-action-mod-unit-add-damageeffect-protocol"
+import { eventName, inputData } from "meta3d-action-mod-unit-add-damageeffect-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
-import { getDamageEffects } from "meta3d-action-mod-unit-skill-utils/src/Main"
+import { getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
+import { languageVariableKey } from "meta3d-language-utils/src/Type"
+
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -12,13 +14,29 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index: number, [damageTypeFieldName]) => {
-                    let state = api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName))
-                    let data = getDamageEffects(api, meta3dState)
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, uiData, [damageEffectFieldName, isShowDamageEffectModalFieldName]) => {
+                    let [selectedIndex, _] = api.nullable.getExn(uiData)
+
+
+                    let state = api.action.getActionState<initState>(meta3dState, initActionName)
+
+                    if (state.features.length >= 3) {
+                        api.message.warn(getLanguageTextVariableData(api, meta3dState, state.languageTextDataByVariable, languageVariableKey.LimitMaxCount)(3))
+
+                        return Promise.resolve(meta3dState)
+                    }
+
+                    let damageEffectData = api.nullable.getExn(state.allDamageEffects.filter(d => {
+                        return !state[damageEffectFieldName].includes(d)
+                    }).get(selectedIndex))
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,
-                        [damageTypeFieldName]: data[index]
+                        [isShowDamageEffectModalFieldName]: false,
+                        [damageEffectFieldName]: [
+                            ...state[damageEffectFieldName],
+                            damageEffectData
+                        ]
                     })
 
                     return Promise.resolve(meta3dState)
@@ -26,7 +44,6 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     return Promise.resolve(meta3dState)
                 }))
             })
-
         },
         handler: (meta3dState, uiData, actionParams) => {
             return new Promise<meta3dState>((resolve, reject) => {
@@ -39,7 +56,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 }))
             })
         },
-        createState: (meta3dState) => {
+        createState: () => {
             return null
         }
     }

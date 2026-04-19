@@ -1,4 +1,4 @@
-import { countFactor, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { countFactor, damageEffect, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actions, damageEffects, emitterInstances, emitterParticleImages, emitterSubEffects, emitterTypes, features, meleeSubEffects, models, props, rangedSubEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { languageTextData, languageTextDataByVariable } from "meta3d-language-utils/src/Type"
@@ -71,14 +71,16 @@ export type state = {
     isShowRewardModal: boolean,
     isShowSmallSkillObjectActionValueModal: boolean,
     isShowSmallSkillObjectDamageValueModal: boolean,
-    isShowSmallSkillObjectDamageSubEffectModal: boolean,
+    isShowSmallSkillObjectDamageEffectModal: boolean,
+    isShowSmallSkillObjectSubEffectModal: boolean,
     isShowSmallSkillObjectEmitterParticleImageModal: boolean,
     isShowSmallSkillObjectEmitterInstanceModal: boolean,
     isShowSmallSkillObjectEmitterValueModal: boolean,
     isShowSmallSkillObjectEmitterSubEffectModal: boolean,
     isShowBigSkillObjectActionValueModal: boolean,
     isShowBigSkillObjectDamageValueModal: boolean,
-    isShowBigSkillObjectDamageSubEffectModal: boolean,
+    isShowBigSkillObjectDamageEffectModal: boolean,
+    isShowBigSkillObjectSubEffectModal: boolean,
     isShowBigSkillObjectEmitterParticleImageModal: boolean,
     isShowBigSkillObjectEmitterInstanceModal: boolean,
     isShowBigSkillObjectEmitterValueModal: boolean,
@@ -107,6 +109,7 @@ export type state = {
     s_volume: number,
 
     s_damageType: weaponType,
+    s_damageEffects: Array<damageEffect>,
 
     s_force: number,
     s_armorPiercingForceRatio: number,
@@ -131,6 +134,7 @@ export type state = {
     b_volume: number,
 
     b_damageType: weaponType,
+    b_damageEffects: Array<damageEffect>,
 
     b_force: number,
     b_armorPiercingForceRatio: number,

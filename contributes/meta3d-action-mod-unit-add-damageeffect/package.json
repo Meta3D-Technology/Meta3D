@@ -1,9 +1,9 @@
 {
-    "name": "meta3d-action-mod-unit-select-action",
-    "version": "1.3.7",
+    "name": "meta3d-action-mod-unit-add-damageeffect",
+    "version": "1.3.4",
     "publisher": "meta3d",
     "protocol": {
-        "name": "meta3d-action-mod-unit-select-action-protocol"
+        "name": "meta3d-action-mod-unit-add-damageeffect-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -14,7 +14,7 @@
     },
     "keywords": [],
     "dependencies": {
-        "meta3d-action-mod-unit-select-action-protocol": "^1.3.0",
+        "meta3d-action-mod-unit-add-damageeffect-protocol": "^1.3.0",
         "meta3d-editor-whole-protocol": "^1.3.0",
         "meta3d-type": "^1.3.0"
     },

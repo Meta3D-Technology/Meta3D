@@ -1,10 +1,10 @@
 {
     "name": "meta3d-input-mod-unit-select-subeffect",
-    "version": "1.3.3",
+    "version": "1.3.9",
     "publisher": "meta3d",
     "description": "",
     "protocol": {
-        "name": "meta3d-input-list-protocol"
+        "name": "meta3d-input-grid-protocol"
     },
     "license": "MIT",
     "scripts": {
@@ -17,7 +17,7 @@
     "keywords": [],
     "dependencies": {
         "meta3d-editor-whole-protocol": "^1.3.0",
-        "meta3d-input-list-protocol": "^1.3.0",
+        "meta3d-input-grid-protocol": "^1.3.0",
         "meta3d-type": "^1.3.0"
     },
     "devDependencies": {
