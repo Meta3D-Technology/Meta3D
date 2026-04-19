@@ -1,6 +1,6 @@
 // import { box3, damageType, euler, nullable, vector3 } from "type-api/src/ImportedTypes"
 // import { api } from "type-api/src/Type"
-import { action, category, damageEffect, emitterSubEffect, emitterType, feature, instance, meleeSubEffect, model, particleImage, propName, rangedSubEffect, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, damageEffect, emitterSubEffect, emitterType, feature, instance, meleeSubEffect, model, particleImage, propName, rangedSubEffect, skillObject, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { Map, List } from "immutable"
 
 export type modelData = {
@@ -24,6 +24,7 @@ export type models = Map<category, Array<modelData>>
 
 export type actionData = {
     skillType: skillType,
+    skillObject: skillObject,
     // meleeRange?: meleeRange,
     snapshotImageBase64: string,
 }
@@ -32,11 +33,16 @@ export type actions = Map<category, Map<action, actionData>>
 
 export type damageEffects = List<damageEffect>
 
-export type meleeSubEffects = List<meleeSubEffect>
+export type subEffectData<Name> = {
+    name: Name,
+    snapshotImageBase64: string,
+}
 
-export type rangedSubEffects = List<rangedSubEffect>
+export type meleeSubEffects = List<subEffectData<meleeSubEffect>>
 
-export type emitterSubEffects = List<emitterSubEffect>
+export type rangedSubEffects = List<subEffectData<rangedSubEffect>>
+
+export type emitterSubEffects = List<subEffectData<subEffectData<emitterSubEffect>>>
 
 export type emitterTypes = List<emitterType>
 

@@ -3,11 +3,12 @@ import { data } from "meta3d-input-image-protocol"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
+import { skillObject } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
         inputName: "ModUnitActionSnapshotInput",
-        func: (meta3dState, [fieldName]) => {
+        func: (meta3dState, [fieldName, isSmallSkill]) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
                     api.nullable.bind((data) => {
@@ -15,7 +16,12 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
 
                         return api.nullable.bind(actionData => {
                             return api.nullable.bind(selectedActionIndex => {
-                                return Array.from(actionData.values())[selectedActionIndex].snapshotImageBase64
+                                return Array.from(actionData.filter((actionData) => {
+                                    return actionData.skillObject == skillObject.All
+                                        || (
+                                            isSmallSkill ? actionData.skillObject == skillObject.Small : actionData.skillObject == skillObject.Big
+                                        )
+                                }).values())[selectedActionIndex].snapshotImageBase64
                             }, data[fieldName])
                         }, data.allActionData.get(category))
                     },

@@ -1,7 +1,7 @@
 import { state as meta3dState, api } from "meta3d-type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
-import { action, category, meleeDamageEffectType, rangedDamageEffectType, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, category, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 export let getAction = (api: api, state: initState, selectedActionIndexFieldName: keyof initState, category: category): action => {
     return Array.from(api.nullable.getExn(state.allActionData.get(

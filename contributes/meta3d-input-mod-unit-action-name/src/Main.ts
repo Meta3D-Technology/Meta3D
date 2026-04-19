@@ -4,11 +4,12 @@ import { actionName as initActionName, state as initState } from "meta3d-action-
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
+import { skillObject } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
         inputName: "ModUnitActionNameInput",
-        func: (meta3dState, [fieldName]) => {
+        func: (meta3dState, [fieldName, isSmallSkill]) => {
             return Promise.resolve(
                 api.nullable.getWithDefault(
                     api.nullable.bind((data) => {
@@ -16,7 +17,12 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
 
                         return api.nullable.bind(actionData => {
                             return api.nullable.bind(selectedActionIndex => {
-                                return getLanguageTextData(api, meta3dState, data.languageTextData, Array.from(actionData.keys())[selectedActionIndex])
+                                return getLanguageTextData(api, meta3dState, data.languageTextData, Array.from(actionData.filter((actionData) => {
+                                    return actionData.skillObject == skillObject.All
+                                        || (
+                                            isSmallSkill ? actionData.skillObject == skillObject.Small : actionData.skillObject == skillObject.Big
+                                        )
+                                }).keys())[selectedActionIndex])
 
                             }, data[fieldName])
                         }, data.allActionData.get(category))

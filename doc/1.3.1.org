@@ -2568,10 +2568,20 @@ TODO update asset lib->Main
 
 TODO pass meta3d-action-mod-unit-init-protocol->Type
 
+
+TODO update action init
+
+
 TODO update select model
 
 
 TODO update actions
+  # need sort
+  need judge skillObject
+
+
+TODO update action icons
+use snapshot from mixamo
 
 
 TODO update: damage-> type, damageEffects
@@ -2587,17 +2597,10 @@ TODO update subEffects: show corresponding image
   TODO show name and image(if has)
 
 
-TODO update action icons
-use snapshot from mixamo
-
-
-TODO update action init
+TODO update action quicktest
 
 
 TODO update action publish
-
-
-TODO update action quicktest
 
 
 

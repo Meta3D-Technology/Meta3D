@@ -446,15 +446,15 @@ export enum weaponType {
     // Heavy,
     // VeryHeavy
 
-    Explode,
-    Impact,
-    Magic,
-    Body,
-    Power,
-    Common,
+    Explode = "Explode",
+    Impact = "Impact",
+    Magic = "Magic",
+    Body = "Body",
+    Power = "Power",
+    Common = "Common",
 
-    Effect,
-    EffectSelf,
+    Effect = "Effect",
+    EffectSelf = "EffectSelf",
 }
 
 export enum critRatio {

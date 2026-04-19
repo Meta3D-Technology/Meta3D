@@ -4,15 +4,14 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions, getActionSnapshotPath, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterTypes, getSubEffects } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath, getDamageEffects, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, instance, meleeDamageEffectType, particleImage, speed, emitterVolume, critRatio, emitterLife, emitterSize, emitterCollisionSize, emitterCount, explodeRange, armorPiercingForceRatio } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { getAllPropData, getPropSnapshotPath } from "./asset-lib/prop/Main"
-import { gem } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
+import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, speed, emitterVolume, critRatio, emitterLife, emitterSize, emitterCollisionSize, emitterCount, explodeRange, armorPiercingForceRatio, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { getAllPropData } from "./asset-lib/prop/Main"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 import { getTextData, getTextDataByVariable } from "meta3d-language-utils/src/Data"
@@ -136,50 +135,34 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             api.immutable.createList()
                         )
 
-                        return reducePromise(
-                            getAllPropData(),
-                            (result, data) => {
-                                return new Promise((resolve, reject) => {
-                                    imageSrcToBase64(
-                                        resolve,
-                                        reject,
-                                        getPropSnapshotPath(_getPathPrefix("prop"), data.name)
-                                    )
-                                }).then((imageBase64) => {
-                                    return result.push({
-                                        ...data,
-                                        snapshotImageBase64: imageBase64,
-                                    })
-                                })
-                            },
-                            api.immutable.createList()
-                        ).then(newProps => {
-                            return reducePromise(
-                                getEmitterParticleImages(),
-                                (result, data) => {
-                                    return new Promise((resolve, reject) => {
-                                        imageSrcToBase64(
-                                            resolve,
-                                            reject,
-                                            getEmitterParticleImageSnapshotPath(_getPathPrefix("unit-action"), data)
-                                        )
-                                    }).then((imageBase64) => {
-                                        return result.push({
-                                            name: data,
-                                            snapshotImageBase64: imageBase64,
-                                        })
-                                    })
-                                },
-                                api.immutable.createList()
-                            ).then(newEmitterParticleImages => {
+                        // return reducePromise(
+                        //     getAllPropData(),
+                        //     (result, data) => {
+                        //         return new Promise((resolve, reject) => {
+                        //             imageSrcToBase64(
+                        //                 resolve,
+                        //                 reject,
+                        //                 getPropSnapshotPath(_getPathPrefix("prop"), data.name)
+                        //             )
+                        //         }).then((imageBase64) => {
+                        //             return result.push({
+                        //                 ...data,
+                        //                 snapshotImageBase64: imageBase64,
+                        //             })
+                        //         })
+                        //     },
+                        //     api.immutable.createList()
+                        // )
+                        return Promise.resolve(getAllPropData())
+                            .then(newProps => {
                                 return reducePromise(
-                                    getEmitterInstances(),
+                                    getEmitterParticleImages(),
                                     (result, data) => {
                                         return new Promise((resolve, reject) => {
                                             imageSrcToBase64(
                                                 resolve,
                                                 reject,
-                                                getEmitterInstanceSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                getEmitterParticleImageSnapshotPath(_getPathPrefix("unit-action"), data)
                                             )
                                         }).then((imageBase64) => {
                                             return result.push({
@@ -189,21 +172,100 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                         })
                                     },
                                     api.immutable.createList()
-                                ).then(newEmitterInstances => {
-                                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                                        allModelData: newAllModelData,
-                                        allActionData: newAllActionData,
-                                        allEmitterParticleImages: newEmitterParticleImages,
-                                        allEmitterInstances: newEmitterInstances,
-                                        allFeatureData: newAlLFeatureData,
-                                        allPropData: newProps,
-                                    })
+                                ).then(newEmitterParticleImages => {
+                                    return reducePromise(
+                                        getEmitterInstances(),
+                                        (result, data) => {
+                                            return new Promise((resolve, reject) => {
+                                                imageSrcToBase64(
+                                                    resolve,
+                                                    reject,
+                                                    getEmitterInstanceSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                )
+                                            }).then((imageBase64) => {
+                                                return result.push({
+                                                    name: data,
+                                                    snapshotImageBase64: imageBase64,
+                                                })
+                                            })
+                                        },
+                                        api.immutable.createList()
+                                    ).then(newEmitterInstances => {
+                                        return reducePromise(
+                                            getMeleeSubEffects(),
+                                            (result, data) => {
+                                                return new Promise((resolve, reject) => {
+                                                    imageSrcToBase64(
+                                                        resolve,
+                                                        reject,
+                                                        getMeleeSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                    )
+                                                }).then((imageBase64) => {
+                                                    return result.push({
+                                                        name: data,
+                                                        snapshotImageBase64: imageBase64,
+                                                    })
+                                                })
+                                            },
+                                            api.immutable.createList()
+                                        ).then(newMeleeSubEffects => {
+                                            return reducePromise(
+                                                getRangedSubEffects(),
+                                                (result, data) => {
+                                                    return new Promise((resolve, reject) => {
+                                                        imageSrcToBase64(
+                                                            resolve,
+                                                            reject,
+                                                            getRangedSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                        )
+                                                    }).then((imageBase64) => {
+                                                        return result.push({
+                                                            name: data,
+                                                            snapshotImageBase64: imageBase64,
+                                                        })
+                                                    })
+                                                },
+                                                api.immutable.createList()
+                                            ).then(newRangedSubEffects => {
+                                                return reducePromise(
+                                                    getEmitterSubEffects(),
+                                                    (result, data) => {
+                                                        return new Promise((resolve, reject) => {
+                                                            imageSrcToBase64(
+                                                                resolve,
+                                                                reject,
+                                                                getEmitterSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                            )
+                                                        }).then((imageBase64) => {
+                                                            return result.push({
+                                                                name: data,
+                                                                snapshotImageBase64: imageBase64,
+                                                            })
+                                                        })
+                                                    },
+                                                    api.immutable.createList()
+                                                ).then(newEmitterSubEffects => {
+                                                    meta3dState = api.action.setActionState(meta3dState, actionName, {
+                                                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                                                        allModelData: newAllModelData,
+                                                        allActionData: newAllActionData,
+                                                        allEmitterParticleImages: newEmitterParticleImages,
+                                                        allEmitterInstances: newEmitterInstances,
+                                                        allFeatureData: newAlLFeatureData,
+                                                        allPropData: newProps,
 
-                                    return meta3dState
+                                                        allMeleeSubEffects: newMeleeSubEffects,
+                                                        allRangedSubEffects: newRangedSubEffects,
+                                                        allEmitterSubEffects: newEmitterSubEffects,
+                                                    })
+
+                                                    return meta3dState
+                                                })
+                                            })
+                                        })
+                                    })
                                 })
                             })
-                        })
                     })
                 })
                     .then(meta3dState => {
@@ -245,7 +307,11 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 // allModelData: api.immutable.createMapOfData(getAllModelData()),
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),
-                allSubEffects: api.immutable.createListOfData(getSubEffects()),
+                // allSubEffects: api.immutable.createListOfData(getSubEffects()),
+                allDamageEffects: api.immutable.createListOfData(getDamageEffects()),
+                allMeleeSubEffects: api.immutable.createList(),
+                allRangedSubEffects: api.immutable.createList(),
+                allEmitterSubEffects: api.immutable.createList(),
                 allEmitterTypes: api.immutable.createListOfData(getEmitterTypes()),
                 allEmitterParticleImages: api.immutable.createList(),
                 allEmitterInstances: api.immutable.createList(),
@@ -306,7 +372,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 s_emitSpeed: emitSpeed.Level5,
                 s_volume: emitterVolume.Level5,
 
-                s_damageType: meleeDamageEffectType.BodyDamage,
+                // s_damageType: meleeDamageEffectType.BodyDamage,
+                s_damageType: weaponType.Body,
 
                 s_force: forceSize.Level1,
                 s_armorPiercingForceRatio: armorPiercingForceRatio.Level5,
@@ -334,7 +401,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 b_emitSpeed: emitSpeed.Level5,
                 b_volume: emitterVolume.Level5,
 
-                b_damageType: meleeDamageEffectType.BodyDamage,
+                b_damageType: weaponType.Body,
 
                 b_force: forceSize.Level1,
                 b_armorPiercingForceRatio: armorPiercingForceRatio.Level5,
