@@ -2562,20 +2562,16 @@ TODO quicktest: not check is upload mod icon
 
 TODO update UnitType
 
-TODO update asset lib->Main
-
 TODO update asset lib->asset
+
+TODO update asset lib->Main
 
 TODO pass meta3d-action-mod-unit-init-protocol->Type
 
 TODO update select model
 
 
-TODO update particle->instance: show images
-
-
-TODO update action icons
-use snapshot from mixamo
+TODO update actions
 
 
 TODO update: damage-> type, damageEffects
@@ -2591,13 +2587,38 @@ TODO update subEffects: show corresponding image
   TODO show name and image(if has)
 
 
+TODO update action icons
+use snapshot from mixamo
+
+
+TODO update action init
+
+
+TODO update action publish
+
+
+TODO update action quicktest
+
+
+
+
+
+TODO update particle->instance: show images
+
+# TODO update xxxSubEffect: show images
+
 TODO update prop: remove images
 
 
 
 
 
+
+
 TODO add behaviour ui
+
+
+
 
 
 
@@ -2626,7 +2647,13 @@ TODO 降低宝石最大值
 flow:
 1. 发布中文编辑器为英文编辑器（复制）
 2. 点击翻译为英文按钮
-2. 发布
+3. 获得提取的所有label
+以,分隔
+4. 将其替换为翻译后的label
+5. 点击确认
+6. 更新为翻译后的英文编辑器
+
+
 
 
 

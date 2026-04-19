@@ -392,7 +392,7 @@ export type unitValue = {
 
 
 export enum skillObject {
-    // All,
+    All,
     Small,
     Big,
 }
@@ -670,7 +670,6 @@ export enum instance {
     Arrow1 = "Arrow1",
 
     Missile1 = "Missile1",
-    Missile2 = "Missile2",
 }
 
 

@@ -4,10 +4,34 @@ export let getAllModelData = () => {
     return {
         [category.EliteGiantess]: [
             {
-                model: model.EliteGiantessMelee1,
+                model: model.EliteGiantess1,
             },
             {
-                model: model.EliteGiantessMagic1,
+                model: model.EliteGiantess2,
+            },
+            {
+                model: model.EliteGiantess3,
+            },
+            {
+                model: model.EliteGiantess4,
+            },
+            {
+                model: model.EliteGiantess5,
+            },
+            {
+                model: model.EliteGiantess6,
+            },
+            {
+                model: model.EliteGiantess7,
+            },
+            {
+                model: model.EliteGiantess8,
+            },
+            {
+                model: model.EliteGiantess9,
+            },
+            {
+                model: model.EliteGiantess10,
             },
         ]
     }

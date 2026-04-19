@@ -1,5 +1,5 @@
-import { countFactor, damageEffectType, emitterType, feature, nullable, propName, subEffect } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { actions, emitterInstances, emitterParticleImages, emitterTypes, features, models, props, subEffects } from "./Type"
+import { countFactor, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { actions, damageEffects, emitterInstances, emitterParticleImages, emitterSubEffects, emitterTypes, features, meleeSubEffects, models, props, rangedSubEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { languageTextData, languageTextDataByVariable } from "meta3d-language-utils/src/Type"
 
@@ -41,7 +41,10 @@ export type state = {
 
     allModelData: models,
     allActionData: actions,
-    allSubEffects: subEffects,
+    allDamageEffects: damageEffects,
+    allMeleeSubEffects: meleeSubEffects,
+    allRangedSubEffects: rangedSubEffects,
+    allEmitterSubEffects: emitterSubEffects,
     allEmitterTypes: emitterTypes,
     allEmitterParticleImages: emitterParticleImages,
     allEmitterInstances: emitterInstances,
@@ -103,13 +106,13 @@ export type state = {
     s_emitSpeed: number,
     s_volume: number,
 
-    s_damageType: damageEffectType,
+    s_damageType: weaponType,
 
     s_force: number,
     s_armorPiercingForceRatio: number,
     s_critRatio: number,
 
-    s_hit_subEffects: Array<subEffect>,
+    s_hit_subEffects: Array<meleeSubEffect | rangedSubEffect>,
 
     s_emitterType: emitterType,
 
@@ -120,20 +123,20 @@ export type state = {
     // s_mitterCount: number,
     s_explodeRange: number,
 
-    s_emitter_subEffects: Array<subEffect>,
+    s_emitter_subEffects: Array<emitterSubEffect>,
 
 
 
     b_emitSpeed: number,
     b_volume: number,
 
-    b_damageType: damageEffectType,
+    b_damageType: weaponType,
 
     b_force: number,
     b_armorPiercingForceRatio: number,
     b_critRatio: number,
 
-    b_hit_subEffects: Array<subEffect>,
+    b_hit_subEffects: Array<meleeSubEffect | rangedSubEffect>,
 
     b_emitterType: emitterType,
 
@@ -144,7 +147,7 @@ export type state = {
     // b_emitterCount: number,
     b_explodeRange: number,
 
-    b_emitter_subEffects: Array<subEffect>,
+    b_emitter_subEffects: Array<emitterSubEffect>,
 
 
 
