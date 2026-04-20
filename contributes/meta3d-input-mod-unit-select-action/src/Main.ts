@@ -23,7 +23,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                     //             state.isShowSmallSkillModal ? actionData.skillObject == skillObject.Small : actionData.skillObject == skillObject.Big
                     //         )
                     // })
-                    return getActionEntries(api, state, state[isShowSkillModalFieldName as keyof initState], category)
+                    return getActionEntries(api, state, isShowSkillModalFieldName.includes("Small"), category)
                         .map(([action, actionData]) => {
                             return {
                                 name: getLanguageTextData(api, meta3dState, state.languageTextData, action),

@@ -2654,6 +2654,8 @@ TODO update action publish
 
 
 
+TODO fix: update action/input script -> run: not work immediately!
+
 
 
 
@@ -2678,8 +2680,6 @@ TODO limit damageEffects,feature->level: 1-5 levels
 TODO 降低宝石最大值
 
 
-
-* TODO fix: update action/input script -> run: not work immediately!
 
 
 
