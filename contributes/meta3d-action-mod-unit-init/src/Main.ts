@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions, getActionSnapshotPath, getDamageEffects, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath, getAllDamageEffectData, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
@@ -125,7 +125,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         },
                         api.immutable.createMap()
                     ).then(newAllActionData => {
-                        let newAlLFeatureData = Array.from(api.immutable.createMapOfData(getAllFeatureData()).entries()).reduce(
+                        let newAllFeatureData = Array.from(api.immutable.createMapOfData(getAllFeatureData()).entries()).reduce(
                             (result, [feature, featureData]) => {
                                 return result.push({
                                     name: feature,
@@ -134,6 +134,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             },
                             api.immutable.createList()
                         )
+
+                        let newAllDamageEffectData = Array.from(api.immutable.createMapOfData(getAllDamageEffectData()).entries()).reduce(
+                            (result, [damageEffect, damageEffectData]) => {
+                                return result.push({
+                                    name: damageEffect,
+                                    maxLevel: damageEffectData.maxLevel
+                                })
+                            },
+                            api.immutable.createList()
+                        )
+
 
                         // return reducePromise(
                         //     getAllPropData(),
@@ -251,7 +262,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                                         allActionData: newAllActionData,
                                                         allEmitterParticleImages: newEmitterParticleImages,
                                                         allEmitterInstances: newEmitterInstances,
-                                                        allFeatureData: newAlLFeatureData,
+                                                        allDamageEffects: newAllDamageEffectData,
+                                                        allFeatureData: newAllFeatureData,
                                                         allPropData: newProps,
 
                                                         allMeleeSubEffects: newMeleeSubEffects,
@@ -308,7 +320,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allModelData: api.immutable.createMap(),
                 allActionData: api.immutable.createMap(),
                 // allSubEffects: api.immutable.createListOfData(getSubEffects()),
-                allDamageEffects: api.immutable.createListOfData(getDamageEffects()),
+                allDamageEffects: api.immutable.createList(),
                 allMeleeSubEffects: api.immutable.createList(),
                 allRangedSubEffects: api.immutable.createList(),
                 allEmitterSubEffects: api.immutable.createList(),

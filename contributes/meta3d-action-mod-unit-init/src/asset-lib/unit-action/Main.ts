@@ -81,11 +81,15 @@ export let getActions = () => {
     }
 }
 
-export let getDamageEffects = () => {
-    return [
-        damageEffect.RangeDamage,
-        damageEffect.Repel,
-    ]
+export let getAllDamageEffectData = () => {
+    return {
+        [damageEffect.RangeDamage]: {
+            maxLevel: 5
+        },
+        [damageEffect.Repel]: {
+            maxLevel: 5
+        },
+    }
 }
 
 export let getMeleeSubEffects = () => {

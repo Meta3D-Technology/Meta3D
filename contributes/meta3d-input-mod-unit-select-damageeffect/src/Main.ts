@@ -18,11 +18,11 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                         switch (skillType_) {
                             case skillType.Melee:
                                 return state.allDamageEffects.filter(d => {
-                                    // return state[damageEffectFieldName].filter(f => f == d).length == 0
-                                    return !state[damageEffectFieldName].includes(d)
+                                    return state[damageEffectFieldName].filter(f => f.name == d.name).length == 0
+                                    // return !state[damageEffectFieldName].includes(d)
                                 }).map(d => {
                                     // return `${d.name}:${getLanguageTextData(api, meta3dState, languageTextData, d.name)}`
-                                    return getLanguageTextData(api, meta3dState, state.languageTextData, d)
+                                    return getLanguageTextData(api, meta3dState, state.languageTextData, d.name)
                                 }).toArray()
                             // .sort((a, b) => {
                             //     return a.localeCompare(b)

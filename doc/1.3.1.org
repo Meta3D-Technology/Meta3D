@@ -2619,6 +2619,11 @@ TODO update emitter data
 
 # TODO update particle->instance: show images
 
+TODO update feature
+
+# TODO limit level: 1-5 levels
+
+TODO damageEffects->level: 1-5 levels
 
 
 TODO update ui
@@ -2631,6 +2636,12 @@ TODO update ui
 # TODO update xxxSubEffect: show images
 
 TODO update prop: remove images
+
+
+TODO update feature
+
+
+TODO update generate
 
 
 
@@ -2655,10 +2666,9 @@ TODO add behaviour ui
 
 
 
-
-
 TODO limit key
 e.g. DamageInterval, SpeedFactor only work for Charge
+
 
 
 # TODO limit damageEffects,feature->level: 1-10 levels
@@ -2668,6 +2678,8 @@ TODO limit damageEffects,feature->level: 1-5 levels
 TODO 降低宝石最大值
 
 
+
+* TODO fix: update action/input script -> run: not work immediately!
 
 
 

@@ -20,14 +20,14 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                     let state = api.action.getActionState<initState>(meta3dState, initActionName)
 
-                    if (state.features.length >= 3) {
+                    if (state[damageEffectFieldName].length >= 3) {
                         api.message.warn(getLanguageTextVariableData(api, meta3dState, state.languageTextDataByVariable, languageVariableKey.LimitMaxCount)(3))
 
                         return Promise.resolve(meta3dState)
                     }
 
                     let damageEffectData = api.nullable.getExn(state.allDamageEffects.filter(d => {
-                        return !state[damageEffectFieldName].includes(d)
+                        return state[damageEffectFieldName].filter(f => f.name == d.name).length == 0
                     }).get(selectedIndex))
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
@@ -35,9 +35,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         [isShowDamageEffectModalFieldName]: false,
                         [damageEffectFieldName]: [
                             ...state[damageEffectFieldName],
-                            damageEffectData
+                            {
+                                name: damageEffectData.name,
+                                level: 1,
+                            }
                         ]
                     })
+
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

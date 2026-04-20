@@ -1,4 +1,4 @@
-import { countFactor, damageEffect, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { countFactor, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actions, damageEffects, emitterInstances, emitterParticleImages, emitterSubEffects, emitterTypes, features, meleeSubEffects, models, props, rangedSubEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { languageTextData, languageTextDataByVariable } from "meta3d-language-utils/src/Type"
@@ -27,6 +27,14 @@ export type singleFeatureData = {
     // description: string,
     level: number,
 }
+
+export type singleDamageEffectData = {
+    name: feature,
+    // title: string,
+    // description: string,
+    level: number,
+}
+
 
 export type propData = {
     name: propName,
@@ -109,7 +117,7 @@ export type state = {
     s_volume: number,
 
     s_damageType: weaponType,
-    s_damageEffects: Array<damageEffect>,
+    s_damageEffects: Array<singleDamageEffectData>,
 
     s_force: number,
     s_armorPiercingForceRatio: number,
@@ -134,7 +142,7 @@ export type state = {
     b_volume: number,
 
     b_damageType: weaponType,
-    b_damageEffects: Array<damageEffect>,
+    b_damageEffects: Array<singleDamageEffectData>,
 
     b_force: number,
     b_armorPiercingForceRatio: number,
