@@ -8,12 +8,12 @@ import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
         inputName: "ModUnitSelectEmitterDataInput",
-        func: (meta3dState, [allEmitterFieldName]) => {
+        func: (meta3dState, [allEmitterFieldName, isGetLanguageTextData]) => {
             let allModelData = api.nullable.getWithDefault(
                 api.nullable.map(state => {
                     return api.nullable.getExn(state[allEmitterFieldName]).toArray().map((data: any) => {
                         return {
-                            name: getLanguageTextData(api, meta3dState, state.languageTextData, data.name),
+                            name: isGetLanguageTextData ? getLanguageTextData(api, meta3dState, state.languageTextData, data.name) : data.name,
                             imageBase64: data.snapshotImageBase64
                         }
                     })

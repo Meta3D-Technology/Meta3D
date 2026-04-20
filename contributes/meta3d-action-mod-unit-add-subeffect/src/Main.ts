@@ -37,6 +37,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             result = state.allRangedSubEffects
                             break
                     }
+                    if (subEffectsFieldName.toLowerCase().includes("emitter")) {
+                        result = state.allEmitterSubEffects
+                    }
+
 
                     // let subEffectData = api.nullable.getExn(state[allSubEffectsFieldName].filter(d => {
                     let subEffectData = api.nullable.getExn(result.filter(d => {

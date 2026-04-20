@@ -2,8 +2,11 @@ import { state as meta3dState, api } from "meta3d-type"
 import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { language, languageKey, languageVariableKey, languageTextData, languageTextDataByVariable } from "./Type"
 
-let _getLanguageDataByData = (data: any, key: any, language: any) => {
-    return data[language][key]
+let _getLanguageDataByData = (api: api, data: any, key: any, language: any) => {
+    return api.nullable.getWithDefault(
+        data[language][key],
+        key
+    )
 }
 
 export let getLanguageTextData = (api: api, meta3dState: meta3dState, textData: languageTextData, key: any) => {
@@ -15,7 +18,8 @@ export let getLanguageTextData = (api: api, meta3dState: meta3dState, textData: 
         language.Chinese
     )
 
-    return _getLanguageDataByData(textData, key, language_)
+    return _getLanguageDataByData(api, textData, key, language_)
+
 }
 
 export let getLanguageTextVariableData = (api: api, meta3dState: meta3dState, textDataByVariable: languageTextDataByVariable, key: any) => {
@@ -27,7 +31,7 @@ export let getLanguageTextVariableData = (api: api, meta3dState: meta3dState, te
         language.Chinese
     )
 
-    return _getLanguageDataByData(textDataByVariable, key, language_)
+    return _getLanguageDataByData(api, textDataByVariable, key, language_)
 }
 
 export let isChinese = (api: api, meta3dState: meta3dState) => {

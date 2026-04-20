@@ -40,6 +40,10 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                                 result = state.allRangedSubEffects.toArray()
                                 break
                         }
+                        if (subEffectsFieldName.toLowerCase().includes("emitter")) {
+                            result = state.allEmitterSubEffects.toArray()
+                        }
+
 
                         // return result.map(d => {
                         //     return {
