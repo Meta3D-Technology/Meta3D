@@ -4,35 +4,35 @@ export let getAllPropData = (): props => {
     return ([
         {
             name: propName.AddHp1,
-            maxCount: 9,
+            maxCount: 3,
         },
         {
             name: propName.AddHp2,
-            maxCount: 9,
+            maxCount: 3,
         },
         {
             name: propName.AddHp3,
-            maxCount: 9,
+            maxCount: 2,
         },
         {
             name: propName.AddHp4,
-            maxCount: 9,
+            maxCount: 1,
         },
         {
             name: propName.AddExcitement1,
-            maxCount: 9,
+            maxCount: 3,
         },
         {
             name: propName.AddExcitement2,
-            maxCount: 9,
+            maxCount: 3,
         },
         {
             name: propName.AddExcitement3,
-            maxCount: 9,
+            maxCount: 2,
         },
         {
             name: propName.AddExcitement4,
-            maxCount: 9,
+            maxCount: 1,
         },
         {
             name: propName.LaserBullet,
@@ -52,11 +52,11 @@ export let getAllPropData = (): props => {
             [
                 {
                     name: "Weapon_BiggerBulletGun",
-                    maxCount: 3,
+                    maxCount: 2,
                 },
                 {
                     name: "Weapon_SmallerBulletGun",
-                    maxCount: 3,
+                    maxCount: 2,
                 },
                 {
                     name: "Weapon_ShotBulletGun",
@@ -68,15 +68,15 @@ export let getAllPropData = (): props => {
                 },
                 {
                     name: "Prop_Other_Run",
-                    maxCount: 3,
+                    maxCount: 1,
                 },
                 {
                     name: "Prop_Other_SmallerWater",
-                    maxCount: 3,
+                    maxCount: 1,
                 },
                 {
                     name: "Prop_Other_Strong",
-                    maxCount: 3,
+                    maxCount: 1,
                 },
             ]
         )
