@@ -164,16 +164,50 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         //     },
                         //     api.immutable.createList()
                         // )
-                        return Promise.resolve(getAllPropData())
-                            .then(newProps => {
+                        return reducePromise(
+                            getEmitterParticleImages(),
+                            (result, data) => {
+                                return new Promise((resolve, reject) => {
+                                    imageSrcToBase64(
+                                        resolve,
+                                        reject,
+                                        getEmitterParticleImageSnapshotPath(_getPathPrefix("unit-action"), data)
+                                    )
+                                }).then((imageBase64) => {
+                                    return result.push({
+                                        name: data,
+                                        snapshotImageBase64: imageBase64,
+                                    })
+                                })
+                            },
+                            api.immutable.createList()
+                        ).then(newEmitterParticleImages => {
+                            return reducePromise(
+                                getEmitterInstances(),
+                                (result, data) => {
+                                    return new Promise((resolve, reject) => {
+                                        imageSrcToBase64(
+                                            resolve,
+                                            reject,
+                                            getEmitterInstanceSnapshotPath(_getPathPrefix("unit-action"), data)
+                                        )
+                                    }).then((imageBase64) => {
+                                        return result.push({
+                                            name: data,
+                                            snapshotImageBase64: imageBase64,
+                                        })
+                                    })
+                                },
+                                api.immutable.createList()
+                            ).then(newEmitterInstances => {
                                 return reducePromise(
-                                    getEmitterParticleImages(),
+                                    getMeleeSubEffects(),
                                     (result, data) => {
                                         return new Promise((resolve, reject) => {
                                             imageSrcToBase64(
                                                 resolve,
                                                 reject,
-                                                getEmitterParticleImageSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                getMeleeSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
                                             )
                                         }).then((imageBase64) => {
                                             return result.push({
@@ -183,15 +217,15 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                         })
                                     },
                                     api.immutable.createList()
-                                ).then(newEmitterParticleImages => {
+                                ).then(newMeleeSubEffects => {
                                     return reducePromise(
-                                        getEmitterInstances(),
+                                        getRangedSubEffects(),
                                         (result, data) => {
                                             return new Promise((resolve, reject) => {
                                                 imageSrcToBase64(
                                                     resolve,
                                                     reject,
-                                                    getEmitterInstanceSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                    getRangedSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
                                                 )
                                             }).then((imageBase64) => {
                                                 return result.push({
@@ -201,15 +235,15 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                             })
                                         },
                                         api.immutable.createList()
-                                    ).then(newEmitterInstances => {
+                                    ).then(newRangedSubEffects => {
                                         return reducePromise(
-                                            getMeleeSubEffects(),
+                                            getEmitterSubEffects(),
                                             (result, data) => {
                                                 return new Promise((resolve, reject) => {
                                                     imageSrcToBase64(
                                                         resolve,
                                                         reject,
-                                                        getMeleeSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
+                                                        getEmitterSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
                                                     )
                                                 }).then((imageBase64) => {
                                                     return result.push({
@@ -219,65 +253,28 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                                 })
                                             },
                                             api.immutable.createList()
-                                        ).then(newMeleeSubEffects => {
-                                            return reducePromise(
-                                                getRangedSubEffects(),
-                                                (result, data) => {
-                                                    return new Promise((resolve, reject) => {
-                                                        imageSrcToBase64(
-                                                            resolve,
-                                                            reject,
-                                                            getRangedSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
-                                                        )
-                                                    }).then((imageBase64) => {
-                                                        return result.push({
-                                                            name: data,
-                                                            snapshotImageBase64: imageBase64,
-                                                        })
-                                                    })
-                                                },
-                                                api.immutable.createList()
-                                            ).then(newRangedSubEffects => {
-                                                return reducePromise(
-                                                    getEmitterSubEffects(),
-                                                    (result, data) => {
-                                                        return new Promise((resolve, reject) => {
-                                                            imageSrcToBase64(
-                                                                resolve,
-                                                                reject,
-                                                                getEmitterSubEffectSnapshotPath(_getPathPrefix("unit-action"), data)
-                                                            )
-                                                        }).then((imageBase64) => {
-                                                            return result.push({
-                                                                name: data,
-                                                                snapshotImageBase64: imageBase64,
-                                                            })
-                                                        })
-                                                    },
-                                                    api.immutable.createList()
-                                                ).then(newEmitterSubEffects => {
-                                                    meta3dState = api.action.setActionState(meta3dState, actionName, {
-                                                        ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                                                        allModelData: newAllModelData,
-                                                        allActionData: newAllActionData,
-                                                        allEmitterParticleImages: newEmitterParticleImages,
-                                                        allEmitterInstances: newEmitterInstances,
-                                                        allDamageEffects: newAllDamageEffectData,
-                                                        allFeatureData: newAllFeatureData,
-                                                        allPropData: newProps,
+                                        ).then(newEmitterSubEffects => {
+                                            meta3dState = api.action.setActionState(meta3dState, actionName, {
+                                                ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                                                allModelData: newAllModelData,
+                                                allActionData: newAllActionData,
+                                                allEmitterParticleImages: newEmitterParticleImages,
+                                                allEmitterInstances: newEmitterInstances,
+                                                allDamageEffects: newAllDamageEffectData,
+                                                allFeatureData: newAllFeatureData,
 
-                                                        allMeleeSubEffects: newMeleeSubEffects,
-                                                        allRangedSubEffects: newRangedSubEffects,
-                                                        allEmitterSubEffects: newEmitterSubEffects,
-                                                    })
-
-                                                    return meta3dState
-                                                })
+                                                allMeleeSubEffects: newMeleeSubEffects,
+                                                allRangedSubEffects: newRangedSubEffects,
+                                                allEmitterSubEffects: newEmitterSubEffects,
                                             })
+
+                                            return meta3dState
                                         })
                                     })
                                 })
                             })
+                        })
+
                     })
                 })
                     .then(meta3dState => {
@@ -328,7 +325,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allEmitterParticleImages: api.immutable.createList(),
                 allEmitterInstances: api.immutable.createList(),
                 allFeatureData: api.immutable.createList(),
-                allPropData: api.immutable.createList(),
+                allPropData: api.immutable.createListOfData(getAllPropData()),
 
                 selectedModelIndex: 0,
                 selectedSmallSkillObjectActionIndex: 0,

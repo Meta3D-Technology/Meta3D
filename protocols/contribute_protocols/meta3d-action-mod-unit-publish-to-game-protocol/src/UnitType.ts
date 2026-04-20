@@ -840,7 +840,8 @@ export enum propName {
 }
 
 export type propData = {
-    name: propName
+    name: propName,
+    maxCount: number,
 }
 
 export type props = Array<propData>

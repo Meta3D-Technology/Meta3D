@@ -2644,27 +2644,15 @@ TODO fix: update action/input script -> run: not work immediately!
 
   # disable css wrong
 
+  TODO perf: only dispatch twice
 
 
 TODO update prop: remove images
 
-
-# TODO update feature
-
-
-TODO update generate
+TODO 降低宝石最大值
 
 
-
-
-TODO update action quicktest
-
-
-TODO update action publish
-
-
-
-
+TODO update generate->add
 
 
 
@@ -2685,7 +2673,18 @@ e.g. DamageInterval, SpeedFactor only work for Charge
 TODO limit damageEffects,feature->level: 1-5 levels
 
 
-TODO 降低宝石最大值
+TODO update action quicktest
+
+
+TODO update action publish
+
+
+
+
+
+
+
+
 
 
 

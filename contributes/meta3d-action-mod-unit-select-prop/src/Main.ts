@@ -14,11 +14,13 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, uiData) => {
+                    let [index, _] = api.nullable.getExn(uiData)
+
                     let state = api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName))
 
-                    if (state.prop.length >= 5) {
-                        api.message.warn(getLanguageTextVariableData(api, meta3dState, state.languageTextDataByVariable, languageVariableKey.LimitMaxCount)(5))
+                    if (state.prop.length >= 3) {
+                        api.message.warn(getLanguageTextVariableData(api, meta3dState, state.languageTextDataByVariable, languageVariableKey.LimitMaxCount)(3))
 
                         return Promise.resolve(meta3dState)
                     }

@@ -68,6 +68,7 @@ export type emitterInstances = List<emitterInstanceData>
 
 export type propData = {
     name: propName,
+    maxCount: number,
     // snapshotImageBase64: string,
 }
 

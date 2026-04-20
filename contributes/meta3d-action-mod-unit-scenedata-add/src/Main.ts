@@ -8,6 +8,11 @@ import { countFactor } from "meta3d-action-mod-unit-publish-to-game-protocol/src
 import { getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
 import { languageVariableKey } from "meta3d-language-utils/src/Type"
 
+let _findNextDifficulty = (data) => {
+    let difficultyArr = data.map(d => d.difficulty)
+
+    return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].find(d => !difficultyArr.includes(d))
+}
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -30,8 +35,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         [fieldName]: [
                             ...state[fieldName],
                             {
-                                // difficulty: autoDifficulty.Middle,
-                                difficulty: autoDifficulty.VeryEasy,
+                                difficulty: _findNextDifficulty(state[fieldName]),
                                 weight: 0.1,
                                 countFactor: countFactor.Level5,
                             }

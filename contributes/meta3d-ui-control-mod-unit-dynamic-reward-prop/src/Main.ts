@@ -38,7 +38,9 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                     meta3dState = text(meta3dState, getLanguageTextData(api, meta3dState, initState.languageTextData, d.name))
 
                     let newCount
-                    [meta3dState, newCount] = inputInt1(meta3dState, `${label}_count_${i}`, d.count, 1, 1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Count), 1, +Infinity)
+                    // [meta3dState, newCount] = inputInt1(meta3dState, `${label}_count_${i}`, d.count, 1, 1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Count), 1, +Infinity)
+                    [meta3dState, newCount] = inputInt1(meta3dState, `${label}_count_${i}`, d.count, 1, 1, 100, getLanguageTextData(api, meta3dState, initState.languageTextData, languageKey.Count), 1, initState.allPropData.find(prop => prop.name === d.name).maxCount)
+
                     if (!api.nullable.isNullable(newCount)) {
                         isValueUpdate = true
                     }
