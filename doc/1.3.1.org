@@ -2635,10 +2635,21 @@ TODO update ui
 
 # TODO update xxxSubEffect: show images
 
+
+
+TODO fix: update action/input script -> run: not work immediately!
+  not equal
+
+  should to store
+
+  # disable css wrong
+
+
+
 TODO update prop: remove images
 
 
-TODO update feature
+# TODO update feature
 
 
 TODO update generate
@@ -2652,9 +2663,6 @@ TODO update action quicktest
 TODO update action publish
 
 
-
-
-TODO fix: update action/input script -> run: not work immediately!
 
 
 

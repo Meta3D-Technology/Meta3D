@@ -44,6 +44,7 @@ let _createState = () => {
   currentCustomInputName: None,
   currentCustomActionName: None,
   currentCode: EmptyCode,
+  currentCodeChangeCount: 0,
   // currentChangeCode: EmptyChangeCode,
   isInCreateFromScratchTourPhase2: false,
   // isJumpToCreateFromScratchTourPhase2Guide: false,
@@ -1416,6 +1417,14 @@ let reducer = (state, action) => {
   | SetCode(code) => {
       ...state,
       currentCode: code,
+    }
+  | AddCodeChangeCount => {
+      ...state,
+      currentCodeChangeCount: state.currentCodeChangeCount + 1,
+    }
+  | SubCodeChangeCount => {
+      ...state,
+      currentCodeChangeCount: state.currentCodeChangeCount - 1,
     }
   // | SetChangeCode(code) => {
   //   ...state,

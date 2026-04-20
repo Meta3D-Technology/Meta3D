@@ -178,6 +178,7 @@ module Method = {
       selectedUIControlInspectorData,
       customInputs,
       customActions,
+currentCodeChangeCount,
     } = elementAssembleState
 
     (
@@ -197,6 +198,7 @@ module Method = {
           selectedUIControlInspectorData,
           customInputs,
           customActions,
+currentCodeChangeCount,
         ),
       ),
       eventEmitter,
@@ -231,6 +233,7 @@ let make = (
         selectedUIControlInspectorData,
         customInputs,
         customActions,
+currentCodeChangeCount,
       ),
     ),
     eventEmitter,
@@ -251,6 +254,7 @@ let make = (
     | Some(elementContribute) =>
       <Button
         ref={runButtonTarget}
+        disabled={currentCodeChangeCount != 0}
         onClick={_ => {
           MessageUtils.showCatchedErrorMessage(() => {
             // handleWhenRunFunc()

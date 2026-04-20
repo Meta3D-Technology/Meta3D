@@ -5,6 +5,7 @@ open AssembleSpaceType
 module Method = {
   let onChange = (
     getNewCodeFunc,
+    dispatch,
     (
       tsProxyRef: React.ref<option<MonacoEditor.proxy>>,
       editorRef: React.ref<option<MonacoEditor.editor>>,
@@ -14,6 +15,13 @@ module Method = {
   ) => {
     // Js.log(newValue)
 
+
+CodeEditUtils.getChangeCountFromGlobal() == 0 ?
+    dispatch(ElementAssembleStoreType.AddCodeChangeCount) : ()
+
+    CodeEditUtils. setChangeCountFromGlobal(CodeEditUtils.getChangeCountFromGlobal() + 1)
+
+    // Js.Console.log("before finish")
     switch (tsProxyRef.current, editorRef.current) {
     | (Some(tsProxy), Some(editor)) =>
       let tsProxy = tsProxy->Obj.magic
@@ -23,10 +31,23 @@ module Method = {
         tsProxy["getEmitOutput"](editor["getModel"](.)["uri"]["toString"](.))
         ->Js.Promise.then_(
           r => {
+    CodeEditUtils. setChangeCountFromGlobal(CodeEditUtils.getChangeCountFromGlobal() - 1)
+
+CodeEditUtils.getChangeCountFromGlobal() == 0 ?
+    dispatch(ElementAssembleStoreType.SubCodeChangeCount) : ()
+
+
             getNewCodeFunc(newValue, r["outputFiles"][0]["text"])
 
             Js.Promise.resolve()
           },
+          // Js.Console.log("finish")
+
+          // CodeEditUtils. setBeginChangeCountFromGlobal(CodeEditUtils.getBeginChangeCountFromGlobal() - 1)
+          // getNewCodeFunc(newValue, r["outputFiles"][0]["text"])
+
+          // CodeEditUtils.setEndChangeCountFromGlobal(CodeEditUtils.getEndChangeCountFromGlobal() + 1)
+
           //   Js.log(r["outputFiles"])
 
           // Js.log(r["outputFiles"][0]["text"])
@@ -44,7 +65,37 @@ module Method = {
 
   let _wrapDTs = (dts, moduleName) => {
     j`declare module "${moduleName}"{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       ${dts}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }`
   }
 
@@ -109,6 +160,8 @@ module Method = {
 
 @react.component
 let make = (~service: service, ~code, ~getNewCodeFunc) => {
+  let dispatch = ReduxUtils.ElementAssemble.useDispatch(service.react.useDispatch)
+
   let eventEmitter = service.react.useAllSelector(. Method.useSelector)
 
   let tsProxy = service.react.useRef(None)
@@ -160,7 +213,7 @@ let make = (~service: service, ~code, ~getNewCodeFunc) => {
         language=#typescript
         theme=#"vs-dark"
         value={code}
-        onChange={Method.onChange(getNewCodeFunc, (tsProxy, editor))}
+        onChange={Method.onChange(getNewCodeFunc, dispatch, (tsProxy, editor))}
         editorDidMount={Method.editorDidMount((tsProxy, editor))}
         editorWillUnmount={Method.editorWillUnmount(eventEmitter)}
       />

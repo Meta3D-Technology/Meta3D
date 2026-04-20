@@ -22,6 +22,56 @@ globalThis.elementAssembleStore_currentCustomActionName = currentCustomActionNam
 }
 `)
 
+// let getBeginChangeCountFromGlobal: unit => int = %raw(`
+// function (){
+// let result = globalThis.elementAssembleStore_beginChangeCountFromGlobal 
+// if(result == undefined){
+//   return 0
+// }
+// return result
+// }
+// `)
+
+// let setBeginChangeCountFromGlobal = %raw(`
+// function (beginChangeCount){
+// globalThis.elementAssembleStore_beginChangeCountFromGlobal = beginChangeCount
+// }
+// `)
+
+// let getEndChangeCountFromGlobal: unit => int = %raw(`
+// function (){
+// let result = globalThis.elementAssembleStore_endChangeCountFromGlobal 
+// if(result == undefined){
+//   return 0
+// }
+// return result
+// }
+// `)
+
+// let setEndChangeCountFromGlobal = %raw(`
+// function (endChangeCount){
+// globalThis.elementAssembleStore_endChangeCountFromGlobal = endChangeCount
+// }
+// `)
+
+
+let getChangeCountFromGlobal: unit => int = %raw(`
+function (){
+let result = globalThis.elementAssembleStore_changeCountFromGlobal 
+if(result == undefined){
+  return 0
+}
+return result
+}
+`)
+
+let setChangeCountFromGlobal = %raw(`
+function (changeCount){
+globalThis.elementAssembleStore_changeCountFromGlobal = changeCount
+}
+`)
+
+
 let _convertCodeToUMD = code => {
   let _func = (code, replaceSource) => {
     code->Js.String.replace(
@@ -99,7 +149,8 @@ function (updateFunc){
 
       globalThis.elementAssembleStore_updateCustomFileStrTimer = false
     // }, 2000)
-    }, 100)
+    // }, 100)
+    }, 16)
   }
 }
 `)

@@ -216,6 +216,8 @@ type action =
   | UpdateCustomFileStr(unit => unit)
   // | SetCode(CommonType.customType, string)
   | SetCode(code)
+  | AddCodeChangeCount
+  | SubCodeChangeCount
   // | SetChangeCode(changeCode)
   | SelectCustomInput(CommonType.inputName)
   | SelectCustomAction(CommonType.actionName)
@@ -244,6 +246,7 @@ type state = {
   currentCustomInputName: option<CommonType.inputName>,
   currentCustomActionName: option<CommonType.actionName>,
   currentCode: code,
+  currentCodeChangeCount:int,
   // currentChangeCode: changeCode,
   isInCreateFromScratchTourPhase2: bool,
   // isJumpToCreateFromScratchTourPhase2Guide: bool,
