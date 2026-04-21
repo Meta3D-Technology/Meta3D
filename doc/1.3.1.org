@@ -2659,18 +2659,25 @@ TODO update generate->add
 
 
 TODO add behaviour ui
+  extract config data
+    TODO limit key
+    e.g. DamageInterval, SpeedFactor only work for Charge
+
+
+  new tab
+  [["模型","Model"],["技能","Skill"],["行为", "Behaviour"],["特性","Feature"],["奖励","Reward"],["生成","Generate"]]
+
+  popup
+
+  dynamic ui control for key, value
 
 
 
 
 
-TODO limit key
-e.g. DamageInterval, SpeedFactor only work for Charge
 
 
-
-# TODO limit damageEffects,feature->level: 1-10 levels
-TODO limit damageEffects,feature->level: 1-5 levels
+# TODO limit damageEffects,feature->level: 1-5 levels
 
 
 TODO update action quicktest
