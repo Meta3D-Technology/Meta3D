@@ -27,12 +27,12 @@ export let getAllModelData = () => {
             {
                 model: model.EliteGiantess8,
             },
-            {
-                model: model.EliteGiantess9,
-            },
-            {
-                model: model.EliteGiantess10,
-            },
+            // {
+            //     model: model.EliteGiantess9,
+            // },
+            // {
+            //     model: model.EliteGiantess10,
+            // },
         ]
     }
 }

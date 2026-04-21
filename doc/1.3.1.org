@@ -2680,7 +2680,22 @@ TODO add behaviour ui
 # TODO limit damageEffects,feature->level: 1-5 levels
 
 
+TODO fix: action attribute
+
 TODO update action quicktest
+  action wrong
+
+  damageType wrong
+
+  check: not check generate data
+
+
+  debug: ArmyUtils debugger not work
+
+  RoamAndWanderDistanceFactor not work?
+
+  # when far and move, not look at target
+  when lod2, not look at target
 
 
 TODO update action publish

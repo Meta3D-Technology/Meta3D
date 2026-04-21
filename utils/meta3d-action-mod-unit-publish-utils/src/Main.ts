@@ -1,10 +1,10 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 // import { language } from "meta3d-action-mod-unit-add-careerfeature-protocol"
-import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, meleeDamageEffectType, subEffect, skillType, emitterType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, skillType, emitterType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
-import { getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
+import { getActionData, getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
 // import { characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
 // import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 // import { languageKey } from "meta3d-language-utils/src/Type"
@@ -39,11 +39,10 @@ let _addGenerateData = (result, sceneChapter, l_sceneData, g_sceneData) => {
 
 let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNameCN, displayNameEN) => {
     let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
+    let state = api.action.getActionState<initState>(meta3dState, initActionName)
     let {
         allModelData,
         allActionData,
-        allSubEffects,
-        allEmitterTypes,
         allEmitterParticleImages,
         allEmitterInstances,
         // allFeatureData,
@@ -81,6 +80,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         s_volume,
 
         s_damageType,
+        s_damageEffects,
 
         s_force,
         s_armorPiercingForceRatio,
@@ -105,6 +105,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         b_volume,
 
         b_damageType,
+        b_damageEffects,
+
 
         b_force,
         b_armorPiercingForceRatio,
@@ -125,15 +127,16 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
 
 
+        behaviourData,
 
 
 
         features,
 
 
-        hasAttackCitySceneChapterGenerateData,
-        hasProtectCitySceneChapterGenerateData,
-        hasBossSceneChapterGenerateData,
+        // hasAttackCitySceneChapterGenerateData,
+        // hasProtectCitySceneChapterGenerateData,
+        // hasBossSceneChapterGenerateData,
 
         ac_l_sceneData,
         ac_g_sceneData,
@@ -151,7 +154,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         gem,
         coin,
         experienceValue,
-    } = api.action.getActionState<initState>(meta3dState, initActionName)
+    } = state
 
 
     let model = api.nullable.getExn(allModelData.get(category_))[api.nullable.getExn(selectedModelIndex)].model
@@ -199,7 +202,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
         skillObj[skillObject.Small] = {
             action: {
-                name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedSmallSkillObjectActionIndex)],
+                // name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedSmallSkillObjectActionIndex)],
+                name: getActionData(api, state, "selectedSmallSkillObjectActionIndex", category_)[0],
                 value: {
                     emitSpeed: s_emitSpeed,
 
@@ -216,6 +220,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
                         critRatio: s_critRatio,
                     },
+                    damageEffects: s_damageEffects
                 },
                 subEffects: s_hit_subEffects
             },
@@ -251,7 +256,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
         skillObj[skillObject.Big] = {
             action: {
-                name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedBigSkillObjectActionIndex)],
+                // name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedBigSkillObjectActionIndex)],
+                name: getActionData(api, state, "selectedBigSkillObjectActionIndex", category_)[0],
                 value: {
                     emitSpeed: b_emitSpeed,
 
@@ -268,6 +274,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
                         critRatio: b_critRatio,
                     },
+                    damageEffects: b_damageEffects
                 },
                 subEffects: b_hit_subEffects
             },
@@ -342,6 +349,9 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         getFeatureData: () => {
             return ${JSON.stringify(features)}
         },
+        getBehaviourData: () =>{
+            return ${JSON.stringify(behaviourData)}
+        }
     };
         }
     };
@@ -369,18 +379,21 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
         selectedBigSkillObjectEmitterParticleImageIndex,
         selectedBigSkillObjectEmitterInstanceIndex,
 
-    }: initState) => {
+    }: initState, isForQuicktest) => {
     let message = api.nullable.getEmpty<string>()
+
+    if (!isForQuicktest) {
+        if (
+            !hasAttackCitySceneChapterGenerateData &&
+            !hasProtectCitySceneChapterGenerateData &&
+            !hasBossSceneChapterGenerateData
+        ) {
+            message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAtLeastOneGenerateData))
+        }
+    }
 
     if (!hasSmallSkillObject || !hasBigSkillObject) {
         message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAllSkillObject))
-    }
-    else if (
-        !hasAttackCitySceneChapterGenerateData &&
-        !hasProtectCitySceneChapterGenerateData &&
-        !hasBossSceneChapterGenerateData
-    ) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAtLeastOneGenerateData))
     }
     else if (getSkillType(api, meta3dState, "selectedSmallSkillObjectActionIndex") == skillType.Ranged
         && (

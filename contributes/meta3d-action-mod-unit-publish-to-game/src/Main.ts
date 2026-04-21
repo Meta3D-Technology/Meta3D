@@ -47,7 +47,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     console.log("publish mod")
 
                     if (_checkPublishData(api, meta3dState, api.action.getActionState<initState>(meta3dState, initActionName), isChinese(api, meta3dState))
-                        || checkModData(api, [getLanguageTextData, languageKey], meta3dState, api.action.getActionState<initState>(meta3dState, initActionName))
+                        || checkModData(api, [getLanguageTextData, languageKey], meta3dState, api.action.getActionState<initState>(meta3dState, initActionName), false)
                     ) {
                         return Promise.resolve(meta3dState)
                     }

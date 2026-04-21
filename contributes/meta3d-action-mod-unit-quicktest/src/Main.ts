@@ -16,7 +16,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    if (checkModData(api, [getLanguageTextData, languageKey], meta3dState, api.action.getActionState<initState>(meta3dState, initActionName))
+                    if (checkModData(api, [getLanguageTextData, languageKey], meta3dState, api.action.getActionState<initState>(meta3dState, initActionName), true)
                     ) {
                         return Promise.resolve(meta3dState)
                     }

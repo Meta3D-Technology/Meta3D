@@ -3,7 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-set-damagetype-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-set-damagetype-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
-import { getDamageEffects } from "meta3d-action-mod-unit-skill-utils/src/Main"
+import { getDamageTypes } from "meta3d-action-mod-unit-skill-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -14,7 +14,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index: number, [damageTypeFieldName]) => {
                     let state = api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName))
-                    let data = getDamageEffects(api, meta3dState)
+                    let data = getDamageTypes(api, meta3dState)
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,
