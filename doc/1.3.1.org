@@ -2749,14 +2749,16 @@ handle tabs
 TODO finish flow
 
 
+TODO refactor
+
 
 TODO handle language
 
 
 
 
-* TODO 自动翻译
-翻译displayName、description
+# * TODO 自动翻译
+# 翻译displayName、description
 
 
 

@@ -44,6 +44,35 @@ module Method = {
       selectedUIControlInspectorData,
     )
 
+    let items = HierachyUtils.reduceAllSelectedUIControlData(
+      [],
+      (result, data: ElementAssembleStoreType.uiControlInspectorData) => {
+        switch data.specific->Meta3dCommonlib.ArraySt.find(s => {
+          s.name == "items"
+        }) {
+        | Some(s) =>
+          result->Meta3dCommonlib.ArraySt.push(
+            s.value->SpecificUtils.getSpecificDataValue->Obj.magic,
+          )
+        | None => result
+        }
+      },
+      (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+      selectedUIControlInspectorData,
+    )
+
+    let inputParams = HierachyUtils.reduceAllSelectedUIControlData(
+      [],
+      (result, data: ElementAssembleStoreType.uiControlInspectorData) => {
+        switch data.input {
+        | Some(i) => result->Meta3dCommonlib.ArraySt.push(i.inputParams)
+        | None => result
+        }
+      },
+      (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+      selectedUIControlInspectorData,
+    )
+
     // let inputParams =
     //   selectedUIControlInspectorData
     //   ->Meta3dCommonlib.ListSt.filter(d => {
@@ -65,6 +94,9 @@ module Method = {
     //   })
 
     Meta3dCommonlib.Log.log(labels)
+    Meta3dCommonlib.Log.log(items)
+
+    Meta3dCommonlib.Log.log(inputParams)
 
     let translatedLabels = [
       "Menu Bar",
@@ -257,6 +289,180 @@ module Method = {
       "Publish Modal",
       "Info Modal",
     ]
+    let translatedItems = Js.Json.parseExn(`[
+
+  [
+
+    ["Publish", { "Publish to Game": "UnitModShowPublishModal" }],
+
+    ["Test", { "Quick Test": "UnitModQuickTest", "Enter Game (Debug Mode)": "ModJumpToGameDebug", "Enter Game": "ModJumpToGame" }]
+
+  ],
+
+  [
+
+    ["Model", "Model"],
+
+    ["Skill", "Skill"],
+
+    ["Behaviour", "Behaviour"],
+
+    ["Feature", "Feature"],
+
+    ["Reward", "Reward"],
+
+    ["Generate", "Generate"]
+
+  ]
+
+]`)
+    let translatedInputParams = Js.Json.parseExn(`[
+  ["UnitModInit", "currentTabKey", "Model"],
+  null,
+  [],
+  [],
+  ["UnitModInit", "isShowModelModal"],
+  null,
+  ["UnitModInit", "isShowUnitValueModal"],
+  ["UnitModInit", "excitement"],
+  ["UnitModInit", "defenseFactor"],
+  ["UnitModInit", "armorRatio"],
+  ["UnitModInit", "armorStrength"],
+  ["UnitModInit", "attackFactor"],
+  ["UnitModInit", "emitSpeedFactor", "2.6"],
+  ["UnitModInit", "critRatioFactor"],
+  ["UnitModInit", "hp"],
+  ["UnitModInit", "moveSpeed"],
+  ["UnitModInit", "emitPrecision", "0.2"],
+  ["UnitModInit", "scale"],
+  ["UnitModInit", "currentTabKey", "Skill"],
+  [],
+  ["UnitModInit", "hasSmallSkillObject"],
+  ["Action"],
+  ["selectedSmallSkillObjectActionIndex"],
+  ["selectedSmallSkillObjectActionIndex"],
+  ["UnitModInit", "isShowSmallSkillModal"],
+  ["isShowSmallSkillModal"],
+  [],
+  ["UnitModInit", "isShowSmallSkillObjectActionValueModal"],
+  ["UnitModInit", "s_emitSpeed", "560"],
+  ["UnitModInit", "s_volume"],
+  ["Damage"],
+  [],
+  ["UnitModInit", "isShowSmallSkillObjectDamageEffectModal"],
+  ["s_damageEffects", "selectedSmallSkillObjectActionIndex"],
+  ["s_damageEffects"],
+  ["UnitModInit", "isShowSmallSkillObjectDamageValueModal"],
+  ["UnitModInit", "s_force"],
+  ["UnitModInit", "s_armorPiercingForceRatio"],
+  ["UnitModInit", "s_critRatio"],
+  ["UnitModInit", "isShowSmallSkillObjectSubEffectModal"],
+  ["selectedSmallSkillObjectActionIndex", "s_hit_subEffects"],
+  ["s_hit_subEffects"],
+  ["selectedSmallSkillObjectActionIndex"],
+  [],
+  ["s_emitterType"],
+  ["UnitModInit", "isShowSmallSkillObjectEmitterParticleImageModal"],
+  ["allEmitterParticleImages", "false"],
+  ["allEmitterParticleImages", "selectedSmallSkillObjectEmitterParticleImageIndex"],
+  ["allEmitterParticleImages", "selectedSmallSkillObjectEmitterParticleImageIndex", "false"],
+  ["s_emitterType"],
+  ["UnitModInit", "isShowSmallSkillObjectEmitterInstanceModal"],
+  ["allEmitterInstances", "true"],
+  ["allEmitterInstances", "selectedSmallSkillObjectEmitterInstanceIndex"],
+  ["allEmitterInstances", "selectedSmallSkillObjectEmitterInstanceIndex", "true"],
+  ["UnitModInit", "isShowSmallSkillObjectEmitterValueModal"],
+  ["UnitModInit", "s_emitterSpeed"],
+  ["UnitModInit", "s_emitterLife"],
+  ["UnitModInit", "s_emitterSize"],
+  ["UnitModInit", "s_emitterCollisionSize"],
+  ["UnitModInit", "s_explodeRange"],
+  ["UnitModInit", "isShowSmallSkillObjectEmitterSubEffectModal"],
+  ["selectedSmallSkillObjectActionIndex", "s_emitter_subEffects"],
+  ["s_emitter_subEffects"],
+  ["UnitModInit", "hasBigSkillObject"],
+  ["Action"],
+  ["selectedBigSkillObjectActionIndex"],
+  ["selectedBigSkillObjectActionIndex"],
+  ["UnitModInit", "isShowBigSkillModal"],
+  ["isShowBigSkillModal"],
+  [],
+  ["UnitModInit", "isShowBigSkillObjectActionValueModal"],
+  ["UnitModInit", "b_emitSpeed", "560"],
+  ["UnitModInit", "b_volume"],
+  ["Damage"],
+  [],
+  ["UnitModInit", "isShowBigSkillObjectDamageEffectModal"],
+  ["b_damageEffects", "selectedBigSkillObjectActionIndex"],
+  ["b_damageEffects"],
+  ["UnitModInit", "isShowBigSkillObjectDamageValueModal"],
+  ["UnitModInit", "b_force"],
+  ["UnitModInit", "b_armorPiercingForceRatio"],
+  ["UnitModInit", "b_critRatio"],
+  ["UnitModInit", "isShowBigSkillObjectSubEffectModal"],
+  ["selectedBigSkillObjectActionIndex", "b_hit_subEffects"],
+  ["b_hit_subEffects"],
+  ["selectedBigSkillObjectActionIndex"],
+  [],
+  ["b_emitterType"],
+  ["UnitModInit", "isShowBigSkillObjectEmitterParticleImageModal"],
+  ["allEmitterParticleImages", "false"],
+  ["allEmitterParticleImages", "selectedBigSkillObjectEmitterParticleImageIndex"],
+  ["allEmitterParticleImages", "selectedBigSkillObjectEmitterParticleImageIndex", "false"],
+  ["b_emitterType"],
+  ["UnitModInit", "isShowBigSkillObjectEmitterInstanceModal"],
+  ["allEmitterInstances", "true"],
+  ["allEmitterInstances", "selectedBigSkillObjectEmitterInstanceIndex"],
+  ["allEmitterInstances", "selectedBigSkillObjectEmitterInstanceIndex", "true"],
+  ["UnitModInit", "isShowBigSkillObjectEmitterValueModal"],
+  ["UnitModInit", "b_emitterSpeed"],
+  ["UnitModInit", "b_emitterLife"],
+  ["UnitModInit", "b_emitterSize"],
+  ["UnitModInit", "b_emitterCollisionSize"],
+  ["UnitModInit", "b_explodeRange"],
+  ["UnitModInit", "isShowBigSkillObjectEmitterSubEffectModal"],
+  ["selectedBigSkillObjectActionIndex", "b_emitter_subEffects"],
+  ["b_emitter_subEffects"],
+  ["UnitModInit", "currentTabKey", "Behaviour"],
+  ["behaviourMode"],
+  ["behaviourMode"],
+  ["idleMode"],
+  ["idleMode"],
+  ["nearAttackTargetMode"],
+  ["nearAttackTargetMode"],
+  ["attackMode"],
+  ["remoteAttackMode"],
+  ["UnitModInit", "currentTabKey", "Feature"],
+  ["UnitModInit", "isShowFeatureModal"],
+  [],
+  [],
+  ["UnitModInit", "currentTabKey", "Reward"],
+  ["UnitModInit", "gem"],
+  ["UnitModInit", "coin"],
+  ["UnitModInit", "experienceValue"],
+  ["UnitModInit", "isShowPropModal"],
+  [],
+  [],
+  ["UnitModInit", "currentTabKey", "Generate"],
+  [],
+  ["UnitModInit", "hasAttackCitySceneChapterGenerateData"],
+  ["For Small Units"],
+  ["ac_l_sceneData"],
+  ["For Giantess Units"],
+  ["ac_g_sceneData"],
+  ["UnitModInit", "hasProtectCitySceneChapterGenerateData"],
+  ["For Small Units"],
+  ["pc_l_sceneData"],
+  ["For Giantess Units"],
+  ["pc_g_sceneData"],
+  ["UnitModInit", "hasBossSceneChapterGenerateData"],
+  ["For Small Units"],
+  ["bo_l_sceneData"],
+  ["For Giantess Units"],
+  ["bo_g_sceneData"],
+  [],
+  []
+]`)
 
     let index = ref(0)
 
@@ -271,8 +477,7 @@ module Method = {
                     ...s,
                     value: SpecificUtils.convertStringToValue(
                       translatedLabels[index.contents] ++
-                      "##"
-                      ++
+                      "##" ++
                       (
                         s.value
                         ->SpecificUtils.getSpecificDataValue
@@ -288,6 +493,69 @@ module Method = {
                   newS
                 }
               : s
+          }),
+        }
+      },
+      (
+        (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+        (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+          ...data,
+          children,
+        },
+      ),
+      selectedUIControlInspectorData,
+    )
+
+    let index = ref(0)
+
+    let selectedUIControlInspectorData = HierachyUtils.mapAllSelectedUIControlData(
+      (data: ElementAssembleStoreType.uiControlInspectorData) => {
+        {
+          ...data,
+          specific: data.specific->Meta3dCommonlib.ArraySt.map(s => {
+            s.name == "items"
+              ? {
+                  let newS = {
+                    ...s,
+                    value: SpecificUtils.convertStringToValue(
+                      (translatedItems->Obj.magic)[index.contents],
+                      #string,
+                    )->CommonType.SpecicFieldDataValue,
+                  }
+
+                  index := index.contents + 1
+
+                  newS
+                }
+              : s
+          }),
+        }
+      },
+      (
+        (data: ElementAssembleStoreType.uiControlInspectorData) => data.children,
+        (data: ElementAssembleStoreType.uiControlInspectorData, children) => {
+          ...data,
+          children,
+        },
+      ),
+      selectedUIControlInspectorData,
+    )
+
+    let index = ref(0)
+
+    let selectedUIControlInspectorData = HierachyUtils.mapAllSelectedUIControlData(
+      (data: ElementAssembleStoreType.uiControlInspectorData) => {
+        {
+          ...data,
+          input: data.input->Meta3dCommonlib.OptionSt.map(i => {
+            let newInput = {
+              ...i,
+              inputParams: (translatedInputParams->Obj.magic)[index.contents],
+            }
+
+            index := index.contents + 1
+
+            newInput
           }),
         }
       },
@@ -331,7 +599,7 @@ let make = (~service: service) => {
   //   // ~selectedExtensionsFromMarket: selectedExtensionsFromMarket,
   //   ~selectedContributesFromMarket: selectedContributesFromMarket,
 
-//   let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
+  //   let dispatch = ReduxUtils.ApAssemble.useDispatch(service.react.useDispatch)
   let dispatchForElementAssembleStore = ReduxUtils.ElementAssemble.useDispatch(
     ReactUtils.useDispatchForAssembleSpaceStore,
   )
