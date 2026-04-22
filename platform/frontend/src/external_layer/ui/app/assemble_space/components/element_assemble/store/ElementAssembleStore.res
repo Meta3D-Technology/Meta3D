@@ -1492,6 +1492,10 @@ let reducer = (state, action) => {
         }
       })
     }
+  | UpdateSelectedUIControlInspectorData(selectedUIControlInspectorData) => {
+      ...state,
+      selectedUIControlInspectorData,
+    }
   }
 }
 

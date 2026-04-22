@@ -41,6 +41,9 @@ let make = (
           selectedContributesFromMarket
           selectedPackagesFromMarket
         />
+        <ApTranslate
+          service
+        />
       </Space>
     </Layout.Content>
     <Layout>

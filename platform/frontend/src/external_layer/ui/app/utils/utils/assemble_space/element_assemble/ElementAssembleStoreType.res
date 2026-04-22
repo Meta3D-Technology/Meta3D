@@ -227,6 +227,7 @@ type action =
   // | EndJumpToCreateFromScratchTourPhase2Guide
   // | UpdateSelectedUIControls(AssembleSpaceType.service, ApAssembleStoreType.selectedContributes)
   | UpdateSelectedUIControls(string => specific, ApAssembleStoreType.selectedContributes)
+  | UpdateSelectedUIControlInspectorData(selectedUIControlInspectorData)
 
 type state = {
   canvasData: canvasData,

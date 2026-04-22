@@ -2720,7 +2720,7 @@ TODO update action publish
 增加一个按钮：翻译为英文，则会自动翻译ui control's label
 
 flow:
-1. 发布中文编辑器为英文编辑器（复制）
+# 1. 发布中文编辑器为英文编辑器（复制）
 2. 点击翻译为英文按钮
 3. 获得提取的所有label
 以,分隔
@@ -2729,6 +2729,28 @@ flow:
 6. 更新为翻译后的英文编辑器
 
 
+TODO demo:
+extract all label
+
+replace all label
+
+run test:
+  check all label should be english
+
+
+handle input params
+
+handle tabs
+  menu->items
+  tab->tab
+
+
+
+TODO finish flow
+
+
+
+TODO handle language
 
 
 
