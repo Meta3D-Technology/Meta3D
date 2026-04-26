@@ -14,11 +14,19 @@ module.exports = {
         filename: 'static/js/[name].js',
     },
 
+    // 持久化缓存（大幅提升二次构建速度）
+    cache: {
+        type: 'filesystem',
+        buildDependencies: {
+            config: [__filename],
+        },
+    },
 
     resolve: {
         // extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
         extensions: ['.js', '.jsx', '.css'],
         symlinks: false,
+        modules: [path.resolve(__dirname, 'node_modules')], // 绝对路径提升解析速度
         modules: ['node_modules'],
         fallback: { "crypto": false }
 
@@ -125,6 +133,29 @@ module.exports = {
             // languages: ['']
         }),
     ],
+
+
+    // 生产环境优化：代码分割、压缩
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            cacheGroups: {
+                monaco: {
+                    test: /[\\/]node_modules[\\/]monaco-editor[\\/]/,
+                    name: 'monaco',
+                    chunks: 'all',
+                },
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                    priority: -10,
+                },
+            },
+        },
+        minimize: true,
+    },
+
     // // When importing a module whose path matches one of the following, just
     // // assume a corresponding global variable exists and use that instead.
     // // This is important because it allows us to avoid bundling all of our
