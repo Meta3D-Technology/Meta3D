@@ -85,3 +85,11 @@ export let updateHostFiles = (env: env): Promise<void> => {
 
     return Host.updateHostFiles(funcArr).drain()
 }
+
+export let getCloudStaticPath = () => {
+    return 'static/'
+}
+
+export let getCloudUnitModPath = () => {
+    return 'unit-mod/'
+}

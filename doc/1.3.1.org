@@ -2712,7 +2712,7 @@ TODO update action publish
 
 
 
-* TODO 编辑器自动翻译
+* DONE 编辑器自动翻译
 # 不需要手动复制一个英文版的编辑器了！
 不需要手动翻译了！
 
@@ -2768,6 +2768,8 @@ TODO run test
 
 
 
+* TODO update publish task
+TODO need delete first
 
 
 

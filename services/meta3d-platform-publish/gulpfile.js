@@ -93,6 +93,35 @@ gulp.task("update_versionconfig", function (done) {
     done()
 })
 
+gulp.task("delete_platform_code", function (done) {
+    console.log("清除平台代码...")
+
+    process.exec(`cloudbase hosting:delete -d ${publish.getCloudStaticPath()} -e meta3d-local-9gacdhjl439cff76`,
+        {
+            cwd: _getRootCwd(),
+            maxBuffer: 1024 * 5000
+        },
+        (error, stdout, stderr) => {
+            if (!error) {
+                process.exec(`cloudbase hosting:delete -d ${publish.getCloudUnitModPath()} -e meta3d-local-9gacdhjl439cff76`,
+                    {
+                        cwd: _getRootCwd(),
+                        maxBuffer: 1024 * 5000
+                    },
+                    (error, stdout, stderr) => {
+                        if (!error) {
+                            done()
+                        } else {
+                            throw error
+                        }
+                    })
+            } else {
+                throw error
+            }
+        })
+
+})
+
 gulp.task("update_platform_code", function (done) {
     console.log("打包平台...")
 
@@ -280,6 +309,7 @@ gulp.task("publish_platform", gulp.series(
     "set_env_to_pro",
     "bundle_dts",
     "commit",
+    "delete_platform_code",
     "update_platform_code",
     function (done) {
         done()

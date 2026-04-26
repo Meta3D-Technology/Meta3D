@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateHostFiles = exports.upgradeBackend = void 0;
+exports.getCloudUnitModPath = exports.getCloudStaticPath = exports.updateHostFiles = exports.upgradeBackend = void 0;
 const CloudbaseService = __importStar(require("meta3d-tool-utils/src/publish/CloudbaseService"));
 const CloudbaseHostService = __importStar(require("./cloudbase-host/CloudbaseHostService"));
 const Host = __importStar(require("./cloudbase-host/Host"));
@@ -110,4 +110,12 @@ let updateHostFiles = (env) => {
     return Host.updateHostFiles(funcArr).drain();
 };
 exports.updateHostFiles = updateHostFiles;
+let getCloudStaticPath = () => {
+    return 'static/';
+};
+exports.getCloudStaticPath = getCloudStaticPath;
+let getCloudUnitModPath = () => {
+    return 'unit-mod/';
+};
+exports.getCloudUnitModPath = getCloudUnitModPath;
 //# sourceMappingURL=Main.js.map
