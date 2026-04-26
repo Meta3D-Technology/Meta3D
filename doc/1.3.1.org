@@ -2768,7 +2768,7 @@ TODO run test
 
 
 
-* TODO update publish task
+* DONE update publish task
 TODO need delete first
 
 
