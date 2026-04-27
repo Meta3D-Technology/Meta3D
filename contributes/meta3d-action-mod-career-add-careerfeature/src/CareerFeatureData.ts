@@ -1,4 +1,5 @@
-import { language, careerFeature, characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { careerFeature, characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
+import { language } from "meta3d-language-utils/src/Type"
 // import { convertDecimalToPercent } from "./NumberUtils"
 
 export enum careerFeatureName {
@@ -22,7 +23,7 @@ export enum careerFeatureName {
     IncreaseTradeVariety = "IncreaseTradeVariety",
     IncreaseUpgradeWeaponCost = "IncreaseUpgradeWeaponCost",
     EnhenceByFreeUB = "EnhenceByFreeUB",
-    EnhenceByFreeShoe = "EnhenceByFreeShoe",
+    EnhenceByPickupShoe = "EnhenceByPickupShoe",
     IncreaseUBCapacity = "IncreaseUBCapacity",
     IncreaseTrigoneAndButtDamage = "IncreaseTrigoneAndButtDamage",
     EnhenceByCarry = "EnhenceByCarry",
@@ -116,7 +117,7 @@ export let getTextDataByVariable = () => {
             [careerFeatureName.IncreaseTradeVariety]: (value) => `商店物品种类增加${value}%`,
             [careerFeatureName.IncreaseUpgradeWeaponCost]: (value) => `升级武器需要的金币增加${value}%`,
             [careerFeatureName.EnhenceByFreeUB]: (value) => `从阴道释放的单位会增强${value}级`,
-            [careerFeatureName.EnhenceByFreeShoe]: (value) => `从鞋释放的单位会增加最大生命值${value}%`,
+            [careerFeatureName.EnhenceByPickupShoe]: (value) => `从鞋释放的单位会增加最大生命值${value}%`,
             [careerFeatureName.IncreaseUBCapacity]: (value) => `增加UB容量${value}%`,
             [careerFeatureName.IncreaseTrigoneAndButtDamage]: (value) => `阴部所受伤害增加${value}%`,
             [careerFeatureName.EnhenceByCarry]: (value) => `携带单位带来${value}级动作速度、兴奋速度加成`,
@@ -207,7 +208,7 @@ export let getTextDataByVariable = () => {
             [careerFeatureName.IncreaseTradeVariety]: (value) => `The variety of items in the trade has increased by ${value}%`,
             [careerFeatureName.IncreaseUpgradeWeaponCost]: (value) => `The cost of coin for upgrade weapon increased by ${value}%`,
             [careerFeatureName.EnhenceByFreeUB]: (value) => `Units released from the vagina will be enhenced ${value} level`,
-            [careerFeatureName.EnhenceByFreeShoe]: (value) => `Units released from the shoe will be increase maximum health ${value}%`,
+            [careerFeatureName.EnhenceByPickupShoe]: (value) => `Units released from the shoe will be increase maximum health ${value}%`,
             [careerFeatureName.IncreaseUBCapacity]: (value) => `Increase UB capacity ${value}%`,
             [careerFeatureName.IncreaseTrigoneAndButtDamage]: (value) => `Injury to the genital area increases by ${value}%`,
             [careerFeatureName.EnhenceByCarry]: (value) => `Unit carried brings a level ${value} action speed, excitement speed bonus`,
@@ -340,7 +341,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.ReduceDamage,
-            positive: true,
+            positive: false,
             characterType: characterType.GiantessOrLittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -456,7 +457,7 @@ export let getData = (api): Array<careerFeature> => {
             }
         },
         {
-            name: careerFeatureName.EnhenceByFreeShoe,
+            name: careerFeatureName.EnhenceByPickupShoe,
             positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
@@ -959,7 +960,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AbsorbFriendUnitDamaged,
-            positive: true,
+            positive: false,
             characterType: characterType.LittleMan,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {
@@ -968,7 +969,7 @@ export let getData = (api): Array<careerFeature> => {
         },
         {
             name: careerFeatureName.AbsorbFriendUnitDamaged,
-            positive: true,
+            positive: false,
             characterType: characterType.Giantess,
             valueCount: 1,
             getDescriptionFunc: (language, name, v1) => {

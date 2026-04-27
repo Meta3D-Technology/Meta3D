@@ -2773,6 +2773,29 @@ TODO need delete first
 
 
 
+* DONE fix
+
+TODO fix editor bug:
+点针对大型，选择伤害效果触发
+
+* DONE publish unit editor
+
+* DONE fix
+
+TODO fix career editor:
+EnhanceByFreeShoe doesn't work I can select it when creating a mod but then it doesn't show up in the mod.
+
+ReduceDamage is also listed as a positive career feature even though it reduces the damage you do.
+
+
+As a side note the Absorb skill is put to Positive category when creating Mod Careers, but in the normal Career windows it is "red" and put to the negative category. For which category was it planned?
+
+
+
+* DONE publish career editor
+
+
+
 
 * TODO run element: not error alert while already show error message
 
