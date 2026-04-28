@@ -3,10 +3,10 @@ import { feature } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Uni
 export let getAllFeatureData = () => {
     return {
         [feature.DamageBigger]: {
-            maxLevel: 1
+            maxLevel: 3
         },
         [feature.PassiveBigger]: {
-            maxLevel: 1
+            maxLevel: 3
         },
         [feature.PoisonSingle]: {
             maxLevel: 3
