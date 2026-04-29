@@ -2796,6 +2796,15 @@ As a side note the Absorb skill is put to Positive category when creating Mod Ca
 
 
 
+* DONE update
+scale: use height instead
+  add "M"
+
+  limit min, max value
+
+
+
+
 
 * TODO run element: not error alert while already show error message
 
