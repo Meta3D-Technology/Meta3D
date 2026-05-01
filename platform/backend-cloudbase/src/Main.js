@@ -335,6 +335,7 @@ let _readAllAssets = (assetFileData, protocolName, blockName) => {
                 fileJson.soundPaths.push(filePath);
                 break;
             case ".glb":
+            case ".fbx":
                 glbFiles.push(fileContent);
                 fileJson.glbPaths.push(filePath);
                 break;

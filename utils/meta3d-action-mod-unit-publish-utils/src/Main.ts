@@ -4,6 +4,7 @@ import { action, armorRatio, armorStrength, armorType, attackFactor, category, c
 import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
+import { actionName as uploadModelFileActionName, state as uploadModelFileState } from "meta3d-action-mod-unit-upload-model-file-protocol"
 import { getActionData, getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
 // import { characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
 // import { getLanguageTextData } from "meta3d-language-utils/src/Main"
@@ -430,6 +431,16 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
     )
 }
 
+let _getAssetFiles = (api: api, meta3dState: meta3dState, name) => {
+    return api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName).files.reduce((result, [fbxName, fbxData], key) => {
+        result.push([
+            `./${name}_model_${key}.fbx`,
+            new Uint8Array(fbxData)
+        ])
+        return result
+    }, [])
+}
+
 export let publish = (api: api, meta3dState: meta3dState, name, author, displayNameCN, displayNameEN, description, isPublic, modIconBase64: string) => {
     // return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
     api.writeState(meta3dState)
@@ -455,14 +466,7 @@ export let publish = (api: api, meta3dState: meta3dState, name, author, displayN
             `${description}`,
             // _buildDistFileContent(api, state, characterType_, features, isChinese),
             _buildDistFileContent(api, meta3dState, name, displayNameCN, displayNameEN),
-            [
-                // [
-                //     // `./${_buildIconId(state, isChinese)}.png`,
-                //     // uint8Array
-                //     "",
-                //     new Uint8Array()
-                // ],
-            ],
+            _getAssetFiles(api, meta3dState, name),
             modIconBase64,
             // characterType.GiantessOrLittleMan
             2

@@ -530,6 +530,7 @@ let _readAllAssets = (
                 fileJson.soundPaths.push(filePath)
                 break
             case ".glb":
+            case ".fbx":
                 glbFiles.push(fileContent)
 
                 fileJson.glbPaths.push(filePath)
