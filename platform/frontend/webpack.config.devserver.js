@@ -40,13 +40,13 @@ module.exports = {
     //     // 如果使用 memory 不需要 buildDependencies
     // },
 
-    // 1. 启用持久化缓存（webpack 5）
-    cache: {
-        type: 'filesystem',
-        buildDependencies: {
-            config: [__filename], // 配置变更时缓存失效
-        },
-    },
+    // // 1. 启用持久化缓存（webpack 5）
+    // cache: {
+    //     type: 'filesystem',
+    //     buildDependencies: {
+    //         config: [__filename], // 配置变更时缓存失效
+    //     },
+    // },
 
 
     // 确保 watchOptions 拼写正确
@@ -112,7 +112,7 @@ module.exports = {
         }),
     ],
 
-    // 5. 优化分块策略（减少重复打包）
+    // // 5. 优化分块策略（减少重复打包）
     optimization: {
         splitChunks: {
             chunks: 'all',
