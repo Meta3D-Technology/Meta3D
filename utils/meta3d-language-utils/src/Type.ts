@@ -44,6 +44,7 @@ export enum languageKey {
 
 export enum languageVariableKey {
     LimitMaxCount,
+    LimitFileSize,
 }
 
 export type languageTextData = Record<language, Record<any, string>>

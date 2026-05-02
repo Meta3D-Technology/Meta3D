@@ -279,9 +279,11 @@ export let getTextDataByVariable = (): languageTextDataByVariable => {
     return {
         [language.Chinese]: {
             [languageVariableKey.LimitMaxCount]: (value: number) => `最多选择${value}个`,
+            [languageVariableKey.LimitFileSize]: (value: number) => `文件大小超过了${value}MB`,
         },
         [language.English]: {
             [languageVariableKey.LimitMaxCount]: (value: number) => `Can select ${value} at most`,
+            [languageVariableKey.LimitFileSize]: (value: number) => `File size exceeds ${value}MB`,
         },
     }
 }

@@ -2807,7 +2807,7 @@ scale: use height instead
 * TODO upload model
 
 
-** TODO support 上传的模型
+** DONE support 上传的模型
 
 
 TODO lod1
@@ -2830,49 +2830,74 @@ TODO lod1
   TODO run test
     publish
 
-    quick test
+    # quick test
 
 
 
-TODO lod2
+# TODO lod2
 
 
 
-** TODO 对上传的模型进行优化
+** DONE 对上传的模型进行优化
 
 https://chat.deepseek.com/a/chat/s/c595dcca-924f-4f3c-bdfd-84cc44e7ea46
 
 
-TODO 压缩纹理
+# TODO 压缩纹理
 
 # TODO 降低分辨率
 
 # TODO 要检查面数等
-TODO file size:
+TODO check file size:
 lod1: <=3MB
 lod2: <=1.5MB
 
+** DONE show success message when upload success
+
+** DONE show fail message when upload fail
+
 
 ** TODO upload snapshot for statics
+
+** TODO if upload model, set selectedModel to None
+
+** TODO if select model to not None, clear upload model data
+
+** TODO play: update _loadSceneResourceHandler
 
 
 ** TODO update 文字、图片: hidden
 
 ** TODO show fbx name after upload button instead
 
-** TODO show success message when upload success
-
 
 ** TODO update editor
 
 
-** TODO refactor: add fbxPaths?
+# ** TODO refactor: add fbxPaths?
 
+
+** TODO add lod2 upload
+
+
+# TODO 要检查面数等
+TODO check file size:
+# lod1: <=3MB
+lod2: <=1.5MB
 
 ** TODO finish upload doc
 
 ** TODO add doc link to editor
 
+
+** TODO pass quick test
+
+
+
+# ** TODO build new custom model to test
+
+
+# ** TODO use new custom to replace level1 elite giantess
 
 
 
