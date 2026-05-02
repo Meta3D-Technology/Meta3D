@@ -1,6 +1,7 @@
 import { autoDifficulty } from "./Type";
 
 export enum model {
+    None = "None",
     EliteGiantess1 = "EliteGiantess1",
     EliteGiantess2 = "EliteGiantess2",
     EliteGiantess3 = "EliteGiantess3",

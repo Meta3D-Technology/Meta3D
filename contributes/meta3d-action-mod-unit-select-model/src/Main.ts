@@ -3,6 +3,8 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-select-model-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-select-model-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as uploadModelFileActionName, state as uploadModelFileState } from "meta3d-action-mod-unit-upload-model-file-protocol"
+import { actionName as uploadModelSnapshotActionName, state as uploadModelSnapshotState } from "meta3d-action-mod-unit-upload-model-snapshot-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -16,6 +18,15 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
                         selectedModelIndex: index,
                         isShowModelModal: false
+                    })
+
+                    meta3dState = api.action.setActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName, {
+                        ...api.nullable.getExn(api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName)),
+                        files: api.immutable.createMap()
+                    })
+                    meta3dState = api.action.setActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName, {
+                        ...api.nullable.getExn(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName)),
+                        snapshot: api.nullable.getEmpty()
                     })
 
                     return Promise.resolve(meta3dState)

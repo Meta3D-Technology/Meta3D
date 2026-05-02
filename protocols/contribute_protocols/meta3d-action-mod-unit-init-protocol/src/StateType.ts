@@ -59,7 +59,7 @@ export type state = {
     allFeatureData: features,
     allPropData: props,
 
-    selectedModelIndex: number,
+    selectedModelIndex: nullable<number>,
     selectedSmallSkillObjectActionIndex: number,
     selectedSmallSkillObjectEmitterParticleImageIndex: nullable<number>,
     selectedSmallSkillObjectEmitterInstanceIndex: nullable<number>,

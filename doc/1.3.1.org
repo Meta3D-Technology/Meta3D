@@ -2866,21 +2866,34 @@ TODO update ui
 
 TODO update Play
 
-** TODO if upload model, set selectedModel to None
+** DONE if upload model, set selectedModel to None
 
-** TODO if select model to not None, clear upload model data
-
-** TODO play: update _loadSceneResourceHandler
+** DONE if select model to not None, clear upload model data
 
 
-** TODO update 文字、图片: hidden
+** DONE update 文字、图片: hidden
+
+** DONE play:
+update UnitType->model
+
+update _loadSceneResourceHandler
+
+
+
+
+
 
 ** TODO show fbx name after upload button instead
 
 
 ** TODO after upload model file, show upload snapshot button
 
-** TODO show snapshot after upload snapshot
+** TODO show snapshot image after upload snapshot
+
+** TODO update init
+
+** TODO update publish
+
 
 
 
@@ -2902,7 +2915,7 @@ should has select model
 
 
 
-** TODO update editor
+** TODO pass Play run test
 
 
 # ** TODO refactor: add fbxPaths?

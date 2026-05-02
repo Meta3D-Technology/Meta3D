@@ -7,6 +7,7 @@ import { nullable } from "meta3d-commonlib-ts/src/nullable"
 import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
 import { getLanguageTextData, getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
 import { languageKey, languageVariableKey } from "meta3d-language-utils/src/Type"
+import { model } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 let _loadFBX = (api: api): Promise<[boolean, nullable<fbxName>, nullable<fbxData>]> => {
     return new Promise((resolve, reject) => {
@@ -64,6 +65,12 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         ...state,
                         files: state.files.set(key, [fbxName, fbxData]),
                     })
+
+                    meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                        ...initState,
+                        selectedModelIndex: api.nullable.getEmpty()
+                    })
+
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

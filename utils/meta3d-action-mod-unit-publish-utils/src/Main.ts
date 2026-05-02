@@ -159,7 +159,12 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
     } = state
 
 
-    let model = api.nullable.getExn(allModelData.get(category_))[api.nullable.getExn(selectedModelIndex)].model
+    let model_ = api.nullable.getWithDefault(
+        api.nullable.map(selectedModelIndex => {
+            return api.nullable.getExn(allModelData.get(category_))[selectedModelIndex].model
+        }, selectedModelIndex),
+        model.None
+    )
 
 
     let updateFuncStr
@@ -306,7 +311,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
                 displayNameEN: "${displayNameEN}",
             }
         },
-        getModel: () => "${model}",
+        getModel: () => "${model_}",
         getCategory: () => "${category_}",
         getValue: (api, state) => {
             return api.${updateFuncStr}(state, ${JSON.stringify({
@@ -458,6 +463,11 @@ let _getAssetFiles = (api: api, meta3dState: meta3dState, name) => {
         ])
         return result
     }, [])
+
+
+    if (api.nullable.isNullable(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName).snapshot)) {
+        return Promise.resolve(result)
+    }
 
     return _base64ToUint8Array(api.nullable.getExn(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName).snapshot)).then(data => {
         result.push([
