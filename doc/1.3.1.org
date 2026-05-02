@@ -2857,7 +2857,14 @@ lod2: <=1.5MB
 ** DONE show fail message when upload fail
 
 
-** TODO upload snapshot for statics
+** DONE upload snapshot for statics
+TODO upload
+
+TODO check size
+
+TODO update ui
+
+TODO update Play
 
 ** TODO if upload model, set selectedModel to None
 
@@ -2871,33 +2878,108 @@ lod2: <=1.5MB
 ** TODO show fbx name after upload button instead
 
 
+** TODO after upload model file, show upload snapshot button
+
+** TODO show snapshot after upload snapshot
+
+
+
+** TODO add lod2 upload
+
+
+** TODO after upload model lod1, show upload lod2 button
+
+
+
+** TODO update publish check
+if upload:
+should has model lod1, lod2, snapshot
+should has none select model
+
+if select model:
+should has no model lod1, lod2, snapshot
+should has select model
+
+
+
 ** TODO update editor
 
 
 # ** TODO refactor: add fbxPaths?
 
 
-** TODO add lod2 upload
+
+** TODO pass quick test
 
 
-# TODO 要检查面数等
-TODO check file size:
-# lod1: <=3MB
-lod2: <=1.5MB
 
-** TODO finish upload doc
+* TODO 支持玩家在编辑器中上传Emitter Instance模型
+recomend to ai generated:
+tripo3d
+
+# by tripo3d
+single mesh
+single material
+
+
+TODO 要检查面数等
+
+
+TODO 对上传的模型进行优化
+  TODO 降低分辨率
+
+
+* TODO 支持玩家在编辑器中上传Partile Image图片
+
+# * TODO 支持玩家在编辑器中上传ai Partile Image图片?
+
+recomend to ai generated:
+https://www.aigei.com/tool/ai/pic
+
+https://zhuanlan.zhihu.com/p/2032444358063081348
+
+TODO 向用户给出推荐信息：
+width, height should equal
+give some reference images
+
+
+
+
+TODO 降低分辨率 to 64 * 64
+
+TODO 去掉背景
+
+TODO 压缩图片大小?
+
+
+* TODO add doc
+
+** TODO add upload doc
 
 ** TODO add doc link to editor
 
 
-** TODO pass quick test
 
+
+
+** TODO add instance doc
+
+note: 需要垂直向上
+
+
+** TODO add particle image doc
 
 
 # ** TODO build new custom model to test
 
 
 # ** TODO use new custom to replace level1 elite giantess
+
+
+
+* TODO Generate: remove count factor
+
+
 
 
 

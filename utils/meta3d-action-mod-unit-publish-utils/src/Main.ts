@@ -5,6 +5,7 @@ import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { actionName as uploadModelFileActionName, state as uploadModelFileState } from "meta3d-action-mod-unit-upload-model-file-protocol"
+import { actionName as uploadModelSnapshotActionName, state as uploadModelSnapshotState } from "meta3d-action-mod-unit-upload-model-snapshot-protocol"
 import { getActionData, getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
 // import { characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
 // import { getLanguageTextData } from "meta3d-language-utils/src/Main"
@@ -431,14 +432,41 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
     )
 }
 
+let _base64ToUint8Array = (base64String) => {
+    if (base64String.length == 0) {
+        return Promise.resolve(new Uint8Array())
+    }
+
+    // 获取 Base64 数据（移除前缀）
+    const base64Data = base64String.split(',')[1] || base64String;
+
+    // 将 Base64 转为 Blob，再转为 ArrayBuffer
+    // const response = await fetch(`data:image/jpeg;base64,${base64Data}`);
+    // const arrayBuffer = await response.arrayBuffer();
+
+    // 转为 Uint8Array
+    // return new Uint8Array(arrayBuffer);
+
+    return fetch(`data:image/jpeg;base64,${base64Data}`).then(response => response.arrayBuffer()).then(arrayBuffer => new Uint8Array(arrayBuffer))
+}
+
 let _getAssetFiles = (api: api, meta3dState: meta3dState, name) => {
-    return api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName).files.reduce((result, [fbxName, fbxData], key) => {
+    let result = api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName).files.reduce((result, [fbxName, fbxData], key) => {
         result.push([
             `./${name}_model_${key}.fbx`,
             new Uint8Array(fbxData)
         ])
         return result
     }, [])
+
+    return _base64ToUint8Array(api.nullable.getExn(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName).snapshot)).then(data => {
+        result.push([
+            `./${name}_model_snapshot.png`,
+            data
+        ])
+
+        return result
+    })
 }
 
 export let publish = (api: api, meta3dState: meta3dState, name, author, displayNameCN, displayNameEN, description, isPublic, modIconBase64: string) => {
@@ -447,9 +475,9 @@ export let publish = (api: api, meta3dState: meta3dState, name, author, displayN
 
     return api.backend.handleNetworkRequest(api, meta3dState => {
         // let state = api.action.getActionState<state>(meta3dState, actionName)
-
-        return api.backend.publishMod(
-            ` {
+        return _getAssetFiles(api, meta3dState, name).then(assetFiles => {
+            return api.backend.publishMod(
+                ` {
     "name": "${name}",
     "mod": {
         "protocolName": "unit-protocol",
@@ -462,15 +490,17 @@ export let publish = (api: api, meta3dState: meta3dState, name, author, displayN
         ]
     }
                         }`,
-            // `${state.readme}`,
-            `${description}`,
-            // _buildDistFileContent(api, state, characterType_, features, isChinese),
-            _buildDistFileContent(api, meta3dState, name, displayNameCN, displayNameEN),
-            _getAssetFiles(api, meta3dState, name),
-            modIconBase64,
-            // characterType.GiantessOrLittleMan
-            2
-        )
+                // `${state.readme}`,
+                `${description}`,
+                // _buildDistFileContent(api, state, characterType_, features, isChinese),
+                _buildDistFileContent(api, meta3dState, name, displayNameCN, displayNameEN),
+                assetFiles,
+                modIconBase64,
+                // characterType.GiantessOrLittleMan
+                2
+            )
+        })
+
     }, meta3dState => {
         // meta3dState = api.action.setActionState<infoState>(meta3dState, infoActionName, {
         //     ...api.action.getActionState<infoState>(meta3dState, infoActionName),
