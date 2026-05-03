@@ -3,13 +3,15 @@ import { state as meta3dState, getContribute as getContributeMeta3D, api } from 
 import { actionContribute, service as editorWholeService } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { actionName, state, uiData } from "meta3d-action-mod-unit-publish-to-game-protocol"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as uploadModelFileActionName, state as uploadModelFileState } from "meta3d-action-mod-unit-upload-model-file-protocol"
+import { actionName as uploadModelSnapshotActionName, state as uploadModelSnapshotState } from "meta3d-action-mod-unit-upload-model-snapshot-protocol"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-publish-to-game-protocol/src/EventType"
 import { publish, getUserName, checkModData, buildUniqueName } from "meta3d-action-mod-unit-publish-utils/src/Main"
 import { getLanguageTextData, isChinese } from "meta3d-language-utils/src/Main"
 import { languageKey } from "meta3d-language-utils/src/Type"
 
-let _checkPublishData = (api: api, meta3dState: meta3dState, { languageTextData, displayNameCN, displayNameEN, description, modIconBase64 }: initState, isChinese: boolean) => {
+let _checkPublishData = (api: api, meta3dState: meta3dState, { selectedModelIndex, languageTextData, displayNameCN, displayNameEN, description, modIconBase64 }: initState, isChinese: boolean) => {
     let message = api.nullable.getEmpty<string>()
 
     if (isChinese && displayNameCN.length <= 0) {
@@ -24,6 +26,19 @@ let _checkPublishData = (api: api, meta3dState: meta3dState, { languageTextData,
     // else if (api.nullable.isNullable(modIconBase64)) {
     //     message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedModIcon))
     // }
+
+    if (api.nullable.isNullable(selectedModelIndex)) {
+        let uploadModelFileState = api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName)
+        let uploadModelSnapshotState = api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName)
+
+        if (!(
+            uploadModelFileState.files.has("lod1") && uploadModelFileState.files.has("lod2")
+            && !api.nullable.isNullable(uploadModelSnapshotState.snapshot)
+        )
+        ) {
+            message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedLOD1LOD2SnapshotModelFile))
+        }
+    }
 
     return api.nullable.getWithDefault(
         api.nullable.map((message) => {

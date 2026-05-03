@@ -38,6 +38,7 @@ export enum languageKey {
     NeedAtLeastOneGenerateData,
     NeedSmallSkillObjectEmitterData,
     NeedBigSkillObjectEmitterData,
+    NeedLOD1LOD2SnapshotModelFile,
 
 
 }

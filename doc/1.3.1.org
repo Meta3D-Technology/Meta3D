@@ -2897,25 +2897,25 @@ update _loadSceneResourceHandler
 
 
 
-** TODO add lod2 upload
+** DONE add lod2 upload
 
 
-** TODO after upload model lod1, show upload lod2 button
+** DONE after upload model lod1, show upload lod2 button
 
 
 
-** TODO update publish check
+** DONE update publish check
 if upload:
 should has model lod1, lod2, snapshot
 should has none select model
 
-if select model:
-should has no model lod1, lod2, snapshot
-should has select model
+# if select model:
+# should has no model lod1, lod2, snapshot
+# should has select model
 
 
 
-** TODO pass Play run test
+** DONE pass Play run test
 
 
 # ** TODO refactor: add fbxPaths?
