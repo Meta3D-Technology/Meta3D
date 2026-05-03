@@ -2883,16 +2883,16 @@ update _loadSceneResourceHandler
 
 
 
-** TODO show fbx name after upload button instead
+** DONE show fbx name after upload button instead
+
+** DONE show snapshot image after upload snapshot
+
+** DONE after upload model file, show upload snapshot button
 
 
-** TODO after upload model file, show upload snapshot button
+** DONE update init
 
-** TODO show snapshot image after upload snapshot
-
-** TODO update init
-
-** TODO update publish
+** DONE update publish
 
 
 
