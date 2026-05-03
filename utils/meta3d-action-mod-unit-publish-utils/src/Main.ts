@@ -1,11 +1,12 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 // import { language } from "meta3d-action-mod-unit-add-careerfeature-protocol"
-import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, skillType, emitterType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, skillType, emitterType, instance } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { actionName as uploadModelFileActionName, state as uploadModelFileState } from "meta3d-action-mod-unit-upload-model-file-protocol"
 import { actionName as uploadModelSnapshotActionName, state as uploadModelSnapshotState } from "meta3d-action-mod-unit-upload-model-snapshot-protocol"
+import { actionName as uploadParticleInstanceActionName, state as uploadParticleInstanceState } from "meta3d-action-mod-unit-upload-particle-instance-protocol"
 import { getActionData, getSkillType } from "meta3d-action-mod-unit-skill-utils/src/Main"
 // import { characterType } from "meta3d-action-mod-career-add-careerfeature-protocol"
 // import { getLanguageTextData } from "meta3d-language-utils/src/Main"
@@ -200,7 +201,18 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
                 emitter.particleImage = allEmitterParticleImages.get(api.nullable.getExn(selectedSmallSkillObjectEmitterParticleImageIndex)).name
             }
             else {
-                emitter.instance = allEmitterInstances.get(api.nullable.getExn(selectedSmallSkillObjectEmitterInstanceIndex)).name
+                // emitter.instance = allEmitterInstances.get(api.nullable.getExn(selectedSmallSkillObjectEmitterInstanceIndex)).name
+                // emitter.instance = api.nullable.getWithDefault(
+                //     api.nullable.map(data => data.name, allEmitterInstances.get(api.nullable.getExn(selectedSmallSkillObjectEmitterInstanceIndex))),
+                //     instance.None
+                // )
+                emitter.instance = api.nullable.getWithDefault(
+                    api.nullable.map(selectedSmallSkillObjectEmitterInstanceIndex => {
+                        return allEmitterInstances.get(selectedSmallSkillObjectEmitterInstanceIndex).name
+                    }, selectedSmallSkillObjectEmitterInstanceIndex
+                    ),
+                    instance.None
+                )
             }
         }
         else {
@@ -254,7 +266,13 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
                 emitter.particleImage = allEmitterParticleImages.get(api.nullable.getExn(selectedBigSkillObjectEmitterParticleImageIndex)).name
             }
             else {
-                emitter.instance = allEmitterInstances.get(api.nullable.getExn(selectedBigSkillObjectEmitterInstanceIndex)).name
+                emitter.instance = api.nullable.getWithDefault(
+                    api.nullable.map(selectedBigSkillObjectEmitterInstanceIndex => {
+                        return allEmitterInstances.get(selectedBigSkillObjectEmitterInstanceIndex).name
+                    }, selectedBigSkillObjectEmitterInstanceIndex
+                    ),
+                    instance.None
+                )
             }
         }
         else {
@@ -407,24 +425,40 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
             api.nullable.isNullable(
                 selectedSmallSkillObjectEmitterParticleImageIndex
             )
-            && api.nullable.isNullable(
-                selectedSmallSkillObjectEmitterInstanceIndex
-            )
+            // && api.nullable.isNullable(
+            //     selectedSmallSkillObjectEmitterInstanceIndex
+            // )
         )
     ) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedSmallSkillObjectEmitterData))
+        if (api.nullable.isNullable(
+            selectedSmallSkillObjectEmitterInstanceIndex
+        )) {
+            let uploadParticleInstanceState = api.action.getActionState<uploadParticleInstanceState>(meta3dState, uploadParticleInstanceActionName)
+
+            if (api.nullable.isNullable(uploadParticleInstanceState.instances.get("selectedSmallSkillObjectEmitterInstanceIndex"))) {
+                message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedSmallSkillObjectEmitterData))
+            }
+        }
     }
     else if (getSkillType(api, meta3dState, "selectedBigSkillObjectActionIndex") == skillType.Ranged
         && (
             api.nullable.isNullable(
                 selectedBigSkillObjectEmitterParticleImageIndex
             )
-            && api.nullable.isNullable(
-                selectedBigSkillObjectEmitterInstanceIndex
-            )
+            // && api.nullable.isNullable(
+            //     selectedBigSkillObjectEmitterInstanceIndex
+            // )
         )
     ) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedBigSkillObjectEmitterData))
+        if (api.nullable.isNullable(
+            selectedBigSkillObjectEmitterInstanceIndex
+        )) {
+            let uploadParticleInstanceState = api.action.getActionState<uploadParticleInstanceState>(meta3dState, uploadParticleInstanceActionName)
+
+            if (api.nullable.isNullable(uploadParticleInstanceState.instances.get("selectedBigSkillObjectEmitterInstanceIndex"))) {
+                message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedBigSkillObjectEmitterData))
+            }
+        }
     }
 
 
@@ -456,18 +490,25 @@ let _base64ToUint8Array = (base64String) => {
 }
 
 let _getAssetFiles = (api: api, meta3dState: meta3dState, name) => {
-    let result = api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName).files.reduce((result, [fbxName, fbxData], key) => {
+    let result = api.action.getActionState<uploadParticleInstanceState>(meta3dState, uploadParticleInstanceActionName).instances.reduce((result, [glbName, glbData], key) => {
+        result.push([
+            `./${name}_instance_${key.includes("Small") ? "Small" : "Big"}.glb`,
+            new Uint8Array(glbData)
+        ])
+        return result
+    }, [])
+
+    if (api.nullable.isNullable(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName).snapshot)) {
+        return Promise.resolve(result)
+    }
+
+    result = api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName).files.reduce((result, [fbxName, fbxData], key) => {
         result.push([
             `./${name}_model_${key}.fbx`,
             new Uint8Array(fbxData)
         ])
         return result
-    }, [])
-
-
-    if (api.nullable.isNullable(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName).snapshot)) {
-        return Promise.resolve(result)
-    }
+    }, result)
 
     return _base64ToUint8Array(api.nullable.getExn(api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName).snapshot)).then(data => {
         result.push([

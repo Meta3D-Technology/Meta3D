@@ -668,6 +668,8 @@ export enum particleImage {
 }
 
 export enum instance {
+    None = "None",
+
     Arrow1 = "Arrow1",
 
     Missile1 = "Missile1",

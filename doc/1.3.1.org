@@ -2922,11 +2922,11 @@ should has none select model
 
 
 
-** TODO pass quick test
+** DONE pass quick test
 
 
 
-* TODO 支持玩家在编辑器中上传Emitter Instance模型
+* DONE 支持玩家在编辑器中上传Emitter Instance模型
 recomend to ai generated:
 tripo3d
 
@@ -2935,11 +2935,28 @@ single mesh
 single material
 
 
-TODO 要检查面数等
+TODO finish
+  upload button
+    action
+  name text
+    input
+
+  select/upload: update each
+
+  update publish utils
 
 
-TODO 对上传的模型进行优化
-  TODO 降低分辨率
+
+TODO 要检查: file size
+
+
+TODO fix instance key:skillObject
+
+TODO update Play
+
+
+# TODO 对上传的模型进行优化
+#   TODO 降低分辨率
 
 
 * TODO 支持玩家在编辑器中上传Partile Image图片
@@ -2963,6 +2980,12 @@ TODO 降低分辨率 to 64 * 64
 TODO 去掉背景
 
 TODO 压缩图片大小?
+
+
+* TODO update quicktest
+
+
+* TODO run test by workflow
 
 
 * TODO add doc
@@ -2991,6 +3014,11 @@ note: 需要垂直向上
 
 
 * TODO Generate: remove count factor
+
+
+
+
+
 
 
 
