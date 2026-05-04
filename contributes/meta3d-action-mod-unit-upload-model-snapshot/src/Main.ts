@@ -22,7 +22,7 @@ let _loadSnapshot = (api: api): Promise<base64> => {
             console.log(`loading ${loaded / total} %`)
         }, () => {
             resolve(api.nullable.getEmpty())
-        }, 1 * 1024 * 1024)
+        }, 0.5 * 1024 * 1024)
     })
 }
 

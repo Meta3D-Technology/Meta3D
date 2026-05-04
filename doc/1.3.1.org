@@ -2959,7 +2959,7 @@ TODO update Play
 #   TODO 降低分辨率
 
 
-* TODO 支持玩家在编辑器中上传Partile Image图片
+* DONE 支持玩家在编辑器中上传Partile Image图片
 
 # * TODO 支持玩家在编辑器中上传ai Partile Image图片?
 
@@ -2968,21 +2968,30 @@ https://www.aigei.com/tool/ai/pic
 
 https://zhuanlan.zhihu.com/p/2032444358063081348
 
-TODO 向用户给出推荐信息：
-width, height should equal
-give some reference images
+# TODO 降低分辨率 to 64 * 64
+
+# TODO 去掉背景
+
+# TODO 压缩图片大小?
 
 
+action
+input
+
+ui:
+upload button
+image
+
+switch logic
+
+handle None
+
+publish logic
+
+update Play
 
 
-TODO 降低分辨率 to 64 * 64
-
-TODO 去掉背景
-
-TODO 压缩图片大小?
-
-
-* TODO update quicktest
+* DONE update quicktest
 
 
 * TODO run test by workflow
@@ -3004,6 +3013,19 @@ note: 需要垂直向上
 
 
 ** TODO add particle image doc
+
+
+TODO 向用户给出推荐信息：
+width, height should equal
+give some reference images
+
+  TODO 降低分辨率 to 64 * 64
+
+
+TODO 去掉背景
+
+
+
 
 
 # ** TODO build new custom model to test

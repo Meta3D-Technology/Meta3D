@@ -645,6 +645,8 @@ export enum emitterType {
 }
 
 export enum particleImage {
+    None = "None",
+
     // Fireball1 = "Fireball1",
     I1 = "1",
     I2 = "2",

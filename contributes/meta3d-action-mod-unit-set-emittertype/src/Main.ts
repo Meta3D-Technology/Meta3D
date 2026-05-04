@@ -3,6 +3,8 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-set-emittertype-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-set-emittertype-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as uploadParticleInstanceActionName, state as uploadParticleInstanceState } from "meta3d-action-mod-unit-upload-particle-instance-protocol"
+import { actionName as uploadParticleImageActionName, state as uploadParticleImageState } from "meta3d-action-mod-unit-upload-particle-image-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -19,6 +21,18 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         [selectedSkillObjectEmitterParticleImageIndexFieldName]: api.nullable.getEmpty(),
                         [selectedSkillObjectEmitterInstanceIndexFieldName]: api.nullable.getEmpty(),
                         [emitterTypeFieldName]: state.allEmitterTypes.get(index)
+                    })
+
+                    state = api.nullable.getExn(api.action.getActionState<any>(meta3dState, uploadParticleImageActionName))
+                    meta3dState = api.action.setActionState<uploadParticleImageState>(meta3dState, uploadParticleImageActionName, {
+                        ...state,
+                        images: state.images.remove(selectedSkillObjectEmitterParticleImageIndexFieldName)
+                    })
+
+                    state = api.nullable.getExn(api.action.getActionState<any>(meta3dState, uploadParticleInstanceActionName))
+                    meta3dState = api.action.setActionState<uploadParticleInstanceState>(meta3dState, uploadParticleInstanceActionName, {
+                        ...state,
+                        instances: state.instances.remove(selectedSkillObjectEmitterInstanceIndexFieldName)
                     })
 
                     return Promise.resolve(meta3dState)
