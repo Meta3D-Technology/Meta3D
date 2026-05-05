@@ -2994,14 +2994,45 @@ update Play
 * DONE update quicktest
 
 
-* TODO run test by workflow
+* DONE run test by workflow
+
+test tra3d china
+
+
 
 
 * TODO add doc
 
-** TODO add upload doc
+** DONE add upload doc
 
-** TODO add doc link to editor
+图片：
+需要为T Pose
+
+
+
+
+# T姿势，严格的左右对称，双脚保持一定的间距
+
+
+TODO give draft
+
+# TODO 给出参考图片在线访问
+TODO 给出参考图片
+
+TODO 生成图片
+TODO 转换为T姿势
+
+TODO update doc by ai
+
+
+
+** DONE add english doc
+
+translate by ai
+
+update by workflow
+
+
 
 
 
@@ -3017,7 +3048,8 @@ note: 需要垂直向上
 
 TODO 向用户给出推荐信息：
 width, height should equal
-give some reference images
+# give some reference images
+给出参考图片在线访问
 
   TODO 降低分辨率 to 64 * 64
 
@@ -3025,6 +3057,19 @@ give some reference images
 TODO 去掉背景
 
 
+** TODO add english doc
+
+
+** TODO pubilsh link to yuque
+# TODO pubilsh doc to website/doc
+
+
+** TODO add doc link to editor
+
+TODO add Link ui
+
+TODO add doc link
+  give link judge by language
 
 
 
@@ -3035,7 +3080,7 @@ TODO 去掉背景
 
 
 
-* TODO Generate: remove count factor
+# * TODO Generate: remove count factor
 
 
 
