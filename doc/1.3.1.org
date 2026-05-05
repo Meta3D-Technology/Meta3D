@@ -3043,7 +3043,7 @@ update by workflow
 note: 需要垂直向上
 
 
-** TODO add particle image doc
+** DONE add particle image doc
 
 
 TODO 向用户给出推荐信息：
@@ -3057,10 +3057,10 @@ width, height should equal
 TODO 去掉背景
 
 
-** TODO add english doc
+** DONE add english doc
 
 
-** TODO pubilsh link to yuque
+** DONE pubilsh link to yuque
 # TODO pubilsh doc to website/doc
 
 
