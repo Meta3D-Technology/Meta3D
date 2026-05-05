@@ -540,6 +540,9 @@ export let getExtensionService: getExtensionServiceMeta3D<
         textColored: ([r, g, b, a], text) => {
             ImGui.TextColored(new ImGui.Vec4(r, g, b, a), text);
         },
+        textLink: (text) => {
+            ImGui.TextLink(text)
+        },
         inputTextarea: (label, [width, height], maxLength, value) => {
             // let buff = new ImGui.StringBuffer(1024 * 16 * Math.ceil(text.length / 1024), text)
 

@@ -3064,9 +3064,9 @@ TODO 去掉背景
 # TODO pubilsh doc to website/doc
 
 
-** TODO add doc link to editor
+** DONE add doc link to editor
 
-TODO add Link ui
+# TODO add Link ui
 
 TODO add doc link
   give link judge by language
