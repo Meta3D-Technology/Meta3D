@@ -147,7 +147,21 @@ export let getEmitterParticleImages = () => {
 export let getEmitterInstances = () => {
     return [
         instance.Arrow1,
+        instance.Arrow2,
         instance.Missile1,
+        instance.Missile2,
+        instance.Missile3,
+        instance.Missile4,
+        instance.Missile5,
+        instance.Missile6,
+        instance.Missile7,
+        instance.Missile8,
+        instance.Missile9,
+        instance.Building1,
+        instance.Building2,
+        instance.Weapon1,
+        instance.Weapon2,
+        instance.Airplane1,
     ]
 }
 

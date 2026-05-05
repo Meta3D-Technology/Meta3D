@@ -673,8 +673,25 @@ export enum instance {
     None = "None",
 
     Arrow1 = "Arrow1",
+    Arrow2 = "Arrow2",
 
     Missile1 = "Missile1",
+    Missile2 = "Missile2",
+    Missile3 = "Missile3",
+    Missile4 = "Missile4",
+    Missile5 = "Missile5",
+    Missile6 = "Missile6",
+    Missile7 = "Missile7",
+    Missile8 = "Missile8",
+    Missile9 = "Missile9",
+
+    Building1 = "Building1",
+    Building2 = "Building2",
+
+    Airplane1 = "Airplane1",
+
+    Weapon1 = "Weapon1",
+    Weapon2 = "Weapon2",
 }
 
 
