@@ -1,6 +1,6 @@
 {
     "name": "meta3d-action-mod-unit-init",
-    "version": "1.3.81",
+    "version": "1.3.82",
     "publisher": "meta3d",
     "protocol": {
         "name": "meta3d-action-mod-unit-init-protocol"

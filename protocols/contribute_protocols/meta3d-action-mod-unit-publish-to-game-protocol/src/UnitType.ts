@@ -10,8 +10,9 @@ export enum model {
     EliteGiantess6 = "EliteGiantess6",
     EliteGiantess7 = "EliteGiantess7",
     EliteGiantess8 = "EliteGiantess8",
-    // EliteGiantess9 = "EliteGiantess9",
-    // EliteGiantess10 = "EliteGiantess10",
+    EliteGiantess9 = "EliteGiantess9",
+    EliteGiantess10 = "EliteGiantess10",
+    EliteGiantess11 = "EliteGiantess11",
 }
 
 
