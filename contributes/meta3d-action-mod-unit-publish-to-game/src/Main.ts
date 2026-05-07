@@ -27,19 +27,6 @@ let _checkPublishData = (api: api, meta3dState: meta3dState, { selectedModelInde
     //     message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedModIcon))
     // }
 
-    if (api.nullable.isNullable(selectedModelIndex)) {
-        let uploadModelFileState = api.action.getActionState<uploadModelFileState>(meta3dState, uploadModelFileActionName)
-        let uploadModelSnapshotState = api.action.getActionState<uploadModelSnapshotState>(meta3dState, uploadModelSnapshotActionName)
-
-        if (!(
-            uploadModelFileState.files.has("lod1") && uploadModelFileState.files.has("lod2")
-            && !api.nullable.isNullable(uploadModelSnapshotState.snapshot)
-        )
-        ) {
-            message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedLOD1LOD2SnapshotModelFile))
-        }
-    }
-
     return api.nullable.getWithDefault(
         api.nullable.map((message) => {
             api.message.warn(message)
