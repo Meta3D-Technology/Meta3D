@@ -33,9 +33,9 @@ export let getAllModelData = () => {
             {
                 model: model.EliteGiantess10,
             },
-            {
-                model: model.EliteGiantess11,
-            },
+            // {
+            //     model: model.EliteGiantess11,
+            // },
         ]
     }
 }
