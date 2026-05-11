@@ -456,6 +456,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         mode: behaviourMode.FindEnemy,
                         values: {
                             [behaviourModeKey.FindEnemyDistanceFactor]: 500,
+                            [behaviourModeKey.PursuitDistanceFactor]: 8,
                         }
                     },
                     idleMode: {

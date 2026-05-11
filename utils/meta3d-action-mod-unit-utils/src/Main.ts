@@ -15,6 +15,11 @@ export let getBehaviourModeData = (api: api, mode: behaviourMode | idleMode | ne
                 minValue: 0,
                 maxValue: +Infinity
             },
+            {
+                key: behaviourModeKey.PursuitDistanceFactor,
+                minValue: 1,
+                maxValue: +Infinity
+            },
         ],
         [behaviourMode.EscapeWhenEnemeyNear]: [
             {

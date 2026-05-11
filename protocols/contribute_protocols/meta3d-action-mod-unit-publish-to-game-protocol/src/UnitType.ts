@@ -966,6 +966,7 @@ export enum remoteAttackMode {
 
 
 export enum behaviourModeKey {
+    PursuitDistanceFactor = "PursuitDistanceFactor",
     FindEnemyDistanceFactor = "FindEnemyDistanceFactor",
     NearDistanceFactor = "NearDistanceFactor",
     EscapeDistanceFactor = "EscapeDistanceFactor",
