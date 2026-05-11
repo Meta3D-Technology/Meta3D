@@ -1017,7 +1017,20 @@ export type remoteAttackModeData = {
     values?: Partial<Record<remoteAttackModeKey, number>>,
 }
 
+export type findAttackTargetModeData = {
+    changeAttackTargetRateFactor: number,
+    selectGiantssBossRateFactor: number,
+    selectEliteGiantessRateFactor: number,
+    selectSoldierRateFactor: number,
+    selectMilltaryVehicleRateFactor: number,
+    selectMilltaryBuildingRateFactor: number,
+    selectPlayerRateFactor: number,
+    selectBuildingRateFactor: number,
+}
+
 export type behaviourData = {
+    findAttackTargetMode?: findAttackTargetModeData,
+
     behaviourMode: behaviourModeData,
     idleMode: idleModeData,
     nearAttackTargetMode: nearAttackTargetModeData,

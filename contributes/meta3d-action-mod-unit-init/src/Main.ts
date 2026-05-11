@@ -345,6 +345,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 isShowBigSkillModal: false,
                 isShowFeatureModal: false,
                 isShowRewardModal: false,
+                isShowBehaviourFindAttackTargetModeModal: false,
                 isShowSmallSkillObjectActionValueModal: false,
                 isShowSmallSkillObjectDamageValueModal: false,
                 isShowSmallSkillObjectDamageEffectModal: false,
@@ -440,6 +441,17 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
 
                 behaviourData: {
+                    findAttackTargetMode: {
+                        changeAttackTargetRateFactor: 1,
+
+                        selectGiantssBossRateFactor: 1,
+                        selectEliteGiantessRateFactor: 1,
+                        selectSoldierRateFactor: 1,
+                        selectMilltaryVehicleRateFactor: 1,
+                        selectMilltaryBuildingRateFactor: 1,
+                        selectPlayerRateFactor: 1,
+                        selectBuildingRateFactor: 1,
+                    },
                     behaviourMode: {
                         mode: behaviourMode.FindEnemy,
                         values: {

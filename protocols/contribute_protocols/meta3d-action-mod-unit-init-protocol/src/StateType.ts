@@ -77,6 +77,7 @@ export type state = {
     isShowBigSkillModal: boolean,
     isShowFeatureModal: boolean,
     isShowRewardModal: boolean,
+    isShowBehaviourFindAttackTargetModeModal: boolean,
     isShowSmallSkillObjectActionValueModal: boolean,
     isShowSmallSkillObjectDamageValueModal: boolean,
     isShowSmallSkillObjectDamageEffectModal: boolean,

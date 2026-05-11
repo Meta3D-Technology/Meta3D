@@ -3086,6 +3086,15 @@ TODO add doc link
 
 
 
+* DONE add select target rate in editor->behaviour
+
+add button, modal ui
+
+# add actions, inputs
+add get/set multi layers' value
+
+
+
 
 
 
