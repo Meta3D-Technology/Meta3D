@@ -264,6 +264,14 @@ export let updateData = (app: any, updateFunc, collectionName, key) => {
     return _getDatabase(app).collection(collectionName)
         .doc(key)
         .update(updateFunc(_getDatabase(app).command))
+        .then(_ => {
+            // TODO remove
+            if (key !== handleKeyToLowercase(key)) {
+                return _getDatabase(app).collection(collectionName)
+                    .doc(handleKeyToLowercase(key))
+                    .update(updateFunc(_getDatabase(app).command))
+            }
+        })
 }
 
 

@@ -194,7 +194,15 @@ let updateData = (app, updateFunc, collectionName, key) => {
     }
     return _getDatabase(app).collection(collectionName)
         .doc(key)
-        .update(updateFunc(_getDatabase(app).command));
+        .update(updateFunc(_getDatabase(app).command))
+        .then(_ => {
+        // TODO remove
+        if (key !== (0, exports.handleKeyToLowercase)(key)) {
+            return _getDatabase(app).collection(collectionName)
+                .doc((0, exports.handleKeyToLowercase)(key))
+                .update(updateFunc(_getDatabase(app).command));
+        }
+    });
 };
 exports.updateData = updateData;
 let handleKeyToLowercase = (key) => {
