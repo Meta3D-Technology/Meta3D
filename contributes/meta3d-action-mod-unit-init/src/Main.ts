@@ -340,7 +340,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 currentTabKey: "Model",
 
                 isShowModelModal: false,
-                isShowUnitValueModal: false,
+                isShowEliteGiantessUnitValueModal: false,
+                isShowOtherUnitValueModal: false,
                 isShowSmallSkillModal: false,
                 isShowBigSkillModal: false,
                 isShowFeatureModal: false,

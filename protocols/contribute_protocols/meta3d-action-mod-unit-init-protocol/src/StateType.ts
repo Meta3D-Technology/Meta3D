@@ -72,7 +72,8 @@ export type state = {
     currentTabKey: string,
 
     isShowModelModal: boolean,
-    isShowUnitValueModal: boolean,
+    isShowEliteGiantessUnitValueModal: boolean,
+    isShowOtherUnitValueModal: boolean,
     isShowSmallSkillModal: boolean,
     isShowBigSkillModal: boolean,
     isShowFeatureModal: boolean,
