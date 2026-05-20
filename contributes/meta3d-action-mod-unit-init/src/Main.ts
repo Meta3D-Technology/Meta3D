@@ -16,6 +16,7 @@ import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 import { getTextData, getTextDataByVariable } from "meta3d-language-utils/src/Data"
 import { languageKey } from "meta3d-language-utils/src/Type"
+import { actionData } from "meta3d-action-mod-unit-init-protocol/src/Type"
 
 // let _buildAllDefaultCareerFeatures = (api: api) => {
 //     // let modAPI = _buildFakeModAPI()
@@ -120,7 +121,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                 },
                                 api.immutable.createMap()
                             ).then(map => {
-                                return result.set(category, map)
+                                // return result.set(category, map)
+                                return result.set(category, map.sortBy((_, key) => key))
                             })
                         },
                         api.immutable.createMap()
