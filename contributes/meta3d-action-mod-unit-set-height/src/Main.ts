@@ -3,6 +3,8 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { state, uiData } from "meta3d-action-mod-set-value-protocol"
 import { inputData } from "meta3d-action-mod-set-value-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
+import { armyScale, category } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 let eventName = "UnitModSetHeightEvent"
 
@@ -14,6 +16,19 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, value) => {
+                    let setCategoryState = api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName))
+
+                    switch (setCategoryState.category) {
+                        case category.EliteGiantess:
+                            value = Math.max(value, 6)
+                            break
+                        default:
+                            value = Math.max(Math.min(value, armyScale.Level10 * 2), armyScale.Level0 * 2)
+                            break
+                    }
+
+
+
                     meta3dState = api.action.setActionState<any>(meta3dState, initActionName, {
                         ...api.nullable.getExn(api.action.getActionState<any>(meta3dState, initActionName)),
                         scale: value / 2

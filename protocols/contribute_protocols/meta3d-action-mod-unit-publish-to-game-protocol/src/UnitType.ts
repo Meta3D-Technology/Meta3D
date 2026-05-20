@@ -13,6 +13,13 @@ export enum model {
     EliteGiantess9 = "EliteGiantess9",
     EliteGiantess10 = "EliteGiantess10",
     // EliteGiantess11 = "EliteGiantess11",
+
+    Soldier1 = "Soldier1",
+    Soldier2 = "Soldier2",
+    Soldier3 = "Soldier3",
+    Soldier4 = "Soldier4",
+    Soldier5 = "Soldier5",
+
 }
 
 
@@ -47,6 +54,24 @@ export enum action {
     PunchCombo = "PunchCombo",
     KickTwice = "KickTwice",
     Cast = "Cast",
+
+    Slash1 = "Slash1",
+    Slash2 = "Slash2",
+    Slash3 = "Slash3",
+    Slash4 = "Slash4",
+    SlashCombo1 = "SlashCombo1",
+    SlashCombo2 = "SlashCombo2",
+    SlashCombo3 = "SlashCombo3",
+    Swipe1 = "Swipe1",
+    Cast1 = "Cast1",
+    Cast2 = "Cast2",
+    Cast3 = "Cast3",
+    Charge = "Charge",
+    MeleeKick1 = "MeleeKick1",
+    Shoot1 = "Shoot1",
+    Shoot2 = "Shoot2",
+    Shoot3 = "Shoot3",
+    Shoot4 = "Shoot4",
 }
 
 // export enum actionType {
@@ -73,13 +98,19 @@ export enum meleeSubEffect {
 
 export enum rangedSubEffect {
     FireballHit = "FireballHit",
+    BasicBulletHit = "BasicBulletHit",
+    LaserBulletHit = "LaserBulletHit",
+
     ShellExplode = "ShellExplode",
 }
 
 
 
 export enum category {
+    // All = "All",
+
     EliteGiantess = "EliteGiantess",
+    Soldier = "Soldier",
 }
 
 export enum defenseFactor {
@@ -333,16 +364,63 @@ export enum scale {
     Level0 = 1,
     // Level1 = 4,
     // Level2 = 5,
-    Level1 = 2,
-    Level2 = 4,
+    // Level1 = 2,
+    // Level2 = 4,
+    Level1 = 4,
+    Level2 = 5,
     Level3 = 6,
-    Level4 = 8,
-    Level5 = 9,
-    Level6 = 12,
-    Level7 = 15,
-    Level8 = 18,
-    Level9 = 21,
-    Level10 = 24,
+    Level4 = 6.5,
+    Level5 = 7,
+    // Level6 = 12,
+    // Level7 = 15,
+    // Level8 = 18,
+    // Level9 = 21,
+    // Level10 = 24,
+    Level6 = 7.5,
+    Level7 = 8,
+    Level8 = 8.5,
+    Level9 = 9,
+    Level10 = 10,
+}
+
+export enum armyScale {
+    // Level0 = 0.05,
+    // Level1 = 0.2,
+    // Level2 = 0.4,
+    // Level3 = 0.6,
+    // Level4 = 0.7,
+    // Level5 = 0.8,
+    // Level6 = 0.9,
+    // Level7 = 1,
+    // Level8 = 1.1,
+    // Level9 = 1.3,
+    // Level10 = 1.5,
+
+    // Level0 = 0.5,
+    // Level1 = 0.6,
+    // Level2 = 0.7,
+    // Level3 = 0.8,
+    // Level4 = 0.9,
+    // Level5 = 1,
+    // Level6 = 1.2,
+    // Level7 = 1.4,
+    // Level8 = 1.6,
+    // Level9 = 1.8,
+    // Level10 = 2,
+
+    Level0 = 1,
+    Level1 = 1.3,
+    Level2 = 1.6,
+    Level3 = 2,
+    Level4 = 2.5,
+    Level5 = 3,
+    Level6 = 3.5,
+    Level7 = 4,
+    Level8 = 5,
+    Level9 = 6,
+    Level10 = 7,
+
+
 }
 
 // export type armyValue = {
@@ -438,7 +516,7 @@ export enum armorPiercingForceRatio {
     Level7 = 0.4,
     Level8 = 0.5,
     Level9 = 0.6,
-    L3vel10 = 0.7,
+    Level10 = 0.7,
 }
 
 export enum weaponType {
@@ -488,31 +566,94 @@ export enum explodeRange {
 }
 
 export enum emitterSize {
-    Level0 = 2,
-    Level1 = 2.4,
-    Level2 = 2.8,
-    Level3 = 3.2,
-    Level4 = 3.6,
-    Level5 = 4,
-    Level6 = 5,
-    Level7 = 6,
-    Level8 = 7,
-    Level9 = 8,
-    Level10 = 10,
+    // Level0 = 2,
+    // Level1 = 2.4,
+    // Level2 = 2.8,
+    // Level3 = 3.2,
+    // Level4 = 3.6,
+    // Level5 = 4,
+    // Level6 = 5,
+    // Level7 = 6,
+    // Level8 = 7,
+    // Level9 = 8,
+    // Level10 = 10,
+    // Level0 = 4,
+    // Level1 = 4.8,
+    // Level2 = 5.6,
+    // Level3 = 6.4,
+    // Level4 = 7.2,
+    // Level5 = 8,
+    // Level6 = 10,
+    // Level7 = 12,
+    // Level8 = 14,
+    // Level9 = 16,
+    // Level10 = 32,
+
+
+    // Level0 = 2,
+    // Level1 = 3,
+    // Level2 = 4,
+    // Level3 = 5,
+    // Level4 = 6,
+    // Level5 = 8,
+    // Level6 = 12,
+    // Level7 = 16,
+    // Level8 = 20,
+    // Level9 = 24,
+    // Level10 = 32,
+
+    Level0 = 0.5,
+    Level1 = 1,
+    Level2 = 1.5,
+    Level3 = 2,
+    Level4 = 3,
+    Level5 = 4.5,
+    Level6 = 6,
+    Level7 = 8,
+    Level8 = 10,
+    Level9 = 12,
+    Level10 = 14,
+
+
 }
 
 export enum emitterCollisionSize {
-    Level0 = 1.5,
-    Level1 = 2,
-    Level2 = 2.5,
-    Level3 = 3,
-    Level4 = 3.5,
-    Level5 = 4,
-    Level6 = 6,
-    Level7 = 12,
-    Level8 = 17,
-    Level9 = 22,
-    Level10 = 28,
+    // Level0 = 1.5,
+    // Level1 = 2,
+    // Level2 = 2.5,
+    // Level3 = 3,
+    // Level4 = 3.5,
+    // Level5 = 4,
+    // Level6 = 6,
+    // Level7 = 12,
+    // Level8 = 17,
+    // Level9 = 22,
+    // Level10 = 28,
+
+    // Level0 = 0.4,
+    // Level1 = 0.55,
+    // Level2 = 0.7,
+    // Level3 = 0.9,
+    // Level4 = 1.3,
+    // Level6 = 1.7,
+    // Level7 = 2.1,
+    // Level8 = 2.5,
+    // Level9 = 2.9,
+    // Level10 = 3.6,
+
+
+    Level0 = 0,
+    Level1 = 0.9,
+    Level2 = 1.3,
+    Level3 = 1.7,
+    Level4 = 2.1,
+    Level5 = 2.5,
+    Level6 = 2.9,
+    Level7 = 3.3,
+    Level8 = 3.7,
+    Level9 = 4.1,
+    Level10 = 4.5,
+
 }
 
 export enum emitterVolume {
@@ -668,6 +809,10 @@ export enum particleImage {
     I17 = "17",
     I18 = "18",
     I19 = "19",
+    I20 = "20",
+    I21 = "21",
+    I22 = "22",
+    I23 = "23",
 }
 
 export enum instance {
@@ -706,7 +851,7 @@ export type emitterValue = {
 }
 
 export type emitter = {
-    type: emitterType,
+    type?: emitterType,
     particleImage?: particleImage,
     instance?: instance,
     value: emitterValue,
@@ -748,10 +893,18 @@ export type skill = {
 //     skill
 // >
 export type skillData = {
+    [skillObject.All]?: skill,
+
     [skillObject.Small]?: skill,
     [skillObject.Big]?: skill,
 }
 
+
+
+export type animationData = Array<{
+    name: action,
+    number: number,
+}>
 
 export type displayName = {
     displayNameCN: string,
@@ -836,6 +989,7 @@ export type unitUniqueName = string
 export enum skillType {
     Melee,
     Ranged,
+    Assistant,
 }
 
 // export enum modPropName {

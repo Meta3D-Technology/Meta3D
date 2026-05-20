@@ -3,7 +3,7 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-set-category-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-set-category-protocol/src/EventType"
 // import { actionName as publishToGameActionName, state as publishToGameState } from "meta3d-action-mod-unit-publish-to-game-protocol"
-import { category } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { armyScale, category, scale } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -13,11 +13,28 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
 
             return new Promise((resolve, reject) => {
-                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index:number) => {
+                resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index: number) => {
                     let allModelData = api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)).allModelData
 
+                    let category_ = Array.from(allModelData.keys())[index]
+
                     meta3dState = api.action.setActionState<state>(meta3dState, actionName, {
-                        category: Array.from(allModelData.keys())[index]
+                        category: category_
+                    })
+
+
+                    let defaultScale
+                    switch (category_) {
+                        case category.EliteGiantess:
+                            defaultScale = scale.Level5
+                            break
+                        default:
+                            defaultScale = armyScale.Level0
+                            break
+                    }
+                    meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                        ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
+                        scale: defaultScale
                     })
 
                     return Promise.resolve(meta3dState)

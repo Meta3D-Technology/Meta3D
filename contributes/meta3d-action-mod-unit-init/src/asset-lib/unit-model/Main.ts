@@ -36,6 +36,23 @@ export let getAllModelData = () => {
             // {
             //     model: model.EliteGiantess11,
             // },
+        ],
+        [category.Soldier]: [
+            {
+                model: model.Soldier1,
+            },
+            {
+                model: model.Soldier2,
+            },
+            {
+                model: model.Soldier3,
+            },
+            {
+                model: model.Soldier4,
+            },
+            {
+                model: model.Soldier5,
+            },
         ]
     }
 }

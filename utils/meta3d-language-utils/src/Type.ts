@@ -40,6 +40,8 @@ export enum languageKey {
     NeedBigSkillObjectEmitterData,
     NeedLOD1LOD2SnapshotModelFile,
 
+    ForAllUnit = "ForAllUnit",
+    NeedAllSkillObjectEmitterData = "NeedAllSkillObjectEmitterData",
 
 }
 

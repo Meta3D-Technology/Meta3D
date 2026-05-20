@@ -103,8 +103,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         Array.from(api.immutable.createMapOfData(getActions()).entries()),
                         (result, [category, actions]) => {
                             return reducePromise(
-                                Array.from(api.immutable.createMapOfData(actions).entries()),
-                                (result, [action, actionData]) => {
+                                Array.from(api.immutable.createMapOfData(actions as any).entries()),
+                                (result, [action, actionData]: any) => {
                                     return new Promise((resolve, reject) => {
                                         imageSrcToBase64(
                                             resolve,

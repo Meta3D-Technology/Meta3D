@@ -3102,7 +3102,12 @@ add get/set multi layers' value
 # limit scale to [1,3]
 # limit scale to [0.5,1.5]?([1M, 3M])
 
-** TODO update model
+
+** DONE update type, asset lib, language
+
+
+
+** DONE update model
 
 
 TODO can select
@@ -3110,7 +3115,11 @@ TODO can select
 
 
 TODO can upload
+  # fix: remove 正在发布中
 
+
+
+TODO limit scale range for soldier
 
 
 
@@ -3144,7 +3153,23 @@ TODO action: 注明动作类型（如：踢1（近战）、冲锋（辅助））
 
 
 
+
+TODO update particle images
+TODO update particle hit effects
+
+
+TODO update emitterSize value range
+TODO update emitterCollisionSize value range
+
+TODO rename emitterCollisionSize text to 增加的弹药碰撞体积
+
+
+
+
+
 ** TODO elitegiantess, soldier can replace animations
+
+*** TODO add Animation tab
 
 *** TODO elitegiantess, soldier can replace default animations for non-behaviour actions
 
@@ -3164,19 +3189,7 @@ TODO can replace
 TODO feature has category field
 
 
-TODO update particle images
-TODO update particle hit effects
-
-
-TODO update emitterSize value range
-TODO update emitterCollisionSize value range
-
-TODO rename emitterCollisionSize text to 增加的弹药碰撞体积
-
-
 * TODO update doc
-
-** TODO write generate soldier model doc
 
 mixamo:
 # has weapon unit all use 25 skeletons?
@@ -3204,6 +3217,7 @@ no select "Use Symmetry"
 给出参考的图片：
 # use mixamo->great sword snapshot
 use 剑客参考图片.png
+use Soldier1(melee) snapshot
 # use tripo soldier snapshot
 use 士兵参考图片.png
   explain: 枪应该要垂直向下旋转90度，不过暂时没有合适的图片
@@ -3216,7 +3230,6 @@ use 士兵参考图片.png
 
 如果生成的模型不正确（如武器没拿好、头朝向错误等），可点击“免费重试”
 
-** TODO update doc
 
 
 

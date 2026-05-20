@@ -77,6 +77,77 @@ export let getActions = () => {
                 skillType: skillType.Ranged,
                 skillObject: skillObject.All,
             },
+        },
+        [category.Soldier]: {
+            [action.Slash1]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.Slash2]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.Slash3]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.Slash4]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.SlashCombo1]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.SlashCombo2]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.SlashCombo3]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.Swipe1]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.MeleeKick1]: {
+                skillType: skillType.Melee,
+                skillObject: skillObject.All,
+            },
+            [action.Shoot1]: {
+                skillType: skillType.Ranged,
+                skillObject: skillObject.All,
+
+            },
+            [action.Shoot2]: {
+                skillType: skillType.Ranged,
+                skillObject: skillObject.All,
+            },
+            [action.Shoot3]: {
+                skillType: skillType.Ranged,
+                skillObject: skillObject.All,
+            },
+            [action.Shoot4]: {
+                skillType: skillType.Ranged,
+                skillObject: skillObject.All,
+            },
+            [action.Cast1]: {
+                skillType: skillType.Ranged,
+                skillObject: skillObject.All,
+            },
+            [action.Cast2]: {
+                skillType: skillType.Assistant,
+                skillObject: skillObject.All,
+            },
+            [action.Cast3]: {
+                skillType: skillType.Assistant,
+                skillObject: skillObject.All,
+            },
+            [action.Charge]: {
+                skillType: skillType.Assistant,
+                skillObject: skillObject.All,
+            },
         }
     }
 }
@@ -102,6 +173,8 @@ export let getMeleeSubEffects = () => {
 export let getRangedSubEffects = () => {
     return [
         rangedSubEffect.FireballHit,
+        rangedSubEffect.BasicBulletHit,
+        rangedSubEffect.LaserBulletHit,
         rangedSubEffect.ShellExplode,
     ]
 }
@@ -141,6 +214,10 @@ export let getEmitterParticleImages = () => {
         particleImage.I17,
         particleImage.I18,
         particleImage.I19,
+        particleImage.I20,
+        particleImage.I21,
+        particleImage.I22,
+        particleImage.I23,
     ]
 }
 
@@ -173,7 +250,7 @@ export let getEmitterInstanceSnapshotPath = (pathPrefix, name) => {
     return `${pathPrefix}/icon_instance/${name}.png`
 }
 
-export let getActionSnapshotPath = (pathPrefix, category: category, action: action) => {
+export let getActionSnapshotPath = (pathPrefix, category: category, action) => {
     // return `${pathPrefix}/${category.toLowerCase()}/icon_action/${action}.png`
     return `${pathPrefix}/icon_action/${action}.png`
 }
