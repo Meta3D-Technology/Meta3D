@@ -3097,6 +3097,128 @@ add get/set multi layers' value
 
 
 
+* TODO update editor
+
+# limit scale to [1,3]
+# limit scale to [0.5,1.5]?([1M, 3M])
+
+** TODO update model
+
+
+TODO can select
+
+
+
+TODO can upload
+
+
+
+
+** TODO update skill
+add skillObject.All:
+  add All
+
+  update custom image
+
+  update custom instance
+
+
+soldier can only use skillObject.All
+
+elite giantess can use skillObject.All and other
+
+
+
+
+
+# TODO but can used actions are not the same
+# e.g. Soldier not use Stomp related actions
+
+TODO soldier can only use 25skeleton actions
+
+TODO elitegiantess can only use 65skeleton actions
+
+
+TODO action: 注明动作类型（如：踢1（近战）、冲锋（辅助））
+
+
+
+
+** TODO elitegiantess, soldier can replace animations
+
+*** TODO elitegiantess, soldier can replace default animations for non-behaviour actions
+
+
+share them
+
+
+TODO can replace
+
+
+
+*** TODO elitegiantess, soldier can replace default animations for behaviour actions
+
+
+** TODO other
+
+TODO feature has category field
+
+
+TODO update particle images
+TODO update particle hit effects
+
+
+TODO update emitterSize value range
+TODO update emitterCollisionSize value range
+
+TODO rename emitterCollisionSize text to 增加的弹药碰撞体积
+
+
+* TODO update doc
+
+** TODO write generate soldier model doc
+
+mixamo:
+# has weapon unit all use 25 skeletons?
+# no weapon unit keep use 65 skeletons?
+soldier all use 25 skeletons
+elitegiantess all use 65 skeletons
+
+
+soldier:
+# lod1:10000
+lod1:6000
+lod2:3000
+
+
+soldier all has weapon:
+no select "Use Symmetry"
+
+
+
+给出参考的文字：
+# 右手拿着自动武器的轻装士兵，左手是空的，头看向正面
+
+
+
+给出参考的图片：
+# use mixamo->great sword snapshot
+use 剑客参考图片.png
+# use tripo soldier snapshot
+use 士兵参考图片.png
+  explain: 枪应该要垂直向下旋转90度，不过暂时没有合适的图片
+
+
+给出信息：可以上传参考图片->编辑图片，然后根据编辑的图片来生成模型
+
+
+
+
+如果生成的模型不正确（如武器没拿好、头朝向错误等），可点击“免费重试”
+
+** TODO update doc
+
+
 
 
 
