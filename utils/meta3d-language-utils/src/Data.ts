@@ -37,12 +37,13 @@ export let getTextData = (): languageTextData => {
             [languageKey.NeedAtLeastOneGenerateData]: "需要为至少一个关卡加入生成数据",
             [languageKey.NeedSmallSkillObjectEmitterData]: "需要加入针对小型单位的技能->弹药数据",
             [languageKey.NeedBigSkillObjectEmitterData]: "需要加入针对大型单位的技能->弹药数据",
-            [languageKey.NeedAllSkillObjectEmitterData]: "需要加入针对所有单位的技能->弹药数据",
+            // [languageKey.NeedAllSkillObjectEmitterData]: "需要加入针对所有单位的技能->弹药数据",
             [languageKey.NeedLOD1LOD2SnapshotModelFile]: "需要上传LOD1和LOD2的模型FBX文件和模型快照",
 
             [languageKey.Melee]: "近战",
             [languageKey.Ranged]: "远程",
             [languageKey.Assistant]: "辅助",
+            [languageKey.NeedBigSkillObject]: "需要加入针对大型单位的技能",
 
 
             [category.EliteGiantess]: "精英巨大娘",
@@ -234,12 +235,13 @@ export let getTextData = (): languageTextData => {
             [languageKey.NeedAtLeastOneGenerateData]: "Generation data for at least one level is required",
             [languageKey.NeedSmallSkillObjectEmitterData]: "Ammo data for small unit skills is required",
             [languageKey.NeedBigSkillObjectEmitterData]: "Ammo data for large unit skills is required",
-            [languageKey.NeedAllSkillObjectEmitterData]: "Ammo data for all unit skills is required",
+            // [languageKey.NeedAllSkillObjectEmitterData]: "Ammo data for all unit skills is required",
             [languageKey.NeedLOD1LOD2SnapshotModelFile]: "LOD1 and LOD2 model file and snapshot are required",
 
             [languageKey.Melee]: "Melee",
             [languageKey.Ranged]: "Ranged",
             [languageKey.Assistant]: "Assistant",
+            [languageKey.NeedBigSkillObject]: "Skills for large units are required",
 
             [category.EliteGiantess]: "Elite Giantess",
             [category.Soldier]: "Soldier",

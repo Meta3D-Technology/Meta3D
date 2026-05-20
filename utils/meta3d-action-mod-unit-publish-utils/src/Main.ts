@@ -295,7 +295,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
             emitter = undefined
         }
 
-        skillObj[skillObject.Big] = {
+        // skillObj[skillObject.Big] = {
+        skillObj[category_ == category.EliteGiantess ? skillObject.Big : skillObject.All] = {
             action: {
                 // name: Array.from(api.nullable.getExn(allActionData.get(category_)).keys())[api.nullable.getExn(selectedBigSkillObjectActionIndex)],
                 name: getActionData(api, state, "selectedBigSkillObjectActionIndex", category_)[0],
@@ -425,6 +426,8 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
     }: initState, isForQuicktest) => {
     let message = api.nullable.getEmpty<string>()
 
+    let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
+
     if (!isForQuicktest) {
         if (
             !hasAttackCitySceneChapterGenerateData &&
@@ -435,10 +438,22 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
         }
     }
 
-    if (!hasSmallSkillObject || !hasBigSkillObject) {
-        message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAllSkillObject))
+    switch (category_) {
+        case category.EliteGiantess:
+            if (!hasSmallSkillObject || !hasBigSkillObject) {
+                message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedAllSkillObject))
+            }
+            break
+        default:
+            if (!hasBigSkillObject) {
+                message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedBigSkillObject))
+            }
+            break
     }
-    else if (getSkillType(api, meta3dState, "selectedSmallSkillObjectActionIndex") == skillType.Ranged
+
+    if (
+        hasSmallSkillObject
+        && getSkillType(api, meta3dState, "selectedSmallSkillObjectActionIndex") == skillType.Ranged
         // && (
         //     api.nullable.isNullable(
         //         selectedSmallSkillObjectEmitterParticleImageIndex
@@ -466,7 +481,9 @@ export let checkModData = (api: api, [getLanguageTextData, languageKey], meta3dS
             message = api.nullable.return(getLanguageTextData(api, meta3dState, languageTextData, languageKey.NeedSmallSkillObjectEmitterData))
         }
     }
-    else if (getSkillType(api, meta3dState, "selectedBigSkillObjectActionIndex") == skillType.Ranged
+    else if (
+        hasBigSkillObject
+        && getSkillType(api, meta3dState, "selectedBigSkillObjectActionIndex") == skillType.Ranged
         // && (
         //     api.nullable.isNullable(
         //         selectedBigSkillObjectEmitterParticleImageIndex

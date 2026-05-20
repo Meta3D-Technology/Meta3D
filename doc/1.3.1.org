@@ -3148,17 +3148,24 @@ TODO sort action
 
 
 
-add skillObject.All:
-  add All
+# add skillObject.All:
+#   add All
 
-  update custom image
+#   update custom image
 
-  update custom instance
+#   update custom instance
 
 
-soldier can only use skillObject.All
+# soldier can only use skillObject.All
 
-elite giantess can use skillObject.All and other
+# # elite giantess can use skillObject.All and other
+# elite giantess can't use skillObject.All
+
+soldier can only use skillObject.Big
+
+
+change to skillObject.All
+
 
 
 

@@ -41,10 +41,10 @@ export enum languageKey {
     NeedLOD1LOD2SnapshotModelFile,
 
     ForAllUnit = "ForAllUnit",
-    NeedAllSkillObjectEmitterData = "NeedAllSkillObjectEmitterData",
     Melee = "Melee",
     Ranged = "Ranged",
     Assistant = "Assistant",
+    NeedBigSkillObject = "NeedBigSkillObject",
 
 }
 

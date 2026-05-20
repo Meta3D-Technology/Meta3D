@@ -44,6 +44,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         selectedBigSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
                         selectedBigSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
 
+                        hasSmallSkillObject: false,
+                        hasBigSkillObject: false,
+
                     })
 
                     return Promise.resolve(meta3dState)

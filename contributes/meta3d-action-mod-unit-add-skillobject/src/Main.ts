@@ -3,6 +3,8 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-add-skillobject-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-add-skillobject-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
+import { category } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -13,22 +15,33 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState, index) => {
-                    let fieldName
-                    switch (index) {
-                        case 0:
-                            fieldName = "hasSmallSkillObject"
-                            break
-                        case 1:
-                            fieldName = "hasBigSkillObject"
+                    switch (api.nullable.getExn(api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)).category) {
+                        case category.EliteGiantess:
+                            let fieldName
+                            switch (index) {
+                                case 0:
+                                    fieldName = "hasSmallSkillObject"
+                                    break
+                                case 1:
+                                    fieldName = "hasBigSkillObject"
+                                    break
+                                default:
+                                    throw new Error("error")
+                            }
+
+                            meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                                ...api.action.getActionState<initState>(meta3dState, initActionName),
+                                [fieldName]: true
+                            })
                             break
                         default:
-                            throw new Error("error")
+                            meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                                ...api.action.getActionState<initState>(meta3dState, initActionName),
+                                hasSmallSkillObject: false,
+                                hasBigSkillObject: true
+                            })
+                            break
                     }
-
-                    meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
-                        ...api.action.getActionState<initState>(meta3dState, initActionName),
-                        [fieldName]: true
-                    })
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {
