@@ -3124,18 +3124,6 @@ TODO limit scale range for soldier
 
 
 ** TODO update skill
-add skillObject.All:
-  add All
-
-  update custom image
-
-  update custom instance
-
-
-soldier can only use skillObject.All
-
-elite giantess can use skillObject.All and other
-
 
 
 
@@ -3148,7 +3136,29 @@ TODO soldier can only use 25skeleton actions
 TODO elitegiantess can only use 65skeleton actions
 
 
+TODO change category:
+should reset action index, ...
+
+
 TODO action: 注明动作类型（如：踢1（近战）、冲锋（辅助））
+
+
+TODO sort action
+
+
+
+
+add skillObject.All:
+  add All
+
+  update custom image
+
+  update custom instance
+
+
+soldier can only use skillObject.All
+
+elite giantess can use skillObject.All and other
 
 
 

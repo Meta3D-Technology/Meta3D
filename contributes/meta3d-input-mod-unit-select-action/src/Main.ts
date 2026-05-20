@@ -4,8 +4,20 @@ import { actionName as initActionName, state as initState } from "meta3d-action-
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { service, inputContribute } from "meta3d-editor-whole-protocol/src/service/ServiceType"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
-import { skillObject } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { skillObject, skillType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { getActionData, getActionEntries } from "meta3d-action-mod-unit-skill-utils/src/Main"
+import { languageKey } from "meta3d-language-utils/src/Type"
+
+let _getSkillTypeKey = (skillType_: skillType) => {
+    switch (skillType_) {
+        case skillType.Melee:
+            return languageKey.Melee
+        case skillType.Ranged:
+            return languageKey.Ranged
+        case skillType.Assistant:
+            return languageKey.Assistant
+    }
+}
 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
@@ -26,7 +38,7 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                     return getActionEntries(api, state, isShowSkillModalFieldName.includes("Small"), category)
                         .map(([action, actionData]) => {
                             return {
-                                name: getLanguageTextData(api, meta3dState, state.languageTextData, action),
+                                name: `${getLanguageTextData(api, meta3dState, state.languageTextData, action)}(${getLanguageTextData(api, meta3dState, state.languageTextData, _getSkillTypeKey(actionData.skillType))})`,
                                 imageBase64: actionData.snapshotImageBase64
                             }
                         })

@@ -42,6 +42,9 @@ export enum languageKey {
 
     ForAllUnit = "ForAllUnit",
     NeedAllSkillObjectEmitterData = "NeedAllSkillObjectEmitterData",
+    Melee = "Melee",
+    Ranged = "Ranged",
+    Assistant = "Assistant",
 
 }
 

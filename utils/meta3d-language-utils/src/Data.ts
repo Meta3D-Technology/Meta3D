@@ -40,6 +40,10 @@ export let getTextData = (): languageTextData => {
             [languageKey.NeedAllSkillObjectEmitterData]: "需要加入针对所有单位的技能->弹药数据",
             [languageKey.NeedLOD1LOD2SnapshotModelFile]: "需要上传LOD1和LOD2的模型FBX文件和模型快照",
 
+            [languageKey.Melee]: "近战",
+            [languageKey.Ranged]: "远程",
+            [languageKey.Assistant]: "辅助",
+
 
             [category.EliteGiantess]: "精英巨大娘",
             [category.Soldier]: "士兵",
@@ -232,6 +236,10 @@ export let getTextData = (): languageTextData => {
             [languageKey.NeedBigSkillObjectEmitterData]: "Ammo data for large unit skills is required",
             [languageKey.NeedAllSkillObjectEmitterData]: "Ammo data for all unit skills is required",
             [languageKey.NeedLOD1LOD2SnapshotModelFile]: "LOD1 and LOD2 model file and snapshot are required",
+
+            [languageKey.Melee]: "Melee",
+            [languageKey.Ranged]: "Ranged",
+            [languageKey.Assistant]: "Assistant",
 
             [category.EliteGiantess]: "Elite Giantess",
             [category.Soldier]: "Soldier",

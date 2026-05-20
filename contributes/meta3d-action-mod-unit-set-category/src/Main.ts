@@ -34,7 +34,16 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                     }
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
-                        scale: defaultScale
+                        scale: defaultScale,
+
+                        selectedModelIndex: 0,
+                        selectedSmallSkillObjectActionIndex: 0,
+                        selectedSmallSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
+                        selectedSmallSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
+                        selectedBigSkillObjectActionIndex: 0,
+                        selectedBigSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
+                        selectedBigSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
+
                     })
 
                     return Promise.resolve(meta3dState)
