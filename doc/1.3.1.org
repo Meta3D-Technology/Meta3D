@@ -3171,12 +3171,14 @@ change to skillObject.All
 
 
 
-TODO update particle images
-TODO update particle hit effects
+# TODO update particle images
+# TODO update particle hit effects
 
 
 TODO update emitterSize value range
 TODO update emitterCollisionSize value range
+
+TODO update default value
 
 TODO rename emitterCollisionSize text to 增加的弹药碰撞体积
 

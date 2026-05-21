@@ -404,8 +404,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 s_emitterSpeed: emitterSpeed.Level5,
                 s_emitterLife: emitterLife.Level5,
-                s_emitterSize: emitterSize.Level5,
-                s_emitterCollisionSize: emitterCollisionSize.Level5,
+                s_emitterSize: emitterSize.Level3,
+                s_emitterCollisionSize: emitterCollisionSize.Level0,
                 // s_emitterCount: emitterCount.Level1,
                 s_explodeRange: explodeRange.Level5,
 
@@ -433,8 +433,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 b_emitterSpeed: emitterSpeed.Level5,
                 b_emitterLife: emitterLife.Level5,
-                b_emitterSize: emitterSize.Level5,
-                b_emitterCollisionSize: emitterCollisionSize.Level5,
+                b_emitterSize: emitterSize.Level3,
+                b_emitterCollisionSize: emitterCollisionSize.Level0,
                 // b_emitterCount: emitterCount.Level1,
                 b_explodeRange: explodeRange.Level5,
 
