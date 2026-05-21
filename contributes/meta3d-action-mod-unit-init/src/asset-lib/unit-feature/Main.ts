@@ -1,11 +1,13 @@
-import { feature } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { category, feature } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 
 export let getAllFeatureData = () => {
     return {
         [feature.DamageBigger]: {
+            categories: [category.EliteGiantess],
             maxLevel: 3
         },
         [feature.PassiveBigger]: {
+            categories: [category.EliteGiantess],
             maxLevel: 3
         },
         [feature.PoisonSingle]: {

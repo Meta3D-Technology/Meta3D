@@ -81,6 +81,7 @@ export type props = List<propData>
 export type featureData = {
     name: feature,
     maxLevel: number,
+    categories?: Array<category>,
 }
 
 export type features = List<featureData>

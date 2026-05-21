@@ -5,6 +5,7 @@ import { eventName, inputData } from "meta3d-action-mod-unit-set-category-protoc
 // import { actionName as publishToGameActionName, state as publishToGameState } from "meta3d-action-mod-unit-publish-to-game-protocol"
 import { armyScale, category, scale } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { resetInitState } from "meta3d-action-mod-unit-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -33,25 +34,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                             break
                     }
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
-                        ...api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName)),
+                        ...resetInitState(api, api.nullable.getExn(api.action.getActionState<initState>(meta3dState, initActionName))),
                         scale: defaultScale,
-
-                        selectedModelIndex: 0,
-                        selectedSmallSkillObjectActionIndex: 0,
-                        selectedSmallSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
-                        selectedSmallSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
-                        selectedBigSkillObjectActionIndex: 0,
-                        selectedBigSkillObjectEmitterParticleImageIndex: api.nullable.getEmpty(),
-                        selectedBigSkillObjectEmitterInstanceIndex: api.nullable.getEmpty(),
-
-                        hasSmallSkillObject: false,
-                        hasBigSkillObject: false,
-
-                        animationData: api.immutable.createMap(),
-
-                        features: [],
-
                     })
+
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

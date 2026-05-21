@@ -3218,9 +3218,19 @@ ui
 *** DONE update publish data
 
 
-** TODO other
+** DONE other
 
 TODO feature has category field
+
+TODO sort feature
+
+** TODO pass publish
+
+select model
+
+upload model
+
+** TODO pass quick test
 
 
 * TODO update doc

@@ -3,10 +3,11 @@ import { actionContribute, service as editorWholeService } from "meta3d-editor-w
 import { actionName, state, uiData } from "meta3d-action-mod-unit-add-feature-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-add-feature-protocol/src/EventType"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
+import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
 import { languageVariableKey } from "meta3d-language-utils/src/Type"
-
+import { filterFeatureData } from "meta3d-action-mod-unit-utils/src/Main"
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
     return {
@@ -27,9 +28,9 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         return Promise.resolve(meta3dState)
                     }
 
-                    let featureData = api.nullable.getExn(state.allFeatureData.filter(d => {
-                        return state.features.filter(f => f.name == d.name).length == 0
-                    }).get(selectedIndex))
+                    let category = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName).category
+
+                    let featureData = api.nullable.getExn(filterFeatureData(api, category, state).get(selectedIndex))
 
                     meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
                         ...state,
