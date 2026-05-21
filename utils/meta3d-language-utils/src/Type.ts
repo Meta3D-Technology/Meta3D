@@ -45,6 +45,12 @@ export enum languageKey {
     Ranged = "Ranged",
     Assistant = "Assistant",
     NeedBigSkillObject = "NeedBigSkillObject",
+    // Giantess,
+    Mech = "Mech",
+    // LittleMan = "LittleMan",
+    // Building = "Building",
+    Light = "Light",
+    Heavy = "Heavy",
 
 }
 

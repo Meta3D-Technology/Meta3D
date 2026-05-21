@@ -44,6 +44,9 @@ export let getTextData = (): languageTextData => {
             [languageKey.Ranged]: "远程",
             [languageKey.Assistant]: "辅助",
             [languageKey.NeedBigSkillObject]: "需要加入针对大型单位的技能",
+            [languageKey.Mech]: "机甲",
+            [languageKey.Light]: "轻型",
+            [languageKey.Heavy]: "重型",
 
 
             [category.EliteGiantess]: "精英巨大娘",
@@ -242,6 +245,9 @@ export let getTextData = (): languageTextData => {
             [languageKey.Ranged]: "Ranged",
             [languageKey.Assistant]: "Assistant",
             [languageKey.NeedBigSkillObject]: "Skills for large units are required",
+            [languageKey.Mech]: "Mech",
+            [languageKey.Light]: "Light",
+            [languageKey.Heavy]: "Heavy",
 
             [category.EliteGiantess]: "Elite Giantess",
             [category.Soldier]: "Soldier",

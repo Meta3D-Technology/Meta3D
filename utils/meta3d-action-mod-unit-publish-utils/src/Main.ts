@@ -15,14 +15,13 @@ import { getActionData, getSkillType } from "meta3d-action-mod-unit-skill-utils/
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { animations } from "meta3d-action-mod-unit-init-protocol/src/Type"
 
-let _getArmorType = (category_: category) => {
-    // switch (category_) {
-    //     case category.EliteGiantess:
-    //         return armorType.Giantess
-    //     default:
-    //         throw new Error("error")
-    // }
-    return armorType.Giantess
+let _getArmorType = (category_: category, armorType_) => {
+    switch (category_) {
+        case category.EliteGiantess:
+            return armorType.Giantess
+        default:
+            return armorType_
+    }
 }
 
 let _addGenerateData = (result, sceneChapter, l_sceneData, g_sceneData) => {
@@ -78,6 +77,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
 
         excitement,
         defenseFactor,
+        armorType,
         armorRatio,
         armorStrength,
         attackFactor,
@@ -365,7 +365,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
             return api.${updateFuncStr}(state, ${JSON.stringify({
         excitement: excitement,
         defenseFactor: defenseFactor,
-        armorType: _getArmorType(category_),
+        armorType: _getArmorType(category_, armorType),
         armorRatio: armorRatio,
         armorStrength: armorStrength,
         attackFactor: attackFactor,

@@ -1,4 +1,4 @@
-import { behaviourData, countFactor, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { armorType, behaviourData, countFactor, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { actions, allAnimationData, animations, damageEffects, emitterInstances, emitterParticleImages, emitterSubEffects, emitterTypes, features, meleeSubEffects, models, props, rangedSubEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { languageTextData, languageTextDataByVariable } from "meta3d-language-utils/src/Type"
@@ -100,7 +100,7 @@ export type state = {
 
     excitement: number,
     defenseFactor: number
-    // armorType: armorType.Giantess,
+    armorType: armorType,
     armorRatio: number,
     armorStrength: number,
     attackFactor: number,

@@ -10,7 +10,7 @@ import { getActions, getActionSnapshotPath, getAllDamageEffectData, getEmitterIn
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
 import { imageSrcToBase64 } from "meta3d-file-ts-utils/src/ImageUtils"
-import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, speed, emitterVolume, critRatio, emitterLife, emitterSize, emitterCollisionSize, emitterCount, explodeRange, armorPiercingForceRatio, weaponType, behaviourMode, behaviourModeKey, idleMode, nearAttackTargetMode, attackMode, remoteAttackMode } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { armorRatio, armorStrength, attackFactor, countFactor, defenseFactor, emitSpeed, emitSpeedFactor, critRatioFactor, hp, emitPrecision, scale, emitterSpeed, emitterType, excitement, forceSize, speed, emitterVolume, critRatio, emitterLife, emitterSize, emitterCollisionSize, emitterCount, explodeRange, armorPiercingForceRatio, weaponType, behaviourMode, behaviourModeKey, idleMode, nearAttackTargetMode, attackMode, remoteAttackMode, armorType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { getAllPropData } from "./asset-lib/prop/Main"
 import { getAllFeatureData } from "./asset-lib/unit-feature/Main"
 import { getLanguageTextData } from "meta3d-language-utils/src/Main"
@@ -370,6 +370,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 excitement: excitement.Level5,
                 defenseFactor: defenseFactor.Level5,
+                armorType: armorType.Light,
                 armorRatio: armorRatio.Level5,
                 armorStrength: armorStrength.Level5,
                 attackFactor: attackFactor.Level5,
