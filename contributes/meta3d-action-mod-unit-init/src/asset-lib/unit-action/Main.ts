@@ -266,3 +266,34 @@ export let getRangedSubEffectSnapshotPath = (pathPrefix, subEffect: rangedSubEff
 export let getEmitterSubEffectSnapshotPath = (pathPrefix, subEffect: emitterSubEffect) => {
     return `${pathPrefix}/icon_emittersubeffect/${subEffect}.png`
 }
+
+export let getAllDefaultAnimationData = () => {
+    return {
+        [category.EliteGiantess]: {
+            [action.Idle]: 8,
+            [action.Death]: 1,
+            [action.DeathHeadshot]: 1,
+            [action.Lie]: 1,
+            [action.PickedControlled]: 1,
+            [action.Shake]: 3,
+            [action.StandupFromLie]: 1,
+            [action.Walk]: 4,
+            [action.Run]: 1,
+            [action.Sprint]: 1,
+            [action.JumpForward]: 1,
+        },
+        [category.Soldier]: {
+            [action.Idle]: 8,
+            [action.Death]: 4,
+            [action.DeathHeadshot]: 2,
+            [action.Lie]: 1,
+            [action.PickedControlled]: 1,
+            [action.Shake]: 5,
+            [action.StandupFromLie]: 1,
+            [action.Walk]: 9,
+            [action.Run]: 3,
+            [action.Sprint]: 3,
+            [action.JumpForward]: 1,
+        }
+    }
+}

@@ -47,6 +47,10 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         hasSmallSkillObject: false,
                         hasBigSkillObject: false,
 
+                        animationData: api.immutable.createMap(),
+
+                        features: [],
+
                     })
 
                     return Promise.resolve(meta3dState)

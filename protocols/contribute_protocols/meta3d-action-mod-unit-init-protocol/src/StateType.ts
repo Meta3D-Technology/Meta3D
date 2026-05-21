@@ -1,5 +1,5 @@
 import { behaviourData, countFactor, emitterSubEffect, emitterType, feature, meleeSubEffect, nullable, propName, rangedSubEffect, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { actions, damageEffects, emitterInstances, emitterParticleImages, emitterSubEffects, emitterTypes, features, meleeSubEffects, models, props, rangedSubEffects } from "./Type"
+import { actions, allAnimationData, animations, damageEffects, emitterInstances, emitterParticleImages, emitterSubEffects, emitterTypes, features, meleeSubEffects, models, props, rangedSubEffects } from "./Type"
 import { autoDifficulty } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { languageTextData, languageTextDataByVariable } from "meta3d-language-utils/src/Type"
 
@@ -58,6 +58,7 @@ export type state = {
     allEmitterInstances: emitterInstances,
     allFeatureData: features,
     allPropData: props,
+    allAnimationData: allAnimationData,
 
     selectedModelIndex: nullable<number>,
     selectedSmallSkillObjectActionIndex: number,
@@ -163,6 +164,9 @@ export type state = {
 
     b_emitter_subEffects: Array<emitterSubEffect>,
 
+
+
+    animationData: animations,
 
 
     behaviourData: behaviourData,

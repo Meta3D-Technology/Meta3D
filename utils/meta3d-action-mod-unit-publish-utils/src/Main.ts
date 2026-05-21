@@ -13,14 +13,16 @@ import { getActionData, getSkillType } from "meta3d-action-mod-unit-skill-utils/
 // import { getLanguageTextData } from "meta3d-language-utils/src/Main"
 // import { languageKey } from "meta3d-language-utils/src/Type"
 import { reducePromise } from "meta3d-structure-utils/src/ArrayUtils"
+import { animations } from "meta3d-action-mod-unit-init-protocol/src/Type"
 
 let _getArmorType = (category_: category) => {
-    switch (category_) {
-        case category.EliteGiantess:
-            return armorType.Giantess
-        default:
-            throw new Error("error")
-    }
+    // switch (category_) {
+    //     case category.EliteGiantess:
+    //         return armorType.Giantess
+    //     default:
+    //         throw new Error("error")
+    // }
+    return armorType.Giantess
 }
 
 let _addGenerateData = (result, sceneChapter, l_sceneData, g_sceneData) => {
@@ -40,6 +42,15 @@ let _addGenerateData = (result, sceneChapter, l_sceneData, g_sceneData) => {
         }
     ]
 
+}
+
+let _convertAnimationData = (animationData: animations) => {
+    return animationData.reduce((result, index, action) => {
+        return [...result, {
+            name: action,
+            number: index
+        }]
+    }, [])
 }
 
 let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNameCN, displayNameEN) => {
@@ -131,6 +142,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         b_emitter_subEffects,
 
 
+        animationData,
 
         behaviourData,
 
@@ -176,7 +188,8 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
             updateFuncStr = "updateEliteGiantessValue"
             break
         default:
-            throw new Error("error")
+            updateFuncStr = "updateArmyValue"
+            break
     }
 
 
@@ -367,6 +380,9 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
         getSkillData: () => {
             return ${JSON.stringify(skillObj)}
  },
+        getAnimationData: () =>{
+            return ${JSON.stringify(_convertAnimationData(animationData))}
+        }
         getGenerateData: () => {
             return ${JSON.stringify(generateData)}
  },

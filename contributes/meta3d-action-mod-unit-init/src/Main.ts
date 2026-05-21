@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions, getActionSnapshotPath, getAllDamageEffectData, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath, getAllDamageEffectData, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath, getAllDefaultAnimationData } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
@@ -328,6 +328,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allEmitterInstances: api.immutable.createList(),
                 allFeatureData: api.immutable.createList(),
                 allPropData: api.immutable.createListOfData(getAllPropData()),
+                allAnimationData: api.immutable.createMapOfData(getAllDefaultAnimationData()).map(data => api.immutable.createMapOfData(data)),
 
                 selectedModelIndex: 0,
                 selectedSmallSkillObjectActionIndex: 0,
@@ -441,6 +442,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
 
                 b_emitter_subEffects: [],
 
+
+                animationData: api.immutable.createMap(),
 
 
                 behaviourData: {

@@ -31,6 +31,10 @@ export type actionData = {
 
 export type actions = Map<category, Map<action, actionData>>
 
+export type allAnimationData = Map<category, Map<action, number>>
+
+export type animations = Map<action, number>
+
 export type damageEffectData = {
     name: damageEffect,
     maxLevel: number,

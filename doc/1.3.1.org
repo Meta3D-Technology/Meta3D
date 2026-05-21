@@ -3188,19 +3188,34 @@ TODO rename emitterCollisionSize text to 增加的弹药碰撞体积
 
 ** TODO elitegiantess, soldier can replace animations
 
-*** TODO add Animation tab
+*** DONE add Animation tab
 
-*** TODO elitegiantess, soldier can replace default animations for non-behaviour actions
+# *** TODO elitegiantess, soldier can replace default animations for non-behaviour actions
+*** DONE elitegiantess, soldier can replace default animations 
+
+action data
+
+input
+
+action
+
+set category: clear data
+
+ui
+  add one
+    _buildDistFileContent error
+
+  add remain ones
+    # reset when change category
 
 
-share them
+
+*** TODO add armorType value
 
 
-TODO can replace
+# *** TODO elitegiantess, soldier can replace default animations for behaviour actions
 
-
-
-*** TODO elitegiantess, soldier can replace default animations for behaviour actions
+*** TODO update publish data
 
 
 ** TODO other
