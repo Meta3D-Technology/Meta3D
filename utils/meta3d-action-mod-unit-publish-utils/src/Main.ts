@@ -1,6 +1,6 @@
 import { state as meta3dState, getContribute as getContributeMeta3D, api } from "meta3d-type"
 // import { language } from "meta3d-action-mod-unit-add-careerfeature-protocol"
-import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, skillType, emitterType, instance, particleImage } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
+import { action, armorRatio, armorStrength, armorType, attackFactor, category, critRatioFactor, defenseFactor, emitSpeedFactor, excitement, model, skillObject, hp, speed, emitPrecision, scale, emitSpeed, meleeRange, emitterSpeed, emitterLife, emitterSize, emitterCollisionSize, emitterCount, forceSize, armorPiercingForceRatio, weaponType, critRatio, explodeRange, emitterVolume, sceneChapter, countFactor, player, skillType, emitterType, instance, particleImage, characterType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
 import { autoDifficulty, gem, coin, rate, experienceValue, count } from "meta3d-action-mod-unit-publish-to-game-protocol/src/Type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
@@ -614,9 +614,22 @@ let _getAssetFiles = (api: api, meta3dState: meta3dState, name) => {
     })
 }
 
+let _decideCharacterTypeByCategory = (category_) => {
+    switch (category_) {
+        case category.EliteGiantess:
+            return characterType.GiantessOrLittleMan
+        case category.Soldier:
+            return characterType.LittleMan
+        default:
+            throw new Error("error")
+    }
+}
+
 export let publish = (api: api, meta3dState: meta3dState, name, author, displayNameCN, displayNameEN, description, isPublic, modIconBase64: string) => {
     // return _base64ToUint8Array(assetIconBase64).then(uint8Array => {
     api.writeState(meta3dState)
+
+    let { category: category_ } = api.action.getActionState<setCategoryState>(meta3dState, setCategoryActionName)
 
     return api.backend.handleNetworkRequest(api, meta3dState => {
         // let state = api.action.getActionState<state>(meta3dState, actionName)
@@ -641,8 +654,7 @@ export let publish = (api: api, meta3dState: meta3dState, name, author, displayN
                 _buildDistFileContent(api, meta3dState, name, displayNameCN, displayNameEN),
                 assetFiles,
                 modIconBase64,
-                // characterType.GiantessOrLittleMan
-                2
+                _decideCharacterTypeByCategory(category_)
             )
         })
 

@@ -3294,6 +3294,15 @@ use 士兵参考图片.png
 
 
 
+* DONE set characterType
+
+
+
+
+
+
+
+
 * TODO run element: not error alert while already show error message
 
 

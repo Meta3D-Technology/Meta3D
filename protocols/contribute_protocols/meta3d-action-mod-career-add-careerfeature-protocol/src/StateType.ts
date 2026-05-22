@@ -1,4 +1,4 @@
-import { language} from "meta3d-language-utils/src/Type"
+import { language } from "meta3d-language-utils/src/Type"
 import type { List } from "immutable"
 
 export const actionName = "CareerModAddCareerFeature"
@@ -6,16 +6,27 @@ export const actionName = "CareerModAddCareerFeature"
 export type uiData = null
 
 
+// export enum characterType {
+//     Giantess,
+//     LittleMan,
+//     GiantessOrLittleMan,
+//     // GiantessOrGiantessBoss,
+//     // LittleManOrArmy,
+//     // GiantessOrLittleManOrArmyOrGiantessBoss,
+//     // Army,
+//     // GiantessBoss,
+//     // None,
+// }
 export enum characterType {
     Giantess,
     LittleMan,
     GiantessOrLittleMan,
-    // GiantessOrGiantessBoss,
-    // LittleManOrArmy,
-    // GiantessOrLittleManOrArmyOrGiantessBoss,
-    // Army,
-    // GiantessBoss,
-    // None,
+    GiantessOrGiantessBoss,
+    LittleManOrArmy,
+    GiantessOrLittleManOrArmyOrGiantessBoss,
+    Army,
+    GiantessBoss,
+    None,
 }
 
 type careerFeatureName = string

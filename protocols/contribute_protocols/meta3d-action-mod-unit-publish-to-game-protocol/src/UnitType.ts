@@ -1192,3 +1192,15 @@ export type behaviourData = {
     attackMode: attackModeData,
     remoteAttackMode: remoteAttackModeData,
 }
+
+export enum characterType {
+    Giantess,
+    LittleMan,
+    GiantessOrLittleMan,
+    GiantessOrGiantessBoss,
+    LittleManOrArmy,
+    GiantessOrLittleManOrArmyOrGiantessBoss,
+    Army,
+    GiantessBoss,
+    None,
+}
