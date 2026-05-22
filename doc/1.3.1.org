@@ -3123,7 +3123,7 @@ TODO limit scale range for soldier
 
 
 
-** TODO update skill
+** DONE update skill
 
 
 
@@ -3238,10 +3238,16 @@ upload model
     error
 
 
-* TODO select animation: use grid to show image
+* DONE select animation: use grid to show image
+
+* DONE show animation doc
+
+TODO add doc
+
+TODO add open doc button
 
 
-* TODO update doc
+* DONE update doc
 
 mixamo:
 # has weapon unit all use 25 skeletons?
@@ -3275,15 +3281,16 @@ use 士兵参考图片.png
   explain: 枪应该要垂直向下旋转90度，不过暂时没有合适的图片
 
 
-给出信息：可以上传参考图片->编辑图片，然后根据编辑的图片来生成模型
+# 给出信息：可以上传参考图片->编辑图片，然后根据编辑的图片来生成模型
 
 
 
 
-如果生成的模型不正确（如武器没拿好、头朝向错误等），可点击“免费重试”
+# 如果生成的模型不正确（如武器没拿好、头朝向错误等），可点击“免费重试”
 
 
 
+** DONE update english doc
 
 
 
