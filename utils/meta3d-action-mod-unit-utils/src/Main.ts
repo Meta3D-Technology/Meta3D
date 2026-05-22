@@ -169,7 +169,6 @@ export let resetInitState = (api: api, initState: any) => {
         isShowBigSkillObjectEmitterValueModal: false,
         isShowBigSkillObjectEmitterSubEffectModal: false,
         isShowPropModal: false,
-        isShowAnimationModal: false,
 
         excitement: excitement.Level5,
         defenseFactor: defenseFactor.Level5,

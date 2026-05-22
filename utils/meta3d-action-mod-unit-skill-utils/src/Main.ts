@@ -2,8 +2,7 @@ import { state as meta3dState, api } from "meta3d-type"
 import { actionName as initActionName, state as initState } from "meta3d-action-mod-unit-init-protocol"
 import { actionName as setCategoryActionName, state as setCategoryState } from "meta3d-action-mod-unit-set-category-protocol"
 import { action, category, damageEffect, skillObject, skillType, weaponType } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { actionData, animationData } from "meta3d-action-mod-unit-init-protocol/src/Type"
-import { nullable } from "meta3d-commonlib-ts/src/nullable"
+import { actionData } from "meta3d-action-mod-unit-init-protocol/src/Type"
 
 export let getActionEntries = (api: api, state: initState, isSmallSkill: boolean, category: category): [action, actionData][] => {
     // let isSmallSkill = selectedActionIndexFieldName === "selectedSmallSkillObjectActionIndex"
@@ -33,15 +32,6 @@ export let getActionData = (api: api, state: initState, selectedActionIndexField
 
             return actionEntries[selectedActionIndex]
         }, state[selectedActionIndexFieldName])
-    )
-}
-
-export let getAnimationData = (api: api, state: initState, actionFieldName: action, category: category): nullable<animationData> => {
-    return api.nullable.map(
-        index => {
-            return api.nullable.getExn(api.nullable.getExn(state.allAnimationData.get(category)).get(actionFieldName))[index - 1]
-        },
-        state.animationData.get(actionFieldName)
     )
 }
 

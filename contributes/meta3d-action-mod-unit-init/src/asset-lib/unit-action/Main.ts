@@ -255,10 +255,6 @@ export let getActionSnapshotPath = (pathPrefix, category: category, action) => {
     return `${pathPrefix}/icon_action/${action}.png`
 }
 
-export let getDefaultActionSnapshotPath = (pathPrefix, category: category, action, index) => {
-    return `${pathPrefix}/icon_action/${category.toLowerCase()}/default/${action}/${index}.png`
-}
-
 export let getMeleeSubEffectSnapshotPath = (pathPrefix, subEffect: meleeSubEffect) => {
     return `${pathPrefix}/icon_meleesubeffect/${subEffect}.png`
 }

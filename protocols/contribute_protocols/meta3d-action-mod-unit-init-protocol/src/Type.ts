@@ -31,12 +31,7 @@ export type actionData = {
 
 export type actions = Map<category, Map<action, actionData>>
 
-export type animationData = {
-    index: number,
-    snapshotImageBase64: string,
-}
-
-export type allAnimationData = Map<category, Map<action, Array<animationData>>>
+export type allAnimationData = Map<category, Map<action, number>>
 
 export type animations = Map<action, number>
 

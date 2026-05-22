@@ -97,7 +97,6 @@ export type state = {
     isShowBigSkillObjectEmitterValueModal: boolean,
     isShowBigSkillObjectEmitterSubEffectModal: boolean,
     isShowPropModal: boolean,
-    isShowAnimationModal: boolean,
 
     excitement: number,
     defenseFactor: number

@@ -4,7 +4,7 @@ import { actionName, state, uiData } from "meta3d-action-mod-unit-init-protocol"
 import { eventName, inputData } from "meta3d-action-mod-unit-init-protocol/src/EventType"
 import { actionName as infoActionName, state as infoState } from "meta3d-action-mod-career-info-protocol"
 import { getAllModelData, getModelSnapshotPath } from "./asset-lib/unit-model/Main"
-import { getActions, getActionSnapshotPath, getAllDamageEffectData, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath, getAllDefaultAnimationData, getDefaultActionSnapshotPath } from "./asset-lib/unit-action/Main"
+import { getActions, getActionSnapshotPath, getAllDamageEffectData, getEmitterInstances, getEmitterInstanceSnapshotPath, getEmitterParticleImages, getEmitterParticleImageSnapshotPath, getEmitterSubEffects, getEmitterSubEffectSnapshotPath, getEmitterTypes, getMeleeSubEffects, getMeleeSubEffectSnapshotPath, getRangedSubEffects, getRangedSubEffectSnapshotPath, getAllDefaultAnimationData } from "./asset-lib/unit-action/Main"
 // import { getData } from "./CareerFeatureData"
 // import { getRandomFloat, getRandomInteger, randomSelect, convertDecimalToPercent, getDecimal } from "./NumberUtils"
 // import { actionName as languageActionName, state as languageState } from "meta3d-action-mod-language-protocol"
@@ -62,15 +62,6 @@ import { actionData } from "meta3d-action-mod-unit-init-protocol/src/Type"
 
 let _getPathPrefix = (unit) => {
     return `/unit-mod/asset-lib/${unit}/asset`
-}
-
-let _range = (a, b) => {
-    let res = []
-    for (let i = a; i <= b; i++) {
-        res.push(i)
-    }
-
-    return res
 }
 
 export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> = (api) => {
@@ -271,65 +262,27 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                             },
                                             api.immutable.createList()
                                         ).then(newEmitterSubEffects => {
-                                            return reducePromise(
-                                                Array.from(api.immutable.createMapOfData(getAllDefaultAnimationData()).entries()),
-                                                (result, [category, animations]) => {
-                                                    return reducePromise(
-                                                        Array.from(api.immutable.createMapOfData(animations as any).entries()),
-                                                        (result, [action, index]: any) => {
-                                                            return reducePromise(
-                                                                _range(1, index),
-                                                                (r, i) => {
-                                                                    return new Promise((resolve, reject) => {
-                                                                        imageSrcToBase64(
-                                                                            resolve,
-                                                                            reject,
-                                                                            getDefaultActionSnapshotPath(_getPathPrefix("unit-action"), category, action, i)
-                                                                        )
-                                                                    }).then((imageBase64) => {
-                                                                        return [...r, {
-                                                                            index: i,
-                                                                            snapshotImageBase64: imageBase64,
-                                                                        }]
-                                                                    })
-                                                                },
-                                                                []
-                                                            ).then(data => {
-                                                                return result.set(action, data)
-                                                            })
-                                                        },
-                                                        api.immutable.createMap()
-                                                    )
-                                                        .then(map => {
-                                                            // return result.set(category, map.sortBy((_, key) => key))
-                                                            return result.set(category, map)
-                                                        })
-                                                },
-                                                api.immutable.createMap()
-                                            ).then(newAllAnimationData => {
-                                                meta3dState = api.action.setActionState(meta3dState, actionName, {
-                                                    ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
-                                                    allModelData: newAllModelData,
-                                                    allActionData: newAllActionData,
-                                                    allEmitterParticleImages: newEmitterParticleImages,
-                                                    allEmitterInstances: newEmitterInstances,
-                                                    allDamageEffects: newAllDamageEffectData,
-                                                    allFeatureData: newAllFeatureData,
-                                                    allAnimationData: newAllAnimationData,
+                                            meta3dState = api.action.setActionState(meta3dState, actionName, {
+                                                ...api.nullable.getExn(api.action.getActionState<state>(meta3dState, actionName)),
+                                                allModelData: newAllModelData,
+                                                allActionData: newAllActionData,
+                                                allEmitterParticleImages: newEmitterParticleImages,
+                                                allEmitterInstances: newEmitterInstances,
+                                                allDamageEffects: newAllDamageEffectData,
+                                                allFeatureData: newAllFeatureData,
 
-                                                    allMeleeSubEffects: newMeleeSubEffects.sort((a: any, b: any) => {
-                                                        return a.name.localeCompare(b.name)
-                                                    }),
-                                                    allRangedSubEffects: newRangedSubEffects.sort((a: any, b: any) => {
-                                                        return a.name.localeCompare(b.name)
-                                                    }),
-                                                    allEmitterSubEffects: newEmitterSubEffects.sort((a: any, b: any) => {
-                                                        return a.name.localeCompare(b.name)
-                                                    }),
-                                                })
-
-                                                return meta3dState
+                                                allMeleeSubEffects: newMeleeSubEffects.sort((a: any, b: any) => {
+                                                    return a.name.localeCompare(b.name)
+                                                }),
+                                                allRangedSubEffects: newRangedSubEffects.sort((a: any, b: any) => {
+                                                    return a.name.localeCompare(b.name)
+                                                }),
+                                                allEmitterSubEffects: newEmitterSubEffects.sort((a: any, b: any) => {
+                                                    return a.name.localeCompare(b.name)
+                                                }),
                                             })
+
+                                            return meta3dState
                                         })
                                     })
                                 })
@@ -387,8 +340,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                 allEmitterInstances: api.immutable.createList(),
                 allFeatureData: api.immutable.createList(),
                 allPropData: api.immutable.createListOfData(getAllPropData()),
-                // allAnimationData: api.immutable.createMapOfData(getAllDefaultAnimationData()).map(data => api.immutable.createMapOfData(data)),
-                allAnimationData: api.immutable.createMap(),
+                allAnimationData: api.immutable.createMapOfData(getAllDefaultAnimationData()).map(data => api.immutable.createMapOfData(data)),
             })
         }
     }
