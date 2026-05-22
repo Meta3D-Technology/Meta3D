@@ -3123,7 +3123,7 @@ TODO limit scale range for soldier
 
 
 
-** TODO update skill
+** DONE update skill
 
 
 
@@ -3238,7 +3238,14 @@ upload model
     error
 
 
-* TODO select animation: use grid to show image
+* DONE select animation: use grid to show image
+
+* TODO show animation doc
+
+TODO add doc
+  cn
+
+TODO add open doc button
 
 
 * TODO update doc
