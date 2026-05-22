@@ -3224,13 +3224,21 @@ TODO feature has category field
 
 TODO sort feature
 
-** TODO pass publish
+** DONE pass quick test
 
-select model
+TODO fix: assistant skill with effect
+
+
+** DONE pass publish
+
+# select model
 
 upload model
+  fix: 
+    error
 
-** TODO pass quick test
+
+* TODO select animation: use grid to show image
 
 
 * TODO update doc
@@ -3238,7 +3246,7 @@ upload model
 mixamo:
 # has weapon unit all use 25 skeletons?
 # no weapon unit keep use 65 skeletons?
-soldier all use 25 skeletons
+soldier all use 25 s
 elitegiantess all use 65 skeletons
 
 

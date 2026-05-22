@@ -34,13 +34,16 @@ let _isNotShowAnySkillModalExceptEmitter = (api: api, meta3dState: meta3dState) 
 export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => {
     return {
         inputName: "ModUnitShowEmitterWindowInput",
-        func: (meta3dState, [selectedActionIndexFieldName]) => {
+        func: (meta3dState, [selectedActionIndexFieldName, isForAssistant]) => {
             let skillType_ = getSkillType(api, meta3dState, selectedActionIndexFieldName)
 
             return Promise.resolve(
                 _isNotShowAnySkillModalExceptEmitter(api, meta3dState)
                 &&
-                skillType_ == skillType.Ranged
+                (
+                    api.nullable.getWithDefault(api.nullable.map(isForAssistant => Boolean(isForAssistant), isForAssistant), false) ? skillType_ == skillType.Assistant
+                        : skillType_ == skillType.Ranged
+                )
             )
         }
     }

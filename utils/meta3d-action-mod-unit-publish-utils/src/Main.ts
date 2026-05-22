@@ -304,6 +304,11 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
                 )
             }
         }
+        else if (getSkillType(api, meta3dState, "selectedBigSkillObjectActionIndex") == skillType.Assistant) {
+            emitter = {
+                subEffects: b_emitter_subEffects,
+            }
+        }
         else {
             emitter = undefined
         }
@@ -382,7 +387,7 @@ let _buildDistFileContent = (api: api, meta3dState: meta3dState, name, displayNa
  },
         getAnimationData: () =>{
             return ${JSON.stringify(_convertAnimationData(animationData))}
-        }
+        },
         getGenerateData: () => {
             return ${JSON.stringify(generateData)}
  },

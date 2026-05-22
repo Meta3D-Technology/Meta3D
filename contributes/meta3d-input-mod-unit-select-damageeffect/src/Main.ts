@@ -27,7 +27,8 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                             // .sort((a, b) => {
                             //     return a.localeCompare(b)
                             // })
-                            case skillType.Ranged:
+                            // case skillType.Ranged:
+                            default:
                                 return []
                         }
                     },

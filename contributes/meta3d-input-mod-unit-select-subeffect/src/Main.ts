@@ -39,6 +39,9 @@ export let getContribute: getContributeMeta3D<inputContribute<data>> = (api) => 
                             case skillType.Ranged:
                                 result = state.allRangedSubEffects.toArray()
                                 break
+                            case skillType.Assistant:
+                                result = []
+                                break
                         }
                         if (subEffectsFieldName.toLowerCase().includes("emitter")) {
                             result = state.allEmitterSubEffects.toArray()
