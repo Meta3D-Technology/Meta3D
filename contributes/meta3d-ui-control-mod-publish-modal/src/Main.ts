@@ -26,7 +26,7 @@ let _loadModIcon = (api: api): Promise<imageBase64> => {
             console.log(`loading ${loaded / total} %`)
         }, () => {
             resolve(api.nullable.getEmpty())
-        })
+        }, 0.05 * 1024 * 1024)
     })
 }
 
@@ -174,6 +174,10 @@ export let getContribute: getContributeMeta3D<uiControlContribute<inputFunc, spe
                         })
                     }
 
+
+                    return meta3dState
+                }).catch((error) => {
+                    api.message.error(error)
 
                     return meta3dState
                 }).then(meta3dState => {

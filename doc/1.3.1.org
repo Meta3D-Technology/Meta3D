@@ -3297,6 +3297,18 @@ use 士兵参考图片.png
 * DONE set characterType
 
 
+* DONE fix
+
+Some network problems identified, when uploading LOD1 and LOD2, it is fast and immediatelly the page says "success". When trying to publish the game, very ofter page says after couple of minutes "UserNetworkTooSlow" and model is not published 
+
+  TODO post too large: due to icon?
+  TODO limit snapshot size
+
+
+* DONE fix: no publishing info
+
+
+
 
 
 

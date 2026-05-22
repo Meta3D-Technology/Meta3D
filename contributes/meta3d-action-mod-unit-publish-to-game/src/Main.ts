@@ -59,13 +59,19 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         info: api.nullable.return(getLanguageTextData(api, meta3dState, api.action.getActionState<initState>(meta3dState, initActionName).languageTextData, languageKey.Publishing))
                     })
 
+                    meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                        ...api.action.getActionState<initState>(meta3dState, initActionName),
+                        isShowPublishModal: false
+                    })
+
+
                     api.flow.deferExec(api, (meta3dState) => {
                         let initState = api.action.getActionState<initState>(meta3dState, initActionName)
 
-                        meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
-                            ...api.action.getActionState<initState>(meta3dState, initActionName),
-                            isShowPublishModal: false
-                        })
+                        // meta3dState = api.action.setActionState<initState>(meta3dState, initActionName, {
+                        //     ...api.action.getActionState<initState>(meta3dState, initActionName),
+                        //     isShowPublishModal: false
+                        // })
 
                         let author = getUserName(api)
                         return publish(api,
