@@ -3311,6 +3311,17 @@ Some network problems identified, when uploading LOD1 and LOD2, it is fast and i
 * DONE update count factor range
 
 
+* DONE publish editor
+
+TODO fix:
+  run error
+    refresh
+
+
+TODO run test
+
+* DONE add english editor
+
 
 
 
