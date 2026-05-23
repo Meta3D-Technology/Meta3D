@@ -6,7 +6,7 @@ export let getTextData = (): languageTextData => {
         [language.Chinese]: {
             [languageKey.Level]: "级别",
             [languageKey.Count]: "数量",
-            [languageKey.CountFactor]: "每次出现的数量系数",
+            [languageKey.CountFactor]: "出现的数量系数",
             [languageKey.DropRate]: "爆率",
             [languageKey.Difficulty]: "难度",
             [languageKey.Weight]: "权重",
@@ -207,7 +207,7 @@ export let getTextData = (): languageTextData => {
         [language.English]: {
             [languageKey.Level]: "Level",
             [languageKey.Count]: "Count",
-            [languageKey.CountFactor]: "Count factor per Spawn",
+            [languageKey.CountFactor]: "Count factor",
             [languageKey.DropRate]: "Drop Rate",
             [languageKey.Difficulty]: "Difficulty",
             [languageKey.Weight]: "Weight",
