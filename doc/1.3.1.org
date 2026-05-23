@@ -3308,6 +3308,8 @@ Some network problems identified, when uploading LOD1 and LOD2, it is fast and i
 * DONE fix: no publishing info
 
 
+* DONE update count factor range
+
 
 
 

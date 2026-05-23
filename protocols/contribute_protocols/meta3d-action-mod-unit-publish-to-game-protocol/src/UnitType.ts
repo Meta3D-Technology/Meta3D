@@ -927,7 +927,8 @@ export enum player {
 }
 
 export enum countFactor {
-    Level0 = 0.1,
+    // Level0 = 0.1,
+    Level0 = 0.001,
     Level1 = 0.2,
     Level2 = 0.4,
     Level3 = 0.6,
