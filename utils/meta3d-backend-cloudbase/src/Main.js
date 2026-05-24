@@ -26,6 +26,10 @@ exports.addMarketProtocolDataToDataFromMarketProtocolCollectionData = addMarketP
 // }
 let _buildKeyWhereData = (app, key) => {
     const _ = _getDatabase(app).command; // 这是关键！command就是操作符对象
+    if (key == (0, exports.handleKeyToLowercase)(key)) {
+        return { key: key };
+    }
+    // TODO remove
     return { key: _.in([key, (0, exports.handleKeyToLowercase)(key)]) };
 };
 let checkUserName = (app, account) => {

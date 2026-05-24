@@ -59,6 +59,11 @@ export let addMarketProtocolDataToDataFromMarketProtocolCollectionData = (allCol
 let _buildKeyWhereData = (app, key) => {
     const _ = _getDatabase(app).command;  // 这是关键！command就是操作符对象
 
+    if (key == handleKeyToLowercase(key)) {
+        return { key: key }
+    }
+
+    // TODO remove
     return { key: _.in([key, handleKeyToLowercase(key)]) }
 }
 
