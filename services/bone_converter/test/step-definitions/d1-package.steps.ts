@@ -8,7 +8,7 @@
  *  4. demo 资源 URL 对应真实文件
  *  5. types.ts 含审核修正
  *
- * 运行：cd packages/bone_converter && yarn test:bdd
+ * 运行：cd services/bone_converter && yarn test:bdd
  */
 import { loadFeature, defineFeature } from "jest-cucumber";
 import fs from "fs";
@@ -16,11 +16,11 @@ import path from "path";
 
 const feature = loadFeature("./test/features/d1-package.feature");
 
-// 仓库根目录（从 packages/bone_converter/test/step-definitions 出发，../../../.. 回到根）
+// 仓库根目录（从 services/bone_converter/test/step-definitions 出发，../../../.. 回到根）
 const REPO_ROOT = path.resolve(__dirname, "..", "..", "..", "..");
 
 // bone_converter package 目录
-const PKG_DIR = path.join(REPO_ROOT, "packages", "bone_converter");
+const PKG_DIR = path.join(REPO_ROOT, "services", "bone_converter");
 
 // FBX 二进制签名 magic bytes: "Kaydara FBX Binary  \x00\x1a\x00"
 const FBX_MAGIC_PREFIX = Buffer.from([0x4B, 0x61, 0x79, 0x64, 0x61, 0x72, 0x61, 0x20, 0x46, 0x42, 0x58, 0x20, 0x42, 0x69, 0x6E, 0x61, 0x72, 0x79, 0x20, 0x20, 0x00, 0x1A, 0x00]);
@@ -39,22 +39,22 @@ function getFileSize(filePath: string): number {
 
 // 资产文件（相对仓库根）
 const ASSET_FILES: Record<string, string> = {
-    "Tripo model": "packages/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx",
+    "Tripo model": "services/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx",
     "Mixamo Idle animation": "asset-lib/unit-action/src/asset/action/elitegiantess/default/Idle/1.fbx",
     "Mixamo Death animation": "asset-lib/unit-action/src/asset/action/elitegiantess/default/Death/1.fbx",
 };
 
 /** 把 demo URL 转成仓库根相对路径：
- *  /tripo-model/xxx.fbx → packages/bone_converter/demo/tripo_model/xxx.fbx
+ *  /tripo-model/xxx.fbx → services/bone_converter/demo/tripo_model/xxx.fbx
  *  /asset-lib/xxx       → asset-lib/xxx
- *  /snapshot/xxx        → packages/bone_converter/demo/snapshot_EliteGiantess9/xxx
+ *  /snapshot/xxx        → services/bone_converter/demo/snapshot_EliteGiantess9/xxx
  */
 function urlToRepoPath(url: string): string {
     if (url.startsWith("/tripo-model/")) {
-        return "packages/bone_converter/demo/tripo_model/" + url.slice("/tripo-model/".length);
+        return "services/bone_converter/demo/tripo_model/" + url.slice("/tripo-model/".length);
     }
     if (url.startsWith("/snapshot/")) {
-        return "packages/bone_converter/demo/snapshot_EliteGiantess9/" + url.slice("/snapshot/".length);
+        return "services/bone_converter/demo/snapshot_EliteGiantess10/" + url.slice("/snapshot/".length);
     }
     return url.replace(/^\/asset-lib\//, "asset-lib/");
 }

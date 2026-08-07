@@ -15,7 +15,7 @@
  *      matrixWorld·boneInverse=identity，skinnedVertex 应还原 position）
  *   D. 转换后 vs 官方 position bbox 对比（应为同一坐标系，min/max 差 < 0.1）
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern probe-rest-coord --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern probe-rest-coord --forceExit
  * 输出：temp/probe-rest-coord.json + 控制台
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
@@ -59,11 +59,11 @@ import { convertTripoToMixamo } from '../../src/tool/bone_converter/index';
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const LOD2_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 function loadFbx(filePath: string): THREE.Object3D {

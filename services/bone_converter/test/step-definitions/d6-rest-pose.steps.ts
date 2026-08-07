@@ -7,7 +7,7 @@
  *  R3 同名骨骼 local position 与 lod2 官方一致（< 0.01）
  *  R4 骨骼层级一致层级与 lod2 官方一致
  *
- * 运行：cd packages/bone_converter && npx jest --config jest.config.js --forceExit
+ * 运行：cd services/bone_converter && npx jest --config jest.config.js --forceExit
  */
 // -- Node 环境 polyfill（three FBXLoader 需要 browser globals）--
 (global as any).self = global;
@@ -53,11 +53,11 @@ const feature = loadFeature('./test/features/d6-rest-pose.feature');
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const OFFICIAL_LOD2_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 /** 解析真实 FBX（每次新解析，避免场景间互相污染） */

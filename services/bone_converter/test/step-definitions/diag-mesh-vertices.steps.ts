@@ -2,7 +2,7 @@
  * diag-mesh-vertices.steps.ts — 临时诊断：Tripo 网格 vs Mixamo 官方网格顶点一致性
  *
  * 验证兄弟判断：Mixamo 上传的就是 Tripo 模型只绑骨，网格顶点应完全一致。
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern diag-mesh-vertices --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern diag-mesh-vertices --forceExit
  */
 (global as any).self = global;
 (global as any).window = global;
@@ -43,11 +43,11 @@ import * as path from 'path';
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const MIXAMO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 function loadFbx(filePath: string): THREE.Object3D {

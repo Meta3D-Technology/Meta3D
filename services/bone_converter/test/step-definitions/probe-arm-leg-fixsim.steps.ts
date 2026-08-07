@@ -14,7 +14,7 @@
  *
  * 若 B/C 通过 → 修复方案成立（映射 CalfTwist02 → Foot 或后处理重绑脚踝区顶点）。
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern probe-arm-leg-fixsim --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern probe-arm-leg-fixsim --forceExit
  * 输出：temp/probe-arm-leg-fixsim.json + 控制台
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
@@ -56,8 +56,8 @@ import * as path from 'path';
 import { convertTripoToMixamo } from '../../src/tool/bone_converter/index';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const TRIPO_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
-const LOD2_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
+const TRIPO_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
+const LOD2_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
 
 function loadFbx(filePath: string): THREE.Object3D {
     const buf = fs.readFileSync(filePath);

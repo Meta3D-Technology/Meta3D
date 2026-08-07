@@ -8,7 +8,7 @@
  *  4. 动画轨道均无冒号（根因①验证）
  *  5. SkinnedMesh skinIndex 范围有效
  *
- * 运行：cd packages/bone_converter && yarn test:bdd
+ * 运行：cd services/bone_converter && yarn test:bdd
  */
 import { loadFeature, defineFeature } from "jest-cucumber";
 import fs from "fs";

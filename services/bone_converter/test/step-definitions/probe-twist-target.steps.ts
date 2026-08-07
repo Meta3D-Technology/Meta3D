@@ -18,7 +18,7 @@
  *   - 该骨附近的其他非 twist 骨（父侧/子侧）world 位置与距离
  * 判定「按最近非 twist 骨」是否能给出正确 target（Foot/Shoulder 而非 Leg/Arm）。
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern probe-twist-target --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern probe-twist-target --forceExit
  * 输出：temp/probe-twist-target.json + 控制台
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
@@ -59,7 +59,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const TRIPO_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
+const TRIPO_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
 
 function loadFbx(filePath: string): THREE.Object3D {
     const buf = fs.readFileSync(filePath);

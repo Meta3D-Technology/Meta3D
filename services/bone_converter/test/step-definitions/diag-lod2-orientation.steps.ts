@@ -39,8 +39,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const TRIPO = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
-const LOD2 = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
+const TRIPO = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
+const LOD2 = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
 
 function loadFbx(filePath: string): THREE.Object3D {
     const buf = fs.readFileSync(filePath);

@@ -15,7 +15,7 @@
  * 注意：Tripo 与 lod2 两次 FBX 导出的顶点顺序不同（同一网格 15075 顶点，顺序不一致），
  *   因此不能用「同 index 对应」断言，用「空间哈希最近邻」断言 maxErr。
  *
- * 运行：cd packages/bone_converter && npx jest --config jest.config.js --forceExit
+ * 运行：cd services/bone_converter && npx jest --config jest.config.js --forceExit
  */
 // -- Node 环境 polyfill（three FBXLoader 需要 browser globals）--
 (global as any).self = global;
@@ -61,11 +61,11 @@ const feature = loadFeature('./test/features/d7-mesh-lod2.feature');
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const OFFICIAL_LOD2_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 /** 解析真实 FBX（每次新解析，避免场景间互相污染） */

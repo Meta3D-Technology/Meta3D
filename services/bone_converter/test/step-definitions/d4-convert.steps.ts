@@ -9,7 +9,7 @@
  *  5. convertTripoToMixamo 主流程：真实 Tripo FBX 完整转换
  *  6. 幂等守卫：已是 mixamorig 命名的树 early-return
  *
- * 运行：cd packages/bone_converter && yarn test:bdd
+ * 运行：cd services/bone_converter && yarn test:bdd
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
 (global as any).self = global;
@@ -60,16 +60,16 @@ const feature = loadFeature('./test/features/d4-convert.feature');
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const MODEL_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
+    'services/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
 );
 // V12.3 关节区重绑场景：EliteGiantess9 快照（tripo 转换模型 + 官方 lod2 参照）
 const ELITE_TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const ELITE_LOD2_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 /** 解析真实 FBX（每次新解析，避免场景间互相污染） */
@@ -230,7 +230,7 @@ defineFeature(feature, (test) => {
      */
     const givenPackageDirectoryExists = (given: DefineStepFunction): void => {
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
     };
 

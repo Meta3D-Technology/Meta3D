@@ -8,7 +8,7 @@
  *   C. 主导骨混淆矩阵：同一物理顶点（最近邻）在转换后 vs 官方分别绑到哪根骨，
  *      直接暴露权重映射错位（如官方绑 ForeArm 的顶点转换后绑到 Arm）
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern diag-arm-leg-anim --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern diag-arm-leg-anim --forceExit
  * 输出：temp/diag-arm-leg-anim.json + 控制台
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
@@ -50,8 +50,8 @@ import * as path from 'path';
 import { convertTripoToMixamo, normalizeRootMotion } from '../../src/tool/bone_converter/index';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const TRIPO_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
-const LOD2_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
+const TRIPO_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
+const LOD2_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
 const ANIM_WALK_FBX = path.join(REPO_ROOT, 'asset-lib/unit-action/src/asset/action/elitegiantess/default/Walk/1.fbx');
 
 function loadFbx(filePath: string): THREE.Object3D {

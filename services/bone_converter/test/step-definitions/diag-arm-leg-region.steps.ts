@@ -12,7 +12,7 @@
  * 重点区域：上臂(LeftArm/RightArm)、前臂、小腿(LeftLeg/RightLeg)、
  *   大腿(UpLeg)、脚(Foot)、躯干(Spine)、头(Head)。
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern diag-arm-leg-region --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern diag-arm-leg-region --forceExit
  * 输出：temp/diag-arm-leg-region.json + 控制台
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
@@ -54,8 +54,8 @@ import * as path from 'path';
 import { convertTripoToMixamo } from '../../src/tool/bone_converter/index';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const TRIPO_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
-const LOD2_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
+const TRIPO_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
+const LOD2_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
 
 function loadFbx(filePath: string): THREE.Object3D {
     const buf = fs.readFileSync(filePath);

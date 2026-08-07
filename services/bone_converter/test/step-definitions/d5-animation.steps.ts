@@ -10,7 +10,7 @@
  *  S6 下半身在动：LeftUpLeg/RightUpLeg 相对 Hips 的世界旋转变化 > 0.55°
  *  S7 头部动画方向正确：Head RELrot > 1° 且 Head 世界方向相对绑定姿态有变化
  *
- * 运行：cd packages/bone_converter && npx jest --config jest.config.js --forceExit
+ * 运行：cd services/bone_converter && npx jest --config jest.config.js --forceExit
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
 (global as any).self = global;
@@ -56,7 +56,7 @@ const feature = loadFeature('./test/features/d5-animation.feature');
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const MODEL_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
+    'services/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
 );
 const ANIM_FBX = path.join(
     REPO_ROOT,
@@ -1052,7 +1052,7 @@ defineFeature(feature, (test) => {
 
     const givenPackageDirectoryExists = (given: DefineStepFunction): void => {
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
     };
 

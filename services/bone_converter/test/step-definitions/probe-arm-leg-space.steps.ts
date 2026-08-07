@@ -7,7 +7,7 @@
  *   C. 用「同 index」（虽顺序不同，但看量级）前 200 个顶点的距离分布
  *   D. 两 mesh 首 5 个 position 顶点原始坐标（判断顶点顺序/坐标系）
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern probe-arm-leg-space --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern probe-arm-leg-space --forceExit
  */
 // ── Node 环境 polyfill ──
 (global as any).self = global;
@@ -48,8 +48,8 @@ import * as path from 'path';
 import { convertTripoToMixamo, normalizeRootMotion } from '../../src/tool/bone_converter/index';
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
-const TRIPO_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
-const LOD2_FBX = path.join(REPO_ROOT, 'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
+const TRIPO_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx');
+const LOD2_FBX = path.join(REPO_ROOT, 'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx');
 const ANIM_WALK_FBX = path.join(REPO_ROOT, 'asset-lib/unit-action/src/asset/action/elitegiantess/default/Walk/1.fbx');
 
 function loadFbx(filePath: string): THREE.Object3D {

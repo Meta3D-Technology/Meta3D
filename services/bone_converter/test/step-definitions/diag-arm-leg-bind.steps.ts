@@ -11,7 +11,7 @@
  *   - 转换后上臂顶点 skinIndex 是否引用 Arm（不是 Foot/Hand 等错骨）
  *   - 官方同区域顶点权重分布（与转换后对比混合度）
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPattern diag-arm-leg-bind --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPattern diag-arm-leg-bind --forceExit
  * 输出：temp/diag-arm-leg-bind.json + 控制台
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
@@ -55,11 +55,11 @@ import { convertTripoToMixamo } from '../../src/tool/bone_converter/index';
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const LOD2_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 function loadFbx(filePath: string): THREE.Object3D {

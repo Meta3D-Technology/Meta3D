@@ -6,7 +6,7 @@
  *  2. 相同骨骼的 local transform（pos/quat）必须**完全一致**
  *  3. 骨骼层级（父子关系）必须**完全一致**
  *
- * 跑法：cd packages/bone_converter && npx jest --config jest.config.js --testPathPatterns diag-convert-vs-mixamo --forceExit
+ * 跑法：cd services/bone_converter && npx jest --config jest.config.js --testPathPatterns diag-convert-vs-mixamo --forceExit
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
 (global as any).self = global;
@@ -49,11 +49,11 @@ import { convertTripoToMixamo } from '../../src/tool/bone_converter/index';
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const TRIPO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/tripo_convert_399df0b7-dabb-4524-b87e-b4605f9cf68a.fbx',
 );
 const MIXAMO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 function loadFbx(filePath: string): THREE.Object3D {

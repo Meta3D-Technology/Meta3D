@@ -10,7 +10,8 @@
     "test:e2e": "node test/e2e/e2e-runner.cjs"
   },
   "dependencies": {
-    "three": "0.159.0"
+    "three": "0.159.0",
+    "jszip": "^3.10.1"
   },
   "devDependencies": {
     "@types/three": "0.158.1",

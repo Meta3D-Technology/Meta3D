@@ -9,7 +9,7 @@
  *  5. 幂等：对已是 mixamorig 命名的骨骼树不重复改名
  *  6. renameBones 对真实 tripo_model FBX 执行后 22 基础身骨全部 ^mixamorig
  *
- * 运行：cd packages/bone_converter && yarn test:bdd
+ * 运行：cd services/bone_converter && yarn test:bdd
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
 (global as any).self = global;
@@ -74,7 +74,7 @@ function buildRenameMap(entries: BoneMappingEntry[] = DEFAULT_TRIPO_TO_MIXAMO_MA
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const MODEL_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
+    'services/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
 );
 
 /** 加载并缓存真实 tripo_model FBX（所有用到真实 FBX 的场景共享） */
@@ -171,7 +171,7 @@ defineFeature(feature, (test) => {
         let patterns: RegExp[] = [];
 
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
         when('checking the TWIST_BONE_PATTERNS patterns', () => {
             patterns = TWIST_BONE_PATTERNS;
@@ -198,7 +198,7 @@ defineFeature(feature, (test) => {
         let realBoneNames: string[] = [];
 
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
         when('loading the real tripo model FBX bone list', () => {
             realBoneNames = collectBoneNames(loadTripoModel());
@@ -220,7 +220,7 @@ defineFeature(feature, (test) => {
         });
         and('the finger tripoName entries should be documented as unverified', () => {
             const src = fs.readFileSync(
-                path.join(REPO_ROOT, 'packages/bone_converter/src/tool/bone_converter/BoneMapping.ts'),
+                path.join(REPO_ROOT, 'services/bone_converter/src/tool/bone_converter/BoneMapping.ts'),
                 'utf8',
             );
             // 手指条目注释应声明「未实测命中」（真实模型无手指骨）
@@ -235,7 +235,7 @@ defineFeature(feature, (test) => {
         let result: { renamed: number; unmatched: string[]; keptByWhitelist: string[] };
 
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
         given('a constructed test bone tree with mapped whitelisted and unmapped bones', () => {
             tree = buildTestBoneTree();
@@ -276,7 +276,7 @@ defineFeature(feature, (test) => {
         let tree: THREE.Group;
 
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
         given('a constructed test bone tree with mapped whitelisted and unmapped bones', () => {
             tree = buildTestBoneTree();
@@ -307,7 +307,7 @@ defineFeature(feature, (test) => {
         let result: { renamed: number; unmatched: string[]; keptByWhitelist: string[] };
 
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
         given('a bone tree already named with mixamorig names', () => {
             tree = buildMixamorigBoneTree();
@@ -333,7 +333,7 @@ defineFeature(feature, (test) => {
         let boneNamesAfter: string[];
 
         given('the bone_converter package directory exists', () => {
-            expect(fs.existsSync(path.join(REPO_ROOT, 'packages', 'bone_converter'))).toBe(true);
+            expect(fs.existsSync(path.join(REPO_ROOT, 'services', 'bone_converter'))).toBe(true);
         });
         when('loading the real tripo model FBX and calling renameBones', () => {
             // 深拷贝一份新模型再 rename，避免对 loadTripoModel() 缓存的模型 in-place rename（场景间污染）

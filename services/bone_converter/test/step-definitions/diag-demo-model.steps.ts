@@ -43,11 +43,11 @@ import * as path from 'path';
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
 const DEMO_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
+    'services/bone_converter/demo/tripo_model/tripo_convert_09140e64-4506-4ebd-8841-5aae00631788.fbx',
 );
 const LOD2_FBX = path.join(
     REPO_ROOT,
-    'packages/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
+    'services/bone_converter/demo/snapshot_EliteGiantess9/model_EliteGiantess9_lod2.fbx',
 );
 
 function loadFbx(filePath: string): THREE.Object3D {
