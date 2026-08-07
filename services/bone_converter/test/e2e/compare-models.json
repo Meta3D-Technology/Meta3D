@@ -1,0 +1,4780 @@
+{
+ "tripoData": {
+  "boneCount": 41,
+  "boneNames": [
+   "Head",
+   "Hip",
+   "L_Calf",
+   "L_CalfTwist01",
+   "L_CalfTwist02",
+   "L_Clavicle",
+   "L_Foot",
+   "L_Forearm",
+   "L_ForearmTwist01",
+   "L_ForearmTwist02",
+   "L_Hand",
+   "L_Thigh",
+   "L_ThighTwist01",
+   "L_ThighTwist02",
+   "L_ToeBase",
+   "L_Upperarm",
+   "L_UpperarmTwist01",
+   "L_UpperarmTwist02",
+   "NeckTwist01",
+   "NeckTwist02",
+   "Pelvis",
+   "R_Calf",
+   "R_CalfTwist01",
+   "R_CalfTwist02",
+   "R_Clavicle",
+   "R_Foot",
+   "R_Forearm",
+   "R_ForearmTwist01",
+   "R_ForearmTwist02",
+   "R_Hand",
+   "R_Thigh",
+   "R_ThighTwist01",
+   "R_ThighTwist02",
+   "R_ToeBase",
+   "R_Upperarm",
+   "R_UpperarmTwist01",
+   "R_UpperarmTwist02",
+   "Root",
+   "Spine01",
+   "Spine02",
+   "Waist"
+  ],
+  "boneData": {
+   "Root": {
+    "parentName": null,
+    "localPos": [
+     1.3586,
+     -3.8307,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     1.3586,
+     -3.8307,
+     0
+    ],
+    "worldQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "worldEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     0,
+     -1
+    ],
+    "children": [
+     "Hip"
+    ]
+   },
+   "Hip": {
+    "parentName": "Root",
+    "localPos": [
+     0,
+     0,
+     49.2496
+    ],
+    "localQuat": [
+     0.387979,
+     -0.387979,
+     -0.173821,
+     0.81776
+    ],
+    "localEulerYXZ": [
+     29.98,
+     -62.66,
+     -42.51
+    ],
+    "worldPos": [
+     1.3586,
+     -3.8307,
+     49.2496
+    ],
+    "worldQuat": [
+     0.387979,
+     -0.387979,
+     -0.173821,
+     0.81776
+    ],
+    "worldEulerYXZ": [
+     29.98,
+     -62.66,
+     -42.51
+    ],
+    "faceDir": [
+     0.7694,
+     0.4997,
+     -0.3979
+    ],
+    "children": [
+     "Waist",
+     "Pelvis"
+    ]
+   },
+   "Waist": {
+    "parentName": "Hip",
+    "localPos": [
+     0.0025,
+     0.0044,
+     0.0021
+    ],
+    "localQuat": [
+     0.132035,
+     0.861443,
+     0.28672,
+     -0.397837
+    ],
+    "localEulerYXZ": [
+     -36.8,
+     -130.41,
+     -0.05
+    ],
+    "worldPos": [
+     1.3585,
+     -3.8304,
+     49.2551
+    ],
+    "worldQuat": [
+     -0.007885,
+     0.724614,
+     0.689069,
+     0.007499
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": [
+     "Spine01"
+    ]
+   },
+   "Spine01": {
+    "parentName": "Waist",
+    "localPos": [
+     0,
+     5.4481,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     1.2399,
+     -3.5567,
+     54.6949
+    ],
+    "worldQuat": [
+     -0.007885,
+     0.724614,
+     0.68907,
+     0.007498
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": [
+     "Spine02"
+    ]
+   },
+   "Spine02": {
+    "parentName": "Spine01",
+    "localPos": [
+     0,
+     10.8838,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     1.0031,
+     -3.0098,
+     65.5625
+    ],
+    "worldQuat": [
+     -0.007885,
+     0.724614,
+     0.68907,
+     0.007498
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": [
+     "NeckTwist01",
+     "L_Clavicle",
+     "R_Clavicle"
+    ]
+   },
+   "NeckTwist01": {
+    "parentName": "Spine02",
+    "localPos": [
+     0,
+     9.5181,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0.796,
+     -2.5316,
+     75.0663
+    ],
+    "worldQuat": [
+     -0.007885,
+     0.724614,
+     0.689069,
+     0.007498
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": [
+     "NeckTwist02"
+    ]
+   },
+   "NeckTwist02": {
+    "parentName": "NeckTwist01",
+    "localPos": [
+     0,
+     3.0209,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0.7302,
+     -2.3798,
+     78.0827
+    ],
+    "worldQuat": [
+     -0.007885,
+     0.724614,
+     0.689069,
+     0.007498
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": [
+     "Head"
+    ]
+   },
+   "Head": {
+    "parentName": "NeckTwist02",
+    "localPos": [
+     0,
+     1.665,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0.694,
+     -2.2962,
+     79.7451
+    ],
+    "worldQuat": [
+     -0.007885,
+     0.724614,
+     0.689069,
+     0.007498
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": []
+   },
+   "L_Clavicle": {
+    "parentName": "Spine02",
+    "localPos": [
+     -1.9967,
+     9.4716,
+     0
+    ],
+    "localQuat": [
+     -0.595864,
+     0.801504,
+     0.004867,
+     -0.050139
+    ],
+    "localEulerYXZ": [
+     2.98,
+     -175.05,
+     -73.13
+    ],
+    "worldPos": [
+     2.7932,
+     -2.5318,
+     75.0632
+    ],
+    "worldQuat": [
+     0.552838,
+     0.440875,
+     -0.390939,
+     0.589208
+    ],
+    "worldEulerYXZ": [
+     84.99,
+     90,
+     17.86
+    ],
+    "faceDir": [
+     -0.0873,
+     0.9962,
+     0
+    ],
+    "children": [
+     "L_Upperarm"
+    ]
+   },
+   "L_Upperarm": {
+    "parentName": "L_Clavicle",
+    "localPos": [
+     0.0123,
+     6.2828,
+     0.0015
+    ],
+    "localQuat": [
+     0.065432,
+     0.014015,
+     -0.498182,
+     0.864487
+    ],
+    "localEulerYXZ": [
+     7.3,
+     -2.37,
+     -60.06
+    ],
+    "worldPos": [
+     8.7542,
+     -2.011,
+     76.9789
+    ],
+    "worldQuat": [
+     -0.302317,
+     -0.639222,
+     0.652594,
+     -0.272252
+    ],
+    "worldEulerYXZ": [
+     87.33,
+     -90,
+     137.96
+    ],
+    "faceDir": [
+     0.0465,
+     0.9989,
+     0
+    ],
+    "children": [
+     "L_Forearm",
+     "L_UpperarmTwist01"
+    ]
+   },
+   "L_Forearm": {
+    "parentName": "L_Upperarm",
+    "localPos": [
+     -0.0017,
+     13.5266,
+     -0.0006
+    ],
+    "localQuat": [
+     -0.018294,
+     -0.014743,
+     0.055431,
+     0.998186
+    ],
+    "localEulerYXZ": [
+     -2,
+     -1.8,
+     6.39
+    ],
+    "worldPos": [
+     18.7899,
+     -2.4778,
+     67.9215
+    ],
+    "worldQuat": [
+     0.3226,
+     0.629229,
+     -0.629082,
+     0.322887
+    ],
+    "worldEulerYXZ": [
+     89.96,
+     90.04,
+     -35.63
+    ],
+    "faceDir": [
+     -0.0005,
+     1,
+     0
+    ],
+    "children": [
+     "L_ForearmTwist01",
+     "L_Hand"
+    ]
+   },
+   "L_ForearmTwist01": {
+    "parentName": "L_Forearm",
+    "localPos": [
+     0,
+     -0.0078,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     18.7836,
+     -2.4778,
+     67.926
+    ],
+    "worldQuat": [
+     0.322599,
+     0.629229,
+     -0.629082,
+     0.322886
+    ],
+    "worldEulerYXZ": [
+     89.96,
+     90.05,
+     -35.62
+    ],
+    "faceDir": [
+     -0.0005,
+     1,
+     0
+    ],
+    "children": [
+     "L_ForearmTwist02"
+    ]
+   },
+   "L_ForearmTwist02": {
+    "parentName": "L_ForearmTwist01",
+    "localPos": [
+     0,
+     7.7633,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     25.0891,
+     -2.4749,
+     63.3973
+    ],
+    "worldQuat": [
+     0.322599,
+     0.629229,
+     -0.629082,
+     0.322886
+    ],
+    "worldEulerYXZ": [
+     89.96,
+     90.04,
+     -35.62
+    ],
+    "faceDir": [
+     -0.0005,
+     1,
+     0
+    ],
+    "children": []
+   },
+   "L_Hand": {
+    "parentName": "L_Forearm",
+    "localPos": [
+     -0.0004,
+     15.5145,
+     -0.0003
+    ],
+    "localQuat": [
+     -0.037756,
+     -0.024063,
+     0.055359,
+     0.997462
+    ],
+    "localEulerYXZ": [
+     -4.17,
+     -3,
+     6.46
+    ],
+    "worldPos": [
+     31.3913,
+     -2.4718,
+     58.8714
+    ],
+    "worldQuat": [
+     0.329286,
+     0.625756,
+     -0.593616,
+     0.384213
+    ],
+    "worldEulerYXZ": [
+     84.84,
+     90,
+     -29.33
+    ],
+    "faceDir": [
+     -0.0899,
+     0.9959,
+     0
+    ],
+    "children": []
+   },
+   "L_UpperarmTwist01": {
+    "parentName": "L_Upperarm",
+    "localPos": [
+     0,
+     -0.0068,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     8.7492,
+     -2.0108,
+     76.9834
+    ],
+    "worldQuat": [
+     -0.302317,
+     -0.639222,
+     0.652594,
+     -0.272252
+    ],
+    "worldEulerYXZ": [
+     87.33,
+     -90,
+     137.96
+    ],
+    "faceDir": [
+     0.0465,
+     0.9989,
+     0
+    ],
+    "children": [
+     "L_UpperarmTwist02"
+    ]
+   },
+   "L_UpperarmTwist02": {
+    "parentName": "L_UpperarmTwist01",
+    "localPos": [
+     0,
+     6.7624,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     13.7657,
+     -2.2444,
+     72.4547
+    ],
+    "worldQuat": [
+     -0.302317,
+     -0.639222,
+     0.652594,
+     -0.272252
+    ],
+    "worldEulerYXZ": [
+     87.33,
+     -90,
+     137.96
+    ],
+    "faceDir": [
+     0.0465,
+     0.9989,
+     0
+    ],
+    "children": []
+   },
+   "R_Clavicle": {
+    "parentName": "Spine02",
+    "localPos": [
+     1.9967,
+     9.5585,
+     0
+    ],
+    "localQuat": [
+     0.651203,
+     0.757815,
+     -0.040026,
+     -0.007014
+    ],
+    "localEulerYXZ": [
+     2.95,
+     -176.4,
+     81.44
+    ],
+    "worldPos": [
+     -1.2011,
+     -2.5318,
+     75.0632
+    ],
+    "worldQuat": [
+     0.546252,
+     -0.449008,
+     0.482979,
+     0.51646
+    ],
+    "worldEulerYXZ": [
+     86.34,
+     90,
+     172.5
+    ],
+    "faceDir": [
+     -0.0639,
+     0.998,
+     0
+    ],
+    "children": [
+     "R_Upperarm"
+    ]
+   },
+   "R_Upperarm": {
+    "parentName": "R_Clavicle",
+    "localPos": [
+     -0.0095,
+     6.0839,
+     -0.0022
+    ],
+    "localQuat": [
+     -0.091091,
+     0.023187,
+     0.369405,
+     0.924502
+    ],
+    "localEulerYXZ": [
+     -10.69,
+     -1.42,
+     43.69
+    ],
+    "worldPos": [
+     -7.2221,
+     -2.9149,
+     75.8478
+    ],
+    "worldQuat": [
+     -0.280902,
+     0.648918,
+     -0.609064,
+     -0.359223
+    ],
+    "worldEulerYXZ": [
+     82.87,
+     -90,
+     36.06
+    ],
+    "faceDir": [
+     0.124,
+     0.9923,
+     0
+    ],
+    "children": [
+     "R_UpperarmTwist01",
+     "R_Forearm"
+    ]
+   },
+   "R_UpperarmTwist01": {
+    "parentName": "R_Upperarm",
+    "localPos": [
+     0,
+     -0.0067,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -7.2167,
+     -2.9156,
+     75.8518
+    ],
+    "worldQuat": [
+     -0.280903,
+     0.648918,
+     -0.609064,
+     -0.359223
+    ],
+    "worldEulerYXZ": [
+     82.87,
+     -90,
+     36.06
+    ],
+    "faceDir": [
+     0.124,
+     0.9923,
+     0
+    ],
+    "children": [
+     "R_UpperarmTwist02"
+    ]
+   },
+   "R_UpperarmTwist02": {
+    "parentName": "R_UpperarmTwist01",
+    "localPos": [
+     0,
+     6.7317,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0.000001,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -12.6164,
+     -2.2406,
+     71.8892
+    ],
+    "worldQuat": [
+     -0.280902,
+     0.648918,
+     -0.609064,
+     -0.359223
+    ],
+    "worldEulerYXZ": [
+     82.87,
+     -90,
+     36.06
+    ],
+    "faceDir": [
+     0.124,
+     0.9923,
+     0
+    ],
+    "children": []
+   },
+   "R_Forearm": {
+    "parentName": "R_Upperarm",
+    "localPos": [
+     0,
+     13.4641,
+     0.0019
+    ],
+    "localQuat": [
+     0.066178,
+     -0.048045,
+     -0.001426,
+     0.996649
+    ],
+    "localEulerYXZ": [
+     7.57,
+     -5.55,
+     -0.53
+    ],
+    "worldPos": [
+     -18.0224,
+     -1.5668,
+     67.9221
+    ],
+    "worldQuat": [
+     0.333921,
+     -0.623295,
+     0.635959,
+     0.309121
+    ],
+    "worldEulerYXZ": [
+     87.74,
+     90,
+     -144.1
+    ],
+    "faceDir": [
+     -0.0394,
+     0.9992,
+     0
+    ],
+    "children": [
+     "R_ForearmTwist01",
+     "R_Hand"
+    ]
+   },
+   "R_ForearmTwist01": {
+    "parentName": "R_Forearm",
+    "localPos": [
+     0,
+     -0.0071,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -18.0166,
+     -1.5665,
+     67.9263
+    ],
+    "worldQuat": [
+     0.333921,
+     -0.623295,
+     0.635959,
+     0.309121
+    ],
+    "worldEulerYXZ": [
+     87.74,
+     90,
+     -144.1
+    ],
+    "faceDir": [
+     -0.0394,
+     0.9992,
+     0
+    ],
+    "children": [
+     "R_ForearmTwist02"
+    ]
+   },
+   "R_ForearmTwist02": {
+    "parentName": "R_ForearmTwist01",
+    "localPos": [
+     0,
+     7.1444,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -23.7996,
+     -1.7944,
+     63.7373
+    ],
+    "worldQuat": [
+     0.333921,
+     -0.623295,
+     0.635959,
+     0.309121
+    ],
+    "worldEulerYXZ": [
+     87.74,
+     90,
+     -144.1
+    ],
+    "faceDir": [
+     -0.0394,
+     0.9992,
+     0
+    ],
+    "children": []
+   },
+   "R_Hand": {
+    "parentName": "R_Forearm",
+    "localPos": [
+     0.0002,
+     14.2785,
+     -0.0003
+    ],
+    "localQuat": [
+     -0.033682,
+     0.02296,
+     -0.028179,
+     0.998771
+    ],
+    "localEulerYXZ": [
+     -3.78,
+     2.74,
+     -3.32
+    ],
+    "worldPos": [
+     -29.5801,
+     -2.0219,
+     59.5503
+    ],
+    "worldQuat": [
+     -0.326061,
+     0.627442,
+     -0.61314,
+     -0.35222
+    ],
+    "worldEulerYXZ": [
+     87.58,
+     -90,
+     32.67
+    ],
+    "faceDir": [
+     0.0422,
+     0.9991,
+     0
+    ],
+    "children": []
+   },
+   "Pelvis": {
+    "parentName": "Hip",
+    "localPos": [
+     0,
+     0,
+     0
+    ],
+    "localQuat": [
+     0.132035,
+     0.861443,
+     0.286721,
+     -0.397837
+    ],
+    "localEulerYXZ": [
+     -36.8,
+     -130.41,
+     -0.05
+    ],
+    "worldPos": [
+     1.3586,
+     -3.8307,
+     49.2496
+    ],
+    "worldQuat": [
+     -0.007884,
+     0.724614,
+     0.689069,
+     0.007498
+    ],
+    "worldEulerYXZ": [
+     -87.12,
+     180,
+     -1.25
+    ],
+    "faceDir": [
+     0,
+     -0.9987,
+     0.0503
+    ],
+    "children": [
+     "R_Thigh",
+     "L_Thigh"
+    ]
+   },
+   "R_Thigh": {
+    "parentName": "Pelvis",
+    "localPos": [
+     5.8478,
+     0.218,
+     -0.0038
+    ],
+    "localQuat": [
+     0.994273,
+     -0.0227,
+     0.004656,
+     0.104332
+    ],
+    "localEulerYXZ": [
+     11.99,
+     179.74,
+     -177.41
+    ],
+    "worldPos": [
+     -4.4925,
+     -3.8299,
+     49.3404
+    ],
+    "worldQuat": [
+     0.025648,
+     0.76059,
+     -0.648358,
+     0.021863
+    ],
+    "worldEulerYXZ": [
+     80.89,
+     -180,
+     3.86
+    ],
+    "faceDir": [
+     0,
+     0.9874,
+     0.1583
+    ],
+    "children": [
+     "R_ThighTwist01",
+     "R_Calf"
+    ]
+   },
+   "R_ThighTwist01": {
+    "parentName": "R_Thigh",
+    "localPos": [
+     0,
+     -0.0114,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -4.4933,
+     -3.8317,
+     49.3516
+    ],
+    "worldQuat": [
+     0.025648,
+     0.76059,
+     -0.648358,
+     0.021863
+    ],
+    "worldEulerYXZ": [
+     80.89,
+     -180,
+     3.86
+    ],
+    "faceDir": [
+     0,
+     0.9874,
+     0.1583
+    ],
+    "children": [
+     "R_ThighTwist02"
+    ]
+   },
+   "R_ThighTwist02": {
+    "parentName": "R_ThighTwist01",
+    "localPos": [
+     0,
+     11.3775,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -3.7268,
+     -2.0347,
+     38.1431
+    ],
+    "worldQuat": [
+     0.025648,
+     0.76059,
+     -0.648358,
+     0.021863
+    ],
+    "worldEulerYXZ": [
+     80.89,
+     -180,
+     3.86
+    ],
+    "faceDir": [
+     0,
+     0.9874,
+     0.1583
+    ],
+    "children": []
+   },
+   "R_Calf": {
+    "parentName": "R_Thigh",
+    "localPos": [
+     0.0027,
+     22.7565,
+     0.0028
+    ],
+    "localQuat": [
+     0.056964,
+     -0.000657,
+     -0.055773,
+     0.996817
+    ],
+    "localEulerYXZ": [
+     6.52,
+     -0.44,
+     -6.43
+    ],
+    "worldPos": [
+     -2.9622,
+     -0.2383,
+     26.9213
+    ],
+    "worldQuat": [
+     -0.016034,
+     0.722651,
+     -0.690857,
+     -0.01533
+    ],
+    "worldEulerYXZ": [
+     87.42,
+     -180,
+     -2.54
+    ],
+    "faceDir": [
+     0,
+     0.999,
+     0.045
+    ],
+    "children": [
+     "R_Foot",
+     "R_CalfTwist01"
+    ]
+   },
+   "R_Foot": {
+    "parentName": "R_Calf",
+    "localPos": [
+     -0.0001,
+     24.4798,
+     0.0026
+    ],
+    "localQuat": [
+     0.639172,
+     0.007738,
+     0.024808,
+     0.768624
+    ],
+    "localEulerYXZ": [
+     79.17,
+     13.42,
+     14.81
+    ],
+    "worldPos": [
+     -4.048,
+     0.8587,
+     2.4902
+    ],
+    "worldQuat": [
+     -0.001151,
+     -0.11415,
+     0.993412,
+     -0.010013
+    ],
+    "worldEulerYXZ": [
+     13.11,
+     0,
+     -178.85
+    ],
+    "faceDir": [
+     0,
+     0.2268,
+     -0.9739
+    ],
+    "children": [
+     "R_ToeBase"
+    ]
+   },
+   "R_ToeBase": {
+    "parentName": "R_Foot",
+    "localPos": [
+     0,
+     2.6995,
+     0
+    ],
+    "localQuat": [
+     0,
+     -0.002347,
+     0,
+     0.999997
+    ],
+    "localEulerYXZ": [
+     0,
+     -0.27,
+     0
+    ],
+    "worldPos": [
+     -3.9936,
+     -1.77,
+     1.878
+    ],
+    "worldQuat": [
+     0.001181,
+     -0.114127,
+     0.993412,
+     -0.010281
+    ],
+    "worldEulerYXZ": [
+     13.1,
+     0.28,
+     -178.78
+    ],
+    "faceDir": [
+     -0.0047,
+     0.2267,
+     -0.9739
+    ],
+    "children": []
+   },
+   "R_CalfTwist01": {
+    "parentName": "R_Calf",
+    "localPos": [
+     0,
+     -0.0143,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -2.9616,
+     -0.2389,
+     26.9356
+    ],
+    "worldQuat": [
+     -0.016034,
+     0.722651,
+     -0.690857,
+     -0.01533
+    ],
+    "worldEulerYXZ": [
+     87.42,
+     -180,
+     -2.54
+    ],
+    "faceDir": [
+     0,
+     0.999,
+     0.045
+    ],
+    "children": [
+     "R_CalfTwist02"
+    ]
+   },
+   "R_CalfTwist02": {
+    "parentName": "R_CalfTwist01",
+    "localPos": [
+     0,
+     10.214,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -3.4147,
+     0.2199,
+     16.7419
+    ],
+    "worldQuat": [
+     -0.016034,
+     0.722651,
+     -0.690857,
+     -0.01533
+    ],
+    "worldEulerYXZ": [
+     87.42,
+     -180,
+     -2.54
+    ],
+    "faceDir": [
+     0,
+     0.999,
+     0.045
+    ],
+    "children": []
+   },
+   "L_Thigh": {
+    "parentName": "Pelvis",
+    "localPos": [
+     -5.8458,
+     -0.2622,
+     0.0128
+    ],
+    "localQuat": [
+     0.993096,
+     0.067769,
+     -0.004436,
+     0.095645
+    ],
+    "localEulerYXZ": [
+     10.99,
+     179.76,
+     172.17
+    ],
+    "worldPos": [
+     7.2087,
+     -3.8246,
+     49.1142
+    ],
+    "worldQuat": [
+     -0.04322,
+     0.754091,
+     -0.654272,
+     -0.037503
+    ],
+    "worldEulerYXZ": [
+     81.89,
+     -180,
+     -6.56
+    ],
+    "faceDir": [
+     0,
+     0.99,
+     0.141
+    ],
+    "children": [
+     "L_Calf",
+     "L_ThighTwist01"
+    ]
+   },
+   "L_Calf": {
+    "parentName": "L_Thigh",
+    "localPos": [
+     -0.0039,
+     22.5641,
+     0.0013
+    ],
+    "localQuat": [
+     0.02683,
+     0.000943,
+     0.079264,
+     0.996492
+    ],
+    "localEulerYXZ": [
+     3.06,
+     0.35,
+     9.11
+    ],
+    "worldPos": [
+     4.6344,
+     -0.6642,
+     26.9213
+    ],
+    "worldQuat": [
+     0.016314,
+     0.737282,
+     -0.675223,
+     0.014938
+    ],
+    "worldEulerYXZ": [
+     84.97,
+     -180,
+     2.54
+    ],
+    "faceDir": [
+     0,
+     0.9961,
+     0.0877
+    ],
+    "children": [
+     "L_Foot",
+     "L_CalfTwist01"
+    ]
+   },
+   "L_Foot": {
+    "parentName": "L_Calf",
+    "localPos": [
+     0.0001,
+     24.5493,
+     0.0034
+    ],
+    "localQuat": [
+     0.673483,
+     -0.005387,
+     -0.026787,
+     0.738698
+    ],
+    "localEulerYXZ": [
+     84.11,
+     -25.39,
+     -27.13
+    ],
+    "worldPos": [
+     5.7201,
+     1.4833,
+     2.4902
+    ],
+    "worldQuat": [
+     0.001275,
+     -0.090234,
+     0.99582,
+     0.014069
+    ],
+    "worldEulerYXZ": [
+     10.36,
+     0,
+     178.38
+    ],
+    "faceDir": [
+     0,
+     0.1797,
+     -0.9837
+    ],
+    "children": [
+     "L_ToeBase"
+    ]
+   },
+   "L_ToeBase": {
+    "parentName": "L_Foot",
+    "localPos": [
+     0,
+     3.4071,
+     0
+    ],
+    "localQuat": [
+     0,
+     0.002581,
+     0,
+     0.999997
+    ],
+    "localEulerYXZ": [
+     0,
+     0.3,
+     0
+    ],
+    "worldPos": [
+     5.6239,
+     -1.867,
+     1.8781
+    ],
+    "worldQuat": [
+     -0.001295,
+     -0.090198,
+     0.99582,
+     0.014301
+    ],
+    "worldEulerYXZ": [
+     10.35,
+     -0.3,
+     178.33
+    ],
+    "faceDir": [
+     0.0052,
+     0.1796,
+     -0.9837
+    ],
+    "children": []
+   },
+   "L_CalfTwist01": {
+    "parentName": "L_Calf",
+    "localPos": [
+     0,
+     -0.0143,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     4.6338,
+     -0.6654,
+     26.9356
+    ],
+    "worldQuat": [
+     0.016315,
+     0.737282,
+     -0.675223,
+     0.014938
+    ],
+    "worldEulerYXZ": [
+     84.97,
+     -180,
+     2.54
+    ],
+    "faceDir": [
+     0,
+     0.9961,
+     0.0877
+    ],
+    "children": [
+     "L_CalfTwist02"
+    ]
+   },
+   "L_CalfTwist02": {
+    "parentName": "L_CalfTwist01",
+    "localPos": [
+     0,
+     10.2431,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     5.0868,
+     0.232,
+     16.742
+    ],
+    "worldQuat": [
+     0.016315,
+     0.737282,
+     -0.675223,
+     0.014938
+    ],
+    "worldEulerYXZ": [
+     84.97,
+     -180,
+     2.54
+    ],
+    "faceDir": [
+     0,
+     0.9961,
+     0.0877
+    ],
+    "children": []
+   },
+   "L_ThighTwist01": {
+    "parentName": "L_Thigh",
+    "localPos": [
+     0,
+     -0.0113,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     7.21,
+     -3.8262,
+     49.1253
+    ],
+    "worldQuat": [
+     -0.04322,
+     0.754091,
+     -0.654272,
+     -0.037503
+    ],
+    "worldEulerYXZ": [
+     81.89,
+     -180,
+     -6.56
+    ],
+    "faceDir": [
+     0,
+     0.99,
+     0.141
+    ],
+    "children": [
+     "L_ThighTwist02"
+    ]
+   },
+   "L_ThighTwist02": {
+    "parentName": "L_ThighTwist01",
+    "localPos": [
+     0,
+     11.2812,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     5.921,
+     -2.2455,
+     38.03
+    ],
+    "worldQuat": [
+     -0.04322,
+     0.754091,
+     -0.654272,
+     -0.037503
+    ],
+    "worldEulerYXZ": [
+     81.89,
+     -180,
+     -6.56
+    ],
+    "faceDir": [
+     0,
+     0.99,
+     0.141
+    ],
+    "children": []
+   }
+  }
+ },
+ "mixamoData": {
+  "boneCount": 65,
+  "boneNames": [
+   "mixamorigHead",
+   "mixamorigHeadTop_End",
+   "mixamorigHips",
+   "mixamorigLeftArm",
+   "mixamorigLeftFoot",
+   "mixamorigLeftForeArm",
+   "mixamorigLeftHand",
+   "mixamorigLeftHandIndex1",
+   "mixamorigLeftHandIndex2",
+   "mixamorigLeftHandIndex3",
+   "mixamorigLeftHandIndex4",
+   "mixamorigLeftHandMiddle1",
+   "mixamorigLeftHandMiddle2",
+   "mixamorigLeftHandMiddle3",
+   "mixamorigLeftHandMiddle4",
+   "mixamorigLeftHandPinky1",
+   "mixamorigLeftHandPinky2",
+   "mixamorigLeftHandPinky3",
+   "mixamorigLeftHandPinky4",
+   "mixamorigLeftHandRing1",
+   "mixamorigLeftHandRing2",
+   "mixamorigLeftHandRing3",
+   "mixamorigLeftHandRing4",
+   "mixamorigLeftHandThumb1",
+   "mixamorigLeftHandThumb2",
+   "mixamorigLeftHandThumb3",
+   "mixamorigLeftHandThumb4",
+   "mixamorigLeftLeg",
+   "mixamorigLeftShoulder",
+   "mixamorigLeftToeBase",
+   "mixamorigLeftToe_End",
+   "mixamorigLeftUpLeg",
+   "mixamorigNeck",
+   "mixamorigRightArm",
+   "mixamorigRightFoot",
+   "mixamorigRightForeArm",
+   "mixamorigRightHand",
+   "mixamorigRightHandIndex1",
+   "mixamorigRightHandIndex2",
+   "mixamorigRightHandIndex3",
+   "mixamorigRightHandIndex4",
+   "mixamorigRightHandMiddle1",
+   "mixamorigRightHandMiddle2",
+   "mixamorigRightHandMiddle3",
+   "mixamorigRightHandMiddle4",
+   "mixamorigRightHandPinky1",
+   "mixamorigRightHandPinky2",
+   "mixamorigRightHandPinky3",
+   "mixamorigRightHandPinky4",
+   "mixamorigRightHandRing1",
+   "mixamorigRightHandRing2",
+   "mixamorigRightHandRing3",
+   "mixamorigRightHandRing4",
+   "mixamorigRightHandThumb1",
+   "mixamorigRightHandThumb2",
+   "mixamorigRightHandThumb3",
+   "mixamorigRightHandThumb4",
+   "mixamorigRightLeg",
+   "mixamorigRightShoulder",
+   "mixamorigRightToeBase",
+   "mixamorigRightToe_End",
+   "mixamorigRightUpLeg",
+   "mixamorigSpine",
+   "mixamorigSpine1",
+   "mixamorigSpine2"
+  ],
+  "boneData": {
+   "mixamorigHips": {
+    "parentName": null,
+    "localPos": [
+     0,
+     -2.3047,
+     3.6941
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     -2.3047,
+     3.6941
+    ],
+    "worldQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "worldEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     0,
+     -1
+    ],
+    "children": [
+     "mixamorigRightUpLeg",
+     "mixamorigSpine",
+     "mixamorigLeftUpLeg"
+    ]
+   },
+   "mixamorigRightUpLeg": {
+    "parentName": "mixamorigHips",
+    "localPos": [
+     -4.6252,
+     -2.6458,
+     -0.4637
+    ],
+    "localQuat": [
+     -0.000108,
+     -0.015675,
+     0.999853,
+     -0.006899
+    ],
+    "localEulerYXZ": [
+     1.8,
+     0,
+     -179.21
+    ],
+    "worldPos": [
+     -4.6252,
+     -4.9505,
+     3.2304
+    ],
+    "worldQuat": [
+     -0.000108,
+     -0.015675,
+     0.999853,
+     -0.006899
+    ],
+    "worldEulerYXZ": [
+     1.8,
+     0,
+     -179.21
+    ],
+    "faceDir": [
+     0,
+     0.0313,
+     -0.9995
+    ],
+    "children": [
+     "mixamorigRightLeg"
+    ]
+   },
+   "mixamorigRightLeg": {
+    "parentName": "mixamorigRightUpLeg",
+    "localPos": [
+     0,
+     23.3356,
+     0
+    ],
+    "localQuat": [
+     -0.024602,
+     0.000422,
+     -0.017157,
+     0.99955
+    ],
+    "localEulerYXZ": [
+     -2.82,
+     0.1,
+     -1.97
+    ],
+    "worldPos": [
+     -4.3031,
+     -28.2724,
+     2.499
+    ],
+    "worldQuat": [
+     -0.000092,
+     -0.040271,
+     0.999136,
+     0.010262
+    ],
+    "worldEulerYXZ": [
+     4.62,
+     -0.06,
+     178.82
+    ],
+    "faceDir": [
+     0.001,
+     0.0805,
+     -0.9968
+    ],
+    "children": [
+     "mixamorigRightFoot"
+    ]
+   },
+   "mixamorigRightFoot": {
+    "parentName": "mixamorigRightLeg",
+    "localPos": [
+     0,
+     21.7673,
+     0
+    ],
+    "localQuat": [
+     0.480036,
+     0.014909,
+     -0.00816,
+     0.877084
+    ],
+    "localEulerYXZ": [
+     57.38,
+     1.95,
+     0
+    ],
+    "worldPos": [
+     -4.7494,
+     -49.9645,
+     0.7473
+    ],
+    "worldQuat": [
+     -0.009722,
+     0.444453,
+     0.895573,
+     0.017798
+    ],
+    "worldEulerYXZ": [
+     -52.79,
+     -0.15,
+     177.8
+    ],
+    "faceDir": [
+     0.0016,
+     -0.7964,
+     -0.6047
+    ],
+    "children": [
+     "mixamorigRightToeBase"
+    ]
+   },
+   "mixamorigRightToeBase": {
+    "parentName": "mixamorigRightFoot",
+    "localPos": [
+     0,
+     9.6274,
+     0
+    ],
+    "localQuat": [
+     0.315992,
+     0.023804,
+     -0.007931,
+     0.94843
+    ],
+    "localEulerYXZ": [
+     36.85,
+     2.88,
+     0
+    ],
+    "worldPos": [
+     -5.1395,
+     -55.7822,
+     8.4082
+    ],
+    "worldQuat": [
+     -0.02844,
+     0.704873,
+     0.708572,
+     0.016475
+    ],
+    "worldEulerYXZ": [
+     -88.99,
+     -74.64,
+     -109
+    ],
+    "faceDir": [
+     0.0171,
+     -0.9998,
+     -0.0047
+    ],
+    "children": [
+     "mixamorigRightToe_End"
+    ]
+   },
+   "mixamorigRightToe_End": {
+    "parentName": "mixamorigRightToeBase",
+    "localPos": [
+     0,
+     3.4949,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -5.3612,
+     -55.8024,
+     11.896
+    ],
+    "worldQuat": [
+     -0.02844,
+     0.704873,
+     0.708572,
+     0.016475
+    ],
+    "worldEulerYXZ": [
+     -88.99,
+     -74.64,
+     -109
+    ],
+    "faceDir": [
+     0.0171,
+     -0.9998,
+     -0.0047
+    ],
+    "children": []
+   },
+   "mixamorigSpine": {
+    "parentName": "mixamorigHips",
+    "localPos": [
+     0,
+     4.7652,
+     -0.4087
+    ],
+    "localQuat": [
+     -0.042767,
+     0,
+     0,
+     0.999085
+    ],
+    "localEulerYXZ": [
+     -4.9,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     2.4605,
+     3.2854
+    ],
+    "worldQuat": [
+     -0.042767,
+     0,
+     0,
+     0.999085
+    ],
+    "worldEulerYXZ": [
+     -4.9,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     -0.0855,
+     -0.9963
+    ],
+    "children": [
+     "mixamorigSpine1"
+    ]
+   },
+   "mixamorigSpine1": {
+    "parentName": "mixamorigSpine",
+    "localPos": [
+     0,
+     5.5798,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     8.0199,
+     2.8086
+    ],
+    "worldQuat": [
+     -0.042767,
+     0,
+     0,
+     0.999085
+    ],
+    "worldEulerYXZ": [
+     -4.9,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     -0.0855,
+     -0.9963
+    ],
+    "children": [
+     "mixamorigSpine2"
+    ]
+   },
+   "mixamorigSpine2": {
+    "parentName": "mixamorigSpine1",
+    "localPos": [
+     0,
+     6.3769,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     14.3735,
+     2.2636
+    ],
+    "worldQuat": [
+     -0.042767,
+     0,
+     0,
+     0.999085
+    ],
+    "worldEulerYXZ": [
+     -4.9,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     -0.0855,
+     -0.9963
+    ],
+    "children": [
+     "mixamorigLeftShoulder",
+     "mixamorigNeck",
+     "mixamorigRightShoulder"
+    ]
+   },
+   "mixamorigLeftShoulder": {
+    "parentName": "mixamorigSpine2",
+    "localPos": [
+     3.128,
+     6.5047,
+     -0.0918
+    ],
+    "localQuat": [
+     -0.542759,
+     -0.449756,
+     0.558938,
+     -0.436714
+    ],
+    "localEulerYXZ": [
+     77.64,
+     -88.32,
+     179.99
+    ],
+    "worldPos": [
+     3.128,
+     20.8466,
+     1.6163
+    ],
+    "worldQuat": [
+     -0.523586,
+     -0.425441,
+     0.577662,
+     -0.459527
+    ],
+    "worldEulerYXZ": [
+     76.59,
+     -67.25,
+     -158.4
+    ],
+    "faceDir": [
+     0.2139,
+     0.9727,
+     -0.0897
+    ],
+    "children": [
+     "mixamorigLeftArm"
+    ]
+   },
+   "mixamorigLeftArm": {
+    "parentName": "mixamorigLeftShoulder",
+    "localPos": [
+     0,
+     6.6399,
+     0
+    ],
+    "localQuat": [
+     0.229862,
+     -0.047517,
+     0.011237,
+     0.971998
+    ],
+    "localEulerYXZ": [
+     26.61,
+     -5.6,
+     0
+    ],
+    "worldPos": [
+     9.6113,
+     19.4145,
+     1.5478
+    ],
+    "worldQuat": [
+     -0.591884,
+     -0.253026,
+     0.678994,
+     -0.353013
+    ],
+    "worldEulerYXZ": [
+     49.6,
+     -74.68,
+     -163.89
+    ],
+    "faceDir": [
+     0.6251,
+     0.7615,
+     -0.1713
+    ],
+    "children": [
+     "mixamorigLeftForeArm"
+    ]
+   },
+   "mixamorigLeftForeArm": {
+    "parentName": "mixamorigLeftArm",
+    "localPos": [
+     0,
+     13.6236,
+     0
+    ],
+    "localQuat": [
+     -0.054319,
+     0.001098,
+     -0.020178,
+     0.998319
+    ],
+    "localEulerYXZ": [
+     -6.22,
+     0.25,
+     -2.33
+    ],
+    "worldPos": [
+     20.2229,
+     10.9309,
+     2.5598
+    ],
+    "worldQuat": [
+     -0.567354,
+     -0.301813,
+     0.670582,
+     -0.370592
+    ],
+    "worldEulerYXZ": [
+     55.62,
+     -72.05,
+     -164.12
+    ],
+    "faceDir": [
+     0.5372,
+     0.8253,
+     -0.174
+    ],
+    "children": [
+     "mixamorigLeftHand"
+    ]
+   },
+   "mixamorigLeftHand": {
+    "parentName": "mixamorigLeftForeArm",
+    "localPos": [
+     0,
+     12.4488,
+     0
+    ],
+    "localQuat": [
+     0.011187,
+     0.007629,
+     -0.009908,
+     0.999859
+    ],
+    "localEulerYXZ": [
+     1.29,
+     0.86,
+     -1.13
+    ],
+    "worldPos": [
+     30.6736,
+     4.1694,
+     2.7556
+    ],
+    "worldQuat": [
+     -0.573545,
+     -0.302717,
+     0.673207,
+     -0.355247
+    ],
+    "worldEulerYXZ": [
+     54.6,
+     -74.09,
+     -166.92
+    ],
+    "faceDir": [
+     0.5572,
+     0.8151,
+     -0.1588
+    ],
+    "children": [
+     "mixamorigLeftHandThumb1",
+     "mixamorigLeftHandIndex1",
+     "mixamorigLeftHandMiddle1",
+     "mixamorigLeftHandRing1",
+     "mixamorigLeftHandPinky1"
+    ]
+   },
+   "mixamorigLeftHandThumb1": {
+    "parentName": "mixamorigLeftHand",
+    "localPos": [
+     -1.1943,
+     2.3035,
+     0.8541
+    ],
+    "localQuat": [
+     0.153811,
+     0.037589,
+     0.234404,
+     0.959158
+    ],
+    "localEulerYXZ": [
+     16.11,
+     8.63,
+     28.69
+    ],
+    "worldPos": [
+     32.2065,
+     2.3298,
+     4.0702
+    ],
+    "worldQuat": [
+     0.701025,
+     0.065719,
+     -0.587443,
+     0.398944
+    ],
+    "worldEulerYXZ": [
+     39.54,
+     -89.37,
+     -150.77
+    ],
+    "faceDir": [
+     0.7712,
+     0.6366,
+     -0.0085
+    ],
+    "children": [
+     "mixamorigLeftHandThumb2"
+    ]
+   },
+   "mixamorigLeftHandThumb2": {
+    "parentName": "mixamorigLeftHandThumb1",
+    "localPos": [
+     0.0022,
+     2.1854,
+     0
+    ],
+    "localQuat": [
+     0.042901,
+     0,
+     0,
+     0.999079
+    ],
+    "localEulerYXZ": [
+     4.92,
+     0,
+     0
+    ],
+    "worldPos": [
+     33.4328,
+     0.8581,
+     5.122
+    ],
+    "worldQuat": [
+     0.717494,
+     0.040457,
+     -0.589722,
+     0.368502
+    ],
+    "worldEulerYXZ": [
+     35.21,
+     -92.31,
+     -152.56
+    ],
+    "faceDir": [
+     0.8164,
+     0.5765,
+     0.0329
+    ],
+    "children": [
+     "mixamorigLeftHandThumb3"
+    ]
+   },
+   "mixamorigLeftHandThumb3": {
+    "parentName": "mixamorigLeftHandThumb2",
+    "localPos": [
+     -0.0238,
+     1.9633,
+     0
+    ],
+    "localQuat": [
+     -0.016719,
+     0,
+     0,
+     0.99986
+    ],
+    "localEulerYXZ": [
+     -1.92,
+     0,
+     0
+    ],
+    "worldPos": [
+     34.3929,
+     -0.5565,
+     6.0873
+    ],
+    "worldQuat": [
+     0.711233,
+     0.050311,
+     -0.588963,
+     0.380447
+    ],
+    "worldEulerYXZ": [
+     36.9,
+     -91.2,
+     -151.91
+    ],
+    "faceDir": [
+     0.7995,
+     0.6004,
+     0.0168
+    ],
+    "children": [
+     "mixamorigLeftHandThumb4"
+    ]
+   },
+   "mixamorigLeftHandThumb4": {
+    "parentName": "mixamorigLeftHandThumb3",
+    "localPos": [
+     0.0216,
+     1.6849,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     35.2751,
+     -1.7533,
+     6.8803
+    ],
+    "worldQuat": [
+     0.711233,
+     0.050311,
+     -0.588963,
+     0.380447
+    ],
+    "worldEulerYXZ": [
+     36.9,
+     -91.2,
+     -151.91
+    ],
+    "faceDir": [
+     0.7995,
+     0.6004,
+     0.0168
+    ],
+    "children": []
+   },
+   "mixamorigLeftHandIndex1": {
+    "parentName": "mixamorigLeftHand",
+    "localPos": [
+     -1.6455,
+     6.5933,
+     0.1245
+    ],
+    "localQuat": [
+     -0.004421,
+     -0.000427,
+     0.096019,
+     0.99537
+    ],
+    "localEulerYXZ": [
+     -0.5,
+     -0.1,
+     11.02
+    ],
+    "worldPos": [
+     36.1949,
+     0.5628,
+     4.3994
+    ],
+    "worldQuat": [
+     -0.598098,
+     -0.249069,
+     0.634886,
+     -0.420907
+    ],
+    "worldEulerYXZ": [
+     55.06,
+     -73.73,
+     -155.61
+    ],
+    "faceDir": [
+     0.5498,
+     0.8197,
+     -0.1605
+    ],
+    "children": [
+     "mixamorigLeftHandIndex2"
+    ]
+   },
+   "mixamorigLeftHandIndex2": {
+    "parentName": "mixamorigLeftHandIndex1",
+    "localPos": [
+     0.0006,
+     1.7364,
+     0
+    ],
+    "localQuat": [
+     0.041843,
+     0,
+     0,
+     0.999124
+    ],
+    "localEulerYXZ": [
+     4.8,
+     0,
+     0
+    ],
+    "worldPos": [
+     37.6404,
+     -0.3431,
+     4.724
+    ],
+    "worldQuat": [
+     -0.615186,
+     -0.222286,
+     0.644751,
+     -0.395513
+    ],
+    "worldEulerYXZ": [
+     50.65,
+     -76.85,
+     -158.1
+    ],
+    "faceDir": [
+     0.6175,
+     0.7733,
+     -0.1443
+    ],
+    "children": [
+     "mixamorigLeftHandIndex3"
+    ]
+   },
+   "mixamorigLeftHandIndex3": {
+    "parentName": "mixamorigLeftHandIndex2",
+    "localPos": [
+     -0.0002,
+     1.6139,
+     0
+    ],
+    "localQuat": [
+     -0.021788,
+     0,
+     0,
+     0.999763
+    ],
+    "localEulerYXZ": [
+     -2.5,
+     0,
+     0
+    ],
+    "worldPos": [
+     38.9049,
+     -1.2925,
+     5.047
+    ],
+    "worldQuat": [
+     -0.606423,
+     -0.236281,
+     0.639755,
+     -0.408823
+    ],
+    "worldEulerYXZ": [
+     52.96,
+     -75.3,
+     -156.88
+    ],
+    "faceDir": [
+     0.5827,
+     0.7982,
+     -0.1528
+    ],
+    "children": [
+     "mixamorigLeftHandIndex4"
+    ]
+   },
+   "mixamorigLeftHandIndex4": {
+    "parentName": "mixamorigLeftHandIndex3",
+    "localPos": [
+     -0.0004,
+     1.4686,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     40.0939,
+     -2.1062,
+     5.3315
+    ],
+    "worldQuat": [
+     -0.606423,
+     -0.236281,
+     0.639755,
+     -0.408823
+    ],
+    "worldEulerYXZ": [
+     52.96,
+     -75.3,
+     -156.88
+    ],
+    "faceDir": [
+     0.5827,
+     0.7982,
+     -0.1528
+    ],
+    "children": []
+   },
+   "mixamorigLeftHandMiddle1": {
+    "parentName": "mixamorigLeftHand",
+    "localPos": [
+     -0.5894,
+     6.655,
+     -0.06
+    ],
+    "localQuat": [
+     -0.036122,
+     -0.000198,
+     0.005485,
+     0.999332
+    ],
+    "localEulerYXZ": [
+     -4.14,
+     -0.05,
+     0.63
+    ],
+    "worldPos": [
+     36.2539,
+     0.54,
+     3.3275
+    ],
+    "worldQuat": [
+     -0.561857,
+     -0.323616,
+     0.659988,
+     -0.37948
+    ],
+    "worldEulerYXZ": [
+     58.6,
+     -72.21,
+     -164.72
+    ],
+    "faceDir": [
+     0.496,
+     0.8536,
+     -0.1592
+    ],
+    "children": [
+     "mixamorigLeftHandMiddle2"
+    ]
+   },
+   "mixamorigLeftHandMiddle2": {
+    "parentName": "mixamorigLeftHandMiddle1",
+    "localPos": [
+     0.0015,
+     1.953,
+     0
+    ],
+    "localQuat": [
+     0.052953,
+     0,
+     0,
+     0.998597
+    ],
+    "localEulerYXZ": [
+     6.07,
+     0,
+     0
+    ],
+    "worldPos": [
+     37.9423,
+     -0.4417,
+     3.3245
+    ],
+    "worldQuat": [
+     -0.581163,
+     -0.288214,
+     0.676198,
+     -0.349195
+    ],
+    "worldEulerYXZ": [
+     52.72,
+     -74.84,
+     -166.9
+    ],
+    "faceDir": [
+     0.5847,
+     0.7957,
+     -0.1584
+    ],
+    "children": [
+     "mixamorigLeftHandMiddle3"
+    ]
+   },
+   "mixamorigLeftHandMiddle3": {
+    "parentName": "mixamorigLeftHandMiddle2",
+    "localPos": [
+     -0.0009,
+     1.8371,
+     0
+    ],
+    "localQuat": [
+     -0.003745,
+     0,
+     0,
+     0.999993
+    ],
+    "localEulerYXZ": [
+     -0.43,
+     0,
+     0
+    ],
+    "worldPos": [
+     39.4254,
+     -1.5255,
+     3.355
+    ],
+    "worldQuat": [
+     -0.579851,
+     -0.290745,
+     0.675114,
+     -0.351369
+    ],
+    "worldEulerYXZ": [
+     53.14,
+     -74.68,
+     -166.77
+    ],
+    "faceDir": [
+     0.5786,
+     0.8001,
+     -0.1585
+    ],
+    "children": [
+     "mixamorigLeftHandMiddle4"
+    ]
+   },
+   "mixamorigLeftHandMiddle4": {
+    "parentName": "mixamorigLeftHandMiddle3",
+    "localPos": [
+     -0.0006,
+     1.7075,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     40.8112,
+     -2.5226,
+     3.3811
+    ],
+    "worldQuat": [
+     -0.579851,
+     -0.290745,
+     0.675114,
+     -0.351369
+    ],
+    "worldEulerYXZ": [
+     53.14,
+     -74.68,
+     -166.77
+    ],
+    "faceDir": [
+     0.5786,
+     0.8001,
+     -0.1585
+    ],
+    "children": []
+   },
+   "mixamorigLeftHandRing1": {
+    "parentName": "mixamorigLeftHand",
+    "localPos": [
+     0.6398,
+     6.6468,
+     -0.0339
+    ],
+    "localQuat": [
+     -0.015561,
+     0.000798,
+     -0.051228,
+     0.998565
+    ],
+    "localEulerYXZ": [
+     -1.78,
+     0.18,
+     -5.88
+    ],
+    "worldPos": [
+     36.1224,
+     0.3622,
+     2.118
+    ],
+    "worldQuat": [
+     -0.552224,
+     -0.342424,
+     0.685272,
+     -0.328933
+    ],
+    "worldEulerYXZ": [
+     56.37,
+     -73.69,
+     -172.47
+    ],
+    "faceDir": [
+     0.5316,
+     0.8326,
+     -0.1556
+    ],
+    "children": [
+     "mixamorigLeftHandRing2"
+    ]
+   },
+   "mixamorigLeftHandRing2": {
+    "parentName": "mixamorigLeftHandRing1",
+    "localPos": [
+     -0.0007,
+     1.743,
+     0
+    ],
+    "localQuat": [
+     0.026315,
+     0,
+     0,
+     0.999654
+    ],
+    "localEulerYXZ": [
+     3.02,
+     0,
+     0
+    ],
+    "worldPos": [
+     37.5675,
+     -0.5948,
+     1.9339
+    ],
+    "worldQuat": [
+     -0.560689,
+     -0.324272,
+     0.694045,
+     -0.314288
+    ],
+    "worldEulerYXZ": [
+     53.37,
+     -74.35,
+     -173.01
+    ],
+    "faceDir": [
+     0.5745,
+     0.8026,
+     -0.161
+    ],
+    "children": [
+     "mixamorigLeftHandRing3"
+    ]
+   },
+   "mixamorigLeftHandRing3": {
+    "parentName": "mixamorigLeftHandRing2",
+    "localPos": [
+     -0.0025,
+     1.647,
+     0
+    ],
+    "localQuat": [
+     -0.154574,
+     0,
+     0,
+     0.987981
+    ],
+    "localEulerYXZ": [
+     -17.78,
+     0,
+     0
+    ],
+    "worldPos": [
+     38.8853,
+     -1.5699,
+     1.7755
+    ],
+    "worldQuat": [
+     -0.50537,
+     -0.427656,
+     0.635579,
+     -0.397178
+    ],
+    "worldEulerYXZ": [
+     70.92,
+     -67.82,
+     -167.16
+    ],
+    "faceDir": [
+     0.3027,
+     0.9451,
+     -0.1234
+    ],
+    "children": [
+     "mixamorigLeftHandRing4"
+    ]
+   },
+   "mixamorigLeftHandRing4": {
+    "parentName": "mixamorigLeftHandRing3",
+    "localPos": [
+     0.0032,
+     1.4505,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     40.2441,
+     -2.0324,
+     1.5661
+    ],
+    "worldQuat": [
+     -0.50537,
+     -0.427656,
+     0.635579,
+     -0.397178
+    ],
+    "worldEulerYXZ": [
+     70.92,
+     -67.82,
+     -167.16
+    ],
+    "faceDir": [
+     0.3027,
+     0.9451,
+     -0.1234
+    ],
+    "children": []
+   },
+   "mixamorigLeftHandPinky1": {
+    "parentName": "mixamorigLeftHand",
+    "localPos": [
+     1.5951,
+     6.0233,
+     0.0398
+    ],
+    "localQuat": [
+     0.034645,
+     -0.005069,
+     -0.144687,
+     0.988858
+    ],
+    "localEulerYXZ": [
+     3.84,
+     -1.15,
+     -16.69
+    ],
+    "worldPos": [
+     35.4809,
+     0.5289,
+     1.1865
+    ],
+    "worldQuat": [
+     -0.532251,
+     -0.357204,
+     0.730501,
+     -0.235548
+    ],
+    "worldEulerYXZ": [
+     50.59,
+     -73.7,
+     176.74
+    ],
+    "faceDir": [
+     0.6093,
+     0.7726,
+     -0.1782
+    ],
+    "children": [
+     "mixamorigLeftHandPinky2"
+    ]
+   },
+   "mixamorigLeftHandPinky2": {
+    "parentName": "mixamorigLeftHandPinky1",
+    "localPos": [
+     -0.0009,
+     1.7415,
+     0
+    ],
+    "localQuat": [
+     0.007242,
+     0,
+     0,
+     0.999974
+    ],
+    "localEulerYXZ": [
+     0.83,
+     0,
+     0
+    ],
+    "worldPos": [
+     36.7427,
+     -0.575,
+     0.7152
+    ],
+    "worldQuat": [
+     -0.533943,
+     -0.351905,
+     0.733069,
+     -0.231687
+    ],
+    "worldEulerYXZ": [
+     49.76,
+     -73.62,
+     176.8
+    ],
+    "faceDir": [
+     0.6198,
+     0.7634,
+     -0.1821
+    ],
+    "children": [
+     "mixamorigLeftHandPinky3"
+    ]
+   },
+   "mixamorigLeftHandPinky3": {
+    "parentName": "mixamorigLeftHandPinky2",
+    "localPos": [
+     -0.0011,
+     1.3944,
+     0
+    ],
+    "localQuat": [
+     -0.076098,
+     0,
+     0,
+     0.9971
+    ],
+    "localEulerYXZ": [
+     -8.73,
+     0,
+     0
+    ],
+    "worldPos": [
+     37.7407,
+     -1.4744,
+     0.3419
+    ],
+    "worldQuat": [
+     -0.514763,
+     -0.406669,
+     0.704164,
+     -0.271647
+    ],
+    "worldEulerYXZ": [
+     58.47,
+     -74.55,
+     176.04
+    ],
+    "faceDir": [
+     0.504,
+     0.8524,
+     -0.1393
+    ],
+    "children": [
+     "mixamorigLeftHandPinky4"
+    ]
+   },
+   "mixamorigLeftHandPinky4": {
+    "parentName": "mixamorigLeftHandPinky3",
+    "localPos": [
+     0.002,
+     1.2516,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     38.7429,
+     -2.1273,
+     -0.0269
+    ],
+    "worldQuat": [
+     -0.514763,
+     -0.406669,
+     0.704164,
+     -0.271647
+    ],
+    "worldEulerYXZ": [
+     58.47,
+     -74.55,
+     176.04
+    ],
+    "faceDir": [
+     0.504,
+     0.8524,
+     -0.1393
+    ],
+    "children": []
+   },
+   "mixamorigNeck": {
+    "parentName": "mixamorigSpine2",
+    "localPos": [
+     0,
+     7.174,
+     0
+    ],
+    "localQuat": [
+     0.042767,
+     0,
+     0,
+     0.999085
+    ],
+    "localEulerYXZ": [
+     4.9,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     21.5213,
+     1.6506
+    ],
+    "worldQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "worldEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     0,
+     -1
+    ],
+    "children": [
+     "mixamorigHead"
+    ]
+   },
+   "mixamorigHead": {
+    "parentName": "mixamorigNeck",
+    "localPos": [
+     0,
+     4.8067,
+     0.0543
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     26.3279,
+     1.7049
+    ],
+    "worldQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "worldEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     0,
+     -1
+    ],
+    "children": [
+     "mixamorigHeadTop_End"
+    ]
+   },
+   "mixamorigHeadTop_End": {
+    "parentName": "mixamorigHead",
+    "localPos": [
+     0,
+     17.2944,
+     0.1955
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     0,
+     43.6223,
+     1.9004
+    ],
+    "worldQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "worldEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "faceDir": [
+     0,
+     0,
+     -1
+    ],
+    "children": []
+   },
+   "mixamorigRightShoulder": {
+    "parentName": "mixamorigSpine2",
+    "localPos": [
+     -3.128,
+     6.4989,
+     -0.0235
+    ],
+    "localQuat": [
+     0.549105,
+     -0.444711,
+     0.553503,
+     0.440852
+    ],
+    "localEulerYXZ": [
+     77.54,
+     89.62,
+     -179.9
+    ],
+    "worldPos": [
+     -3.128,
+     20.8466,
+     1.6848
+    ],
+    "worldQuat": [
+     0.529748,
+     -0.420632,
+     0.572016,
+     0.463932
+    ],
+    "worldEulerYXZ": [
+     76.59,
+     68.53,
+     158.47
+    ],
+    "faceDir": [
+     -0.2158,
+     0.9728,
+     -0.0849
+    ],
+    "children": [
+     "mixamorigRightArm"
+    ]
+   },
+   "mixamorigRightArm": {
+    "parentName": "mixamorigRightShoulder",
+    "localPos": [
+     0,
+     6.6399,
+     0
+    ],
+    "localQuat": [
+     0.227709,
+     0.015772,
+     -0.003689,
+     0.973594
+    ],
+    "localEulerYXZ": [
+     26.33,
+     1.86,
+     0
+    ],
+    "worldPos": [
+     -9.6113,
+     19.4145,
+     1.7533
+    ],
+    "worldQuat": [
+     0.613931,
+     -0.270001,
+     0.659337,
+     0.339798
+    ],
+    "worldEulerYXZ": [
+     50.65,
+     80.89,
+     169.41
+    ],
+    "faceDir": [
+     -0.6261,
+     0.7733,
+     -0.1004
+    ],
+    "children": [
+     "mixamorigRightForeArm"
+    ]
+   },
+   "mixamorigRightForeArm": {
+    "parentName": "mixamorigRightArm",
+    "localPos": [
+     0,
+     13.6115,
+     0
+    ],
+    "localQuat": [
+     -0.052219,
+     -0.000991,
+     0.018954,
+     0.998455
+    ],
+    "localEulerYXZ": [
+     -5.98,
+     -0.23,
+     2.19
+    ],
+    "worldPos": [
+     -20.2229,
+     10.9309,
+     2.5861
+    ],
+    "worldQuat": [
+     0.590775,
+     -0.315987,
+     0.650051,
+     0.358567
+    ],
+    "worldEulerYXZ": [
+     56.56,
+     79.3,
+     170.3
+    ],
+    "faceDir": [
+     -0.5415,
+     0.8345,
+     -0.1023
+    ],
+    "children": [
+     "mixamorigRightHand"
+    ]
+   },
+   "mixamorigRightHand": {
+    "parentName": "mixamorigRightForeArm",
+    "localPos": [
+     0,
+     12.4483,
+     0
+    ],
+    "localQuat": [
+     0.01083,
+     0.034438,
+     0.006956,
+     0.999324
+    ],
+    "localEulerYXZ": [
+     1.21,
+     3.96,
+     0.84
+    ],
+    "worldPos": [
+     -30.6736,
+     4.1694,
+     2.7461
+    ],
+    "worldQuat": [
+     0.569674,
+     -0.300494,
+     0.675873,
+     0.358287
+    ],
+    "worldEulerYXZ": [
+     54.53,
+     72.93,
+     165.84
+    ],
+    "faceDir": [
+     -0.5547,
+     0.8144,
+     -0.1703
+    ],
+    "children": [
+     "mixamorigRightHandThumb1",
+     "mixamorigRightHandIndex1",
+     "mixamorigRightHandMiddle1",
+     "mixamorigRightHandRing1",
+     "mixamorigRightHandPinky1"
+    ]
+   },
+   "mixamorigRightHandThumb1": {
+    "parentName": "mixamorigRightHand",
+    "localPos": [
+     1.1921,
+     2.3128,
+     0.8668
+    ],
+    "localQuat": [
+     0.155484,
+     -0.038155,
+     -0.235253,
+     0.958658
+    ],
+    "localEulerYXZ": [
+     16.27,
+     -8.77,
+     -28.83
+    ],
+    "worldPos": [
+     -32.217,
+     2.3313,
+     4.0731
+    ],
+    "worldQuat": [
+     0.698311,
+     -0.062637,
+     0.588629,
+     0.402435
+    ],
+    "worldEulerYXZ": [
+     39.48,
+     88.75,
+     149.97
+    ],
+    "faceDir": [
+     -0.7717,
+     0.6358,
+     -0.0169
+    ],
+    "children": [
+     "mixamorigRightHandThumb2"
+    ]
+   },
+   "mixamorigRightHandThumb2": {
+    "parentName": "mixamorigRightHandThumb1",
+    "localPos": [
+     -0.0112,
+     2.194,
+     0
+    ],
+    "localQuat": [
+     0.046504,
+     0,
+     0,
+     0.998918
+    ],
+    "localEulerYXZ": [
+     5.33,
+     0,
+     0
+    ],
+    "worldPos": [
+     -33.4517,
+     0.8609,
+     5.1347
+    ],
+    "worldQuat": [
+     0.71627,
+     -0.035196,
+     0.590905,
+     0.369526
+    ],
+    "worldEulerYXZ": [
+     34.82,
+     91.99,
+     151.93
+    ],
+    "faceDir": [
+     -0.8205,
+     0.571,
+     0.0286
+    ],
+    "children": [
+     "mixamorigRightHandThumb3"
+    ]
+   },
+   "mixamorigRightHandThumb3": {
+    "parentName": "mixamorigRightHandThumb2",
+    "localPos": [
+     0.0061,
+     1.9531,
+     0
+    ],
+    "localQuat": [
+     -0.030357,
+     0,
+     0,
+     0.999539
+    ],
+    "localEulerYXZ": [
+     -3.48,
+     0,
+     0
+    ],
+    "worldPos": [
+     -34.4013,
+     -0.5517,
+     6.0926
+    ],
+    "worldQuat": [
+     0.704723,
+     -0.053117,
+     0.589564,
+     0.391099
+    ],
+    "worldEulerYXZ": [
+     37.87,
+     89.92,
+     150.7
+    ],
+    "faceDir": [
+     -0.7894,
+     0.6139,
+     -0.0011
+    ],
+    "children": [
+     "mixamorigRightHandThumb4"
+    ]
+   },
+   "mixamorigRightHandThumb4": {
+    "parentName": "mixamorigRightHandThumb3",
+    "localPos": [
+     0.0051,
+     1.66,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -35.2896,
+     -1.6925,
+     6.9082
+    ],
+    "worldQuat": [
+     0.704723,
+     -0.053117,
+     0.589564,
+     0.391099
+    ],
+    "worldEulerYXZ": [
+     37.87,
+     89.92,
+     150.7
+    ],
+    "faceDir": [
+     -0.7894,
+     0.6139,
+     -0.0011
+    ],
+    "children": []
+   },
+   "mixamorigRightHandIndex1": {
+    "parentName": "mixamorigRightHand",
+    "localPos": [
+     1.6731,
+     6.6551,
+     0.1301
+    ],
+    "localQuat": [
+     0.003818,
+     -0.000335,
+     -0.087363,
+     0.996169
+    ],
+    "localEulerYXZ": [
+     0.43,
+     -0.08,
+     -10.02
+    ],
+    "worldPos": [
+     -36.2607,
+     0.5563,
+     4.4303
+    ],
+    "worldQuat": [
+     0.595338,
+     -0.247115,
+     0.64294,
+     0.413685
+    ],
+    "worldEulerYXZ": [
+     54.13,
+     73.24,
+     156.07
+    ],
+    "faceDir": [
+     -0.5611,
+     0.8103,
+     -0.169
+    ],
+    "children": [
+     "mixamorigRightHandIndex2"
+    ]
+   },
+   "mixamorigRightHandIndex2": {
+    "parentName": "mixamorigRightHandIndex1",
+    "localPos": [
+     0.0009,
+     1.7088,
+     0
+    ],
+    "localQuat": [
+     0.035958,
+     0,
+     0,
+     0.999353
+    ],
+    "localEulerYXZ": [
+     4.12,
+     0,
+     0
+    ],
+    "worldPos": [
+     -37.6724,
+     -0.3587,
+     4.73
+    ],
+    "worldQuat": [
+     0.609829,
+     -0.223836,
+     0.65141,
+     0.39201
+    ],
+    "worldEulerYXZ": [
+     50.33,
+     75.85,
+     158.14
+    ],
+    "faceDir": [
+     -0.619,
+     0.7697,
+     -0.156
+    ],
+    "children": [
+     "mixamorigRightHandIndex3"
+    ]
+   },
+   "mixamorigRightHandIndex3": {
+    "parentName": "mixamorigRightHandIndex2",
+    "localPos": [
+     -0.0015,
+     1.6136,
+     0
+    ],
+    "localQuat": [
+     -0.027612,
+     0,
+     0,
+     0.999619
+    ],
+    "localEulerYXZ": [
+     -3.16,
+     0,
+     0
+    ],
+    "worldPos": [
+     -38.937,
+     -1.315,
+     5.0294
+    ],
+    "worldQuat": [
+     0.598772,
+     -0.241737,
+     0.644981,
+     0.408699
+    ],
+    "worldEulerYXZ": [
+     53.25,
+     73.88,
+     156.59
+    ],
+    "faceDir": [
+     -0.5748,
+     0.8013,
+     -0.1661
+    ],
+    "children": [
+     "mixamorigRightHandIndex4"
+    ]
+   },
+   "mixamorigRightHandIndex4": {
+    "parentName": "mixamorigRightHandIndex3",
+    "localPos": [
+     0.0006,
+     1.4407,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -40.1136,
+     -2.1059,
+     5.2858
+    ],
+    "worldQuat": [
+     0.598772,
+     -0.241737,
+     0.644981,
+     0.408699
+    ],
+    "worldEulerYXZ": [
+     53.25,
+     73.88,
+     156.59
+    ],
+    "faceDir": [
+     -0.5748,
+     0.8013,
+     -0.1661
+    ],
+    "children": []
+   },
+   "mixamorigRightHandMiddle1": {
+    "parentName": "mixamorigRightHand",
+    "localPos": [
+     0.5745,
+     6.7556,
+     -0.1498
+    ],
+    "localQuat": [
+     -0.006762,
+     0.000009,
+     -0.00136,
+     0.999976
+    ],
+    "localEulerYXZ": [
+     -0.77,
+     0,
+     -0.16
+    ],
+    "worldPos": [
+     -36.3955,
+     0.5718,
+     3.3003
+    ],
+    "worldQuat": [
+     0.567641,
+     -0.304279,
+     0.673343,
+     0.363053
+    ],
+    "worldEulerYXZ": [
+     55.28,
+     72.59,
+     165.41
+    ],
+    "faceDir": [
+     -0.5435,
+     0.8219,
+     -0.1704
+    ],
+    "children": [
+     "mixamorigRightHandMiddle2"
+    ]
+   },
+   "mixamorigRightHandMiddle2": {
+    "parentName": "mixamorigRightHandMiddle1",
+    "localPos": [
+     0.0005,
+     1.9421,
+     0
+    ],
+    "localQuat": [
+     0.023252,
+     0,
+     0,
+     0.99973
+    ],
+    "localEulerYXZ": [
+     2.66,
+     0,
+     0
+    ],
+    "worldPos": [
+     -38.016,
+     -0.4986,
+     3.3055
+    ],
+    "worldQuat": [
+     0.575929,
+     -0.288541,
+     0.680236,
+     0.349756
+    ],
+    "worldEulerYXZ": [
+     52.7,
+     73.7,
+     166.31
+    ],
+    "faceDir": [
+     -0.5817,
+     0.7954,
+     -0.1701
+    ],
+    "children": [
+     "mixamorigRightHandMiddle3"
+    ]
+   },
+   "mixamorigRightHandMiddle3": {
+    "parentName": "mixamorigRightHandMiddle2",
+    "localPos": [
+     -0.0007,
+     1.8082,
+     0
+    ],
+    "localQuat": [
+     -0.019995,
+     0,
+     0,
+     0.9998
+    ],
+    "localEulerYXZ": [
+     -2.29,
+     0,
+     0
+    ],
+    "worldPos": [
+     -39.4773,
+     -1.5635,
+     3.3235
+    ],
+    "worldQuat": [
+     0.56882,
+     -0.302084,
+     0.674331,
+     0.361202
+    ],
+    "worldEulerYXZ": [
+     54.92,
+     72.76,
+     165.54
+    ],
+    "faceDir": [
+     -0.5489,
+     0.8183,
+     -0.1704
+    ],
+    "children": [
+     "mixamorigRightHandMiddle4"
+    ]
+   },
+   "mixamorigRightHandMiddle4": {
+    "parentName": "mixamorigRightHandMiddle3",
+    "localPos": [
+     0.0002,
+     1.6247,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -40.8271,
+     -2.4677,
+     3.3293
+    ],
+    "worldQuat": [
+     0.56882,
+     -0.302084,
+     0.674331,
+     0.361202
+    ],
+    "worldEulerYXZ": [
+     54.92,
+     72.76,
+     165.54
+    ],
+    "faceDir": [
+     -0.5489,
+     0.8183,
+     -0.1704
+    ],
+    "children": []
+   },
+   "mixamorigRightHandRing1": {
+    "parentName": "mixamorigRightHand",
+    "localPos": [
+     -0.5935,
+     6.5205,
+     0.0562
+    ],
+    "localQuat": [
+     -0.050108,
+     -0.003708,
+     0.073702,
+     0.996014
+    ],
+    "localEulerYXZ": [
+     -5.7,
+     -0.85,
+     8.51
+    ],
+    "worldPos": [
+     -35.9768,
+     0.3705,
+     2.184
+    ],
+    "worldQuat": [
+     0.52981,
+     -0.376478,
+     0.682416,
+     0.334477
+    ],
+    "worldEulerYXZ": [
+     60.26,
+     71.78,
+     173.34
+    ],
+    "faceDir": [
+     -0.4713,
+     0.8682,
+     -0.1551
+    ],
+    "children": [
+     "mixamorigRightHandRing2"
+    ]
+   },
+   "mixamorigRightHandRing2": {
+    "parentName": "mixamorigRightHandRing1",
+    "localPos": [
+     0.0009,
+     1.8386,
+     0
+    ],
+    "localQuat": [
+     0.077244,
+     0,
+     0,
+     0.997012
+    ],
+    "localEulerYXZ": [
+     8.86,
+     0,
+     0
+    ],
+    "worldPos": [
+     -37.5498,
+     -0.5355,
+     1.8917
+    ],
+    "worldQuat": [
+     0.554063,
+     -0.32264,
+     0.709458,
+     0.292553
+    ],
+    "worldEulerYXZ": [
+     51.44,
+     73.42,
+     174.7
+    ],
+    "faceDir": [
+     -0.5974,
+     0.782,
+     -0.1778
+    ],
+    "children": [
+     "mixamorigRightHandRing3"
+    ]
+   },
+   "mixamorigRightHandRing3": {
+    "parentName": "mixamorigRightHandRing2",
+    "localPos": [
+     -0.0023,
+     1.7051,
+     0
+    ],
+    "localQuat": [
+     -0.100656,
+     0,
+     0,
+     0.994921
+    ],
+    "localEulerYXZ": [
+     -11.55,
+     0,
+     0
+    ],
+    "worldPos": [
+     -38.8668,
+     -1.5939,
+     1.6617
+    ],
+    "worldQuat": [
+     0.521802,
+     -0.392413,
+     0.673379,
+     0.346837
+    ],
+    "worldEulerYXZ": [
+     62.93,
+     71.09,
+     172.73
+    ],
+    "faceDir": [
+     -0.4305,
+     0.8904,
+     -0.1475
+    ],
+    "children": [
+     "mixamorigRightHandRing4"
+    ]
+   },
+   "mixamorigRightHandRing4": {
+    "parentName": "mixamorigRightHandRing3",
+    "localPos": [
+     0.0014,
+     1.4448,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -40.1337,
+     -2.2461,
+     1.4224
+    ],
+    "worldQuat": [
+     0.521802,
+     -0.392413,
+     0.673379,
+     0.346837
+    ],
+    "worldEulerYXZ": [
+     62.93,
+     71.09,
+     172.73
+    ],
+    "faceDir": [
+     -0.4305,
+     0.8904,
+     -0.1475
+    ],
+    "children": []
+   },
+   "mixamorigRightHandPinky1": {
+    "parentName": "mixamorigRightHand",
+    "localPos": [
+     -1.6541,
+     6.0355,
+     0.0335
+    ],
+    "localQuat": [
+     0.036832,
+     0.004523,
+     0.121815,
+     0.991859
+    ],
+    "localEulerYXZ": [
+     4.13,
+     1.03,
+     14.04
+    ],
+    "worldPos": [
+     -35.4886,
+     0.5114,
+     1.134
+    ],
+    "worldQuat": [
+     0.538571,
+     -0.340929,
+     0.72766,
+     0.253416
+    ],
+    "worldEulerYXZ": [
+     50.28,
+     72.95,
+     179.86
+    ],
+    "faceDir": [
+     -0.611,
+     0.7691,
+     -0.1874
+    ],
+    "children": [
+     "mixamorigRightHandPinky2"
+    ]
+   },
+   "mixamorigRightHandPinky2": {
+    "parentName": "mixamorigRightHandPinky1",
+    "localPos": [
+     -0.0009,
+     1.6654,
+     0
+    ],
+    "localQuat": [
+     -0.013854,
+     0,
+     0,
+     0.999904
+    ],
+    "localEulerYXZ": [
+     -1.59,
+     0,
+     0
+    ],
+    "worldPos": [
+     -36.7141,
+     -0.553,
+     0.7615
+    ],
+    "worldQuat": [
+     0.535008,
+     -0.350977,
+     0.722867,
+     0.260853
+    ],
+    "worldEulerYXZ": [
+     51.86,
+     72.94,
+     179.85
+    ],
+    "faceDir": [
+     -0.5904,
+     0.7865,
+     -0.1812
+    ],
+    "children": [
+     "mixamorigRightHandPinky3"
+    ]
+   },
+   "mixamorigRightHandPinky3": {
+    "parentName": "mixamorigRightHandPinky2",
+    "localPos": [
+     -0.0004,
+     1.4284,
+     0
+    ],
+    "localQuat": [
+     -0.033507,
+     0,
+     0,
+     0.999438
+    ],
+    "localEulerYXZ": [
+     -3.84,
+     0,
+     0
+    ],
+    "worldPos": [
+     -37.7891,
+     -1.4351,
+     0.435
+    ],
+    "worldQuat": [
+     0.525968,
+     -0.375001,
+     0.710701,
+     0.278633
+    ],
+    "worldEulerYXZ": [
+     55.7,
+     72.92,
+     179.84
+    ],
+    "faceDir": [
+     -0.5386,
+     0.8261,
+     -0.1655
+    ],
+    "children": [
+     "mixamorigRightHandPinky4"
+    ]
+   },
+   "mixamorigRightHandPinky4": {
+    "parentName": "mixamorigRightHandPinky3",
+    "localPos": [
+     0.0012,
+     1.1471,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     -38.6963,
+     -2.0814,
+     0.161
+    ],
+    "worldQuat": [
+     0.525968,
+     -0.375001,
+     0.710701,
+     0.278633
+    ],
+    "worldEulerYXZ": [
+     55.7,
+     72.92,
+     179.84
+    ],
+    "faceDir": [
+     -0.5386,
+     0.8261,
+     -0.1655
+    ],
+    "children": []
+   },
+   "mixamorigLeftUpLeg": {
+    "parentName": "mixamorigHips",
+    "localPos": [
+     4.6252,
+     -2.6458,
+     -0.4378
+    ],
+    "localQuat": [
+     0.000108,
+     -0.015612,
+     0.999854,
+     0.006899
+    ],
+    "localEulerYXZ": [
+     1.79,
+     0,
+     179.21
+    ],
+    "worldPos": [
+     4.6252,
+     -4.9505,
+     3.2563
+    ],
+    "worldQuat": [
+     0.000108,
+     -0.015612,
+     0.999854,
+     0.006899
+    ],
+    "worldEulerYXZ": [
+     1.79,
+     0,
+     179.21
+    ],
+    "faceDir": [
+     0,
+     0.0312,
+     -0.9995
+    ],
+    "children": [
+     "mixamorigLeftLeg"
+    ]
+   },
+   "mixamorigLeftLeg": {
+    "parentName": "mixamorigLeftUpLeg",
+    "localPos": [
+     0,
+     23.3355,
+     0
+    ],
+    "localQuat": [
+     -0.022486,
+     -0.000386,
+     0.017159,
+     0.9996
+    ],
+    "localEulerYXZ": [
+     -2.58,
+     -0.09,
+     1.97
+    ],
+    "worldPos": [
+     4.3031,
+     -28.2724,
+     2.5278
+    ],
+    "worldQuat": [
+     0.000071,
+     -0.038093,
+     0.999221,
+     -0.010264
+    ],
+    "worldEulerYXZ": [
+     4.37,
+     0.05,
+     -178.82
+    ],
+    "faceDir": [
+     -0.0009,
+     0.0761,
+     -0.9971
+    ],
+    "children": [
+     "mixamorigLeftFoot"
+    ]
+   },
+   "mixamorigLeftFoot": {
+    "parentName": "mixamorigLeftLeg",
+    "localPos": [
+     0,
+     21.7598,
+     0
+    ],
+    "localQuat": [
+     0.470907,
+     -0.015513,
+     0.008282,
+     0.882007
+    ],
+    "localEulerYXZ": [
+     56.2,
+     -2.02,
+     0
+    ],
+    "worldPos": [
+     4.7494,
+     -49.9645,
+     0.8712
+    ],
+    "worldQuat": [
+     0.010414,
+     0.437101,
+     0.899173,
+     -0.017953
+    ],
+    "worldEulerYXZ": [
+     -51.85,
+     0.28,
+     -177.85
+    ],
+    "faceDir": [
+     -0.003,
+     -0.7864,
+     -0.6177
+    ],
+    "children": [
+     "mixamorigLeftToeBase"
+    ]
+   },
+   "mixamorigLeftToeBase": {
+    "parentName": "mixamorigLeftFoot",
+    "localPos": [
+     0,
+     9.4254,
+     0
+    ],
+    "localQuat": [
+     0.323705,
+     -0.022873,
+     0.007828,
+     0.945849
+    ],
+    "localEulerYXZ": [
+     37.79,
+     -2.77,
+     0
+    ],
+    "worldPos": [
+     5.1395,
+     -55.7822,
+     8.2767
+    ],
+    "worldQuat": [
+     0.028028,
+     0.704828,
+     0.708611,
+     -0.017392
+    ],
+    "worldEulerYXZ": [
+     -89.09,
+     72.26,
+     111.42
+    ],
+    "faceDir": [
+     -0.0152,
+     -0.9999,
+     -0.0049
+    ],
+    "children": [
+     "mixamorigLeftToe_End"
+    ]
+   },
+   "mixamorigLeftToe_End": {
+    "parentName": "mixamorigLeftToeBase",
+    "localPos": [
+     0,
+     3.4559,
+     0
+    ],
+    "localQuat": [
+     0,
+     0,
+     0,
+     1
+    ],
+    "localEulerYXZ": [
+     0,
+     0,
+     0
+    ],
+    "worldPos": [
+     5.3612,
+     -55.8024,
+     11.7253
+    ],
+    "worldQuat": [
+     0.028028,
+     0.704828,
+     0.708611,
+     -0.017392
+    ],
+    "worldEulerYXZ": [
+     -89.09,
+     72.26,
+     111.42
+    ],
+    "faceDir": [
+     -0.0152,
+     -0.9999,
+     -0.0049
+    ],
+    "children": []
+   }
+  }
+ },
+ "comparison": {
+  "onlyInA": [
+   "Head",
+   "Hip",
+   "L_Calf",
+   "L_CalfTwist01",
+   "L_CalfTwist02",
+   "L_Clavicle",
+   "L_Foot",
+   "L_Forearm",
+   "L_ForearmTwist01",
+   "L_ForearmTwist02",
+   "L_Hand",
+   "L_Thigh",
+   "L_ThighTwist01",
+   "L_ThighTwist02",
+   "L_ToeBase",
+   "L_Upperarm",
+   "L_UpperarmTwist01",
+   "L_UpperarmTwist02",
+   "NeckTwist01",
+   "NeckTwist02",
+   "Pelvis",
+   "R_Calf",
+   "R_CalfTwist01",
+   "R_CalfTwist02",
+   "R_Clavicle",
+   "R_Foot",
+   "R_Forearm",
+   "R_ForearmTwist01",
+   "R_ForearmTwist02",
+   "R_Hand",
+   "R_Thigh",
+   "R_ThighTwist01",
+   "R_ThighTwist02",
+   "R_ToeBase",
+   "R_Upperarm",
+   "R_UpperarmTwist01",
+   "R_UpperarmTwist02",
+   "Root",
+   "Spine01",
+   "Spine02",
+   "Waist"
+  ],
+  "onlyInB": [
+   "mixamorigHead",
+   "mixamorigHeadTop_End",
+   "mixamorigHips",
+   "mixamorigLeftArm",
+   "mixamorigLeftFoot",
+   "mixamorigLeftForeArm",
+   "mixamorigLeftHand",
+   "mixamorigLeftHandIndex1",
+   "mixamorigLeftHandIndex2",
+   "mixamorigLeftHandIndex3",
+   "mixamorigLeftHandIndex4",
+   "mixamorigLeftHandMiddle1",
+   "mixamorigLeftHandMiddle2",
+   "mixamorigLeftHandMiddle3",
+   "mixamorigLeftHandMiddle4",
+   "mixamorigLeftHandPinky1",
+   "mixamorigLeftHandPinky2",
+   "mixamorigLeftHandPinky3",
+   "mixamorigLeftHandPinky4",
+   "mixamorigLeftHandRing1",
+   "mixamorigLeftHandRing2",
+   "mixamorigLeftHandRing3",
+   "mixamorigLeftHandRing4",
+   "mixamorigLeftHandThumb1",
+   "mixamorigLeftHandThumb2",
+   "mixamorigLeftHandThumb3",
+   "mixamorigLeftHandThumb4",
+   "mixamorigLeftLeg",
+   "mixamorigLeftShoulder",
+   "mixamorigLeftToeBase",
+   "mixamorigLeftToe_End",
+   "mixamorigLeftUpLeg",
+   "mixamorigNeck",
+   "mixamorigRightArm",
+   "mixamorigRightFoot",
+   "mixamorigRightForeArm",
+   "mixamorigRightHand",
+   "mixamorigRightHandIndex1",
+   "mixamorigRightHandIndex2",
+   "mixamorigRightHandIndex3",
+   "mixamorigRightHandIndex4",
+   "mixamorigRightHandMiddle1",
+   "mixamorigRightHandMiddle2",
+   "mixamorigRightHandMiddle3",
+   "mixamorigRightHandMiddle4",
+   "mixamorigRightHandPinky1",
+   "mixamorigRightHandPinky2",
+   "mixamorigRightHandPinky3",
+   "mixamorigRightHandPinky4",
+   "mixamorigRightHandRing1",
+   "mixamorigRightHandRing2",
+   "mixamorigRightHandRing3",
+   "mixamorigRightHandRing4",
+   "mixamorigRightHandThumb1",
+   "mixamorigRightHandThumb2",
+   "mixamorigRightHandThumb3",
+   "mixamorigRightHandThumb4",
+   "mixamorigRightLeg",
+   "mixamorigRightShoulder",
+   "mixamorigRightToeBase",
+   "mixamorigRightToe_End",
+   "mixamorigRightUpLeg",
+   "mixamorigSpine",
+   "mixamorigSpine1",
+   "mixamorigSpine2"
+  ],
+  "commonCount": 0,
+  "diffs": []
+ },
+ "animationComparison": {
+  "idle": {
+   "0.000": {},
+   "0.100": {},
+   "0.300": {},
+   "0.500": {}
+  },
+  "walk": {
+   "0.000": {},
+   "0.100": {},
+   "0.300": {},
+   "0.500": {}
+  }
+ }
+}

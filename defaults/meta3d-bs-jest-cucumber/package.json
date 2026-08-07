@@ -8,7 +8,7 @@
     "watch": "rescript clean && rescript build -w"
   },
   "dependencies": {
-    "jest-cucumber": "^3.0.1",
+    "jest-cucumber": "^4.1.0",
     "rescript": "^10.0.1"
   }
 }

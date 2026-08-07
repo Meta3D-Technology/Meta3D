@@ -1,0 +1,232 @@
+=== D2 FBX 探针结果 ===
+生成时间: 2026-08-01T08:27:02.505Z
+
+──────────────────────────────────────────────────────────────────────
+模型: asset-lib\unit-model\src\asset\elitegiantess\model_EliteGiantess1_lod1.fbx
+──────────────────────────────────────────────────────────────────────
+  骨骼数: 33
+  Root: (无)
+  Hip: (无)
+  Pelvis: (无)
+  Twist骨 (0): (无)
+  发骨 (0): (无)
+  手指骨 (0): (无)
+  脚趾骨 (4): mixamorigLeftToeBase, mixamorigLeftToe_End, mixamorigRightToeBase, mixamorigRightToe_End
+
+  🦴 骨骼层级树:
+  ├── mixamorigHips (0.092, -7.024, 8.781)
+    ├── mixamorigLeftUpLeg (5.496, -1.910, 0.277)
+      ├── mixamorigLeftLeg (-0.000, 25.443, 0.000)
+        ├── mixamorigLeftFoot (0.000, 26.607, 0.000)
+          ├── mixamorigLeftToeBase (-0.000, 7.800, 0.000)
+            ├── mixamorigLeftToe_End (-0.000, 2.883, 0.000)
+    ├── mixamorigRightUpLeg (-5.496, -1.910, 0.292)
+      ├── mixamorigRightLeg (0.000, 25.443, -0.000)
+        ├── mixamorigRightFoot (0.000, 26.596, 0.000)
+          ├── mixamorigRightToeBase (0.000, 7.652, -0.000)
+            ├── mixamorigRightToe_End (0.000, 2.817, 0.000)
+    ├── mixamorigSpine (0.000, 3.465, -0.300)
+      ├── mixamorigSpine1 (0.000, 4.058, -0.000)
+        ├── mixamorigSpine2 (0.000, 4.638, -0.000)
+          ├── mixamorigRightShoulder (-2.801, 4.885, -0.025)
+            ├── mixamorigRightArm (0.000, 5.560, -0.000)
+              ├── mixamorigRightForeArm (0.000, 10.498, 0.000)
+                ├── mixamorigRightHand (0.000, 10.693, -0.000)
+                  ├── mixamorigRightHandIndex1 (0.000, 5.369, -0.000)
+                    ├── mixamorigRightHandIndex2 (0.000, 1.286, 0.000)
+                      ├── mixamorigRightHandIndex3 (0.757, 1.623, 0.565)
+                        ├── mixamorigRightHandIndex4 (0.137, 1.098, 0.510)
+          ├── mixamorigNeck (0.000, 5.217, 0.000)
+            ├── mixamorigHead (0.000, 4.072, 0.287)
+              ├── mixamorigHeadTop_End (0.000, 16.591, 1.169)
+          ├── mixamorigLeftShoulder (2.801, 4.885, -0.032)
+            ├── mixamorigLeftArm (-0.000, 5.560, -0.000)
+              ├── mixamorigLeftForeArm (0.000, 10.498, 0.000)
+                ├── mixamorigLeftHand (-0.000, 10.692, 0.000)
+                  ├── mixamorigLeftHandIndex1 (-0.000, 5.248, -0.000)
+                    ├── mixamorigLeftHandIndex2 (-0.000, 1.313, -0.000)
+                      ├── mixamorigLeftHandIndex3 (-0.652, 1.660, -0.157)
+                        ├── mixamorigLeftHandIndex4 (-0.322, 1.084, 0.038)
+
+  📐 SkinnedMesh (1):
+    - tripo_node_dd1cea04: 44670 顶点, 28 骨骼, skinIndex [0..27]
+
+──────────────────────────────────────────────────────────────────────
+模型: asset-lib\unit-model\src\asset\soldier\model_Soldier1_lod1.fbx
+──────────────────────────────────────────────────────────────────────
+  骨骼数: 25
+  Root: (无)
+  Hip: (无)
+  Pelvis: (无)
+  Twist骨 (0): (无)
+  发骨 (0): (无)
+  手指骨 (0): (无)
+  脚趾骨 (4): mixamorigRightToeBase, mixamorigRightToe_End, mixamorigLeftToeBase, mixamorigLeftToe_End
+
+  🦴 骨骼层级树:
+  ├── mixamorigHips (-0.511, 15.407, 7.898)
+    ├── mixamorigSpine (0.000, 0.767, 5.445)
+      ├── mixamorigSpine1 (-0.000, 6.415, 0.000)
+        ├── mixamorigSpine2 (0.000, 7.332, -0.000)
+          ├── mixamorigNeck (0.000, 8.248, -0.000)
+            ├── mixamorigHead (0.000, -1.078, 3.752)
+              ├── mixamorigHeadTop_End (0.000, -3.108, 10.818)
+          ├── mixamorigLeftShoulder (3.374, 7.159, -0.222)
+            ├── mixamorigLeftArm (0.000, 6.958, -0.000)
+              ├── mixamorigLeftForeArm (-0.000, 13.070, 0.000)
+                ├── mixamorigLeftHand (-0.000, 12.305, 0.000)
+          ├── mixamorigRightShoulder (-3.374, 7.140, -0.088)
+            ├── mixamorigRightArm (0.000, 6.958, -0.000)
+              ├── mixamorigRightForeArm (0.000, 13.087, -0.000)
+                ├── mixamorigRightHand (0.000, 12.833, -0.000)
+    ├── mixamorigRightUpLeg (-5.680, -0.228, -3.087)
+      ├── mixamorigRightLeg (0.000, 25.765, 0.000)
+        ├── mixamorigRightFoot (-0.000, 23.363, -0.000)
+          ├── mixamorigRightToeBase (-0.000, 8.971, -0.000)
+            ├── mixamorigRightToe_End (0.000, 3.562, -0.000)
+    ├── mixamorigLeftUpLeg (5.680, -0.288, -3.087)
+      ├── mixamorigLeftLeg (0.000, 25.764, -0.000)
+        ├── mixamorigLeftFoot (0.000, 23.368, 0.000)
+          ├── mixamorigLeftToeBase (-0.000, 9.168, -0.000)
+            ├── mixamorigLeftToe_End (-0.000, 3.517, 0.000)
+
+  📐 SkinnedMesh (1):
+    - tripo_node_14052614: 28569 顶点, 22 骨骼, skinIndex [0..21]
+
+──────────────────────────────────────────────────────────────────────
+动画: asset-lib\unit-action\src\asset\action\elitegiantess\default\Idle\1.fbx
+──────────────────────────────────────────────────────────────────────
+  骨骼数: 33
+  Clip数: 1
+  轨道数: 29
+  含冒号: 否 ✅
+
+  🎬 动画骨骼名（去重后，28 个）:
+    - mixamorigHead
+    - mixamorigHips
+    - mixamorigLeftArm
+    - mixamorigLeftFoot
+    - mixamorigLeftForeArm
+    - mixamorigLeftHand
+    - mixamorigLeftHandIndex1
+    - mixamorigLeftHandIndex2
+    - mixamorigLeftHandIndex3
+    - mixamorigLeftLeg
+    - mixamorigLeftShoulder
+    - mixamorigLeftToeBase
+    - mixamorigLeftUpLeg
+    - mixamorigNeck
+    - mixamorigRightArm
+    - mixamorigRightFoot
+    - mixamorigRightForeArm
+    - mixamorigRightHand
+    - mixamorigRightHandIndex1
+    - mixamorigRightHandIndex2
+    - mixamorigRightHandIndex3
+    - mixamorigRightLeg
+    - mixamorigRightShoulder
+    - mixamorigRightToeBase
+    - mixamorigRightUpLeg
+    - mixamorigSpine
+    - mixamorigSpine1
+    - mixamorigSpine2
+
+  📋 全部轨道 (29):
+    mixamorigHips.position
+    mixamorigHips.quaternion
+    mixamorigSpine.quaternion
+    mixamorigSpine1.quaternion
+    mixamorigSpine2.quaternion
+    mixamorigNeck.quaternion
+    mixamorigHead.quaternion
+    mixamorigLeftShoulder.quaternion
+    mixamorigLeftArm.quaternion
+    mixamorigLeftForeArm.quaternion
+    mixamorigLeftHand.quaternion
+    mixamorigLeftHandIndex1.quaternion
+    mixamorigLeftHandIndex2.quaternion
+    mixamorigLeftHandIndex3.quaternion
+    mixamorigRightShoulder.quaternion
+    mixamorigRightArm.quaternion
+    mixamorigRightForeArm.quaternion
+    mixamorigRightHand.quaternion
+    mixamorigRightHandIndex1.quaternion
+    mixamorigRightHandIndex2.quaternion
+    mixamorigRightHandIndex3.quaternion
+    mixamorigLeftUpLeg.quaternion
+    mixamorigLeftLeg.quaternion
+    mixamorigLeftFoot.quaternion
+    mixamorigLeftToeBase.quaternion
+    mixamorigRightUpLeg.quaternion
+    mixamorigRightLeg.quaternion
+    mixamorigRightFoot.quaternion
+    mixamorigRightToeBase.quaternion
+
+──────────────────────────────────────────────────────────────────────
+动画: asset-lib\unit-action\src\asset\action\elitegiantess\default\Death\1.fbx
+──────────────────────────────────────────────────────────────────────
+  骨骼数: 33
+  Clip数: 1
+  轨道数: 29
+  含冒号: 否 ✅
+
+  🎬 动画骨骼名（去重后，28 个）:
+    - mixamorigHead
+    - mixamorigHips
+    - mixamorigLeftArm
+    - mixamorigLeftFoot
+    - mixamorigLeftForeArm
+    - mixamorigLeftHand
+    - mixamorigLeftHandIndex1
+    - mixamorigLeftHandIndex2
+    - mixamorigLeftHandIndex3
+    - mixamorigLeftLeg
+    - mixamorigLeftShoulder
+    - mixamorigLeftToeBase
+    - mixamorigLeftUpLeg
+    - mixamorigNeck
+    - mixamorigRightArm
+    - mixamorigRightFoot
+    - mixamorigRightForeArm
+    - mixamorigRightHand
+    - mixamorigRightHandIndex1
+    - mixamorigRightHandIndex2
+    - mixamorigRightHandIndex3
+    - mixamorigRightLeg
+    - mixamorigRightShoulder
+    - mixamorigRightToeBase
+    - mixamorigRightUpLeg
+    - mixamorigSpine
+    - mixamorigSpine1
+    - mixamorigSpine2
+
+  📋 全部轨道 (29):
+    mixamorigHips.position
+    mixamorigHips.quaternion
+    mixamorigSpine.quaternion
+    mixamorigSpine1.quaternion
+    mixamorigSpine2.quaternion
+    mixamorigNeck.quaternion
+    mixamorigHead.quaternion
+    mixamorigLeftShoulder.quaternion
+    mixamorigLeftArm.quaternion
+    mixamorigLeftForeArm.quaternion
+    mixamorigLeftHand.quaternion
+    mixamorigLeftHandIndex1.quaternion
+    mixamorigLeftHandIndex2.quaternion
+    mixamorigLeftHandIndex3.quaternion
+    mixamorigRightShoulder.quaternion
+    mixamorigRightArm.quaternion
+    mixamorigRightForeArm.quaternion
+    mixamorigRightHand.quaternion
+    mixamorigRightHandIndex1.quaternion
+    mixamorigRightHandIndex2.quaternion
+    mixamorigRightHandIndex3.quaternion
+    mixamorigLeftUpLeg.quaternion
+    mixamorigLeftLeg.quaternion
+    mixamorigLeftFoot.quaternion
+    mixamorigLeftToeBase.quaternion
+    mixamorigRightUpLeg.quaternion
+    mixamorigRightLeg.quaternion
+    mixamorigRightFoot.quaternion
+    mixamorigRightToeBase.quaternion

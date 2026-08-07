@@ -21,6 +21,6 @@
     "bs-platform": "4.0.18"
   },
   "dependencies": {
-    "jest": "24.3.1"
+    "jest": "^29.7.0"
   }
 }

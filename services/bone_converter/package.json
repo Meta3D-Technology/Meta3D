@@ -1,0 +1,29 @@
+{
+  "name": "bone_converter",
+  "version": "0.0.1",
+  "description": "运行时骨骼名转换工具：将 Tripo AI 生成的 FBX 模型骨骼转换为 Mixamo 命名体系，使其可直接播放 Mixamo 动画",
+  "main": "./src/tool/bone_converter/index.ts",
+  "scripts": {
+    "watch": "tsc -w -noEmit",
+    "webpack:dev-server": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.js",
+    "test:bdd": "jest --config jest.config.js",
+    "test:e2e": "node test/e2e/e2e-runner.cjs"
+  },
+  "dependencies": {
+    "three": "0.159.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.158.1",
+    "cross-env": "^7.0.3",
+    "html-webpack-plugin": "^5.6.4",
+    "ts-loader": "^9.2.6",
+    "typescript": "^5.8.0",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "@types/jest": "^29.5.0",
+    "jest-cucumber": "^4.1.0"
+  }
+}

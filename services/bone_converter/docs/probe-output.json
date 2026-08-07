@@ -1,0 +1,1259 @@
+{
+  "generatedAt": "2026-08-01T08:27:02.505Z",
+  "models": [
+    {
+      "file": "asset-lib\\unit-model\\src\\asset\\elitegiantess\\model_EliteGiantess1_lod1.fbx",
+      "boneCount": 33,
+      "bones": [
+        {
+          "name": "mixamorigHips",
+          "parentName": null,
+          "depth": 1,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0.09189796447753906,
+            -7.024176504582511,
+            8.780879667328744
+          ]
+        },
+        {
+          "name": "mixamorigLeftUpLeg",
+          "parentName": "mixamorigHips",
+          "depth": 2,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            5.496156692504883,
+            -1.9099292755126944,
+            0.2774205207824707
+          ]
+        },
+        {
+          "name": "mixamorigLeftLeg",
+          "parentName": "mixamorigLeftUpLeg",
+          "depth": 3,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -6.695469778605911e-8,
+            25.44314228331964,
+            1.610741762192447e-9
+          ]
+        },
+        {
+          "name": "mixamorigLeftFoot",
+          "parentName": "mixamorigLeftLeg",
+          "depth": 4,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            2.9808907076045443e-7,
+            26.606821771733948,
+            2.0703634362462253e-9
+          ]
+        },
+        {
+          "name": "mixamorigLeftToeBase",
+          "parentName": "mixamorigLeftFoot",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -2.1157521956638448e-8,
+            7.7995658430653165,
+            1.030810210522759e-7
+          ]
+        },
+        {
+          "name": "mixamorigLeftToe_End",
+          "parentName": "mixamorigLeftToeBase",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -7.69374253195565e-9,
+            2.883471548516745,
+            3.4236293799949635e-9
+          ]
+        },
+        {
+          "name": "mixamorigRightUpLeg",
+          "parentName": "mixamorigHips",
+          "depth": 2,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -5.496156692504883,
+            -1.9099292755126944,
+            0.2915477752685547
+          ]
+        },
+        {
+          "name": "mixamorigRightLeg",
+          "parentName": "mixamorigRightUpLeg",
+          "depth": 3,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            5.553963688953445e-8,
+            25.44311340695834,
+            -1.1905409991186389e-9
+          ]
+        },
+        {
+          "name": "mixamorigRightFoot",
+          "parentName": "mixamorigRightLeg",
+          "depth": 4,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            9.44864211316343e-8,
+            26.595701756147065,
+            4.314114754322418e-8
+          ]
+        },
+        {
+          "name": "mixamorigRightToeBase",
+          "parentName": "mixamorigRightFoot",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            6.12266859434385e-9,
+            7.652254543947663,
+            -8.936316220342633e-8
+          ]
+        },
+        {
+          "name": "mixamorigRightToe_End",
+          "parentName": "mixamorigRightToeBase",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            8.398579609547596e-10,
+            2.817100772602698,
+            3.4899301226687385e-9
+          ]
+        },
+        {
+          "name": "mixamorigSpine",
+          "parentName": "mixamorigHips",
+          "depth": 2,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            3.4652462005615234,
+            -0.2999286651611328
+          ]
+        },
+        {
+          "name": "mixamorigSpine1",
+          "parentName": "mixamorigSpine",
+          "depth": 3,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            4.057902239594005,
+            -8.085834224402788e-9
+          ]
+        },
+        {
+          "name": "mixamorigSpine2",
+          "parentName": "mixamorigSpine1",
+          "depth": 4,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            1.3877787807814457e-17,
+            4.637604747589982,
+            -1.0133986094729153e-8
+          ]
+        },
+        {
+          "name": "mixamorigRightShoulder",
+          "parentName": "mixamorigSpine2",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -2.8007450103759766,
+            4.884799616142963,
+            -0.025179954365839308
+          ]
+        },
+        {
+          "name": "mixamorigRightArm",
+          "parentName": "mixamorigRightShoulder",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            9.885390284125606e-10,
+            5.559621367680958,
+            -1.0059027388820141e-8
+          ]
+        },
+        {
+          "name": "mixamorigRightForeArm",
+          "parentName": "mixamorigRightArm",
+          "depth": 7,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            8.718754607173196e-9,
+            10.497707325379007,
+            8.951399621537348e-10
+          ]
+        },
+        {
+          "name": "mixamorigRightHand",
+          "parentName": "mixamorigRightForeArm",
+          "depth": 8,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            3.242597301778005e-10,
+            10.692520177267866,
+            -7.52734585773851e-9
+          ]
+        },
+        {
+          "name": "mixamorigRightHandIndex1",
+          "parentName": "mixamorigRightHand",
+          "depth": 9,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            2.928249642764058e-9,
+            5.368959299929379,
+            -6.722421730387396e-9
+          ]
+        },
+        {
+          "name": "mixamorigRightHandIndex2",
+          "parentName": "mixamorigRightHandIndex1",
+          "depth": 10,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            1.1739615501937806e-8,
+            1.2859513782073648,
+            4.857760416143719e-9
+          ]
+        },
+        {
+          "name": "mixamorigRightHandIndex3",
+          "parentName": "mixamorigRightHandIndex2",
+          "depth": 11,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0.7566145375403064,
+            1.6231367126578178,
+            0.565266432312209
+          ]
+        },
+        {
+          "name": "mixamorigRightHandIndex4",
+          "parentName": "mixamorigRightHandIndex3",
+          "depth": 12,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0.13720182197007347,
+            1.0983119841998743,
+            0.5099220265003019
+          ]
+        },
+        {
+          "name": "mixamorigNeck",
+          "parentName": "mixamorigSpine2",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            1.3877787807814457e-17,
+            5.217301895032305,
+            1.5949977338891586e-8
+          ]
+        },
+        {
+          "name": "mixamorigHead",
+          "parentName": "mixamorigNeck",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            1.3877787807814457e-17,
+            4.07234001159668,
+            0.286956787109375
+          ]
+        },
+        {
+          "name": "mixamorigHeadTop_End",
+          "parentName": "mixamorigHead",
+          "depth": 7,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            1.3877787807814457e-17,
+            16.59084129333496,
+            1.1690692901611337
+          ]
+        },
+        {
+          "name": "mixamorigLeftShoulder",
+          "parentName": "mixamorigSpine2",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            2.8007450103759766,
+            4.885417991724669,
+            -0.03232439707680612
+          ]
+        },
+        {
+          "name": "mixamorigLeftArm",
+          "parentName": "mixamorigLeftShoulder",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -7.625136078104333e-10,
+            5.559621367680959,
+            -1.0078682777248105e-8
+          ]
+        },
+        {
+          "name": "mixamorigLeftForeArm",
+          "parentName": "mixamorigLeftArm",
+          "depth": 7,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            5.554428916809684e-9,
+            10.498035569045879,
+            1.2215661371328679e-8
+          ]
+        },
+        {
+          "name": "mixamorigLeftHand",
+          "parentName": "mixamorigLeftForeArm",
+          "depth": 8,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -5.780034229019293e-10,
+            10.69247427629601,
+            2.514663144381757e-9
+          ]
+        },
+        {
+          "name": "mixamorigLeftHandIndex1",
+          "parentName": "mixamorigLeftHand",
+          "depth": 9,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -5.873253883237339e-9,
+            5.248145037913758,
+            -8.615721469595883e-9
+          ]
+        },
+        {
+          "name": "mixamorigLeftHandIndex2",
+          "parentName": "mixamorigLeftHandIndex1",
+          "depth": 10,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -7.818556468919269e-9,
+            1.3126806914595974,
+            -2.1006266948120356e-8
+          ]
+        },
+        {
+          "name": "mixamorigLeftHandIndex3",
+          "parentName": "mixamorigLeftHandIndex2",
+          "depth": 11,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -0.6520496514088503,
+            1.6604799797697254,
+            -0.15746239523410477
+          ]
+        },
+        {
+          "name": "mixamorigLeftHandIndex4",
+          "parentName": "mixamorigLeftHandIndex3",
+          "depth": 12,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -0.32189512783850205,
+            1.0836336850860988,
+            0.03847400658960076
+          ]
+        }
+      ],
+      "boneNameSet": [
+        "mixamorigHead",
+        "mixamorigHeadTop_End",
+        "mixamorigHips",
+        "mixamorigLeftArm",
+        "mixamorigLeftFoot",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftHandIndex1",
+        "mixamorigLeftHandIndex2",
+        "mixamorigLeftHandIndex3",
+        "mixamorigLeftHandIndex4",
+        "mixamorigLeftLeg",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftToe_End",
+        "mixamorigLeftUpLeg",
+        "mixamorigNeck",
+        "mixamorigRightArm",
+        "mixamorigRightFoot",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightHandIndex1",
+        "mixamorigRightHandIndex2",
+        "mixamorigRightHandIndex3",
+        "mixamorigRightHandIndex4",
+        "mixamorigRightLeg",
+        "mixamorigRightShoulder",
+        "mixamorigRightToeBase",
+        "mixamorigRightToe_End",
+        "mixamorigRightUpLeg",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2"
+      ],
+      "boneTree": "  ├── mixamorigHips (0.092, -7.024, 8.781)\n    ├── mixamorigLeftUpLeg (5.496, -1.910, 0.277)\n      ├── mixamorigLeftLeg (-0.000, 25.443, 0.000)\n        ├── mixamorigLeftFoot (0.000, 26.607, 0.000)\n          ├── mixamorigLeftToeBase (-0.000, 7.800, 0.000)\n            ├── mixamorigLeftToe_End (-0.000, 2.883, 0.000)\n    ├── mixamorigRightUpLeg (-5.496, -1.910, 0.292)\n      ├── mixamorigRightLeg (0.000, 25.443, -0.000)\n        ├── mixamorigRightFoot (0.000, 26.596, 0.000)\n          ├── mixamorigRightToeBase (0.000, 7.652, -0.000)\n            ├── mixamorigRightToe_End (0.000, 2.817, 0.000)\n    ├── mixamorigSpine (0.000, 3.465, -0.300)\n      ├── mixamorigSpine1 (0.000, 4.058, -0.000)\n        ├── mixamorigSpine2 (0.000, 4.638, -0.000)\n          ├── mixamorigRightShoulder (-2.801, 4.885, -0.025)\n            ├── mixamorigRightArm (0.000, 5.560, -0.000)\n              ├── mixamorigRightForeArm (0.000, 10.498, 0.000)\n                ├── mixamorigRightHand (0.000, 10.693, -0.000)\n                  ├── mixamorigRightHandIndex1 (0.000, 5.369, -0.000)\n                    ├── mixamorigRightHandIndex2 (0.000, 1.286, 0.000)\n                      ├── mixamorigRightHandIndex3 (0.757, 1.623, 0.565)\n                        ├── mixamorigRightHandIndex4 (0.137, 1.098, 0.510)\n          ├── mixamorigNeck (0.000, 5.217, 0.000)\n            ├── mixamorigHead (0.000, 4.072, 0.287)\n              ├── mixamorigHeadTop_End (0.000, 16.591, 1.169)\n          ├── mixamorigLeftShoulder (2.801, 4.885, -0.032)\n            ├── mixamorigLeftArm (-0.000, 5.560, -0.000)\n              ├── mixamorigLeftForeArm (0.000, 10.498, 0.000)\n                ├── mixamorigLeftHand (-0.000, 10.692, 0.000)\n                  ├── mixamorigLeftHandIndex1 (-0.000, 5.248, -0.000)\n                    ├── mixamorigLeftHandIndex2 (-0.000, 1.313, -0.000)\n                      ├── mixamorigLeftHandIndex3 (-0.652, 1.660, -0.157)\n                        ├── mixamorigLeftHandIndex4 (-0.322, 1.084, 0.038)",
+      "rootBone": null,
+      "hipBone": null,
+      "pelvisBone": null,
+      "twistBones": [],
+      "hairBones": [],
+      "fingerBones": [],
+      "toeBones": [
+        "mixamorigLeftToeBase",
+        "mixamorigLeftToe_End",
+        "mixamorigRightToeBase",
+        "mixamorigRightToe_End"
+      ],
+      "skinnedMeshes": [
+        {
+          "name": "tripo_node_dd1cea04",
+          "vertexCount": 44670,
+          "boneCount": 28,
+          "maxSkinIndex": 27,
+          "minSkinIndex": 0
+        }
+      ]
+    },
+    {
+      "file": "asset-lib\\unit-model\\src\\asset\\soldier\\model_Soldier1_lod1.fbx",
+      "boneCount": 25,
+      "bones": [
+        {
+          "name": "mixamorigHips",
+          "parentName": null,
+          "depth": 1,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -0.5114977955818176,
+            15.406814229969616,
+            7.897844034354133
+          ]
+        },
+        {
+          "name": "mixamorigSpine",
+          "parentName": "mixamorigHips",
+          "depth": 2,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            0.7673394684164876,
+            5.444906268282688
+          ]
+        },
+        {
+          "name": "mixamorigSpine1",
+          "parentName": "mixamorigSpine",
+          "depth": 3,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -1.1102230246251565e-16,
+            6.415158583177671,
+            5.329070518200751e-15
+          ]
+        },
+        {
+          "name": "mixamorigSpine2",
+          "parentName": "mixamorigSpine1",
+          "depth": 4,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            7.331614764432199,
+            -1.7763568394002505e-15
+          ]
+        },
+        {
+          "name": "mixamorigNeck",
+          "parentName": "mixamorigSpine2",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            8.24806425893464,
+            -9.662486810668725e-8
+          ]
+        },
+        {
+          "name": "mixamorigHead",
+          "parentName": "mixamorigNeck",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            -1.0777074546349859,
+            3.7515525346790213
+          ]
+        },
+        {
+          "name": "mixamorigHeadTop_End",
+          "parentName": "mixamorigHead",
+          "depth": 7,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            -3.1076998670985727,
+            10.818061692771415
+          ]
+        },
+        {
+          "name": "mixamorigLeftShoulder",
+          "parentName": "mixamorigSpine2",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            3.3739975094795227,
+            7.1592545497717595,
+            -0.2217736223832123
+          ]
+        },
+        {
+          "name": "mixamorigLeftArm",
+          "parentName": "mixamorigLeftShoulder",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            6.9580822003239735,
+            -7.105427357601002e-15
+          ]
+        },
+        {
+          "name": "mixamorigLeftForeArm",
+          "parentName": "mixamorigLeftArm",
+          "depth": 7,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -1.7763568394002505e-15,
+            13.070135941351309,
+            1.4210854715202004e-14
+          ]
+        },
+        {
+          "name": "mixamorigLeftHand",
+          "parentName": "mixamorigLeftForeArm",
+          "depth": 8,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -1.7763568394002505e-15,
+            12.304603685253667,
+            0
+          ]
+        },
+        {
+          "name": "mixamorigRightShoulder",
+          "parentName": "mixamorigSpine2",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -3.373997390270233,
+            7.140370696499033,
+            -0.08777704764078464
+          ]
+        },
+        {
+          "name": "mixamorigRightArm",
+          "parentName": "mixamorigRightShoulder",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            6.958081683324135,
+            -2.1316282072803006e-14
+          ]
+        },
+        {
+          "name": "mixamorigRightForeArm",
+          "parentName": "mixamorigRightArm",
+          "depth": 7,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            1.7763568394002505e-15,
+            13.087020144611639,
+            -1.4210854715202004e-14
+          ]
+        },
+        {
+          "name": "mixamorigRightHand",
+          "parentName": "mixamorigRightForeArm",
+          "depth": 8,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            4.440892098500626e-15,
+            12.833470480555246,
+            -7.105427357601002e-15
+          ]
+        },
+        {
+          "name": "mixamorigRightUpLeg",
+          "parentName": "mixamorigHips",
+          "depth": 2,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -5.680403888225555,
+            -0.2276419244063579,
+            -3.0866055588091896
+          ]
+        },
+        {
+          "name": "mixamorigRightLeg",
+          "parentName": "mixamorigRightUpLeg",
+          "depth": 3,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            8.881784197001252e-16,
+            25.76503847984469,
+            0
+          ]
+        },
+        {
+          "name": "mixamorigRightFoot",
+          "parentName": "mixamorigRightLeg",
+          "depth": 4,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -1.7763568394002505e-15,
+            23.363067326050135,
+            -3.552713678800501e-15
+          ]
+        },
+        {
+          "name": "mixamorigRightToeBase",
+          "parentName": "mixamorigRightFoot",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -2.6645352591003757e-15,
+            8.970615183027597,
+            -3.552713678800501e-15
+          ]
+        },
+        {
+          "name": "mixamorigRightToe_End",
+          "parentName": "mixamorigRightToeBase",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            5.773159728050814e-15,
+            3.562473309272441,
+            -7.105427357601002e-15
+          ]
+        },
+        {
+          "name": "mixamorigLeftUpLeg",
+          "parentName": "mixamorigHips",
+          "depth": 2,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            5.680403530597687,
+            -0.2875917992842876,
+            -3.086605561429682
+          ]
+        },
+        {
+          "name": "mixamorigLeftLeg",
+          "parentName": "mixamorigLeftUpLeg",
+          "depth": 3,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            0,
+            25.764290256706328,
+            -8.881784197001252e-16
+          ]
+        },
+        {
+          "name": "mixamorigLeftFoot",
+          "parentName": "mixamorigLeftLeg",
+          "depth": 4,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            8.881784197001252e-16,
+            23.368057850362376,
+            0
+          ]
+        },
+        {
+          "name": "mixamorigLeftToeBase",
+          "parentName": "mixamorigLeftFoot",
+          "depth": 5,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -8.43769498715119e-15,
+            9.16820330980567,
+            -1.4210854715202004e-14
+          ]
+        },
+        {
+          "name": "mixamorigLeftToe_End",
+          "parentName": "mixamorigLeftToeBase",
+          "depth": 6,
+          "hasTwistSuffix": false,
+          "localPosition": [
+            -3.552713678800501e-15,
+            3.51664514612094,
+            0
+          ]
+        }
+      ],
+      "boneNameSet": [
+        "mixamorigHead",
+        "mixamorigHeadTop_End",
+        "mixamorigHips",
+        "mixamorigLeftArm",
+        "mixamorigLeftFoot",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftLeg",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftToe_End",
+        "mixamorigLeftUpLeg",
+        "mixamorigNeck",
+        "mixamorigRightArm",
+        "mixamorigRightFoot",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightLeg",
+        "mixamorigRightShoulder",
+        "mixamorigRightToeBase",
+        "mixamorigRightToe_End",
+        "mixamorigRightUpLeg",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2"
+      ],
+      "boneTree": "  ├── mixamorigHips (-0.511, 15.407, 7.898)\n    ├── mixamorigSpine (0.000, 0.767, 5.445)\n      ├── mixamorigSpine1 (-0.000, 6.415, 0.000)\n        ├── mixamorigSpine2 (0.000, 7.332, -0.000)\n          ├── mixamorigNeck (0.000, 8.248, -0.000)\n            ├── mixamorigHead (0.000, -1.078, 3.752)\n              ├── mixamorigHeadTop_End (0.000, -3.108, 10.818)\n          ├── mixamorigLeftShoulder (3.374, 7.159, -0.222)\n            ├── mixamorigLeftArm (0.000, 6.958, -0.000)\n              ├── mixamorigLeftForeArm (-0.000, 13.070, 0.000)\n                ├── mixamorigLeftHand (-0.000, 12.305, 0.000)\n          ├── mixamorigRightShoulder (-3.374, 7.140, -0.088)\n            ├── mixamorigRightArm (0.000, 6.958, -0.000)\n              ├── mixamorigRightForeArm (0.000, 13.087, -0.000)\n                ├── mixamorigRightHand (0.000, 12.833, -0.000)\n    ├── mixamorigRightUpLeg (-5.680, -0.228, -3.087)\n      ├── mixamorigRightLeg (0.000, 25.765, 0.000)\n        ├── mixamorigRightFoot (-0.000, 23.363, -0.000)\n          ├── mixamorigRightToeBase (-0.000, 8.971, -0.000)\n            ├── mixamorigRightToe_End (0.000, 3.562, -0.000)\n    ├── mixamorigLeftUpLeg (5.680, -0.288, -3.087)\n      ├── mixamorigLeftLeg (0.000, 25.764, -0.000)\n        ├── mixamorigLeftFoot (0.000, 23.368, 0.000)\n          ├── mixamorigLeftToeBase (-0.000, 9.168, -0.000)\n            ├── mixamorigLeftToe_End (-0.000, 3.517, 0.000)",
+      "rootBone": null,
+      "hipBone": null,
+      "pelvisBone": null,
+      "twistBones": [],
+      "hairBones": [],
+      "fingerBones": [],
+      "toeBones": [
+        "mixamorigRightToeBase",
+        "mixamorigRightToe_End",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftToe_End"
+      ],
+      "skinnedMeshes": [
+        {
+          "name": "tripo_node_14052614",
+          "vertexCount": 28569,
+          "boneCount": 22,
+          "maxSkinIndex": 21,
+          "minSkinIndex": 0
+        }
+      ]
+    }
+  ],
+  "animations": [
+    {
+      "file": "asset-lib\\unit-action\\src\\asset\\action\\elitegiantess\\default\\Idle\\1.fbx",
+      "clipCount": 1,
+      "trackCount": 29,
+      "tracks": [
+        {
+          "fullName": "mixamorigHips.position",
+          "boneName": "mixamorigHips",
+          "property": "position",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigHips.quaternion",
+          "boneName": "mixamorigHips",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigSpine.quaternion",
+          "boneName": "mixamorigSpine",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigSpine1.quaternion",
+          "boneName": "mixamorigSpine1",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigSpine2.quaternion",
+          "boneName": "mixamorigSpine2",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigNeck.quaternion",
+          "boneName": "mixamorigNeck",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigHead.quaternion",
+          "boneName": "mixamorigHead",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftShoulder.quaternion",
+          "boneName": "mixamorigLeftShoulder",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftArm.quaternion",
+          "boneName": "mixamorigLeftArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftForeArm.quaternion",
+          "boneName": "mixamorigLeftForeArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHand.quaternion",
+          "boneName": "mixamorigLeftHand",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHandIndex1.quaternion",
+          "boneName": "mixamorigLeftHandIndex1",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHandIndex2.quaternion",
+          "boneName": "mixamorigLeftHandIndex2",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHandIndex3.quaternion",
+          "boneName": "mixamorigLeftHandIndex3",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightShoulder.quaternion",
+          "boneName": "mixamorigRightShoulder",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightArm.quaternion",
+          "boneName": "mixamorigRightArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightForeArm.quaternion",
+          "boneName": "mixamorigRightForeArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHand.quaternion",
+          "boneName": "mixamorigRightHand",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHandIndex1.quaternion",
+          "boneName": "mixamorigRightHandIndex1",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHandIndex2.quaternion",
+          "boneName": "mixamorigRightHandIndex2",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHandIndex3.quaternion",
+          "boneName": "mixamorigRightHandIndex3",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftUpLeg.quaternion",
+          "boneName": "mixamorigLeftUpLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftLeg.quaternion",
+          "boneName": "mixamorigLeftLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftFoot.quaternion",
+          "boneName": "mixamorigLeftFoot",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftToeBase.quaternion",
+          "boneName": "mixamorigLeftToeBase",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightUpLeg.quaternion",
+          "boneName": "mixamorigRightUpLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightLeg.quaternion",
+          "boneName": "mixamorigRightLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightFoot.quaternion",
+          "boneName": "mixamorigRightFoot",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightToeBase.quaternion",
+          "boneName": "mixamorigRightToeBase",
+          "property": "quaternion",
+          "hasColon": false
+        }
+      ],
+      "trackBoneNameSet": [
+        "mixamorigHead",
+        "mixamorigHips",
+        "mixamorigLeftArm",
+        "mixamorigLeftFoot",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftHandIndex1",
+        "mixamorigLeftHandIndex2",
+        "mixamorigLeftHandIndex3",
+        "mixamorigLeftLeg",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftUpLeg",
+        "mixamorigNeck",
+        "mixamorigRightArm",
+        "mixamorigRightFoot",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightHandIndex1",
+        "mixamorigRightHandIndex2",
+        "mixamorigRightHandIndex3",
+        "mixamorigRightLeg",
+        "mixamorigRightShoulder",
+        "mixamorigRightToeBase",
+        "mixamorigRightUpLeg",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2"
+      ],
+      "hasAnyColon": false,
+      "boneNameSet": [
+        "mixamorigHead",
+        "mixamorigHeadTop_End",
+        "mixamorigHips",
+        "mixamorigLeftArm",
+        "mixamorigLeftFoot",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftHandIndex1",
+        "mixamorigLeftHandIndex2",
+        "mixamorigLeftHandIndex3",
+        "mixamorigLeftHandIndex4",
+        "mixamorigLeftLeg",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftToe_End",
+        "mixamorigLeftUpLeg",
+        "mixamorigNeck",
+        "mixamorigRightArm",
+        "mixamorigRightFoot",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightHandIndex1",
+        "mixamorigRightHandIndex2",
+        "mixamorigRightHandIndex3",
+        "mixamorigRightHandIndex4",
+        "mixamorigRightLeg",
+        "mixamorigRightShoulder",
+        "mixamorigRightToeBase",
+        "mixamorigRightToe_End",
+        "mixamorigRightUpLeg",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2"
+      ],
+      "boneCount": 33
+    },
+    {
+      "file": "asset-lib\\unit-action\\src\\asset\\action\\elitegiantess\\default\\Death\\1.fbx",
+      "clipCount": 1,
+      "trackCount": 29,
+      "tracks": [
+        {
+          "fullName": "mixamorigHips.position",
+          "boneName": "mixamorigHips",
+          "property": "position",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigHips.quaternion",
+          "boneName": "mixamorigHips",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigSpine.quaternion",
+          "boneName": "mixamorigSpine",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigSpine1.quaternion",
+          "boneName": "mixamorigSpine1",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigSpine2.quaternion",
+          "boneName": "mixamorigSpine2",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigNeck.quaternion",
+          "boneName": "mixamorigNeck",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigHead.quaternion",
+          "boneName": "mixamorigHead",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftShoulder.quaternion",
+          "boneName": "mixamorigLeftShoulder",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftArm.quaternion",
+          "boneName": "mixamorigLeftArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftForeArm.quaternion",
+          "boneName": "mixamorigLeftForeArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHand.quaternion",
+          "boneName": "mixamorigLeftHand",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHandIndex1.quaternion",
+          "boneName": "mixamorigLeftHandIndex1",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHandIndex2.quaternion",
+          "boneName": "mixamorigLeftHandIndex2",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftHandIndex3.quaternion",
+          "boneName": "mixamorigLeftHandIndex3",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightShoulder.quaternion",
+          "boneName": "mixamorigRightShoulder",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightArm.quaternion",
+          "boneName": "mixamorigRightArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightForeArm.quaternion",
+          "boneName": "mixamorigRightForeArm",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHand.quaternion",
+          "boneName": "mixamorigRightHand",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHandIndex1.quaternion",
+          "boneName": "mixamorigRightHandIndex1",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHandIndex2.quaternion",
+          "boneName": "mixamorigRightHandIndex2",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightHandIndex3.quaternion",
+          "boneName": "mixamorigRightHandIndex3",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftUpLeg.quaternion",
+          "boneName": "mixamorigLeftUpLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftLeg.quaternion",
+          "boneName": "mixamorigLeftLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftFoot.quaternion",
+          "boneName": "mixamorigLeftFoot",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigLeftToeBase.quaternion",
+          "boneName": "mixamorigLeftToeBase",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightUpLeg.quaternion",
+          "boneName": "mixamorigRightUpLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightLeg.quaternion",
+          "boneName": "mixamorigRightLeg",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightFoot.quaternion",
+          "boneName": "mixamorigRightFoot",
+          "property": "quaternion",
+          "hasColon": false
+        },
+        {
+          "fullName": "mixamorigRightToeBase.quaternion",
+          "boneName": "mixamorigRightToeBase",
+          "property": "quaternion",
+          "hasColon": false
+        }
+      ],
+      "trackBoneNameSet": [
+        "mixamorigHead",
+        "mixamorigHips",
+        "mixamorigLeftArm",
+        "mixamorigLeftFoot",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftHandIndex1",
+        "mixamorigLeftHandIndex2",
+        "mixamorigLeftHandIndex3",
+        "mixamorigLeftLeg",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftUpLeg",
+        "mixamorigNeck",
+        "mixamorigRightArm",
+        "mixamorigRightFoot",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightHandIndex1",
+        "mixamorigRightHandIndex2",
+        "mixamorigRightHandIndex3",
+        "mixamorigRightLeg",
+        "mixamorigRightShoulder",
+        "mixamorigRightToeBase",
+        "mixamorigRightUpLeg",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2"
+      ],
+      "hasAnyColon": false,
+      "boneNameSet": [
+        "mixamorigHead",
+        "mixamorigHeadTop_End",
+        "mixamorigHips",
+        "mixamorigLeftArm",
+        "mixamorigLeftFoot",
+        "mixamorigLeftForeArm",
+        "mixamorigLeftHand",
+        "mixamorigLeftHandIndex1",
+        "mixamorigLeftHandIndex2",
+        "mixamorigLeftHandIndex3",
+        "mixamorigLeftHandIndex4",
+        "mixamorigLeftLeg",
+        "mixamorigLeftShoulder",
+        "mixamorigLeftToeBase",
+        "mixamorigLeftToe_End",
+        "mixamorigLeftUpLeg",
+        "mixamorigNeck",
+        "mixamorigRightArm",
+        "mixamorigRightFoot",
+        "mixamorigRightForeArm",
+        "mixamorigRightHand",
+        "mixamorigRightHandIndex1",
+        "mixamorigRightHandIndex2",
+        "mixamorigRightHandIndex3",
+        "mixamorigRightHandIndex4",
+        "mixamorigRightLeg",
+        "mixamorigRightShoulder",
+        "mixamorigRightToeBase",
+        "mixamorigRightToe_End",
+        "mixamorigRightUpLeg",
+        "mixamorigSpine",
+        "mixamorigSpine1",
+        "mixamorigSpine2"
+      ],
+      "boneCount": 33
+    }
+  ]
+}

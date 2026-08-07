@@ -1,0 +1,15 @@
+{
+  "name": "D1 Demo: 加载 Tripo 模型 + Mixamo 动画",
+  "description": "打开 bone_converter demo → 点击「加载 Tripo 模型」→ 验证骨骼数量日志 → 截图 → 点击「加载 Mixamo 动画」→ 验证轨道列表 → 截图",
+  "blocks": [
+    { "type": "browser", "headless": true, "viewport": { "width": 1280, "height": 900 } },
+    { "type": "navigate", "path": "/" },
+    { "type": "sleep", "ms": 3000 },
+    { "type": "click", "selector": "#btn-load-model", "timeout": 15000 },
+    { "type": "waitText", "text": "骨骼数量:", "timeout": 60000 },
+    { "type": "screenshot", "name": "d1-model-loaded" },
+    { "type": "click", "selector": "#btn-load-anim", "timeout": 15000 },
+    { "type": "waitText", "text": "轨道数量:", "timeout": 60000 },
+    { "type": "screenshot", "name": "d1-anim-loaded" }
+  ]
+}
