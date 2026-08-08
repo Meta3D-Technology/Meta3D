@@ -11,14 +11,16 @@
  * 供 meta3d-action-mod-unit-upload-model-file 调用（后续单元，不在本轮）。
  */
 import * as THREE from 'three';
-import { UnzippedTripo, unzipTripoZip } from './unzipTripoZip';
+import type { UnzippedTripo } from './unzipTripoZip';
+import { unzipTripoZip } from './unzipTripoZip';
 import { loadFbx } from './loadFbx';
 import { convertToMixamo } from './convertToMixamo';
 import { exportFbx, countEmbeddedTextures } from './exportFbx';
 import { loadOfficialRestPose } from './officialRestPose';
-import { ConvertReport } from '../bone_converter';
+import type { ConvertReport } from '../bone_converter';
 
-export { UnzippedTripo, unzipTripoZip } from './unzipTripoZip';
+export type { UnzippedTripo } from './unzipTripoZip';
+export { unzipTripoZip } from './unzipTripoZip';
 export { loadFbx } from './loadFbx';
 export { convertToMixamo } from './convertToMixamo';
 export { exportFbx, countEmbeddedTextures } from './exportFbx';
