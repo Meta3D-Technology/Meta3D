@@ -16,45 +16,10 @@
  * zip 在测试内用 jszip 现场打包（不依赖桌面文件）。
  */
 // ── Node 环境 polyfill（three FBXLoader 需要 browser globals）──
-// 增强版 MockImage：支持 addEventListener('load')，使 TextureLoader 的 data: URL
-// 图片加载能触发回调 → S7 可断言 map.image.src 为 data URL。
-(global as any).self = global;
-(global as any).window = global;
-(global as any).document = {
-    createElement: (tag: string) => {
-        if (tag === 'img' || tag === 'image') return new (global as any).MockImage();
-        return {};
-    },
-    createElementNS: (_ns: string, tag: string) => {
-        if (tag === 'img' || tag === 'image') return new (global as any).MockImage();
-        return {};
-    },
-};
-class MockImage {
-    onload: (() => void) | null = null;
-    onerror: (() => void) | null = null;
-    width = 1;
-    height = 1;
-    private _listeners: Record<string, Array<() => void>> = {};
-    private _src = '';
-    get src() { return this._src; }
-    set src(v: string) {
-        this._src = v;
-        // 同步触发（ImageLoader 的 onImageLoad 用 `this` 指代 image，需 bind）
-        this.onload?.();
-        (this._listeners['load'] || []).forEach((cb) => cb.call(this));
-    }
-    addEventListener(event: string, cb: any) {
-        (this._listeners[event] = this._listeners[event] || []).push(cb);
-    }
-    removeEventListener(event: string, cb: any) {
-        this._listeners[event] = (this._listeners[event] || []).filter((x) => x !== cb);
-    }
-    setAttribute(_name: string, _value: string) { }
-    getAttribute(_name: string) { return null; }
-}
-(global as any).MockImage = MockImage;
-(global as any).Image = MockImage;
+// B5/B11：已提取到 test/polyfills.ts（jest.config.js setupFiles 注入），不再在本文件
+// 重复定义，避免全局 window/document/MockImage 污染同进程其他测试。
+// 增强版 MockImage（支持 addEventListener('load') + crossOrigin + onload.call(this)）
+// 使 TextureLoader 的 data: URL 图片加载能触发回调 → S7 可断言 map.image.src 为 data URL。
 
 import { loadFeature, defineFeature } from 'jest-cucumber';
 import * as THREE from 'three';

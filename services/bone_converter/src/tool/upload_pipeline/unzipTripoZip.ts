@@ -43,7 +43,10 @@ export async function unzipTripoZip(zipBytes: ArrayBuffer): Promise<UnzippedTrip
         if (e.dir) continue;
         const lower = e.name.toLowerCase();
         const isFbmTexture = lower.includes('.fbm') && TEXTURE_EXT_RE.test(e.name);
-        const isStandaloneImage = TEXTURE_EXT_RE.test(e.name) && !/\.fbx$/i.test(e.name);
+        // B4：standalone 图片排除 .fbm 路径，避免与 .fbm 目录下同名纹理重复收集
+        // （Map.set 后者覆盖前者导致纹理字节错配）
+        const isStandaloneImage =
+            TEXTURE_EXT_RE.test(e.name) && !/\.fbx$/i.test(e.name) && !lower.includes('.fbm');
         if (!isFbmTexture && !isStandaloneImage) continue;
         const fileName = e.name.split(/[\\/]/).pop()!;
         if (!fileName) continue;

@@ -20,114 +20,20 @@
  *   - 网格顶点/法线/UV 已按三角面展开（与 FBXLoader 读入的非索引几何一致）
  *   - Cluster.Indexes 引用展开后顶点索引，Weights 对齐；每顶点最多 4 槽（FBXLoader 读取后补 0）
  *   - Cluster.TransformLink = boneInverse 的逆（bind 世界矩阵）
+ *   - 网格挂到根骨（Model::LimbNode），并用负根骨位置补偿 Lcl Translation，
+ *     使 rest 下网格世界位置不变，动画时又能跟随根骨（规格 §5.3 / 审核 A2）
  */
 import * as THREE from 'three';
 import { uint8ArrayToBase64 } from './base64';
-
-export interface ExportFbxOptions {
-    /** 纹理文件名 → 字节。非空时嵌入 Video/Texture 节点；为空则导出无纹理 FBX */
-    textures?: Map<string, Uint8Array>;
-}
-
-/** 单个输出节点写入器（行缓存 + 缩进） */
-class FbxWriter {
-    lines: string[] = [];
-    private indent = 0;
-
-    begin(name: string, header = ''): void {
-        this.lines.push('\t'.repeat(this.indent) + `${name}:${header ? ' ' + header : ''} {`);
-        this.indent++;
-    }
-
-    end(): void {
-        this.indent--;
-        this.lines.push('\t'.repeat(this.indent) + '}');
-    }
-
-    prop(name: string, value: string): void {
-        this.lines.push('\t'.repeat(this.indent) + `${name}: ${value}`);
-    }
-
-    /** 数字数组属性：`a: v1,v2,...`（单行，无尾逗号，TextParser 直接 parseNumberArray） */
-    arrayProp(name: string, values: number[]): void {
-        this.lines.push('\t'.repeat(this.indent) + `${name}: *${values.length} {`);
-        this.indent++;
-        this.lines.push('\t'.repeat(this.indent) + `a: ${values.map((n) => fmt(n)).join(',')}`);
-        this.indent--;
-        this.lines.push('\t'.repeat(this.indent) + '}');
-    }
-
-    /** P 属性（Properties70 专用，对齐 parseNodeSpecialProperty 的解析） */
-    p70(name: string, type1: string, type2: string, flag: string, value: string): void {
-        this.lines.push(`\t`.repeat(this.indent) + `P: "${name}", "${type1}", "${type2}", "${flag}",${value}`);
-    }
-
-    toString(): string {
-        return this.lines.join('\n') + '\n';
-    }
-}
-
-/** 数字格式：整数原样；浮点保留最多 7 位小数并去尾零（对齐 parseFloat 解析） */
-function fmt(n: number): string {
-    if (!Number.isFinite(n)) return '0';
-    if (Number.isInteger(n)) return String(n);
-    let s = n.toFixed(7);
-    s = s.replace(/0+$/, '').replace(/\.$/, '');
-    return s;
-}
-
-/** 数字数组 → 逗号分隔字符串（同时用于 Properties70 的 Vector/Color 值） */
-function nums(arr: number[]): string {
-    return arr.map((n) => fmt(n)).join(',');
-}
-
-/** 属性数组 → 逗号分隔字符串（layer element 数值） */
-function numsOf(arr: ArrayLike<number>, start: number, end: number): number[] {
-    const out: number[] = [];
-    for (let i = start; i < end; i++) out.push(arr[i]);
-    return out;
-}
-
-/** 安全字符串：转义 `\` 与 `"`，中文字符保留 UTF-8 */
-function str(s: string): string {
-    return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-}
-
-/** 从材质取纹理文件名（优先 material.map 名/路径；失败返回 null 走兜底） */
-function textureFileNameOf(mat: THREE.Material): string | null {
-    const map = (mat as THREE.MeshStandardMaterial).map;
-    if (!map) return null;
-    const img = (map as { image?: { src?: string } }).image;
-    const src = img?.src;
-    if (src) {
-        const base = src.split(/[\\/]/).pop();
-        if (base) return base;
-    }
-    const name = (map as { name?: string }).name;
-    return name && name.includes('.') ? name : null;
-}
-
-/** 收集一个材质要嵌入的纹理：优先 map 命中；否则取 textures 第一个（兜底，保证模型有贴图） */
-function resolveTexture(
-    mat: THREE.Material,
-    textures: Map<string, Uint8Array>,
-    fallbackUsed: boolean,
-): { name: string; bytes: Uint8Array; usedFallback: boolean } | null {
-    if (!textures || textures.size === 0) return null;
-    const want = textureFileNameOf(mat);
-    if (want) {
-        for (const [name, bytes] of textures) {
-            if (name.toLowerCase() === want.toLowerCase() || want.toLowerCase().endsWith(name.toLowerCase())) {
-                return { name, bytes, usedFallback: false };
-            }
-        }
-    }
-    if (!fallbackUsed) {
-        const first = textures.entries().next().value as [string, Uint8Array] | undefined;
-        if (first) return { name: first[0], bytes: first[1], usedFallback: true };
-    }
-    return null;
-}
+import {
+    ExportFbxOptions,
+    FbxWriter,
+    nums,
+    numsOf,
+    str,
+    fbxFileName,
+    resolveTexture,
+} from './exportFbx-writer';
 
 /**
  * 导出为 ASCII FBX（UTF-8）ArrayBuffer。
@@ -154,6 +60,11 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
     });
     // 层级：以 skeletonBones 为主（保证索引 = cluster 顺序），缺失时补 treeBones
     const bones = skeletonBones.length > 0 ? skeletonBones : treeBones;
+
+    // 根骨：第一个无 bone 父节点的骨骼（rest pose 下本地矩阵即世界矩阵，用于挂 mesh 并补偿）
+    const rootBoneIdx = bones.findIndex((b) => !((b.parent as THREE.Bone)?.isBone));
+    const hasRootBone = bones.length > 0 && rootBoneIdx >= 0;
+    const rootBonePos = hasRootBone ? bones[rootBoneIdx].position : null;
 
     // ── 分配 ID ──
     let nextId = 1000;
@@ -217,8 +128,11 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
     w.end();
 
     // ══════════ Definitions ══════════
+    // Count 公式（审核 A3）：每个 mesh 输出 Model + Geometry + Material 三个节点，
+    // 加骨骼 LimbNode + (Skin + 每个 Cluster) + Texture/Video 各一。旧公式 mesh×2+…+1
+    // 只在 mesh=1 时巧合正确，mesh≥2 时偏小 meshes-1（FBXLoader 预分配不足）。
     const defCount =
-        meshes.length * 2 + bones.length + (skinned ? 1 + bones.length : 0) + textureNodeCount * 2 + 1;
+        meshes.length * 3 + bones.length + (skinned ? 1 + bones.length : 0) + textureNodeCount * 2;
     w.begin('Definitions');
     w.prop('Version', '100');
     w.prop('Count', String(defCount));
@@ -307,15 +221,16 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
         w.end(); // Geometry
     }
 
-    // ── Model::Mesh（每个 mesh 一个，Lcl 单位置）──
+    // ── Model::Mesh（每个 mesh 一个，挂根骨 + 负根骨位置补偿）──
     for (let i = 0; i < meshes.length; i++) {
         const mesh = meshes[i];
         const meshName = str(mesh.name || `mesh_${i}`);
+        // 补偿：mesh 为根骨子节点时，Lcl Translation = -根骨位置，rest 下世界位置与挂 0 一致
+        const comp = rootBonePos ? [-rootBonePos.x, -rootBonePos.y, -rootBonePos.z] : [0, 0, 0];
         w.begin('Model', `${meshModelIds[i]}, "Model::${meshName}", "Mesh"`);
         w.prop('Version', '232');
         w.begin('Properties70');
-        // 单位置：网格节点不做额外位移（几何已在 bind 空间）
-        w.p70('Lcl Translation', 'Lcl Translation', '', 'A', '0,0,0');
+        w.p70('Lcl Translation', 'Lcl Translation', '', 'A', nums(comp));
         w.p70('Lcl Rotation', 'Lcl Rotation', '', 'A', '0,0,0');
         w.p70('Lcl Scaling', 'Lcl Scaling', '', 'A', '1,1,1');
         w.end();
@@ -342,6 +257,8 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
     }
 
     // ── Deformer：Skin + Cluster（蒙皮，对齐 parseSkeleton / genGeometry）──
+    // 记录有实际顶点权重的骨骼下标（B7：空 cluster 跳过，其连接也一并跳过）
+    const activeBoneIndices: number[] = [];
     if (skinned) {
         const skin = skinned.skeleton;
         w.begin('Deformer', `${skinId}, "Skin", "Skin"`);
@@ -372,6 +289,11 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
                     }
                 }
             }
+            // 空 cluster（骨骼不影响任何顶点）：跳过 Deformer 节点，避免输出空
+            // Indexes/Weights 导致 FBXLoader parseSkeleton 对空索引 cluster 处理异常
+            if (indices.length === 0) continue;
+            activeBoneIndices.push(b);
+
             // TransformLink = inverse(boneInverse) = bind 世界矩阵
             const transformLink = new THREE.Matrix4();
             const inv = skin.boneInverses[b];
@@ -382,10 +304,8 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
             w.prop('Version', '100');
             w.prop('Mode', '"Total1"');
             w.prop('UserData', '""');
-            if (indices.length > 0) {
-                w.arrayProp('Indexes', indices);
-                w.arrayProp('Weights', weights);
-            }
+            w.arrayProp('Indexes', indices);
+            w.arrayProp('Weights', weights);
             w.arrayProp('TransformLink', numsOf(transformLink.elements, 0, 16));
             w.end();
         }
@@ -418,7 +338,9 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
         if (!entry) continue;
         const texId = textureIds.get(i)!;
         const videoId = videoIds.get(i)!;
-        const texName = str(entry.name);
+        // FileName/RelativeFilename 用原始文件名 + 只转义双引号（B2），不套 str()，
+        // 否则路径反斜杠被双写、FBXLoader 读回多一个 `\`（parseImages 以 RelativeFilename 为 key）
+        const texName = fbxFileName(entry.name);
         const base64 = uint8ArrayToBase64(entry.bytes);
 
         w.begin('Texture', `${texId}, "Texture::${texName}", ""`);
@@ -461,30 +383,35 @@ export function exportFbx(obj: THREE.Object3D, options: ExportFbxOptions = {}): 
             w.prop('C', `"OO",${boneModelIds[i]},0`);
         }
     }
-    // mesh model → 0（挂到场景根）
-    for (let i = 0; i < meshes.length; i++) w.prop('C', `"OO",${meshModelIds[i]},0`);
-    // geometry → mesh model；material → mesh model
+    // mesh model → 根骨（无根骨时挂场景根 0；A2/B9：动画场景下网格跟随根骨）
     for (let i = 0; i < meshes.length; i++) {
-        w.prop('C', `"OO",${geometryIds[i]},${meshModelIds[i]}`);
-        w.prop('C', `"OO",${materialIds[i]},${meshModelIds[i]}`);
+        if (hasRootBone) w.prop('C', `"OO",${meshModelIds[i]},${boneModelIds[rootBoneIdx]}`);
+        else w.prop('C', `"OO",${meshModelIds[i]},0`);
     }
-    // skin → geometry；cluster → skin；bone → cluster（buildSkeleton 靠 bone 的 parent=cluster 匹配）
+    // geometry → mesh model；material → mesh model（A1：按规格 §5.3 用 "OC"）
+    for (let i = 0; i < meshes.length; i++) {
+        w.prop('C', `"OC",${geometryIds[i]},${meshModelIds[i]}`);
+        w.prop('C', `"OC",${materialIds[i]},${meshModelIds[i]}`);
+    }
+    // skin → geometry（每个 mesh 一个连接，A4：不再硬编码 geometryIds[0]）；
+    // cluster → skin；bone → cluster（空 cluster 的连接一并跳过）
     if (skinned) {
-        w.prop('C', `"OO",${skinId},${geometryIds[0]}`);
-        for (let i = 0; i < bones.length; i++) {
-            w.prop('C', `"OO",${clusterIds[i]},${skinId}`);
+        for (let i = 0; i < meshes.length; i++) {
+            w.prop('C', `"OO",${skinId},${geometryIds[i]}`);
         }
-        for (let i = 0; i < bones.length; i++) {
-            w.prop('C', `"OO",${boneModelIds[i]},${clusterIds[i]}`);
+        for (const b of activeBoneIndices) {
+            w.prop('C', `"OO",${clusterIds[b]},${skinId}`);
+            w.prop('C', `"OO",${boneModelIds[b]},${clusterIds[b]}`);
         }
     }
-    // texture → material（OP DiffuseColor）；video → texture
+    // texture → material（A1："OC" + DiffuseColor 属性；FBXLoader parseParameters 按
+    // connection relationship 匹配挂 map，必须保留 "DiffuseColor"）；video → texture（"OC"）
     for (let i = 0; i < meshes.length; i++) {
         const texId = textureIds.get(i);
         if (texId === undefined) continue;
         const videoId = videoIds.get(i)!;
-        w.prop('C', `"OP",${texId},${materialIds[i]},"DiffuseColor"`);
-        w.prop('C', `"OO",${videoId},${texId}`);
+        w.prop('C', `"OC",${texId},${materialIds[i]},"DiffuseColor"`);
+        w.prop('C', `"OC",${videoId},${texId}`);
     }
     w.end();
 

@@ -3,6 +3,9 @@ const path = require('path');
 module.exports = {
     testEnvironment: 'node',
     rootDir: '.',
+    // B5/B11：全局 polyfill（self/window/document/MockImage）统一在 setupFiles 注入，
+    // 各 steps 文件不再重复定义（upload-pipeline.steps.ts 已删除；d4/d6 保留原样不动）
+    setupFiles: ['<rootDir>/test/polyfills.ts'],
     testMatch: ['<rootDir>/test/step-definitions/**/*.steps.ts'],
     transform: {
         '^.+\\.ts$': [

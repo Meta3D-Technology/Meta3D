@@ -54,6 +54,10 @@ function urlToRepoPath(url: string): string {
         return "services/bone_converter/demo/tripo_model/" + url.slice("/tripo-model/".length);
     }
     if (url.startsWith("/snapshot/")) {
+        // 注意（审核 A5/B6）：此行在修复路径的同时混入了数据版本变更
+        // （snapshot_EliteGiantess9 → snapshot_EliteGiantess10，demo 资产已换用
+        // EliteGiantess10，与 upload-pipeline 测试资产对齐）。此处保持 10 不变，
+        // 10 是当前正确数据，不做回退。
         return "services/bone_converter/demo/snapshot_EliteGiantess10/" + url.slice("/snapshot/".length);
     }
     return url.replace(/^\/asset-lib\//, "asset-lib/");
