@@ -18,10 +18,7 @@ module.exports = {
 
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
-		modules: ['node_modules'],
-		alias: {
-			'bone_converter': path.resolve(__dirname, '../../services/bone_converter'),
-		}
+		modules: ['node_modules']
 	},
 
 	module: {
