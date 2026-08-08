@@ -3329,6 +3329,47 @@ TODO run test
 
 
 
+* TODO 处理模型上传
+
+扫描Meta3d项目，增加项目索引:
+D:\Github\Meta3D\
+该项目主要是为单机项目提供了模组编辑器，包括职业模组编辑器和单位模组编辑器。
+
+后续任务：bone_converter就需要用在单位模组编辑器的上传模型的action中（contributes/meta3d-action-mod-unit-upload-model-file/），即需要对上传的tripo导出的模型（tripo已绑骨骼）进行转换，然后上传到腾讯云的云存储中保存
+
+
+
+
+
+拷贝游戏项目的packages/bone_converter到meta3d项目的services/bone_converter/中，并更新依赖:
+  meta3d的更新依赖跟GTS-Play是一样的，只是项目根目录变了而已！对应更新安装依赖skill！
+
+
+TODO 检查action:
+
+解压
+
+<!-- 压缩纹理大小为512*512 -->
+
+合并纹理
+
+转换骨骼
+
+上传这一个fbx文件到云存储
+
+
+
+# TODO run test
+
+
+要不这样：
+现在分析下processTripoZip函数耗时多久？我想要将其放到游戏加载时来调用。这样action就直接保存压缩文件的arraybuffer就好了
+
+
+
+** TODO 更新文档
+
+
 
 * TODO run element: not error alert while already show error message
 

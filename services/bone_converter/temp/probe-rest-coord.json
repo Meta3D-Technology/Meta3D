@@ -1,0 +1,9 @@
+{
+ "lines": "=== 调试：rest 蒙皮 bbox + mesh 节点矩阵 ===\nconv rest min=(-40.9686,-8.9714,-44.0336) max=(40.9686,13.0782,55.8242)\noff  rest min=(-40.9686,-8.9714,-44.0337) max=(40.9686,13.0782,55.8242)\noff  raw  min=(-40.9686,-49.9073,-10.9650) max=(40.9686,49.9506,11.0846)\noffMesh.matrixWorld=[1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1]\nconvMesh.matrixWorld=[1,0,0,0,0,0,1,0,0,-1,0,0,0,0,0,1]\n\n官方自身全管线 rest 蒙皮 vs 全管线 raw：maxDiff=77.073658（若官方模型自洽应 ~0）\n\n=== A. 转换后 rest 蒙皮 vs 官方几何（raw position，最近邻 maxErr，采样 6000）===\nmaxErr=0.00475  超差(>0.1)=0/7538\n✅ 同一坐标系下 rest 蒙皮一致（<0.1）→ 83.9 是「同 index 比较顶点顺序错配」假象，非坐标差异、非蒙皮回归\n\n=== B. 转换后 rest 蒙皮再平移 -49.9 后对比（验证任务假设）===\nmaxErr=Infinity  超差=7538/7538\n✅ 平移 -49.9 显著变差 → 该假设不成立，alignMeshToLod2 已把网格置于 lod2 坐标系，无需再平移\n\n=== C. 自洽性：rest 蒙皮输出 vs 原始 position（应为 ~0）===\nmaxDiff=77.073850\n⚠️ rest 蒙皮未还原 position\n\n=== D. position bbox（转换后 vs 官方，同一坐标系验证）===\nconv min=(-40.9686,-49.9073,-10.9650) max=(40.9686,49.9506,11.0846)\noff  min=(-40.9686,-49.9073,-10.9650) max=(40.9686,49.9506,11.0846)\nminDist=0.00000 maxDist=0.00000\n✅ 两网格同一坐标系（alignMeshToLod2 生效）",
+ "nearestMaxErr": 0.004749733085336559,
+ "shiftedMaxErr": null,
+ "selfMaxDiff": 77.07385026976628,
+ "bboxMinDist": 0,
+ "bboxMaxDist": 0,
+ "conclusion": "coordinate-consistent (index-order artifact)"
+}

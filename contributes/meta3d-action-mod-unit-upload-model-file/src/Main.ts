@@ -8,13 +8,15 @@ import { importFile } from "meta3d-file-ts-utils/src/ImportFileUtils"
 import { getLanguageTextData, getLanguageTextVariableData } from "meta3d-language-utils/src/Main"
 import { languageKey, languageVariableKey } from "meta3d-language-utils/src/Type"
 import { model } from "meta3d-action-mod-unit-publish-to-game-protocol/src/UnitType"
-import { processTripoZip } from "bone_converter/src/tool/upload_pipeline"
 
-let _loadFBX = (api: api): Promise<[boolean, nullable<fbxName>, nullable<fbxData>]> => {
+let _loadZip = (api: api): Promise<[boolean, nullable<fbxName>, nullable<fbxData>]> => {
     return new Promise((resolve, reject) => {
         importFile((file: any, result: any) => {
-            if (!/\.(fbx|zip)$/i.test(file.name)) {
-                reject(new Error("文件后缀名应该是.fbx或.zip"))
+            // if (!/\.(fbx|zip)$/i.test(file.name)) {
+            //     reject(new Error("文件后缀名应该是.fbx或.zip"))
+            // }
+            if (!/\.zip$/i.test(file.name)) {
+                reject(new Error("文件后缀名应该是.zip"))
             }
 
             // resolve([true, api.nullable.return(file.name.slice(0, -3)), api.nullable.return(result as ArrayBuffer)])
@@ -80,54 +82,29 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
             })
         },
         handler: (meta3dState, uiData, actionParams) => {
-            return _loadFBX(api).then(([isSuccess, fbxName, fbxData]) => {
+            return _loadZip(api).then(([isSuccess, zipName, zipData]) => {
                 if (!isSuccess) {
                     return meta3dState
                 }
 
-                if (fbxName && fbxData && /\.zip$/i.test(fbxName)) {
-                    return processTripoZip(fbxData).then(({ fbxName: tripoFbxName, fbxData: tripoFbxData, report, warnings }) => {
-                        console.log("processTripoZip", tripoFbxName, report, warnings)
+                let key = actionParams && actionParams.length > 0 ? actionParams[0] : null
+                let initState = api.action.getActionState<initState>(meta3dState, initActionName)
 
-                        let key = actionParams && actionParams.length > 0 ? actionParams[0] : null
-                        let initState = api.action.getActionState<initState>(meta3dState, initActionName)
-
-                        switch (key) {
-                            case "lod1":
-                                if (tripoFbxData.byteLength > 3 * 1024 * 1024) {
-                                    api.message.warn(getLanguageTextVariableData(api, meta3dState, initState.languageTextDataByVariable, languageVariableKey.LimitFileSize)(3))
-                                    return meta3dState
-                                }
-                                break
-                            case "lod2":
-                                if (tripoFbxData.byteLength > 1.5 * 1024 * 1024) {
-                                    api.message.warn(getLanguageTextVariableData(api, meta3dState, initState.languageTextDataByVariable, languageVariableKey.LimitFileSize)(1.5))
-                                    return meta3dState
-                                }
-                                break
-                            default:
-                                throw new Error("error")
+                switch (key) {
+                    case "lod1":
+                        if (zipData.byteLength > 3 * 1024 * 1024) {
+                            api.message.warn(getLanguageTextVariableData(api, meta3dState, initState.languageTextDataByVariable, languageVariableKey.LimitFileSize)(3))
+                            return meta3dState
                         }
-
-                        return new Promise<meta3dState>((resolve, reject) => {
-                            let eventSourcingService = api.nullable.getExn(api.getPackageService<editorWholeService>(meta3dState, "meta3d-editor-whole-protocol")).event(meta3dState).eventSourcing(meta3dState)
-
-
-                            resolve(eventSourcingService.addEvent<inputData>(meta3dState, {
-                                name: eventName,
-                                isOnlyRead: true,
-                                inputData: [
-                                    uiData,
-                                    tripoFbxName,
-                                    tripoFbxData,
-                                    actionParams
-                                ]
-                            }))
-                        })
-                    }).catch((error) => {
-                        api.message.error(error)
-                        return meta3dState
-                    })
+                        break
+                    case "lod2":
+                        if (zipData.byteLength > 1.5 * 1024 * 1024) {
+                            api.message.warn(getLanguageTextVariableData(api, meta3dState, initState.languageTextDataByVariable, languageVariableKey.LimitFileSize)(1.5))
+                            return meta3dState
+                        }
+                        break
+                    default:
+                        throw new Error("error")
                 }
 
                 return new Promise<meta3dState>((resolve, reject) => {
@@ -139,8 +116,8 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                         isOnlyRead: true,
                         inputData: [
                             uiData,
-                            fbxName,
-                            fbxData,
+                            zipName,
+                            zipData,
                             actionParams
                         ]
                     }))

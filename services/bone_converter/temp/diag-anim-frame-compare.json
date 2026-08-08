@@ -1,0 +1,274 @@
+{
+ "clipName": "mixamo.com",
+ "duration": 0.9666666388511658,
+ "times": [
+  0,
+  0.05,
+  0.1,
+  0.15,
+  0.2,
+  0.25,
+  0.3,
+  0.35,
+  0.4,
+  0.45,
+  0.5,
+  0.55,
+  0.6,
+  0.65,
+  0.7,
+  0.75,
+  0.8,
+  0.85,
+  0.9,
+  0.95
+ ],
+ "boneCountOfficial": 65,
+ "boneCountConverted": 22,
+ "sharedBones": [
+  "mixamorigHips",
+  "mixamorigRightUpLeg",
+  "mixamorigRightLeg",
+  "mixamorigRightFoot",
+  "mixamorigRightToeBase",
+  "mixamorigSpine",
+  "mixamorigSpine1",
+  "mixamorigSpine2",
+  "mixamorigLeftShoulder",
+  "mixamorigLeftArm",
+  "mixamorigLeftForeArm",
+  "mixamorigLeftHand",
+  "mixamorigNeck",
+  "mixamorigHead",
+  "mixamorigRightShoulder",
+  "mixamorigRightArm",
+  "mixamorigRightForeArm",
+  "mixamorigRightHand",
+  "mixamorigLeftUpLeg",
+  "mixamorigLeftLeg",
+  "mixamorigLeftFoot",
+  "mixamorigLeftToeBase"
+ ],
+ "chainSummary": {
+  "hips": {
+   "maxAngle": 0.00003049776982349791,
+   "maxPos": 0,
+   "meanAngle": 0.000005999000799278063,
+   "n": 1
+  },
+  "legR": {
+   "maxAngle": 0.017486779165943413,
+   "maxPos": 0.00010812007339617373,
+   "meanAngle": 0.001492219471831196,
+   "n": 4
+  },
+  "torso": {
+   "maxAngle": 0.0004918625469558688,
+   "maxPos": 0.00000542242082283263,
+   "meanAngle": 0.0001030456709733387,
+   "n": 5
+  },
+  "armL": {
+   "maxAngle": 0.04461381844241003,
+   "maxPos": 0.000005484675089577263,
+   "meanAngle": 0.008167536879090807,
+   "n": 4
+  },
+  "armR": {
+   "maxAngle": 0.035881448793503606,
+   "maxPos": 0.000011831934659596908,
+   "meanAngle": 0.007927721035505918,
+   "n": 4
+  },
+  "legL": {
+   "maxAngle": 0.013965708114403392,
+   "maxPos": 0.00002492740321917686,
+   "meanAngle": 0.0011243070932697586,
+   "n": 4
+  }
+ },
+ "perBone": {
+  "mixamorigHips": {
+   "maxAngleDeg": 0.00003049776982349791,
+   "meanAngleDeg": 0.000005999000799278063,
+   "maxPosDist": 0,
+   "meanPosDist": 0,
+   "frames": 20
+  },
+  "mixamorigRightUpLeg": {
+   "maxAngleDeg": 0.0017649093502803202,
+   "meanAngleDeg": 0.0004717475404581323,
+   "maxPosDist": 2.167445375326199e-7,
+   "meanPosDist": 2.1674453674621274e-7,
+   "frames": 20
+  },
+  "mixamorigRightLeg": {
+   "maxAngleDeg": 0.017486779165943413,
+   "meanAngleDeg": 0.004091458870486559,
+   "maxPosDist": 0.0000026283540828870842,
+   "meanPosDist": 0.0000024508358396451706,
+   "frames": 20
+  },
+  "mixamorigRightFoot": {
+   "maxAngleDeg": 0.00910744227952672,
+   "meanAngleDeg": 0.0008643286626284717,
+   "maxPosDist": 0.00008957067376844856,
+   "meanPosDist": 0.0000507121121368734,
+   "frames": 20
+  },
+  "mixamorigRightToeBase": {
+   "maxAngleDeg": 0.01082685627503244,
+   "meanAngleDeg": 0.0005413428137516221,
+   "maxPosDist": 0.00010812007339617373,
+   "meanPosDist": 0.00003570370978044823,
+   "frames": 20
+  },
+  "mixamorigSpine": {
+   "maxAngleDeg": 0.0001664749148432512,
+   "meanAngleDeg": 0.00003343229276991381,
+   "maxPosDist": 3.4460058304694733e-7,
+   "meanPosDist": 3.4460058217146863e-7,
+   "frames": 20
+  },
+  "mixamorigSpine1": {
+   "maxAngleDeg": 0.00014721593012087446,
+   "meanAngleDeg": 0.000036021864671526775,
+   "maxPosDist": 5.337661053691155e-7,
+   "meanPosDist": 5.280580190906939e-7,
+   "frames": 20
+  },
+  "mixamorigSpine2": {
+   "maxAngleDeg": 0.00028644074021982397,
+   "meanAngleDeg": 0.00006211881829980101,
+   "maxPosDist": 0.000001854244117501971,
+   "meanPosDist": 0.0000018494228678161093,
+   "frames": 20
+  },
+  "mixamorigLeftShoulder": {
+   "maxAngleDeg": 0.04461381844241003,
+   "meanAngleDeg": 0.013175739257231553,
+   "maxPosDist": 0.000005484675089577263,
+   "meanPosDist": 0.0000054604862715412984,
+   "frames": 20
+  },
+  "mixamorigLeftArm": {
+   "maxAngleDeg": 0,
+   "meanAngleDeg": 0,
+   "maxPosDist": 0.000005088284197686465,
+   "meanPosDist": 0.000004400647218900712,
+   "frames": 20
+  },
+  "mixamorigLeftForeArm": {
+   "maxAngleDeg": 0.020169996271356808,
+   "meanAngleDeg": 0.006824529618192595,
+   "maxPosDist": 0.000003992679375507843,
+   "meanPosDist": 0.000002479993729929863,
+   "frames": 20
+  },
+  "mixamorigLeftHand": {
+   "maxAngleDeg": 0.02834871313033969,
+   "meanAngleDeg": 0.012669878640939079,
+   "maxPosDist": 0.000004542190552446842,
+   "meanPosDist": 0.0000021050150118436873,
+   "frames": 20
+  },
+  "mixamorigNeck": {
+   "maxAngleDeg": 0.0004433675398595488,
+   "meanAngleDeg": 0.00014253074712430327,
+   "maxPosDist": 0.000003761750378296647,
+   "meanPosDist": 0.0000037555858640356796,
+   "frames": 20
+  },
+  "mixamorigHead": {
+   "maxAngleDeg": 0.0004918625469558688,
+   "meanAngleDeg": 0.00024112463200114858,
+   "maxPosDist": 0.00000542242082283263,
+   "meanPosDist": 0.000005412243695623614,
+   "frames": 20
+  },
+  "mixamorigRightShoulder": {
+   "maxAngleDeg": 0.035881448793503606,
+   "meanAngleDeg": 0.015842327777228514,
+   "maxPosDist": 0.0000055286659649383845,
+   "meanPosDist": 0.000005504497170878891,
+   "frames": 20
+  },
+  "mixamorigRightArm": {
+   "maxAngleDeg": 0.0034985327217210817,
+   "meanAngleDeg": 0.0002731243390652058,
+   "maxPosDist": 0.0000055062966958310915,
+   "meanPosDist": 0.000004440273057427058,
+   "frames": 20
+  },
+  "mixamorigRightForeArm": {
+   "maxAngleDeg": 0.01755644642499759,
+   "meanAngleDeg": 0.00847949496608876,
+   "maxPosDist": 0.0000088623099331415,
+   "meanPosDist": 0.000005150966748717989,
+   "frames": 20
+  },
+  "mixamorigRightHand": {
+   "maxAngleDeg": 0.012920223478939088,
+   "meanAngleDeg": 0.007115937059641193,
+   "maxPosDist": 0.000011831934659596908,
+   "meanPosDist": 0.000006289337038059108,
+   "frames": 20
+  },
+  "mixamorigLeftUpLeg": {
+   "maxAngleDeg": 0.000561988031318437,
+   "meanAngleDeg": 0.00009465750159880131,
+   "maxPosDist": 2.1674436510333852e-7,
+   "meanPosDist": 2.1674436425160737e-7,
+   "frames": 20
+  },
+  "mixamorigLeftLeg": {
+   "maxAngleDeg": 0.01083015165285475,
+   "meanAngleDeg": 0.003433926209854621,
+   "maxPosDist": 0.0000017648523255579211,
+   "meanPosDist": 0.0000016311687027703774,
+   "frames": 20
+  },
+  "mixamorigLeftFoot": {
+   "maxAngleDeg": 0.0029858362574144417,
+   "meanAngleDeg": 0.00024746490525453504,
+   "maxPosDist": 0.000020892376951269155,
+   "meanPosDist": 0.00001289267468183117,
+   "frames": 20
+  },
+  "mixamorigLeftToeBase": {
+   "maxAngleDeg": 0.013965708114403392,
+   "meanAngleDeg": 0.0007211797563710767,
+   "maxPosDist": 0.00002492740321917686,
+   "meanPosDist": 0.000010249999921478179,
+   "frames": 20
+  }
+ },
+ "trackMatch": {
+  "nonFingerTracks": 22,
+  "matched": [
+   "mixamorigHips",
+   "mixamorigSpine",
+   "mixamorigSpine1",
+   "mixamorigSpine2",
+   "mixamorigNeck",
+   "mixamorigHead",
+   "mixamorigLeftShoulder",
+   "mixamorigLeftArm",
+   "mixamorigLeftForeArm",
+   "mixamorigLeftHand",
+   "mixamorigRightShoulder",
+   "mixamorigRightArm",
+   "mixamorigRightForeArm",
+   "mixamorigRightHand",
+   "mixamorigLeftUpLeg",
+   "mixamorigLeftLeg",
+   "mixamorigLeftFoot",
+   "mixamorigLeftToeBase",
+   "mixamorigRightUpLeg",
+   "mixamorigRightLeg",
+   "mixamorigRightFoot",
+   "mixamorigRightToeBase"
+  ],
+  "unmatched": []
+ }
+}

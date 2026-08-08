@@ -1,0 +1,4 @@
+{
+ "lines": "=== A. Foot 区域顶点权重槽采样（转换后，确认主导骨=Leg + 来源）===\n  （无 Foot 区域主导=Leg 的顶点？）\n\n=== B. 模拟修复：Foot区域主导=Leg → Foot 槽 ===\n  Foot区域主导=Leg → Foot 顶点数: 0\n\n=== C. 修复后 Foot 区域主导骨 vs 官方 ===\n  LeftFoot: 官方=[LeftFoot:216  LeftLeg:85  LeftToeBase:75]  修复后=[LeftFoot:235  LeftToeBase:141]\n  RightFoot: 官方=[RightFoot:267  RightLeg:79  RightToeBase:26]  修复后=[RightFoot:239  RightToeBase:133]",
+ "remapped": 0
+}
