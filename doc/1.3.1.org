@@ -3329,7 +3329,7 @@ TODO run test
 
 
 
-* TODO 处理模型上传
+* DONE 处理模型上传
 
 扫描Meta3d项目，增加项目索引:
 D:\Github\Meta3D\
@@ -3367,7 +3367,7 @@ TODO 检查action:
 
 
 
-** TODO 更新文档
+** DONE 更新文档
 
 
 

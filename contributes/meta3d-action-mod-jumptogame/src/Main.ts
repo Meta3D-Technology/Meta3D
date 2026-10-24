@@ -11,7 +11,7 @@ export let getContribute: getContributeMeta3D<actionContribute<null, state>> = (
 
             return new Promise((resolve, reject) => {
                 resolve(eventSourcingService.on<inputData>(meta3dState, eventName, 0, (meta3dState) => {
-                    window.open("https://www.gts-play.cn/", "_blank")
+                    window.open("https://gts-play.cn/", "_blank")
 
                     return Promise.resolve(meta3dState)
                 }, (meta3dState) => {

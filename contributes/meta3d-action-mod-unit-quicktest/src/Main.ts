@@ -37,7 +37,7 @@ export let getContribute: getContributeMeta3D<actionContribute<uiData, state>> =
                                 window.open(`http://localhost:8093/?quicktest&name=${name}`, "_blank")
                             }
                             else {
-                                window.open(`https://www.gts-play.cn?quicktest&name=${name}`, "_blank")
+                                window.open(`https://gts-play.cn?quicktest&name=${name}`, "_blank")
                             }
 
                             return meta3dState
